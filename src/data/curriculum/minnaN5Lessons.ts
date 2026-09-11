@@ -1,4 +1,5 @@
 import { Lesson } from '../../types/lesson';
+
 export const MINNA_N5_LESSONS: Lesson[] = [
   {
     id: 'ja-minna-l1',
@@ -10,151 +11,389 @@ export const MINNA_N5_LESSONS: Lesson[] = [
     lessonNumber: 1,
     title: "1-dars: Tanishuv va O'zini tanishtirish",
     description:
-      "Minna no Nihongo Shokyu 1: 1-dars: Tanishuv va O'zini tanishtirish. Darsda 50 ta yangi so'z va 6 ta asosiy grammatik qoida o'rganiladi.",
-    estimatedDurationMinutes: 20,
+      "Minna no Nihongo Shokyu 1: 1-dars: Tanishuv va O'zini tanishtirish. Darsda 50 ta yangi so'z, audio talaffuzli Furigana misollar va 6 ta asosiy grammatik formula o'rganiladi.",
+    estimatedDurationMinutes: 25,
     icon: '🌸',
     steps: [
       {
         id: 'ja-minna-l1-s1',
         title: "Lug'at va Qoidalar",
         type: 'learn',
-        estimatedMinutes: 8,
+        estimatedMinutes: 10,
         learnData: {
           title: "1-Dars: 1-dars: Tanishuv va O'zini tanishtirish",
           subtitle: '第1課：自己紹介と挨拶',
           explanation:
-            "1-dars: Tanishuv va O'zini tanishtirish bo'yicha to'liq grammatik izohlar va qoidalar to'plami. Har bir qoida Minna no Nihongo darsligining o'zbekcha tarjimasiga moslashtirilgan.",
+            "1-dars: Tanishuv va O'zini tanishtirish bo'yicha to'liq grammatik izohlar, formulalar va Furiganali misollar to'plami.",
           keyPoints: [
-            "1. OT 1 は  OT 2 です: 1) は yuklamasi は yuklamasi birikib kelgan ot gapning mavzusi bo'lib keliadi. Siz so'zlashni istagan biror predmetni tanl...",
-            "2.   OT 1 は  OT 2 じゃありません: じゃありません、です ning inkor shaklidir. Bu shakl kundalik og'zaki nutqda qo'llaniladi. Rasmiy nutq yoki yozma uslubda esa, ではあり...",
-            "3.  GAP  か: 1) か yuklamasi か yuklamasi shubha, savol, ikkilanish kabi ma'nolarni bildirish uchun qo'llaniladi. So'roq shakli, gapnin...",
-            "4.  OT  も: Avvalgi gapdagi mavzuni takrorlab qo'llaganda は o'rniga も ( ham ) qo'shimchasi mavzu bo'lib kelgan so'zdan keyin qo'yila...",
-            "5.  OT 1  の OT 2: の qo'shimchasi ikki otni bog'lash uchun qo'llanib, tegishlilikni bildiradi. OT 1 OT 2 ni aniqlaydi. 1-darsda keltirilgan...",
-            "6.  ~  さん: さん qo'shimchasi suhbatdosh yoki uchinchi shaxs ismiga qo'shilib, so'zlovchining unga bo'lgan hurmatini ko'rsatadi. So'zl...",
+            "📌 1. OT 1 は  OT 2 です: 1) は yuklamasi は yuklamasi birikib kelgan ot gapning mavzusi bo'lib keliadi.",
+            '📌 2.   OT 1 は  OT 2 じゃありません: じゃありません、です ning inkor shaklidir.',
+            "📌 3.  GAP  か: 1) か yuklamasi か yuklamasi shubha, savol, ikkilanish kabi ma'nolarni bildirish uchun qo'llaniladi.",
+            "📌 4.  OT  も: Avvalgi gapdagi mavzuni takrorlab qo'llaganda は o'rniga も ( ham ) qo'shimchasi mavzu bo'lib kelgan so'zdan keyin qo'yiladi.",
+            "📌 5.  OT 1  の OT 2: の qo'shimchasi ikki otni bog'lash uchun qo'llanib, tegishlilikni bildiradi.",
+            "📌 6.  ~  さん: さん qo'shimchasi suhbatdosh yoki uchinchi shaxs ismiga qo'shilib, so'zlovchining unga bo'lgan hurmatini ko'rsatadi.",
           ],
           vocabulary: [
             {
               term: 'わたし',
               reading: 'わたし',
               meaning: 'men',
-              exampleSentence: 'わたし — men',
-              exampleTranslation: 'men',
+              exampleSentence: 'わたしは 学生[がくせい] です。',
+              exampleTranslation: 'Men talabaman.',
             },
             {
               term: 'わたしたち',
               reading: 'わたしたち',
               meaning: 'biz',
-              exampleSentence: 'わたしたち — biz',
-              exampleTranslation: 'biz',
+              exampleSentence: 'わたしたちは 留学生[りゅうがくせい] です。',
+              exampleTranslation: 'Biz xorijiy talabalarmiz.',
             },
             {
               term: 'あなた',
               reading: 'あなた',
               meaning: 'siz (sen)',
-              exampleSentence: 'あなた — siz (sen)',
-              exampleTranslation: 'siz (sen)',
+              exampleSentence: 'あなたは 日本人[にほんじん] ですか。',
+              exampleTranslation: 'Siz yaponmisiz?',
             },
             {
               term: 'あの人 (あのひと)',
               reading: 'あのひと',
               meaning: 'u kishi (u ayol (qiz))',
-              exampleSentence: 'あのひと — u kishi (u ayol (qiz))',
-              exampleTranslation: 'u kishi (u ayol (qiz))',
+              exampleSentence: 'あの 人[ひと]は だれですか。',
+              exampleTranslation: 'U kishi kim?',
             },
             {
-              term: '（あの方） (（あのかた）)',
-              reading: '（あのかた）',
-              meaning: '( あのかた あのひと ning hurmat shakli)',
-              exampleSentence: '（あのかた） — ( あのかた あのひと ning hurmat shakli)',
-              exampleTranslation: '( あのかた あのひと ning hurmat shakli)',
+              term: 'あの方 (あのかた)',
+              reading: 'あのかた',
+              meaning: 'u kishi (hurmat shakli)',
+              exampleSentence: 'あの 方[かた]は どなたですか。',
+              exampleTranslation: 'U kishi (hurmat shakli) kimlar?',
             },
             {
               term: '皆さん (みなさん)',
               reading: 'みなさん',
               meaning: 'xonimlar va janoblar, hamma, sizlar',
-              exampleSentence: 'みなさん — xonimlar va janoblar, hamma, sizlar',
-              exampleTranslation: 'xonimlar va janoblar, hamma, sizlar',
+              exampleSentence: '皆さん[みなさん]、おはようございます。',
+              exampleTranslation: 'Hammaga xayrli tong.',
             },
             {
               term: '～さん',
               reading: '～さん',
-              meaning:
-                "janob, xonim (hurmatni bildirish va yaqinlikni ko'rsatish uchun ism kasb va h.zo.larga qo'shiladi. Uning yanada hurmatli shakli さま dir. )",
-              exampleSentence:
-                "～さん — janob, xonim (hurmatni bildirish va yaqinlikni ko'rsatish uchun ism kasb va h.zo.larga qo'shiladi. Uning yanada hurmatli shakli さま dir. )",
-              exampleTranslation:
-                "janob, xonim (hurmatni bildirish va yaqinlikni ko'rsatish uchun ism kasb va h.zo.larga qo'shiladi. Uning yanada hurmatli shakli さま dir. )",
+              meaning: "janob / xonim (hurmat qo'shimchasi)",
+              exampleSentence: '田中[たなか]さんは 先生[せんせい] です。',
+              exampleTranslation: "Tanaka janoblari o'qituvchi.",
             },
             {
               term: '～ちゃん',
               reading: '～ちゃん',
-              meaning:
-                "～さん ning qisqartma hamda erkalash ko'rinishidagi suffiksi. Odatda bolalarga nisbatan qo'llaniladi.",
-              exampleSentence:
-                "～ちゃん — ～さん ning qisqartma hamda erkalash ko'rinishidagi suffiksi. Odatda bolalarga nisbatan qo'llaniladi.",
-              exampleTranslation:
-                "～さん ning qisqartma hamda erkalash ko'rinishidagi suffiksi. Odatda bolalarga nisbatan qo'llaniladi.",
+              meaning: "erkalash qo'shimchasi",
+              exampleSentence: 'タワポンちゃんの 妹[いもうと]は 5歳[ごさい] です。',
+              exampleTranslation: 'Tawaponchanning singlisi 5 yoshda.',
             },
             {
               term: '～君 (～くん)',
               reading: '～くん',
-              meaning:
-                "～さん ning qisqartma hamda erkalash ko'rinishidagi suffiksi. Odatda bolalarga nisbatan qo'llaniladi.",
-              exampleSentence:
-                "～くん — ～さん ning qisqartma hamda erkalash ko'rinishidagi suffiksi. Odatda bolalarga nisbatan qo'llaniladi.",
-              exampleTranslation:
-                "～さん ning qisqartma hamda erkalash ko'rinishidagi suffiksi. Odatda bolalarga nisbatan qo'llaniladi.",
+              meaning: "erkalash qo'shimchasi",
+              exampleSentence: '山田[やまだ]くんは サッカーが 好[す]きです。',
+              exampleTranslation: "Yamada-kun futbolni yaxshi ko'radi.",
             },
             {
               term: '～人 (～じん)',
               reading: '～じん',
-              meaning: 'biror kishining millatini bildiradigan suffiks.',
-              exampleSentence: '～じん — biror kishining millatini bildiradigan suffiks.',
-              exampleTranslation: 'biror kishining millatini bildiradigan suffiks.',
+              meaning: "millat qo'shimchasi",
+              exampleSentence: 'サントスさんは ブラジル人[じん] です。',
+              exampleTranslation: 'Janob Santos braziliyalik.',
             },
             {
               term: 'アメリカ人',
               reading: 'アメリカ人',
-              meaning: '"Amerikalik"',
-              exampleSentence: 'アメリカ人 — "Amerikalik"',
-              exampleTranslation: '"Amerikalik"',
+              meaning: 'Amerikalik',
+              exampleSentence: 'ミラーさんは アメリカ人 です。',
+              exampleTranslation: 'Janob Miller amerikalik.',
             },
             {
               term: '先生 (せんせい)',
               reading: 'せんせい',
               meaning: 'ustoz',
-              exampleSentence: 'せんせい — ustoz',
-              exampleTranslation: 'ustoz',
+              exampleSentence: '木村[きむら]先生は 日本語[にほんご]の 先生です。',
+              exampleTranslation: "Kimura ustoz yapon tili o'qituvchisi.",
             },
             {
               term: '教師 (きょうし)',
               reading: 'きょうし',
               meaning: "o'qituvchi , domla",
-              exampleSentence: "きょうし — o'qituvchi , domla",
-              exampleTranslation: "o'qituvchi , domla",
+              exampleSentence: 'わたしは 教師[きょうし] じゃありません。',
+              exampleTranslation: "Men o'qituvchi emasman.",
             },
             {
               term: '学生 (がくせい)',
               reading: 'がくせい',
               meaning: 'talaba',
-              exampleSentence: 'がくせい — talaba',
-              exampleTranslation: 'talaba',
+              exampleSentence: 'ミラーさんは アメリカの 学生[がくせい] です。',
+              exampleTranslation: 'Janob Miller amerikalik talaba.',
             },
             {
               term: '会社員 (かいしゃいん)',
               reading: 'かいしゃいん',
               meaning: 'firma xodimi, korxona xodimi',
-              exampleSentence: 'かいしゃいん — firma xodimi, korxona xodimi',
-              exampleTranslation: 'firma xodimi, korxona xodimi',
+              exampleSentence: '父[ちち]は 会社員[かいしゃいん] です。',
+              exampleTranslation: 'Otam firma xodimi.',
+            },
+            {
+              term: '社員 (しゃいん)',
+              reading: 'しゃいん',
+              meaning: 'firma xodimi',
+              exampleSentence: '田中[たなか]さんは 社員[しゃいん] です。',
+              exampleTranslation: 'Tanaka janoblari firma xodimi.',
+            },
+            {
+              term: '銀行員 (ぎんこういん)',
+              reading: 'ぎんこういん',
+              meaning: 'bank xodimi',
+              exampleSentence: '山田[やまだ]さんは 銀行員[ぎんこういん] です。',
+              exampleTranslation: 'Yamada janoblari bank xodimi.',
+            },
+            {
+              term: '医者 (いしゃ)',
+              reading: 'いしゃ',
+              meaning: 'shifokor',
+              exampleSentence: 'あの 方[かた]は 病院[びょういん]の 医者[いしゃ] です。',
+              exampleTranslation: 'U kishi shifoxona shifokori.',
+            },
+            {
+              term: '研究者 (けんきゅうしゃ)',
+              reading: 'けんきゅうしゃ',
+              meaning: 'tadqiqotchi, ilmiy-izlanuvchi',
+              exampleSentence: 'ワットさんは 大学[だいがく]の 研究者[けんきゅうしゃ] です。',
+              exampleTranslation: 'Janob Watt universitet tadqiqotchisi.',
+            },
+            {
+              term: 'エンジニア',
+              reading: 'エンジニア',
+              meaning: 'muhandis',
+              exampleSentence: 'グプタさんは IMCの エンジニアです。',
+              exampleTranslation: 'Janob Gupta IMC kompaniyasi muhandisi.',
+            },
+            {
+              term: '大学 (だいがく)',
+              reading: 'だいがく',
+              meaning: 'universitet, institut',
+              exampleSentence: 'さくら大学[だいがく]へ 行[い]きます。',
+              exampleTranslation: 'Sakura universitetiga boraman.',
+            },
+            {
+              term: '病院 (びょういん)',
+              reading: 'びょういん',
+              meaning: 'shifoxona, kasalxona',
+              exampleSentence: 'あそこは 神戸[こうべ]病院[びょういん] です。',
+              exampleTranslation: 'Anavi yer Kobe shifoxonasi.',
+            },
+            {
+              term: '電気 (でんき)',
+              reading: 'でんき',
+              meaning: 'chiroq',
+              exampleSentence: '電気[でんき]を つけて ください。',
+              exampleTranslation: 'Chiroqni yoqing, iltimos.',
+            },
+            {
+              term: 'だれどなた',
+              reading: 'だれどなた',
+              meaning: 'u kishi (hurmat shakli)',
+              exampleSentence: 'これは わたしが 買[か]った だれどなた です。',
+              exampleTranslation: 'Bu men sotib olgan u kishi (hurmat shakli).',
+            },
+            {
+              term: '～歳 (～さい)',
+              reading: '～さい',
+              meaning: '~yosh',
+              exampleSentence: 'わたしは 20歳[はたち] です。',
+              exampleTranslation: 'Men 20 yoshdaman.',
+            },
+            {
+              term: '何歳 (なんさい)',
+              reading: 'なんさい',
+              meaning: 'necha yosh',
+              exampleSentence: 'お名前[なまえ]と おいくつ（何歳[なんさい]）ですか。',
+              exampleTranslation: 'Ismingiz nima va yoshingiz nechada?',
+            },
+            {
+              term: 'おいくつ',
+              reading: 'おいくつ',
+              meaning: 'u kishi (hurmat shakli)',
+              exampleSentence: 'これは わたしが 買[か]った おいくつ です。',
+              exampleTranslation: 'Bu men sotib olgan u kishi (hurmat shakli).',
+            },
+            {
+              term: 'はい',
+              reading: 'はい',
+              meaning: 'ha',
+              exampleSentence: 'はい、そうです。',
+              exampleTranslation: 'Ha, shunday.',
+            },
+            {
+              term: 'いいえ',
+              reading: 'いいえ',
+              meaning: "yo'q",
+              exampleSentence: 'いいえ、違[ちが]います。',
+              exampleTranslation: "Yo'q, unday emas.",
+            },
+            {
+              term: '失礼ですが (しつれいですが)',
+              reading: 'しつれいですが',
+              meaning: 'Kechirasiz, ~',
+              exampleSentence: 'これは わたしが 買[か]った 失礼ですが[しつれいですが] です。',
+              exampleTranslation: 'Bu men sotib olgan kechirasiz, ~.',
+            },
+            {
+              term: 'お名前は？ (おなまえは？)',
+              reading: 'おなまえは？',
+              meaning: 'Ismingiz nima?',
+              exampleSentence: 'これは わたしが 買[か]った お名前は？[おなまえは？] です。',
+              exampleTranslation: 'Bu men sotib olgan ismingiz nima?.',
+            },
+            {
+              term: '初めまして。 (はじめまして。)',
+              reading: 'はじめまして。',
+              meaning: "O'zimni tanishtirishga ruxsat bersangiz.",
+              exampleSentence: 'これは わたしが 買[か]った 初めまして。[はじめまして。] です。',
+              exampleTranslation: "Bu men sotib olgan o'zimni tanishtirishga ruxsat bersangiz..",
+            },
+            {
+              term: 'どうぞよろしく',
+              reading: 'どうぞよろしく',
+              meaning: 'Tanishganimdan xursandman',
+              exampleSentence: 'これは わたしが 買[か]った どうぞよろしく です。',
+              exampleTranslation: 'Bu men sotib olgan tanishganimdan xursandman.',
+            },
+            {
+              term: 'お願いします (おねがいします)',
+              reading: 'おねがいします',
+              meaning: "iltimos, so'rayman",
+              exampleSentence: '毎日[まいにち] [お願いします][[おねがいします]]。',
+              exampleTranslation: "Har kuni iltimos, so'rayman.",
+            },
+            {
+              term: 'こちらは～さんです。',
+              reading: 'こちらは～さんです。',
+              meaning: 'Bu kishi janob / xonim ~.',
+              exampleSentence: '山田[やまだ]こちらはさんです。は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada bu kishi janob / xonim ~. samimiy inson.',
+            },
+            {
+              term: '～から来ました。 (～からきました。)',
+              reading: '～からきました。',
+              meaning: 'Men ~(davlat nomi)dan kelganman',
+              exampleSentence: '山田[やまだ]からきました。は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada men ~(davlat nomi)dan kelganman samimiy inson.',
+            },
+            {
+              term: 'アメリカ',
+              reading: 'アメリカ',
+              meaning: 'Amerika, AQSH',
+              exampleSentence: 'これは わたしが 買[か]った アメリカ です。',
+              exampleTranslation: 'Bu men sotib olgan amerika, aqsh.',
+            },
+            {
+              term: 'イギリス',
+              reading: 'イギリス',
+              meaning: 'Angliya, Buyuk Britaniya',
+              exampleSentence: 'これは わたしが 買[か]った イギリス です。',
+              exampleTranslation: 'Bu men sotib olgan angliya, buyuk britaniya.',
+            },
+            {
+              term: 'インド',
+              reading: 'インド',
+              meaning: 'Hindiston',
+              exampleSentence: 'これは わたしが 買[か]った インド です。',
+              exampleTranslation: 'Bu men sotib olgan hindiston.',
+            },
+            {
+              term: 'インドネシア',
+              reading: 'インドネシア',
+              meaning: 'Indoneziya',
+              exampleSentence: 'これは わたしが 買[か]った インドネシア です。',
+              exampleTranslation: 'Bu men sotib olgan indoneziya.',
+            },
+            {
+              term: '韓国かんこく',
+              reading: '韓国かんこく',
+              meaning: 'Janubiy Koreya',
+              exampleSentence: 'これは わたしが 買[か]った 韓国[かんこく] です。',
+              exampleTranslation: 'Bu men sotib olgan janubiy koreya.',
+            },
+            {
+              term: 'タイ',
+              reading: 'タイ',
+              meaning: 'Tailand',
+              exampleSentence: 'これは わたしが 買[か]った タイ です。',
+              exampleTranslation: 'Bu men sotib olgan tailand.',
+            },
+            {
+              term: '中国ちゅうごく',
+              reading: '中国ちゅうごく',
+              meaning: 'Xitoy',
+              exampleSentence: 'これは わたしが 買[か]った 中国[ちゅうごく] です。',
+              exampleTranslation: 'Bu men sotib olgan xitoy.',
+            },
+            {
+              term: 'ドイツ',
+              reading: 'ドイツ',
+              meaning: 'Olmoniya',
+              exampleSentence: 'これは わたしが 買[か]った ドイツ です。',
+              exampleTranslation: 'Bu men sotib olgan olmoniya.',
+            },
+            {
+              term: '日に本ほん',
+              reading: '日に本ほん',
+              meaning: 'Yaponiya',
+              exampleSentence: 'これは わたしが 買[か]った 日[に]本[ほん] です。',
+              exampleTranslation: 'Bu men sotib olgan yaponiya.',
+            },
+            {
+              term: 'フランス',
+              reading: 'フランス',
+              meaning: 'Fransiya',
+              exampleSentence: 'これは わたしが 買[か]った フランス です。',
+              exampleTranslation: 'Bu men sotib olgan fransiya.',
+            },
+            {
+              term: 'ブラジル',
+              reading: 'ブラジル',
+              meaning: 'Braziliya',
+              exampleSentence: 'これは わたしが 買[か]った ブラジル です。',
+              exampleTranslation: 'Bu men sotib olgan braziliya.',
+            },
+            {
+              term: 'さくら大学だいがく／富士ふじ大学だいがく',
+              reading: 'さくら大学だいがく／富士ふじ大学だいがく',
+              meaning: "universitet nomlari (o'ylab topilgan)",
+              exampleSentence:
+                'これは わたしが 買[か]った さくら大学[だいがく]／富士[ふじ]大学[だいがく] です。',
+              exampleTranslation: "Bu men sotib olgan universitet nomlari (o'ylab topilgan).",
+            },
+            {
+              term: 'IMC／パワー電でん気き／ブラジルエアー',
+              reading: 'IMC／パワー電でん気き／ブラジルエアー',
+              meaning: 'kompaniyalar nomlari',
+              exampleSentence:
+                'これは わたしが 買[か]った IMC／パワー電[でん]気[き]／ブラジルエアー です。',
+              exampleTranslation: 'Bu men sotib olgan kompaniyalar nomlari.',
+            },
+            {
+              term: '神こう戸べ病びょう院いん',
+              reading: '神こう戸べ病びょう院いん',
+              meaning: 'Kobe shifoxonasi',
+              exampleSentence: 'これは わたしが 買[か]った 神[こう]戸[べ]病[びょう]院[いん] です。',
+              exampleTranslation: 'Bu men sotib olgan kobe shifoxonasi.',
             },
           ],
           grammarRules: [
             {
               pattern: 'OT 1 は  OT 2 です',
               meaning:
-                "1) は yuklamasi は yuklamasi birikib kelgan ot gapning mavzusi bo'lib keliadi. Siz so'zlashni istagan biror predmetni tanlaysiz, unga は qo'shimchasini qo'shish orqali bu predmet gapning mavzusi ekanligi",
+                "1) は yuklamasi は yuklamasi birikib kelgan ot gapning mavzusi bo'lib keliadi. Siz so'zlashni istagan biror predmetni tanlaysiz, unga は qo'shimchasini qo'shish orqali bu predmet gapning mavzusi ekanligini ko'rsatasiz. Shundan keyin tanlangan mavzudagi gapni tugallaysiz. 💡 Muhim eslatma: は yuklamasi わ (va) deb o'qiladi. 2) です です bilan qo'llanilgan ot, gapda kesim bo'lib keladi. です biror o'y-fikrni yoki tasdiq mazmunini bildiradi. です so'zlovchining tinglovchiga bo'lgan hurmatini ham ko'rsatadi. です gap inkor shaklda (2-bo'limga qarang) yoki o'tgan zamonda (12-darsga qarang) qo'llanilgan bo'lsa o'zgaradi.",
               usageNotes:
-                "1) は yuklamasi は yuklamasi birikib kelgan ot gapning mavzusi bo'lib keliadi. Siz so'zlashni istagan biror predmetni tanlaysiz, unga は qo'shimchasini qo'shish orqali bu predmet gapning mavzusi ekanligini ko'rsatasiz. Shundan keyin tanlangan mavzudagi gapni tugallaysiz. [Eslatma] は yuklamasi わ (va) deb o'qiladi. 2) です です bilan qo'llanilgan ot, gapda kesim bo'lib keladi. です biror o'y-fikrni yoki tasdiq mazmunini bildiradi. です so'zlovchining tinglovchiga bo'lgan hurmatini ham ko'rsatadi. です gap inkor shaklda (2-bo'limga qarang) yoki o'tgan zamonda (12-darsga qarang) qo'llanilgan bo'lsa o'zgaradi.",
+                'Minna no Nihongo 1-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'わたしは マイク・ミラーです。',
@@ -169,30 +408,29 @@ export const MINNA_N5_LESSONS: Lesson[] = [
             {
               pattern: 'OT 1 は  OT 2 じゃありません',
               meaning:
-                "じゃありません、です ning inkor shaklidir. Bu shakl kundalik og'zaki nutqda qo'llaniladi. Rasmiy nutq yoki yozma uslubda esa, ではありません qo'llaniladi. [Eslatma] は「では」 da ham わ deb o'qiladi.",
+                "じゃありません、です ning inkor shaklidir. Bu shakl kundalik og'zaki nutqda qo'llaniladi. Rasmiy nutq yoki yozma uslubda esa, ではありません qo'llaniladi. 💡 Muhim eslatma: は「では」 da ham わ deb o'qiladi.",
               usageNotes:
-                "じゃありません、です ning inkor shaklidir. Bu shakl kundalik og'zaki nutqda qo'llaniladi. Rasmiy nutq yoki yozma uslubda esa, ではありません qo'llaniladi. [Eslatma] は「では」 da ham わ deb o'qiladi.",
+                'Minna no Nihongo 1-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
-                  sentence:
-                    'サントスさんは 学生[がくせい] じゃ ありません。  Janob Santos talaba emas.',
-                  translation: '（では）',
+                  sentence: 'サントスさんは 学生[がくせい] じゃ ありません。',
+                  translation: 'Janob Santos talaba emas.',
                 },
               ],
             },
             {
               pattern: 'GAP  か',
               meaning:
-                "1) か yuklamasi か yuklamasi shubha, savol, ikkilanish kabi ma'nolarni bildirish uchun qo'llaniladi. So'roq shakli, gapning oxiriga か yuklamasini qo'shish orqali hosil bo'ladi. So'roq gapning oxiri bala",
-              usageNotes:
                 "1) か yuklamasi か yuklamasi shubha, savol, ikkilanish kabi ma'nolarni bildirish uchun qo'llaniladi. So'roq shakli, gapning oxiriga か yuklamasini qo'shish orqali hosil bo'ladi. So'roq gapning oxiri balandroq talaffuz qilinadi. 2) Tasdiqning to'g'ri yoki noto'g'riligi haqidagi so'roq Yuqorida qayd qilinganidek, gapning oxiriga か yuklamasi qo'shilishi bilan so'roq gap hosil bo'ladi. So'zlarning gapdagi tartibi o'zgarmaydi. Bunday uslub orqali hosil bo'lgan so'roq gapda tasdiqning to'g'ri yoki noto'g'ri ekanligi so'raladi. Tasdiqqa rozi yoki noroziligingizga qarab, javobingiz odatda はい yoki いいえ bilan boshlanishi kerak. ･･･はい、アメリカ人[じん] です。 …Ha, amerikalik. 3) So'roq so'zli gaplar So'roq so'z gapning siz bilishni xohlagan qismi o'rniga keladi. Gapda so'z tartibi o'zgarmaydi va gap oxiriga か qo'shiladi. ･･･〔あの 方[かた] は〕 ミラーさんです。 …(U kishi) janob Miller.",
+              usageNotes:
+                'Minna no Nihongo 1-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'ミラーさんは アメリカ人[じん] ですか。',
                   translation: 'Janob Miller amerikalikmi?',
                 },
                 {
-                  sentence: 'ミラーさんは 先生[せんせい] ですか。 Janob Miller o`qituvchimi?',
+                  sentence: 'ミラーさんは 先生[せんせい] ですか。',
                   translation:
                     "･･･いいえ、先生[せんせい] じゃ ありません。 …Yo'q, o'qituvchi emas.",
                 },
@@ -207,7 +445,7 @@ export const MINNA_N5_LESSONS: Lesson[] = [
               meaning:
                 "Avvalgi gapdagi mavzuni takrorlab qo'llaganda は o'rniga も ( ham ) qo'shimchasi mavzu bo'lib kelgan so'zdan keyin qo'yiladi. グプタさんも 会社員[かいしゃいん] です。 Janob Gupta ham firma xodimi.",
               usageNotes:
-                "Avvalgi gapdagi mavzuni takrorlab qo'llaganda は o'rniga も ( ham ) qo'shimchasi mavzu bo'lib kelgan so'zdan keyin qo'yiladi. グプタさんも 会社員[かいしゃいん] です。 Janob Gupta ham firma xodimi.",
+                'Minna no Nihongo 1-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'ミラーさんは 会社員[かいしゃいん] です。',
@@ -218,9 +456,9 @@ export const MINNA_N5_LESSONS: Lesson[] = [
             {
               pattern: 'OT 1  の OT 2',
               meaning:
-                "の qo'shimchasi ikki otni bog'lash uchun qo'llanib, tegishlilikni bildiradi. OT 1 OT 2 ni aniqlaydi. 1-darsda keltirilgan misollarda OT 2 biror-bir korxona yoki jamoani bildirib, OT 1 unga tegishliligi",
-              usageNotes:
                 "の qo'shimchasi ikki otni bog'lash uchun qo'llanib, tegishlilikni bildiradi. OT 1 OT 2 ni aniqlaydi. 1-darsda keltirilgan misollarda OT 2 biror-bir korxona yoki jamoani bildirib, OT 1 unga tegishliligini bildiradi.",
+              usageNotes:
+                'Minna no Nihongo 1-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'ミラーさんは IMC  の 社員[しゃいん] です。',
@@ -231,12 +469,12 @@ export const MINNA_N5_LESSONS: Lesson[] = [
             {
               pattern: '~  さん',
               meaning:
-                "さん qo'shimchasi suhbatdosh yoki uchinchi shaxs ismiga qo'shilib, so'zlovchining unga bo'lgan hurmatini ko'rsatadi. So'zlovchi o'zining ismiga さん qo'shimchasini qo'llamaydi. to'g'ridan-to'g'ri gaplashi",
-              usageNotes:
                 "さん qo'shimchasi suhbatdosh yoki uchinchi shaxs ismiga qo'shilib, so'zlovchining unga bo'lgan hurmatini ko'rsatadi. So'zlovchi o'zining ismiga さん qo'shimchasini qo'llamaydi. to'g'ridan-to'g'ri gaplashishdan qat'iy nazar あなた ( siz ) olmoshini qo'llamagan ma'qul. Bunday hollarda odatda suhbatdoshning familiyasiga さん qo'shimchasi qo'shilib qo'llaniladi. ミラー：いいえ、会社員[かいしゃいん] です。 Miller: Yo'q, men firma xodimiman.",
+              usageNotes:
+                'Minna no Nihongo 1-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
-                  sentence: 'あの 方[かた] は ミラーさんです。 Ana u kishi janob Miller.',
+                  sentence: 'あの 方[かた] は ミラーさんです。',
                   translation:
                     "Agar sizga suhbatdoshingizning ismi ma'lum bo'lsa, suhbatdosh bilan",
                 },
@@ -248,74 +486,84 @@ export const MINNA_N5_LESSONS: Lesson[] = [
             },
           ],
           culturalNotes:
-            "Yaponiyada yangi tanishganda ta'zim qilinadi (ojigi). Boshqalar ismiga doimo '～san' qo'shiladi, lekin o'z ismiga hech qachon 'san' qo'shilmaydi.",
+            "Yaponiyada yangi tanishganda ta'zim qilinadi (ojigi). Boshqalar ismiga doimo '～san' qo'shiladi, lekin o'z ismiga hech qachon 'san' qo'shilmaydi. Tanishuv 'Hajimemashite' bilan boshlanib, 'Douzo yoroshiku onegaishimasu' bilan yakunlanadi.",
         },
       },
       {
         id: 'ja-minna-l1-s2',
         title: 'Mustahkamlash Mashqlari',
         type: 'practice',
-        estimatedMinutes: 6,
+        estimatedMinutes: 8,
         practiceData: {
           instructions:
-            "Darsda o'rganilgan yangi so'zlar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
+            "Darsda o'rganilgan yangi so'zlar, zarrachalar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
           exercises: [
             {
               id: 'ja-minna-l1-ex1',
               type: 'multiple-choice',
-              prompt: "「わたし」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
-              options: ['men', 'biz', 'siz (sen)', 'u kishi (u ayol (qiz))'],
+              prompt:
+                "Bo'sh joyga to'g'ri zarrachani qo'ying:\n「わたし（　）マイク・ミラーです。」",
+              options: ['は', 'を', 'が', 'に'],
               correctAnswer: 0,
-              explanation: "To'g'ri javob: men.",
+              explanation:
+                "To'g'ri javob: 「は」. Gap mavzusini ko'rsatish uchun 'は' (va deb o'qiladi) ishlatiladi.",
             },
             {
               id: 'ja-minna-l1-ex2',
               type: 'multiple-choice',
-              prompt:
-                "1-dars grammatik qoidasi: '1. OT 1 は  OT 2 です' bo'yicha qaysi gap grammatik jihatdan to'g'ri tuzilgan?",
-              options: [
-                'わたしは マイク・ミラーです。',
-                'これ は を です。',
-                'だれ が 行きます か でした。',
-                'へ 行きません です。',
-              ],
+              prompt: "「わたしたち」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
+              options: ['biz', 'siz (sen)', 'men', 'u kishi (u ayol (qiz))'],
               correctAnswer: 0,
-              explanation: "To'g'ri javob: わたしは マイク・ミラーです。 (Men Mayk Millerman.).",
+              explanation: "To'g'ri javob: 「biz」.",
             },
             {
               id: 'ja-minna-l1-ex3',
               type: 'multiple-choice',
-              prompt: "O'zbek tiliga to'g'ri tarjima qiling: 「わたしは エンジニアです。」",
+              prompt: "1-dars grammatik qoidasiga muvofiq to'g'ri tuzilgan gapni aniqlang:",
               options: [
-                'Men muhandisman.',
-                "Ertaga do'stim bilan mehmonga boraman.",
-                "Kechirasiz, soat necha bo'ldi?",
-                "Iltimos, manzilni ko'rsatib yuboring.",
+                'わたしは マイク・ミラーだです。',
+                'わたしは マイク・ミラーです。',
+                'これ を わたしは マイク・ミラーです。',
+                'わたしは マイク・ミラーです か でした。',
               ],
-              correctAnswer: 0,
-              explanation: "To'g'ri tarjimasi: Men muhandisman..",
+              correctAnswer: 1,
+              explanation: "To'g'ri gap: 「わたしは マイク・ミラーです。」 (Men Mayk Millerman.).",
             },
             {
               id: 'ja-minna-l1-ex4',
               type: 'multiple-choice',
-              prompt: 'Ushbu darsdagi suhbatdan kelib chiqib: Sato qanday jumla aytadi?',
+              prompt: "Ushbu gapning to'g'ri yaponcha tarjimasini tanlang:\n「Men muhandisman.」",
               options: [
-                'Assalomu alaykum (Xayrli tong).',
-                'Men hech qayerga bormayman.',
-                'Taksida aeroportga haydang.',
-                "Iltimos, hisobni alohida to'laymiz.",
+                'わたしは エンジニアです。',
+                'わたしは マイク・ミラーです。',
+                'ミラーさんは アメリカ人[じん] ですか。',
+                'サントスさんは 学生[がくせい] じゃ ありません。',
               ],
               correctAnswer: 0,
-              explanation: "To'g'ri ibora: Assalomu alaykum (Xayrli tong)..",
+              explanation: "Yaponcha to'g'ri ifodasi: 「わたしは エンジニアです。」.",
+            },
+            {
+              id: 'ja-minna-l1-ex5',
+              type: 'multiple-choice',
+              prompt:
+                'Suhbatdoshingiz: 「初めまして、どうぞ よろしく お願いします。」 dedi. Unga eng mos muloyim javob qaysi?',
+              options: [
+                'こちらこそ、どうぞ よろしく お願いします。',
+                'おやすみなさい。',
+                '失礼します。',
+                'ごちそうさまでした。',
+              ],
+              correctAnswer: 0,
+              explanation: "To'g'ri javob: 「こちらこそ、どうぞ よろしく お願いします。」.",
             },
           ],
         },
       },
       {
         id: 'ja-minna-l1-s3',
-        title: 'Sinov Testi',
+        title: 'JLPT N5 Sinov Testi',
         type: 'test',
-        estimatedMinutes: 6,
+        estimatedMinutes: 7,
         testData: {
           instructions:
             "Darsni muvaffaqiyatli yakunlash uchun savollarga to'g'ri javob bering (Kamida 80%).",
@@ -323,55 +571,54 @@ export const MINNA_N5_LESSONS: Lesson[] = [
           questions: [
             {
               id: 'ja-minna-l1-q1',
-              question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「わたしは マイク・ミラーです。」",
-              options: [
-                'Men Mayk Millerman.',
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
-              ],
+              question: '【Mondai 1: Moji/Goi】「あの方」の 読[よ]み方[かた]は どれですか。',
+              options: ['あのかた', 'あなた', 'わたし', 'わたしたち'],
               correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Men Mayk Millerman..",
+              explanation:
+                "「あの方」 ning to'g'ri o'qilishi: 「あのかた」 (u kishi (hurmat shakli)).",
             },
             {
               id: 'ja-minna-l1-q2',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「わたしは エンジニアです。」",
-              options: [
-                'Men muhandisman.',
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
-              ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Men muhandisman..",
+                '【Mondai 2: Bunpo】（　）に 入[はい]る 最[もっと]も よいものを 1つ えらびなさい。\n「田中さんは 学生（　）ありません。」',
+              options: ['に', 'じゃ', 'で', 'を'],
+              correctAnswerIndex: 1,
+              explanation:
+                "To'g'ri zarracha: 「じゃ」. Inkor shaklda 'じゃ ありません' qo'llaniladi.",
             },
             {
               id: 'ja-minna-l1-q3',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「サントスさんは 学生[がくせい] じゃ ありません。  Janob Santos talaba emas.」",
+                "【Mondai 3: Bunpo】1-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
               options: [
-                '（では）',
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
+                '〜を 行きます です',
+                'OT 1 は  OT 2 じゃありません',
+                '〜に 食べません でした',
+                '〜は 〜でした じゃありません',
               ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: （では）.",
+              correctAnswerIndex: 1,
+              explanation: "To'g'ri grammatik formula: 「OT 1 は  OT 2 じゃありません」.",
             },
             {
               id: 'ja-minna-l1-q4',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「ミラーさんは アメリカ人[じん] ですか。」",
+                "【Mondai 4: Dokkai】Quyidagi yaponcha gapning to'g'ri o'zbekcha ma'nosini toping:\n「サントスさんは 学生[がくせい] じゃ ありません。」",
               options: [
+                'Janob Santos talaba emas.',
+                'Men muhandisman.',
+                'Men Mayk Millerman.',
                 'Janob Miller amerikalikmi?',
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
               ],
               correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Janob Miller amerikalikmi?.",
+              explanation: "To'g'ri ma'nosi: 「Janob Santos talaba emas.」.",
+            },
+            {
+              id: 'ja-minna-l1-q5',
+              question:
+                "【Mondai 5: Kaiwa】Savolga eng to'g'ri javobni tanlang:\n「ミラーさんは アメリカ人ですか。」",
+              options: ['はい、そうです。', 'いただきます。', 'さようなら。', 'いいえ、学生です。'],
+              correctAnswerIndex: 0,
+              explanation: "To'g'ri javob: 「はい、そうです。」.",
             },
           ],
         },
@@ -388,197 +635,410 @@ export const MINNA_N5_LESSONS: Lesson[] = [
     lessonNumber: 2,
     title: "2-dars: Buyumlar va Ko'rsatish olmoshlari",
     description:
-      "Minna no Nihongo Shokyu 1: 2-dars: Buyumlar va Ko'rsatish olmoshlari. Darsda 48 ta yangi so'z va 6 ta asosiy grammatik qoida o'rganiladi.",
-    estimatedDurationMinutes: 20,
+      "Minna no Nihongo Shokyu 1: 2-dars: Buyumlar va Ko'rsatish olmoshlari. Darsda 48 ta yangi so'z, audio talaffuzli Furigana misollar va 6 ta asosiy grammatik formula o'rganiladi.",
+    estimatedDurationMinutes: 25,
     icon: '🌸',
     steps: [
       {
         id: 'ja-minna-l2-s1',
         title: "Lug'at va Qoidalar",
         type: 'learn',
-        estimatedMinutes: 8,
+        estimatedMinutes: 10,
         learnData: {
           title: "2-Dars: 2-dars: Buyumlar va Ko'rsatish olmoshlari",
           subtitle: '第2課：物の名前と指示代名詞',
           explanation:
-            "2-dars: Buyumlar va Ko'rsatish olmoshlari bo'yicha to'liq grammatik izohlar va qoidalar to'plami. Har bir qoida Minna no Nihongo darsligining o'zbekcha tarjimasiga moslashtirilgan.",
+            "2-dars: Buyumlar va Ko'rsatish olmoshlari bo'yicha to'liq grammatik izohlar, formulalar va Furiganali misollar to'plami.",
           keyPoints: [
-            "1.  これ  /  それ  /  あれ: これ , それ , あれ ko'rsatish olmoshlari. Ular shuningdek ot sifatida ham ishlatiladi. これ so'zlovchining yonida turgan narsala...",
-            "2. この  OT  /  その  OT  /  あの OT: この , その va あの otlarni aniqlaydi. “ この OT ” so'zlovchining yonida turgan narsani, “ その OT ” suhbatdoshning yonida turgan ...",
-            "3.  そうです  /  そうじゃ ありません: So'roq gaplarda ot kesim vazifasida kelsa, bu holda そう so'zi javob tariqasida inkor yoki tasdiq ma'nosida keladi. はい、そうで...",
-            '4.: GAP 1 か、 GAP 2 か Bunday savollarga javob berishda GAP 1 va GAP 2 larni shundayligicha tanlab olish lozim. Bunday turdagi...',
-            "5. OT 1 の OT 2: Siz 1-darsda の OT 1 OT 2 ni aniqlab kelganida, uning bularni bog'lash uchun qo'llanilishini bilib oldingiz. 2-darsda siz...",
-            "6. そうですか: Bu ibora so'zlovchi yangi ma'lumotni qabul qilib, uni qabul qilganini va tushunganligini ko'rsatish uchun qo'llaniladi. ...",
+            "📌 1.  これ  /  それ  /  あれ: これ , それ , あれ ko'rsatish olmoshlari.",
+            '📌 2. この  OT  /  その  OT  /  あの OT: この , その va あの otlarni aniqlaydi.',
+            "📌 3.  そうです  /  そうじゃ ありません: So'roq gaplarda ot kesim vazifasida kelsa, bu holda そう so'zi javob tariqasida inkor yoki tasdiq ma'nosida keladi.",
+            '📌 4.: GAP 1 か、 GAP 2 か Bunday savollarga javob berishda GAP 1 va GAP 2 larni shundayligicha tanlab olish lozim.',
+            "📌 5. OT 1 の OT 2: Siz 1-darsda の OT 1 OT 2 ni aniqlab kelganida, uning bularni bog'lash uchun qo'llanilishini bilib oldingiz.",
+            "📌 6. そうですか: Bu ibora so'zlovchi yangi ma'lumotni qabul qilib, uni qabul qilganini va tushunganligini ko'rsatish uchun qo'llaniladi.",
           ],
           vocabulary: [
             {
               term: 'これ',
               reading: 'これ',
-              meaning: "bu (so'zlovchiga yaqin masofadagi buyumga nisbatan qo'llaniladi)",
-              exampleSentence:
-                "これ — bu (so'zlovchiga yaqin masofadagi buyumga nisbatan qo'llaniladi)",
-              exampleTranslation:
-                "bu (so'zlovchiga yaqin masofadagi buyumga nisbatan qo'llaniladi)",
+              meaning: 'bu (yaqindagi buyum)',
+              exampleSentence: 'これは 日本[にほん]の 本[ほん] です。',
+              exampleTranslation: 'Bu Yaponiya kitobi.',
             },
             {
               term: 'それ',
               reading: 'それ',
-              meaning: "u, o'sha (tinglovchiga yaqin masofadagi buyumlarga nisbatan qo'llaniladi)",
-              exampleSentence:
-                "それ — u, o'sha (tinglovchiga yaqin masofadagi buyumlarga nisbatan qo'llaniladi)",
-              exampleTranslation:
-                "u, o'sha (tinglovchiga yaqin masofadagi buyumlarga nisbatan qo'llaniladi)",
+              meaning: "u, o'sha (tinglovchiga yaqin)",
+              exampleSentence: 'それは 英語[えいご]の 辞書[じしょ] ですか。',
+              exampleTranslation: "U ingliz tili lug'atimi?",
             },
             {
               term: 'あれ',
               reading: 'あれ',
-              meaning:
-                "ana u, ana o'sha (ham so'zlovchiga, ham tinglovchiga uzoq bo'lgan buyumlarga nisbatan qo'llaniladi)",
-              exampleSentence:
-                "あれ — ana u, ana o'sha (ham so'zlovchiga, ham tinglovchiga uzoq bo'lgan buyumlarga nisbatan qo'llaniladi)",
-              exampleTranslation:
-                "ana u, ana o'sha (ham so'zlovchiga, ham tinglovchiga uzoq bo'lgan buyumlarga nisbatan qo'llaniladi)",
+              meaning: 'ana u (uzoqdagi)',
+              exampleSentence: 'あれは わたしのかさです。',
+              exampleTranslation: 'Anavi mening soyabonim.',
             },
             {
               term: 'この～',
               reading: 'この～',
-              meaning: "bu ~(so'zlovchiga yaqin masofadagi buyumga nisbatan qo'llaniladi)",
-              exampleSentence:
-                "この～ — bu ~(so'zlovchiga yaqin masofadagi buyumga nisbatan qo'llaniladi)",
-              exampleTranslation:
-                "bu ~(so'zlovchiga yaqin masofadagi buyumga nisbatan qo'llaniladi)",
+              meaning: 'bu (yaqindagi buyum)',
+              exampleSentence: 'この本[ほん]は わたしのです。',
+              exampleTranslation: 'Bu kitob meniki.',
             },
             {
               term: 'その～',
               reading: 'その～',
-              meaning: "u~, o'sha~(tinglovchiga yaqin masofadagi buyumlarga nisbatan qo'llaniladi)",
-              exampleSentence:
-                "その～ — u~, o'sha~(tinglovchiga yaqin masofadagi buyumlarga nisbatan qo'llaniladi)",
-              exampleTranslation:
-                "u~, o'sha~(tinglovchiga yaqin masofadagi buyumlarga nisbatan qo'llaniladi)",
+              meaning: "u, o'sha (tinglovchiga yaqin)",
+              exampleSentence: 'その時計[とけい]は スイスの 時計です。',
+              exampleTranslation: 'U soat Shveytsariya soati.',
             },
             {
               term: 'あの～',
               reading: 'あの～',
-              meaning:
-                "ana u~, ana o'sha~ (ham so'zlovchiga, ham tinglovchiga uzoq bo'lgan buyumlarga nisbatan qo'llaniladi)",
-              exampleSentence:
-                "あの～ — ana u~, ana o'sha~ (ham so'zlovchiga, ham tinglovchiga uzoq bo'lgan buyumlarga nisbatan qo'llaniladi)",
-              exampleTranslation:
-                "ana u~, ana o'sha~ (ham so'zlovchiga, ham tinglovchiga uzoq bo'lgan buyumlarga nisbatan qo'llaniladi)",
+              meaning: 'ana u (uzoqdagi)',
+              exampleSentence: 'あの車[くるま]は ドイツの 自動車[じどうしゃ] です。',
+              exampleTranslation: 'Anavi mashina Germaniya avtomobili.',
             },
             {
-              term: '本 kitob (ほん)',
+              term: '本 (ほん)',
               reading: 'ほん',
-              meaning: '',
-              exampleSentence: 'ほん — ',
-              exampleTranslation: '',
+              meaning: 'kitob',
+              exampleSentence: '図書館[としょかん]で 本[ほん]を 読[よ]みます。',
+              exampleTranslation: "Kutubxonada kitob o'qiyman.",
             },
             {
-              term: '辞書 lug`at (じしょ)',
+              term: '辞書 (じしょ)',
               reading: 'じしょ',
-              meaning: '',
-              exampleSentence: 'じしょ — ',
-              exampleTranslation: '',
+              meaning: 'lug`at',
+              exampleSentence: 'これは 電子[でんし]辞書[じしょ] です。',
+              exampleTranslation: "Bu elektron lug'at.",
             },
             {
-              term: '雑誌 jurnal, oynoma (ざっし)',
+              term: '雑誌 (ざっし)',
               reading: 'ざっし',
-              meaning: '',
-              exampleSentence: 'ざっし — ',
-              exampleTranslation: '',
+              meaning: 'jurnal, oynoma',
+              exampleSentence: 'カメラの 雑誌[ざっし]を 買[か]いました。',
+              exampleTranslation: 'Kamera jurnali sotib oldim.',
             },
             {
-              term: '新聞 gazeta, ro`znoma (しんぶん)',
+              term: '新聞 (しんぶん)',
               reading: 'しんぶん',
-              meaning: '',
-              exampleSentence: 'しんぶん — ',
-              exampleTranslation: '',
+              meaning: 'gazeta, ro`znoma',
+              exampleSentence: '毎朝[まいあさ] 新聞[しんぶん]を 読[よ]みます。',
+              exampleTranslation: "Har kuni ertalab gazeta o'qiyman.",
             },
             {
               term: 'ノート',
               reading: 'ノート',
               meaning: 'daftar',
-              exampleSentence: 'ノート — daftar',
-              exampleTranslation: 'daftar',
+              exampleSentence: 'これは わたしが 買[か]った ノート です。',
+              exampleTranslation: 'Bu men sotib olgan daftar.',
             },
             {
-              term: '手帳 yon daftar (てちょう)',
+              term: '手帳 (てちょう)',
               reading: 'てちょう',
-              meaning: '',
-              exampleSentence: 'てちょう — ',
-              exampleTranslation: '',
+              meaning: 'yon daftar',
+              exampleSentence: '手帳[てちょう]に 予定[よてい]を 書[か]きます。',
+              exampleTranslation: 'Yon daftarchaga rejalarni yozaman.',
             },
             {
-              term: '名刺 tashrif qog`ozi (めいし)',
+              term: '名刺 (めいし)',
               reading: 'めいし',
-              meaning: '',
-              exampleSentence: 'めいし — ',
-              exampleTranslation: '',
+              meaning: 'tashrif qog`ozi',
+              exampleSentence: 'どうぞ 名刺[めいし]を お受[う]け取[と]りください。',
+              exampleTranslation: "Marhamat, tashrif qog'ozimni qabul qiling.",
             },
             {
               term: 'カード',
               reading: 'カード',
               meaning: 'kartochka',
-              exampleSentence: 'カード — kartochka',
-              exampleTranslation: 'kartochka',
+              exampleSentence: 'これは わたしが 買[か]った カード です。',
+              exampleTranslation: 'Bu men sotib olgan kartochka.',
             },
             {
               term: 'テレホンカード',
               reading: 'テレホンカード',
               meaning: 'telefon kartochkasi',
-              exampleSentence: 'テレホンカード — telefon kartochkasi',
-              exampleTranslation: 'telefon kartochkasi',
+              exampleSentence: 'これは わたしが 買[か]った テレホンカード です。',
+              exampleTranslation: 'Bu men sotib olgan telefon kartochkasi.',
+            },
+            {
+              term: '鉛筆 (えんぴつ)',
+              reading: 'えんぴつ',
+              meaning: 'qalam',
+              exampleSentence: 'これは わたしが 買[か]った 鉛筆qalam[えんぴつ] です。',
+              exampleTranslation: 'Bu men sotib olgan qalam.',
+            },
+            {
+              term: 'ボールペン',
+              reading: 'ボールペン',
+              meaning: 'sharikli ruchka',
+              exampleSentence: 'これは わたしが 買[か]った ボールペン です。',
+              exampleTranslation: 'Bu men sotib olgan sharikli ruchka.',
+            },
+            {
+              term: 'シャープペンシル',
+              reading: 'シャープペンシル',
+              meaning: 'avtoqalam',
+              exampleSentence: 'これは わたしが 買[か]った シャープペンシル です。',
+              exampleTranslation: 'Bu men sotib olgan avtoqalam.',
+            },
+            {
+              term: 'かぎ',
+              reading: 'かぎ',
+              meaning: 'qulf-kalit',
+              exampleSentence: 'これは わたしが 買[か]った かぎ です。',
+              exampleTranslation: 'Bu men sotib olgan qulf-kalit.',
+            },
+            {
+              term: '時計 (とけい)',
+              reading: 'とけい',
+              meaning: 'soat',
+              exampleSentence: 'この 時計[とけい]は 父[ちち]の 時計です。',
+              exampleTranslation: 'Bu soat otamning soati.',
+            },
+            {
+              term: '傘 (かさ)',
+              reading: 'かさ',
+              meaning: 'soyabon',
+              exampleSentence: '雨[あめ]ですから、かさを 持[も]って 行きます。',
+              exampleTranslation: "Yomg'ir yog'yapti, soyabon olib boraman.",
+            },
+            {
+              term: 'かばん',
+              reading: 'かばん',
+              meaning: 'sumka',
+              exampleSentence: 'これは 軽[かる]い かばんです。',
+              exampleTranslation: 'Bu yengil sumka.',
+            },
+            {
+              term: 'カセットテープ',
+              reading: 'カセットテープ',
+              meaning: 'audio tasma',
+              exampleSentence: 'これは わたしが 買[か]った [カセット]テープ です。',
+              exampleTranslation: 'Bu men sotib olgan audio tasma.',
+            },
+            {
+              term: 'テープレコーダー',
+              reading: 'テープレコーダー',
+              meaning: 'magnitofon',
+              exampleSentence: 'これは わたしが 買[か]った テープレコーダー です。',
+              exampleTranslation: 'Bu men sotib olgan magnitofon.',
+            },
+            {
+              term: 'テレビ',
+              reading: 'テレビ',
+              meaning: 'televizor',
+              exampleSentence: '毎晩[まいばん] テレビを 見[み]ます。',
+              exampleTranslation: "Har kuni kechqurun televizor ko'raman.",
+            },
+            {
+              term: 'ラジオ',
+              reading: 'ラジオ',
+              meaning: 'radio',
+              exampleSentence: 'ラジオで ニュースを 聞[き]きます。',
+              exampleTranslation: 'Radioda yangiliklarni eshitaman.',
+            },
+            {
+              term: 'カメラ',
+              reading: 'カメラ',
+              meaning: 'fotoapparat',
+              exampleSentence: 'これは 新[あたら]しい カメラです。',
+              exampleTranslation: 'Bu yangi fotoapparat.',
+            },
+            {
+              term: 'コンピューター',
+              reading: 'コンピューター',
+              meaning: 'kompyuter',
+              exampleSentence: '会社[かいしゃ]の コンピューターを 使[つか]います。',
+              exampleTranslation: 'Kompaniya kompyuteridan foydalanaman.',
+            },
+            {
+              term: '自動車 (じどうしゃ)',
+              reading: 'じどうしゃ',
+              meaning: 'avtomobil',
+              exampleSentence: 'トヨタの 自動車[じどうしゃ]は 有名[ゆうめい]です。',
+              exampleTranslation: 'Toyota avtomobillari mashhurdir.',
+            },
+            {
+              term: '机 (つくえ)',
+              reading: 'つくえ',
+              meaning: 'stol, parta',
+              exampleSentence: '机[つくえ]の 上[うえ]に 本[ほん]が あります。',
+              exampleTranslation: 'Stol ustida kitob bor.',
+            },
+            {
+              term: 'いす',
+              reading: 'いす',
+              meaning: 'stul, kursi',
+              exampleSentence: 'いすに 座[すわ]って ください。',
+              exampleTranslation: "Stulga o'tiring, iltimos.",
+            },
+            {
+              term: 'チョコレート',
+              reading: 'チョコレート',
+              meaning: 'shokolad',
+              exampleSentence: 'これは わたしが 買[か]った チョコレート です。',
+              exampleTranslation: 'Bu men sotib olgan shokolad.',
+            },
+            {
+              term: 'コーヒー',
+              reading: 'コーヒー',
+              meaning: 'qahva (kofe)',
+              exampleSentence: 'これは わたしが 買[か]った コーヒー です。',
+              exampleTranslation: 'Bu men sotib olgan qahva (kofe).',
+            },
+            {
+              term: '英語 (えいご)',
+              reading: 'えいご',
+              meaning: 'ingliz tili',
+              exampleSentence: 'これは わたしが 買[か]った 英語[えいご] です。',
+              exampleTranslation: 'Bu men sotib olgan ingliz tili.',
+            },
+            {
+              term: '日本語 (にほんご)',
+              reading: 'にほんご',
+              meaning: 'yapon tili',
+              exampleSentence: 'これは わたしが 買[か]った 日本語[にほんご] です。',
+              exampleTranslation: 'Bu men sotib olgan yapon tili.',
+            },
+            {
+              term: '～語 (～ご)',
+              reading: '～ご',
+              meaning: '~tili',
+              exampleSentence: '山田[やまだ]ごは 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada ~tili samimiy inson.',
+            },
+            {
+              term: '何 (なん)',
+              reading: 'なん',
+              meaning: 'nima',
+              exampleSentence: 'これは わたしが 買[か]った 何[なん] です。',
+              exampleTranslation: 'Bu men sotib olgan nima.',
+            },
+            {
+              term: 'そう',
+              reading: 'そう',
+              meaning: 'shunday',
+              exampleSentence: '毎日[まいにち] そう。',
+              exampleTranslation: 'Har kuni shunday.',
+            },
+            {
+              term: '違います。 (ちがいます。)',
+              reading: 'ちがいます。',
+              meaning: "Unaqa emas. / Noto'g'ri.",
+              exampleSentence: '毎日[まいにち] 違います。[ちがいます。]。',
+              exampleTranslation: "Har kuni unaqa emas. / noto'g'ri..",
+            },
+            {
+              term: 'そうですか。',
+              reading: 'そうですか。',
+              meaning: 'Shundaymi? Rostdanmi?',
+              exampleSentence: 'これは わたしが 買[か]った そうですか。 です。',
+              exampleTranslation: 'Bu men sotib olgan shundaymi? rostdanmi?.',
+            },
+            {
+              term: 'あのう',
+              reading: 'あのう',
+              meaning: 'Haligi… . (Gap boshlash)',
+              exampleSentence: '毎日[まいにち] あのう。',
+              exampleTranslation: 'Har kuni haligi… . (gap boshlash).',
+            },
+            {
+              term: 'ほんの気持ちです。 (ほんのきもちです。)',
+              reading: 'ほんのきもちです。',
+              meaning: "Chin ko'ngildan",
+              exampleSentence:
+                'これは わたしが 買[か]った ほんの気持ちです。[ほんのきもちです。] です。',
+              exampleTranslation: "Bu men sotib olgan chin ko'ngildan.",
+            },
+            {
+              term: 'どうぞ。',
+              reading: 'どうぞ。',
+              meaning: 'Marhamat.',
+              exampleSentence: 'これは わたしが 買[か]った どうぞ。 です。',
+              exampleTranslation: 'Bu men sotib olgan marhamat..',
+            },
+            {
+              term: 'どうも。',
+              reading: 'どうも。',
+              meaning: 'Rahmat.',
+              exampleSentence: 'これは わたしが 買[か]った どうも。 です。',
+              exampleTranslation: 'Bu men sotib olgan rahmat..',
+            },
+            {
+              term: 'どうもありがとうございます',
+              reading: 'どうもありがとうございます',
+              meaning: 'Katta rahmat',
+              exampleSentence: '毎日[まいにち] [どうも]ありがとう[ございます。',
+              exampleTranslation: 'Har kuni katta rahmat.',
+            },
+            {
+              term: 'これからお世話せわになります。',
+              reading: 'これからお世話せわになります。',
+              meaning: 'Bundan buyon mehr va yordamingizga muhtojman.',
+              exampleSentence: '毎日[まいにち] これからお世話[せわ]になります。。',
+              exampleTranslation: 'Har kuni bundan buyon mehr va yordamingizga muhtojman..',
+            },
+            {
+              term: 'こちらこそよろしく。',
+              reading: 'こちらこそよろしく。',
+              meaning:
+                'Men ham yordamingizni ayamaysiz degan umiddaman. / Men ham tanishganimdan xursandman.',
+              exampleSentence: 'これは わたしが 買[か]った こちらこそよろしく。 です。',
+              exampleTranslation:
+                'Bu men sotib olgan men ham yordamingizni ayamaysiz degan umiddaman. / men ham tanishganimdan xursandman..',
             },
           ],
           grammarRules: [
             {
               pattern: 'これ  /  それ  /  あれ',
               meaning:
-                "これ , それ , あれ ko'rsatish olmoshlari. Ular shuningdek ot sifatida ham ishlatiladi. これ so'zlovchining yonida turgan narsalarni ko'rsatishda, それ suhbatdoshning yonida turgan narsalarni ko'rsatishda, あれ es",
-              usageNotes:
                 "これ , それ , あれ ko'rsatish olmoshlari. Ular shuningdek ot sifatida ham ishlatiladi. これ so'zlovchining yonida turgan narsalarni ko'rsatishda, それ suhbatdoshning yonida turgan narsalarni ko'rsatishda, あれ esa suhbatdoshdan ham, so'zlovchidan ham birday uzoq masofada turgan narsalarni ko'rsatishda qo'llaniladi.",
+              usageNotes:
+                'Minna no Nihongo 2-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
-                  sentence: 'それは 辞[じ] 書[しょ] ですか。 Bu (sizdagi) lug`atmi?',
-                  translation: '',
+                  sentence: 'それは 辞[じ] 書[しょ] ですか。',
+                  translation: 'Bu (sizdagi) lug`atmi?',
                 },
                 {
-                  sentence: 'これを ください。 Menga mana buni bering. (3-dars )',
-                  translation: '',
+                  sentence: 'これを ください。',
+                  translation: 'Menga mana buni bering. (3-dars )',
                 },
               ],
             },
             {
               pattern: 'この  OT  /  その  OT  /  あの OT',
               meaning:
-                "この , その va あの otlarni aniqlaydi. “ この OT ” so'zlovchining yonida turgan narsani, “ その OT ” suhbatdoshning yonida turgan narsani, “ あの OT” so'zlovchidan ham, suhbatdoshdan ham birday uzoq masofada turg",
-              usageNotes:
                 "この , その va あの otlarni aniqlaydi. “ この OT ” so'zlovchining yonida turgan narsani, “ その OT ” suhbatdoshning yonida turgan narsani, “ あの OT” so'zlovchidan ham, suhbatdoshdan ham birday uzoq masofada turgan narsalarni ko'rsatishda qo'llaniladi. あの かばん これ それ この かばん その かばん",
+              usageNotes:
+                'Minna no Nihongo 2-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
-                  sentence: 'この 本[ほん] は わたしのです。 Bu kitob meniki.',
-                  translation: '',
+                  sentence: 'この 本[ほん] は わたしのです。',
+                  translation: 'Bu kitob meniki.',
                 },
                 {
-                  sentence: 'あの 方[かた] は どなたですか。 Anavi kishi kim?',
-                  translation: 'あれ',
+                  sentence: 'あの 方[かた] は どなたですか。',
+                  translation: 'Anavi kishi kim?',
                 },
               ],
             },
             {
               pattern: 'そうです  /  そうじゃ ありません',
               meaning:
-                "So'roq gaplarda ot kesim vazifasida kelsa, bu holda そう so'zi javob tariqasida inkor yoki tasdiq ma'nosida keladi. はい、そうです bu tasdiq javob, いいえ、そう じゃ ありません inkor javob. ちがいます fe'li そうじゃ ありません ma'nosida",
-              usageNotes:
                 "So'roq gaplarda ot kesim vazifasida kelsa, bu holda そう so'zi javob tariqasida inkor yoki tasdiq ma'nosida keladi. はい、そうです bu tasdiq javob, いいえ、そう じゃ ありません inkor javob. ちがいます fe'li そうじゃ ありません ma'nosida ham ishlatilishi mumkin. ･･･いいえ、違[ちが] います。 …Yo'q.",
+              usageNotes:
+                'Minna no Nihongo 2-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
-                  sentence: 'それは テレホンカードですか。 Bu telefon kartochkasimi?',
+                  sentence: 'それは テレホンカードですか。',
                   translation: '･･･はい、そうです。 …Ha, shunday.',
                 },
                 {
-                  sentence: 'それは テレホンカードですか。 Bu telefon kartochkasimi?',
+                  sentence: 'それは テレホンカードですか。',
                   translation: "･･･いいえ、そうじゃ ありません。 …Yo'q, bunday emas.",
                 },
                 {
@@ -590,9 +1050,9 @@ export const MINNA_N5_LESSONS: Lesson[] = [
             {
               pattern: '4.',
               meaning:
-                'GAP 1 か、 GAP 2 か Bunday savollarga javob berishda GAP 1 va GAP 2 larni shundayligicha tanlab olish lozim. Bunday turdagi savollarga gapni shunday tanlab olib javob berish kerak. はい ham, いいえ ham ishlat',
-              usageNotes:
                 'GAP 1 か、 GAP 2 か Bunday savollarga javob berishda GAP 1 va GAP 2 larni shundayligicha tanlab olish lozim. Bunday turdagi savollarga gapni shunday tanlab olib javob berish kerak. はい ham, いいえ ham ishlatilmaydi. ･･･｢９｣です。 …Bu “9”.',
+              usageNotes:
+                'Minna no Nihongo 2-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'これは ｢９｣ですか、｢７｣ですか。',
@@ -603,22 +1063,31 @@ export const MINNA_N5_LESSONS: Lesson[] = [
             {
               pattern: 'OT 1 の OT 2',
               meaning:
-                "Siz 1-darsda の OT 1 OT 2 ni aniqlab kelganida, uning bularni bog'lash uchun qo'llanilishini bilib oldingiz. 2-darsda siz の yuklamasi boshqa 2 xil usulda qo'llanilishini o'rganib olasiz. 1) OT 1 OT 2 n",
-              usageNotes:
                 "Siz 1-darsda の OT 1 OT 2 ni aniqlab kelganida, uning bularni bog'lash uchun qo'llanilishini bilib oldingiz. 2-darsda siz の yuklamasi boshqa 2 xil usulda qo'llanilishini o'rganib olasiz. 1) OT 1 OT 2 ni tushuntirib kelayapti. 2) OT 1 OT 2 kimga tegishliligini ko'rsatyapti. mumkin. Lekin agar OT 2 odamni anglatib kelsa, uni tushurib qoldirish mumkin emas. ･･･佐[さ] 藤[とう] さんのです。 …Sato xonimniki. ･･･いいえ、わたしのじゃ ありません。 …Yo'q, meniki emas. Janob Miller IMC firmasining xodimimi?",
+              usageNotes:
+                'Minna no Nihongo 2-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'これは コンピューターの 本[ほん] です。',
                   translation: 'Bu kompyute haqidagi kitob.',
                 },
                 {
-                  sentence: 'これは わたしの 本[ほん] です。 Bu mening kitobim.',
+                  sentence: 'これは わたしの 本[ほん] です。',
                   translation:
                     "Agar gap nima haqida ketayotganligi ma'lum bo'lsa, OT 2 tushib qolishi ham",
                 },
                 {
                   sentence: 'あれは だれの かばんですか。',
                   translation: 'Ana u kimning sumkasi?',
+                },
+                {
+                  sentence: 'この かばんは あなたのですか。',
+                  translation: 'Bu sizning sumkangizmi?',
+                },
+                {
+                  sentence: 'ミラーさんは  IMC  の 社員[しゃいん] ですか。',
+                  translation:
+                    '･･･はい、 IMC の 社員[しゃいん] です。 …Ha, IMC firmasining xodimi.',
                 },
               ],
             },
@@ -627,7 +1096,7 @@ export const MINNA_N5_LESSONS: Lesson[] = [
               meaning:
                 "Bu ibora so'zlovchi yangi ma'lumotni qabul qilib, uni qabul qilganini va tushunganligini ko'rsatish uchun qo'llaniladi. そうですか。 Bu soyabon siznikimi? Tushunarli.",
               usageNotes:
-                "Bu ibora so'zlovchi yangi ma'lumotni qabul qilib, uni qabul qilganini va tushunganligini ko'rsatish uchun qo'llaniladi. そうですか。 Bu soyabon siznikimi? Tushunarli.",
+                'Minna no Nihongo 2-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'この 傘[かさ] は あなたのですか。',
@@ -638,82 +1107,90 @@ export const MINNA_N5_LESSONS: Lesson[] = [
             },
           ],
           culturalNotes:
-            "Yaponiyada tashrif qog'ozi (meishi) ikki qo'llab beriladi va ikki qo'llab qabul qilinadi. Sovg'a berishda 'ほんの気持ちです' (arzimagan sovg'a) deyiladi.",
+            "Yaponiyada tashrif qog'ozi (meishi) ikki qo'llab beriladi va ikki qo'llab qabul qilinadi. Sovg'a berganda kamsuqumlik bilan 'ほんの気持ちです' (arzimagan sovg'a) deyiladi.",
         },
       },
       {
         id: 'ja-minna-l2-s2',
         title: 'Mustahkamlash Mashqlari',
         type: 'practice',
-        estimatedMinutes: 6,
+        estimatedMinutes: 8,
         practiceData: {
           instructions:
-            "Darsda o'rganilgan yangi so'zlar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
+            "Darsda o'rganilgan yangi so'zlar, zarrachalar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
           exercises: [
             {
               id: 'ja-minna-l2-ex1',
               type: 'multiple-choice',
-              prompt: "「これ」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
-              options: [
-                "bu (so'zlovchiga yaqin masofadagi buyumga nisbatan qo'llaniladi)",
-                "u, o'sha (tinglovchiga yaqin masofadagi buyumlarga nisbatan qo'llaniladi)",
-                "ana u, ana o'sha (ham so'zlovchiga, ham tinglovchiga uzoq bo'lgan buyumlarga nisbatan qo'llaniladi)",
-                "bu ~(so'zlovchiga yaqin masofadagi buyumga nisbatan qo'llaniladi)",
-              ],
+              prompt: "Bo'sh joyga to'g'ri zarrachani qo'ying:\n「これは 日本語（　）本です。」",
+              options: ['の', 'は', 'も', 'と'],
               correctAnswer: 0,
               explanation:
-                "To'g'ri javob: bu (so'zlovchiga yaqin masofadagi buyumga nisbatan qo'llaniladi).",
+                "To'g'ri javob: 「の」. Tegishlilik va biror tildagi kitob ekanligini bildirish uchun 'の' qo'yiladi.",
             },
             {
               id: 'ja-minna-l2-ex2',
               type: 'multiple-choice',
-              prompt:
-                "2-dars grammatik qoidasi: '1.  これ  /  それ  /  あれ' bo'yicha qaysi gap grammatik jihatdan to'g'ri tuzilgan?",
+              prompt: "「あれ」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
               options: [
-                'あの 方[かた] は どなたですか。 Anavi kishi kim?',
-                'これ は を です。',
-                'だれ が 行きます か でした。',
-                'へ 行きません です。',
+                'kitob',
+                "u, o'sha (tinglovchiga yaqin)",
+                'ana u (uzoqdagi)',
+                'bu (yaqindagi buyum)',
               ],
-              correctAnswer: 0,
-              explanation:
-                "To'g'ri javob: あの 方[かた] は どなたですか。 Anavi kishi kim? (あれ).",
+              correctAnswer: 2,
+              explanation: "To'g'ri javob: 「ana u (uzoqdagi)」.",
             },
             {
               id: 'ja-minna-l2-ex3',
               type: 'multiple-choice',
-              prompt:
-                "O'zbek tiliga to'g'ri tarjima qiling: 「それは テレホンカードですか。 Bu telefon kartochkasimi?」",
+              prompt: "2-dars grammatik qoidasiga muvofiq to'g'ri tuzilgan gapni aniqlang:",
               options: [
-                '･･･はい、そうです。 …Ha, shunday.',
-                "Ertaga do'stim bilan mehmonga boraman.",
-                "Kechirasiz, soat necha bo'ldi?",
-                "Iltimos, manzilni ko'rsatib yuboring.",
+                'それは 辞[じ] 書[しょ] ですか。',
+                'それは 辞[じ] 書[しょ] じゃありますか。',
+                'それは 辞[じ] 書[しょ] だですか。',
+                'それは 辞[じ] 書[しょ] ですか か でした。',
               ],
               correctAnswer: 0,
-              explanation: "To'g'ri tarjimasi: ･･･はい、そうです。 …Ha, shunday..",
+              explanation:
+                "To'g'ri gap: 「それは 辞[じ] 書[しょ] ですか。」 (Bu (sizdagi) lug`atmi?).",
             },
             {
               id: 'ja-minna-l2-ex4',
               type: 'multiple-choice',
-              prompt: 'Ushbu darsdagi suhbatdan kelib chiqib: Yamada Ichiro qanday jumla aytadi?',
+              prompt:
+                "Ushbu gapning to'g'ri yaponcha tarjimasini tanlang:\n「Menga mana buni bering. (3-dars )」",
               options: [
-                'Ha, kim u?',
-                'Men hech qayerga bormayman.',
-                'Taksida aeroportga haydang.',
-                "Iltimos, hisobni alohida to'laymiz.",
+                'これを ください。',
+                'あの 方[かた] は どなたですか。',
+                'それは 辞[じ] 書[しょ] ですか。',
+                'この 本[ほん] は わたしのです。',
               ],
               correctAnswer: 0,
-              explanation: "To'g'ri ibora: Ha, kim u?.",
+              explanation: "Yaponcha to'g'ri ifodasi: 「これを ください。」.",
+            },
+            {
+              id: 'ja-minna-l2-ex5',
+              type: 'multiple-choice',
+              prompt:
+                'Suhbatdoshingiz: 「これは ほんの 気持ちです。どうぞ。」 dedi. Unga eng mos muloyim javob qaysi?',
+              options: [
+                'ごちそうさまでした。',
+                'どうも ありがとうございます。',
+                'おやすみなさい。',
+                '失礼します。',
+              ],
+              correctAnswer: 1,
+              explanation: "To'g'ri javob: 「どうも ありがとうございます。」.",
             },
           ],
         },
       },
       {
         id: 'ja-minna-l2-s3',
-        title: 'Sinov Testi',
+        title: 'JLPT N5 Sinov Testi',
         type: 'test',
-        estimatedMinutes: 6,
+        estimatedMinutes: 7,
         testData: {
           instructions:
             "Darsni muvaffaqiyatli yakunlash uchun savollarga to'g'ri javob bering (Kamida 80%).",
@@ -721,55 +1198,53 @@ export const MINNA_N5_LESSONS: Lesson[] = [
           questions: [
             {
               id: 'ja-minna-l2-q1',
-              question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「あの 方[かた] は どなたですか。 Anavi kishi kim?」",
-              options: [
-                'あれ',
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
-              ],
+              question: '【Mondai 1: Moji/Goi】「雑誌」の 読[よ]み方[かた]は どれですか。',
+              options: ['ざっし', 'それ', 'あれ', 'これ'],
               correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: あれ.",
+              explanation: "「雑誌」 ning to'g'ri o'qilishi: 「ざっし」 (jurnal, oynoma).",
             },
             {
               id: 'ja-minna-l2-q2',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「それは テレホンカードですか。 Bu telefon kartochkasimi?」",
-              options: [
-                '･･･はい、そうです。 …Ha, shunday.',
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
-              ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: ･･･はい、そうです。 …Ha, shunday..",
+                '【Mondai 2: Bunpo】（　）に 入[はい]る 最[もっと]も よいものを 1つ えらびなさい。\n「ミラーさんは アメリカ（　）来ました。」',
+              options: ['へ', 'から', 'で', 'まで'],
+              correctAnswerIndex: 1,
+              explanation:
+                "To'g'ri zarracha: 「から」. Kelib chiqish mamlakati '〜から' orqali ko'rsatiladi.",
             },
             {
               id: 'ja-minna-l2-q3',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「それは テレホンカードですか。 Bu telefon kartochkasimi?」",
+                "【Mondai 3: Bunpo】2-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
               options: [
-                "･･･いいえ、そうじゃ ありません。 …Yo'q, bunday emas.",
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
+                'この  OT  /  その  OT  /  あの OT',
+                '〜に 食べません でした',
+                '〜は 〜でした じゃありません',
+                '〜を 行きます です',
               ],
               correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: ･･･いいえ、そうじゃ ありません。 …Yo'q, bunday emas..",
+              explanation: "To'g'ri grammatik formula: 「この  OT  /  その  OT  /  あの OT」.",
             },
             {
               id: 'ja-minna-l2-q4',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「それは テレホンカードですか。」",
+                "【Mondai 4: Dokkai】Quyidagi yaponcha gapning to'g'ri o'zbekcha ma'nosini toping:\n「この 本[ほん] は わたしのです。」",
               options: [
-                'Bu telefon kartochkasimi?',
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
+                'Bu kitob meniki.',
+                'Menga mana buni bering. (3-dars )',
+                'Anavi kishi kim?',
+                'Bu (sizdagi) lug`atmi?',
               ],
               correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Bu telefon kartochkasimi?.",
+              explanation: "To'g'ri ma'nosi: 「Bu kitob meniki.」.",
+            },
+            {
+              id: 'ja-minna-l2-q5',
+              question:
+                "【Mondai 5: Kaiwa】Savolga eng to'g'ri javobni tanlang:\n「これは あなたの 傘ですか。」",
+              options: ['いいえ、違います。', '初めまして。', 'はい、そうです。', '失礼します。'],
+              correctAnswerIndex: 0,
+              explanation: "To'g'ri javob: 「いいえ、違います。」.",
             },
           ],
         },
@@ -786,148 +1261,357 @@ export const MINNA_N5_LESSONS: Lesson[] = [
     lessonNumber: 3,
     title: '3-dars: Joylar va Narx-navo',
     description:
-      "Minna no Nihongo Shokyu 1: 3-dars: Joylar va Narx-navo. Darsda 46 ta yangi so'z va 6 ta asosiy grammatik qoida o'rganiladi.",
-    estimatedDurationMinutes: 20,
+      "Minna no Nihongo Shokyu 1: 3-dars: Joylar va Narx-navo. Darsda 46 ta yangi so'z, audio talaffuzli Furigana misollar va 6 ta asosiy grammatik formula o'rganiladi.",
+    estimatedDurationMinutes: 25,
     icon: '🌸',
     steps: [
       {
         id: 'ja-minna-l3-s1',
         title: "Lug'at va Qoidalar",
         type: 'learn',
-        estimatedMinutes: 8,
+        estimatedMinutes: 10,
         learnData: {
           title: '3-Dars: 3-dars: Joylar va Narx-navo',
           subtitle: '第3課：場所と買い物・値段',
           explanation:
-            "3-dars: Joylar va Narx-navo bo'yicha to'liq grammatik izohlar va qoidalar to'plami. Har bir qoida Minna no Nihongo darsligining o'zbekcha tarjimasiga moslashtirilgan.",
+            "3-dars: Joylar va Narx-navo bo'yicha to'liq grammatik izohlar, formulalar va Furiganali misollar to'plami.",
           keyPoints: [
-            "1.  ここ／そこ／あそこ／こちら／そちら／あちら: これ , それ va あれ ko'rsatish so'zlari predmetga nisbatan qo'llanilishini 2-darsda ko'rib chiqqan edik. ここ , そこ va あそこ ko'rsa...",
-            '2.   OT 1 は OT 2  (o`rin-joy)  です: Ushbu namuna orqali predmet yoki odamning qayerda joylashganini izohlash mumkin. Hojatxona ana u yerda....',
-            "3.  どこ／どちら: どこ so'zi “ qayerda ”, どちら esa “ qaysi tarafda ”, “ qaysi yonalishda ” degan ma'noni bildiradi. Shuningdek, どちら so'roq ol...",
-            "4.  OT 1  の OT 2: Ushbu tuzilmada どこ - OT 2 ning qayerda va kim tomonidan tayyorlanganligini so'rash uchun qo'llaniladi. Agar OT 1 -davlat...",
-            '5.   こ／そ／あ／ど  UMUMIY NEGIZGA EGA BO`LGAN KO`RSATISH: OLMOSHLARINING JADVALI こ qator そ qator あ qator ど qator Predmet これ それ あれ どれ (8-dars) Predmet yoki この OT その OT あの OT どの OT...',
-            "6.  お国[くに]: Suhbatdosh yoki 3-shaxsga nisbatan o'z hurmatini ifodalash maqsadida so'zlovchi suhbatdoshiga tegishli bo'lgan predmetga...",
+            "📌 1.  ここ／そこ／あそこ／こちら／そちら／あちら: これ , それ va あれ ko'rsatish so'zlari predmetga nisbatan qo'llanilishini 2-darsda ko'rib chiqqan edik.",
+            '📌 2.   OT 1 は OT 2  (o`rin-joy)  です: Ushbu namuna orqali predmet yoki odamning qayerda joylashganini izohlash mumkin.',
+            "📌 3.  どこ／どちら: どこ so'zi “ qayerda ”, どちら esa “ qaysi tarafda ”, “ qaysi yonalishda ” degan ma'noni bildiradi.",
+            "📌 4.  OT 1  の OT 2: Ushbu tuzilmada どこ - OT 2 ning qayerda va kim tomonidan tayyorlanganligini so'rash uchun qo'llaniladi.",
+            '📌 5.   こ／そ／あ／ど  UMUMIY NEGIZGA EGA BO`LGAN KO`RSATISH: OLMOSHLARINING JADVALI こ qator そ qator あ qator ど qator Predmet これ それ あれ どれ (8-dars) Predmet yoki この .',
+            "📌 6.  お国[くに]: Suhbatdosh yoki 3-shaxsga nisbatan o'z hurmatini ifodalash maqsadida so'zlovchi suhbatdoshiga tegishli bo'lgan predmetga お old qo'shimchasini qo'shadi.",
           ],
           vocabulary: [
             {
               term: 'ここ',
               reading: 'ここ',
               meaning: 'bu yer, bu joy',
-              exampleSentence: 'ここ — bu yer, bu joy',
-              exampleTranslation: 'bu yer, bu joy',
+              exampleSentence: 'ここは 教室[きょうしつ] です。',
+              exampleTranslation: 'Bu yer darsxona.',
             },
             {
               term: 'そこ',
               reading: 'そこ',
               meaning: "u yer, u joy, o'sha yer, o'sha joy",
-              exampleSentence: "そこ — u yer, u joy, o'sha yer, o'sha joy",
-              exampleTranslation: "u yer, u joy, o'sha yer, o'sha joy",
+              exampleSentence: 'そこは 食堂[しょくどう] です。',
+              exampleTranslation: 'U yer oshxona.',
             },
             {
               term: 'あそこ',
               reading: 'あそこ',
               meaning: 'ana u yer, ana u joy',
-              exampleSentence: 'あそこ — ana u yer, ana u joy',
-              exampleTranslation: 'ana u yer, ana u joy',
+              exampleSentence: 'あそこは 事務所[じむしょ] です。',
+              exampleTranslation: 'Anavi yer idora.',
             },
             {
               term: 'どこ',
               reading: 'どこ',
               meaning: 'qayer',
-              exampleSentence: 'どこ — qayer',
-              exampleTranslation: 'qayer',
+              exampleSentence: 'すみません、お手洗[てあら]いは どこですか。',
+              exampleTranslation: 'Kechirasiz, hojatxona qayerda?',
             },
             {
               term: 'こちら',
               reading: 'こちら',
-              meaning: 'bu yer, bu joy ( ここ ning hurmat shakli)',
-              exampleSentence: 'こちら — bu yer, bu joy ( ここ ning hurmat shakli)',
-              exampleTranslation: 'bu yer, bu joy ( ここ ning hurmat shakli)',
+              meaning: 'u kishi (hurmat shakli)',
+              exampleSentence: 'これは わたしが 買[か]った こちら です。',
+              exampleTranslation: 'Bu men sotib olgan u kishi (hurmat shakli).',
             },
             {
               term: 'そちら',
               reading: 'そちら',
-              meaning: "u yer, u joy, o'sha yer, o'sha joy ( そこ ning hurmat shakli)",
-              exampleSentence:
-                "そちら — u yer, u joy, o'sha yer, o'sha joy ( そこ ning hurmat shakli)",
-              exampleTranslation: "u yer, u joy, o'sha yer, o'sha joy ( そこ ning hurmat shakli)",
+              meaning: 'u kishi (hurmat shakli)',
+              exampleSentence: 'これは わたしが 買[か]った そちら です。',
+              exampleTranslation: 'Bu men sotib olgan u kishi (hurmat shakli).',
             },
             {
               term: 'あちら',
               reading: 'あちら',
-              meaning: 'ana u yer, ana u joy ( あそこ ning hurmat shakli)',
-              exampleSentence: 'あちら — ana u yer, ana u joy ( あそこ ning hurmat shakli)',
-              exampleTranslation: 'ana u yer, ana u joy ( あそこ ning hurmat shakli)',
+              meaning: 'u kishi (hurmat shakli)',
+              exampleSentence: 'これは わたしが 買[か]った あちら です。',
+              exampleTranslation: 'Bu men sotib olgan u kishi (hurmat shakli).',
             },
             {
               term: 'どちら',
               reading: 'どちら',
-              meaning: 'qayer ( どこ ning hurmat shakli)',
-              exampleSentence: 'どちら — qayer ( どこ ning hurmat shakli)',
-              exampleTranslation: 'qayer ( どこ ning hurmat shakli)',
+              meaning: 'u kishi (hurmat shakli)',
+              exampleSentence: 'これは わたしが 買[か]った どちら です。',
+              exampleTranslation: 'Bu men sotib olgan u kishi (hurmat shakli).',
             },
             {
               term: '教室 (きょうしつ)',
               reading: 'きょうしつ',
               meaning: 'sinf, auditoriya',
-              exampleSentence: 'きょうしつ — sinf, auditoriya',
-              exampleTranslation: 'sinf, auditoriya',
+              exampleSentence: '教室[きょうしつ]で 勉強[べんきょう]します。',
+              exampleTranslation: "Darsxonada o'qiyman.",
             },
             {
               term: '食堂 (しょくどう)',
               reading: 'しょくどう',
               meaning: 'oshxona',
-              exampleSentence: 'しょくどう — oshxona',
-              exampleTranslation: 'oshxona',
+              exampleSentence: '学生[がくせい]食堂[しょくどう]で 昼[ひる]ご飯[はん]を 食べます。',
+              exampleTranslation: 'Talabalar oshxonasida tushlik qilaman.',
             },
             {
               term: '事務所 (じむしょ)',
               reading: 'じむしょ',
               meaning: 'idora, ofis',
-              exampleSentence: 'じむしょ — idora, ofis',
-              exampleTranslation: 'idora, ofis',
+              exampleSentence: '事務所[じむしょ]で 書類[しょるい]を もらいました。',
+              exampleTranslation: 'Idoradan hujjatlarni oldim.',
             },
             {
               term: '会議室 (かいぎしつ)',
               reading: 'かいぎしつ',
               meaning: 'majlislar zali',
-              exampleSentence: 'かいぎしつ — majlislar zali',
-              exampleTranslation: 'majlislar zali',
+              exampleSentence: '3階[さんがい]の 会議室[かいぎしつ]で ミーティングを します。',
+              exampleTranslation: "3-qavatdagi majlislar xonasida yig'ilish o'tkazamiz.",
             },
             {
               term: '受付 (うけつけ)',
               reading: 'うけつけ',
               meaning: 'qabulxona',
-              exampleSentence: 'うけつけ — qabulxona',
-              exampleTranslation: 'qabulxona',
+              exampleSentence: 'これは わたしが 買[か]った 受付[うけつけ] です。',
+              exampleTranslation: 'Bu men sotib olgan qabulxona.',
             },
             {
               term: 'ロビー',
               reading: 'ロビー',
               meaning: 'dahliz',
-              exampleSentence: 'ロビー — dahliz',
-              exampleTranslation: 'dahliz',
+              exampleSentence: 'これは わたしが 買[か]った ロビー です。',
+              exampleTranslation: 'Bu men sotib olgan dahliz.',
             },
             {
               term: '部屋 (へや)',
               reading: 'へや',
               meaning: 'xona',
-              exampleSentence: 'へや — xona',
-              exampleTranslation: 'xona',
+              exampleSentence: 'わたしの 部屋[へや]は 2階[にかい]に あります。',
+              exampleTranslation: 'Mening xonam 2-qavatda joylashgan.',
+            },
+            {
+              term: 'お手洗い (トイレおてあらい)',
+              reading: 'トイレおてあらい',
+              meaning: 'hojatxona',
+              exampleSentence: 'これは わたしが 買[か]った お手洗い[トイレおてあらい] です。',
+              exampleTranslation: 'Bu men sotib olgan hojatxona.',
+            },
+            {
+              term: '階段 (かいだん)',
+              reading: 'かいだん',
+              meaning: 'zina',
+              exampleSentence: '階段[かいだん]を 使[つか]いましょう。',
+              exampleTranslation: 'Keling, zinadan foydalanamiz.',
+            },
+            {
+              term: 'エレベーター',
+              reading: 'エレベーター',
+              meaning: 'lift',
+              exampleSentence: 'エレベーターで 5階[ごかい]へ 上[あ]がります。',
+              exampleTranslation: "Lift bilan 5-qavatga ko'tarilaman.",
+            },
+            {
+              term: 'エスカレーター',
+              reading: 'エスカレーター',
+              meaning: 'eskalator',
+              exampleSentence: 'これは わたしが 買[か]った エスカレーター です。',
+              exampleTranslation: 'Bu men sotib olgan eskalator.',
+            },
+            {
+              term: 'お国 (おくに)',
+              reading: 'おくに',
+              meaning: 'vatan, mamlakat',
+              exampleSentence: 'あそこは [お]国[[お]くに] です。',
+              exampleTranslation: 'Anavi yer vatan, mamlakat.',
+            },
+            {
+              term: '会社 (かいしゃ)',
+              reading: 'かいしゃ',
+              meaning: 'firma, korxona',
+              exampleSentence: '朝[あさ] 8時[はちじ]に 会社[かいしゃ]へ 行きます。',
+              exampleTranslation: 'Ertalab soat 8 da ishxonaga (firmaga) boraman.',
+            },
+            {
+              term: 'うち',
+              reading: 'うち',
+              meaning: 'uy',
+              exampleSentence: '6時[ろくじ]に うちへ 帰[かえ]ります。',
+              exampleTranslation: 'Soat 6 da uyga qaytaman.',
+            },
+            {
+              term: '電話 (でんわ)',
+              reading: 'でんわ',
+              meaning: 'telefon',
+              exampleSentence: 'これは わたしが 買[か]った 電話[でんわ] です。',
+              exampleTranslation: 'Bu men sotib olgan telefon.',
+            },
+            {
+              term: '靴 (くつ)',
+              reading: 'くつ',
+              meaning: 'poyafzal',
+              exampleSentence: 'これは わたしが 買[か]った 靴[くつ] です。',
+              exampleTranslation: 'Bu men sotib olgan poyafzal.',
+            },
+            {
+              term: 'ネクタイ',
+              reading: 'ネクタイ',
+              meaning: "bo'yinbog",
+              exampleSentence: 'これは わたしが 買[か]った ネクタイ です。',
+              exampleTranslation: "Bu men sotib olgan bo'yinbog.",
+            },
+            {
+              term: 'ワイン',
+              reading: 'ワイン',
+              meaning: 'musallas, sharob (vino)',
+              exampleSentence: 'これは わたしが 買[か]った ワイン です。',
+              exampleTranslation: 'Bu men sotib olgan musallas, sharob (vino).',
+            },
+            {
+              term: 'たばこ',
+              reading: 'たばこ',
+              meaning: 'tamaki',
+              exampleSentence: 'これは わたしが 買[か]った たばこ です。',
+              exampleTranslation: 'Bu men sotib olgan tamaki.',
+            },
+            {
+              term: '売り場 (うりば)',
+              reading: 'うりば',
+              meaning: "sotuv rastasi, savdo bo'limi",
+              exampleSentence: 'あそこは 売り場[うりば] です。',
+              exampleTranslation: "Anavi yer sotuv rastasi, savdo bo'limi.",
+            },
+            {
+              term: '地下 (ちか)',
+              reading: 'ちか',
+              meaning: "yer osti, yerto'la",
+              exampleSentence: 'これは わたしが 買[か]った 地下[ちか] です。',
+              exampleTranslation: "Bu men sotib olgan yer osti, yerto'la.",
+            },
+            {
+              term: '～階 (～かい)',
+              reading: '～かい',
+              meaning: '~-qavat',
+              exampleSentence: 'この 部屋[へや]は 階[かい]です。',
+              exampleTranslation: 'Bu xona ~-qavat.',
+            },
+            {
+              term: '何階 (なんがい)',
+              reading: 'なんがい',
+              meaning: 'nechanchi qavat',
+              exampleSentence: 'この 部屋[へや]は 何階[なんがい]です。',
+              exampleTranslation: 'Bu xona nechanchi qavat.',
+            },
+            {
+              term: '～円 (～えん)',
+              reading: '～えん',
+              meaning: '~iyena',
+              exampleSentence: '山田[やまだ]えんは 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada ~iyena samimiy inson.',
+            },
+            {
+              term: 'いくら',
+              reading: 'いくら',
+              meaning: 'necha pul, necha pul turadi, qancha, qancha turadi',
+              exampleSentence: 'この ネクタイは いくらですか。',
+              exampleTranslation: "Bu bo'yinbog' (galstuk) qancha turadi?",
+            },
+            {
+              term: '百 (ひゃく)',
+              reading: 'ひゃく',
+              meaning: 'yuz',
+              exampleSentence: 'これは わたしが 買[か]った 百[ひゃく] です。',
+              exampleTranslation: 'Bu men sotib olgan yuz.',
+            },
+            {
+              term: '千 (せん)',
+              reading: 'せん',
+              meaning: 'ming',
+              exampleSentence: 'これは わたしが 買[か]った 千[せん] です。',
+              exampleTranslation: 'Bu men sotib olgan ming.',
+            },
+            {
+              term: '万 (まん)',
+              reading: 'まん',
+              meaning: "o'n ming",
+              exampleSentence: 'これは わたしが 買[か]った 万[まん] です。',
+              exampleTranslation: "Bu men sotib olgan o'n ming.",
+            },
+            {
+              term: 'すみません。',
+              reading: 'すみません。',
+              meaning: "Kechirasiz. / Meni ma'zur tutasiz.",
+              exampleSentence: 'これは わたしが 買[か]った すみません。 です。',
+              exampleTranslation: "Bu men sotib olgan kechirasiz. / meni ma'zur tutasiz..",
+            },
+            {
+              term: '～でございます。',
+              reading: '～でございます。',
+              meaning: 'u kishi (hurmat shakli)',
+              exampleSentence: '毎日[まいにち] でございます。。',
+              exampleTranslation: 'Har kuni u kishi (hurmat shakli).',
+            },
+            {
+              term: '～を見みせてください。',
+              reading: '～を見みせてください。',
+              meaning: "Iltimos, ~ni ko'rsating.",
+              exampleSentence:
+                '山田[やまだ][を]見[み]せてください。は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: "Yamada iltimos, ~ni ko'rsating. samimiy inson.",
+            },
+            {
+              term: 'じゃ',
+              reading: 'じゃ',
+              meaning: "U holda. / Xo'sh. / Demak.",
+              exampleSentence: 'これは わたしが 買[か]った じゃ です。',
+              exampleTranslation: "Bu men sotib olgan u holda. / xo'sh. / demak..",
+            },
+            {
+              term: '～をください。',
+              reading: '～をください。',
+              meaning: 'Iltimos, ~ni bering.',
+              exampleSentence: '山田[やまだ][を]ください。は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada iltimos, ~ni bering. samimiy inson.',
+            },
+            {
+              term: '新しん大おお阪さか',
+              reading: '新しん大おお阪さか',
+              meaning: 'Shin-Osaka (Osakadagi bekat nomi)',
+              exampleSentence: 'これは わたしが 買[か]った 新[しん]大[おお]阪[さか] です。',
+              exampleTranslation: 'Bu men sotib olgan shin-osaka (osakadagi bekat nomi).',
+            },
+            {
+              term: 'イタリア',
+              reading: 'イタリア',
+              meaning: 'Italiya',
+              exampleSentence: 'これは わたしが 買[か]った イタリア です。',
+              exampleTranslation: 'Bu men sotib olgan italiya.',
+            },
+            {
+              term: 'スイス',
+              reading: 'スイス',
+              meaning: 'Shveysariya',
+              exampleSentence: 'これは わたしが 買[か]った スイス です。',
+              exampleTranslation: 'Bu men sotib olgan shveysariya.',
+            },
+            {
+              term: 'ＭＴ／ヨーネン／アキックス',
+              reading: 'ＭＴ／ヨーネン／アキックス',
+              meaning: "kompaniyalar nomi (o'ylab topilgan)",
+              exampleSentence: 'これは わたしが 買[か]った ＭＴ／ヨーネン／アキックス です。',
+              exampleTranslation: "Bu men sotib olgan kompaniyalar nomi (o'ylab topilgan).",
             },
           ],
           grammarRules: [
             {
               pattern: 'ここ／そこ／あそこ／こちら／そちら／あちら',
               meaning:
-                "これ , それ va あれ ko'rsatish so'zlari predmetga nisbatan qo'llanilishini 2-darsda ko'rib chiqqan edik. ここ , そこ va あそこ ko'rsatish so'zlari o'rin- joyga nisbatan ishlatilib, ここ so'zlovchining turgan joyi, そ",
+                "これ , それ va あれ ko'rsatish so'zlari predmetga nisbatan qo'llanilishini 2-darsda ko'rib chiqqan edik. ここ , そこ va あそこ ko'rsatish so'zlari o'rin- joyga nisbatan ishlatilib, ここ so'zlovchining turgan joyi, そこ suhbatdoshning turgan joyi, あ そこ esa ikkala shaxsdan bir xil masofada uzoqlashgan joyni anglatadi. こちら , そちら va あちら – yo'nalishni ifodalovchi ko'rsatish olmoshlaridir. Shu bilan birga ushbu ko'rsatish olmoshlari ここ , そこ va あそこ ga nisbatan muloyimroq (odobliroq) eshitiladigan o'rin-joyga nisbatan qo'llanib ham kelishi mumkin. 💡 Muhim eslatma: Agar so'zlovchi suhbatdoshning turgan joyini o'zi turgan joyi bilan bir xil ekanligini ta'kidlayotgan bo'lsa, u holda ular ikkisining turgan joyi ここ so'zi bilan ifodalanadi. Ushbu holda そこ - so'zlovchi bilan suhbatdoshidan ozgina nariroqda joylashgan joyni, あそこ esa anchagina uzoqlikdagi joyni ifodalaydi.",
               usageNotes:
-                "これ , それ va あれ ko'rsatish so'zlari predmetga nisbatan qo'llanilishini 2-darsda ko'rib chiqqan edik. ここ , そこ va あそこ ko'rsatish so'zlari o'rin- joyga nisbatan ishlatilib, ここ so'zlovchining turgan joyi, そこ suhbatdoshning turgan joyi, あ そこ esa ikkala shaxsdan bir xil masofada uzoqlashgan joyni anglatadi. こちら , そちら va あちら – yo'nalishni ifodalovchi ko'rsatish olmoshlaridir. Shu bilan birga ushbu ko'rsatish olmoshlari ここ , そこ va あそこ ga nisbatan muloyimroq (odobliroq) eshitiladigan o'rin-joyga nisbatan qo'llanib ham kelishi mumkin. [Eslatma] Agar so'zlovchi suhbatdoshning turgan joyini o'zi turgan joyi bilan bir xil ekanligini ta'kidlayotgan bo'lsa, u holda ular ikkisining turgan joyi ここ so'zi bilan ifodalanadi. Ushbu holda そこ - so'zlovchi bilan suhbatdoshidan ozgina nariroqda joylashgan joyni, あそこ esa anchagina uzoqlikdagi joyni ifodalaydi.",
+                'Minna no Nihongo 3-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'ここ／そこ／あそこ／こちら／そちら／あちら',
-                  translation:
-                    "これ , それ va あれ ko'rsatish so'zlari predmetga nisbatan qo'llanilishini 2-darsda ko",
+                  translation: 'Grammatik qolip.',
                 },
               ],
             },
@@ -936,54 +1620,57 @@ export const MINNA_N5_LESSONS: Lesson[] = [
               meaning:
                 'Ushbu namuna orqali predmet yoki odamning qayerda joylashganini izohlash mumkin. Hojatxona ana u yerda.',
               usageNotes:
-                'Ushbu namuna orqali predmet yoki odamning qayerda joylashganini izohlash mumkin. Hojatxona ana u yerda.',
+                'Minna no Nihongo 3-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'お手[て] 洗[あら] いは あそこです。',
-                  translation: '',
+                  translation: 'Namunaviy gap.',
                 },
                 {
-                  sentence: '電[でん] 話[わ] は ２階[かい] です。 Telefon 2-qavatda.',
-                  translation: '',
+                  sentence: '電[でん] 話[わ] は ２階[かい] です。',
+                  translation: 'Telefon 2-qavatda.',
                 },
                 {
-                  sentence:
-                    '山[やま] 田[だ] さんは 事[じ] 務[む] 所[しょ] です。 Janob Yamada idorada.',
-                  translation: '',
+                  sentence: '山[やま] 田[だ] さんは 事[じ] 務[む] 所[しょ] です。',
+                  translation: 'Janob Yamada idorada.',
                 },
               ],
             },
             {
               pattern: 'どこ／どちら',
               meaning:
-                "どこ so'zi “ qayerda ”, どちら esa “ qaysi tarafda ”, “ qaysi yonalishda ” degan ma'noni bildiradi. Shuningdek, どちら so'roq olmoshi どこ ga nisbatan muloyimroq ohangdagi “ qayer ” so'zini anglatishi mumkin. S",
-              usageNotes:
                 "どこ so'zi “ qayerda ”, どちら esa “ qaysi tarafda ”, “ qaysi yonalishda ” degan ma'noni bildiradi. Shuningdek, どちら so'roq olmoshi どこ ga nisbatan muloyimroq ohangdagi “ qayer ” so'zini anglatishi mumkin. Shuningdek, どこ , どちら so'zlari suhbatdoshdan uning vatani, ish joyi yoki o'quv muassasasining nomi, xohlagan joy nomi haqida so'ralayotgan hollarda qo'llaniladi. どちら so'zi どこ ga nisbatan muloyimroq shakl hisoblanib, bunday hollarda 何 ( nima ) so'roq so'zini qo'llash mumkin emas.",
+              usageNotes:
+                'Minna no Nihongo 3-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
-                  sentence: 'お手[て] 洗[あら] いは どこですか。 Hojatxona qayerda (joylashgan)?',
+                  sentence: 'お手[て] 洗[あら] いは どこですか。',
                   translation: '･･･あそこです。 …Ana u yerda (joylashgan).',
                 },
                 {
-                  sentence: 'エレベータは どちらですか。 Lift qaysi tarafda (joylashgan)?',
+                  sentence: 'エレベータは どちらですか。',
                   translation: '･･･あちらです。 … Ana u tarafda (joylashgan).',
                 },
                 {
-                  sentence: '学校[がっこう] は どこですか。 Qaysi maktabda tahsil olasiz?',
-                  translation: '',
+                  sentence: '学校[がっこう] は どこですか。',
+                  translation: 'Qaysi maktabda tahsil olasiz?',
+                },
+                {
+                  sentence: '会社[かいしゃ] は どちらですか。',
+                  translation: 'Qaysi korxonada ishlaysiz?',
                 },
               ],
             },
             {
               pattern: 'OT 1  の OT 2',
               meaning:
-                "Ushbu tuzilmada どこ - OT 2 ning qayerda va kim tomonidan tayyorlanganligini so'rash uchun qo'llaniladi. Agar OT 1 -davlat nomi, OT 2 -mahsulot (predmet) nomi bo'lsa, u holda OT 2 OT 1 ifodalayotgan dav",
-              usageNotes:
                 "Ushbu tuzilmada どこ - OT 2 ning qayerda va kim tomonidan tayyorlanganligini so'rash uchun qo'llaniladi. Agar OT 1 -davlat nomi, OT 2 -mahsulot (predmet) nomi bo'lsa, u holda OT 2 OT 1 ifodalayotgan davlatda tayyorlanganligidan dalolat beradi. Agar OT 1 korxona nomi, OT 2 esa mahsulot nomi bo'lsa, u holda どこ (qayer) deganda ushbu korxona tushuniladi. ･･･日[に] 本[ほん] の コンピューターです。 ･･･ IMC の コンピューターです。 …IMC firmasining kompyuteri.",
+              usageNotes:
+                'Minna no Nihongo 3-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
-                  sentence: 'これは どこの コンピューターですか。 Bu qayerning kompyuteri?',
-                  translation: '…Yaponiyaning kompyuteri.',
+                  sentence: 'これは どこの コンピューターですか。',
+                  translation: 'Bu qayerning kompyuteri?',
                 },
               ],
             },
@@ -992,12 +1679,11 @@ export const MINNA_N5_LESSONS: Lesson[] = [
               meaning:
                 "OLMOSHLARINING JADVALI こ qator そ qator あ qator ど qator Predmet これ それ あれ どれ (8-dars) Predmet yoki この OT その OT あの OT どの OT shaxs (16-dars) Joy ここ そこ あそこ どこ Yo'nalish こちら そちら あちら どちら Joy (muloyim)",
               usageNotes:
-                "OLMOSHLARINING JADVALI こ qator そ qator あ qator ど qator Predmet これ それ あれ どれ (8-dars) Predmet yoki この OT その OT あの OT どの OT shaxs (16-dars) Joy ここ そこ あそこ どこ Yo'nalish こちら そちら あちら どちら Joy (muloyim)",
+                'Minna no Nihongo 3-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'こ／そ／あ／ど  UMUMIY NEGIZGA EGA BO`LGAN KO`RSATISH',
-                  translation:
-                    'OLMOSHLARINING JADVALI こ qator そ qator あ qator ど qator Predmet これ それ あれ どれ (8-da',
+                  translation: 'Grammatik qolip.',
                 },
               ],
             },
@@ -1006,91 +1692,99 @@ export const MINNA_N5_LESSONS: Lesson[] = [
               meaning:
                 "Suhbatdosh yoki 3-shaxsga nisbatan o'z hurmatini ifodalash maqsadida so'zlovchi suhbatdoshiga tegishli bo'lgan predmetga お old qo'shimchasini qo'shadi.",
               usageNotes:
-                "Suhbatdosh yoki 3-shaxsga nisbatan o'z hurmatini ifodalash maqsadida so'zlovchi suhbatdoshiga tegishli bo'lgan predmetga お old qo'shimchasini qo'shadi.",
+                'Minna no Nihongo 3-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
-                  sentence: 'お国[くに] は どちらですか。 Qaysi davlatdansiz?/ Qayerdansiz?',
-                  translation: '',
+                  sentence: 'お国[くに] は どちらですか。',
+                  translation: 'Qaysi davlatdansiz?/ Qayerdansiz?',
                 },
               ],
             },
           ],
           culturalNotes:
-            "Yapon do'konlarida xaridor kirganda 'いらっしゃいませ' (Xush kelibsiz) deb kutib olinadi. Pul to'lashda pul patnisga (tsuritray) qo'yiladi.",
+            "Yapon savdo markazlarida va do'konlarda xaridor kirganda xushmuomalalik bilan 'いらっしゃいませ' deb kutib olinadi. Pul to'lashda pul patnisga (tsuritray) qo'yiladi, to'g'ridan-to'g'ri qo'lga berilmaydi.",
         },
       },
       {
         id: 'ja-minna-l3-s2',
         title: 'Mustahkamlash Mashqlari',
         type: 'practice',
-        estimatedMinutes: 6,
+        estimatedMinutes: 8,
         practiceData: {
           instructions:
-            "Darsda o'rganilgan yangi so'zlar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
+            "Darsda o'rganilgan yangi so'zlar, zarrachalar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
           exercises: [
             {
               id: 'ja-minna-l3-ex1',
               type: 'multiple-choice',
-              prompt: "「ここ」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
-              options: [
-                'bu yer, bu joy',
-                "u yer, u joy, o'sha yer, o'sha joy",
-                'ana u yer, ana u joy',
-                'qayer',
-              ],
-              correctAnswer: 0,
-              explanation: "To'g'ri javob: bu yer, bu joy.",
+              prompt:
+                "Bo'sh joyga to'g'ri zarrachani qo'ying:\n「あした 9時（　）学校へ 行きます。」",
+              options: ['へ', 'で', 'を', 'に'],
+              correctAnswer: 3,
+              explanation:
+                "To'g'ri javob: 「に」. Aniq vaqt ifodalanganda 'に' zarrachasi qo'yiladi.",
             },
             {
               id: 'ja-minna-l3-ex2',
               type: 'multiple-choice',
-              prompt:
-                "3-dars grammatik qoidasi: '1.  ここ／そこ／あそこ／こちら／そちら／あちら' bo'yicha qaysi gap grammatik jihatdan to'g'ri tuzilgan?",
+              prompt: "「どこ」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
               options: [
-                'お手[て] 洗[あら] いは どこですか。 Hojatxona qayerda (joylashgan)?',
-                'これ は を です。',
-                'だれ が 行きます か でした。',
-                'へ 行きません です。',
+                'qayer',
+                "u yer, u joy, o'sha yer, o'sha joy",
+                'ana u yer, ana u joy',
+                'bu yer, bu joy',
               ],
               correctAnswer: 0,
-              explanation:
-                "To'g'ri javob: お手[て] 洗[あら] いは どこですか。 Hojatxona qayerda (joylashgan)? (･･･あそこです。 …Ana u yerda (joylashgan).).",
+              explanation: "To'g'ri javob: 「qayer」.",
             },
             {
               id: 'ja-minna-l3-ex3',
               type: 'multiple-choice',
-              prompt:
-                "O'zbek tiliga to'g'ri tarjima qiling: 「エレベータは どちらですか。 Lift qaysi tarafda (joylashgan)?」",
+              prompt: "3-dars grammatik qoidasiga muvofiq to'g'ri tuzilgan gapni aniqlang:",
               options: [
-                '･･･あちらです。 … Ana u tarafda (joylashgan).',
-                "Ertaga do'stim bilan mehmonga boraman.",
-                "Kechirasiz, soat necha bo'ldi?",
-                "Iltimos, manzilni ko'rsatib yuboring.",
+                'お手[て] 洗[あら] いは あそこです。',
+                'これ を お手[て] 洗[あら] いは あそこです。',
+                'お手[て] 洗[あら] いは あそこだです。',
+                'お手[て] 洗[あら] いは あそこです か でした。',
               ],
               correctAnswer: 0,
-              explanation: "To'g'ri tarjimasi: ･･･あちらです。 … Ana u tarafda (joylashgan)..",
+              explanation: "To'g'ri gap: 「お手[て] 洗[あら] いは あそこです。」 (Namunaviy gap.).",
             },
             {
               id: 'ja-minna-l3-ex4',
               type: 'multiple-choice',
-              prompt: 'Ushbu darsdagi suhbatdan kelib chiqib: Mariya qanday jumla aytadi?',
+              prompt: "Ushbu gapning to'g'ri yaponcha tarjimasini tanlang:\n「Namunaviy gap.」",
               options: [
-                "Kechirasiz. Sharob sotiladigan bo'lim qayerda?",
-                'Men hech qayerga bormayman.',
-                'Taksida aeroportga haydang.',
-                "Iltimos, hisobni alohida to'laymiz.",
+                '電[でん] 話[わ] は ２階[かい] です。',
+                'お手[て] 洗[あら] いは あそこです。',
+                '山[やま] 田[だ] さんは 事[じ] 務[む] 所[しょ] です。',
+                'ここ／そこ／あそこ／こちら／そちら／あちら',
               ],
-              correctAnswer: 0,
-              explanation: "To'g'ri ibora: Kechirasiz. Sharob sotiladigan bo'lim qayerda?.",
+              correctAnswer: 1,
+              explanation: "Yaponcha to'g'ri ifodasi: 「お手[て] 洗[あら] いは あそこです。」.",
+            },
+            {
+              id: 'ja-minna-l3-ex5',
+              type: 'multiple-choice',
+              prompt:
+                'Suhbatdoshingiz: 「いらっしゃいませ！」 dedi. Unga eng mos muloyim javob qaysi?',
+              options: [
+                '失礼します。',
+                'ごちそうさまでした。',
+                'すみません、この時計を 見せてください。',
+                'おやすみなさい。',
+              ],
+              correctAnswer: 2,
+              explanation: "To'g'ri javob: 「すみません、この時計を 見せてください。」.",
             },
           ],
         },
       },
       {
         id: 'ja-minna-l3-s3',
-        title: 'Sinov Testi',
+        title: 'JLPT N5 Sinov Testi',
         type: 'test',
-        estimatedMinutes: 6,
+        estimatedMinutes: 7,
         testData: {
           instructions:
             "Darsni muvaffaqiyatli yakunlash uchun savollarga to'g'ri javob bering (Kamida 80%).",
@@ -1098,54 +1792,57 @@ export const MINNA_N5_LESSONS: Lesson[] = [
           questions: [
             {
               id: 'ja-minna-l3-q1',
-              question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「お手[て] 洗[あら] いは どこですか。 Hojatxona qayerda (joylashgan)?」",
-              options: [
-                '･･･あそこです。 …Ana u yerda (joylashgan).',
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
-              ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: ･･･あそこです。 …Ana u yerda (joylashgan)..",
+              question: '【Mondai 1: Moji/Goi】「会議室」の 読[よ]み方[かた]は どれですか。',
+              options: ['そこ', 'ここ', 'かいぎしつ', 'あそこ'],
+              correctAnswerIndex: 2,
+              explanation: "「会議室」 ning to'g'ri o'qilishi: 「かいぎしつ」 (majlislar zali).",
             },
             {
               id: 'ja-minna-l3-q2',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「エレベータは どちらですか。 Lift qaysi tarafda (joylashgan)?」",
-              options: [
-                '･･･あちらです。 … Ana u tarafda (joylashgan).',
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
-              ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: ･･･あちらです。 … Ana u tarafda (joylashgan)..",
+                '【Mondai 2: Bunpo】（　）に 入[はい]る 最[もっと]も よいものを 1つ えらびなさい。\n「毎朝 7時（　）起きます。」',
+              options: ['へ', 'を', 'で', 'に'],
+              correctAnswerIndex: 3,
+              explanation: "To'g'ri zarracha: 「に」. Aniq soat bilan 'に' zarrachasi ishlatiladi.",
             },
             {
               id: 'ja-minna-l3-q3',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「これは どこの コンピューターですか。 Bu qayerning kompyuteri?」",
+                "【Mondai 3: Bunpo】3-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
               options: [
-                '…Yaponiyaning kompyuteri.',
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
+                '〜に 食べません でした',
+                '〜を 行きます です',
+                'OT 1 は OT 2  (o`rin-joy)  です',
+                '〜は 〜でした じゃありません',
               ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: …Yaponiyaning kompyuteri..",
+              correctAnswerIndex: 2,
+              explanation: "To'g'ri grammatik formula: 「OT 1 は OT 2  (o`rin-joy)  です」.",
             },
             {
               id: 'ja-minna-l3-q4',
-              question: "「どこ」 so'zining to'g'ri tarjimasi qaysi?",
+              question:
+                "【Mondai 4: Dokkai】Quyidagi yaponcha gapning to'g'ri o'zbekcha ma'nosini toping:\n「電[でん] 話[わ] は ２階[かい] です。」",
               options: [
-                'qayer',
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
+                'Telefon 2-qavatda.',
+                'Namunaviy gap.',
+                'Janob Yamada idorada.',
+                'Grammatik qolip.',
               ],
               correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: qayer.",
+              explanation: "To'g'ri ma'nosi: 「Telefon 2-qavatda.」.",
+            },
+            {
+              id: 'ja-minna-l3-q5',
+              question:
+                "【Mondai 5: Kaiwa】Savolga eng to'g'ri javobni tanlang:\n「トイレは どこですか。」",
+              options: [
+                'あそこです。',
+                'おやすみなさい。',
+                'ごちそうさまでした。',
+                'はい、そうです。',
+              ],
+              correctAnswerIndex: 0,
+              explanation: "To'g'ri javob: 「あそこです。」.",
             },
           ],
         },
@@ -1162,150 +1859,502 @@ export const MINNA_N5_LESSONS: Lesson[] = [
     lessonNumber: 4,
     title: "4-dars: Vaqt, Soatlar va Fe'llar (Ertalabdan kechgacha)",
     description:
-      "Minna no Nihongo Shokyu 1: 4-dars: Vaqt, Soatlar va Fe'llar (Ertalabdan kechgacha). Darsda 65 ta yangi so'z va 7 ta asosiy grammatik qoida o'rganiladi.",
-    estimatedDurationMinutes: 20,
+      "Minna no Nihongo Shokyu 1: 4-dars: Vaqt, Soatlar va Fe'llar (Ertalabdan kechgacha). Darsda 65 ta yangi so'z, audio talaffuzli Furigana misollar va 7 ta asosiy grammatik formula o'rganiladi.",
+    estimatedDurationMinutes: 25,
     icon: '🌸',
     steps: [
       {
         id: 'ja-minna-l4-s1',
         title: "Lug'at va Qoidalar",
         type: 'learn',
-        estimatedMinutes: 8,
+        estimatedMinutes: 10,
         learnData: {
           title: "4-Dars: 4-dars: Vaqt, Soatlar va Fe'llar (Ertalabdan kechgacha)",
           subtitle: '第4課：時間・動詞の現在と過去',
           explanation:
-            "4-dars: Vaqt, Soatlar va Fe'llar (Ertalabdan kechgacha) bo'yicha to'liq grammatik izohlar va qoidalar to'plami. Har bir qoida Minna no Nihongo darsligining o'zbekcha tarjimasiga moslashtirilgan.",
+            "4-dars: Vaqt, Soatlar va Fe'llar (Ertalabdan kechgacha) bo'yicha to'liq grammatik izohlar, formulalar va Furiganali misollar to'plami.",
           keyPoints: [
-            '1.: 今[いま] －時[じ] －分[ふん] です Vaqtni ifodalash uchun 時[じ] ( soat ) va 分[ふん] ( daqiqa ) kabi sanoq suffikslari ishlatiladi. Bunda...',
-            "2. FE’L  ます: ます qo'shimchasi bilan tugagan fe'l gapda kesim bo'lib keladi. ます qo'shimchasi gapning hurmat shaklini ifodalaydi....",
-            "3. FE’L  ます /  FE’L  ません /  FE’L  ました /  FE’L  ませんでした: 1) ます qo'shimchasi gapda hozirgi zamon yoki doimo sodir bo'ladigan ish-harakatni ifodalash uchun qo'llaniladi. Yana bu q...",
-            "4. OT (vaqt)  に  FE’L: Agar fe'l davomsiz harakatni bildirsa, o'sha harakat sodir bo'lganda に qo'shimchasi qo'shiladi. に qo'shimchasi undan old...",
-            "5. OT 1 から  OT 2 まで: 1) から boshlang'ich vaqt yoki joyni, まで oxirini ko'rsatadi. ～から , ～まで yoki ～から～まで dan keyin gohida です fe'li qo'llaniladi....",
-            "6. OT 1 と  OT 2: と qo'shimchasi ikkita otni o'zaro teng bog'laydi. ⑱ 銀行[ぎんこう] の 休[やす] みは 土曜日[どようび] と 日[にち] 曜[よう] 日[び] です。 Bank shanba va ...",
+            '📌 1.: 今[いま] －時[じ] －分[ふん] です Vaqtni ifodalash uchun 時[じ] ( soat ) va 分[ふん] ( daqiqa ) kabi sanoq suffikslari ishlatiladi.',
+            "📌 2. FE’L  ます: ます qo'shimchasi bilan tugagan fe'l gapda kesim bo'lib keladi.",
+            "📌 3. FE’L  ます /  FE’L  ません /  FE’L  ました /  FE’L  ませんでした: 1) ます qo'shimchasi gapda hozirgi zamon yoki doimo sodir bo'ladigan ish-harakatni ifodalash uchun qo'llaniladi.",
+            "📌 4. OT (vaqt)  に  FE’L: Agar fe'l davomsiz harakatni bildirsa, o'sha harakat sodir bo'lganda に qo'shimchasi qo'shiladi.",
+            "📌 5. OT 1 から  OT 2 まで: 1) から boshlang'ich vaqt yoki joyni, まで oxirini ko'rsatadi.",
+            "📌 6. OT 1 と  OT 2: と qo'shimchasi ikkita otni o'zaro teng bog'laydi.",
           ],
           vocabulary: [
             {
-              term: '起きます uyg`onmoq (おきます)',
+              term: '起きます (おきます)',
               reading: 'おきます',
-              meaning: '',
-              exampleSentence: 'おきます — ',
-              exampleTranslation: '',
+              meaning: 'uyg`onmoq',
+              exampleSentence: '毎朝[まいあさ] 6時[ろくじ]に 起[お]きます。',
+              exampleTranslation: "Har kuni ertalab soat 6 da uyg'onaman.",
             },
             {
-              term: '寝ます uxlamoq (ねます)',
+              term: '寝ます (ねます)',
               reading: 'ねます',
-              meaning: '',
-              exampleSentence: 'ねます — ',
-              exampleTranslation: '',
+              meaning: 'uxlamoq',
+              exampleSentence: '夜[よる] 11時[じゅういちじ]に 寝[ね]ます。',
+              exampleTranslation: 'Kechasi soat 11 da uxlayman.',
             },
             {
-              term: '働きます ishlamoq (はたらきます)',
+              term: '働きます (はたらきます)',
               reading: 'はたらきます',
-              meaning: '',
-              exampleSentence: 'はたらきます — ',
-              exampleTranslation: '',
+              meaning: 'ishlamoq',
+              exampleSentence: '月曜日[げつようび]から 金曜日[きんようび]まで 働[はたら]きます。',
+              exampleTranslation: 'Dushanbadan jumagacha ishlayman.',
             },
             {
-              term: '休みます dam olmoq (やすみます)',
+              term: '休みます (やすみます)',
               reading: 'やすみます',
-              meaning: '',
-              exampleSentence: 'やすみます — ',
-              exampleTranslation: '',
+              meaning: 'dam olmoq',
+              exampleSentence: '日曜日[にちようび]に 休[やす]みます。',
+              exampleTranslation: 'Yakshanba kuni dam olaman.',
             },
             {
-              term: '勉強します dars qilmoq, dars tayyorlamoq (べんきょうします)',
+              term: '勉強します (べんきょうします)',
               reading: 'べんきょうします',
-              meaning: '',
-              exampleSentence: 'べんきょうします — ',
-              exampleTranslation: '',
+              meaning: 'dars qilmoq, dars tayyorlamoq',
+              exampleSentence: '図書館[としょかん]で 日本語[にほんご]を 勉強[べんきょう]します。',
+              exampleTranslation: "Kutubxonada yapon tilini o'rganaman.",
             },
             {
-              term: '終わります tugamoq (おわります)',
+              term: '終わります (おわります)',
               reading: 'おわります',
-              meaning: '',
-              exampleSentence: 'おわります — ',
-              exampleTranslation: '',
+              meaning: 'tugamoq',
+              exampleSentence: '授業[じゅぎょう]は 5時[ごじ]に 終[お]わります。',
+              exampleTranslation: 'Dars soat 5 da tugaydi.',
             },
             {
               term: 'デパート',
               reading: 'デパート',
               meaning: 'univermag',
-              exampleSentence: 'デパート — univermag',
-              exampleTranslation: 'univermag',
+              exampleSentence: 'これは わたしが 買[か]った デパート です。',
+              exampleTranslation: 'Bu men sotib olgan univermag.',
             },
             {
-              term: '銀行 bank (ぎんこう)',
+              term: '銀行 (ぎんこう)',
               reading: 'ぎんこう',
-              meaning: '',
-              exampleSentence: 'ぎんこう — ',
-              exampleTranslation: '',
+              meaning: 'bank',
+              exampleSentence: '銀行[ぎんこう]は 9時[くじ]から 3時[さんじ]までです。',
+              exampleTranslation: 'Bank soat 9 dan 3 gacha ishlaydi.',
             },
             {
-              term: '郵便局 pochta idorasi (ゆうびんきょく)',
+              term: '郵便局 (ゆうびんきょく)',
               reading: 'ゆうびんきょく',
-              meaning: '',
-              exampleSentence: 'ゆうびんきょく — ',
-              exampleTranslation: '',
+              meaning: 'pochta idorasi',
+              exampleSentence: '郵便局[ゆうびんきょく]で 切手[きって]を 買[か]います。',
+              exampleTranslation: 'Pochtada pochta markasi sotib olaman.',
             },
             {
-              term: '図書館 kutubxona (としょかん)',
+              term: '図書館 (としょかん)',
               reading: 'としょかん',
-              meaning: '',
-              exampleSentence: 'としょかん — ',
-              exampleTranslation: '',
+              meaning: 'kutubxona',
+              exampleSentence: '大学[だいがく]の 図書館[としょかん]で 調[しら]べます。',
+              exampleTranslation: 'Universitet kutubxonasida qidiraman.',
             },
             {
-              term: '美術館 badiiy san’at muzeyi (びじゅつかん)',
+              term: '美術館 (びじゅつかん)',
               reading: 'びじゅつかん',
-              meaning: '',
-              exampleSentence: 'びじゅつかん — ',
-              exampleTranslation: '',
+              meaning: 'badiiy san’at muzeyi',
+              exampleSentence: '上野[うえの]の 美術館[びじゅつかん]へ 行きました。',
+              exampleTranslation: "Uenodagi san'at muzeyiga bordim.",
             },
             {
-              term: '今 hozir (いま)',
+              term: '今 (いま)',
               reading: 'いま',
-              meaning: '',
-              exampleSentence: 'いま — ',
-              exampleTranslation: '',
+              meaning: 'hozir',
+              exampleSentence: '今[いま] 何時[なんじ] ですか。',
+              exampleTranslation: 'Hozir soat necha?',
             },
             {
-              term: '～時 soat~ (～じ)',
+              term: '～時 (～じ)',
               reading: '～じ',
-              meaning: '',
-              exampleSentence: '～じ — ',
-              exampleTranslation: '',
+              meaning: 'soat~',
+              exampleSentence: '山田[やまだ]じは 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada soat~ samimiy inson.',
             },
             {
-              term: '～分 ~daqiqa (～ふん（～ぷん）)',
-              reading: '～ふん（～ぷん）',
-              meaning: '',
-              exampleSentence: '～ふん（～ぷん） — ',
-              exampleTranslation: '',
+              term: '～分 (～ふん～ぷん)',
+              reading: '～ふん～ぷん',
+              meaning: '~daqiqa',
+              exampleSentence: '山田[やまだ]ふんぷんは 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada ~daqiqa samimiy inson.',
             },
             {
-              term: '半 yarim (はん)',
+              term: '半 (はん)',
               reading: 'はん',
-              meaning: '',
-              exampleSentence: 'はん — ',
-              exampleTranslation: '',
+              meaning: 'yarim',
+              exampleSentence: 'これは わたしが 買[か]った 半yarim[はん] です。',
+              exampleTranslation: 'Bu men sotib olgan yarim.',
+            },
+            {
+              term: '何時 (なんじ)',
+              reading: 'なんじ',
+              meaning: 'soat necha',
+              exampleSentence: 'これは わたしが 買[か]った 何時soatnecha[なんじ] です。',
+              exampleTranslation: 'Bu men sotib olgan soat necha.',
+            },
+            {
+              term: '何分 (なんぷん)',
+              reading: 'なんぷん',
+              meaning: 'necha daqiqa',
+              exampleSentence: 'これは わたしが 買[か]った 何分nechadaqiqa[なんぷん] です。',
+              exampleTranslation: 'Bu men sotib olgan necha daqiqa.',
+            },
+            {
+              term: '午前tungisoat12dantushki12gacha (ごぜん)',
+              reading: 'ごぜん',
+              meaning: "bo'lgan vaqt) masalan: 午前１時 – tungi soat1;",
+              exampleSentence:
+                'これは わたしが 買[か]った 午前tungisoat12dantushki12gacha[ごぜん] です。',
+              exampleTranslation:
+                "Bu men sotib olgan bo'lgan vaqt) masalan: 午前１時 – tungi soat1;.",
+            },
+            {
+              term: '午後tushkisoat12dantungisoat12 (ごご)',
+              reading: 'ごご',
+              meaning:
+                "gacha bo'lgan vaqt) masalan: 午後３時 kunduzgi soat 3; 午後９時 kechki soat 9",
+              exampleSentence:
+                'これは わたしが 買[か]った 午後tushkisoat12dantungisoat12[ごご] です。',
+              exampleTranslation:
+                "Bu men sotib olgan gacha bo'lgan vaqt) masalan: 午後３時 kunduzgi soat 3; 午後９時 kechki soat 9.",
+            },
+            {
+              term: '朝 (あさ)',
+              reading: 'あさ',
+              meaning: 'tong, ertalab',
+              exampleSentence: 'これは わたしが 買[か]った 朝tong,ertalab[あさ] です。',
+              exampleTranslation: 'Bu men sotib olgan tong, ertalab.',
+            },
+            {
+              term: '昼 (ひる)',
+              reading: 'ひる',
+              meaning: 'tush, kunduzi',
+              exampleSentence: '毎日[まいにち] 昼tush,kunduzi[ひる]。',
+              exampleTranslation: 'Har kuni tush, kunduzi.',
+            },
+            {
+              term: '晩 (ばんよる)',
+              reading: 'ばんよる',
+              meaning: '（夜） kech, kechqurun',
+              exampleSentence: '毎日[まいにち] 晩夜kech,kechqurun[ばんよる]。',
+              exampleTranslation: 'Har kuni （夜） kech, kechqurun.',
+            },
+            {
+              term: 'おととい',
+              reading: 'おととい',
+              meaning: "o'tgan kuni, kechadan oldingi kun",
+              exampleSentence: 'この 部屋[へや]は おとといです。',
+              exampleTranslation: "Bu xona o'tgan kuni, kechadan oldingi kun.",
+            },
+            {
+              term: 'きのう',
+              reading: 'きのう',
+              meaning: 'kecha',
+              exampleSentence: '毎日[まいにち] きのう。',
+              exampleTranslation: 'Har kuni kecha.',
+            },
+            {
+              term: 'きょう',
+              reading: 'きょう',
+              meaning: 'bugun',
+              exampleSentence: '毎日[まいにち] きょう。',
+              exampleTranslation: 'Har kuni bugun.',
+            },
+            {
+              term: 'あした',
+              reading: 'あした',
+              meaning: 'ertaga',
+              exampleSentence: 'これは わたしが 買[か]った あした です。',
+              exampleTranslation: 'Bu men sotib olgan ertaga.',
+            },
+            {
+              term: 'あさって',
+              reading: 'あさって',
+              meaning: 'indinga, ertadan keyin',
+              exampleSentence: 'これは わたしが 買[か]った あさって です。',
+              exampleTranslation: 'Bu men sotib olgan indinga, ertadan keyin.',
+            },
+            {
+              term: 'けさ',
+              reading: 'けさ',
+              meaning: 'bugun ertalab, bugun tongda',
+              exampleSentence: 'これは わたしが 買[か]った けさ です。',
+              exampleTranslation: 'Bu men sotib olgan bugun ertalab, bugun tongda.',
+            },
+            {
+              term: '今晩 (こんばん)',
+              reading: 'こんばん',
+              meaning: 'bugun kechqurun',
+              exampleSentence: 'これは わたしが 買[か]った 今晩bugunkechqurun[こんばん] です。',
+              exampleTranslation: 'Bu men sotib olgan bugun kechqurun.',
+            },
+            {
+              term: '休み (やすみ)',
+              reading: 'やすみ',
+              meaning: 'dam olish, ta’til',
+              exampleSentence: 'これは わたしが 買[か]った 休みdamolish,ta’til[やすみ] です。',
+              exampleTranslation: 'Bu men sotib olgan dam olish, ta’til.',
+            },
+            {
+              term: '昼休み (ひるやすみ)',
+              reading: 'ひるやすみ',
+              meaning: 'tushlik / tushki tanaffus',
+              exampleSentence:
+                'これは わたしが 買[か]った 昼休みtushlik/tushkitanaffus[ひるやすみ] です。',
+              exampleTranslation: 'Bu men sotib olgan tushlik / tushki tanaffus.',
+            },
+            {
+              term: '毎朝 (まいあさ)',
+              reading: 'まいあさ',
+              meaning: 'har kuni ertalab, har tong',
+              exampleSentence:
+                'これは わたしが 買[か]った 毎朝harkuniertalab,hartong[まいあさ] です。',
+              exampleTranslation: 'Bu men sotib olgan har kuni ertalab, har tong.',
+            },
+            {
+              term: '毎晩 (まいばん)',
+              reading: 'まいばん',
+              meaning: 'har kuni kechqurun',
+              exampleSentence: 'これは わたしが 買[か]った 毎晩harkunikechqurun[まいばん] です。',
+              exampleTranslation: 'Bu men sotib olgan har kuni kechqurun.',
+            },
+            {
+              term: '毎日 (まいにち)',
+              reading: 'まいにち',
+              meaning: 'har kuni',
+              exampleSentence: 'これは わたしが 買[か]った 毎日harkuni[まいにち] です。',
+              exampleTranslation: 'Bu men sotib olgan har kuni.',
+            },
+            {
+              term: '月曜日 (げつようび)',
+              reading: 'げつようび',
+              meaning: 'dushanba',
+              exampleSentence: 'これは わたしが 買[か]った 月曜日dushanba[げつようび] です。',
+              exampleTranslation: 'Bu men sotib olgan dushanba.',
+            },
+            {
+              term: '火曜日 (かようび)',
+              reading: 'かようび',
+              meaning: 'seshanba',
+              exampleSentence: 'これは わたしが 買[か]った 火曜日seshanba[かようび] です。',
+              exampleTranslation: 'Bu men sotib olgan seshanba.',
+            },
+            {
+              term: '水曜日 (すいようび)',
+              reading: 'すいようび',
+              meaning: 'chorshanba',
+              exampleSentence: 'これは わたしが 買[か]った 水曜日chorshanba[すいようび] です。',
+              exampleTranslation: 'Bu men sotib olgan chorshanba.',
+            },
+            {
+              term: '木曜日 (もくようび)',
+              reading: 'もくようび',
+              meaning: 'payshanba',
+              exampleSentence: 'これは わたしが 買[か]った 木曜日payshanba[もくようび] です。',
+              exampleTranslation: 'Bu men sotib olgan payshanba.',
+            },
+            {
+              term: '金曜日 (きんようび)',
+              reading: 'きんようび',
+              meaning: 'juma',
+              exampleSentence: 'これは わたしが 買[か]った 金曜日juma[きんようび] です。',
+              exampleTranslation: 'Bu men sotib olgan juma.',
+            },
+            {
+              term: '土曜日 (どようび)',
+              reading: 'どようび',
+              meaning: 'shanba',
+              exampleSentence: 'これは わたしが 買[か]った 土曜日shanba[どようび] です。',
+              exampleTranslation: 'Bu men sotib olgan shanba.',
+            },
+            {
+              term: '日曜日 (にちようび)',
+              reading: 'にちようび',
+              meaning: 'yakshanba',
+              exampleSentence: 'これは わたしが 買[か]った 日曜日yakshanba[にちようび] です。',
+              exampleTranslation: 'Bu men sotib olgan yakshanba.',
+            },
+            {
+              term: '何曜日 (なんようび)',
+              reading: 'なんようび',
+              meaning: 'haftaning qaysi kuni',
+              exampleSentence:
+                'これは わたしが 買[か]った 何曜日haftaningqaysikuni[なんようび] です。',
+              exampleTranslation: 'Bu men sotib olgan haftaning qaysi kuni.',
+            },
+            {
+              term: '番号 (ばんごう)',
+              reading: 'ばんごう',
+              meaning: 'raqam',
+              exampleSentence: '毎日[まいにち] 番号raqam[ばんごう]。',
+              exampleTranslation: 'Har kuni raqam.',
+            },
+            {
+              term: '何番 (なんばん)',
+              reading: 'なんばん',
+              meaning: 'nechanchi raqam',
+              exampleSentence: 'これは わたしが 買[か]った 何番nechanchiraqam[なんばん] です。',
+              exampleTranslation: 'Bu men sotib olgan nechanchi raqam.',
+            },
+            {
+              term: '～から',
+              reading: '～から',
+              meaning: '~dan',
+              exampleSentence: '山田[やまだ]からは 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada ~dan samimiy inson.',
+            },
+            {
+              term: '～まで',
+              reading: '～まで',
+              meaning: '~gacha, ~ ga qadar',
+              exampleSentence: '山田[やまだ]までは 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada ~gacha, ~ ga qadar samimiy inson.',
+            },
+            {
+              term: '～と～',
+              reading: '～と～',
+              meaning: '~ bilan ~',
+              exampleSentence: '山田[やまだ]とは 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada ~ bilan ~ samimiy inson.',
+            },
+            {
+              term: 'そちら',
+              reading: 'そちら',
+              meaning: 'sizda',
+              exampleSentence: 'これは わたしが 買[か]った そちら です。',
+              exampleTranslation: 'Bu men sotib olgan sizda.',
+            },
+            {
+              term: '大変ですね。 (たいへんですね。)',
+              reading: 'たいへんですね。',
+              meaning: 'Qiyin bo`libdi.',
+              exampleSentence:
+                'これは わたしが 買[か]った 大変ですね。Qiyinbo`libdi.[たいへんですね。] です。',
+              exampleTranslation: 'Bu men sotib olgan qiyin bo`libdi..',
+            },
+            {
+              term: 'えーと',
+              reading: 'えーと',
+              meaning: "Xo'sh… . (fikrni jamlash payti iborasi)",
+              exampleSentence: 'これは わたしが 買[か]った えーと です。',
+              exampleTranslation: "Bu men sotib olgan xo'sh… . (fikrni jamlash payti iborasi).",
+            },
+            {
+              term: '１０４',
+              reading: '１０４',
+              meaning: "104 (ma'lumotlar bo'limi raqami)",
+              exampleSentence: 'これは わたしが 買[か]った １０４ です。',
+              exampleTranslation: "Bu men sotib olgan 104 (ma'lumotlar bo'limi raqami).",
+            },
+            {
+              term: 'お願ねがいします。',
+              reading: 'お願ねがいします。',
+              meaning: 'Iltimos.',
+              exampleSentence: '毎日[まいにち] お願[ねが]いします。。',
+              exampleTranslation: 'Har kuni iltimos..',
+            },
+            {
+              term: 'かしこまりました。',
+              reading: 'かしこまりました。',
+              meaning: 'Tushundim. / Uqdim.',
+              exampleSentence: 'これは わたしが 買[か]った かしこまりました。 です。',
+              exampleTranslation: 'Bu men sotib olgan tushundim. / uqdim..',
+            },
+            {
+              term: 'お問とい合あわせの番号ばんごう',
+              reading: 'お問とい合あわせの番号ばんごう',
+              meaning: "Ma'lumot uchun telefonlar",
+              exampleSentence:
+                'これは わたしが 買[か]った お問[と]い合[あ]わせの番号[ばんごう] です。',
+              exampleTranslation: "Bu men sotib olgan ma'lumot uchun telefonlar.",
+            },
+            {
+              term: 'どうもありがとうございました。',
+              reading: 'どうもありがとうございました。',
+              meaning: 'Katta rahmat.',
+              exampleSentence: 'これは わたしが 買[か]った [どうも]ありがとうございました。 です。',
+              exampleTranslation: 'Bu men sotib olgan katta rahmat..',
+            },
+            {
+              term: 'ニューヨーク',
+              reading: 'ニューヨーク',
+              meaning: 'Nyu-York',
+              exampleSentence: 'これは わたしが 買[か]った ニューヨーク です。',
+              exampleTranslation: 'Bu men sotib olgan nyu-york.',
+            },
+            {
+              term: 'ペキン',
+              reading: 'ペキン',
+              meaning: 'Pekin',
+              exampleSentence: 'これは わたしが 買[か]った ペキン です。',
+              exampleTranslation: 'Bu men sotib olgan pekin.',
+            },
+            {
+              term: 'ロンドン',
+              reading: 'ロンドン',
+              meaning: 'London',
+              exampleSentence: 'これは わたしが 買[か]った ロンドン です。',
+              exampleTranslation: 'Bu men sotib olgan london.',
+            },
+            {
+              term: 'バンコク',
+              reading: 'バンコク',
+              meaning: 'Bangkok',
+              exampleSentence: 'これは わたしが 買[か]った バンコク です。',
+              exampleTranslation: 'Bu men sotib olgan bangkok.',
+            },
+            {
+              term: 'ロサンゼルス',
+              reading: 'ロサンゼルス',
+              meaning: 'Los-Anjeles',
+              exampleSentence: 'これは わたしが 買[か]った ロサンゼルス です。',
+              exampleTranslation: 'Bu men sotib olgan los-anjeles.',
+            },
+            {
+              term: 'やまと美び術じゅつ館かん',
+              reading: 'やまと美び術じゅつ館かん',
+              meaning: "muzey nomi (o'ylab topilgan)",
+              exampleSentence: 'これは わたしが 買[か]った やまと美[び]術[じゅつ]館[かん] です。',
+              exampleTranslation: "Bu men sotib olgan muzey nomi (o'ylab topilgan).",
+            },
+            {
+              term: '大阪おおさかデパート',
+              reading: '大阪おおさかデパート',
+              meaning: "univermag nomi (o'ylab topilgan)",
+              exampleSentence: 'これは わたしが 買[か]った 大阪[おおさか]デパート です。',
+              exampleTranslation: "Bu men sotib olgan univermag nomi (o'ylab topilgan).",
+            },
+            {
+              term: 'みどり図と書しょ館かん',
+              reading: 'みどり図と書しょ館かん',
+              meaning: "kutubxona nomi (o'ylab topilgan)",
+              exampleSentence: 'これは わたしが 買[か]った みどり図[と]書[しょ]館[かん] です。',
+              exampleTranslation: "Bu men sotib olgan kutubxona nomi (o'ylab topilgan).",
+            },
+            {
+              term: 'アップル銀行ぎんこう',
+              reading: 'アップル銀行ぎんこう',
+              meaning: "bank nomi (o'ylab topilgan)",
+              exampleSentence: 'これは わたしが 買[か]った アップル銀行[ぎんこう] です。',
+              exampleTranslation: "Bu men sotib olgan bank nomi (o'ylab topilgan).",
             },
           ],
           grammarRules: [
             {
               pattern: '1.',
               meaning:
-                "今[いま] －時[じ] －分[ふん] です Vaqtni ifodalash uchun 時[じ] ( soat ) va 分[ふん] ( daqiqa ) kabi sanoq suffikslari ishlatiladi. Bunda son 分[ふん] dan oldin qo'yiladi. 2, 5, 7, 9 kabi raqamlardan keyin ふん , 1, 3, 4, ",
+                "今[いま] －時[じ] －分[ふん] です Vaqtni ifodalash uchun 時[じ] ( soat ) va 分[ふん] ( daqiqa ) kabi sanoq suffikslari ishlatiladi. Bunda son 分[ふん] dan oldin qo'yiladi. 2, 5, 7, 9 kabi raqamlardan keyin ふん , 1, 3, 4, 6, 8, 10 lardan so'ng ぷん deb o'qiladi. Bundan tashqari, 1, 6, 8 va 10 – いっ、ろっ、はっ va じゅっ （じっ） shaklida o'qiladi. なん so'roq so'zi sanoq suffikslari bilan qo'llanilib, son va miqdorga bog'liq savol berish uchun qo'llaniladi. Shunday qilib, なんじ (yoki gohida なんぷん ) vaqtga taalluqli savollarda qo'llanadi. 💡 Muhim eslatma: 1-darsda o'rganganingizdek, は suhbat (mulohaza) mavzusini ifodalaydi. Quyidagi ikkinchi misolda ko'rsatilganidek, jo'g'rofik joy nomlari ham mulohaza mavzusi bo'lib kelishi mumkin.",
               usageNotes:
-                "今[いま] －時[じ] －分[ふん] です Vaqtni ifodalash uchun 時[じ] ( soat ) va 分[ふん] ( daqiqa ) kabi sanoq suffikslari ishlatiladi. Bunda son 分[ふん] dan oldin qo'yiladi. 2, 5, 7, 9 kabi raqamlardan keyin ふん , 1, 3, 4, 6, 8, 10 lardan so'ng ぷん deb o'qiladi. Bundan tashqari, 1, 6, 8 va 10 – いっ、ろっ、はっ va じゅっ （じっ） shaklida o'qiladi. なん so'roq so'zi sanoq suffikslari bilan qo'llanilib, son va miqdorga bog'liq savol berish uchun qo'llaniladi. Shunday qilib, なんじ (yoki gohida なんぷん ) vaqtga taalluqli savollarda qo'llanadi. [Eslatma] 1-darsda o'rganganingizdek, は suhbat (mulohaza) mavzusini ifodalaydi. Quyidagi ikkinchi misolda ko'rsatilganidek, jo'g'rofik joy nomlari ham mulohaza mavzusi bo'lib kelishi mumkin.",
+                'Minna no Nihongo 4-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
-                  sentence: '今[いま] 何[なん] 時[じ] ですか。 Hozir soat necha (bo`ldi)?',
+                  sentence: '今[いま] 何[なん] 時[じ] ですか。',
                   translation: "･･･ ７時[じ] １０分[ぷん] です。 …Soat 7 dan 10 daqiqa o'tdi.",
                 },
                 {
-                  sentence:
-                    'ニューヨークは 今[いま] 何[なん] 時[じ] ですか。 Nyu-Yorkda hozir soat necha (bo`ldi)?',
+                  sentence: 'ニューヨークは 今[いま] 何[なん] 時[じ] ですか。',
                   translation: '･･･ 午前[ごぜん] ４時[じ] です。 …Ertalabki soat 4.',
                 },
               ],
@@ -1315,48 +2364,54 @@ export const MINNA_N5_LESSONS: Lesson[] = [
               meaning:
                 "ます qo'shimchasi bilan tugagan fe'l gapda kesim bo'lib keladi. ます qo'shimchasi gapning hurmat shaklini ifodalaydi.",
               usageNotes:
-                "ます qo'shimchasi bilan tugagan fe'l gapda kesim bo'lib keladi. ます qo'shimchasi gapning hurmat shaklini ifodalaydi.",
+                'Minna no Nihongo 4-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
-                  sentence:
-                    'わたしは 毎日[まいにち] 勉強[べんきょう] します。 Men har kuni dars tayyorlayman.',
-                  translation: '',
+                  sentence: 'わたしは 毎日[まいにち] 勉強[べんきょう] します。',
+                  translation: 'Men har kuni dars tayyorlayman.',
                 },
               ],
             },
             {
               pattern: 'FE’L  ます /  FE’L  ません /  FE’L  ました /  FE’L  ませんでした',
               meaning:
-                "1) ます qo'shimchasi gapda hozirgi zamon yoki doimo sodir bo'ladigan ish-harakatni ifodalash uchun qo'llaniladi. Yana bu qo'shimcha kelasi zamonda sodir bo'ladigan ish- harakatni ifodalash uchun ham qo'",
-              usageNotes:
                 "1) ます qo'shimchasi gapda hozirgi zamon yoki doimo sodir bo'ladigan ish-harakatni ifodalash uchun qo'llaniladi. Yana bu qo'shimcha kelasi zamonda sodir bo'ladigan ish- harakatni ifodalash uchun ham qo'llaniladi. Qo'shimchaning inkor va so'roq shakli quyidagi chizmada ko'rsatilgan. Hozirgi / Kelasi zamon O'tgan zamon Bo'lishli shakl ( おき ) ます ( おき ) ました Bo'lishsiz shakl ( おき ) ません ( おき ) ませんでした oddiy gaplardagidek yasaladi, ya'ni gapda so'zlarning tartibi o'zgarmaydi, gapning oxiriga か qo'shimchasi qo'shiladi. Bunday savollarga javob berayotganda, odatda, fe'l qaytariladi. そうです yoki そうじゃ ありません (2-darsga qarang) qo'llanilishi mumkin emas. ･･･ はい、勉強[べんきょう] しました。 …Ha dars tayyorladim. ･･･ いいえ、勉強[べんきょう] しませんでした。 …Yo'q, dars tayyorlamadim. ･･･ ６時[じ] に 起[お] きます。 …Men soat 6 da uyg'onaman.",
+              usageNotes:
+                'Minna no Nihongo 4-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
-                  sentence:
-                    '毎[まい] 朝[あさ] ６時[じ] に 起[お] きます。 Har kuni ertalab soat 6 da uyg`onaman.',
-                  translation: '',
+                  sentence: '毎[まい] 朝[あさ] ６時[じ] に 起[お] きます。',
+                  translation: 'Har kuni ertalab soat 6 da uyg`onaman.',
                 },
                 {
-                  sentence: 'あした ６時[じ] に 起[お] きます。 Ertaga soat 6 da uyg`onaman.',
-                  translation: '',
+                  sentence: 'あした ６時[じ] に 起[お] きます。',
+                  translation: 'Ertaga soat 6 da uyg`onaman.',
                 },
                 {
-                  sentence: 'けさ ６時[じ] に 起[お] きました。 Bugun ertalab soat 6 da uyg`ondim.',
+                  sentence: 'けさ ６時[じ] に 起[お] きました。',
                   translation:
                     "2) Kesim fe'l orqali ifodalangan gaplarning so'roq shakli xuddi ega va kesimdan iborat",
+                },
+                {
+                  sentence: 'きのう 勉強[べんきょう] しましたか。',
+                  translation: 'Kecha dars tayyorladingizmi?',
+                },
+                {
+                  sentence: '毎[まい] 朝[あさ] 何[なん] 時[じ] に 起[お] きますか。',
+                  translation: 'Har kuni ertalab soat nechada uyqudan turasiz?',
                 },
               ],
             },
             {
               pattern: 'OT (vaqt)  に  FE’L',
               meaning:
-                "Agar fe'l davomsiz harakatni bildirsa, o'sha harakat sodir bo'lganda に qo'shimchasi qo'shiladi. に qo'shimchasi undan oldin kelayotgan ot, sanoq son bilan bog'liq bo'lganda qo'llaniladi ( ⑨ ⑩ ). Yana, ",
-              usageNotes:
                 "Agar fe'l davomsiz harakatni bildirsa, o'sha harakat sodir bo'lganda に qo'shimchasi qo'shiladi. に qo'shimchasi undan oldin kelayotgan ot, sanoq son bilan bog'liq bo'lganda qo'llaniladi ( ⑨ ⑩ ). Yana, bu qo'shimcha hafta kunlariga ham qo'shilishi mumkin, lekin shart emas ( ⑪ ). Agar ot sanoq sonsiz ishlatilsa, に qo'shilmaydi ( ⑫ ).",
+              usageNotes:
+                'Minna no Nihongo 4-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
-                  sentence: '６時[じ] 半[はん] に 起[お] きます。  Soat 6 yarimda turaman.',
-                  translation: '',
+                  sentence: '６時[じ] 半[はん] に 起[お] きます。',
+                  translation: 'Soat 6 yarimda turaman.',
                 },
                 {
                   sentence: '７月[がつ] ２日[ふつか] に 日[に] 本[ほん] へ 来[き] ました。',
@@ -1366,14 +2421,18 @@ export const MINNA_N5_LESSONS: Lesson[] = [
                   sentence: '日[にち] 曜[よう] 日[び] [ に ]  奈良[なら] へ 行[い] きます。',
                   translation: 'Yakshanba kuni Naraga boraman.',
                 },
+                {
+                  sentence: 'きのう 勉強[べんきょう] しました。',
+                  translation: 'Kecha dars tayyorladim.',
+                },
               ],
             },
             {
               pattern: 'OT 1 から  OT 2 まで',
               meaning:
-                "1) から boshlang'ich vaqt yoki joyni, まで oxirini ko'rsatadi. ～から , ～まで yoki ～から～まで dan keyin gohida です fe'li qo'llaniladi. ⑯ 昼[ひる] 休[やす] みは １２時[じ] からです。 Tushlik payti soat 12 dan (boshlanadi). ⑰ 銀行[ぎんこう",
-              usageNotes:
                 "1) から boshlang'ich vaqt yoki joyni, まで oxirini ko'rsatadi. ～から , ～まで yoki ～から～まで dan keyin gohida です fe'li qo'llaniladi. ⑯ 昼[ひる] 休[やす] みは １２時[じ] からです。 Tushlik payti soat 12 dan (boshlanadi). ⑰ 銀行[ぎんこう] は ９時[じ] から ３時[じ] までです。 Bank soat 9 dan 3 gacha (ishlaydi).",
+              usageNotes:
+                'Minna no Nihongo 4-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: '９時[じ] から ５時[じ] まで 働[はたら] きます。',
@@ -1381,7 +2440,7 @@ export const MINNA_N5_LESSONS: Lesson[] = [
                 },
                 {
                   sentence:
-                    '大阪[おおさか] から 東京[とうきょう] まで ３時[じ] 間[かん] かかります。 Osakadan Tokiogacha uch soat ketadi.',
+                    '大阪[おおさか] から 東京[とうきょう] まで ３時[じ] 間[かん] かかります。',
                   translation: '2) から va まで har doim ham birga kelavermaydi.',
                 },
                 {
@@ -1395,103 +2454,110 @@ export const MINNA_N5_LESSONS: Lesson[] = [
               meaning:
                 "と qo'shimchasi ikkita otni o'zaro teng bog'laydi. ⑱ 銀行[ぎんこう] の 休[やす] みは 土曜日[どようび] と 日[にち] 曜[よう] 日[び] です。 Bank shanba va yakshanba kunlari ishlamaydi.",
               usageNotes:
-                "と qo'shimchasi ikkita otni o'zaro teng bog'laydi. ⑱ 銀行[ぎんこう] の 休[やす] みは 土曜日[どようび] と 日[にち] 曜[よう] 日[び] です。 Bank shanba va yakshanba kunlari ishlamaydi.",
+                'Minna no Nihongo 4-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'OT 1 と  OT 2',
-                  translation:
-                    "と qo'shimchasi ikkita otni o'zaro teng bog'laydi. ⑱ 銀行[ぎんこう] の 休[やす] みは 土曜日[どようび",
+                  translation: 'Grammatik qolip.',
                 },
               ],
             },
             {
               pattern: 'GAP  ね',
               meaning:
-                "Gapning oxirida qo'shiladigan ね yuklamasi mulohazaga hissiy-ta'siriy bo'yoq beradi. Masalan, bu yuklama hamdardlikni yoki so'zlovchi suhbatdoshidan kutayotgan rozilikni ifodalalshi mumkin. Oxirgi miso",
-              usageNotes:
                 "Gapning oxirida qo'shiladigan ね yuklamasi mulohazaga hissiy-ta'siriy bo'yoq beradi. Masalan, bu yuklama hamdardlikni yoki so'zlovchi suhbatdoshidan kutayotgan rozilikni ifodalalshi mumkin. Oxirgi misolda ね yuklamasi ma'lumotni tasdiqlash uchun qo'llaniladi. ⑲ 毎日[まいにち] １０時[じ] ごろまで 勉強[べんきょう] します。 Har kuni taxminan soat 10 gacha dars tayyorlayman. ･･･ 大変[たいへん] ですね。 …Sizga qiyin ekan. ⑳ 山[やま] 田[だ] さんの 電[でん] 話[わ] 番[ばん] 号[ごう] は ８７１の６８１３です。 Janob Yamadaning telefon raqami 871-6813. ･･･ ８７１の６８１３ですね。 …871-6813, shundaymi?",
+              usageNotes:
+                'Minna no Nihongo 4-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'GAP  ね',
-                  translation:
-                    "Gapning oxirida qo'shiladigan ね yuklamasi mulohazaga hissiy-ta'siriy bo'yoq bera",
+                  translation: 'Grammatik qolip.',
                 },
               ],
             },
           ],
           culturalNotes:
-            "Yaponiyada poyezdlar va avtobuslar daqiqasigacha aniq ishlaydi. Ish vaqti so'ralganda '何時から何時まで' iborasi juda qo'l keladi.",
+            "Yaponiyada poyezdlar va avtobuslar daqiqasigacha aniq ishlaydi. Banklar va pochtalar qat'iy jadval asosida ishlaydi (odatda 9:00 dan 15:00 yoki 17:00 gacha).",
         },
       },
       {
         id: 'ja-minna-l4-s2',
         title: 'Mustahkamlash Mashqlari',
         type: 'practice',
-        estimatedMinutes: 6,
+        estimatedMinutes: 8,
         practiceData: {
           instructions:
-            "Darsda o'rganilgan yangi so'zlar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
+            "Darsda o'rganilgan yangi so'zlar, zarrachalar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
           exercises: [
             {
               id: 'ja-minna-l4-ex1',
               type: 'multiple-choice',
-              prompt: "「起きます uyg`onmoq」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
-              options: ['', '', '', ''],
+              prompt: "Bo'sh joyga to'g'ri zarrachani qo'ying:\n「食堂（　）昼ご飯を 食べます。」",
+              options: ['で', 'に', 'を', 'へ'],
               correctAnswer: 0,
-              explanation: "To'g'ri javob: .",
+              explanation:
+                "To'g'ri javob: 「で」. Harakat sodir bo'layotgan joy 'で' bilan belgilanadi.",
             },
             {
               id: 'ja-minna-l4-ex2',
               type: 'multiple-choice',
               prompt:
-                "4-dars grammatik qoidasi: '1.' bo'yicha qaysi gap grammatik jihatdan to'g'ri tuzilgan?",
-              options: [
-                '今[いま] 何[なん] 時[じ] ですか。 Hozir soat necha (bo`ldi)?',
-                'これ は を です。',
-                'だれ が 行きます か でした。',
-                'へ 行きません です。',
-              ],
-              correctAnswer: 0,
-              explanation:
-                "To'g'ri javob: 今[いま] 何[なん] 時[じ] ですか。 Hozir soat necha (bo`ldi)? (･･･ ７時[じ] １０分[ぷん] です。 …Soat 7 dan 10 daqiqa o'tdi.).",
+                "「勉強します (べんきょうします)」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
+              options: ['ishlamoq', 'uyg`onmoq', 'uxlamoq', 'dars qilmoq, dars tayyorlamoq'],
+              correctAnswer: 3,
+              explanation: "To'g'ri javob: 「dars qilmoq, dars tayyorlamoq」.",
             },
             {
               id: 'ja-minna-l4-ex3',
               type: 'multiple-choice',
-              prompt:
-                "O'zbek tiliga to'g'ri tarjima qiling: 「ニューヨークは 今[いま] 何[なん] 時[じ] ですか。 Nyu-Yorkda hozir soat necha (bo`ldi)?」",
+              prompt: "4-dars grammatik qoidasiga muvofiq to'g'ri tuzilgan gapni aniqlang:",
               options: [
-                '･･･ 午前[ごぜん] ４時[じ] です。 …Ertalabki soat 4.',
-                "Ertaga do'stim bilan mehmonga boraman.",
-                "Kechirasiz, soat necha bo'ldi?",
-                "Iltimos, manzilni ko'rsatib yuboring.",
+                '今[いま] 何[なん] 時[じ] ですか か でした。',
+                '今[いま] 何[なん] 時[じ] じゃありますか。',
+                '今[いま] 何[なん] 時[じ] だですか。',
+                '今[いま] 何[なん] 時[じ] ですか。',
               ],
-              correctAnswer: 0,
+              correctAnswer: 3,
               explanation:
-                "To'g'ri tarjimasi: ･･･ 午前[ごぜん] ４時[じ] です。 …Ertalabki soat 4..",
+                "To'g'ri gap: 「今[いま] 何[なん] 時[じ] ですか。」 (･･･ ７時[じ] １０分[ぷん] です。 …Soat 7 dan 10 daqiqa o'tdi.).",
             },
             {
               id: 'ja-minna-l4-ex4',
               type: 'multiple-choice',
-              prompt: 'Ushbu darsdagi suhbatdan kelib chiqib: xodimi qanday jumla aytadi?',
+              prompt:
+                "Ushbu gapning to'g'ri yaponcha tarjimasini tanlang:\n「･･･ 午前[ごぜん] ４時[じ] です。 …Ertalabki soat 4.」",
               options: [
-                'Allo, 104 telefon raqamlarini bilib berish xizmatidan Ishida eshitadi.',
-                'Men hech qayerga bormayman.',
-                'Taksida aeroportga haydang.',
-                "Iltimos, hisobni alohida to'laymiz.",
+                '今[いま] 何[なん] 時[じ] ですか。',
+                'ニューヨークは 今[いま] 何[なん] 時[じ] ですか。',
+                '毎[まい] 朝[あさ] ６時[じ] に 起[お] きます。',
+                'わたしは 毎日[まいにち] 勉強[べんきょう] します。',
+              ],
+              correctAnswer: 1,
+              explanation:
+                "Yaponcha to'g'ri ifodasi: 「ニューヨークは 今[いま] 何[なん] 時[じ] ですか。」.",
+            },
+            {
+              id: 'ja-minna-l4-ex5',
+              type: 'multiple-choice',
+              prompt:
+                'Suhbatdoshingiz: 「いっしょに コーヒーを 飲みませんか。」 dedi. Unga eng mos muloyim javob qaysi?',
+              options: [
+                'ええ、飲みましょう。',
+                'ごちそうさまでした。',
+                'おやすみなさい。',
+                '失礼します。',
               ],
               correctAnswer: 0,
-              explanation:
-                "To'g'ri ibora: Allo, 104 telefon raqamlarini bilib berish xizmatidan Ishida eshitadi..",
+              explanation: "To'g'ri javob: 「ええ、飲みましょう。」.",
             },
           ],
         },
       },
       {
         id: 'ja-minna-l4-s3',
-        title: 'Sinov Testi',
+        title: 'JLPT N5 Sinov Testi',
         type: 'test',
-        estimatedMinutes: 6,
+        estimatedMinutes: 7,
         testData: {
           instructions:
             "Darsni muvaffaqiyatli yakunlash uchun savollarga to'g'ri javob bering (Kamida 80%).",
@@ -1499,57 +2565,58 @@ export const MINNA_N5_LESSONS: Lesson[] = [
           questions: [
             {
               id: 'ja-minna-l4-q1',
-              question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「今[いま] 何[なん] 時[じ] ですか。 Hozir soat necha (bo`ldi)?」",
-              options: [
-                "･･･ ７時[じ] １０分[ぷん] です。 …Soat 7 dan 10 daqiqa o'tdi.",
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
-              ],
-              correctAnswerIndex: 0,
+              question: '【Mondai 1: Moji/Goi】「勉強します」の 読[よ]み方[かた]は どれですか。',
+              options: ['おきます', 'べんきょうします', 'はたらきます', 'ねます'],
+              correctAnswerIndex: 1,
               explanation:
-                "To'g'ri javob: ･･･ ７時[じ] １０分[ぷん] です。 …Soat 7 dan 10 daqiqa o'tdi..",
+                "「勉強します」 ning to'g'ri o'qilishi: 「べんきょうします」 (dars qilmoq, dars tayyorlamoq).",
             },
             {
               id: 'ja-minna-l4-q2',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「ニューヨークは 今[いま] 何[なん] 時[じ] ですか。 Nyu-Yorkda hozir soat necha (bo`ldi)?」",
-              options: [
-                '･･･ 午前[ごぜん] ４時[じ] です。 …Ertalabki soat 4.',
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
-              ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: ･･･ 午前[ごぜん] ４時[じ] です。 …Ertalabki soat 4..",
+                '【Mondai 2: Bunpo】（　）に 入[はい]る 最[もっと]も よいものを 1つ えらびなさい。\n「パン（　）食べます。」',
+              options: ['で', 'へ', 'に', 'を'],
+              correctAnswerIndex: 3,
+              explanation: "To'g'ri zarracha: 「を」. Harakat obyekti 'を' (o) bilan belgilanadi.",
             },
             {
               id: 'ja-minna-l4-q3',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「けさ ６時[じ] に 起[お] きました。 Bugun ertalab soat 6 da uyg`ondim.」",
+                "【Mondai 3: Bunpo】4-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
               options: [
-                "2) Kesim fe'l orqali ifodalangan gaplarning so'roq shakli xuddi ega va kesimdan iborat",
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
+                'FE’L  ます',
+                '〜を 行きます です',
+                '〜は 〜でした じゃありません',
+                '〜に 食べません でした',
               ],
               correctAnswerIndex: 0,
-              explanation:
-                "To'g'ri javob: 2) Kesim fe'l orqali ifodalangan gaplarning so'roq shakli xuddi ega va kesimdan iborat.",
+              explanation: "To'g'ri grammatik formula: 「FE’L  ます」.",
             },
             {
               id: 'ja-minna-l4-q4',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「きのう 勉強[べんきょう] しましたか。」",
+                "【Mondai 4: Dokkai】Quyidagi yaponcha gapning to'g'ri o'zbekcha ma'nosini toping:\n「わたしは 毎日[まいにち] 勉強[べんきょう] します。」",
               options: [
-                'Kecha dars tayyorladingizmi?',
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
+                'Men har kuni dars tayyorlayman.',
+                "･･･ ７時[じ] １０分[ぷん] です。 …Soat 7 dan 10 daqiqa o'tdi.",
+                '･･･ 午前[ごぜん] ４時[じ] です。 …Ertalabki soat 4.',
+                'Har kuni ertalab soat 6 da uyg`onaman.',
               ],
               correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Kecha dars tayyorladingizmi?.",
+              explanation: "To'g'ri ma'nosi: 「Men har kuni dars tayyorlayman.」.",
+            },
+            {
+              id: 'ja-minna-l4-q5',
+              question:
+                "【Mondai 5: Kaiwa】Savolga eng to'g'ri javobni tanlang:\n「今 何時ですか。」",
+              options: [
+                'どういたしまして。',
+                'はい、違います。',
+                '午後 3時です。',
+                'いってきます。',
+              ],
+              correctAnswerIndex: 2,
+              explanation: "To'g'ri javob: 「午後 3時です。」.",
             },
           ],
         },
@@ -1566,133 +2633,442 @@ export const MINNA_N5_LESSONS: Lesson[] = [
     lessonNumber: 5,
     title: '5-dars: Harakat, Transport va Safar',
     description:
-      "Minna no Nihongo Shokyu 1: 5-dars: Harakat, Transport va Safar. Darsda 60 ta yangi so'z va 6 ta asosiy grammatik qoida o'rganiladi.",
-    estimatedDurationMinutes: 20,
+      "Minna no Nihongo Shokyu 1: 5-dars: Harakat, Transport va Safar. Darsda 60 ta yangi so'z, audio talaffuzli Furigana misollar va 6 ta asosiy grammatik formula o'rganiladi.",
+    estimatedDurationMinutes: 25,
     icon: '🌸',
     steps: [
       {
         id: 'ja-minna-l5-s1',
         title: "Lug'at va Qoidalar",
         type: 'learn',
-        estimatedMinutes: 8,
+        estimatedMinutes: 10,
         learnData: {
           title: '5-Dars: 5-dars: Harakat, Transport va Safar',
           subtitle: '第5課：行く・来る・帰る・交通手段',
           explanation:
-            "5-dars: Harakat, Transport va Safar bo'yicha to'liq grammatik izohlar va qoidalar to'plami. Har bir qoida Minna no Nihongo darsligining o'zbekcha tarjimasiga moslashtirilgan.",
+            "5-dars: Harakat, Transport va Safar bo'yicha to'liq grammatik izohlar, formulalar va Furiganali misollar to'plami.",
           keyPoints: [
-            "1. OT (o`rin-joy )  へ 行[い] きます ／来[き] ます ／帰[かえ] ります: Harakat fe'llari bilan birga へ yuklamasi otdan keyin qo'yiladi. Bu ot harakat sodir bo'ladigan joyni bildiradi....",
-            "2. どこ [ へ ] も 行[い] きません／行[い] きませんでした: Inkor gapda も yuklamasi gapdagi so'roq so'zidan keyin kelsa, so'roq so'zi anglatadigan barcha hodisa va tushunchalar rad...",
-            "3. OT (harakatlanish vositasi)  で 行[い] きます／来[き] ます／帰[かえ] ります: で yuklamasi harakatlanish usuli yoki vositasini ko'rsatadi. Agar で yuklamasi bilan いきます , きます , かえります va hokazo kabi har...",
-            "4.  OT (jonli)  と  FE’L: Odam yoki hayvonlarni bildiradigan otlardan keyin と yuklamasi qo'llansa, harakatning birgalikda sodir etilishini bildira...",
-            "5.  いつ: Vaqtni aniqlaydigan savol gaplarda なんじ , なんようび , なんがつ va なんに ち kabi なん bilan bog'liq savol so'zlari qo'llaniladi. Shunin...",
-            "6. GAP  よ: よ yuklamasi gapning oxiriga qo'yiladi. Bu yuklama tinglovchi uchun yangi ma'lumotni anglatadi yoki so'zlovchi o'zining g...",
+            "📌 1. OT (o`rin-joy )  へ 行[い] きます ／来[き] ます ／帰[かえ] ります: Harakat fe'llari bilan birga へ yuklamasi otdan keyin qo'yiladi.",
+            "📌 2. どこ [ へ ] も 行[い] きません／行[い] きませんでした: Inkor gapda も yuklamasi gapdagi so'roq so'zidan keyin kelsa, so'roq so'zi anglatadigan barcha hodisa va tushunchalar rad qilinadi.",
+            "📌 3. OT (harakatlanish vositasi)  で 行[い] きます／来[き] ます／帰[かえ] ります: で yuklamasi harakatlanish usuli yoki vositasini ko'rsatadi.",
+            "📌 4.  OT (jonli)  と  FE’L: Odam yoki hayvonlarni bildiradigan otlardan keyin と yuklamasi qo'llansa, harakatning birgalikda sodir etilishini bildiradi.",
+            "📌 5.  いつ: Vaqtni aniqlaydigan savol gaplarda なんじ , なんようび , なんがつ va なんに ち kabi なん bilan bog'liq savol so'zlari qo'llaniladi.",
+            "📌 6. GAP  よ: よ yuklamasi gapning oxiriga qo'yiladi.",
           ],
           vocabulary: [
             {
               term: '行きます (いきます)',
               reading: 'いきます',
               meaning: 'bormoq',
-              exampleSentence: 'いきます — bormoq',
-              exampleTranslation: 'bormoq',
+              exampleSentence: 'あした 京都[きょうと]へ 行[い]きます。',
+              exampleTranslation: 'Ertaga Kiotoga boraman.',
             },
             {
               term: '来ます (きます)',
               reading: 'きます',
               meaning: 'kelmoq',
-              exampleSentence: 'きます — kelmoq',
-              exampleTranslation: 'kelmoq',
+              exampleSentence: '友達[ともだち]が うちへ 来[き]ました。',
+              exampleTranslation: "Do'stim uyimga keldi.",
             },
             {
               term: '帰ります (かえります)',
               reading: 'かえります',
               meaning: 'qaytmoq',
-              exampleSentence: 'かえります — qaytmoq',
-              exampleTranslation: 'qaytmoq',
+              exampleSentence: '午後[ごご] 7時[しちじ]に 国[くに]へ 帰[かえ]ります。',
+              exampleTranslation: 'Kechqurun soat 7 da yurtimga qaytaman.',
             },
             {
               term: '学校 (がっこう)',
               reading: 'がっこう',
               meaning: 'maktab',
-              exampleSentence: 'がっこう — maktab',
-              exampleTranslation: 'maktab',
+              exampleSentence: '自転車[じてんしゃ]で 学校[がっこう]へ 行きます。',
+              exampleTranslation: 'Velosipedda maktabga boraman.',
             },
             {
               term: 'スーパー',
               reading: 'スーパー',
               meaning: "supermarket, savdo do'koni",
-              exampleSentence: "スーパー — supermarket, savdo do'koni",
-              exampleTranslation: "supermarket, savdo do'koni",
+              exampleSentence: '駅[えき]の前[まえ]の スーパーで 買[か]い物[もの]を します。',
+              exampleTranslation: 'Bekat oldidagi supermarketda xarid qilaman.',
             },
             {
               term: '駅 (えき)',
               reading: 'えき',
               meaning: 'vokzal; bekat',
-              exampleSentence: 'えき — vokzal; bekat',
-              exampleTranslation: 'vokzal; bekat',
+              exampleSentence: '新宿[しんじゅく]駅[えき]で 電車[でんしゃ]を降[お]ります。',
+              exampleTranslation: 'Shinjuku bekatida poyezddan tushaman.',
             },
             {
               term: '飛行機 (ひこうき)',
               reading: 'ひこうき',
               meaning: 'samolyot',
-              exampleSentence: 'ひこうき — samolyot',
-              exampleTranslation: 'samolyot',
+              exampleSentence: '飛行機[ひこうき]で 10時間[じゅうじかん] かかります。',
+              exampleTranslation: 'Samolyotda 10 soat ketadi.',
             },
             {
               term: '船 (ふね)',
               reading: 'ふね',
               meaning: 'kema',
-              exampleSentence: 'ふね — kema',
-              exampleTranslation: 'kema',
+              exampleSentence: '横浜[よこはま]から 船[ふね]に 乗[の]ります。',
+              exampleTranslation: "Yokogamadan kemaga o'tiraman.",
             },
             {
               term: '電車 (でんしゃ)',
               reading: 'でんしゃ',
               meaning: 'poyezd',
-              exampleSentence: 'でんしゃ — poyezd',
-              exampleTranslation: 'poyezd',
+              exampleSentence: '地下鉄[ちかてつ]と 電車[でんしゃ]を 使[つか]います。',
+              exampleTranslation: 'Metro va elektr poyezddan foydalanaman.',
             },
             {
               term: '地下鉄 (ちかてつ)',
               reading: 'ちかてつ',
               meaning: 'metro',
-              exampleSentence: 'ちかてつ — metro',
-              exampleTranslation: 'metro',
+              exampleSentence: '東京[とうきょう]の 地下鉄[ちかてつ]は 便利[べんり]です。',
+              exampleTranslation: 'Tokio metrosi juda qulaydir.',
             },
             {
               term: '新幹線 (しんかんせん)',
               reading: 'しんかんせん',
               meaning: '“sinkansen” tez yurar poyezdi',
-              exampleSentence: 'しんかんせん — “sinkansen” tez yurar poyezdi',
-              exampleTranslation: '“sinkansen” tez yurar poyezdi',
+              exampleSentence: '新幹線[しんかんせん]で 大阪[おおさか]へ 行きました。',
+              exampleTranslation: 'Tezyurar Shinkansenda Osakaga bordim.',
             },
             {
               term: 'バス',
               reading: 'バス',
               meaning: 'avtobus',
-              exampleSentence: 'バス — avtobus',
-              exampleTranslation: 'avtobus',
+              exampleSentence: 'バス停[てい]で バスを 待[ま]ちます。',
+              exampleTranslation: 'Bekatda avtobus kutaman.',
             },
             {
               term: 'タクシー',
               reading: 'タクシー',
               meaning: 'taksi',
-              exampleSentence: 'タクシー — taksi',
-              exampleTranslation: 'taksi',
+              exampleSentence: '雨[あめ]ですから、タクシーで 行きましょう。',
+              exampleTranslation: "Yomg'ir yog'yapti, taksida boraylik.",
             },
             {
               term: '自転車 (じてんしゃ)',
               reading: 'じてんしゃ',
               meaning: 'velosiped',
-              exampleSentence: 'じてんしゃ — velosiped',
-              exampleTranslation: 'velosiped',
+              exampleSentence: '弟[おとうと]の 自転車[じてんしゃ]を 借[か]りました。',
+              exampleTranslation: 'Ukamning velosipedini qarzga oldim.',
             },
             {
               term: '歩いて (あるいて)',
               reading: 'あるいて',
               meaning: 'piyoda',
-              exampleSentence: 'あるいて — piyoda',
-              exampleTranslation: 'piyoda',
+              exampleSentence: '駅から 家[いえ]まで 歩[ある]いて 行きます。',
+              exampleTranslation: 'Bekatdan uygacha piyoda boraman.',
+            },
+            {
+              term: '人 (ひと)',
+              reading: 'ひと',
+              meaning: 'odam, kishi, inson',
+              exampleSentence: '親切[しんせつ]な 人[ひと]に 会[あ]いました。',
+              exampleTranslation: 'Mehribon inson bilan uchrashdim.',
+            },
+            {
+              term: '友達 (ともだち)',
+              reading: 'ともだち',
+              meaning: "do'st, dugona",
+              exampleSentence: '友達[ともだち]と いっしょに 映画[えいが]を 見[み]ました。',
+              exampleTranslation: "Do'stim bilan birga kino ko'rdim.",
+            },
+            {
+              term: '彼 (かれ)',
+              reading: 'かれ',
+              meaning: 'u (erkak kishi)',
+              exampleSentence: '彼[かれ]は 英語[えいご]が 上手[じょうず]です。',
+              exampleTranslation: "U (yigit) ingliz tilida ravon so'zlashadi.",
+            },
+            {
+              term: '彼女 (かのじょ)',
+              reading: 'かのじょ',
+              meaning: 'u (ayol kishi)',
+              exampleSentence: '彼女[かのじょ]は さくら大学[だいがく]の 学生[がくせい]です。',
+              exampleTranslation: 'U (qiz) Sakura universiteti talabasi.',
+            },
+            {
+              term: '家族 (かぞく)',
+              reading: 'かぞく',
+              meaning: 'oila',
+              exampleSentence: '家族[かぞく]と 電話[でんわ]で 話[はな]しました。',
+              exampleTranslation: 'Oilam bilan telefonda gaplashdim.',
+            },
+            {
+              term: '一人で (ひとりで)',
+              reading: 'ひとりで',
+              meaning: "bir o'zi(~m, ~ng ), yakka",
+              exampleSentence: '一人[ひとり]で 部屋[へや]を 掃除[そうじ]しました。',
+              exampleTranslation: "Bir o'zim xonani tozaladim.",
+            },
+            {
+              term: '先週 (せんしゅう)',
+              reading: 'せんしゅう',
+              meaning: "o'tgan hafta",
+              exampleSentence: '毎日[まいにち] 先週[せんしゅう]。',
+              exampleTranslation: "Har kuni o'tgan hafta.",
+            },
+            {
+              term: '今週 (こんしゅう)',
+              reading: 'こんしゅう',
+              meaning: 'bu hafta',
+              exampleSentence: '毎日[まいにち] 今週[こんしゅう]。',
+              exampleTranslation: 'Har kuni bu hafta.',
+            },
+            {
+              term: '来週 (らいしゅう)',
+              reading: 'らいしゅう',
+              meaning: 'kelasi hafta',
+              exampleSentence: '毎日[まいにち] 来週[らいしゅう]。',
+              exampleTranslation: 'Har kuni kelasi hafta.',
+            },
+            {
+              term: '先月 (せんげつ)',
+              reading: 'せんげつ',
+              meaning: "o'tgan oy",
+              exampleSentence: 'これは わたしが 買[か]った 先月[せんげつ] です。',
+              exampleTranslation: "Bu men sotib olgan o'tgan oy.",
+            },
+            {
+              term: '今月 (こんげつ)',
+              reading: 'こんげつ',
+              meaning: 'bu oy',
+              exampleSentence: 'これは わたしが 買[か]った 今月[こんげつ] です。',
+              exampleTranslation: 'Bu men sotib olgan bu oy.',
+            },
+            {
+              term: '来月 (らいげつ)',
+              reading: 'らいげつ',
+              meaning: 'kelasi oy',
+              exampleSentence: 'これは わたしが 買[か]った 来月[らいげつ] です。',
+              exampleTranslation: 'Bu men sotib olgan kelasi oy.',
+            },
+            {
+              term: '去年 (きょねん)',
+              reading: 'きょねん',
+              meaning: "o'tgan yili",
+              exampleSentence: 'これは わたしが 買[か]った 去年[きょねん] です。',
+              exampleTranslation: "Bu men sotib olgan o'tgan yili.",
+            },
+            {
+              term: '今年 (ことし)',
+              reading: 'ことし',
+              meaning: 'bu yil',
+              exampleSentence: 'これは わたしが 買[か]った 今年[ことし] です。',
+              exampleTranslation: 'Bu men sotib olgan bu yil.',
+            },
+            {
+              term: '来年 (らいねん)',
+              reading: 'らいねん',
+              meaning: 'kelasi yil',
+              exampleSentence: 'これは わたしが 買[か]った 来年[らいねん] です。',
+              exampleTranslation: 'Bu men sotib olgan kelasi yil.',
+            },
+            {
+              term: '～月 (～がつ)',
+              reading: '～がつ',
+              meaning: '~chi oy, ~oyi',
+              exampleSentence: '山田[やまだ]がつは 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada ~chi oy, ~oyi samimiy inson.',
+            },
+            {
+              term: '何月 (なんがつ)',
+              reading: 'なんがつ',
+              meaning: 'qaysi oy',
+              exampleSentence: 'これは わたしが 買[か]った 何月[なんがつ] です。',
+              exampleTranslation: 'Bu men sotib olgan qaysi oy.',
+            },
+            {
+              term: '1日 (ついたち)',
+              reading: 'ついたち',
+              meaning: 'oyning birinchi sanasi',
+              exampleSentence: 'これは わたしが 買[か]った 1日[ついたち] です。',
+              exampleTranslation: 'Bu men sotib olgan oyning birinchi sanasi.',
+            },
+            {
+              term: '2日 (ふつか)',
+              reading: 'ふつか',
+              meaning: 'oyning ikkinchi sanasi; ikki kun',
+              exampleSentence: 'これは わたしが 買[か]った 2日[ふつか] です。',
+              exampleTranslation: 'Bu men sotib olgan oyning ikkinchi sanasi; ikki kun.',
+            },
+            {
+              term: '3日 (みっか)',
+              reading: 'みっか',
+              meaning: 'oyning uchinchi sanasi; uch kun',
+              exampleSentence: 'これは わたしが 買[か]った 3日[みっか] です。',
+              exampleTranslation: 'Bu men sotib olgan oyning uchinchi sanasi; uch kun.',
+            },
+            {
+              term: '4日 (よっか)',
+              reading: 'よっか',
+              meaning: "oyning to'rtinchi sanasi; to'rt kun",
+              exampleSentence: 'これは わたしが 買[か]った 4日[よっか] です。',
+              exampleTranslation: "Bu men sotib olgan oyning to'rtinchi sanasi; to'rt kun.",
+            },
+            {
+              term: '5日 (いつか)',
+              reading: 'いつか',
+              meaning: 'oyning beshinchi sanasi; besh kun',
+              exampleSentence: 'これは わたしが 買[か]った 5日[いつか] です。',
+              exampleTranslation: 'Bu men sotib olgan oyning beshinchi sanasi; besh kun.',
+            },
+            {
+              term: '6日 (むいか)',
+              reading: 'むいか',
+              meaning: 'oyning oltinchi sanasi; olti kun',
+              exampleSentence: 'これは わたしが 買[か]った 6日[むいか] です。',
+              exampleTranslation: 'Bu men sotib olgan oyning oltinchi sanasi; olti kun.',
+            },
+            {
+              term: '7日 (なのか)',
+              reading: 'なのか',
+              meaning: 'oyning yettinchi sanasi; yetti kun',
+              exampleSentence: 'これは わたしが 買[か]った 7日[なのか] です。',
+              exampleTranslation: 'Bu men sotib olgan oyning yettinchi sanasi; yetti kun.',
+            },
+            {
+              term: '8日 (ようか)',
+              reading: 'ようか',
+              meaning: 'oyning sakkizinchi sanasi; sakkiz kun',
+              exampleSentence: 'これは わたしが 買[か]った 8日[ようか] です。',
+              exampleTranslation: 'Bu men sotib olgan oyning sakkizinchi sanasi; sakkiz kun.',
+            },
+            {
+              term: '9日 (ここのか)',
+              reading: 'ここのか',
+              meaning: "oyning to'qqizinchi sanasi; to'qqiz kun",
+              exampleSentence: 'これは わたしが 買[か]った 9日[ここのか] です。',
+              exampleTranslation: "Bu men sotib olgan oyning to'qqizinchi sanasi; to'qqiz kun.",
+            },
+            {
+              term: '10日 (とおか)',
+              reading: 'とおか',
+              meaning: "oyning oninchi sanasi; o'n kun",
+              exampleSentence: 'これは わたしが 買[か]った 10日[とおか] です。',
+              exampleTranslation: "Bu men sotib olgan oyning oninchi sanasi; o'n kun.",
+            },
+            {
+              term: '14日 (じゅうよっか)',
+              reading: 'じゅうよっか',
+              meaning: "oyning o'n to'rtinchi sanasi; o'n to'rt kun",
+              exampleSentence: 'これは わたしが 買[か]った 14日[じゅうよっか] です。',
+              exampleTranslation: "Bu men sotib olgan oyning o'n to'rtinchi sanasi; o'n to'rt kun.",
+            },
+            {
+              term: '20日 (はつか)',
+              reading: 'はつか',
+              meaning: 'oyning yigirmanchi sanasi; yigirma kun',
+              exampleSentence: 'これは わたしが 買[か]った 20日[はつか] です。',
+              exampleTranslation: 'Bu men sotib olgan oyning yigirmanchi sanasi; yigirma kun.',
+            },
+            {
+              term: '24日 (にじゅうよっか)',
+              reading: 'にじゅうよっか',
+              meaning: "oyning yigirma to'rtinchi sanasi; yigirma to'rt kun",
+              exampleSentence: 'これは わたしが 買[か]った 24日[にじゅうよっか] です。',
+              exampleTranslation:
+                "Bu men sotib olgan oyning yigirma to'rtinchi sanasi; yigirma to'rt kun.",
+            },
+            {
+              term: '～日 (～にち)',
+              reading: '～にち',
+              meaning: '~chi sana, ~chi kun; ~kun',
+              exampleSentence: '山田[やまだ]にちは 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada ~chi sana, ~chi kun; ~kun samimiy inson.',
+            },
+            {
+              term: '何日 (なんにち)',
+              reading: 'なんにち',
+              meaning: 'oyning nechanchi sanasi; necha kun',
+              exampleSentence: 'これは わたしが 買[か]った 何日[なんにち] です。',
+              exampleTranslation: 'Bu men sotib olgan oyning nechanchi sanasi; necha kun.',
+            },
+            {
+              term: 'いつ',
+              reading: 'いつ',
+              meaning: 'qachon',
+              exampleSentence: 'これは わたしが 買[か]った いつ です。',
+              exampleTranslation: 'Bu men sotib olgan qachon.',
+            },
+            {
+              term: '誕生日 (たんじょうび)',
+              reading: 'たんじょうび',
+              meaning: "tug'ilgan kun",
+              exampleSentence: 'これは わたしが 買[か]った 誕生日[たんじょうび] です。',
+              exampleTranslation: "Bu men sotib olgan tug'ilgan kun.",
+            },
+            {
+              term: '普通 (ふつう)',
+              reading: 'ふつう',
+              meaning: 'oddiy poyezd',
+              exampleSentence: '毎日[まいにち] 普通[ふつう]。',
+              exampleTranslation: 'Har kuni oddiy poyezd.',
+            },
+            {
+              term: '急行 (きゅうこう)',
+              reading: 'きゅうこう',
+              meaning: 'tez yurar poyezd',
+              exampleSentence: '毎日[まいにち] 急行[きゅうこう]。',
+              exampleTranslation: 'Har kuni tez yurar poyezd.',
+            },
+            {
+              term: '特急 (とっきゅう)',
+              reading: 'とっきゅう',
+              meaning: 'ekspress (tez yurar) poyezd',
+              exampleSentence: '毎日[まいにち] 特急[とっきゅう]。',
+              exampleTranslation: 'Har kuni ekspress (tez yurar) poyezd.',
+            },
+            {
+              term: '次の (つぎの)',
+              reading: 'つぎの',
+              meaning: 'kelasi, keyingi, navbatdagi',
+              exampleSentence: 'これは わたしが 買[か]った 次の[つぎの] です。',
+              exampleTranslation: 'Bu men sotib olgan kelasi, keyingi, navbatdagi.',
+            },
+            {
+              term: 'どういたしまして。',
+              reading: 'どういたしまして。',
+              meaning: 'Arzimaydi., Hechqisi yoq.',
+              exampleSentence: 'これは わたしが 買[か]った どういたしまして。 です。',
+              exampleTranslation: 'Bu men sotib olgan arzimaydi., hechqisi yoq..',
+            },
+            {
+              term: '～番線ばんせん',
+              reading: '～番線ばんせん',
+              meaning: "~chi yo'l (temir yo'l)",
+              exampleSentence: '山田[やまだ]番線[ばんせん]は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: "Yamada ~chi yo'l (temir yo'l) samimiy inson.",
+            },
+            {
+              term: '博はか多た',
+              reading: '博はか多た',
+              meaning: 'Hakata (Kyushyudagi shahar)',
+              exampleSentence: 'これは わたしが 買[か]った 博[はか]多[た] です。',
+              exampleTranslation: 'Bu men sotib olgan hakata (kyushyudagi shahar).',
+            },
+            {
+              term: '伏ふし見み',
+              reading: '伏ふし見み',
+              meaning: 'Fushimi (Kiotodagi tuman)',
+              exampleSentence: 'これは わたしが 買[か]った 伏[ふし]見[み] です。',
+              exampleTranslation: 'Bu men sotib olgan fushimi (kiotodagi tuman).',
+            },
+            {
+              term: '甲子園こうしえん',
+              reading: '甲子園こうしえん',
+              meaning: 'Koshien (Osaka yaqinidagi shahar)',
+              exampleSentence: 'これは わたしが 買[か]った 甲子園[こうしえん] です。',
+              exampleTranslation: 'Bu men sotib olgan koshien (osaka yaqinidagi shahar).',
+            },
+            {
+              term: '大おお阪さか城じょう',
+              reading: '大おお阪さか城じょう',
+              meaning: "Osaka qal'asi",
+              exampleSentence: 'これは わたしが 買[か]った 大[おお]阪[さか]城[じょう] です。',
+              exampleTranslation: "Bu men sotib olgan osaka qal'asi.",
             },
           ],
           grammarRules: [
@@ -1701,18 +3077,18 @@ export const MINNA_N5_LESSONS: Lesson[] = [
               meaning:
                 "Harakat fe'llari bilan birga へ yuklamasi otdan keyin qo'yiladi. Bu ot harakat sodir bo'ladigan joyni bildiradi.",
               usageNotes:
-                "Harakat fe'llari bilan birga へ yuklamasi otdan keyin qo'yiladi. Bu ot harakat sodir bo'ladigan joyni bildiradi.",
+                'Minna no Nihongo 5-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
-                  sentence: '京[きょう] 都[と] へ 行[い] きます。 Kiotoga boraman.',
-                  translation: '',
+                  sentence: '京[きょう] 都[と] へ 行[い] きます。',
+                  translation: 'Kiotoga boraman.',
                 },
                 {
-                  sentence: '日[に] 本[ほん] へ 来[き] ました。 Yaponiyaga keldim.',
-                  translation: '',
+                  sentence: '日[に] 本[ほん] へ 来[き] ました。',
+                  translation: 'Yaponiyaga keldim.',
                 },
                 {
-                  sentence: 'うちへ 帰[かえ] ります。 Uyimga qaytaman.',
+                  sentence: 'うちへ 帰[かえ] ります。',
                   translation: '[Eslatma] 「へ」 yuklamasi え deb talaffuz qilinadi.',
                 },
               ],
@@ -1722,19 +3098,19 @@ export const MINNA_N5_LESSONS: Lesson[] = [
               meaning:
                 "Inkor gapda も yuklamasi gapdagi so'roq so'zidan keyin kelsa, so'roq so'zi anglatadigan barcha hodisa va tushunchalar rad qilinadi.",
               usageNotes:
-                "Inkor gapda も yuklamasi gapdagi so'roq so'zidan keyin kelsa, so'roq so'zi anglatadigan barcha hodisa va tushunchalar rad qilinadi.",
+                'Minna no Nihongo 5-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
-                  sentence: 'どこ [ へ ] も 行[い] きません。 Hech qayerga bormayman.',
-                  translation: '',
+                  sentence: 'どこ [ へ ] も 行[い] きません。',
+                  translation: 'Hech qayerga bormayman.',
                 },
                 {
-                  sentence: '何[なに] も 食[た] べません。 Hech narsa yemayman.',
-                  translation: '',
+                  sentence: '何[なに] も 食[た] べません。',
+                  translation: 'Hech narsa yemayman.',
                 },
                 {
-                  sentence: 'だれも いません。 Hech kim yoq.',
-                  translation: '',
+                  sentence: 'だれも いません。',
+                  translation: 'Hech kim yoq.',
                 },
               ],
             },
@@ -1742,56 +3118,54 @@ export const MINNA_N5_LESSONS: Lesson[] = [
               pattern:
                 'OT (harakatlanish vositasi)  で 行[い] きます／来[き] ます／帰[かえ] ります',
               meaning:
-                "で yuklamasi harakatlanish usuli yoki vositasini ko'rsatadi. Agar で yuklamasi bilan いきます , きます , かえります va hokazo kabi harakatlanishni bildiradigan fe'llar qo'llansa, で yuklamasi harakatlanish vositasin",
-              usageNotes:
                 "で yuklamasi harakatlanish usuli yoki vositasini ko'rsatadi. Agar で yuklamasi bilan いきます , きます , かえります va hokazo kabi harakatlanishni bildiradigan fe'llar qo'llansa, で yuklamasi harakatlanish vositasini anglatadi. Bu holda で dan oldindagi ot transport vositasi deyiladi. ishlatganingiz ma'qul. Bu holda で yuklamasi qo'llanilmaydi.",
+              usageNotes:
+                'Minna no Nihongo 5-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
-                  sentence: '電車[でんしゃ] で 行[い] きます。 Poyezdda boraman.',
-                  translation: '',
+                  sentence: '電車[でんしゃ] で 行[い] きます。',
+                  translation: 'Poyezdda boraman.',
                 },
                 {
-                  sentence: 'タクシーで 来[き] ました。 Taksida keldim.',
+                  sentence: 'タクシーで 来[き] ました。',
                   translation: "Agar siz piyoda ketayotgan bo'sangiz, あるいて ( あるく ) so'zini",
                 },
                 {
-                  sentence:
-                    '駅[えき] から 歩[ある] いて 帰[かえ] りました。 Men bekatdan piyoda qaytdim.',
-                  translation: '',
+                  sentence: '駅[えき] から 歩[ある] いて 帰[かえ] りました。',
+                  translation: 'Men bekatdan piyoda qaytdim.',
                 },
               ],
             },
             {
               pattern: 'OT (jonli)  と  FE’L',
               meaning:
-                "Odam yoki hayvonlarni bildiradigan otlardan keyin と yuklamasi qo'llansa, harakatning birgalikda sodir etilishini bildiradi. Yakka holdagi harakat uchun ひとりで iborasi qo'llaniladi va undan keyin と yukla",
-              usageNotes:
                 "Odam yoki hayvonlarni bildiradigan otlardan keyin と yuklamasi qo'llansa, harakatning birgalikda sodir etilishini bildiradi. Yakka holdagi harakat uchun ひとりで iborasi qo'llaniladi va undan keyin と yuklamasi qo'yilmaydi.",
+              usageNotes:
+                'Minna no Nihongo 5-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: '家[か] 族[ぞく] と 日[に] 本[ほん] へ 来[き] ました。',
                   translation: 'Men Yaponiyaga oilam bilan keldim.',
                 },
                 {
-                  sentence:
-                    '一人[ひとり] で 東京[とうきょう] へ 行[い] きます。 Men bir o`zim Tokioga boraman.',
-                  translation: '',
+                  sentence: '一人[ひとり] で 東京[とうきょう] へ 行[い] きます。',
+                  translation: 'Men bir o`zim Tokioga boraman.',
                 },
               ],
             },
             {
               pattern: 'いつ',
               meaning:
-                "Vaqtni aniqlaydigan savol gaplarda なんじ , なんようび , なんがつ va なんに ち kabi なん bilan bog'liq savol so'zlari qo'llaniladi. Shuningdek, biror-bir hodisa qachon sodir bo'lishi yoki sodir bo'lganligi haqidagi sav",
-              usageNotes:
                 "Vaqtni aniqlaydigan savol gaplarda なんじ , なんようび , なんがつ va なんに ち kabi なん bilan bog'liq savol so'zlari qo'llaniladi. Shuningdek, biror-bir hodisa qachon sodir bo'lishi yoki sodir bo'lganligi haqidagi savollarda いつ so'zi qo'llaniladi va u bilan birga に yuklamasi qo'llanilmaydi. ･･･３月[がつ] ２５日[にち] に 来[き] ました。 …25 martda keldim.",
+              usageNotes:
+                'Minna no Nihongo 5-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'いつ 日[に] 本[ほん] へ 来[き] ましたか。',
                   translation: 'Qachon Yaponiyaga keldingiz?',
                 },
                 {
-                  sentence: 'いつ 広島[ひろしま] へ 行[い] きますか。 Qachon Xirosimaga borasiz?',
+                  sentence: 'いつ 広島[ひろしま] へ 行[い] きますか。',
                   translation: '･･･来週[らいしゅう] 行[い] きます。 …Kelasi haftada boraman.',
                 },
               ],
@@ -1801,7 +3175,7 @@ export const MINNA_N5_LESSONS: Lesson[] = [
               meaning:
                 "よ yuklamasi gapning oxiriga qo'yiladi. Bu yuklama tinglovchi uchun yangi ma'lumotni anglatadi yoki so'zlovchi o'zining gaplariga to'liq aminligini anglatadi. Bu elektr poyezd Koshienga boradimi?",
               usageNotes:
-                "よ yuklamasi gapning oxiriga qo'yiladi. Bu yuklama tinglovchi uchun yangi ma'lumotni anglatadi yoki so'zlovchi o'zining gaplariga to'liq aminligini anglatadi. Bu elektr poyezd Koshienga boradimi?",
+                'Minna no Nihongo 5-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'この 電車[でんしゃ] は 甲[こう] 子[し] 園[えん] へ 行[い] きますか。',
@@ -1816,77 +3190,85 @@ export const MINNA_N5_LESSONS: Lesson[] = [
             },
           ],
           culturalNotes:
-            'Yaponiyada transport tizimi dunyoda eng rivojlanganlardan biri. Shinkansen (tezyurar poyezd) va metro orqali istalgan manzilga tez yetib boriladi.',
+            "Yaponiyada transport tizimi juda rivojlangan. Tezyurar poyezd Shinkansen bilan shaharlararo sayohat qilinadi. Pasxa va Obon bayramlarida hamma o'z ona shahriga (furusato) qaytadi.",
         },
       },
       {
         id: 'ja-minna-l5-s2',
         title: 'Mustahkamlash Mashqlari',
         type: 'practice',
-        estimatedMinutes: 6,
+        estimatedMinutes: 8,
         practiceData: {
           instructions:
-            "Darsda o'rganilgan yangi so'zlar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
+            "Darsda o'rganilgan yangi so'zlar, zarrachalar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
           exercises: [
             {
               id: 'ja-minna-l5-ex1',
               type: 'multiple-choice',
-              prompt: "「行きます」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
-              options: ['bormoq', 'kelmoq', 'qaytmoq', 'maktab'],
-              correctAnswer: 0,
-              explanation: "To'g'ri javob: bormoq.",
+              prompt:
+                "Bo'sh joyga to'g'ri zarrachani qo'ying:\n「友達（　）いっしょに 帰ります。」",
+              options: ['に', 'へ', 'で', 'と'],
+              correctAnswer: 3,
+              explanation:
+                "To'g'ri javob: 「と」. Birgalikdagi shaxs 'と' zarrachasi orqali ifodalanadi.",
             },
             {
               id: 'ja-minna-l5-ex2',
               type: 'multiple-choice',
-              prompt:
-                "5-dars grammatik qoidasi: '1. OT (o`rin-joy )  へ 行[い] きます ／来[き] ます ／帰[かえ] ります' bo'yicha qaysi gap grammatik jihatdan to'g'ri tuzilgan?",
-              options: [
-                'うちへ 帰[かえ] ります。 Uyimga qaytaman.',
-                'これ は を です。',
-                'だれ が 行きます か でした。',
-                'へ 行きません です。',
-              ],
-              correctAnswer: 0,
-              explanation:
-                "To'g'ri javob: うちへ 帰[かえ] ります。 Uyimga qaytaman. ([Eslatma] 「へ」 yuklamasi え deb talaffuz qilinadi.).",
+              prompt: "「駅 (えき)」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
+              options: ['qaytmoq', 'kelmoq', 'vokzal; bekat', 'bormoq'],
+              correctAnswer: 2,
+              explanation: "To'g'ri javob: 「vokzal; bekat」.",
             },
             {
               id: 'ja-minna-l5-ex3',
               type: 'multiple-choice',
-              prompt:
-                "O'zbek tiliga to'g'ri tarjima qiling: 「タクシーで 来[き] ました。 Taksida keldim.」",
+              prompt: "5-dars grammatik qoidasiga muvofiq to'g'ri tuzilgan gapni aniqlang:",
               options: [
-                "Agar siz piyoda ketayotgan bo'sangiz, あるいて ( あるく ) so'zini",
-                "Ertaga do'stim bilan mehmonga boraman.",
-                "Kechirasiz, soat necha bo'ldi?",
-                "Iltimos, manzilni ko'rsatib yuboring.",
+                '京[きょう] 都[と] へ 行[い] きます です。',
+                '京[きょう] 都[と] へ 行[い] きません でした です。',
+                '京[きょう] 都[と] へ 行[い] きます。',
+                '京[きょう] 都[と] に 行[い] きます。',
               ],
-              correctAnswer: 0,
+              correctAnswer: 2,
               explanation:
-                "To'g'ri tarjimasi: Agar siz piyoda ketayotgan bo'sangiz, あるいて ( あるく ) so'zini.",
+                "To'g'ri gap: 「京[きょう] 都[と] へ 行[い] きます。」 (Kiotoga boraman.).",
             },
             {
               id: 'ja-minna-l5-ex4',
               type: 'multiple-choice',
-              prompt: 'Ushbu darsdagi suhbatdan kelib chiqib: Santos qanday jumla aytadi?',
+              prompt: "Ushbu gapning to'g'ri yaponcha tarjimasini tanlang:\n「Yaponiyaga keldim.」",
               options: [
-                'Kechirasiz, Koshiengacha chipta necha pul turadi?',
-                'Men hech qayerga bormayman.',
-                'Taksida aeroportga haydang.',
-                "Iltimos, hisobni alohida to'laymiz.",
+                '京[きょう] 都[と] へ 行[い] きます。',
+                'どこ [ へ ] も 行[い] きません。',
+                'うちへ 帰[かえ] ります。',
+                '日[に] 本[ほん] へ 来[き] ました。',
               ],
-              correctAnswer: 0,
-              explanation: "To'g'ri ibora: Kechirasiz, Koshiengacha chipta necha pul turadi?.",
+              correctAnswer: 3,
+              explanation: "Yaponcha to'g'ri ifodasi: 「日[に] 本[ほん] へ 来[き] ました。」.",
+            },
+            {
+              id: 'ja-minna-l5-ex5',
+              type: 'multiple-choice',
+              prompt:
+                'Suhbatdoshingiz: 「お疲れ様でした。」 dedi. Unga eng mos muloyim javob qaysi?',
+              options: [
+                'おやすみなさい。',
+                'ごちそうさまでした。',
+                'お疲れ様でした。',
+                '失礼します。',
+              ],
+              correctAnswer: 2,
+              explanation: "To'g'ri javob: 「お疲れ様でした。」.",
             },
           ],
         },
       },
       {
         id: 'ja-minna-l5-s3',
-        title: 'Sinov Testi',
+        title: 'JLPT N5 Sinov Testi',
         type: 'test',
-        estimatedMinutes: 6,
+        estimatedMinutes: 7,
         testData: {
           instructions:
             "Darsni muvaffaqiyatli yakunlash uchun savollarga to'g'ri javob bering (Kamida 80%).",
@@ -1894,56 +3276,60 @@ export const MINNA_N5_LESSONS: Lesson[] = [
           questions: [
             {
               id: 'ja-minna-l5-q1',
-              question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「うちへ 帰[かえ] ります。 Uyimga qaytaman.」",
-              options: [
-                '[Eslatma] 「へ」 yuklamasi え deb talaffuz qilinadi.',
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
-              ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: [Eslatma] 「へ」 yuklamasi え deb talaffuz qilinadi..",
+              question: '【Mondai 1: Moji/Goi】「飛行機」の 読[よ]み方[かた]は どれですか。',
+              options: ['かえります', 'ひこうき', 'きます', 'いきます'],
+              correctAnswerIndex: 1,
+              explanation: "「飛行機」 ning to'g'ri o'qilishi: 「ひこうき」 (samolyot).",
             },
             {
               id: 'ja-minna-l5-q2',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「タクシーで 来[き] ました。 Taksida keldim.」",
-              options: [
-                "Agar siz piyoda ketayotgan bo'sangiz, あるいて ( あるく ) so'zini",
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
-              ],
-              correctAnswerIndex: 0,
+                '【Mondai 2: Bunpo】（　）に 入[はい]る 最[もっと]も よいものを 1つ えらびなさい。\n「京都（　）行きます。」',
+              options: ['から', 'を', 'で', 'へ'],
+              correctAnswerIndex: 3,
               explanation:
-                "To'g'ri javob: Agar siz piyoda ketayotgan bo'sangiz, あるいて ( あるく ) so'zini.",
+                "To'g'ri zarracha: 「へ」. Boriladigan yo'nalish 'へ' (e deb o'qiladi) bilan belgilanadi.",
             },
             {
               id: 'ja-minna-l5-q3',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「家[か] 族[ぞく] と 日[に] 本[ほん] へ 来[き] ました。」",
+                "【Mondai 3: Bunpo】5-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
               options: [
-                'Men Yaponiyaga oilam bilan keldim.',
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
+                '〜を 行きます です',
+                'どこ [ へ ] も 行[い] きません／行[い] きませんでした',
+                '〜は 〜でした じゃありません',
+                '〜に 食べません でした',
               ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Men Yaponiyaga oilam bilan keldim..",
+              correctAnswerIndex: 1,
+              explanation:
+                "To'g'ri grammatik formula: 「どこ [ へ ] も 行[い] きません／行[い] きませんでした」.",
             },
             {
               id: 'ja-minna-l5-q4',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「いつ 日[に] 本[ほん] へ 来[き] ましたか。」",
+                "【Mondai 4: Dokkai】Quyidagi yaponcha gapning to'g'ri o'zbekcha ma'nosini toping:\n「うちへ 帰[かえ] ります。」",
               options: [
-                'Qachon Yaponiyaga keldingiz?',
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
+                '[Eslatma] 「へ」 yuklamasi え deb talaffuz qilinadi.',
+                'Yaponiyaga keldim.',
+                'Hech qayerga bormayman.',
+                'Kiotoga boraman.',
               ],
               correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Qachon Yaponiyaga keldingiz?.",
+              explanation:
+                "To'g'ri ma'nosi: 「[Eslatma] 「へ」 yuklamasi え deb talaffuz qilinadi.」.",
+            },
+            {
+              id: 'ja-minna-l5-q5',
+              question:
+                "【Mondai 5: Kaiwa】Savolga eng to'g'ri javobni tanlang:\n「いっしょに 京都へ 行きませんか。」",
+              options: [
+                'すみません、トイレです。',
+                'いただきます。',
+                'ええ、飲みましょう。',
+                'いいえ、行きます。',
+              ],
+              correctAnswerIndex: 2,
+              explanation: "To'g'ri javob: 「ええ、飲みましょう。」.",
             },
           ],
         },
@@ -1960,142 +3346,445 @@ export const MINNA_N5_LESSONS: Lesson[] = [
     lessonNumber: 6,
     title: "6-dars: Kundalik faoliyat va Obyekt (Harakat fe'llari)",
     description:
-      "Minna no Nihongo Shokyu 1: 6-dars: Kundalik faoliyat va Obyekt (Harakat fe'llari). Darsda 59 ta yangi so'z va 8 ta asosiy grammatik qoida o'rganiladi.",
-    estimatedDurationMinutes: 20,
+      "Minna no Nihongo Shokyu 1: 6-dars: Kundalik faoliyat va Obyekt (Harakat fe'llari). Darsda 59 ta yangi so'z, audio talaffuzli Furigana misollar va 8 ta asosiy grammatik formula o'rganiladi.",
+    estimatedDurationMinutes: 25,
     icon: '🌸',
     steps: [
       {
         id: 'ja-minna-l6-s1',
         title: "Lug'at va Qoidalar",
         type: 'learn',
-        estimatedMinutes: 8,
+        estimatedMinutes: 10,
         learnData: {
           title: "6-Dars: 6-dars: Kundalik faoliyat va Obyekt (Harakat fe'llari)",
           subtitle: '第6課：動詞と目的語（〜を、〜で）',
           explanation:
-            "6-dars: Kundalik faoliyat va Obyekt (Harakat fe'llari) bo'yicha to'liq grammatik izohlar va qoidalar to'plami. Har bir qoida Minna no Nihongo darsligining o'zbekcha tarjimasiga moslashtirilgan.",
+            "6-dars: Kundalik faoliyat va Obyekt (Harakat fe'llari) bo'yicha to'liq grammatik izohlar, formulalar va Furiganali misollar to'plami.",
           keyPoints: [
-            "1. OT  を FE’L (o`timli): を tushum kelishigi ko'rsatkichi bo'lib, o'timli fe'l sifatida ifodalangan ish-harakatning to'g'ri to'ldiruvchisini ifoda...",
-            "2. OT  をします: します fe'lining ob'ekti sifatida turli xil otlar kelishi mumkin. します fe'li ot so'z turkumi bilan ifodalangan ish-harakatni...",
-            "3.  何[なに] を しますか: Ushbu so'roq gap ma'lum bir shaxs ish-harakatining mazmuniga qaratilib, ushbu shaxs nima bilan shug'ullanishi, nima qili...",
-            "4.    なん  va  なに: なん so'zi kabi なに ham “ nima ” ma'nosini ifodalaydi. 1) なん quyidagi hollarda qo'llaniladi. (1) た , だ , な – qator harflari...",
-            "5.     OT (o`rin-joy) で  FE’L: Agar Ot (o'rin-joy) yoki joy nomidan keyin で (o'rin-payt kelishigi ko'rsatkichi) kelsa, u holda ushbu qo'shimchali so'z ...",
-            "6. FE’L  ませんか: Ushbu shaklda tugallanadigan gap so'roq va inkor ma'nosini emas, balki ish-harakatning bajarilishiga yo'naltirilgan takl...",
+            "📌 1. OT  を FE’L (o`timli): を tushum kelishigi ko'rsatkichi bo'lib, o'timli fe'l sifatida ifodalangan ish-harakatning to'g'ri to'ldiruvchisini ifodalaydi.",
+            "📌 2. OT  をします: します fe'lining ob'ekti sifatida turli xil otlar kelishi mumkin.",
+            "📌 3.  何[なに] を しますか: Ushbu so'roq gap ma'lum bir shaxs ish-harakatining mazmuniga qaratilib, ushbu shaxs nima bilan shug'ullanishi, nima qilish niyati borligini bilish uchun qo'llaniladi.",
+            "📌 4.    なん  va  なに: なん so'zi kabi なに ham “ nima ” ma'nosini ifodalaydi.",
+            "📌 5.     OT (o`rin-joy) で  FE’L: Agar Ot (o'rin-joy) yoki joy nomidan keyin で (o'rin-payt kelishigi ko'rsatkichi) kelsa, u holda ushbu qo'shimchali so'z ish-harakat bajarilgan joyni anglatadi.",
+            "📌 6. FE’L  ませんか: Ushbu shaklda tugallanadigan gap so'roq va inkor ma'nosini emas, balki ish-harakatning bajarilishiga yo'naltirilgan taklif ma'nosini anglatadi.",
           ],
           vocabulary: [
             {
-              term: 'たべます 食べます',
-              reading: 'たべます 食べます',
+              term: 'たべます食べます',
+              reading: 'たべます食べます',
               meaning: 'yemoq',
-              exampleSentence: 'たべます 食べます — yemoq',
-              exampleTranslation: 'yemoq',
+              exampleSentence: '毎日[まいにち] たべます食べます。',
+              exampleTranslation: 'Har kuni yemoq.',
             },
             {
-              term: 'のみます 飲みます',
-              reading: 'のみます 飲みます',
+              term: 'のみます飲みます',
+              reading: 'のみます飲みます',
               meaning: 'ichmoq',
-              exampleSentence: 'のみます 飲みます — ichmoq',
-              exampleTranslation: 'ichmoq',
+              exampleSentence: '毎日[まいにち] のみます飲みます。',
+              exampleTranslation: 'Har kuni ichmoq.',
             },
             {
-              term: 'すいます 吸います',
-              reading: 'すいます 吸います',
+              term: 'すいます吸います',
+              reading: 'すいます吸います',
               meaning: 'chekmoq',
-              exampleSentence: 'すいます 吸います — chekmoq',
-              exampleTranslation: 'chekmoq',
+              exampleSentence: '毎日[まいにち] すいます吸います。',
+              exampleTranslation: 'Har kuni chekmoq.',
             },
             {
-              term: '[ たばこを～ ]',
-              reading: '[ たばこを～ ]',
+              term: 'たばこを～',
+              reading: 'たばこを～',
               meaning: '(tamaki chekmoq)',
-              exampleSentence: '[ たばこを～ ] — (tamaki chekmoq)',
-              exampleTranslation: '(tamaki chekmoq)',
+              exampleSentence: '山田[やまだ][たばこを]は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada (tamaki chekmoq) samimiy inson.',
             },
             {
-              term: 'みます 見ます',
-              reading: 'みます 見ます',
+              term: 'みます見ます',
+              reading: 'みます見ます',
               meaning: "ko'rmoq",
-              exampleSentence: "みます 見ます — ko'rmoq",
-              exampleTranslation: "ko'rmoq",
+              exampleSentence: '毎日[まいにち] みます見ます。',
+              exampleTranslation: "Har kuni ko'rmoq.",
             },
             {
-              term: 'ききます 聞きます',
-              reading: 'ききます 聞きます',
+              term: 'ききます聞きます',
+              reading: 'ききます聞きます',
               meaning: 'eshitmoq',
-              exampleSentence: 'ききます 聞きます — eshitmoq',
-              exampleTranslation: 'eshitmoq',
+              exampleSentence: '毎日[まいにち] ききます聞きます。',
+              exampleTranslation: 'Har kuni eshitmoq.',
             },
             {
-              term: 'よみます 読みます',
-              reading: 'よみます 読みます',
+              term: 'よみます読みます',
+              reading: 'よみます読みます',
               meaning: "o'qimoq",
-              exampleSentence: "よみます 読みます — o'qimoq",
-              exampleTranslation: "o'qimoq",
+              exampleSentence: '毎日[まいにち] よみます読みます。',
+              exampleTranslation: "Har kuni o'qimoq.",
             },
             {
-              term: 'かきます 書きます',
-              reading: 'かきます 書きます',
+              term: 'かきます書きます',
+              reading: 'かきます書きます',
               meaning: 'yozmoq',
-              exampleSentence: 'かきます 書きます — yozmoq',
-              exampleTranslation: 'yozmoq',
+              exampleSentence: '毎日[まいにち] かきます書きます。',
+              exampleTranslation: 'Har kuni yozmoq.',
             },
             {
-              term: 'かいます 買います',
-              reading: 'かいます 買います',
+              term: 'かいます買います',
+              reading: 'かいます買います',
               meaning: 'sotib olmoq',
-              exampleSentence: 'かいます 買います — sotib olmoq',
-              exampleTranslation: 'sotib olmoq',
+              exampleSentence: '毎日[まいにち] かいます買います。',
+              exampleTranslation: 'Har kuni sotib olmoq.',
             },
             {
-              term: 'とります 撮ります',
-              reading: 'とります 撮ります',
+              term: 'とります撮ります',
+              reading: 'とります撮ります',
               meaning: 'olmoq',
-              exampleSentence: 'とります 撮ります — olmoq',
-              exampleTranslation: 'olmoq',
+              exampleSentence: '毎日[まいにち] とります撮ります。',
+              exampleTranslation: 'Har kuni olmoq.',
             },
             {
-              term: '[ しゃしんを～ ]  [ 写真を～',
-              reading: '[ しゃしんを～ ]  [ 写真を～',
+              term: 'しゃしんを～写真を～',
+              reading: 'しゃしんを～写真を～',
               meaning: '] (fotosuratga olmoq)',
-              exampleSentence: '[ しゃしんを～ ]  [ 写真を～ — ] (fotosuratga olmoq)',
-              exampleTranslation: '] (fotosuratga olmoq)',
+              exampleSentence: '山田[やまだ][しゃしんを][写真をは 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada ] (fotosuratga olmoq) samimiy inson.',
             },
             {
               term: 'します',
               reading: 'します',
               meaning: 'qilmoq, bajarmoq',
-              exampleSentence: 'します — qilmoq, bajarmoq',
-              exampleTranslation: 'qilmoq, bajarmoq',
+              exampleSentence: '土曜日[どようび]に サッカーを します。',
+              exampleTranslation: "Shanba kuni futbol o'ynayman.",
             },
             {
-              term: 'あいます 会います',
-              reading: 'あいます 会います',
+              term: 'あいます会います',
+              reading: 'あいます会います',
               meaning: 'uchratmoq',
-              exampleSentence: 'あいます 会います — uchratmoq',
-              exampleTranslation: 'uchratmoq',
+              exampleSentence: '毎日[まいにち] あいます会います。',
+              exampleTranslation: 'Har kuni uchratmoq.',
             },
             {
-              term: '[ 友達に～ ] ([ ともだちに～ ])',
-              reading: '[ ともだちに～ ]',
+              term: '友達に～ (ともだちに～)',
+              reading: 'ともだちに～',
               meaning: "(do'stini uchratmoq)",
-              exampleSentence: "[ ともだちに～ ] — (do'stini uchratmoq)",
-              exampleTranslation: "(do'stini uchratmoq)",
+              exampleSentence: '山田[やまだ][ともだちに]は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: "Yamada (do'stini uchratmoq) samimiy inson.",
             },
             {
               term: 'ごはん',
               reading: 'ごはん',
               meaning: 'ovqat; qaynatilgan guruch',
-              exampleSentence: 'ごはん — ovqat; qaynatilgan guruch',
-              exampleTranslation: 'ovqat; qaynatilgan guruch',
+              exampleSentence: 'これは わたしが 買[か]った ごはん です。',
+              exampleTranslation: 'Bu men sotib olgan ovqat; qaynatilgan guruch.',
+            },
+            {
+              term: 'あさごはん朝ごはん',
+              reading: 'あさごはん朝ごはん',
+              meaning: 'ertalabki nonushta',
+              exampleSentence: 'これは わたしが 買[か]った あさごはん朝ごはん です。',
+              exampleTranslation: 'Bu men sotib olgan ertalabki nonushta.',
+            },
+            {
+              term: 'ひるごはん昼ごはん',
+              reading: 'ひるごはん昼ごはん',
+              meaning: 'tushlik',
+              exampleSentence: 'これは わたしが 買[か]った ひるごはん昼ごはん です。',
+              exampleTranslation: 'Bu men sotib olgan tushlik.',
+            },
+            {
+              term: 'ばんごはん晩ごはん',
+              reading: 'ばんごはん晩ごはん',
+              meaning: 'kechki ovqat',
+              exampleSentence: 'これは わたしが 買[か]った ばんごはん晩ごはん です。',
+              exampleTranslation: 'Bu men sotib olgan kechki ovqat.',
+            },
+            {
+              term: 'パン',
+              reading: 'パン',
+              meaning: 'non',
+              exampleSentence: 'これは わたしが 買[か]った パン です。',
+              exampleTranslation: 'Bu men sotib olgan non.',
+            },
+            {
+              term: 'たまご卵',
+              reading: 'たまご卵',
+              meaning: 'tuxum',
+              exampleSentence: 'これは わたしが 買[か]った たまご卵 です。',
+              exampleTranslation: 'Bu men sotib olgan tuxum.',
+            },
+            {
+              term: 'にく肉',
+              reading: 'にく肉',
+              meaning: "go'sht",
+              exampleSentence: 'これは わたしが 買[か]った にく肉 です。',
+              exampleTranslation: "Bu men sotib olgan go'sht.",
+            },
+            {
+              term: 'さかな魚',
+              reading: 'さかな魚',
+              meaning: 'baliq',
+              exampleSentence: 'これは わたしが 買[か]った さかな魚 です。',
+              exampleTranslation: 'Bu men sotib olgan baliq.',
+            },
+            {
+              term: 'やさい野菜',
+              reading: 'やさい野菜',
+              meaning: 'sabzavot, poliz ekinlari',
+              exampleSentence: 'これは わたしが 買[か]った やさい野菜 です。',
+              exampleTranslation: 'Bu men sotib olgan sabzavot, poliz ekinlari.',
+            },
+            {
+              term: 'くだもの果物',
+              reading: 'くだもの果物',
+              meaning: 'meva',
+              exampleSentence: 'これは わたしが 買[か]った くだもの果物 です。',
+              exampleTranslation: 'Bu men sotib olgan meva.',
+            },
+            {
+              term: 'みず水',
+              reading: 'みず水',
+              meaning: 'suv',
+              exampleSentence: 'これは わたしが 買[か]った みず水 です。',
+              exampleTranslation: 'Bu men sotib olgan suv.',
+            },
+            {
+              term: 'おちゃお茶',
+              reading: 'おちゃお茶',
+              meaning: 'choy',
+              exampleSentence: 'これは わたしが 買[か]った おちゃお茶 です。',
+              exampleTranslation: 'Bu men sotib olgan choy.',
+            },
+            {
+              term: 'こうちゃ紅茶',
+              reading: 'こうちゃ紅茶',
+              meaning: 'qora choy',
+              exampleSentence: 'これは わたしが 買[か]った こうちゃ紅茶 です。',
+              exampleTranslation: 'Bu men sotib olgan qora choy.',
+            },
+            {
+              term: 'ぎゅうにゅう牛乳',
+              reading: 'ぎゅうにゅう牛乳',
+              meaning: 'sut',
+              exampleSentence: 'これは わたしが 買[か]った ぎゅうにゅう牛乳 です。',
+              exampleTranslation: 'Bu men sotib olgan sut.',
+            },
+            {
+              term: 'ミルク',
+              reading: 'ミルク',
+              meaning: 'sut',
+              exampleSentence: 'これは わたしが 買[か]った ミルク です。',
+              exampleTranslation: 'Bu men sotib olgan sut.',
+            },
+            {
+              term: 'ジュース',
+              reading: 'ジュース',
+              meaning: 'sharbat',
+              exampleSentence: 'これは わたしが 買[か]った ジュース です。',
+              exampleTranslation: 'Bu men sotib olgan sharbat.',
+            },
+            {
+              term: 'ビール',
+              reading: 'ビール',
+              meaning: 'pivo',
+              exampleSentence: 'これは わたしが 買[か]った ビール です。',
+              exampleTranslation: 'Bu men sotib olgan pivo.',
+            },
+            {
+              term: '酒 (おさけお)',
+              reading: 'おさけお',
+              meaning: "guruchdan tayyorlangan yapon arog'i",
+              exampleSentence: 'これは わたしが 買[か]った ]酒[[お]さけ[お] です。',
+              exampleTranslation: "Bu men sotib olgan guruchdan tayyorlangan yapon arog'i.",
+            },
+            {
+              term: 'ビデオ',
+              reading: 'ビデオ',
+              meaning: 'video',
+              exampleSentence: 'これは わたしが 買[か]った ビデオ です。',
+              exampleTranslation: 'Bu men sotib olgan video.',
+            },
+            {
+              term: 'えいが映画',
+              reading: 'えいが映画',
+              meaning: 'kino',
+              exampleSentence: 'これは わたしが 買[か]った えいが映画 です。',
+              exampleTranslation: 'Bu men sotib olgan kino.',
+            },
+            {
+              term: 'ＣＤ',
+              reading: 'ＣＤ',
+              meaning: 'kompakt-disk',
+              exampleSentence: 'これは わたしが 買[か]った ＣＤ です。',
+              exampleTranslation: 'Bu men sotib olgan kompakt-disk.',
+            },
+            {
+              term: 'てがみ手紙',
+              reading: 'てがみ手紙',
+              meaning: 'xat, maktub',
+              exampleSentence: 'これは わたしが 買[か]った てがみ手紙 です。',
+              exampleTranslation: 'Bu men sotib olgan xat, maktub.',
+            },
+            {
+              term: 'レポート',
+              reading: 'レポート',
+              meaning: "hisobot; ma'ruza",
+              exampleSentence: 'これは わたしが 買[か]った レポート です。',
+              exampleTranslation: "Bu men sotib olgan hisobot; ma'ruza.",
+            },
+            {
+              term: 'しゃしん写真',
+              reading: 'しゃしん写真',
+              meaning: 'fotosurat',
+              exampleSentence: 'これは わたしが 買[か]った しゃしん写真 です。',
+              exampleTranslation: 'Bu men sotib olgan fotosurat.',
+            },
+            {
+              term: 'みせ店',
+              reading: 'みせ店',
+              meaning: "do'kon",
+              exampleSentence: 'これは わたしが 買[か]った みせ店 です。',
+              exampleTranslation: "Bu men sotib olgan do'kon.",
+            },
+            {
+              term: 'レストラン',
+              reading: 'レストラン',
+              meaning: 'restoran',
+              exampleSentence: 'これは わたしが 買[か]った レストラン です。',
+              exampleTranslation: 'Bu men sotib olgan restoran.',
+            },
+            {
+              term: 'にわ庭',
+              reading: 'にわ庭',
+              meaning: 'hovli, bog',
+              exampleSentence: 'これは わたしが 買[か]った にわ庭 です。',
+              exampleTranslation: 'Bu men sotib olgan hovli, bog.',
+            },
+            {
+              term: 'しゅくだい宿題',
+              reading: 'しゅくだい宿題',
+              meaning: 'uyga vazifa',
+              exampleSentence: 'これは わたしが 買[か]った しゅくだい宿題 です。',
+              exampleTranslation: 'Bu men sotib olgan uyga vazifa.',
+            },
+            {
+              term: 'テニス',
+              reading: 'テニス',
+              meaning: "tennis ( ～します tennis o'ynamoq)",
+              exampleSentence: 'これは わたしが 買[か]った テニス です。',
+              exampleTranslation: "Bu men sotib olgan tennis ( ～します tennis o'ynamoq).",
+            },
+            {
+              term: 'サッカー',
+              reading: 'サッカー',
+              meaning: "futbol ( ～します futbol o'ynamoq)",
+              exampleSentence: 'これは わたしが 買[か]った サッカー です。',
+              exampleTranslation: "Bu men sotib olgan futbol ( ～します futbol o'ynamoq).",
+            },
+            {
+              term: 'お花見 (おはなみ)',
+              reading: 'おはなみ',
+              meaning: 'gullagan sakura daraxtini tomosha qilish',
+              exampleSentence: 'これは わたしが 買[か]った お]花見[[お]はなみ[] です。',
+              exampleTranslation: 'Bu men sotib olgan gullagan sakura daraxtini tomosha qilish.',
+            },
+            {
+              term: 'なに何',
+              reading: 'なに何',
+              meaning: 'nima',
+              exampleSentence: 'これは わたしが 買[か]った なに何 です。',
+              exampleTranslation: 'Bu men sotib olgan nima.',
+            },
+            {
+              term: 'いっしょに',
+              reading: 'いっしょに',
+              meaning: 'birga',
+              exampleSentence: 'これは わたしが 買[か]った いっしょに です。',
+              exampleTranslation: 'Bu men sotib olgan birga.',
+            },
+            {
+              term: 'ちょっと',
+              reading: 'ちょっと',
+              meaning: 'bir oz, ozgina, ozroq',
+              exampleSentence: 'これは わたしが 買[か]った ちょっと です。',
+              exampleTranslation: 'Bu men sotib olgan bir oz, ozgina, ozroq.',
+            },
+            {
+              term: 'いつも',
+              reading: 'いつも',
+              meaning: 'har doim, doimo',
+              exampleSentence: 'これは わたしが 買[か]った いつも です。',
+              exampleTranslation: 'Bu men sotib olgan har doim, doimo.',
+            },
+            {
+              term: 'ときどき時々',
+              reading: 'ときどき時々',
+              meaning: "ba'zan",
+              exampleSentence: 'これは わたしが 買[か]った ときどき時々 です。',
+              exampleTranslation: "Bu men sotib olgan ba'zan.",
+            },
+            {
+              term: 'それから',
+              reading: 'それから',
+              meaning: "undan so'ng, undan keyin; shundan so'ng, shundan keyin",
+              exampleSentence: 'これは わたしが 買[か]った それから です。',
+              exampleTranslation:
+                "Bu men sotib olgan undan so'ng, undan keyin; shundan so'ng, shundan keyin.",
+            },
+            {
+              term: 'ええ',
+              reading: 'ええ',
+              meaning: 'ha',
+              exampleSentence: 'これは わたしが 買[か]った ええ です。',
+              exampleTranslation: 'Bu men sotib olgan ha.',
+            },
+            {
+              term: 'いいですね。',
+              reading: 'いいですね。',
+              meaning: 'Qanday yaxshi.',
+              exampleSentence: 'これは わたしが 買[か]った いいですね。 です。',
+              exampleTranslation: 'Bu men sotib olgan qanday yaxshi..',
+            },
+            {
+              term: 'わかりました。',
+              reading: 'わかりました。',
+              meaning: 'Tushundim.',
+              exampleSentence: 'これは わたしが 買[か]った わかりました。 です。',
+              exampleTranslation: 'Bu men sotib olgan tushundim..',
+            },
+            {
+              term: '何なんですか。',
+              reading: '何なんですか。',
+              meaning: 'Nima?',
+              exampleSentence: 'これは わたしが 買[か]った 何[なん]ですか。 です。',
+              exampleTranslation: 'Bu men sotib olgan nima?.',
+            },
+            {
+              term: '。 (じゃ、またあした)',
+              reading: 'じゃ、またあした',
+              meaning: "Ko'rishguncha.",
+              exampleSentence: 'これは わたしが 買[か]った ]。[じゃ、また[あした] です。',
+              exampleTranslation: "Bu men sotib olgan ko'rishguncha..",
+            },
+            {
+              term: 'メキシコ',
+              reading: 'メキシコ',
+              meaning: 'Meksika',
+              exampleSentence: 'これは わたしが 買[か]った メキシコ です。',
+              exampleTranslation: 'Bu men sotib olgan meksika.',
+            },
+            {
+              term: '大おお阪さか城じょう公こう園えん',
+              reading: '大おお阪さか城じょう公こう園えん',
+              meaning: "Osaka qal'asi bog'i",
+              exampleSentence:
+                'これは わたしが 買[か]った 大[おお]阪[さか]城[じょう]公[こう]園[えん] です。',
+              exampleTranslation: "Bu men sotib olgan osaka qal'asi bog'i.",
             },
           ],
           grammarRules: [
             {
               pattern: 'OT  を FE’L (o`timli)',
               meaning:
-                "を tushum kelishigi ko'rsatkichi bo'lib, o'timli fe'l sifatida ifodalangan ish-harakatning to'g'ri to'ldiruvchisini ifodalaydi. [Eslatma] を va お harflari bir xil talaffuz qilinadi. Lekin, を harfi faqat",
+                "を tushum kelishigi ko'rsatkichi bo'lib, o'timli fe'l sifatida ifodalangan ish-harakatning to'g'ri to'ldiruvchisini ifodalaydi. 💡 Muhim eslatma: を va お harflari bir xil talaffuz qilinadi. Lekin, を harfi faqat grammatik qo'shimcha (tushum kelishigi ko'rsatkichi) sifatida qo'llaniladi.",
               usageNotes:
-                "を tushum kelishigi ko'rsatkichi bo'lib, o'timli fe'l sifatida ifodalangan ish-harakatning to'g'ri to'ldiruvchisini ifodalaydi. [Eslatma] を va お harflari bir xil talaffuz qilinadi. Lekin, を harfi faqat grammatik qo'shimcha (tushum kelishigi ko'rsatkichi) sifatida qo'llaniladi.",
+                'Minna no Nihongo 6-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'ジュースを 飲[の] みます。',
@@ -2106,23 +3795,22 @@ export const MINNA_N5_LESSONS: Lesson[] = [
             {
               pattern: 'OT  をします',
               meaning:
-                "します fe'lining ob'ekti sifatida turli xil otlar kelishi mumkin. します fe'li ot so'z turkumi bilan ifodalangan ish-harakatning bajarilishini ifodalaydi. Quyida bir qancha misollar keltirilgan: 1) “ o'yin ",
-              usageNotes:
                 "します fe'lining ob'ekti sifatida turli xil otlar kelishi mumkin. します fe'li ot so'z turkumi bilan ifodalangan ish-harakatning bajarilishini ifodalaydi. Quyida bir qancha misollar keltirilgan: 1) “ o'yin o'ynamoq ” yoki turli xil sport turlari bilan “ shug'ullanmoq ” ma'nosida サッカーを します Futbol o'ynamoq トランプを します Qarta o'ynamoq 2) tadbirlar “ o'tkazmoq ”, “ tashkillashtirmoq ” パーティーを します Kecha uyushtirmoq 会[かい] 議[ぎ] を します Majlis o'tkazmoq 3) biror-bir ish-harakatni “ bajarmoq ” 宿題[しゅくだい] を します Uy vazifasini bajarmoq 仕[し] 事[ごと] を します Ishlamoq / Ish yuritmoq",
+              usageNotes:
+                'Minna no Nihongo 6-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'OT  をします',
-                  translation:
-                    "します fe'lining ob'ekti sifatida turli xil otlar kelishi mumkin. します fe'li ot so'z",
+                  translation: 'Grammatik qolip.',
                 },
               ],
             },
             {
               pattern: '何[なに] を しますか',
               meaning:
-                "Ushbu so'roq gap ma'lum bir shaxs ish-harakatining mazmuniga qaratilib, ushbu shaxs nima bilan shug'ullanishi, nima qilish niyati borligini bilish uchun qo'llaniladi. ･･･ 京[きょう] 都[と] へ 行[い] きます。 …Kiot",
+                "Ushbu so'roq gap ma'lum bir shaxs ish-harakatining mazmuniga qaratilib, ushbu shaxs nima bilan shug'ullanishi, nima qilish niyati borligini bilish uchun qo'llaniladi. ･･･ 京[きょう] 都[と] へ 行[い] きます。 …Kiotoga boraman. ･･･ サッカーを しました。 …Futbol o'ynadim. 💡 Muhim eslatma: は qo'shimchasi bilan harakat vaqtini mavzuga aylantiramiz. ･･･ 京[きょう] 都[と] へ 行[い] きます。 …Kiotoga boraman.",
               usageNotes:
-                "Ushbu so'roq gap ma'lum bir shaxs ish-harakatining mazmuniga qaratilib, ushbu shaxs nima bilan shug'ullanishi, nima qilish niyati borligini bilish uchun qo'llaniladi. ･･･ 京[きょう] 都[と] へ 行[い] きます。 …Kiotoga boraman. ･･･ サッカーを しました。 …Futbol o'ynadim. [Eslatma] は qo'shimchasi bilan harakat vaqtini mavzuga aylantiramiz. ･･･ 京[きょう] 都[と] へ 行[い] きます。 …Kiotoga boraman.",
+                'Minna no Nihongo 6-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: '月[げつ] 曜[よう] 日[び] 何[なに] を しますか。',
@@ -2141,22 +3829,29 @@ export const MINNA_N5_LESSONS: Lesson[] = [
             {
               pattern: 'なん  va  なに',
               meaning:
-                "なん so'zi kabi なに ham “ nima ” ma'nosini ifodalaydi. 1) なん quyidagi hollarda qo'llaniladi. (1) た , だ , な – qator harflari bilan boshlanadigan so'zlardan avval kelgan hollarda. (2) Sanoq suffiksi qo'shi",
-              usageNotes:
                 "なん so'zi kabi なに ham “ nima ” ma'nosini ifodalaydi. 1) なん quyidagi hollarda qo'llaniladi. (1) た , だ , な – qator harflari bilan boshlanadigan so'zlardan avval kelgan hollarda. (2) Sanoq suffiksi qo'shilganda yoki shunga o'xshash hollarda: ～ちゃん Kichraytirish va erkalash oti ko'rsatkichi 2) Qolgan barcha hollarda なに so'zi qo'llanadi.",
+              usageNotes:
+                'Minna no Nihongo 6-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'それは 何[なん] ですか。',
                   translation: 'U nima?',
                 },
                 {
-                  sentence: '何[なん] の 本ですか。 Qanday kitob?',
-                  translation: '',
+                  sentence: '何[なん] の 本ですか。',
+                  translation: 'Qanday kitob?',
                 },
                 {
-                  sentence:
-                    '寝[ね] るまえに、何[なん] と 言[い] いますか。 Uxlashga yotishdan avval nima deyiladi?',
+                  sentence: '寝[ね] るまえに、何[なん] と 言[い] いますか。',
                   translation: "(Qanday so'z aytish kerak?) (21-dars)",
+                },
+                {
+                  sentence: 'テレザちゃんは 何歳[なんさい] ですか。',
+                  translation: 'Tereza necha yoshda?',
+                },
+                {
+                  sentence: '何[なに] を 買[か] いますか。',
+                  translation: 'Nima sotib olasiz?',
                 },
               ],
             },
@@ -2165,7 +3860,7 @@ export const MINNA_N5_LESSONS: Lesson[] = [
               meaning:
                 "Agar Ot (o'rin-joy) yoki joy nomidan keyin で (o'rin-payt kelishigi ko'rsatkichi) kelsa, u holda ushbu qo'shimchali so'z ish-harakat bajarilgan joyni anglatadi.",
               usageNotes:
-                "Agar Ot (o'rin-joy) yoki joy nomidan keyin で (o'rin-payt kelishigi ko'rsatkichi) kelsa, u holda ushbu qo'shimchali so'z ish-harakat bajarilgan joyni anglatadi.",
+                'Minna no Nihongo 6-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: '駅[えき] で 新聞[しんぶん] を 買[か] います。',
@@ -2178,7 +3873,7 @@ export const MINNA_N5_LESSONS: Lesson[] = [
               meaning:
                 "Ushbu shaklda tugallanadigan gap so'roq va inkor ma'nosini emas, balki ish-harakatning bajarilishiga yo'naltirilgan taklif ma'nosini anglatadi. ･･･ ええ、いいですね。 …Mayli, bajonidil.",
               usageNotes:
-                "Ushbu shaklda tugallanadigan gap so'roq va inkor ma'nosini emas, balki ish-harakatning bajarilishiga yo'naltirilgan taklif ma'nosini anglatadi. ･･･ ええ、いいですね。 …Mayli, bajonidil.",
+                'Minna no Nihongo 6-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: '一緒[いっしょ] に 京[きょう] 都[と] へ 行[い] きませんか。',
@@ -2189,9 +3884,9 @@ export const MINNA_N5_LESSONS: Lesson[] = [
             {
               pattern: 'FE’L  ましょう',
               meaning:
-                "Ushbu tuzilmadagi gaplar so'zlovchining o'z suhbatdoshini ma'lum bir ish-harakatni birga bajarishga taklif etish ma'nosini anglatadi. Shuningdek taklifga rozilik berilayotganda ham ushbu tuzilmadan fo",
+                "Ushbu tuzilmadagi gaplar so'zlovchining o'z suhbatdoshini ma'lum bir ish-harakatni birga bajarishga taklif etish ma'nosini anglatadi. Shuningdek taklifga rozilik berilayotganda ham ushbu tuzilmadan foydalaniladi. ･･･ ええ、食[た] べましょう。 …Mayli, keling tushlik qilamiz. 💡 Muhim eslatma: FE'L ませんか shaklidagi gaplar FE'L ましょう ga nisbatan ancha muloyimroq shakl hisoblanadi.",
               usageNotes:
-                "Ushbu tuzilmadagi gaplar so'zlovchining o'z suhbatdoshini ma'lum bir ish-harakatni birga bajarishga taklif etish ma'nosini anglatadi. Shuningdek taklifga rozilik berilayotganda ham ushbu tuzilmadan foydalaniladi. ･･･ ええ、食[た] べましょう。 …Mayli, keling tushlik qilamiz. [Eslatma] FE'L ませんか shaklidagi gaplar FE'L ましょう ga nisbatan ancha muloyimroq shakl hisoblanadi.",
+                'Minna no Nihongo 6-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'ちょっと 休[やす] みましょう。',
@@ -2206,88 +3901,96 @@ export const MINNA_N5_LESSONS: Lesson[] = [
             {
               pattern: 'お～',
               meaning:
-                "So'zlovchining suhbatdoshiga qaratilgan hurmatini kuchaytirib ifodalash uchun unga aloqador bo'lgan so'zlarga お old qo'shimchasi qo'shilishini 3-darsda ko'rib chiqqan edik. (Masalan, [ お ] くに – yurtin",
-              usageNotes:
                 "So'zlovchining suhbatdoshiga qaratilgan hurmatini kuchaytirib ifodalash uchun unga aloqador bo'lgan so'zlarga お old qo'shimchasi qo'shilishini 3-darsda ko'rib chiqqan edik. (Masalan, [ お ] くに – yurtingiz ) Shu bilan birga お old qo'shimchasi boshqa ba'zi so'zlarga ham qo'shilishi mumkin. (masalan, [ お ] さけ – sake ( yapon spirtli ichimligi ), [ お ] はなみ – sakura daraxti gullashini tomosha qilish bayrami ). Ba'zi so'zlar deyarli hamma vaqt, ya'ni hurmat ma'nosi anglatmaydigan gaplarda ham お bilan birga qo'llanadi (masalan, おちゃ – choy , お金 – pul ).",
+              usageNotes:
+                'Minna no Nihongo 6-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'お～',
-                  translation:
-                    "So'zlovchining suhbatdoshiga qaratilgan hurmatini kuchaytirib ifodalash uchun un",
+                  translation: 'Grammatik qolip.',
                 },
               ],
             },
           ],
           culturalNotes:
-            "Tushlikka taklif qilganda to'g'ridan-to'g'ri 'birga boraylik' deyish o'rniga, muloyimlik bilan '~ませんか' (bormaysizmi?) iborasi ishlatiladi.",
+            "Tushlikka yoki choyga taklif qilganda to'g'ridan-to'g'ri 'birga boraylik' deyish o'rniga, muloyimlik bilan '~ませんか' (bormaysizmi?) deb so'raladi.",
         },
       },
       {
         id: 'ja-minna-l6-s2',
         title: 'Mustahkamlash Mashqlari',
         type: 'practice',
-        estimatedMinutes: 6,
+        estimatedMinutes: 8,
         practiceData: {
           instructions:
-            "Darsda o'rganilgan yangi so'zlar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
+            "Darsda o'rganilgan yangi so'zlar, zarrachalar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
           exercises: [
             {
               id: 'ja-minna-l6-ex1',
               type: 'multiple-choice',
-              prompt: "「たべます 食べます」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
-              options: ['yemoq', 'ichmoq', 'chekmoq', '(tamaki chekmoq)'],
-              correctAnswer: 0,
-              explanation: "To'g'ri javob: yemoq.",
+              prompt:
+                "Bo'sh joyga to'g'ri zarrachani qo'ying:\n「わたし（　）マイク・ミラーです。」",
+              options: ['が', 'に', 'を', 'は'],
+              correctAnswer: 3,
+              explanation:
+                "To'g'ri javob: 「は」. Gap mavzusini ko'rsatish uchun 'は' (va deb o'qiladi) ishlatiladi.",
             },
             {
               id: 'ja-minna-l6-ex2',
               type: 'multiple-choice',
-              prompt:
-                "6-dars grammatik qoidasi: '1. OT  を FE’L (o`timli)' bo'yicha qaysi gap grammatik jihatdan to'g'ri tuzilgan?",
-              options: [
-                'ジュースを 飲[の] みます。',
-                'これ は を です。',
-                'だれ が 行きます か でした。',
-                'へ 行きません です。',
-              ],
-              correctAnswer: 0,
-              explanation: "To'g'ri javob: ジュースを 飲[の] みます。 (Sharbatni ichaman.).",
+              prompt: "「よみます読みます」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
+              options: ['ichmoq', "o'qimoq", 'yemoq', 'chekmoq'],
+              correctAnswer: 1,
+              explanation: "To'g'ri javob: 「o'qimoq」.",
             },
             {
               id: 'ja-minna-l6-ex3',
               type: 'multiple-choice',
-              prompt:
-                "O'zbek tiliga to'g'ri tarjima qiling: 「月[げつ] 曜[よう] 日[び] 何[なに] を しますか。」",
+              prompt: "6-dars grammatik qoidasiga muvofiq to'g'ri tuzilgan gapni aniqlang:",
               options: [
-                "Dushanba kuni nima bilan shug'ullanasiz?",
-                "Ertaga do'stim bilan mehmonga boraman.",
-                "Kechirasiz, soat necha bo'ldi?",
-                "Iltimos, manzilni ko'rsatib yuboring.",
+                'ジュースを 飲[の] みます です。',
+                'ジュースを 飲[の] みます か でした。',
+                'ジュースを 飲[の] みません でした です。',
+                'ジュースを 飲[の] みます。',
               ],
-              correctAnswer: 0,
-              explanation: "To'g'ri tarjimasi: Dushanba kuni nima bilan shug'ullanasiz?.",
+              correctAnswer: 3,
+              explanation: "To'g'ri gap: 「ジュースを 飲[の] みます。」 (Sharbatni ichaman.).",
             },
             {
               id: 'ja-minna-l6-ex4',
               type: 'multiple-choice',
-              prompt: 'Ushbu darsdagi suhbatdan kelib chiqib: Sato qanday jumla aytadi?',
+              prompt: "Ushbu gapning to'g'ri yaponcha tarjimasini tanlang:\n「Grammatik qolip.」",
               options: [
-                'Janob Miller.',
-                'Men hech qayerga bormayman.',
-                'Taksida aeroportga haydang.',
-                "Iltimos, hisobni alohida to'laymiz.",
+                'ジュースを 飲[の] みます。',
+                'きのう 何[なに] を しましたか。',
+                'OT  をします',
+                '月[げつ] 曜[よう] 日[び] 何[なに] を しますか。',
               ],
-              correctAnswer: 0,
-              explanation: "To'g'ri ibora: Janob Miller..",
+              correctAnswer: 2,
+              explanation: "Yaponcha to'g'ri ifodasi: 「OT  をします」.",
+            },
+            {
+              id: 'ja-minna-l6-ex5',
+              type: 'multiple-choice',
+              prompt:
+                'Suhbatdoshingiz: 「初めまして、どうぞ よろしく お願いします。」 dedi. Unga eng mos muloyim javob qaysi?',
+              options: [
+                'おやすみなさい。',
+                '失礼します。',
+                'ごちそうさまでした。',
+                'こちらこそ、どうぞ よろしく お願いします。',
+              ],
+              correctAnswer: 3,
+              explanation: "To'g'ri javob: 「こちらこそ、どうぞ よろしく お願いします。」.",
             },
           ],
         },
       },
       {
         id: 'ja-minna-l6-s3',
-        title: 'Sinov Testi',
+        title: 'JLPT N5 Sinov Testi',
         type: 'test',
-        estimatedMinutes: 6,
+        estimatedMinutes: 7,
         testData: {
           instructions:
             "Darsni muvaffaqiyatli yakunlash uchun savollarga to'g'ri javob bering (Kamida 80%).",
@@ -2295,55 +3998,54 @@ export const MINNA_N5_LESSONS: Lesson[] = [
           questions: [
             {
               id: 'ja-minna-l6-q1',
-              question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「ジュースを 飲[の] みます。」",
-              options: [
-                'Sharbatni ichaman.',
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
-              ],
+              question: '【Mondai 1: Moji/Goi】「お花見」の 読[よ]み方[かた]は どれですか。',
+              options: ['おはなみ', 'のみます飲みます', 'すいます吸います', 'たべます食べます'],
               correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Sharbatni ichaman..",
+              explanation:
+                "「お花見」 ning to'g'ri o'qilishi: 「おはなみ」 (gullagan sakura daraxtini tomosha qilish).",
             },
             {
               id: 'ja-minna-l6-q2',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「月[げつ] 曜[よう] 日[び] 何[なに] を しますか。」",
-              options: [
-                "Dushanba kuni nima bilan shug'ullanasiz?",
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
-              ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Dushanba kuni nima bilan shug'ullanasiz?.",
+                '【Mondai 2: Bunpo】（　）に 入[はい]る 最[もっと]も よいものを 1つ えらびなさい。\n「田中さんは 学生（　）ありません。」',
+              options: ['に', 'で', 'を', 'じゃ'],
+              correctAnswerIndex: 3,
+              explanation:
+                "To'g'ri zarracha: 「じゃ」. Inkor shaklda 'じゃ ありません' qo'llaniladi.",
             },
             {
               id: 'ja-minna-l6-q3',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「きのう 何[なに] を しましたか。」",
+                "【Mondai 3: Bunpo】6-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
               options: [
-                "Kecha nima bilan shug'ullandingiz?",
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
+                '〜を 行きます です',
+                '〜は 〜でした じゃありません',
+                '〜に 食べません でした',
+                'OT  をします',
               ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Kecha nima bilan shug'ullandingiz?.",
+              correctAnswerIndex: 3,
+              explanation: "To'g'ri grammatik formula: 「OT  をします」.",
             },
             {
               id: 'ja-minna-l6-q4',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「月[げつ] 曜[よう] 日[び] は 何[なに] を しますか？」",
+                "【Mondai 4: Dokkai】Quyidagi yaponcha gapning to'g'ri o'zbekcha ma'nosini toping:\n「月[げつ] 曜[よう] 日[び] 何[なに] を しますか。」",
               options: [
-                'Dushanbada nima qilasiz?',
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
+                "Kecha nima bilan shug'ullandingiz?",
+                'Sharbatni ichaman.',
+                'Grammatik qolip.',
+                "Dushanba kuni nima bilan shug'ullanasiz?",
               ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Dushanbada nima qilasiz?.",
+              correctAnswerIndex: 3,
+              explanation: "To'g'ri ma'nosi: 「Dushanba kuni nima bilan shug'ullanasiz?」.",
+            },
+            {
+              id: 'ja-minna-l6-q5',
+              question:
+                "【Mondai 5: Kaiwa】Savolga eng to'g'ri javobni tanlang:\n「ミラーさんは アメリカ人ですか。」",
+              options: ['いいえ、学生です。', 'いただきます。', 'さようなら。', 'はい、そうです。'],
+              correctAnswerIndex: 3,
+              explanation: "To'g'ri javob: 「はい、そうです。」.",
             },
           ],
         },
@@ -2360,132 +4062,372 @@ export const MINNA_N5_LESSONS: Lesson[] = [
     lessonNumber: 7,
     title: "7-dars: Qurol, Til va Sovg'a almashish (Bermoq/Olmoq)",
     description:
-      "Minna no Nihongo Shokyu 1: 7-dars: Qurol, Til va Sovg'a almashish (Bermoq/Olmoq). Darsda 50 ta yangi so'z va 5 ta asosiy grammatik qoida o'rganiladi.",
-    estimatedDurationMinutes: 20,
+      "Minna no Nihongo Shokyu 1: 7-dars: Qurol, Til va Sovg'a almashish (Bermoq/Olmoq). Darsda 50 ta yangi so'z, audio talaffuzli Furigana misollar va 5 ta asosiy grammatik formula o'rganiladi.",
+    estimatedDurationMinutes: 25,
     icon: '🌸',
     steps: [
       {
         id: 'ja-minna-l7-s1',
         title: "Lug'at va Qoidalar",
         type: 'learn',
-        estimatedMinutes: 8,
+        estimatedMinutes: 10,
         learnData: {
           title: "7-Dars: 7-dars: Qurol, Til va Sovg'a almashish (Bermoq/Olmoq)",
           subtitle: '第7課：手段と授受（あげます・もらいます）',
           explanation:
-            "7-dars: Qurol, Til va Sovg'a almashish (Bermoq/Olmoq) bo'yicha to'liq grammatik izohlar va qoidalar to'plami. Har bir qoida Minna no Nihongo darsligining o'zbekcha tarjimasiga moslashtirilgan.",
+            "7-dars: Qurol, Til va Sovg'a almashish (Bermoq/Olmoq) bo'yicha to'liq grammatik izohlar, formulalar va Furiganali misollar to'plami.",
           keyPoints: [
-            '1.    OT (qurol / vosita)  で  FE’L: で yuklamasi biror qurol yoki vosita orqali ish-harakatning bajarilishini bildiradi....',
-            "2.  “SO`Z / GAP”  は～語[ご] で 何[なん] ですか: Bu gap shakli, biror so'z yoki gapni boshqa tilda qanday bo'lishini so'rash uchun ishlatiladi. ･･･「 Thank you 」です。 ･･･「あ...",
-            "3.   OT (shaxs)  に あげます、 va hokazo: あげます , かします , おしえます kabi fe'llar harakat kimga ( bermoq, qarzga bermoq, o'rgatmoq ) qaratilganligini ko'rsatilishini tal...",
-            "4.  OT (shaxs)  に もらいます、  va hokazo: もらいます , かります , ならいます kabi fe'llar, qabul qiluvchi shaxsning harakatini izohlaydi. に qo'shimchasi taqdim etayotgan shaxsg...",
-            "5.   もう  FE’L  ました: “ もう ” “ allaqachon ” degan ma'noni bildirib, “FE'L ました ” bilan birga qo'llaniladi. Shunday qilib, “FE'L ました ” harakatni...",
+            '📌 1.    OT (qurol / vosita)  で  FE’L: で yuklamasi biror qurol yoki vosita orqali ish-harakatning bajarilishini bildiradi.',
+            "📌 2.  “SO`Z / GAP”  は～語[ご] で 何[なん] ですか: Bu gap shakli, biror so'z yoki gapni boshqa tilda qanday bo'lishini so'rash uchun ishlatiladi.",
+            "📌 3.   OT (shaxs)  に あげます、 va hokazo: あげます , かします , おしえます kabi fe'llar harakat kimga ( bermoq, qarzga bermoq, o'rgatmoq ) qaratilganligini ko'rsatilishini talab qiladi va bu shaxsga に yuklamasi qo'shiladi.",
+            "📌 4.  OT (shaxs)  に もらいます、  va hokazo: もらいます , かります , ならいます kabi fe'llar, qabul qiluvchi shaxsning harakatini izohlaydi.",
+            "📌 5.   もう  FE’L  ました: “ もう ” “ allaqachon ” degan ma'noni bildirib, “FE'L ました ” bilan birga qo'llaniladi.",
           ],
           vocabulary: [
             {
               term: '切ります (きります)',
               reading: 'きります',
               meaning: 'kesmoq (pichoqda), qirqmoq (qaychida)',
-              exampleSentence: 'きります — kesmoq (pichoqda), qirqmoq (qaychida)',
-              exampleTranslation: 'kesmoq (pichoqda), qirqmoq (qaychida)',
+              exampleSentence: '毎日[まいにち] 切ります[きります]。',
+              exampleTranslation: 'Har kuni kesmoq (pichoqda), qirqmoq (qaychida).',
             },
             {
               term: '送ります (おくります)',
               reading: 'おくります',
               meaning: "jo'natmoq",
-              exampleSentence: "おくります — jo'natmoq",
-              exampleTranslation: "jo'natmoq",
+              exampleSentence: '毎日[まいにち] 送ります[おくります]。',
+              exampleTranslation: "Har kuni jo'natmoq.",
             },
             {
               term: 'あげます',
               reading: 'あげます',
               meaning: "bermoq, sovg'a qilmoq",
-              exampleSentence: "あげます — bermoq, sovg'a qilmoq",
-              exampleTranslation: "bermoq, sovg'a qilmoq",
+              exampleSentence: '毎日[まいにち] あげます。',
+              exampleTranslation: "Har kuni bermoq, sovg'a qilmoq.",
             },
             {
               term: 'もらいます',
               reading: 'もらいます',
               meaning: 'olmoq',
-              exampleSentence: 'もらいます — olmoq',
-              exampleTranslation: 'olmoq',
+              exampleSentence: '毎日[まいにち] もらいます。',
+              exampleTranslation: 'Har kuni olmoq.',
             },
             {
               term: '貸します (かします)',
               reading: 'かします',
               meaning: 'qarzga bermoq, berib turmoq',
-              exampleSentence: 'かします — qarzga bermoq, berib turmoq',
-              exampleTranslation: 'qarzga bermoq, berib turmoq',
+              exampleSentence: '毎日[まいにち] 貸します[かします]。',
+              exampleTranslation: 'Har kuni qarzga bermoq, berib turmoq.',
             },
             {
               term: '借ります (かります)',
               reading: 'かります',
               meaning: 'qarzga olmoq, olib turmoq',
-              exampleSentence: 'かります — qarzga olmoq, olib turmoq',
-              exampleTranslation: 'qarzga olmoq, olib turmoq',
+              exampleSentence: '毎日[まいにち] 借ります[かります]。',
+              exampleTranslation: 'Har kuni qarzga olmoq, olib turmoq.',
             },
             {
               term: '教えます (おしえます)',
               reading: 'おしえます',
               meaning: "o'rgatmoq, saboq bermoq",
-              exampleSentence: "おしえます — o'rgatmoq, saboq bermoq",
-              exampleTranslation: "o'rgatmoq, saboq bermoq",
+              exampleSentence: '毎日[まいにち] 教えます[おしえます]。',
+              exampleTranslation: "Har kuni o'rgatmoq, saboq bermoq.",
             },
             {
               term: '習います (ならいます)',
               reading: 'ならいます',
               meaning: "o'rganmoq, saboq olmoq",
-              exampleSentence: "ならいます — o'rganmoq, saboq olmoq",
-              exampleTranslation: "o'rganmoq, saboq olmoq",
+              exampleSentence: '毎日[まいにち] 習います[ならいます]。',
+              exampleTranslation: "Har kuni o'rganmoq, saboq olmoq.",
             },
             {
               term: 'かけます',
               reading: 'かけます',
               meaning: "(qo'ng'iroq) qilmoq",
-              exampleSentence: "かけます — (qo'ng'iroq) qilmoq",
-              exampleTranslation: "(qo'ng'iroq) qilmoq",
+              exampleSentence: '毎日[まいにち] かけます。',
+              exampleTranslation: "Har kuni (qo'ng'iroq) qilmoq.",
             },
             {
-              term: '[ 電話を～ ] ([ でんわを～ ])',
-              reading: '[ でんわを～ ]',
+              term: '電話を～ (でんわを～)',
+              reading: 'でんわを～',
               meaning: "(telefon qilmoq, qo'ng'iroq qilmoq)",
-              exampleSentence: "[ でんわを～ ] — (telefon qilmoq, qo'ng'iroq qilmoq)",
-              exampleTranslation: "(telefon qilmoq, qo'ng'iroq qilmoq)",
+              exampleSentence: '山田[やまだ][でんわを]は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: "Yamada (telefon qilmoq, qo'ng'iroq qilmoq) samimiy inson.",
             },
             {
               term: '手 (て)',
               reading: 'て',
               meaning: "qo'l",
-              exampleSentence: "て — qo'l",
-              exampleTranslation: "qo'l",
+              exampleSentence: '田中[たなか]さんは 手[て] です。',
+              exampleTranslation: "Tanaka janoblari qo'l.",
             },
             {
               term: 'はし',
               reading: 'はし',
-              meaning: "hashi (ovqat yeyishda qo'llaniladigan cho'p)",
-              exampleSentence: "はし — hashi (ovqat yeyishda qo'llaniladigan cho'p)",
-              exampleTranslation: "hashi (ovqat yeyishda qo'llaniladigan cho'p)",
+              meaning: 'hashi',
+              exampleSentence: 'これは わたしが 買[か]った はし です。',
+              exampleTranslation: 'Bu men sotib olgan hashi.',
             },
             {
               term: 'スプーン',
               reading: 'スプーン',
               meaning: 'qoshiq',
-              exampleSentence: 'スプーン — qoshiq',
-              exampleTranslation: 'qoshiq',
+              exampleSentence: 'これは わたしが 買[か]った スプーン です。',
+              exampleTranslation: 'Bu men sotib olgan qoshiq.',
             },
             {
               term: 'ナイフ',
               reading: 'ナイフ',
               meaning: 'pichoq',
-              exampleSentence: 'ナイフ — pichoq',
-              exampleTranslation: 'pichoq',
+              exampleSentence: 'これは わたしが 買[か]った ナイフ です。',
+              exampleTranslation: 'Bu men sotib olgan pichoq.',
             },
             {
               term: 'フォーク',
               reading: 'フォーク',
               meaning: 'sanchqi (vilka)',
-              exampleSentence: 'フォーク — sanchqi (vilka)',
-              exampleTranslation: 'sanchqi (vilka)',
+              exampleSentence: 'これは わたしが 買[か]った フォーク です。',
+              exampleTranslation: 'Bu men sotib olgan sanchqi (vilka).',
+            },
+            {
+              term: 'はさみ',
+              reading: 'はさみ',
+              meaning: 'qaychi',
+              exampleSentence: 'これは わたしが 買[か]った はさみ です。',
+              exampleTranslation: 'Bu men sotib olgan qaychi.',
+            },
+            {
+              term: 'ファクス',
+              reading: 'ファクス',
+              meaning: 'faks',
+              exampleSentence: 'これは わたしが 買[か]った ファクス です。',
+              exampleTranslation: 'Bu men sotib olgan faks.',
+            },
+            {
+              term: 'ワープロ',
+              reading: 'ワープロ',
+              meaning: 'matnli protsessor',
+              exampleSentence: 'これは わたしが 買[か]った ワープロ です。',
+              exampleTranslation: 'Bu men sotib olgan matnli protsessor.',
+            },
+            {
+              term: 'パソコン',
+              reading: 'パソコン',
+              meaning: 'shaxsiy kompyuter',
+              exampleSentence: 'これは わたしが 買[か]った パソコン です。',
+              exampleTranslation: 'Bu men sotib olgan shaxsiy kompyuter.',
+            },
+            {
+              term: 'パンチ',
+              reading: 'パンチ',
+              meaning: 'perforator, teshik ochqich',
+              exampleSentence: 'これは わたしが 買[か]った パンチ です。',
+              exampleTranslation: 'Bu men sotib olgan perforator, teshik ochqich.',
+            },
+            {
+              term: 'ホッチキス',
+              reading: 'ホッチキス',
+              meaning: 'stepler',
+              exampleSentence: 'これは わたしが 買[か]った ホッチキス です。',
+              exampleTranslation: 'Bu men sotib olgan stepler.',
+            },
+            {
+              term: 'セロテープ',
+              reading: 'セロテープ',
+              meaning: 'skoch',
+              exampleSentence: 'これは わたしが 買[か]った セロテープ です。',
+              exampleTranslation: 'Bu men sotib olgan skoch.',
+            },
+            {
+              term: '消しゴム (けしゴム)',
+              reading: 'けしゴム',
+              meaning: "o'chirg'ich",
+              exampleSentence: 'これは わたしが 買[か]った 消しゴム[けしゴム] です。',
+              exampleTranslation: "Bu men sotib olgan o'chirg'ich.",
+            },
+            {
+              term: '紙 (かみ)',
+              reading: 'かみ',
+              meaning: "qog'oz",
+              exampleSentence: 'これは わたしが 買[か]った 紙[かみ] です。',
+              exampleTranslation: "Bu men sotib olgan qog'oz.",
+            },
+            {
+              term: '花 (はな)',
+              reading: 'はな',
+              meaning: 'gul',
+              exampleSentence: 'これは わたしが 買[か]った 花[はな] です。',
+              exampleTranslation: 'Bu men sotib olgan gul.',
+            },
+            {
+              term: 'シャツ',
+              reading: 'シャツ',
+              meaning: "ko'ylak",
+              exampleSentence: 'これは わたしが 買[か]った シャツ です。',
+              exampleTranslation: "Bu men sotib olgan ko'ylak.",
+            },
+            {
+              term: 'プレゼント',
+              reading: 'プレゼント',
+              meaning: "sovg'a, tuhva, hadya",
+              exampleSentence: 'これは わたしが 買[か]った プレゼント です。',
+              exampleTranslation: "Bu men sotib olgan sovg'a, tuhva, hadya.",
+            },
+            {
+              term: '荷物 (にもつ)',
+              reading: 'にもつ',
+              meaning: 'buyum, yuk',
+              exampleSentence: 'これは わたしが 買[か]った 荷物[にもつ] です。',
+              exampleTranslation: 'Bu men sotib olgan buyum, yuk.',
+            },
+            {
+              term: 'お金 (おかね)',
+              reading: 'おかね',
+              meaning: 'pul',
+              exampleSentence: 'これは わたしが 買[か]った お金[おかね] です。',
+              exampleTranslation: 'Bu men sotib olgan pul.',
+            },
+            {
+              term: '切符 (きっぷ)',
+              reading: 'きっぷ',
+              meaning: 'chipta',
+              exampleSentence: 'これは わたしが 買[か]った 切符[きっぷ] です。',
+              exampleTranslation: 'Bu men sotib olgan chipta.',
+            },
+            {
+              term: 'クリスマス',
+              reading: 'クリスマス',
+              meaning: 'Krismas bayrami (rojdestvo)',
+              exampleSentence: 'これは わたしが 買[か]った クリスマス です。',
+              exampleTranslation: 'Bu men sotib olgan krismas bayrami (rojdestvo).',
+            },
+            {
+              term: '父 (ちち)',
+              reading: 'ちち',
+              meaning: 'otam, dadam',
+              exampleSentence: 'これは わたしが 買[か]った 父[ちち] です。',
+              exampleTranslation: 'Bu men sotib olgan otam, dadam.',
+            },
+            {
+              term: '母 (はは)',
+              reading: 'はは',
+              meaning: 'onam, oyim',
+              exampleSentence: 'これは わたしが 買[か]った 母[はは] です。',
+              exampleTranslation: 'Bu men sotib olgan onam, oyim.',
+            },
+            {
+              term: 'お父さん (おとうさん)',
+              reading: 'おとうさん',
+              meaning: 'ota, dada / ~ning otasi',
+              exampleSentence: 'これは わたしが 買[か]った お父さん[おとうさん] です。',
+              exampleTranslation: 'Bu men sotib olgan ota, dada / ~ning otasi.',
+            },
+            {
+              term: 'お母さん (おかあさん)',
+              reading: 'おかあさん',
+              meaning: 'ona, oyi / ~ning onasi',
+              exampleSentence: 'これは わたしが 買[か]った お母さん[おかあさん] です。',
+              exampleTranslation: 'Bu men sotib olgan ona, oyi / ~ning onasi.',
+            },
+            {
+              term: 'もう',
+              reading: 'もう',
+              meaning: "allaqachon, ~ib bo'ldi(~m,~ ing); endi",
+              exampleSentence: '毎日[まいにち] もう。',
+              exampleTranslation: "Har kuni allaqachon, ~ib bo'ldi(~m,~ ing); endi.",
+            },
+            {
+              term: 'まだ',
+              reading: 'まだ',
+              meaning: 'hali ham',
+              exampleSentence: 'これは わたしが 買[か]った まだ です。',
+              exampleTranslation: 'Bu men sotib olgan hali ham.',
+            },
+            {
+              term: 'これから',
+              reading: 'これから',
+              meaning: 'endi; bundan buyon',
+              exampleSentence: 'これは わたしが 買[か]った これから です。',
+              exampleTranslation: 'Bu men sotib olgan endi; bundan buyon.',
+            },
+            {
+              term: '～、すてきですね。',
+              reading: '～、すてきですね。',
+              meaning: 'Bu~ buncha chiroyli!',
+              exampleSentence: '山田[やまだ][、]すてきですね。は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada bu~ buncha chiroyli! samimiy inson.',
+            },
+            {
+              term: 'ごめんください。',
+              reading: 'ごめんください。',
+              meaning: 'Hoy kim bor?',
+              exampleSentence: 'これは わたしが 買[か]った ごめんください。 です。',
+              exampleTranslation: 'Bu men sotib olgan hoy kim bor?.',
+            },
+            {
+              term: 'いらっしゃい。',
+              reading: 'いらっしゃい。',
+              meaning: 'Xush kelibsiz.',
+              exampleSentence: 'これは わたしが 買[か]った いらっしゃい。 です。',
+              exampleTranslation: 'Bu men sotib olgan xush kelibsiz..',
+            },
+            {
+              term: 'どうぞお上あがりください。',
+              reading: 'どうぞお上あがりください。',
+              meaning: 'Ichkariga marhamat.',
+              exampleSentence: 'これは わたしが 買[か]った どうぞお上[あ]がりください。 です。',
+              exampleTranslation: 'Bu men sotib olgan ichkariga marhamat..',
+            },
+            {
+              term: '失礼しつれいします。',
+              reading: '失礼しつれいします。',
+              meaning: "Rahmat. / Sizni ham bezovta qilib qo'ydim.",
+              exampleSentence: '毎日[まいにち] 失礼[しつれい]します。。',
+              exampleTranslation: "Har kuni rahmat. / sizni ham bezovta qilib qo'ydim..",
+            },
+            {
+              term: '～はいかがですか。',
+              reading: '～はいかがですか。',
+              meaning: '~ga xushingiz qalay?',
+              exampleSentence: '山田[やまだ][は]いかがですか。は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada ~ga xushingiz qalay? samimiy inson.',
+            },
+            {
+              term: 'いただきます。',
+              reading: 'いただきます。',
+              meaning: "(Yeyish, ichishdan oldin qo'llaniladigan ibora )",
+              exampleSentence: '毎日[まいにち] いただきます。。',
+              exampleTranslation: "Har kuni (yeyish, ichishdan oldin qo'llaniladigan ibora ).",
+            },
+            {
+              term: '旅行りょこう',
+              reading: '旅行りょこう',
+              meaning: 'sayohat, safar ( ～する sayohat qilmoq)',
+              exampleSentence: 'これは わたしが 買[か]った 旅行[りょこう] です。',
+              exampleTranslation: 'Bu men sotib olgan sayohat, safar ( ～する sayohat qilmoq).',
+            },
+            {
+              term: 'お土産みやげ',
+              reading: 'お土産みやげ',
+              meaning:
+                "Odatda safardan qaytayotganda yoki biror joyga borayotganda olib boriladigan sovg'a",
+              exampleSentence: 'これは わたしが 買[か]った お土産[みやげ] です。',
+              exampleTranslation:
+                "Bu men sotib olgan odatda safardan qaytayotganda yoki biror joyga borayotganda olib boriladigan sovg'a.",
+            },
+            {
+              term: 'ヨーロッパ',
+              reading: 'ヨーロッパ',
+              meaning: "Ovro'pa",
+              exampleSentence: 'これは わたしが 買[か]った ヨーロッパ です。',
+              exampleTranslation: "Bu men sotib olgan ovro'pa.",
+            },
+            {
+              term: 'スペイン',
+              reading: 'スペイン',
+              meaning: 'Ispaniya',
+              exampleSentence: 'これは わたしが 買[か]った スペイン です。',
+              exampleTranslation: 'Bu men sotib olgan ispaniya.',
             },
           ],
           grammarRules: [
@@ -2494,7 +4436,7 @@ export const MINNA_N5_LESSONS: Lesson[] = [
               meaning:
                 'で yuklamasi biror qurol yoki vosita orqali ish-harakatning bajarilishini bildiradi.',
               usageNotes:
-                'で yuklamasi biror qurol yoki vosita orqali ish-harakatning bajarilishini bildiradi.',
+                'Minna no Nihongo 7-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'はしで 食[た] べます。',
@@ -2511,7 +4453,7 @@ export const MINNA_N5_LESSONS: Lesson[] = [
               meaning:
                 "Bu gap shakli, biror so'z yoki gapni boshqa tilda qanday bo'lishini so'rash uchun ishlatiladi. ･･･「 Thank you 」です。 ･･･「ありがとう」です。",
               usageNotes:
-                "Bu gap shakli, biror so'z yoki gapni boshqa tilda qanday bo'lishini so'rash uchun ishlatiladi. ･･･「 Thank you 」です。 ･･･「ありがとう」です。",
+                'Minna no Nihongo 7-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: '「ありがとう」は 英[えい] 語[ご] で 何[なん] ですか。',
@@ -2526,9 +4468,9 @@ export const MINNA_N5_LESSONS: Lesson[] = [
             {
               pattern: 'OT (shaxs)  に あげます、 va hokazo',
               meaning:
-                "あげます , かします , おしえます kabi fe'llar harakat kimga ( bermoq, qarzga bermoq, o'rgatmoq ) qaratilganligini ko'rsatilishini talab qiladi va bu shaxsga に yuklamasi qo'shiladi. [Eslatma] おくります , 電[でん] 話[わ] をしま",
+                "あげます , かします , おしえます kabi fe'llar harakat kimga ( bermoq, qarzga bermoq, o'rgatmoq ) qaratilganligini ko'rsatilishini talab qiladi va bu shaxsga に yuklamasi qo'shiladi. 💡 Muhim eslatma: おくります , 電[でん] 話[わ] をします va hokazo fe'llar bilan shaxsni bildiruvchi ot o'rniga joy nomlari qo'llanilishi mumkin. Bu holda に qo'shimchasi o'rniga へ qo'shimchasini ham ishlatsa bo'ladi. Korxonaga qo'ng'iroq qilaman.",
               usageNotes:
-                "あげます , かします , おしえます kabi fe'llar harakat kimga ( bermoq, qarzga bermoq, o'rgatmoq ) qaratilganligini ko'rsatilishini talab qiladi va bu shaxsga に yuklamasi qo'shiladi. [Eslatma] おくります , 電[でん] 話[わ] をします va hokazo fe'llar bilan shaxsni bildiruvchi ot o'rniga joy nomlari qo'llanilishi mumkin. Bu holda に qo'shimchasi o'rniga へ qo'shimchasini ham ishlatsa bo'ladi. Korxonaga qo'ng'iroq qilaman.",
+                'Minna no Nihongo 7-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence:
@@ -2543,14 +4485,18 @@ export const MINNA_N5_LESSONS: Lesson[] = [
                   sentence: '太[た] 郎[ろう] 君[くん] に 英[えい] 語[ご] を 教[おし] えます。',
                   translation: "Taroga ingliz tilini o'rgataman.",
                 },
+                {
+                  sentence: '会社[かいしゃ] に 電[でん] 話[わ] を かけます。',
+                  translation: '（へ）',
+                },
               ],
             },
             {
               pattern: 'OT (shaxs)  に もらいます、  va hokazo',
               meaning:
-                "もらいます , かります , ならいます kabi fe'llar, qabul qiluvchi shaxsning harakatini izohlaydi. に qo'shimchasi taqdim etayotgan shaxsga qo'shiladi. Bunday gap misollarida gohida に o'rniga から qo'llaniladi. Agar, bir",
-              usageNotes:
                 "もらいます , かります , ならいます kabi fe'llar, qabul qiluvchi shaxsning harakatini izohlaydi. に qo'shimchasi taqdim etayotgan shaxsga qo'shiladi. Bunday gap misollarida gohida に o'rniga から qo'llaniladi. Agar, biror muassasa, masalan, bilim yurti yoki korxonadan biror narsa qabul qilinganda faqat から qo'llaniladi.",
+              usageNotes:
+                'Minna no Nihongo 7-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence:
@@ -2565,14 +4511,23 @@ export const MINNA_N5_LESSONS: Lesson[] = [
                   sentence: 'ワンさんに 中[ちゅう] 国[ごく] 語[ご] を 習[なら] います。',
                   translation: "Janob Vandan xitoy tilini o'rganaman.",
                 },
+                {
+                  sentence:
+                    '木[き] 村[むら] さんは 山[やま] 田[だ] さんから 花[はな] を もらいました。',
+                  translation: 'Kimura xonim janob Yamadadan gul oldilar.',
+                },
+                {
+                  sentence: '銀行[ぎんこう] から お金[かね] を 借[か] りました。',
+                  translation: 'Bankdan pul olib turdim.',
+                },
               ],
             },
             {
               pattern: 'もう  FE’L  ました',
               meaning:
-                "“ もう ” “ allaqachon ” degan ma'noni bildirib, “FE'L ました ” bilan birga qo'llaniladi. Shunday qilib, “FE'L ました ” harakatning allaqachon tugallanganligini bildiradi. “ もう FE'L ましたか ” savolining javobi はい",
-              usageNotes:
                 "“ もう ” “ allaqachon ” degan ma'noni bildirib, “FE'L ました ” bilan birga qo'llaniladi. Shunday qilib, “FE'L ました ” harakatning allaqachon tugallanganligini bildiradi. “ もう FE'L ましたか ” savolining javobi はい、もう FE'L ました yoki いいえ、まだです bo'ladi. ･･･はい、 [ もう ] 送[おく] りました。 …Ha, jo'natdim. ･･･いいえ、まだです。 …Yo'q hali. Shu kabi savollarning inkor javobida “FE'L ませんでした ”ni qo'llamagan ma'qul, chunki, bu holda “FE'L ませんでした ” tugallanmagan harakatdan ko'ra, umuman bajarilmagan ish-harakatni bildiradi.",
+              usageNotes:
+                'Minna no Nihongo 7-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'もう 荷[に] 物[もつ] を 送[おく] りましたか。',
@@ -2582,80 +4537,90 @@ export const MINNA_N5_LESSONS: Lesson[] = [
             },
           ],
           culturalNotes:
-            "Ovqatlanishdan oldin 'いただきます' (itadakimasu) va ovqatlangandan keyin 'ごちそうさまでした' (gochisousama deshita) deb minnatdorchilik bildiriladi.",
+            "Ovqatlanishdan oldin 'いただきます' (itadakimasu) va ovqatlangandan keyin 'ごちそうさまでした' (gochisousama deshita) deb taomni tayyorlaganlarga minnatdorchilik bildiriladi.",
         },
       },
       {
         id: 'ja-minna-l7-s2',
         title: 'Mustahkamlash Mashqlari',
         type: 'practice',
-        estimatedMinutes: 6,
+        estimatedMinutes: 8,
         practiceData: {
           instructions:
-            "Darsda o'rganilgan yangi so'zlar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
+            "Darsda o'rganilgan yangi so'zlar, zarrachalar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
           exercises: [
             {
               id: 'ja-minna-l7-ex1',
               type: 'multiple-choice',
-              prompt: "「切ります」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
-              options: [
-                'kesmoq (pichoqda), qirqmoq (qaychida)',
-                "jo'natmoq",
-                "bermoq, sovg'a qilmoq",
-                'olmoq',
-              ],
-              correctAnswer: 0,
-              explanation: "To'g'ri javob: kesmoq (pichoqda), qirqmoq (qaychida).",
+              prompt: "Bo'sh joyga to'g'ri zarrachani qo'ying:\n「これは 日本語（　）本です。」",
+              options: ['と', 'も', 'は', 'の'],
+              correctAnswer: 3,
+              explanation:
+                "To'g'ri javob: 「の」. Tegishlilik va biror tildagi kitob ekanligini bildirish uchun 'の' qo'yiladi.",
             },
             {
               id: 'ja-minna-l7-ex2',
               type: 'multiple-choice',
-              prompt:
-                "7-dars grammatik qoidasi: '1.    OT (qurol / vosita)  で  FE’L' bo'yicha qaysi gap grammatik jihatdan to'g'ri tuzilgan?",
+              prompt: "「習います (ならいます)」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
               options: [
-                'はしで 食[た] べます。',
-                'これ は を です。',
-                'だれ が 行きます か でした。',
-                'へ 行きません です。',
+                "bermoq, sovg'a qilmoq",
+                "jo'natmoq",
+                "o'rganmoq, saboq olmoq",
+                'kesmoq (pichoqda), qirqmoq (qaychida)',
               ],
-              correctAnswer: 0,
-              explanation: "To'g'ri javob: はしで 食[た] べます。 (Hashi(cho'pak)da yeyman.).",
+              correctAnswer: 2,
+              explanation: "To'g'ri javob: 「o'rganmoq, saboq olmoq」.",
             },
             {
               id: 'ja-minna-l7-ex3',
               type: 'multiple-choice',
-              prompt:
-                "O'zbek tiliga to'g'ri tarjima qiling: 「日[に] 本[ほん] 語[ご] で レポートを 書[か] きます。」",
+              prompt: "7-dars grammatik qoidasiga muvofiq to'g'ri tuzilgan gapni aniqlang:",
               options: [
-                'Yapon tilida hisobot yozaman.',
-                "Ertaga do'stim bilan mehmonga boraman.",
-                "Kechirasiz, soat necha bo'ldi?",
-                "Iltimos, manzilni ko'rsatib yuboring.",
+                'はしで 食[た] べます です。',
+                'はしで 食[た] べません でした です。',
+                'はしで 食[た] べます。',
+                'はしへ 食[た] べます。',
               ],
-              correctAnswer: 0,
-              explanation: "To'g'ri tarjimasi: Yapon tilida hisobot yozaman..",
+              correctAnswer: 2,
+              explanation: "To'g'ri gap: 「はしで 食[た] べます。」 (Hashi(cho'pak)da yeyman.).",
             },
             {
               id: 'ja-minna-l7-ex4',
               type: 'multiple-choice',
-              prompt: 'Ushbu darsdagi suhbatdan kelib chiqib: Xose Santos qanday jumla aytadi?',
+              prompt:
+                "Ushbu gapning to'g'ri yaponcha tarjimasini tanlang:\n「Yapon tilida hisobot yozaman.」",
               options: [
-                'Hoy, kim bor?',
-                'Men hech qayerga bormayman.',
-                'Taksida aeroportga haydang.',
-                "Iltimos, hisobni alohida to'laymiz.",
+                '日[に] 本[ほん] 語[ご] で レポートを 書[か] きます。',
+                '「 Thank you 」は 日[に] 本[ほん] 語[ご] で 何[なん] ですか。',
+                'はしで 食[た] べます。',
+                '「ありがとう」は 英[えい] 語[ご] で 何[なん] ですか。',
               ],
               correctAnswer: 0,
-              explanation: "To'g'ri ibora: Hoy, kim bor?.",
+              explanation:
+                "Yaponcha to'g'ri ifodasi: 「日[に] 本[ほん] 語[ご] で レポートを 書[か] きます。」.",
+            },
+            {
+              id: 'ja-minna-l7-ex5',
+              type: 'multiple-choice',
+              prompt:
+                'Suhbatdoshingiz: 「これは ほんの 気持ちです。どうぞ。」 dedi. Unga eng mos muloyim javob qaysi?',
+              options: [
+                'ごちそうさまでした。',
+                '失礼します。',
+                'どうも ありがとうございます。',
+                'おやすみなさい。',
+              ],
+              correctAnswer: 2,
+              explanation: "To'g'ri javob: 「どうも ありがとうございます。」.",
             },
           ],
         },
       },
       {
         id: 'ja-minna-l7-s3',
-        title: 'Sinov Testi',
+        title: 'JLPT N5 Sinov Testi',
         type: 'test',
-        estimatedMinutes: 6,
+        estimatedMinutes: 7,
         testData: {
           instructions:
             "Darsni muvaffaqiyatli yakunlash uchun savollarga to'g'ri javob bering (Kamida 80%).",
@@ -2663,56 +4628,55 @@ export const MINNA_N5_LESSONS: Lesson[] = [
           questions: [
             {
               id: 'ja-minna-l7-q1',
-              question: "Quyidagi yaponcha gapning ma'nosini aniqlang: 「はしで 食[た] べます。」",
-              options: [
-                "Hashi(cho'pak)da yeyman.",
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
-              ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Hashi(cho'pak)da yeyman..",
+              question: '【Mondai 1: Moji/Goi】「手」の 読[よ]み方[かた]は どれですか。',
+              options: ['おくります', 'て', 'あげます', 'きります'],
+              correctAnswerIndex: 1,
+              explanation: "「手」 ning to'g'ri o'qilishi: 「て」 (qo'l).",
             },
             {
               id: 'ja-minna-l7-q2',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「日[に] 本[ほん] 語[ご] で レポートを 書[か] きます。」",
-              options: [
-                'Yapon tilida hisobot yozaman.',
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
-              ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Yapon tilida hisobot yozaman..",
+                '【Mondai 2: Bunpo】（　）に 入[はい]る 最[もっと]も よいものを 1つ えらびなさい。\n「ミラーさんは アメリカ（　）来ました。」',
+              options: ['まで', 'から', 'へ', 'で'],
+              correctAnswerIndex: 1,
+              explanation:
+                "To'g'ri zarracha: 「から」. Kelib chiqish mamlakati '〜から' orqali ko'rsatiladi.",
             },
             {
               id: 'ja-minna-l7-q3',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「「ありがとう」は 英[えい] 語[ご] で 何[なん] ですか。」",
+                "【Mondai 3: Bunpo】7-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
               options: [
-                "“Arigatou” ingliz tilida nima bo'ladi? …“Thank you” bo'ladi.",
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
+                '〜は 〜でした じゃありません',
+                '〜に 食べません でした',
+                '“SO`Z / GAP”  は～語[ご] で 何[なん] ですか',
+                '〜を 行きます です',
               ],
-              correctAnswerIndex: 0,
+              correctAnswerIndex: 2,
               explanation:
-                "To'g'ri javob: “Arigatou” ingliz tilida nima bo'ladi? …“Thank you” bo'ladi..",
+                "To'g'ri grammatik formula: 「“SO`Z / GAP”  は～語[ご] で 何[なん] ですか」.",
             },
             {
               id: 'ja-minna-l7-q4',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「「 Thank you 」は 日[に] 本[ほん] 語[ご] で 何[なん] ですか。」",
+                "【Mondai 4: Dokkai】Quyidagi yaponcha gapning to'g'ri o'zbekcha ma'nosini toping:\n「「ありがとう」は 英[えい] 語[ご] で 何[なん] ですか。」",
               options: [
                 "“Thank you” yapon tilida nima bo'ladi? …“Arigatou” bo'ladi.",
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
+                'Yapon tilida hisobot yozaman.',
+                "“Arigatou” ingliz tilida nima bo'ladi? …“Thank you” bo'ladi.",
+                "Hashi(cho'pak)da yeyman.",
               ],
-              correctAnswerIndex: 0,
+              correctAnswerIndex: 2,
               explanation:
-                "To'g'ri javob: “Thank you” yapon tilida nima bo'ladi? …“Arigatou” bo'ladi..",
+                "To'g'ri ma'nosi: 「“Arigatou” ingliz tilida nima bo'ladi? …“Thank you” bo'ladi.」.",
+            },
+            {
+              id: 'ja-minna-l7-q5',
+              question:
+                "【Mondai 5: Kaiwa】Savolga eng to'g'ri javobni tanlang:\n「これは あなたの 傘ですか。」",
+              options: ['はい、そうです。', '初めまして。', '失礼します。', 'いいえ、違います。'],
+              correctAnswerIndex: 3,
+              explanation: "To'g'ri javob: 「いいえ、違います。」.",
             },
           ],
         },
@@ -2729,134 +4693,467 @@ export const MINNA_N5_LESSONS: Lesson[] = [
     lessonNumber: 8,
     title: '8-dars: Sifatlar (I-sifat va Na-sifatlar)',
     description:
-      "Minna no Nihongo Shokyu 1: 8-dars: Sifatlar (I-sifat va Na-sifatlar). Darsda 63 ta yangi so'z va 8 ta asosiy grammatik qoida o'rganiladi.",
-    estimatedDurationMinutes: 20,
+      "Minna no Nihongo Shokyu 1: 8-dars: Sifatlar (I-sifat va Na-sifatlar). Darsda 63 ta yangi so'z, audio talaffuzli Furigana misollar va 8 ta asosiy grammatik formula o'rganiladi.",
+    estimatedDurationMinutes: 25,
     icon: '🌸',
     steps: [
       {
         id: 'ja-minna-l8-s1',
         title: "Lug'at va Qoidalar",
         type: 'learn',
-        estimatedMinutes: 8,
+        estimatedMinutes: 10,
         learnData: {
           title: '8-Dars: 8-dars: Sifatlar (I-sifat va Na-sifatlar)',
           subtitle: '第8課：形容詞（い形容詞・な形容詞）',
           explanation:
-            "8-dars: Sifatlar (I-sifat va Na-sifatlar) bo'yicha to'liq grammatik izohlar va qoidalar to'plami. Har bir qoida Minna no Nihongo darsligining o'zbekcha tarjimasiga moslashtirilgan.",
+            "8-dars: Sifatlar (I-sifat va Na-sifatlar) bo'yicha to'liq grammatik izohlar, formulalar va Furiganali misollar to'plami.",
           keyPoints: [
-            "1.  SIFATLAR: Sifatlar 1) kesim, 2) aniqlovchi-ot o'rnida kelishi mumkin. Ular o'zgaradi va o'zgarishlariga qarab 2 turga bo'linadilar...",
-            "2.   OT  は な -SIFAT  [ な ] です: OT は い -SIFAT (~ い ) です 1) Gapda kesim vazifasida keladigan sifatdan keyingi です suhbatdoshga bo'lgan hurmatni bildiradi....",
-            "3.   な -SIFAT  な  OT: い -SIFAT ( ～い ) OT Sifat otdan oldin aniqlovchi sifatida keladi, otdan oldin な -sifatga “ な ” qo'shimchasi qo'shiladi....",
-            "4. とても／あまり: とても , あまり –ravish. Ular sifatdan oldin qo'yilib darajani ko'rsatib keladi. とても ijobiy ma'nodagi gaplarda kelib, “ juda ”...",
-            "5.  OT  は どうですか: Bunday so'roq gap shakli biror kishi suhbatdoshining biror bir narsa, joy va kishi haqidagi fikri hamda taassuroti bilan...",
-            "6.   OT １ は どんな OT 2  ですか: Savolning bu ko'rinishi OT 1 ga ta'rif berishda qo'llaniladi. Bu yerda OT 2 OT 1 ga tegishli daraja bo'lib keladi. どんな s...",
+            "📌 1.  SIFATLAR: Sifatlar 1) kesim, 2) aniqlovchi-ot o'rnida kelishi mumkin.",
+            "📌 2.   OT  は な -SIFAT  [ な ] です: OT は い -SIFAT (~ い ) です 1) Gapda kesim vazifasida keladigan sifatdan keyingi です suhbatdoshga bo'lgan hurmatni bildiradi.",
+            "📌 3.   な -SIFAT  な  OT: い -SIFAT ( ～い ) OT Sifat otdan oldin aniqlovchi sifatida keladi, otdan oldin な -sifatga “ な ” qo'shimchasi qo'shiladi.",
+            '📌 4. とても／あまり: とても , あまり –ravish.',
+            "📌 5.  OT  は どうですか: Bunday so'roq gap shakli biror kishi suhbatdoshining biror bir narsa, joy va kishi haqidagi fikri hamda taassuroti bilan qiziqqanda qo'llaniladi.",
+            "📌 6.   OT １ は どんな OT 2  ですか: Savolning bu ko'rinishi OT 1 ga ta'rif berishda qo'llaniladi.",
           ],
           vocabulary: [
             {
-              term: 'ハンサム [ な ]',
-              reading: 'ハンサム [ な ]',
-              meaning: "xushro'y, chiroyli (erkak kishiga nisbatan qo'llaniladi.)",
-              exampleSentence:
-                "ハンサム [ な ] — xushro'y, chiroyli (erkak kishiga nisbatan qo'llaniladi.)",
-              exampleTranslation: "xushro'y, chiroyli (erkak kishiga nisbatan qo'llaniladi.)",
+              term: 'ハンサムな',
+              reading: 'ハンサムな',
+              meaning: "xushro'y, chiroyli",
+              exampleSentence: 'これは わたしが 買[か]った ハンサム[な] です。',
+              exampleTranslation: "Bu men sotib olgan xushro'y, chiroyli.",
             },
             {
-              term: 'きれい [ な ]',
-              reading: 'きれい [ な ]',
+              term: 'きれいな',
+              reading: 'きれいな',
               meaning: "xushro'y, chiroyli, go'zal; toza",
-              exampleSentence: "きれい [ な ] — xushro'y, chiroyli, go'zal; toza",
-              exampleTranslation: "xushro'y, chiroyli, go'zal; toza",
+              exampleSentence: 'これは わたしが 買[か]った きれい[な] です。',
+              exampleTranslation: "Bu men sotib olgan xushro'y, chiroyli, go'zal; toza.",
             },
             {
-              term: '静か [ な ] (しずか [ な ])',
-              reading: 'しずか [ な ]',
+              term: '静かな (しずかな)',
+              reading: 'しずかな',
               meaning: 'tinch, osoyishta, osuda',
-              exampleSentence: 'しずか [ な ] — tinch, osoyishta, osuda',
-              exampleTranslation: 'tinch, osoyishta, osuda',
+              exampleSentence: 'これは わたしが 買[か]った 静か[な][しずか[な]] です。',
+              exampleTranslation: 'Bu men sotib olgan tinch, osoyishta, osuda.',
             },
             {
-              term: 'にぎやか [ な ]',
-              reading: 'にぎやか [ な ]',
+              term: 'にぎやかな',
+              reading: 'にぎやかな',
               meaning: 'gavjum, sershovqin',
-              exampleSentence: 'にぎやか [ な ] — gavjum, sershovqin',
-              exampleTranslation: 'gavjum, sershovqin',
+              exampleSentence: 'これは わたしが 買[か]った にぎやか[な] です。',
+              exampleTranslation: 'Bu men sotib olgan gavjum, sershovqin.',
             },
             {
-              term: '有名 [ な ] (ゆうめい [ な ])',
-              reading: 'ゆうめい [ な ]',
+              term: '有名な (ゆうめいな)',
+              reading: 'ゆうめいな',
               meaning: 'mashhur',
-              exampleSentence: 'ゆうめい [ な ] — mashhur',
-              exampleTranslation: 'mashhur',
+              exampleSentence: 'これは わたしが 買[か]った 有名[な][ゆうめい[な]] です。',
+              exampleTranslation: 'Bu men sotib olgan mashhur.',
             },
             {
-              term: '親切 [ な ] (しんせつ [ な ])',
-              reading: 'しんせつ [ な ]',
+              term: '親切な (しんせつな)',
+              reading: 'しんせつな',
               meaning: 'mehribon',
-              exampleSentence: 'しんせつ [ な ] — mehribon',
-              exampleTranslation: 'mehribon',
+              exampleSentence: 'これは わたしが 買[か]った 親切[な][しんせつ[な]] です。',
+              exampleTranslation: 'Bu men sotib olgan mehribon.',
             },
             {
-              term: '元気 [ な ] (げんき [ な ])',
-              reading: 'げんき [ な ]',
+              term: '元気な (げんきな)',
+              reading: 'げんきな',
               meaning: "sog'lom, baquvvat",
-              exampleSentence: "げんき [ な ] — sog'lom, baquvvat",
-              exampleTranslation: "sog'lom, baquvvat",
+              exampleSentence: 'これは わたしが 買[か]った 元気[な][げんき[な]] です。',
+              exampleTranslation: "Bu men sotib olgan sog'lom, baquvvat.",
             },
             {
-              term: '暇 [ な ] (ひま [ な ])',
-              reading: 'ひま [ な ]',
+              term: '暇な (ひまな)',
+              reading: 'ひまな',
               meaning: "bo'sh (vaqt),",
-              exampleSentence: "ひま [ な ] — bo'sh (vaqt),",
-              exampleTranslation: "bo'sh (vaqt),",
+              exampleSentence: 'これは わたしが 買[か]った 暇[な][ひま[な]] です。',
+              exampleTranslation: "Bu men sotib olgan bo'sh (vaqt),.",
             },
             {
-              term: '便利 [ な ] (べんり [ な ])',
-              reading: 'べんり [ な ]',
+              term: '便利な (べんりな)',
+              reading: 'べんりな',
               meaning: 'qulay',
-              exampleSentence: 'べんり [ な ] — qulay',
-              exampleTranslation: 'qulay',
+              exampleSentence: 'これは わたしが 買[か]った 便利[な][べんり[な]] です。',
+              exampleTranslation: 'Bu men sotib olgan qulay.',
             },
             {
-              term: 'すてき [ な ]',
-              reading: 'すてき [ な ]',
+              term: 'すてきな',
+              reading: 'すてきな',
               meaning: 'chiroyli, ajoyib',
-              exampleSentence: 'すてき [ な ] — chiroyli, ajoyib',
-              exampleTranslation: 'chiroyli, ajoyib',
+              exampleSentence: 'これは わたしが 買[か]った すてき[な] です。',
+              exampleTranslation: 'Bu men sotib olgan chiroyli, ajoyib.',
             },
             {
               term: '大きい (おおきい)',
               reading: 'おおきい',
               meaning: 'katta',
-              exampleSentence: 'おおきい — katta',
-              exampleTranslation: 'katta',
+              exampleSentence: 'この 部屋[へや]は 大きい[おおきい]です。',
+              exampleTranslation: 'Bu xona katta.',
             },
             {
               term: '小さい (ちいさい)',
               reading: 'ちいさい',
               meaning: 'kichik',
-              exampleSentence: 'ちいさい — kichik',
-              exampleTranslation: 'kichik',
+              exampleSentence: 'この 部屋[へや]は 小さい[ちいさい]です。',
+              exampleTranslation: 'Bu xona kichik.',
             },
             {
               term: '新しい (あたらしい)',
               reading: 'あたらしい',
               meaning: 'yangi',
-              exampleSentence: 'あたらしい — yangi',
-              exampleTranslation: 'yangi',
+              exampleSentence: 'この 部屋[へや]は 新しい[あたらしい]です。',
+              exampleTranslation: 'Bu xona yangi.',
             },
             {
               term: '古い (ふるい)',
               reading: 'ふるい',
               meaning: 'eski',
-              exampleSentence: 'ふるい — eski',
-              exampleTranslation: 'eski',
+              exampleSentence: 'この 部屋[へや]は 古い[ふるい]です。',
+              exampleTranslation: 'Bu xona eski.',
             },
             {
-              term: 'いい（よい）',
-              reading: 'いい（よい）',
+              term: 'いいよい',
+              reading: 'いいよい',
               meaning: 'yaxshi',
-              exampleSentence: 'いい（よい） — yaxshi',
-              exampleTranslation: 'yaxshi',
+              exampleSentence: 'この 部屋[へや]は いいよいです。',
+              exampleTranslation: 'Bu xona yaxshi.',
+            },
+            {
+              term: '悪い (わるい)',
+              reading: 'わるい',
+              meaning: 'yomon',
+              exampleSentence: 'この 部屋[へや]は 悪い[わるい]です。',
+              exampleTranslation: 'Bu xona yomon.',
+            },
+            {
+              term: '暑い、熱い (あつい)',
+              reading: 'あつい',
+              meaning: 'issiq',
+              exampleSentence: 'この 部屋[へや]は 暑い、熱い[あつい]です。',
+              exampleTranslation: 'Bu xona issiq.',
+            },
+            {
+              term: '寒い (さむい)',
+              reading: 'さむい',
+              meaning: 'sovuq',
+              exampleSentence: 'この 部屋[へや]は 寒い[さむい]です。',
+              exampleTranslation: 'Bu xona sovuq.',
+            },
+            {
+              term: '冷たい (つめたい)',
+              reading: 'つめたい',
+              meaning: 'sovuq, yaxtak',
+              exampleSentence: 'この 部屋[へや]は 冷たい[つめたい]です。',
+              exampleTranslation: 'Bu xona sovuq, yaxtak.',
+            },
+            {
+              term: '難しい (むずかしい)',
+              reading: 'むずかしい',
+              meaning: 'qiyin',
+              exampleSentence: 'この 部屋[へや]は 難しい[むずかしい]です。',
+              exampleTranslation: 'Bu xona qiyin.',
+            },
+            {
+              term: '易しい (やさしい)',
+              reading: 'やさしい',
+              meaning: 'oson',
+              exampleSentence: 'この 部屋[へや]は 易しい[やさしい]です。',
+              exampleTranslation: 'Bu xona oson.',
+            },
+            {
+              term: '高い (たかい)',
+              reading: 'たかい',
+              meaning: 'qimmat; baland',
+              exampleSentence: 'この 部屋[へや]は 高い[たかい]です。',
+              exampleTranslation: 'Bu xona qimmat; baland.',
+            },
+            {
+              term: '安い (やすい)',
+              reading: 'やすい',
+              meaning: 'arzon',
+              exampleSentence: 'この 部屋[へや]は 安い[やすい]です。',
+              exampleTranslation: 'Bu xona arzon.',
+            },
+            {
+              term: '低い (ひくい)',
+              reading: 'ひくい',
+              meaning: 'past',
+              exampleSentence: 'この 部屋[へや]は 低い[ひくい]です。',
+              exampleTranslation: 'Bu xona past.',
+            },
+            {
+              term: 'おもしろい',
+              reading: 'おもしろい',
+              meaning: 'qiziqarli',
+              exampleSentence: 'この 部屋[へや]は おもしろいです。',
+              exampleTranslation: 'Bu xona qiziqarli.',
+            },
+            {
+              term: 'おいしい',
+              reading: 'おいしい',
+              meaning: 'mazali',
+              exampleSentence: 'この 部屋[へや]は おいしいです。',
+              exampleTranslation: 'Bu xona mazali.',
+            },
+            {
+              term: '忙しい (いそがしい)',
+              reading: 'いそがしい',
+              meaning: 'band',
+              exampleSentence: 'この 部屋[へや]は 忙しい[いそがしい]です。',
+              exampleTranslation: 'Bu xona band.',
+            },
+            {
+              term: '楽しい (たのしい)',
+              reading: 'たのしい',
+              meaning: 'qiziqarli, mazmunli (vaqtga nisbatan)',
+              exampleSentence: 'この 部屋[へや]は 楽しい[たのしい]です。',
+              exampleTranslation: 'Bu xona qiziqarli, mazmunli (vaqtga nisbatan).',
+            },
+            {
+              term: '白い (しろい)',
+              reading: 'しろい',
+              meaning: 'oq',
+              exampleSentence: 'この 部屋[へや]は 白い[しろい]です。',
+              exampleTranslation: 'Bu xona oq.',
+            },
+            {
+              term: '黒い (くろい)',
+              reading: 'くろい',
+              meaning: 'qora',
+              exampleSentence: 'この 部屋[へや]は 黒い[くろい]です。',
+              exampleTranslation: 'Bu xona qora.',
+            },
+            {
+              term: '赤い (あかい)',
+              reading: 'あかい',
+              meaning: 'qizil',
+              exampleSentence: 'この 部屋[へや]は 赤い[あかい]です。',
+              exampleTranslation: 'Bu xona qizil.',
+            },
+            {
+              term: '青い (あおい)',
+              reading: 'あおい',
+              meaning: "ko'k",
+              exampleSentence: 'この 部屋[へや]は 青い[あおい]です。',
+              exampleTranslation: "Bu xona ko'k.",
+            },
+            {
+              term: '桜 (さくら)',
+              reading: 'さくら',
+              meaning: 'olcha (sakura)',
+              exampleSentence: 'これは わたしが 買[か]った 桜[さくら] です。',
+              exampleTranslation: 'Bu men sotib olgan olcha (sakura).',
+            },
+            {
+              term: '山 (やま)',
+              reading: 'やま',
+              meaning: 'tog',
+              exampleSentence: 'これは わたしが 買[か]った 山[やま] です。',
+              exampleTranslation: 'Bu men sotib olgan tog.',
+            },
+            {
+              term: '町 (まち)',
+              reading: 'まち',
+              meaning: '(kichik) shahar',
+              exampleSentence: 'これは わたしが 買[か]った 町[まち] です。',
+              exampleTranslation: 'Bu men sotib olgan (kichik) shahar.',
+            },
+            {
+              term: '食べ物 (たべもの)',
+              reading: 'たべもの',
+              meaning: 'yegulik',
+              exampleSentence: 'これは わたしが 買[か]った 食べ物[たべもの] です。',
+              exampleTranslation: 'Bu men sotib olgan yegulik.',
+            },
+            {
+              term: '車 (くるま)',
+              reading: 'くるま',
+              meaning: 'mashina',
+              exampleSentence: 'これは わたしが 買[か]った 車[くるま] です。',
+              exampleTranslation: 'Bu men sotib olgan mashina.',
+            },
+            {
+              term: '所 (ところ)',
+              reading: 'ところ',
+              meaning: 'joy, yer',
+              exampleSentence: 'あそこは 所[ところ] です。',
+              exampleTranslation: 'Anavi yer joy, yer.',
+            },
+            {
+              term: '寮 (りょう)',
+              reading: 'りょう',
+              meaning: 'yotoqxona',
+              exampleSentence: '毎日[まいにち] 寮[りょう]。',
+              exampleTranslation: 'Har kuni yotoqxona.',
+            },
+            {
+              term: '勉強 (べんきょう)',
+              reading: 'べんきょう',
+              meaning: "dars, mashg'ulot",
+              exampleSentence: '毎日[まいにち] 勉強[べんきょう]。',
+              exampleTranslation: "Har kuni dars, mashg'ulot.",
+            },
+            {
+              term: '生活 (せいかつ)',
+              reading: 'せいかつ',
+              meaning: 'turmush, hayot',
+              exampleSentence: 'これは わたしが 買[か]った 生活[せいかつ] です。',
+              exampleTranslation: 'Bu men sotib olgan turmush, hayot.',
+            },
+            {
+              term: 'お仕事 (おしごと)',
+              reading: 'おしごと',
+              meaning: 'ish ( ～をします ishlamoq)',
+              exampleSentence: 'これは わたしが 買[か]った [お]仕事[[お]しごと] です。',
+              exampleTranslation: 'Bu men sotib olgan ish ( ～をします ishlamoq).',
+            },
+            {
+              term: 'どう',
+              reading: 'どう',
+              meaning: 'qanday, qanaqa',
+              exampleSentence: '毎日[まいにち] どう。',
+              exampleTranslation: 'Har kuni qanday, qanaqa.',
+            },
+            {
+              term: 'どんな～',
+              reading: 'どんな～',
+              meaning: 'qanday ~, qanaqa ~',
+              exampleSentence: '山田[やまだ]どんなは 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada qanday ~, qanaqa ~ samimiy inson.',
+            },
+            {
+              term: 'どれ',
+              reading: 'どれ',
+              meaning: 'qaysi',
+              exampleSentence: 'これは わたしが 買[か]った どれ です。',
+              exampleTranslation: 'Bu men sotib olgan qaysi.',
+            },
+            {
+              term: 'とても',
+              reading: 'とても',
+              meaning: 'juda',
+              exampleSentence: 'これは わたしが 買[か]った とても です。',
+              exampleTranslation: 'Bu men sotib olgan juda.',
+            },
+            {
+              term: 'あまり',
+              reading: 'あまり',
+              meaning: 'uncha ~ emas, unchalik ~ emas',
+              exampleSentence: 'これは わたしが 買[か]った あまり です。',
+              exampleTranslation: 'Bu men sotib olgan uncha ~ emas, unchalik ~ emas.',
+            },
+            {
+              term: 'そして',
+              reading: 'そして',
+              meaning: 'keyin',
+              exampleSentence: 'これは わたしが 買[か]った そして です。',
+              exampleTranslation: 'Bu men sotib olgan keyin.',
+            },
+            {
+              term: '～が、～',
+              reading: '～が、～',
+              meaning: '~-yu,~ . ; ~. Lekin, ~.',
+              exampleSentence: '山田[やまだ]が、は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada ~-yu,~ . ; ~. lekin, ~. samimiy inson.',
+            },
+            {
+              term: 'お元気ですか。 (おげんきですか。)',
+              reading: 'おげんきですか。',
+              meaning: 'Yaxshimisiz? / Salomatmisiz?',
+              exampleSentence: 'これは わたしが 買[か]った お元気ですか。[おげんきですか。] です。',
+              exampleTranslation: 'Bu men sotib olgan yaxshimisiz? / salomatmisiz?.',
+            },
+            {
+              term: 'そうですね。',
+              reading: 'そうですね。',
+              meaning: 'Nimasini aytsam sizga… .; Rost aytasiz.; Ha-ya',
+              exampleSentence: 'これは わたしが 買[か]った そうですね。 です。',
+              exampleTranslation:
+                'Bu men sotib olgan nimasini aytsam sizga… .; rost aytasiz.; ha-ya.',
+            },
+            {
+              term: '日に本ほんの生活せいかつに慣なれましたか。',
+              reading: '日に本ほんの生活せいかつに慣なれましたか。',
+              meaning: "Siz Yaponiya turmush tarziga ko'nikdingizmi?",
+              exampleSentence:
+                'これは わたしが 買[か]った 日[に]本[ほん]の生活[せいかつ]に慣[な]れましたか。 です。',
+              exampleTranslation:
+                "Bu men sotib olgan siz yaponiya turmush tarziga ko'nikdingizmi?.",
+            },
+            {
+              term: '～、もう一杯いっぱいいかがですか。',
+              reading: '～、もう一杯いっぱいいかがですか。',
+              meaning: 'Yana bir piyola',
+              exampleSentence:
+                '山田[やまだ][、]もう一杯[いっぱい]いかがですか。は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada yana bir piyola samimiy inson.',
+            },
+            {
+              term: 'いいえ、けっこうです。',
+              reading: 'いいえ、けっこうです。',
+              meaning: "Yo'q, rahmat.",
+              exampleSentence: 'これは わたしが 買[か]った いいえ、けっこうです。 です。',
+              exampleTranslation: "Bu men sotib olgan yo'q, rahmat..",
+            },
+            {
+              term: 'もう～ですね。',
+              reading: 'もう～ですね。',
+              meaning: 'Endi ~-a?',
+              exampleSentence: '山田[やまだ]もうです[ね]。は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada endi ~-a? samimiy inson.',
+            },
+            {
+              term: 'そろそろ失礼しつれいします。',
+              reading: 'そろそろ失礼しつれいします。',
+              meaning: 'Endi bizga ruxsat.',
+              exampleSentence: '毎日[まいにち] そろそろ失礼[しつれい]します。。',
+              exampleTranslation: 'Har kuni endi bizga ruxsat..',
+            },
+            {
+              term: 'ください。 (またいらっしゃって)',
+              reading: 'またいらっしゃって',
+              meaning: 'Yana keling.',
+              exampleSentence: 'これは わたしが 買[か]った ください。[またいらっしゃって] です。',
+              exampleTranslation: 'Bu men sotib olgan yana keling..',
+            },
+            {
+              term: '富ふ士じ山さん',
+              reading: '富ふ士じ山さん',
+              meaning: 'Fuji togi',
+              exampleSentence: 'これは わたしが 買[か]った 富[ふ]士[じ]山[さん] です。',
+              exampleTranslation: 'Bu men sotib olgan fuji togi.',
+            },
+            {
+              term: '琵琶湖びわこ',
+              reading: '琵琶湖びわこ',
+              meaning: "Biva ko'li",
+              exampleSentence: 'これは わたしが 買[か]った 琵琶湖[びわこ] です。',
+              exampleTranslation: "Bu men sotib olgan biva ko'li.",
+            },
+            {
+              term: 'シャンハイ',
+              reading: 'シャンハイ',
+              meaning: 'Shanxay ( 上海 )',
+              exampleSentence: 'これは わたしが 買[か]った シャンハイ です。',
+              exampleTranslation: 'Bu men sotib olgan shanxay ( 上海 ).',
+            },
+            {
+              term: '「七しち人にんの侍さむらい」',
+              reading: '「七しち人にんの侍さむらい」',
+              meaning: '“Yetti samuray”',
+              exampleSentence:
+                'これは わたしが 買[か]った 「七[しち]人[にん]の侍[さむらい]」 です。',
+              exampleTranslation: 'Bu men sotib olgan “yetti samuray”.',
+            },
+            {
+              term: '金きん閣かく寺じ',
+              reading: '金きん閣かく寺じ',
+              meaning: 'Kinkaji ibodatxonasi',
+              exampleSentence: 'これは わたしが 買[か]った 金[きん]閣[かく]寺[じ] です。',
+              exampleTranslation: 'Bu men sotib olgan kinkaji ibodatxonasi.',
             },
           ],
           grammarRules: [
@@ -2865,21 +5162,20 @@ export const MINNA_N5_LESSONS: Lesson[] = [
               meaning:
                 "Sifatlar 1) kesim, 2) aniqlovchi-ot o'rnida kelishi mumkin. Ular o'zgaradi va o'zgarishlariga qarab 2 turga bo'linadilar: 1. い ga tugaydigan sifatlar va 2. な ga tugaydigan sifatlar.",
               usageNotes:
-                "Sifatlar 1) kesim, 2) aniqlovchi-ot o'rnida kelishi mumkin. Ular o'zgaradi va o'zgarishlariga qarab 2 turga bo'linadilar: 1. い ga tugaydigan sifatlar va 2. な ga tugaydigan sifatlar.",
+                'Minna no Nihongo 8-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'SIFATLAR',
-                  translation:
-                    "Sifatlar 1) kesim, 2) aniqlovchi-ot o'rnida kelishi mumkin. Ular o'zgaradi va o'",
+                  translation: 'Grammatik qolip.',
                 },
               ],
             },
             {
               pattern: 'OT  は な -SIFAT  [ な ] です',
               meaning:
-                "OT は い -SIFAT (~ い ) です 1) Gapda kesim vazifasida keladigan sifatdan keyingi です suhbatdoshga bo'lgan hurmatni bildiradi. い -sifatdan keyin です kelsa い qoladi, lekin な -sifatdan keyin です kelsa, な qo'shi",
-              usageNotes:
                 "OT は い -SIFAT (~ い ) です 1) Gapda kesim vazifasida keladigan sifatdan keyingi です suhbatdoshga bo'lgan hurmatni bildiradi. い -sifatdan keyin です kelsa い qoladi, lekin な -sifatdan keyin です kelsa, な qo'shimchasi tushib qoladi. です gapning hozirgi zamondaligi va darak gapligini anglatib turibdi. 2) な -SIFAT [ な ] じゃありません な -SIFAT [ な ] です ning inkor ko'rinishi な li sifat [ な ] じゃありません . な -SIFAT [ な ] では ありません . ( では ) 3) い -SIFAT ( ～い ) です → ～くないです。 い -SIFAT ( ～い ) です ning inkor ko'rinishini hosil qilish uchun ( い ) です qo'shimchasidagi い ni くない ga o'zgartirish kerak. いいです ning inkor ko'rinishi よくないです。 4) So'roq gaplarda fe'l va ot kesim o'rnida kelganidek, sifat ham kesim o'rnida qo'llaniladi. Javob paytida savolda qo'llanilgan sifatni qaytarish kerak. そうです yoki そうじゃあ りません deb javob qaytarib bo'lmaydi. ･･･はい、寒[さむ] いです。 …Ha, sovuq. ･･･いいえ、きれいじゃ ありません。 …Yo'q, toza emas.",
+              usageNotes:
+                'Minna no Nihongo 8-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'ワット先生[せんせい] は 親切[しんせつ] です。',
@@ -2893,6 +5189,18 @@ export const MINNA_N5_LESSONS: Lesson[] = [
                   sentence: 'あそこは 静[しず] かじゃ ありません。',
                   translation: 'Anavi yer tinch emas.',
                 },
+                {
+                  sentence: 'この 本[ほん] は おもしろくないです。',
+                  translation: 'Bu kitob qiziqarli emas.',
+                },
+                {
+                  sentence: 'ペキンは 寒[さむ] いですか。',
+                  translation: 'Pekin sovuqmi?',
+                },
+                {
+                  sentence: '琵琶湖[びわこ] の水[みず] は きれいですか。',
+                  translation: "Biva ko'lining suvi tozami?",
+                },
               ],
             },
             {
@@ -2900,7 +5208,7 @@ export const MINNA_N5_LESSONS: Lesson[] = [
               meaning:
                 "い -SIFAT ( ～い ) OT Sifat otdan oldin aniqlovchi sifatida keladi, otdan oldin な -sifatga “ な ” qo'shimchasi qo'shiladi.",
               usageNotes:
-                "い -SIFAT ( ～い ) OT Sifat otdan oldin aniqlovchi sifatida keladi, otdan oldin な -sifatga “ な ” qo'shimchasi qo'shiladi.",
+                'Minna no Nihongo 8-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'ワット先生[せんせい] は 親切[しんせつ] な 先生[せんせい] です。',
@@ -2915,9 +5223,9 @@ export const MINNA_N5_LESSONS: Lesson[] = [
             {
               pattern: 'とても／あまり',
               meaning:
-                "とても , あまり –ravish. Ular sifatdan oldin qo'yilib darajani ko'rsatib keladi. とても ijobiy ma'nodagi gaplarda kelib, “ juda ” degan ma'noni anglatadi. あまり esa inkor ma'noli gaplarda kelib, sifatning inkor ",
-              usageNotes:
                 "とても , あまり –ravish. Ular sifatdan oldin qo'yilib darajani ko'rsatib keladi. とても ijobiy ma'nodagi gaplarda kelib, “ juda ” degan ma'noni anglatadi. あまり esa inkor ma'noli gaplarda kelib, sifatning inkor ko'rinishi bilan birikib keladi. “ unchalik ” degan ma'noni anglatadi.",
+              usageNotes:
+                'Minna no Nihongo 8-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'ペキンは とても 寒[さむ] いです。',
@@ -2931,6 +5239,11 @@ export const MINNA_N5_LESSONS: Lesson[] = [
                   sentence: 'シャンハイは あまり 寒[さむ] くないです。',
                   translation: 'Shanxay unchalik sovuq emas.',
                 },
+                {
+                  sentence:
+                    'さくら大[だい] 学[がく] は あまり 有名[ゆうめい] な 大学[だいがく] じゃ ありません。',
+                  translation: 'Sakura universiteti uncha mashhur emas.',
+                },
               ],
             },
             {
@@ -2938,7 +5251,7 @@ export const MINNA_N5_LESSONS: Lesson[] = [
               meaning:
                 "Bunday so'roq gap shakli biror kishi suhbatdoshining biror bir narsa, joy va kishi haqidagi fikri hamda taassuroti bilan qiziqqanda qo'llaniladi. ･･･楽[たの] しいです。 …Qiziq.",
               usageNotes:
-                "Bunday so'roq gap shakli biror kishi suhbatdoshining biror bir narsa, joy va kishi haqidagi fikri hamda taassuroti bilan qiziqqanda qo'llaniladi. ･･･楽[たの] しいです。 …Qiziq.",
+                'Minna no Nihongo 8-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: '日[に] 本[ほん] の 生活[せいかつ] は どうですか。',
@@ -2951,7 +5264,7 @@ export const MINNA_N5_LESSONS: Lesson[] = [
               meaning:
                 "Savolning bu ko'rinishi OT 1 ga ta'rif berishda qo'llaniladi. Bu yerda OT 2 OT 1 ga tegishli daraja bo'lib keladi. どんな so'roq so'zidan so'ng albatta ot keladi. ･･･古[ふる] い 町[まち] です。 …Qadimiy shahar.",
               usageNotes:
-                "Savolning bu ko'rinishi OT 1 ga ta'rif berishda qo'llaniladi. Bu yerda OT 2 OT 1 ga tegishli daraja bo'lib keladi. どんな so'roq so'zidan so'ng albatta ot keladi. ･･･古[ふる] い 町[まち] です。 …Qadimiy shahar.",
+                'Minna no Nihongo 8-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: '奈良[なら] は どんな 町[まち] ですか。',
@@ -2964,7 +5277,7 @@ export const MINNA_N5_LESSONS: Lesson[] = [
               meaning:
                 "が - bu bog'lovchi “ lekin ” degan ma'noni bildirib, gaplarni bog'lashda qo'llaniladi.",
               usageNotes:
-                "が - bu bog'lovchi “ lekin ” degan ma'noni bildirib, gaplarni bog'lashda qo'llaniladi.",
+                'Minna no Nihongo 8-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence:
@@ -2978,93 +5291,102 @@ export const MINNA_N5_LESSONS: Lesson[] = [
               meaning:
                 "Bu so'roq so'z suhbatdoshdan uch yoki undan ham ko'p predmetlardan birini tanlashni talab qiladi. ⑯ ミラーさんの 傘[かさ] は どれですか。 Janob Millerning soyaboni qaysi? ･･･あの 青[あお] い 傘[かさ] です。 …Ana u ko'k soyabon.",
               usageNotes:
-                "Bu so'roq so'z suhbatdoshdan uch yoki undan ham ko'p predmetlardan birini tanlashni talab qiladi. ⑯ ミラーさんの 傘[かさ] は どれですか。 Janob Millerning soyaboni qaysi? ･･･あの 青[あお] い 傘[かさ] です。 …Ana u ko'k soyabon.",
+                'Minna no Nihongo 8-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'どれ',
-                  translation:
-                    "Bu so'roq so'z suhbatdoshdan uch yoki undan ham ko'p predmetlardan birini tanlas",
+                  translation: 'Grammatik qolip.',
                 },
               ],
             },
           ],
           culturalNotes:
-            "Yaponiyada to'rt fasl (shiki) juda muhim o'rin tutadi. Bahorda sakura gullashi (hanami), kuzda esa qizil barglar (momiji) tomosha qilinadi.",
+            "Yaponiyada to'rt fasl (shiki) juda qadrlanadi. Bahorda sakura gullashi (hanami), kuzda esa qizil yaproqlar (momiji) tomosha qilinadi. Har faslning o'z an'anaviy taomlari bor.",
         },
       },
       {
         id: 'ja-minna-l8-s2',
         title: 'Mustahkamlash Mashqlari',
         type: 'practice',
-        estimatedMinutes: 6,
+        estimatedMinutes: 8,
         practiceData: {
           instructions:
-            "Darsda o'rganilgan yangi so'zlar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
+            "Darsda o'rganilgan yangi so'zlar, zarrachalar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
           exercises: [
             {
               id: 'ja-minna-l8-ex1',
               type: 'multiple-choice',
-              prompt: "「ハンサム [ な ]」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
-              options: [
-                "xushro'y, chiroyli (erkak kishiga nisbatan qo'llaniladi.)",
-                "xushro'y, chiroyli, go'zal; toza",
-                'tinch, osoyishta, osuda',
-                'gavjum, sershovqin',
-              ],
-              correctAnswer: 0,
+              prompt:
+                "Bo'sh joyga to'g'ri zarrachani qo'ying:\n「あした 9時（　）学校へ 行きます。」",
+              options: ['で', 'へ', 'を', 'に'],
+              correctAnswer: 3,
               explanation:
-                "To'g'ri javob: xushro'y, chiroyli (erkak kishiga nisbatan qo'llaniladi.).",
+                "To'g'ri javob: 「に」. Aniq vaqt ifodalanganda 'に' zarrachasi qo'yiladi.",
             },
             {
               id: 'ja-minna-l8-ex2',
               type: 'multiple-choice',
-              prompt:
-                "8-dars grammatik qoidasi: '1.  SIFATLAR' bo'yicha qaysi gap grammatik jihatdan to'g'ri tuzilgan?",
+              prompt: "「便利な (べんりな)」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
               options: [
-                'ワット先生[せんせい] は 親切[しんせつ] です。',
-                'これ は を です。',
-                'だれ が 行きます か でした。',
-                'へ 行きません です。',
+                'qulay',
+                "xushro'y, chiroyli",
+                'tinch, osoyishta, osuda',
+                "xushro'y, chiroyli, go'zal; toza",
               ],
               correctAnswer: 0,
-              explanation:
-                "To'g'ri javob: ワット先生[せんせい] は 親切[しんせつ] です。 (Vat domla mehribon.).",
+              explanation: "To'g'ri javob: 「qulay」.",
             },
             {
               id: 'ja-minna-l8-ex3',
               type: 'multiple-choice',
-              prompt:
-                "O'zbek tiliga to'g'ri tarjima qiling: 「富[ふ] 士[じ] 山[さん] は 高[たか] いです。」",
+              prompt: "8-dars grammatik qoidasiga muvofiq to'g'ri tuzilgan gapni aniqlang:",
               options: [
-                "Fuji tog'i baland.",
-                "Ertaga do'stim bilan mehmonga boraman.",
-                "Kechirasiz, soat necha bo'ldi?",
-                "Iltimos, manzilni ko'rsatib yuboring.",
+                'ワット先生[せんせい] は 親切[しんせつ] です。',
+                'ワット先生[せんせい] は 親切[しんせつ] じゃあります。',
+                'ワット先生[せんせい] は 親切[しんせつ] です か でした。',
+                'ワット先生[せんせい] を 親切[しんせつ] です。',
               ],
               correctAnswer: 0,
-              explanation: "To'g'ri tarjimasi: Fuji tog'i baland..",
+              explanation:
+                "To'g'ri gap: 「ワット先生[せんせい] は 親切[しんせつ] です。」 (Vat domla mehribon.).",
             },
             {
               id: 'ja-minna-l8-ex4',
               type: 'multiple-choice',
-              prompt: 'Ushbu darsdagi suhbatdan kelib chiqib: Yamada Ichiro qanday jumla aytadi?',
+              prompt:
+                "Ushbu gapning to'g'ri yaponcha tarjimasini tanlang:\n「Vat domla mehribon.」",
               options: [
-                "Mariya xonim, Yaponiya hayot tarziga ko'nikdingizmi?",
-                'Men hech qayerga bormayman.',
-                'Taksida aeroportga haydang.',
-                "Iltimos, hisobni alohida to'laymiz.",
+                'SIFATLAR',
+                'ワット先生[せんせい] は 親切[しんせつ] です。',
+                'あそこは 静[しず] かじゃ ありません。',
+                '富[ふ] 士[じ] 山[さん] は 高[たか] いです。',
               ],
-              correctAnswer: 0,
-              explanation: "To'g'ri ibora: Mariya xonim, Yaponiya hayot tarziga ko'nikdingizmi?.",
+              correctAnswer: 1,
+              explanation:
+                "Yaponcha to'g'ri ifodasi: 「ワット先生[せんせい] は 親切[しんせつ] です。」.",
+            },
+            {
+              id: 'ja-minna-l8-ex5',
+              type: 'multiple-choice',
+              prompt:
+                'Suhbatdoshingiz: 「いらっしゃいませ！」 dedi. Unga eng mos muloyim javob qaysi?',
+              options: [
+                '失礼します。',
+                'すみません、この時計を 見せてください。',
+                'ごちそうさまでした。',
+                'おやすみなさい。',
+              ],
+              correctAnswer: 1,
+              explanation: "To'g'ri javob: 「すみません、この時計を 見せてください。」.",
             },
           ],
         },
       },
       {
         id: 'ja-minna-l8-s3',
-        title: 'Sinov Testi',
+        title: 'JLPT N5 Sinov Testi',
         type: 'test',
-        estimatedMinutes: 6,
+        estimatedMinutes: 7,
         testData: {
           instructions:
             "Darsni muvaffaqiyatli yakunlash uchun savollarga to'g'ri javob bering (Kamida 80%).",
@@ -3072,55 +5394,57 @@ export const MINNA_N5_LESSONS: Lesson[] = [
           questions: [
             {
               id: 'ja-minna-l8-q1',
-              question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「ワット先生[せんせい] は 親切[しんせつ] です。」",
-              options: [
-                'Vat domla mehribon.',
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
-              ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Vat domla mehribon..",
+              question: '【Mondai 1: Moji/Goi】「新しい」の 読[よ]み方[かた]は どれですか。',
+              options: ['ハンサムな', 'しずかな', 'きれいな', 'あたらしい'],
+              correctAnswerIndex: 3,
+              explanation: "「新しい」 ning to'g'ri o'qilishi: 「あたらしい」 (yangi).",
             },
             {
               id: 'ja-minna-l8-q2',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「富[ふ] 士[じ] 山[さん] は 高[たか] いです。」",
-              options: [
-                "Fuji tog'i baland.",
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
-              ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Fuji tog'i baland..",
+                '【Mondai 2: Bunpo】（　）に 入[はい]る 最[もっと]も よいものを 1つ えらびなさい。\n「毎朝 7時（　）起きます。」',
+              options: ['で', 'に', 'を', 'へ'],
+              correctAnswerIndex: 1,
+              explanation: "To'g'ri zarracha: 「に」. Aniq soat bilan 'に' zarrachasi ishlatiladi.",
             },
             {
               id: 'ja-minna-l8-q3',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「あそこは 静[しず] かじゃ ありません。」",
+                "【Mondai 3: Bunpo】8-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
               options: [
-                'Anavi yer tinch emas.',
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
+                'OT  は な -SIFAT  [ な ] です',
+                '〜は 〜でした じゃありません',
+                '〜を 行きます です',
+                '〜に 食べません でした',
               ],
               correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Anavi yer tinch emas..",
+              explanation: "To'g'ri grammatik formula: 「OT  は な -SIFAT  [ な ] です」.",
             },
             {
               id: 'ja-minna-l8-q4',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「この 本[ほん] は おもしろくないです。」",
+                "【Mondai 4: Dokkai】Quyidagi yaponcha gapning to'g'ri o'zbekcha ma'nosini toping:\n「富[ふ] 士[じ] 山[さん] は 高[たか] いです。」",
               options: [
-                'Bu kitob qiziqarli emas.',
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
+                'Vat domla mehribon.',
+                'Anavi yer tinch emas.',
+                'Grammatik qolip.',
+                "Fuji tog'i baland.",
               ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Bu kitob qiziqarli emas..",
+              correctAnswerIndex: 3,
+              explanation: "To'g'ri ma'nosi: 「Fuji tog'i baland.」.",
+            },
+            {
+              id: 'ja-minna-l8-q5',
+              question:
+                "【Mondai 5: Kaiwa】Savolga eng to'g'ri javobni tanlang:\n「トイレは どこですか。」",
+              options: [
+                'ごちそうさまでした。',
+                'あそこです。',
+                'おやすみなさい。',
+                'はい、そうです。',
+              ],
+              correctAnswerIndex: 1,
+              explanation: "To'g'ri javob: 「あそこです。」.",
             },
           ],
         },
@@ -3137,155 +5461,407 @@ export const MINNA_N5_LESSONS: Lesson[] = [
     lessonNumber: 9,
     title: '9-dars: Qobiliyat, Xohish va Sabab (Yoqtirish/Tushunish)',
     description:
-      "Minna no Nihongo Shokyu 1: 9-dars: Qobiliyat, Xohish va Sabab (Yoqtirish/Tushunish). Darsda 52 ta yangi so'z va 5 ta asosiy grammatik qoida o'rganiladi.",
-    estimatedDurationMinutes: 20,
+      "Minna no Nihongo Shokyu 1: 9-dars: Qobiliyat, Xohish va Sabab (Yoqtirish/Tushunish). Darsda 52 ta yangi so'z, audio talaffuzli Furigana misollar va 5 ta asosiy grammatik formula o'rganiladi.",
+    estimatedDurationMinutes: 25,
     icon: '🌸',
     steps: [
       {
         id: 'ja-minna-l9-s1',
         title: "Lug'at va Qoidalar",
         type: 'learn',
-        estimatedMinutes: 8,
+        estimatedMinutes: 10,
         learnData: {
           title: '9-Dars: 9-dars: Qobiliyat, Xohish va Sabab (Yoqtirish/Tushunish)',
           subtitle: '第9課：好き・上手・わかります・から',
           explanation:
-            "9-dars: Qobiliyat, Xohish va Sabab (Yoqtirish/Tushunish) bo'yicha to'liq grammatik izohlar va qoidalar to'plami. Har bir qoida Minna no Nihongo darsligining o'zbekcha tarjimasiga moslashtirilgan.",
+            "9-dars: Qobiliyat, Xohish va Sabab (Yoqtirish/Tushunish) bo'yicha to'liq grammatik izohlar, formulalar va Furiganali misollar to'plami.",
           keyPoints: [
-            "1.: OT が 好[す] きです／嫌[きら] いです／上[じょう] 手[ず] です／下手[へた] です Ish- harakatning bajarilishiga qaratilgan o'timli fe'l bilan izohlangan...",
-            "2.  どんな OT: 8-darsda o'rgangan どんな so'roq so'zi o'zidan keyin OTni talab qiladi va suhbatdoshdan ma'lum bir guruhdagi predmetlar ora...",
-            "3.  よく／だいたい／たくさん／少[すこ] し／あまり／全然[ぜんぜん]: Ushbu ravishlar fe'llardan oldin keladi. Quyida ularning qo'llanilish jadvali keltirilgan: daraja ravish + tasdiq ravish...",
-            "4.   GAP 1  から、 GAP 2: から bog'lovchisi ikki gapni bir-biriga bog'lab, ularda sabab - natija aloqalarini ko'rsatadi. GAP 1 GAP 2 ning sababini i...",
-            "5.  どうして: どうして so'roq so'zi suhbatdoshdan sababni so'rab keladi. Shuningdek, どうしてですか so'rog'i suhbatdoshning aytgan gapiga izoh so...",
+            "📌 1.: OT が 好[す] きです／嫌[きら] いです／上[じょう] 手[ず] です／下手[へた] です Ish- harakatning bajarilishiga qaratilgan o'timli fe'l bilan izohlangan so'zga qarashli to'ldiruvchilardan so'ng を yuklamasi qo'shiladi.",
+            "📌 2.  どんな OT: 8-darsda o'rgangan どんな so'roq so'zi o'zidan keyin OTni talab qiladi va suhbatdoshdan ma'lum bir guruhdagi predmetlar orasidan aynan bir predmet yoki shaxsni tanlab ko'rsatishda qo'llaniladi.",
+            "📌 3.  よく／だいたい／たくさん／少[すこ] し／あまり／全然[ぜんぜん]: Ushbu ravishlar fe'llardan oldin keladi.",
+            "📌 4.   GAP 1  から、 GAP 2: から bog'lovchisi ikki gapni bir-biriga bog'lab, ularda sabab - natija aloqalarini ko'rsatadi.",
+            "📌 5.  どうして: どうして so'roq so'zi suhbatdoshdan sababni so'rab keladi.",
           ],
           vocabulary: [
             {
               term: 'わかります',
               reading: 'わかります',
               meaning: 'tushunmoq',
-              exampleSentence: 'わかります — tushunmoq',
-              exampleTranslation: 'tushunmoq',
+              exampleSentence: '毎日[まいにち] わかります。',
+              exampleTranslation: 'Har kuni tushunmoq.',
             },
             {
               term: 'あります',
               reading: 'あります',
               meaning: "bor (bo'lmoq)",
-              exampleSentence: "あります — bor (bo'lmoq)",
-              exampleTranslation: "bor (bo'lmoq)",
+              exampleSentence: '毎日[まいにち] あります。',
+              exampleTranslation: "Har kuni bor (bo'lmoq).",
             },
             {
-              term: '好き [ な ] (すき [ な ])',
-              reading: 'すき [ な ]',
+              term: '好きな (すきな)',
+              reading: 'すきな',
               meaning: 'yoqimli, yoqtirgan, suygan',
-              exampleSentence: 'すき [ な ] — yoqimli, yoqtirgan, suygan',
-              exampleTranslation: 'yoqimli, yoqtirgan, suygan',
+              exampleSentence: 'これは わたしが 買[か]った 好き[な][すき[な]] です。',
+              exampleTranslation: 'Bu men sotib olgan yoqimli, yoqtirgan, suygan.',
             },
             {
-              term: '嫌い [ な ] (きらい [ な ])',
-              reading: 'きらい [ な ]',
+              term: '嫌いな (きらいな)',
+              reading: 'きらいな',
               meaning: 'yoqimsiz, yoqtirmagan, suymagan',
-              exampleSentence: 'きらい [ な ] — yoqimsiz, yoqtirmagan, suymagan',
-              exampleTranslation: 'yoqimsiz, yoqtirmagan, suymagan',
+              exampleSentence: 'これは わたしが 買[か]った 嫌い[な][きらい[な]] です。',
+              exampleTranslation: 'Bu men sotib olgan yoqimsiz, yoqtirmagan, suymagan.',
             },
             {
-              term: '上手 [ な ] (じょうず [ な ])',
-              reading: 'じょうず [ な ]',
+              term: '上手な (じょうずな)',
+              reading: 'じょうずな',
               meaning: "mohir, usta, epli, zo'r",
-              exampleSentence: "じょうず [ な ] — mohir, usta, epli, zo'r",
-              exampleTranslation: "mohir, usta, epli, zo'r",
+              exampleSentence: 'これは わたしが 買[か]った 上手[な][じょうず[な]] です。',
+              exampleTranslation: "Bu men sotib olgan mohir, usta, epli, zo'r.",
             },
             {
-              term: '下手 [ な ] (へた [ な ])',
-              reading: 'へた [ な ]',
+              term: '下手な (へたな)',
+              reading: 'へたな',
               meaning: "epsiz, no'noq, mahoratsiz",
-              exampleSentence: "へた [ な ] — epsiz, no'noq, mahoratsiz",
-              exampleTranslation: "epsiz, no'noq, mahoratsiz",
+              exampleSentence: 'これは わたしが 買[か]った 下手[な][へた[な]] です。',
+              exampleTranslation: "Bu men sotib olgan epsiz, no'noq, mahoratsiz.",
             },
             {
               term: '料理 (りょうり)',
               reading: 'りょうり',
               meaning: 'ovqat, taom',
-              exampleSentence: 'りょうり — ovqat, taom',
-              exampleTranslation: 'ovqat, taom',
+              exampleSentence: 'これは わたしが 買[か]った 料理[りょうり] です。',
+              exampleTranslation: 'Bu men sotib olgan ovqat, taom.',
             },
             {
               term: '飲み物 (のみもの)',
               reading: 'のみもの',
               meaning: 'ichimlik',
-              exampleSentence: 'のみもの — ichimlik',
-              exampleTranslation: 'ichimlik',
+              exampleSentence: 'これは わたしが 買[か]った 飲み物[のみもの] です。',
+              exampleTranslation: 'Bu men sotib olgan ichimlik.',
             },
             {
               term: 'スポーツ',
               reading: 'スポーツ',
               meaning: 'sport',
-              exampleSentence: 'スポーツ — sport',
-              exampleTranslation: 'sport',
+              exampleSentence: 'これは わたしが 買[か]った スポーツ です。',
+              exampleTranslation: 'Bu men sotib olgan sport.',
             },
             {
               term: '野球 (やきゅう)',
               reading: 'やきゅう',
               meaning: 'beysbol',
-              exampleSentence: 'やきゅう — beysbol',
-              exampleTranslation: 'beysbol',
+              exampleSentence: '毎日[まいにち] 野球[やきゅう]。',
+              exampleTranslation: 'Har kuni beysbol.',
             },
             {
               term: 'ダンス',
               reading: 'ダンス',
               meaning: 'raqs',
-              exampleSentence: 'ダンス — raqs',
-              exampleTranslation: 'raqs',
+              exampleSentence: 'これは わたしが 買[か]った ダンス です。',
+              exampleTranslation: 'Bu men sotib olgan raqs.',
             },
             {
               term: '音楽 (おんがく)',
               reading: 'おんがく',
               meaning: 'musiqa',
-              exampleSentence: 'おんがく — musiqa',
-              exampleTranslation: 'musiqa',
+              exampleSentence: 'これは わたしが 買[か]った 音楽[おんがく] です。',
+              exampleTranslation: 'Bu men sotib olgan musiqa.',
             },
             {
               term: '歌 (うた)',
               reading: 'うた',
               meaning: "qo'shiq",
-              exampleSentence: "うた — qo'shiq",
-              exampleTranslation: "qo'shiq",
+              exampleSentence: 'これは わたしが 買[か]った 歌[うた] です。',
+              exampleTranslation: "Bu men sotib olgan qo'shiq.",
             },
             {
               term: 'クラシック',
               reading: 'クラシック',
               meaning: 'klassik, mumtoz',
-              exampleSentence: 'クラシック — klassik, mumtoz',
-              exampleTranslation: 'klassik, mumtoz',
+              exampleSentence: 'これは わたしが 買[か]った クラシック です。',
+              exampleTranslation: 'Bu men sotib olgan klassik, mumtoz.',
             },
             {
               term: 'ジャズ',
               reading: 'ジャズ',
               meaning: 'jaz',
-              exampleSentence: 'ジャズ — jaz',
-              exampleTranslation: 'jaz',
+              exampleSentence: 'これは わたしが 買[か]った ジャズ です。',
+              exampleTranslation: 'Bu men sotib olgan jaz.',
+            },
+            {
+              term: 'コンサート',
+              reading: 'コンサート',
+              meaning: 'konsert',
+              exampleSentence: 'これは わたしが 買[か]った コンサート です。',
+              exampleTranslation: 'Bu men sotib olgan konsert.',
+            },
+            {
+              term: 'カラオケ',
+              reading: 'カラオケ',
+              meaning: 'karaoke',
+              exampleSentence: 'これは わたしが 買[か]った カラオケ です。',
+              exampleTranslation: 'Bu men sotib olgan karaoke.',
+            },
+            {
+              term: '歌舞伎 (かぶき)',
+              reading: 'かぶき',
+              meaning: 'kabuki',
+              exampleSentence: 'これは わたしが 買[か]った 歌舞伎[かぶき] です。',
+              exampleTranslation: 'Bu men sotib olgan kabuki.',
+            },
+            {
+              term: '絵 (え)',
+              reading: 'え',
+              meaning: 'rasm',
+              exampleSentence: 'これは わたしが 買[か]った 絵[え] です。',
+              exampleTranslation: 'Bu men sotib olgan rasm.',
+            },
+            {
+              term: '字 (じ)',
+              reading: 'じ',
+              meaning: 'harf',
+              exampleSentence: 'これは わたしが 買[か]った 字[じ] です。',
+              exampleTranslation: 'Bu men sotib olgan harf.',
+            },
+            {
+              term: '漢字 (かんじ)',
+              reading: 'かんじ',
+              meaning: 'belgi, iyeroglif',
+              exampleSentence: 'これは わたしが 買[か]った 漢字[かんじ] です。',
+              exampleTranslation: 'Bu men sotib olgan belgi, iyeroglif.',
+            },
+            {
+              term: 'ひらがな',
+              reading: 'ひらがな',
+              meaning: 'hiragana (yapon alifbosi)',
+              exampleSentence: 'これは わたしが 買[か]った ひらがな です。',
+              exampleTranslation: 'Bu men sotib olgan hiragana (yapon alifbosi).',
+            },
+            {
+              term: 'かたかな',
+              reading: 'かたかな',
+              meaning: 'katakana (yapon alifbosi)',
+              exampleSentence: 'これは わたしが 買[か]った かたかな です。',
+              exampleTranslation: 'Bu men sotib olgan katakana (yapon alifbosi).',
+            },
+            {
+              term: 'ローマ字 (ローマじ)',
+              reading: 'ローマじ',
+              meaning: 'rim yozuvi (lotin yozuvi)',
+              exampleSentence: 'これは わたしが 買[か]った ローマ字[ローマじ] です。',
+              exampleTranslation: 'Bu men sotib olgan rim yozuvi (lotin yozuvi).',
+            },
+            {
+              term: '細かいお金 (こまかいおかね)',
+              reading: 'こまかいおかね',
+              meaning: 'mayda pul',
+              exampleSentence: 'これは わたしが 買[か]った 細かいお金[こまかいおかね] です。',
+              exampleTranslation: 'Bu men sotib olgan mayda pul.',
+            },
+            {
+              term: 'チケット',
+              reading: 'チケット',
+              meaning: 'chipta',
+              exampleSentence: 'これは わたしが 買[か]った チケット です。',
+              exampleTranslation: 'Bu men sotib olgan chipta.',
+            },
+            {
+              term: '時間 (じかん)',
+              reading: 'じかん',
+              meaning: 'vaqt',
+              exampleSentence: 'これは わたしが 買[か]った 時間[じかん] です。',
+              exampleTranslation: 'Bu men sotib olgan vaqt.',
+            },
+            {
+              term: '用事 (ようじ)',
+              reading: 'ようじ',
+              meaning: 'ish, yumush',
+              exampleSentence: 'これは わたしが 買[か]った 用事[ようじ] です。',
+              exampleTranslation: 'Bu men sotib olgan ish, yumush.',
+            },
+            {
+              term: '約束 (やくそく)',
+              reading: 'やくそく',
+              meaning: "va'da",
+              exampleSentence: 'これは わたしが 買[か]った 約束[やくそく] です。',
+              exampleTranslation: "Bu men sotib olgan va'da.",
+            },
+            {
+              term: 'ご主人 (ごしゅじん)',
+              reading: 'ごしゅじん',
+              meaning: "xo'jayin(ingiz), er(ingiz)",
+              exampleSentence: 'ミラーさんは ご主人[ごしゅじん] です。',
+              exampleTranslation: "Janob Miller xo'jayin(ingiz), er(ingiz).",
+            },
+            {
+              term: '夫／主人 (おっと／しゅじん)',
+              reading: 'おっと／しゅじん',
+              meaning: "xo'jayin(im), er(im)",
+              exampleSentence: 'ミラーさんは 夫／主人[おっと／しゅじん] です。',
+              exampleTranslation: "Janob Miller xo'jayin(im), er(im).",
+            },
+            {
+              term: '奥さん (おくさん)',
+              reading: 'おくさん',
+              meaning: 'ayol(ingiz), xotin(ingiz)',
+              exampleSentence: 'これは わたしが 買[か]った 奥さん[おくさん] です。',
+              exampleTranslation: 'Bu men sotib olgan ayol(ingiz), xotin(ingiz).',
+            },
+            {
+              term: '妻／家内 (つま／かない)',
+              reading: 'つま／かない',
+              meaning: 'ayol(im), xotin(im)',
+              exampleSentence: 'この 部屋[へや]は 妻／家内[つま／かない]です。',
+              exampleTranslation: 'Bu xona ayol(im), xotin(im).',
+            },
+            {
+              term: '子ども (こども)',
+              reading: 'こども',
+              meaning: 'bola, farzand',
+              exampleSentence: 'これは わたしが 買[か]った 子ども[こども] です。',
+              exampleTranslation: 'Bu men sotib olgan bola, farzand.',
+            },
+            {
+              term: 'よく',
+              reading: 'よく',
+              meaning: 'tez-tez; yaxshi; rosa',
+              exampleSentence: 'これは わたしが 買[か]った よく です。',
+              exampleTranslation: 'Bu men sotib olgan tez-tez; yaxshi; rosa.',
+            },
+            {
+              term: 'だいたい',
+              reading: 'だいたい',
+              meaning: 'deyarli',
+              exampleSentence: 'この 部屋[へや]は だいたいです。',
+              exampleTranslation: 'Bu xona deyarli.',
+            },
+            {
+              term: 'たくさん',
+              reading: 'たくさん',
+              meaning: "ko'p",
+              exampleSentence: 'これは わたしが 買[か]った たくさん です。',
+              exampleTranslation: "Bu men sotib olgan ko'p.",
+            },
+            {
+              term: '少し (すこし)',
+              reading: 'すこし',
+              meaning: 'ozgina, ozroq, biroz, kam',
+              exampleSentence: 'これは わたしが 買[か]った 少し[すこし] です。',
+              exampleTranslation: 'Bu men sotib olgan ozgina, ozroq, biroz, kam.',
+            },
+            {
+              term: '全然 (ぜんぜん)',
+              reading: 'ぜんぜん',
+              meaning: 'umuman, hech',
+              exampleSentence: 'これは わたしが 買[か]った 全然[ぜんぜん] です。',
+              exampleTranslation: 'Bu men sotib olgan umuman, hech.',
+            },
+            {
+              term: '早く、速く (はやく)',
+              reading: 'はやく',
+              meaning: 'erta, barvaqt; tez',
+              exampleSentence: 'これは わたしが 買[か]った 早く、速く[はやく] です。',
+              exampleTranslation: 'Bu men sotib olgan erta, barvaqt; tez.',
+            },
+            {
+              term: '～から',
+              reading: '～から',
+              meaning: '~dan',
+              exampleSentence: '山田[やまだ]からは 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada ~dan samimiy inson.',
+            },
+            {
+              term: 'どうして',
+              reading: 'どうして',
+              meaning: 'nima uchun',
+              exampleSentence: 'これは わたしが 買[か]った どうして です。',
+              exampleTranslation: 'Bu men sotib olgan nima uchun.',
+            },
+            {
+              term: '残念ですね。 (ざんねんですね。)',
+              reading: 'ざんねんですね。',
+              meaning: 'Afsus.',
+              exampleSentence:
+                'これは わたしが 買[か]った 残念です[ね]。[ざんねんです[ね]。] です。',
+              exampleTranslation: 'Bu men sotib olgan afsus..',
+            },
+            {
+              term: 'すみません。',
+              reading: 'すみません。',
+              meaning: 'Kechirasiz',
+              exampleSentence: 'これは わたしが 買[か]った すみません。 です。',
+              exampleTranslation: 'Bu men sotib olgan kechirasiz.',
+            },
+            {
+              term: 'もしもし',
+              reading: 'もしもし',
+              meaning: 'allo, eshitaman',
+              exampleSentence: 'これは わたしが 買[か]った もしもし です。',
+              exampleTranslation: 'Bu men sotib olgan allo, eshitaman.',
+            },
+            {
+              term: 'ああ',
+              reading: 'ああ',
+              meaning: 'A',
+              exampleSentence: 'これは わたしが 買[か]った ああ です。',
+              exampleTranslation: 'Bu men sotib olgan a.',
+            },
+            {
+              term: 'いっしょにいかがですか。',
+              reading: 'いっしょにいかがですか。',
+              meaning: "Birga (fe'l~)maysizmi?",
+              exampleSentence: 'これは わたしが 買[か]った いっしょにいかがですか。 です。',
+              exampleTranslation: "Bu men sotib olgan birga (fe'l~)maysizmi?.",
+            },
+            {
+              term: '～はちょっと・・・・。',
+              reading: '～はちょっと・・・・。',
+              meaning: '~ biroz… . (rad etish iborasi)',
+              exampleSentence:
+                '山田[やまだ][は]ちょっと・・・・。は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada ~ biroz… . (rad etish iborasi) samimiy inson.',
+            },
+            {
+              term: 'だめですか。',
+              reading: 'だめですか。',
+              meaning: "Bo'lmaydimi?",
+              exampleSentence: 'これは わたしが 買[か]った だめですか。 です。',
+              exampleTranslation: "Bu men sotib olgan bo'lmaydimi?.",
+            },
+            {
+              term: 'また今こん度どお願ねがいします。',
+              reading: 'また今こん度どお願ねがいします。',
+              meaning: 'Yanagi safar. / Boshqa safar',
+              exampleSentence: '毎日[まいにち] また今[こん]度[ど]お願[ねが]いします。。',
+              exampleTranslation: 'Har kuni yanagi safar. / boshqa safar.',
+            },
+            {
+              term: '小お沢ざわ征せい爾じ',
+              reading: '小お沢ざわ征せい爾じ',
+              meaning: 'Ozava Seiji',
+              exampleSentence: 'これは わたしが 買[か]った 小[お]沢[ざわ]征[せい]爾[じ] です。',
+              exampleTranslation: 'Bu men sotib olgan ozava seiji.',
             },
           ],
           grammarRules: [
             {
               pattern: '1.',
               meaning:
-                "OT が 好[す] きです／嫌[きら] いです／上[じょう] 手[ず] です／下手[へた] です Ish- harakatning bajarilishiga qaratilgan o'timli fe'l bilan izohlangan so'zga qarashli to'ldiruvchilardan so'ng を yuklamasi qo'shiladi. Biroq あります／わかり",
-              usageNotes:
                 "OT が 好[す] きです／嫌[きら] いです／上[じょう] 手[ず] です／下手[へた] です Ish- harakatning bajarilishiga qaratilgan o'timli fe'l bilan izohlangan so'zga qarashli to'ldiruvchilardan so'ng を yuklamasi qo'shiladi. Biroq あります／わかります fe'llariga tegishli to'ldiruvchilardan so'ng が yuklamasi qo'shiladi. Shuningdek, gapda kesim vazifasida keladigan 好[す] きです , 嫌[きら] いです , 上[じょう] 手[ず] です va 下手[へた] です sifatlaridan oldin が yuklamasi qo'yiladi. To'ldiruvchi が yuklamasi bilan ifodalangan gapdagi sifat va fe'llar afzallik, qobiliyat va tegishlilik kabi munosabatlarni anglatadi.",
+              usageNotes:
+                'Minna no Nihongo 9-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
-                  sentence:
-                    '私[わたし] は イタリア料[りょう] 理[り] が 好[す] きです。 Men  Italiya taomlarni yoqtiraman.',
-                  translation: '',
+                  sentence: '私[わたし] は イタリア料[りょう] 理[り] が 好[す] きです。',
+                  translation: 'Men  Italiya taomlarni yoqtiraman.',
                 },
                 {
-                  sentence:
-                    '私[わたし] は 日[に] 本[ほん] 語[ご] が わかります。 Men yapon tilini tushunaman.',
-                  translation: '',
+                  sentence: '私[わたし] は 日[に] 本[ほん] 語[ご] が わかります。',
+                  translation: 'Men yapon tilini tushunaman.',
                 },
                 {
-                  sentence: '私[わたし] は 車[くるま] が あります。 Menda mashina bor.',
-                  translation: '',
+                  sentence: '私[わたし] は 車[くるま] が あります。',
+                  translation: 'Menda mashina bor.',
                 },
               ],
             },
@@ -3294,10 +5870,10 @@ export const MINNA_N5_LESSONS: Lesson[] = [
               meaning:
                 "8-darsda o'rgangan どんな so'roq so'zi o'zidan keyin OTni talab qiladi va suhbatdoshdan ma'lum bir guruhdagi predmetlar orasidan aynan bir predmet yoki shaxsni tanlab ko'rsatishda qo'llaniladi.",
               usageNotes:
-                "8-darsda o'rgangan どんな so'roq so'zi o'zidan keyin OTni talab qiladi va suhbatdoshdan ma'lum bir guruhdagi predmetlar orasidan aynan bir predmet yoki shaxsni tanlab ko'rsatishda qo'llaniladi.",
+                'Minna no Nihongo 9-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
-                  sentence: 'どんな スポーツが 好[す] きですか。 Qaysi sport turini yoqtirasiz?',
+                  sentence: 'どんな スポーツが 好[す] きですか。',
                   translation: '･･･サッカーが 好[す] きです。 …Futbolni yoqtiraman.',
                 },
               ],
@@ -3305,31 +5881,47 @@ export const MINNA_N5_LESSONS: Lesson[] = [
             {
               pattern: 'よく／だいたい／たくさん／少[すこ] し／あまり／全然[ぜんぜん]',
               meaning:
-                "Ushbu ravishlar fe'llardan oldin keladi. Quyida ularning qo'llanilish jadvali keltirilgan: daraja ravish + tasdiq ravish + inkor yuqori よく わかります だいたい わかります past すこし わかります あまり わかりません ぜんぜん わかりません miqdor",
-              usageNotes:
                 "Ushbu ravishlar fe'llardan oldin keladi. Quyida ularning qo'llanilish jadvali keltirilgan: daraja ravish + tasdiq ravish + inkor yuqori よく わかります だいたい わかります past すこし わかります あまり わかりません ぜんぜん わかりません miqdori ravish + tasdiq ravish + inkor ko'p たくさん あります すこし あります あまり ありません kam ぜんぜん ありません ham aniqlab kelish mumkin.",
+              usageNotes:
+                'Minna no Nihongo 9-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
-                  sentence: '英[えい] 語[ご] が よく わかります。 Ingliz tilini yaxshi bilaman.',
-                  translation: '',
+                  sentence: '英[えい] 語[ご] が よく わかります。',
+                  translation: 'Ingliz tilini yaxshi bilaman.',
                 },
                 {
-                  sentence: '英[えい] 語[ご] が 少し わかります。 Ingliz tilini biroz bilaman.',
-                  translation: '',
+                  sentence: '英[えい] 語[ご] が 少し わかります。',
+                  translation: 'Ingliz tilini biroz bilaman.',
                 },
                 {
-                  sentence:
-                    '英[えい] 語[ご] が あまり わかりません。 Ingliz tilini uncha bilmayman.',
-                  translation: '',
+                  sentence: '英[えい] 語[ご] が あまり わかりません。',
+                  translation: 'Ingliz tilini uncha bilmayman.',
+                },
+                {
+                  sentence: 'お金[かね] が たくさん あります。',
+                  translation: 'Pulim ko`p.',
+                },
+                {
+                  sentence: 'お金[かね] が 全然[ぜんぜん] ありません。',
+                  translation:
+                    "[Eslatma] すこし va ぜんぜん ravishlari, shuningdek sifat so'z turkumidagi so'zlarni",
+                },
+                {
+                  sentence: 'ここは 少[すこ] し 寒[さむ] いです。',
+                  translation: 'Bu yer biroz sovuq.',
+                },
+                {
+                  sentence: 'あの 映[えい] 画[が] は 全然[ぜんぜん] おもしろくないです。',
+                  translation: 'Ana u kinofilm umuman qiziq emas.',
                 },
               ],
             },
             {
               pattern: 'GAP 1  から、 GAP 2',
               meaning:
-                "から bog'lovchisi ikki gapni bir-biriga bog'lab, ularda sabab - natija aloqalarini ko'rsatadi. GAP 1 GAP 2 ning sababini ifodalaydi. Shuningdek, avval GAP 2 keyin esa uning sababini GAP 1 izohlashi mumk",
-              usageNotes:
                 "から bog'lovchisi ikki gapni bir-biriga bog'lab, ularda sabab - natija aloqalarini ko'rsatadi. GAP 1 GAP 2 ning sababini ifodalaydi. Shuningdek, avval GAP 2 keyin esa uning sababini GAP 1 izohlashi mumkin. Har kuni ertalab gazeta o'qiysizmi?",
+              usageNotes:
+                'Minna no Nihongo 9-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence:
@@ -3346,100 +5938,102 @@ export const MINNA_N5_LESSONS: Lesson[] = [
             {
               pattern: 'どうして',
               meaning:
-                "どうして so'roq so'zi suhbatdoshdan sababni so'rab keladi. Shuningdek, どうしてですか so'rog'i suhbatdoshning aytgan gapiga izoh so'rayotgan paytda qo'llaniladi. 子[こ] 供[ども] の 誕[たん] 生[じょう] 日[び] ですから。 Chunki, farz",
-              usageNotes:
                 "どうして so'roq so'zi suhbatdoshdan sababni so'rab keladi. Shuningdek, どうしてですか so'rog'i suhbatdoshning aytgan gapiga izoh so'rayotgan paytda qo'llaniladi. 子[こ] 供[ども] の 誕[たん] 生[じょう] 日[び] ですから。 Chunki, farzandimning tug'ilgan kuni.",
+              usageNotes:
+                'Minna no Nihongo 9-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
-                  sentence:
-                    'どうして 朝[あさ] 新聞[しんぶん] を 読[よ] みませんか。 Nima uchun ertalab gazeta o`qimaysiz?',
+                  sentence: 'どうして 朝[あさ] 新聞[しんぶん] を 読[よ] みませんか。',
                   translation: "･･･時[じ] 間[かん] が ありませんから。 …Chunki, vaqtim yo'q.",
                 },
                 {
-                  sentence:
-                    '今日[きょう] は 早[はや] く 帰[かえ] ります。 Bugun uyga erta qaytaman.',
+                  sentence: '今日[きょう] は 早[はや] く 帰[かえ] ります。',
                   translation: '･･･どうしてですか。 … Nima uchun ?',
                 },
               ],
             },
           ],
           culturalNotes:
-            "Yapon madaniyatida to'g'ridan-to'g'ri 'yo'q' yoki 'yoqtirmayman' deyish noqulay sanaladi. Uning o'rniga 'ちょっと...' (biroz noqulay) iborasi qo'llaniladi.",
+            "Yapon madaniyatida to'g'ridan-to'g'ri 'yo'q' yoki 'yoqtirmayman' deyish noqulay sanaladi. Uning o'rniga 'ちょっと...' (biroz noqulay...) iborasi qo'llaniladi.",
         },
       },
       {
         id: 'ja-minna-l9-s2',
         title: 'Mustahkamlash Mashqlari',
         type: 'practice',
-        estimatedMinutes: 6,
+        estimatedMinutes: 8,
         practiceData: {
           instructions:
-            "Darsda o'rganilgan yangi so'zlar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
+            "Darsda o'rganilgan yangi so'zlar, zarrachalar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
           exercises: [
             {
               id: 'ja-minna-l9-ex1',
               type: 'multiple-choice',
-              prompt: "「わかります」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
-              options: [
-                'tushunmoq',
-                "bor (bo'lmoq)",
-                'yoqimli, yoqtirgan, suygan',
-                'yoqimsiz, yoqtirmagan, suymagan',
-              ],
-              correctAnswer: 0,
-              explanation: "To'g'ri javob: tushunmoq.",
+              prompt: "Bo'sh joyga to'g'ri zarrachani qo'ying:\n「食堂（　）昼ご飯を 食べます。」",
+              options: ['へ', 'に', 'を', 'で'],
+              correctAnswer: 3,
+              explanation:
+                "To'g'ri javob: 「で」. Harakat sodir bo'layotgan joy 'で' bilan belgilanadi.",
             },
             {
               id: 'ja-minna-l9-ex2',
               type: 'multiple-choice',
-              prompt:
-                "9-dars grammatik qoidasi: '1.' bo'yicha qaysi gap grammatik jihatdan to'g'ri tuzilgan?",
-              options: [
-                'どんな スポーツが 好[す] きですか。 Qaysi sport turini yoqtirasiz?',
-                'これ は を です。',
-                'だれ が 行きます か でした。',
-                'へ 行きません です。',
-              ],
-              correctAnswer: 0,
-              explanation:
-                "To'g'ri javob: どんな スポーツが 好[す] きですか。 Qaysi sport turini yoqtirasiz? (･･･サッカーが 好[す] きです。 …Futbolni yoqtiraman.).",
+              prompt: "「野球 (やきゅう)」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
+              options: ["bor (bo'lmoq)", 'tushunmoq', 'beysbol', 'yoqimli, yoqtirgan, suygan'],
+              correctAnswer: 2,
+              explanation: "To'g'ri javob: 「beysbol」.",
             },
             {
               id: 'ja-minna-l9-ex3',
               type: 'multiple-choice',
-              prompt:
-                "O'zbek tiliga to'g'ri tarjima qiling: 「お金[かね] が 全然[ぜんぜん] ありません。 Pulim umuman yo`q.」",
+              prompt: "9-dars grammatik qoidasiga muvofiq to'g'ri tuzilgan gapni aniqlang:",
               options: [
-                "[Eslatma] すこし va ぜんぜん ravishlari, shuningdek sifat so'z turkumidagi so'zlarni",
-                "Ertaga do'stim bilan mehmonga boraman.",
-                "Kechirasiz, soat necha bo'ldi?",
-                "Iltimos, manzilni ko'rsatib yuboring.",
+                '私[わたし] は イタリア料[りょう] 理[り] が 好[す] きです。',
+                '私[わたし] を イタリア料[りょう] 理[り] が 好[す] きです。',
+                'これ を 私[わたし] は イタリア料[りょう] 理[り] が 好[す] きです。',
+                '私[わたし] は イタリア料[りょう] 理[り] が 好[す] きです か でした。',
               ],
               correctAnswer: 0,
               explanation:
-                "To'g'ri tarjimasi: [Eslatma] すこし va ぜんぜん ravishlari, shuningdek sifat so'z turkumidagi so'zlarni.",
+                "To'g'ri gap: 「私[わたし] は イタリア料[りょう] 理[り] が 好[す] きです。」 (Men  Italiya taomlarni yoqtiraman.).",
             },
             {
               id: 'ja-minna-l9-ex4',
               type: 'multiple-choice',
-              prompt: 'Ushbu darsdagi suhbatdan kelib chiqib: Miller qanday jumla aytadi?',
+              prompt:
+                "Ushbu gapning to'g'ri yaponcha tarjimasini tanlang:\n「Men yapon tilini tushunaman.」",
               options: [
-                'Allo, bu men Millerman.',
-                'Men hech qayerga bormayman.',
-                'Taksida aeroportga haydang.',
-                "Iltimos, hisobni alohida to'laymiz.",
+                '私[わたし] は イタリア料[りょう] 理[り] が 好[す] きです。',
+                'どんな スポーツが 好[す] きですか。',
+                '私[わたし] は 車[くるま] が あります。',
+                '私[わたし] は 日[に] 本[ほん] 語[ご] が わかります。',
               ],
-              correctAnswer: 0,
-              explanation: "To'g'ri ibora: Allo, bu men Millerman..",
+              correctAnswer: 3,
+              explanation:
+                "Yaponcha to'g'ri ifodasi: 「私[わたし] は 日[に] 本[ほん] 語[ご] が わかります。」.",
+            },
+            {
+              id: 'ja-minna-l9-ex5',
+              type: 'multiple-choice',
+              prompt:
+                'Suhbatdoshingiz: 「いっしょに コーヒーを 飲みませんか。」 dedi. Unga eng mos muloyim javob qaysi?',
+              options: [
+                '失礼します。',
+                'ごちそうさまでした。',
+                'ええ、飲みましょう。',
+                'おやすみなさい。',
+              ],
+              correctAnswer: 2,
+              explanation: "To'g'ri javob: 「ええ、飲みましょう。」.",
             },
           ],
         },
       },
       {
         id: 'ja-minna-l9-s3',
-        title: 'Sinov Testi',
+        title: 'JLPT N5 Sinov Testi',
         type: 'test',
-        estimatedMinutes: 6,
+        estimatedMinutes: 7,
         testData: {
           instructions:
             "Darsni muvaffaqiyatli yakunlash uchun savollarga to'g'ri javob bering (Kamida 80%).",
@@ -3447,57 +6041,57 @@ export const MINNA_N5_LESSONS: Lesson[] = [
           questions: [
             {
               id: 'ja-minna-l9-q1',
-              question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「どんな スポーツが 好[す] きですか。 Qaysi sport turini yoqtirasiz?」",
-              options: [
-                '･･･サッカーが 好[す] きです。 …Futbolni yoqtiraman.',
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
-              ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: ･･･サッカーが 好[す] きです。 …Futbolni yoqtiraman..",
+              question: '【Mondai 1: Moji/Goi】「歌舞伎」の 読[よ]み方[かた]は どれですか。',
+              options: ['あります', 'すきな', 'わかります', 'かぶき'],
+              correctAnswerIndex: 3,
+              explanation: "「歌舞伎」 ning to'g'ri o'qilishi: 「かぶき」 (kabuki).",
             },
             {
               id: 'ja-minna-l9-q2',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「お金[かね] が 全然[ぜんぜん] ありません。 Pulim umuman yo`q.」",
-              options: [
-                "[Eslatma] すこし va ぜんぜん ravishlari, shuningdek sifat so'z turkumidagi so'zlarni",
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
-              ],
+                '【Mondai 2: Bunpo】（　）に 入[はい]る 最[もっと]も よいものを 1つ えらびなさい。\n「パン（　）食べます。」',
+              options: ['を', 'に', 'へ', 'で'],
               correctAnswerIndex: 0,
-              explanation:
-                "To'g'ri javob: [Eslatma] すこし va ぜんぜん ravishlari, shuningdek sifat so'z turkumidagi so'zlarni.",
+              explanation: "To'g'ri zarracha: 「を」. Harakat obyekti 'を' (o) bilan belgilanadi.",
             },
             {
               id: 'ja-minna-l9-q3',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「時[じ] 間[かん] が ありませんから、新聞[しんぶん] を 読[よ] みません。」",
+                "【Mondai 3: Bunpo】9-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
               options: [
-                "Vaqtim yo'qligi uchun (sababli), gazeta o'qimayman.",
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
+                '〜を 行きます です',
+                '〜に 食べません でした',
+                'どんな OT',
+                '〜は 〜でした じゃありません',
               ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Vaqtim yo'qligi uchun (sababli), gazeta o'qimayman..",
+              correctAnswerIndex: 2,
+              explanation: "To'g'ri grammatik formula: 「どんな OT」.",
             },
             {
               id: 'ja-minna-l9-q4',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「毎朝[まいあさ] 新聞[しんぶん] を 読[よ] みますか。」",
+                "【Mondai 4: Dokkai】Quyidagi yaponcha gapning to'g'ri o'zbekcha ma'nosini toping:\n「私[わたし] は 車[くるま] が あります。」",
               options: [
-                "･･･いいえ、読[よ] みません。時[じ] 間[かん] が ありませんから。 …Yo'q, o'qimayman. Chunki vaqtim yo'q.",
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
+                '･･･サッカーが 好[す] きです。 …Futbolni yoqtiraman.',
+                'Menda mashina bor.',
+                'Men  Italiya taomlarni yoqtiraman.',
+                'Men yapon tilini tushunaman.',
               ],
-              correctAnswerIndex: 0,
-              explanation:
-                "To'g'ri javob: ･･･いいえ、読[よ] みません。時[じ] 間[かん] が ありませんから。 …Yo'q, o'qimayman. Chunki vaqtim yo'q..",
+              correctAnswerIndex: 1,
+              explanation: "To'g'ri ma'nosi: 「Menda mashina bor.」.",
+            },
+            {
+              id: 'ja-minna-l9-q5',
+              question:
+                "【Mondai 5: Kaiwa】Savolga eng to'g'ri javobni tanlang:\n「今 何時ですか。」",
+              options: [
+                'どういたしまして。',
+                'いってきます。',
+                '午後 3時です。',
+                'はい、違います。',
+              ],
+              correctAnswerIndex: 2,
+              explanation: "To'g'ri javob: 「午後 3時です。」.",
             },
           ],
         },
@@ -3514,156 +6108,401 @@ export const MINNA_N5_LESSONS: Lesson[] = [
     lessonNumber: 10,
     title: '10-dars: Mavjudlik va Joylashuv (Insonlar va Buyumlar)',
     description:
-      "Minna no Nihongo Shokyu 1: 10-dars: Mavjudlik va Joylashuv (Insonlar va Buyumlar). Darsda 50 ta yangi so'z va 7 ta asosiy grammatik qoida o'rganiladi.",
-    estimatedDurationMinutes: 20,
+      "Minna no Nihongo Shokyu 1: 10-dars: Mavjudlik va Joylashuv (Insonlar va Buyumlar). Darsda 50 ta yangi so'z, audio talaffuzli Furigana misollar va 7 ta asosiy grammatik formula o'rganiladi.",
+    estimatedDurationMinutes: 25,
     icon: '🌸',
     steps: [
       {
         id: 'ja-minna-l10-s1',
         title: "Lug'at va Qoidalar",
         type: 'learn',
-        estimatedMinutes: 8,
+        estimatedMinutes: 10,
         learnData: {
           title: '10-Dars: 10-dars: Mavjudlik va Joylashuv (Insonlar va Buyumlar)',
           subtitle: '第10課：存在（あります・います・場所）',
           explanation:
-            "10-dars: Mavjudlik va Joylashuv (Insonlar va Buyumlar) bo'yicha to'liq grammatik izohlar va qoidalar to'plami. Har bir qoida Minna no Nihongo darsligining o'zbekcha tarjimasiga moslashtirilgan.",
+            "10-dars: Mavjudlik va Joylashuv (Insonlar va Buyumlar) bo'yicha to'liq grammatik izohlar, formulalar va Furiganali misollar to'plami.",
           keyPoints: [
-            "1.   OT  が あります／います: Yuqoridagi gap namunasi biror predmet yoki tirik jonning mavjudligini bildirish uchun qo'llaniladi. Gapda ushbu predmet ...",
-            "2.   OT 1 (o`rin-joy) に OT 2  が あります／います: 1) OT 2 joylashgan o'rin-joy nomidan keyin に yuklamasi qo'shiladi. に so'roq olmoshi predmetlarga, だれ esa tirik ob'yektla...",
-            "3.   OT 1  は  OT 2 (o`rin-joy) に あります／います: 1) ushbu gap namunasida so'zlovchi OT 1 ni suhbat mavzusi qilib olib, uning qayerda joylashganligini tushuntiradi. Gap m...",
-            "4.   OT 1 (predmet / inson / o`rin-joy) の OT 2 (holat): うえ , した , まえ , うしろ , みぎ , ひだり , なか , そと , となり , ちかく va あいだ kabi otlar makon-bo'shliqdagi o'rin-joyni bildiradi. [Eslatma...",
-            "5.   OT 1 や  OT 2: や yuklamasi bir xil turdagi otlarni o'zaro bog'laydi. Agar と yuklamasi hamma predmetlarni birma-bir sanab o'tsa, や yukla...",
-            "6.    So`z (so`zlar)  ですか: か yuklamasi tasdiq gaplarda qo'llaniladi. So'zlovchi tasdiqlamoqchi bo'lgan so'z yoki so'zlarni aytib, quyidagi namuna o...",
+            "📌 1.   OT  が あります／います: Yuqoridagi gap namunasi biror predmet yoki tirik jonning mavjudligini bildirish uchun qo'llaniladi.",
+            "📌 2.   OT 1 (o`rin-joy) に OT 2  が あります／います: 1) OT 2 joylashgan o'rin-joy nomidan keyin に yuklamasi qo'shiladi.",
+            "📌 3.   OT 1  は  OT 2 (o`rin-joy) に あります／います: 1) ushbu gap namunasida so'zlovchi OT 1 ni suhbat mavzusi qilib olib, uning qayerda joylashganligini tushuntiradi.",
+            "📌 4.   OT 1 (predmet / inson / o`rin-joy) の OT 2 (holat): うえ , した , まえ , うしろ , みぎ , ひだり , なか , そと , となり , ちかく va あいだ kabi otlar makon-bo'shliqdagi o'rin-joyni bildiradi.",
+            "📌 5.   OT 1 や  OT 2: や yuklamasi bir xil turdagi otlarni o'zaro bog'laydi.",
+            "📌 6.    So`z (so`zlar)  ですか: か yuklamasi tasdiq gaplarda qo'llaniladi.",
           ],
           vocabulary: [
             {
               term: 'います',
               reading: 'います',
               meaning: "bor (bo'lmoq) (jonli narsalarga)",
-              exampleSentence: "います — bor (bo'lmoq) (jonli narsalarga)",
-              exampleTranslation: "bor (bo'lmoq) (jonli narsalarga)",
+              exampleSentence: '毎日[まいにち] います。',
+              exampleTranslation: "Har kuni bor (bo'lmoq) (jonli narsalarga).",
             },
             {
               term: 'あります',
               reading: 'あります',
               meaning: "bor (bo'lmoq) (jonsiz narsalarga)",
-              exampleSentence: "あります — bor (bo'lmoq) (jonsiz narsalarga)",
-              exampleTranslation: "bor (bo'lmoq) (jonsiz narsalarga)",
+              exampleSentence: '毎日[まいにち] あります。',
+              exampleTranslation: "Har kuni bor (bo'lmoq) (jonsiz narsalarga).",
             },
             {
-              term: 'いろいろ [ な ]',
-              reading: 'いろいろ [ な ]',
+              term: 'いろいろな',
+              reading: 'いろいろな',
               meaning: 'har xil, turli xil',
-              exampleSentence: 'いろいろ [ な ] — har xil, turli xil',
-              exampleTranslation: 'har xil, turli xil',
+              exampleSentence: 'これは わたしが 買[か]った いろいろ[な] です。',
+              exampleTranslation: 'Bu men sotib olgan har xil, turli xil.',
             },
             {
-              term: '男の 人 (おとこの ひと)',
-              reading: 'おとこの ひと',
+              term: '男の人 (おとこのひと)',
+              reading: 'おとこのひと',
               meaning: 'erkak kishi',
-              exampleSentence: 'おとこの ひと — erkak kishi',
-              exampleTranslation: 'erkak kishi',
+              exampleSentence: 'ミラーさんは 男の人[おとこのひと] です。',
+              exampleTranslation: 'Janob Miller erkak kishi.',
             },
             {
-              term: '女の 人 (おんなの ひと)',
-              reading: 'おんなの ひと',
+              term: '女の人 (おんなのひと)',
+              reading: 'おんなのひと',
               meaning: 'ayol kishi',
-              exampleSentence: 'おんなの ひと — ayol kishi',
-              exampleTranslation: 'ayol kishi',
+              exampleSentence: 'ミラーさんは 女の人[おんなのひと] です。',
+              exampleTranslation: 'Janob Miller ayol kishi.',
             },
             {
-              term: '男の 子 (おとこの こ)',
-              reading: 'おとこの こ',
+              term: '男の子 (おとこのこ)',
+              reading: 'おとこのこ',
               meaning: "o'g'il bola",
-              exampleSentence: "おとこの こ — o'g'il bola",
-              exampleTranslation: "o'g'il bola",
+              exampleSentence: 'これは わたしが 買[か]った 男の子[おとこのこ] です。',
+              exampleTranslation: "Bu men sotib olgan o'g'il bola.",
             },
             {
-              term: '女の 子 (おんなの こ)',
-              reading: 'おんなの こ',
+              term: '女の子 (おんなのこ)',
+              reading: 'おんなのこ',
               meaning: 'qiz bola',
-              exampleSentence: 'おんなの こ — qiz bola',
-              exampleTranslation: 'qiz bola',
+              exampleSentence: 'これは わたしが 買[か]った 女の子[おんなのこ] です。',
+              exampleTranslation: 'Bu men sotib olgan qiz bola.',
             },
             {
               term: '犬 (いぬ)',
               reading: 'いぬ',
               meaning: 'kuchuk, it',
-              exampleSentence: 'いぬ — kuchuk, it',
-              exampleTranslation: 'kuchuk, it',
+              exampleSentence: 'これは わたしが 買[か]った 犬[いぬ] です。',
+              exampleTranslation: 'Bu men sotib olgan kuchuk, it.',
             },
             {
               term: '猫 (ねこ)',
               reading: 'ねこ',
               meaning: 'mushuk',
-              exampleSentence: 'ねこ — mushuk',
-              exampleTranslation: 'mushuk',
+              exampleSentence: 'これは わたしが 買[か]った 猫[ねこ] です。',
+              exampleTranslation: 'Bu men sotib olgan mushuk.',
             },
             {
               term: '木 (き)',
               reading: 'き',
               meaning: 'daraxt',
-              exampleSentence: 'き — daraxt',
-              exampleTranslation: 'daraxt',
+              exampleSentence: 'これは わたしが 買[か]った 木[き] です。',
+              exampleTranslation: 'Bu men sotib olgan daraxt.',
             },
             {
               term: '物 (もの)',
               reading: 'もの',
               meaning: 'narsa, buyum',
-              exampleSentence: 'もの — narsa, buyum',
-              exampleTranslation: 'narsa, buyum',
+              exampleSentence: 'これは わたしが 買[か]った 物[もの] です。',
+              exampleTranslation: 'Bu men sotib olgan narsa, buyum.',
             },
             {
               term: 'フイルム',
               reading: 'フイルム',
               meaning: 'fototasma',
-              exampleSentence: 'フイルム — fototasma',
-              exampleTranslation: 'fototasma',
+              exampleSentence: 'これは わたしが 買[か]った フイルム です。',
+              exampleTranslation: 'Bu men sotib olgan fototasma.',
             },
             {
               term: '電池 (でんち)',
               reading: 'でんち',
               meaning: 'batareya',
-              exampleSentence: 'でんち — batareya',
-              exampleTranslation: 'batareya',
+              exampleSentence: 'これは わたしが 買[か]った 電池[でんち] です。',
+              exampleTranslation: 'Bu men sotib olgan batareya.',
             },
             {
               term: '箱 (はこ)',
               reading: 'はこ',
               meaning: 'quti',
-              exampleSentence: 'はこ — quti',
-              exampleTranslation: 'quti',
+              exampleSentence: 'これは わたしが 買[か]った 箱[はこ] です。',
+              exampleTranslation: 'Bu men sotib olgan quti.',
             },
             {
               term: 'スイッチ',
               reading: 'スイッチ',
-              meaning: 'viklyuchatel (elektr tokini ulaydigan va ayiradigan asbob)',
-              exampleSentence:
-                'スイッチ — viklyuchatel (elektr tokini ulaydigan va ayiradigan asbob)',
-              exampleTranslation: 'viklyuchatel (elektr tokini ulaydigan va ayiradigan asbob)',
+              meaning: 'viklyuchatel',
+              exampleSentence: 'これは わたしが 買[か]った スイッチ です。',
+              exampleTranslation: 'Bu men sotib olgan viklyuchatel.',
+            },
+            {
+              term: '冷蔵庫 (れいぞうこ)',
+              reading: 'れいぞうこ',
+              meaning: 'muzlatgich',
+              exampleSentence: 'これは わたしが 買[か]った 冷蔵庫[れいぞうこ] です。',
+              exampleTranslation: 'Bu men sotib olgan muzlatgich.',
+            },
+            {
+              term: 'テーブル',
+              reading: 'テーブル',
+              meaning: 'stol',
+              exampleSentence: 'これは わたしが 買[か]った テーブル です。',
+              exampleTranslation: 'Bu men sotib olgan stol.',
+            },
+            {
+              term: 'ベッド',
+              reading: 'ベッド',
+              meaning: 'krovat',
+              exampleSentence: 'これは わたしが 買[か]った ベッド です。',
+              exampleTranslation: 'Bu men sotib olgan krovat.',
+            },
+            {
+              term: '棚 (たな)',
+              reading: 'たな',
+              meaning: 'tokcha',
+              exampleSentence: 'これは わたしが 買[か]った 棚[たな] です。',
+              exampleTranslation: 'Bu men sotib olgan tokcha.',
+            },
+            {
+              term: 'ドア',
+              reading: 'ドア',
+              meaning: 'eshik',
+              exampleSentence: 'これは わたしが 買[か]った ドア です。',
+              exampleTranslation: 'Bu men sotib olgan eshik.',
+            },
+            {
+              term: '窓 (まど)',
+              reading: 'まど',
+              meaning: 'deraza',
+              exampleSentence: 'これは わたしが 買[か]った 窓[まど] です。',
+              exampleTranslation: 'Bu men sotib olgan deraza.',
+            },
+            {
+              term: 'ポスト',
+              reading: 'ポスト',
+              meaning: 'pochta qutisi',
+              exampleSentence: 'これは わたしが 買[か]った ポスト です。',
+              exampleTranslation: 'Bu men sotib olgan pochta qutisi.',
+            },
+            {
+              term: 'ビル',
+              reading: 'ビル',
+              meaning: '(baland) bino',
+              exampleSentence: 'これは わたしが 買[か]った ビル です。',
+              exampleTranslation: 'Bu men sotib olgan (baland) bino.',
+            },
+            {
+              term: '公園 (こうえん)',
+              reading: 'こうえん',
+              meaning: "xiyobon (park, bog')",
+              exampleSentence: 'あそこは 公園[こうえん] です。',
+              exampleTranslation: "Anavi yer xiyobon (park, bog').",
+            },
+            {
+              term: '喫茶店 (きっさてん)',
+              reading: 'きっさてん',
+              meaning: 'qahvaxona',
+              exampleSentence: 'あそこは 喫茶店[きっさてん] です。',
+              exampleTranslation: 'Anavi yer qahvaxona.',
+            },
+            {
+              term: '本屋 (ほんや)',
+              reading: 'ほんや',
+              meaning: "kitob do'koni",
+              exampleSentence: 'あそこは 本屋[ほんや] です。',
+              exampleTranslation: "Anavi yer kitob do'koni.",
+            },
+            {
+              term: '～屋 (～や)',
+              reading: '～や',
+              meaning: "~do'koni",
+              exampleSentence: 'あそこは 屋[や] です。',
+              exampleTranslation: "Anavi yer ~do'koni.",
+            },
+            {
+              term: '乗り場 (のりば)',
+              reading: 'のりば',
+              meaning: 'bekat',
+              exampleSentence: 'あそこは 乗り場[のりば] です。',
+              exampleTranslation: 'Anavi yer bekat.',
+            },
+            {
+              term: '県 (けん)',
+              reading: 'けん',
+              meaning: 'viloyat',
+              exampleSentence: 'これは わたしが 買[か]った 県[けん] です。',
+              exampleTranslation: 'Bu men sotib olgan viloyat.',
+            },
+            {
+              term: '上 (うえ)',
+              reading: 'うえ',
+              meaning: 'ust, tepa, yuqori',
+              exampleSentence: 'これは わたしが 買[か]った 上[うえ] です。',
+              exampleTranslation: 'Bu men sotib olgan ust, tepa, yuqori.',
+            },
+            {
+              term: '下 (した)',
+              reading: 'した',
+              meaning: 'ost, past',
+              exampleSentence: 'これは わたしが 買[か]った 下[した] です。',
+              exampleTranslation: 'Bu men sotib olgan ost, past.',
+            },
+            {
+              term: '前 (まえ)',
+              reading: 'まえ',
+              meaning: 'old',
+              exampleSentence: 'これは わたしが 買[か]った 前[まえ] です。',
+              exampleTranslation: 'Bu men sotib olgan old.',
+            },
+            {
+              term: '後ろ (うしろ)',
+              reading: 'うしろ',
+              meaning: 'orqa',
+              exampleSentence: 'これは わたしが 買[か]った 後ろ[うしろ] です。',
+              exampleTranslation: 'Bu men sotib olgan orqa.',
+            },
+            {
+              term: '右 (みぎ)',
+              reading: 'みぎ',
+              meaning: "o'ng Yapon tilida",
+              exampleSentence: 'これは わたしが 買[か]った 右[みぎ] です。',
+              exampleTranslation: "Bu men sotib olgan o'ng yapon tilida.",
+            },
+            {
+              term: '左 (ひだり)',
+              reading: 'ひだり',
+              meaning: "chap bu so'zlar ot",
+              exampleSentence: 'これは わたしが 買[か]った 左[ひだり] です。',
+              exampleTranslation: "Bu men sotib olgan chap bu so'zlar ot.",
+            },
+            {
+              term: '中 (なか)',
+              reading: 'なか',
+              meaning: 'ich, ichkari hisoblanadi',
+              exampleSentence: 'これは わたしが 買[か]った 中[なか] です。',
+              exampleTranslation: 'Bu men sotib olgan ich, ichkari hisoblanadi.',
+            },
+            {
+              term: '外 (そと)',
+              reading: 'そと',
+              meaning: 'tashqari',
+              exampleSentence: 'これは わたしが 買[か]った 外[そと] です。',
+              exampleTranslation: 'Bu men sotib olgan tashqari.',
+            },
+            {
+              term: '隣 (となり)',
+              reading: 'となり',
+              meaning: "yon, qo'shni",
+              exampleSentence: 'これは わたしが 買[か]った 隣[となり] です。',
+              exampleTranslation: "Bu men sotib olgan yon, qo'shni.",
+            },
+            {
+              term: '近く (ちかく)',
+              reading: 'ちかく',
+              meaning: 'yaqin',
+              exampleSentence: 'これは わたしが 買[か]った 近く[ちかく] です。',
+              exampleTranslation: 'Bu men sotib olgan yaqin.',
+            },
+            {
+              term: '間 (あいだ)',
+              reading: 'あいだ',
+              meaning: "ora, o'rta",
+              exampleSentence: 'これは わたしが 買[か]った 間[あいだ] です。',
+              exampleTranslation: "Bu men sotib olgan ora, o'rta.",
+            },
+            {
+              term: '～や～など',
+              reading: '～や～など',
+              meaning: '~ va ~ ［ kabilar ］',
+              exampleSentence: '山田[やまだ]や[など]は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada ~ va ~ ［ kabilar ］ samimiy inson.',
+            },
+            {
+              term: 'いちばん～',
+              reading: 'いちばん～',
+              meaning: 'eng~ ( いちばん うえ eng yuqori)',
+              exampleSentence: '山田[やまだ]いちばんは 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada eng~ ( いちばん うえ eng yuqori) samimiy inson.',
+            },
+            {
+              term: '～段目 (～だんめ)',
+              reading: '～だんめ',
+              meaning: '~(i)nchi tokcha, ~(i)nchi qator',
+              exampleSentence: '山田[やまだ]だんめは 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada ~(i)nchi tokcha, ~(i)nchi qator samimiy inson.',
+            },
+            {
+              term: 'どうもすみません。',
+              reading: 'どうもすみません。',
+              meaning: 'Katta rahmat',
+              exampleSentence: 'これは わたしが 買[か]った [どうも]すみません。 です。',
+              exampleTranslation: 'Bu men sotib olgan katta rahmat.',
+            },
+            {
+              term: 'チリソース',
+              reading: 'チリソース',
+              meaning: 'chili sousi',
+              exampleSentence: 'これは わたしが 買[か]った チリソース です。',
+              exampleTranslation: 'Bu men sotib olgan chili sousi.',
+            },
+            {
+              term: '奥おく',
+              reading: '奥おく',
+              meaning: 'ichkari, qari',
+              exampleSentence: 'これは わたしが 買[か]った 奥[おく] です。',
+              exampleTranslation: 'Bu men sotib olgan ichkari, qari.',
+            },
+            {
+              term: 'スパイス・コーナー',
+              reading: 'スパイス・コーナー',
+              meaning: "ziravorlar bo'limi",
+              exampleSentence: 'これは わたしが 買[か]った スパイス・コーナー です。',
+              exampleTranslation: "Bu men sotib olgan ziravorlar bo'limi.",
+            },
+            {
+              term: '東京とうきょうディズニーランド',
+              reading: '東京とうきょうディズニーランド',
+              meaning: 'Tokio Disneylendi',
+              exampleSentence: 'これは わたしが 買[か]った 東京[とうきょう]ディズニーランド です。',
+              exampleTranslation: 'Bu men sotib olgan tokio disneylendi.',
+            },
+            {
+              term: 'ユニューヤ・ストア',
+              reading: 'ユニューヤ・ストア',
+              meaning: "supermarket nomi (o'ylab topilgan)",
+              exampleSentence: 'これは わたしが 買[か]った ユニューヤ・ストア です。',
+              exampleTranslation: "Bu men sotib olgan supermarket nomi (o'ylab topilgan).",
             },
           ],
           grammarRules: [
             {
               pattern: 'OT  が あります／います',
               meaning:
-                "Yuqoridagi gap namunasi biror predmet yoki tirik jonning mavjudligini bildirish uchun qo'llaniladi. Gapda ushbu predmet yoki jonli ob'ektlar ega vazifasida kelib, ular が yuklamasi bilan birga ifodalan",
-              usageNotes:
                 "Yuqoridagi gap namunasi biror predmet yoki tirik jonning mavjudligini bildirish uchun qo'llaniladi. Gapda ushbu predmet yoki jonli ob'ektlar ega vazifasida kelib, ular が yuklamasi bilan birga ifodalanadi. 1) あります fe'li predmet jonsiz yoki o'zicha harakat qilmaganda qo'llaniladi. Bular qatoriga predmetlar, o'simlik va joylar kiradi. Bular qatoriga inson va jonivorlar kiradi.",
+              usageNotes:
+                'Minna no Nihongo 10-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
-                  sentence: 'コンピューターが あります。 Kompyuter bor (mavjud).',
-                  translation: '',
+                  sentence: 'コンピューターが あります。',
+                  translation: 'Kompyuter bor (mavjud).',
                 },
                 {
-                  sentence: '桜[さくら] が あります。 Olcha daraxti bor (mavjud).',
-                  translation: '',
+                  sentence: '桜[さくら] が あります。',
+                  translation: 'Olcha daraxti bor (mavjud).',
                 },
                 {
-                  sentence: '公園[こうえん] が あります。 Bog` bor (mavjud).',
+                  sentence: '公園[こうえん] が あります。',
                   translation:
                     "2) Agar mazkur ob'ekt jonli va o'zi harakatlanadigan bo'lsa, います fe'li qo'llaniladi.",
+                },
+                {
+                  sentence: '男[おとこ] の人[ひと] が います。',
+                  translation: 'Erkak kishi bor.',
+                },
+                {
+                  sentence: '犬[いぬ] が います。',
+                  translation: 'Kuchuk bor.',
                 },
               ],
             },
@@ -3672,32 +6511,33 @@ export const MINNA_N5_LESSONS: Lesson[] = [
               meaning:
                 "1) OT 2 joylashgan o'rin-joy nomidan keyin に yuklamasi qo'shiladi. に so'roq olmoshi predmetlarga, だれ esa tirik ob'yektlarga tegishli.",
               usageNotes:
-                "1) OT 2 joylashgan o'rin-joy nomidan keyin に yuklamasi qo'shiladi. に so'roq olmoshi predmetlarga, だれ esa tirik ob'yektlarga tegishli.",
+                'Minna no Nihongo 10-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
-                  sentence:
-                    'わたしの 部屋[へや] に机[つくえ] が あります。  Mening xonamda stol bor.',
-                  translation: '',
+                  sentence: 'わたしの 部屋[へや] に机[つくえ] が あります。',
+                  translation: 'Mening xonamda stol bor.',
                 },
                 {
-                  sentence:
-                    '事[じ] 務[む] 所[しょ] に ミラーさんが います。 Idorada janob Miller bor.',
+                  sentence: '事[じ] 務[む] 所[しょ] に ミラーさんが います。',
                   translation:
                     "2) Bu tuzilmadan foydalanib, nima yoki kim qayerdaligi haqida savol tuzsa bo'ladi. な",
                 },
                 {
-                  sentence:
-                    '地下[ちか] に 何[なに] が ありますか。 Yer osti qavatida nima joylashgan?',
+                  sentence: '地下[ちか] に 何[なに] が ありますか。',
                   translation: '･･･レストランが あります。 … Restoran joylashgan.',
+                },
+                {
+                  sentence: '受付[うけつけ] に だれが いますか。',
+                  translation: '･･･木[き] 村[むら] さんが います。 … Kimura xonim borlar.',
                 },
               ],
             },
             {
               pattern: 'OT 1  は  OT 2 (o`rin-joy) に あります／います',
               meaning:
-                "1) ushbu gap namunasida so'zlovchi OT 1 ni suhbat mavzusi qilib olib, uning qayerda joylashganligini tushuntiradi. Gap mavzusi ham so'zlovchiga, ham tinglovchiga ma'lum bo'lishi lozim. OT 1 ga egani b",
+                "1) ushbu gap namunasida so'zlovchi OT 1 ni suhbat mavzusi qilib olib, uning qayerda joylashganligini tushuntiradi. Gap mavzusi ham so'zlovchiga, ham tinglovchiga ma'lum bo'lishi lozim. OT 1 ga egani bildiradigan が qo'shimchasi o'rniga suhbat mavzusini bildiradigan は yuklamasi qo'shiladi. 2) Quyidagi gap namunasi OT 1 ning qayerda joylashganligini so'rash uchun qo'llaniladi. Tokio Disneylendi qayerda joylashgan? 💡 Muhim eslatma: Gohida です kesim sifatida kelgan fe'lning o'rniga kelishi mumkin. Agar kesim aniq bo'lsa, “OT 1 は OT 2 (o'rin-joy) に あります／います ” o'rniga 3-darsda o'rgangan “OT 1 は OT 2 です ” qo'llanishi mumkin. Tokio Disneylendi qayerda joylashgan?",
               usageNotes:
-                "1) ushbu gap namunasida so'zlovchi OT 1 ni suhbat mavzusi qilib olib, uning qayerda joylashganligini tushuntiradi. Gap mavzusi ham so'zlovchiga, ham tinglovchiga ma'lum bo'lishi lozim. OT 1 ga egani bildiradigan が qo'shimchasi o'rniga suhbat mavzusini bildiradigan は yuklamasi qo'shiladi. 2) Quyidagi gap namunasi OT 1 ning qayerda joylashganligini so'rash uchun qo'llaniladi. Tokio Disneylendi qayerda joylashgan? [Eslatma] Gohida です kesim sifatida kelgan fe'lning o'rniga kelishi mumkin. Agar kesim aniq bo'lsa, “OT 1 は OT 2 (o'rin-joy) に あります／います ” o'rniga 3-darsda o'rgangan “OT 1 は OT 2 です ” qo'llanishi mumkin. Tokio Disneylendi qayerda joylashgan?",
+                'Minna no Nihongo 10-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence:
@@ -3713,18 +6553,25 @@ export const MINNA_N5_LESSONS: Lesson[] = [
                   translation:
                     '･･･千[ち] 葉[ば] 県[けん] に あります。 … Chiba viloyatida joylashgan.',
                 },
+                {
+                  sentence: 'ミラーさんはどこにいますか。',
+                  translation: '･･･事[じ] 務[む] 所[しょ] に います。 … Idorada.',
+                },
+                {
+                  sentence: '東[とう] 京[きょう] ディズニーランドは どこに ありますか。',
+                  translation: '･･･千[ち] 葉[ば] 県[けん] です。 … Chiba viloyatida.',
+                },
               ],
             },
             {
               pattern: 'OT 1 (predmet / inson / o`rin-joy) の OT 2 (holat)',
               meaning:
-                "うえ , した , まえ , うしろ , みぎ , ひだり , なか , そと , となり , ちかく va あいだ kabi otlar makon-bo'shliqdagi o'rin-joyni bildiradi. [Eslatma] Agar kesim sifatida keladigan fe'l jismoniy ish-harakatni bildirsa, bundan tas",
+                "うえ , した , まえ , うしろ , みぎ , ひだり , なか , そと , となり , ちかく va あいだ kabi otlar makon-bo'shliqdagi o'rin-joyni bildiradi. 💡 Muhim eslatma: Agar kesim sifatida keladigan fe'l jismoniy ish-harakatni bildirsa, bundan tashqari ushbu o'rin-joyni bildiradigan so'zlar ega sifatida kelishi sababli ulardan keyin に yuklamasidan tashqari で yuklamasi ham keladi. (6-dars, 5-grammatika) ⑰ 駅[えき] の 近[ちか] くで 友達[ともだち] に 会[あ] いました。 Bekatga yaqin joyda do'stimni uchratdim.",
               usageNotes:
-                "うえ , した , まえ , うしろ , みぎ , ひだり , なか , そと , となり , ちかく va あいだ kabi otlar makon-bo'shliqdagi o'rin-joyni bildiradi. [Eslatma] Agar kesim sifatida keladigan fe'l jismoniy ish-harakatni bildirsa, bundan tashqari ushbu o'rin-joyni bildiradigan so'zlar ega sifatida kelishi sababli ulardan keyin に yuklamasidan tashqari で yuklamasi ham keladi. (6-dars, 5-grammatika) ⑰ 駅[えき] の 近[ちか] くで 友達[ともだち] に 会[あ] いました。 Bekatga yaqin joyda do'stimni uchratdim.",
+                'Minna no Nihongo 10-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
-                  sentence:
-                    '机[つくえ] の 上[うえ] に 写真[しゃしん] が あります。 Stolning ustida surat bor.',
+                  sentence: '机[つくえ] の 上[うえ] に 写真[しゃしん] が あります。',
                   translation:
                     "⑯ 郵[ゆう] 便[びん] 局[きょく] は 銀行[ぎんこう] の 隣[となり] に あります。 Pochta bo'limi bankning yonida joylashgan.",
                 },
@@ -3733,123 +6580,129 @@ export const MINNA_N5_LESSONS: Lesson[] = [
             {
               pattern: 'OT 1 や  OT 2',
               meaning:
-                "や yuklamasi bir xil turdagi otlarni o'zaro bog'laydi. Agar と yuklamasi hamma predmetlarni birma-bir sanab o'tsa, や yuklamasi bir qancha predmetlardan bir-ikkita predmetni misol qilish bilan kifoyalana",
-              usageNotes:
                 "や yuklamasi bir xil turdagi otlarni o'zaro bog'laydi. Agar と yuklamasi hamma predmetlarni birma-bir sanab o'tsa, や yuklamasi bir qancha predmetlardan bir-ikkita predmetni misol qilish bilan kifoyalanadi. Gohida gap oxirida shu turga oid boshqa predmetlar ham borligiga urg'u beruvchi など o'zbek tilida “ kabi ” yoki “ va hokazo ”qo'shimchasi qo'shiladi. ⑱ 箱[はこ] の 中[なか] に 手[て] 紙[がみ] や 写真[しゃしん] が あります。 Qutining ichida xat va suratlar bor. ⑲ 箱[はこ] の 中[なか] に 手[て] 紙[がみ] や 写真[しゃしん] などが あります。 Qutining ichida xat, surat va hokazolar bor.",
+              usageNotes:
+                'Minna no Nihongo 10-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'OT 1 や  OT 2',
-                  translation:
-                    "や yuklamasi bir xil turdagi otlarni o'zaro bog'laydi. Agar と yuklamasi hamma pre",
+                  translation: 'Grammatik qolip.',
                 },
               ],
             },
             {
               pattern: 'So`z (so`zlar)  ですか',
               meaning:
-                "か yuklamasi tasdiq gaplarda qo'llaniladi. So'zlovchi tasdiqlamoqchi bo'lgan so'z yoki so'zlarni aytib, quyidagi namuna orqali tasdiqlaydi. ⑳ すみません、ユニューヤ・ストアは どこですか。 ･･･ユニューヤ・ストアですか。あの ビルの 中[なか] です。 Ke",
-              usageNotes:
                 "か yuklamasi tasdiq gaplarda qo'llaniladi. So'zlovchi tasdiqlamoqchi bo'lgan so'z yoki so'zlarni aytib, quyidagi namuna orqali tasdiqlaydi. ⑳ すみません、ユニューヤ・ストアは どこですか。 ･･･ユニューヤ・ストアですか。あの ビルの 中[なか] です。 Kechirasiz, “Yunyuya” do'koni qayerda? … “Yunyuya” do'konimi? Ana u binoning ichida.",
+              usageNotes:
+                'Minna no Nihongo 10-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'So`z (so`zlar)  ですか',
-                  translation:
-                    "か yuklamasi tasdiq gaplarda qo'llaniladi. So'zlovchi tasdiqlamoqchi bo'lgan so'z",
+                  translation: 'Grammatik qolip.',
                 },
               ],
             },
             {
               pattern: 'チリソースは ありませんか',
               meaning:
-                "Mazkur darsning “Suhbat”ida 「チリソースは ありませんか」 degan ibora uchraydi. Inkor shaklidagi ありませんか darak shaklidagi ありますか o'rniga qo'llanilib, savolni to'g'ridan-to'g'ri emas, balki odob bilan yumshoqroq beris",
-              usageNotes:
                 "Mazkur darsning “Suhbat”ida 「チリソースは ありませんか」 degan ibora uchraydi. Inkor shaklidagi ありませんか darak shaklidagi ありますか o'rniga qo'llanilib, savolni to'g'ridan-to'g'ri emas, balki odob bilan yumshoqroq berishni ta'minlaydi. Bu bilan so'zlovchi suhbatdoshining 「チリソースが ない」 “ chili sousi yo'q ” degan inkor javobiga oldindan ruhan tayyorgarlik ko'rishini bildiradi.",
+              usageNotes:
+                'Minna no Nihongo 10-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'チリソースは ありませんか',
-                  translation:
-                    'Mazkur darsning “Suhbat”ida 「チリソースは ありませんか」 degan ibora uchraydi. Inkor shaklida',
+                  translation: 'Grammatik qolip.',
                 },
               ],
             },
           ],
           culturalNotes:
-            'Yapon uylariga kirganda poyafzal yechiladi va maxsus shippak kiyiladi. Tatami xonalarida esa hatto shippak ham yechiladi.',
+            "Yapon xonadonlariga kirganda poyafzal tashqarida yechiladi va shippak kiyiladi. Tatami qoplangan an'anaviy xonalarda esa shippak ham yechilib, paypoqda yuriladi.",
         },
       },
       {
         id: 'ja-minna-l10-s2',
         title: 'Mustahkamlash Mashqlari',
         type: 'practice',
-        estimatedMinutes: 6,
+        estimatedMinutes: 8,
         practiceData: {
           instructions:
-            "Darsda o'rganilgan yangi so'zlar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
+            "Darsda o'rganilgan yangi so'zlar, zarrachalar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
           exercises: [
             {
               id: 'ja-minna-l10-ex1',
               type: 'multiple-choice',
-              prompt: "「います」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
-              options: [
-                "bor (bo'lmoq) (jonli narsalarga)",
-                "bor (bo'lmoq) (jonsiz narsalarga)",
-                'har xil, turli xil',
-                'erkak kishi',
-              ],
-              correctAnswer: 0,
-              explanation: "To'g'ri javob: bor (bo'lmoq) (jonli narsalarga).",
+              prompt:
+                "Bo'sh joyga to'g'ri zarrachani qo'ying:\n「友達（　）いっしょに 帰ります。」",
+              options: ['へ', 'と', 'に', 'で'],
+              correctAnswer: 1,
+              explanation:
+                "To'g'ri javob: 「と」. Birgalikdagi shaxs 'と' zarrachasi orqali ifodalanadi.",
             },
             {
               id: 'ja-minna-l10-ex2',
               type: 'multiple-choice',
-              prompt:
-                "10-dars grammatik qoidasi: '1.   OT  が あります／います' bo'yicha qaysi gap grammatik jihatdan to'g'ri tuzilgan?",
+              prompt: "「物 (もの)」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
               options: [
-                '公園[こうえん] が あります。 Bog` bor (mavjud).',
-                'これ は を です。',
-                'だれ が 行きます か でした。',
-                'へ 行きません です。',
+                'har xil, turli xil',
+                'narsa, buyum',
+                "bor (bo'lmoq) (jonsiz narsalarga)",
+                "bor (bo'lmoq) (jonli narsalarga)",
               ],
-              correctAnswer: 0,
-              explanation:
-                "To'g'ri javob: 公園[こうえん] が あります。 Bog` bor (mavjud). (2) Agar mazkur ob'ekt jonli va o'zi harakatlanadigan bo'lsa, います fe'li qo'llaniladi.).",
+              correctAnswer: 1,
+              explanation: "To'g'ri javob: 「narsa, buyum」.",
             },
             {
               id: 'ja-minna-l10-ex3',
               type: 'multiple-choice',
-              prompt:
-                "O'zbek tiliga to'g'ri tarjima qiling: 「事[じ] 務[む] 所[しょ] に ミラーさんが います。 Idorada janob Miller bor.」",
+              prompt: "10-dars grammatik qoidasiga muvofiq to'g'ri tuzilgan gapni aniqlang:",
               options: [
-                "2) Bu tuzilmadan foydalanib, nima yoki kim qayerdaligi haqida savol tuzsa bo'ladi. な",
-                "Ertaga do'stim bilan mehmonga boraman.",
-                "Kechirasiz, soat necha bo'ldi?",
-                "Iltimos, manzilni ko'rsatib yuboring.",
+                'コンピューターが あります です。',
+                'コンピューターが あります。',
+                'コンピューターが あります か でした。',
+                'コンピューターが ありません でした です。',
               ],
-              correctAnswer: 0,
+              correctAnswer: 1,
               explanation:
-                "To'g'ri tarjimasi: 2) Bu tuzilmadan foydalanib, nima yoki kim qayerdaligi haqida savol tuzsa bo'ladi. な.",
+                "To'g'ri gap: 「コンピューターが あります。」 (Kompyuter bor (mavjud).).",
             },
             {
               id: 'ja-minna-l10-ex4',
               type: 'multiple-choice',
-              prompt: 'Ushbu darsdagi suhbatdan kelib chiqib: Miller qanday jumla aytadi?',
+              prompt:
+                "Ushbu gapning to'g'ri yaponcha tarjimasini tanlang:\n「Olcha daraxti bor (mavjud).」",
               options: [
-                "Kechirasiz, “Yunyuya” do'koni qayerda?",
-                'Men hech qayerga bormayman.',
-                'Taksida aeroportga haydang.',
-                "Iltimos, hisobni alohida to'laymiz.",
+                '公園[こうえん] が あります。',
+                'コンピューターが あります。',
+                '男[おとこ] の人[ひと] が います。',
+                '桜[さくら] が あります。',
               ],
-              correctAnswer: 0,
-              explanation: "To'g'ri ibora: Kechirasiz, “Yunyuya” do'koni qayerda?.",
+              correctAnswer: 3,
+              explanation: "Yaponcha to'g'ri ifodasi: 「桜[さくら] が あります。」.",
+            },
+            {
+              id: 'ja-minna-l10-ex5',
+              type: 'multiple-choice',
+              prompt:
+                'Suhbatdoshingiz: 「お疲れ様でした。」 dedi. Unga eng mos muloyim javob qaysi?',
+              options: [
+                'ごちそうさまでした。',
+                'お疲れ様でした。',
+                '失礼します。',
+                'おやすみなさい。',
+              ],
+              correctAnswer: 1,
+              explanation: "To'g'ri javob: 「お疲れ様でした。」.",
             },
           ],
         },
       },
       {
         id: 'ja-minna-l10-s3',
-        title: 'Sinov Testi',
+        title: 'JLPT N5 Sinov Testi',
         type: 'test',
-        estimatedMinutes: 6,
+        estimatedMinutes: 7,
         testData: {
           instructions:
             "Darsni muvaffaqiyatli yakunlash uchun savollarga to'g'ri javob bering (Kamida 80%).",
@@ -3857,58 +6710,60 @@ export const MINNA_N5_LESSONS: Lesson[] = [
           questions: [
             {
               id: 'ja-minna-l10-q1',
-              question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「公園[こうえん] が あります。 Bog` bor (mavjud).」",
-              options: [
-                "2) Agar mazkur ob'ekt jonli va o'zi harakatlanadigan bo'lsa, います fe'li qo'llaniladi.",
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
-              ],
+              question: '【Mondai 1: Moji/Goi】「冷蔵庫」の 読[よ]み方[かた]は どれですか。',
+              options: ['れいぞうこ', 'いろいろな', 'います', 'あります'],
               correctAnswerIndex: 0,
-              explanation:
-                "To'g'ri javob: 2) Agar mazkur ob'ekt jonli va o'zi harakatlanadigan bo'lsa, います fe'li qo'llaniladi..",
+              explanation: "「冷蔵庫」 ning to'g'ri o'qilishi: 「れいぞうこ」 (muzlatgich).",
             },
             {
               id: 'ja-minna-l10-q2',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「事[じ] 務[む] 所[しょ] に ミラーさんが います。 Idorada janob Miller bor.」",
-              options: [
-                "2) Bu tuzilmadan foydalanib, nima yoki kim qayerdaligi haqida savol tuzsa bo'ladi. な",
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
-              ],
+                '【Mondai 2: Bunpo】（　）に 入[はい]る 最[もっと]も よいものを 1つ えらびなさい。\n「京都（　）行きます。」',
+              options: ['へ', 'から', 'で', 'を'],
               correctAnswerIndex: 0,
               explanation:
-                "To'g'ri javob: 2) Bu tuzilmadan foydalanib, nima yoki kim qayerdaligi haqida savol tuzsa bo'ladi. な.",
+                "To'g'ri zarracha: 「へ」. Boriladigan yo'nalish 'へ' (e deb o'qiladi) bilan belgilanadi.",
             },
             {
               id: 'ja-minna-l10-q3',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「地下[ちか] に 何[なに] が ありますか。 Yer osti qavatida nima joylashgan?」",
+                "【Mondai 3: Bunpo】10-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
               options: [
-                '･･･レストランが あります。 … Restoran joylashgan.',
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
+                '〜は 〜でした じゃありません',
+                '〜に 食べません でした',
+                'OT 1 (o`rin-joy) に OT 2  が あります／います',
+                '〜を 行きます です',
               ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: ･･･レストランが あります。 … Restoran joylashgan..",
+              correctAnswerIndex: 2,
+              explanation:
+                "To'g'ri grammatik formula: 「OT 1 (o`rin-joy) に OT 2  が あります／います」.",
             },
             {
               id: 'ja-minna-l10-q4',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「受付[うけつけ] に だれが いますか。 Qabulxonada kim bor?」",
+                "【Mondai 4: Dokkai】Quyidagi yaponcha gapning to'g'ri o'zbekcha ma'nosini toping:\n「公園[こうえん] が あります。」",
               options: [
-                '･･･木[き] 村[むら] さんが います。 … Kimura xonim borlar.',
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
+                'Kompyuter bor (mavjud).',
+                'Erkak kishi bor.',
+                'Olcha daraxti bor (mavjud).',
+                "2) Agar mazkur ob'ekt jonli va o'zi harakatlanadigan bo'lsa, います fe'li qo'llaniladi.",
               ],
-              correctAnswerIndex: 0,
+              correctAnswerIndex: 3,
               explanation:
-                "To'g'ri javob: ･･･木[き] 村[むら] さんが います。 … Kimura xonim borlar..",
+                "To'g'ri ma'nosi: 「2) Agar mazkur ob'ekt jonli va o'zi harakatlanadigan bo'lsa, います fe'li qo'llaniladi.」.",
+            },
+            {
+              id: 'ja-minna-l10-q5',
+              question:
+                "【Mondai 5: Kaiwa】Savolga eng to'g'ri javobni tanlang:\n「いっしょに 京都へ 行きませんか。」",
+              options: [
+                'すみません、トイレです。',
+                'いただきます。',
+                'いいえ、行きます。',
+                'ええ、飲みましょう。',
+              ],
+              correctAnswerIndex: 3,
+              explanation: "To'g'ri javob: 「ええ、飲みましょう。」.",
             },
           ],
         },
@@ -3925,153 +6780,530 @@ export const MINNA_N5_LESSONS: Lesson[] = [
     lessonNumber: 11,
     title: "11-dars: Sanoq so'zlar, Muddat va Miqdor",
     description:
-      "Minna no Nihongo Shokyu 1: 11-dars: Sanoq so'zlar, Muddat va Miqdor. Darsda 65 ta yangi so'z va 3 ta asosiy grammatik qoida o'rganiladi.",
-    estimatedDurationMinutes: 20,
+      "Minna no Nihongo Shokyu 1: 11-dars: Sanoq so'zlar, Muddat va Miqdor. Darsda 65 ta yangi so'z, audio talaffuzli Furigana misollar va 3 ta asosiy grammatik formula o'rganiladi.",
+    estimatedDurationMinutes: 25,
     icon: '🌸',
     steps: [
       {
         id: 'ja-minna-l11-s1',
         title: "Lug'at va Qoidalar",
         type: 'learn',
-        estimatedMinutes: 8,
+        estimatedMinutes: 10,
         learnData: {
           title: "11-Dars: 11-dars: Sanoq so'zlar, Muddat va Miqdor",
           subtitle: '第11課：助数詞・期間・数量',
           explanation:
-            "11-dars: Sanoq so'zlar, Muddat va Miqdor bo'yicha to'liq grammatik izohlar va qoidalar to'plami. Har bir qoida Minna no Nihongo darsligining o'zbekcha tarjimasiga moslashtirilgan.",
+            "11-dars: Sanoq so'zlar, Muddat va Miqdor bo'yicha to'liq grammatik izohlar, formulalar va Furiganali misollar to'plami.",
           keyPoints: [
-            "1.  Miqdor sonlarning ifodalanishi: 1) ひとつ、ふたつ･･･････････とお Bu so'zlar 10 tagacha bo'lgan narsa buyumlarning miqdorini sanashda qo'llaniladi. 11 dan boshlab...",
-            "2. MIQDOR SON (muddat)  に～回[かい]  FE’L: Bu ibora u yoki bu voqeaning ma'lum bir vaqt oralig'ida bir yoki bir necha marta qaytarilishini ifodalaydi....",
-            "3.   MIQDOR SON  だけ／ OT  だけ: だけ “ faqat ” degan ma'noni anglatadi. Bu so'z miqdor soni yoki OTdan so'ng qo'shilib kelib, aytilgan narsadan boshqa hec...",
+            "📌 1.  Miqdor sonlarning ifodalanishi: 1) ひとつ、ふたつ･･･････････とお Bu so'zlar 10 tagacha bo'lgan narsa buyumlarning miqdorini sanashda qo'llaniladi.",
+            "📌 2. MIQDOR SON (muddat)  に～回[かい]  FE’L: Bu ibora u yoki bu voqeaning ma'lum bir vaqt oralig'ida bir yoki bir necha marta qaytarilishini ifodalaydi.",
+            "📌 3.   MIQDOR SON  だけ／ OT  だけ: だけ “ faqat ” degan ma'noni anglatadi.",
           ],
           vocabulary: [
             {
               term: 'います',
               reading: 'います',
               meaning: "bor (bo'lmoq)",
-              exampleSentence: "います — bor (bo'lmoq)",
-              exampleTranslation: "bor (bo'lmoq)",
+              exampleSentence: '毎日[まいにち] います。',
+              exampleTranslation: "Har kuni bor (bo'lmoq).",
             },
             {
-              term: '[ 子供が～ ] ([ こどもが～ ])',
-              reading: '[ こどもが～ ]',
+              term: '子供が～ (こどもが～)',
+              reading: 'こどもが～',
               meaning: '(bolasi bor)',
-              exampleSentence: '[ こどもが～ ] — (bolasi bor)',
-              exampleTranslation: '(bolasi bor)',
+              exampleSentence: '山田[やまだ][こどもが]は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada (bolasi bor) samimiy inson.',
             },
             {
-              term: '[ 日本に～ ] ([ にほんに～ ])',
-              reading: '[ にほんに～ ]',
+              term: '日本に～ (にほんに～)',
+              reading: 'にほんに～',
               meaning: "(Yaponiyada bo'lmoq)",
-              exampleSentence: "[ にほんに～ ] — (Yaponiyada bo'lmoq)",
-              exampleTranslation: "(Yaponiyada bo'lmoq)",
+              exampleSentence: '山田[やまだ][にほんに]は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: "Yamada (yaponiyada bo'lmoq) samimiy inson.",
             },
             {
               term: 'かかります',
               reading: 'かかります',
               meaning: "sarf bo'lmoq, ketmoq (pul yoki vaqt)",
-              exampleSentence: "かかります — sarf bo'lmoq, ketmoq (pul yoki vaqt)",
-              exampleTranslation: "sarf bo'lmoq, ketmoq (pul yoki vaqt)",
+              exampleSentence: '毎日[まいにち] かかります。',
+              exampleTranslation: "Har kuni sarf bo'lmoq, ketmoq (pul yoki vaqt).",
             },
             {
               term: '休みます (やすみます)',
               reading: 'やすみます',
               meaning: 'dam olmoq; qoldirmoq',
-              exampleSentence: 'やすみます — dam olmoq; qoldirmoq',
-              exampleTranslation: 'dam olmoq; qoldirmoq',
+              exampleSentence: '日曜日[にちようび]に 休[やす]みます。',
+              exampleTranslation: 'Yakshanba kuni dam olaman.',
             },
             {
-              term: '[ 会社を ] ([ かいしゃを～ ])',
-              reading: '[ かいしゃを～ ]',
+              term: '会社を (かいしゃを～)',
+              reading: 'かいしゃを～',
               meaning: '(ishga chiqmaslik)',
-              exampleSentence: '[ かいしゃを～ ] — (ishga chiqmaslik)',
-              exampleTranslation: '(ishga chiqmaslik)',
+              exampleSentence: '山田[やまだ][かいしゃを]は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada (ishga chiqmaslik) samimiy inson.',
             },
             {
               term: '１つ (ひとつ)',
               reading: 'ひとつ',
               meaning: 'bitta',
-              exampleSentence: 'ひとつ — bitta',
-              exampleTranslation: 'bitta',
+              exampleSentence: 'これは わたしが 買[か]った １つ[ひとつ] です。',
+              exampleTranslation: 'Bu men sotib olgan bitta.',
             },
             {
               term: '２つ (ふたつ)',
               reading: 'ふたつ',
               meaning: 'ikkita',
-              exampleSentence: 'ふたつ — ikkita',
-              exampleTranslation: 'ikkita',
+              exampleSentence: 'これは わたしが 買[か]った ２つ[ふたつ] です。',
+              exampleTranslation: 'Bu men sotib olgan ikkita.',
             },
             {
               term: '３つ (みっつ)',
               reading: 'みっつ',
               meaning: 'uchta',
-              exampleSentence: 'みっつ — uchta',
-              exampleTranslation: 'uchta',
+              exampleSentence: 'これは わたしが 買[か]った ３つ[みっつ] です。',
+              exampleTranslation: 'Bu men sotib olgan uchta.',
             },
             {
               term: '４つ (よっつ)',
               reading: 'よっつ',
               meaning: "to'rtta Jonsiz",
-              exampleSentence: "よっつ — to'rtta Jonsiz",
-              exampleTranslation: "to'rtta Jonsiz",
+              exampleSentence: 'これは わたしが 買[か]った ４つ[よっつ] です。',
+              exampleTranslation: "Bu men sotib olgan to'rtta jonsiz.",
             },
             {
               term: '５つ (いつつ)',
               reading: 'いつつ',
               meaning: 'beshta predmetlarni',
-              exampleSentence: 'いつつ — beshta predmetlarni',
-              exampleTranslation: 'beshta predmetlarni',
+              exampleSentence: 'これは わたしが 買[か]った ５つ[いつつ] です。',
+              exampleTranslation: 'Bu men sotib olgan beshta predmetlarni.',
             },
             {
               term: '６つ (むっつ)',
               reading: 'むっつ',
               meaning: 'oltita sanashda',
-              exampleSentence: 'むっつ — oltita sanashda',
-              exampleTranslation: 'oltita sanashda',
+              exampleSentence: 'これは わたしが 買[か]った ６つ[むっつ] です。',
+              exampleTranslation: 'Bu men sotib olgan oltita sanashda.',
             },
             {
               term: '７つ (ななつ)',
               reading: 'ななつ',
               meaning: "yettita qo'llaniladi",
-              exampleSentence: "ななつ — yettita qo'llaniladi",
-              exampleTranslation: "yettita qo'llaniladi",
+              exampleSentence: 'これは わたしが 買[か]った ７つ[ななつ] です。',
+              exampleTranslation: "Bu men sotib olgan yettita qo'llaniladi.",
             },
             {
               term: '８つ (やっつ)',
               reading: 'やっつ',
               meaning: 'sakkizta',
-              exampleSentence: 'やっつ — sakkizta',
-              exampleTranslation: 'sakkizta',
+              exampleSentence: 'これは わたしが 買[か]った ８つ[やっつ] です。',
+              exampleTranslation: 'Bu men sotib olgan sakkizta.',
             },
             {
               term: '９つ (ここのつ)',
               reading: 'ここのつ',
               meaning: "to'qqizta",
-              exampleSentence: "ここのつ — to'qqizta",
-              exampleTranslation: "to'qqizta",
+              exampleSentence: 'これは わたしが 買[か]った ９つ[ここのつ] です。',
+              exampleTranslation: "Bu men sotib olgan to'qqizta.",
+            },
+            {
+              term: '１０ (とお)',
+              reading: 'とお',
+              meaning: "o'nta",
+              exampleSentence: 'これは わたしが 買[か]った １０[とお] です。',
+              exampleTranslation: "Bu men sotib olgan o'nta.",
+            },
+            {
+              term: 'いくつ',
+              reading: 'いくつ',
+              meaning: 'qancha, nechta',
+              exampleSentence: 'これは わたしが 買[か]った いくつ です。',
+              exampleTranslation: 'Bu men sotib olgan qancha, nechta.',
+            },
+            {
+              term: '１人 (ひとり)',
+              reading: 'ひとり',
+              meaning: 'bitta, bir kishi',
+              exampleSentence: 'ミラーさんは １人[ひとり] です。',
+              exampleTranslation: 'Janob Miller bitta, bir kishi.',
+            },
+            {
+              term: '２人 (ふたり)',
+              reading: 'ふたり',
+              meaning: 'ikkita, ikki kishi',
+              exampleSentence: 'ミラーさんは ２人[ふたり] です。',
+              exampleTranslation: 'Janob Miller ikkita, ikki kishi.',
+            },
+            {
+              term: '～人 (～にん)',
+              reading: '～にん',
+              meaning: '~kishi, ~odam (sanoq suffiksi)',
+              exampleSentence: 'ミラーさんは 人[にん] です。',
+              exampleTranslation: 'Janob Miller ~kishi, ~odam (sanoq suffiksi).',
+            },
+            {
+              term: '～台 (～だい)',
+              reading: '～だい',
+              meaning: '~ta (texnika sanoq suffiksi)',
+              exampleSentence: 'この 部屋[へや]は 台[だい]です。',
+              exampleTranslation: 'Bu xona ~ta (texnika sanoq suffiksi).',
+            },
+            {
+              term: '～枚 (～まい)',
+              reading: '～まい',
+              meaning: '~ta (yupqa narsalar sanoq suffiksi)',
+              exampleSentence: 'この 部屋[へや]は 枚[まい]です。',
+              exampleTranslation: 'Bu xona ~ta (yupqa narsalar sanoq suffiksi).',
+            },
+            {
+              term: '～回 (～かい)',
+              reading: '～かい',
+              meaning: '~marta, ~bor',
+              exampleSentence: 'この 部屋[へや]は 回[かい]です。',
+              exampleTranslation: 'Bu xona ~marta, ~bor.',
+            },
+            {
+              term: 'りんご',
+              reading: 'りんご',
+              meaning: 'olma',
+              exampleSentence: 'これは わたしが 買[か]った りんご です。',
+              exampleTranslation: 'Bu men sotib olgan olma.',
+            },
+            {
+              term: 'みかん',
+              reading: 'みかん',
+              meaning: 'mandarin',
+              exampleSentence: 'これは わたしが 買[か]った みかん です。',
+              exampleTranslation: 'Bu men sotib olgan mandarin.',
+            },
+            {
+              term: 'サンドイッチ',
+              reading: 'サンドイッチ',
+              meaning: 'sendvich',
+              exampleSentence: 'これは わたしが 買[か]った サンドイッチ です。',
+              exampleTranslation: 'Bu men sotib olgan sendvich.',
+            },
+            {
+              term: 'カレーライス',
+              reading: 'カレーライス',
+              meaning: 'karerays',
+              exampleSentence: 'これは わたしが 買[か]った カレー[ライス] です。',
+              exampleTranslation: 'Bu men sotib olgan karerays.',
+            },
+            {
+              term: 'アイスクリーム',
+              reading: 'アイスクリーム',
+              meaning: 'muzqaymoq',
+              exampleSentence: 'これは わたしが 買[か]った アイスクリーム です。',
+              exampleTranslation: 'Bu men sotib olgan muzqaymoq.',
+            },
+            {
+              term: '切手 (きって)',
+              reading: 'きって',
+              meaning: 'pochta markasi',
+              exampleSentence: '田中[たなか]さんは 切手[きって] です。',
+              exampleTranslation: 'Tanaka janoblari pochta markasi.',
+            },
+            {
+              term: 'はがき',
+              reading: 'はがき',
+              meaning: 'otkritka',
+              exampleSentence: 'これは わたしが 買[か]った はがき です。',
+              exampleTranslation: 'Bu men sotib olgan otkritka.',
+            },
+            {
+              term: '封筒 (ふうとう)',
+              reading: 'ふうとう',
+              meaning: 'konvert',
+              exampleSentence: '毎日[まいにち] 封筒[ふうとう]。',
+              exampleTranslation: 'Har kuni konvert.',
+            },
+            {
+              term: '速達 (そくたつ)',
+              reading: 'そくたつ',
+              meaning: 'tezkor pochta, ekspress pochta',
+              exampleSentence: 'これは わたしが 買[か]った 速達[そくたつ] です。',
+              exampleTranslation: 'Bu men sotib olgan tezkor pochta, ekspress pochta.',
+            },
+            {
+              term: '書留 (かきとめ)',
+              reading: 'かきとめ',
+              meaning: 'buyurtmali pochta',
+              exampleSentence: 'これは わたしが 買[か]った 書留[かきとめ] です。',
+              exampleTranslation: 'Bu men sotib olgan buyurtmali pochta.',
+            },
+            {
+              term: 'エアメール',
+              reading: 'エアメール',
+              meaning: 'avia pochta',
+              exampleSentence: 'これは わたしが 買[か]った エアメール です。',
+              exampleTranslation: 'Bu men sotib olgan avia pochta.',
+            },
+            {
+              term: '航空便 (こうくうびん)',
+              reading: 'こうくうびん',
+              meaning: 'avia pochta',
+              exampleSentence: 'これは わたしが 買[か]った 航空便[こうくうびん] です。',
+              exampleTranslation: 'Bu men sotib olgan avia pochta.',
+            },
+            {
+              term: '船便 (ふなびん)',
+              reading: 'ふなびん',
+              meaning: 'dengiz pochtasi',
+              exampleSentence: 'これは わたしが 買[か]った 船便[ふなびん] です。',
+              exampleTranslation: 'Bu men sotib olgan dengiz pochtasi.',
+            },
+            {
+              term: '両親 (りょうしん)',
+              reading: 'りょうしん',
+              meaning: 'ota-ona',
+              exampleSentence: 'これは わたしが 買[か]った 両親[りょうしん] です。',
+              exampleTranslation: 'Bu men sotib olgan ota-ona.',
+            },
+            {
+              term: '兄弟 (きょうだい)',
+              reading: 'きょうだい',
+              meaning: 'farzandlar, aka-ukalar',
+              exampleSentence: 'この 部屋[へや]は 兄弟[きょうだい]です。',
+              exampleTranslation: 'Bu xona farzandlar, aka-ukalar.',
+            },
+            {
+              term: '兄 (あに)',
+              reading: 'あに',
+              meaning: 'akam',
+              exampleSentence: 'これは わたしが 買[か]った 兄[あに] です。',
+              exampleTranslation: 'Bu men sotib olgan akam.',
+            },
+            {
+              term: 'お兄さん (おにいさん)',
+              reading: 'おにいさん',
+              meaning: 'akangiz,akasi',
+              exampleSentence: 'これは わたしが 買[か]った お兄さん[おにいさん] です。',
+              exampleTranslation: 'Bu men sotib olgan akangiz,akasi.',
+            },
+            {
+              term: '姉 (あね)',
+              reading: 'あね',
+              meaning: 'opam',
+              exampleSentence: 'これは わたしが 買[か]った 姉[あね] です。',
+              exampleTranslation: 'Bu men sotib olgan opam.',
+            },
+            {
+              term: 'お姉さん (おねえさん)',
+              reading: 'おねえさん',
+              meaning: 'opangiz, opasi',
+              exampleSentence: 'これは わたしが 買[か]った お姉さん[おねえさん] です。',
+              exampleTranslation: 'Bu men sotib olgan opangiz, opasi.',
+            },
+            {
+              term: '弟 (おとうと)',
+              reading: 'おとうと',
+              meaning: 'ukam',
+              exampleSentence: 'これは わたしが 買[か]った 弟[おとうと] です。',
+              exampleTranslation: 'Bu men sotib olgan ukam.',
+            },
+            {
+              term: '弟さん (おとうとさん)',
+              reading: 'おとうとさん',
+              meaning: 'ukangiz, ukasi',
+              exampleSentence: 'これは わたしが 買[か]った 弟さん[おとうとさん] です。',
+              exampleTranslation: 'Bu men sotib olgan ukangiz, ukasi.',
+            },
+            {
+              term: '妹 (いもうと)',
+              reading: 'いもうと',
+              meaning: 'singlim',
+              exampleSentence: 'これは わたしが 買[か]った 妹[いもうと] です。',
+              exampleTranslation: 'Bu men sotib olgan singlim.',
+            },
+            {
+              term: '妹さん (いもうとさん)',
+              reading: 'いもうとさん',
+              meaning: 'singlingiz, singlisi',
+              exampleSentence: 'これは わたしが 買[か]った 妹さん[いもうとさん] です。',
+              exampleTranslation: 'Bu men sotib olgan singlingiz, singlisi.',
+            },
+            {
+              term: '外国 (がいこく)',
+              reading: 'がいこく',
+              meaning: 'chet el, xorij',
+              exampleSentence: 'あそこは 外国[がいこく] です。',
+              exampleTranslation: 'Anavi yer chet el, xorij.',
+            },
+            {
+              term: '～時間 (～じかん)',
+              reading: '～じかん',
+              meaning: '~ soat',
+              exampleSentence: '山田[やまだ]じかんは 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada ~ soat samimiy inson.',
+            },
+            {
+              term: '～週間 (～しゅうかん)',
+              reading: '～しゅうかん',
+              meaning: '~ hafta',
+              exampleSentence: '山田[やまだ]しゅうかんは 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada ~ hafta samimiy inson.',
+            },
+            {
+              term: '～か月 (～かげつ)',
+              reading: '～かげつ',
+              meaning: '~ oy',
+              exampleSentence: '山田[やまだ]かげつは 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada ~ oy samimiy inson.',
+            },
+            {
+              term: '～年 (～ねん)',
+              reading: '～ねん',
+              meaning: '~ yil',
+              exampleSentence: '山田[やまだ]ねんは 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada ~ yil samimiy inson.',
+            },
+            {
+              term: '～ぐらい',
+              reading: '～ぐらい',
+              meaning: '~lar, ~cha, taxminan~',
+              exampleSentence: 'この 部屋[へや]は ぐらいです。',
+              exampleTranslation: 'Bu xona ~lar, ~cha, taxminan~.',
+            },
+            {
+              term: 'どのぐらい',
+              reading: 'どのぐらい',
+              meaning: 'qancha (vaqt)',
+              exampleSentence: 'この 部屋[へや]は どのぐらいです。',
+              exampleTranslation: 'Bu xona qancha (vaqt).',
+            },
+            {
+              term: '全部で (ぜんぶで)',
+              reading: 'ぜんぶで',
+              meaning: "hammasi bo'lib",
+              exampleSentence: 'これは わたしが 買[か]った 全部で[ぜんぶで] です。',
+              exampleTranslation: "Bu men sotib olgan hammasi bo'lib.",
+            },
+            {
+              term: 'みんな',
+              reading: 'みんな',
+              meaning: 'hamma, barcha',
+              exampleSentence: 'これは わたしが 買[か]った みんな です。',
+              exampleTranslation: 'Bu men sotib olgan hamma, barcha.',
+            },
+            {
+              term: '～だけ',
+              reading: '～だけ',
+              meaning: 'faqat',
+              exampleSentence: '山田[やまだ]だけは 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada faqat samimiy inson.',
+            },
+            {
+              term: 'いらっしゃいませ。',
+              reading: 'いらっしゃいませ。',
+              meaning: 'Xush kelibsiz.',
+              exampleSentence: 'これは わたしが 買[か]った いらっしゃいませ。 です。',
+              exampleTranslation: 'Bu men sotib olgan xush kelibsiz..',
+            },
+            {
+              term: 'いいお天てん気きですね。',
+              reading: 'いいお天てん気きですね。',
+              meaning: 'Yaxshi ob-havo-ya?',
+              exampleSentence: 'これは わたしが 買[か]った いい[お]天[てん]気[き]ですね。 です。',
+              exampleTranslation: 'Bu men sotib olgan yaxshi ob-havo-ya?.',
+            },
+            {
+              term: 'お出でかけですか。',
+              reading: 'お出でかけですか。',
+              meaning: "Ko'chagami?",
+              exampleSentence: 'これは わたしが 買[か]った お出[で]かけですか。 です。',
+              exampleTranslation: "Bu men sotib olgan ko'chagami?.",
+            },
+            {
+              term: 'ちょっと～まで。',
+              reading: 'ちょっと～まで。',
+              meaning: '~ga borib kelaman.',
+              exampleSentence: '山田[やまだ]ちょっとまで。は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada ~ga borib kelaman. samimiy inson.',
+            },
+            {
+              term: '行いっていらっしゃい。',
+              reading: '行いっていらっしゃい。',
+              meaning: 'Yaxshi borib keling(lar).',
+              exampleSentence: 'これは わたしが 買[か]った 行[い]っていらっしゃい。 です。',
+              exampleTranslation: 'Bu men sotib olgan yaxshi borib keling(lar)..',
+            },
+            {
+              term: '行いってまいります。',
+              reading: '行いってまいります。',
+              meaning: 'Yaxshi qoling(lar).',
+              exampleSentence: '毎日[まいにち] 行[い]ってまいります。。',
+              exampleTranslation: 'Har kuni yaxshi qoling(lar)..',
+            },
+            {
+              term: 'それから',
+              reading: 'それから',
+              meaning: 'yana',
+              exampleSentence: 'これは わたしが 買[か]った それから です。',
+              exampleTranslation: 'Bu men sotib olgan yana.',
+            },
+            {
+              term: 'オーストラリア',
+              reading: 'オーストラリア',
+              meaning: 'Avstraliya',
+              exampleSentence: 'これは わたしが 買[か]った オーストラリア です。',
+              exampleTranslation: 'Bu men sotib olgan avstraliya.',
             },
           ],
           grammarRules: [
             {
               pattern: 'Miqdor sonlarning ifodalanishi',
               meaning:
-                "1) ひとつ、ふたつ･･･････････とお Bu so'zlar 10 tagacha bo'lgan narsa buyumlarning miqdorini sanashda qo'llaniladi. 11 dan boshlab sanashda oddiy sanoq so'zlar qo'llaniladi. 2) Sanoq suffikslari Ayrim narsalarn",
-              usageNotes:
                 "1) ひとつ、ふたつ･･･････････とお Bu so'zlar 10 tagacha bo'lgan narsa buyumlarning miqdorini sanashda qo'llaniladi. 11 dan boshlab sanashda oddiy sanoq so'zlar qo'llaniladi. 2) Sanoq suffikslari Ayrim narsalarni sanayotganda yoki miqdorni ifodalashda sanoq suffikslari qo'shiladi. ～人[にん] bir va ikkitadan ko'p bo'lgan odamlar uchun qo'llaniladigan sanoq suffiksi ひとり （１人） va ふたり（２人） bir va ikki odam uchun qo'llaniladi. ４人 (to'rtta odam) よにん deb o'qiladi. ～台[だい] harakatlanish vositalari (avtomobil, velosiped) yoki mexanizmlarning sanoq suffiksi. ～枚[まい] yupqa va tekis buyumlar uchun qo'llaniladigan sanoq suffiksi. Masalan: qog'oz, likopcha, ko'ylak, disk va hokazolar. ～回[かい] marta. Ish-harakatning bir necha marotaba amalga oshishi. ～分[ふん] daqiqa. ～時[じ] 間[かん] soat. ～日[にち] kunlar. Kunlar miqdori にち suffiksi bilan ifodalanadi. Lekin, ikkidan o'ngacha bir xil so'zlar qo'llaniladi. (“bir kun” いちにち , “ikki kun” ふつ か , ････ “o'n kun” とおか ) Sanani ifoda etishda istisno hollari ham bor. Masalan: “bir kun” いちにち deyilsa, “birinchi sana” esa ついたち deyiladi. ～週間[しゅうかん] hafta ～か月[げつ] oy ～年[ねん] yil Ilovada sanoq suffikslari to'liq ko'rsatilgan. 3) Ma'lum bir narsaning miqdorini ko'rsatib kelgan sanoq suffikslari odatda o'ziga tegishli bo'lgan fe'ldan oldin qo'yiladi, garchi bu har doim ham davom etavermasa ham. 4) So'roq so'zlar (1) ひとつ、ふたつ deb sanaladigan narsalarga いくつ so'roq so'zi qo'llaniladi. (2) Miqdorni sanashda savol gapda なん so'roq so'zi sanoq suffikslari bilan birga qo'llaniladi. Bu korxonada nechta chet ellik bor? Har kuni kechasi necha soat yapon tilini o'rganasiz? (3) どの くらい –biror bir narsa va ish-harakat uchun talab qilinadigan vaqt miqdori uchun qo'llaniladigan so'roq so'z. Yapon tilini qancha vaqt o'rgandingiz? Osakadan Tokiogacha qancha vaqt ketadi? 5) ぐらい ぐらい - miqdor so'zlarga qo'shilib kelib, “ ~cha ”, “ ~lar ” degan taxminiy ma'noni anglatadi.",
+              usageNotes:
+                'Minna no Nihongo 11-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'りんごを ４[よっ] つ 買[か] いました。 4 ta olma sotib oldim.',
-                  translation: '',
+                  translation: 'Namunaviy gap.',
                 },
                 {
                   sentence:
                     '外国人[がいこくじん] の 学生[がくせい] が ２人[ふたり] います。 2 ta chet ellik talaba bor.',
-                  translation: '',
+                  translation: 'Namunaviy gap.',
                 },
                 {
                   sentence:
-                    '国[くに] で ２か月[げつ] 日[に] 本[ほん] 語[ご] を勉[べん] 強[きょう] しました。 Vatanimda 2 oy yapon tilini',
+                    '国[くに] で ２か月[げつ] 日[に] 本[ほん] 語[ご] を勉[べん] 強[きょう] しました。',
                   translation: "o'rgandim.",
+                },
+                {
+                  sentence: 'みかんを いくつ 買[か] いましたか。',
+                  translation: '･･･８[やっ] つ 買[か] いました。 … Sakkizta sotib oldim.',
+                },
+                {
+                  sentence:
+                    'この 会社[かいしゃ] に 外国人[がいこくじん] が 何人[なんにん] いますか。',
+                  translation: '･･･５人[にん] います。 … 5 kishi bor.',
+                },
+                {
+                  sentence:
+                    '毎晩[まいばん] 何時間[なんじかん] 日[に] 本[ほん] 語[ご] を 勉[べん] 強[きょう] しますか。',
+                  translation:
+                    "･･･２時[じ] 間[かん] 勉[べん] 強[きょう] します。 … 2 soat o'rganaman.",
+                },
+                {
+                  sentence:
+                    'どの くらい 日[に] 本[ほん] 語[ご] を 勉[べん] 強[きょう] しましたか。',
+                  translation: "･･･３年[ねん] 勉強[べんきょう] しました。 … 3 yil o'rgandim.",
+                },
+                {
+                  sentence:
+                    '大阪[おおさか] から 東[とう] 京[きょう] まで どの くらい かかりますか。',
+                  translation:
+                    '･･･新幹線[しんかんせん] で ２時[じ] 間[かん] 半[はん] かかります。 … “Shinkansen”da 2 yarim soat.',
+                },
+                {
+                  sentence: '学校[がっこう] に 先生[せんせい] が ３０人[にん] ぐらい います。',
+                  translation: 'Maktabda 30 tacha o`qituvchi bor.',
+                },
+                {
+                  sentence: '１５分[ふん] ぐらい かかります。',
+                  translation: 'Taxminan 15 daqiqacha vaqt ketadi.',
                 },
               ],
             },
@@ -4080,7 +7312,7 @@ export const MINNA_N5_LESSONS: Lesson[] = [
               meaning:
                 "Bu ibora u yoki bu voqeaning ma'lum bir vaqt oralig'ida bir yoki bir necha marta qaytarilishini ifodalaydi.",
               usageNotes:
-                "Bu ibora u yoki bu voqeaning ma'lum bir vaqt oralig'ida bir yoki bir necha marta qaytarilishini ifodalaydi.",
+                'Minna no Nihongo 11-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: '１か月[げつ] に２回[かい] 映[えい] 画[が] を見[み] ます。',
@@ -4093,7 +7325,7 @@ export const MINNA_N5_LESSONS: Lesson[] = [
               meaning:
                 "だけ “ faqat ” degan ma'noni anglatadi. Bu so'z miqdor soni yoki OTdan so'ng qo'shilib kelib, aytilgan narsadan boshqa hech narsa yo'qligini ifodalaydi.",
               usageNotes:
-                "だけ “ faqat ” degan ma'noni anglatadi. Bu so'z miqdor soni yoki OTdan so'ng qo'shilib kelib, aytilgan narsadan boshqa hech narsa yo'qligini ifodalaydi.",
+                'Minna no Nihongo 11-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence:
@@ -4108,82 +7340,86 @@ export const MINNA_N5_LESSONS: Lesson[] = [
             },
           ],
           culturalNotes:
-            "Yapon tilida narsalarni sanash uchun maxsus sanoq suffikslari mavjud: odamlar uchun '～にん', ingichka narsalar uchun '～ほん', yassi narsalar uchun '～まい'.",
+            "Yapon tilida narsalarni sanash uchun shakliga qarab maxsus sanoq so'zlari ishlatiladi: kitoblar uchun '～satsu', qog'ozlar uchun '～mai', qalamlar uchun '～hon', mashinalar uchun '～dai'.",
         },
       },
       {
         id: 'ja-minna-l11-s2',
         title: 'Mustahkamlash Mashqlari',
         type: 'practice',
-        estimatedMinutes: 6,
+        estimatedMinutes: 8,
         practiceData: {
           instructions:
-            "Darsda o'rganilgan yangi so'zlar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
+            "Darsda o'rganilgan yangi so'zlar, zarrachalar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
           exercises: [
             {
               id: 'ja-minna-l11-ex1',
               type: 'multiple-choice',
-              prompt: "「います」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
-              options: [
-                "bor (bo'lmoq)",
-                '(bolasi bor)',
-                "(Yaponiyada bo'lmoq)",
-                "sarf bo'lmoq, ketmoq (pul yoki vaqt)",
-              ],
+              prompt:
+                "Bo'sh joyga to'g'ri zarrachani qo'ying:\n「わたし（　）マイク・ミラーです。」",
+              options: ['は', 'に', 'を', 'が'],
               correctAnswer: 0,
-              explanation: "To'g'ri javob: bor (bo'lmoq).",
+              explanation:
+                "To'g'ri javob: 「は」. Gap mavzusini ko'rsatish uchun 'は' (va deb o'qiladi) ishlatiladi.",
             },
             {
               id: 'ja-minna-l11-ex2',
               type: 'multiple-choice',
-              prompt:
-                "11-dars grammatik qoidasi: '1.  Miqdor sonlarning ifodalanishi' bo'yicha qaysi gap grammatik jihatdan to'g'ri tuzilgan?",
-              options: [
-                '国[くに] で ２か月[げつ] 日[に] 本[ほん] 語[ご] を勉[べん] 強[きょう] しました。 Vatanimda 2 oy yapon tilini',
-                'これ は を です。',
-                'だれ が 行きます か でした。',
-                'へ 行きません です。',
-              ],
+              prompt: "「６つ (むっつ)」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
+              options: ['oltita sanashda', '(bolasi bor)', "bor (bo'lmoq)", "(Yaponiyada bo'lmoq)"],
               correctAnswer: 0,
-              explanation:
-                "To'g'ri javob: 国[くに] で ２か月[げつ] 日[に] 本[ほん] 語[ご] を勉[べん] 強[きょう] しました。 Vatanimda 2 oy yapon tilini (o'rgandim.).",
+              explanation: "To'g'ri javob: 「oltita sanashda」.",
             },
             {
               id: 'ja-minna-l11-ex3',
               type: 'multiple-choice',
-              prompt:
-                "O'zbek tiliga to'g'ri tarjima qiling: 「みかんを いくつ 買[か] いましたか。 Qancha mandarin sotib oldingiz?」",
+              prompt: "11-dars grammatik qoidasiga muvofiq to'g'ri tuzilgan gapni aniqlang:",
               options: [
-                '･･･８[やっ] つ 買[か] いました。 … Sakkizta sotib oldim.',
-                "Ertaga do'stim bilan mehmonga boraman.",
-                "Kechirasiz, soat necha bo'ldi?",
-                "Iltimos, manzilni ko'rsatib yuboring.",
+                '外国人[がいこくじん]  は 学生[がくせい] が ２人[ふたり] います。 2 ta chet ellik talaba bor.。',
+                '外国人[がいこくじん] の 学生[がくせい] が ２人[ふたり] います です。 2 ta chet ellik talaba bor.。',
+                '外国人[がいこくじん] の 学生[がくせい] が ２人[ふたり] いません でした です。 2 ta chet ellik talaba bor.。',
+                '外国人[がいこくじん] の 学生[がくせい] が ２人[ふたり] います。 2 ta chet ellik talaba bor.。',
               ],
-              correctAnswer: 0,
+              correctAnswer: 3,
               explanation:
-                "To'g'ri tarjimasi: ･･･８[やっ] つ 買[か] いました。 … Sakkizta sotib oldim..",
+                "To'g'ri gap: 「外国人[がいこくじん] の 学生[がくせい] が ２人[ふたり] います。 2 ta chet ellik talaba bor.。」 (Namunaviy gap.).",
             },
             {
               id: 'ja-minna-l11-ex4',
               type: 'multiple-choice',
-              prompt: "Ushbu darsdagi suhbatdan kelib chiqib: Ma'mur qanday jumla aytadi?",
+              prompt: "Ushbu gapning to'g'ri yaponcha tarjimasini tanlang:\n「Namunaviy gap.」",
               options: [
-                'Yaxshi ob-havo-a? Chiqib ketayapsizmi?',
-                'Men hech qayerga bormayman.',
-                'Taksida aeroportga haydang.',
-                "Iltimos, hisobni alohida to'laymiz.",
+                'みかんを いくつ 買[か] いましたか。',
+                'りんごを ４[よっ] つ 買[か] いました。 4 ta olma sotib oldim.',
+                '国[くに] で ２か月[げつ] 日[に] 本[ほん] 語[ご] を勉[べん] 強[きょう] しました。',
+                '外国人[がいこくじん] の 学生[がくせい] が ２人[ふたり] います。 2 ta chet ellik talaba bor.',
               ],
-              correctAnswer: 0,
-              explanation: "To'g'ri ibora: Yaxshi ob-havo-a? Chiqib ketayapsizmi?.",
+              correctAnswer: 3,
+              explanation:
+                "Yaponcha to'g'ri ifodasi: 「外国人[がいこくじん] の 学生[がくせい] が ２人[ふたり] います。 2 ta chet ellik talaba bor.」.",
+            },
+            {
+              id: 'ja-minna-l11-ex5',
+              type: 'multiple-choice',
+              prompt:
+                'Suhbatdoshingiz: 「初めまして、どうぞ よろしく お願いします。」 dedi. Unga eng mos muloyim javob qaysi?',
+              options: [
+                'おやすみなさい。',
+                'こちらこそ、どうぞ よろしく お願いします。',
+                'ごちそうさまでした。',
+                '失礼します。',
+              ],
+              correctAnswer: 1,
+              explanation: "To'g'ri javob: 「こちらこそ、どうぞ よろしく お願いします。」.",
             },
           ],
         },
       },
       {
         id: 'ja-minna-l11-s3',
-        title: 'Sinov Testi',
+        title: 'JLPT N5 Sinov Testi',
         type: 'test',
-        estimatedMinutes: 6,
+        estimatedMinutes: 7,
         testData: {
           instructions:
             "Darsni muvaffaqiyatli yakunlash uchun savollarga to'g'ri javob bering (Kamida 80%).",
@@ -4191,57 +7427,54 @@ export const MINNA_N5_LESSONS: Lesson[] = [
           questions: [
             {
               id: 'ja-minna-l11-q1',
-              question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「国[くに] で ２か月[げつ] 日[に] 本[ほん] 語[ご] を勉[べん] 強[きょう] しました。 Vatanimda 2 oy yapon tilini」",
-              options: [
-                "o'rgandim.",
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
-              ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: o'rgandim..",
+              question: '【Mondai 1: Moji/Goi】「８つ」の 読[よ]み方[かた]は どれですか。',
+              options: ['にほんに～', 'います', 'こどもが～', 'やっつ'],
+              correctAnswerIndex: 3,
+              explanation: "「８つ」 ning to'g'ri o'qilishi: 「やっつ」 (sakkizta).",
             },
             {
               id: 'ja-minna-l11-q2',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「みかんを いくつ 買[か] いましたか。 Qancha mandarin sotib oldingiz?」",
-              options: [
-                '･･･８[やっ] つ 買[か] いました。 … Sakkizta sotib oldim.',
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
-              ],
-              correctAnswerIndex: 0,
+                '【Mondai 2: Bunpo】（　）に 入[はい]る 最[もっと]も よいものを 1つ えらびなさい。\n「田中さんは 学生（　）ありません。」',
+              options: ['で', 'を', 'じゃ', 'に'],
+              correctAnswerIndex: 2,
               explanation:
-                "To'g'ri javob: ･･･８[やっ] つ 買[か] いました。 … Sakkizta sotib oldim..",
+                "To'g'ri zarracha: 「じゃ」. Inkor shaklda 'じゃ ありません' qo'llaniladi.",
             },
             {
               id: 'ja-minna-l11-q3',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「この 会社[かいしゃ] に 外国人[がいこくじん] が 何人[なんにん] いますか。」",
+                "【Mondai 3: Bunpo】11-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
               options: [
-                '･･･５人[にん] います。 … 5 kishi bor.',
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
+                '〜に 食べません でした',
+                'MIQDOR SON (muddat)  に～回[かい]  FE’L',
+                '〜は 〜でした じゃありません',
+                '〜を 行きます です',
               ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: ･･･５人[にん] います。 … 5 kishi bor..",
+              correctAnswerIndex: 1,
+              explanation:
+                "To'g'ri grammatik formula: 「MIQDOR SON (muddat)  に～回[かい]  FE’L」.",
             },
             {
               id: 'ja-minna-l11-q4',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「毎晩[まいばん] 何時間[なんじかん] 日[に] 本[ほん] 語[ご] を 勉[べん] 強[きょう] しますか。」",
+                "【Mondai 4: Dokkai】Quyidagi yaponcha gapning to'g'ri o'zbekcha ma'nosini toping:\n「国[くに] で ２か月[げつ] 日[に] 本[ほん] 語[ご] を勉[べん] 強[きょう] しました。」",
               options: [
-                "･･･２時[じ] 間[かん] 勉[べん] 強[きょう] します。 … 2 soat o'rganaman.",
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
+                "o'rgandim.",
+                '･･･８[やっ] つ 買[か] いました。 … Sakkizta sotib oldim.',
+                '･･･５人[にん] います。 … 5 kishi bor.',
+                'Namunaviy gap.',
               ],
               correctAnswerIndex: 0,
-              explanation:
-                "To'g'ri javob: ･･･２時[じ] 間[かん] 勉[べん] 強[きょう] します。 … 2 soat o'rganaman..",
+              explanation: "To'g'ri ma'nosi: 「o'rgandim.」.",
+            },
+            {
+              id: 'ja-minna-l11-q5',
+              question:
+                "【Mondai 5: Kaiwa】Savolga eng to'g'ri javobni tanlang:\n「ミラーさんは アメリカ人ですか。」",
+              options: ['はい、そうです。', 'さようなら。', 'いいえ、学生です。', 'いただきます。'],
+              correctAnswerIndex: 0,
+              explanation: "To'g'ri javob: 「はい、そうです。」.",
             },
           ],
         },
@@ -4258,132 +7491,399 @@ export const MINNA_N5_LESSONS: Lesson[] = [
     lessonNumber: 12,
     title: "12-dars: O'tgan zamon va Taqqoslash (Eng va Ko'ra)",
     description:
-      "Minna no Nihongo Shokyu 1: 12-dars: O'tgan zamon va Taqqoslash (Eng va Ko'ra). Darsda 54 ta yangi so'z va 5 ta asosiy grammatik qoida o'rganiladi.",
-    estimatedDurationMinutes: 20,
+      "Minna no Nihongo Shokyu 1: 12-dars: O'tgan zamon va Taqqoslash (Eng va Ko'ra). Darsda 54 ta yangi so'z, audio talaffuzli Furigana misollar va 5 ta asosiy grammatik formula o'rganiladi.",
+    estimatedDurationMinutes: 25,
     icon: '🌸',
     steps: [
       {
         id: 'ja-minna-l12-s1',
         title: "Lug'at va Qoidalar",
         type: 'learn',
-        estimatedMinutes: 8,
+        estimatedMinutes: 10,
         learnData: {
           title: "12-Dars: 12-dars: O'tgan zamon va Taqqoslash (Eng va Ko'ra)",
           subtitle: '第12課：過去形と比較（〜より・一番）',
           explanation:
-            "12-dars: O'tgan zamon va Taqqoslash (Eng va Ko'ra) bo'yicha to'liq grammatik izohlar va qoidalar to'plami. Har bir qoida Minna no Nihongo darsligining o'zbekcha tarjimasiga moslashtirilgan.",
+            "12-dars: O'tgan zamon va Taqqoslash (Eng va Ko'ra) bo'yicha to'liq grammatik izohlar, formulalar va Furiganali misollar to'plami.",
           keyPoints: [
-            "1.  Gapda kesim vazifasida keluvchi OT va  な -sifatning o`tgan zamondagi: ko'rinishi hozirgi / kelasi zamon o'tgan zamon Darak OT あめ OT あめ gap です でした な -sifat しずか な -sifat しずか Inkor OT あめ OT あめ ...",
-            "2.  Gapda kesim vazifasini bajaruvchi  い -sifatning o`tgan zamondagi: ko'rinishi hozirgi / kelasi zamon o'tgan zamon Darak gap あついです あつかったです Inkor gap あつくないです あつくなかったです...",
-            '3.   OT 1  は OT 2  より SIFAT  です: Ushbu turdagi gaplarda OT 1 ni OT 2 ga qiyoslagan holda uning sifati va holati ifodalanadi....',
-            "4. …OT 1 ／ OT 2  のほうが SIFAT  です: Gapning bu so'roq shakli yordamida so'zlovchi o'z suhbatdoshidan ma'lum bir shaxs yoki predmetning (OT 1 va OT 2 ) holat...",
-            '5.: 何[なに] どこ OT 1 [ の中[なか] ] で が いちばん SIFAT ですか だれ いつ …OT 2 が いちばん SIFAT です Gapning ushbu shakli suhbatdoshdan bir guruh sha...',
+            "📌 1.  Gapda kesim vazifasida keluvchi OT va  な -sifatning o`tgan zamondagi: ko'rinishi hozirgi / kelasi zamon o'tgan zamon Darak OT あめ OT あめ gap です でした な -sifat しずか な -sifat しず.",
+            "📌 2.  Gapda kesim vazifasini bajaruvchi  い -sifatning o`tgan zamondagi: ko'rinishi hozirgi / kelasi zamon o'tgan zamon Darak gap あついです あつかったです Inkor gap あつくないです あつくなかったです.",
+            '📌 3.   OT 1  は OT 2  より SIFAT  です: Ushbu turdagi gaplarda OT 1 ni OT 2 ga qiyoslagan holda uning sifati va holati ifodalanadi.',
+            "📌 4. …OT 1 ／ OT 2  のほうが SIFAT  です: Gapning bu so'roq shakli yordamida so'zlovchi o'z suhbatdoshidan ma'lum bir shaxs yoki predmetning (OT 1 va OT 2 ) holatiga nisbatan munosabatini so'raydi.",
+            "📌 5.: 何[なに] どこ OT 1 [ の中[なか] ] で が いちばん SIFAT ですか だれ いつ …OT 2 が いちばん SIFAT です Gapning ushbu shakli suhbatdoshdan bir guruh shaxs yoki predmet orasidan eng xususiyatlisini tanlagan holda javob kutilgan hollarda qo'llanadi.",
           ],
           vocabulary: [
             {
-              term: '簡単 [ な ] (かんたん [ な ])',
-              reading: 'かんたん [ な ]',
+              term: '簡単な (かんたんな)',
+              reading: 'かんたんな',
               meaning: 'oson',
-              exampleSentence: 'かんたん [ な ] — oson',
-              exampleTranslation: 'oson',
+              exampleSentence: 'これは わたしが 買[か]った 簡単[な][かんたん[な]] です。',
+              exampleTranslation: 'Bu men sotib olgan oson.',
             },
             {
               term: '近い (ちかい)',
               reading: 'ちかい',
               meaning: 'yaqin',
-              exampleSentence: 'ちかい — yaqin',
-              exampleTranslation: 'yaqin',
+              exampleSentence: 'この 部屋[へや]は 近い[ちかい]です。',
+              exampleTranslation: 'Bu xona yaqin.',
             },
             {
               term: '遠い (とおい)',
               reading: 'とおい',
               meaning: 'uzoq, olis',
-              exampleSentence: 'とおい — uzoq, olis',
-              exampleTranslation: 'uzoq, olis',
+              exampleSentence: 'この 部屋[へや]は 遠い[とおい]です。',
+              exampleTranslation: 'Bu xona uzoq, olis.',
             },
             {
-              term: '速い ,  早い (はやい)',
+              term: '速い,早い (はやい)',
               reading: 'はやい',
               meaning: 'tez, barvaqt',
-              exampleSentence: 'はやい — tez, barvaqt',
-              exampleTranslation: 'tez, barvaqt',
+              exampleSentence: 'この 部屋[へや]は 速い,早い[はやい]です。',
+              exampleTranslation: 'Bu xona tez, barvaqt.',
             },
             {
               term: '遅い (おそい)',
               reading: 'おそい',
               meaning: 'sekin',
-              exampleSentence: 'おそい — sekin',
-              exampleTranslation: 'sekin',
+              exampleSentence: 'この 部屋[へや]は 遅い[おそい]です。',
+              exampleTranslation: 'Bu xona sekin.',
             },
             {
               term: '多い (おおい)',
               reading: 'おおい',
               meaning: "ko'p",
-              exampleSentence: "おおい — ko'p",
-              exampleTranslation: "ko'p",
+              exampleSentence: 'この 部屋[へや]は 多い[おおい]です。',
+              exampleTranslation: "Bu xona ko'p.",
             },
             {
-              term: '[ 人が～ ] ([ ひとが～ ])',
-              reading: '[ ひとが～ ]',
+              term: '人が～ (ひとが～)',
+              reading: 'ひとが～',
               meaning: "(odam ko'p)",
-              exampleSentence: "[ ひとが～ ] — (odam ko'p)",
-              exampleTranslation: "(odam ko'p)",
+              exampleSentence: '山田[やまだ][ひとが]は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: "Yamada (odam ko'p) samimiy inson.",
             },
             {
               term: '少ない (すくない)',
               reading: 'すくない',
               meaning: 'kam',
-              exampleSentence: 'すくない — kam',
-              exampleTranslation: 'kam',
+              exampleSentence: 'この 部屋[へや]は 少ない[すくない]です。',
+              exampleTranslation: 'Bu xona kam.',
             },
             {
               term: '暖かい、温かい (あたたかい)',
               reading: 'あたたかい',
               meaning: 'iliq',
-              exampleSentence: 'あたたかい — iliq',
-              exampleTranslation: 'iliq',
+              exampleSentence: 'この 部屋[へや]は 暖かい、温かい[あたたかい]です。',
+              exampleTranslation: 'Bu xona iliq.',
             },
             {
               term: '涼しい (すずしい)',
               reading: 'すずしい',
               meaning: 'salqin',
-              exampleSentence: 'すずしい — salqin',
-              exampleTranslation: 'salqin',
+              exampleSentence: 'この 部屋[へや]は 涼しい[すずしい]です。',
+              exampleTranslation: 'Bu xona salqin.',
             },
             {
               term: '甘い (あまい)',
               reading: 'あまい',
               meaning: 'shirin',
-              exampleSentence: 'あまい — shirin',
-              exampleTranslation: 'shirin',
+              exampleSentence: 'この 部屋[へや]は 甘い[あまい]です。',
+              exampleTranslation: 'Bu xona shirin.',
             },
             {
               term: '辛い (からい)',
               reading: 'からい',
               meaning: 'achchiq',
-              exampleSentence: 'からい — achchiq',
-              exampleTranslation: 'achchiq',
+              exampleSentence: 'この 部屋[へや]は 辛い[からい]です。',
+              exampleTranslation: 'Bu xona achchiq.',
             },
             {
               term: '重い (おもい)',
               reading: 'おもい',
               meaning: "og'ir",
-              exampleSentence: "おもい — og'ir",
-              exampleTranslation: "og'ir",
+              exampleSentence: 'この 部屋[へや]は 重い[おもい]です。',
+              exampleTranslation: "Bu xona og'ir.",
             },
             {
               term: '軽い (かるい)',
               reading: 'かるい',
               meaning: 'yengil',
-              exampleSentence: 'かるい — yengil',
-              exampleTranslation: 'yengil',
+              exampleSentence: 'この 部屋[へや]は 軽い[かるい]です。',
+              exampleTranslation: 'Bu xona yengil.',
             },
             {
               term: 'いい',
               reading: 'いい',
               meaning: "yaxshi, zo'r",
-              exampleSentence: "いい — yaxshi, zo'r",
-              exampleTranslation: "yaxshi, zo'r",
+              exampleSentence: 'この 部屋[へや]は いいです。',
+              exampleTranslation: "Bu xona yaxshi, zo'r.",
+            },
+            {
+              term: 'コーヒーが～',
+              reading: 'コーヒーが～',
+              meaning: '(yaxshi kofe)',
+              exampleSentence: '山田[やまだ][コーヒーが]は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada (yaxshi kofe) samimiy inson.',
+            },
+            {
+              term: '季節 (きせつ)',
+              reading: 'きせつ',
+              meaning: 'fasl',
+              exampleSentence: 'これは わたしが 買[か]った 季節[きせつ] です。',
+              exampleTranslation: 'Bu men sotib olgan fasl.',
+            },
+            {
+              term: '春 (はる)',
+              reading: 'はる',
+              meaning: 'bahor',
+              exampleSentence: '毎日[まいにち] 春[はる]。',
+              exampleTranslation: 'Har kuni bahor.',
+            },
+            {
+              term: '夏 (なつ)',
+              reading: 'なつ',
+              meaning: 'yoz',
+              exampleSentence: 'これは わたしが 買[か]った 夏[なつ] です。',
+              exampleTranslation: 'Bu men sotib olgan yoz.',
+            },
+            {
+              term: '秋 (あき)',
+              reading: 'あき',
+              meaning: 'kuz',
+              exampleSentence: 'これは わたしが 買[か]った 秋[あき] です。',
+              exampleTranslation: 'Bu men sotib olgan kuz.',
+            },
+            {
+              term: '冬 (ふゆ)',
+              reading: 'ふゆ',
+              meaning: 'qish',
+              exampleSentence: 'これは わたしが 買[か]った 冬[ふゆ] です。',
+              exampleTranslation: 'Bu men sotib olgan qish.',
+            },
+            {
+              term: '天気 (てんき)',
+              reading: 'てんき',
+              meaning: 'ob-havo',
+              exampleSentence: 'これは わたしが 買[か]った 天気[てんき] です。',
+              exampleTranslation: 'Bu men sotib olgan ob-havo.',
+            },
+            {
+              term: '雨 (あめ)',
+              reading: 'あめ',
+              meaning: "yomg'ir",
+              exampleSentence: 'これは わたしが 買[か]った 雨[あめ] です。',
+              exampleTranslation: "Bu men sotib olgan yomg'ir.",
+            },
+            {
+              term: '雪 (ゆき)',
+              reading: 'ゆき',
+              meaning: 'qor',
+              exampleSentence: 'これは わたしが 買[か]った 雪[ゆき] です。',
+              exampleTranslation: 'Bu men sotib olgan qor.',
+            },
+            {
+              term: '曇り (くもり)',
+              reading: 'くもり',
+              meaning: 'bulutli (havo)',
+              exampleSentence: 'これは わたしが 買[か]った 曇り[くもり] です。',
+              exampleTranslation: 'Bu men sotib olgan bulutli (havo).',
+            },
+            {
+              term: 'ホテル',
+              reading: 'ホテル',
+              meaning: 'mehmonxona',
+              exampleSentence: 'これは わたしが 買[か]った ホテル です。',
+              exampleTranslation: 'Bu men sotib olgan mehmonxona.',
+            },
+            {
+              term: '空港 (くうこう)',
+              reading: 'くうこう',
+              meaning: 'aeroport',
+              exampleSentence: '毎日[まいにち] 空港[くうこう]。',
+              exampleTranslation: 'Har kuni aeroport.',
+            },
+            {
+              term: '海 (うみ)',
+              reading: 'うみ',
+              meaning: 'dengiz',
+              exampleSentence: 'これは わたしが 買[か]った 海[うみ] です。',
+              exampleTranslation: 'Bu men sotib olgan dengiz.',
+            },
+            {
+              term: '世界 (せかい)',
+              reading: 'せかい',
+              meaning: 'jahon, dunyo',
+              exampleSentence: 'この 部屋[へや]は 世界[せかい]です。',
+              exampleTranslation: 'Bu xona jahon, dunyo.',
+            },
+            {
+              term: 'パーティー',
+              reading: 'パーティー',
+              meaning: 'kecha, ziyofat, bazm',
+              exampleSentence: 'これは わたしが 買[か]った パーティー です。',
+              exampleTranslation: 'Bu men sotib olgan kecha, ziyofat, bazm.',
+            },
+            {
+              term: 'お祭り (おまつり)',
+              reading: 'おまつり',
+              meaning: 'bayram',
+              exampleSentence: 'これは わたしが 買[か]った [お]祭り[[お]まつり] です。',
+              exampleTranslation: 'Bu men sotib olgan bayram.',
+            },
+            {
+              term: '試験 (しけん)',
+              reading: 'しけん',
+              meaning: 'imtihon, sinov',
+              exampleSentence: 'これは わたしが 買[か]った 試験[しけん] です。',
+              exampleTranslation: 'Bu men sotib olgan imtihon, sinov.',
+            },
+            {
+              term: 'すき焼き (すきやき)',
+              reading: 'すきやき',
+              meaning: 'sukiyaki',
+              exampleSentence: 'これは わたしが 買[か]った すき焼き[すきやき] です。',
+              exampleTranslation: 'Bu men sotib olgan sukiyaki.',
+            },
+            {
+              term: '刺身 (さしみ)',
+              reading: 'さしみ',
+              meaning: 'sashimi',
+              exampleSentence: 'これは わたしが 買[か]った 刺身[さしみ] です。',
+              exampleTranslation: 'Bu men sotib olgan sashimi.',
+            },
+            {
+              term: 'おすし',
+              reading: 'おすし',
+              meaning: 'sushi- sirka arashalgan qaynatilgan guruch ustida xom baliq',
+              exampleSentence: 'これは わたしが 買[か]った [お]すし です。',
+              exampleTranslation:
+                'Bu men sotib olgan sushi- sirka arashalgan qaynatilgan guruch ustida xom baliq.',
+            },
+            {
+              term: 'てんぷら',
+              reading: 'てんぷら',
+              meaning: 'tempura- sabzavot va baliq qovurmasi',
+              exampleSentence: 'これは わたしが 買[か]った てんぷら です。',
+              exampleTranslation: 'Bu men sotib olgan tempura- sabzavot va baliq qovurmasi.',
+            },
+            {
+              term: '生け花 (いけばな)',
+              reading: 'いけばな',
+              meaning: 'ikebana, gullar aranjirovkasi',
+              exampleSentence: 'これは わたしが 買[か]った 生け花[いけばな] です。',
+              exampleTranslation: 'Bu men sotib olgan ikebana, gullar aranjirovkasi.',
+            },
+            {
+              term: '紅葉 (もみじ)',
+              reading: 'もみじ',
+              meaning: 'xazon, qizil barg',
+              exampleSentence: 'これは わたしが 買[か]った 紅葉[もみじ] です。',
+              exampleTranslation: 'Bu men sotib olgan xazon, qizil barg.',
+            },
+            {
+              term: 'どちら',
+              reading: 'どちら',
+              meaning: 'qaysi biri, qay biri',
+              exampleSentence: 'これは わたしが 買[か]った どちら です。',
+              exampleTranslation: 'Bu men sotib olgan qaysi biri, qay biri.',
+            },
+            {
+              term: 'どちらも',
+              reading: 'どちらも',
+              meaning: 'ikkalasi ham',
+              exampleSentence: 'これは わたしが 買[か]った どちらも です。',
+              exampleTranslation: 'Bu men sotib olgan ikkalasi ham.',
+            },
+            {
+              term: 'ずっと',
+              reading: 'ずっと',
+              meaning: 'ancha; ancha vaqt oldin; ancha vaqt',
+              exampleSentence: 'これは わたしが 買[か]った ずっと です。',
+              exampleTranslation: 'Bu men sotib olgan ancha; ancha vaqt oldin; ancha vaqt.',
+            },
+            {
+              term: '初めて (はじめて)',
+              reading: 'はじめて',
+              meaning: 'birinchi bor, ilk bor',
+              exampleSentence: 'これは わたしが 買[か]った 初めて[はじめて] です。',
+              exampleTranslation: 'Bu men sotib olgan birinchi bor, ilk bor.',
+            },
+            {
+              term: 'ただいま。',
+              reading: 'ただいま。',
+              meaning: 'Men keldim (uyiga qaytib kelganda)',
+              exampleSentence: 'これは わたしが 買[か]った ただいま。 です。',
+              exampleTranslation: 'Bu men sotib olgan men keldim (uyiga qaytib kelganda).',
+            },
+            {
+              term: 'お帰かえりなさい。',
+              reading: 'お帰かえりなさい。',
+              meaning: 'Yaxshi keldingizmi?',
+              exampleSentence: 'これは わたしが 買[か]った お帰[かえ]りなさい。 です。',
+              exampleTranslation: 'Bu men sotib olgan yaxshi keldingizmi?.',
+            },
+            {
+              term: 'すごいですね。',
+              reading: 'すごいですね。',
+              meaning: 'Qoyil.',
+              exampleSentence: 'これは わたしが 買[か]った すごいですね。 です。',
+              exampleTranslation: 'Bu men sotib olgan qoyil..',
+            },
+            {
+              term: 'でも',
+              reading: 'でも',
+              meaning: 'lekin, biroq, ammo',
+              exampleSentence: 'これは わたしが 買[か]った でも です。',
+              exampleTranslation: 'Bu men sotib olgan lekin, biroq, ammo.',
+            },
+            {
+              term: '疲つかれました。',
+              reading: '疲つかれました。',
+              meaning: 'Charchadim. Gion bayrami',
+              exampleSentence: 'これは わたしが 買[か]った 疲[つか]れました。 です。',
+              exampleTranslation: 'Bu men sotib olgan charchadim. gion bayrami.',
+            },
+            {
+              term: '祗ぎ園おん祭まつり',
+              reading: '祗ぎ園おん祭まつり',
+              meaning: '(Kiotodagi eng katta bayram)',
+              exampleSentence: 'これは わたしが 買[か]った 祗[ぎ]園[おん]祭[まつり] です。',
+              exampleTranslation: 'Bu men sotib olgan (kiotodagi eng katta bayram).',
+            },
+            {
+              term: 'ホンコン',
+              reading: 'ホンコン',
+              meaning: 'Gonkong',
+              exampleSentence: 'これは わたしが 買[か]った ホンコン です。',
+              exampleTranslation: 'Bu men sotib olgan gonkong.',
+            },
+            {
+              term: 'シンガポール',
+              reading: 'シンガポール',
+              meaning: 'Singapur',
+              exampleSentence: 'これは わたしが 買[か]った シンガポール です。',
+              exampleTranslation: 'Bu men sotib olgan singapur.',
+            },
+            {
+              term: '毎まい日にち屋や',
+              reading: '毎まい日にち屋や',
+              meaning: "supermarket nomi (o'ylab topilgan)",
+              exampleSentence: 'これは わたしが 買[か]った 毎[まい]日[にち]屋[や] です。',
+              exampleTranslation: "Bu men sotib olgan supermarket nomi (o'ylab topilgan).",
+            },
+            {
+              term: 'ABCストア',
+              reading: 'ABCストア',
+              meaning: "supermarket nomi (o'ylab topilgan)",
+              exampleSentence: 'これは わたしが 買[か]った ABCストア です。',
+              exampleTranslation: "Bu men sotib olgan supermarket nomi (o'ylab topilgan).",
+            },
+            {
+              term: 'ジャパン',
+              reading: 'ジャパン',
+              meaning: 'supermarket nomi',
+              exampleSentence: 'これは わたしが 買[か]った ジャパン です。',
+              exampleTranslation: 'Bu men sotib olgan supermarket nomi.',
             },
           ],
           grammarRules: [
@@ -4392,7 +7892,7 @@ export const MINNA_N5_LESSONS: Lesson[] = [
               meaning:
                 "ko'rinishi hozirgi / kelasi zamon o'tgan zamon Darak OT あめ OT あめ gap です でした な -sifat しずか な -sifat しずか Inkor OT あめ OT あめ gap じゃありません じゃありませんでした な -sifat しずか ( では ) な -sifat しずか ( では )",
               usageNotes:
-                "ko'rinishi hozirgi / kelasi zamon o'tgan zamon Darak OT あめ OT あめ gap です でした な -sifat しずか な -sifat しずか Inkor OT あめ OT あめ gap じゃありません じゃありませんでした な -sifat しずか ( では ) な -sifat しずか ( では )",
+                'Minna no Nihongo 12-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'きのうは 雨[あめ] でした。',
@@ -4409,7 +7909,7 @@ export const MINNA_N5_LESSONS: Lesson[] = [
               meaning:
                 "ko'rinishi hozirgi / kelasi zamon o'tgan zamon Darak gap あついです あつかったです Inkor gap あつくないです あつくなかったです",
               usageNotes:
-                "ko'rinishi hozirgi / kelasi zamon o'tgan zamon Darak gap あついです あつかったです Inkor gap あつくないです あつくなかったです",
+                'Minna no Nihongo 12-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'きのうは 暑[あつ] かったです。',
@@ -4426,11 +7926,10 @@ export const MINNA_N5_LESSONS: Lesson[] = [
               meaning:
                 'Ushbu turdagi gaplarda OT 1 ni OT 2 ga qiyoslagan holda uning sifati va holati ifodalanadi.',
               usageNotes:
-                'Ushbu turdagi gaplarda OT 1 ni OT 2 ga qiyoslagan holda uning sifati va holati ifodalanadi.',
+                'Minna no Nihongo 12-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
-                  sentence:
-                    'この 車[くるま] は あの 車[くるま] より 大[おお] きいです。 Bu mashina narigisiga qaraganda katta.',
+                  sentence: 'この 車[くるま] は あの 車[くるま] より 大[おお] きいです。',
                   translation: 'OT 1 と OT 2 と どちらが SIFAT ですか',
                 },
               ],
@@ -4438,9 +7937,9 @@ export const MINNA_N5_LESSONS: Lesson[] = [
             {
               pattern: '…OT 1 ／ OT 2  のほうが SIFAT  です',
               meaning:
-                "Gapning bu so'roq shakli yordamida so'zlovchi o'z suhbatdoshidan ma'lum bir shaxs yoki predmetning (OT 1 va OT 2 ) holatiga nisbatan munosabatini so'raydi. Ikki OTdan birini tanlagan holda javob beris",
-              usageNotes:
                 "Gapning bu so'roq shakli yordamida so'zlovchi o'z suhbatdoshidan ma'lum bir shaxs yoki predmetning (OT 1 va OT 2 ) holatiga nisbatan munosabatini so'raydi. Ikki OTdan birini tanlagan holda javob berish mumkin. Agar ikki shaxs yoki predmet qiyoslanayotgan bo'lsa, u holda doim どちら so'roq so'zi OT 2 dan keyin qo'yiladi. Futbol bilan beysboldan qays biri qiziq?",
+              usageNotes:
+                'Minna no Nihongo 12-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'サッカーと 野[や] 球[きゅう] と どちらが おもしろいですか。',
@@ -4457,14 +7956,18 @@ export const MINNA_N5_LESSONS: Lesson[] = [
                     '北海道[ほっかいどう] と大阪[おおさか] と どちらが 涼[すず] しいですか。',
                   translation: 'Hokkaydo va Osakadan qaysi biri salqin?',
                 },
+                {
+                  sentence: '春[はる] と 秋[あき] と どちらが 好[す] きですか。',
+                  translation: 'Bahor va kuzdan qay birini yoqtirasiz?',
+                },
               ],
             },
             {
               pattern: '5.',
               meaning:
-                '何[なに] どこ OT 1 [ の中[なか] ] で が いちばん SIFAT ですか だれ いつ …OT 2 が いちばん SIFAT です Gapning ushbu shakli suhbatdoshdan bir guruh shaxs yoki predmet orasidan eng xususiyatlisini tanlagan holda javob kutilgan holla',
+                "何[なに] どこ OT 1 [ の中[なか] ] で が いちばん SIFAT ですか だれ いつ …OT 2 が いちばん SIFAT です Gapning ushbu shakli suhbatdoshdan bir guruh shaxs yoki predmet orasidan eng xususiyatlisini tanlagan holda javob kutilgan hollarda qo'llanadi. Suhbatdosh OT 1 bilan ifodalanganlar orasidan tanlashi kerak. So'roq so'z OT 1 ning va tanlash taklif etilgan shaxs yoki predmetlarning turi, mazmuniga qarab belgilanadi. Yapon taomlari ichida eng mazalisi nima? Ovro'pada sizga eng yoqqan joy qayer bo'ldi? Oilangizda eng bo'yi baland kishi kim? Yilning eng sovuq payti qachon? 💡 Muhim eslatma: Agar so'roq so'z gapda ega vazifasida kelsa, u holda so'roq so'zga が yuklamasi qo'shiladi. (10-darsga qarang: なにが ありますか／だれが いますか ) Shuningdek, kesim sifat so'z turkumi bilan ifodalangan gaplarda egaga savol berilayotgan hollarda so'roq so'zga が qo'shimchasi qo'shiladi.",
               usageNotes:
-                "何[なに] どこ OT 1 [ の中[なか] ] で が いちばん SIFAT ですか だれ いつ …OT 2 が いちばん SIFAT です Gapning ushbu shakli suhbatdoshdan bir guruh shaxs yoki predmet orasidan eng xususiyatlisini tanlagan holda javob kutilgan hollarda qo'llanadi. Suhbatdosh OT 1 bilan ifodalanganlar orasidan tanlashi kerak. So'roq so'z OT 1 ning va tanlash taklif etilgan shaxs yoki predmetlarning turi, mazmuniga qarab belgilanadi. Yapon taomlari ichida eng mazalisi nima? Ovro'pada sizga eng yoqqan joy qayer bo'ldi? Oilangizda eng bo'yi baland kishi kim? Yilning eng sovuq payti qachon? [Eslatma] Agar so'roq so'z gapda ega vazifasida kelsa, u holda so'roq so'zga が yuklamasi qo'shiladi. (10-darsga qarang: なにが ありますか／だれが いますか ) Shuningdek, kesim sifat so'z turkumi bilan ifodalangan gaplarda egaga savol berilayotgan hollarda so'roq so'zga が qo'shimchasi qo'shiladi.",
+                'Minna no Nihongo 12-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence:
@@ -4481,79 +7984,94 @@ export const MINNA_N5_LESSONS: Lesson[] = [
                   translation:
                     "･･･弟[おとうと] が いちばん 背[せ] が 高[たか] いです。 … Eng bo'yi balandi ukam.",
                 },
+                {
+                  sentence: '１年[ねん] で いつが いちばん 寒[さむ] いですか。',
+                  translation:
+                    '･･･２月[がつ] が いちばん 寒[さむ] いです。 …Fevral oyi yilning eng sovuq payti.',
+                },
               ],
             },
           ],
           culturalNotes:
-            'Yaponiyada fasllar va festivallar (matsuri) juda mashhur. Kioto shahridagi Gion Matsuri Yaponiyaning eng mashhur festivallaridan biridir.',
+            "Yaponiyada fasllar va mahalliy festivallar (matsuri) juda mashhur. Shaharlar taqqoslanganda 'A to B to dochira ga...' iborasi orqali tanlov so'raladi.",
         },
       },
       {
         id: 'ja-minna-l12-s2',
         title: 'Mustahkamlash Mashqlari',
         type: 'practice',
-        estimatedMinutes: 6,
+        estimatedMinutes: 8,
         practiceData: {
           instructions:
-            "Darsda o'rganilgan yangi so'zlar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
+            "Darsda o'rganilgan yangi so'zlar, zarrachalar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
           exercises: [
             {
               id: 'ja-minna-l12-ex1',
               type: 'multiple-choice',
-              prompt: "「簡単 [ な ]」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
-              options: ['oson', 'yaqin', 'uzoq, olis', 'tez, barvaqt'],
-              correctAnswer: 0,
-              explanation: "To'g'ri javob: oson.",
+              prompt: "Bo'sh joyga to'g'ri zarrachani qo'ying:\n「これは 日本語（　）本です。」",
+              options: ['と', 'も', 'は', 'の'],
+              correctAnswer: 3,
+              explanation:
+                "To'g'ri javob: 「の」. Tegishlilik va biror tildagi kitob ekanligini bildirish uchun 'の' qo'yiladi.",
             },
             {
               id: 'ja-minna-l12-ex2',
               type: 'multiple-choice',
-              prompt:
-                "12-dars grammatik qoidasi: '1.  Gapda kesim vazifasida keluvchi OT va  な -sifatning o`tgan zamondagi' bo'yicha qaysi gap grammatik jihatdan to'g'ri tuzilgan?",
-              options: [
-                'きのうは 雨[あめ] でした。',
-                'これ は を です。',
-                'だれ が 行きます か でした。',
-                'へ 行きません です。',
-              ],
-              correctAnswer: 0,
-              explanation: "To'g'ri javob: きのうは 雨[あめ] でした。 (Kecha yomg'ir yog'di.).",
+              prompt: "「重い (おもい)」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
+              options: ['uzoq, olis', "og'ir", 'oson', 'yaqin'],
+              correctAnswer: 1,
+              explanation: "To'g'ri javob: 「og'ir」.",
             },
             {
               id: 'ja-minna-l12-ex3',
               type: 'multiple-choice',
-              prompt:
-                "O'zbek tiliga to'g'ri tarjima qiling: 「きのうの 試[し] 験[けん] は 簡単[かんたん] じゃ ありませんでした。」",
+              prompt: "12-dars grammatik qoidasiga muvofiq to'g'ri tuzilgan gapni aniqlang:",
               options: [
-                "Kechagi imtihon oson bo'lmadi.",
-                "Ertaga do'stim bilan mehmonga boraman.",
-                "Kechirasiz, soat necha bo'ldi?",
-                "Iltimos, manzilni ko'rsatib yuboring.",
+                'これ を きのうは 雨[あめ] でした。',
+                'きのうは 雨[あめ] でした でした です。',
+                'きのうは 雨[あめ] でした か でした。',
+                'きのうは 雨[あめ] でした。',
               ],
-              correctAnswer: 0,
-              explanation: "To'g'ri tarjimasi: Kechagi imtihon oson bo'lmadi..",
+              correctAnswer: 3,
+              explanation: "To'g'ri gap: 「きのうは 雨[あめ] でした。」 (Kecha yomg'ir yog'di.).",
             },
             {
               id: 'ja-minna-l12-ex4',
               type: 'multiple-choice',
-              prompt: 'Ushbu darsdagi suhbatdan kelib chiqib: Miller qanday jumla aytadi?',
+              prompt:
+                "Ushbu gapning to'g'ri yaponcha tarjimasini tanlang:\n「Kechagi imtihon oson bo'lmadi.」",
               options: [
-                'Salom, men keldim.',
-                'Men hech qayerga bormayman.',
-                'Taksida aeroportga haydang.',
-                "Iltimos, hisobni alohida to'laymiz.",
+                'きのうの パーティーは あまり 楽[たの] しくなかった。',
+                'きのうは 暑[あつ] かったです。',
+                'きのうの 試[し] 験[けん] は 簡単[かんたん] じゃ ありませんでした。',
+                'きのうは 雨[あめ] でした。',
               ],
-              correctAnswer: 0,
-              explanation: "To'g'ri ibora: Salom, men keldim..",
+              correctAnswer: 2,
+              explanation:
+                "Yaponcha to'g'ri ifodasi: 「きのうの 試[し] 験[けん] は 簡単[かんたん] じゃ ありませんでした。」.",
+            },
+            {
+              id: 'ja-minna-l12-ex5',
+              type: 'multiple-choice',
+              prompt:
+                'Suhbatdoshingiz: 「これは ほんの 気持ちです。どうぞ。」 dedi. Unga eng mos muloyim javob qaysi?',
+              options: [
+                'おやすみなさい。',
+                'ごちそうさまでした。',
+                '失礼します。',
+                'どうも ありがとうございます。',
+              ],
+              correctAnswer: 3,
+              explanation: "To'g'ri javob: 「どうも ありがとうございます。」.",
             },
           ],
         },
       },
       {
         id: 'ja-minna-l12-s3',
-        title: 'Sinov Testi',
+        title: 'JLPT N5 Sinov Testi',
         type: 'test',
-        estimatedMinutes: 6,
+        estimatedMinutes: 7,
         testData: {
           instructions:
             "Darsni muvaffaqiyatli yakunlash uchun savollarga to'g'ri javob bering (Kamida 80%).",
@@ -4561,55 +8079,54 @@ export const MINNA_N5_LESSONS: Lesson[] = [
           questions: [
             {
               id: 'ja-minna-l12-q1',
-              question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「きのうは 雨[あめ] でした。」",
-              options: [
-                "Kecha yomg'ir yog'di.",
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
-              ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Kecha yomg'ir yog'di..",
+              question: '【Mondai 1: Moji/Goi】「重い」の 読[よ]み方[かた]は どれですか。',
+              options: ['ちかい', 'かんたんな', 'とおい', 'おもい'],
+              correctAnswerIndex: 3,
+              explanation: "「重い」 ning to'g'ri o'qilishi: 「おもい」 (og'ir).",
             },
             {
               id: 'ja-minna-l12-q2',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「きのうの 試[し] 験[けん] は 簡単[かんたん] じゃ ありませんでした。」",
-              options: [
-                "Kechagi imtihon oson bo'lmadi.",
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
-              ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Kechagi imtihon oson bo'lmadi..",
+                '【Mondai 2: Bunpo】（　）に 入[はい]る 最[もっと]も よいものを 1つ えらびなさい。\n「ミラーさんは アメリカ（　）来ました。」',
+              options: ['で', 'から', 'へ', 'まで'],
+              correctAnswerIndex: 1,
+              explanation:
+                "To'g'ri zarracha: 「から」. Kelib chiqish mamlakati '〜から' orqali ko'rsatiladi.",
             },
             {
               id: 'ja-minna-l12-q3',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「きのうは 暑[あつ] かったです。」",
+                "【Mondai 3: Bunpo】12-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
               options: [
-                "Kecha kun issiq bo'ldi.",
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
+                '〜に 食べません でした',
+                '〜を 行きます です',
+                '〜は 〜でした じゃありません',
+                'Gapda kesim vazifasini bajaruvchi  い -sifatning o`tgan zamondagi',
               ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Kecha kun issiq bo'ldi..",
+              correctAnswerIndex: 3,
+              explanation:
+                "To'g'ri grammatik formula: 「Gapda kesim vazifasini bajaruvchi  い -sifatning o`tgan zamondagi」.",
             },
             {
               id: 'ja-minna-l12-q4',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「きのうの パーティーは あまり 楽[たの] しくなかった。」",
+                "【Mondai 4: Dokkai】Quyidagi yaponcha gapning to'g'ri o'zbekcha ma'nosini toping:\n「きのうは 暑[あつ] かったです。」",
               options: [
+                "Kecha yomg'ir yog'di.",
+                "Kechagi imtihon oson bo'lmadi.",
                 "Kechagi bazm unchalik qiziq o'tmadi.",
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
+                "Kecha kun issiq bo'ldi.",
               ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Kechagi bazm unchalik qiziq o'tmadi..",
+              correctAnswerIndex: 3,
+              explanation: "To'g'ri ma'nosi: 「Kecha kun issiq bo'ldi.」.",
+            },
+            {
+              id: 'ja-minna-l12-q5',
+              question:
+                "【Mondai 5: Kaiwa】Savolga eng to'g'ri javobni tanlang:\n「これは あなたの 傘ですか。」",
+              options: ['はい、そうです。', '失礼します。', '初めまして。', 'いいえ、違います。'],
+              correctAnswerIndex: 3,
+              explanation: "To'g'ri javob: 「いいえ、違います。」.",
             },
           ],
         },
@@ -4626,142 +8143,365 @@ export const MINNA_N5_LESSONS: Lesson[] = [
     lessonNumber: 13,
     title: '13-dars: Istak-xohish va Maqsad (Xohlamoq/Bormoq)',
     description:
-      "Minna no Nihongo Shokyu 1: 13-dars: Istak-xohish va Maqsad (Xohlamoq/Bormoq). Darsda 47 ta yangi so'z va 6 ta asosiy grammatik qoida o'rganiladi.",
-    estimatedDurationMinutes: 20,
+      "Minna no Nihongo Shokyu 1: 13-dars: Istak-xohish va Maqsad (Xohlamoq/Bormoq). Darsda 47 ta yangi so'z, audio talaffuzli Furigana misollar va 6 ta asosiy grammatik formula o'rganiladi.",
+    estimatedDurationMinutes: 25,
     icon: '🌸',
     steps: [
       {
         id: 'ja-minna-l13-s1',
         title: "Lug'at va Qoidalar",
         type: 'learn',
-        estimatedMinutes: 8,
+        estimatedMinutes: 10,
         learnData: {
           title: '13-Dars: 13-dars: Istak-xohish va Maqsad (Xohlamoq/Bormoq)',
           subtitle: '第13課：希望と目的（欲しい・〜たい・に行きます）',
           explanation:
-            "13-dars: Istak-xohish va Maqsad (Xohlamoq/Bormoq) bo'yicha to'liq grammatik izohlar va qoidalar to'plami. Har bir qoida Minna no Nihongo darsligining o'zbekcha tarjimasiga moslashtirilgan.",
+            "13-dars: Istak-xohish va Maqsad (Xohlamoq/Bormoq) bo'yicha to'liq grammatik izohlar, formulalar va Furiganali misollar to'plami.",
           keyPoints: [
-            '1. OT  が 欲[ほ] しいです: Ushbu gap namunasi biror narsaga egalik qilish xohish istagini bildirish uchun ishlatiladi. Bundan tashqari suhbatdoshni...',
-            "2. FE’Lning  ます -shakli  たいです: 1) FE'Lning ます -shakli ます bilan tugaydigan fe'llar, “FE'Lning ます -shakli” deb ataladi. Masalan, かいます fe'lida, かい “FE'Lni...",
-            "3.   OT(o`rin-joy) へ に行[い] きます／来[き] ます／帰[かえ] ります: OT Ushbu namuna yordamida いきます , きます , かえります kabi fe'llar orqali maqsad ifodalanadi. Gapda maqsad に qo'shimchasi bilan b...",
-            "4. OT  に  FE’L ／ OT  を  FE’L: に qo'shimchasi はいります , のります (transportga chiqmoq; 16-darsga qarang) kabi fe'llar bilan qo'llanilganda, tayinlangan, belg...",
-            "5.    どこか／何[なに] か: どこか noaniq olmoshi “ qayerdir ” yoki “ biror yer ” degan ma'noni bildiradi. なにか esa “ nimadir ” yoki “ biror narsa ” deg...",
-            "6.    ご注文[ちゅうもん]: ご so'z oldi qo'shimchasi ba'zi so'zlarga qo'shilib hurmatni bildiradi. ⑯ ご注[ちゅう] 文[もん] は？ Nima buyurtma qilasiz?...",
+            '📌 1. OT  が 欲[ほ] しいです: Ushbu gap namunasi biror narsaga egalik qilish xohish istagini bildirish uchun ishlatiladi.',
+            "📌 2. FE’Lning  ます -shakli  たいです: 1) FE'Lning ます -shakli ます bilan tugaydigan fe'llar, “FE'Lning ます -shakli” deb ataladi.",
+            "📌 3.   OT(o`rin-joy) へ に行[い] きます／来[き] ます／帰[かえ] ります: OT Ushbu namuna yordamida いきます , きます , かえります kabi fe'llar orqali maqsad ifodalanadi.",
+            "📌 4. OT  に  FE’L ／ OT  を  FE’L: に qo'shimchasi はいります , のります (transportga chiqmoq; 16-darsga qarang) kabi fe'llar bilan qo'llanilganda, tayinlangan, belgilangan joy yoki oxirgi yetib kelish punktini bildiradi.",
+            "📌 5.    どこか／何[なに] か: どこか noaniq olmoshi “ qayerdir ” yoki “ biror yer ” degan ma'noni bildiradi.",
+            "📌 6.    ご注文[ちゅうもん]: ご so'z oldi qo'shimchasi ba'zi so'zlarga qo'shilib hurmatni bildiradi.",
           ],
           vocabulary: [
             {
               term: '遊びます (あそびます)',
               reading: 'あそびます',
               meaning: "o'ynamoq, ko'ngil ochmoq",
-              exampleSentence: "あそびます — o'ynamoq, ko'ngil ochmoq",
-              exampleTranslation: "o'ynamoq, ko'ngil ochmoq",
+              exampleSentence: '毎日[まいにち] 遊びます[あそびます]。',
+              exampleTranslation: "Har kuni o'ynamoq, ko'ngil ochmoq.",
             },
             {
               term: '泳ぎます (およぎます)',
               reading: 'およぎます',
               meaning: "cho'milmoq, suzmoq",
-              exampleSentence: "およぎます — cho'milmoq, suzmoq",
-              exampleTranslation: "cho'milmoq, suzmoq",
+              exampleSentence: '毎日[まいにち] 泳ぎます[およぎます]。',
+              exampleTranslation: "Har kuni cho'milmoq, suzmoq.",
             },
             {
               term: '迎えます (むかえます)',
               reading: 'むかえます',
               meaning: 'kutib olmoq',
-              exampleSentence: 'むかえます — kutib olmoq',
-              exampleTranslation: 'kutib olmoq',
+              exampleSentence: '毎日[まいにち] 迎えます[むかえます]。',
+              exampleTranslation: 'Har kuni kutib olmoq.',
             },
             {
               term: '疲れます (つかれます)',
               reading: 'つかれます',
               meaning: 'charchamoq',
-              exampleSentence: 'つかれます — charchamoq',
-              exampleTranslation: 'charchamoq',
+              exampleSentence: '毎日[まいにち] 疲れます[つかれます]。',
+              exampleTranslation: 'Har kuni charchamoq.',
             },
             {
               term: '出します (だします)',
               reading: 'だします',
               meaning: "jo'natmoq",
-              exampleSentence: "だします — jo'natmoq",
-              exampleTranslation: "jo'natmoq",
+              exampleSentence: '毎日[まいにち] 出します[だします]。',
+              exampleTranslation: "Har kuni jo'natmoq.",
             },
             {
-              term: '[ 手紙を～ ] ([ てがみを～ ])',
-              reading: '[ てがみを～ ]',
+              term: '手紙を～ (てがみを～)',
+              reading: 'てがみを～',
               meaning: "xat jo'natmoq",
-              exampleSentence: "[ てがみを～ ] — xat jo'natmoq",
-              exampleTranslation: "xat jo'natmoq",
+              exampleSentence: '山田[やまだ][てがみを]は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: "Yamada xat jo'natmoq samimiy inson.",
             },
             {
               term: '入ります (はいります)',
               reading: 'はいります',
               meaning: 'kirmoq',
-              exampleSentence: 'はいります — kirmoq',
-              exampleTranslation: 'kirmoq',
+              exampleSentence: '毎日[まいにち] 入ります[はいります]。',
+              exampleTranslation: 'Har kuni kirmoq.',
             },
             {
-              term: '[ 喫茶店に～ ] ([ きっさてんに～ ])',
-              reading: '[ きっさてんに～ ]',
+              term: '喫茶店に～ (きっさてんに～)',
+              reading: 'きっさてんに～',
               meaning: '(qahvaxonaga kirmoq)',
-              exampleSentence: '[ きっさてんに～ ] — (qahvaxonaga kirmoq)',
-              exampleTranslation: '(qahvaxonaga kirmoq)',
+              exampleSentence: '山田[やまだ][きっさてんに]は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada (qahvaxonaga kirmoq) samimiy inson.',
             },
             {
               term: '出ます (でます)',
               reading: 'でます',
               meaning: 'chiqmoq',
-              exampleSentence: 'でます — chiqmoq',
-              exampleTranslation: 'chiqmoq',
+              exampleSentence: '毎日[まいにち] 出ます[でます]。',
+              exampleTranslation: 'Har kuni chiqmoq.',
             },
             {
-              term: '[ 喫茶店を～ ] ([ きっさてんを～ ])',
-              reading: '[ きっさてんを～ ]',
+              term: '喫茶店を～ (きっさてんを～)',
+              reading: 'きっさてんを～',
               meaning: '(qahvaxonadan chiqmoq)',
-              exampleSentence: '[ きっさてんを～ ] — (qahvaxonadan chiqmoq)',
-              exampleTranslation: '(qahvaxonadan chiqmoq)',
+              exampleSentence: '山田[やまだ][きっさてんを]は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada (qahvaxonadan chiqmoq) samimiy inson.',
             },
             {
-              term: '結婚 します (けっこん します)',
-              reading: 'けっこん します',
+              term: '結婚します (けっこんします)',
+              reading: 'けっこんします',
               meaning: 'turmush qurmoq',
-              exampleSentence: 'けっこん します — turmush qurmoq',
-              exampleTranslation: 'turmush qurmoq',
+              exampleSentence: '毎日[まいにち] 結婚します[けっこんします]。',
+              exampleTranslation: 'Har kuni turmush qurmoq.',
             },
             {
-              term: '買い物 します (かいもの します)',
-              reading: 'かいもの します',
+              term: '買い物します (かいものします)',
+              reading: 'かいものします',
               meaning: 'xarid qilmoq',
-              exampleSentence: 'かいもの します — xarid qilmoq',
-              exampleTranslation: 'xarid qilmoq',
+              exampleSentence: '毎日[まいにち] 買い物します[かいものします]。',
+              exampleTranslation: 'Har kuni xarid qilmoq.',
             },
             {
-              term: '食事 します (しょくじ します)',
-              reading: 'しょくじ します',
+              term: '食事します (しょくじします)',
+              reading: 'しょくじします',
               meaning: 'ovqatlanmoq',
-              exampleSentence: 'しょくじ します — ovqatlanmoq',
-              exampleTranslation: 'ovqatlanmoq',
+              exampleSentence: '毎日[まいにち] 食事します[しょくじします]。',
+              exampleTranslation: 'Har kuni ovqatlanmoq.',
             },
             {
-              term: '散歩 します (さんぽ します)',
-              reading: 'さんぽ します',
+              term: '散歩します (さんぽします)',
+              reading: 'さんぽします',
               meaning: 'sayr qilmoq',
-              exampleSentence: 'さんぽ します — sayr qilmoq',
-              exampleTranslation: 'sayr qilmoq',
+              exampleSentence: '毎日[まいにち] 散歩します[さんぽします]。',
+              exampleTranslation: 'Har kuni sayr qilmoq.',
             },
             {
-              term: '[ 公園を～ ] ([ こうえんを～ ])',
-              reading: '[ こうえんを～ ]',
+              term: '公園を～ (こうえんを～)',
+              reading: 'こうえんを～',
               meaning: '(xiyobonda sayr qilmoq)',
-              exampleSentence: '[ こうえんを～ ] — (xiyobonda sayr qilmoq)',
-              exampleTranslation: '(xiyobonda sayr qilmoq)',
+              exampleSentence: '山田[やまだ][こうえんを]は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada (xiyobonda sayr qilmoq) samimiy inson.',
+            },
+            {
+              term: '大変な (たいへんな)',
+              reading: 'たいへんな',
+              meaning: "qiyin, og'ir",
+              exampleSentence: 'これは わたしが 買[か]った 大変[な][たいへん[な]] です。',
+              exampleTranslation: "Bu men sotib olgan qiyin, og'ir.",
+            },
+            {
+              term: '欲しい (ほしい)',
+              reading: 'ほしい',
+              meaning: 'xohlagan, xohlamoq',
+              exampleSentence: 'この 部屋[へや]は 欲しい[ほしい]です。',
+              exampleTranslation: 'Bu xona xohlagan, xohlamoq.',
+            },
+            {
+              term: '寂しい (さびしい)',
+              reading: 'さびしい',
+              meaning: "ma'yus, xafa",
+              exampleSentence: 'この 部屋[へや]は 寂しい[さびしい]です。',
+              exampleTranslation: "Bu xona ma'yus, xafa.",
+            },
+            {
+              term: '広い (ひろい)',
+              reading: 'ひろい',
+              meaning: 'keng',
+              exampleSentence: 'この 部屋[へや]は 広い[ひろい]です。',
+              exampleTranslation: 'Bu xona keng.',
+            },
+            {
+              term: '狭い (せまい)',
+              reading: 'せまい',
+              meaning: 'tor',
+              exampleSentence: 'この 部屋[へや]は 狭い[せまい]です。',
+              exampleTranslation: 'Bu xona tor.',
+            },
+            {
+              term: '市役所 (しやくしょ)',
+              reading: 'しやくしょ',
+              meaning: 'shahar hokimiyati',
+              exampleSentence: 'あそこは 市役所[しやくしょ] です。',
+              exampleTranslation: 'Anavi yer shahar hokimiyati.',
+            },
+            {
+              term: 'プール',
+              reading: 'プール',
+              meaning: 'basseyn, hovuz',
+              exampleSentence: 'これは わたしが 買[か]った プール です。',
+              exampleTranslation: 'Bu men sotib olgan basseyn, hovuz.',
+            },
+            {
+              term: '川 (かわ)',
+              reading: 'かわ',
+              meaning: 'daryo',
+              exampleSentence: 'これは わたしが 買[か]った 川[かわ] です。',
+              exampleTranslation: 'Bu men sotib olgan daryo.',
+            },
+            {
+              term: '経済 (けいざい)',
+              reading: 'けいざい',
+              meaning: 'iqtisod',
+              exampleSentence: 'この 部屋[へや]は 経済[けいざい]です。',
+              exampleTranslation: 'Bu xona iqtisod.',
+            },
+            {
+              term: '美術 (びじゅつ)',
+              reading: 'びじゅつ',
+              meaning: "san'at",
+              exampleSentence: 'これは わたしが 買[か]った 美術[びじゅつ] です。',
+              exampleTranslation: "Bu men sotib olgan san'at.",
+            },
+            {
+              term: '釣り (つり)',
+              reading: 'つり',
+              meaning: 'baliq tutish （～をします： baliq tutmoq ）',
+              exampleSentence: 'これは わたしが 買[か]った 釣り[つり] です。',
+              exampleTranslation: 'Bu men sotib olgan baliq tutish （～をします： baliq tutmoq ）.',
+            },
+            {
+              term: 'スキー',
+              reading: 'スキー',
+              meaning: "chang'i; chang'i uchish （～をします： chang'i uchmoq ）",
+              exampleSentence: 'これは わたしが 買[か]った スキー です。',
+              exampleTranslation:
+                "Bu men sotib olgan chang'i; chang'i uchish （～をします： chang'i uchmoq ）.",
+            },
+            {
+              term: '会議 (かいぎ)',
+              reading: 'かいぎ',
+              meaning: "majlis, yig'in ( ～をします： majlis qilmoq)",
+              exampleSentence: 'これは わたしが 買[か]った 会議[かいぎ] です。',
+              exampleTranslation:
+                "Bu men sotib olgan majlis, yig'in ( ～をします： majlis qilmoq).",
+            },
+            {
+              term: '登録 (とうろく)',
+              reading: 'とうろく',
+              meaning: "ro'yxatga olish （～をします： ro'yxatga olmoq ）",
+              exampleSentence: 'これは わたしが 買[か]った 登録[とうろく] です。',
+              exampleTranslation:
+                "Bu men sotib olgan ro'yxatga olish （～をします： ro'yxatga olmoq ）.",
+            },
+            {
+              term: '週末 (しゅうまつ)',
+              reading: 'しゅうまつ',
+              meaning: 'hafta oxiri, dam olish kuni',
+              exampleSentence: 'これは わたしが 買[か]った 週末[しゅうまつ] です。',
+              exampleTranslation: 'Bu men sotib olgan hafta oxiri, dam olish kuni.',
+            },
+            {
+              term: '～ごろ',
+              reading: '～ごろ',
+              meaning: "~larda (vaqt bilan qo'llaniladi.)",
+              exampleSentence: '山田[やまだ]ごろは 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: "Yamada ~larda (vaqt bilan qo'llaniladi.) samimiy inson.",
+            },
+            {
+              term: '何か (なにか)',
+              reading: 'なにか',
+              meaning: 'nimadir, biror narsa',
+              exampleSentence: 'これは わたしが 買[か]った 何か[なにか] です。',
+              exampleTranslation: 'Bu men sotib olgan nimadir, biror narsa.',
+            },
+            {
+              term: 'どこか',
+              reading: 'どこか',
+              meaning: 'qayerdir, biror joy',
+              exampleSentence: 'これは わたしが 買[か]った どこか です。',
+              exampleTranslation: 'Bu men sotib olgan qayerdir, biror joy.',
+            },
+            {
+              term: 'おなかがすきました。',
+              reading: 'おなかがすきました。',
+              meaning: 'Qorin ochdi.',
+              exampleSentence: 'これは わたしが 買[か]った おなかがすきました。 です。',
+              exampleTranslation: 'Bu men sotib olgan qorin ochdi..',
+            },
+            {
+              term: 'おなかがいっぱいです。',
+              reading: 'おなかがいっぱいです。',
+              meaning: "Qorin to'ydi. Qorin to'q.",
+              exampleSentence: 'これは わたしが 買[か]った おなかがいっぱいです。 です。',
+              exampleTranslation: "Bu men sotib olgan qorin to'ydi. qorin to'q..",
+            },
+            {
+              term: 'のどがかわきました。',
+              reading: 'のどがかわきました。',
+              meaning: 'Chanqadim.',
+              exampleSentence: 'これは わたしが 買[か]った のどがかわきました。 です。',
+              exampleTranslation: 'Bu men sotib olgan chanqadim..',
+            },
+            {
+              term: 'そうですね。',
+              reading: 'そうですね。',
+              meaning: 'Nimasini aytsam sizga… .; Rost aytasiz. Ha-ya',
+              exampleSentence: 'これは わたしが 買[か]った そうですね。 です。',
+              exampleTranslation:
+                'Bu men sotib olgan nimasini aytsam sizga… .; rost aytasiz. ha-ya.',
+            },
+            {
+              term: 'そうしましょう。',
+              reading: 'そうしましょう。',
+              meaning: 'Shunday qilaylik.',
+              exampleSentence: 'これは わたしが 買[か]った そうしましょう。 です。',
+              exampleTranslation: 'Bu men sotib olgan shunday qilaylik..',
+            },
+            {
+              term: 'ご注ちゅう文もんは？',
+              reading: 'ご注ちゅう文もんは？',
+              meaning: 'Nimani buyurasiz?',
+              exampleSentence: 'これは わたしが 買[か]った ご注[ちゅう]文[もん]は？ です。',
+              exampleTranslation: 'Bu men sotib olgan nimani buyurasiz?.',
+            },
+            {
+              term: '定てい職しょく',
+              reading: '定てい職しょく',
+              meaning: "ovqatlar to'plami",
+              exampleSentence: 'これは わたしが 買[か]った 定[てい]職[しょく] です。',
+              exampleTranslation: "Bu men sotib olgan ovqatlar to'plami.",
+            },
+            {
+              term: '牛ぎゅうどん',
+              reading: '牛ぎゅうどん',
+              meaning: "gyudon- qaynatilgan guruch ustida mol go'shti",
+              exampleSentence: 'これは わたしが 買[か]った 牛[ぎゅう]どん です。',
+              exampleTranslation:
+                "Bu men sotib olgan gyudon- qaynatilgan guruch ustida mol go'shti.",
+            },
+            {
+              term: '少々しょうしょうお待まちください。',
+              reading: '少々しょうしょうお待まちください。',
+              meaning: 'Bir oz kutib turing.',
+              exampleSentence:
+                'これは わたしが 買[か]った [少々[しょうしょう]]お待[ま]ちください。 です。',
+              exampleTranslation: 'Bu men sotib olgan bir oz kutib turing..',
+            },
+            {
+              term: '別々べつべつに',
+              reading: '別々べつべつに',
+              meaning: 'alohida',
+              exampleSentence: 'これは わたしが 買[か]った 別々[べつべつ]に です。',
+              exampleTranslation: 'Bu men sotib olgan alohida.',
+            },
+            {
+              term: 'ロシア',
+              reading: 'ロシア',
+              meaning: 'Rossiya',
+              exampleSentence: 'これは わたしが 買[か]った ロシア です。',
+              exampleTranslation: 'Bu men sotib olgan rossiya.',
+            },
+            {
+              term: 'つるや',
+              reading: 'つるや',
+              meaning: "yapon restorani nomi (o'ylab topilgan)",
+              exampleSentence: 'これは わたしが 買[か]った つるや です。',
+              exampleTranslation: "Bu men sotib olgan yapon restorani nomi (o'ylab topilgan).",
+            },
+            {
+              term: 'おはようテレビ',
+              reading: 'おはようテレビ',
+              meaning: "teledastur nomi (o'ylab topilgan)",
+              exampleSentence: 'これは わたしが 買[か]った おはようテレビ です。',
+              exampleTranslation: "Bu men sotib olgan teledastur nomi (o'ylab topilgan).",
             },
           ],
           grammarRules: [
             {
               pattern: 'OT  が 欲[ほ] しいです',
               meaning:
-                "Ushbu gap namunasi biror narsaga egalik qilish xohish istagini bildirish uchun ishlatiladi. Bundan tashqari suhbatdoshning nimani xohlayotganini so'rash uchun ham qo'llaniladi. Gapda otdan keyin が yuk",
-              usageNotes:
                 "Ushbu gap namunasi biror narsaga egalik qilish xohish istagini bildirish uchun ishlatiladi. Bundan tashqari suhbatdoshning nimani xohlayotganini so'rash uchun ham qo'llaniladi. Gapda otdan keyin が yuklamasi qo'shiladi, 欲[ほ] しい esa い -sifatdir. ･･･車[くるま] が 欲[ほ] しいです。 … Mashinam bo'lishini xohlayapman. ･･･いいえ、欲[ほ] しくないです。 … Yo'q, xohlamayman.",
+              usageNotes:
+                'Minna no Nihongo 13-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'わたしは 友達[ともだち] が 欲[ほ] しいです。',
@@ -4780,31 +8520,34 @@ export const MINNA_N5_LESSONS: Lesson[] = [
             {
               pattern: 'FE’Lning  ます -shakli  たいです',
               meaning:
-                "1) FE'Lning ます -shakli ます bilan tugaydigan fe'llar, “FE'Lning ます -shakli” deb ataladi. Masalan, かいます fe'lida, かい “FE'Lning ます -shaklidagi” o'zagidir. 3) FE'Lning ます -shakli たいです Ushbu namuna orqali bi",
-              usageNotes:
                 "1) FE'Lning ます -shakli ます bilan tugaydigan fe'llar, “FE'Lning ます -shakli” deb ataladi. Masalan, かいます fe'lida, かい “FE'Lning ます -shaklidagi” o'zagidir. 3) FE'Lning ます -shakli たいです Ushbu namuna orqali bir nima qilishni xohlash ifodalanadi. Shu bilan birga suhbatdoshning nima qilishni xohlayotganini so'rash uchun ham qo'llaniladi. Quyidagi ⑤ -misoldagidek, が yuklamasi を o'rnida qo'llanilishi mumkin. Boshqa yuklamalar o'rnida が ishlatilishi mumkin emas. “FE'Lning ます -shakli たい ” grammatik xususiyatiga ko'ra い -sifati bilan bir xil o'zgaradi. Men Okinavaga bormoqchiman. ( が ) ･･･靴[くつ] を買[か] いたいです。 … Oyoq-kiyim xarid qilmoqchiman. ( が ) [Eslatma 1] ほしいです yoki ～たいです shakllari uchunchi shaxsning xohish-istagini ifodalash uchun qo'llanilmaydi. [Eslatma 2] Suhbatdoshga biror narsa taklif qilayotganda yoki biror harakatga undaganda ほしいですか yoki “FE'Lning ます -shakli たいですか ”ni qo'llamagan ma'qul. Masalan, agar siz qahva taklif qilsangiz (yoki qahva ichishga borishni taklif qilsangiz), コーヒーが ほしいですか yoki コーヒーを 飲[の] みたいですか ni qo'llamasligingiz kerak. Uning o'rniga コーヒーは いかがですか yoki コーヒーを の みませんか kabi iboralarni qo'llagan ma'qul. FE'Lning ます -shakli",
+              usageNotes:
+                'Minna no Nihongo 13-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'わたしは 沖縄[おきなわ] へ 行[い] きたいです。',
                   translation: 'Men Okinavaga borishni xohlayman /',
                 },
                 {
-                  sentence:
-                    'わたしは てんぷらを 食[た] べたいです。  Men tempura yeyishni xohlayman /',
+                  sentence: 'わたしは てんぷらを 食[た] べたいです。',
                   translation: '( が ) Men tempura yemoqchiman.',
                 },
                 {
                   sentence: '神[こう] 戸[べ] で 何[なに] を 買[か] いたいですか。',
                   translation: 'Kobeda nima xarid qilmoqchisiz?',
                 },
+                {
+                  sentence: 'おなかが 痛[いた] いですから、何[なに] も 食[た] べたくないです。',
+                  translation: "Qornim og'riyotganligi uchun hech narsa yegim kelmayapti.",
+                },
               ],
             },
             {
               pattern: 'OT(o`rin-joy) へ に行[い] きます／来[き] ます／帰[かえ] ります',
               meaning:
-                "OT Ushbu namuna yordamida いきます , きます , かえります kabi fe'llar orqali maqsad ifodalanadi. Gapda maqsad に qo'shimchasi bilan belgilanadi. に dan oldin qo'llaniladigan ot harakat nomini bildiradi. Kobega hind",
+                "OT Ushbu namuna yordamida いきます , きます , かえります kabi fe'llar orqali maqsad ifodalanadi. Gapda maqsad に qo'shimchasi bilan belgilanadi. に dan oldin qo'llaniladigan ot harakat nomini bildiradi. Kobega hind taomlarini yegani 💡 Muhim eslatma: に dan oldin voqea-hodisa, masalan, bayram yoki konsertlar qo'llanilishi mumkin. Unda, so'zlovchining maqsadi shu voqeani ko'rish yoki unda ishtirok etish ekanligi ifodalanadi.",
               usageNotes:
-                "OT Ushbu namuna yordamida いきます , きます , かえります kabi fe'llar orqali maqsad ifodalanadi. Gapda maqsad に qo'shimchasi bilan belgilanadi. に dan oldin qo'llaniladigan ot harakat nomini bildiradi. Kobega hind taomlarini yegani [Eslatma] に dan oldin voqea-hodisa, masalan, bayram yoki konsertlar qo'llanilishi mumkin. Unda, so'zlovchining maqsadi shu voqeani ko'rish yoki unda ishtirok etish ekanligi ifodalanadi.",
+                'Minna no Nihongo 13-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence:
@@ -4812,8 +8555,7 @@ export const MINNA_N5_LESSONS: Lesson[] = [
                   translation: 'boraman.',
                 },
                 {
-                  sentence:
-                    '神[こう] 戸[べ] へ 買[か] い物[もの] に 行[い] きます。 Kobega xarid qilgani boraman.',
+                  sentence: '神[こう] 戸[べ] へ 買[か] い物[もの] に 行[い] きます。',
                   translation: "Yaponiyaga badiiy san'atni o'rgangani",
                 },
                 {
@@ -4821,14 +8563,18 @@ export const MINNA_N5_LESSONS: Lesson[] = [
                     '日[に] 本[ほん] へ 美[び] 術[じゅつ] の 勉強[べんきょう] に 来[き] ました。',
                   translation: 'keldim.',
                 },
+                {
+                  sentence: 'あした 京[きょう] 都[と] の お祭[まつ] りに 行[い] きます。',
+                  translation: 'Men ertaga Kiotoga bayramga boraman.',
+                },
               ],
             },
             {
               pattern: 'OT  に  FE’L ／ OT  を  FE’L',
               meaning:
-                "に qo'shimchasi はいります , のります (transportga chiqmoq; 16-darsga qarang) kabi fe'llar bilan qo'llanilganda, tayinlangan, belgilangan joy yoki oxirgi yetib kelish punktini bildiradi. を qo'shimchasi でます , おり",
-              usageNotes:
                 "に qo'shimchasi はいります , のります (transportga chiqmoq; 16-darsga qarang) kabi fe'llar bilan qo'llanilganda, tayinlangan, belgilangan joy yoki oxirgi yetib kelish punktini bildiradi. を qo'shimchasi でます , おります kabi fe'llar bilan qo'llanilganda, jo'nash punktini, harakatning boshlanishini yoki chiqib ketayotgan joyni bildiradi.",
+              usageNotes:
+                'Minna no Nihongo 13-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'あの 喫茶店[きっさてん] に 入[はい] りましょう。',
@@ -4843,9 +8589,9 @@ export const MINNA_N5_LESSONS: Lesson[] = [
             {
               pattern: 'どこか／何[なに] か',
               meaning:
-                "どこか noaniq olmoshi “ qayerdir ” yoki “ biror yer ” degan ma'noni bildiradi. なにか esa “ nimadir ” yoki “ biror narsa ” degan ma'noni bildiradi. Bu holda へ va を qo'shimchasini qo'shmasa ham bo'ladi. ･･･は",
-              usageNotes:
                 "どこか noaniq olmoshi “ qayerdir ” yoki “ biror yer ” degan ma'noni bildiradi. なにか esa “ nimadir ” yoki “ biror narsa ” degan ma'noni bildiradi. Bu holda へ va を qo'shimchasini qo'shmasa ham bo'ladi. ･･･はい、行[い] きました。 Qishki ta'tilda biror yerga bordingizmi? Chanqadim, biror narsa ichgim kelayapti.",
+              usageNotes:
+                'Minna no Nihongo 13-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: '冬休[ふゆやす] みは どこか [ へ ]',
@@ -4862,92 +8608,102 @@ export const MINNA_N5_LESSONS: Lesson[] = [
               meaning:
                 "ご so'z oldi qo'shimchasi ba'zi so'zlarga qo'shilib hurmatni bildiradi. ⑯ ご注[ちゅう] 文[もん] は？ Nima buyurtma qilasiz?",
               usageNotes:
-                "ご so'z oldi qo'shimchasi ba'zi so'zlarga qo'shilib hurmatni bildiradi. ⑯ ご注[ちゅう] 文[もん] は？ Nima buyurtma qilasiz?",
+                'Minna no Nihongo 13-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'ご注文[ちゅうもん]',
-                  translation:
-                    "ご so'z oldi qo'shimchasi ba'zi so'zlarga qo'shilib hurmatni bildiradi. ⑯ ご注[ちゅう]",
+                  translation: 'Grammatik qolip.',
                 },
               ],
             },
           ],
           culturalNotes:
-            "Restoranda ovqatlanganda ko'pincha hisob-kitob alohida qilinadi ('別々にお願いします' - betsu betsu ni onegaishimasu).",
+            "Restoranlarda hisob-kitob qilinganda ko'pincha hamma o'zi uchun to'laydi ('別々にお願いします' - betsubetsu ni onegaishimasu deb aytiladi).",
         },
       },
       {
         id: 'ja-minna-l13-s2',
         title: 'Mustahkamlash Mashqlari',
         type: 'practice',
-        estimatedMinutes: 6,
+        estimatedMinutes: 8,
         practiceData: {
           instructions:
-            "Darsda o'rganilgan yangi so'zlar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
+            "Darsda o'rganilgan yangi so'zlar, zarrachalar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
           exercises: [
             {
               id: 'ja-minna-l13-ex1',
               type: 'multiple-choice',
-              prompt: "「遊びます」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
-              options: [
-                "o'ynamoq, ko'ngil ochmoq",
-                "cho'milmoq, suzmoq",
-                'kutib olmoq',
-                'charchamoq',
-              ],
-              correctAnswer: 0,
-              explanation: "To'g'ri javob: o'ynamoq, ko'ngil ochmoq.",
+              prompt:
+                "Bo'sh joyga to'g'ri zarrachani qo'ying:\n「あした 9時（　）学校へ 行きます。」",
+              options: ['へ', 'を', 'で', 'に'],
+              correctAnswer: 3,
+              explanation:
+                "To'g'ri javob: 「に」. Aniq vaqt ifodalanganda 'に' zarrachasi qo'yiladi.",
             },
             {
               id: 'ja-minna-l13-ex2',
               type: 'multiple-choice',
-              prompt:
-                "13-dars grammatik qoidasi: '1. OT  が 欲[ほ] しいです' bo'yicha qaysi gap grammatik jihatdan to'g'ri tuzilgan?",
+              prompt: "「散歩します (さんぽします)」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
               options: [
-                'わたしは 友達[ともだち] が 欲[ほ] しいです。',
-                'これ は を です。',
-                'だれ が 行きます か でした。',
-                'へ 行きません です。',
+                'kutib olmoq',
+                "cho'milmoq, suzmoq",
+                "o'ynamoq, ko'ngil ochmoq",
+                'sayr qilmoq',
               ],
-              correctAnswer: 0,
-              explanation:
-                "To'g'ri javob: わたしは 友達[ともだち] が 欲[ほ] しいです。 (Men do'stlarim bo'lishini xohlayman.).",
+              correctAnswer: 3,
+              explanation: "To'g'ri javob: 「sayr qilmoq」.",
             },
             {
               id: 'ja-minna-l13-ex3',
               type: 'multiple-choice',
-              prompt:
-                "O'zbek tiliga to'g'ri tarjima qiling: 「今[いま] 何[なに] が いちばん 欲[ほ] しいですか。」",
+              prompt: "13-dars grammatik qoidasiga muvofiq to'g'ri tuzilgan gapni aniqlang:",
               options: [
-                'Hozir nimani juda xohlaysiz?',
-                "Ertaga do'stim bilan mehmonga boraman.",
-                "Kechirasiz, soat necha bo'ldi?",
-                "Iltimos, manzilni ko'rsatib yuboring.",
+                'これ を わたしは 友達[ともだち] が 欲[ほ] しいです。',
+                'わたしは 友達[ともだち] が 欲[ほ] しいです。',
+                'わたしは 友達[ともだち] が 欲[ほ] しいです か でした。',
+                'わたしは 友達[ともだち] が 欲[ほ] しいだです。',
               ],
-              correctAnswer: 0,
-              explanation: "To'g'ri tarjimasi: Hozir nimani juda xohlaysiz?.",
+              correctAnswer: 1,
+              explanation:
+                "To'g'ri gap: 「わたしは 友達[ともだち] が 欲[ほ] しいです。」 (Men do'stlarim bo'lishini xohlayman.).",
             },
             {
               id: 'ja-minna-l13-ex4',
               type: 'multiple-choice',
-              prompt: 'Ushbu darsdagi suhbatdan kelib chiqib: Yamada qanday jumla aytadi?',
+              prompt:
+                "Ushbu gapning to'g'ri yaponcha tarjimasini tanlang:\n「Hozir nimani juda xohlaysiz?」",
               options: [
-                "Soat 12 bo'ldi-ku! Tushlik qilgani bormaysizmi?",
-                'Men hech qayerga bormayman.',
-                'Taksida aeroportga haydang.',
-                "Iltimos, hisobni alohida to'laymiz.",
+                '子[こ] どもが 欲[ほ] しいですか。',
+                '今[いま] 何[なに] が いちばん 欲[ほ] しいですか。',
+                'わたしは 沖縄[おきなわ] へ 行[い] きたいです。',
+                'わたしは 友達[ともだち] が 欲[ほ] しいです。',
               ],
-              correctAnswer: 0,
-              explanation: "To'g'ri ibora: Soat 12 bo'ldi-ku! Tushlik qilgani bormaysizmi?.",
+              correctAnswer: 1,
+              explanation:
+                "Yaponcha to'g'ri ifodasi: 「今[いま] 何[なに] が いちばん 欲[ほ] しいですか。」.",
+            },
+            {
+              id: 'ja-minna-l13-ex5',
+              type: 'multiple-choice',
+              prompt:
+                'Suhbatdoshingiz: 「いらっしゃいませ！」 dedi. Unga eng mos muloyim javob qaysi?',
+              options: [
+                'ごちそうさまでした。',
+                'おやすみなさい。',
+                'すみません、この時計を 見せてください。',
+                '失礼します。',
+              ],
+              correctAnswer: 2,
+              explanation: "To'g'ri javob: 「すみません、この時計を 見せてください。」.",
             },
           ],
         },
       },
       {
         id: 'ja-minna-l13-s3',
-        title: 'Sinov Testi',
+        title: 'JLPT N5 Sinov Testi',
         type: 'test',
-        estimatedMinutes: 6,
+        estimatedMinutes: 7,
         testData: {
           instructions:
             "Darsni muvaffaqiyatli yakunlash uchun savollarga to'g'ri javob bering (Kamida 80%).",
@@ -4955,55 +8711,57 @@ export const MINNA_N5_LESSONS: Lesson[] = [
           questions: [
             {
               id: 'ja-minna-l13-q1',
-              question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「わたしは 友達[ともだち] が 欲[ほ] しいです。」",
-              options: [
-                "Men do'stlarim bo'lishini xohlayman.",
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
-              ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Men do'stlarim bo'lishini xohlayman..",
+              question: '【Mondai 1: Moji/Goi】「散歩します」の 読[よ]み方[かた]は どれですか。',
+              options: ['あそびます', 'むかえます', 'およぎます', 'さんぽします'],
+              correctAnswerIndex: 3,
+              explanation: "「散歩します」 ning to'g'ri o'qilishi: 「さんぽします」 (sayr qilmoq).",
             },
             {
               id: 'ja-minna-l13-q2',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「今[いま] 何[なに] が いちばん 欲[ほ] しいですか。」",
-              options: [
-                'Hozir nimani juda xohlaysiz?',
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
-              ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Hozir nimani juda xohlaysiz?.",
+                '【Mondai 2: Bunpo】（　）に 入[はい]る 最[もっと]も よいものを 1つ えらびなさい。\n「毎朝 7時（　）起きます。」',
+              options: ['を', 'で', 'へ', 'に'],
+              correctAnswerIndex: 3,
+              explanation: "To'g'ri zarracha: 「に」. Aniq soat bilan 'に' zarrachasi ishlatiladi.",
             },
             {
               id: 'ja-minna-l13-q3',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「子[こ] どもが 欲[ほ] しいですか。」",
+                "【Mondai 3: Bunpo】13-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
               options: [
-                "Farzandingiz bo'lishini xohlaysizmi?",
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
+                '〜に 食べません でした',
+                '〜を 行きます です',
+                '〜は 〜でした じゃありません',
+                'FE’Lning  ます -shakli  たいです',
               ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Farzandingiz bo'lishini xohlaysizmi?.",
+              correctAnswerIndex: 3,
+              explanation: "To'g'ri grammatik formula: 「FE’Lning  ます -shakli  たいです」.",
             },
             {
               id: 'ja-minna-l13-q4',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「わたしは 沖縄[おきなわ] へ 行[い] きたいです。」",
+                "【Mondai 4: Dokkai】Quyidagi yaponcha gapning to'g'ri o'zbekcha ma'nosini toping:\n「子[こ] どもが 欲[ほ] しいですか。」",
               options: [
                 'Men Okinavaga borishni xohlayman /',
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
+                'Hozir nimani juda xohlaysiz?',
+                "Men do'stlarim bo'lishini xohlayman.",
+                "Farzandingiz bo'lishini xohlaysizmi?",
               ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Men Okinavaga borishni xohlayman /.",
+              correctAnswerIndex: 3,
+              explanation: "To'g'ri ma'nosi: 「Farzandingiz bo'lishini xohlaysizmi?」.",
+            },
+            {
+              id: 'ja-minna-l13-q5',
+              question:
+                "【Mondai 5: Kaiwa】Savolga eng to'g'ri javobni tanlang:\n「トイレは どこですか。」",
+              options: [
+                'ごちそうさまでした。',
+                'おやすみなさい。',
+                'はい、そうです。',
+                'あそこです。',
+              ],
+              correctAnswerIndex: 3,
+              explanation: "To'g'ri javob: 「あそこです。」.",
             },
           ],
         },
@@ -5020,133 +8778,337 @@ export const MINNA_N5_LESSONS: Lesson[] = [
     lessonNumber: 14,
     title: "14-dars: Fe'lning Te-shakli va Iltimos (Buyruq va Iltimos)",
     description:
-      "Minna no Nihongo Shokyu 1: 14-dars: Fe'lning Te-shakli va Iltimos (Buyruq va Iltimos). Darsda 45 ta yangi so'z va 8 ta asosiy grammatik qoida o'rganiladi.",
-    estimatedDurationMinutes: 20,
+      "Minna no Nihongo Shokyu 1: 14-dars: Fe'lning Te-shakli va Iltimos (Buyruq va Iltimos). Darsda 45 ta yangi so'z, audio talaffuzli Furigana misollar va 8 ta asosiy grammatik formula o'rganiladi.",
+    estimatedDurationMinutes: 25,
     icon: '🌸',
     steps: [
       {
         id: 'ja-minna-l14-s1',
         title: "Lug'at va Qoidalar",
         type: 'learn',
-        estimatedMinutes: 8,
+        estimatedMinutes: 10,
         learnData: {
           title: "14-Dars: 14-dars: Fe'lning Te-shakli va Iltimos (Buyruq va Iltimos)",
           subtitle: '第14課：て形と依頼（〜てください・〜ています）',
           explanation:
-            "14-dars: Fe'lning Te-shakli va Iltimos (Buyruq va Iltimos) bo'yicha to'liq grammatik izohlar va qoidalar to'plami. Har bir qoida Minna no Nihongo darsligining o'zbekcha tarjimasiga moslashtirilgan.",
+            "14-dars: Fe'lning Te-shakli va Iltimos (Buyruq va Iltimos) bo'yicha to'liq grammatik izohlar, formulalar va Furiganali misollar to'plami.",
           keyPoints: [
-            "1.  Fe’llarning tuslanishi: Yapon tilida fe'llar tuslanishi orqali o'z ko'rinishlarini o'zgartiradi. Tuslanish turiga ko'ra 3 guruhga bo'linadi....",
-            "2.  Fe’l guruhlari: 1) Ⅰ guruh Bu guruh fe'llarning o'zagi い da tugaydi. (Asosiy o'quv darsligining 2-betiga qarang: かな と 拍[はく] ) かきます yozmo...",
-            "3.    Fe’llarning  て -shakli: Fe'llarning て yoki で qo'shimchasi bilan tugaydiganlarga “FE'Lning て -shakli” deyiladi. Quyida keltirilgan fe'l guruhlari...",
-            "4.   FE’Lning  て -shakli  ください BUYRUQ YOKI XOHISH VA ISTAK: Bu turdagi gaplar biror-bir harakatni iltimos, buyruq va xohish-istak maqsadida amalga oshirishda qo'llaniladi. Agar suh...",
-            "5.                                                            FE’Lning   て -shakli  います HARAKATNING DAVOMIY KO`RINISHI: Bunday turdagi gaplar harakatni aynan hozir davom etayotganligini ko'rsatish uchun qo'llaniladi. ･･･いいえ、降[ふ] って いません。 …Y...",
-            "6.                                                                        FE’Lning   ます -shakli  ましょうか YORDAMGA TAKLIF: Bu usul so'zlovchi suhbatdoshiga biror bir narsa qilib berishni taklif qilayotganda qo'llanadi. Keltirilgan misollarda k...",
+            "📌 1.  Fe’llarning tuslanishi: Yapon tilida fe'llar tuslanishi orqali o'z ko'rinishlarini o'zgartiradi.",
+            "📌 2.  Fe’l guruhlari: 1) Ⅰ guruh Bu guruh fe'llarning o'zagi い da tugaydi.",
+            "📌 3.    Fe’llarning  て -shakli: Fe'llarning て yoki で qo'shimchasi bilan tugaydiganlarga “FE'Lning て -shakli” deyiladi.",
+            "📌 4.   FE’Lning  て -shakli  ください BUYRUQ YOKI XOHISH VA ISTAK: Bu turdagi gaplar biror-bir harakatni iltimos, buyruq va xohish-istak maqsadida amalga oshirishda qo'llaniladi.",
+            "📌 5.                                                            FE’Lning   て -shakli  います HARAKATNING DAVOMIY KO`RINISHI: Bunday turdagi gaplar harakatni aynan hozir davom etayotganligini ko'rsatish uchun qo'llaniladi.",
+            "📌 6.                                                                        FE’Lning   ます -shakli  ましょうか YORDAMGA TAKLIF: Bu usul so'zlovchi suhbatdoshiga biror bir narsa qilib berishni taklif qilayotganda qo'llanadi.",
           ],
           vocabulary: [
             {
               term: 'つけます',
               reading: 'つけます',
               meaning: "yo'qmoq",
-              exampleSentence: "つけます — yo'qmoq",
-              exampleTranslation: "yo'qmoq",
+              exampleSentence: '毎日[まいにち] つけます。',
+              exampleTranslation: "Har kuni yo'qmoq.",
             },
             {
               term: '消します (けします)',
               reading: 'けします',
               meaning: "o'chirmoq",
-              exampleSentence: "けします — o'chirmoq",
-              exampleTranslation: "o'chirmoq",
+              exampleSentence: '毎日[まいにち] 消します[けします]。',
+              exampleTranslation: "Har kuni o'chirmoq.",
             },
             {
               term: '開けます (あけます)',
               reading: 'あけます',
               meaning: 'ochmoq',
-              exampleSentence: 'あけます — ochmoq',
-              exampleTranslation: 'ochmoq',
+              exampleSentence: '毎日[まいにち] 開けます[あけます]。',
+              exampleTranslation: 'Har kuni ochmoq.',
             },
             {
               term: '閉めます (しめます)',
               reading: 'しめます',
               meaning: 'yopmoq',
-              exampleSentence: 'しめます — yopmoq',
-              exampleTranslation: 'yopmoq',
+              exampleSentence: '毎日[まいにち] 閉めます[しめます]。',
+              exampleTranslation: 'Har kuni yopmoq.',
             },
             {
               term: '急ぎます (いそぎます)',
               reading: 'いそぎます',
               meaning: 'shoshmoq',
-              exampleSentence: 'いそぎます — shoshmoq',
-              exampleTranslation: 'shoshmoq',
+              exampleSentence: '毎日[まいにち] 急ぎます[いそぎます]。',
+              exampleTranslation: 'Har kuni shoshmoq.',
             },
             {
               term: '待ちます (まちます)',
               reading: 'まちます',
               meaning: 'kutmoq',
-              exampleSentence: 'まちます — kutmoq',
-              exampleTranslation: 'kutmoq',
+              exampleSentence: '毎日[まいにち] 待ちます[まちます]。',
+              exampleTranslation: 'Har kuni kutmoq.',
             },
             {
               term: '止めます (とめます)',
               reading: 'とめます',
               meaning: "to'xtatmoq",
-              exampleSentence: "とめます — to'xtatmoq",
-              exampleTranslation: "to'xtatmoq",
+              exampleSentence: '毎日[まいにち] 止めます[とめます]。',
+              exampleTranslation: "Har kuni to'xtatmoq.",
             },
             {
               term: '曲がります (まがります)',
               reading: 'まがります',
               meaning: 'burilmoq, qayrilmoq',
-              exampleSentence: 'まがります — burilmoq, qayrilmoq',
-              exampleTranslation: 'burilmoq, qayrilmoq',
+              exampleSentence: '毎日[まいにち] 曲がります[まがります]。',
+              exampleTranslation: 'Har kuni burilmoq, qayrilmoq.',
             },
             {
-              term: '[ 右へ～ ] ([ みぎへ～ ])',
-              reading: '[ みぎへ～ ]',
+              term: '右へ～ (みぎへ～)',
+              reading: 'みぎへ～',
               meaning: "(o'ngga qayrilmoq)",
-              exampleSentence: "[ みぎへ～ ] — (o'ngga qayrilmoq)",
-              exampleTranslation: "(o'ngga qayrilmoq)",
+              exampleSentence: '山田[やまだ][みぎへ]は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: "Yamada (o'ngga qayrilmoq) samimiy inson.",
             },
             {
               term: '持ちます (もちます)',
               reading: 'もちます',
               meaning: 'ushlab turmoq',
-              exampleSentence: 'もちます — ushlab turmoq',
-              exampleTranslation: 'ushlab turmoq',
+              exampleSentence: '毎日[まいにち] 持ちます[もちます]。',
+              exampleTranslation: 'Har kuni ushlab turmoq.',
             },
             {
               term: '取ります (とります)',
               reading: 'とります',
               meaning: 'olmoq',
-              exampleSentence: 'とります — olmoq',
-              exampleTranslation: 'olmoq',
+              exampleSentence: 'きれいな 花[はな]の 写真[しゃしん]を 撮[と]りました。',
+              exampleTranslation: 'Chiroyli gulning suratini oldim.',
             },
             {
               term: '手伝います (てつだいます)',
               reading: 'てつだいます',
               meaning: "yordam bermoq, ko'maklashmoq",
-              exampleSentence: "てつだいます — yordam bermoq, ko'maklashmoq",
-              exampleTranslation: "yordam bermoq, ko'maklashmoq",
+              exampleSentence: '毎日[まいにち] 手伝います[てつだいます]。',
+              exampleTranslation: "Har kuni yordam bermoq, ko'maklashmoq.",
             },
             {
               term: '呼びます (よびます)',
               reading: 'よびます',
               meaning: 'chaqirmoq',
-              exampleSentence: 'よびます — chaqirmoq',
-              exampleTranslation: 'chaqirmoq',
+              exampleSentence: '毎日[まいにち] 呼びます[よびます]。',
+              exampleTranslation: 'Har kuni chaqirmoq.',
             },
             {
               term: '話します (はなします)',
               reading: 'はなします',
               meaning: 'suhbatlashmoq',
-              exampleSentence: 'はなします — suhbatlashmoq',
-              exampleTranslation: 'suhbatlashmoq',
+              exampleSentence: '毎日[まいにち] 話します[はなします]。',
+              exampleTranslation: 'Har kuni suhbatlashmoq.',
             },
             {
               term: '見せます (みせます)',
               reading: 'みせます',
               meaning: "ko'rsatmoq",
-              exampleSentence: "みせます — ko'rsatmoq",
-              exampleTranslation: "ko'rsatmoq",
+              exampleSentence: '毎日[まいにち] 見せます[みせます]。',
+              exampleTranslation: "Har kuni ko'rsatmoq.",
+            },
+            {
+              term: '教えます (おしえます)',
+              reading: 'おしえます',
+              meaning: "o'rgatmoq, aytmoq, tushuntirmoq",
+              exampleSentence: '毎日[まいにち] 教えます[おしえます]。',
+              exampleTranslation: "Har kuni o'rgatmoq, aytmoq, tushuntirmoq.",
+            },
+            {
+              term: '住所を～ (じゅうしょを～)',
+              reading: 'じゅうしょを～',
+              meaning: '(manzilni aytmoq)',
+              exampleSentence: '山田[やまだ][じゅうしょを]は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada (manzilni aytmoq) samimiy inson.',
+            },
+            {
+              term: '始めます (はじめます)',
+              reading: 'はじめます',
+              meaning: 'boshlamoq',
+              exampleSentence: '毎日[まいにち] 始めます[はじめます]。',
+              exampleTranslation: 'Har kuni boshlamoq.',
+            },
+            {
+              term: '降ります (ふります)',
+              reading: 'ふります',
+              meaning: "yog'moq",
+              exampleSentence: '毎日[まいにち] 降ります[ふります]。',
+              exampleTranslation: "Har kuni yog'moq.",
+            },
+            {
+              term: '雨が～ (あめが～)',
+              reading: 'あめが～',
+              meaning: "(yomg'ir yog'moq)",
+              exampleSentence: '山田[やまだ][あめが]は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: "Yamada (yomg'ir yog'moq) samimiy inson.",
+            },
+            {
+              term: 'コピーします',
+              reading: 'コピーします',
+              meaning: "nusxa ko'chirmoq",
+              exampleSentence: '毎日[まいにち] コピーします。',
+              exampleTranslation: "Har kuni nusxa ko'chirmoq.",
+            },
+            {
+              term: 'エアコン',
+              reading: 'エアコン',
+              meaning: 'havo sovutgich',
+              exampleSentence: 'これは わたしが 買[か]った エアコン です。',
+              exampleTranslation: 'Bu men sotib olgan havo sovutgich.',
+            },
+            {
+              term: 'パスポート',
+              reading: 'パスポート',
+              meaning: 'pasport',
+              exampleSentence: 'これは わたしが 買[か]った パスポート です。',
+              exampleTranslation: 'Bu men sotib olgan pasport.',
+            },
+            {
+              term: '名前 (なまえ)',
+              reading: 'なまえ',
+              meaning: 'ism, nom',
+              exampleSentence: 'これは わたしが 買[か]った 名前[なまえ] です。',
+              exampleTranslation: 'Bu men sotib olgan ism, nom.',
+            },
+            {
+              term: '住所 (じゅうしょ)',
+              reading: 'じゅうしょ',
+              meaning: 'manzil',
+              exampleSentence: 'あそこは 住所[じゅうしょ] です。',
+              exampleTranslation: 'Anavi yer manzil.',
+            },
+            {
+              term: '地図 (ちず)',
+              reading: 'ちず',
+              meaning: 'xarita',
+              exampleSentence: 'これは わたしが 買[か]った 地図[ちず] です。',
+              exampleTranslation: 'Bu men sotib olgan xarita.',
+            },
+            {
+              term: '塩 (しお)',
+              reading: 'しお',
+              meaning: 'tuz',
+              exampleSentence: 'これは わたしが 買[か]った 塩[しお] です。',
+              exampleTranslation: 'Bu men sotib olgan tuz.',
+            },
+            {
+              term: '砂糖 (さとう)',
+              reading: 'さとう',
+              meaning: 'shakar, qand',
+              exampleSentence: '毎日[まいにち] 砂糖[さとう]。',
+              exampleTranslation: 'Har kuni shakar, qand.',
+            },
+            {
+              term: '読み方 (よみかた)',
+              reading: 'よみかた',
+              meaning: "o'qilish (o'qilish uslubi)",
+              exampleSentence: 'これは わたしが 買[か]った 読み方[よみかた] です。',
+              exampleTranslation: "Bu men sotib olgan o'qilish (o'qilish uslubi).",
+            },
+            {
+              term: '～方 (～かた)',
+              reading: '～かた',
+              meaning: '~ish uslubi, ~ish odobi',
+              exampleSentence: '山田[やまだ]かたは 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada ~ish uslubi, ~ish odobi samimiy inson.',
+            },
+            {
+              term: 'ゆっくり',
+              reading: 'ゆっくり',
+              meaning: 'sekin, bemalol',
+              exampleSentence: 'これは わたしが 買[か]った ゆっくり です。',
+              exampleTranslation: 'Bu men sotib olgan sekin, bemalol.',
+            },
+            {
+              term: 'すぐ',
+              reading: 'すぐ',
+              meaning: 'darhol',
+              exampleSentence: 'これは わたしが 買[か]った すぐ です。',
+              exampleTranslation: 'Bu men sotib olgan darhol.',
+            },
+            {
+              term: 'また',
+              reading: 'また',
+              meaning: 'yana',
+              exampleSentence: 'これは わたしが 買[か]った また です。',
+              exampleTranslation: 'Bu men sotib olgan yana.',
+            },
+            {
+              term: 'あとで',
+              reading: 'あとで',
+              meaning: 'keyin',
+              exampleSentence: 'これは わたしが 買[か]った あとで です。',
+              exampleTranslation: 'Bu men sotib olgan keyin.',
+            },
+            {
+              term: 'もう少し (もうすこし)',
+              reading: 'もうすこし',
+              meaning: 'yana ozgina',
+              exampleSentence: 'これは わたしが 買[か]った もう少し[もうすこし] です。',
+              exampleTranslation: 'Bu men sotib olgan yana ozgina.',
+            },
+            {
+              term: 'もう～',
+              reading: 'もう～',
+              meaning: 'yana~',
+              exampleSentence: '毎日[まいにち] もう。',
+              exampleTranslation: 'Har kuni yana~.',
+            },
+            {
+              term: 'いいですよ。',
+              reading: 'いいですよ。',
+              meaning: 'Mayli.',
+              exampleSentence: 'これは わたしが 買[か]った いいですよ。 です。',
+              exampleTranslation: 'Bu men sotib olgan mayli..',
+            },
+            {
+              term: 'さあ',
+              reading: 'さあ',
+              meaning: "demak, xo'sh",
+              exampleSentence: 'これは わたしが 買[か]った さあ です。',
+              exampleTranslation: "Bu men sotib olgan demak, xo'sh.",
+            },
+            {
+              term: 'あれ？',
+              reading: 'あれ？',
+              meaning: "Voy! (hayron bo'lish iborasi)",
+              exampleSentence: 'これは わたしが 買[か]った あれ？ です。',
+              exampleTranslation: "Bu men sotib olgan voy! (hayron bo'lish iborasi).",
+            },
+            {
+              term: '信号しんごうを右みぎへ曲まがってください。',
+              reading: '信号しんごうを右みぎへ曲まがってください。',
+              meaning: "Svetofordan o'ngga qayriling.",
+              exampleSentence:
+                'これは わたしが 買[か]った 信号[しんごう]を右[みぎ]へ曲[ま]がってください。 です。',
+              exampleTranslation: "Bu men sotib olgan svetofordan o'ngga qayriling..",
+            },
+            {
+              term: 'まっすぐ',
+              reading: 'まっすぐ',
+              meaning: "to'g'ri",
+              exampleSentence: 'これは わたしが 買[か]った まっすぐ です。',
+              exampleTranslation: "Bu men sotib olgan to'g'ri.",
+            },
+            {
+              term: 'これでお願ねがいします。',
+              reading: 'これでお願ねがいします。',
+              meaning: 'Buni oling, marhamat.',
+              exampleSentence: '毎日[まいにち] これでお願[ねが]いします。。',
+              exampleTranslation: 'Har kuni buni oling, marhamat..',
+            },
+            {
+              term: 'お釣つり',
+              reading: 'お釣つり',
+              meaning: 'qaytim',
+              exampleSentence: 'これは わたしが 買[か]った お釣[つ]り です。',
+              exampleTranslation: 'Bu men sotib olgan qaytim.',
+            },
+            {
+              term: '梅うめ田だ',
+              reading: '梅うめ田だ',
+              meaning: 'Osakadagi tuman nomi',
+              exampleSentence: 'これは わたしが 買[か]った 梅[うめ]田[だ] です。',
+              exampleTranslation: 'Bu men sotib olgan osakadagi tuman nomi.',
             },
           ],
           grammarRules: [
@@ -5155,49 +9117,46 @@ export const MINNA_N5_LESSONS: Lesson[] = [
               meaning:
                 "Yapon tilida fe'llar tuslanishi orqali o'z ko'rinishlarini o'zgartiradi. Tuslanish turiga ko'ra 3 guruhga bo'linadi.",
               usageNotes:
-                "Yapon tilida fe'llar tuslanishi orqali o'z ko'rinishlarini o'zgartiradi. Tuslanish turiga ko'ra 3 guruhga bo'linadi.",
+                'Minna no Nihongo 14-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'Fe’llarning tuslanishi',
-                  translation:
-                    "Yapon tilida fe'llar tuslanishi orqali o'z ko'rinishlarini o'zgartiradi. Tuslani",
+                  translation: 'Grammatik qolip.',
                 },
               ],
             },
             {
               pattern: 'Fe’l guruhlari',
               meaning:
-                "1) Ⅰ guruh Bu guruh fe'llarning o'zagi い da tugaydi. (Asosiy o'quv darsligining 2-betiga qarang: かな と 拍[はく] ) かきます yozmoq のみます ichmoq 2) Ⅱ guruh Garchi ayrim fe'l o'zaklari い da tugasa ham bu guruh fe",
-              usageNotes:
                 "1) Ⅰ guruh Bu guruh fe'llarning o'zagi い da tugaydi. (Asosiy o'quv darsligining 2-betiga qarang: かな と 拍[はく] ) かきます yozmoq のみます ichmoq 2) Ⅱ guruh Garchi ayrim fe'l o'zaklari い da tugasa ham bu guruh fe'lining o'zak harflari え da tugaydi. たべます yemoq みせます ko'rsatmoq みます ko'rmoq 3) Ⅲ guruh Bu guruhga します , きます fe'llari kiradi (harakatni ifodalaydigan OT+ します )",
+              usageNotes:
+                'Minna no Nihongo 14-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'Fe’l guruhlari',
-                  translation:
-                    "1) Ⅰ guruh Bu guruh fe'llarning o'zagi い da tugaydi. (Asosiy o'quv darsligining ",
+                  translation: 'Grammatik qolip.',
                 },
               ],
             },
             {
               pattern: 'Fe’llarning  て -shakli',
               meaning:
-                "Fe'llarning て yoki で qo'shimchasi bilan tugaydiganlarga “FE'Lning て -shakli” deyiladi. Quyida keltirilgan fe'l guruhlarining turiga qarab “FE'Lning て -shakli”ni hosil qilish jarayoni har xil bo'ladi. ",
-              usageNotes:
                 "Fe'llarning て yoki で qo'shimchasi bilan tugaydiganlarga “FE'Lning て -shakli” deyiladi. Quyida keltirilgan fe'l guruhlarining turiga qarab “FE'Lning て -shakli”ni hosil qilish jarayoni har xil bo'ladi. 1) Ⅰ guruh Jadvalda ko'rsatilganidek (Asosiy o'quv darsligining (14-dars) 116- betidagi 練習[れんしゅう] A1ga qarang), “FE'Lning て -shakli” “FE'Lning ます shakli”ning o'zgarishiga qarab hosil bo'ladi. いきます fe'lining て -shakli いって ga o'zgarishiga ahamiyat bering. Bu istisno ko'rinishdir. 2) Ⅱ guruh て , ます o'rniga qo'yiladi. 3) Ⅲ guruh て , ます o'rniga qo'yiladi.",
+              usageNotes:
+                'Minna no Nihongo 14-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'Fe’llarning  て -shakli',
-                  translation:
-                    "Fe'llarning て yoki で qo'shimchasi bilan tugaydiganlarga “FE'Lning て -shakli” dey",
+                  translation: 'Grammatik qolip.',
                 },
               ],
             },
             {
               pattern: 'FE’Lning  て -shakli  ください BUYRUQ YOKI XOHISH VA ISTAK',
               meaning:
-                "Bu turdagi gaplar biror-bir harakatni iltimos, buyruq va xohish-istak maqsadida amalga oshirishda qo'llaniladi. Agar suhbatdosh yuqori lavozim egasi bo'lsa, bunday turdagi gaplar qo'llanilmaydi. Quyid",
-              usageNotes:
                 "Bu turdagi gaplar biror-bir harakatni iltimos, buyruq va xohish-istak maqsadida amalga oshirishda qo'llaniladi. Agar suhbatdosh yuqori lavozim egasi bo'lsa, bunday turdagi gaplar qo'llanilmaydi. Quyida iltimos, buyruq va xohish-istakni bildirgan iboralarga misol keltirib o'tilgan. Birinchi ① -misolda ko'rsatilgandek, “FE'Lning て -shakli ください ” qo'llangan gapning boshida すみませんが so'zi iltimos ma'nosida qo'llanadi. Bunday ko'rinish faqat “FE'Lning て -shakli ください ” qo'llangan gapga qaraganda ancha yumshoqroq.",
+              usageNotes:
+                'Minna no Nihongo 14-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence:
@@ -5220,16 +9179,14 @@ export const MINNA_N5_LESSONS: Lesson[] = [
               meaning:
                 "Bunday turdagi gaplar harakatni aynan hozir davom etayotganligini ko'rsatish uchun qo'llaniladi. ･･･いいえ、降[ふ] って いません。 …Yo'q, yog'mayapti.",
               usageNotes:
-                "Bunday turdagi gaplar harakatni aynan hozir davom etayotganligini ko'rsatish uchun qo'llaniladi. ･･･いいえ、降[ふ] って いません。 …Yo'q, yog'mayapti.",
+                'Minna no Nihongo 14-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
-                  sentence:
-                    'ミラーさんは 今[いま] 電[でん] 話[わ] を かけています。 Janob Miller hozir qo`ng`iroq',
+                  sentence: 'ミラーさんは 今[いま] 電[でん] 話[わ] を かけています。',
                   translation: 'qilayapti.',
                 },
                 {
-                  sentence:
-                    '今[いま] 雨[あめ] が 降[ふ] って いますか。 Hozir, yomg`ir yog`ayaptimi?',
+                  sentence: '今[いま] 雨[あめ] が 降[ふ] って いますか。',
                   translation: "･･･はい、降[ふ] って います。 …Ha, yog'ayapti.",
                 },
               ],
@@ -5237,22 +9194,21 @@ export const MINNA_N5_LESSONS: Lesson[] = [
             {
               pattern: 'FE’Lning   ます -shakli  ましょうか YORDAMGA TAKLIF',
               meaning:
-                "Bu usul so'zlovchi suhbatdoshiga biror bir narsa qilib berishni taklif qilayotganda qo'llanadi. Keltirilgan misollarda kimdandir biror-bir ishni muloyimlik bilan so'rash ⑥ , minnatdorchilik bilan takl",
-              usageNotes:
                 "Bu usul so'zlovchi suhbatdoshiga biror bir narsa qilib berishni taklif qilayotganda qo'llanadi. Keltirilgan misollarda kimdandir biror-bir ishni muloyimlik bilan so'rash ⑥ , minnatdorchilik bilan taklifni qabul qilish ⑦ va hurmat bilan taklifni rad etish ⑧ da ko'rsatilgan.",
+              usageNotes:
+                'Minna no Nihongo 14-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
-                  sentence: 'A:  あしたも 来[き] ましょうか。 Ertaga ham kelaymi?',
+                  sentence: 'A:  あしたも 来[き] ましょうか。',
                   translation:
                     'B: ええ、１０時[じ] に 来[き] て ください。 …Ha, soat 10 ga keling.',
                 },
                 {
-                  sentence: 'A:  傘[かさ] を 貸[か] しましょうか。 Soyabonimni berib turaymi?',
+                  sentence: 'A:  傘[かさ] を 貸[か] しましょうか。',
                   translation: "B: すみません。お願[ねが] いします。 …Rahmat. Agar mumkin bo'lsa.",
                 },
                 {
-                  sentence:
-                    'A:  荷[に] 物[もつ] を 持[も] ちましょうか。 Keling, yukingizni ko`tarib olib boray.',
+                  sentence: 'A:  荷[に] 物[もつ] を 持[も] ちましょうか。',
                   translation: "B: いいえ、けっこうです。 …Yo'q, rahmat. Hojati yo'q.",
                 },
               ],
@@ -5262,16 +9218,14 @@ export const MINNA_N5_LESSONS: Lesson[] = [
               meaning:
                 "が kabi kirish so'zlari bilan kelganda, o'zining boshlang'ich ma'nosini anglatmay, balki ularni shunchaki keyingi so'zlar bilan bog'lash uchun xizmat qiladi.",
               usageNotes:
-                "が kabi kirish so'zlari bilan kelganda, o'zining boshlang'ich ma'nosini anglatmay, balki ularni shunchaki keyingi so'zlar bilan bog'lash uchun xizmat qiladi.",
+                'Minna no Nihongo 14-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
-                  sentence:
-                    '失礼[しつれい] ですが、お名[な] 前[まえ] は？ Kechirasiz, ismingiz nima? (1-dars)',
-                  translation: '',
+                  sentence: '失礼[しつれい] ですが、お名[な] 前[まえ] は？',
+                  translation: 'Kechirasiz, ismingiz nima? (1-dars)',
                 },
                 {
-                  sentence:
-                    'すみませんが、塩[しお] を 取[と] って ください。 Kechirasiz, tuzni berib yuboring.',
+                  sentence: 'すみませんが、塩[しお] を 取[と] って ください。',
                   translation:
                     '8-darsda が boglovchisi haqida bilib oldik. 「が」 - しつれいですが yoki すみません',
                 },
@@ -5282,7 +9236,7 @@ export const MINNA_N5_LESSONS: Lesson[] = [
               meaning:
                 "Tabiat xodisalarini tasvirlayotganda EGA 「が」 bilan ajratib ko'rsatiladi.",
               usageNotes:
-                "Tabiat xodisalarini tasvirlayotganda EGA 「が」 bilan ajratib ko'rsatiladi.",
+                'Minna no Nihongo 14-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: '雨[あめ] が 降[ふ] って います。',
@@ -5292,76 +9246,84 @@ export const MINNA_N5_LESSONS: Lesson[] = [
             },
           ],
           culturalNotes:
-            "Birovdan yordam so'rashda yoki taksida manzil aytishda fe'lning Te-shakli + 'ください' qo'llaniladi (masalan: '梅田まで行ってください').",
+            "Birovdan yordam so'rashda yoki taksi haydovchisiga manzilni aytishda fe'lning Te-shakli + 'ください' qo'llaniladi (masalan: '駅まで 行ってください').",
         },
       },
       {
         id: 'ja-minna-l14-s2',
         title: 'Mustahkamlash Mashqlari',
         type: 'practice',
-        estimatedMinutes: 6,
+        estimatedMinutes: 8,
         practiceData: {
           instructions:
-            "Darsda o'rganilgan yangi so'zlar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
+            "Darsda o'rganilgan yangi so'zlar, zarrachalar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
           exercises: [
             {
               id: 'ja-minna-l14-ex1',
               type: 'multiple-choice',
-              prompt: "「つけます」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
-              options: ["yo'qmoq", "o'chirmoq", 'ochmoq', 'yopmoq'],
-              correctAnswer: 0,
-              explanation: "To'g'ri javob: yo'qmoq.",
+              prompt: "Bo'sh joyga to'g'ri zarrachani qo'ying:\n「食堂（　）昼ご飯を 食べます。」",
+              options: ['に', 'を', 'へ', 'で'],
+              correctAnswer: 3,
+              explanation:
+                "To'g'ri javob: 「で」. Harakat sodir bo'layotgan joy 'で' bilan belgilanadi.",
             },
             {
               id: 'ja-minna-l14-ex2',
               type: 'multiple-choice',
-              prompt:
-                "14-dars grammatik qoidasi: '1.  Fe’llarning tuslanishi' bo'yicha qaysi gap grammatik jihatdan to'g'ri tuzilgan?",
-              options: [
-                'すみませんが、この 漢[かん] 字[じ] の 読[よ] み方[かた] を 教[おし] えて ください。',
-                'これ は を です。',
-                'だれ が 行きます か でした。',
-                'へ 行きません です。',
-              ],
-              correctAnswer: 0,
-              explanation:
-                "To'g'ri javob: すみませんが、この 漢[かん] 字[じ] の 読[よ] み方[かた] を 教[おし] えて ください。 (Kechirasiz, mana bu iyeroglifning o'qilishini o'rgatib yuboring.).",
+              prompt: "「見せます (みせます)」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
+              options: ['ochmoq', "ko'rsatmoq", "yo'qmoq", "o'chirmoq"],
+              correctAnswer: 1,
+              explanation: "To'g'ri javob: 「ko'rsatmoq」.",
             },
             {
               id: 'ja-minna-l14-ex3',
               type: 'multiple-choice',
-              prompt:
-                "O'zbek tiliga to'g'ri tarjima qiling: 「ここに 住[じゅう] 所[しょ] と 名[な] 前[まえ] を 書[か] いて ください。」",
+              prompt: "14-dars grammatik qoidasiga muvofiq to'g'ri tuzilgan gapni aniqlang:",
               options: [
-                'Bu yerga manzilingiz bilan ismingizni yozing.',
-                "Ertaga do'stim bilan mehmonga boraman.",
-                "Kechirasiz, soat necha bo'ldi?",
-                "Iltimos, manzilni ko'rsatib yuboring.",
+                'すみませんが、この 漢[かん] 字[じ] の 読[よ] み方[かた] を 教[おし] えて ください でした です。',
+                'これ を すみませんが、この 漢[かん] 字[じ] の 読[よ] み方[かた] を 教[おし] えて ください。',
+                'すみませんが、この 漢[かん] 字[じ] の 読[よ] み方[かた] を 教[おし] えて ください。',
+                'すみませんが、こ は 漢[かん] 字[じ]  は 読[よ] み方[かた] を 教[おし] えて ください。',
               ],
-              correctAnswer: 0,
-              explanation: "To'g'ri tarjimasi: Bu yerga manzilingiz bilan ismingizni yozing..",
+              correctAnswer: 2,
+              explanation:
+                "To'g'ri gap: 「すみませんが、この 漢[かん] 字[じ] の 読[よ] み方[かた] を 教[おし] えて ください。」 (Kechirasiz, mana bu iyeroglifning o'qilishini o'rgatib yuboring.).",
             },
             {
               id: 'ja-minna-l14-ex4',
               type: 'multiple-choice',
-              prompt: 'Ushbu darsdagi suhbatdan kelib chiqib: Karina qanday jumla aytadi?',
+              prompt: "Ushbu gapning to'g'ri yaponcha tarjimasini tanlang:\n「Grammatik qolip.」",
               options: [
-                'Umedaga haydang.',
-                'Men hech qayerga bormayman.',
-                'Taksida aeroportga haydang.',
-                "Iltimos, hisobni alohida to'laymiz.",
+                'Fe’l guruhlari',
+                'Fe’llarning  て -shakli',
+                'すみませんが、この 漢[かん] 字[じ] の 読[よ] み方[かた] を 教[おし] えて ください。',
+                'Fe’llarning tuslanishi',
               ],
               correctAnswer: 0,
-              explanation: "To'g'ri ibora: Umedaga haydang..",
+              explanation: "Yaponcha to'g'ri ifodasi: 「Fe’l guruhlari」.",
+            },
+            {
+              id: 'ja-minna-l14-ex5',
+              type: 'multiple-choice',
+              prompt:
+                'Suhbatdoshingiz: 「いっしょに コーヒーを 飲みませんか。」 dedi. Unga eng mos muloyim javob qaysi?',
+              options: [
+                'ごちそうさまでした。',
+                'ええ、飲みましょう。',
+                'おやすみなさい。',
+                '失礼します。',
+              ],
+              correctAnswer: 1,
+              explanation: "To'g'ri javob: 「ええ、飲みましょう。」.",
             },
           ],
         },
       },
       {
         id: 'ja-minna-l14-s3',
-        title: 'Sinov Testi',
+        title: 'JLPT N5 Sinov Testi',
         type: 'test',
-        estimatedMinutes: 6,
+        estimatedMinutes: 7,
         testData: {
           instructions:
             "Darsni muvaffaqiyatli yakunlash uchun savollarga to'g'ri javob bering (Kamida 80%).",
@@ -5369,56 +9331,58 @@ export const MINNA_N5_LESSONS: Lesson[] = [
           questions: [
             {
               id: 'ja-minna-l14-q1',
-              question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「すみませんが、この 漢[かん] 字[じ] の 読[よ] み方[かた] を 教[おし] えて ください。」",
-              options: [
-                "Kechirasiz, mana bu iyeroglifning o'qilishini o'rgatib yuboring.",
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
-              ],
-              correctAnswerIndex: 0,
+              question: '【Mondai 1: Moji/Goi】「教えます」の 読[よ]み方[かた]は どれですか。',
+              options: ['けします', 'つけます', 'あけます', 'おしえます'],
+              correctAnswerIndex: 3,
               explanation:
-                "To'g'ri javob: Kechirasiz, mana bu iyeroglifning o'qilishini o'rgatib yuboring..",
+                "「教えます」 ning to'g'ri o'qilishi: 「おしえます」 (o'rgatmoq, aytmoq, tushuntirmoq).",
             },
             {
               id: 'ja-minna-l14-q2',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「ここに 住[じゅう] 所[しょ] と 名[な] 前[まえ] を 書[か] いて ください。」",
-              options: [
-                'Bu yerga manzilingiz bilan ismingizni yozing.',
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
-              ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Bu yerga manzilingiz bilan ismingizni yozing..",
+                '【Mondai 2: Bunpo】（　）に 入[はい]る 最[もっと]も よいものを 1つ えらびなさい。\n「パン（　）食べます。」',
+              options: ['へ', 'を', 'で', 'に'],
+              correctAnswerIndex: 1,
+              explanation: "To'g'ri zarracha: 「を」. Harakat obyekti 'を' (o) bilan belgilanadi.",
             },
             {
               id: 'ja-minna-l14-q3',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「ぜひ 遊[あそ] びに 来[き] て ください。」",
+                "【Mondai 3: Bunpo】14-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
               options: [
-                'Albatta mehmonga keling. (25-darsga qarang)',
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
+                '〜は 〜でした じゃありません',
+                '〜を 行きます です',
+                'Fe’l guruhlari',
+                '〜に 食べません でした',
               ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Albatta mehmonga keling. (25-darsga qarang).",
+              correctAnswerIndex: 2,
+              explanation: "To'g'ri grammatik formula: 「Fe’l guruhlari」.",
             },
             {
               id: 'ja-minna-l14-q4',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「ミラーさんは 今[いま] 電[でん] 話[わ] を かけています。 Janob Miller hozir qo`ng`iroq」",
+                "【Mondai 4: Dokkai】Quyidagi yaponcha gapning to'g'ri o'zbekcha ma'nosini toping:\n「Fe’llarning  て -shakli」",
               options: [
-                'qilayapti.',
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
+                'Grammatik qolip.',
+                "Kechirasiz, mana bu iyeroglifning o'qilishini o'rgatib yuboring.",
+                'Albatta mehmonga keling. (25-darsga qarang)',
+                'Bu yerga manzilingiz bilan ismingizni yozing.',
               ],
               correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: qilayapti..",
+              explanation: "To'g'ri ma'nosi: 「Grammatik qolip.」.",
+            },
+            {
+              id: 'ja-minna-l14-q5',
+              question:
+                "【Mondai 5: Kaiwa】Savolga eng to'g'ri javobni tanlang:\n「今 何時ですか。」",
+              options: [
+                'どういたしまして。',
+                '午後 3時です。',
+                'いってきます。',
+                'はい、違います。',
+              ],
+              correctAnswerIndex: 1,
+              explanation: "To'g'ri javob: 「午後 3時です。」.",
             },
           ],
         },
@@ -5435,141 +9399,239 @@ export const MINNA_N5_LESSONS: Lesson[] = [
     lessonNumber: 15,
     title: "15-dars: Ruxsat, Taqiq va Holat fe'llari",
     description:
-      "Minna no Nihongo Shokyu 1: 15-dars: Ruxsat, Taqiq va Holat fe'llari. Darsda 30 ta yangi so'z va 5 ta asosiy grammatik qoida o'rganiladi.",
-    estimatedDurationMinutes: 20,
+      "Minna no Nihongo Shokyu 1: 15-dars: Ruxsat, Taqiq va Holat fe'llari. Darsda 30 ta yangi so'z, audio talaffuzli Furigana misollar va 5 ta asosiy grammatik formula o'rganiladi.",
+    estimatedDurationMinutes: 25,
     icon: '🌸',
     steps: [
       {
         id: 'ja-minna-l15-s1',
         title: "Lug'at va Qoidalar",
         type: 'learn',
-        estimatedMinutes: 8,
+        estimatedMinutes: 10,
         learnData: {
           title: "15-Dars: 15-dars: Ruxsat, Taqiq va Holat fe'llari",
           subtitle: '第15課：許可と禁止（〜てもいいです・てはいけません）',
           explanation:
-            "15-dars: Ruxsat, Taqiq va Holat fe'llari bo'yicha to'liq grammatik izohlar va qoidalar to'plami. Har bir qoida Minna no Nihongo darsligining o'zbekcha tarjimasiga moslashtirilgan.",
+            "15-dars: Ruxsat, Taqiq va Holat fe'llari bo'yicha to'liq grammatik izohlar, formulalar va Furiganali misollar to'plami.",
           keyPoints: [
-            "1.                                                                           FE’Lning  て -shakli  も いいです HARAKATGA RUXSAT BERISH: Gapning ushbu shakli ish-harakatni bajarish mumkinligi, ruxsat berish kabi ma'nolarini ifodalaydi. Biror bir ish-harakat...",
-            "2.                                                                         FE’Lning  て -shakli  は いけません HARAKATNI TAQIQLASH: Gapning ushbu turi ish-harakatning bajarilishini man etilishni ifodalaydi ～ても いいですか ruxsat so'rash shaklidagi so'roq gap...",
-            "3.  FE’Lning  て -shakli  います: 14-darsda ko'rib o'tgan “FE'Lning て -shakli います ”ning qo'llanilishidan tashqari ushbu shakldagi gaplar ancha avval boshl...",
-            "4.   FE’Lning て -shakli  います: “FE'Lning て -shakli います ”, shuningdek ma'lum vaqt mobaynida davom etib, odat tusiga kirgan yoki takrorlanib kelgan ish-h...",
-            "5.  知[し] りません: しって います fe'li inkor shaklda しりません ga o'zgaradi. ･･･いいえ、知[し] りません。 Shahar hokimiyatning telefon raqamini bilasizmi?...",
+            "📌 1.                                                                           FE’Lning  て -shakli  も いいです HARAKATGA RUXSAT BERISH: Gapning ushbu shakli ish-harakatni bajarish mumkinligi, ruxsat berish kabi ma'nolarini ifodalaydi.",
+            "📌 2.                                                                         FE’Lning  て -shakli  は いけません HARAKATNI TAQIQLASH: Gapning ushbu turi ish-harakatning bajarilishini man etilishni ifodalaydi ～ても いいですか ruxsat so'rash shaklidagi so'roq gaplarga inkor javobni qaytarayotganda ては shaklini qo'llamasdan, いいえ、いけません shaklini qo'llashning o'zi yetarli.",
+            "📌 3.  FE’Lning  て -shakli  います: 14-darsda ko'rib o'tgan “FE'Lning て -shakli います ”ning qo'llanilishidan tashqari ushbu shakldagi gaplar ancha avval boshlangan va hozirgacha davom etayotgan holatni ifoda etib keladi.",
+            "📌 4.   FE’Lning て -shakli  います: “FE'Lning て -shakli います ”, shuningdek ma'lum vaqt mobaynida davom etib, odat tusiga kirgan yoki takrorlanib kelgan ish-harakatni ifodalaydi.",
+            "📌 5.  知[し] りません: しって います fe'li inkor shaklda しりません ga o'zgaradi.",
           ],
           vocabulary: [
             {
               term: '立ちます (たちます)',
               reading: 'たちます',
               meaning: 'turmoq',
-              exampleSentence: 'たちます — turmoq',
-              exampleTranslation: 'turmoq',
+              exampleSentence: '毎日[まいにち] 立ちます[たちます]。',
+              exampleTranslation: 'Har kuni turmoq.',
             },
             {
               term: '座ります (すわります)',
               reading: 'すわります',
               meaning: "o'tirmoq",
-              exampleSentence: "すわります — o'tirmoq",
-              exampleTranslation: "o'tirmoq",
+              exampleSentence: '毎日[まいにち] 座ります[すわります]。',
+              exampleTranslation: "Har kuni o'tirmoq.",
             },
             {
               term: '使います (つかいます)',
               reading: 'つかいます',
               meaning: "foydalanmoq, qo'llamoq, ishlatmoq",
-              exampleSentence: "つかいます — foydalanmoq, qo'llamoq, ishlatmoq",
-              exampleTranslation: "foydalanmoq, qo'llamoq, ishlatmoq",
+              exampleSentence: '毎日[まいにち] 使います[つかいます]。',
+              exampleTranslation: "Har kuni foydalanmoq, qo'llamoq, ishlatmoq.",
             },
             {
               term: '置きます (おきます)',
               reading: 'おきます',
               meaning: "qo'ymoq",
-              exampleSentence: "おきます — qo'ymoq",
-              exampleTranslation: "qo'ymoq",
+              exampleSentence: '毎朝[まいあさ] 6時[ろくじ]に 起[お]きます。',
+              exampleTranslation: "Har kuni ertalab soat 6 da uyg'onaman.",
             },
             {
               term: '作ります、 (つくります)',
               reading: 'つくります',
               meaning: 'yasamoq; tayyorlamoq, pishirmoq 造ります',
-              exampleSentence: 'つくります — yasamoq; tayyorlamoq, pishirmoq 造ります',
-              exampleTranslation: 'yasamoq; tayyorlamoq, pishirmoq 造ります',
+              exampleSentence: '毎日[まいにち] 作ります、[つくります]。',
+              exampleTranslation: 'Har kuni yasamoq; tayyorlamoq, pishirmoq 造ります.',
             },
             {
               term: '売ります (うります)',
               reading: 'うります',
               meaning: 'sotmoq',
-              exampleSentence: 'うります — sotmoq',
-              exampleTranslation: 'sotmoq',
+              exampleSentence: '毎日[まいにち] 売ります[うります]。',
+              exampleTranslation: 'Har kuni sotmoq.',
             },
             {
               term: '知ります (しります)',
               reading: 'しります',
               meaning: 'bilmoq',
-              exampleSentence: 'しります — bilmoq',
-              exampleTranslation: 'bilmoq',
+              exampleSentence: '毎日[まいにち] 知ります[しります]。',
+              exampleTranslation: 'Har kuni bilmoq.',
             },
             {
               term: '住みます (すみます)',
               reading: 'すみます',
               meaning: 'yashamoq',
-              exampleSentence: 'すみます — yashamoq',
-              exampleTranslation: 'yashamoq',
+              exampleSentence: '毎日[まいにち] 住みます[すみます]。',
+              exampleTranslation: 'Har kuni yashamoq.',
             },
             {
-              term: '研究 します (けんきゅう します)',
-              reading: 'けんきゅう します',
+              term: '研究します (けんきゅうします)',
+              reading: 'けんきゅうします',
               meaning: 'ilmiy tadqiqot olib bormoq',
-              exampleSentence: 'けんきゅう します — ilmiy tadqiqot olib bormoq',
-              exampleTranslation: 'ilmiy tadqiqot olib bormoq',
+              exampleSentence: '毎日[まいにち] 研究します[けんきゅうします]。',
+              exampleTranslation: 'Har kuni ilmiy tadqiqot olib bormoq.',
             },
             {
-              term: '知って います (しって います)',
-              reading: 'しって います',
+              term: '知っています (しっています)',
+              reading: 'しっています',
               meaning: 'bila(~man, ~san, ~di)',
-              exampleSentence: 'しって います — bila(~man, ~san, ~di)',
-              exampleTranslation: 'bila(~man, ~san, ~di)',
+              exampleSentence: '毎日[まいにち] 知っています[しっています]。',
+              exampleTranslation: 'Har kuni bila(~man, ~san, ~di).',
             },
             {
-              term: '住んで います (すんで います)',
-              reading: 'すんで います',
+              term: '住んでいます (すんでいます)',
+              reading: 'すんでいます',
               meaning: 'yashayap(~man, san, ~ti)',
-              exampleSentence: 'すんで います — yashayap(~man, san, ~ti)',
-              exampleTranslation: 'yashayap(~man, san, ~ti)',
+              exampleSentence: '毎日[まいにち] 住んでいます[すんでいます]。',
+              exampleTranslation: 'Har kuni yashayap(~man, san, ~ti).',
             },
             {
-              term: '[ 大阪に～ ] ([ おおさかに～ ])',
-              reading: '[ おおさかに～ ]',
+              term: '大阪に～ (おおさかに～)',
+              reading: 'おおさかに～',
               meaning: '(Osakada yashayap(~man, ~san,~ti))',
-              exampleSentence: '[ おおさかに～ ] — (Osakada yashayap(~man, ~san,~ti))',
-              exampleTranslation: '(Osakada yashayap(~man, ~san,~ti))',
+              exampleSentence: '山田[やまだ][おおさかに]は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada (osakada yashayap(~man, ~san,~ti)) samimiy inson.',
             },
             {
               term: '資料 (しりょう)',
               reading: 'しりょう',
               meaning: "material, ma'lumot",
-              exampleSentence: "しりょう — material, ma'lumot",
-              exampleTranslation: "material, ma'lumot",
+              exampleSentence: '毎日[まいにち] 資料[しりょう]。',
+              exampleTranslation: "Har kuni material, ma'lumot.",
             },
             {
               term: 'カタログ',
               reading: 'カタログ',
               meaning: 'katalog',
-              exampleSentence: 'カタログ — katalog',
-              exampleTranslation: 'katalog',
+              exampleSentence: 'これは わたしが 買[か]った カタログ です。',
+              exampleTranslation: 'Bu men sotib olgan katalog.',
             },
             {
               term: '時刻表 (じこくひょう)',
               reading: 'じこくひょう',
               meaning: 'vaqt jadval',
-              exampleSentence: 'じこくひょう — vaqt jadval',
-              exampleTranslation: 'vaqt jadval',
+              exampleSentence: '毎日[まいにち] 時刻表[じこくひょう]。',
+              exampleTranslation: 'Har kuni vaqt jadval.',
+            },
+            {
+              term: '服 (ふく)',
+              reading: 'ふく',
+              meaning: 'kiyim',
+              exampleSentence: 'これは わたしが 買[か]った 服[ふく] です。',
+              exampleTranslation: 'Bu men sotib olgan kiyim.',
+            },
+            {
+              term: '製品 (せいひん)',
+              reading: 'せいひん',
+              meaning: 'mahsulot',
+              exampleSentence: 'これは わたしが 買[か]った 製品[せいひん] です。',
+              exampleTranslation: 'Bu men sotib olgan mahsulot.',
+            },
+            {
+              term: 'ソフト',
+              reading: 'ソフト',
+              meaning: "dastur ta'minoti (kompyuter)",
+              exampleSentence: 'これは わたしが 買[か]った ソフト です。',
+              exampleTranslation: "Bu men sotib olgan dastur ta'minoti (kompyuter).",
+            },
+            {
+              term: '専門 (せんもん)',
+              reading: 'せんもん',
+              meaning: "mutaxassislik, yo'nalish",
+              exampleSentence: 'これは わたしが 買[か]った 専門[せんもん] です。',
+              exampleTranslation: "Bu men sotib olgan mutaxassislik, yo'nalish.",
+            },
+            {
+              term: '歯医者 (はいしゃ)',
+              reading: 'はいしゃ',
+              meaning: 'tish doktori, stomatolog',
+              exampleSentence: '田中[たなか]さんは 歯医者[はいしゃ] です。',
+              exampleTranslation: 'Tanaka janoblari tish doktori, stomatolog.',
+            },
+            {
+              term: '床屋 (とこや)',
+              reading: 'とこや',
+              meaning: 'erkaklar sartaroshxonasi',
+              exampleSentence: 'あそこは 床屋[とこや] です。',
+              exampleTranslation: 'Anavi yer erkaklar sartaroshxonasi.',
+            },
+            {
+              term: 'プレイガイド',
+              reading: 'プレイガイド',
+              meaning: 'teatr kassasi',
+              exampleSentence: 'これは わたしが 買[か]った プレイガイド です。',
+              exampleTranslation: 'Bu men sotib olgan teatr kassasi.',
+            },
+            {
+              term: '独身 (どくしん)',
+              reading: 'どくしん',
+              meaning: "bo'ydoq",
+              exampleSentence: 'これは わたしが 買[か]った 独身[どくしん] です。',
+              exampleTranslation: "Bu men sotib olgan bo'ydoq.",
+            },
+            {
+              term: '特とくに',
+              reading: '特とくに',
+              meaning: 'ayniqsa',
+              exampleSentence: 'これは わたしが 買[か]った 特[とく]に です。',
+              exampleTranslation: 'Bu men sotib olgan ayniqsa.',
+            },
+            {
+              term: '思おもい出だします',
+              reading: '思おもい出だします',
+              meaning: 'yodga olmoq, xotirlamoq',
+              exampleSentence: '毎日[まいにち] 思[おも]い出[だ]します。',
+              exampleTranslation: 'Har kuni yodga olmoq, xotirlamoq.',
+            },
+            {
+              term: 'ご家か族ぞく',
+              reading: 'ご家か族ぞく',
+              meaning: 'oilangiz, oilasi',
+              exampleSentence: 'これは わたしが 買[か]った ご家[か]族[ぞく] です。',
+              exampleTranslation: 'Bu men sotib olgan oilangiz, oilasi.',
+            },
+            {
+              term: 'いらっしゃいます',
+              reading: 'いらっしゃいます',
+              meaning: 'u kishi (hurmat shakli)',
+              exampleSentence: '毎日[まいにち] いらっしゃいます。',
+              exampleTranslation: 'Har kuni u kishi (hurmat shakli).',
+            },
+            {
+              term: '高校こうこう',
+              reading: '高校こうこう',
+              meaning: 'yuqori maktab',
+              exampleSentence: 'これは わたしが 買[か]った 高校[こうこう] です。',
+              exampleTranslation: 'Bu men sotib olgan yuqori maktab.',
+            },
+            {
+              term: '日本橋にっぽんばし',
+              reading: '日本橋にっぽんばし',
+              meaning: 'Osakadagi savdo hududi nomi',
+              exampleSentence: 'これは わたしが 買[か]った 日本橋[にっぽんばし] です。',
+              exampleTranslation: 'Bu men sotib olgan osakadagi savdo hududi nomi.',
             },
           ],
           grammarRules: [
             {
               pattern: 'FE’Lning  て -shakli  も いいです HARAKATGA RUXSAT BERISH',
               meaning:
-                "Gapning ushbu shakli ish-harakatni bajarish mumkinligi, ruxsat berish kabi ma'nolarini ifodalaydi. Biror bir ish-harakatni bajarishga ruxsat so'ralayotgan paytda shu tuzilmaga so'roq tusini beruvchi か",
-              usageNotes:
                 "Gapning ushbu shakli ish-harakatni bajarish mumkinligi, ruxsat berish kabi ma'nolarini ifodalaydi. Biror bir ish-harakatni bajarishga ruxsat so'ralayotgan paytda shu tuzilmaga so'roq tusini beruvchi か qo'shimchasi qo'shiladi. Quyida bunday turdagi savollarga javob namunasi keltirilgan. Inkor ma'nodagi javobda to'g'ridan-to'g'ri rad etish ko'rinishlari qo'llanilmaganligiga e'tibor bering. ･･･すみません。ちょっと。 Mana bu katalogni olsam maylimi?",
+              usageNotes:
+                'Minna no Nihongo 15-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: '写真[しゃしん] を 撮[と] っても いいです。',
@@ -5589,9 +9651,9 @@ export const MINNA_N5_LESSONS: Lesson[] = [
             {
               pattern: 'FE’Lning  て -shakli  は いけません HARAKATNI TAQIQLASH',
               meaning:
-                "Gapning ushbu turi ish-harakatning bajarilishini man etilishni ifodalaydi ～ても いいですか ruxsat so'rash shaklidagi so'roq gaplarga inkor javobni qaytarayotganda ては shaklini qo'llamasdan, いいえ、いけません shaklini",
-              usageNotes:
                 "Gapning ushbu turi ish-harakatning bajarilishini man etilishni ifodalaydi ～ても いいですか ruxsat so'rash shaklidagi so'roq gaplarga inkor javobni qaytarayotganda ては shaklini qo'llamasdan, いいえ、いけません shaklini qo'llashning o'zi yetarli. Ushbu inkor gaplarni o'zidan katta yoki lavozimi bo'yicha yuqori bo'lgan shaxslarga nisbatan qo'llab bo'lmaydi.",
+              usageNotes:
+                'Minna no Nihongo 15-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'ここで たばこを 吸[す] っては いけません。禁煙[きんえん] ですから。',
@@ -5599,8 +9661,7 @@ export const MINNA_N5_LESSONS: Lesson[] = [
                     'Bu yerda chekish mumkin emas. Chunki, bu yer chekish man etilgan joy.',
                 },
                 {
-                  sentence:
-                    '先生[せんせい] 、ここで 遊[あそ] んでも いいですか。 Ustoz, bu yerda o`ynab tursak maylimi?',
+                  sentence: '先生[せんせい] 、ここで 遊[あそ] んでも いいですか。',
                   translation: "･･･いいえ、いけません。 …Yo'q, mumkin emas.",
                 },
               ],
@@ -5608,23 +9669,26 @@ export const MINNA_N5_LESSONS: Lesson[] = [
             {
               pattern: 'FE’Lning  て -shakli  います',
               meaning:
-                "14-darsda ko'rib o'tgan “FE'Lning て -shakli います ”ning qo'llanilishidan tashqari ushbu shakldagi gaplar ancha avval boshlangan va hozirgacha davom etayotgan holatni ifoda etib keladi. egasi ” kabi ma'n",
-              usageNotes:
                 "14-darsda ko'rib o'tgan “FE'Lning て -shakli います ”ning qo'llanilishidan tashqari ushbu shakldagi gaplar ancha avval boshlangan va hozirgacha davom etayotgan holatni ifoda etib keladi. egasi ” kabi ma'nolarni ham ifodalaydi.",
+              usageNotes:
+                'Minna no Nihongo 15-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
-                  sentence: 'わたしは 結婚[けっこん] して います。 Men turmush qurganman.',
-                  translation: '',
+                  sentence: 'わたしは 結婚[けっこん] して います。',
+                  translation: 'Men turmush qurganman.',
                 },
                 {
-                  sentence:
-                    'わたしは 田[た] 中[なか] さんを 知[し] って います。 Men janob Tanakani taniyman.',
-                  translation: '',
+                  sentence: 'わたしは 田[た] 中[なか] さんを 知[し] って います。',
+                  translation: 'Men janob Tanakani taniyman.',
                 },
                 {
-                  sentence:
-                    'わたしは 大阪[おおさか] に 住[す] んで います。 Men Osakada yashayman.',
-                  translation: '',
+                  sentence: 'わたしは 大阪[おおさか] に 住[す] んで います。',
+                  translation: 'Men Osakada yashayman.',
+                },
+                {
+                  sentence: 'わたしは カメラを 持[も] って います。',
+                  translation:
+                    "もっています iborasi “ qo'lida ushlab turmoq ” ma'nosi bilan birga “ biror narsaning",
                 },
               ],
             },
@@ -5633,7 +9697,7 @@ export const MINNA_N5_LESSONS: Lesson[] = [
               meaning:
                 "“FE'Lning て -shakli います ”, shuningdek ma'lum vaqt mobaynida davom etib, odat tusiga kirgan yoki takrorlanib kelgan ish-harakatni ifodalaydi. tarzida qo'llashimiz ham mumkin.",
               usageNotes:
-                "“FE'Lning て -shakli います ”, shuningdek ma'lum vaqt mobaynida davom etib, odat tusiga kirgan yoki takrorlanib kelgan ish-harakatni ifodalaydi. tarzida qo'llashimiz ham mumkin.",
+                'Minna no Nihongo 15-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence:
@@ -5650,6 +9714,14 @@ export const MINNA_N5_LESSONS: Lesson[] = [
                   sentence: 'スーパーで フィルムを 売[う] って います。',
                   translation: 'Supermarketda fototasma sotiladi.',
                 },
+                {
+                  sentence: 'ミラーさんは  IMC  で 働[はたら] いて います。',
+                  translation: 'Janob Miler IMC korxonasida ishlaydi.',
+                },
+                {
+                  sentence: '妹[いもうと] は 大学[だいがく] で 勉[べん] 強[きょう] して います。',
+                  translation: 'Singlim institutda tahsil oladi.',
+                },
               ],
             },
             {
@@ -5657,7 +9729,7 @@ export const MINNA_N5_LESSONS: Lesson[] = [
               meaning:
                 "しって います fe'li inkor shaklda しりません ga o'zgaradi. ･･･いいえ、知[し] りません。 Shahar hokimiyatning telefon raqamini bilasizmi?",
               usageNotes:
-                "しって います fe'li inkor shaklda しりません ga o'zgaradi. ･･･いいえ、知[し] りません。 Shahar hokimiyatning telefon raqamini bilasizmi?",
+                'Minna no Nihongo 15-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence:
@@ -5668,76 +9740,85 @@ export const MINNA_N5_LESSONS: Lesson[] = [
             },
           ],
           culturalNotes:
-            "Yaponiyada qoidalar va tartibga qat'iy rioya qilinadi. Biron narsa qilishdan oldin ruxsat so'rash uchun '~てもいいですか' ishlatiladi.",
+            "Yaponiyada qoidalar va tartibga qat'iy rioya qilinadi. Biron narsa qilishdan oldin ruxsat so'rash uchun '~てもいいですか' ishlatiladi. Taqiq uchun '~てはいけません' qo'llaniladi.",
         },
       },
       {
         id: 'ja-minna-l15-s2',
         title: 'Mustahkamlash Mashqlari',
         type: 'practice',
-        estimatedMinutes: 6,
+        estimatedMinutes: 8,
         practiceData: {
           instructions:
-            "Darsda o'rganilgan yangi so'zlar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
+            "Darsda o'rganilgan yangi so'zlar, zarrachalar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
           exercises: [
             {
               id: 'ja-minna-l15-ex1',
               type: 'multiple-choice',
-              prompt: "「立ちます」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
-              options: ['turmoq', "o'tirmoq", "foydalanmoq, qo'llamoq, ishlatmoq", "qo'ymoq"],
-              correctAnswer: 0,
-              explanation: "To'g'ri javob: turmoq.",
+              prompt:
+                "Bo'sh joyga to'g'ri zarrachani qo'ying:\n「友達（　）いっしょに 帰ります。」",
+              options: ['へ', 'に', 'で', 'と'],
+              correctAnswer: 3,
+              explanation:
+                "To'g'ri javob: 「と」. Birgalikdagi shaxs 'と' zarrachasi orqali ifodalanadi.",
             },
             {
               id: 'ja-minna-l15-ex2',
               type: 'multiple-choice',
-              prompt:
-                "15-dars grammatik qoidasi: '1.                                                                           FE’Lning  て -shakli  も いいです HARAKATGA RUXSAT BERISH' bo'yicha qaysi gap grammatik jihatdan to'g'ri tuzilgan?",
-              options: [
-                '写真[しゃしん] を 撮[と] っても いいです。',
-                'これ は を です。',
-                'だれ が 行きます か でした。',
-                'へ 行きません です。',
-              ],
-              correctAnswer: 0,
-              explanation:
-                "To'g'ri javob: 写真[しゃしん] を 撮[と] っても いいです。 (Suratga olish(ingiz) mumkin.).",
+              prompt: "「服 (ふく)」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
+              options: ["o'tirmoq", 'kiyim', "foydalanmoq, qo'llamoq, ishlatmoq", 'turmoq'],
+              correctAnswer: 1,
+              explanation: "To'g'ri javob: 「kiyim」.",
             },
             {
               id: 'ja-minna-l15-ex3',
               type: 'multiple-choice',
-              prompt:
-                "O'zbek tiliga to'g'ri tarjima qiling: 「たばこを 吸[す] っても いいですか。」",
+              prompt: "15-dars grammatik qoidasiga muvofiq to'g'ri tuzilgan gapni aniqlang:",
               options: [
-                'Cheksam maylimi?',
-                "Ertaga do'stim bilan mehmonga boraman.",
-                "Kechirasiz, soat necha bo'ldi?",
-                "Iltimos, manzilni ko'rsatib yuboring.",
+                '写真[しゃしん] を 撮[と] っても いいです か でした。',
+                '写真[しゃしん] を 撮[と] っても いいです。',
+                '写真[しゃしん] を 撮[と] っても いいだです。',
+                'これ を 写真[しゃしん] を 撮[と] っても いいです。',
               ],
-              correctAnswer: 0,
-              explanation: "To'g'ri tarjimasi: Cheksam maylimi?.",
+              correctAnswer: 1,
+              explanation:
+                "To'g'ri gap: 「写真[しゃしん] を 撮[と] っても いいです。」 (Suratga olish(ingiz) mumkin.).",
             },
             {
               id: 'ja-minna-l15-ex4',
               type: 'multiple-choice',
-              prompt: 'Ushbu darsdagi suhbatdan kelib chiqib: Miller qanday jumla aytadi?',
+              prompt: "Ushbu gapning to'g'ri yaponcha tarjimasini tanlang:\n「Cheksam maylimi?」",
               options: [
-                "Bugungi kino yaxshi bo'ldi-a?",
-                'Men hech qayerga bormayman.',
-                'Taksida aeroportga haydang.',
-                "Iltimos, hisobni alohida to'laymiz.",
+                'この カタログを もらっても いいですか。',
+                'たばこを 吸[す] っても いいですか。',
+                'ここで たばこを 吸[す] っては いけません。禁煙[きんえん] ですから。',
+                '写真[しゃしん] を 撮[と] っても いいです。',
+              ],
+              correctAnswer: 1,
+              explanation: "Yaponcha to'g'ri ifodasi: 「たばこを 吸[す] っても いいですか。」.",
+            },
+            {
+              id: 'ja-minna-l15-ex5',
+              type: 'multiple-choice',
+              prompt:
+                'Suhbatdoshingiz: 「お疲れ様でした。」 dedi. Unga eng mos muloyim javob qaysi?',
+              options: [
+                'お疲れ様でした。',
+                'おやすみなさい。',
+                '失礼します。',
+                'ごちそうさまでした。',
               ],
               correctAnswer: 0,
-              explanation: "To'g'ri ibora: Bugungi kino yaxshi bo'ldi-a?.",
+              explanation: "To'g'ri javob: 「お疲れ様でした。」.",
             },
           ],
         },
       },
       {
         id: 'ja-minna-l15-s3',
-        title: 'Sinov Testi',
+        title: 'JLPT N5 Sinov Testi',
         type: 'test',
-        estimatedMinutes: 6,
+        estimatedMinutes: 7,
         testData: {
           instructions:
             "Darsni muvaffaqiyatli yakunlash uchun savollarga to'g'ri javob bering (Kamida 80%).",
@@ -5745,57 +9826,60 @@ export const MINNA_N5_LESSONS: Lesson[] = [
           questions: [
             {
               id: 'ja-minna-l15-q1',
-              question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「写真[しゃしん] を 撮[と] っても いいです。」",
-              options: [
-                'Suratga olish(ingiz) mumkin.',
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
-              ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Suratga olish(ingiz) mumkin..",
+              question: '【Mondai 1: Moji/Goi】「製品」の 読[よ]み方[かた]は どれですか。',
+              options: ['つかいます', 'たちます', 'せいひん', 'すわります'],
+              correctAnswerIndex: 2,
+              explanation: "「製品」 ning to'g'ri o'qilishi: 「せいひん」 (mahsulot).",
             },
             {
               id: 'ja-minna-l15-q2',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「たばこを 吸[す] っても いいですか。」",
-              options: [
-                'Cheksam maylimi?',
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
-              ],
+                '【Mondai 2: Bunpo】（　）に 入[はい]る 最[もっと]も よいものを 1つ えらびなさい。\n「京都（　）行きます。」',
+              options: ['へ', 'で', 'を', 'から'],
               correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Cheksam maylimi?.",
+              explanation:
+                "To'g'ri zarracha: 「へ」. Boriladigan yo'nalish 'へ' (e deb o'qiladi) bilan belgilanadi.",
             },
             {
               id: 'ja-minna-l15-q3',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「この カタログを もらっても いいですか。」",
+                "【Mondai 3: Bunpo】15-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
               options: [
-                "･･･ええ、いいですよ。どうぞ。 …Ha, mayli. Marhamat. …Kechirasiz. Ilojim yo'q.",
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
+                '〜に 食べません でした',
+                '〜を 行きます です',
+                'FE’Lning  て -shakli  は いけません HARAKATNI TAQIQLASH',
+                '〜は 〜でした じゃありません',
               ],
-              correctAnswerIndex: 0,
+              correctAnswerIndex: 2,
               explanation:
-                "To'g'ri javob: ･･･ええ、いいですよ。どうぞ。 …Ha, mayli. Marhamat. …Kechirasiz. Ilojim yo'q..",
+                "To'g'ri grammatik formula: 「FE’Lning  て -shakli  は いけません HARAKATNI TAQIQLASH」.",
             },
             {
               id: 'ja-minna-l15-q4',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「ここで たばこを 吸[す] っては いけません。禁煙[きんえん] ですから。」",
+                "【Mondai 4: Dokkai】Quyidagi yaponcha gapning to'g'ri o'zbekcha ma'nosini toping:\n「この カタログを もらっても いいですか。」",
               options: [
+                "･･･ええ、いいですよ。どうぞ。 …Ha, mayli. Marhamat. …Kechirasiz. Ilojim yo'q.",
                 'Bu yerda chekish mumkin emas. Chunki, bu yer chekish man etilgan joy.',
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
+                'Cheksam maylimi?',
+                'Suratga olish(ingiz) mumkin.',
               ],
               correctAnswerIndex: 0,
               explanation:
-                "To'g'ri javob: Bu yerda chekish mumkin emas. Chunki, bu yer chekish man etilgan joy..",
+                "To'g'ri ma'nosi: 「･･･ええ、いいですよ。どうぞ。 …Ha, mayli. Marhamat. …Kechirasiz. Ilojim yo'q.」.",
+            },
+            {
+              id: 'ja-minna-l15-q5',
+              question:
+                "【Mondai 5: Kaiwa】Savolga eng to'g'ri javobni tanlang:\n「いっしょに 京都へ 行きませんか。」",
+              options: [
+                'いいえ、行きます。',
+                'すみません、トイレです。',
+                'いただきます。',
+                'ええ、飲みましょう。',
+              ],
+              correctAnswerIndex: 3,
+              explanation: "To'g'ri javob: 「ええ、飲みましょう。」.",
             },
           ],
         },
@@ -5812,142 +9896,458 @@ export const MINNA_N5_LESSONS: Lesson[] = [
     lessonNumber: 16,
     title: "16-dars: Harakatlar ketma-ketligi va Sifatlarni bog'lash",
     description:
-      "Minna no Nihongo Shokyu 1: 16-dars: Harakatlar ketma-ketligi va Sifatlarni bog'lash. Darsda 61 ta yangi so'z va 7 ta asosiy grammatik qoida o'rganiladi.",
-    estimatedDurationMinutes: 20,
+      "Minna no Nihongo Shokyu 1: 16-dars: Harakatlar ketma-ketligi va Sifatlarni bog'lash. Darsda 61 ta yangi so'z, audio talaffuzli Furigana misollar va 7 ta asosiy grammatik formula o'rganiladi.",
+    estimatedDurationMinutes: 25,
     icon: '🌸',
     steps: [
       {
         id: 'ja-minna-l16-s1',
         title: "Lug'at va Qoidalar",
         type: 'learn',
-        estimatedMinutes: 8,
+        estimatedMinutes: 10,
         learnData: {
           title: "16-Dars: 16-dars: Harakatlar ketma-ketligi va Sifatlarni bog'lash",
           subtitle: '第16課：動作の連続（〜てから・〜くて）',
           explanation:
-            "16-dars: Harakatlar ketma-ketligi va Sifatlarni bog'lash bo'yicha to'liq grammatik izohlar va qoidalar to'plami. Har bir qoida Minna no Nihongo darsligining o'zbekcha tarjimasiga moslashtirilgan.",
+            "16-dars: Harakatlar ketma-ketligi va Sifatlarni bog'lash bo'yicha to'liq grammatik izohlar, formulalar va Furiganali misollar to'plami.",
           keyPoints: [
-            "1.   FE’Lning  て -shakli 、 [FE’Lning  て -shakli]  、～: Fe'lli so'z birikmalarni bog'lash uchun “FE'Lning て -shakli” qo'llaniladi. Fe'llar bir necha ketma-ket sodir bo'ladigan ...",
-            "2.  い -SIFAT  (~ い )  → ～くて、～: い -sifatlarni sanab o'tayotganda sifatning oxirgi い harfi くて ga o'zgaradi. おおき－い → おおき－くて katta ちいさ－い → ちいさ－くて kichik い－...",
-            "3.   OT: で、～ な -SIFAT [ な ] OT yoki な -SIFAT so'z birikmalarini sanab o'tayotganda です - で ga o'zgaradi. [Eslatma1] Bu tuzilma ega...",
-            "4.  FE’L 1 ning  て -shakli  から、 FE’L 2: Bunday turdagi gaplar FE'L 1 ning harakati tugagandan keyin FE'L 2 ning harakati bo'lib o'tganligini yoki bo'lib o'tishi...",
-            "5.  OT 1  は  OT 2  が  SIFAT: Bunday turdagi gaplar inson yoki predmetning xususiyatini tasvirlayotganda qo'llaniladi. Gapning mavzusi は yuklamasi bil...",
-            "6.  どうやって: どうやって iborasi biror bir harakatni amalga oshirish yo'llarini aniqlash uchun so'roq gaplarda qo'llaniladi. Unga esa quyid...",
+            "📌 1.   FE’Lning  て -shakli 、 [FE’Lning  て -shakli]  、～: Fe'lli so'z birikmalarni bog'lash uchun “FE'Lning て -shakli” qo'llaniladi.",
+            "📌 2.  い -SIFAT  (~ い )  → ～くて、～: い -sifatlarni sanab o'tayotganda sifatning oxirgi い harfi くて ga o'zgaradi.",
+            "📌 3.   OT: で、～ な -SIFAT [ な ] OT yoki な -SIFAT so'z birikmalarini sanab o'tayotganda です - で ga o'zgaradi.",
+            "📌 4.  FE’L 1 ning  て -shakli  から、 FE’L 2: Bunday turdagi gaplar FE'L 1 ning harakati tugagandan keyin FE'L 2 ning harakati bo'lib o'tganligini yoki bo'lib o'tishini bildirish uchun qo'llaniladi.",
+            "📌 5.  OT 1  は  OT 2  が  SIFAT: Bunday turdagi gaplar inson yoki predmetning xususiyatini tasvirlayotganda qo'llaniladi.",
+            "📌 6.  どうやって: どうやって iborasi biror bir harakatni amalga oshirish yo'llarini aniqlash uchun so'roq gaplarda qo'llaniladi.",
           ],
           vocabulary: [
             {
               term: '乗ります (のります)',
               reading: 'のります',
               meaning: 'minmoq, chiqmoq',
-              exampleSentence: 'のります — minmoq, chiqmoq',
-              exampleTranslation: 'minmoq, chiqmoq',
+              exampleSentence: '毎日[まいにち] 乗ります[のります]。',
+              exampleTranslation: 'Har kuni minmoq, chiqmoq.',
             },
             {
-              term: '[ 電車に～ ] ([ でんしゃに～ ])',
-              reading: '[ でんしゃに～ ]',
+              term: '電車に～ (でんしゃに～)',
+              reading: 'でんしゃに～',
               meaning: '(poyezdga chiqmoq)',
-              exampleSentence: '[ でんしゃに～ ] — (poyezdga chiqmoq)',
-              exampleTranslation: '(poyezdga chiqmoq)',
+              exampleSentence: '山田[やまだ][でんしゃに]は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada (poyezdga chiqmoq) samimiy inson.',
             },
             {
               term: '降ります (おります)',
               reading: 'おります',
               meaning: 'tushmoq',
-              exampleSentence: 'おります — tushmoq',
-              exampleTranslation: 'tushmoq',
+              exampleSentence: '毎日[まいにち] 降ります[おります]。',
+              exampleTranslation: 'Har kuni tushmoq.',
             },
             {
-              term: '[ 電車を～ ] ([ でんしゃを～ ])',
-              reading: '[ でんしゃを～ ]',
+              term: '電車を～ (でんしゃを～)',
+              reading: 'でんしゃを～',
               meaning: '(poyezddan tushmoq)',
-              exampleSentence: '[ でんしゃを～ ] — (poyezddan tushmoq)',
-              exampleTranslation: '(poyezddan tushmoq)',
+              exampleSentence: '山田[やまだ][でんしゃを]は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada (poyezddan tushmoq) samimiy inson.',
             },
             {
               term: '乗り換えます (のりかえます)',
               reading: 'のりかえます',
               meaning: 'boshqa transportga almashmoq',
-              exampleSentence: 'のりかえます — boshqa transportga almashmoq',
-              exampleTranslation: 'boshqa transportga almashmoq',
+              exampleSentence: '毎日[まいにち] 乗り換えます[のりかえます]。',
+              exampleTranslation: 'Har kuni boshqa transportga almashmoq.',
             },
             {
               term: '浴びます (あびます)',
               reading: 'あびます',
               meaning: 'qabul qilmoq',
-              exampleSentence: 'あびます — qabul qilmoq',
-              exampleTranslation: 'qabul qilmoq',
+              exampleSentence: '毎日[まいにち] 浴びます[あびます]。',
+              exampleTranslation: 'Har kuni qabul qilmoq.',
             },
             {
-              term: '[ シャワーを～ ]',
-              reading: '[ シャワーを～ ]',
+              term: 'シャワーを～',
+              reading: 'シャワーを～',
               meaning: '(dush qabul qilmoq)',
-              exampleSentence: '[ シャワーを～ ] — (dush qabul qilmoq)',
-              exampleTranslation: '(dush qabul qilmoq)',
+              exampleSentence: '山田[やまだ][シャワーを]は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada (dush qabul qilmoq) samimiy inson.',
             },
             {
               term: '入れます (いれます)',
               reading: 'いれます',
               meaning: 'solmoq, joylamoq',
-              exampleSentence: 'いれます — solmoq, joylamoq',
-              exampleTranslation: 'solmoq, joylamoq',
+              exampleSentence: '毎日[まいにち] 入れます[いれます]。',
+              exampleTranslation: 'Har kuni solmoq, joylamoq.',
             },
             {
               term: '出します (だします)',
               reading: 'だします',
               meaning: 'chiqarmoq, olmoq (biror narasa ichidan)',
-              exampleSentence: 'だします — chiqarmoq, olmoq (biror narasa ichidan)',
-              exampleTranslation: 'chiqarmoq, olmoq (biror narasa ichidan)',
+              exampleSentence: '毎日[まいにち] 出します[だします]。',
+              exampleTranslation: 'Har kuni chiqarmoq, olmoq (biror narasa ichidan).',
             },
             {
               term: '入ります (はいります)',
               reading: 'はいります',
               meaning: 'kirmoq',
-              exampleSentence: 'はいります — kirmoq',
-              exampleTranslation: 'kirmoq',
+              exampleSentence: '毎日[まいにち] 入ります[はいります]。',
+              exampleTranslation: 'Har kuni kirmoq.',
             },
             {
-              term: '[ 大学に～ ] ([ だいがくに～ ])',
-              reading: '[ だいがくに～ ]',
+              term: '大学に～ (だいがくに～)',
+              reading: 'だいがくに～',
               meaning: '(universitetga kirmoq)',
-              exampleSentence: '[ だいがくに～ ] — (universitetga kirmoq)',
-              exampleTranslation: '(universitetga kirmoq)',
+              exampleSentence: '山田[やまだ][だいがくに]は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada (universitetga kirmoq) samimiy inson.',
             },
             {
               term: '出ます (でます)',
               reading: 'でます',
               meaning: 'bitirmoq, tugatmoq',
-              exampleSentence: 'でます — bitirmoq, tugatmoq',
-              exampleTranslation: 'bitirmoq, tugatmoq',
+              exampleSentence: '毎日[まいにち] 出ます[でます]。',
+              exampleTranslation: 'Har kuni bitirmoq, tugatmoq.',
             },
             {
-              term: '[ 大学を～ ] ([ だいがくを～ ])',
-              reading: '[ だいがくを～ ]',
+              term: '大学を～ (だいがくを～)',
+              reading: 'だいがくを～',
               meaning: '(universitetni bitirmoq)',
-              exampleSentence: '[ だいがくを～ ] — (universitetni bitirmoq)',
-              exampleTranslation: '(universitetni bitirmoq)',
+              exampleSentence: '山田[やまだ][だいがくを]は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada (universitetni bitirmoq) samimiy inson.',
             },
             {
               term: 'やめます',
               reading: 'やめます',
               meaning: 'ketmoq, tashlamoq; bas qilmoq',
-              exampleSentence: 'やめます — ketmoq, tashlamoq; bas qilmoq',
-              exampleTranslation: 'ketmoq, tashlamoq; bas qilmoq',
+              exampleSentence: '毎日[まいにち] やめます。',
+              exampleTranslation: 'Har kuni ketmoq, tashlamoq; bas qilmoq.',
             },
             {
-              term: '[ 会社を～ ] ([ かいしゃを～ ])',
-              reading: '[ かいしゃを～ ]',
+              term: '会社を～ (かいしゃを～)',
+              reading: 'かいしゃを～',
               meaning: '(korxonadan ketmoq)',
-              exampleSentence: '[ かいしゃを～ ] — (korxonadan ketmoq)',
-              exampleTranslation: '(korxonadan ketmoq)',
+              exampleSentence: '山田[やまだ][かいしゃを]は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada (korxonadan ketmoq) samimiy inson.',
+            },
+            {
+              term: '押します (おします)',
+              reading: 'おします',
+              meaning: 'bosmoq; itarmoq',
+              exampleSentence: '毎日[まいにち] 押します[おします]。',
+              exampleTranslation: 'Har kuni bosmoq; itarmoq.',
+            },
+            {
+              term: '若い (わかい)',
+              reading: 'わかい',
+              meaning: 'yosh',
+              exampleSentence: 'この 部屋[へや]は 若い[わかい]です。',
+              exampleTranslation: 'Bu xona yosh.',
+            },
+            {
+              term: '長い (ながい)',
+              reading: 'ながい',
+              meaning: 'uzun',
+              exampleSentence: 'この 部屋[へや]は 長い[ながい]です。',
+              exampleTranslation: 'Bu xona uzun.',
+            },
+            {
+              term: '短い (みじかい)',
+              reading: 'みじかい',
+              meaning: 'qisqa',
+              exampleSentence: 'この 部屋[へや]は 短い[みじかい]です。',
+              exampleTranslation: 'Bu xona qisqa.',
+            },
+            {
+              term: '明るい (あかるい)',
+              reading: 'あかるい',
+              meaning: 'yorug',
+              exampleSentence: 'この 部屋[へや]は 明るい[あかるい]です。',
+              exampleTranslation: 'Bu xona yorug.',
+            },
+            {
+              term: '暗い (くらい)',
+              reading: 'くらい',
+              meaning: "qorong'u",
+              exampleSentence: 'この 部屋[へや]は 暗い[くらい]です。',
+              exampleTranslation: "Bu xona qorong'u.",
+            },
+            {
+              term: '背が高い (せがたかい)',
+              reading: 'せがたかい',
+              meaning: "bo'yi baland, novcha",
+              exampleSentence: 'この 部屋[へや]は 背が高い[せがたかい]です。',
+              exampleTranslation: "Bu xona bo'yi baland, novcha.",
+            },
+            {
+              term: '頭がいい (あたまがいい)',
+              reading: 'あたまがいい',
+              meaning: "aqlli, kallasi o'tkir",
+              exampleSentence: 'この 部屋[へや]は 頭がいい[あたまがいい]です。',
+              exampleTranslation: "Bu xona aqlli, kallasi o'tkir.",
+            },
+            {
+              term: '体 (からだ)',
+              reading: 'からだ',
+              meaning: 'tana, jussa',
+              exampleSentence: 'これは わたしが 買[か]った 体[からだ] です。',
+              exampleTranslation: 'Bu men sotib olgan tana, jussa.',
+            },
+            {
+              term: '頭 (あたま)',
+              reading: 'あたま',
+              meaning: 'bosh',
+              exampleSentence: 'これは わたしが 買[か]った 頭[あたま] です。',
+              exampleTranslation: 'Bu men sotib olgan bosh.',
+            },
+            {
+              term: '髪 (かみ)',
+              reading: 'かみ',
+              meaning: 'soch',
+              exampleSentence: 'これは わたしが 買[か]った 髪[かみ] です。',
+              exampleTranslation: 'Bu men sotib olgan soch.',
+            },
+            {
+              term: '顔 (かお)',
+              reading: 'かお',
+              meaning: 'yuz',
+              exampleSentence: 'これは わたしが 買[か]った 顔[かお] です。',
+              exampleTranslation: 'Bu men sotib olgan yuz.',
+            },
+            {
+              term: '目 (め)',
+              reading: 'め',
+              meaning: "ko'z",
+              exampleSentence: 'これは わたしが 買[か]った 目[め] です。',
+              exampleTranslation: "Bu men sotib olgan ko'z.",
+            },
+            {
+              term: '耳 (みみ)',
+              reading: 'みみ',
+              meaning: 'quloq',
+              exampleSentence: 'これは わたしが 買[か]った 耳[みみ] です。',
+              exampleTranslation: 'Bu men sotib olgan quloq.',
+            },
+            {
+              term: '口 (くち)',
+              reading: 'くち',
+              meaning: "og'iz",
+              exampleSentence: 'これは わたしが 買[か]った 口[くち] です。',
+              exampleTranslation: "Bu men sotib olgan og'iz.",
+            },
+            {
+              term: '歯 (は)',
+              reading: 'は',
+              meaning: 'tish',
+              exampleSentence: 'これは わたしが 買[か]った 歯[は] です。',
+              exampleTranslation: 'Bu men sotib olgan tish.',
+            },
+            {
+              term: 'おなか',
+              reading: 'おなか',
+              meaning: 'qorin',
+              exampleSentence: 'これは わたしが 買[か]った おなか です。',
+              exampleTranslation: 'Bu men sotib olgan qorin.',
+            },
+            {
+              term: '足 (あし)',
+              reading: 'あし',
+              meaning: 'oyoq',
+              exampleSentence: 'これは わたしが 買[か]った 足[あし] です。',
+              exampleTranslation: 'Bu men sotib olgan oyoq.',
+            },
+            {
+              term: 'サービス',
+              reading: 'サービス',
+              meaning: 'xizmat korsatish , servis',
+              exampleSentence: 'これは わたしが 買[か]った サービス です。',
+              exampleTranslation: 'Bu men sotib olgan xizmat korsatish , servis.',
+            },
+            {
+              term: 'ジョギング',
+              reading: 'ジョギング',
+              meaning: 'yugurish ( ～を します： yugurmoq)',
+              exampleSentence: 'これは わたしが 買[か]った ジョギング です。',
+              exampleTranslation: 'Bu men sotib olgan yugurish ( ～を します： yugurmoq).',
+            },
+            {
+              term: 'シャワー',
+              reading: 'シャワー',
+              meaning: 'dush',
+              exampleSentence: 'これは わたしが 買[か]った シャワー です。',
+              exampleTranslation: 'Bu men sotib olgan dush.',
+            },
+            {
+              term: '緑 (みどり)',
+              reading: 'みどり',
+              meaning: 'yashil; yashilliklar',
+              exampleSentence: 'これは わたしが 買[か]った 緑[みどり] です。',
+              exampleTranslation: 'Bu men sotib olgan yashil; yashilliklar.',
+            },
+            {
+              term: 'お寺 (おてら)',
+              reading: 'おてら',
+              meaning: 'budda ibodatxonasi',
+              exampleSentence: 'これは わたしが 買[か]った [お]寺[[お]てら] です。',
+              exampleTranslation: 'Bu men sotib olgan budda ibodatxonasi.',
+            },
+            {
+              term: '神社 (じんじゃ)',
+              reading: 'じんじゃ',
+              meaning: 'jinjya',
+              exampleSentence: 'これは わたしが 買[か]った 神社[じんじゃ] です。',
+              exampleTranslation: 'Bu men sotib olgan jinjya.',
+            },
+            {
+              term: '留学生 (りゅうがくせい)',
+              reading: 'りゅうがくせい',
+              meaning: 'xorijlik talaba',
+              exampleSentence: '田中[たなか]さんは 留学生[りゅうがくせい] です。',
+              exampleTranslation: 'Tanaka janoblari xorijlik talaba.',
+            },
+            {
+              term: '～番 (～ばん)',
+              reading: '～ばん',
+              meaning: '~ raqam',
+              exampleSentence: '山田[やまだ]ばんは 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada ~ raqam samimiy inson.',
+            },
+            {
+              term: 'どうやって',
+              reading: 'どうやって',
+              meaning: 'qanday qilib',
+              exampleSentence: 'これは わたしが 買[か]った どうやって です。',
+              exampleTranslation: 'Bu men sotib olgan qanday qilib.',
+            },
+            {
+              term: 'どの～',
+              reading: 'どの～',
+              meaning: 'qaysi~',
+              exampleSentence: '山田[やまだ]どのは 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada qaysi~ samimiy inson.',
+            },
+            {
+              term: 'いいえ、まだまだです。',
+              reading: 'いいえ、まだまだです。',
+              meaning: "Halicha yo'q. / Hali ~ bo'lgani",
+              exampleSentence: 'これは わたしが 買[か]った [いいえ、]まだまだです。 です。',
+              exampleTranslation: "Bu men sotib olgan halicha yo'q. / hali ~ bo'lgani.",
+            },
+            {
+              term: 'お引ひき出だしですか。',
+              reading: 'お引ひき出だしですか。',
+              meaning: 'Hisob raqamingizdan pul olmoqchimisiz?',
+              exampleSentence: 'これは わたしが 買[か]った お引[ひ]き出[だ]しですか。 です。',
+              exampleTranslation: 'Bu men sotib olgan hisob raqamingizdan pul olmoqchimisiz?.',
+            },
+            {
+              term: 'まず',
+              reading: 'まず',
+              meaning: 'oldin, avvalambor',
+              exampleSentence: 'これは わたしが 買[か]った まず です。',
+              exampleTranslation: 'Bu men sotib olgan oldin, avvalambor.',
+            },
+            {
+              term: 'キャッシュカード',
+              reading: 'キャッシュカード',
+              meaning: 'bank kartasi',
+              exampleSentence: 'これは わたしが 買[か]った キャッシュカード です。',
+              exampleTranslation: 'Bu men sotib olgan bank kartasi.',
+            },
+            {
+              term: '暗あん証しょう番ばん号ごう',
+              reading: '暗あん証しょう番ばん号ごう',
+              meaning: 'shaxsiy maxfiy kod',
+              exampleSentence:
+                'これは わたしが 買[か]った 暗[あん]証[しょう]番[ばん]号[ごう] です。',
+              exampleTranslation: 'Bu men sotib olgan shaxsiy maxfiy kod.',
+            },
+            {
+              term: '次つぎに',
+              reading: '次つぎに',
+              meaning: "so'ng, keyin",
+              exampleSentence: 'これは わたしが 買[か]った 次[つぎ]に です。',
+              exampleTranslation: "Bu men sotib olgan so'ng, keyin.",
+            },
+            {
+              term: '金額きんがく',
+              reading: '金額きんがく',
+              meaning: 'pul summasi',
+              exampleSentence: 'これは わたしが 買[か]った 金額[きんがく] です。',
+              exampleTranslation: 'Bu men sotib olgan pul summasi.',
+            },
+            {
+              term: '確認かくにん',
+              reading: '確認かくにん',
+              meaning: 'tasdiq ( ～します tasdiqlamoq)',
+              exampleSentence: 'これは わたしが 買[か]った 確認[かくにん] です。',
+              exampleTranslation: 'Bu men sotib olgan tasdiq ( ～します tasdiqlamoq).',
+            },
+            {
+              term: 'ボタン',
+              reading: 'ボタン',
+              meaning: 'tugmacha',
+              exampleSentence: 'これは わたしが 買[か]った ボタン です。',
+              exampleTranslation: 'Bu men sotib olgan tugmacha.',
+            },
+            {
+              term: 'ＪＲ',
+              reading: 'ＪＲ',
+              meaning: "Yaponiya Temir yo'llari kompaniyasi",
+              exampleSentence: 'これは わたしが 買[か]った ＪＲ です。',
+              exampleTranslation: "Bu men sotib olgan yaponiya temir yo'llari kompaniyasi.",
+            },
+            {
+              term: 'アジア',
+              reading: 'アジア',
+              meaning: 'Osiyo',
+              exampleSentence: 'これは わたしが 買[か]った アジア です。',
+              exampleTranslation: 'Bu men sotib olgan osiyo.',
+            },
+            {
+              term: 'バンドン',
+              reading: 'バンドン',
+              meaning: 'Bandung (Indoneziyadagi shahar)',
+              exampleSentence: 'これは わたしが 買[か]った バンドン です。',
+              exampleTranslation: 'Bu men sotib olgan bandung (indoneziyadagi shahar).',
+            },
+            {
+              term: 'ベラクルス',
+              reading: 'ベラクルス',
+              meaning: 'Verakruz (Meksikadagi shahar)',
+              exampleSentence: 'これは わたしが 買[か]った ベラクルス です。',
+              exampleTranslation: 'Bu men sotib olgan verakruz (meksikadagi shahar).',
+            },
+            {
+              term: 'フランケン',
+              reading: 'フランケン',
+              meaning: 'Franken (Olmoniyadagi shahar)',
+              exampleSentence: 'これは わたしが 買[か]った フランケン です。',
+              exampleTranslation: 'Bu men sotib olgan franken (olmoniyadagi shahar).',
+            },
+            {
+              term: 'ベトナム',
+              reading: 'ベトナム',
+              meaning: 'Vetnam',
+              exampleSentence: 'これは わたしが 買[か]った ベトナム です。',
+              exampleTranslation: 'Bu men sotib olgan vetnam.',
+            },
+            {
+              term: 'フエ',
+              reading: 'フエ',
+              meaning: 'Xve (Vetnamdagi shahar)',
+              exampleSentence: 'これは わたしが 買[か]った フエ です。',
+              exampleTranslation: 'Bu men sotib olgan xve (vetnamdagi shahar).',
+            },
+            {
+              term: '大学前だいがくまえ',
+              reading: '大学前だいがくまえ',
+              meaning: '“Daigakumae”',
+              exampleSentence: 'これは わたしが 買[か]った 大学前[だいがくまえ] です。',
+              exampleTranslation: 'Bu men sotib olgan “daigakumae”.',
             },
           ],
           grammarRules: [
             {
               pattern: 'FE’Lning  て -shakli 、 [FE’Lning  て -shakli]  、～',
               meaning:
-                "Fe'lli so'z birikmalarni bog'lash uchun “FE'Lning て -shakli” qo'llaniladi. Fe'llar bir necha ketma-ket sodir bo'ladigan harakatlarni tasvirlayotganda davriy tartib bilan て -shaklini qo'llagan holda sa",
-              usageNotes:
                 "Fe'lli so'z birikmalarni bog'lash uchun “FE'Lning て -shakli” qo'llaniladi. Fe'llar bir necha ketma-ket sodir bo'ladigan harakatlarni tasvirlayotganda davriy tartib bilan て -shaklini qo'llagan holda sanab o'tiladi. Bu tuzilmaning zamonini gapning oxirida kelgan fe'lga qarab bilib olamiz.",
+              usageNotes:
+                'Minna no Nihongo 16-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence:
@@ -5966,7 +10366,7 @@ export const MINNA_N5_LESSONS: Lesson[] = [
               meaning:
                 "い -sifatlarni sanab o'tayotganda sifatning oxirgi い harfi くて ga o'zgaradi. おおき－い → おおき－くて katta ちいさ－い → ちいさ－くて kichik い－い → ＊よ－くて yaxshi (istisno)",
               usageNotes:
-                "い -sifatlarni sanab o'tayotganda sifatning oxirgi い harfi くて ga o'zgaradi. おおき－い → おおき－くて katta ちいさ－い → ちいさ－くて kichik い－い → ＊よ－くて yaxshi (istisno)",
+                'Minna no Nihongo 16-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'ミラーさんは 若[わか] くて、元[げん] 気[き] です。',
@@ -5981,9 +10381,9 @@ export const MINNA_N5_LESSONS: Lesson[] = [
             {
               pattern: 'OT',
               meaning:
-                "で、～ な -SIFAT [ な ] OT yoki な -SIFAT so'z birikmalarini sanab o'tayotganda です - で ga o'zgaradi. [Eslatma1] Bu tuzilma egalari har xil bo'lgan oddiy gaplarni yaxlit bitta gap ko'rinishida bog'lab kelish",
-              usageNotes:
                 "で、～ な -SIFAT [ な ] OT yoki な -SIFAT so'z birikmalarini sanab o'tayotganda です - で ga o'zgaradi. [Eslatma1] Bu tuzilma egalari har xil bo'lgan oddiy gaplarni yaxlit bitta gap ko'rinishida bog'lab kelishi ham mumkin. [Eslatma2] Bu tuzilma qarama-qarshi ma'noga ega bo'lgan gaplarni bog'lab kelmaydi. Bunday hollarda zid ma'nodagi gaplarni bog'lashda bog'lovchi が yuklamasidan foydalanamiz. (Ushbu o'quv qo'llamaning 8-dars, 7-bandiga qarang.) × この 部屋[へや] は 狭[せま] くて、きれいです。 ○ この 部屋[へや] は 狭[せま] いですが、きれいです。 Bu xona tor-u, shinam.",
+              usageNotes:
+                'Minna no Nihongo 16-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence:
@@ -5999,14 +10399,18 @@ export const MINNA_N5_LESSONS: Lesson[] = [
                   sentence: '奈良[なら] は 静[しず] かで、きれいな 町[まち] です。',
                   translation: "Nara osuda va go'zal shahar.",
                 },
+                {
+                  sentence: 'カリナさんは 学生[がくせい] で、マリアさんは 主[しゅ] 婦[ふ] です。',
+                  translation: 'Karina talaba, Mariya esa uy bekasidir.',
+                },
               ],
             },
             {
               pattern: 'FE’L 1 ning  て -shakli  から、 FE’L 2',
               meaning:
-                "Bunday turdagi gaplar FE'L 1 ning harakati tugagandan keyin FE'L 2 ning harakati bo'lib o'tganligini yoki bo'lib o'tishini bildirish uchun qo'llaniladi. Bu gapning zamoni gapning oxirida kelgan fe'lga",
+                "Bunday turdagi gaplar FE'L 1 ning harakati tugagandan keyin FE'L 2 ning harakati bo'lib o'tganligini yoki bo'lib o'tishini bildirish uchun qo'llaniladi. Bu gapning zamoni gapning oxirida kelgan fe'lga qarab bilib olamiz. 💡 Muhim eslatma: ⑩ -misolda ko'rsatilganidek gapda ega が bilan ajralib turadi.",
               usageNotes:
-                "Bunday turdagi gaplar FE'L 1 ning harakati tugagandan keyin FE'L 2 ning harakati bo'lib o'tganligini yoki bo'lib o'tishini bildirish uchun qo'llaniladi. Bu gapning zamoni gapning oxirida kelgan fe'lga qarab bilib olamiz. [Eslatma] ⑩ -misolda ko'rsatilganidek gapda ega が bilan ajralib turadi.",
+                'Minna no Nihongo 16-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence:
@@ -6023,9 +10427,9 @@ export const MINNA_N5_LESSONS: Lesson[] = [
             {
               pattern: 'OT 1  は  OT 2  が  SIFAT',
               meaning:
-                "Bunday turdagi gaplar inson yoki predmetning xususiyatini tasvirlayotganda qo'llaniladi. Gapning mavzusi は yuklamasi bilan ajratiladi. OT 1 gapning mavzusini anglatadi. OT 2 esa sifat tegishli bo'lgan",
-              usageNotes:
                 "Bunday turdagi gaplar inson yoki predmetning xususiyatini tasvirlayotganda qo'llaniladi. Gapning mavzusi は yuklamasi bilan ajratiladi. OT 1 gapning mavzusini anglatadi. OT 2 esa sifat tegishli bo'lgan egani anglatadi.",
+              usageNotes:
+                'Minna no Nihongo 16-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: '大阪[おおさか] は 食[た] べ物[もの] が おいしいです。',
@@ -6044,9 +10448,9 @@ export const MINNA_N5_LESSONS: Lesson[] = [
             {
               pattern: 'どうやって',
               meaning:
-                "どうやって iborasi biror bir harakatni amalga oshirish yo'llarini aniqlash uchun so'roq gaplarda qo'llaniladi. Unga esa quyida ko'rsatilgan misoldagidek javob beramiz. Universitetgacha qanday borsa bo'ladi",
-              usageNotes:
                 "どうやって iborasi biror bir harakatni amalga oshirish yo'llarini aniqlash uchun so'roq gaplarda qo'llaniladi. Unga esa quyida ko'rsatilgan misoldagidek javob beramiz. Universitetgacha qanday borsa bo'ladi?",
+              usageNotes:
+                'Minna no Nihongo 16-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: '大学[だいがく] まで どう やって 行[い] きますか。',
@@ -6058,9 +10462,9 @@ export const MINNA_N5_LESSONS: Lesson[] = [
             {
               pattern: 'どの OT',
               meaning:
-                "2-darsda otlarni aniqlab keluvchi この , その , あの ko'rsatish olmoshlari haqida bilib oldingiz. Bunga so'roq olmoshi sifatida どの qo'llaniladi. どの yordamida suhbatdoshdan ko'p narsalar ichidan birini tanla",
-              usageNotes:
                 "2-darsda otlarni aniqlab keluvchi この , その , あの ko'rsatish olmoshlari haqida bilib oldingiz. Bunga so'roq olmoshi sifatida どの qo'llaniladi. どの yordamida suhbatdoshdan ko'p narsalar ichidan birini tanlashni so'rash mumkin. Janob Santos qaysi kishi?",
+              usageNotes:
+                'Minna no Nihongo 16-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'サントスさんは どの 人[ひと] ですか。',
@@ -6071,76 +10475,87 @@ export const MINNA_N5_LESSONS: Lesson[] = [
             },
           ],
           culturalNotes:
-            "Yaponiyada bankomatlar (ATM) va jamoat xizmatlaridan foydalanish juda qulay va xavfsiz. O'zbekistondagi kabi navbatga qat'iy rioya qilinadi.",
+            "Bir nechta harakatni ketma-ket bajarganda fe'llar Te-shaklida bog'lanadi. Masalan: ertalab yugurib, dush qabul qilib, nonushta qilish.",
         },
       },
       {
         id: 'ja-minna-l16-s2',
         title: 'Mustahkamlash Mashqlari',
         type: 'practice',
-        estimatedMinutes: 6,
+        estimatedMinutes: 8,
         practiceData: {
           instructions:
-            "Darsda o'rganilgan yangi so'zlar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
+            "Darsda o'rganilgan yangi so'zlar, zarrachalar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
           exercises: [
             {
               id: 'ja-minna-l16-ex1',
               type: 'multiple-choice',
-              prompt: "「乗ります」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
-              options: ['minmoq, chiqmoq', '(poyezdga chiqmoq)', 'tushmoq', '(poyezddan tushmoq)'],
-              correctAnswer: 0,
-              explanation: "To'g'ri javob: minmoq, chiqmoq.",
+              prompt:
+                "Bo'sh joyga to'g'ri zarrachani qo'ying:\n「わたし（　）マイク・ミラーです。」",
+              options: ['が', 'を', 'に', 'は'],
+              correctAnswer: 3,
+              explanation:
+                "To'g'ri javob: 「は」. Gap mavzusini ko'rsatish uchun 'は' (va deb o'qiladi) ishlatiladi.",
             },
             {
               id: 'ja-minna-l16-ex2',
               type: 'multiple-choice',
-              prompt:
-                "16-dars grammatik qoidasi: '1.   FE’Lning  て -shakli 、 [FE’Lning  て -shakli]  、～' bo'yicha qaysi gap grammatik jihatdan to'g'ri tuzilgan?",
-              options: [
-                '朝[あさ] ジョギングを して、シャワーを 浴[あ] びて、会社[かいしゃ] へ 行[い] きます。',
-                'これ は を です。',
-                'だれ が 行きます か でした。',
-                'へ 行きません です。',
-              ],
-              correctAnswer: 0,
-              explanation:
-                "To'g'ri javob: 朝[あさ] ジョギングを して、シャワーを 浴[あ] びて、会社[かいしゃ] へ 行[い] きます。 (Ertalab yugurib, dush qabul qilib, firmaga boraman.).",
+              prompt: "「若い (わかい)」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
+              options: ['tushmoq', 'minmoq, chiqmoq', '(poyezdga chiqmoq)', 'yosh'],
+              correctAnswer: 3,
+              explanation: "To'g'ri javob: 「yosh」.",
             },
             {
               id: 'ja-minna-l16-ex3',
               type: 'multiple-choice',
-              prompt:
-                "O'zbek tiliga to'g'ri tarjima qiling: 「神[こう] 戸[べ] へ 行[い] って、映[えい] 画[が] を 見[み] て、お茶[ちゃ] を 飲[の] みました。」",
+              prompt: "16-dars grammatik qoidasiga muvofiq to'g'ri tuzilgan gapni aniqlang:",
               options: [
-                "Kobega borib, kino ko'rib, choy ichdim.",
-                "Ertaga do'stim bilan mehmonga boraman.",
-                "Kechirasiz, soat necha bo'ldi?",
-                "Iltimos, manzilni ko'rsatib yuboring.",
+                '朝[あさ] ジョギングを して、シャワーを 浴[あ] びて、会社[かいしゃ] へ 行[い] きます。',
+                '朝[あさ] ジョギングを して、シャワーを 浴[あ] びて、会社[かいしゃ] へ 行[い] きません でした です。',
+                '朝[あさ] ジョギングを して、シャワーを 浴[あ] びて、会社[かいしゃ] へ 行[い] きます です。',
+                '朝[あさ] ジョギングを して、シャワーを 浴[あ] びて、会社[かいしゃ] に 行[い] きます。',
               ],
               correctAnswer: 0,
-              explanation: "To'g'ri tarjimasi: Kobega borib, kino ko'rib, choy ichdim..",
+              explanation:
+                "To'g'ri gap: 「朝[あさ] ジョギングを して、シャワーを 浴[あ] びて、会社[かいしゃ] へ 行[い] きます。」 (Ertalab yugurib, dush qabul qilib, firmaga boraman.).",
             },
             {
               id: 'ja-minna-l16-ex4',
               type: 'multiple-choice',
-              prompt: 'Ushbu darsdagi suhbatdan kelib chiqib: Mariya qanday jumla aytadi?',
+              prompt:
+                "Ushbu gapning to'g'ri yaponcha tarjimasini tanlang:\n「Kobega borib, kino ko'rib, choy ichdim.」",
               options: [
-                "Kechirasiz, ishlatish yo'lini o'rgating.",
-                'Men hech qayerga bormayman.',
-                'Taksida aeroportga haydang.',
-                "Iltimos, hisobni alohida to'laymiz.",
+                'きのうは 天[てん] 気[き] が よくて、暑[あつ] かったです。',
+                '神[こう] 戸[べ] へ 行[い] って、映[えい] 画[が] を 見[み] て、お茶[ちゃ] を 飲[の] みました。',
+                'ミラーさんは 若[わか] くて、元[げん] 気[き] です。',
+                '朝[あさ] ジョギングを して、シャワーを 浴[あ] びて、会社[かいしゃ] へ 行[い] きます。',
               ],
-              correctAnswer: 0,
-              explanation: "To'g'ri ibora: Kechirasiz, ishlatish yo'lini o'rgating..",
+              correctAnswer: 1,
+              explanation:
+                "Yaponcha to'g'ri ifodasi: 「神[こう] 戸[べ] へ 行[い] って、映[えい] 画[が] を 見[み] て、お茶[ちゃ] を 飲[の] みました。」.",
+            },
+            {
+              id: 'ja-minna-l16-ex5',
+              type: 'multiple-choice',
+              prompt:
+                'Suhbatdoshingiz: 「初めまして、どうぞ よろしく お願いします。」 dedi. Unga eng mos muloyim javob qaysi?',
+              options: [
+                'ごちそうさまでした。',
+                'こちらこそ、どうぞ よろしく お願いします。',
+                '失礼します。',
+                'おやすみなさい。',
+              ],
+              correctAnswer: 1,
+              explanation: "To'g'ri javob: 「こちらこそ、どうぞ よろしく お願いします。」.",
             },
           ],
         },
       },
       {
         id: 'ja-minna-l16-s3',
-        title: 'Sinov Testi',
+        title: 'JLPT N5 Sinov Testi',
         type: 'test',
-        estimatedMinutes: 6,
+        estimatedMinutes: 7,
         testData: {
           instructions:
             "Darsni muvaffaqiyatli yakunlash uchun savollarga to'g'ri javob bering (Kamida 80%).",
@@ -6148,55 +10563,53 @@ export const MINNA_N5_LESSONS: Lesson[] = [
           questions: [
             {
               id: 'ja-minna-l16-q1',
-              question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「朝[あさ] ジョギングを して、シャワーを 浴[あ] びて、会社[かいしゃ] へ 行[い] きます。」",
-              options: [
-                'Ertalab yugurib, dush qabul qilib, firmaga boraman.',
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
-              ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Ertalab yugurib, dush qabul qilib, firmaga boraman..",
+              question: '【Mondai 1: Moji/Goi】「短い」の 読[よ]み方[かた]は どれですか。',
+              options: ['でんしゃに～', 'みじかい', 'おります', 'のります'],
+              correctAnswerIndex: 1,
+              explanation: "「短い」 ning to'g'ri o'qilishi: 「みじかい」 (qisqa).",
             },
             {
               id: 'ja-minna-l16-q2',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「神[こう] 戸[べ] へ 行[い] って、映[えい] 画[が] を 見[み] て、お茶[ちゃ] を 飲[の] みました。」",
-              options: [
-                "Kobega borib, kino ko'rib, choy ichdim.",
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
-              ],
+                '【Mondai 2: Bunpo】（　）に 入[はい]る 最[もっと]も よいものを 1つ えらびなさい。\n「田中さんは 学生（　）ありません。」',
+              options: ['じゃ', 'で', 'を', 'に'],
               correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Kobega borib, kino ko'rib, choy ichdim..",
+              explanation:
+                "To'g'ri zarracha: 「じゃ」. Inkor shaklda 'じゃ ありません' qo'llaniladi.",
             },
             {
               id: 'ja-minna-l16-q3',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「ミラーさんは 若[わか] くて、元[げん] 気[き] です。」",
+                "【Mondai 3: Bunpo】16-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
               options: [
-                "Janob Miller yosh va sog'lom.",
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
+                '〜に 食べません でした',
+                '〜は 〜でした じゃありません',
+                '〜を 行きます です',
+                'い -SIFAT  (~ い )  → ～くて、～',
               ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Janob Miller yosh va sog'lom..",
+              correctAnswerIndex: 3,
+              explanation: "To'g'ri grammatik formula: 「い -SIFAT  (~ い )  → ～くて、～」.",
             },
             {
               id: 'ja-minna-l16-q4',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「きのうは 天[てん] 気[き] が よくて、暑[あつ] かったです。」",
+                "【Mondai 4: Dokkai】Quyidagi yaponcha gapning to'g'ri o'zbekcha ma'nosini toping:\n「ミラーさんは 若[わか] くて、元[げん] 気[き] です。」",
               options: [
+                "Janob Miller yosh va sog'lom.",
+                'Ertalab yugurib, dush qabul qilib, firmaga boraman.',
+                "Kobega borib, kino ko'rib, choy ichdim.",
                 'Kecha havo yaxshi va issiq edi.',
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
               ],
               correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Kecha havo yaxshi va issiq edi..",
+              explanation: "To'g'ri ma'nosi: 「Janob Miller yosh va sog'lom.」.",
+            },
+            {
+              id: 'ja-minna-l16-q5',
+              question:
+                "【Mondai 5: Kaiwa】Savolga eng to'g'ri javobni tanlang:\n「ミラーさんは アメリカ人ですか。」",
+              options: ['いいえ、学生です。', 'はい、そうです。', 'いただきます。', 'さようなら。'],
+              correctAnswerIndex: 1,
+              explanation: "To'g'ri javob: 「はい、そうです。」.",
             },
           ],
         },
@@ -6213,148 +10626,328 @@ export const MINNA_N5_LESSONS: Lesson[] = [
     lessonNumber: 17,
     title: "17-dars: Fe'lning Nai-shakli va Majburiyat",
     description:
-      "Minna no Nihongo Shokyu 1: 17-dars: Fe'lning Nai-shakli va Majburiyat. Darsda 42 ta yangi so'z va 6 ta asosiy grammatik qoida o'rganiladi.",
-    estimatedDurationMinutes: 20,
+      "Minna no Nihongo Shokyu 1: 17-dars: Fe'lning Nai-shakli va Majburiyat. Darsda 42 ta yangi so'z, audio talaffuzli Furigana misollar va 6 ta asosiy grammatik formula o'rganiladi.",
+    estimatedDurationMinutes: 25,
     icon: '🌸',
     steps: [
       {
         id: 'ja-minna-l17-s1',
         title: "Lug'at va Qoidalar",
         type: 'learn',
-        estimatedMinutes: 8,
+        estimatedMinutes: 10,
         learnData: {
           title: "17-Dars: 17-dars: Fe'lning Nai-shakli va Majburiyat",
           subtitle: '第17課：ない形と義務（〜ないでください・なければなりません）',
           explanation:
-            "17-dars: Fe'lning Nai-shakli va Majburiyat bo'yicha to'liq grammatik izohlar va qoidalar to'plami. Har bir qoida Minna no Nihongo darsligining o'zbekcha tarjimasiga moslashtirilgan.",
+            "17-dars: Fe'lning Nai-shakli va Majburiyat bo'yicha to'liq grammatik izohlar, formulalar va Furiganali misollar to'plami.",
           keyPoints: [
-            "1.    FE’Lning  ない -shakli: ない da tugaydigan fe'llarga “FE'Lning ない -shakli” deyiladi. かかない so'zining o'zagi bo'lgan かか , かきます felining ない -shaklidi...",
-            "2. FE’Lning  ない -shakli  ないで ください HARAKATNI BAJARMASLIKKA: CHAQIRISH Bu tuzilma biror narsani qilmaslikni iltimos qilish yoki buyurishda qo'llaniladi....",
-            "3. FE’Lning  ない -shakli  なければ なりません HARAKATNI BAJARISH: SHARTLIGI IFODASI Bu tuzilma ish-harakat ijrochisining xohishidan qat'iy nazar harakatni amalga oshirish zarurligini ko'...",
-            "4.    FE’Lning  ない -shakli  なくても いいです: BAJARMASLIKKA RUXSAT Bu gap tuzilmasi ish-harakatni ko'rsatuvchi fe'lni amalga oshirmasa ham bo'lishini anglatadi....",
-            "5.   OT (to`ldiruvchi)  は: 6-darsdan bilib olgan bo'lsangiz, を yuklamasi vositasiz to'ldiruvchini ifodalash uchun xizmat qiladi. を ni は ga o'zgarti...",
-            "6.   OT (vaqt)  までに FE’L: までに ish-harakatning belgilangan vaqtgacha bajarilishini ko'rsatadi. [Eslatma] までに bilan まで o'rtasidagi faqqa e'tibor ber...",
+            "📌 1.    FE’Lning  ない -shakli: ない da tugaydigan fe'llarga “FE'Lning ない -shakli” deyiladi.",
+            "📌 2. FE’Lning  ない -shakli  ないで ください HARAKATNI BAJARMASLIKKA: CHAQIRISH Bu tuzilma biror narsani qilmaslikni iltimos qilish yoki buyurishda qo'llaniladi.",
+            "📌 3. FE’Lning  ない -shakli  なければ なりません HARAKATNI BAJARISH: SHARTLIGI IFODASI Bu tuzilma ish-harakat ijrochisining xohishidan qat'iy nazar harakatni amalga oshirish zarurligini ko'rsatadi.",
+            "📌 4.    FE’Lning  ない -shakli  なくても いいです: BAJARMASLIKKA RUXSAT Bu gap tuzilmasi ish-harakatni ko'rsatuvchi fe'lni amalga oshirmasa ham bo'lishini anglatadi.",
+            "📌 5.   OT (to`ldiruvchi)  は: 6-darsdan bilib olgan bo'lsangiz, を yuklamasi vositasiz to'ldiruvchini ifodalash uchun xizmat qiladi.",
+            "📌 6.   OT (vaqt)  までに FE’L: までに ish-harakatning belgilangan vaqtgacha bajarilishini ko'rsatadi.",
           ],
           vocabulary: [
             {
               term: '覚えます (おぼえます)',
               reading: 'おぼえます',
               meaning: 'yod olmoq',
-              exampleSentence: 'おぼえます — yod olmoq',
-              exampleTranslation: 'yod olmoq',
+              exampleSentence: '毎日[まいにち] 覚えます[おぼえます]。',
+              exampleTranslation: 'Har kuni yod olmoq.',
             },
             {
               term: '忘れます (わすれます)',
               reading: 'わすれます',
               meaning: 'unutmoq, esdan chiqarmoq',
-              exampleSentence: 'わすれます — unutmoq, esdan chiqarmoq',
-              exampleTranslation: 'unutmoq, esdan chiqarmoq',
+              exampleSentence: '毎日[まいにち] 忘れます[わすれます]。',
+              exampleTranslation: 'Har kuni unutmoq, esdan chiqarmoq.',
             },
             {
               term: 'なくします',
               reading: 'なくします',
               meaning: "yo'qotmoq",
-              exampleSentence: "なくします — yo'qotmoq",
-              exampleTranslation: "yo'qotmoq",
+              exampleSentence: '毎日[まいにち] なくします。',
+              exampleTranslation: "Har kuni yo'qotmoq.",
             },
             {
               term: '出します (だします)',
               reading: 'だします',
               meaning: 'topshirmoq',
-              exampleSentence: 'だします — topshirmoq',
-              exampleTranslation: 'topshirmoq',
+              exampleSentence: '毎日[まいにち] 出します[だします]。',
+              exampleTranslation: 'Har kuni topshirmoq.',
             },
             {
-              term: '[ レポートを～ ]',
-              reading: '[ レポートを～ ]',
+              term: 'レポートを～',
+              reading: 'レポートを～',
               meaning: '(hisobot topshirmoq)',
-              exampleSentence: '[ レポートを～ ] — (hisobot topshirmoq)',
-              exampleTranslation: '(hisobot topshirmoq)',
+              exampleSentence: '山田[やまだ][レポートを]は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada (hisobot topshirmoq) samimiy inson.',
             },
             {
               term: '払います (はらいます)',
               reading: 'はらいます',
               meaning: "to'lamoq",
-              exampleSentence: "はらいます — to'lamoq",
-              exampleTranslation: "to'lamoq",
+              exampleSentence: '毎日[まいにち] 払います[はらいます]。',
+              exampleTranslation: "Har kuni to'lamoq.",
             },
             {
               term: '返します (かえします)',
               reading: 'かえします',
               meaning: 'qaytarib bermoq',
-              exampleSentence: 'かえします — qaytarib bermoq',
-              exampleTranslation: 'qaytarib bermoq',
+              exampleSentence: '毎日[まいにち] 返します[かえします]。',
+              exampleTranslation: 'Har kuni qaytarib bermoq.',
             },
             {
               term: '出かけます (でかけます)',
               reading: 'でかけます',
               meaning: 'chiqib ketmoq',
-              exampleSentence: 'でかけます — chiqib ketmoq',
-              exampleTranslation: 'chiqib ketmoq',
+              exampleSentence: '毎日[まいにち] 出かけます[でかけます]。',
+              exampleTranslation: 'Har kuni chiqib ketmoq.',
             },
             {
               term: '脱ぎます (ぬぎます)',
               reading: 'ぬぎます',
               meaning: 'yechmoq (kiyimni ~)',
-              exampleSentence: 'ぬぎます — yechmoq (kiyimni ~)',
-              exampleTranslation: 'yechmoq (kiyimni ~)',
+              exampleSentence: '毎日[まいにち] 脱ぎます[ぬぎます]。',
+              exampleTranslation: 'Har kuni yechmoq (kiyimni ~).',
             },
             {
-              term: '持って 行きます (もって いきます)',
-              reading: 'もって いきます',
+              term: '持って行きます (もっていきます)',
+              reading: 'もっていきます',
               meaning: 'olib bormoq',
-              exampleSentence: 'もって いきます — olib bormoq',
-              exampleTranslation: 'olib bormoq',
+              exampleSentence: '毎日[まいにち] 持って行きます[もっていきます]。',
+              exampleTranslation: 'Har kuni olib bormoq.',
             },
             {
-              term: '持って 来ます (もって きます)',
-              reading: 'もって きます',
+              term: '持って来ます (もってきます)',
+              reading: 'もってきます',
               meaning: 'olib kelmoq',
-              exampleSentence: 'もって きます — olib kelmoq',
-              exampleTranslation: 'olib kelmoq',
+              exampleSentence: '毎日[まいにち] 持って来ます[もってきます]。',
+              exampleTranslation: 'Har kuni olib kelmoq.',
             },
             {
-              term: '心配 します (しんぱい します)',
-              reading: 'しんぱい します',
+              term: '心配します (しんぱいします)',
+              reading: 'しんぱいします',
               meaning: 'xavotir olmoq',
-              exampleSentence: 'しんぱい します — xavotir olmoq',
-              exampleTranslation: 'xavotir olmoq',
+              exampleSentence: '毎日[まいにち] 心配します[しんぱいします]。',
+              exampleTranslation: 'Har kuni xavotir olmoq.',
             },
             {
-              term: '残業 します (ざんぎょう します)',
-              reading: 'ざんぎょう します',
+              term: '残業します (ざんぎょうします)',
+              reading: 'ざんぎょうします',
               meaning: 'belgilangan ish vaqti tugagandan keyin qolib ishlamoq',
-              exampleSentence:
-                'ざんぎょう します — belgilangan ish vaqti tugagandan keyin qolib ishlamoq',
-              exampleTranslation: 'belgilangan ish vaqti tugagandan keyin qolib ishlamoq',
+              exampleSentence: '毎日[まいにち] 残業します[ざんぎょうします]。',
+              exampleTranslation: 'Har kuni belgilangan ish vaqti tugagandan keyin qolib ishlamoq.',
             },
             {
-              term: '出張 します (しゅっちょう します)',
-              reading: 'しゅっちょう します',
+              term: '出張します (しゅっちょうします)',
+              reading: 'しゅっちょうします',
               meaning: 'xizmat safariga ketmoq',
-              exampleSentence: 'しゅっちょう します — xizmat safariga ketmoq',
-              exampleTranslation: 'xizmat safariga ketmoq',
+              exampleSentence: '毎日[まいにち] 出張します[しゅっちょうします]。',
+              exampleTranslation: 'Har kuni xizmat safariga ketmoq.',
             },
             {
               term: '飲みます (のみます)',
               reading: 'のみます',
               meaning: 'ichmoq',
-              exampleSentence: 'のみます — ichmoq',
-              exampleTranslation: 'ichmoq',
+              exampleSentence: '毎日[まいにち] 水[みず]を 2リットル 飲[の]みます。',
+              exampleTranslation: 'Har kuni 2 litr suv ichaman.',
+            },
+            {
+              term: '薬を～ (くすりを～)',
+              reading: 'くすりを～',
+              meaning: '(dori ichmoq)',
+              exampleSentence: '山田[やまだ][くすりを]は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada (dori ichmoq) samimiy inson.',
+            },
+            {
+              term: '入ります (はいります)',
+              reading: 'はいります',
+              meaning: 'kirmoq',
+              exampleSentence: '毎日[まいにち] 入ります[はいります]。',
+              exampleTranslation: 'Har kuni kirmoq.',
+            },
+            {
+              term: 'お風呂に～ (おふろに～)',
+              reading: 'おふろに～',
+              meaning: '(hammomga kirmoq)',
+              exampleSentence: '山田[やまだ][おふろに]は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada (hammomga kirmoq) samimiy inson.',
+            },
+            {
+              term: '大切な (たいせつな)',
+              reading: 'たいせつな',
+              meaning: 'muhim',
+              exampleSentence: 'これは わたしが 買[か]った 大切[な][たいせつ[な]] です。',
+              exampleTranslation: 'Bu men sotib olgan muhim.',
+            },
+            {
+              term: '大丈夫な (だいじょうぶな)',
+              reading: 'だいじょうぶな',
+              meaning: "hammasi joyida, xavotirga o'rin yo'q",
+              exampleSentence: 'これは わたしが 買[か]った 大丈夫[な][だいじょうぶ[な]] です。',
+              exampleTranslation: "Bu men sotib olgan hammasi joyida, xavotirga o'rin yo'q.",
+            },
+            {
+              term: '危ない (あぶない)',
+              reading: 'あぶない',
+              meaning: 'xavfli',
+              exampleSentence: 'この 部屋[へや]は 危ない[あぶない]です。',
+              exampleTranslation: 'Bu xona xavfli.',
+            },
+            {
+              term: '問題 (もんだい)',
+              reading: 'もんだい',
+              meaning: 'masala; muammo',
+              exampleSentence: 'この 部屋[へや]は 問題[もんだい]です。',
+              exampleTranslation: 'Bu xona masala; muammo.',
+            },
+            {
+              term: '答え (こたえ)',
+              reading: 'こたえ',
+              meaning: 'javob',
+              exampleSentence: 'これは わたしが 買[か]った 答え[こたえ] です。',
+              exampleTranslation: 'Bu men sotib olgan javob.',
+            },
+            {
+              term: '禁煙 (きんえん)',
+              reading: 'きんえん',
+              meaning: 'chekish taqiqlanadi',
+              exampleSentence: 'これは わたしが 買[か]った 禁煙[きんえん] です。',
+              exampleTranslation: 'Bu men sotib olgan chekish taqiqlanadi.',
+            },
+            {
+              term: '健康保険証 (けんこうほけんしょう)',
+              reading: 'けんこうほけんしょう',
+              meaning: "tibbiy sug'urta guvohnomasi",
+              exampleSentence: '毎日[まいにち] [健康]保険証[[けんこう]ほけんしょう]。',
+              exampleTranslation: "Har kuni tibbiy sug'urta guvohnomasi.",
+            },
+            {
+              term: '風邪 (かぜ)',
+              reading: 'かぜ',
+              meaning: 'shamollash',
+              exampleSentence: 'これは わたしが 買[か]った 風邪[かぜ] です。',
+              exampleTranslation: 'Bu men sotib olgan shamollash.',
+            },
+            {
+              term: '熱 (ねつ)',
+              reading: 'ねつ',
+              meaning: 'isitma',
+              exampleSentence: 'これは わたしが 買[か]った 熱[ねつ] です。',
+              exampleTranslation: 'Bu men sotib olgan isitma.',
+            },
+            {
+              term: '病気 (びょうき)',
+              reading: 'びょうき',
+              meaning: 'kasal, betob; kasallik',
+              exampleSentence: 'これは わたしが 買[か]った 病気[びょうき] です。',
+              exampleTranslation: 'Bu men sotib olgan kasal, betob; kasallik.',
+            },
+            {
+              term: '薬 (くすり)',
+              reading: 'くすり',
+              meaning: 'dori',
+              exampleSentence: 'これは わたしが 買[か]った 薬[くすり] です。',
+              exampleTranslation: 'Bu men sotib olgan dori.',
+            },
+            {
+              term: 'お風呂 (おふろ)',
+              reading: 'おふろ',
+              meaning: 'hammom',
+              exampleSentence: 'これは わたしが 買[か]った [お]風呂[[お]ふろ] です。',
+              exampleTranslation: 'Bu men sotib olgan hammom.',
+            },
+            {
+              term: '上着 (うわぎ)',
+              reading: 'うわぎ',
+              meaning: 'korjoma, kostyum',
+              exampleSentence: 'これは わたしが 買[か]った 上着[うわぎ] です。',
+              exampleTranslation: 'Bu men sotib olgan korjoma, kostyum.',
+            },
+            {
+              term: '下着 (したぎ)',
+              reading: 'したぎ',
+              meaning: 'ichki kiyim',
+              exampleSentence: 'これは わたしが 買[か]った 下着[したぎ] です。',
+              exampleTranslation: 'Bu men sotib olgan ichki kiyim.',
+            },
+            {
+              term: '先生 (せんせい)',
+              reading: 'せんせい',
+              meaning: 'doktor (shifokorga murojaat etish)',
+              exampleSentence: '木村[きむら]先生は 日本語[にほんご]の 先生です。',
+              exampleTranslation: "Kimura ustoz yapon tili o'qituvchisi.",
+            },
+            {
+              term: '２、３日 (２、３にち)',
+              reading: '２、３にち',
+              meaning: 'ikki-uch kun',
+              exampleSentence: 'これは わたしが 買[か]った ２、３日[２、３にち] です。',
+              exampleTranslation: 'Bu men sotib olgan ikki-uch kun.',
+            },
+            {
+              term: '２、３～',
+              reading: '２、３～',
+              meaning: 'ikki-uch (narsa, buyum)',
+              exampleSentence: '山田[やまだ]２、３は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada ikki-uch (narsa, buyum) samimiy inson.',
+            },
+            {
+              term: '～までに',
+              reading: '～までに',
+              meaning: '~gacha',
+              exampleSentence: '山田[やまだ]までには 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada ~gacha samimiy inson.',
+            },
+            {
+              term: 'ですから',
+              reading: 'ですから',
+              meaning: 'shu sababli',
+              exampleSentence: 'これは わたしが 買[か]った ですから です。',
+              exampleTranslation: 'Bu men sotib olgan shu sababli.',
+            },
+            {
+              term: 'どうしましたか。',
+              reading: 'どうしましたか。',
+              meaning: "Nima bo'ldi.",
+              exampleSentence: 'これは わたしが 買[か]った どうしましたか。 です。',
+              exampleTranslation: "Bu men sotib olgan nima bo'ldi..",
+            },
+            {
+              term: '～が痛いたいです。',
+              reading: '～が痛いたいです。',
+              meaning: "~im og'riyapti",
+              exampleSentence: '山田[やまだ][が]痛[いた]いです。は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: "Yamada ~im og'riyapti samimiy inson.",
+            },
+            {
+              term: 'のど',
+              reading: 'のど',
+              meaning: 'tomoq',
+              exampleSentence: 'これは わたしが 買[か]った のど です。',
+              exampleTranslation: 'Bu men sotib olgan tomoq.',
+            },
+            {
+              term: 'お大だい事じに。',
+              reading: 'お大だい事じに。',
+              meaning: "Sog'ayib keting.",
+              exampleSentence: 'これは わたしが 買[か]った お大[だい]事[じ]に。 です。',
+              exampleTranslation: "Bu men sotib olgan sog'ayib keting..",
             },
           ],
           grammarRules: [
             {
               pattern: 'FE’Lning  ない -shakli',
               meaning:
-                "ない da tugaydigan fe'llarga “FE'Lning ない -shakli” deyiladi. かかない so'zining o'zagi bo'lgan かか , かきます felining ない -shaklidir. Quyida ない - shaklining qanday vujudga kelishi keltirilgan. (Asosiy o'quv dars",
-              usageNotes:
                 "ない da tugaydigan fe'llarga “FE'Lning ない -shakli” deyiladi. かかない so'zining o'zagi bo'lgan かか , かきます felining ない -shaklidir. Quyida ない - shaklining qanday vujudga kelishi keltirilgan. (Asosiy o'quv darsligiing 17- darsi. 140-betdagi 練習[れんしゅう] A1ga qarang. ) 1) Ⅰ guruh fe'llari Bu guruh fe'llarida ます -shakli har doim い qatorda tugaydi. い Qatorni あ qatorga o'zgartirish orqali “FE'Lning ない -shakli” tuziladi. かいます , あいま す fe'llari bundan istisnodir. (Bu “FE'Llarning ない -shakli”da あ ning o'rniga わ qo'yiladi.) (Asosiy o'quv darsligining 2-betidagi “ かなと拍[はく] ”ga qarang) かき - ます → かか - ない いそぎ - ます → いそが - ない よみ - ます → よま - ない あそび - ます → あそば - ない とり - ます → とら - ない まち - ます → また - ない すい - ます → すわ - ない はなし - ます → はなさ - ない 2) Ⅱ guruh fe'llari Bu guruhda “FE'Lning ない -shakli” “FE'Lning ます -shakli” bilan mos tushadi. たべ - ます → たべ - ない み - ます → み - ない 3) Ⅲ guruh fe'llari します fe'li “FE'Lning ない -shakli”ga o'zgarishida “FE'Lning ます -shakli”ga o'xshab bir xil qo'llaniladi. きます こ ( ない )ga o'zgaradi. べんきょうし - ます → べんきょうし - ない し - ます → し - ない き - ます → こ - ない",
+              usageNotes:
+                'Minna no Nihongo 17-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'FE’Lning  ない -shakli',
-                  translation:
-                    "ない da tugaydigan fe'llarga “FE'Lning ない -shakli” deyiladi. かかない so'zining o'zagi",
+                  translation: 'Grammatik qolip.',
                 },
               ],
             },
@@ -6363,7 +10956,7 @@ export const MINNA_N5_LESSONS: Lesson[] = [
               meaning:
                 "CHAQIRISH Bu tuzilma biror narsani qilmaslikni iltimos qilish yoki buyurishda qo'llaniladi.",
               usageNotes:
-                "CHAQIRISH Bu tuzilma biror narsani qilmaslikni iltimos qilish yoki buyurishda qo'llaniladi.",
+                'Minna no Nihongo 17-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'わたしは 元[げん] 気[き] ですから、心配[しんぱい] しないで ください。',
@@ -6378,12 +10971,12 @@ export const MINNA_N5_LESSONS: Lesson[] = [
             {
               pattern: 'FE’Lning  ない -shakli  なければ なりません HARAKATNI BAJARISH',
               meaning:
-                "SHARTLIGI IFODASI Bu tuzilma ish-harakat ijrochisining xohishidan qat'iy nazar harakatni amalga oshirish zarurligini ko'rsatadi. Keyingi misolda tuzilma inkor ma'noni anglatib kelmayotganligiga e'tibo",
-              usageNotes:
                 "SHARTLIGI IFODASI Bu tuzilma ish-harakat ijrochisining xohishidan qat'iy nazar harakatni amalga oshirish zarurligini ko'rsatadi. Keyingi misolda tuzilma inkor ma'noni anglatib kelmayotganligiga e'tibor bering.",
+              usageNotes:
+                'Minna no Nihongo 17-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
-                  sentence: '薬[くすり] を 飲[の] まなければ なりません。 Men dori ichishim kerak.',
+                  sentence: '薬[くすり] を 飲[の] まなければ なりません。',
                   translation: 'HARAKATNI',
                 },
               ],
@@ -6393,7 +10986,7 @@ export const MINNA_N5_LESSONS: Lesson[] = [
               meaning:
                 "BAJARMASLIKKA RUXSAT Bu gap tuzilmasi ish-harakatni ko'rsatuvchi fe'lni amalga oshirmasa ham bo'lishini anglatadi.",
               usageNotes:
-                "BAJARMASLIKKA RUXSAT Bu gap tuzilmasi ish-harakatni ko'rsatuvchi fe'lni amalga oshirmasa ham bo'lishini anglatadi.",
+                'Minna no Nihongo 17-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'あした 来[こ] なくても いいです。',
@@ -6404,9 +10997,9 @@ export const MINNA_N5_LESSONS: Lesson[] = [
             {
               pattern: 'OT (to`ldiruvchi)  は',
               meaning:
-                "6-darsdan bilib olgan bo'lsangiz, を yuklamasi vositasiz to'ldiruvchini ifodalash uchun xizmat qiladi. を ni は ga o'zgartirish yo'li bilan to'ldiruvchi gapning mavzusiga aylanadi. ここに 荷[に] 物[もつ] を 置[お] ",
-              usageNotes:
                 "6-darsdan bilib olgan bo'lsangiz, を yuklamasi vositasiz to'ldiruvchini ifodalash uchun xizmat qiladi. を ni は ga o'zgartirish yo'li bilan to'ldiruvchi gapning mavzusiga aylanadi. ここに 荷[に] 物[もつ] を 置[お] かないで ください。 Bu yerga yukingizni qo'ymang. 会社[かいしゃ] の 食[しょく] 堂[どう] で 昼[ひる] ごはんを 食[た] べます。 Korxona oshxonasida tushlik qilaman.",
+              usageNotes:
+                'Minna no Nihongo 17-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: '荷[に] 物[もつ] は ここに 置[お] かないで ください。',
@@ -6422,9 +11015,9 @@ export const MINNA_N5_LESSONS: Lesson[] = [
             {
               pattern: 'OT (vaqt)  までに FE’L',
               meaning:
-                "までに ish-harakatning belgilangan vaqtgacha bajarilishini ko'rsatadi. [Eslatma] までに bilan まで o'rtasidagi faqqa e'tibor bering. ５時[じ] まで 働[はたら] きます。 Soat 5 gacha ishlayman. (4- dars)",
+                "までに ish-harakatning belgilangan vaqtgacha bajarilishini ko'rsatadi. 💡 Muhim eslatma: までに bilan まで o'rtasidagi faqqa e'tibor bering. ５時[じ] まで 働[はたら] きます。 Soat 5 gacha ishlayman. (4- dars)",
               usageNotes:
-                "までに ish-harakatning belgilangan vaqtgacha bajarilishini ko'rsatadi. [Eslatma] までに bilan まで o'rtasidagi faqqa e'tibor bering. ５時[じ] まで 働[はたら] きます。 Soat 5 gacha ishlayman. (4- dars)",
+                'Minna no Nihongo 17-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: '会[かい] 議[ぎ] は ５時[じ] までに 終[お] わります。',
@@ -6440,76 +11033,86 @@ export const MINNA_N5_LESSONS: Lesson[] = [
             },
           ],
           culturalNotes:
-            "Kasal bo'lganda yoki shifokor qabulida alomatlarni aniq aytish va tibbiy retseptga rioya qilish muhimdir.",
+            "Kasal bo'lganda yoki shifokor qabulida alomatlarni aytib, dorilarni o'z vaqtida ichish lozim. 'Ichish shart' deganda '~なければなりません' ishlatiladi.",
         },
       },
       {
         id: 'ja-minna-l17-s2',
         title: 'Mustahkamlash Mashqlari',
         type: 'practice',
-        estimatedMinutes: 6,
+        estimatedMinutes: 8,
         practiceData: {
           instructions:
-            "Darsda o'rganilgan yangi so'zlar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
+            "Darsda o'rganilgan yangi so'zlar, zarrachalar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
           exercises: [
             {
               id: 'ja-minna-l17-ex1',
               type: 'multiple-choice',
-              prompt: "「覚えます」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
-              options: ['yod olmoq', 'unutmoq, esdan chiqarmoq', "yo'qotmoq", 'topshirmoq'],
+              prompt: "Bo'sh joyga to'g'ri zarrachani qo'ying:\n「これは 日本語（　）本です。」",
+              options: ['の', 'と', 'は', 'も'],
               correctAnswer: 0,
-              explanation: "To'g'ri javob: yod olmoq.",
+              explanation:
+                "To'g'ri javob: 「の」. Tegishlilik va biror tildagi kitob ekanligini bildirish uchun 'の' qo'yiladi.",
             },
             {
               id: 'ja-minna-l17-ex2',
               type: 'multiple-choice',
-              prompt:
-                "17-dars grammatik qoidasi: '1.    FE’Lning  ない -shakli' bo'yicha qaysi gap grammatik jihatdan to'g'ri tuzilgan?",
-              options: [
-                'わたしは 元[げん] 気[き] ですから、心配[しんぱい] しないで ください。',
-                'これ は を です。',
-                'だれ が 行きます か でした。',
-                'へ 行きません です。',
-              ],
+              prompt: "「お風呂に～ (おふろに～)」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
+              options: ['(hammomga kirmoq)', 'unutmoq, esdan chiqarmoq', "yo'qotmoq", 'yod olmoq'],
               correctAnswer: 0,
-              explanation:
-                "To'g'ri javob: わたしは 元[げん] 気[き] ですから、心配[しんぱい] しないで ください。 (Men sog'-salomatman, xavotir olmang.).",
+              explanation: "To'g'ri javob: 「(hammomga kirmoq)」.",
             },
             {
               id: 'ja-minna-l17-ex3',
               type: 'multiple-choice',
-              prompt:
-                "O'zbek tiliga to'g'ri tarjima qiling: 「ここで 写真[しゃしん] を 撮[と] らないで ください。」",
+              prompt: "17-dars grammatik qoidasiga muvofiq to'g'ri tuzilgan gapni aniqlang:",
               options: [
-                'Bu yerda suratga olmang.',
-                "Ertaga do'stim bilan mehmonga boraman.",
-                "Kechirasiz, soat necha bo'ldi?",
-                "Iltimos, manzilni ko'rsatib yuboring.",
+                'わたしは 元[げん] 気[き] ですから、心配[しんぱい] しないで ください。',
+                'わたしは 元[げん] 気[き] だですから、心配[しんぱい] しないで ください。',
+                'わたしは 元[げん] 気[き] ですから、心配[しんぱい] しないへ ください。',
+                'わたしは 元[げん] 気[き] じゃありますから、心配[しんぱい] しないで ください。',
               ],
               correctAnswer: 0,
-              explanation: "To'g'ri tarjimasi: Bu yerda suratga olmang..",
+              explanation:
+                "To'g'ri gap: 「わたしは 元[げん] 気[き] ですから、心配[しんぱい] しないで ください。」 (Men sog'-salomatman, xavotir olmang.).",
             },
             {
               id: 'ja-minna-l17-ex4',
               type: 'multiple-choice',
-              prompt: 'Ushbu darsdagi suhbatdan kelib chiqib: Shifokor qanday jumla aytadi?',
+              prompt:
+                "Ushbu gapning to'g'ri yaponcha tarjimasini tanlang:\n「Men sog'-salomatman, xavotir olmang.」",
               options: [
-                "Nima bo'ldi?",
-                'Men hech qayerga bormayman.',
-                'Taksida aeroportga haydang.',
-                "Iltimos, hisobni alohida to'laymiz.",
+                'ここで 写真[しゃしん] を 撮[と] らないで ください。',
+                'わたしは 元[げん] 気[き] ですから、心配[しんぱい] しないで ください。',
+                '薬[くすり] を 飲[の] まなければ なりません。',
+                'FE’Lning  ない -shakli',
               ],
-              correctAnswer: 0,
-              explanation: "To'g'ri ibora: Nima bo'ldi?.",
+              correctAnswer: 1,
+              explanation:
+                "Yaponcha to'g'ri ifodasi: 「わたしは 元[げん] 気[き] ですから、心配[しんぱい] しないで ください。」.",
+            },
+            {
+              id: 'ja-minna-l17-ex5',
+              type: 'multiple-choice',
+              prompt:
+                'Suhbatdoshingiz: 「これは ほんの 気持ちです。どうぞ。」 dedi. Unga eng mos muloyim javob qaysi?',
+              options: [
+                'ごちそうさまでした。',
+                'おやすみなさい。',
+                '失礼します。',
+                'どうも ありがとうございます。',
+              ],
+              correctAnswer: 3,
+              explanation: "To'g'ri javob: 「どうも ありがとうございます。」.",
             },
           ],
         },
       },
       {
         id: 'ja-minna-l17-s3',
-        title: 'Sinov Testi',
+        title: 'JLPT N5 Sinov Testi',
         type: 'test',
-        estimatedMinutes: 6,
+        estimatedMinutes: 7,
         testData: {
           instructions:
             "Darsni muvaffaqiyatli yakunlash uchun savollarga to'g'ri javob bering (Kamida 80%).",
@@ -6517,55 +11120,55 @@ export const MINNA_N5_LESSONS: Lesson[] = [
           questions: [
             {
               id: 'ja-minna-l17-q1',
-              question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「わたしは 元[げん] 気[き] ですから、心配[しんぱい] しないで ください。」",
-              options: [
-                "Men sog'-salomatman, xavotir olmang.",
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
-              ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Men sog'-salomatman, xavotir olmang..",
+              question: '【Mondai 1: Moji/Goi】「大丈夫な」の 読[よ]み方[かた]は どれですか。',
+              options: ['なくします', 'だいじょうぶな', 'おぼえます', 'わすれます'],
+              correctAnswerIndex: 1,
+              explanation:
+                "「大丈夫な」 ning to'g'ri o'qilishi: 「だいじょうぶな」 (hammasi joyida, xavotirga o'rin yo'q).",
             },
             {
               id: 'ja-minna-l17-q2',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「ここで 写真[しゃしん] を 撮[と] らないで ください。」",
-              options: [
-                'Bu yerda suratga olmang.',
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
-              ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Bu yerda suratga olmang..",
+                '【Mondai 2: Bunpo】（　）に 入[はい]る 最[もっと]も よいものを 1つ えらびなさい。\n「ミラーさんは アメリカ（　）来ました。」',
+              options: ['で', 'へ', 'まで', 'から'],
+              correctAnswerIndex: 3,
+              explanation:
+                "To'g'ri zarracha: 「から」. Kelib chiqish mamlakati '〜から' orqali ko'rsatiladi.",
             },
             {
               id: 'ja-minna-l17-q3',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「薬[くすり] を 飲[の] まなければ なりません。 Men dori ichishim kerak.」",
+                "【Mondai 3: Bunpo】17-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
               options: [
-                'HARAKATNI',
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
+                '〜を 行きます です',
+                '〜は 〜でした じゃありません',
+                '〜に 食べません でした',
+                'FE’Lning  ない -shakli  ないで ください HARAKATNI BAJARMASLIKKA',
               ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: HARAKATNI.",
+              correctAnswerIndex: 3,
+              explanation:
+                "To'g'ri grammatik formula: 「FE’Lning  ない -shakli  ないで ください HARAKATNI BAJARMASLIKKA」.",
             },
             {
               id: 'ja-minna-l17-q4',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「あした 来[こ] なくても いいです。」",
+                "【Mondai 4: Dokkai】Quyidagi yaponcha gapning to'g'ri o'zbekcha ma'nosini toping:\n「ここで 写真[しゃしん] を 撮[と] らないで ください。」",
               options: [
-                "Ertaga kelmasangiz ham bo'ladi.",
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
+                "Men sog'-salomatman, xavotir olmang.",
+                'Grammatik qolip.',
+                'HARAKATNI',
+                'Bu yerda suratga olmang.',
               ],
+              correctAnswerIndex: 3,
+              explanation: "To'g'ri ma'nosi: 「Bu yerda suratga olmang.」.",
+            },
+            {
+              id: 'ja-minna-l17-q5',
+              question:
+                "【Mondai 5: Kaiwa】Savolga eng to'g'ri javobni tanlang:\n「これは あなたの 傘ですか。」",
+              options: ['いいえ、違います。', '初めまして。', 'はい、そうです。', '失礼します。'],
               correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Ertaga kelmasangiz ham bo'ladi..",
+              explanation: "To'g'ri javob: 「いいえ、違います。」.",
             },
           ],
         },
@@ -6582,156 +11185,253 @@ export const MINNA_N5_LESSONS: Lesson[] = [
     lessonNumber: 18,
     title: "18-dars: Lug'at shakli (Jishokei) va Qobiliyat/Qiziqish",
     description:
-      "Minna no Nihongo Shokyu 1: 18-dars: Lug'at shakli (Jishokei) va Qobiliyat/Qiziqish. Darsda 30 ta yangi so'z va 7 ta asosiy grammatik qoida o'rganiladi.",
-    estimatedDurationMinutes: 20,
+      "Minna no Nihongo Shokyu 1: 18-dars: Lug'at shakli (Jishokei) va Qobiliyat/Qiziqish. Darsda 30 ta yangi so'z, audio talaffuzli Furigana misollar va 6 ta asosiy grammatik formula o'rganiladi.",
+    estimatedDurationMinutes: 25,
     icon: '🌸',
     steps: [
       {
         id: 'ja-minna-l18-s1',
         title: "Lug'at va Qoidalar",
         type: 'learn',
-        estimatedMinutes: 8,
+        estimatedMinutes: 10,
         learnData: {
           title: "18-Dars: 18-dars: Lug'at shakli (Jishokei) va Qobiliyat/Qiziqish",
           subtitle: '第18課：辞書形と可能・趣味（ことができます・まえに）',
           explanation:
-            "18-dars: Lug'at shakli (Jishokei) va Qobiliyat/Qiziqish bo'yicha to'liq grammatik izohlar va qoidalar to'plami. Har bir qoida Minna no Nihongo darsligining o'zbekcha tarjimasiga moslashtirilgan.",
+            "18-dars: Lug'at shakli (Jishokei) va Qobiliyat/Qiziqish bo'yicha to'liq grammatik izohlar, formulalar va Furiganali misollar to'plami.",
           keyPoints: [
-            "1.   FE’Lning lug`atdagi shakli: “Fe'lning lug'atdagi shakli” fe'lning asosiy shakli hisoblanadi. Lug'atlarda fe'lning shunday shakli ko'rsatilib, u fe'l...",
-            "2.  FE’Lning lug`atdagi shakli  こと ができます BAJARA OLISH: IBORASI Ish-harakatni bajarish imkoniyati va qobiliyatini できます fe'li anglatadi. OT yoki “FE'Lning lug'atdagi shakli こと ”...",
-            "3.   OT  Mening sevimli: わたしの 趣[しゅ] 味[み] です FE'Lning lug'atdagi shakli こと mashg'ulotim...",
-            '1 .  FE’L 1 ning lug`atdagi shakli BIR HARAKATNING: ...',
-            "4.  OT  の まえに、 FE’L 2 BOSHQASIDAN OLDIN: SON (muddat) KELISHI 1) FE'L Bunday turdagi gaplarda FE'L 2 da ko'rsatilgan harakat FE'L 1 dagi harakatdan oldin amalga ...",
-            "5.   なかなか: なかなか inkor gapda “ oson emas ”, “ hech ” degan ma'nolarni anglatadi. [Eslatma] ⑪ -misolda ko'rsatilgan にほんでは so'zidagi は...",
+            "📌 1.   FE’Lning lug`atdagi shakli: “Fe'lning lug'atdagi shakli” fe'lning asosiy shakli hisoblanadi.",
+            "📌 2.  FE’Lning lug`atdagi shakli  こと ができます BAJARA OLISH: IBORASI Ish-harakatni bajarish imkoniyati va qobiliyatini できます fe'li anglatadi.",
+            "📌 3.   OT  Mening sevimli: わたしの 趣[しゅ] 味[み] です FE'Lning lug'atdagi shakli こと mashg'ulotim.",
+            "📌 4.  OT  の まえに、 FE’L 2 BOSHQASIDAN OLDIN: SON (muddat) KELISHI 1) FE'L Bunday turdagi gaplarda FE'L 2 da ko'rsatilgan harakat FE'L 1 dagi harakatdan oldin amalga oshishini ko'rsatadi.",
+            "📌 5.   なかなか: なかなか inkor gapda “ oson emas ”, “ hech ” degan ma'nolarni anglatadi.",
+            "📌 6.   ぜひ: ぜひ ravishi 「ほしいです」 , “FE'Lning ます -shakli たいです ” , “FE'Lning て -shakli ください ”ga o'xshagan iboralar qo'llanilgan gapda ishonchni yoki tilakni kuchaytirib keladi.",
           ],
           vocabulary: [
             {
               term: 'できます',
               reading: 'できます',
               meaning: 'qila olmoq, bajara olmoq',
-              exampleSentence: 'できます — qila olmoq, bajara olmoq',
-              exampleTranslation: 'qila olmoq, bajara olmoq',
+              exampleSentence: '毎日[まいにち] できます。',
+              exampleTranslation: 'Har kuni qila olmoq, bajara olmoq.',
             },
             {
               term: '洗います (あらいます)',
               reading: 'あらいます',
               meaning: 'yuvmoq',
-              exampleSentence: 'あらいます — yuvmoq',
-              exampleTranslation: 'yuvmoq',
+              exampleSentence: '毎日[まいにち] 洗います[あらいます]。',
+              exampleTranslation: 'Har kuni yuvmoq.',
             },
             {
               term: '弾きます (ひきます)',
               reading: 'ひきます',
               meaning: 'chalmoq (musiqa asbobini~)',
-              exampleSentence: 'ひきます — chalmoq (musiqa asbobini~)',
-              exampleTranslation: 'chalmoq (musiqa asbobini~)',
+              exampleSentence: '毎日[まいにち] 弾きます[ひきます]。',
+              exampleTranslation: 'Har kuni chalmoq (musiqa asbobini~).',
             },
             {
               term: '歌います (うたいます)',
               reading: 'うたいます',
               meaning: "kuylamoq, qo'shiq aytmoq",
-              exampleSentence: "うたいます — kuylamoq, qo'shiq aytmoq",
-              exampleTranslation: "kuylamoq, qo'shiq aytmoq",
+              exampleSentence: '毎日[まいにち] 歌います[うたいます]。',
+              exampleTranslation: "Har kuni kuylamoq, qo'shiq aytmoq.",
             },
             {
               term: '集めます (あつめます)',
               reading: 'あつめます',
               meaning: "yig'moq, to'plamoq",
-              exampleSentence: "あつめます — yig'moq, to'plamoq",
-              exampleTranslation: "yig'moq, to'plamoq",
+              exampleSentence: '毎日[まいにち] 集めます[あつめます]。',
+              exampleTranslation: "Har kuni yig'moq, to'plamoq.",
             },
             {
               term: '捨てます (すてます)',
               reading: 'すてます',
               meaning: 'tashlamoq',
-              exampleSentence: 'すてます — tashlamoq',
-              exampleTranslation: 'tashlamoq',
+              exampleSentence: '毎日[まいにち] 捨てます[すてます]。',
+              exampleTranslation: 'Har kuni tashlamoq.',
             },
             {
               term: '換えます (かえます)',
               reading: 'かえます',
               meaning: "almashtirmoq, o'zgartirmoq",
-              exampleSentence: "かえます — almashtirmoq, o'zgartirmoq",
-              exampleTranslation: "almashtirmoq, o'zgartirmoq",
+              exampleSentence: '毎日[まいにち] 換えます[かえます]。',
+              exampleTranslation: "Har kuni almashtirmoq, o'zgartirmoq.",
             },
             {
-              term: '運転 します (うんてん します)',
-              reading: 'うんてん します',
+              term: '運転します (うんてんします)',
+              reading: 'うんてんします',
               meaning: 'haydamoq (transport ~)',
-              exampleSentence: 'うんてん します — haydamoq (transport ~)',
-              exampleTranslation: 'haydamoq (transport ~)',
+              exampleSentence: '毎日[まいにち] 運転します[うんてんします]。',
+              exampleTranslation: 'Har kuni haydamoq (transport ~).',
             },
             {
-              term: '予約 します (よやく します)',
-              reading: 'よやく します',
+              term: '予約します (よやくします)',
+              reading: 'よやくします',
               meaning: 'buyurtma bermoq',
-              exampleSentence: 'よやく します — buyurtma bermoq',
-              exampleTranslation: 'buyurtma bermoq',
+              exampleSentence: '毎日[まいにち] 予約します[よやくします]。',
+              exampleTranslation: 'Har kuni buyurtma bermoq.',
             },
             {
-              term: '見学 します (けんがく します)',
-              reading: 'けんがく します',
+              term: '見学します (けんがくします)',
+              reading: 'けんがくします',
               meaning: "kuzatmoq, ko'rmoq (o'rganish maqsadida)",
-              exampleSentence: "けんがく します — kuzatmoq, ko'rmoq (o'rganish maqsadida)",
-              exampleTranslation: "kuzatmoq, ko'rmoq (o'rganish maqsadida)",
+              exampleSentence: '毎日[まいにち] 見学します[けんがくします]。',
+              exampleTranslation: "Har kuni kuzatmoq, ko'rmoq (o'rganish maqsadida).",
             },
             {
               term: 'ピアノ',
               reading: 'ピアノ',
               meaning: 'pianino',
-              exampleSentence: 'ピアノ — pianino',
-              exampleTranslation: 'pianino',
+              exampleSentence: 'これは わたしが 買[か]った ピアノ です。',
+              exampleTranslation: 'Bu men sotib olgan pianino.',
             },
             {
               term: '～メートル',
               reading: '～メートル',
               meaning: '~ metr',
-              exampleSentence: '～メートル — ~ metr',
-              exampleTranslation: '~ metr',
+              exampleSentence: '山田[やまだ]メートルは 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada ~ metr samimiy inson.',
             },
             {
               term: '国際～ (こくさい～)',
               reading: 'こくさい～',
               meaning: 'xalqaro ~',
-              exampleSentence: 'こくさい～ — xalqaro ~',
-              exampleTranslation: 'xalqaro ~',
+              exampleSentence: 'この 部屋[へや]は 国際[こくさい]です。',
+              exampleTranslation: 'Bu xona xalqaro ~.',
             },
             {
               term: '現金 (げんきん)',
               reading: 'げんきん',
               meaning: 'naqd pul',
-              exampleSentence: 'げんきん — naqd pul',
-              exampleTranslation: 'naqd pul',
+              exampleSentence: 'これは わたしが 買[か]った 現金[げんきん] です。',
+              exampleTranslation: 'Bu men sotib olgan naqd pul.',
             },
             {
               term: '趣味 (しゅみ)',
               reading: 'しゅみ',
               meaning: 'qiziqish',
-              exampleSentence: 'しゅみ — qiziqish',
-              exampleTranslation: 'qiziqish',
+              exampleSentence: 'これは わたしが 買[か]った 趣味[しゅみ] です。',
+              exampleTranslation: 'Bu men sotib olgan qiziqish.',
+            },
+            {
+              term: '日記 (にっき)',
+              reading: 'にっき',
+              meaning: 'kundalik daftar',
+              exampleSentence: 'これは わたしが 買[か]った 日記[にっき] です。',
+              exampleTranslation: 'Bu men sotib olgan kundalik daftar.',
+            },
+            {
+              term: '［お］祈り (［お］いのり)',
+              reading: '［お］いのり',
+              meaning: 'ibodat ( ～を します ibodat qilmoq)',
+              exampleSentence: 'これは わたしが 買[か]った ［お］祈り[［お］いのり] です。',
+              exampleTranslation: 'Bu men sotib olgan ibodat ( ～を します ibodat qilmoq).',
+            },
+            {
+              term: '課長 (かちょう)',
+              reading: 'かちょう',
+              meaning: "bo'lim boshlig'i",
+              exampleSentence: '毎日[まいにち] 課長[かちょう]。',
+              exampleTranslation: "Har kuni bo'lim boshlig'i.",
+            },
+            {
+              term: '部長 (ぶちょう)',
+              reading: 'ぶちょう',
+              meaning: "departament boshlig'i",
+              exampleSentence: '毎日[まいにち] 部長[ぶちょう]。',
+              exampleTranslation: "Har kuni departament boshlig'i.",
+            },
+            {
+              term: '社長 (しゃちょう)',
+              reading: 'しゃちょう',
+              meaning: "korxona boshlig'i",
+              exampleSentence: '毎日[まいにち] 社長[しゃちょう]。',
+              exampleTranslation: "Har kuni korxona boshlig'i.",
+            },
+            {
+              term: '動物どうぶつ',
+              reading: '動物どうぶつ',
+              meaning: 'jonivor, hayvon',
+              exampleSentence: 'これは わたしが 買[か]った 動物[どうぶつ] です。',
+              exampleTranslation: 'Bu men sotib olgan jonivor, hayvon.',
+            },
+            {
+              term: '馬うま',
+              reading: '馬うま',
+              meaning: 'ot',
+              exampleSentence: 'これは わたしが 買[か]った 馬[うま] です。',
+              exampleTranslation: 'Bu men sotib olgan ot.',
+            },
+            {
+              term: 'へえ',
+              reading: 'へえ',
+              meaning: 'A?!',
+              exampleSentence: 'これは わたしが 買[か]った へえ です。',
+              exampleTranslation: 'Bu men sotib olgan a?!.',
+            },
+            {
+              term: 'それはおもしろいですね。',
+              reading: 'それはおもしろいですね。',
+              meaning: 'Qiziq-a?',
+              exampleSentence: 'これは わたしが 買[か]った それはおもしろいですね。 です。',
+              exampleTranslation: 'Bu men sotib olgan qiziq-a?.',
+            },
+            {
+              term: 'なかなか',
+              reading: 'なかなか',
+              meaning: "sira, hech (inkor gapda qo'llaniladi)",
+              exampleSentence: 'これは わたしが 買[か]った なかなか です。',
+              exampleTranslation: "Bu men sotib olgan sira, hech (inkor gapda qo'llaniladi).",
+            },
+            {
+              term: '牧ぼく場じょう',
+              reading: '牧ぼく場じょう',
+              meaning: 'ferma',
+              exampleSentence: 'これは わたしが 買[か]った 牧[ぼく]場[じょう] です。',
+              exampleTranslation: 'Bu men sotib olgan ferma.',
+            },
+            {
+              term: 'ほんとうですか。',
+              reading: 'ほんとうですか。',
+              meaning: 'Rostdanmi?',
+              exampleSentence: 'これは わたしが 買[か]った ほんとうですか。 です。',
+              exampleTranslation: 'Bu men sotib olgan rostdanmi?.',
+            },
+            {
+              term: 'ぜひ',
+              reading: 'ぜひ',
+              meaning: 'albatta',
+              exampleSentence: 'これは わたしが 買[か]った ぜひ です。',
+              exampleTranslation: 'Bu men sotib olgan albatta.',
+            },
+            {
+              term: 'ビートルズ',
+              reading: 'ビートルズ',
+              meaning: '“Bitlz” – mashhur ingliz musiqa guruhi',
+              exampleSentence: 'これは わたしが 買[か]った ビートルズ です。',
+              exampleTranslation: 'Bu men sotib olgan “bitlz” – mashhur ingliz musiqa guruhi.',
             },
           ],
           grammarRules: [
             {
               pattern: 'FE’Lning lug`atdagi shakli',
               meaning:
-                "“Fe'lning lug'atdagi shakli” fe'lning asosiy shakli hisoblanadi. Lug'atlarda fe'lning shunday shakli ko'rsatilib, u fe'lning boshlang'ich shakli hisoblanadi. “FE'Lning lug'atdagi shakli” quyidagicha y",
-              usageNotes:
                 "“Fe'lning lug'atdagi shakli” fe'lning asosiy shakli hisoblanadi. Lug'atlarda fe'lning shunday shakli ko'rsatilib, u fe'lning boshlang'ich shakli hisoblanadi. “FE'Lning lug'atdagi shakli” quyidagicha yasaladi. (O'quv qo'llanma, 18-dars, 148-bet, 練習[れんしゅう] A1ga qarang) 1) Ⅰ guruh: Bu guruh fe'llarida ます -shakli har doim い qatorda tugaydi. FE'Lning lug'atdagi shakli い qatorini う qatoriga o'zgartirishi bilan tuziladi. (O'quv qo'llanma, 20-bet, “ かなと拍[はく] ” ga qarang) 2) Ⅱ guruh る→ます shaklidagi fe'lga qo'shiladi 3) Ⅲ guruh します→する ga va きます→くる ga o'zgaradi OT HARAKATNI",
+              usageNotes:
+                'Minna no Nihongo 18-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'FE’Lning lug`atdagi shakli',
-                  translation:
-                    "“Fe'lning lug'atdagi shakli” fe'lning asosiy shakli hisoblanadi. Lug'atlarda fe'",
+                  translation: 'Grammatik qolip.',
                 },
               ],
             },
             {
               pattern: 'FE’Lning lug`atdagi shakli  こと ができます BAJARA OLISH',
               meaning:
-                "IBORASI Ish-harakatni bajarish imkoniyati va qobiliyatini できます fe'li anglatadi. OT yoki “FE'Lning lug'atdagi shakli こと ” ning が dan oldin kelishi ayni mana shu harakat (modal shakl)ni ifodalash uchun ",
-              usageNotes:
                 "IBORASI Ish-harakatni bajarish imkoniyati va qobiliyatini できます fe'li anglatadi. OT yoki “FE'Lning lug'atdagi shakli こと ” ning が dan oldin kelishi ayni mana shu harakat (modal shakl)ni ifodalash uchun xizmat qiladi. 1) OT Bu tuzilma odatda harakatni bildiruvchi otlar bilan birga qo'llaniladi. Masalan, mashina haydash, chang'i uchish, raqs va h.z. Shu bilan birga はなす fe'liga bog'liq ot- 日本語 yoki ひく fe'liga bog'liq ot- ピアノ so'zlarini ishlatish mumkin. 2) FE'L Imkoniyat, qobiliyat iboralarini ifodalash uchun “FE'Lning lug'atdagi shakli”ga こと qo'shiladi va ular shu bilan tayyor so'z birikmasiga qo'shiladi.",
+              usageNotes:
+                'Minna no Nihongo 18-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'ミラーさんは 日本語[にほんご] が できます。',
@@ -6746,13 +11446,17 @@ export const MINNA_N5_LESSONS: Lesson[] = [
                   sentence: 'ミラーさんは 漢[かん] 字[じ] を 読[よ] むことが できます。',
                   translation: "Janob Miller iyerogliflarni o'qiy oladi.",
                 },
+                {
+                  sentence: 'カードで 払[はら] うことが できます。',
+                  translation: "Kartochka yordamida to'lasa bo'ladi.",
+                },
               ],
             },
             {
               pattern: 'OT  Mening sevimli',
               meaning: "わたしの 趣[しゅ] 味[み] です FE'Lning lug'atdagi shakli こと mashg'ulotim",
               usageNotes:
-                "わたしの 趣[しゅ] 味[み] です FE'Lning lug'atdagi shakli こと mashg'ulotim",
+                'Minna no Nihongo 18-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence:
@@ -6764,29 +11468,17 @@ export const MINNA_N5_LESSONS: Lesson[] = [
                   translation: "Mening sevimli mashg'ulotim-musiqa.",
                 },
                 {
-                  sentence:
-                    'わたしの 趣[しゅ] 味[み] は 音楽[おんがく] を 聞[き] くことです。 Mening sevimli mashg`ulotim-musiqa',
+                  sentence: 'わたしの 趣[しゅ] 味[み] は 音楽[おんがく] を 聞[き] くことです。',
                   translation: 'tinglash.',
-                },
-              ],
-            },
-            {
-              pattern: 'FE’L 1 ning lug`atdagi shakli BIR HARAKATNING',
-              meaning: '',
-              usageNotes: '',
-              examples: [
-                {
-                  sentence: 'FE’L 1 ning lug`atdagi shakli BIR HARAKATNING',
-                  translation: '',
                 },
               ],
             },
             {
               pattern: 'OT  の まえに、 FE’L 2 BOSHQASIDAN OLDIN',
               meaning:
-                "SON (muddat) KELISHI 1) FE'L Bunday turdagi gaplarda FE'L 2 da ko'rsatilgan harakat FE'L 1 dagi harakatdan oldin amalga oshishini ko'rsatadi. Garchi FE'L 2 o'tgan yoki kelasi zamonda kelsa ham, FE'L 1",
-              usageNotes:
                 "SON (muddat) KELISHI 1) FE'L Bunday turdagi gaplarda FE'L 2 da ko'rsatilgan harakat FE'L 1 dagi harakatdan oldin amalga oshishini ko'rsatadi. Garchi FE'L 2 o'tgan yoki kelasi zamonda kelsa ham, FE'L 1 har doim lug'atdagi shaklda qolaveradi. 2) OT OTlar bilan まえに qo'llanilganda ular orasiga の yuklamasi keladi. まえに bilan biror-bir harakatni bildiradigan yoki nazarda tutadigan otlar qo'llaniladi. 3) SON (muddat) まえに sonlar (vaqt muddati) bilan の yuklamasining qo'llanilmaydi.",
+              usageNotes:
+                'Minna no Nihongo 18-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence:
@@ -6801,14 +11493,18 @@ export const MINNA_N5_LESSONS: Lesson[] = [
                   sentence: '食[しょく] 事[じ] の まえに、手[て] を洗[あら] います。',
                   translation: "Men ovqatdan oldin qo'lni yuvaman.",
                 },
+                {
+                  sentence: '田[た] 中[なか] さんは１時[じ] 間[かん] まえに、出[で] かけました。',
+                  translation: 'Janob Tanaka bir soat oldin chiqib ketdi.',
+                },
               ],
             },
             {
               pattern: 'なかなか',
               meaning:
-                "なかなか inkor gapda “ oson emas ”, “ hech ” degan ma'nolarni anglatadi. [Eslatma] ⑪ -misolda ko'rsatilgan にほんでは so'zidagi は diqqatni gap ketayotgan joyga qaratish uchun qo'llanilgan.",
+                "なかなか inkor gapda “ oson emas ”, “ hech ” degan ma'nolarni anglatadi. 💡 Muhim eslatma: ⑪ -misolda ko'rsatilgan にほんでは so'zidagi は diqqatni gap ketayotgan joyga qaratish uchun qo'llanilgan.",
               usageNotes:
-                "なかなか inkor gapda “ oson emas ”, “ hech ” degan ma'nolarni anglatadi. [Eslatma] ⑪ -misolda ko'rsatilgan にほんでは so'zidagi は diqqatni gap ketayotgan joyga qaratish uchun qo'llanilgan.",
+                'Minna no Nihongo 18-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence:
@@ -6820,9 +11516,9 @@ export const MINNA_N5_LESSONS: Lesson[] = [
             {
               pattern: 'ぜひ',
               meaning:
-                "ぜひ ravishi 「ほしいです」 , “FE'Lning ます -shakli たいです ” , “FE'Lning て -shakli ください ”ga o'xshagan iboralar qo'llanilgan gapda ishonchni yoki tilakni kuchaytirib keladi. Bu ravish ibora ma'nosini kuchaytirib k",
-              usageNotes:
                 "ぜひ ravishi 「ほしいです」 , “FE'Lning ます -shakli たいです ” , “FE'Lning て -shakli ください ”ga o'xshagan iboralar qo'llanilgan gapda ishonchni yoki tilakni kuchaytirib keladi. Bu ravish ibora ma'nosini kuchaytirib keladi.",
+              usageNotes:
+                'Minna no Nihongo 18-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'ぜひ 北海道[ほっかいどう] へ 行[い] きたいです。',
@@ -6836,82 +11532,92 @@ export const MINNA_N5_LESSONS: Lesson[] = [
             },
           ],
           culturalNotes:
-            "Yaponiyada xobbi (shumi) haqida suhbatlashish yangi do'stlar orttirishning eng yaxshi usulidir.",
+            "Yaponiyada xobbi (shumi) va qobiliyat haqida suhbatlashish do'st orttirishning eng qulay yo'lidir ('〜が できます' - qila olaman).",
         },
       },
       {
         id: 'ja-minna-l18-s2',
         title: 'Mustahkamlash Mashqlari',
         type: 'practice',
-        estimatedMinutes: 6,
+        estimatedMinutes: 8,
         practiceData: {
           instructions:
-            "Darsda o'rganilgan yangi so'zlar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
+            "Darsda o'rganilgan yangi so'zlar, zarrachalar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
           exercises: [
             {
               id: 'ja-minna-l18-ex1',
               type: 'multiple-choice',
-              prompt: "「できます」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
-              options: [
-                'qila olmoq, bajara olmoq',
-                'yuvmoq',
-                'chalmoq (musiqa asbobini~)',
-                "kuylamoq, qo'shiq aytmoq",
-              ],
-              correctAnswer: 0,
-              explanation: "To'g'ri javob: qila olmoq, bajara olmoq.",
+              prompt:
+                "Bo'sh joyga to'g'ri zarrachani qo'ying:\n「あした 9時（　）学校へ 行きます。」",
+              options: ['へ', 'で', 'に', 'を'],
+              correctAnswer: 2,
+              explanation:
+                "To'g'ri javob: 「に」. Aniq vaqt ifodalanganda 'に' zarrachasi qo'yiladi.",
             },
             {
               id: 'ja-minna-l18-ex2',
               type: 'multiple-choice',
-              prompt:
-                "18-dars grammatik qoidasi: '1.   FE’Lning lug`atdagi shakli' bo'yicha qaysi gap grammatik jihatdan to'g'ri tuzilgan?",
+              prompt: "「部長 (ぶちょう)」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
               options: [
-                'ミラーさんは 日本語[にほんご] が できます。',
-                'これ は を です。',
-                'だれ が 行きます か でした。',
-                'へ 行きません です。',
+                'chalmoq (musiqa asbobini~)',
+                'yuvmoq',
+                'qila olmoq, bajara olmoq',
+                "departament boshlig'i",
               ],
-              correctAnswer: 0,
-              explanation:
-                "To'g'ri javob: ミラーさんは 日本語[にほんご] が できます。 (Janob Miller yapon tilida gaplasha oladi.).",
+              correctAnswer: 3,
+              explanation: "To'g'ri javob: 「departament boshlig'i」.",
             },
             {
               id: 'ja-minna-l18-ex3',
               type: 'multiple-choice',
-              prompt:
-                "O'zbek tiliga to'g'ri tarjima qiling: 「雪[ゆき] が たくさん 降[ふ] りましたから、ことしは スキーが できます。」",
+              prompt: "18-dars grammatik qoidasiga muvofiq to'g'ri tuzilgan gapni aniqlang:",
               options: [
-                "Ko'p qor yoqqanligi sababli, bu yil chang'i ucha olamiz.",
-                "Ertaga do'stim bilan mehmonga boraman.",
-                "Kechirasiz, soat necha bo'ldi?",
-                "Iltimos, manzilni ko'rsatib yuboring.",
+                'ミラーさんは 日本語[にほんご] が できます か でした。',
+                'ミラーさんは 日本語[にほんご] が できます。',
+                'ミラーさんは 日本語[にほんご] が できます です。',
+                'ミラーさんは 日本語[にほんご] が できません でした です。',
               ],
-              correctAnswer: 0,
+              correctAnswer: 1,
               explanation:
-                "To'g'ri tarjimasi: Ko'p qor yoqqanligi sababli, bu yil chang'i ucha olamiz..",
+                "To'g'ri gap: 「ミラーさんは 日本語[にほんご] が できます。」 (Janob Miller yapon tilida gaplasha oladi.).",
             },
             {
               id: 'ja-minna-l18-ex4',
               type: 'multiple-choice',
-              prompt: 'Ushbu darsdagi suhbatdan kelib chiqib: Yamada qanday jumla aytadi?',
+              prompt:
+                "Ushbu gapning to'g'ri yaponcha tarjimasini tanlang:\n「Janob Miller yapon tilida gaplasha oladi.」",
               options: [
-                "Janob Santos, sevimli mashg'ulotingiz nima?",
-                'Men hech qayerga bormayman.',
-                'Taksida aeroportga haydang.',
-                "Iltimos, hisobni alohida to'laymiz.",
+                'ミラーさんは 日本語[にほんご] が できます。',
+                'FE’Lning lug`atdagi shakli',
+                '雪[ゆき] が たくさん 降[ふ] りましたから、ことしは スキーが できます。',
+                'ミラーさんは 漢[かん] 字[じ] を 読[よ] むことが できます。',
               ],
               correctAnswer: 0,
-              explanation: "To'g'ri ibora: Janob Santos, sevimli mashg'ulotingiz nima?.",
+              explanation:
+                "Yaponcha to'g'ri ifodasi: 「ミラーさんは 日本語[にほんご] が できます。」.",
+            },
+            {
+              id: 'ja-minna-l18-ex5',
+              type: 'multiple-choice',
+              prompt:
+                'Suhbatdoshingiz: 「いらっしゃいませ！」 dedi. Unga eng mos muloyim javob qaysi?',
+              options: [
+                'すみません、この時計を 見せてください。',
+                '失礼します。',
+                'おやすみなさい。',
+                'ごちそうさまでした。',
+              ],
+              correctAnswer: 0,
+              explanation: "To'g'ri javob: 「すみません、この時計を 見せてください。」.",
             },
           ],
         },
       },
       {
         id: 'ja-minna-l18-s3',
-        title: 'Sinov Testi',
+        title: 'JLPT N5 Sinov Testi',
         type: 'test',
-        estimatedMinutes: 6,
+        estimatedMinutes: 7,
         testData: {
           instructions:
             "Darsni muvaffaqiyatli yakunlash uchun savollarga to'g'ri javob bering (Kamida 80%).",
@@ -6919,56 +11625,60 @@ export const MINNA_N5_LESSONS: Lesson[] = [
           questions: [
             {
               id: 'ja-minna-l18-q1',
-              question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「ミラーさんは 日本語[にほんご] が できます。」",
-              options: [
-                'Janob Miller yapon tilida gaplasha oladi.',
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
-              ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Janob Miller yapon tilida gaplasha oladi..",
+              question: '【Mondai 1: Moji/Goi】「弾きます」の 読[よ]み方[かた]は どれですか。',
+              options: ['うたいます', 'あらいます', 'できます', 'ひきます'],
+              correctAnswerIndex: 3,
+              explanation:
+                "「弾きます」 ning to'g'ri o'qilishi: 「ひきます」 (chalmoq (musiqa asbobini~)).",
             },
             {
               id: 'ja-minna-l18-q2',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「雪[ゆき] が たくさん 降[ふ] りましたから、ことしは スキーが できます。」",
-              options: [
-                "Ko'p qor yoqqanligi sababli, bu yil chang'i ucha olamiz.",
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
-              ],
-              correctAnswerIndex: 0,
-              explanation:
-                "To'g'ri javob: Ko'p qor yoqqanligi sababli, bu yil chang'i ucha olamiz..",
+                '【Mondai 2: Bunpo】（　）に 入[はい]る 最[もっと]も よいものを 1つ えらびなさい。\n「毎朝 7時（　）起きます。」',
+              options: ['へ', 'に', 'で', 'を'],
+              correctAnswerIndex: 1,
+              explanation: "To'g'ri zarracha: 「に」. Aniq soat bilan 'に' zarrachasi ishlatiladi.",
             },
             {
               id: 'ja-minna-l18-q3',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「ミラーさんは 漢[かん] 字[じ] を 読[よ] むことが できます。」",
+                "【Mondai 3: Bunpo】18-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
               options: [
-                "Janob Miller iyerogliflarni o'qiy oladi.",
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
+                'FE’Lning lug`atdagi shakli  こと ができます BAJARA OLISH',
+                '〜は 〜でした じゃありません',
+                '〜に 食べません でした',
+                '〜を 行きます です',
               ],
               correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Janob Miller iyerogliflarni o'qiy oladi..",
+              explanation:
+                "To'g'ri grammatik formula: 「FE’Lning lug`atdagi shakli  こと ができます BAJARA OLISH」.",
             },
             {
               id: 'ja-minna-l18-q4',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「カードで 払[はら] うことが できます。」",
+                "【Mondai 4: Dokkai】Quyidagi yaponcha gapning to'g'ri o'zbekcha ma'nosini toping:\n「雪[ゆき] が たくさん 降[ふ] りましたから、ことしは スキーが できます。」",
               options: [
-                "Kartochka yordamida to'lasa bo'ladi.",
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
+                'Janob Miller yapon tilida gaplasha oladi.',
+                'Grammatik qolip.',
+                "Janob Miller iyerogliflarni o'qiy oladi.",
+                "Ko'p qor yoqqanligi sababli, bu yil chang'i ucha olamiz.",
               ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Kartochka yordamida to'lasa bo'ladi..",
+              correctAnswerIndex: 3,
+              explanation:
+                "To'g'ri ma'nosi: 「Ko'p qor yoqqanligi sababli, bu yil chang'i ucha olamiz.」.",
+            },
+            {
+              id: 'ja-minna-l18-q5',
+              question:
+                "【Mondai 5: Kaiwa】Savolga eng to'g'ri javobni tanlang:\n「トイレは どこですか。」",
+              options: [
+                'おやすみなさい。',
+                'はい、そうです。',
+                'あそこです。',
+                'ごちそうさまでした。',
+              ],
+              correctAnswerIndex: 2,
+              explanation: "To'g'ri javob: 「あそこです。」.",
             },
           ],
         },
@@ -6985,158 +11695,283 @@ export const MINNA_N5_LESSONS: Lesson[] = [
     lessonNumber: 19,
     title: "19-dars: Fe'lning Ta-shakli, Tajriba va O'zgarish",
     description:
-      "Minna no Nihongo Shokyu 1: 19-dars: Fe'lning Ta-shakli, Tajriba va O'zgarish. Darsda 34 ta yangi so'z va 5 ta asosiy grammatik qoida o'rganiladi.",
-    estimatedDurationMinutes: 20,
+      "Minna no Nihongo Shokyu 1: 19-dars: Fe'lning Ta-shakli, Tajriba va O'zgarish. Darsda 34 ta yangi so'z, audio talaffuzli Furigana misollar va 5 ta asosiy grammatik formula o'rganiladi.",
+    estimatedDurationMinutes: 25,
     icon: '🌸',
     steps: [
       {
         id: 'ja-minna-l19-s1',
         title: "Lug'at va Qoidalar",
         type: 'learn',
-        estimatedMinutes: 8,
+        estimatedMinutes: 10,
         learnData: {
           title: "19-Dars: 19-dars: Fe'lning Ta-shakli, Tajriba va O'zgarish",
           subtitle: '第19課：た形・経験と変化（たことがあります・たり・くなります）',
           explanation:
-            "19-dars: Fe'lning Ta-shakli, Tajriba va O'zgarish bo'yicha to'liq grammatik izohlar va qoidalar to'plami. Har bir qoida Minna no Nihongo darsligining o'zbekcha tarjimasiga moslashtirilgan.",
+            "19-dars: Fe'lning Ta-shakli, Tajriba va O'zgarish bo'yicha to'liq grammatik izohlar, formulalar va Furiganali misollar to'plami.",
           keyPoints: [
-            "1.     FE’Lning  た -shakli: Bu darsda “FE'Lning た -shakli” xususiyatlari haqida bilib olasizlar. “FE'Lning た - shakli”ning tuzilish qoidasi quyidagi...",
-            "2. FE’Lning  た -shakli  ことが あります TAJRIBADA BO`LGANLIGI: IFODASI Bunday turdagi gaplar biror bir harakatni tasvirlashda tajribasi borligini bildirish uchun qo'llaniladi. 9-darsd...",
-            "3.   FE’Lning た -shakli り、 FE’Lning  た -shakli り します: goh FE'L…goh FE'L va x. z 10-darsda siz ko'p narsalar ichidan bir nechtasini ko'rsatish usulini bilib oldingiz ( ～や～ [ な...",
-            "4.   い -SIFAT  ( ～い )  → ～く: HOLAT YOKI SHAROITNING な -SIFAT ［な］ → に なります O'ZGARISHI IFODASI OT に Holat yoki shartlarning o'zgarishini ifodalash uchu...",
-            '5.  そう ですね: Suhbatdoshning fikrini tushunganligini yoki u bilan hamfikr ekanligini bildirish uchun そうですね xizmat qiladi. そうですか ham bi...',
+            "📌 1.     FE’Lning  た -shakli: Bu darsda “FE'Lning た -shakli” xususiyatlari haqida bilib olasizlar.",
+            "📌 2. FE’Lning  た -shakli  ことが あります TAJRIBADA BO`LGANLIGI: IFODASI Bunday turdagi gaplar biror bir harakatni tasvirlashda tajribasi borligini bildirish uchun qo'llaniladi.",
+            "📌 3.   FE’Lning た -shakli り、 FE’Lning  た -shakli り します: goh FE'L…goh FE'L va x.",
+            "📌 4.   い -SIFAT  ( ～い )  → ～く: HOLAT YOKI SHAROITNING な -SIFAT ［な］ → に なります O'ZGARISHI IFODASI OT に Holat yoki shartlarning o'zgarishini ifodalash uchun なります xizmat qiladi.",
+            '📌 5.  そう ですね: Suhbatdoshning fikrini tushunganligini yoki u bilan hamfikr ekanligini bildirish uchun そうですね xizmat qiladi.',
           ],
           vocabulary: [
             {
               term: '登ります (のぼります)',
               reading: 'のぼります',
               meaning: "chiqmoq, ko'tarilmoq",
-              exampleSentence: "のぼります — chiqmoq, ko'tarilmoq",
-              exampleTranslation: "chiqmoq, ko'tarilmoq",
+              exampleSentence: '毎日[まいにち] 登ります[のぼります]。',
+              exampleTranslation: "Har kuni chiqmoq, ko'tarilmoq.",
             },
             {
-              term: '[ 山に～ ] ([ やまに～ ])',
-              reading: '[ やまに～ ]',
+              term: '山に～ (やまに～)',
+              reading: 'やまに～',
               meaning: '(toqqa chiqmoq)',
-              exampleSentence: '[ やまに～ ] — (toqqa chiqmoq)',
-              exampleTranslation: '(toqqa chiqmoq)',
+              exampleSentence: '山田[やまだ][やまに]は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada (toqqa chiqmoq) samimiy inson.',
             },
             {
               term: '泊まります (とまります)',
               reading: 'とまります',
               meaning: 'tunamoq',
-              exampleSentence: 'とまります — tunamoq',
-              exampleTranslation: 'tunamoq',
+              exampleSentence: '毎日[まいにち] 泊まります[とまります]。',
+              exampleTranslation: 'Har kuni tunamoq.',
             },
             {
-              term: '[ ホテルに～ ]',
-              reading: '[ ホテルに～ ]',
+              term: 'ホテルに～',
+              reading: 'ホテルに～',
               meaning: '(mehmonxonada tunamoq)',
-              exampleSentence: '[ ホテルに～ ] — (mehmonxonada tunamoq)',
-              exampleTranslation: '(mehmonxonada tunamoq)',
+              exampleSentence: '山田[やまだ][ホテルに]は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada (mehmonxonada tunamoq) samimiy inson.',
             },
             {
-              term: '掃除 します (そうじ します)',
-              reading: 'そうじ します',
+              term: '掃除します (そうじします)',
+              reading: 'そうじします',
               meaning: 'tozalamoq',
-              exampleSentence: 'そうじ します — tozalamoq',
-              exampleTranslation: 'tozalamoq',
+              exampleSentence: '毎日[まいにち] 掃除します[そうじします]。',
+              exampleTranslation: 'Har kuni tozalamoq.',
             },
             {
-              term: '洗濯 します (せんたく します)',
-              reading: 'せんたく します',
+              term: '洗濯します (せんたくします)',
+              reading: 'せんたくします',
               meaning: 'kir yuvmoq',
-              exampleSentence: 'せんたく します — kir yuvmoq',
-              exampleTranslation: 'kir yuvmoq',
+              exampleSentence: '毎日[まいにち] 洗濯します[せんたくします]。',
+              exampleTranslation: 'Har kuni kir yuvmoq.',
             },
             {
-              term: '練習 します (れんしゅう します)',
-              reading: 'れんしゅう します',
+              term: '練習します (れんしゅうします)',
+              reading: 'れんしゅうします',
               meaning: 'mashq qilmoq',
-              exampleSentence: 'れんしゅう します — mashq qilmoq',
-              exampleTranslation: 'mashq qilmoq',
+              exampleSentence: '毎日[まいにち] 練習します[れんしゅうします]。',
+              exampleTranslation: 'Har kuni mashq qilmoq.',
             },
             {
               term: 'なります',
               reading: 'なります',
               meaning: "bo'lmoq",
-              exampleSentence: "なります — bo'lmoq",
-              exampleTranslation: "bo'lmoq",
+              exampleSentence: '毎日[まいにち] なります。',
+              exampleTranslation: "Har kuni bo'lmoq.",
             },
             {
               term: '眠い (ねむい)',
               reading: 'ねむい',
               meaning: 'uyqisiramoq',
-              exampleSentence: 'ねむい — uyqisiramoq',
-              exampleTranslation: 'uyqisiramoq',
+              exampleSentence: 'この 部屋[へや]は 眠い[ねむい]です。',
+              exampleTranslation: 'Bu xona uyqisiramoq.',
             },
             {
               term: '強い (つよい)',
               reading: 'つよい',
               meaning: 'kuchli',
-              exampleSentence: 'つよい — kuchli',
-              exampleTranslation: 'kuchli',
+              exampleSentence: 'この 部屋[へや]は 強い[つよい]です。',
+              exampleTranslation: 'Bu xona kuchli.',
             },
             {
               term: '弱い (よわい)',
               reading: 'よわい',
               meaning: 'kuchsiz',
-              exampleSentence: 'よわい — kuchsiz',
-              exampleTranslation: 'kuchsiz',
+              exampleSentence: 'この 部屋[へや]は 弱い[よわい]です。',
+              exampleTranslation: 'Bu xona kuchsiz.',
             },
             {
-              term: '調子が いい (ちょうしが いい)',
-              reading: 'ちょうしが いい',
+              term: '調子がいい (ちょうしがいい)',
+              reading: 'ちょうしがいい',
               meaning: "o'zini yaxshi his qilmoq; soz",
-              exampleSentence: "ちょうしが いい — o'zini yaxshi his qilmoq; soz",
-              exampleTranslation: "o'zini yaxshi his qilmoq; soz",
+              exampleSentence: 'これは わたしが 買[か]った 調子がいい[ちょうしがいい] です。',
+              exampleTranslation: "Bu men sotib olgan o'zini yaxshi his qilmoq; soz.",
             },
             {
-              term: '調子が 悪い (ちょうしが わるい)',
-              reading: 'ちょうしが わるい',
+              term: '調子が悪い (ちょうしがわるい)',
+              reading: 'ちょうしがわるい',
               meaning: "o'zini yomon his qilmoq; nosoz",
-              exampleSentence: "ちょうしが わるい — o'zini yomon his qilmoq; nosoz",
-              exampleTranslation: "o'zini yomon his qilmoq; nosoz",
+              exampleSentence: 'これは わたしが 買[か]った 調子が悪い[ちょうしがわるい] です。',
+              exampleTranslation: "Bu men sotib olgan o'zini yomon his qilmoq; nosoz.",
             },
             {
               term: '調子 (ちょうし)',
               reading: 'ちょうし',
               meaning: 'kayfiyat, holat',
-              exampleSentence: 'ちょうし — kayfiyat, holat',
-              exampleTranslation: 'kayfiyat, holat',
+              exampleSentence: 'これは わたしが 買[か]った 調子[ちょうし] です。',
+              exampleTranslation: 'Bu men sotib olgan kayfiyat, holat.',
             },
             {
               term: 'ゴルフ',
               reading: 'ゴルフ',
               meaning: "golf ( ～を します : golf o'ynamoq)",
-              exampleSentence: "ゴルフ — golf ( ～を します : golf o'ynamoq)",
-              exampleTranslation: "golf ( ～を します : golf o'ynamoq)",
+              exampleSentence: 'これは わたしが 買[か]った ゴルフ です。',
+              exampleTranslation: "Bu men sotib olgan golf ( ～を します : golf o'ynamoq).",
+            },
+            {
+              term: '相撲 (すもう)',
+              reading: 'すもう',
+              meaning: 'sumo kurashi',
+              exampleSentence: '毎日[まいにち] 相撲[すもう]。',
+              exampleTranslation: 'Har kuni sumo kurashi.',
+            },
+            {
+              term: 'パチンコ',
+              reading: 'パチンコ',
+              meaning: "o'yin avtomati, pachinko",
+              exampleSentence: 'これは わたしが 買[か]った パチンコ です。',
+              exampleTranslation: "Bu men sotib olgan o'yin avtomati, pachinko.",
+            },
+            {
+              term: 'お茶 (おちゃ)',
+              reading: 'おちゃ',
+              meaning: 'choy',
+              exampleSentence: 'これは わたしが 買[か]った お茶[おちゃ] です。',
+              exampleTranslation: 'Bu men sotib olgan choy.',
+            },
+            {
+              term: '日 (ひ)',
+              reading: 'ひ',
+              meaning: 'kun',
+              exampleSentence: 'これは わたしが 買[か]った 日[ひ] です。',
+              exampleTranslation: 'Bu men sotib olgan kun.',
+            },
+            {
+              term: '一度 (いちど)',
+              reading: 'いちど',
+              meaning: 'bir marta',
+              exampleSentence: 'これは わたしが 買[か]った 一度[いちど] です。',
+              exampleTranslation: 'Bu men sotib olgan bir marta.',
+            },
+            {
+              term: '一度も (いちども)',
+              reading: 'いちども',
+              meaning: 'bir marta ham, hech, sira',
+              exampleSentence: 'これは わたしが 買[か]った 一度も[いちども] です。',
+              exampleTranslation: 'Bu men sotib olgan bir marta ham, hech, sira.',
+            },
+            {
+              term: 'だんだん',
+              reading: 'だんだん',
+              meaning: 'asta-sekin, tobora',
+              exampleSentence: 'これは わたしが 買[か]った だんだん です。',
+              exampleTranslation: 'Bu men sotib olgan asta-sekin, tobora.',
+            },
+            {
+              term: 'もうすぐ',
+              reading: 'もうすぐ',
+              meaning: 'tez orada',
+              exampleSentence: 'これは わたしが 買[か]った もうすぐ です。',
+              exampleTranslation: 'Bu men sotib olgan tez orada.',
+            },
+            {
+              term: 'おかげさまで',
+              reading: 'おかげさまで',
+              meaning: 'sharofatingiz bilan',
+              exampleSentence: 'これは わたしが 買[か]った おかげさまで です。',
+              exampleTranslation: 'Bu men sotib olgan sharofatingiz bilan.',
+            },
+            {
+              term: '乾杯かんぱい',
+              reading: '乾杯かんぱい',
+              meaning: 'Qani, oldik (qadah)',
+              exampleSentence: 'これは わたしが 買[か]った 乾杯[かんぱい] です。',
+              exampleTranslation: 'Bu men sotib olgan qani, oldik (qadah).',
+            },
+            {
+              term: '実じつは',
+              reading: '実じつは',
+              meaning: "ochig'i, rostini aytsam",
+              exampleSentence: 'これは わたしが 買[か]った 実[じつ]は です。',
+              exampleTranslation: "Bu men sotib olgan ochig'i, rostini aytsam.",
+            },
+            {
+              term: 'ダイエット',
+              reading: 'ダイエット',
+              meaning: 'parhez ( ～を します : parhez qilmoq)',
+              exampleSentence: 'これは わたしが 買[か]った ダイエット です。',
+              exampleTranslation: 'Bu men sotib olgan parhez ( ～を します : parhez qilmoq).',
+            },
+            {
+              term: '何回なんかいも',
+              reading: '何回なんかいも',
+              meaning: 'bir necha marotaba',
+              exampleSentence: 'これは わたしが 買[か]った 何回[なんかい]も です。',
+              exampleTranslation: 'Bu men sotib olgan bir necha marotaba.',
+            },
+            {
+              term: 'しかし',
+              reading: 'しかし',
+              meaning: 'lekin',
+              exampleSentence: 'これは わたしが 買[か]った しかし です。',
+              exampleTranslation: 'Bu men sotib olgan lekin.',
+            },
+            {
+              term: '無理むり［な］',
+              reading: '無理むり［な］',
+              meaning: "imkoni yo'q (narsa), ilojsiz (narsa)",
+              exampleSentence: 'これは わたしが 買[か]った 無理[むり]［な］ です。',
+              exampleTranslation: "Bu men sotib olgan imkoni yo'q (narsa), ilojsiz (narsa).",
+            },
+            {
+              term: '体からだにいい',
+              reading: '体からだにいい',
+              meaning: "sog'liqqa foyda",
+              exampleSentence: 'これは わたしが 買[か]った 体[からだ]にいい です。',
+              exampleTranslation: "Bu men sotib olgan sog'liqqa foyda.",
+            },
+            {
+              term: 'ケーキ',
+              reading: 'ケーキ',
+              meaning: 'tort, pirojniy',
+              exampleSentence: 'これは わたしが 買[か]った ケーキ です。',
+              exampleTranslation: 'Bu men sotib olgan tort, pirojniy.',
+            },
+            {
+              term: '葛かつ飾しか北ほく斎さい',
+              reading: '葛かつ飾しか北ほく斎さい',
+              meaning: 'Katsushika Hokusay',
+              exampleSentence: 'これは わたしが 買[か]った 葛[かつ]飾[しか]北[ほく]斎[さい] です。',
+              exampleTranslation: 'Bu men sotib olgan katsushika hokusay.',
             },
           ],
           grammarRules: [
             {
               pattern: 'FE’Lning  た -shakli',
               meaning:
-                "Bu darsda “FE'Lning た -shakli” xususiyatlari haqida bilib olasizlar. “FE'Lning た - shakli”ning tuzilish qoidasi quyidagicha: (Asosiy o'quv qo'llanmaning, 19- darsi, 156-bet, 練習[れんしゅう] A 1ga qarang.) “",
-              usageNotes:
                 "Bu darsda “FE'Lning た -shakli” xususiyatlari haqida bilib olasizlar. “FE'Lning た - shakli”ning tuzilish qoidasi quyidagicha: (Asosiy o'quv qo'llanmaning, 19- darsi, 156-bet, 練習[れんしゅう] A 1ga qarang.) “FE'Lning て -shakli”dagi て、で qo'shimchalarini た、だ ga o'zgartirish yo'li bilan た -shakli tuziladi. て -shakl た -shakl I guruh かいて → かいた のんで → のんだ II guruh たべて → たべた III guruh きて → きた して → した BIROR HARAKATNING",
+              usageNotes:
+                'Minna no Nihongo 19-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'FE’Lning  た -shakli',
-                  translation:
-                    "Bu darsda “FE'Lning た -shakli” xususiyatlari haqida bilib olasizlar. “FE'Lning た",
+                  translation: 'Grammatik qolip.',
                 },
               ],
             },
             {
               pattern: 'FE’Lning  た -shakli  ことが あります TAJRIBADA BO`LGANLIGI',
               meaning:
-                "IFODASI Bunday turdagi gaplar biror bir harakatni tasvirlashda tajribasi borligini bildirish uchun qo'llaniladi. 9-darsdan bilib olganingizdek, bunday gap tuzilishi “ わたしは OT があります ” ko'rinishi holati",
-              usageNotes:
                 "IFODASI Bunday turdagi gaplar biror bir harakatni tasvirlashda tajribasi borligini bildirish uchun qo'llaniladi. 9-darsdan bilib olganingizdek, bunday gap tuzilishi “ わたしは OT があります ” ko'rinishi holati bilan o'zaro bog'liq. Tajriba “FE'Lning た -shakli こと ” so'z birikmasi orqali tuziladi. ifodalangan gaplarning farqiga e'tibor bering.",
+              usageNotes:
+                'Minna no Nihongo 19-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
-                  sentence: '馬[うま] に 乗[の] った ことが あります。 Men otga minganman.',
+                  sentence: '馬[うま] に 乗[の] った ことが あります。',
                   translation:
                     "Bu turdagi gaplar bilan o'tgan zamonda shunchaki bo'lib o'tgan voqea",
                 },
@@ -7149,9 +11984,9 @@ export const MINNA_N5_LESSONS: Lesson[] = [
             {
               pattern: 'FE’Lning た -shakli り、 FE’Lning  た -shakli り します',
               meaning:
-                "goh FE'L…goh FE'L va x. z 10-darsda siz ko'p narsalar ichidan bir nechtasini ko'rsatish usulini bilib oldingiz ( ～や～ [ など ]). Bu darsda sizlar ayrim harakatlarni sanab o'tishni o'rganib olasiz. Bu ko'",
+                "goh FE'L…goh FE'L va x. z 10-darsda siz ko'p narsalar ichidan bir nechtasini ko'rsatish usulini bilib oldingiz ( ～や～ [ など ]). Bu darsda sizlar ayrim harakatlarni sanab o'tishni o'rganib olasiz. Bu ko'rinishdagi gaplarning zamoni oxirida kelgan fe'lga qarab aniqlanadi. 💡 Muhim eslatma: 16-darsdan bilib olgan “ て -shakli”dagi tuzilma ⑤ bilan bu turdagi gaplarning farqlariga ahamiyat bering. yakshanba kuni nima ish qilganligi, shuningdek so'zlovchi yana boshqa harakatlarni ham qilganligi nazarda tutilib, misol uchun uyg'onish, nonushta, uyquga yotmoq kabi harakatlar tushib qolishi nazarda tutilayapti.",
               usageNotes:
-                "goh FE'L…goh FE'L va x. z 10-darsda siz ko'p narsalar ichidan bir nechtasini ko'rsatish usulini bilib oldingiz ( ～や～ [ など ]). Bu darsda sizlar ayrim harakatlarni sanab o'tishni o'rganib olasiz. Bu ko'rinishdagi gaplarning zamoni oxirida kelgan fe'lga qarab aniqlanadi. [Eslatma] 16-darsdan bilib olgan “ て -shakli”dagi tuzilma ⑤ bilan bu turdagi gaplarning farqlariga ahamiyat bering. yakshanba kuni nima ish qilganligi, shuningdek so'zlovchi yana boshqa harakatlarni ham qilganligi nazarda tutilib, misol uchun uyg'onish, nonushta, uyquga yotmoq kabi harakatlar tushib qolishi nazarda tutilayapti.",
+                'Minna no Nihongo 19-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence:
@@ -7168,6 +12003,12 @@ export const MINNA_N5_LESSONS: Lesson[] = [
                     '日[にち] 曜[よう] 日[び] は テニスを して、映[えい] 画[が] を 見[み] ました。',
                   translation: "Men o'tgan yakshanba kuni tennis o'ynab, kino ko'rdim.",
                 },
+                {
+                  sentence:
+                    '-misolda harakat ketma-ketligini aniq ko`rsatilgan.  ④ -misolda harakatlar',
+                  translation:
+                    "orasida hech qanday vaqt bilan bog'liqlik yo'q. Bu harakatlar so'zlovchining",
+                },
               ],
             },
             {
@@ -7175,112 +12016,117 @@ export const MINNA_N5_LESSONS: Lesson[] = [
               meaning:
                 "HOLAT YOKI SHAROITNING な -SIFAT ［な］ → に なります O'ZGARISHI IFODASI OT に Holat yoki shartlarning o'zgarishini ifodalash uchun なります xizmat qiladi.",
               usageNotes:
-                "HOLAT YOKI SHAROITNING な -SIFAT ［な］ → に なります O'ZGARISHI IFODASI OT に Holat yoki shartlarning o'zgarishini ifodalash uchun なります xizmat qiladi.",
+                'Minna no Nihongo 19-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: '寒[さむ] い →  寒[さむ] く なります sovuq tushmoq',
-                  translation: '',
+                  translation: 'Namunaviy gap.',
                 },
                 {
                   sentence: '元[げん] 気[き]  [ な ]  →  元[げん] 気[き] に なります sog`aymoq',
-                  translation: '',
+                  translation: 'Namunaviy gap.',
                 },
                 {
                   sentence: '２５歳[さい] →  ２５歳[さい] に なります 25 yoshga to`lmoq',
-                  translation: '',
+                  translation: 'Namunaviy gap.',
                 },
               ],
             },
             {
               pattern: 'そう ですね',
               meaning:
-                "Suhbatdoshning fikrini tushunganligini yoki u bilan hamfikr ekanligini bildirish uchun そうですね xizmat qiladi. そうですか ham bir xil ma'noni anglatib, gap ohangini ( ° ) tushirgan holda qo'llaniladi (ushbu o",
-              usageNotes:
                 "Suhbatdoshning fikrini tushunganligini yoki u bilan hamfikr ekanligini bildirish uchun そうですね xizmat qiladi. そうですか ham bir xil ma'noni anglatib, gap ohangini ( ° ) tushirgan holda qo'llaniladi (ushbu o'quv qo'llanmaning 2- dars, 6-bandiga qarang). Lekin, suhbatdoshning oldin xabari bo'lmagan ma'lumot bilan hayronligini ko'rsatadi. そうですね esa so'zlovchi, suhbatdoshi hamfikr yoki bildirmoqchi bo'lgan xabardan voqif bo'lgan narsa haqida gapirayotib, tushunganligi yoki hamdardligini ifodalashda qo'llaniladi.",
+              usageNotes:
+                'Minna no Nihongo 19-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
-                  sentence: '寒[さむ] く なりましたね。 Kun sovuqlashdi-a.',
+                  sentence: '寒[さむ] く なりましたね。',
                   translation: '･･･そう ですね。 … Ha, nimasini aytasiz.',
                 },
               ],
             },
           ],
           culturalNotes:
-            "Fuji tog'iga chiqish (Fuji tozan) yaponlar hayotidagi eng esda qolarli tajribalardan biri hisoblanadi. Tajriba haqida '〜たことがあります' orqali so'zlanadi.",
+            "Fuji tog'iga chiqish yoki issiq buloqqa (onsen) borish yaponlar hayotidagi mashhur tajribalardandir. Buni ifodalashda '〜たことがあります' qo'llaniladi.",
         },
       },
       {
         id: 'ja-minna-l19-s2',
         title: 'Mustahkamlash Mashqlari',
         type: 'practice',
-        estimatedMinutes: 6,
+        estimatedMinutes: 8,
         practiceData: {
           instructions:
-            "Darsda o'rganilgan yangi so'zlar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
+            "Darsda o'rganilgan yangi so'zlar, zarrachalar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
           exercises: [
             {
               id: 'ja-minna-l19-ex1',
               type: 'multiple-choice',
-              prompt: "「登ります」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
-              options: [
-                "chiqmoq, ko'tarilmoq",
-                '(toqqa chiqmoq)',
-                'tunamoq',
-                '(mehmonxonada tunamoq)',
-              ],
-              correctAnswer: 0,
-              explanation: "To'g'ri javob: chiqmoq, ko'tarilmoq.",
+              prompt: "Bo'sh joyga to'g'ri zarrachani qo'ying:\n「食堂（　）昼ご飯を 食べます。」",
+              options: ['に', 'で', 'へ', 'を'],
+              correctAnswer: 1,
+              explanation:
+                "To'g'ri javob: 「で」. Harakat sodir bo'layotgan joy 'で' bilan belgilanadi.",
             },
             {
               id: 'ja-minna-l19-ex2',
               type: 'multiple-choice',
-              prompt:
-                "19-dars grammatik qoidasi: '1.     FE’Lning  た -shakli' bo'yicha qaysi gap grammatik jihatdan to'g'ri tuzilgan?",
-              options: [
-                '馬[うま] に 乗[の] った ことが あります。 Men otga minganman.',
-                'これ は を です。',
-                'だれ が 行きます か でした。',
-                'へ 行きません です。',
-              ],
-              correctAnswer: 0,
-              explanation:
-                "To'g'ri javob: 馬[うま] に 乗[の] った ことが あります。 Men otga minganman. (Bu turdagi gaplar bilan o'tgan zamonda shunchaki bo'lib o'tgan voqea).",
+              prompt: "「一度 (いちど)」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
+              options: ['(toqqa chiqmoq)', 'tunamoq', 'bir marta', "chiqmoq, ko'tarilmoq"],
+              correctAnswer: 2,
+              explanation: "To'g'ri javob: 「bir marta」.",
             },
             {
               id: 'ja-minna-l19-ex3',
               type: 'multiple-choice',
-              prompt:
-                "O'zbek tiliga to'g'ri tarjima qiling: 「去年[きょねん] 北海道[ほっかいどう] で 馬[うま] に 乗[の] りました。」",
+              prompt: "19-dars grammatik qoidasiga muvofiq to'g'ri tuzilgan gapni aniqlang:",
               options: [
-                "Men o'tgan yili Xokkaydoda otga mindim.",
-                "Ertaga do'stim bilan mehmonga boraman.",
-                "Kechirasiz, soat necha bo'ldi?",
-                "Iltimos, manzilni ko'rsatib yuboring.",
+                '馬[うま] に 乗[の] った ことが あります。',
+                '馬[うま] に 乗[の] った ことが あります か でした。',
+                '馬[うま] に 乗[の] った ことが あります です。',
+                '馬[うま] に 乗[の] った ことが ありません でした です。',
               ],
               correctAnswer: 0,
-              explanation: "To'g'ri tarjimasi: Men o'tgan yili Xokkaydoda otga mindim..",
+              explanation:
+                "To'g'ri gap: 「馬[うま] に 乗[の] った ことが あります。」 (Bu turdagi gaplar bilan o'tgan zamonda shunchaki bo'lib o'tgan voqea).",
             },
             {
               id: 'ja-minna-l19-ex4',
               type: 'multiple-choice',
-              prompt: 'Ushbu darsdagi suhbatdan kelib chiqib: Hamma qanday jumla aytadi?',
+              prompt:
+                "Ushbu gapning to'g'ri yaponcha tarjimasini tanlang:\n「Bu turdagi gaplar bilan o'tgan zamonda shunchaki bo'lib o'tgan voqea」",
               options: [
-                'Qani oldik.',
-                'Men hech qayerga bormayman.',
-                'Taksida aeroportga haydang.',
-                "Iltimos, hisobni alohida to'laymiz.",
+                '去年[きょねん] 北海道[ほっかいどう] で 馬[うま] に 乗[の] りました。',
+                '日[にち] 曜[よう] 日[び] は テニスを したり、映[えい] 画[が] を 見[み] たり します。',
+                '馬[うま] に 乗[の] った ことが あります。',
+                'FE’Lning  た -shakli',
+              ],
+              correctAnswer: 2,
+              explanation:
+                "Yaponcha to'g'ri ifodasi: 「馬[うま] に 乗[の] った ことが あります。」.",
+            },
+            {
+              id: 'ja-minna-l19-ex5',
+              type: 'multiple-choice',
+              prompt:
+                'Suhbatdoshingiz: 「いっしょに コーヒーを 飲みませんか。」 dedi. Unga eng mos muloyim javob qaysi?',
+              options: [
+                'ええ、飲みましょう。',
+                'ごちそうさまでした。',
+                'おやすみなさい。',
+                '失礼します。',
               ],
               correctAnswer: 0,
-              explanation: "To'g'ri ibora: Qani oldik..",
+              explanation: "To'g'ri javob: 「ええ、飲みましょう。」.",
             },
           ],
         },
       },
       {
         id: 'ja-minna-l19-s3',
-        title: 'Sinov Testi',
+        title: 'JLPT N5 Sinov Testi',
         type: 'test',
-        estimatedMinutes: 6,
+        estimatedMinutes: 7,
         testData: {
           instructions:
             "Darsni muvaffaqiyatli yakunlash uchun savollarga to'g'ri javob bering (Kamida 80%).",
@@ -7288,57 +12134,58 @@ export const MINNA_N5_LESSONS: Lesson[] = [
           questions: [
             {
               id: 'ja-minna-l19-q1',
-              question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「馬[うま] に 乗[の] った ことが あります。 Men otga minganman.」",
-              options: [
-                "Bu turdagi gaplar bilan o'tgan zamonda shunchaki bo'lib o'tgan voqea",
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
-              ],
-              correctAnswerIndex: 0,
-              explanation:
-                "To'g'ri javob: Bu turdagi gaplar bilan o'tgan zamonda shunchaki bo'lib o'tgan voqea.",
+              question: '【Mondai 1: Moji/Goi】「泊まります」の 読[よ]み方[かた]は どれですか。',
+              options: ['やまに～', 'ホテルに～', 'のぼります', 'とまります'],
+              correctAnswerIndex: 3,
+              explanation: "「泊まります」 ning to'g'ri o'qilishi: 「とまります」 (tunamoq).",
             },
             {
               id: 'ja-minna-l19-q2',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「去年[きょねん] 北海道[ほっかいどう] で 馬[うま] に 乗[の] りました。」",
-              options: [
-                "Men o'tgan yili Xokkaydoda otga mindim.",
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
-              ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Men o'tgan yili Xokkaydoda otga mindim..",
+                '【Mondai 2: Bunpo】（　）に 入[はい]る 最[もっと]も よいものを 1つ えらびなさい。\n「パン（　）食べます。」',
+              options: ['で', 'に', 'を', 'へ'],
+              correctAnswerIndex: 2,
+              explanation: "To'g'ri zarracha: 「を」. Harakat obyekti 'を' (o) bilan belgilanadi.",
             },
             {
               id: 'ja-minna-l19-q3',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「日[にち] 曜[よう] 日[び] は テニスを したり、映[えい] 画[が] を 見[み] たり します。」",
+                "【Mondai 3: Bunpo】19-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
               options: [
-                "Men yakshanba kunlari tennis o'ynayman, kino ko'raman.",
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
+                '〜を 行きます です',
+                '〜に 食べません でした',
+                'FE’Lning  た -shakli  ことが あります TAJRIBADA BO`LGANLIGI',
+                '〜は 〜でした じゃありません',
               ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Men yakshanba kunlari tennis o'ynayman, kino ko'raman..",
+              correctAnswerIndex: 2,
+              explanation:
+                "To'g'ri grammatik formula: 「FE’Lning  た -shakli  ことが あります TAJRIBADA BO`LGANLIGI」.",
             },
             {
               id: 'ja-minna-l19-q4',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「日[にち] 曜[よう] 日[び] は テニスを したり、映[えい] 画[が] を 見[み] たり しました。」",
+                "【Mondai 4: Dokkai】Quyidagi yaponcha gapning to'g'ri o'zbekcha ma'nosini toping:\n「去年[きょねん] 北海道[ほっかいどう] で 馬[うま] に 乗[の] りました。」",
               options: [
-                "Men o'tgan yakshanba kuni tennis o'ynadim, kino ko'rdim.",
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
+                'Grammatik qolip.',
+                "Men o'tgan yili Xokkaydoda otga mindim.",
+                "Bu turdagi gaplar bilan o'tgan zamonda shunchaki bo'lib o'tgan voqea",
+                "Men yakshanba kunlari tennis o'ynayman, kino ko'raman.",
+              ],
+              correctAnswerIndex: 1,
+              explanation: "To'g'ri ma'nosi: 「Men o'tgan yili Xokkaydoda otga mindim.」.",
+            },
+            {
+              id: 'ja-minna-l19-q5',
+              question:
+                "【Mondai 5: Kaiwa】Savolga eng to'g'ri javobni tanlang:\n「今 何時ですか。」",
+              options: [
+                '午後 3時です。',
+                'はい、違います。',
+                'どういたしまして。',
+                'いってきます。',
               ],
               correctAnswerIndex: 0,
-              explanation:
-                "To'g'ri javob: Men o'tgan yakshanba kuni tennis o'ynadim, kino ko'rdim..",
+              explanation: "To'g'ri javob: 「午後 3時です。」.",
             },
           ],
         },
@@ -7355,172 +12202,271 @@ export const MINNA_N5_LESSONS: Lesson[] = [
     lessonNumber: 20,
     title: "20-dars: Oddiy uslub (Futsuugo) va Do'stona muloqot",
     description:
-      "Minna no Nihongo Shokyu 1: 20-dars: Oddiy uslub (Futsuugo) va Do'stona muloqot. Darsda 31 ta yangi so'z va 3 ta asosiy grammatik qoida o'rganiladi.",
-    estimatedDurationMinutes: 20,
+      "Minna no Nihongo Shokyu 1: 20-dars: Oddiy uslub (Futsuugo) va Do'stona muloqot. Darsda 31 ta yangi so'z, audio talaffuzli Furigana misollar va 3 ta asosiy grammatik formula o'rganiladi.",
+    estimatedDurationMinutes: 25,
     icon: '🌸',
     steps: [
       {
         id: 'ja-minna-l20-s1',
         title: "Lug'at va Qoidalar",
         type: 'learn',
-        estimatedMinutes: 8,
+        estimatedMinutes: 10,
         learnData: {
           title: "20-Dars: 20-dars: Oddiy uslub (Futsuugo) va Do'stona muloqot",
           subtitle: '第20課：普通形と会話体（丁寧体から普通体へ）',
           explanation:
-            "20-dars: Oddiy uslub (Futsuugo) va Do'stona muloqot bo'yicha to'liq grammatik izohlar va qoidalar to'plami. Har bir qoida Minna no Nihongo darsligining o'zbekcha tarjimasiga moslashtirilgan.",
+            "20-dars: Oddiy uslub (Futsuugo) va Do'stona muloqot bo'yicha to'liq grammatik izohlar, formulalar va Furiganali misollar to'plami.",
           keyPoints: [
-            "1.  Oddiy va hurmat shaklidagi ko`rinish: Yapon tilida gapning 2 xil ko'rinishi bor: hurmat shakl va oddiy shakl. Gapning hurmat shaklidagi ko'rinishi Gapning odd...",
-            "2.  Gapning hurmat shakli va oddiy shakllarining qo`llanilishi.: 1) Hurmat shaklini har doim, har qanday holatda hamma tinglovchiga nisbatan qo'llash mumkin. Gapning hurmat shakli odatd...",
-            "3.  Og`zaki so`zlashuvda gapning oddiy shakli.: 1) Qoidaga ko'ra oddiy shakldagi so'roq gaplarda か so'roq yuklamasi qo'llanilmay, so'roq gapning oxirida ohangni ko'tari...",
+            "📌 1.  Oddiy va hurmat shaklidagi ko`rinish: Yapon tilida gapning 2 xil ko'rinishi bor: hurmat shakl va oddiy shakl.",
+            "📌 2.  Gapning hurmat shakli va oddiy shakllarining qo`llanilishi.: 1) Hurmat shaklini har doim, har qanday holatda hamma tinglovchiga nisbatan qo'llash mumkin.",
+            "📌 3.  Og`zaki so`zlashuvda gapning oddiy shakli.: 1) Qoidaga ko'ra oddiy shakldagi so'roq gaplarda か so'roq yuklamasi qo'llanilmay, so'roq gapning oxirida ohangni ko'tarish bilan ifodalaniladi.",
           ],
           vocabulary: [
             {
               term: '要ります (いります)',
               reading: 'いります',
               meaning: "kerak bo'lmoq, zarur bo'lmoq",
-              exampleSentence: "いります — kerak bo'lmoq, zarur bo'lmoq",
-              exampleTranslation: "kerak bo'lmoq, zarur bo'lmoq",
+              exampleSentence: '毎日[まいにち] 要ります[いります]。',
+              exampleTranslation: "Har kuni kerak bo'lmoq, zarur bo'lmoq.",
             },
             {
-              term: '[ ビザが～ ]',
-              reading: '[ ビザが～ ]',
+              term: 'ビザが～',
+              reading: 'ビザが～',
               meaning: '(viza kerak)',
-              exampleSentence: '[ ビザが～ ] — (viza kerak)',
-              exampleTranslation: '(viza kerak)',
+              exampleSentence: '山田[やまだ][ビザが]は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada (viza kerak) samimiy inson.',
             },
             {
               term: '調べます (しらべます)',
               reading: 'しらべます',
               meaning: "tekshirmoq, qarab ko'rmoq",
-              exampleSentence: "しらべます — tekshirmoq, qarab ko'rmoq",
-              exampleTranslation: "tekshirmoq, qarab ko'rmoq",
+              exampleSentence: '毎日[まいにち] 調べます[しらべます]。',
+              exampleTranslation: "Har kuni tekshirmoq, qarab ko'rmoq.",
             },
             {
               term: '直します (なおします)',
               reading: 'なおします',
               meaning: "to'g'rilamoq, tuzatmoq",
-              exampleSentence: "なおします — to'g'rilamoq, tuzatmoq",
-              exampleTranslation: "to'g'rilamoq, tuzatmoq",
+              exampleSentence: '毎日[まいにち] 直します[なおします]。',
+              exampleTranslation: "Har kuni to'g'rilamoq, tuzatmoq.",
             },
             {
-              term: '修理 します (しゅうり します)',
-              reading: 'しゅうり します',
+              term: '修理します (しゅうりします)',
+              reading: 'しゅうりします',
               meaning: "tuzatmoq, ta'mirlamoq",
-              exampleSentence: "しゅうり します — tuzatmoq, ta'mirlamoq",
-              exampleTranslation: "tuzatmoq, ta'mirlamoq",
+              exampleSentence: '毎日[まいにち] 修理します[しゅうりします]。',
+              exampleTranslation: "Har kuni tuzatmoq, ta'mirlamoq.",
             },
             {
-              term: '電話 します (でんわ します)',
-              reading: 'でんわ します',
+              term: '電話します (でんわします)',
+              reading: 'でんわします',
               meaning: "qo'ng'iroq qilmoq, telefon qilmoq",
-              exampleSentence: "でんわ します — qo'ng'iroq qilmoq, telefon qilmoq",
-              exampleTranslation: "qo'ng'iroq qilmoq, telefon qilmoq",
+              exampleSentence: '毎日[まいにち] 電話します[でんわします]。',
+              exampleTranslation: "Har kuni qo'ng'iroq qilmoq, telefon qilmoq.",
             },
             {
               term: '僕 (ぼく)',
               reading: 'ぼく',
-              meaning: "men ( わたし ning og'zaki shakli, odatda erkak kishi qo'llaydi)",
-              exampleSentence:
-                "ぼく — men ( わたし ning og'zaki shakli, odatda erkak kishi qo'llaydi)",
-              exampleTranslation: "men ( わたし ning og'zaki shakli, odatda erkak kishi qo'llaydi)",
+              meaning: 'men',
+              exampleSentence: 'これは わたしが 買[か]った 僕[ぼく] です。',
+              exampleTranslation: 'Bu men sotib olgan men.',
             },
             {
               term: '君 (きみ)',
               reading: 'きみ',
-              meaning: "sen ( あなた ning og'zaki shakli, odatda erkak kishi qo'llaydi)",
-              exampleSentence:
-                "きみ — sen ( あなた ning og'zaki shakli, odatda erkak kishi qo'llaydi)",
-              exampleTranslation: "sen ( あなた ning og'zaki shakli, odatda erkak kishi qo'llaydi)",
+              meaning: 'sen',
+              exampleSentence: 'これは わたしが 買[か]った 君[きみ] です。',
+              exampleTranslation: 'Bu men sotib olgan sen.',
             },
             {
               term: '～君 (～くん)',
               reading: '～くん',
               meaning:
                 "( ～さん ning og'zaki shakli, odatda yoshi kichik yoki mavqei yuqori bo'lmagan erkak kishilarning ismiga qo'shib qo'llaniladi)",
-              exampleSentence:
-                "～くん — ( ～さん ning og'zaki shakli, odatda yoshi kichik yoki mavqei yuqori bo'lmagan erkak kishilarning ismiga qo'shib qo'llaniladi)",
-              exampleTranslation:
-                "( ～さん ning og'zaki shakli, odatda yoshi kichik yoki mavqei yuqori bo'lmagan erkak kishilarning ismiga qo'shib qo'llaniladi)",
+              exampleSentence: '山田[やまだ]くんは サッカーが 好[す]きです。',
+              exampleTranslation: "Yamada-kun futbolni yaxshi ko'radi.",
             },
             {
               term: 'うん',
               reading: 'うん',
-              meaning: "ha, mayli, xo'p ( はい ning og'zaki shakli)",
-              exampleSentence: "うん — ha, mayli, xo'p ( はい ning og'zaki shakli)",
-              exampleTranslation: "ha, mayli, xo'p ( はい ning og'zaki shakli)",
+              meaning: "ha, mayli, xo'p",
+              exampleSentence: 'これは わたしが 買[か]った うん です。',
+              exampleTranslation: "Bu men sotib olgan ha, mayli, xo'p.",
             },
             {
               term: 'ううん',
               reading: 'ううん',
               meaning: "yo'q ( いいえ ning og'zaki shakli)",
-              exampleSentence: "ううん — yo'q ( いいえ ning og'zaki shakli)",
-              exampleTranslation: "yo'q ( いいえ ning og'zaki shakli)",
+              exampleSentence: 'これは わたしが 買[か]った ううん です。',
+              exampleTranslation: "Bu men sotib olgan yo'q ( いいえ ning og'zaki shakli).",
             },
             {
               term: 'サラリーマン',
               reading: 'サラリーマン',
               meaning: 'korxona xodimi',
-              exampleSentence: 'サラリーマン — korxona xodimi',
-              exampleTranslation: 'korxona xodimi',
+              exampleSentence: 'これは わたしが 買[か]った サラリーマン です。',
+              exampleTranslation: 'Bu men sotib olgan korxona xodimi.',
             },
             {
               term: 'ことば',
               reading: 'ことば',
               meaning: "so'z, til",
-              exampleSentence: "ことば — so'z, til",
-              exampleTranslation: "so'z, til",
+              exampleSentence: 'これは わたしが 買[か]った ことば です。',
+              exampleTranslation: "Bu men sotib olgan so'z, til.",
             },
             {
               term: '物価 (ぶっか)',
               reading: 'ぶっか',
               meaning: 'narx-navo',
-              exampleSentence: 'ぶっか — narx-navo',
-              exampleTranslation: 'narx-navo',
+              exampleSentence: 'これは わたしが 買[か]った 物価[ぶっか] です。',
+              exampleTranslation: 'Bu men sotib olgan narx-navo.',
             },
             {
               term: '着物 (きもの)',
               reading: 'きもの',
               meaning: 'kimono (yapon milliy kiyimi)',
-              exampleSentence: 'きもの — kimono (yapon milliy kiyimi)',
-              exampleTranslation: 'kimono (yapon milliy kiyimi)',
+              exampleSentence: 'これは わたしが 買[か]った 着物[きもの] です。',
+              exampleTranslation: 'Bu men sotib olgan kimono (yapon milliy kiyimi).',
+            },
+            {
+              term: 'ビザ',
+              reading: 'ビザ',
+              meaning: 'viza',
+              exampleSentence: 'これは わたしが 買[か]った ビザ です。',
+              exampleTranslation: 'Bu men sotib olgan viza.',
+            },
+            {
+              term: '初め (はじめ)',
+              reading: 'はじめ',
+              meaning: 'boshi(da)',
+              exampleSentence: 'これは わたしが 買[か]った 初め[はじめ] です。',
+              exampleTranslation: 'Bu men sotib olgan boshi(da).',
+            },
+            {
+              term: '終わり (おわり)',
+              reading: 'おわり',
+              meaning: 'oxiri(da)',
+              exampleSentence: 'これは わたしが 買[か]った 終わり[おわり] です。',
+              exampleTranslation: 'Bu men sotib olgan oxiri(da).',
+            },
+            {
+              term: 'こっち',
+              reading: 'こっち',
+              meaning: 'bu yer, bu yoqqa',
+              exampleSentence: 'これは わたしが 買[か]った こっち です。',
+              exampleTranslation: 'Bu men sotib olgan bu yer, bu yoqqa.',
+            },
+            {
+              term: 'そっち',
+              reading: 'そっち',
+              meaning: "o'sha yer, o'sha yoqqa",
+              exampleSentence: 'これは わたしが 買[か]った そっち です。',
+              exampleTranslation: "Bu men sotib olgan o'sha yer, o'sha yoqqa.",
+            },
+            {
+              term: 'あっち',
+              reading: 'あっち',
+              meaning: 'u yer, u yoqqa',
+              exampleSentence: 'これは わたしが 買[か]った あっち です。',
+              exampleTranslation: 'Bu men sotib olgan u yer, u yoqqa.',
+            },
+            {
+              term: 'どっち',
+              reading: 'どっち',
+              meaning: 'qayer, qayoqqa',
+              exampleSentence: 'これは わたしが 買[か]った どっち です。',
+              exampleTranslation: 'Bu men sotib olgan qayer, qayoqqa.',
+            },
+            {
+              term: 'この間 (このあいだ)',
+              reading: 'このあいだ',
+              meaning: "yaqinda (vaqtga nisbatan), o'tgan safar",
+              exampleSentence: 'これは わたしが 買[か]った この間[このあいだ] です。',
+              exampleTranslation: "Bu men sotib olgan yaqinda (vaqtga nisbatan), o'tgan safar.",
+            },
+            {
+              term: 'みんなで',
+              reading: 'みんなで',
+              meaning: 'hammamiz birga',
+              exampleSentence: 'これは わたしが 買[か]った みんなで です。',
+              exampleTranslation: 'Bu men sotib olgan hammamiz birga.',
+            },
+            {
+              term: '～けど',
+              reading: '～けど',
+              meaning: '~u / yu, ~. ; ~, lekin, ~.',
+              exampleSentence: '山田[やまだ]けどは 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada ~u / yu, ~. ; ~, lekin, ~. samimiy inson.',
+            },
+            {
+              term: '国くにへ帰かえるの？',
+              reading: '国くにへ帰かえるの？',
+              meaning: 'Vataningizga qaytasizmi?',
+              exampleSentence: 'これは わたしが 買[か]った 国[くに]へ帰[かえ]るの？ です。',
+              exampleTranslation: 'Bu men sotib olgan vataningizga qaytasizmi?.',
+            },
+            {
+              term: 'どうするの？',
+              reading: 'どうするの？',
+              meaning: 'Endi nima qilasiz?',
+              exampleSentence: 'これは わたしが 買[か]った どうするの？ です。',
+              exampleTranslation: 'Bu men sotib olgan endi nima qilasiz?.',
+            },
+            {
+              term: 'どうしようかな。',
+              reading: 'どうしようかな。',
+              meaning: 'Nima qilsak ekan-a?',
+              exampleSentence: 'これは わたしが 買[か]った どうしようかな。 です。',
+              exampleTranslation: 'Bu men sotib olgan nima qilsak ekan-a?.',
+            },
+            {
+              term: 'よかったら',
+              reading: 'よかったら',
+              meaning: "Mumkin bo'lsa~. Lozim topsangiz~.",
+              exampleSentence: 'これは わたしが 買[か]った よかったら です。',
+              exampleTranslation: "Bu men sotib olgan mumkin bo'lsa~. lozim topsangiz~..",
+            },
+            {
+              term: 'いろいろ',
+              reading: 'いろいろ',
+              meaning: 'turli, har xil',
+              exampleSentence: 'これは わたしが 買[か]った いろいろ です。',
+              exampleTranslation: 'Bu men sotib olgan turli, har xil.',
             },
           ],
           grammarRules: [
             {
               pattern: 'Oddiy va hurmat shaklidagi ko`rinish',
               meaning:
-                "Yapon tilida gapning 2 xil ko'rinishi bor: hurmat shakl va oddiy shakl. Gapning hurmat shaklidagi ko'rinishi Gapning oddiy shaklidagi ko'rinishi (So'zlashuv shakli) あした 東[とう] 京[きょう] へ 行[い] きます。 あした 東[",
-              usageNotes:
                 "Yapon tilida gapning 2 xil ko'rinishi bor: hurmat shakl va oddiy shakl. Gapning hurmat shaklidagi ko'rinishi Gapning oddiy shaklidagi ko'rinishi (So'zlashuv shakli) あした 東[とう] 京[きょう] へ 行[い] きます。 あした 東[とう] 京[きょう] へ 行[い] く。 Men ertaga Tokioga boraman Men ertaga Tokioga boraman. 毎日[まいにち] 忙[いそが] しいです。 毎日[まいにち] 忙[いそが] しい。 Har kuni bandman. Har kuni bandman. 相[す] 撲[もう] が 好[す] きです。 相[す] 撲[もう] が 好[す] きだ。 Men sumo kurashini yoqtiraman. Men sumo kurashini yoqtiraman. 富[ふ] 士[じ] 山[さん] に 登[のぼ] りたいです。 富[ふ] 士[じ] 山[さん] に 登[のぼ] りたい。 Men Fuji tog'iga chiqmoqchiman. Men Fuji tog'iga chiqmoqchiman. ドイツへ 行[い] った ことが ありません。 ドイツへ 行[い] った ことが ない。 Men Olmoniyaga bormaganman. Men Olmoniyaga bormaganman. です yoki ます ga tugaydigan kesimlarni hurmat shakli, oddiy ko'rinishda tugaydigan kesimlarga oddiy shakl deyiladi. (Asosiy o'quv qo'llanmaning 20- dars, 166-bet, 練習[れんしゅう] A1ga qarang.)",
+              usageNotes:
+                'Minna no Nihongo 20-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'Oddiy va hurmat shaklidagi ko`rinish',
-                  translation:
-                    "Yapon tilida gapning 2 xil ko'rinishi bor: hurmat shakl va oddiy shakl. Gapning ",
+                  translation: 'Grammatik qolip.',
                 },
               ],
             },
             {
               pattern: 'Gapning hurmat shakli va oddiy shakllarining qo`llanilishi.',
               meaning:
-                "1) Hurmat shaklini har doim, har qanday holatda hamma tinglovchiga nisbatan qo'llash mumkin. Gapning hurmat shakli odatda do'stlik aloqalarida bo'lmagan o'zidan yoshi katta insonlarga nisbatan qo'llan",
-              usageNotes:
                 "1) Hurmat shaklini har doim, har qanday holatda hamma tinglovchiga nisbatan qo'llash mumkin. Gapning hurmat shakli odatda do'stlik aloqalarida bo'lmagan o'zidan yoshi katta insonlarga nisbatan qo'llaniladi. Bundan tashqari bu shaklni birinchi bor uchrashib turgan shaxs, mavqe jihatdan yuqori bo'lgan shaxs, yoki uncha tanish bo'lmagan tengdosh shaxsga nisbatan ham qo'llash mumkin. Hurmat shaklini yoshi, mavqe jihatdan kichik bo'lgan shaxs hamda uncha tanish bo'lmagan shaxsga nisbatan ham qo'llaniladi. Gapning oddiy shakli yaqin do'stlarga, hamkasblarga, oila a'zolariga nisbatan qo'llaniladi. Suhbatdoshning yoshiga va aloqaning qandayligiga qarab hurmat shaklini qo'llashga e'tibor bering. Oddiy shakl noto'g'ri qo'llanilsa, so'zlarning ma'nosi o'zgarib, qo'pol chiqishiga olib keladi. Shuning uchun agar suhbatdoshning tutgan o'rnini bilish iloji bo'lmasa, hurmat shaklini qo'llagan ma'qul. 2) Qoidaga ko'ra gapning oddiy shakli yozuvda qo'llaniladi. Gazeta (ro'znoma), kitob, asar va kundaliklar oddiy shaklda yoziladi. Xatlar odatda hurmat shaklida yoziladi.",
+              usageNotes:
+                'Minna no Nihongo 20-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'Gapning hurmat shakli va oddiy shakllarining qo`llanilishi.',
-                  translation:
-                    "1) Hurmat shaklini har doim, har qanday holatda hamma tinglovchiga nisbatan qo'l",
+                  translation: 'Grammatik qolip.',
                 },
               ],
             },
             {
               pattern: 'Og`zaki so`zlashuvda gapning oddiy shakli.',
               meaning:
-                "1) Qoidaga ko'ra oddiy shakldagi so'roq gaplarda か so'roq yuklamasi qo'llanilmay, so'roq gapning oxirida ohangni ko'tarish bilan ifodalaniladi. Masalan: のむ ( ® ) ･･･うん、飲[の] む。 ( ° ) … Ha, ichaman. 2) ",
-              usageNotes:
                 "1) Qoidaga ko'ra oddiy shakldagi so'roq gaplarda か so'roq yuklamasi qo'llanilmay, so'roq gapning oxirida ohangni ko'tarish bilan ifodalaniladi. Masalan: のむ ( ® ) ･･･うん、飲[の] む。 ( ° ) … Ha, ichaman. 2) です ning oddiy shakli だ bo'lib, ular so'roq gapda ot va な -sifat bilan qo'llanilmaydi. Tasdiq gaplarning oxirida だ qo'llanilsa, juda ham qo'pol eshitilishi mumkin. だ ni tushirib qoldirish ham mumkin yoki unga boshqa yumshoqroq ifoda beradigan yuklamani qo'llash mumkin. Ayollarning nutqida だ juda ham kam uchraydi. (erkak, ayol) ･･･うん、暇[ひま] ／暇[ひま] だ／暇[ひま] だよ。 … Ha, bo'shman. (erkak) ･･･うん、暇[ひま] ／暇[ひま] よ。 … Ha bo'shman. (ayol) ･･･ううん、暇[ひま] じゃ ない。 … Yo'q, bo'sh emasman (ayol, erkak) 3) Oddiy shaklda ayrim yuklamalar tushirib qoldirilishi mumkin, agar gapning mazmuni gap jumlasidan ma'lum bo'lsa. Lekin oddiy shakldagi suhbat chog'ida で , に , から , まで , と va boshqa shunga o'xshash yuklamalarni tushirib qoldirish gapning xunuk chiqishiga olib kelib, ifoda etmoqchi bo'lgan ma'noning chiqmay qolish ehtimoli bor. 4) Oddiy shaklda yana “FE'Lning て -shakli いる ”dagi い ni ham tushirib qoldirish hollari ham bor. 5) けど ham が yuklamasiga o'xshagan holatda gaplarni bog'lash uchun qo'llaniladi (8-dars, 7-grammatika va 14-dars, 7-grammatikaga qarang). Bu ommaga yoyilgan so'zlashuv uslubi. ･･･うん、辛[から] いけど、おいしい。 … Ha, achchiq-u, lekin mazali. Menda sumo kurashiga 2 ta chipta bor, birga bomaysanmi?",
+              usageNotes:
+                'Minna no Nihongo 20-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'コーヒーを 飲[の] む？  ( ® )',
@@ -7534,83 +12480,121 @@ export const MINNA_N5_LESSONS: Lesson[] = [
                   sentence: 'ごはん  [ を ]  食[た] べる？',
                   translation: 'Ovqat yeysanmi?',
                 },
+                {
+                  sentence: 'あした 京[きょう] 都[と]  [ へ ]  行[い] かない？',
+                  translation: 'Ertaga men bilan Kiotoga bormaysanmi?',
+                },
+                {
+                  sentence: 'この りんご  [ は ]  おいしいね。',
+                  translation: 'Bu olma shirin-a?',
+                },
+                {
+                  sentence: 'そこに はさみ  [ が ]  ある？',
+                  translation: 'U yerda qaychi bormi?',
+                },
+                {
+                  sentence: '辞[じ] 書[しょ] 、持[も] って  [ い ]  る？',
+                  translation:
+                    "Senda lug'at bormi? … うん、持[も] って [ い ] る。 … Ha, bor. … ううん、持[も] って [ い ] ない。 … Yo'q.",
+                },
+                {
+                  sentence: 'その カレーライス  [ は ]  おいしい？',
+                  translation: "O'sha guruchli “karerays” mazalimi?",
+                },
+                {
+                  sentence:
+                    '相[す] 撲[もう] の チケット  [ が ]  あるけど いっしょに 行[い] かない？',
+                  translation: '･･･いいね。 … Bajonudil.',
+                },
               ],
             },
           ],
           culturalNotes:
-            "Tengdoshlar, oila a'zolari va yaqin do'stlar bilan suhbatlashganda oddiy uslub (Futsuugo / 普通形) ishlatiladi.",
+            "Tengdoshlar, oila a'zolari va yaqin do'stlar bilan suhbatlashganda rasmiy 'Desu/Masu' o'rniga oddiy uslub (Futsuugo / 普通形) ishlatiladi.",
         },
       },
       {
         id: 'ja-minna-l20-s2',
         title: 'Mustahkamlash Mashqlari',
         type: 'practice',
-        estimatedMinutes: 6,
+        estimatedMinutes: 8,
         practiceData: {
           instructions:
-            "Darsda o'rganilgan yangi so'zlar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
+            "Darsda o'rganilgan yangi so'zlar, zarrachalar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
           exercises: [
             {
               id: 'ja-minna-l20-ex1',
               type: 'multiple-choice',
-              prompt: "「要ります」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
-              options: [
-                "kerak bo'lmoq, zarur bo'lmoq",
-                '(viza kerak)',
-                "tekshirmoq, qarab ko'rmoq",
-                "to'g'rilamoq, tuzatmoq",
-              ],
+              prompt:
+                "Bo'sh joyga to'g'ri zarrachani qo'ying:\n「友達（　）いっしょに 帰ります。」",
+              options: ['と', 'で', 'へ', 'に'],
               correctAnswer: 0,
-              explanation: "To'g'ri javob: kerak bo'lmoq, zarur bo'lmoq.",
+              explanation:
+                "To'g'ri javob: 「と」. Birgalikdagi shaxs 'と' zarrachasi orqali ifodalanadi.",
             },
             {
               id: 'ja-minna-l20-ex2',
               type: 'multiple-choice',
-              prompt:
-                "20-dars grammatik qoidasi: '1.  Oddiy va hurmat shaklidagi ko`rinish' bo'yicha qaysi gap grammatik jihatdan to'g'ri tuzilgan?",
+              prompt: "「あっち」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
               options: [
-                'コーヒーを 飲[の] む？  ( ® )',
-                'これ は を です。',
-                'だれ が 行きます か でした。',
-                'へ 行きません です。',
+                "kerak bo'lmoq, zarur bo'lmoq",
+                '(viza kerak)',
+                "tekshirmoq, qarab ko'rmoq",
+                'u yer, u yoqqa',
               ],
-              correctAnswer: 0,
-              explanation: "To'g'ri javob: コーヒーを 飲[の] む？  ( ® ) (Qahva ichasanmi?).",
+              correctAnswer: 3,
+              explanation: "To'g'ri javob: 「u yer, u yoqqa」.",
             },
             {
               id: 'ja-minna-l20-ex3',
               type: 'multiple-choice',
-              prompt: "O'zbek tiliga to'g'ri tarjima qiling: 「今晩[こんばん] 暇[ひま] ？」",
+              prompt: "20-dars grammatik qoidasiga muvofiq to'g'ri tuzilgan gapni aniqlang:",
               options: [
-                "Sen bugun kechasi bo'shmisan?",
-                "Ertaga do'stim bilan mehmonga boraman.",
-                "Kechirasiz, soat necha bo'ldi?",
-                "Iltimos, manzilni ko'rsatib yuboring.",
+                'これ を この りんご  [ は ]  おいしいね。',
+                'この りんご  [ を ]  おいしいね。',
+                'この りんご  [ は ]  おいしいね。',
+                'こ は りんご  [ は ]  おいしいね。',
               ],
-              correctAnswer: 0,
-              explanation: "To'g'ri tarjimasi: Sen bugun kechasi bo'shmisan?.",
+              correctAnswer: 2,
+              explanation:
+                "To'g'ri gap: 「この りんご  [ は ]  おいしいね。」 (Bu olma shirin-a?).",
             },
             {
               id: 'ja-minna-l20-ex4',
               type: 'multiple-choice',
-              prompt: 'Ushbu darsdagi suhbatdan kelib chiqib: Kobayashi qanday jumla aytadi?',
+              prompt: "Ushbu gapning to'g'ri yaponcha tarjimasini tanlang:\n「Grammatik qolip.」",
               options: [
-                "Yozgi ta'tilda yurtingga qaytasanmi?",
-                'Men hech qayerga bormayman.',
-                'Taksida aeroportga haydang.',
-                "Iltimos, hisobni alohida to'laymiz.",
+                'Gapning hurmat shakli va oddiy shakllarining qo`llanilishi.',
+                'コーヒーを 飲[の] む？  ( ® )',
+                '今晩[こんばん] 暇[ひま] ？',
+                'Oddiy va hurmat shaklidagi ko`rinish',
               ],
               correctAnswer: 0,
-              explanation: "To'g'ri ibora: Yozgi ta'tilda yurtingga qaytasanmi?.",
+              explanation:
+                "Yaponcha to'g'ri ifodasi: 「Gapning hurmat shakli va oddiy shakllarining qo`llanilishi.」.",
+            },
+            {
+              id: 'ja-minna-l20-ex5',
+              type: 'multiple-choice',
+              prompt:
+                'Suhbatdoshingiz: 「お疲れ様でした。」 dedi. Unga eng mos muloyim javob qaysi?',
+              options: [
+                'ごちそうさまでした。',
+                '失礼します。',
+                'おやすみなさい。',
+                'お疲れ様でした。',
+              ],
+              correctAnswer: 3,
+              explanation: "To'g'ri javob: 「お疲れ様でした。」.",
             },
           ],
         },
       },
       {
         id: 'ja-minna-l20-s3',
-        title: 'Sinov Testi',
+        title: 'JLPT N5 Sinov Testi',
         type: 'test',
-        estimatedMinutes: 6,
+        estimatedMinutes: 7,
         testData: {
           instructions:
             "Darsni muvaffaqiyatli yakunlash uchun savollarga to'g'ri javob bering (Kamida 80%).",
@@ -7618,55 +12602,60 @@ export const MINNA_N5_LESSONS: Lesson[] = [
           questions: [
             {
               id: 'ja-minna-l20-q1',
-              question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「コーヒーを 飲[の] む？  ( ® )」",
-              options: [
-                'Qahva ichasanmi?',
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
-              ],
+              question: '【Mondai 1: Moji/Goi】「～君」の 読[よ]み方[かた]は どれですか。',
+              options: ['～くん', 'しらべます', 'いります', 'ビザが～'],
               correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Qahva ichasanmi?.",
+              explanation:
+                "「～君」 ning to'g'ri o'qilishi: 「～くん」 (( ～さん ning og'zaki shakli, odatda yoshi kichik yoki mavqei yuqori bo'lmagan erkak kishilarning ismiga qo'shib qo'llaniladi)).",
             },
             {
               id: 'ja-minna-l20-q2',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「今晩[こんばん] 暇[ひま] ？」",
-              options: [
-                "Sen bugun kechasi bo'shmisan?",
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
-              ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Sen bugun kechasi bo'shmisan?.",
+                '【Mondai 2: Bunpo】（　）に 入[はい]る 最[もっと]も よいものを 1つ えらびなさい。\n「京都（　）行きます。」',
+              options: ['を', 'から', 'へ', 'で'],
+              correctAnswerIndex: 2,
+              explanation:
+                "To'g'ri zarracha: 「へ」. Boriladigan yo'nalish 'へ' (e deb o'qiladi) bilan belgilanadi.",
             },
             {
               id: 'ja-minna-l20-q3',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「ごはん  [ を ]  食[た] べる？」",
+                "【Mondai 3: Bunpo】20-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
               options: [
-                'Ovqat yeysanmi?',
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
+                '〜を 行きます です',
+                '〜は 〜でした じゃありません',
+                '〜に 食べません でした',
+                'Gapning hurmat shakli va oddiy shakllarining qo`llanilishi.',
               ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Ovqat yeysanmi?.",
+              correctAnswerIndex: 3,
+              explanation:
+                "To'g'ri grammatik formula: 「Gapning hurmat shakli va oddiy shakllarining qo`llanilishi.」.",
             },
             {
               id: 'ja-minna-l20-q4',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「あした 京[きょう] 都[と]  [ へ ]  行[い] かない？」",
+                "【Mondai 4: Dokkai】Quyidagi yaponcha gapning to'g'ri o'zbekcha ma'nosini toping:\n「コーヒーを 飲[の] む？  ( ® )」",
               options: [
-                'Ertaga men bilan Kiotoga bormaysanmi?',
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
+                'Grammatik qolip.',
+                'Ovqat yeysanmi?',
+                "Sen bugun kechasi bo'shmisan?",
+                'Qahva ichasanmi?',
+              ],
+              correctAnswerIndex: 3,
+              explanation: "To'g'ri ma'nosi: 「Qahva ichasanmi?」.",
+            },
+            {
+              id: 'ja-minna-l20-q5',
+              question:
+                "【Mondai 5: Kaiwa】Savolga eng to'g'ri javobni tanlang:\n「いっしょに 京都へ 行きませんか。」",
+              options: [
+                'ええ、飲みましょう。',
+                'すみません、トイレです。',
+                'いただきます。',
+                'いいえ、行きます。',
               ],
               correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Ertaga men bilan Kiotoga bormaysanmi?.",
+              explanation: "To'g'ri javob: 「ええ、飲みましょう。」.",
             },
           ],
         },
@@ -7683,144 +12672,313 @@ export const MINNA_N5_LESSONS: Lesson[] = [
     lessonNumber: 21,
     title: '21-dars: Shaxsiy fikr va Iqtibos keltirish',
     description:
-      "Minna no Nihongo Shokyu 1: 21-dars: Shaxsiy fikr va Iqtibos keltirish. Darsda 40 ta yangi so'z va 7 ta asosiy grammatik qoida o'rganiladi.",
-    estimatedDurationMinutes: 20,
+      "Minna no Nihongo Shokyu 1: 21-dars: Shaxsiy fikr va Iqtibos keltirish. Darsda 40 ta yangi so'z, audio talaffuzli Furigana misollar va 7 ta asosiy grammatik formula o'rganiladi.",
+    estimatedDurationMinutes: 25,
     icon: '🌸',
     steps: [
       {
         id: 'ja-minna-l21-s1',
         title: "Lug'at va Qoidalar",
         type: 'learn',
-        estimatedMinutes: 8,
+        estimatedMinutes: 10,
         learnData: {
           title: '21-Dars: 21-dars: Shaxsiy fikr va Iqtibos keltirish',
           subtitle: '第21課：意見と引用（〜と思います・〜と言いました）',
           explanation:
-            "21-dars: Shaxsiy fikr va Iqtibos keltirish bo'yicha to'liq grammatik izohlar va qoidalar to'plami. Har bir qoida Minna no Nihongo darsligining o'zbekcha tarjimasiga moslashtirilgan.",
+            "21-dars: Shaxsiy fikr va Iqtibos keltirish bo'yicha to'liq grammatik izohlar, formulalar va Furiganali misollar to'plami.",
           keyPoints: [
-            "1. Oddiy shakl と 思[おも] います O`Z FIKRI VA TAXMININI IFODA ETISH: Bildiriladigan fikr yoki xabar 思[おも] います fe'li yordamida と bog'lovchi yuklamasi orqali ifodalanadi. 1) Taxmin Agar gapda...",
-            "2.  “GAP”: と 言[い] います SHAXSNING FIKR VA MULOHAZASINI Oddiy shakl YETKAZISH 言[い] います so'zi bilan izohlanadigan gap と yordamida bog'l...",
-            "3. FE’L  oddiy shakl  TASDIQNI TALAB QILIB: い -SIFAT KELADIGAN でしょう？ な -SIFAT oddiy shakl OYDINLASHTIRUVCHI OT ～だ SAVOL Agar so'zlovchi berayotgan savolning mazmuni...",
-            '4.   OT 1  (o`rin-joy) で OT 2  が あります: Agar gapda konsert, bayram, tabiiy ofat va shu kabi ish-harakatni anglatadigan OT 2 (voqea-hodisalar) kelsa, ushbu gapda...',
-            "5.  OT (vaziyat) で: Agar biror-bir voqea-hodisa davomida harakat bajarilgan bo'lsa, ushbu voqea- hodisani ifodalovchi OTdan keyin で o'rin-pa...",
-            "6.   OT  でも FE’L: So'zlovchi bir turdagi predmetlar orasidan aynan bir narsani ajratib, uni suhbatdoshiga taklif qilayotgan paytlarda でも d...",
+            "📌 1. Oddiy shakl と 思[おも] います O`Z FIKRI VA TAXMININI IFODA ETISH: Bildiriladigan fikr yoki xabar 思[おも] います fe'li yordamida と bog'lovchi yuklamasi orqali ifodalanadi.",
+            "📌 2.  “GAP”: と 言[い] います SHAXSNING FIKR VA MULOHAZASINI Oddiy shakl YETKAZISH 言[い] います so'zi bilan izohlanadigan gap と yordamida bog'lanadi.",
+            "📌 3. FE’L  oddiy shakl  TASDIQNI TALAB QILIB: い -SIFAT KELADIGAN でしょう？ な -SIFAT oddiy shakl OYDINLASHTIRUVCHI OT ～だ SAVOL Agar so'zlovchi berayotgan savolning mazmuni haqida o'z suhbatdoshini xabardor va rozi ekanligini taxmin qilayotgan bo'lsa, u o'z savolining でしょう qismini ohangini yuqoriga ko'targan holda aytib, uni o'z fikriga qo'shilishga chorlaydi.",
+            "📌 4.   OT 1  (o`rin-joy) で OT 2  が あります: Agar gapda konsert, bayram, tabiiy ofat va shu kabi ish-harakatni anglatadigan OT 2 (voqea-hodisalar) kelsa, ushbu gapdagi あります so'zi “ yuz bermoq ”, “ bo'lib o'tmoq ” kabi ma'nolarni anglatadi.",
+            "📌 5.  OT (vaziyat) で: Agar biror-bir voqea-hodisa davomida harakat bajarilgan bo'lsa, ushbu voqea- hodisani ifodalovchi OTdan keyin で o'rin-payt kelishigi qo'shimchasi qo'yiladi.",
+            "📌 6.   OT  でも FE’L: So'zlovchi bir turdagi predmetlar orasidan aynan bir narsani ajratib, uni suhbatdoshiga taklif qilayotgan paytlarda でも dan foydalaniladi.",
           ],
           vocabulary: [
             {
               term: '思います (おもいます)',
               reading: 'おもいます',
               meaning: "o'ylamoq, fikrlamoq",
-              exampleSentence: "おもいます — o'ylamoq, fikrlamoq",
-              exampleTranslation: "o'ylamoq, fikrlamoq",
+              exampleSentence: '毎日[まいにち] 思います[おもいます]。',
+              exampleTranslation: "Har kuni o'ylamoq, fikrlamoq.",
             },
             {
               term: '言います (いいます)',
               reading: 'いいます',
               meaning: 'demoq, aytmoq',
-              exampleSentence: 'いいます — demoq, aytmoq',
-              exampleTranslation: 'demoq, aytmoq',
+              exampleSentence: '毎日[まいにち] 言います[いいます]。',
+              exampleTranslation: 'Har kuni demoq, aytmoq.',
             },
             {
               term: '足ります (たります)',
               reading: 'たります',
               meaning: "yetmoq, yetarli bo'lmoq (ulush)",
-              exampleSentence: "たります — yetmoq, yetarli bo'lmoq (ulush)",
-              exampleTranslation: "yetmoq, yetarli bo'lmoq (ulush)",
+              exampleSentence: '毎日[まいにち] 足ります[たります]。',
+              exampleTranslation: "Har kuni yetmoq, yetarli bo'lmoq (ulush).",
             },
             {
               term: '勝ちます (かちます)',
               reading: 'かちます',
               meaning: "g'olib bo'lmoq, yutmoq",
-              exampleSentence: "かちます — g'olib bo'lmoq, yutmoq",
-              exampleTranslation: "g'olib bo'lmoq, yutmoq",
+              exampleSentence: '毎日[まいにち] 勝ちます[かちます]。',
+              exampleTranslation: "Har kuni g'olib bo'lmoq, yutmoq.",
             },
             {
               term: '負けます (まけます)',
               reading: 'まけます',
               meaning: "mag'lub bo'lmoq, yutqazmoq",
-              exampleSentence: "まけます — mag'lub bo'lmoq, yutqazmoq",
-              exampleTranslation: "mag'lub bo'lmoq, yutqazmoq",
+              exampleSentence: '毎日[まいにち] 負けます[まけます]。',
+              exampleTranslation: "Har kuni mag'lub bo'lmoq, yutqazmoq.",
             },
             {
               term: 'あります',
               reading: 'あります',
               meaning: "bor bo'lmoq",
-              exampleSentence: "あります — bor bo'lmoq",
-              exampleTranslation: "bor bo'lmoq",
+              exampleSentence: '毎日[まいにち] あります。',
+              exampleTranslation: "Har kuni bor bo'lmoq.",
             },
             {
-              term: '[ お祭りが～ ] ([ おまつりが～ ])',
-              reading: '[ おまつりが～ ]',
+              term: 'お祭りが～ (おまつりが～)',
+              reading: 'おまつりが～',
               meaning: "(bayram bor, bayram bo'lmoq)",
-              exampleSentence: "[ おまつりが～ ] — (bayram bor, bayram bo'lmoq)",
-              exampleTranslation: "(bayram bor, bayram bo'lmoq)",
+              exampleSentence: '山田[やまだ][おまつりが]は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: "Yamada (bayram bor, bayram bo'lmoq) samimiy inson.",
             },
             {
-              term: '役に 立ちます (やくに たちます)',
-              reading: 'やくに たちます',
+              term: '役に立ちます (やくにたちます)',
+              reading: 'やくにたちます',
               meaning: "nafi tegmoq, foydasi bo'lmoq",
-              exampleSentence: "やくに たちます — nafi tegmoq, foydasi bo'lmoq",
-              exampleTranslation: "nafi tegmoq, foydasi bo'lmoq",
+              exampleSentence: '毎日[まいにち] 役に立ちます[やくにたちます]。',
+              exampleTranslation: "Har kuni nafi tegmoq, foydasi bo'lmoq.",
             },
             {
               term: 'むだ［な］',
               reading: 'むだ［な］',
               meaning: 'befoyda, bekorchi (narsa, buyum)',
-              exampleSentence: 'むだ［な］ — befoyda, bekorchi (narsa, buyum)',
-              exampleTranslation: 'befoyda, bekorchi (narsa, buyum)',
+              exampleSentence: 'これは わたしが 買[か]った むだ［な］ です。',
+              exampleTranslation: 'Bu men sotib olgan befoyda, bekorchi (narsa, buyum).',
             },
             {
               term: '不便［な］ (ふべん［な］)',
               reading: 'ふべん［な］',
               meaning: 'noqulay (sharoit)',
-              exampleSentence: 'ふべん［な］ — noqulay (sharoit)',
-              exampleTranslation: 'noqulay (sharoit)',
+              exampleSentence: 'これは わたしが 買[か]った 不便［な］[ふべん［な］] です。',
+              exampleTranslation: 'Bu men sotib olgan noqulay (sharoit).',
             },
             {
               term: '同じ (おなじ)',
               reading: 'おなじ',
               meaning: 'bir xil',
-              exampleSentence: 'おなじ — bir xil',
-              exampleTranslation: 'bir xil',
+              exampleSentence: 'これは わたしが 買[か]った 同じ[おなじ] です。',
+              exampleTranslation: 'Bu men sotib olgan bir xil.',
             },
             {
               term: 'すごい',
               reading: 'すごい',
-              meaning: "zo'r, ajoyib (qoyil qolgan holatda, ham ijobiy, ham salbiy ma'noda keladi)",
-              exampleSentence:
-                "すごい — zo'r, ajoyib (qoyil qolgan holatda, ham ijobiy, ham salbiy ma'noda keladi)",
-              exampleTranslation:
-                "zo'r, ajoyib (qoyil qolgan holatda, ham ijobiy, ham salbiy ma'noda keladi)",
+              meaning: "zo'r, ajoyib",
+              exampleSentence: 'この 部屋[へや]は すごいです。',
+              exampleTranslation: "Bu xona zo'r, ajoyib.",
             },
             {
               term: '首相 (しゅしょう)',
               reading: 'しゅしょう',
               meaning: 'bosh vazir',
-              exampleSentence: 'しゅしょう — bosh vazir',
-              exampleTranslation: 'bosh vazir',
+              exampleSentence: '毎日[まいにち] 首相[しゅしょう]。',
+              exampleTranslation: 'Har kuni bosh vazir.',
             },
             {
               term: '大統領 (だいとうりょう)',
               reading: 'だいとうりょう',
               meaning: 'prezident',
-              exampleSentence: 'だいとうりょう — prezident',
-              exampleTranslation: 'prezident',
+              exampleSentence: '毎日[まいにち] 大統領[だいとうりょう]。',
+              exampleTranslation: 'Har kuni prezident.',
             },
             {
               term: '政治 (せいじ)',
               reading: 'せいじ',
               meaning: 'siyosat',
-              exampleSentence: 'せいじ — siyosat',
-              exampleTranslation: 'siyosat',
+              exampleSentence: 'これは わたしが 買[か]った 政治[せいじ] です。',
+              exampleTranslation: 'Bu men sotib olgan siyosat.',
+            },
+            {
+              term: 'ニュース',
+              reading: 'ニュース',
+              meaning: 'yangilik',
+              exampleSentence: 'これは わたしが 買[か]った ニュース です。',
+              exampleTranslation: 'Bu men sotib olgan yangilik.',
+            },
+            {
+              term: 'スピーチ',
+              reading: 'スピーチ',
+              meaning: "nutq （～をします： nutq so'zlamoq ）",
+              exampleSentence: 'これは わたしが 買[か]った スピーチ です。',
+              exampleTranslation: "Bu men sotib olgan nutq （～をします： nutq so'zlamoq ）.",
+            },
+            {
+              term: '試合 (しあい)',
+              reading: 'しあい',
+              meaning: 'musobaqa',
+              exampleSentence: 'この 部屋[へや]は 試合[しあい]です。',
+              exampleTranslation: 'Bu xona musobaqa.',
+            },
+            {
+              term: 'アルバイト',
+              reading: 'アルバイト',
+              meaning: "qo'shimcha ish （～をします： qo'shimcha ish qilmoq ）",
+              exampleSentence: 'これは わたしが 買[か]った アルバイト です。',
+              exampleTranslation:
+                "Bu men sotib olgan qo'shimcha ish （～をします： qo'shimcha ish qilmoq ）.",
+            },
+            {
+              term: '意見 (いけん)',
+              reading: 'いけん',
+              meaning: 'fikr',
+              exampleSentence: 'これは わたしが 買[か]った 意見[いけん] です。',
+              exampleTranslation: 'Bu men sotib olgan fikr.',
+            },
+            {
+              term: '［お］話 (［お］はなし)',
+              reading: '［お］はなし',
+              meaning: 'gap, suhbat （～をします： suhbatlashmoq ）',
+              exampleSentence: 'これは わたしが 買[か]った ［お］話[［お］はなし] です。',
+              exampleTranslation: 'Bu men sotib olgan gap, suhbat （～をします： suhbatlashmoq ）.',
+            },
+            {
+              term: 'ユーモア',
+              reading: 'ユーモア',
+              meaning: 'hajv, yumor',
+              exampleSentence: 'これは わたしが 買[か]った ユーモア です。',
+              exampleTranslation: 'Bu men sotib olgan hajv, yumor.',
+            },
+            {
+              term: 'むだ',
+              reading: 'むだ',
+              meaning: 'befoyda (narsa), bekorchi (narsa)',
+              exampleSentence: 'これは わたしが 買[か]った むだ です。',
+              exampleTranslation: 'Bu men sotib olgan befoyda (narsa), bekorchi (narsa).',
+            },
+            {
+              term: 'デザイン',
+              reading: 'デザイン',
+              meaning: 'dizayn',
+              exampleSentence: 'これは わたしが 買[か]った デザイン です。',
+              exampleTranslation: 'Bu men sotib olgan dizayn.',
+            },
+            {
+              term: '交通 (こうつう)',
+              reading: 'こうつう',
+              meaning: 'transport qatnovi',
+              exampleSentence: '毎日[まいにち] 交通[こうつう]。',
+              exampleTranslation: 'Har kuni transport qatnovi.',
+            },
+            {
+              term: 'ラッシュ',
+              reading: 'ラッシュ',
+              meaning: 'tiqilinch transport qatnovi',
+              exampleSentence: 'これは わたしが 買[か]った ラッシュ です。',
+              exampleTranslation: 'Bu men sotib olgan tiqilinch transport qatnovi.',
+            },
+            {
+              term: '最近 (さいきん)',
+              reading: 'さいきん',
+              meaning: 'shu kunlarda',
+              exampleSentence: 'これは わたしが 買[か]った 最近[さいきん] です。',
+              exampleTranslation: 'Bu men sotib olgan shu kunlarda.',
+            },
+            {
+              term: 'たぶん',
+              reading: 'たぶん',
+              meaning: 'balki',
+              exampleSentence: 'これは わたしが 買[か]った たぶん です。',
+              exampleTranslation: 'Bu men sotib olgan balki.',
+            },
+            {
+              term: 'きっと',
+              reading: 'きっと',
+              meaning: 'shubhasiz',
+              exampleSentence: 'これは わたしが 買[か]った きっと です。',
+              exampleTranslation: 'Bu men sotib olgan shubhasiz.',
+            },
+            {
+              term: 'ほんとうに',
+              reading: 'ほんとうに',
+              meaning: 'haqiqatan',
+              exampleSentence: 'これは わたしが 買[か]った ほんとうに です。',
+              exampleTranslation: 'Bu men sotib olgan haqiqatan.',
+            },
+            {
+              term: 'そんなに',
+              reading: 'そんなに',
+              meaning: 'unchalik',
+              exampleSentence: 'これは わたしが 買[か]った そんなに です。',
+              exampleTranslation: 'Bu men sotib olgan unchalik.',
+            },
+            {
+              term: '～について',
+              reading: '～について',
+              meaning: '~ haqida',
+              exampleSentence: '山田[やまだ]については 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada ~ haqida samimiy inson.',
+            },
+            {
+              term: 'しかたがありません。',
+              reading: 'しかたがありません。',
+              meaning: 'Na iloj.',
+              exampleSentence: 'これは わたしが 買[か]った しかたがありません。 です。',
+              exampleTranslation: 'Bu men sotib olgan na iloj..',
+            },
+            {
+              term: 'しばらくですね。',
+              reading: 'しばらくですね。',
+              meaning: "Ko'rishmaganimizga ancha bo'ldi-ya? / Ko'rinmaysiz?",
+              exampleSentence: 'これは わたしが 買[か]った しばらくですね。 です。',
+              exampleTranslation:
+                "Bu men sotib olgan ko'rishmaganimizga ancha bo'ldi-ya? / ko'rinmaysiz?.",
+            },
+            {
+              term: '～でも飲のみませんか。',
+              reading: '～でも飲のみませんか。',
+              meaning: '~mi ichmaymizmi?',
+              exampleSentence:
+                '山田[やまだ]でも飲[の]みませんか。は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada ~mi ichmaymizmi? samimiy inson.',
+            },
+            {
+              term: '見みないと･････。',
+              reading: '見みないと･････。',
+              meaning: "Qaramasak bo'lmaydi.",
+              exampleSentence: 'これは わたしが 買[か]った 見[み]ないと･････。 です。',
+              exampleTranslation: "Bu men sotib olgan qaramasak bo'lmaydi..",
+            },
+            {
+              term: 'もちろん',
+              reading: 'もちろん',
+              meaning: 'albatta',
+              exampleSentence: 'これは わたしが 買[か]った もちろん です。',
+              exampleTranslation: 'Bu men sotib olgan albatta.',
+            },
+            {
+              term: 'カンガルー',
+              reading: 'カンガルー',
+              meaning: 'kenguru',
+              exampleSentence: 'これは わたしが 買[か]った カンガルー です。',
+              exampleTranslation: 'Bu men sotib olgan kenguru.',
+            },
+            {
+              term: 'キャプテン･クック',
+              reading: 'キャプテン･クック',
+              meaning: 'Kapitan Djeyms Kuk (1728-1779)',
+              exampleSentence: 'これは わたしが 買[か]った キャプテン･クック です。',
+              exampleTranslation: 'Bu men sotib olgan kapitan djeyms kuk (1728-1779).',
             },
           ],
           grammarRules: [
             {
               pattern: 'Oddiy shakl と 思[おも] います O`Z FIKRI VA TAXMININI IFODA ETISH',
               meaning:
-                "Bildiriladigan fikr yoki xabar 思[おも] います fe'li yordamida と bog'lovchi yuklamasi orqali ifodalanadi. 1) Taxmin Agar gapda anglashilayotgan taxmin inkor ma'nosini anglatsa, と bog'lovchisidan oldingi so'",
-              usageNotes:
                 "Bildiriladigan fikr yoki xabar 思[おも] います fe'li yordamida と bog'lovchi yuklamasi orqali ifodalanadi. 1) Taxmin Agar gapda anglashilayotgan taxmin inkor ma'nosini anglatsa, と bog'lovchisidan oldingi so'z inkor shaklda keladi. ･･･いいえ、たぶん 知[し] らない と 思[おも] います。 2) Mulohaza Ma'lum bir predmet yoki shaxs haqida boshqalarning fikrini aniqlash kerak bo'lgan gaplarda 思いますか qo'llaniladi. ･･･きれいですが、ちょっと 交通[こうつう] が 不[ふ] 便[べん] だと 思います。 Boshqalar fikriga qo'shilish yoki uni inkor etishda quydagicha ifodalanadi. B: 私[わたし] も そう 思[おも] います。 …Ha, men ham shunday fikrdaman. C: 私[わたし] は そう [ は ] 思[おも] いません。 …Yo'q, men unday o'ylamayman. O'ZINING YOKI BOSHQA BIR",
+              usageNotes:
+                'Minna no Nihongo 21-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'あした 雨[あめ] が 降[ふ] る と 思[おも] います。',
@@ -7835,14 +12993,28 @@ export const MINNA_N5_LESSONS: Lesson[] = [
                   translation:
                     "Janob Millerning bu yangilikdan xabari bormi? …Yo'q, menimcha xabari bo'lmasa kerak (deb o'ylayman).",
                 },
+                {
+                  sentence:
+                    '日[に] 本[ほん] は 物[ぶっ] 価[か] が 高[たか] い と 思[おも] います。',
+                  translation: "Yaponiyada narx-navo baland deb o'ylayman.",
+                },
+                {
+                  sentence: '新[あたら] しい 空港[くうこう] に ついて どう 思[おも] いますか。',
+                  translation:
+                    "Yangi aeroport haqida qanday fikrdasiz? … Juda ko'rkam, ammo transport qatnovi biroz noqulay deb o'ylayman.",
+                },
+                {
+                  sentence: 'A:  ファクスは 便[べん] 利[り] ですね。',
+                  translation: 'Faks - juda qulay, shunday emasmi?',
+                },
               ],
             },
             {
               pattern: '“GAP”',
               meaning:
-                "と 言[い] います SHAXSNING FIKR VA MULOHAZASINI Oddiy shakl YETKAZISH 言[い] います so'zi bilan izohlanadigan gap と yordamida bog'lanadi. 1) Ko'chirma gaplarda muallif gapini to'g'ridan-to'g'ri yetkazib berishda",
-              usageNotes:
                 "と 言[い] います SHAXSNING FIKR VA MULOHAZASINI Oddiy shakl YETKAZISH 言[い] います so'zi bilan izohlanadigan gap と yordamida bog'lanadi. 1) Ko'chirma gaplarda muallif gapini to'g'ridan-to'g'ri yetkazib berishda qo'llaniladi va quyidagicha ifodalanadi: 2) Ko'chirma gaplarda と bog'lovchisidan avval oddiy shakldagi fe'llar qo'llaniladi. Bunday gaplarning zamoni muallif gapining qaysi zamonda aytilganligiga bog'liq bo'lmaydi.",
+              usageNotes:
+                'Minna no Nihongo 21-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: '寝[ね] るまえに「お休[やす] みなさい」と 言[い] います。',
@@ -7864,9 +13036,9 @@ export const MINNA_N5_LESSONS: Lesson[] = [
             {
               pattern: 'FE’L  oddiy shakl  TASDIQNI TALAB QILIB',
               meaning:
-                "い -SIFAT KELADIGAN でしょう？ な -SIFAT oddiy shakl OYDINLASHTIRUVCHI OT ～だ SAVOL Agar so'zlovchi berayotgan savolning mazmuni haqida o'z suhbatdoshini xabardor va rozi ekanligini taxmin qilayotgan bo'lsa, ",
-              usageNotes:
                 "い -SIFAT KELADIGAN でしょう？ な -SIFAT oddiy shakl OYDINLASHTIRUVCHI OT ～だ SAVOL Agar so'zlovchi berayotgan savolning mazmuni haqida o'z suhbatdoshini xabardor va rozi ekanligini taxmin qilayotgan bo'lsa, u o'z savolining でしょう qismini ohangini yuqoriga ko'targan holda aytib, uni o'z fikriga qo'shilishga chorlaydi. ･･･ ええ、行[い] きます。 …Ha, boraman. ･･･ いいえ、そんなに 寒[さむ] くなかったです。 …Yo'q, unchalik sovuq emas edi.",
+              usageNotes:
+                'Minna no Nihongo 21-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'あした パーティーに 行[い] くでしょう ?',
@@ -7883,7 +13055,7 @@ export const MINNA_N5_LESSONS: Lesson[] = [
               meaning:
                 "Agar gapda konsert, bayram, tabiiy ofat va shu kabi ish-harakatni anglatadigan OT 2 (voqea-hodisalar) kelsa, ushbu gapdagi あります so'zi “ yuz bermoq ”, “ bo'lib o'tmoq ” kabi ma'nolarni anglatadi.",
               usageNotes:
-                "Agar gapda konsert, bayram, tabiiy ofat va shu kabi ish-harakatni anglatadigan OT 2 (voqea-hodisalar) kelsa, ushbu gapdagi あります so'zi “ yuz bermoq ”, “ bo'lib o'tmoq ” kabi ma'nolarni anglatadi.",
+                'Minna no Nihongo 21-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence:
@@ -7898,7 +13070,7 @@ export const MINNA_N5_LESSONS: Lesson[] = [
               meaning:
                 "Agar biror-bir voqea-hodisa davomida harakat bajarilgan bo'lsa, ushbu voqea- hodisani ifodalovchi OTdan keyin で o'rin-payt kelishigi qo'shimchasi qo'yiladi.",
               usageNotes:
-                "Agar biror-bir voqea-hodisa davomida harakat bajarilgan bo'lsa, ushbu voqea- hodisani ifodalovchi OTdan keyin で o'rin-payt kelishigi qo'shimchasi qo'yiladi.",
+                'Minna no Nihongo 21-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: '会[かい] 議[ぎ] で 何[なに] か 意[い] 見[けん] を 言[い] いましたか。',
@@ -7911,7 +13083,7 @@ export const MINNA_N5_LESSONS: Lesson[] = [
               meaning:
                 "So'zlovchi bir turdagi predmetlar orasidan aynan bir narsani ajratib, uni suhbatdoshiga taklif qilayotgan paytlarda でも dan foydalaniladi. ichmaymizmi?",
               usageNotes:
-                "So'zlovchi bir turdagi predmetlar orasidan aynan bir narsani ajratib, uni suhbatdoshiga taklif qilayotgan paytlarda でも dan foydalaniladi. ichmaymizmi?",
+                'Minna no Nihongo 21-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'ちょっと ビールでも 飲[の] みませんか。',
@@ -7922,9 +13094,9 @@ export const MINNA_N5_LESSONS: Lesson[] = [
             {
               pattern: 'FE’Lning  ない -shakli  ないと…',
               meaning:
-                "Ushbu tuzilma “FE'Lning ない -shakli ないと いけません ” tuzilmasidan いけません so'zini tushirib qoldirish bilan hosil bo'ladi. Ushbu shakl xuddi 17-darsda siz bilib olgan “FE'Lning ない -shakli なければ なりません ” kabi ma'",
-              usageNotes:
                 "Ushbu tuzilma “FE'Lning ない -shakli ないと いけません ” tuzilmasidan いけません so'zini tushirib qoldirish bilan hosil bo'ladi. Ushbu shakl xuddi 17-darsda siz bilib olgan “FE'Lning ない -shakli なければ なりません ” kabi ma'noni anglatadi.",
+              usageNotes:
+                'Minna no Nihongo 21-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'もう 帰[かえ] らないと …',
@@ -7934,83 +13106,92 @@ export const MINNA_N5_LESSONS: Lesson[] = [
             },
           ],
           culturalNotes:
-            "O'z fikrini bildirayotganda yaponlar muloyimlik bilan '〜と思います' (deb o'ylayman) qo'shimchasini qo'shib, o'z fikrini qat'iy hukm qilmasdan ifodalaydilar.",
+            "O'z fikrini bildirayotganda yaponlar muloyimlik bilan '〜と思います' (deb o'ylayman) qo'shimchasini qo'shib, o'z fikrini qat'iy hukm qilmasdan aytadilar.",
         },
       },
       {
         id: 'ja-minna-l21-s2',
         title: 'Mustahkamlash Mashqlari',
         type: 'practice',
-        estimatedMinutes: 6,
+        estimatedMinutes: 8,
         practiceData: {
           instructions:
-            "Darsda o'rganilgan yangi so'zlar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
+            "Darsda o'rganilgan yangi so'zlar, zarrachalar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
           exercises: [
             {
               id: 'ja-minna-l21-ex1',
               type: 'multiple-choice',
-              prompt: "「思います」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
-              options: [
-                "o'ylamoq, fikrlamoq",
-                'demoq, aytmoq',
-                "yetmoq, yetarli bo'lmoq (ulush)",
-                "g'olib bo'lmoq, yutmoq",
-              ],
-              correctAnswer: 0,
-              explanation: "To'g'ri javob: o'ylamoq, fikrlamoq.",
+              prompt:
+                "Bo'sh joyga to'g'ri zarrachani qo'ying:\n「わたし（　）マイク・ミラーです。」",
+              options: ['を', 'は', 'に', 'が'],
+              correctAnswer: 1,
+              explanation:
+                "To'g'ri javob: 「は」. Gap mavzusini ko'rsatish uchun 'は' (va deb o'qiladi) ishlatiladi.",
             },
             {
               id: 'ja-minna-l21-ex2',
               type: 'multiple-choice',
-              prompt:
-                "21-dars grammatik qoidasi: '1. Oddiy shakl と 思[おも] います O`Z FIKRI VA TAXMININI IFODA ETISH' bo'yicha qaysi gap grammatik jihatdan to'g'ri tuzilgan?",
+              prompt: "「ユーモア」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
               options: [
-                'あした 雨[あめ] が 降[ふ] る と 思[おも] います。',
-                'これ は を です。',
-                'だれ が 行きます か でした。',
-                'へ 行きません です。',
+                "yetmoq, yetarli bo'lmoq (ulush)",
+                'demoq, aytmoq',
+                "o'ylamoq, fikrlamoq",
+                'hajv, yumor',
               ],
-              correctAnswer: 0,
-              explanation:
-                "To'g'ri javob: あした 雨[あめ] が 降[ふ] る と 思[おも] います。 (Ertaga yomg'ir yog'sa kerak (deb o'ylayman).).",
+              correctAnswer: 3,
+              explanation: "To'g'ri javob: 「hajv, yumor」.",
             },
             {
               id: 'ja-minna-l21-ex3',
               type: 'multiple-choice',
-              prompt:
-                "O'zbek tiliga to'g'ri tarjima qiling: 「テレサちゃんは もう 寝[ね] た と 思[おも] います。」",
+              prompt: "21-dars grammatik qoidasiga muvofiq to'g'ri tuzilgan gapni aniqlang:",
               options: [
-                "Tereza allaqachon uxlagan bo'lsa kerak (deb o'ylayman).",
-                "Ertaga do'stim bilan mehmonga boraman.",
-                "Kechirasiz, soat necha bo'ldi?",
-                "Iltimos, manzilni ko'rsatib yuboring.",
+                'あした 雨[あめ] が 降[ふ] る と 思[おも] います か でした。',
+                'あした 雨[あめ] が 降[ふ] る と 思[おも] います。',
+                'あした 雨[あめ] が 降[ふ] る と 思[おも] いません でした です。',
+                'あした 雨[あめ] が 降[ふ] る と 思[おも] います です。',
               ],
-              correctAnswer: 0,
+              correctAnswer: 1,
               explanation:
-                "To'g'ri tarjimasi: Tereza allaqachon uxlagan bo'lsa kerak (deb o'ylayman)..",
+                "To'g'ri gap: 「あした 雨[あめ] が 降[ふ] る と 思[おも] います。」 (Ertaga yomg'ir yog'sa kerak (deb o'ylayman).).",
             },
             {
               id: 'ja-minna-l21-ex4',
               type: 'multiple-choice',
-              prompt: 'Ushbu darsdagi suhbatdan kelib chiqib: Matsumoto qanday jumla aytadi?',
+              prompt:
+                "Ushbu gapning to'g'ri yaponcha tarjimasini tanlang:\n「Tereza allaqachon uxlagan bo'lsa kerak (deb o'ylayman).」",
               options: [
-                "O! Janob Santos, ko'rishmaganimizga ham ancha bo'ldi-a?",
-                'Men hech qayerga bormayman.',
-                'Taksida aeroportga haydang.',
-                "Iltimos, hisobni alohida to'laymiz.",
+                'あした 雨[あめ] が 降[ふ] る と 思[おも] います。',
+                '日[に] 本[ほん] は 物[ぶっ] 価[か] が 高[たか] い と 思[おも] います。',
+                'ミラーさんは この ニュースを 知[し] って いますか。',
+                'テレサちゃんは もう 寝[ね] た と 思[おも] います。',
+              ],
+              correctAnswer: 3,
+              explanation:
+                "Yaponcha to'g'ri ifodasi: 「テレサちゃんは もう 寝[ね] た と 思[おも] います。」.",
+            },
+            {
+              id: 'ja-minna-l21-ex5',
+              type: 'multiple-choice',
+              prompt:
+                'Suhbatdoshingiz: 「初めまして、どうぞ よろしく お願いします。」 dedi. Unga eng mos muloyim javob qaysi?',
+              options: [
+                'こちらこそ、どうぞ よろしく お願いします。',
+                'ごちそうさまでした。',
+                'おやすみなさい。',
+                '失礼します。',
               ],
               correctAnswer: 0,
-              explanation:
-                "To'g'ri ibora: O! Janob Santos, ko'rishmaganimizga ham ancha bo'ldi-a?.",
+              explanation: "To'g'ri javob: 「こちらこそ、どうぞ よろしく お願いします。」.",
             },
           ],
         },
       },
       {
         id: 'ja-minna-l21-s3',
-        title: 'Sinov Testi',
+        title: 'JLPT N5 Sinov Testi',
         type: 'test',
-        estimatedMinutes: 6,
+        estimatedMinutes: 7,
         testData: {
           instructions:
             "Darsni muvaffaqiyatli yakunlash uchun savollarga to'g'ri javob bering (Kamida 80%).",
@@ -8018,57 +13199,55 @@ export const MINNA_N5_LESSONS: Lesson[] = [
           questions: [
             {
               id: 'ja-minna-l21-q1',
-              question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「あした 雨[あめ] が 降[ふ] る と 思[おも] います。」",
-              options: [
-                "Ertaga yomg'ir yog'sa kerak (deb o'ylayman).",
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
-              ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Ertaga yomg'ir yog'sa kerak (deb o'ylayman)..",
+              question: '【Mondai 1: Moji/Goi】「負けます」の 読[よ]み方[かた]は どれですか。',
+              options: ['たります', 'おもいます', 'いいます', 'まけます'],
+              correctAnswerIndex: 3,
+              explanation:
+                "「負けます」 ning to'g'ri o'qilishi: 「まけます」 (mag'lub bo'lmoq, yutqazmoq).",
             },
             {
               id: 'ja-minna-l21-q2',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「テレサちゃんは もう 寝[ね] た と 思[おも] います。」",
-              options: [
-                "Tereza allaqachon uxlagan bo'lsa kerak (deb o'ylayman).",
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
-              ],
-              correctAnswerIndex: 0,
+                '【Mondai 2: Bunpo】（　）に 入[はい]る 最[もっと]も よいものを 1つ えらびなさい。\n「田中さんは 学生（　）ありません。」',
+              options: ['に', 'で', 'を', 'じゃ'],
+              correctAnswerIndex: 3,
               explanation:
-                "To'g'ri javob: Tereza allaqachon uxlagan bo'lsa kerak (deb o'ylayman)..",
+                "To'g'ri zarracha: 「じゃ」. Inkor shaklda 'じゃ ありません' qo'llaniladi.",
             },
             {
               id: 'ja-minna-l21-q3',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「ミラーさんは この ニュースを 知[し] って いますか。」",
+                "【Mondai 3: Bunpo】21-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
               options: [
-                "Janob Millerning bu yangilikdan xabari bormi? …Yo'q, menimcha xabari bo'lmasa kerak (deb o'ylayman).",
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
+                '〜に 食べません でした',
+                '“GAP”',
+                '〜を 行きます です',
+                '〜は 〜でした じゃありません',
               ],
-              correctAnswerIndex: 0,
-              explanation:
-                "To'g'ri javob: Janob Millerning bu yangilikdan xabari bormi? …Yo'q, menimcha xabari bo'lmasa kerak (deb o'ylayman)..",
+              correctAnswerIndex: 1,
+              explanation: "To'g'ri grammatik formula: 「“GAP”」.",
             },
             {
               id: 'ja-minna-l21-q4',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「日[に] 本[ほん] は 物[ぶっ] 価[か] が 高[たか] い と 思[おも] います。」",
+                "【Mondai 4: Dokkai】Quyidagi yaponcha gapning to'g'ri o'zbekcha ma'nosini toping:\n「ミラーさんは この ニュースを 知[し] って いますか。」",
               options: [
+                "Janob Millerning bu yangilikdan xabari bormi? …Yo'q, menimcha xabari bo'lmasa kerak (deb o'ylayman).",
                 "Yaponiyada narx-navo baland deb o'ylayman.",
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
+                "Tereza allaqachon uxlagan bo'lsa kerak (deb o'ylayman).",
+                "Ertaga yomg'ir yog'sa kerak (deb o'ylayman).",
               ],
               correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Yaponiyada narx-navo baland deb o'ylayman..",
+              explanation:
+                "To'g'ri ma'nosi: 「Janob Millerning bu yangilikdan xabari bormi? …Yo'q, menimcha xabari bo'lmasa kerak (deb o'ylayman).」.",
+            },
+            {
+              id: 'ja-minna-l21-q5',
+              question:
+                "【Mondai 5: Kaiwa】Savolga eng to'g'ri javobni tanlang:\n「ミラーさんは アメリカ人ですか。」",
+              options: ['さようなら。', 'いいえ、学生です。', 'はい、そうです。', 'いただきます。'],
+              correctAnswerIndex: 2,
+              explanation: "To'g'ri javob: 「はい、そうです。」.",
             },
           ],
         },
@@ -8085,154 +13264,247 @@ export const MINNA_N5_LESSONS: Lesson[] = [
     lessonNumber: 22,
     title: '22-dars: Aniqlovchi gaplar (Kanshi / Modifying Clauses)',
     description:
-      "Minna no Nihongo Shokyu 1: 22-dars: Aniqlovchi gaplar (Kanshi / Modifying Clauses). Darsda 29 ta yangi so'z va 4 ta asosiy grammatik qoida o'rganiladi.",
-    estimatedDurationMinutes: 20,
+      "Minna no Nihongo Shokyu 1: 22-dars: Aniqlovchi gaplar (Kanshi / Modifying Clauses). Darsda 29 ta yangi so'z, audio talaffuzli Furigana misollar va 4 ta asosiy grammatik formula o'rganiladi.",
+    estimatedDurationMinutes: 25,
     icon: '🌸',
     steps: [
       {
         id: 'ja-minna-l22-s1',
         title: "Lug'at va Qoidalar",
         type: 'learn',
-        estimatedMinutes: 8,
+        estimatedMinutes: 10,
         learnData: {
           title: '22-Dars: 22-dars: Aniqlovchi gaplar (Kanshi / Modifying Clauses)',
           subtitle: '第22課：名詞修飾（連体修飾節）',
           explanation:
-            "22-dars: Aniqlovchi gaplar (Kanshi / Modifying Clauses) bo'yicha to'liq grammatik izohlar va qoidalar to'plami. Har bir qoida Minna no Nihongo darsligining o'zbekcha tarjimasiga moslashtirilgan.",
+            "22-dars: Aniqlovchi gaplar (Kanshi / Modifying Clauses) bo'yicha to'liq grammatik izohlar, formulalar va Furiganali misollar to'plami.",
           keyPoints: [
-            '1.  Aniqlovchi: S iz bilan 2 va 8-darslarda aniqlovchi hosil qilish qoidalarini bilib olgan edik ミラーさんの うち Janob Millerning uyi (2-dars)...',
-            "2.  Aniqlovchi-GAPlar: 1) OT so'z turkumini aniqlab keluvchi kesim oddiy shaklda ifodalanadi. Gapning kesimi な -sifat bilan ifodalangan gaplard...",
-            "3.  OT  が: Gapda otni aniqlab keluvchi egadan keyin が qo'shimchasi qo'yiladi. ミラーさんは ケーキを 作[つく] りました。 Janob Miller pirog pishirdila...",
-            "4. FE’Lning lug`atdagi shakli  時[じ] 間[かん]  / 約束[やくそく]  / 用[よう] 事[じ]: Ish-harakatni bajarishga sarflanadigan vaqtni ko'rsatishda gapdagi じかん so'zidan avval “FE'Lning lug'atdagi shakli” kelad...",
+            "📌 1.  Aniqlovchi: S iz bilan 2 va 8-darslarda aniqlovchi hosil qilish qoidalarini bilib olgan edik ミラーさんの うち Janob Millerning uyi (2-dars) 新[あたら] しい うち yangi uy (8-dars) きれいな うち chiroyli uy (8-dars) Yapon tilida so'z birikmasi yoki gapdagi aniqlovchi har doim aniqlanmishdan oldin keladi.",
+            "📌 2.  Aniqlovchi-GAPlar: 1) OT so'z turkumini aniqlab keluvchi kesim oddiy shaklda ifodalanadi.",
+            "📌 3.  OT  が: Gapda otni aniqlab keluvchi egadan keyin が qo'shimchasi qo'yiladi.",
+            "📌 4. FE’Lning lug`atdagi shakli  時[じ] 間[かん]  / 約束[やくそく]  / 用[よう] 事[じ]: Ish-harakatni bajarishga sarflanadigan vaqtni ko'rsatishda gapdagi じかん so'zidan avval “FE'Lning lug'atdagi shakli” keladi.",
           ],
           vocabulary: [
             {
               term: '着ます (きます)',
               reading: 'きます',
               meaning: "kiymoq (beldan yuqoriga qo'llaniladi)",
-              exampleSentence: "きます — kiymoq (beldan yuqoriga qo'llaniladi)",
-              exampleTranslation: "kiymoq (beldan yuqoriga qo'llaniladi)",
+              exampleSentence: '友達[ともだち]が うちへ 来[き]ました。',
+              exampleTranslation: "Do'stim uyimga keldi.",
             },
             {
-              term: '[ シャツを～ ]',
-              reading: '[ シャツを～ ]',
+              term: 'シャツを～',
+              reading: 'シャツを～',
               meaning: "ko'ylak kiymoq",
-              exampleSentence: "[ シャツを～ ] — ko'ylak kiymoq",
-              exampleTranslation: "ko'ylak kiymoq",
+              exampleSentence: '山田[やまだ][シャツを]は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: "Yamada ko'ylak kiymoq samimiy inson.",
             },
             {
               term: 'はきます',
               reading: 'はきます',
               meaning: "kiymoq (beldan pastda qo'llaniladi)",
-              exampleSentence: "はきます — kiymoq (beldan pastda qo'llaniladi)",
-              exampleTranslation: "kiymoq (beldan pastda qo'llaniladi)",
+              exampleSentence: '毎日[まいにち] はきます。',
+              exampleTranslation: "Har kuni kiymoq (beldan pastda qo'llaniladi).",
             },
             {
-              term: '[ 靴を～ ] ([ くつを～ ])',
-              reading: '[ くつを～ ]',
+              term: '靴を～ (くつを～)',
+              reading: 'くつを～',
               meaning: 'poyafzal kiymoq',
-              exampleSentence: '[ くつを～ ] — poyafzal kiymoq',
-              exampleTranslation: 'poyafzal kiymoq',
+              exampleSentence: '山田[やまだ][くつを]は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada poyafzal kiymoq samimiy inson.',
             },
             {
               term: 'かぶります',
               reading: 'かぶります',
               meaning: "kiymoq (boshga qo'llaniladi)",
-              exampleSentence: "かぶります — kiymoq (boshga qo'llaniladi)",
-              exampleTranslation: "kiymoq (boshga qo'llaniladi)",
+              exampleSentence: '毎日[まいにち] かぶります。',
+              exampleTranslation: "Har kuni kiymoq (boshga qo'llaniladi).",
             },
             {
-              term: '[ 帽子を～ ] ([ ぼうし～ ])',
-              reading: '[ ぼうし～ ]',
+              term: '帽子を～ (ぼうし～)',
+              reading: 'ぼうし～',
               meaning: 'bosh kiyim kiymoq',
-              exampleSentence: '[ ぼうし～ ] — bosh kiyim kiymoq',
-              exampleTranslation: 'bosh kiyim kiymoq',
+              exampleSentence: '山田[やまだ][ぼうし]は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada bosh kiyim kiymoq samimiy inson.',
             },
             {
               term: 'かけます',
               reading: 'かけます',
               meaning: 'Taqmoq',
-              exampleSentence: 'かけます — Taqmoq',
-              exampleTranslation: 'Taqmoq',
+              exampleSentence: '毎日[まいにち] かけます。',
+              exampleTranslation: 'Har kuni taqmoq.',
             },
             {
-              term: '[ 眼鏡を～ ] ([ めがねを～ ])',
-              reading: '[ めがねを～ ]',
+              term: '眼鏡を～ (めがねを～)',
+              reading: 'めがねを～',
               meaning: "ko'zoynak taqmoq",
-              exampleSentence: "[ めがねを～ ] — ko'zoynak taqmoq",
-              exampleTranslation: "ko'zoynak taqmoq",
+              exampleSentence: '山田[やまだ][めがねを]は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: "Yamada ko'zoynak taqmoq samimiy inson.",
             },
             {
               term: '生まれます (うまれます)',
               reading: 'うまれます',
               meaning: "tug'ilmoq, dunyoga kelmoq",
-              exampleSentence: "うまれます — tug'ilmoq, dunyoga kelmoq",
-              exampleTranslation: "tug'ilmoq, dunyoga kelmoq",
+              exampleSentence: '毎日[まいにち] 生まれます[うまれます]。',
+              exampleTranslation: "Har kuni tug'ilmoq, dunyoga kelmoq.",
             },
             {
               term: 'コート',
               reading: 'コート',
               meaning: 'palto',
-              exampleSentence: 'コート — palto',
-              exampleTranslation: 'palto',
+              exampleSentence: 'これは わたしが 買[か]った コート です。',
+              exampleTranslation: 'Bu men sotib olgan palto.',
             },
             {
               term: 'スーツ',
               reading: 'スーツ',
               meaning: 'kostum-shim',
-              exampleSentence: 'スーツ — kostum-shim',
-              exampleTranslation: 'kostum-shim',
+              exampleSentence: 'これは わたしが 買[か]った スーツ です。',
+              exampleTranslation: 'Bu men sotib olgan kostum-shim.',
             },
             {
               term: 'セーター',
               reading: 'セーター',
               meaning: 'sviter',
-              exampleSentence: 'セーター — sviter',
-              exampleTranslation: 'sviter',
+              exampleSentence: 'これは わたしが 買[か]った セーター です。',
+              exampleTranslation: 'Bu men sotib olgan sviter.',
             },
             {
               term: '帽子 (ぼうし)',
               reading: 'ぼうし',
               meaning: 'bosh kiyim',
-              exampleSentence: 'ぼうし — bosh kiyim',
-              exampleTranslation: 'bosh kiyim',
+              exampleSentence: 'これは わたしが 買[か]った 帽子[ぼうし] です。',
+              exampleTranslation: 'Bu men sotib olgan bosh kiyim.',
             },
             {
               term: '眼鏡 (めがね)',
               reading: 'めがね',
               meaning: "ko'zoynak",
-              exampleSentence: "めがね — ko'zoynak",
-              exampleTranslation: "ko'zoynak",
+              exampleSentence: 'これは わたしが 買[か]った 眼鏡[めがね] です。',
+              exampleTranslation: "Bu men sotib olgan ko'zoynak.",
             },
             {
               term: 'よく',
               reading: 'よく',
               meaning: 'tez-tez, rosa',
-              exampleSentence: 'よく — tez-tez, rosa',
-              exampleTranslation: 'tez-tez, rosa',
+              exampleSentence: 'これは わたしが 買[か]った よく です。',
+              exampleTranslation: 'Bu men sotib olgan tez-tez, rosa.',
+            },
+            {
+              term: 'おめでとうございます。',
+              reading: 'おめでとうございます。',
+              meaning: 'Tabriklayman.',
+              exampleSentence: '毎日[まいにち] おめでとうございます。。',
+              exampleTranslation: 'Har kuni tabriklayman..',
+            },
+            {
+              term: 'こちら',
+              reading: 'こちら',
+              meaning: 'u kishi (hurmat shakli)',
+              exampleSentence: 'これは わたしが 買[か]った こちら です。',
+              exampleTranslation: 'Bu men sotib olgan u kishi (hurmat shakli).',
+            },
+            {
+              term: '家や賃ちん',
+              reading: '家や賃ちん',
+              meaning: 'uyning ijara haqi',
+              exampleSentence: 'これは わたしが 買[か]った 家[や]賃[ちん] です。',
+              exampleTranslation: 'Bu men sotib olgan uyning ijara haqi.',
+            },
+            {
+              term: 'うーん。',
+              reading: 'うーん。',
+              meaning: "Ha. / Xo'p.",
+              exampleSentence: 'これは わたしが 買[か]った うーん。 です。',
+              exampleTranslation: "Bu men sotib olgan ha. / xo'p..",
+            },
+            {
+              term: 'ダイニングキチン',
+              reading: 'ダイニングキチン',
+              meaning: 'oshxona (uyning ~si)',
+              exampleSentence: 'これは わたしが 買[か]った ダイニングキチン です。',
+              exampleTranslation: 'Bu men sotib olgan oshxona (uyning ~si).',
+            },
+            {
+              term: '和わ室しつ',
+              reading: '和わ室しつ',
+              meaning: 'yaponcha xona',
+              exampleSentence: 'これは わたしが 買[か]った 和[わ]室[しつ] です。',
+              exampleTranslation: 'Bu men sotib olgan yaponcha xona.',
+            },
+            {
+              term: '押おし入いれ',
+              reading: '押おし入いれ',
+              meaning: 'taxmon',
+              exampleSentence: 'これは わたしが 買[か]った 押[お]し入[い]れ です。',
+              exampleTranslation: 'Bu men sotib olgan taxmon.',
+            },
+            {
+              term: '布ふ団とん',
+              reading: '布ふ団とん',
+              meaning: "ko'rpa",
+              exampleSentence: 'これは わたしが 買[か]った 布[ふ]団[とん] です。',
+              exampleTranslation: "Bu men sotib olgan ko'rpa.",
+            },
+            {
+              term: 'アパート',
+              reading: 'アパート',
+              meaning: "xonadon (ko'p qavatli uyda)",
+              exampleSentence: 'これは わたしが 買[か]った アパート です。',
+              exampleTranslation: "Bu men sotib olgan xonadon (ko'p qavatli uyda).",
+            },
+            {
+              term: 'パリ',
+              reading: 'パリ',
+              meaning: 'Parij',
+              exampleSentence: 'これは わたしが 買[か]った パリ です。',
+              exampleTranslation: 'Bu men sotib olgan parij.',
+            },
+            {
+              term: '万ばん里りの長城ちょうじょう',
+              reading: '万ばん里りの長城ちょうじょう',
+              meaning: 'Buyuk Xitoy devori',
+              exampleSentence:
+                'これは わたしが 買[か]った 万[ばん]里[り]の長城[ちょうじょう] です。',
+              exampleTranslation: 'Bu men sotib olgan buyuk xitoy devori.',
+            },
+            {
+              term: '余暇よか開発かいはつセンター',
+              reading: '余暇よか開発かいはつセンター',
+              meaning: "insonlarning bo'sh vatqlari bo'yicha tadqiqot olib boruvchi markaz",
+              exampleSentence: 'これは わたしが 買[か]った 余暇[よか]開発[かいはつ]センター です。',
+              exampleTranslation:
+                "Bu men sotib olgan insonlarning bo'sh vatqlari bo'yicha tadqiqot olib boruvchi markaz.",
+            },
+            {
+              term: 'レジャー白書はくしょ',
+              reading: 'レジャー白書はくしょ',
+              meaning: "insonlarning bo'sh vaqtlarini qanday o'tkazishi haqidagi “oq kitob”",
+              exampleSentence: 'これは わたしが 買[か]った レジャー白書[はくしょ] です。',
+              exampleTranslation:
+                "Bu men sotib olgan insonlarning bo'sh vaqtlarini qanday o'tkazishi haqidagi “oq kitob”.",
             },
           ],
           grammarRules: [
             {
               pattern: 'Aniqlovchi',
               meaning:
-                "S iz bilan 2 va 8-darslarda aniqlovchi hosil qilish qoidalarini bilib olgan edik ミラーさんの うち Janob Millerning uyi (2-dars) 新[あたら] しい うち yangi uy (8-dars) きれいな うち chiroyli uy (8-dars) Yapon tilida so'z b",
-              usageNotes:
                 "S iz bilan 2 va 8-darslarda aniqlovchi hosil qilish qoidalarini bilib olgan edik ミラーさんの うち Janob Millerning uyi (2-dars) 新[あたら] しい うち yangi uy (8-dars) きれいな うち chiroyli uy (8-dars) Yapon tilida so'z birikmasi yoki gapdagi aniqlovchi har doim aniqlanmishdan oldin keladi.",
+              usageNotes:
+                'Minna no Nihongo 22-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'Aniqlovchi',
-                  translation:
-                    'S iz bilan 2 va 8-darslarda aniqlovchi hosil qilish qoidalarini bilib olgan edik',
+                  translation: 'Grammatik qolip.',
                 },
               ],
             },
             {
               pattern: 'Aniqlovchi-GAPlar',
               meaning:
-                "1) OT so'z turkumini aniqlab keluvchi kesim oddiy shaklda ifodalanadi. Gapning kesimi な -sifat bilan ifodalangan gaplarda uning ~ だ oddiy shakli ~ な ga o'zgaradi. Shuningdek, kesim ot so'z turkumi bil",
-              usageNotes:
                 "1) OT so'z turkumini aniqlab keluvchi kesim oddiy shaklda ifodalanadi. Gapning kesimi な -sifat bilan ifodalangan gaplarda uning ~ だ oddiy shakli ~ な ga o'zgaradi. Shuningdek, kesim ot so'z turkumi bilan ifodalangan gaplarda ~ だ → ~ の ga o'zgaradi. 行[い] かない 人[ひと] bormaydigan 東京[とうきょう] へ Tokioga borgan kishi 行[い] った 人[ひと] 行[い] かなかった 人[ひと] bormagan 背[せ] が 高[たか] くて、髪[かみ] が 黒[くろ] い 人[ひと] baland bo'yli, qora sochli 親切[しんせつ] で、きれいな 人[ひと] mehribon va chiroyli kishi ６５歳[さい] の 人[ひと] 65 yoshli 2) Turli gap bo'laklari sifatida kelgan OT so'z turkumi turlicha aniqlanib kelishi mumkin. Men o'tgan hafta kino ko'rdim. → O'tgan hafta ko'rgan kinom. Janob Van kasalxonada ishlaydi. → Janob Van ishlaydigan kasalxona. Men ertaga do'stim bilan uchrashaman. → Ertaga uchrashadigan do'stim. 3) Gapda aniqlovchi sifatida kelgan otlar, gapning sintaktik qurilishining turli qismida kelishi mumkin.",
+              usageNotes:
+                'Minna no Nihongo 22-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'わたしは 先[せん] 週[しゅう] 映[えい] 画[が] を 見[み] ました',
@@ -8242,6 +13514,39 @@ export const MINNA_N5_LESSONS: Lesson[] = [
                   sentence: 'ワンさんは 病院[びょういん] で 働[はたら] いて います',
                   translation: '→ ワンさんが 働[はたら] いて いる 病[びょう] 院[いん]',
                 },
+                {
+                  sentence: 'わたしは あした 友達[ともだち] に 会[あ] います',
+                  translation: '→ わたしが あした 会[あ] う 友達[ともだち]',
+                },
+                {
+                  sentence:
+                    ',  ③  va  ④ -misollardagi tagiga chizilgan otlar aniqlanmish vazifasida',
+                  translation: 'kelsa, を , で va に yuklamalari tushurib qoldiriladi.',
+                },
+                {
+                  sentence: 'これは ミラーさんが 住[す] んで いた うちです。',
+                  translation: 'Bu janob Miller yashagan uy.',
+                },
+                {
+                  sentence: 'ミラーさんが 住[す] んで いた うちは 古[ふる] いです。',
+                  translation: 'Janob Miller yashagan uy eski.',
+                },
+                {
+                  sentence: 'ミラーさんが 住[す] んで いた うちを 買[か] いました。',
+                  translation: 'Men janob Miller yashagan uyni sotib oldim.',
+                },
+                {
+                  sentence: 'わたしは ミラーさんが 住[す] んで いた うちが 好[す] きです。',
+                  translation: 'Menga janob Miller yashagan uy yoqadi.',
+                },
+                {
+                  sentence: 'ミラーさんが 住[す] んで いた うちに 猫[ねこ] が いました。',
+                  translation: 'Janob Miller yashagan uyda mushuk bor edi.',
+                },
+                {
+                  sentence: 'ミラーさんが 住[す] んで いた うちへ 行[い] った ことが あります。',
+                  translation: 'Janob Miller yashagan uyga borganman.',
+                },
               ],
             },
             {
@@ -8249,7 +13554,7 @@ export const MINNA_N5_LESSONS: Lesson[] = [
               meaning:
                 "Gapda otni aniqlab keluvchi egadan keyin が qo'shimchasi qo'yiladi. ミラーさんは ケーキを 作[つく] りました。 Janob Miller pirog pishirdilar.",
               usageNotes:
-                "Gapda otni aniqlab keluvchi egadan keyin が qo'shimchasi qo'yiladi. ミラーさんは ケーキを 作[つく] りました。 Janob Miller pirog pishirdilar.",
+                'Minna no Nihongo 22-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'これは ミラーさんが 作[つく] った ケーキです。',
@@ -8270,9 +13575,9 @@ export const MINNA_N5_LESSONS: Lesson[] = [
               pattern:
                 'FE’Lning lug`atdagi shakli  時[じ] 間[かん]  / 約束[やくそく]  / 用[よう] 事[じ]',
               meaning:
-                "Ish-harakatni bajarishga sarflanadigan vaqtni ko'rsatishda gapdagi じかん so'zidan avval “FE'Lning lug'atdagi shakli” keladi. Kelishuv ma'nosini anglatadigan gaplarda やくそく so'zidan avval FE'Lning lug'atd",
-              usageNotes:
                 "Ish-harakatni bajarishga sarflanadigan vaqtni ko'rsatishda gapdagi じかん so'zidan avval “FE'Lning lug'atdagi shakli” keladi. Kelishuv ma'nosini anglatadigan gaplarda やくそく so'zidan avval FE'Lning lug'atdagi shakli keladi. ⑯ きょうは 市[し] 役[やく] 所[しょ] へ 行[い] く 用[よう] 事[じ] が あります。 Bugun hokimiyatga borib qiladigan ishlarim bor.",
+              usageNotes:
+                'Minna no Nihongo 22-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence:
@@ -8288,83 +13593,90 @@ export const MINNA_N5_LESSONS: Lesson[] = [
             },
           ],
           culturalNotes:
-            "Yaponiyada kvartira ijaraga olish (apāto sagashi) madaniyati o'ziga xos bo'lib, xonalar tatami soni bilan o'lchanadi.",
+            "Yaponiyada kvartira ijaraga olish (apāto sagashi) madaniyati o'ziga xos bo'lib, xonalar hajmi tatami to'shamlari soni bilan o'lchanadi.",
         },
       },
       {
         id: 'ja-minna-l22-s2',
         title: 'Mustahkamlash Mashqlari',
         type: 'practice',
-        estimatedMinutes: 6,
+        estimatedMinutes: 8,
         practiceData: {
           instructions:
-            "Darsda o'rganilgan yangi so'zlar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
+            "Darsda o'rganilgan yangi so'zlar, zarrachalar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
           exercises: [
             {
               id: 'ja-minna-l22-ex1',
               type: 'multiple-choice',
-              prompt: "「着ます」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
-              options: [
-                "kiymoq (beldan yuqoriga qo'llaniladi)",
-                "ko'ylak kiymoq",
-                "kiymoq (beldan pastda qo'llaniladi)",
-                'poyafzal kiymoq',
-              ],
-              correctAnswer: 0,
-              explanation: "To'g'ri javob: kiymoq (beldan yuqoriga qo'llaniladi).",
+              prompt: "Bo'sh joyga to'g'ri zarrachani qo'ying:\n「これは 日本語（　）本です。」",
+              options: ['も', 'の', 'は', 'と'],
+              correctAnswer: 1,
+              explanation:
+                "To'g'ri javob: 「の」. Tegishlilik va biror tildagi kitob ekanligini bildirish uchun 'の' qo'yiladi.",
             },
             {
               id: 'ja-minna-l22-ex2',
               type: 'multiple-choice',
-              prompt:
-                "22-dars grammatik qoidasi: '1.  Aniqlovchi' bo'yicha qaysi gap grammatik jihatdan to'g'ri tuzilgan?",
+              prompt: "「布ふ団とん」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
               options: [
-                'わたしは 先[せん] 週[しゅう] 映[えい] 画[が] を 見[み] ました',
-                'これ は を です。',
-                'だれ が 行きます か でした。',
-                'へ 行きません です。',
+                "ko'ylak kiymoq",
+                "ko'rpa",
+                "kiymoq (beldan pastda qo'llaniladi)",
+                "kiymoq (beldan yuqoriga qo'llaniladi)",
               ],
-              correctAnswer: 0,
-              explanation:
-                "To'g'ri javob: わたしは 先[せん] 週[しゅう] 映[えい] 画[が] を 見[み] ました (→).",
+              correctAnswer: 1,
+              explanation: "To'g'ri javob: 「ko'rpa」.",
             },
             {
               id: 'ja-minna-l22-ex3',
               type: 'multiple-choice',
-              prompt:
-                "O'zbek tiliga to'g'ri tarjima qiling: 「ワンさんは 病院[びょういん] で 働[はたら] いて います」",
+              prompt: "22-dars grammatik qoidasiga muvofiq to'g'ri tuzilgan gapni aniqlang:",
               options: [
-                '→ ワンさんが 働[はたら] いて いる 病[びょう] 院[いん]',
-                "Ertaga do'stim bilan mehmonga boraman.",
-                "Kechirasiz, soat necha bo'ldi?",
-                "Iltimos, manzilni ko'rsatib yuboring.",
+                'ワンさんは 病院[びょういん] へ 働[はたら] いて います。',
+                'ワンさんは 病院[びょういん] で 働[はたら] いて います です。',
+                'ワンさんは 病院[びょういん] で 働[はたら] いて いません でした です。',
+                'ワンさんは 病院[びょういん] で 働[はたら] いて います。',
               ],
-              correctAnswer: 0,
+              correctAnswer: 3,
               explanation:
-                "To'g'ri tarjimasi: → ワンさんが 働[はたら] いて いる 病[びょう] 院[いん].",
+                "To'g'ri gap: 「ワンさんは 病院[びょういん] で 働[はたら] いて います。」 (→ ワンさんが 働[はたら] いて いる 病[びょう] 院[いん]).",
             },
             {
               id: 'ja-minna-l22-ex4',
               type: 'multiple-choice',
-              prompt:
-                "Ushbu darsdagi suhbatdan kelib chiqib: Ko'chmasmulk xodimi qanday jumla aytadi?",
+              prompt: "Ushbu gapning to'g'ri yaponcha tarjimasini tanlang:\n「→」",
               options: [
-                'Bunisiga nima deysiz? Ijara haqi 80 ming iyena.',
-                'Men hech qayerga bormayman.',
-                'Taksida aeroportga haydang.',
-                "Iltimos, hisobni alohida to'laymiz.",
+                'ワンさんは 病院[びょういん] で 働[はたら] いて います',
+                'わたしは 先[せん] 週[しゅう] 映[えい] 画[が] を 見[み] ました',
+                'Aniqlovchi',
+                'わたしは あした 友達[ともだち] に 会[あ] います',
               ],
-              correctAnswer: 0,
-              explanation: "To'g'ri ibora: Bunisiga nima deysiz? Ijara haqi 80 ming iyena..",
+              correctAnswer: 1,
+              explanation:
+                "Yaponcha to'g'ri ifodasi: 「わたしは 先[せん] 週[しゅう] 映[えい] 画[が] を 見[み] ました」.",
+            },
+            {
+              id: 'ja-minna-l22-ex5',
+              type: 'multiple-choice',
+              prompt:
+                'Suhbatdoshingiz: 「これは ほんの 気持ちです。どうぞ。」 dedi. Unga eng mos muloyim javob qaysi?',
+              options: [
+                '失礼します。',
+                'おやすみなさい。',
+                'どうも ありがとうございます。',
+                'ごちそうさまでした。',
+              ],
+              correctAnswer: 2,
+              explanation: "To'g'ri javob: 「どうも ありがとうございます。」.",
             },
           ],
         },
       },
       {
         id: 'ja-minna-l22-s3',
-        title: 'Sinov Testi',
+        title: 'JLPT N5 Sinov Testi',
         type: 'test',
-        estimatedMinutes: 6,
+        estimatedMinutes: 7,
         testData: {
           instructions:
             "Darsni muvaffaqiyatli yakunlash uchun savollarga to'g'ri javob bering (Kamida 80%).",
@@ -8372,55 +13684,54 @@ export const MINNA_N5_LESSONS: Lesson[] = [
           questions: [
             {
               id: 'ja-minna-l22-q1',
-              question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「わたしは 先[せん] 週[しゅう] 映[えい] 画[が] を 見[み] ました」",
-              options: [
-                '→',
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
-              ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: →.",
+              question: '【Mondai 1: Moji/Goi】「靴を～」の 読[よ]み方[かた]は どれですか。',
+              options: ['シャツを～', 'きます', 'くつを～', 'はきます'],
+              correctAnswerIndex: 2,
+              explanation: "「靴を～」 ning to'g'ri o'qilishi: 「くつを～」 (poyafzal kiymoq).",
             },
             {
               id: 'ja-minna-l22-q2',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「ワンさんは 病院[びょういん] で 働[はたら] いて います」",
-              options: [
-                '→ ワンさんが 働[はたら] いて いる 病[びょう] 院[いん]',
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
-              ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: → ワンさんが 働[はたら] いて いる 病[びょう] 院[いん].",
+                '【Mondai 2: Bunpo】（　）に 入[はい]る 最[もっと]も よいものを 1つ えらびなさい。\n「ミラーさんは アメリカ（　）来ました。」',
+              options: ['まで', 'へ', 'で', 'から'],
+              correctAnswerIndex: 3,
+              explanation:
+                "To'g'ri zarracha: 「から」. Kelib chiqish mamlakati '〜から' orqali ko'rsatiladi.",
             },
             {
               id: 'ja-minna-l22-q3',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「わたしは あした 友達[ともだち] に 会[あ] います」",
+                "【Mondai 3: Bunpo】22-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
               options: [
-                '→ わたしが あした 会[あ] う 友達[ともだち]',
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
+                '〜に 食べません でした',
+                '〜は 〜でした じゃありません',
+                'Aniqlovchi-GAPlar',
+                '〜を 行きます です',
               ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: → わたしが あした 会[あ] う 友達[ともだち].",
+              correctAnswerIndex: 2,
+              explanation: "To'g'ri grammatik formula: 「Aniqlovchi-GAPlar」.",
             },
             {
               id: 'ja-minna-l22-q4',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「,  ③  va  ④ -misollardagi tagiga chizilgan otlar aniqlanmish vazifasida」",
+                "【Mondai 4: Dokkai】Quyidagi yaponcha gapning to'g'ri o'zbekcha ma'nosini toping:\n「ワンさんは 病院[びょういん] で 働[はたら] いて います」",
               options: [
+                '→ わたしが あした 会[あ] う 友達[ともだち]',
                 'kelsa, を , で va に yuklamalari tushurib qoldiriladi.',
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
+                'Grammatik qolip.',
+                '→ ワンさんが 働[はたら] いて いる 病[びょう] 院[いん]',
               ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: kelsa, を , で va に yuklamalari tushurib qoldiriladi..",
+              correctAnswerIndex: 3,
+              explanation:
+                "To'g'ri ma'nosi: 「→ ワンさんが 働[はたら] いて いる 病[びょう] 院[いん]」.",
+            },
+            {
+              id: 'ja-minna-l22-q5',
+              question:
+                "【Mondai 5: Kaiwa】Savolga eng to'g'ri javobni tanlang:\n「これは あなたの 傘ですか。」",
+              options: ['はい、そうです。', '初めまして。', '失礼します。', 'いいえ、違います。'],
+              correctAnswerIndex: 3,
+              explanation: "To'g'ri javob: 「いいえ、違います。」.",
             },
           ],
         },
@@ -8437,141 +13748,328 @@ export const MINNA_N5_LESSONS: Lesson[] = [
     lessonNumber: 23,
     title: '23-dars: Shart va Vaqt (Qachonki / Qilsa)',
     description:
-      "Minna no Nihongo Shokyu 1: 23-dars: Shart va Vaqt (Qachonki / Qilsa). Darsda 42 ta yangi so'z va 5 ta asosiy grammatik qoida o'rganiladi.",
-    estimatedDurationMinutes: 20,
+      "Minna no Nihongo Shokyu 1: 23-dars: Shart va Vaqt (Qachonki / Qilsa). Darsda 42 ta yangi so'z, audio talaffuzli Furigana misollar va 5 ta asosiy grammatik formula o'rganiladi.",
+    estimatedDurationMinutes: 25,
     icon: '🌸',
     steps: [
       {
         id: 'ja-minna-l23-s1',
         title: "Lug'at va Qoidalar",
         type: 'learn',
-        estimatedMinutes: 8,
+        estimatedMinutes: 10,
         learnData: {
           title: '23-Dars: 23-dars: Shart va Vaqt (Qachonki / Qilsa)',
           subtitle: '第23課：時と条件（〜とき・〜と、〜）',
           explanation:
-            "23-dars: Shart va Vaqt (Qachonki / Qilsa) bo'yicha to'liq grammatik izohlar va qoidalar to'plami. Har bir qoida Minna no Nihongo darsligining o'zbekcha tarjimasiga moslashtirilgan.",
+            "23-dars: Shart va Vaqt (Qachonki / Qilsa) bo'yicha to'liq grammatik izohlar, formulalar va Furiganali misollar to'plami.",
           keyPoints: [
-            "1.   FE’Lning lug`atdagi shakli: FE'Lning ない -shakli PAYT ERGASH GAPLI い -SIFAT （～い） とき、～ QO'SHMA GAP な -SIFAT な OT の Payt ergash gapli qo'shma gaplar とき...",
-            "2.   FE’Lning lug`atdagi shakli QO`SHMA GAPDA ISH-: とき、～ HARAKATNING FE'Lning た -shakli TUGALLANGANLIK VA TUGALLANMAGANLIK IFODASI とき dan avval kelgan “FE'Lning oddiy shakl...",
-            "3.                                                                            FE’Lning lug`atdagi shakli  と、～ QO`SHMA GAP: と bog'lovchisi shart va payt ergash gapli qo'shma gaplarni bog'lash uchun xizmat qiladi va ma'lum bir harakat bajarilish...",
-            "4.   OT  が  SIFAT / FE’L: Siz 14-darsda tabiatdagi voqeliklarni tasvirlashda gapdagi egadan keyin が yuklamasi qo'yilishini bilib olgan edingiz. Xu...",
-            "5.   OT (o`rin-joy)  を  FE’L (harakat yo`nalishi): Biror-bir shaxs yoki predmetning harakatlanish joyini ifodalashda を qo'shimchasidan foydalaniladi. Shuningdek, ushbu qo'...",
+            "📌 1.   FE’Lning lug`atdagi shakli: FE'Lning ない -shakli PAYT ERGASH GAPLI い -SIFAT （～い） とき、～ QO'SHMA GAP な -SIFAT な OT の Payt ergash gapli qo'shma gaplar とき bog'lovchisi yordamida bog'lanadi.",
+            "📌 2.   FE’Lning lug`atdagi shakli QO`SHMA GAPDA ISH-: とき、～ HARAKATNING FE'Lning た -shakli TUGALLANGANLIK VA TUGALLANMAGANLIK IFODASI とき dan avval kelgan “FE'Lning oddiy shakli” gapga tugallanmagan ish-harakat ma'nosini bersa, “FE'Lning た -shakli” harakat tugatilgan paytda boshqa bir ish- harakatning bajarilganligini anglatadi.",
+            "📌 3.                                                                            FE’Lning lug`atdagi shakli  と、～ QO`SHMA GAP: と bog'lovchisi shart va payt ergash gapli qo'shma gaplarni bog'lash uchun xizmat qiladi va ma'lum bir harakat bajarilishi natijasida boshqa holat vujudga kelishini anglatadi.",
+            "📌 4.   OT  が  SIFAT / FE’L: Siz 14-darsda tabiatdagi voqeliklarni tasvirlashda gapdagi egadan keyin が yuklamasi qo'yilishini bilib olgan edingiz.",
+            "📌 5.   OT (o`rin-joy)  を  FE’L (harakat yo`nalishi): Biror-bir shaxs yoki predmetning harakatlanish joyini ifodalashda を qo'shimchasidan foydalaniladi.",
           ],
           vocabulary: [
             {
               term: '聞きます (ききます)',
               reading: 'ききます',
               meaning: "so'ramoq",
-              exampleSentence: "ききます — so'ramoq",
-              exampleTranslation: "so'ramoq",
+              exampleSentence: '音楽[おんがく]を 聞[き]きながら 散歩[さんぽ]します。',
+              exampleTranslation: 'Musiqa tinglab sayr qilaman.',
             },
             {
-              term: '[ 先生に～ ] ([ せんせいに～ ])',
-              reading: '[ せんせいに～ ]',
+              term: '先生に～ (せんせいに～)',
+              reading: 'せんせいに～',
               meaning: "(o'qituvchidan so'ramoq)",
-              exampleSentence: "[ せんせいに～ ] — (o'qituvchidan so'ramoq)",
-              exampleTranslation: "(o'qituvchidan so'ramoq)",
+              exampleSentence: '山田[やまだ][せんせいに]は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: "Yamada (o'qituvchidan so'ramoq) samimiy inson.",
             },
             {
               term: '回します (まわします)',
               reading: 'まわします',
               meaning: 'aylantirmoq',
-              exampleSentence: 'まわします — aylantirmoq',
-              exampleTranslation: 'aylantirmoq',
+              exampleSentence: '毎日[まいにち] 回します[まわします]。',
+              exampleTranslation: 'Har kuni aylantirmoq.',
             },
             {
               term: '引きます (ひきます)',
               reading: 'ひきます',
               meaning: 'tortmoq',
-              exampleSentence: 'ひきます — tortmoq',
-              exampleTranslation: 'tortmoq',
+              exampleSentence: '毎日[まいにち] 引きます[ひきます]。',
+              exampleTranslation: 'Har kuni tortmoq.',
             },
             {
               term: '変えます (かえます)',
               reading: 'かえます',
               meaning: "o'zgartirmoq",
-              exampleSentence: "かえます — o'zgartirmoq",
-              exampleTranslation: "o'zgartirmoq",
+              exampleSentence: '毎日[まいにち] 変えます[かえます]。',
+              exampleTranslation: "Har kuni o'zgartirmoq.",
             },
             {
               term: '触ります (さわります)',
               reading: 'さわります',
               meaning: 'tegmoq',
-              exampleSentence: 'さわります — tegmoq',
-              exampleTranslation: 'tegmoq',
+              exampleSentence: '毎日[まいにち] 触ります[さわります]。',
+              exampleTranslation: 'Har kuni tegmoq.',
             },
             {
-              term: '[ ドアに～ ]',
-              reading: '[ ドアに～ ]',
+              term: 'ドアに～',
+              reading: 'ドアに～',
               meaning: '(eshikka tegmoq)',
-              exampleSentence: '[ ドアに～ ] — (eshikka tegmoq)',
-              exampleTranslation: '(eshikka tegmoq)',
+              exampleSentence: '山田[やまだ][ドアに]は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada (eshikka tegmoq) samimiy inson.',
             },
             {
               term: '出ます (でます)',
               reading: 'でます',
               meaning: 'qaytmoq, chiqmoq',
-              exampleSentence: 'でます — qaytmoq, chiqmoq',
-              exampleTranslation: 'qaytmoq, chiqmoq',
+              exampleSentence: '毎日[まいにち] 出ます[でます]。',
+              exampleTranslation: 'Har kuni qaytmoq, chiqmoq.',
             },
             {
-              term: '[ お釣りが～ ] ([ おつりが～ ])',
-              reading: '[ おつりが～ ]',
+              term: 'お釣りが～ (おつりが～)',
+              reading: 'おつりが～',
               meaning: '(qaytim qaytmoq)',
-              exampleSentence: '[ おつりが～ ] — (qaytim qaytmoq)',
-              exampleTranslation: '(qaytim qaytmoq)',
+              exampleSentence: '山田[やまだ][おつりが]は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada (qaytim qaytmoq) samimiy inson.',
             },
             {
               term: '動きます (うごきます)',
               reading: 'うごきます',
               meaning: 'harakatlanmoq, yurmoq',
-              exampleSentence: 'うごきます — harakatlanmoq, yurmoq',
-              exampleTranslation: 'harakatlanmoq, yurmoq',
+              exampleSentence: '毎日[まいにち] 動きます[うごきます]。',
+              exampleTranslation: 'Har kuni harakatlanmoq, yurmoq.',
             },
             {
-              term: '[ 時計が～ ] ([ とけいが～ ])',
-              reading: '[ とけいが～ ]',
+              term: '時計が～ (とけいが～)',
+              reading: 'とけいが～',
               meaning: '(soat yurmoq)',
-              exampleSentence: '[ とけいが～ ] — (soat yurmoq)',
-              exampleTranslation: '(soat yurmoq)',
+              exampleSentence: '山田[やまだ][とけいが]は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada (soat yurmoq) samimiy inson.',
             },
             {
               term: '歩きます (あるきます)',
               reading: 'あるきます',
               meaning: 'piyoda yurmoq',
-              exampleSentence: 'あるきます — piyoda yurmoq',
-              exampleTranslation: 'piyoda yurmoq',
+              exampleSentence: '毎日[まいにち] 歩きます[あるきます]。',
+              exampleTranslation: 'Har kuni piyoda yurmoq.',
             },
             {
-              term: '[ 道を～ ] ([ みちを～ ])',
-              reading: '[ みちを～ ]',
+              term: '道を～ (みちを～)',
+              reading: 'みちを～',
               meaning: "(ko'chada piyoda yurmoq)",
-              exampleSentence: "[ みちを～ ] — (ko'chada piyoda yurmoq)",
-              exampleTranslation: "(ko'chada piyoda yurmoq)",
+              exampleSentence: '山田[やまだ][みちを]は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: "Yamada (ko'chada piyoda yurmoq) samimiy inson.",
             },
             {
               term: '渡ります (わたります)',
               reading: 'わたります',
               meaning: "o'tmoq; kesib o'tmoq",
-              exampleSentence: "わたります — o'tmoq; kesib o'tmoq",
-              exampleTranslation: "o'tmoq; kesib o'tmoq",
+              exampleSentence: '毎日[まいにち] 渡ります[わたります]。',
+              exampleTranslation: "Har kuni o'tmoq; kesib o'tmoq.",
             },
             {
-              term: '[ 橋を～ ] ([ はしを～ ])',
-              reading: '[ はしを～ ]',
+              term: '橋を～ (はしを～)',
+              reading: 'はしを～',
               meaning: "(ko'prikdan o'tmoq)",
-              exampleSentence: "[ はしを～ ] — (ko'prikdan o'tmoq)",
-              exampleTranslation: "(ko'prikdan o'tmoq)",
+              exampleSentence: '山田[やまだ][はしを]は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: "Yamada (ko'prikdan o'tmoq) samimiy inson.",
+            },
+            {
+              term: '気をつけます (きをつけます)',
+              reading: 'きをつけます',
+              meaning: "ehtiyot bo'lmoq",
+              exampleSentence: '毎日[まいにち] 気をつけます[きをつけます]。',
+              exampleTranslation: "Har kuni ehtiyot bo'lmoq.",
+            },
+            {
+              term: '車に (くるまに～)',
+              reading: 'くるまに～',
+              meaning: "(mashinaga ehtiyot bo'lmoq)",
+              exampleSentence: '山田[やまだ][くるまに]は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: "Yamada (mashinaga ehtiyot bo'lmoq) samimiy inson.",
+            },
+            {
+              term: '引っ越しします (ひっこしします)',
+              reading: 'ひっこしします',
+              meaning: "ko'chib o'tmoq",
+              exampleSentence: '毎日[まいにち] 引っ越しします[ひっこしします]。',
+              exampleTranslation: "Har kuni ko'chib o'tmoq.",
+            },
+            {
+              term: '電気屋 (でんきや)',
+              reading: 'でんきや',
+              meaning: "elektr buyumlar do'koni; elektr buyumlar do'koni sotuvchisi",
+              exampleSentence: 'あそこは 電気屋[でんきや] です。',
+              exampleTranslation:
+                "Anavi yer elektr buyumlar do'koni; elektr buyumlar do'koni sotuvchisi.",
+            },
+            {
+              term: '～屋 (～や)',
+              reading: '～や',
+              meaning: "~ do'koni; ~do'koni sotuvchisi",
+              exampleSentence: 'あそこは 屋[や] です。',
+              exampleTranslation: "Anavi yer ~ do'koni; ~do'koni sotuvchisi.",
+            },
+            {
+              term: 'サイズ',
+              reading: 'サイズ',
+              meaning: "o'lcham, hajm",
+              exampleSentence: 'これは わたしが 買[か]った サイズ です。',
+              exampleTranslation: "Bu men sotib olgan o'lcham, hajm.",
+            },
+            {
+              term: '音 (おと)',
+              reading: 'おと',
+              meaning: 'tovush',
+              exampleSentence: 'これは わたしが 買[か]った 音[おと] です。',
+              exampleTranslation: 'Bu men sotib olgan tovush.',
+            },
+            {
+              term: '機械 (きかい)',
+              reading: 'きかい',
+              meaning: 'texnika, mashina',
+              exampleSentence: 'この 部屋[へや]は 機械[きかい]です。',
+              exampleTranslation: 'Bu xona texnika, mashina.',
+            },
+            {
+              term: 'つまみ',
+              reading: 'つまみ',
+              meaning: 'murvat',
+              exampleSentence: 'これは わたしが 買[か]った つまみ です。',
+              exampleTranslation: 'Bu men sotib olgan murvat.',
+            },
+            {
+              term: '故障 (こしょう)',
+              reading: 'こしょう',
+              meaning: 'buzulish, nosozlik ( ～します : buzilmoq)',
+              exampleSentence: '毎日[まいにち] 故障[こしょう]。',
+              exampleTranslation: 'Har kuni buzulish, nosozlik ( ～します : buzilmoq).',
+            },
+            {
+              term: '道 (みち)',
+              reading: 'みち',
+              meaning: "ko'cha, yo'l",
+              exampleSentence: 'これは わたしが 買[か]った 道[みち] です。',
+              exampleTranslation: "Bu men sotib olgan ko'cha, yo'l.",
+            },
+            {
+              term: '交差点 (こうさてん)',
+              reading: 'こうさてん',
+              meaning: 'chorraha',
+              exampleSentence: 'これは わたしが 買[か]った 交差点[こうさてん] です。',
+              exampleTranslation: 'Bu men sotib olgan chorraha.',
+            },
+            {
+              term: '信号 (しんごう)',
+              reading: 'しんごう',
+              meaning: 'svetofor',
+              exampleSentence: '毎日[まいにち] 信号[しんごう]。',
+              exampleTranslation: 'Har kuni svetofor.',
+            },
+            {
+              term: '角 (かど)',
+              reading: 'かど',
+              meaning: 'muyulish, burulish',
+              exampleSentence: 'これは わたしが 買[か]った 角[かど] です。',
+              exampleTranslation: 'Bu men sotib olgan muyulish, burulish.',
+            },
+            {
+              term: '橋 (はし)',
+              reading: 'はし',
+              meaning: "ko'prik",
+              exampleSentence: 'これは わたしが 買[か]った 橋[はし] です。',
+              exampleTranslation: "Bu men sotib olgan ko'prik.",
+            },
+            {
+              term: '駐車場 (ちゅうしゃじょう)',
+              reading: 'ちゅうしゃじょう',
+              meaning: "avto ulovlar to'xtash joyi",
+              exampleSentence: '毎日[まいにち] 駐車場[ちゅうしゃじょう]。',
+              exampleTranslation: "Har kuni avto ulovlar to'xtash joyi.",
+            },
+            {
+              term: '～目 (～め)',
+              reading: '～め',
+              meaning: '~(i)nchi',
+              exampleSentence: '山田[やまだ]めは 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada ~(i)nchi samimiy inson.',
+            },
+            {
+              term: '［お］正月 (［お］しょうがつ)',
+              reading: '［お］しょうがつ',
+              meaning: 'yangi yil',
+              exampleSentence: 'これは わたしが 買[か]った ［お］正月[［お］しょうがつ] です。',
+              exampleTranslation: 'Bu men sotib olgan yangi yil.',
+            },
+            {
+              term: 'ごちそうさまでした。',
+              reading: 'ごちそうさまでした。',
+              meaning: 'Rahmat. (ovqat uchun)',
+              exampleSentence: 'これは わたしが 買[か]った ごちそうさま[でした]。 です。',
+              exampleTranslation: 'Bu men sotib olgan rahmat. (ovqat uchun).',
+            },
+            {
+              term: '建物たてもの',
+              reading: '建物たてもの',
+              meaning: 'bino',
+              exampleSentence: 'これは わたしが 買[か]った 建物[たてもの] です。',
+              exampleTranslation: 'Bu men sotib olgan bino.',
+            },
+            {
+              term: '外国人がいこくじん登とう録ろく証しょう',
+              reading: '外国人がいこくじん登とう録ろく証しょう',
+              meaning: "chet ellik fuqaroning ro'yxatga olinganlik to'g'risidagi hujjati",
+              exampleSentence:
+                'これは わたしが 買[か]った 外国人[がいこくじん]登[とう]録[ろく]証[しょう] です。',
+              exampleTranslation:
+                "Bu men sotib olgan chet ellik fuqaroning ro'yxatga olinganlik to'g'risidagi hujjati.",
+            },
+            {
+              term: '聖しょう徳とく太たい子し',
+              reading: '聖しょう徳とく太たい子し',
+              meaning: 'Shahzoda Shotoku (574-622)',
+              exampleSentence: 'これは わたしが 買[か]った 聖[しょう]徳[とく]太[たい]子[し] です。',
+              exampleTranslation: 'Bu men sotib olgan shahzoda shotoku (574-622).',
+            },
+            {
+              term: '法ほう隆りゅう寺じ',
+              reading: '法ほう隆りゅう寺じ',
+              meaning:
+                'Horyuji- Nara viloyatidagi ibodatxona. U Ⅶ asr boshida shahzoda Shotoku tomonidan qurdirilgan.',
+              exampleSentence: 'これは わたしが 買[か]った 法[ほう]隆[りゅう]寺[じ] です。',
+              exampleTranslation:
+                'Bu men sotib olgan horyuji- nara viloyatidagi ibodatxona. u ⅶ asr boshida shahzoda shotoku tomonidan qurdirilgan..',
+            },
+            {
+              term: '元げん気き茶ちゃ',
+              reading: '元げん気き茶ちゃ',
+              meaning: "“Genkichya” choy navi (o'ylab topilgan )",
+              exampleSentence: 'これは わたしが 買[か]った 元[げん]気[き]茶[ちゃ] です。',
+              exampleTranslation: "Bu men sotib olgan “genkichya” choy navi (o'ylab topilgan ).",
+            },
+            {
+              term: '本ほん田だ駅えき',
+              reading: '本ほん田だ駅えき',
+              meaning: "“Honda” bekati (o'ylab topilgan )",
+              exampleSentence: 'これは わたしが 買[か]った 本[ほん]田[だ]駅[えき] です。',
+              exampleTranslation: "Bu men sotib olgan “honda” bekati (o'ylab topilgan ).",
+            },
+            {
+              term: '図と書しょ館かん前まえ',
+              reading: '図と書しょ館かん前まえ',
+              meaning: '“Toshokanmae” avtobus bekati',
+              exampleSentence: 'これは わたしが 買[か]った 図[と]書[しょ]館[かん]前[まえ] です。',
+              exampleTranslation: 'Bu men sotib olgan “toshokanmae” avtobus bekati.',
             },
           ],
           grammarRules: [
             {
               pattern: 'FE’Lning lug`atdagi shakli',
               meaning:
-                "FE'Lning ない -shakli PAYT ERGASH GAPLI い -SIFAT （～い） とき、～ QO'SHMA GAP な -SIFAT な OT の Payt ergash gapli qo'shma gaplar とき bog'lovchisi yordamida bog'lanadi. とき - gapning asosi bo'lgan ikkinchi bo'lagid",
-              usageNotes:
                 "FE'Lning ない -shakli PAYT ERGASH GAPLI い -SIFAT （～い） とき、～ QO'SHMA GAP な -SIFAT な OT の Payt ergash gapli qo'shma gaplar とき bog'lovchisi yordamida bog'lanadi. とき - gapning asosi bo'lgan ikkinchi bo'lagidagi holat, harakat va voqeani ko'rsatib keladi. PAYT ERGASH GAPLI",
+              usageNotes:
+                'Minna no Nihongo 23-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence:
@@ -8589,14 +14087,36 @@ export const MINNA_N5_LESSONS: Lesson[] = [
                     '体[からだ] の 調[ちょう] 子[し] が 悪[わる] い とき、「元[げん] 気[き] 茶[ちゃ] 」を 飲[の] みます。',
                   translation: 'Tobim qochgan paytda, “Genkichya” choyidan ichaman.',
                 },
+                {
+                  sentence: '暇[ひま] な とき、うちへ 遊[あそ] びに 来ませんか。',
+                  translation: "Bo'sh paytingizda, uyimizga mehmonga kelmaysizmi?",
+                },
+                {
+                  sentence:
+                    '妻[つま] が 病[びょう] 気[き] の とき、会社[かいしゃ] を 休[やす] みます。',
+                  translation: "Xotinim kasal bo'lib qolgan paytlarda, ishga bormayman.",
+                },
+                {
+                  sentence: '若[わか] い とき、あまり 勉[べん] 強[きょう] しませんでした。',
+                  translation: 'Yoshlik paytimda unchalik dars qilmadim.',
+                },
+                {
+                  sentence: '子[こ] どもの とき、よく 川[かわ] で 泳[およ] ぎました。',
+                  translation: "Bolalik chog'imda men daryoda rosa cho'milar edim.",
+                },
+                {
+                  sentence:
+                    'va  ⑦ -misollardagi sifat va ot bilan ifodalangan payt ergash gapli qo`shma',
+                  translation: "gaplarning zamoni bosh gap zamoniga bog'liq bo'lmaydi.",
+                },
               ],
             },
             {
               pattern: 'FE’Lning lug`atdagi shakli QO`SHMA GAPDA ISH-',
               meaning:
-                "とき、～ HARAKATNING FE'Lning た -shakli TUGALLANGANLIK VA TUGALLANMAGANLIK IFODASI とき dan avval kelgan “FE'Lning oddiy shakli” gapga tugallanmagan ish-harakat ma'nosini bersa, “FE'Lning た -shakli” harakat",
-              usageNotes:
                 "とき、～ HARAKATNING FE'Lning た -shakli TUGALLANGANLIK VA TUGALLANMAGANLIK IFODASI とき dan avval kelgan “FE'Lning oddiy shakli” gapga tugallanmagan ish-harakat ma'nosini bersa, “FE'Lning た -shakli” harakat tugatilgan paytda boshqa bir ish- harakatning bajarilganligini anglatadi. qaytib kelganidan so'ng xarid qilinganligini anglatadi. SHART ERGASH GAPLI",
+              usageNotes:
+                'Minna no Nihongo 23-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: '国[くに] へ 帰[かえ] る とき、かばんを 買[か] いました。',
@@ -8617,9 +14137,9 @@ export const MINNA_N5_LESSONS: Lesson[] = [
             {
               pattern: 'FE’Lning lug`atdagi shakli  と、～ QO`SHMA GAP',
               meaning:
-                "と bog'lovchisi shart va payt ergash gapli qo'shma gaplarni bog'lash uchun xizmat qiladi va ma'lum bir harakat bajarilishi natijasida boshqa holat vujudga kelishini anglatadi. Maqsad, xohish-istak, tak",
-              usageNotes:
                 "と bog'lovchisi shart va payt ergash gapli qo'shma gaplarni bog'lash uchun xizmat qiladi va ma'lum bir harakat bajarilishi natijasida boshqa holat vujudga kelishini anglatadi. Maqsad, xohish-istak, taklif, iltimos kabi ma'nolarni anglatadigan gaplarda ~ と bog'lovchisini qo'llash mumkin emas. 映[えい] 画[が] を 見[み] に 行[い] きます。 (maqsad) 映[えい] 画[が] を 見[み] に 行[い] きたいです。 (xohish-istak) × 時[じ] 間[かん] が ある と、 映[えい] 画[が] を 見[み] に 行[い] きませんか。 (taklif) ちょっと 手伝[てつだ] って ください。 (iltimos) Bunday gaplarda ~ と o'rniga ~ たら shart mayli qo'shimchasi qo'llaniladi (25-darsga qarang)",
+              usageNotes:
+                'Minna no Nihongo 23-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'この ボタンを 押[お] す と、お釣[つ] りが 出[で] ます。',
@@ -8639,9 +14159,9 @@ export const MINNA_N5_LESSONS: Lesson[] = [
             {
               pattern: 'OT  が  SIFAT / FE’L',
               meaning:
-                "Siz 14-darsda tabiatdagi voqeliklarni tasvirlashda gapdagi egadan keyin が yuklamasi qo'yilishini bilib olgan edingiz. Xuddi shuningdek, atrofdagi vaziyat yoki holatni tasvirlashda ham egadan keyin が q",
-              usageNotes:
                 "Siz 14-darsda tabiatdagi voqeliklarni tasvirlashda gapdagi egadan keyin が yuklamasi qo'yilishini bilib olgan edingiz. Xuddi shuningdek, atrofdagi vaziyat yoki holatni tasvirlashda ham egadan keyin が qo'shimchasi qo'yiladi.",
+              usageNotes:
+                'Minna no Nihongo 23-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: '音[おと] が 小[ちい] さいです。',
@@ -8660,90 +14180,99 @@ export const MINNA_N5_LESSONS: Lesson[] = [
             {
               pattern: 'OT (o`rin-joy)  を  FE’L (harakat yo`nalishi)',
               meaning:
-                "Biror-bir shaxs yoki predmetning harakatlanish joyini ifodalashda を qo'shimchasidan foydalaniladi. Shuningdek, ushbu qo'shimcha さんぽします、わ たります、あるきます kabi fe'llar bilan birga ifodalanadi. ⑯ 公園[こうえん] を 散",
-              usageNotes:
                 "Biror-bir shaxs yoki predmetning harakatlanish joyini ifodalashda を qo'shimchasidan foydalaniladi. Shuningdek, ushbu qo'shimcha さんぽします、わ たります、あるきます kabi fe'llar bilan birga ifodalanadi. ⑯ 公園[こうえん] を 散[さん] 歩[ぽ] します。 Xiyobonda sayr qilaman (13-dars). ⑰ 道[みち] を 渡[わた] ります。 Yo'ldan (kesib) o'taman. ⑱ 交[こう] 差[さ] 点[てん] を 右[みぎ] へ 曲[ま] がります。 Chorrahadan o'ngga qayrilaman.",
+              usageNotes:
+                'Minna no Nihongo 23-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'OT (o`rin-joy)  を  FE’L (harakat yo`nalishi)',
-                  translation:
-                    "Biror-bir shaxs yoki predmetning harakatlanish joyini ifodalashda を qo'shimchasi",
+                  translation: 'Grammatik qolip.',
                 },
               ],
             },
           ],
           culturalNotes:
-            "Yaponiyada ko'chada adashib qolsangiz, 'Koban' (mahalla politsiya xodimlari) doimo xaritadan yo'lni mehribonlik bilan tushuntirib berishadi.",
+            "Yaponiyada ko'chada adashib qolsangiz, mahalliy militsiya maskani — 'Koban' xodimlari doimo xaritadan yo'lni mehribonlik bilan tushuntirib berishadi.",
         },
       },
       {
         id: 'ja-minna-l23-s2',
         title: 'Mustahkamlash Mashqlari',
         type: 'practice',
-        estimatedMinutes: 6,
+        estimatedMinutes: 8,
         practiceData: {
           instructions:
-            "Darsda o'rganilgan yangi so'zlar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
+            "Darsda o'rganilgan yangi so'zlar, zarrachalar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
           exercises: [
             {
               id: 'ja-minna-l23-ex1',
               type: 'multiple-choice',
-              prompt: "「聞きます」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
-              options: ["so'ramoq", "(o'qituvchidan so'ramoq)", 'aylantirmoq', 'tortmoq'],
-              correctAnswer: 0,
-              explanation: "To'g'ri javob: so'ramoq.",
+              prompt:
+                "Bo'sh joyga to'g'ri zarrachani qo'ying:\n「あした 9時（　）学校へ 行きます。」",
+              options: ['で', 'を', 'へ', 'に'],
+              correctAnswer: 3,
+              explanation:
+                "To'g'ri javob: 「に」. Aniq vaqt ifodalanganda 'に' zarrachasi qo'yiladi.",
             },
             {
               id: 'ja-minna-l23-ex2',
               type: 'multiple-choice',
-              prompt:
-                "23-dars grammatik qoidasi: '1.   FE’Lning lug`atdagi shakli' bo'yicha qaysi gap grammatik jihatdan to'g'ri tuzilgan?",
-              options: [
-                '図[と] 書[しょ] 館[かん] で 本[ほん] を 借[か] りる とき、カードが 要[い] ります。',
-                'これ は を です。',
-                'だれ が 行きます か でした。',
-                'へ 行きません です。',
-              ],
-              correctAnswer: 0,
-              explanation:
-                "To'g'ri javob: 図[と] 書[しょ] 館[かん] で 本[ほん] を 借[か] りる とき、カードが 要[い] ります。 (Kutubxonadan kitob olish paytida, kutubxona kartochkasi kerak bo'ladi.).",
+              prompt: "「つまみ」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
+              options: ['aylantirmoq', 'murvat', "(o'qituvchidan so'ramoq)", "so'ramoq"],
+              correctAnswer: 1,
+              explanation: "To'g'ri javob: 「murvat」.",
             },
             {
               id: 'ja-minna-l23-ex3',
               type: 'multiple-choice',
-              prompt:
-                "O'zbek tiliga to'g'ri tarjima qiling: 「使[つか] い方[かた] が わからない とき、わたしに 聞[き] いて ください。」",
+              prompt: "23-dars grammatik qoidasiga muvofiq to'g'ri tuzilgan gapni aniqlang:",
               options: [
-                "Foydalanishni tushunmagan paytingizda, mendan so'rang.",
-                "Ertaga do'stim bilan mehmonga boraman.",
-                "Kechirasiz, soat necha bo'ldi?",
-                "Iltimos, manzilni ko'rsatib yuboring.",
+                '図[と] 書[しょ] 館[かん] で 本[ほん] を 借[か] りる とき、カードが 要[い] ります です。',
+                '図[と] 書[しょ] 館[かん] で 本[ほん] を 借[か] りる とき、カードが 要[い] ります。',
+                '図[と] 書[しょ] 館[かん] で 本[ほん] を 借[か] りる とき、カードが 要[い] りません でした です。',
+                '図[と] 書[しょ] 館[かん] へ 本[ほん] を 借[か] りる とき、カードが 要[い] ります。',
               ],
-              correctAnswer: 0,
+              correctAnswer: 1,
               explanation:
-                "To'g'ri tarjimasi: Foydalanishni tushunmagan paytingizda, mendan so'rang..",
+                "To'g'ri gap: 「図[と] 書[しょ] 館[かん] で 本[ほん] を 借[か] りる とき、カードが 要[い] ります。」 (Kutubxonadan kitob olish paytida, kutubxona kartochkasi kerak bo'ladi.).",
             },
             {
               id: 'ja-minna-l23-ex4',
               type: 'multiple-choice',
-              prompt: 'Ushbu darsdagi suhbatdan kelib chiqib: Kutubxonachi qanday jumla aytadi?',
+              prompt:
+                "Ushbu gapning to'g'ri yaponcha tarjimasini tanlang:\n「Foydalanishni tushunmagan paytingizda, mendan so'rang.」",
               options: [
-                'Allo, “Midori” kutubxonasi eshitadi.',
-                'Men hech qayerga bormayman.',
-                'Taksida aeroportga haydang.',
-                "Iltimos, hisobni alohida to'laymiz.",
+                '使[つか] い方[かた] が わからない とき、わたしに 聞[き] いて ください。',
+                '暇[ひま] な とき、うちへ 遊[あそ] びに 来ませんか。',
+                '体[からだ] の 調[ちょう] 子[し] が 悪[わる] い とき、「元[げん] 気[き] 茶[ちゃ] 」を 飲[の] みます。',
+                '図[と] 書[しょ] 館[かん] で 本[ほん] を 借[か] りる とき、カードが 要[い] ります。',
               ],
               correctAnswer: 0,
-              explanation: "To'g'ri ibora: Allo, “Midori” kutubxonasi eshitadi..",
+              explanation:
+                "Yaponcha to'g'ri ifodasi: 「使[つか] い方[かた] が わからない とき、わたしに 聞[き] いて ください。」.",
+            },
+            {
+              id: 'ja-minna-l23-ex5',
+              type: 'multiple-choice',
+              prompt:
+                'Suhbatdoshingiz: 「いらっしゃいませ！」 dedi. Unga eng mos muloyim javob qaysi?',
+              options: [
+                'すみません、この時計を 見せてください。',
+                'ごちそうさまでした。',
+                'おやすみなさい。',
+                '失礼します。',
+              ],
+              correctAnswer: 0,
+              explanation: "To'g'ri javob: 「すみません、この時計を 見せてください。」.",
             },
           ],
         },
       },
       {
         id: 'ja-minna-l23-s3',
-        title: 'Sinov Testi',
+        title: 'JLPT N5 Sinov Testi',
         type: 'test',
-        estimatedMinutes: 6,
+        estimatedMinutes: 7,
         testData: {
           instructions:
             "Darsni muvaffaqiyatli yakunlash uchun savollarga to'g'ri javob bering (Kamida 80%).",
@@ -8751,56 +14280,59 @@ export const MINNA_N5_LESSONS: Lesson[] = [
           questions: [
             {
               id: 'ja-minna-l23-q1',
-              question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「図[と] 書[しょ] 館[かん] で 本[ほん] を 借[か] りる とき、カードが 要[い] ります。」",
-              options: [
-                "Kutubxonadan kitob olish paytida, kutubxona kartochkasi kerak bo'ladi.",
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
-              ],
+              question: '【Mondai 1: Moji/Goi】「交差点」の 読[よ]み方[かた]は どれですか。',
+              options: ['こうさてん', 'まわします', 'せんせいに～', 'ききます'],
               correctAnswerIndex: 0,
-              explanation:
-                "To'g'ri javob: Kutubxonadan kitob olish paytida, kutubxona kartochkasi kerak bo'ladi..",
+              explanation: "「交差点」 ning to'g'ri o'qilishi: 「こうさてん」 (chorraha).",
             },
             {
               id: 'ja-minna-l23-q2',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「使[つか] い方[かた] が わからない とき、わたしに 聞[き] いて ください。」",
-              options: [
-                "Foydalanishni tushunmagan paytingizda, mendan so'rang.",
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
-              ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Foydalanishni tushunmagan paytingizda, mendan so'rang..",
+                '【Mondai 2: Bunpo】（　）に 入[はい]る 最[もっと]も よいものを 1つ えらびなさい。\n「毎朝 7時（　）起きます。」',
+              options: ['で', 'に', 'を', 'へ'],
+              correctAnswerIndex: 1,
+              explanation: "To'g'ri zarracha: 「に」. Aniq soat bilan 'に' zarrachasi ishlatiladi.",
             },
             {
               id: 'ja-minna-l23-q3',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「体[からだ] の 調[ちょう] 子[し] が 悪[わる] い とき、「元[げん] 気[き] 茶[ちゃ] 」を 飲[の] みます。」",
+                "【Mondai 3: Bunpo】23-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
               options: [
-                'Tobim qochgan paytda, “Genkichya” choyidan ichaman.',
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
+                '〜を 行きます です',
+                '〜に 食べません でした',
+                'FE’Lning lug`atdagi shakli QO`SHMA GAPDA ISH-',
+                '〜は 〜でした じゃありません',
               ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Tobim qochgan paytda, “Genkichya” choyidan ichaman..",
+              correctAnswerIndex: 2,
+              explanation:
+                "To'g'ri grammatik formula: 「FE’Lning lug`atdagi shakli QO`SHMA GAPDA ISH-」.",
             },
             {
               id: 'ja-minna-l23-q4',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「暇[ひま] な とき、うちへ 遊[あそ] びに 来ませんか。」",
+                "【Mondai 4: Dokkai】Quyidagi yaponcha gapning to'g'ri o'zbekcha ma'nosini toping:\n「体[からだ] の 調[ちょう] 子[し] が 悪[わる] い とき、「元[げん] 気[き] 茶[ちゃ] 」を 飲[の] みます。」",
               options: [
                 "Bo'sh paytingizda, uyimizga mehmonga kelmaysizmi?",
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
+                "Foydalanishni tushunmagan paytingizda, mendan so'rang.",
+                "Kutubxonadan kitob olish paytida, kutubxona kartochkasi kerak bo'ladi.",
+                'Tobim qochgan paytda, “Genkichya” choyidan ichaman.',
+              ],
+              correctAnswerIndex: 3,
+              explanation:
+                "To'g'ri ma'nosi: 「Tobim qochgan paytda, “Genkichya” choyidan ichaman.」.",
+            },
+            {
+              id: 'ja-minna-l23-q5',
+              question:
+                "【Mondai 5: Kaiwa】Savolga eng to'g'ri javobni tanlang:\n「トイレは どこですか。」",
+              options: [
+                'あそこです。',
+                'ごちそうさまでした。',
+                'はい、そうです。',
+                'おやすみなさい。',
               ],
               correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Bo'sh paytingizda, uyimizga mehmonga kelmaysizmi?.",
+              explanation: "To'g'ri javob: 「あそこです。」.",
             },
           ],
         },
@@ -8817,145 +14349,184 @@ export const MINNA_N5_LESSONS: Lesson[] = [
     lessonNumber: 24,
     title: '24-dars: Muruvvat va Yordam (Bermoq, Olib bermoq)',
     description:
-      "Minna no Nihongo Shokyu 1: 24-dars: Muruvvat va Yordam (Bermoq, Olib bermoq). Darsda 22 ta yangi so'z va 4 ta asosiy grammatik qoida o'rganiladi.",
-    estimatedDurationMinutes: 20,
+      "Minna no Nihongo Shokyu 1: 24-dars: Muruvvat va Yordam (Bermoq, Olib bermoq). Darsda 22 ta yangi so'z, audio talaffuzli Furigana misollar va 4 ta asosiy grammatik formula o'rganiladi.",
+    estimatedDurationMinutes: 25,
     icon: '🌸',
     steps: [
       {
         id: 'ja-minna-l24-s1',
         title: "Lug'at va Qoidalar",
         type: 'learn',
-        estimatedMinutes: 8,
+        estimatedMinutes: 10,
         learnData: {
           title: '24-Dars: 24-dars: Muruvvat va Yordam (Bermoq, Olib bermoq)',
           subtitle: '第24課：授受動詞（くれます・〜てあげます・てもらいます）',
           explanation:
-            "24-dars: Muruvvat va Yordam (Bermoq, Olib bermoq) bo'yicha to'liq grammatik izohlar va qoidalar to'plami. Har bir qoida Minna no Nihongo darsligining o'zbekcha tarjimasiga moslashtirilgan.",
+            "24-dars: Muruvvat va Yordam (Bermoq, Olib bermoq) bo'yicha to'liq grammatik izohlar, formulalar va Furiganali misollar to'plami.",
           keyPoints: [
-            "1.    くれます: Siz 7-darsda あげます so'zi “ bermoq ” ma'nosini anglatishini bilib olgan edingiz. Shuni esdan chiqarmaslik kerakki, boshqa ...",
-            "2.  FE’Lning  て -shakli もらいます: くれます あげます、もらいます、くれます fe'llari faqatgina sovg'a berish yoki olish ma'nolarini anglatibgina qolmay, balki ish-harakatning ...",
-            "3.    OT (atoqli)  が  FE’L: ･･･ええ、佐[さ] 藤[とう] さんが くれました。 「すてきな ネクタイですね」 bilan so'zlovchi o'z suhbatdoshini suhbatga chorlaydi va bunga javoban o'z su...",
-            "4.: 10 va 12-darslardan gapdagi kesim あります／います bilan ifodalanib, so'roq egaga berilsa, so'roq so'zga が qo'shimchasi qo'shili...",
+            "📌 1.    くれます: Siz 7-darsda あげます so'zi “ bermoq ” ma'nosini anglatishini bilib olgan edingiz.",
+            "📌 2.  FE’Lning  て -shakli もらいます: くれます あげます、もらいます、くれます fe'llari faqatgina sovg'a berish yoki olish ma'nolarini anglatibgina qolmay, balki ish-harakatning kim tomonidan va kim uchun bajarilayotganligini aniq farqlash uchun ham xizmat qiladi.",
+            "📌 3.    OT (atoqli)  が  FE’L: ･･･ええ、佐[さ] 藤[とう] さんが くれました。 「すてきな ネクタイですね」 bilan so'zlovchi o'z suhbatdoshini suhbatga chorlaydi va bunga javoban o'z suhbatdoshidan noma'lum bo'lgan xabarni eshitadi.",
+            "📌 4.: 10 va 12-darslardan gapdagi kesim あります／います bilan ifodalanib, so'roq egaga berilsa, so'roq so'zga が qo'shimchasi qo'shilishini bilib olgan edingiz.",
           ],
           vocabulary: [
             {
               term: 'くれます',
               reading: 'くれます',
               meaning: 'bermoq (menga bermoq)',
-              exampleSentence: 'くれます — bermoq (menga bermoq)',
-              exampleTranslation: 'bermoq (menga bermoq)',
+              exampleSentence: '毎日[まいにち] くれます。',
+              exampleTranslation: 'Har kuni bermoq (menga bermoq).',
             },
             {
-              term: '連れて 行きます (つれて いきます)',
-              reading: 'つれて いきます',
-              meaning: 'olib bormoq, ergashtirib bormoq (jonli narsani ergashtirib bormoq)',
-              exampleSentence:
-                'つれて いきます — olib bormoq, ergashtirib bormoq (jonli narsani ergashtirib bormoq)',
-              exampleTranslation:
-                'olib bormoq, ergashtirib bormoq (jonli narsani ergashtirib bormoq)',
+              term: '連れて行きます (つれていきます)',
+              reading: 'つれていきます',
+              meaning: 'olib bormoq, ergashtirib bormoq',
+              exampleSentence: '毎日[まいにち] 連れて行きます[つれていきます]。',
+              exampleTranslation: 'Har kuni olib bormoq, ergashtirib bormoq.',
             },
             {
-              term: '連れて 来ます (つれて きます)',
-              reading: 'つれて きます',
-              meaning: 'olib kelmoq, ergashtirib kelmoq (jonli narsani ergashtirib kelmoq)',
-              exampleSentence:
-                'つれて きます — olib kelmoq, ergashtirib kelmoq (jonli narsani ergashtirib kelmoq)',
-              exampleTranslation:
-                'olib kelmoq, ergashtirib kelmoq (jonli narsani ergashtirib kelmoq)',
+              term: '連れて来ます (つれてきます)',
+              reading: 'つれてきます',
+              meaning: 'olib kelmoq, ergashtirib kelmoq',
+              exampleSentence: '毎日[まいにち] 連れて来ます[つれてきます]。',
+              exampleTranslation: 'Har kuni olib kelmoq, ergashtirib kelmoq.',
             },
             {
               term: '送ります (おくります)',
               reading: 'おくります',
               meaning: "jo'natmoq; olib borib qo'ymoq",
-              exampleSentence: "おくります — jo'natmoq; olib borib qo'ymoq",
-              exampleTranslation: "jo'natmoq; olib borib qo'ymoq",
+              exampleSentence: '毎日[まいにち] 送ります[おくります]。',
+              exampleTranslation: "Har kuni jo'natmoq; olib borib qo'ymoq.",
             },
             {
-              term: '[ 人を～ ] ([ ひとを～ ])',
-              reading: '[ ひとを～ ]',
+              term: '人を～ (ひとを～)',
+              reading: 'ひとを～',
               meaning: "(odamni olib borib qo'ymoq)",
-              exampleSentence: "[ ひとを～ ] — (odamni olib borib qo'ymoq)",
-              exampleTranslation: "(odamni olib borib qo'ymoq)",
+              exampleSentence: '山田[やまだ][ひとを]は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: "Yamada (odamni olib borib qo'ymoq) samimiy inson.",
             },
             {
-              term: '紹介します (しょうかい します)',
-              reading: 'しょうかい します',
+              term: '紹介します (しょうかいします)',
+              reading: 'しょうかいします',
               meaning: 'tanishtirmoq',
-              exampleSentence: 'しょうかい します — tanishtirmoq',
-              exampleTranslation: 'tanishtirmoq',
+              exampleSentence: '毎日[まいにち] 紹介します[しょうかいします]。',
+              exampleTranslation: 'Har kuni tanishtirmoq.',
             },
             {
-              term: '案内します (あんない します)',
-              reading: 'あんない します',
-              meaning: "yo'l ko'rsatmoq; tanishtirmoq, ko'rsatmoq (joyni tanishtirmoq)",
-              exampleSentence:
-                "あんない します — yo'l ko'rsatmoq; tanishtirmoq, ko'rsatmoq (joyni tanishtirmoq)",
-              exampleTranslation: "yo'l ko'rsatmoq; tanishtirmoq, ko'rsatmoq (joyni tanishtirmoq)",
+              term: '案内します (あんないします)',
+              reading: 'あんないします',
+              meaning: "yo'l ko'rsatmoq; tanishtirmoq, ko'rsatmoq",
+              exampleSentence: '毎日[まいにち] 案内します[あんないします]。',
+              exampleTranslation: "Har kuni yo'l ko'rsatmoq; tanishtirmoq, ko'rsatmoq.",
             },
             {
-              term: '説明します (せつめい します)',
-              reading: 'せつめい します',
+              term: '説明します (せつめいします)',
+              reading: 'せつめいします',
               meaning: 'tushuntirmoq, izoh bermoq',
-              exampleSentence: 'せつめい します — tushuntirmoq, izoh bermoq',
-              exampleTranslation: 'tushuntirmoq, izoh bermoq',
+              exampleSentence: '毎日[まいにち] 説明します[せつめいします]。',
+              exampleTranslation: 'Har kuni tushuntirmoq, izoh bermoq.',
             },
             {
               term: 'いれます',
               reading: 'いれます',
               meaning: 'damlamoq; solmoq',
-              exampleSentence: 'いれます — damlamoq; solmoq',
-              exampleTranslation: 'damlamoq; solmoq',
+              exampleSentence: '毎日[まいにち] いれます。',
+              exampleTranslation: 'Har kuni damlamoq; solmoq.',
             },
             {
-              term: '[ コーヒーを～ ]',
-              reading: '[ コーヒーを～ ]',
+              term: 'コーヒーを～',
+              reading: 'コーヒーを～',
               meaning: '(kofe damlamoq)',
-              exampleSentence: '[ コーヒーを～ ] — (kofe damlamoq)',
-              exampleTranslation: '(kofe damlamoq)',
+              exampleSentence: '山田[やまだ][コーヒーを]は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada (kofe damlamoq) samimiy inson.',
             },
             {
               term: 'おじいさん／おじいちゃん',
               reading: 'おじいさん／おじいちゃん',
               meaning: 'buva / buvajon',
-              exampleSentence: 'おじいさん／おじいちゃん — buva / buvajon',
-              exampleTranslation: 'buva / buvajon',
+              exampleSentence: 'これは わたしが 買[か]った おじいさん／おじいちゃん です。',
+              exampleTranslation: 'Bu men sotib olgan buva / buvajon.',
             },
             {
               term: 'おばあさん／おばあちゃん',
               reading: 'おばあさん／おばあちゃん',
               meaning: 'buvi / buvijon',
-              exampleSentence: 'おばあさん／おばあちゃん — buvi / buvijon',
-              exampleTranslation: 'buvi / buvijon',
+              exampleSentence: 'これは わたしが 買[か]った おばあさん／おばあちゃん です。',
+              exampleTranslation: 'Bu men sotib olgan buvi / buvijon.',
             },
             {
               term: '準備 (じゅんび)',
               reading: 'じゅんび',
               meaning: 'tayyorgarlik （～をします： tayyorgarlik qilmoq ）',
-              exampleSentence: 'じゅんび — tayyorgarlik （～をします： tayyorgarlik qilmoq ）',
-              exampleTranslation: 'tayyorgarlik （～をします： tayyorgarlik qilmoq ）',
+              exampleSentence: 'これは わたしが 買[か]った 準備[じゅんび] です。',
+              exampleTranslation:
+                'Bu men sotib olgan tayyorgarlik （～をします： tayyorgarlik qilmoq ）.',
             },
             {
               term: '意味 (いみ)',
               reading: 'いみ',
               meaning: "ma'no",
-              exampleSentence: "いみ — ma'no",
-              exampleTranslation: "ma'no",
+              exampleSentence: 'これは わたしが 買[か]った 意味[いみ] です。',
+              exampleTranslation: "Bu men sotib olgan ma'no.",
             },
             {
               term: '［お］菓子 (［お］かし)',
               reading: '［お］かし',
               meaning: 'shirinlik',
-              exampleSentence: '［お］かし — shirinlik',
-              exampleTranslation: 'shirinlik',
+              exampleSentence: 'これは わたしが 買[か]った ［お］菓子[［お］かし] です。',
+              exampleTranslation: 'Bu men sotib olgan shirinlik.',
+            },
+            {
+              term: '全部 (ぜんぶ)',
+              reading: 'ぜんぶ',
+              meaning: 'hammasi',
+              exampleSentence: 'これは わたしが 買[か]った 全部[ぜんぶ] です。',
+              exampleTranslation: 'Bu men sotib olgan hammasi.',
+            },
+            {
+              term: '自分で (じぶんで)',
+              reading: 'じぶんで',
+              meaning: "o'zi(~m, ~ng)",
+              exampleSentence: 'これは わたしが 買[か]った 自分で[じぶんで] です。',
+              exampleTranslation: "Bu men sotib olgan o'zi(~m, ~ng).",
+            },
+            {
+              term: 'ほかに',
+              reading: 'ほかに',
+              meaning: 'undan boshqa, boshqa',
+              exampleSentence: 'これは わたしが 買[か]った ほかに です。',
+              exampleTranslation: 'Bu men sotib olgan undan boshqa, boshqa.',
+            },
+            {
+              term: 'ワゴン車しゃ',
+              reading: 'ワゴン車しゃ',
+              meaning: "mikroavtobus, orqa tomonida ham eshik o'rnatilgan yengil mashina",
+              exampleSentence: 'これは わたしが 買[か]った ワゴン車[しゃ] です。',
+              exampleTranslation:
+                "Bu men sotib olgan mikroavtobus, orqa tomonida ham eshik o'rnatilgan yengil mashina.",
+            },
+            {
+              term: '［お］弁当べんとう',
+              reading: '［お］弁当べんとう',
+              meaning: "“Obento”- o'zi bilan olib keladigan ovqat",
+              exampleSentence: 'これは わたしが 買[か]った ［お］弁当[べんとう] です。',
+              exampleTranslation: "Bu men sotib olgan “obento”- o'zi bilan olib keladigan ovqat.",
+            },
+            {
+              term: '母ははの日ひ',
+              reading: '母ははの日ひ',
+              meaning: 'Onalar kuni',
+              exampleSentence: 'これは わたしが 買[か]った 母[はは]の日[ひ] です。',
+              exampleTranslation: 'Bu men sotib olgan onalar kuni.',
             },
           ],
           grammarRules: [
             {
               pattern: 'くれます',
               meaning:
-                "Siz 7-darsda あげます so'zi “ bermoq ” ma'nosini anglatishini bilib olgan edingiz. Shuni esdan chiqarmaslik kerakki, boshqa shaxslar tomonidan so'zlovchi va uning oila a'zolariga berilsa, ushbu fe'lni qo'",
-              usageNotes:
                 "Siz 7-darsda あげます so'zi “ bermoq ” ma'nosini anglatishini bilib olgan edingiz. Shuni esdan chiqarmaslik kerakki, boshqa shaxslar tomonidan so'zlovchi va uning oila a'zolariga berilsa, ushbu fe'lni qo'llash mumkin emas. （×さとうさんは 私[わたし] に クリスマスカードを あげました。） Bunday hollarda くれます qo'llaniladi. あげます",
+              usageNotes:
+                'Minna no Nihongo 24-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: '私[わたし] は 佐[さ] 藤[とう] さんに 花[はな] を あげました。',
@@ -8974,9 +14545,9 @@ export const MINNA_N5_LESSONS: Lesson[] = [
             {
               pattern: 'FE’Lning  て -shakli もらいます',
               meaning:
-                "くれます あげます、もらいます、くれます fe'llari faqatgina sovg'a berish yoki olish ma'nolarini anglatibgina qolmay, balki ish-harakatning kim tomonidan va kim uchun bajarilayotganligini aniq farqlash uchun ham xizmat q",
-              usageNotes:
                 "くれます あげます、もらいます、くれます fe'llari faqatgina sovg'a berish yoki olish ma'nolarini anglatibgina qolmay, balki ish-harakatning kim tomonidan va kim uchun bajarilayotganligini aniq farqlash uchun ham xizmat qiladi. Shuningdek, o'z xohishiga ko'ra kimningdir foydasiga bajarish yoki so'zlovchi uchun foydali ish-harakatni bajargan shaxsga nisbatan minnatdorchilik ma'nolarini anglatgan ish-harakat gapda “FE'Lning て -shakli” bilan ifodalanadi. 1) FE'Lning て -shakli あげます So'zlovchining o'z xohishiga ko'ra boshqa shaxslar uchun ularning foydasiga biron-bir harakat bajarishga tayyorligini anglatadigan gaplarda “FE'Lning て -shakli あげます ” qo'llaniladi. Agar so'zlovchi ish-harakatning sub'yekti, ya'ni bajaruvchisi, tinglovchi esa uning ob'yekti bo'lsa, ushbu tuzilmadan foydalangan so'zlovchiga nisbatan kekkayish, takabburlik taassurotlari qolishi mumkin. Shuning uchun ham tanimagan yoki o'zidan kattaroq lavozimdagilarga nisbatan fe'lning ushbu shaklidan foydalanmagan ma'qul. Yaqindan tanish bo'lmagan shaxslarga o'z xizmatingizni taklif qilishda ましょうか dan foydalanish kerak. (14-dars, 6-bandiga qarang) FE'Lning て -shakli もらいます 2) Gapning bu ko'rinishida iltifot ko'rsatgan shaxsga nisbatan so'zlovchining minnatdorchiligi aks etgan. FE'Lning て -shakli くれます 3) Fe'lning ushbu shakli xuddi ~ て もらいます kabi so'zlovchi uchun foydali bo'lgan ish-harakatni bajargan shaxsga nisbatan minnatdor bo'lib gapirishda qo'llanadi. Lekin, farqi shundaki, “FE'Lning ~ て もらいます shakli”da gapdagi ushbu ish-harakatning ob'yekti, “FE'Lning ~ て くれます shakli”da esa ish-harakatning sub'ekti ega gap bo'lagiga to'g'ri keladi. Odatda “FE'Lning ~ て くれます shakli”dagi gaplarda so'zlovchining o'zi ish- harakatning ob'yekti hisoblanib, わたしに (ob'yekt) tushurib qoldiriladi.",
+              usageNotes:
+                'Minna no Nihongo 24-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence:
@@ -8984,21 +14555,30 @@ export const MINNA_N5_LESSONS: Lesson[] = [
                   translation: 'Men Kimura xonimga kitob berib turdim.',
                 },
                 {
-                  sentence: 'タクシーを 呼[よ] びましょうか。 Taksi chaqiraymi? (14-dars)',
-                  translation: '',
+                  sentence: 'タクシーを 呼[よ] びましょうか。',
+                  translation: 'Taksi chaqiraymi? (14-dars)',
                 },
                 {
                   sentence: '手[てつ] 伝[だ] いましょうか。',
                   translation: 'Yordan beraymi? (14-dars)',
+                },
+                {
+                  sentence:
+                    'わたしは 山[やま] 田[だ] さんに 図[と] 書[しょ] 館[かん] の 電[でん] 話[わ] 番号[ばんごう] を 教[おし] えて もらいました。',
+                  translation: 'Men janob Yamadadan kutubxonaning telefon raqamini bilib oldim.',
+                },
+                {
+                  sentence: '母[はは] は［私[わたし] に］セーターを 送[おく] って くれました。',
+                  translation: "Onam menga sviter jo'natib yuboribdilar.",
                 },
               ],
             },
             {
               pattern: 'OT (atoqli)  が  FE’L',
               meaning:
-                "･･･ええ、佐[さ] 藤[とう] さんが くれました。 「すてきな ネクタイですね」 bilan so'zlovchi o'z suhbatdoshini suhbatga chorlaydi va bunga javoban o'z suhbatdoshidan noma'lum bo'lgan xabarni eshitadi. Odatda ［この ネクタイは］ tushirib qoldi",
-              usageNotes:
                 "･･･ええ、佐[さ] 藤[とう] さんが くれました。 「すてきな ネクタイですね」 bilan so'zlovchi o'z suhbatdoshini suhbatga chorlaydi va bunga javoban o'z suhbatdoshidan noma'lum bo'lgan xabarni eshitadi. Odatda ［この ネクタイは］ tushirib qoldirilib, faqat kishining ismi, so'ng が qo'shimchasi va fe'l, ya'ni 「さとうさんが くれました。」 tarzida javob qaytariladi. So'roq so'z が FE'L",
+              usageNotes:
+                'Minna no Nihongo 24-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'すてきな ネクタイですね。',
@@ -9010,9 +14590,9 @@ export const MINNA_N5_LESSONS: Lesson[] = [
             {
               pattern: '4.',
               meaning:
-                "10 va 12-darslardan gapdagi kesim あります／います bilan ifodalanib, so'roq egaga berilsa, so'roq so'zga が qo'shimchasi qo'shilishini bilib olgan edingiz. Xuddi shunga o'xshab, gapdagi kesim boshqa fe'llar bi",
-              usageNotes:
                 "10 va 12-darslardan gapdagi kesim あります／います bilan ifodalanib, so'roq egaga berilsa, so'roq so'zga が qo'shimchasi qo'shilishini bilib olgan edingiz. Xuddi shunga o'xshab, gapdagi kesim boshqa fe'llar bilan ifodalangan hollarda ham egadan keyin が qo'shimchasi qo'yiladi. ･･･カリナさんが 行[い] きます。",
+              usageNotes:
+                'Minna no Nihongo 24-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'だれが 手[てつ] 伝[だ] いに 行[い] きますか。',
@@ -9022,83 +14602,91 @@ export const MINNA_N5_LESSONS: Lesson[] = [
             },
           ],
           culturalNotes:
-            "Yaponlar birovdan yordam olganda doimo '〜てくれてありがとう' yoki '〜てもらいました' deb alohida minnatdorchilik bildiradilar.",
+            "Yaponlar birovdan yordam olganda doimo '〜てもらいました' yoki '〜てくれました' deb alohida ehtirom va minnatdorchilik bildiradilar.",
         },
       },
       {
         id: 'ja-minna-l24-s2',
         title: 'Mustahkamlash Mashqlari',
         type: 'practice',
-        estimatedMinutes: 6,
+        estimatedMinutes: 8,
         practiceData: {
           instructions:
-            "Darsda o'rganilgan yangi so'zlar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
+            "Darsda o'rganilgan yangi so'zlar, zarrachalar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
           exercises: [
             {
               id: 'ja-minna-l24-ex1',
               type: 'multiple-choice',
-              prompt: "「くれます」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
-              options: [
-                'bermoq (menga bermoq)',
-                'olib bormoq, ergashtirib bormoq (jonli narsani ergashtirib bormoq)',
-                'olib kelmoq, ergashtirib kelmoq (jonli narsani ergashtirib kelmoq)',
-                "jo'natmoq; olib borib qo'ymoq",
-              ],
-              correctAnswer: 0,
-              explanation: "To'g'ri javob: bermoq (menga bermoq).",
+              prompt: "Bo'sh joyga to'g'ri zarrachani qo'ying:\n「食堂（　）昼ご飯を 食べます。」",
+              options: ['に', 'を', 'へ', 'で'],
+              correctAnswer: 3,
+              explanation:
+                "To'g'ri javob: 「で」. Harakat sodir bo'layotgan joy 'で' bilan belgilanadi.",
             },
             {
               id: 'ja-minna-l24-ex2',
               type: 'multiple-choice',
-              prompt:
-                "24-dars grammatik qoidasi: '1.    くれます' bo'yicha qaysi gap grammatik jihatdan to'g'ri tuzilgan?",
+              prompt: "「送ります (おくります)」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
               options: [
-                '私[わたし] は 佐[さ] 藤[とう] さんに 花[はな] を あげました。',
-                'これ は を です。',
-                'だれ が 行きます か でした。',
-                'へ 行きません です。',
+                'bermoq (menga bermoq)',
+                'olib kelmoq, ergashtirib kelmoq',
+                'olib bormoq, ergashtirib bormoq',
+                "jo'natmoq; olib borib qo'ymoq",
               ],
-              correctAnswer: 0,
-              explanation:
-                "To'g'ri javob: 私[わたし] は 佐[さ] 藤[とう] さんに 花[はな] を あげました。 (Men Sato xonimga gul sovg'a qildim.).",
+              correctAnswer: 3,
+              explanation: "To'g'ri javob: 「jo'natmoq; olib borib qo'ymoq」.",
             },
             {
               id: 'ja-minna-l24-ex3',
               type: 'multiple-choice',
-              prompt:
-                "O'zbek tiliga to'g'ri tarjima qiling: 「佐[さ] 藤[とう] さんは 私[わたし] に クリスマスカードを くれました。」",
+              prompt: "24-dars grammatik qoidasiga muvofiq to'g'ri tuzilgan gapni aniqlang:",
               options: [
-                "Sato xonim menga Krismas bayramining tabrik qog'ozini berdilar.",
-                "Ertaga do'stim bilan mehmonga boraman.",
-                "Kechirasiz, soat necha bo'ldi?",
-                "Iltimos, manzilni ko'rsatib yuboring.",
+                '私[わたし] を 佐[さ] 藤[とう] さんに 花[はな] を あげました。',
+                '私[わたし] は 佐[さ] 藤[とう] さんに 花[はな] を あげました か でした。',
+                '私[わたし] は 佐[さ] 藤[とう] さんに 花[はな] を あげました。',
+                'これ を 私[わたし] は 佐[さ] 藤[とう] さんに 花[はな] を あげました。',
               ],
-              correctAnswer: 0,
+              correctAnswer: 2,
               explanation:
-                "To'g'ri tarjimasi: Sato xonim menga Krismas bayramining tabrik qog'ozini berdilar..",
+                "To'g'ri gap: 「私[わたし] は 佐[さ] 藤[とう] さんに 花[はな] を あげました。」 (Men Sato xonimga gul sovg'a qildim.).",
             },
             {
               id: 'ja-minna-l24-ex4',
               type: 'multiple-choice',
-              prompt: 'Ushbu darsdagi suhbatdan kelib chiqib: Karina qanday jumla aytadi?',
+              prompt:
+                "Ushbu gapning to'g'ri yaponcha tarjimasini tanlang:\n「Sato xonim menga Krismas bayramining tabrik qog'ozini berdilar.」",
               options: [
-                "Janob Van, ertaga ko'chayapsiz-a? Yordamlashgani boraymi?",
-                'Men hech qayerga bormayman.',
-                'Taksida aeroportga haydang.',
-                "Iltimos, hisobni alohida to'laymiz.",
+                '私[わたし] は 佐[さ] 藤[とう] さんに 花[はな] を あげました。',
+                '私[わたし] は 木[き] 村[むら] さんに 本[ほん] を 貸[か] して あげました。',
+                '佐[さ] 藤[とう] さんは 私[わたし] に クリスマスカードを くれました。',
+                '佐[さ] 藤[とう] さんは 妹[いもうと] に お菓子[かし] を くれました。',
+              ],
+              correctAnswer: 2,
+              explanation:
+                "Yaponcha to'g'ri ifodasi: 「佐[さ] 藤[とう] さんは 私[わたし] に クリスマスカードを くれました。」.",
+            },
+            {
+              id: 'ja-minna-l24-ex5',
+              type: 'multiple-choice',
+              prompt:
+                'Suhbatdoshingiz: 「いっしょに コーヒーを 飲みませんか。」 dedi. Unga eng mos muloyim javob qaysi?',
+              options: [
+                'ええ、飲みましょう。',
+                'ごちそうさまでした。',
+                '失礼します。',
+                'おやすみなさい。',
               ],
               correctAnswer: 0,
-              explanation:
-                "To'g'ri ibora: Janob Van, ertaga ko'chayapsiz-a? Yordamlashgani boraymi?.",
+              explanation: "To'g'ri javob: 「ええ、飲みましょう。」.",
             },
           ],
         },
       },
       {
         id: 'ja-minna-l24-s3',
-        title: 'Sinov Testi',
+        title: 'JLPT N5 Sinov Testi',
         type: 'test',
-        estimatedMinutes: 6,
+        estimatedMinutes: 7,
         testData: {
           instructions:
             "Darsni muvaffaqiyatli yakunlash uchun savollarga to'g'ri javob bering (Kamida 80%).",
@@ -9107,55 +14695,58 @@ export const MINNA_N5_LESSONS: Lesson[] = [
             {
               id: 'ja-minna-l24-q1',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「私[わたし] は 佐[さ] 藤[とう] さんに 花[はな] を あげました。」",
-              options: [
-                "Men Sato xonimga gul sovg'a qildim.",
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
-              ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Men Sato xonimga gul sovg'a qildim..",
+                '【Mondai 1: Moji/Goi】「連れて行きます」の 読[よ]み方[かた]は どれですか。',
+              options: ['くれます', 'つれていきます', 'つれてきます', 'おくります'],
+              correctAnswerIndex: 1,
+              explanation:
+                "「連れて行きます」 ning to'g'ri o'qilishi: 「つれていきます」 (olib bormoq, ergashtirib bormoq).",
             },
             {
               id: 'ja-minna-l24-q2',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「佐[さ] 藤[とう] さんは 私[わたし] に クリスマスカードを くれました。」",
-              options: [
-                "Sato xonim menga Krismas bayramining tabrik qog'ozini berdilar.",
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
-              ],
+                '【Mondai 2: Bunpo】（　）に 入[はい]る 最[もっと]も よいものを 1つ えらびなさい。\n「パン（　）食べます。」',
+              options: ['を', 'へ', 'に', 'で'],
               correctAnswerIndex: 0,
-              explanation:
-                "To'g'ri javob: Sato xonim menga Krismas bayramining tabrik qog'ozini berdilar..",
+              explanation: "To'g'ri zarracha: 「を」. Harakat obyekti 'を' (o) bilan belgilanadi.",
             },
             {
               id: 'ja-minna-l24-q3',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「佐[さ] 藤[とう] さんは 妹[いもうと] に お菓子[かし] を くれました。」",
+                "【Mondai 3: Bunpo】24-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
               options: [
-                'Sato xonim singlimga shirinlik berdilar.',
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
+                '〜は 〜でした じゃありません',
+                '〜に 食べません でした',
+                '〜を 行きます です',
+                'FE’Lning  て -shakli もらいます',
               ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Sato xonim singlimga shirinlik berdilar..",
+              correctAnswerIndex: 3,
+              explanation: "To'g'ri grammatik formula: 「FE’Lning  て -shakli もらいます」.",
             },
             {
               id: 'ja-minna-l24-q4',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「私[わたし] は 木[き] 村[むら] さんに 本[ほん] を 貸[か] して あげました。」",
+                "【Mondai 4: Dokkai】Quyidagi yaponcha gapning to'g'ri o'zbekcha ma'nosini toping:\n「佐[さ] 藤[とう] さんは 妹[いもうと] に お菓子[かし] を くれました。」",
               options: [
+                "Sato xonim menga Krismas bayramining tabrik qog'ozini berdilar.",
                 'Men Kimura xonimga kitob berib turdim.',
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
+                "Men Sato xonimga gul sovg'a qildim.",
+                'Sato xonim singlimga shirinlik berdilar.',
               ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Men Kimura xonimga kitob berib turdim..",
+              correctAnswerIndex: 3,
+              explanation: "To'g'ri ma'nosi: 「Sato xonim singlimga shirinlik berdilar.」.",
+            },
+            {
+              id: 'ja-minna-l24-q5',
+              question:
+                "【Mondai 5: Kaiwa】Savolga eng to'g'ri javobni tanlang:\n「今 何時ですか。」",
+              options: [
+                'どういたしまして。',
+                '午後 3時です。',
+                'いってきます。',
+                'はい、違います。',
+              ],
+              correctAnswerIndex: 1,
+              explanation: "To'g'ri javob: 「午後 3時です。」.",
             },
           ],
         },
@@ -9172,147 +14763,172 @@ export const MINNA_N5_LESSONS: Lesson[] = [
     lessonNumber: 25,
     title: '25-dars: Shartli mayl va Davomiylik (Tara va Temo)',
     description:
-      "Minna no Nihongo Shokyu 1: 25-dars: Shartli mayl va Davomiylik (Tara va Temo). Darsda 20 ta yangi so'z va 5 ta asosiy grammatik qoida o'rganiladi.",
-    estimatedDurationMinutes: 20,
+      "Minna no Nihongo Shokyu 1: 25-dars: Shartli mayl va Davomiylik (Tara va Temo). Darsda 20 ta yangi so'z, audio talaffuzli Furigana misollar va 5 ta asosiy grammatik formula o'rganiladi.",
+    estimatedDurationMinutes: 25,
     icon: '🌸',
     steps: [
       {
         id: 'ja-minna-l25-s1',
         title: "Lug'at va Qoidalar",
         type: 'learn',
-        estimatedMinutes: 8,
+        estimatedMinutes: 10,
         learnData: {
           title: '25-Dars: 25-dars: Shartli mayl va Davomiylik (Tara va Temo)',
           subtitle: '第25課：条件表現（〜たら・〜ても）',
           explanation:
-            "25-dars: Shartli mayl va Davomiylik (Tara va Temo) bo'yicha to'liq grammatik izohlar va qoidalar to'plami. Har bir qoida Minna no Nihongo darsligining o'zbekcha tarjimasiga moslashtirilgan.",
+            "25-dars: Shartli mayl va Davomiylik (Tara va Temo) bo'yicha to'liq grammatik izohlar, formulalar va Furiganali misollar to'plami.",
           keyPoints: [
-            "1.                                                                             O`tgan zamondagi oddiy shakl  ら、: QO'SHMA GAP “Oddiy shakldagi o'tgan zamon fe'li” yoki sifatga ら qo'shimchasini qo'shish bilan o'zidan oldin kelgan so'zn...",
-            "2.                                                                FE’Lning  た -shakli  ら、～: QO'SHMA GAP Biror-bir ish-harakat yoki shart bajarilishi bilan, darhol boshqa harakat yoki holat yuz beradigan hollarda ...",
-            "3.: な -SIFAT [ な ] ～で も、～ GAPDA ROZILIK OT で Ushbu andoza “o'tgan zamondagi FE'Lning oddiy shakli ら , ~” shakliga qarama-qar...",
-            "4.      もし  va  いくら: “O'tgan zamondagi oddiy shakli ~ たら ” bilan birga kelgan もし so'zi shart ma'nosini ifodalaydi. Xuddi shunday ma'noda いくら ...",
-            "5.   OT  が: 16-dars grammatikasining 4-bandida siz bilan ergash gapli qo'shma gaplarning egasi が qo'shimchasi bilan ajratib ko'rsati...",
+            "📌 1.                                                                             O`tgan zamondagi oddiy shakl  ら、: QO'SHMA GAP “Oddiy shakldagi o'tgan zamon fe'li” yoki sifatga ら qo'shimchasini qo'shish bilan o'zidan oldin kelgan so'zni shart qilib ko'rsatadi.",
+            "📌 2.                                                                FE’Lning  た -shakli  ら、～: QO'SHMA GAP Biror-bir ish-harakat yoki shart bajarilishi bilan, darhol boshqa harakat yoki holat yuz beradigan hollarda “FE'Lning た -shakli ら ”dan foydalaniladi.",
+            "📌 3.: な -SIFAT [ な ] ～で も、～ GAPDA ROZILIK OT で Ushbu andoza “o'tgan zamondagi FE'Lning oddiy shakli ら , ~” shakliga qarama-qarshi ma'noni anglatib, taxminlarga ko'ra yuz berishi kerak bo'lgan harakat yoki holatlarning yuz bermasligi yoki boshqacha tus olishini ifodalash uchun xizmat qiladi.",
+            "📌 4.      もし  va  いくら: “O'tgan zamondagi oddiy shakli ~ たら ” bilan birga kelgan もし so'zi shart ma'nosini ifodalaydi.",
+            "📌 5.   OT  が: 16-dars grammatikasining 4-bandida siz bilan ergash gapli qo'shma gaplarning egasi が qo'shimchasi bilan ajratib ko'rsatilishini bilib olgan edik.",
           ],
           vocabulary: [
             {
               term: '考えます (かんがえます)',
               reading: 'かんがえます',
               meaning: 'fikrlamoq',
-              exampleSentence: 'かんがえます — fikrlamoq',
-              exampleTranslation: 'fikrlamoq',
+              exampleSentence: '毎日[まいにち] 考えます[かんがえます]。',
+              exampleTranslation: 'Har kuni fikrlamoq.',
             },
             {
               term: '着きます (つきます)',
               reading: 'つきます',
-              meaning: "yetib bormoq / kelmoq, qo'nmoq (samolyot), kelib / borib tushmoq",
-              exampleSentence:
-                "つきます — yetib bormoq / kelmoq, qo'nmoq (samolyot), kelib / borib tushmoq",
-              exampleTranslation:
-                "yetib bormoq / kelmoq, qo'nmoq (samolyot), kelib / borib tushmoq",
+              meaning: "yetib bormoq / kelmoq, qo'nmoq",
+              exampleSentence: '毎日[まいにち] 着きます[つきます]。',
+              exampleTranslation: "Har kuni yetib bormoq / kelmoq, qo'nmoq.",
             },
             {
-              term: '[ 駅に～ ] ([ えきに～ ])',
-              reading: '[ えきに～ ]',
+              term: '駅に～ (えきに～)',
+              reading: 'えきに～',
               meaning: '(vokzalga borib tushmoq)',
-              exampleSentence: '[ えきに～ ] — (vokzalga borib tushmoq)',
-              exampleTranslation: '(vokzalga borib tushmoq)',
+              exampleSentence: '山田[やまだ][えきに]は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada (vokzalga borib tushmoq) samimiy inson.',
             },
             {
-              term: '留学します (りゅうがく します)',
-              reading: 'りゅうがく します',
+              term: '留学します (りゅうがくします)',
+              reading: 'りゅうがくします',
               meaning: "chet elda ta'lim olmoq",
-              exampleSentence: "りゅうがく します — chet elda ta'lim olmoq",
-              exampleTranslation: "chet elda ta'lim olmoq",
+              exampleSentence: '毎日[まいにち] 留学します[りゅうがくします]。',
+              exampleTranslation: "Har kuni chet elda ta'lim olmoq.",
             },
             {
               term: '取ります (とります)',
               reading: 'とります',
               meaning: "ulg'aymoq; qarimoq",
-              exampleSentence: "とります — ulg'aymoq; qarimoq",
-              exampleTranslation: "ulg'aymoq; qarimoq",
+              exampleSentence: 'きれいな 花[はな]の 写真[しゃしん]を 撮[と]りました。',
+              exampleTranslation: 'Chiroyli gulning suratini oldim.',
             },
             {
-              term: '[ 年を～ ] ([ としを～ ])',
-              reading: '[ としを～ ]',
+              term: '年を～ (としを～)',
+              reading: 'としを～',
               meaning: "(ulg'aymoq; qarimoq)",
-              exampleSentence: "[ としを～ ] — (ulg'aymoq; qarimoq)",
-              exampleTranslation: "(ulg'aymoq; qarimoq)",
+              exampleSentence: '山田[やまだ][としを]は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: "Yamada (ulg'aymoq; qarimoq) samimiy inson.",
             },
             {
               term: '田舎 (いなか)',
               reading: 'いなか',
               meaning: 'qishloq',
-              exampleSentence: 'いなか — qishloq',
-              exampleTranslation: 'qishloq',
+              exampleSentence: 'これは わたしが 買[か]った 田舎[いなか] です。',
+              exampleTranslation: 'Bu men sotib olgan qishloq.',
             },
             {
               term: '大使館 (たいしかん)',
               reading: 'たいしかん',
               meaning: 'elchixona',
-              exampleSentence: 'たいしかん — elchixona',
-              exampleTranslation: 'elchixona',
+              exampleSentence: 'あそこは 大使館[たいしかん] です。',
+              exampleTranslation: 'Anavi yer elchixona.',
             },
             {
               term: 'グループ',
               reading: 'グループ',
               meaning: 'guruh',
-              exampleSentence: 'グループ — guruh',
-              exampleTranslation: 'guruh',
+              exampleSentence: 'これは わたしが 買[か]った グループ です。',
+              exampleTranslation: 'Bu men sotib olgan guruh.',
             },
             {
-              term: 'チャン ス',
-              reading: 'チャン ス',
+              term: 'チャンス',
+              reading: 'チャンス',
               meaning: 'imkoniyat',
-              exampleSentence: 'チャン ス — imkoniyat',
-              exampleTranslation: 'imkoniyat',
+              exampleSentence: 'これは わたしが 買[か]った チャンス です。',
+              exampleTranslation: 'Bu men sotib olgan imkoniyat.',
             },
             {
               term: '億 (おく)',
               reading: 'おく',
               meaning: '( いち～ ) yuz million',
-              exampleSentence: 'おく — ( いち～ ) yuz million',
-              exampleTranslation: '( いち～ ) yuz million',
+              exampleSentence: 'これは わたしが 買[か]った 億[おく] です。',
+              exampleTranslation: 'Bu men sotib olgan ( いち～ ) yuz million.',
             },
             {
-              term: 'もし    [ ～たら ]',
-              reading: 'もし    [ ～たら ]',
+              term: 'もし～たら',
+              reading: 'もし～たら',
               meaning: 'agar (~sam, ~sang,~sa)',
-              exampleSentence: 'もし    [ ～たら ] — agar (~sam, ~sang,~sa)',
-              exampleTranslation: 'agar (~sam, ~sang,~sa)',
+              exampleSentence: '山田[やまだ]もし[たら]は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada agar (~sam, ~sang,~sa) samimiy inson.',
             },
             {
-              term: 'いくら   [ ～ても ]',
-              reading: 'いくら   [ ～ても ]',
-              meaning: 'qancha (~sam ham, ~sang ham, ~sa ham / ~may, ~mang, ~masin)',
-              exampleSentence:
-                'いくら   [ ～ても ] — qancha (~sam ham, ~sang ham, ~sa ham / ~may, ~mang, ~masin)',
-              exampleTranslation: 'qancha (~sam ham, ~sang ham, ~sa ham / ~may, ~mang, ~masin)',
+              term: 'いくら～ても',
+              reading: 'いくら～ても',
+              meaning: 'qancha',
+              exampleSentence: '山田[やまだ]いくら[ても]は 親切[しんせつ]な 人[ひと]です。',
+              exampleTranslation: 'Yamada qancha samimiy inson.',
             },
             {
-              term: '◄ 会話 ►',
-              reading: '◄ 会話 ►',
-              meaning: '',
-              exampleSentence: '◄ 会話 ► — ',
-              exampleTranslation: '',
+              term: '転勤てんきん',
+              reading: '転勤てんきん',
+              meaning: "ish yuzasidan boshqa ishga o'tish",
+              exampleSentence: 'これは わたしが 買[か]った 転勤[てんきん] です。',
+              exampleTranslation: "Bu men sotib olgan ish yuzasidan boshqa ishga o'tish.",
             },
             {
-              term: '転勤[てんきん]',
-              reading: '転勤[てんきん]',
+              term: 'こと',
+              reading: 'こと',
+              meaning: 'ish, masala ( ～の こと ~ning masalasi)',
+              exampleSentence: 'これは わたしが 買[か]った こと です。',
+              exampleTranslation: 'Bu men sotib olgan ish, masala ( ～の こと ~ning masalasi).',
+            },
+            {
+              term: '一杯いっぱい飲のみましょう。',
+              reading: '一杯いっぱい飲のみましょう。',
+              meaning: 'Keling ichamiz.',
+              exampleSentence: 'これは わたしが 買[か]った 一杯[いっぱい]飲[の]みましょう。 です。',
+              exampleTranslation: 'Bu men sotib olgan keling ichamiz..',
+            },
+            {
+              term: 'いろいろお世話せわになりました。',
+              reading: 'いろいろお世話せわになりました。',
               meaning:
-                "ish yuzasidan boshqa ishga o'tish ( ～を します ishni boshqa idoraga ko'chirmoq)",
+                "Ko'rsatgan mehribonchiligingiz uchun rahmat. / Bergan tuzingizga rozi bo'ling.",
               exampleSentence:
-                "転勤[てんきん] — ish yuzasidan boshqa ishga o'tish ( ～を します ishni boshqa idoraga ko'chirmoq)",
+                'これは わたしが 買[か]った [いろいろ]お世話[せわ]になりました。 です。',
               exampleTranslation:
-                "ish yuzasidan boshqa ishga o'tish ( ～を します ishni boshqa idoraga ko'chirmoq)",
+                "Bu men sotib olgan ko'rsatgan mehribonchiligingiz uchun rahmat. / bergan tuzingizga rozi bo'ling..",
+            },
+            {
+              term: '頑がん張ばります',
+              reading: '頑がん張ばります',
+              meaning: 'harakat qilmoq, tirishmoq',
+              exampleSentence: '毎日[まいにち] 頑[がん]張[ば]ります。',
+              exampleTranslation: 'Har kuni harakat qilmoq, tirishmoq.',
+            },
+            {
+              term: 'どうぞお元げん気きで。',
+              reading: 'どうぞお元げん気きで。',
+              meaning: "Salomat bo'ling.",
+              exampleSentence: 'これは わたしが 買[か]った どうぞお元[げん]気[き]で。 です。',
+              exampleTranslation: "Bu men sotib olgan salomat bo'ling..",
             },
           ],
           grammarRules: [
             {
               pattern: 'O`tgan zamondagi oddiy shakl  ら、',
               meaning:
-                "QO'SHMA GAP “Oddiy shakldagi o'tgan zamon fe'li” yoki sifatga ら qo'shimchasini qo'shish bilan o'zidan oldin kelgan so'zni shart qilib ko'rsatadi. Ushbu andoza so'zlovchining fikri yoki turli holatlar ",
-              usageNotes:
                 "QO'SHMA GAP “Oddiy shakldagi o'tgan zamon fe'li” yoki sifatga ら qo'shimchasini qo'shish bilan o'zidan oldin kelgan so'zni shart qilib ko'rsatadi. Ushbu andoza so'zlovchining fikri yoki turli holatlar shart tarzida bildirilgan hollarda qo'llaniladi. SHARTLI PAYT ERGASH GAPLI",
+              usageNotes:
+                'Minna no Nihongo 25-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: 'お金[かね] が あったら、旅行[りょこう] します。',
@@ -9326,14 +14942,22 @@ export const MINNA_N5_LESSONS: Lesson[] = [
                   sentence: '安[やす] かったら、パソコンを 買[か] いたいです。',
                   translation: "Arzonroq bo'lsa, kompyuter sotib olmoqchiman.",
                 },
+                {
+                  sentence: '暇[ひま] だったら、手[てつ] 伝[だ] って ください。',
+                  translation: "Bo'sh bo'lsangiz, yordam bering?",
+                },
+                {
+                  sentence: 'いい 天[てん] 気[き] だったら、散[さん] 歩[ぽ] しませんか。',
+                  translation: "Havo ochiq bo'lsa, sayr qilmaymizmi?",
+                },
               ],
             },
             {
               pattern: 'FE’Lning  た -shakli  ら、～',
               meaning:
-                "QO'SHMA GAP Biror-bir ish-harakat yoki shart bajarilishi bilan, darhol boshqa harakat yoki holat yuz beradigan hollarda “FE'Lning た -shakli ら ”dan foydalaniladi. Bunday gaplarda bosh gap doim hozirgi ",
-              usageNotes:
                 "QO'SHMA GAP Biror-bir ish-harakat yoki shart bajarilishi bilan, darhol boshqa harakat yoki holat yuz beradigan hollarda “FE'Lning た -shakli ら ”dan foydalaniladi. Bunday gaplarda bosh gap doim hozirgi zamonda keladi. FE'Lning て -shakli い -SIFAT （い） ～くて ERGASH GAPLI QO'SHMA",
+              usageNotes:
+                'Minna no Nihongo 25-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: '１０時[じ] に なったら、出[で] かけましょう。',
@@ -9348,9 +14972,9 @@ export const MINNA_N5_LESSONS: Lesson[] = [
             {
               pattern: '3.',
               meaning:
-                "な -SIFAT [ な ] ～で も、～ GAPDA ROZILIK OT で Ushbu andoza “o'tgan zamondagi FE'Lning oddiy shakli ら , ~” shakliga qarama-qarshi ma'noni anglatib, taxminlarga ko'ra yuz berishi kerak bo'lgan harakat yoki h",
-              usageNotes:
                 "な -SIFAT [ な ] ～で も、～ GAPDA ROZILIK OT で Ushbu andoza “o'tgan zamondagi FE'Lning oddiy shakli ら , ~” shakliga qarama-qarshi ma'noni anglatib, taxminlarga ko'ra yuz berishi kerak bo'lgan harakat yoki holatlarning yuz bermasligi yoki boshqacha tus olishini ifodalash uchun xizmat qiladi.",
+              usageNotes:
+                'Minna no Nihongo 25-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence: '雨[あめ] が 降[ふ] っても、洗濯[せんたく] します。',
@@ -9365,14 +14989,18 @@ export const MINNA_N5_LESSONS: Lesson[] = [
                   sentence: '便[べん] 利[り] でも、パソコンを 使[つか] いません。',
                   translation: "Qulay bo'lsa ham, kompyuterdan foydalanmayman.",
                 },
+                {
+                  sentence: '日[にち] 曜[よう] 日[び] でも、働[はたら] きます。',
+                  translation: "Yakshanba bo'lsada ishlayman.",
+                },
               ],
             },
             {
               pattern: 'もし  va  いくら',
               meaning:
-                "“O'tgan zamondagi oddiy shakli ~ たら ” bilan birga kelgan もし so'zi shart ma'nosini ifodalaydi. Xuddi shunday ma'noda いくら so'zi ~ ても（でも） bilan birga qo'llaniladi. Lekin, ushbu ikki so'zning farqi shunda",
-              usageNotes:
                 "“O'tgan zamondagi oddiy shakli ~ たら ” bilan birga kelgan もし so'zi shart ma'nosini ifodalaydi. Xuddi shunday ma'noda いくら so'zi ~ ても（でも） bilan birga qo'llaniladi. Lekin, ushbu ikki so'zning farqi shundaki, もし - so'zlovchining taxmini va hayolini ajratib ko'rsatsa, いくら - shartning darajasini kuchayrib ko'rsatish uchun xizmat qiladi.",
+              usageNotes:
+                'Minna no Nihongo 25-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence:
@@ -9393,9 +15021,9 @@ export const MINNA_N5_LESSONS: Lesson[] = [
             {
               pattern: 'OT  が',
               meaning:
-                "16-dars grammatikasining 4-bandida siz bilan ergash gapli qo'shma gaplarning egasi が qo'shimchasi bilan ajratib ko'rsatilishini bilib olgan edik. Xuddi shunga o'xshab, ~ から , ~ たら , ~ ても , ~ とき , ~ と ",
-              usageNotes:
                 "16-dars grammatikasining 4-bandida siz bilan ergash gapli qo'shma gaplarning egasi が qo'shimchasi bilan ajratib ko'rsatilishini bilib olgan edik. Xuddi shunga o'xshab, ~ から , ~ たら , ~ ても , ~ とき , ~ と , ~ まえに bilan ifodalangan ergash gapli qo'shma gaplarda egadan keyin が qo'shimchasi qo'yilladi va quyidagicha ifodalanadi. ⑯ 妻[つま] が 病[びょう] 気[き] の とき、会社[かいしゃ] を 休[やす] みます。 Xotinim kasal bo'lgan paytlarda, ishga bormayman. (23-dars) ⑰ 友達[ともだち] が 約束[やくそく] の 時[じ] 間[かん] に 来[こ] なかったら、どうしますか。 Do'stingiz kelishilgan vaqtga kelmasa nima qilasiz? (25-dars)",
+              usageNotes:
+                'Minna no Nihongo 25-dars muhim qoidasi. JLPT N5 grammatika savollarida muntazam uchraydi.',
               examples: [
                 {
                   sentence:
@@ -9406,81 +15034,92 @@ export const MINNA_N5_LESSONS: Lesson[] = [
             },
           ],
           culturalNotes:
-            "Xayrlashuv va yangi bosqichga o'tishda '今まで本当にお世話になりました' (Shu paytgacha ko'rsatgan g'amxo'rligingiz uchun katta rahmat) deb minnatdorchilik aytiladi.",
+            "Xayrlashuv va yangi bosqichga o'tishda '今まで本当にお世話になりました' (Shu paytgacha ko'rsatgan yordamingiz uchun rahmat) deb ta'zim qilinadi.",
         },
       },
       {
         id: 'ja-minna-l25-s2',
         title: 'Mustahkamlash Mashqlari',
         type: 'practice',
-        estimatedMinutes: 6,
+        estimatedMinutes: 8,
         practiceData: {
           instructions:
-            "Darsda o'rganilgan yangi so'zlar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
+            "Darsda o'rganilgan yangi so'zlar, zarrachalar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
           exercises: [
             {
               id: 'ja-minna-l25-ex1',
               type: 'multiple-choice',
-              prompt: "「考えます」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
-              options: [
-                'fikrlamoq',
-                "yetib bormoq / kelmoq, qo'nmoq (samolyot), kelib / borib tushmoq",
-                '(vokzalga borib tushmoq)',
-                "chet elda ta'lim olmoq",
-              ],
-              correctAnswer: 0,
-              explanation: "To'g'ri javob: fikrlamoq.",
+              prompt:
+                "Bo'sh joyga to'g'ri zarrachani qo'ying:\n「友達（　）いっしょに 帰ります。」",
+              options: ['へ', 'に', 'と', 'で'],
+              correctAnswer: 2,
+              explanation:
+                "To'g'ri javob: 「と」. Birgalikdagi shaxs 'と' zarrachasi orqali ifodalanadi.",
             },
             {
               id: 'ja-minna-l25-ex2',
               type: 'multiple-choice',
-              prompt:
-                "25-dars grammatik qoidasi: '1.                                                                             O`tgan zamondagi oddiy shakl  ら、' bo'yicha qaysi gap grammatik jihatdan to'g'ri tuzilgan?",
+              prompt: "「田舎 (いなか)」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
               options: [
-                'お金[かね] が あったら、旅行[りょこう] します。',
-                'これ は を です。',
-                'だれ が 行きます か でした。',
-                'へ 行きません です。',
+                '(vokzalga borib tushmoq)',
+                'qishloq',
+                'fikrlamoq',
+                "yetib bormoq / kelmoq, qo'nmoq",
               ],
-              correctAnswer: 0,
-              explanation:
-                "To'g'ri javob: お金[かね] が あったら、旅行[りょこう] します。 (Pulim bo'lsa, sayohat qilar edim.).",
+              correctAnswer: 1,
+              explanation: "To'g'ri javob: 「qishloq」.",
             },
             {
               id: 'ja-minna-l25-ex3',
               type: 'multiple-choice',
-              prompt:
-                "O'zbek tiliga to'g'ri tarjima qiling: 「時[じ] 間[かん] が なかったら、テレビを 見[み] ません。」",
+              prompt: "25-dars grammatik qoidasiga muvofiq to'g'ri tuzilgan gapni aniqlang:",
               options: [
-                "Vaqtim bo'lmasa, televizor ko'rmayman.",
-                "Ertaga do'stim bilan mehmonga boraman.",
-                "Kechirasiz, soat necha bo'ldi?",
-                "Iltimos, manzilni ko'rsatib yuboring.",
+                'お金[かね] が あったら、旅行[りょこう] します か でした。',
+                'お金[かね] が あったら、旅行[りょこう] しません でした です。',
+                'お金[かね] が あったら、旅行[りょこう] します です。',
+                'お金[かね] が あったら、旅行[りょこう] します。',
               ],
-              correctAnswer: 0,
-              explanation: "To'g'ri tarjimasi: Vaqtim bo'lmasa, televizor ko'rmayman..",
+              correctAnswer: 3,
+              explanation:
+                "To'g'ri gap: 「お金[かね] が あったら、旅行[りょこう] します。」 (Pulim bo'lsa, sayohat qilar edim.).",
             },
             {
               id: 'ja-minna-l25-ex4',
               type: 'multiple-choice',
-              prompt: 'Ushbu darsdagi suhbatdan kelib chiqib: Suhbatdosh qanday jumla aytadi?',
+              prompt:
+                "Ushbu gapning to'g'ri yaponcha tarjimasini tanlang:\n「Vaqtim bo'lmasa, televizor ko'rmayman.」",
               options: [
-                'Salom',
-                'Men hech qayerga bormayman.',
-                'Taksida aeroportga haydang.',
-                "Iltimos, hisobni alohida to'laymiz.",
+                'お金[かね] が あったら、旅行[りょこう] します。',
+                '暇[ひま] だったら、手[てつ] 伝[だ] って ください。',
+                '時[じ] 間[かん] が なかったら、テレビを 見[み] ません。',
+                '安[やす] かったら、パソコンを 買[か] いたいです。',
               ],
-              correctAnswer: 0,
-              explanation: "To'g'ri ibora: Salom.",
+              correctAnswer: 2,
+              explanation:
+                "Yaponcha to'g'ri ifodasi: 「時[じ] 間[かん] が なかったら、テレビを 見[み] ません。」.",
+            },
+            {
+              id: 'ja-minna-l25-ex5',
+              type: 'multiple-choice',
+              prompt:
+                'Suhbatdoshingiz: 「お疲れ様でした。」 dedi. Unga eng mos muloyim javob qaysi?',
+              options: [
+                'ごちそうさまでした。',
+                'おやすみなさい。',
+                '失礼します。',
+                'お疲れ様でした。',
+              ],
+              correctAnswer: 3,
+              explanation: "To'g'ri javob: 「お疲れ様でした。」.",
             },
           ],
         },
       },
       {
         id: 'ja-minna-l25-s3',
-        title: 'Sinov Testi',
+        title: 'JLPT N5 Sinov Testi',
         type: 'test',
-        estimatedMinutes: 6,
+        estimatedMinutes: 7,
         testData: {
           instructions:
             "Darsni muvaffaqiyatli yakunlash uchun savollarga to'g'ri javob bering (Kamida 80%).",
@@ -9488,55 +15127,58 @@ export const MINNA_N5_LESSONS: Lesson[] = [
           questions: [
             {
               id: 'ja-minna-l25-q1',
-              question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「お金[かね] が あったら、旅行[りょこう] します。」",
-              options: [
-                "Pulim bo'lsa, sayohat qilar edim.",
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
-              ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Pulim bo'lsa, sayohat qilar edim..",
+              question: '【Mondai 1: Moji/Goi】「大使館」の 読[よ]み方[かた]は どれですか。',
+              options: ['かんがえます', 'たいしかん', 'えきに～', 'つきます'],
+              correctAnswerIndex: 1,
+              explanation: "「大使館」 ning to'g'ri o'qilishi: 「たいしかん」 (elchixona).",
             },
             {
               id: 'ja-minna-l25-q2',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「時[じ] 間[かん] が なかったら、テレビを 見[み] ません。」",
-              options: [
-                "Vaqtim bo'lmasa, televizor ko'rmayman.",
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
-              ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Vaqtim bo'lmasa, televizor ko'rmayman..",
+                '【Mondai 2: Bunpo】（　）に 入[はい]る 最[もっと]も よいものを 1つ えらびなさい。\n「京都（　）行きます。」',
+              options: ['から', 'で', 'を', 'へ'],
+              correctAnswerIndex: 3,
+              explanation:
+                "To'g'ri zarracha: 「へ」. Boriladigan yo'nalish 'へ' (e deb o'qiladi) bilan belgilanadi.",
             },
             {
               id: 'ja-minna-l25-q3',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「安[やす] かったら、パソコンを 買[か] いたいです。」",
+                "【Mondai 3: Bunpo】25-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
               options: [
-                "Arzonroq bo'lsa, kompyuter sotib olmoqchiman.",
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
+                'FE’Lning  た -shakli  ら、～',
+                '〜を 行きます です',
+                '〜は 〜でした じゃありません',
+                '〜に 食べません でした',
               ],
               correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Arzonroq bo'lsa, kompyuter sotib olmoqchiman..",
+              explanation: "To'g'ri grammatik formula: 「FE’Lning  た -shakli  ら、～」.",
             },
             {
               id: 'ja-minna-l25-q4',
               question:
-                "Quyidagi yaponcha gapning ma'nosini aniqlang: 「暇[ひま] だったら、手[てつ] 伝[だ] って ください。」",
+                "【Mondai 4: Dokkai】Quyidagi yaponcha gapning to'g'ri o'zbekcha ma'nosini toping:\n「安[やす] かったら、パソコンを 買[か] いたいです。」",
               options: [
+                "Vaqtim bo'lmasa, televizor ko'rmayman.",
                 "Bo'sh bo'lsangiz, yordam bering?",
-                "Bu kitob do'kondan sotib olindi.",
-                "Kecha kechqurun televizor ko'rdim.",
-                "Yaponiyada yoz fasli juda issiq bo'ladi.",
+                "Arzonroq bo'lsa, kompyuter sotib olmoqchiman.",
+                "Pulim bo'lsa, sayohat qilar edim.",
               ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: Bo'sh bo'lsangiz, yordam bering?.",
+              correctAnswerIndex: 2,
+              explanation: "To'g'ri ma'nosi: 「Arzonroq bo'lsa, kompyuter sotib olmoqchiman.」.",
+            },
+            {
+              id: 'ja-minna-l25-q5',
+              question:
+                "【Mondai 5: Kaiwa】Savolga eng to'g'ri javobni tanlang:\n「いっしょに 京都へ 行きませんか。」",
+              options: [
+                'すみません、トイレです。',
+                'ええ、飲みましょう。',
+                'いただきます。',
+                'いいえ、行きます。',
+              ],
+              correctAnswerIndex: 1,
+              explanation: "To'g'ri javob: 「ええ、飲みましょう。」.",
             },
           ],
         },
