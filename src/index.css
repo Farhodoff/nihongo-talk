@@ -80,11 +80,6 @@
   }
   body {
     @apply bg-background font-sans text-foreground antialiased selection:bg-primary/20 selection:text-primary;
-    /* Safe Area for iOS */
-    padding-top: env(safe-area-inset-top);
-    padding-bottom: env(safe-area-inset-bottom);
-    padding-left: env(safe-area-inset-left);
-    padding-right: env(safe-area-inset-right);
   }
 }
 

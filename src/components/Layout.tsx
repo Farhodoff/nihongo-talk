@@ -24,7 +24,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { isAdminEmail } from '../utils/admin';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
+import { Sheet, SheetContent } from './ui/sheet';
 import { Button } from './ui/Button';
 import { AppLogo } from './AppLogo';
 import { UzbekistanFlag, JapanFlag } from './common/FlagIcons';
@@ -108,7 +108,16 @@ const Layout: React.FC = () => {
   }, [location.pathname, navigate]);
 
   const isFullScreenPage = React.useMemo(() => {
-    const fullScreenPaths = ['/speaking-coach', '/room', '/focus', '/jlpt/listening'];
+    const fullScreenPaths = [
+      '/speaking-coach',
+      '/speaking',
+      '/room',
+      '/focus',
+      '/jlpt/listening',
+      '/study-mode',
+      '/lesson/',
+      '/exams/',
+    ];
     return fullScreenPaths.some((p) => location.pathname.startsWith(p));
   }, [location.pathname]);
 
@@ -197,13 +206,16 @@ const Layout: React.FC = () => {
       {focusState.isActive && location.pathname !== '/focus' && (
         <div
           onClick={() => navigate('/focus')}
-          className={`fixed ${isFullScreenPage ? 'bottom-28 right-6 md:bottom-24' : 'bottom-20 right-6 md:bottom-6'} glass-card group z-50 flex cursor-pointer items-center gap-3 rounded-2xl p-3 shadow-xl transition-all animate-in slide-in-from-bottom-4 hover:scale-105`}
+          className={`fixed ${isFullScreenPage ? 'bottom-24 right-3 sm:right-6 md:bottom-24' : 'bottom-16 right-3 sm:right-6 md:bottom-6'} glass-card group z-50 flex cursor-pointer items-center gap-2.5 rounded-2xl p-2.5 shadow-xl transition-all animate-in slide-in-from-bottom-4 hover:scale-105 sm:p-3`}
         >
           <div className="relative">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-primary/20">
-              <Clock size={18} className="animate-pulse text-primary" />
+            <div className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-primary/20 sm:h-10 sm:w-10">
+              <Clock size={16} className="animate-pulse text-primary" />
             </div>
-            <svg className="absolute inset-0 h-10 w-10 -rotate-90" viewBox="0 0 100 100">
+            <svg
+              className="absolute inset-0 h-9 w-9 -rotate-90 sm:h-10 sm:w-10"
+              viewBox="0 0 100 100"
+            >
               <circle
                 cx="50"
                 cy="50"
@@ -232,7 +244,7 @@ const Layout: React.FC = () => {
             </svg>
           </div>
           <div className="flex flex-col">
-            <span className="mb-1 text-[10px] font-bold uppercase leading-none tracking-widest text-muted-foreground">
+            <span className="mb-0.5 text-[9px] font-bold uppercase leading-none tracking-widest text-muted-foreground sm:text-[10px]">
               {focusState.mode === 'focus'
                 ? language === 'ja'
                   ? '集中'
@@ -241,7 +253,7 @@ const Layout: React.FC = () => {
                   ? '休憩'
                   : 'Tanaffus'}
             </span>
-            <span className="font-mono text-lg font-bold tabular-nums leading-none text-foreground">
+            <span className="font-mono text-base font-bold tabular-nums leading-none text-foreground sm:text-lg">
               {formatTime(focusState.timeLeft)}
             </span>
           </div>
@@ -251,52 +263,45 @@ const Layout: React.FC = () => {
         </div>
       )}
 
-      {/* Mobile Header */}
-      <header className="glass-card relative z-30 flex items-center justify-between border-b px-4 py-2.5 pt-[max(env(safe-area-inset-top),0.65rem)] md:hidden">
-        <div className="flex min-w-0 items-center gap-2">
-          <AppLogo size="sm" showText={false} />
-          <h1 className="text-gradient truncate text-lg font-bold">{getPageTitle()}</h1>
-        </div>
+      {/* Mobile Header (Hidden on immersive fullscreen activity pages) */}
+      {!isFullScreenPage && (
+        <header className="glass-card relative z-30 flex items-center justify-between border-b px-3.5 py-2 pt-[max(env(safe-area-inset-top),0.5rem)] md:hidden">
+          <div className="flex min-w-0 items-center gap-2">
+            <AppLogo size="sm" showText={false} />
+            <h1 className="text-gradient truncate text-base font-bold">{getPageTitle()}</h1>
+          </div>
 
-        <div className="flex shrink-0 items-center gap-1.5">
-          <button
-            type="button"
-            onClick={() => setLanguage(language === 'uz' ? 'ja' : 'uz')}
-            className="flex items-center gap-1 rounded-xl border border-border/80 bg-muted/80 px-2 py-1 text-[11px] font-bold text-muted-foreground shadow-xs transition-all hover:bg-muted hover:text-foreground active:scale-95"
-            title={language === 'uz' ? '日本語 (JA)' : "O'zbekcha (UZ)"}
-          >
-            {language === 'uz' ? (
-              <>
-                <UzbekistanFlag className="h-2.5 w-3.5" />
-                <span>UZ</span>
-              </>
-            ) : (
-              <>
-                <JapanFlag className="h-2.5 w-3.5" />
-                <span>JA</span>
-              </>
-            )}
-          </button>
+          <div className="flex shrink-0 items-center gap-1.5">
+            <button
+              type="button"
+              onClick={() => setLanguage(language === 'uz' ? 'ja' : 'uz')}
+              className="flex items-center gap-1 rounded-xl border border-border/80 bg-muted/80 px-2 py-1 text-[11px] font-bold text-muted-foreground shadow-xs transition-all hover:bg-muted hover:text-foreground active:scale-95"
+              title={language === 'uz' ? '日本語 (JA)' : "O'zbekcha (UZ)"}
+            >
+              {language === 'uz' ? (
+                <>
+                  <UzbekistanFlag className="h-2.5 w-3.5" />
+                  <span>UZ</span>
+                </>
+              ) : (
+                <>
+                  <JapanFlag className="h-2.5 w-3.5" />
+                  <span>JA</span>
+                </>
+              )}
+            </button>
 
-          <button
-            type="button"
-            onClick={() => openRatingModal()}
-            className="flex items-center justify-center rounded-xl border border-amber-500/25 bg-amber-500/10 p-1.5 text-amber-500 transition hover:bg-amber-500/20 active:scale-95"
-            title={language === 'ja' ? '評価' : 'Baholash'}
-          >
-            <Star size={16} className="fill-amber-400" />
-          </button>
-
-          <button
-            type="button"
-            onClick={() => setSidebarOpen(true)}
-            className="flex items-center justify-center rounded-xl border border-border bg-muted/80 p-1.5 text-foreground transition hover:bg-muted active:scale-95"
-            aria-label="Menyu"
-          >
-            <Menu size={18} />
-          </button>
-        </div>
-      </header>
+            <button
+              type="button"
+              onClick={() => setSidebarOpen(true)}
+              className="flex items-center justify-center rounded-xl border border-border bg-muted/80 p-1.5 text-foreground transition hover:bg-muted active:scale-95"
+              aria-label="Menyu"
+            >
+              <Menu size={18} />
+            </button>
+          </div>
+        </header>
+      )}
 
       {/* Desktop Sidebar */}
       <aside
@@ -393,7 +398,7 @@ const Layout: React.FC = () => {
 
       {/* Main Content */}
       <main className="relative flex w-full max-w-full flex-1 flex-col overflow-hidden bg-background">
-        <GlobalAnnouncementBanner />
+        {!isFullScreenPage && <GlobalAnnouncementBanner />}
         <AnimatePresence mode="wait">
           <motion.div
             key={location.pathname}
@@ -404,7 +409,7 @@ const Layout: React.FC = () => {
             className={`w-full max-w-full overflow-x-hidden ${
               isFullScreenPage
                 ? 'flex h-full flex-col overflow-hidden'
-                : 'h-full overflow-y-auto pb-24 md:pb-6'
+                : 'h-full overflow-y-auto pb-20 md:pb-6'
             }`}
           >
             <Outlet />
@@ -413,107 +418,111 @@ const Layout: React.FC = () => {
       </main>
 
       {/* Mobile Bottom Navigation */}
-      <nav className="glass-card fixed bottom-0 z-40 flex w-full items-center justify-around border-t border-border bg-background/90 px-2 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-1.5 backdrop-blur-md md:hidden">
-        {[
-          {
-            name: 'JLPT',
-            path: '/jlpt',
-            icon: BookOpen,
-          },
-          { name: t('nav.aiCoach') || 'Speaking', path: '/speaking-coach', icon: Mic },
-          { name: t('nav.flashcards') || 'Fleshkard', path: '/flashcards', icon: Copy },
-          { name: language === 'ja' ? 'プラン' : 'Rejam', path: '/personal-plan', icon: Target },
-        ].map((item) => {
-          const isItemActive =
-            location.pathname.startsWith(item.path) ||
-            (item.path === '/jlpt' && location.pathname === '/') ||
-            (item.path === '/speaking-coach' && location.pathname.startsWith('/speaking')) ||
-            (item.path === '/flashcards' &&
-              (location.pathname.startsWith('/flashcards') ||
-                location.pathname.startsWith('/study-mode')));
+      {!isFullScreenPage && (
+        <nav className="glass-card fixed bottom-0 z-40 flex w-full items-center justify-around border-t border-border bg-background/90 px-2 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-1.5 backdrop-blur-md md:hidden">
+          {[
+            {
+              name: 'JLPT',
+              path: '/jlpt',
+              icon: BookOpen,
+            },
+            { name: t('nav.aiCoach') || 'Speaking', path: '/speaking-coach', icon: Mic },
+            { name: t('nav.flashcards') || 'Fleshkard', path: '/flashcards', icon: Copy },
+            { name: language === 'ja' ? 'プラン' : 'Rejam', path: '/personal-plan', icon: Target },
+          ].map((item) => {
+            const isItemActive =
+              location.pathname.startsWith(item.path) ||
+              (item.path === '/jlpt' && location.pathname === '/') ||
+              (item.path === '/speaking-coach' && location.pathname.startsWith('/speaking')) ||
+              (item.path === '/flashcards' &&
+                (location.pathname.startsWith('/flashcards') ||
+                  location.pathname.startsWith('/study-mode')));
 
-          return (
-            <NavLink
-              key={item.path}
-              to={item.path}
-              className={`flex w-16 flex-col items-center justify-center rounded-xl p-1.5 transition-all duration-200 ${
-                isItemActive
-                  ? 'scale-105 bg-primary/10 font-bold text-primary shadow-xs'
-                  : 'text-muted-foreground hover:text-foreground'
-              }`}
-            >
-              <item.icon size={20} className="mb-1" strokeWidth={isItemActive ? 2.5 : 2} />
-              <span className="text-[10px] font-medium leading-none">{item.name}</span>
-            </NavLink>
-          );
-        })}
-
-        <Sheet open={isSidebarOpen} onOpenChange={setSidebarOpen}>
-          <SheetTrigger asChild>
-            <button
-              aria-label="Menyuni ochish"
-              className="flex w-16 flex-col items-center justify-center rounded-xl p-1.5 text-muted-foreground transition-colors hover:text-foreground"
-            >
-              <Menu size={20} className="mb-1" />
-              <span className="text-[10px] font-medium leading-none">Menyu</span>
-            </button>
-          </SheetTrigger>
-          <SheetContent side="left" className="flex w-72 flex-col bg-card p-0">
-            <div className="flex h-16 items-center justify-between border-b border-border p-4">
-              <div className="flex items-center gap-2">
-                <AppLogo size="sm" />
-              </div>
-            </div>
-            <div className="flex-1 overflow-y-auto">
-              <NavLinks onClick={() => setSidebarOpen(false)} />
-            </div>
-            <div className="space-y-2 border-t border-border/60 bg-card/80 p-3.5">
-              <button
-                type="button"
-                onClick={() => {
-                  setSidebarOpen(false);
-                  openRatingModal();
-                }}
-                className="flex w-full items-center gap-2.5 rounded-xl border border-amber-500/25 bg-amber-500/10 px-3 py-2 text-xs font-bold text-amber-600 transition hover:bg-amber-500/20 active:scale-95 dark:text-amber-400"
-              >
-                <Star size={16} className="shrink-0 fill-amber-400 text-amber-500" />
-                <span>{language === 'ja' ? '⭐ アプリを評価する' : '⭐ Ilovani baholash'}</span>
-              </button>
-
-              {isAdmin && (
-                <NavLink
-                  to="/admin"
-                  onClick={() => setSidebarOpen(false)}
-                  className={({ isActive }) =>
-                    `flex w-full items-center gap-3 rounded-xl px-3 py-2 text-xs font-bold transition-all duration-200 ${
-                      isActive
-                        ? 'border border-rose-500/30 bg-rose-500/15 text-rose-400 shadow-xs'
-                        : 'border border-rose-500/20 text-rose-400/90 hover:bg-rose-500/10 hover:text-rose-400'
-                    }`
-                  }
-                >
-                  <Shield size={16} className="shrink-0 text-rose-500" />
-                  <span>Admin Panel</span>
-                </NavLink>
-              )}
+            return (
               <NavLink
-                to="/settings"
+                key={item.path}
+                to={item.path}
+                className={`flex w-16 flex-col items-center justify-center rounded-xl p-1.5 transition-all duration-200 ${
+                  isItemActive
+                    ? 'scale-105 bg-primary/10 font-bold text-primary shadow-xs'
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                <item.icon size={20} className="mb-1" strokeWidth={isItemActive ? 2.5 : 2} />
+                <span className="text-[10px] font-medium leading-none">{item.name}</span>
+              </NavLink>
+            );
+          })}
+
+          <button
+            type="button"
+            onClick={() => setSidebarOpen(true)}
+            aria-label="Menyuni ochish"
+            className="flex w-16 flex-col items-center justify-center rounded-xl p-1.5 text-muted-foreground transition-colors hover:text-foreground"
+          >
+            <Menu size={20} className="mb-1" />
+            <span className="text-[10px] font-medium leading-none">Menyu</span>
+          </button>
+        </nav>
+      )}
+
+      {/* Mobile Drawer (Sheet) */}
+      <Sheet open={isSidebarOpen} onOpenChange={setSidebarOpen}>
+        <SheetContent side="left" className="flex w-72 flex-col bg-card p-0">
+          <div className="flex h-16 items-center justify-between border-b border-border p-4">
+            <div className="flex items-center gap-2">
+              <AppLogo size="sm" />
+            </div>
+          </div>
+          <div className="flex-1 overflow-y-auto">
+            <NavLinks onClick={() => setSidebarOpen(false)} />
+          </div>
+          <div className="space-y-2 border-t border-border/60 bg-card/80 p-3.5">
+            <button
+              type="button"
+              onClick={() => {
+                setSidebarOpen(false);
+                openRatingModal();
+              }}
+              className="flex w-full items-center gap-2.5 rounded-xl border border-amber-500/25 bg-amber-500/10 px-3 py-2 text-xs font-bold text-amber-600 transition hover:bg-amber-500/20 active:scale-95 dark:text-amber-400"
+            >
+              <Star size={16} className="shrink-0 fill-amber-400 text-amber-500" />
+              <span>{language === 'ja' ? '⭐ アプリを評価する' : '⭐ Ilovani baholash'}</span>
+            </button>
+
+            {isAdmin && (
+              <NavLink
+                to="/admin"
                 onClick={() => setSidebarOpen(false)}
                 className={({ isActive }) =>
-                  `flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-xs font-semibold transition-all duration-200 ${
+                  `flex w-full items-center gap-3 rounded-xl px-3 py-2 text-xs font-bold transition-all duration-200 ${
                     isActive
-                      ? 'bg-primary/10 font-bold text-primary shadow-xs'
-                      : 'text-muted-foreground hover:bg-muted/80 hover:text-foreground'
+                      ? 'border border-rose-500/30 bg-rose-500/15 text-rose-400 shadow-xs'
+                      : 'border border-rose-500/20 text-rose-400/90 hover:bg-rose-500/10 hover:text-rose-400'
                   }`
                 }
               >
-                <SettingsIcon size={16} className="shrink-0" />
-                <span>{t('nav.settings') || 'Sozlamalar'}</span>
+                <Shield size={16} className="shrink-0 text-rose-500" />
+                <span>Admin Panel</span>
               </NavLink>
-            </div>
-          </SheetContent>
-        </Sheet>
-      </nav>
+            )}
+            <NavLink
+              to="/settings"
+              onClick={() => setSidebarOpen(false)}
+              className={({ isActive }) =>
+                `flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-xs font-semibold transition-all duration-200 ${
+                  isActive
+                    ? 'bg-primary/10 font-bold text-primary shadow-xs'
+                    : 'text-muted-foreground hover:bg-muted/80 hover:text-foreground'
+                }`
+              }
+            >
+              <SettingsIcon size={16} className="shrink-0" />
+              <span>{t('nav.settings') || 'Sozlamalar'}</span>
+            </NavLink>
+          </div>
+        </SheetContent>
+      </Sheet>
 
       {/* Quick Command Palette (Cmd/Ctrl + K) */}
       <QuickCommandPalette

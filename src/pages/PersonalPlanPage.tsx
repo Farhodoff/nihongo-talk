@@ -878,9 +878,9 @@ export const PersonalPlanPage: React.FC = () => {
         </div>
       ) : (
         /* ACTIVE DASHBOARD VIEW */
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-          {/* LEFT PANEL: Goal Summary & Evaluations */}
-          <div className="space-y-6 lg:col-span-1">
+        <div className="grid grid-cols-1 gap-6 sm:gap-8 lg:grid-cols-3">
+          {/* LEFT PANEL: Goal Summary & Evaluations (ordered after active tasks on mobile) */}
+          <div className="order-2 space-y-6 lg:order-1 lg:col-span-1">
             <div className="space-y-4 rounded-3xl border border-border bg-card p-6 shadow-xl">
               <div className="flex items-center justify-between">
                 <span className="rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-black uppercase tracking-wider text-primary">
@@ -961,41 +961,41 @@ export const PersonalPlanPage: React.FC = () => {
             </div>
           </div>
 
-          {/* RIGHT PANEL: 7-day checklist and active week view */}
-          <div className="space-y-6 lg:col-span-2">
+          {/* RIGHT PANEL: 7-day checklist and active week view (ordered first on mobile) */}
+          <div className="order-1 space-y-4 sm:space-y-6 lg:order-2 lg:col-span-2">
             {currentPlan ? (
-              <div className="space-y-4">
-                <div className="space-y-2 rounded-3xl border border-border bg-card p-6 shadow-xl">
-                  <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
-                    <h2 className="text-lg font-black tracking-tight text-foreground">
+              <div className="space-y-3 sm:space-y-4">
+                <div className="space-y-2 rounded-2xl border border-border bg-card p-4 shadow-xs sm:rounded-3xl sm:p-6 sm:shadow-xl">
+                  <div className="flex flex-col justify-between gap-2 sm:flex-row sm:items-center">
+                    <h2 className="text-base font-black tracking-tight text-foreground sm:text-lg">
                       {currentPlan.weekNumber}-Haftalik O'quv Rejasi
                     </h2>
                     <button
                       onClick={handleRegenerateCurrentWeek}
                       disabled={regenerating}
                       title={isUz ? 'Rejani qayta tuzish' : 'Regenerate plan'}
-                      className="flex shrink-0 items-center gap-1.5 rounded-xl border border-border bg-secondary/50 px-3 py-1.5 text-xs font-bold text-muted-foreground transition-all hover:bg-secondary hover:text-foreground"
+                      className="flex shrink-0 items-center gap-1.5 rounded-xl border border-border bg-secondary/50 px-2.5 py-1 text-xs font-bold text-muted-foreground transition-all hover:bg-secondary hover:text-foreground"
                     >
-                      <RotateCcw size={13} className={regenerating ? 'animate-spin' : ''} />
+                      <RotateCcw size={12} className={regenerating ? 'animate-spin' : ''} />
                       <span>
                         {regenerating
                           ? isUz
                             ? 'Tuzilmoqda...'
                             : 'Generating...'
                           : isUz
-                            ? 'Qayta rejalashtirish'
+                            ? 'Qayta rejalash'
                             : 'Regenerate'}
                       </span>
                     </button>
                   </div>
-                  <p className="text-xs leading-relaxed text-muted-foreground">
+                  <p className="hidden text-xs leading-relaxed text-muted-foreground sm:block">
                     <strong>Sabab/Tahlil:</strong> {currentPlan.reasoning}
                   </p>
-                  <div className="flex flex-wrap gap-2 pt-1">
+                  <div className="flex flex-wrap gap-1.5 pt-1">
                     {currentPlan.focusSkills.map((skill) => (
                       <span
                         key={skill}
-                        className="rounded-md bg-secondary px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-foreground"
+                        className="rounded-md bg-secondary px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-foreground"
                       >
                         {skill}
                       </span>
@@ -1047,31 +1047,31 @@ export const PersonalPlanPage: React.FC = () => {
                         </button>
 
                         {isExpanded && (
-                          <div className="space-y-3 border-t border-border/40 p-4 pt-0 duration-200 animate-in slide-in-from-top-2">
+                          <div className="space-y-2.5 border-t border-border/40 p-3 pt-0 duration-200 animate-in slide-in-from-top-2 sm:p-4">
                             {dayPlan.tasks.map((task) => (
                               <div
                                 key={task.id}
-                                className="flex items-start justify-between gap-3 rounded-2xl border border-border/80 bg-secondary/20 p-3.5"
+                                className="flex items-start justify-between gap-2.5 rounded-xl border border-border/80 bg-secondary/20 p-2.5 sm:rounded-2xl sm:p-3.5"
                               >
-                                <div className="flex items-start gap-3">
+                                <div className="flex min-w-0 flex-1 items-start gap-2.5">
                                   <input
                                     type="checkbox"
                                     checked={task.completed}
                                     onChange={() => handleToggleTask(dayPlan.day, task.id)}
-                                    className="w-4.5 h-4.5 mt-0.5 cursor-pointer rounded border-border text-primary focus:ring-primary"
+                                    className="sm:w-4.5 sm:h-4.5 mt-0.5 h-4 w-4 shrink-0 cursor-pointer rounded border-border text-primary focus:ring-primary"
                                   />
-                                  <div>
+                                  <div className="min-w-0 flex-1">
                                     <h4
-                                      className={`text-sm font-bold text-foreground ${task.completed ? 'line-through opacity-60' : ''}`}
+                                      className={`break-words text-xs font-bold text-foreground sm:text-sm ${task.completed ? 'line-through opacity-60' : ''}`}
                                     >
                                       {task.title}
                                     </h4>
-                                    <div className="mt-1 flex items-center gap-2 text-xs text-muted-foreground">
+                                    <div className="mt-1 flex flex-wrap items-center gap-1.5 text-[11px] text-muted-foreground sm:gap-2 sm:text-xs">
                                       <span className="flex items-center gap-1">
                                         <Clock size={11} /> {task.estimatedMinutes} daqiqa
                                       </span>
                                       {task.skill && (
-                                        <span className="rounded bg-secondary px-1.5 py-0.5 text-[10px] font-bold uppercase text-foreground">
+                                        <span className="rounded bg-secondary px-1.5 py-0.5 text-[9px] font-bold uppercase text-foreground sm:text-[10px]">
                                           {task.skill}
                                         </span>
                                       )}
@@ -1091,7 +1091,7 @@ export const PersonalPlanPage: React.FC = () => {
                                       },
                                     })
                                   }
-                                  className="flex items-center gap-1 rounded-xl bg-primary/10 px-3.5 py-1.5 text-xs font-black text-primary transition-all hover:bg-primary/20"
+                                  className="flex shrink-0 items-center gap-1 rounded-lg bg-primary/10 px-2.5 py-1.5 text-[11px] font-black text-primary transition-all hover:bg-primary/20 sm:rounded-xl sm:px-3.5 sm:text-xs"
                                 >
                                   <Play size={10} />
                                   <span>Boshlash</span>
@@ -1107,7 +1107,7 @@ export const PersonalPlanPage: React.FC = () => {
 
                 {/* Weekly completion assessment trigger */}
                 <div
-                  className={`flex flex-col items-center justify-between gap-4 rounded-3xl border p-6 transition-all sm:flex-row ${
+                  className={`flex flex-col items-center justify-between gap-4 rounded-2xl border p-4 transition-all sm:flex-row sm:rounded-3xl sm:p-6 ${
                     weeklyCompletionRate >= 80
                       ? 'border-emerald-500/40 bg-emerald-500/10 shadow-lg'
                       : 'border-primary/20 bg-primary/10'
@@ -1145,7 +1145,7 @@ export const PersonalPlanPage: React.FC = () => {
                   <button
                     onClick={handleEvaluateWeek}
                     disabled={evaluating}
-                    className={`flex shrink-0 items-center gap-1.5 rounded-xl px-5 py-2.5 text-xs font-black shadow-md transition-all ${
+                    className={`flex w-full shrink-0 items-center justify-center gap-1.5 rounded-xl px-5 py-2.5 text-xs font-black shadow-md transition-all sm:w-auto ${
                       weeklyCompletionRate >= 80
                         ? 'bg-emerald-600 text-white hover:bg-emerald-500'
                         : 'bg-primary text-primary-foreground hover:bg-primary/90'

@@ -202,33 +202,33 @@ export const ScenarioPickerPage: React.FC = () => {
   const jaLevels = ['all', 'N5', 'N4', 'N3', 'N2', 'N1'] as const;
 
   return (
-    <div className="mx-auto max-w-6xl space-y-8 p-4 pb-16 animate-in fade-in md:p-6">
+    <div className="mx-auto max-w-6xl space-y-5 p-3 pb-16 animate-in fade-in sm:p-6">
       {/* Header Banner */}
-      <div className="relative overflow-hidden rounded-3xl border border-border bg-card p-6 text-foreground shadow-sm md:p-8">
+      <div className="relative overflow-hidden rounded-2xl border border-border bg-card p-4 text-foreground shadow-sm sm:rounded-3xl sm:p-6 md:p-8">
         <div className="pointer-events-none absolute right-0 top-0 h-96 w-96 rounded-full bg-primary/10 blur-3xl" />
 
-        <div className="relative z-10 flex flex-col justify-between gap-6 md:flex-row md:items-center">
-          <div className="space-y-3">
+        <div className="relative z-10 flex flex-col justify-between gap-4 sm:gap-6 md:flex-row md:items-center">
+          <div className="space-y-2 sm:space-y-3">
             <div className="flex items-center gap-2">
               <button
                 onClick={() => navigate('/jlpt')}
-                className="cursor-pointer rounded-xl border border-border bg-muted p-2 text-foreground transition-all hover:bg-muted/80"
+                className="cursor-pointer rounded-xl border border-border bg-muted p-1.5 text-foreground transition-all hover:bg-muted/80 sm:p-2"
               >
                 <ArrowLeft size={16} />
               </button>
-              <span className="flex items-center gap-1.5 rounded-full border border-[#C9A961]/30 bg-[#C9A961]/15 px-3 py-1 text-xs font-bold text-[#C9A961]">
+              <span className="flex items-center gap-1.5 rounded-full border border-[#C9A961]/30 bg-[#C9A961]/15 px-2.5 py-0.5 text-[11px] font-bold text-[#C9A961] sm:px-3 sm:py-1 sm:text-xs">
                 <Globe size={12} />
                 {language === 'ja'
                   ? '🎌 日本語シチュエーション会話'
                   : '🎌 Japanese Conversation Scenarios'}
               </span>
             </div>
-            <h1 className="font-display text-2xl font-black tracking-tight text-foreground md:text-3xl">
+            <h1 className="font-display text-xl font-black tracking-tight text-foreground sm:text-2xl md:text-3xl">
               {language === 'ja'
                 ? 'シチュエーション会話練習'
                 : 'Japanese Scenarios (Muloqot Ssenariylari)'}
             </h1>
-            <p className="max-w-xl text-xs leading-relaxed text-muted-foreground md:text-sm">
+            <p className="hidden max-w-xl text-xs leading-relaxed text-muted-foreground sm:block md:text-sm">
               {language === 'ja'
                 ? 'ビジネス交渉、障害報告、面接、ショッピングなど、リアルな場面でAIと自由に会話練習をしましょう。'
                 : 'Biznes muzokaralar, tizim nosozligi hisoboti, ish suhbati va real hayotiy ssenariylarda AI murabbiy bilan erkin muloqot qiling.'}
@@ -239,9 +239,9 @@ export const ScenarioPickerPage: React.FC = () => {
             {/* Direct Scenario Create Button */}
             <button
               onClick={handleOpenCreateModal}
-              className="flex cursor-pointer items-center gap-2 self-start rounded-2xl bg-primary px-4 py-2.5 text-xs font-bold text-primary-foreground shadow-md shadow-primary/20 transition-all hover:bg-primary/90 active:scale-95 md:self-auto"
+              className="flex cursor-pointer items-center gap-2 rounded-xl bg-primary px-3.5 py-2 text-xs font-bold text-primary-foreground shadow-md shadow-primary/20 transition-all hover:bg-primary/90 active:scale-95 sm:rounded-2xl sm:px-4 sm:py-2.5"
             >
-              <Plus size={16} />
+              <Plus size={15} />
               <span>{language === 'ja' ? 'シナリオ作成' : "Ssenariy Qo'shish"}</span>
             </button>
           </div>
@@ -249,13 +249,13 @@ export const ScenarioPickerPage: React.FC = () => {
       </div>
 
       {/* Level Filter Tabs */}
-      <div className="flex items-center justify-between gap-4 overflow-x-auto border-b border-border pb-2">
-        <div className="flex items-center gap-2">
+      <div className="no-scrollbar flex items-center justify-between gap-3 overflow-x-auto border-b border-border pb-2">
+        <div className="flex items-center gap-1.5 sm:gap-2">
           {jaLevels.map((lvl) => (
             <button
               key={lvl}
               onClick={() => setSelectedLevel(lvl)}
-              className={`cursor-pointer rounded-2xl border px-4 py-2 text-xs font-extrabold transition-all ${
+              className={`shrink-0 cursor-pointer rounded-xl border px-3 py-1.5 text-xs font-extrabold transition-all sm:rounded-2xl sm:px-4 sm:py-2 ${
                 selectedLevel === lvl
                   ? 'border-primary bg-primary text-primary-foreground shadow-xs'
                   : 'border-border bg-muted/60 text-muted-foreground hover:bg-muted hover:text-foreground'
@@ -266,12 +266,12 @@ export const ScenarioPickerPage: React.FC = () => {
           ))}
         </div>
 
-        <div className="flex shrink-0 items-center gap-1 text-xs font-medium text-muted-foreground">
-          <Sparkles size={14} className="text-[#C9A961]" />
+        <div className="flex shrink-0 items-center gap-1 text-[11px] font-medium text-muted-foreground sm:text-xs">
+          <Sparkles size={13} className="text-[#C9A961]" />
           <span>
             {language === 'ja'
-              ? `${filteredScenarios.length} 件のシナリオ`
-              : `${filteredScenarios.length} ta ssenariy`}
+              ? `${filteredScenarios.length} 件`
+              : `${filteredScenarios.length} ta`}
           </span>
         </div>
       </div>
@@ -285,7 +285,7 @@ export const ScenarioPickerPage: React.FC = () => {
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 sm:gap-5 md:grid-cols-2 lg:grid-cols-3">
           {filteredScenarios.map((scenario) => {
             const lastSession = history.find((h) => h.scenario_id === scenario.id);
             const title = scenario.title_ja || scenario.title_uz;
@@ -293,16 +293,16 @@ export const ScenarioPickerPage: React.FC = () => {
             return (
               <div
                 key={scenario.id}
-                className="group relative flex flex-col justify-between rounded-3xl border border-border bg-card p-5 shadow-xs transition-all duration-300 hover:border-primary/50 hover:shadow-md"
+                className="group relative flex flex-col justify-between rounded-2xl border border-border bg-card p-4 shadow-xs transition-all duration-300 hover:border-primary/50 hover:shadow-md sm:rounded-3xl sm:p-5"
               >
                 <div>
                   <div className="mb-3 flex items-start justify-between">
-                    <div className="rounded-2xl bg-muted/60 p-3 text-3xl transition-transform group-hover:scale-110">
+                    <div className="rounded-xl bg-muted/60 p-2.5 text-2xl transition-transform group-hover:scale-110 sm:rounded-2xl sm:p-3 sm:text-3xl">
                       {scenario.emoji}
                     </div>
                     <div className="flex items-center gap-1.5">
                       <span
-                        className={`rounded-full border px-2.5 py-1 text-[10px] font-extrabold ${
+                        className={`rounded-full border px-2.5 py-0.5 text-[10px] font-extrabold sm:py-1 ${
                           scenario.difficulty === 'N5' || scenario.difficulty === 'N4'
                             ? 'border-emerald-500/20 bg-emerald-500/10 text-emerald-400'
                             : 'border-[#C9A961]/30 bg-[#C9A961]/15 text-[#C9A961]'

@@ -53,9 +53,9 @@ export const JlptHubPage: React.FC = () => {
   };
 
   return (
-    <div className="mx-auto max-w-7xl max-w-full space-y-6 overflow-x-hidden p-3.5 pb-16 sm:p-4 md:space-y-8 md:p-8">
-      {/* Header */}
-      <div className="relative overflow-hidden rounded-3xl border border-border bg-card p-4 shadow-xs md:p-6">
+    <div className="mx-auto max-w-7xl max-w-full space-y-4 overflow-x-hidden p-2.5 pb-16 sm:p-4 md:space-y-8 md:p-8">
+      {/* Header — Desktop only; mobile already has top header with title */}
+      <div className="hidden overflow-hidden rounded-3xl border border-border bg-card p-4 shadow-xs md:block md:p-6">
         <div className="relative z-10 flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
           <h1 className="font-display text-2xl font-black tracking-tight text-foreground md:text-3xl">
             {language === 'ja' ? '日本語マスターハブ' : 'JLPT Master Hub'}

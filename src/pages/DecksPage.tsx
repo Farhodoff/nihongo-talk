@@ -488,27 +488,27 @@ const DecksPage: React.FC = () => {
         </div>
 
         {isSuper && (
-          <div className="flex flex-wrap items-center gap-2.5">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
             {/* Add Subject Button */}
             <Button
               onClick={() => setIsAddSubjectOpen(true)}
-              className="rounded-2xl bg-primary px-5 py-3 text-xs font-extrabold text-primary-foreground shadow-md hover:bg-primary/90"
+              className="rounded-xl bg-primary px-3.5 py-2 text-xs font-extrabold text-primary-foreground shadow-md hover:bg-primary/90 sm:rounded-2xl sm:px-5 sm:py-3"
             >
               <Plus size={16} className="mr-1.5" /> {t('flashcards.createDeck')}
             </Button>
 
             {/* Primary Button */}
             <Link to="/flashcards/new">
-              <Button className="rounded-2xl border border-border bg-card px-5 py-3 text-xs font-extrabold text-foreground shadow-xs hover:bg-muted">
+              <Button className="rounded-xl border border-border bg-card px-3.5 py-2 text-xs font-extrabold text-foreground shadow-xs hover:bg-muted sm:rounded-2xl sm:px-5 sm:py-3">
                 <Plus size={16} className="mr-1.5" /> {t('flashcards.addManual')}
               </Button>
             </Link>
 
             {/* AI & Import Action Group */}
-            <div className="flex items-center gap-1.5 rounded-2xl border border-border bg-card/80 p-1">
+            <div className="no-scrollbar flex max-w-full items-center gap-1 overflow-x-auto rounded-xl border border-border bg-card/80 p-1 sm:gap-1.5 sm:rounded-2xl">
               <button
                 onClick={() => setIsDocGeneratorOpen(true)}
-                className="flex items-center gap-1.5 rounded-xl border border-[#C9A961]/30 bg-[#C9A961]/20 px-3 py-2 text-xs font-extrabold text-[#C9A961] shadow-xs transition-all hover:bg-[#C9A961]/30"
+                className="flex shrink-0 items-center gap-1.5 rounded-xl border border-[#C9A961]/30 bg-[#C9A961]/20 px-3 py-2 text-xs font-extrabold text-[#C9A961] shadow-xs transition-all hover:bg-[#C9A961]/30"
                 title={
                   language === 'ja'
                     ? 'ノートや文章からQ&A・フラッシュカードを生成'
@@ -519,21 +519,21 @@ const DecksPage: React.FC = () => {
               </button>
               <button
                 onClick={() => setAiSubjectId('global')}
-                className="flex items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-extrabold text-primary transition-all hover:bg-primary/10"
+                className="flex shrink-0 items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-extrabold text-primary transition-all hover:bg-primary/10"
                 title={language === 'ja' ? 'AIでカードを自動生成' : 'AI bilan kartochka yaratish'}
               >
                 <Book size={15} /> {language === 'ja' ? 'AI自動生成' : 'AI Generator'}
               </button>
               <button
                 onClick={() => setIsExtractModalOpen(true)}
-                className="flex items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-extrabold text-muted-foreground transition-all hover:bg-muted/60 hover:text-foreground"
+                className="flex shrink-0 items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-extrabold text-muted-foreground transition-all hover:bg-muted/60 hover:text-foreground"
                 title={language === 'ja' ? '文章から単語を抽出' : "Matndan lug'at ajratib olish"}
               >
                 <FileText size={15} /> {language === 'ja' ? '単語抽出' : 'Extractor'}
               </button>
               <button
                 onClick={() => setImportModalOpen(true)}
-                className="flex items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-extrabold text-muted-foreground transition-all hover:bg-muted/60 hover:text-foreground"
+                className="flex shrink-0 items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-extrabold text-muted-foreground transition-all hover:bg-muted/60 hover:text-foreground"
                 title={
                   language === 'ja' ? 'JSONファイルをインポート' : 'JSON formatida fayl yuklash'
                 }
@@ -543,7 +543,7 @@ const DecksPage: React.FC = () => {
               {isAdmin && (
                 <button
                   onClick={() => setIsAdminModalOpen(true)}
-                  className="flex items-center gap-1.5 rounded-xl border border-rose-500/20 bg-rose-500/10 px-3 py-2 text-xs font-black text-rose-500 transition-all hover:bg-rose-500/20"
+                  className="flex shrink-0 items-center gap-1.5 rounded-xl border border-rose-500/20 bg-rose-500/10 px-3 py-2 text-xs font-black text-rose-500 transition-all hover:bg-rose-500/20"
                   title="Buzuq kartalarni saralash va o'chirish"
                 >
                   <ShieldAlert size={15} /> Admin Cleaner
@@ -587,11 +587,11 @@ const DecksPage: React.FC = () => {
       )}
 
       {/* Navigation Tabs - Sticky */}
-      <div className="sticky top-0 z-20 -my-2 flex flex-wrap items-center justify-between gap-4 border-b border-border/40 bg-background/95 py-2 backdrop-blur-md">
-        <div className="flex items-center gap-2 rounded-2xl border border-border/80 bg-card p-1.5 shadow-xs">
+      <div className="sticky top-0 z-20 -my-2 flex flex-wrap items-center justify-between gap-3 border-b border-border/40 bg-background/95 py-2 backdrop-blur-md">
+        <div className="flex w-full items-center gap-1.5 rounded-2xl border border-border/80 bg-card p-1 shadow-xs sm:w-auto sm:gap-2 sm:p-1.5">
           <button
             onClick={() => setActiveTab('my')}
-            className={`flex cursor-pointer items-center gap-2 rounded-xl px-5 py-2.5 text-xs font-black transition-all ${
+            className={`flex flex-1 cursor-pointer items-center justify-center gap-1.5 rounded-xl px-3 py-2 text-xs font-black transition-all sm:flex-initial sm:gap-2 sm:px-5 sm:py-2.5 ${
               activeTab === 'my'
                 ? 'bg-primary text-primary-foreground shadow-xs'
                 : 'text-muted-foreground hover:text-foreground'
@@ -601,7 +601,7 @@ const DecksPage: React.FC = () => {
           </button>
           <button
             onClick={() => setActiveTab('library')}
-            className={`flex cursor-pointer items-center gap-2 rounded-xl px-5 py-2.5 text-xs font-black transition-all ${
+            className={`flex flex-1 cursor-pointer items-center justify-center gap-1.5 rounded-xl px-3 py-2 text-xs font-black transition-all sm:flex-initial sm:gap-2 sm:px-5 sm:py-2.5 ${
               activeTab === 'library'
                 ? 'bg-primary text-primary-foreground shadow-xs'
                 : 'text-muted-foreground hover:text-foreground'
@@ -615,56 +615,56 @@ const DecksPage: React.FC = () => {
       {activeTab === 'my' && (
         <div className="space-y-6">
           {/* Sub-tabs & Multi-select Toolbar */}
-          <div className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-border/80 bg-card/60 p-3">
-            <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-border/80 bg-card/60 p-2.5 sm:p-3">
+            <div className="flex w-full items-center gap-1.5 sm:w-auto sm:gap-2">
               <button
                 onClick={() => {
                   setSubTab('active');
                   setSelectedSubjectIds([]);
                 }}
-                className={`flex items-center gap-1.5 rounded-xl px-4 py-2 text-xs font-black transition-all ${
+                className={`flex flex-1 items-center justify-center gap-1.5 rounded-xl px-3 py-2 text-xs font-black transition-all sm:flex-initial sm:px-4 ${
                   subTab === 'active'
                     ? 'bg-primary text-primary-foreground shadow-xs'
                     : 'text-muted-foreground hover:bg-muted/60 hover:text-foreground'
                 }`}
               >
-                <FolderCheck size={15} /> Faol To'plamlar ({activeSubjects.length})
+                <FolderCheck size={15} /> Faol ({activeSubjects.length})
               </button>
               <button
                 onClick={() => {
                   setSubTab('archived');
                   setSelectedSubjectIds([]);
                 }}
-                className={`flex items-center gap-1.5 rounded-xl px-4 py-2 text-xs font-black transition-all ${
+                className={`flex flex-1 items-center justify-center gap-1.5 rounded-xl px-3 py-2 text-xs font-black transition-all sm:flex-initial sm:px-4 ${
                   subTab === 'archived'
                     ? 'bg-[#C9A961] font-black text-black shadow-xs'
                     : 'text-muted-foreground hover:bg-muted/60 hover:text-foreground'
                 }`}
               >
-                <FolderArchive size={15} /> Arxivlangan ({archivedSubjects.length})
+                <FolderArchive size={15} /> Arxiv ({archivedSubjects.length})
               </button>
             </div>
 
             {/* Multi-select Action Buttons */}
             {currentList.length > 0 && (
-              <div className="flex items-center gap-2">
+              <div className="flex w-full flex-wrap items-center justify-start gap-2 sm:w-auto sm:justify-end">
                 <button
                   onClick={toggleSelectAll}
-                  className="flex items-center gap-1.5 rounded-xl border border-input bg-background px-3 py-2 text-xs font-bold text-foreground hover:bg-muted"
+                  className="flex items-center gap-1.5 rounded-xl border border-input bg-background px-2.5 py-1.5 text-xs font-bold text-foreground hover:bg-muted sm:px-3 sm:py-2"
                 >
                   {selectedSubjectIds.length === currentList.length && currentList.length > 0 ? (
                     <CheckSquare size={14} className="text-indigo-600 dark:text-indigo-400" />
                   ) : (
                     <Square size={14} />
                   )}
-                  <span>Barchasini Belgilash</span>
+                  <span>Barchasi</span>
                 </button>
 
                 {selectedSubjectIds.length > 0 && (
                   <>
                     <button
                       onClick={() => handleBatchArchive(subTab === 'active')}
-                      className="flex items-center gap-1.5 rounded-xl border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-xs font-bold text-amber-600 hover:bg-amber-500/20 dark:text-amber-400"
+                      className="flex items-center gap-1.5 rounded-xl border border-amber-500/30 bg-amber-500/10 px-2.5 py-1.5 text-xs font-bold text-amber-600 hover:bg-amber-500/20 dark:text-amber-400 sm:px-3 sm:py-2"
                     >
                       {subTab === 'active' ? <Archive size={14} /> : <ArchiveRestore size={14} />}
                       <span>
@@ -676,7 +676,7 @@ const DecksPage: React.FC = () => {
 
                     <button
                       onClick={handleBatchDelete}
-                      className="flex items-center gap-1.5 rounded-xl bg-rose-600 px-3 py-2 text-xs font-black text-white shadow-sm hover:bg-rose-700"
+                      className="flex items-center gap-1.5 rounded-xl bg-rose-600 px-2.5 py-1.5 text-xs font-black text-white shadow-sm hover:bg-rose-700 sm:px-3 sm:py-2"
                     >
                       <Trash2 size={14} />
                       <span>{selectedSubjectIds.length} ta O'chirish</span>

@@ -296,8 +296,9 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
   return (
     <div className="space-y-6">
       {/* Header Banner — Sumi-e & Hanko */}
-      <div className="relative max-w-full overflow-hidden rounded-3xl border border-border bg-card p-4 shadow-xs sm:p-6 md:p-8">
-        <div className="relative z-10 flex flex-col justify-between gap-6 md:flex-row md:items-center">
+      <div className="relative max-w-full overflow-hidden rounded-2xl border border-border bg-card p-2.5 shadow-xs sm:p-4 md:rounded-3xl md:p-8">
+        {/* Desktop Top Header Info */}
+        <div className="hidden flex-col justify-between gap-6 md:flex md:flex-row md:items-center">
           <div>
             <div className="badge-gold mb-3">
               <Sparkles className="h-3.5 w-3.5" />{' '}
@@ -344,7 +345,7 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
         </div>
 
         {/* Sub-Tabs Bar */}
-        <div className="mt-6 flex items-center gap-2 overflow-x-auto border-t border-border pt-4">
+        <div className="scrollbar-none flex items-center gap-1.5 overflow-x-auto md:mt-6 md:border-t md:border-border md:pt-4">
           <button
             onClick={() => setActiveTab('grammar')}
             className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-bold transition-all ${

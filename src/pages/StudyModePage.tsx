@@ -537,41 +537,41 @@ const StudyModePage: React.FC = () => {
           </div>
         </div>
       )}
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <div className="flex flex-wrap items-center gap-2">
+      <div className="flex flex-wrap items-center justify-between gap-2.5">
+        <div className="flex items-center gap-2">
           <button
             onClick={() => navigate(-1)}
-            className="rounded-xl border border-border p-2.5 text-muted-foreground transition-all hover:bg-muted hover:text-foreground"
+            className="rounded-xl border border-border p-2 text-muted-foreground transition-all hover:bg-muted hover:text-foreground"
             title="Orqaga"
           >
-            <ArrowLeft size={20} />
+            <ArrowLeft size={18} />
           </button>
           {/* Mode selector */}
           <div className="flex items-center gap-1 rounded-xl border border-border bg-muted p-1">
             <button
               onClick={() => setStudyMode('srs')}
-              className={`rounded-lg px-3 py-1.5 text-xs font-bold transition-all ${studyMode === 'srs' ? 'bg-primary text-primary-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}
+              aria-label="Flashcard SRS"
+              className={`rounded-lg px-2.5 py-1 text-xs font-bold transition-all ${studyMode === 'srs' ? 'bg-primary text-primary-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}
             >
-              🎴 Flashcard SRS
+              🎴 <span className="hidden sm:inline">Flashcard </span>SRS
             </button>
             <button
               onClick={() => setStudyMode('type')}
-              className={`rounded-lg px-3 py-1.5 text-xs font-bold transition-all ${studyMode === 'type' ? 'bg-primary text-primary-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}
+              aria-label="Yozib Tekshirish"
+              className={`rounded-lg px-2.5 py-1 text-xs font-bold transition-all ${studyMode === 'type' ? 'bg-primary text-primary-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}
             >
-              ✏️ Yozib Tekshirish
+              ✏️ <span className="hidden sm:inline">Yozib </span>Tekshirish
             </button>
           </div>
 
           {/* Configurable Batch Size Selector */}
-          <div className="flex items-center gap-1 rounded-xl border border-border bg-muted/70 p-1">
-            <span className="hidden px-1.5 text-[10px] font-bold text-muted-foreground sm:inline">
-              Hajm:
-            </span>
+          <div className="hidden items-center gap-1 rounded-xl border border-border bg-muted/70 p-1 sm:flex">
+            <span className="px-1 text-[10px] font-bold text-muted-foreground">Hajm:</span>
             {(['10', '25', '50', 'all'] as const).map((option) => (
               <button
                 key={option}
                 onClick={() => handleBatchLimitChange(option)}
-                className={`rounded-lg px-2 py-1 text-xs font-bold transition-all ${
+                className={`rounded-lg px-2 py-0.5 text-xs font-bold transition-all ${
                   batchLimit === option
                     ? 'bg-primary text-primary-foreground shadow-sm'
                     : 'text-muted-foreground hover:text-foreground'
@@ -583,51 +583,51 @@ const StudyModePage: React.FC = () => {
             ))}
           </div>
         </div>
-        <div className="flex items-center gap-3">
+
+        <div className="flex items-center gap-2">
           {/* Auto Audio Toggle */}
           <button
             onClick={toggleAutoAudio}
-            className={`flex items-center gap-1.5 rounded-xl border px-2.5 py-1.5 text-xs font-bold transition-all active:scale-95 ${
+            className={`flex items-center gap-1 rounded-xl border px-2 py-1 text-xs font-bold transition-all active:scale-95 ${
               autoAudio
                 ? 'border-primary/40 bg-primary/10 text-primary shadow-xs'
                 : 'border-border bg-card text-muted-foreground hover:text-foreground'
             }`}
             title="Karta o'zgarganda talaffuzni avtomatik eshittirish"
           >
-            <Volume2 size={14} className={autoAudio ? 'text-primary' : ''} />
-            <span className="hidden sm:inline">Auto Ovoz</span>
+            <Volume2 size={13} className={autoAudio ? 'text-primary' : ''} />
+            <span className="hidden sm:inline">Auto</span>
             <span className="text-[10px] opacity-75">{autoAudio ? 'ON' : 'OFF'}</span>
           </button>
 
           {/* Accent / Language Switcher */}
           <div className="flex items-center gap-1 rounded-xl border border-border bg-muted/60 p-1">
             {isJapanese ? (
-              <button
-                onClick={() => setAccent('ja-JP')}
-                className="flex items-center gap-1.5 rounded-lg border border-rose-500/30 bg-rose-500/20 px-2.5 py-1 text-xs font-bold text-rose-400"
+              <span
+                className="flex items-center gap-1 rounded-lg border border-rose-500/30 bg-rose-500/20 px-2 py-0.5 text-xs font-bold text-rose-400"
                 title="Yapon tili talaffuzi (ja-JP)"
               >
-                🇯🇵 JP (Yapon)
-              </button>
+                🇯🇵 JP
+              </span>
             ) : (
               <>
                 <button
                   onClick={() => setAccent('en-US')}
-                  className={`rounded-lg px-2.5 py-1 text-xs font-bold transition-all ${accent === 'en-US' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground'}`}
+                  className={`rounded-lg px-2 py-0.5 text-xs font-bold transition-all ${accent === 'en-US' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground'}`}
                 >
-                  🇺🇸 US
+                  🇺🇸
                 </button>
                 <button
                   onClick={() => setAccent('en-GB')}
-                  className={`rounded-lg px-2.5 py-1 text-xs font-bold transition-all ${accent === 'en-GB' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground'}`}
+                  className={`rounded-lg px-2 py-0.5 text-xs font-bold transition-all ${accent === 'en-GB' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground'}`}
                 >
-                  🇬🇧 UK
+                  🇬🇧
                 </button>
               </>
             )}
           </div>
 
-          <span className="rounded-full border border-primary/20 bg-primary/10 px-3 py-1.5 text-xs font-black text-primary">
+          <span className="rounded-full border border-primary/20 bg-primary/10 px-2.5 py-1 text-xs font-black text-primary">
             {currentCardIndex + 1} / {queue.length}
           </span>
         </div>
@@ -756,7 +756,7 @@ const StudyModePage: React.FC = () => {
           data-testid="study-card"
           style={cardStyle}
           {...swipeHandlers}
-          className="perspective-1000 relative h-96 cursor-pointer select-none"
+          className="perspective-1000 relative h-72 cursor-pointer select-none sm:h-96"
         >
           {/* Visual Swipe Badges for Mobile */}
           {isDragging && swipeDirection === 'left' && (
@@ -782,7 +782,7 @@ const StudyModePage: React.FC = () => {
             className={`transform-style-3d relative h-full w-full transition-all duration-700 ${isFlipped ? 'rotate-y-180' : ''}`}
           >
             {/* Front Side */}
-            <div className="backface-hidden absolute inset-0 flex flex-col justify-between rounded-3xl border border-border bg-card p-8 shadow-xl">
+            <div className="backface-hidden absolute inset-0 flex flex-col justify-between rounded-3xl border border-border bg-card p-5 shadow-xl sm:p-8">
               <div className="flex items-center justify-between">
                 {isAdmin ? (
                   <div className="flex items-center gap-2">
@@ -813,7 +813,7 @@ const StudyModePage: React.FC = () => {
                 </button>
               </div>
               <div className="my-auto text-center">
-                <p className="text-4xl font-extrabold tracking-tight text-foreground">
+                <p className="text-2xl font-extrabold tracking-tight text-foreground sm:text-4xl">
                   {currentCard?.front}
                 </p>
               </div>
@@ -823,7 +823,7 @@ const StudyModePage: React.FC = () => {
             </div>
 
             {/* Back Side */}
-            <div className="backface-hidden rotate-y-180 absolute inset-0 flex flex-col justify-between rounded-3xl border-2 border-primary/50 bg-gradient-to-br from-[#1A2028] via-[#222B36] to-[#1A2028] p-8 text-foreground shadow-2xl">
+            <div className="backface-hidden rotate-y-180 absolute inset-0 flex flex-col justify-between rounded-3xl border-2 border-primary/50 bg-gradient-to-br from-[#1A2028] via-[#222B36] to-[#1A2028] p-5 text-foreground shadow-2xl sm:p-8">
               <div className="flex justify-end">
                 <button
                   onClick={handleSpeak}

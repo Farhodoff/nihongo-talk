@@ -399,7 +399,7 @@ export const MinnaLessonsExplorer: React.FC<MinnaLessonsExplorerProps> = ({ init
   return (
     <div className="space-y-6 animate-in fade-in">
       {/* 5-Level Switcher: N5, N4, N3, N2, N1 */}
-      <div className="flex flex-wrap items-center gap-2 rounded-2xl border border-border bg-card/60 p-1.5 backdrop-blur-sm sm:w-fit">
+      <div className="flex items-center gap-1.5 overflow-x-auto rounded-2xl border border-border bg-card/60 p-1.5 backdrop-blur-sm sm:w-fit sm:gap-2">
         {(['n5', 'n4', 'n3', 'n2', 'n1'] as JlptLevel[]).map((lvl) => {
           const lCfg = LEVEL_CONFIGS[lvl];
           const isActive = activeLevel === lvl;
@@ -413,15 +413,16 @@ export const MinnaLessonsExplorer: React.FC<MinnaLessonsExplorerProps> = ({ init
                 newParams.set('level', lvl);
                 setSearchParams(newParams, { replace: true });
               }}
-              className={`flex cursor-pointer items-center gap-2 rounded-xl px-3.5 py-2 text-xs font-bold transition-all sm:text-sm ${
+              className={`flex shrink-0 cursor-pointer items-center justify-center gap-1.5 rounded-xl px-3 py-1.5 text-xs font-bold transition-all sm:px-3.5 sm:py-2 sm:text-sm ${
                 isActive
                   ? 'border border-border bg-card text-foreground shadow-xs'
                   : 'text-muted-foreground hover:bg-muted/50 hover:text-foreground'
               }`}
             >
-              <span>{lCfg.tabLabel}</span>
+              <span className="sm:hidden">{lCfg.name}</span>
+              <span className="hidden sm:inline">{lCfg.tabLabel}</span>
               <span
-                className={`rounded-md px-1.5 py-0.5 text-[10px] font-black ${
+                className={`hidden rounded-md px-1.5 py-0.5 text-[10px] font-black sm:inline ${
                   isActive ? lCfg.badgeClass : 'bg-muted text-muted-foreground'
                 }`}
               >
@@ -434,46 +435,48 @@ export const MinnaLessonsExplorer: React.FC<MinnaLessonsExplorerProps> = ({ init
 
       {/* Course Hero Banner */}
       <div
-        className={`relative overflow-hidden rounded-3xl border p-5 shadow-xs transition-colors duration-300 sm:p-6 ${cfg.bannerGradient}`}
+        className={`relative overflow-hidden rounded-2xl border p-3.5 shadow-xs transition-colors duration-300 sm:rounded-3xl sm:p-6 ${cfg.bannerGradient}`}
       >
-        <div className="relative z-10 flex flex-col justify-between gap-4 md:flex-row md:items-center">
-          <div className="space-y-2">
+        <div className="relative z-10 flex flex-col justify-between gap-3 sm:gap-4 md:flex-row md:items-center">
+          <div className="space-y-1.5 sm:space-y-2">
             <div
-              className={`inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-bold ${cfg.badgeClass}`}
+              className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-[11px] font-bold sm:px-3 sm:py-1 sm:text-xs ${cfg.badgeClass}`}
             >
-              <Sparkles size={13} />
+              <Sparkles size={12} />
               <span>{cfg.badge}</span>
             </div>
-            <h2 className="text-xl font-black text-foreground sm:text-2xl">{cfg.title}</h2>
-            <p className="max-w-2xl text-xs leading-relaxed text-muted-foreground sm:text-sm">
+            <h2 className="text-base font-black text-foreground sm:text-2xl">{cfg.title}</h2>
+            <p className="hidden max-w-2xl text-xs leading-relaxed text-muted-foreground sm:block sm:text-sm">
               {cfg.description}
             </p>
           </div>
 
           {/* Stats card */}
-          <div className="flex shrink-0 items-center gap-3 rounded-2xl border border-border bg-card/80 p-3.5 backdrop-blur-md">
+          <div className="flex shrink-0 items-center gap-2.5 rounded-xl border border-border bg-card/80 p-2.5 backdrop-blur-md sm:rounded-2xl sm:p-3.5">
             <div
-              className={`flex h-12 w-12 items-center justify-center rounded-xl text-xl ${cfg.numberBadgeClass}`}
+              className={`flex h-9 w-9 items-center justify-center rounded-lg text-base sm:h-12 sm:w-12 sm:rounded-xl sm:text-xl ${cfg.numberBadgeClass}`}
             >
               🎓
             </div>
             <div>
-              <div className="flex items-center gap-1.5 text-xs font-semibold text-muted-foreground">
-                <CheckCircle2 size={13} className="text-emerald-500" />
+              <div className="flex items-center gap-1.5 text-[11px] font-semibold text-muted-foreground sm:text-xs">
+                <CheckCircle2 size={12} className="text-emerald-500" />
                 <span>O'zlashtirish:</span>
               </div>
-              <div className="text-lg font-black text-foreground">
+              <div className="text-sm font-black text-foreground sm:text-lg">
                 {completedCount} / {cfg.totalLessons}{' '}
-                <span className="text-xs font-medium text-muted-foreground">dars</span>
+                <span className="text-[11px] font-medium text-muted-foreground sm:text-xs">
+                  dars
+                </span>
               </div>
             </div>
           </div>
         </div>
 
         {/* Progress Bar */}
-        <div className="mt-4">
-          <div className="mb-1 flex items-center justify-between text-xs font-semibold text-muted-foreground">
-            <span>Umumiy {cfg.name} Darslik Jarayoni</span>
+        <div className="mt-3 sm:mt-4">
+          <div className="mb-1 flex items-center justify-between text-[11px] font-semibold text-muted-foreground sm:text-xs">
+            <span>Umumiy {cfg.name} Jarayoni</span>
             <span>{Math.round((completedCount / cfg.totalLessons) * 100)}%</span>
           </div>
           <div className="h-2 w-full overflow-hidden rounded-full bg-muted/60">
