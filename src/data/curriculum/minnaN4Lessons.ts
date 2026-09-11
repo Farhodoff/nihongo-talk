@@ -21,7 +21,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
         type: 'learn',
         estimatedMinutes: 8,
         learnData: {
-          title: '26-Dars: 26-Dars: 〜んです / 〜んですが (Izoh, sabab va iltimos bildirish)',
+          title: '26-Dars: 〜んです / 〜んですが (Izoh, sabab va iltimos bildirish)',
           subtitle: '第26課：〜んです・〜んですが',
           explanation:
             "26-Dars: 〜んです / 〜んですが (Izoh, sabab va iltimos bildirish) bo'yicha to'liq grammatik izohlar, formulalar va Furiganali misollar to'plami.",
@@ -465,7 +465,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
         type: 'learn',
         estimatedMinutes: 8,
         learnData: {
-          title: "27-Dars: 27-Dars: 可能動詞 (Qobiliyat va imkoniyat fe'llari: 〜られる / 〜れる)",
+          title: "27-Dars: 可能動詞 (Qobiliyat va imkoniyat fe'llari: 〜られる / 〜れる)",
           subtitle: '第27課：可能動詞・見える・聞こえる',
           explanation:
             "27-Dars: 可能動詞 (Qobiliyat va imkoniyat fe'llari: 〜られる / 〜れる) bo'yicha to'liq grammatik izohlar, formulalar va Furiganali misollar to'plami.",
@@ -865,7 +865,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
         type: 'learn',
         estimatedMinutes: 8,
         learnData: {
-          title: '28-Dars: 28-Dars: 〜ながら / 〜ています (Odat) / 〜し、〜し (Sabablarni sanash)',
+          title: '28-Dars: 〜ながら / 〜ています (Odat) / 〜し、〜し (Sabablarni sanash)',
           subtitle: '第28課：〜ながら・〜し、〜し',
           explanation:
             "28-Dars: 〜ながら / 〜ています (Odat) / 〜し、〜し (Sabablarni sanash) bo'yicha to'liq grammatik izohlar, formulalar va Furiganali misollar to'plami.",
@@ -1255,8 +1255,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
         type: 'learn',
         estimatedMinutes: 8,
         learnData: {
-          title:
-            "29-Dars: 29-Dars: 自動詞・他動詞 (O'zlik va o'zgalik fe'llari) / 〜てしまいました",
+          title: "29-Dars: 自動詞・他動詞 (O'zlik va o'zgalik fe'llari) / 〜てしまいました",
           subtitle: '第29課：自動詞＋ています・〜てしまいました',
           explanation:
             "29-Dars: 自動詞・他動詞 (O'zlik va o'zgalik fe'llari) / 〜てしまいました bo'yicha to'liq grammatik izohlar, formulalar va Furiganali misollar to'plami.",
@@ -1635,7 +1634,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
         type: 'learn',
         estimatedMinutes: 8,
         learnData: {
-          title: '30-Dars: 30-Dars: 他動詞＋てあります / 〜ておきます (Tayyorgarlik choralari)',
+          title: '30-Dars: 他動詞＋てあります / 〜ておきます (Tayyorgarlik choralari)',
           subtitle: '第30課：〜てあります・〜ておきます',
           explanation:
             "30-Dars: 他動詞＋てあります / 〜ておきます (Tayyorgarlik choralari) bo'yicha to'liq grammatik izohlar, formulalar va Furiganali misollar to'plami.",
@@ -2021,7 +2020,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
         type: 'learn',
         estimatedMinutes: 8,
         learnData: {
-          title: '31-Dars: 31-Dars: 意向形 (Volitional form) / 〜と思っています / 〜つもりです',
+          title: '31-Dars: 意向形 (Volitional form) / 〜と思っています / 〜つもりです',
           subtitle: '第31課：意向形・〜つもりです',
           explanation:
             "31-Dars: 意向形 (Volitional form) / 〜と思っています / 〜つもりです bo'yicha to'liq grammatik izohlar, formulalar va Furiganali misollar to'plami.",
@@ -2384,7 +2383,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
         type: 'learn',
         estimatedMinutes: 8,
         learnData: {
-          title: '32-Dars: 32-Dars: 〜ほうがいいです (Maslahat) / 〜でしょう / 〜かもしれません',
+          title: '32-Dars: 〜ほうがいいです (Maslahat) / 〜でしょう / 〜かもしれません',
           subtitle: '第32課：〜ほうがいい・〜でしょう・〜かもしれない',
           explanation:
             "32-Dars: 〜ほうがいいです (Maslahat) / 〜でしょう / 〜かもしれません bo'yicha to'liq grammatik izohlar, formulalar va Furiganali misollar to'plami.",
@@ -2754,7 +2753,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
         type: 'learn',
         estimatedMinutes: 8,
         learnData: {
-          title: '33-Dars: 33-Dars: 命令形・禁止形 (Buyruq va taqiq) / 〜という意味です',
+          title: '33-Dars: 命令形・禁止形 (Buyruq va taqiq) / 〜という意味です',
           subtitle: '第33課：命令形・禁止形・〜という意味です',
           explanation:
             "33-Dars: 命令形・禁止形 (Buyruq va taqiq) / 〜という意味です bo'yicha to'liq grammatik izohlar, formulalar va Furiganali misollar to'plami.",
@@ -3110,7 +3109,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
         type: 'learn',
         estimatedMinutes: 8,
         learnData: {
-          title: '34-Dars: 34-Dars: 〜とおりに (Xuddi shunday) / 〜あとで (Keyin) / 〜て・ないで',
+          title: '34-Dars: 〜とおりに (Xuddi shunday) / 〜あとで (Keyin) / 〜て・ないで',
           subtitle: '第34課：〜とおりに・〜あとで・〜ないで',
           explanation:
             "34-Dars: 〜とおりに (Xuddi shunday) / 〜あとで (Keyin) / 〜て・ないで bo'yicha to'liq grammatik izohlar, formulalar va Furiganali misollar to'plami.",
@@ -3438,7 +3437,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
         type: 'learn',
         estimatedMinutes: 8,
         learnData: {
-          title: '35-Dars: 35-Dars: 条件形 (Shart shakli: 〜ば) / 〜なら (Tavsiya va chegara)',
+          title: '35-Dars: 条件形 (Shart shakli: 〜ば) / 〜なら (Tavsiya va chegara)',
           subtitle: '第35課：条件形（〜ば）・〜なら',
           explanation:
             "35-Dars: 条件形 (Shart shakli: 〜ば) / 〜なら (Tavsiya va chegara) bo'yicha to'liq grammatik izohlar, formulalar va Furiganali misollar to'plami.",
@@ -3781,7 +3780,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
         type: 'learn',
         estimatedMinutes: 8,
         learnData: {
-          title: '36-Dars: 36-Dars: 〜ように (Maqsad) / 〜ようになります / 〜ようにします',
+          title: '36-Dars: 〜ように (Maqsad) / 〜ようになります / 〜ようにします',
           subtitle: '第36課：〜ように・〜ようになる・〜ようにする',
           explanation:
             "36-Dars: 〜ように (Maqsad) / 〜ようになります / 〜ようにします bo'yicha to'liq grammatik izohlar, formulalar va Furiganali misollar to'plami.",
@@ -4162,7 +4161,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
         type: 'learn',
         estimatedMinutes: 8,
         learnData: {
-          title: '37-Dars: 37-Dars: 受身動詞 (Majhul nisbat: 〜られる) / 〜によって',
+          title: '37-Dars: 受身動詞 (Majhul nisbat: 〜られる) / 〜によって',
           subtitle: '第37課：受身形・〜によって',
           explanation:
             "37-Dars: 受身動詞 (Majhul nisbat: 〜られる) / 〜によって bo'yicha to'liq grammatik izohlar, formulalar va Furiganali misollar to'plami.",
@@ -4519,7 +4518,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
         type: 'learn',
         estimatedMinutes: 8,
         learnData: {
-          title: "38-Dars: 38-Dars: 動詞の名詞化 (Fe'lning otlashishi: 〜のは / 〜のが / 〜のを)",
+          title: "38-Dars: 動詞の名詞化 (Fe'lning otlashishi: 〜のは / 〜のが / 〜のを)",
           subtitle: '第38課：動詞の名詞化（〜のは・〜のが・〜のを）',
           explanation:
             "38-Dars: 動詞の名詞化 (Fe'lning otlashishi: 〜のは / 〜のが / 〜のを) bo'yicha to'liq grammatik izohlar, formulalar va Furiganali misollar to'plami.",
@@ -4864,7 +4863,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
         type: 'learn',
         estimatedMinutes: 8,
         learnData: {
-          title: '39-Dars: 39-Dars: 原因・理由 (Sabab-oqibat: 〜て / 〜で / 〜ので)',
+          title: '39-Dars: 原因・理由 (Sabab-oqibat: 〜て / 〜で / 〜ので)',
           subtitle: '第39課：〜て（理由）・〜で・〜ので',
           explanation:
             "39-Dars: 原因・理由 (Sabab-oqibat: 〜て / 〜で / 〜ので) bo'yicha to'liq grammatik izohlar, formulalar va Furiganali misollar to'plami.",
@@ -5209,7 +5208,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
         type: 'learn',
         estimatedMinutes: 8,
         learnData: {
-          title: '40-Dars: 40-Dars: 疑問詞＋か / 〜かどうか / 〜てみます',
+          title: '40-Dars: 疑問詞＋か / 〜かどうか / 〜てみます',
           subtitle: '第40課：〜か・〜かどうか・〜てみる',
           explanation:
             "40-Dars: 疑問詞＋か / 〜かどうか / 〜てみます bo'yicha to'liq grammatik izohlar, formulalar va Furiganali misollar to'plami.",
@@ -5545,8 +5544,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
         type: 'learn',
         estimatedMinutes: 8,
         learnData: {
-          title:
-            '41-Dars: 41-Dars: 授受動詞 (いただきます・くださいます・やります / 〜ていただきます)',
+          title: '41-Dars: 授受動詞 (いただきます・くださいます・やります / 〜ていただきます)',
           subtitle: '第41課：授受動詞（敬語表現）',
           explanation:
             "41-Dars: 授受動詞 (いただきます・くださいます・やります / 〜ていただきます) bo'yicha to'liq grammatik izohlar, formulalar va Furiganali misollar to'plami.",
@@ -5876,7 +5874,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
         type: 'learn',
         estimatedMinutes: 8,
         learnData: {
-          title: '42-Dars: 42-Dars: 目的 (〜ために / 〜のに使います)',
+          title: '42-Dars: 目的 (〜ために / 〜のに使います)',
           subtitle: '第42課：目的（〜ために・〜のに）',
           explanation:
             "42-Dars: 目的 (〜ために / 〜のに使います) bo'yicha to'liq grammatik izohlar, formulalar va Furiganali misollar to'plami.",
@@ -6218,8 +6216,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
         type: 'learn',
         estimatedMinutes: 8,
         learnData: {
-          title:
-            "43-Dars: 43-Dars: 様態 (〜そうです: ...ko'rinadi, tuyuladi) / 行動の移動 (〜てきます)",
+          title: "43-Dars: 様態 (〜そうです: ...ko'rinadi, tuyuladi) / 行動の移動 (〜てきます)",
           subtitle: '第43課：〜そうだ（様態）・〜てくる',
           explanation:
             "43-Dars: 様態 (〜そうです: ...ko'rinadi, tuyuladi) / 行動の移動 (〜てきます) bo'yicha to'liq grammatik izohlar, formulalar va Furiganali misollar to'plami.",
@@ -6538,8 +6535,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
         type: 'learn',
         estimatedMinutes: 8,
         learnData: {
-          title:
-            '44-Dars: 44-Dars: 過度 (〜すぎます) / 難易 (〜やすい / 〜にくい) / 変化 (〜くします)',
+          title: '44-Dars: 過度 (〜すぎます) / 難易 (〜やすい / 〜にくい) / 変化 (〜くします)',
           subtitle: '第44課：〜すぎる・〜やすい・〜にくい・〜くする',
           explanation:
             "44-Dars: 過度 (〜すぎます) / 難易 (〜やすい / 〜にくい) / 変化 (〜くします) bo'yicha to'liq grammatik izohlar, formulalar va Furiganali misollar to'plami.",
@@ -6915,7 +6911,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
         type: 'learn',
         estimatedMinutes: 8,
         learnData: {
-          title: '45-Dars: 45-Dars: 条件・仮定 (〜場合は) / 逆接 (〜のに: holbuki, kutilganga zid)',
+          title: '45-Dars: 条件・仮定 (〜場合は) / 逆接 (〜のに: holbuki, kutilganga zid)',
           subtitle: '第45課：〜場合（は）・〜のに（逆接）',
           explanation:
             "45-Dars: 条件・仮定 (〜場合は) / 逆接 (〜のに: holbuki, kutilganga zid) bo'yicha to'liq grammatik izohlar, formulalar va Furiganali misollar to'plami.",
@@ -7253,8 +7249,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
         type: 'learn',
         estimatedMinutes: 8,
         learnData: {
-          title:
-            '46-Dars: 46-Dars: 局面 (〜ところです: Boshlanish/jarayon/yakun) / 直後 (〜ばかりです)',
+          title: '46-Dars: 局面 (〜ところです: Boshlanish/jarayon/yakun) / 直後 (〜ばかりです)',
           subtitle: '第46課：〜ところ・〜ばかり・〜はずだ',
           explanation:
             "46-Dars: 局面 (〜ところです: Boshlanish/jarayon/yakun) / 直後 (〜ばかりです) bo'yicha to'liq grammatik izohlar, formulalar va Furiganali misollar to'plami.",
@@ -7578,8 +7573,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
         type: 'learn',
         estimatedMinutes: 8,
         learnData: {
-          title:
-            "47-Dars: 47-Dars: 伝聞 (〜そうです: Eshitishimcha) / 推量 (〜ようです: Ko'rinishidan)",
+          title: "47-Dars: 伝聞 (〜そうです: Eshitishimcha) / 推量 (〜ようです: Ko'rinishidan)",
           subtitle: '第47課：〜そうだ（伝聞）・〜ようだ（推量）',
           explanation:
             "47-Dars: 伝聞 (〜そうです: Eshitishimcha) / 推量 (〜ようです: Ko'rinishidan) bo'yicha to'liq grammatik izohlar, formulalar va Furiganali misollar to'plami.",
@@ -7905,7 +7899,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
         estimatedMinutes: 8,
         learnData: {
           title:
-            '48-Dars: 48-Dars: 使役動詞 (Majburlash yoki ijozat berish: 〜させる) / 〜させていただけませんか',
+            '48-Dars: 使役動詞 (Majburlash yoki ijozat berish: 〜させる) / 〜させていただけませんか',
           subtitle: '第48課：使役形・〜させていただけませんか',
           explanation:
             "48-Dars: 使役動詞 (Majburlash yoki ijozat berish: 〜させる) / 〜させていただけませんか bo'yicha to'liq grammatik izohlar, formulalar va Furiganali misollar to'plami.",
@@ -8238,7 +8232,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
         type: 'learn',
         estimatedMinutes: 8,
         learnData: {
-          title: '49-Dars: 49-Dars: 尊敬語 (Sonkeigo: Hurmat shakli) / お〜になります / 特殊尊敬語',
+          title: '49-Dars: 尊敬語 (Sonkeigo: Hurmat shakli) / お〜になります / 特殊尊敬語',
           subtitle: '第49課：尊敬語（お〜になる・特殊尊敬語）',
           explanation:
             "49-Dars: 尊敬語 (Sonkeigo: Hurmat shakli) / お〜になります / 特殊尊敬語 bo'yicha to'liq grammatik izohlar, formulalar va Furiganali misollar to'plami.",
@@ -8565,7 +8559,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
         type: 'learn',
         estimatedMinutes: 8,
         learnData: {
-          title: '50-Dars: 50-Dars: 謙譲語 (Kenjougo: Kamtarlik shakli) / お〜します / 特殊謙譲語',
+          title: '50-Dars: 謙譲語 (Kenjougo: Kamtarlik shakli) / お〜します / 特殊謙譲語',
           subtitle: '第50課：謙譲語（お〜する・特殊謙譲語・丁寧語）',
           explanation:
             "50-Dars: 謙譲語 (Kenjougo: Kamtarlik shakli) / お〜します / 特殊謙譲語 bo'yicha to'liq grammatik izohlar, formulalar va Furiganali misollar to'plami.",
