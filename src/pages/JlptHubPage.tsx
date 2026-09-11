@@ -53,7 +53,7 @@ export const JlptHubPage: React.FC = () => {
   };
 
   return (
-    <div className="mx-auto max-w-7xl max-w-full space-y-4 overflow-x-hidden p-2.5 pb-16 sm:p-4 md:space-y-8 md:p-8">
+    <div className="mx-auto max-w-7xl space-y-4 overflow-x-hidden p-3 pb-28 sm:p-4 sm:pb-24 md:space-y-8 md:p-8">
       {/* Header — Desktop only; mobile already has top header with title */}
       <div className="hidden overflow-hidden rounded-3xl border border-border bg-card p-4 shadow-xs md:block md:p-6">
         <div className="relative z-10 flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
@@ -109,7 +109,7 @@ export const JlptHubPage: React.FC = () => {
       <div className="scrollbar-none sticky top-0 z-20 flex max-w-full items-center gap-1.5 overflow-x-auto rounded-2xl border border-border bg-card/90 p-1.5 shadow-xs backdrop-blur-md">
         <button
           onClick={() => handleTabChange('lessons')}
-          className={`flex shrink-0 items-center gap-2 whitespace-nowrap rounded-xl px-3.5 py-2 text-xs font-bold transition-all ${
+          className={`flex shrink-0 cursor-pointer items-center gap-2 whitespace-nowrap rounded-xl px-3.5 py-2.5 text-xs font-bold transition-all active:scale-95 ${
             activeTab === 'lessons'
               ? 'scale-[1.02] bg-primary text-primary-foreground shadow-xs'
               : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
@@ -121,7 +121,7 @@ export const JlptHubPage: React.FC = () => {
 
         <button
           onClick={() => handleTabChange('kanji')}
-          className={`flex shrink-0 items-center gap-2 whitespace-nowrap rounded-xl px-3.5 py-2 text-xs font-bold transition-all ${
+          className={`flex shrink-0 cursor-pointer items-center gap-2 whitespace-nowrap rounded-xl px-3.5 py-2.5 text-xs font-bold transition-all active:scale-95 ${
             activeTab === 'kanji'
               ? 'scale-[1.02] bg-primary text-primary-foreground shadow-xs'
               : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
@@ -132,7 +132,7 @@ export const JlptHubPage: React.FC = () => {
 
         <button
           onClick={() => handleTabChange('goi')}
-          className={`flex shrink-0 items-center gap-2 whitespace-nowrap rounded-xl px-3.5 py-2 text-xs font-bold transition-all ${
+          className={`flex shrink-0 cursor-pointer items-center gap-2 whitespace-nowrap rounded-xl px-3.5 py-2.5 text-xs font-bold transition-all active:scale-95 ${
             activeTab === 'goi'
               ? 'scale-[1.02] bg-primary text-primary-foreground shadow-xs'
               : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
@@ -143,8 +143,7 @@ export const JlptHubPage: React.FC = () => {
 
         <button
           onClick={() => handleTabChange('reading')}
-
-          className={`flex shrink-0 items-center gap-2 whitespace-nowrap rounded-xl px-3.5 py-2 text-xs font-bold transition-all ${
+          className={`flex shrink-0 cursor-pointer items-center gap-2 whitespace-nowrap rounded-xl px-3.5 py-2.5 text-xs font-bold transition-all active:scale-95 ${
             activeTab === 'reading'
               ? 'scale-[1.02] bg-primary text-primary-foreground shadow-xs'
               : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
@@ -155,7 +154,7 @@ export const JlptHubPage: React.FC = () => {
 
         <button
           onClick={() => handleTabChange('listening')}
-          className={`flex shrink-0 items-center gap-2 whitespace-nowrap rounded-xl px-3.5 py-2 text-xs font-bold transition-all ${
+          className={`flex shrink-0 cursor-pointer items-center gap-2 whitespace-nowrap rounded-xl px-3.5 py-2.5 text-xs font-bold transition-all active:scale-95 ${
             activeTab === 'listening'
               ? 'scale-[1.02] bg-primary text-primary-foreground shadow-xs'
               : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
@@ -166,7 +165,7 @@ export const JlptHubPage: React.FC = () => {
 
         <button
           onClick={() => handleTabChange('mock')}
-          className={`flex shrink-0 items-center gap-2 whitespace-nowrap rounded-xl px-3.5 py-2 text-xs font-bold transition-all ${
+          className={`flex shrink-0 cursor-pointer items-center gap-2 whitespace-nowrap rounded-xl px-3.5 py-2.5 text-xs font-bold transition-all active:scale-95 ${
             activeTab === 'mock'
               ? 'scale-[1.02] bg-primary text-primary-foreground shadow-xs'
               : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'

@@ -503,7 +503,7 @@ export const MinnaLessonsExplorer: React.FC<MinnaLessonsExplorerProps> = ({ init
         </div>
 
         {/* Search box */}
-        <div className="relative min-w-[220px] sm:w-64">
+        <div className="relative w-full sm:w-64">
           <Search
             size={15}
             className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
@@ -530,7 +530,7 @@ export const MinnaLessonsExplorer: React.FC<MinnaLessonsExplorerProps> = ({ init
           return (
             <div
               key={lesson.id}
-              className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border bg-card p-5 shadow-xs transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md"
+              className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border bg-card p-4 shadow-xs transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md sm:p-5"
             >
               <div>
                 {/* Header badges */}
@@ -609,7 +609,7 @@ export const MinnaLessonsExplorer: React.FC<MinnaLessonsExplorerProps> = ({ init
               <div className="mt-5 flex items-center justify-between gap-2 border-t border-border pt-4">
                 <button
                   onClick={() => navigate(`/lesson/${lesson.id}`)}
-                  className="flex flex-1 cursor-pointer items-center justify-center gap-1.5 rounded-xl bg-primary px-4 py-2 text-xs font-bold text-primary-foreground shadow-xs transition-all hover:bg-primary/90 active:scale-95"
+                  className="flex h-10 flex-1 cursor-pointer items-center justify-center gap-1.5 rounded-xl bg-primary px-4 py-2 text-xs font-bold text-primary-foreground shadow-xs transition-all hover:bg-primary/90 active:scale-95"
                 >
                   <Play size={13} fill="currentColor" />
                   <span>{prog?.completed ? "Qayta O'qish" : 'Darsni Boshlash'}</span>
@@ -624,9 +624,9 @@ export const MinnaLessonsExplorer: React.FC<MinnaLessonsExplorerProps> = ({ init
                     )
                   }
                   title="AI Speaking Coach bilan suhbat"
-                  className="flex h-8 w-8 shrink-0 cursor-pointer items-center justify-center rounded-xl border border-border bg-muted/50 text-muted-foreground transition-all hover:bg-muted hover:text-foreground active:scale-95"
+                  className="flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-xl border border-border bg-muted/50 text-muted-foreground transition-all hover:bg-muted hover:text-foreground active:scale-95"
                 >
-                  <MessageSquare size={14} />
+                  <MessageSquare size={15} />
                 </button>
               </div>
             </div>

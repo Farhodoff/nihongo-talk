@@ -461,15 +461,18 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
   const progressPercentage = Math.round((currentCardIndex / queue.length) * 100);
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col overflow-y-auto bg-background/95 p-4 pb-[max(1.5rem,env(safe-area-inset-bottom,20px))] backdrop-blur-xl md:p-8">
+    <div className="fixed inset-0 z-50 flex flex-col overflow-y-auto bg-background/95 p-4 pb-[max(1.5rem,env(safe-area-inset-bottom,20px))] pt-[max(1rem,env(safe-area-inset-top,16px))] backdrop-blur-xl md:p-8">
       {/* Top Bar */}
       <div className="mx-auto mb-6 flex w-full max-w-3xl items-center justify-between gap-4">
         <button
           onClick={onClose}
-          className="flex cursor-pointer items-center gap-2 rounded-xl p-2 text-xs font-bold text-muted-foreground transition-all hover:bg-muted/60 hover:text-foreground"
+          className="flex cursor-pointer items-center gap-2 rounded-xl p-2 text-xs font-bold text-muted-foreground transition-all hover:bg-muted/60 hover:text-foreground active:scale-95"
+          aria-label={isJa ? '単語帳一覧に戻る' : "To'plamlarga qaytish"}
         >
           <ArrowLeft size={18} />
-          <span>{isJa ? '単語帳一覧に戻る' : "To'plamlarga qaytish"}</span>
+          <span className="hidden sm:inline">
+            {isJa ? '単語帳一覧に戻る' : "To'plamlarga qaytish"}
+          </span>
         </button>
 
         {/* Progress bar */}

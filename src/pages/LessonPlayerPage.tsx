@@ -274,21 +274,21 @@ export const LessonPlayerPage: React.FC = () => {
   return (
     <div className="flex min-h-screen flex-col justify-between bg-background">
       {/* Top Navigation Bar */}
-      <div className="sticky top-0 z-20 border-b border-border bg-background/80 px-4 py-3 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-4xl items-center justify-between gap-4">
+      <div className="sticky top-0 z-20 border-b border-border bg-background/80 px-3.5 py-2.5 pt-[max(env(safe-area-inset-top),0.75rem)] backdrop-blur-xl sm:px-4 sm:py-3">
+        <div className="mx-auto flex max-w-4xl items-center justify-between gap-3 sm:gap-4">
           {/* Left: Exit & Title */}
-          <div className="flex items-center gap-3">
+          <div className="flex min-w-0 items-center gap-2.5 sm:gap-3">
             <button
               onClick={handleExit}
-              className="rounded-xl border border-border p-2 text-muted-foreground transition-all hover:bg-secondary hover:text-foreground"
+              className="rounded-xl border border-border p-2 text-muted-foreground transition-all hover:bg-secondary hover:text-foreground active:scale-95"
               title="Chiqish"
               aria-label="Chiqish"
             >
               <X size={18} />
             </button>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="rounded-md border border-primary/20 bg-primary/10 px-2 py-0.5 text-xs font-black uppercase text-primary">
+            <div className="min-w-0">
+              <div className="flex items-center gap-1.5">
+                <span className="rounded-md border border-primary/20 bg-primary/10 px-1.5 py-0.5 text-[10px] font-black uppercase text-primary sm:px-2 sm:text-xs">
                   {lesson.language === 'ja'
                     ? `🇯🇵 JLPT ${lesson.level}`
                     : `🇬🇧 English ${lesson.level}`}
@@ -297,7 +297,7 @@ export const LessonPlayerPage: React.FC = () => {
                   {lesson.unitTitle}
                 </span>
               </div>
-              <h1 className="max-w-[200px] truncate text-sm font-bold text-foreground sm:max-w-sm md:max-w-md md:text-base">
+              <h1 className="truncate text-xs font-bold text-foreground sm:text-sm md:text-base">
                 {lesson.title}
               </h1>
             </div>
@@ -382,19 +382,19 @@ export const LessonPlayerPage: React.FC = () => {
 
       {/* Bottom Step Controller Footer */}
       {!isLessonCompleted && (
-        <div className="sticky bottom-0 z-20 border-t border-border bg-background/90 p-4 backdrop-blur-xl">
-          <div className="mx-auto flex max-w-4xl items-center justify-between gap-4">
+        <div className="sticky bottom-0 z-20 border-t border-border bg-background/90 p-3.5 pb-[max(env(safe-area-inset-bottom),0.875rem)] backdrop-blur-xl sm:p-4">
+          <div className="mx-auto flex max-w-4xl items-center justify-between gap-3 sm:gap-4">
             <button
               onClick={handlePrevStep}
               disabled={currentStepIdx === 0}
-              className="rounded-2xl border border-border px-4 py-3 text-xs font-bold text-muted-foreground transition-all hover:bg-secondary hover:text-foreground disabled:cursor-not-allowed disabled:opacity-30"
+              className="h-11 rounded-2xl border border-border px-4 text-xs font-bold text-muted-foreground transition-all hover:bg-secondary hover:text-foreground active:scale-95 disabled:cursor-not-allowed disabled:opacity-30"
             >
               Oldingi qadam
             </button>
 
             <button
               onClick={handleNextStep}
-              className="flex items-center gap-2 rounded-2xl bg-primary px-6 py-3.5 text-xs font-bold text-primary-foreground shadow-lg shadow-primary/25 transition-all hover:opacity-90 md:text-sm"
+              className="flex h-11 items-center gap-2 rounded-2xl bg-primary px-5 text-xs font-bold text-primary-foreground shadow-lg shadow-primary/25 transition-all hover:opacity-90 active:scale-95 sm:px-6 md:text-sm"
             >
               <span>
                 {currentStepIdx === totalSteps - 1

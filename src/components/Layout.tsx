@@ -206,7 +206,7 @@ const Layout: React.FC = () => {
       {focusState.isActive && location.pathname !== '/focus' && (
         <div
           onClick={() => navigate('/focus')}
-          className={`fixed ${isFullScreenPage ? 'bottom-24 right-3 sm:right-6 md:bottom-24' : 'bottom-16 right-3 sm:right-6 md:bottom-6'} glass-card group z-50 flex cursor-pointer items-center gap-2.5 rounded-2xl p-2.5 shadow-xl transition-all animate-in slide-in-from-bottom-4 hover:scale-105 sm:p-3`}
+          className={`fixed ${isFullScreenPage ? 'bottom-24 right-3.5 sm:right-6 md:bottom-24' : 'bottom-24 right-3.5 sm:right-6 md:bottom-6'} glass-card group z-50 flex cursor-pointer items-center gap-2.5 rounded-2xl p-2.5 shadow-xl transition-all animate-in slide-in-from-bottom-4 hover:scale-105 sm:p-3`}
         >
           <div className="relative">
             <div className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-primary/20 sm:h-10 sm:w-10">
@@ -275,7 +275,7 @@ const Layout: React.FC = () => {
             <button
               type="button"
               onClick={() => setLanguage(language === 'uz' ? 'ja' : 'uz')}
-              className="flex items-center gap-1 rounded-xl border border-border/80 bg-muted/80 px-2 py-1 text-[11px] font-bold text-muted-foreground shadow-xs transition-all hover:bg-muted hover:text-foreground active:scale-95"
+              className="flex items-center gap-1 rounded-xl border border-border/80 bg-muted/80 px-2.5 py-1 text-[11px] font-bold text-muted-foreground shadow-xs transition-all hover:bg-muted hover:text-foreground active:scale-95"
               title={language === 'uz' ? '日本語 (JA)' : "O'zbekcha (UZ)"}
             >
               {language === 'uz' ? (
@@ -289,15 +289,6 @@ const Layout: React.FC = () => {
                   <span>JA</span>
                 </>
               )}
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setSidebarOpen(true)}
-              className="flex items-center justify-center rounded-xl border border-border bg-muted/80 p-1.5 text-foreground transition hover:bg-muted active:scale-95"
-              aria-label="Menyu"
-            >
-              <Menu size={18} />
             </button>
           </div>
         </header>
@@ -409,7 +400,7 @@ const Layout: React.FC = () => {
             className={`w-full max-w-full overflow-x-hidden ${
               isFullScreenPage
                 ? 'flex h-full flex-col overflow-hidden'
-                : 'h-full overflow-y-auto pb-20 md:pb-6'
+                : 'h-full overflow-y-auto pb-[max(6.5rem,calc(env(safe-area-inset-bottom)+5rem))] md:pb-8'
             }`}
           >
             <Outlet />
@@ -419,7 +410,7 @@ const Layout: React.FC = () => {
 
       {/* Mobile Bottom Navigation */}
       {!isFullScreenPage && (
-        <nav className="glass-card fixed bottom-0 z-40 flex w-full items-center justify-around border-t border-border bg-background/90 px-2 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-1.5 backdrop-blur-md md:hidden">
+        <nav className="glass-card fixed bottom-0 z-40 flex w-full items-center justify-around border-t border-border bg-background/95 px-2 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-1.5 backdrop-blur-md md:hidden">
           {[
             {
               name: 'JLPT',
@@ -442,9 +433,9 @@ const Layout: React.FC = () => {
               <NavLink
                 key={item.path}
                 to={item.path}
-                className={`flex w-16 flex-col items-center justify-center rounded-xl p-1.5 transition-all duration-200 ${
+                className={`flex h-12 w-16 cursor-pointer flex-col items-center justify-center rounded-xl p-1 transition-all duration-200 active:scale-95 ${
                   isItemActive
-                    ? 'scale-105 bg-primary/10 font-bold text-primary shadow-xs'
+                    ? 'bg-primary/10 font-bold text-primary shadow-xs'
                     : 'text-muted-foreground hover:text-foreground'
                 }`}
               >
@@ -458,7 +449,11 @@ const Layout: React.FC = () => {
             type="button"
             onClick={() => setSidebarOpen(true)}
             aria-label="Menyuni ochish"
-            className="flex w-16 flex-col items-center justify-center rounded-xl p-1.5 text-muted-foreground transition-colors hover:text-foreground"
+            className={`flex h-12 w-16 cursor-pointer flex-col items-center justify-center rounded-xl p-1 transition-all duration-200 active:scale-95 ${
+              isSidebarOpen
+                ? 'bg-primary/10 font-bold text-primary shadow-xs'
+                : 'text-muted-foreground hover:text-foreground'
+            }`}
           >
             <Menu size={20} className="mb-1" />
             <span className="text-[10px] font-medium leading-none">Menyu</span>

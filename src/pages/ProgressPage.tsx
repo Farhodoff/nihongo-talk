@@ -27,18 +27,18 @@ const ProgressPage: React.FC = () => {
   const completedTasks = tasks.filter((t) => t.completed || t.status === 'done').length;
 
   return (
-    <div className="mx-auto max-w-7xl space-y-6 p-4 pb-12 duration-200 animate-in fade-in md:p-8">
+    <div className="mx-auto max-w-7xl space-y-6 p-4 pb-28 duration-200 animate-in fade-in sm:pb-24 md:p-8 md:pb-12">
       {/* Header */}
       <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
         <div>
-          <h2 className="text-3xl font-black tracking-tight text-gray-900 dark:text-white">
+          <h2 className="text-2xl font-black tracking-tight text-foreground sm:text-3xl">
             {language === 'ja'
               ? '学習進捗 & アナリティクス'
               : language === 'en'
                 ? 'Study Progress & Analytics'
                 : "O'quv Statistikasi & Progress"}
           </h2>
-          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+          <p className="mt-1 text-sm text-muted-foreground">
             {language === 'ja'
               ? '日々の学習成果、科目別アクティビティ、弱点克服の記録'
               : language === 'en'
@@ -48,7 +48,7 @@ const ProgressPage: React.FC = () => {
         </div>
         <button
           onClick={() => setIsShareOpen(true)}
-          className="flex items-center gap-2 rounded-2xl bg-primary px-4 py-2 text-xs font-bold text-primary-foreground shadow-sm transition-all hover:opacity-90"
+          className="flex cursor-pointer items-center gap-2 rounded-2xl bg-primary px-4 py-2.5 text-xs font-bold text-primary-foreground shadow-sm transition-all hover:opacity-90 active:scale-95"
         >
           <Share2 size={16} />
           <span>{language === 'ja' ? 'シェアする' : language === 'en' ? 'Share' : 'Ulashish'}</span>
@@ -83,7 +83,7 @@ const ProgressPage: React.FC = () => {
       <div className="no-scrollbar flex items-center gap-2 overflow-x-auto border-b border-border pb-3">
         <button
           onClick={() => setActiveTab('overview')}
-          className={`flex shrink-0 items-center gap-2 rounded-xl px-4 py-2 text-xs font-extrabold transition-all ${
+          className={`flex shrink-0 cursor-pointer items-center gap-2 rounded-xl px-4 py-2.5 text-xs font-extrabold transition-all active:scale-95 ${
             activeTab === 'overview'
               ? 'bg-primary text-primary-foreground shadow-sm'
               : 'bg-muted/40 text-muted-foreground hover:bg-muted'
@@ -94,7 +94,7 @@ const ProgressPage: React.FC = () => {
         </button>
         <button
           onClick={() => setActiveTab('language')}
-          className={`flex shrink-0 items-center gap-2 rounded-xl px-4 py-2 text-xs font-extrabold transition-all ${
+          className={`flex shrink-0 cursor-pointer items-center gap-2 rounded-xl px-4 py-2.5 text-xs font-extrabold transition-all active:scale-95 ${
             activeTab === 'language'
               ? 'bg-primary text-primary-foreground shadow-sm'
               : 'bg-muted/40 text-muted-foreground hover:bg-muted'
@@ -105,7 +105,7 @@ const ProgressPage: React.FC = () => {
         </button>
         <button
           onClick={() => setActiveTab('subjects')}
-          className={`flex shrink-0 items-center gap-2 rounded-xl px-4 py-2 text-xs font-extrabold transition-all ${
+          className={`flex shrink-0 cursor-pointer items-center gap-2 rounded-xl px-4 py-2.5 text-xs font-extrabold transition-all active:scale-95 ${
             activeTab === 'subjects'
               ? 'bg-primary text-primary-foreground shadow-sm'
               : 'bg-muted/40 text-muted-foreground hover:bg-muted'
