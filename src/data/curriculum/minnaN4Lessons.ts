@@ -1,3 +1,4 @@
+import { MINNA_N4_QUIZ_DATABASE } from './minnaN4QuizDatabase';
 import { Lesson } from '../../types/lesson';
 
 export const MINNA_N4_LESSONS: Lesson[] = [
@@ -303,74 +304,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
         practiceData: {
           instructions:
             "Darsda o'rganilgan yangi so'zlar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
-          exercises: [
-            {
-              id: 'ja-minna-l26-ex1',
-              type: 'multiple-choice',
-              prompt:
-                "Bo'sh joyga to'g'ri grammatik qo'shimchani tanlang:\n「頭[あたま]が 痛[いた]い（　）、早[はや]く 帰[かえ]っても いいですか。」",
-              options: ['んですに', 'んですから', 'んですも', 'んですが'],
-              correctAnswer: 3,
-              explanation:
-                "To'g'ri javob: 「んですが」. Iltimos yoki ruxsat so'rashdan oldin sabab va vaziyatni tushuntirishda '〜んですが' ishlatiladi.",
-            },
-            {
-              id: 'ja-minna-l26-ex2',
-              type: 'multiple-choice',
-              prompt: "「都合[つごう]がいい」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
-              options: [
-                'qidirmoq, izlamoq',
-                'kechikmoq (vaqtga / darsga)',
-                "ko'rmoq, tekshirmoq, qarab chiqmoq",
-                'qulay (vaqt, holat)',
-              ],
-              correctAnswer: 3,
-              explanation: "To'g'ri javob: 「qulay (vaqt, holat)」.",
-            },
-            {
-              id: 'ja-minna-l26-ex3',
-              type: 'multiple-choice',
-              prompt: "26-dars grammatik qoidasiga muvofiq to'g'ri tuzilgan gapni aniqlang:",
-              options: [
-                'どうして 遅[おく]れたんですか か でした。 バスが 来[こ]なかったんです か でした。',
-                'どうして 遅[おく]れたんだですか。 バスが 来[こ]なかったんだです。',
-                'どうして 遅[おく]れたんです だか。 バスが 来[こ]なかったんです だ。',
-                'どうして 遅[おく]れたんですか。 バスが 来[こ]なかったんです。',
-              ],
-              correctAnswer: 3,
-              explanation:
-                "To'g'ri gap: 「どうして 遅[おく]れたんですか。 バスが 来[こ]なかったんです。」 (Nega kechikdingiz? Avtobus kelmadi-da.).",
-            },
-            {
-              id: 'ja-minna-l26-ex4',
-              type: 'multiple-choice',
-              prompt:
-                "Ushbu gapning to'g'ri yaponcha tarjimasini tanlang:\n「Yapon tilingiz zo'r-ku! Qancha vaqt o'rgandingiz?」",
-              options: [
-                '生[い]け花[ばな]を 習[なら]いたいんですが、いい 先生[せんせい]を 紹介[しょうかい]して いただけませんか。',
-                '日本語[にほんご]で 手紙[てがみ]を 書[か]いたんですが、ちょっと 見[み]て いただけませんか。',
-                '日本語[にほんご]が 上手[じょうず]ですね。 どのくらい 勉強[べんきょう]したんですか。',
-                'どうして 遅[おく]れたんですか。 バスが 来[こ]なかったんです。',
-              ],
-              correctAnswer: 2,
-              explanation:
-                "Yaponcha to'g'ri ifodasi: 「日本語[にほんご]が 上手[じょうず]ですね。 どのくらい 勉強[べんきょう]したんですか。」.",
-            },
-            {
-              id: 'ja-minna-l26-ex5',
-              type: 'multiple-choice',
-              prompt:
-                'Suhbatdoshingiz: 「どこで 買ったら いいですか。」 dedi. Unga eng mos muloyim javob qaysi?',
-              options: [
-                'ごちそうさまでした。',
-                '駅前の 家電量販店が いいですよ。',
-                'おやすみなさい。',
-                '失礼します。',
-              ],
-              correctAnswer: 1,
-              explanation: "To'g'ri javob: 「駅前の 家電量販店が いいですよ。」.",
-            },
-          ],
+          exercises: [...MINNA_N4_QUIZ_DATABASE[26].practice],
         },
       },
       {
@@ -382,65 +316,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
           instructions:
             "Darsni muvaffaqiyatli yakunlash uchun savollarga to'g'ri javob bering (Kamida 80%).",
           passingScorePercentage: 80,
-          questions: [
-            {
-              id: 'ja-minna-l26-q1',
-              question: '【Mondai 1: Moji/Goi】「連絡します」の 読[よ]み方[かた]は どれですか。',
-              options: ['れんらくします', 'さがします', 'みます', 'おくれます'],
-              correctAnswerIndex: 0,
-              explanation:
-                "「連絡します」 ning to'g'ri o'qilishi: 「れんらくします」 (xabar bermoq, bog'lanmoq).",
-            },
-            {
-              id: 'ja-minna-l26-q2',
-              question:
-                '【Mondai 2: Bunpo】（　）に 入[はい]る 最[もっと]も よいものを 1つ えらびなさい。\n「どこで カメラを 買[か]ったら（　）ですか。」',
-              options: ['よい', 'ある', 'いい', 'する'],
-              correctAnswerIndex: 2,
-              explanation:
-                "To'g'ri javob: 「いい」. Maslahat va yo'l-yo'riq so'rash: 疑問詞 + たらいいですか.",
-            },
-            {
-              id: 'ja-minna-l26-q3',
-              question:
-                "【Mondai 3: Bunpo】26-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
-              options: [
-                'V-て形 ＋ いただけませんか',
-                'V-ます形 ＋ いただけませんか',
-                'V-ない形 ＋ いただけませんか',
-                'V-辞書形 ＋ いただけませんか',
-              ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri grammatik formula: 「V-て形 ＋ いただけませんか」.",
-            },
-            {
-              id: 'ja-minna-l26-q4',
-              question:
-                "【Mondai 4: Dokkai】Quyidagi yaponcha gapning to'g'ri o'zbekcha ma'nosini toping:\n「生[い]け花[ばな]を 習[なら]いたいんですが、いい 先生[せんせい]を 紹介[しょうかい]して いただけませんか。」",
-              options: [
-                "Yapon tilingiz zo'r-ku! Qancha vaqt o'rgandingiz?",
-                "Ikebana o'rganmoqchi edim, yaxshi ustozni tavsiya qilib bera olmaysizmi?",
-                'Yaponcha xat yozgan edim, bir qarab bera olmaysizmi?',
-                'Nega kechikdingiz? Avtobus kelmadi-da.',
-              ],
-              correctAnswerIndex: 1,
-              explanation:
-                "To'g'ri ma'nosi: 「Ikebana o'rganmoqchi edim, yaxshi ustozni tavsiya qilib bera olmaysizmi?」.",
-            },
-            {
-              id: 'ja-minna-l26-q5',
-              question:
-                "【Mondai 5: Kaiwa】Savolga eng to'g'ri javobni tanlang:\n「どこで 買ったら いいですか。」",
-              options: [
-                'おやすみなさい。',
-                '失礼します。',
-                '駅前の 家電量販店が いいですよ。',
-                'ごちそうさまでした。',
-              ],
-              correctAnswerIndex: 2,
-              explanation: "To'g'ri javob: 「駅前の 家電量販店が いいですよ。」.",
-            },
-          ],
+          questions: [...MINNA_N4_QUIZ_DATABASE[26].test],
         },
       },
     ],
@@ -704,74 +580,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
         practiceData: {
           instructions:
             "Darsda o'rganilgan yangi so'zlar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
-          exercises: [
-            {
-              id: 'ja-minna-l27-ex1',
-              type: 'multiple-choice',
-              prompt:
-                "Bo'sh joyga to'g'ri grammatik qo'shimchani tanlang:\n「日本語[にほんご]で 手紙[てがみ]が（　）。」",
-              options: ['書けます', '書かせます', '書きます', '書かれます'],
-              correctAnswer: 0,
-              explanation:
-                "To'g'ri javob: 「書けます」. Fe'lning imkoniyat (qobiliyat) shakli: 書く -> 書けます.",
-            },
-            {
-              id: 'ja-minna-l27-ex2',
-              type: 'multiple-choice',
-              prompt: "「聞[き]こえます」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
-              options: [
-                'eshitilmoq (tovush quloqqa chalinmoq)',
-                'boqmoq, hayvon parvarishlamoq',
-                'yugurmoq, mashina yelmoq',
-                "ko'rinmoq (ko'zga o'z-o'zidan chalinmoq)",
-              ],
-              correctAnswer: 0,
-              explanation: "To'g'ri javob: 「eshitilmoq (tovush quloqqa chalinmoq)」.",
-            },
-            {
-              id: 'ja-minna-l27-ex3',
-              type: 'multiple-choice',
-              prompt: "27-dars grammatik qoidasiga muvofiq to'g'ri tuzilgan gapni aniqlang:",
-              options: [
-                'わたしは 日本語[にほんご]の 新聞[しんぶん]が 読[よ]めます。',
-                'わたしは 日本語[にほんご]の 新聞[しんぶん]が 読[よ]めます か でした。',
-                'わたしは 日本語[にほんご]の 新聞[しんぶん]が 読[よ]めます です。',
-                'これ を わたしは 日本語[にほんご]の 新聞[しんぶん]が 読[よ]めます。',
-              ],
-              correctAnswer: 0,
-              explanation:
-                "To'g'ri gap: 「わたしは 日本語[にほんご]の 新聞[しんぶん]が 読[よ]めます。」 (Men yaponcha gazetalarni o'qiy olaman.).",
-            },
-            {
-              id: 'ja-minna-l27-ex4',
-              type: 'multiple-choice',
-              prompt:
-                "Ushbu gapning to'g'ri yaponcha tarjimasini tanlang:\n「Kasalxonaga bir o'zingiz bora olasizmi?」",
-              options: [
-                'スマホで 映画[えいが]が 見[み]られます。',
-                'わたしは 日本語[にほんご]の 新聞[しんぶん]が 読[よ]めます。',
-                '窓[まど]から 海[うみ]が 見[み]えます。',
-                '一人[ひとり]で 病院[びょういん]へ 行[い]けますか。',
-              ],
-              correctAnswer: 3,
-              explanation:
-                "Yaponcha to'g'ri ifodasi: 「一人[ひとり]で 病院[びょういん]へ 行[い]けますか。」.",
-            },
-            {
-              id: 'ja-minna-l27-ex5',
-              type: 'multiple-choice',
-              prompt:
-                'Suhbatdoshingiz: 「日本語の 新聞が 読めますか。」 dedi. Unga eng mos muloyim javob qaysi?',
-              options: [
-                'いいえ、簡単なのしか 読めません。',
-                'いただきます。',
-                'さようなら。',
-                'はい、見えます。',
-              ],
-              correctAnswer: 0,
-              explanation: "To'g'ri javob: 「いいえ、簡単なのしか 読めません。」.",
-            },
-          ],
+          exercises: [...MINNA_N4_QUIZ_DATABASE[27].practice],
         },
       },
       {
@@ -783,64 +592,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
           instructions:
             "Darsni muvaffaqiyatli yakunlash uchun savollarga to'g'ri javob bering (Kamida 80%).",
           passingScorePercentage: 80,
-          questions: [
-            {
-              id: 'ja-minna-l27-q1',
-              question: '【Mondai 1: Moji/Goi】「台所」の 読[よ]み方[かた]は どれですか。',
-              options: ['だいどころ', 'かいます', 'はしります', 'みえます'],
-              correctAnswerIndex: 0,
-              explanation: "「台所」 ning to'g'ri o'qilishi: 「だいどころ」 (oshxona).",
-            },
-            {
-              id: 'ja-minna-l27-q2',
-              question:
-                '【Mondai 2: Bunpo】（　）に 入[はい]る 最[もっと]も よいものを 1つ えらびなさい。\n「この 部屋[へや]から 富士山[ふじさん]が（　）。」',
-              options: ['見ます', '見えます', '見られます', '見せます'],
-              correctAnswerIndex: 1,
-              explanation:
-                "To'g'ri javob: 「見えます」. Tabiiy ravishda ko'zga ko'rinish: 見えます.",
-            },
-            {
-              id: 'ja-minna-l27-q3',
-              question:
-                "【Mondai 3: Bunpo】27-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
-              options: [
-                '見ます vs 見せます / 聞きます vs 聞かせます',
-                '見えます vs 見られます / 聞こえます vs 聞けます',
-                '見られます vs 見させます / 聞けます vs 聞かせます',
-                '見えます vs 見せます / 聞こえます vs 聞かせます',
-              ],
-              correctAnswerIndex: 1,
-              explanation:
-                "To'g'ri grammatik formula: 「見えます vs 見られます / 聞こえます vs 聞けます」.",
-            },
-            {
-              id: 'ja-minna-l27-q4',
-              question:
-                "【Mondai 4: Dokkai】Quyidagi yaponcha gapning to'g'ri o'zbekcha ma'nosini toping:\n「窓[まど]から 海[うみ]が 見[み]えます。」",
-              options: [
-                "Smartfonda kino tomosha qilsa bo'ladi.",
-                "Men yaponcha gazetalarni o'qiy olaman.",
-                "Derazadan dengiz ko'rinadi.",
-                "Kasalxonaga bir o'zingiz bora olasizmi?",
-              ],
-              correctAnswerIndex: 2,
-              explanation: "To'g'ri ma'nosi: 「Derazadan dengiz ko'rinadi.」.",
-            },
-            {
-              id: 'ja-minna-l27-q5',
-              question:
-                "【Mondai 5: Kaiwa】Savolga eng to'g'ri javobni tanlang:\n「日本語の 新聞が 読めますか。」",
-              options: [
-                'いいえ、簡単なのしか 読めません。',
-                'はい、見えます。',
-                'さようなら。',
-                'いただきます。',
-              ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: 「いいえ、簡単なのしか 読めません。」.",
-            },
-          ],
+          questions: [...MINNA_N4_QUIZ_DATABASE[27].test],
         },
       },
     ],
@@ -1095,74 +847,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
         practiceData: {
           instructions:
             "Darsda o'rganilgan yangi so'zlar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
-          exercises: [
-            {
-              id: 'ja-minna-l28-ex1',
-              type: 'multiple-choice',
-              prompt:
-                "Bo'sh joyga to'g'ri grammatik qo'shimchani tanlang:\n「音楽[おんがく]を（　）勉強[べんきょう]します。」",
-              options: ['聞いてながら', '聞きながら', '聞くながら', '聞かないながら'],
-              correctAnswer: 1,
-              explanation:
-                "To'g'ri javob: 「聞きながら」. Bir vaqtning o'zida ikkita ishni bajarish: V1-ます shakli + ながら.",
-            },
-            {
-              id: 'ja-minna-l28-ex2',
-              type: 'multiple-choice',
-              prompt: "「メモします」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
-              options: [
-                'qayd qilib bormoq, yozib olmoq',
-                'raqsqa tushmoq',
-                "sotilmoq, xaridorgir bo'lmoq",
-                'chaynamoq, tishlamoq',
-              ],
-              correctAnswer: 0,
-              explanation: "To'g'ri javob: 「qayd qilib bormoq, yozib olmoq」.",
-            },
-            {
-              id: 'ja-minna-l28-ex3',
-              type: 'multiple-choice',
-              prompt: "28-dars grammatik qoidasiga muvofiq to'g'ri tuzilgan gapni aniqlang:",
-              options: [
-                'これ を 音楽[おんがく]を 聞[き]きながら 食事[しょくじ]します。',
-                '音楽[おんがく]を 聞[き]きながら 食事[しょくじ]します。',
-                '音楽[おんがく]へ 聞[き]きながら 食事[しょくじ]します。',
-                '音楽[おんがく]を 聞[き]きながら 食事[しょくじ]します です。',
-              ],
-              correctAnswer: 1,
-              explanation:
-                "To'g'ri gap: 「音楽[おんがく]を 聞[き]きながら 食事[しょくじ]します。」 (Musiqa tinglab ovqatlanaman.).",
-            },
-            {
-              id: 'ja-minna-l28-ex4',
-              type: 'multiple-choice',
-              prompt:
-                "Ushbu gapning to'g'ri yaponcha tarjimasini tanlang:\n「Ishlab yurib, universitetda o'qiyapti.」",
-              options: [
-                '音楽[おんがく]を 聞[き]きながら 食事[しょくじ]します。',
-                '毎朝[まいあさ] ジョギングを して います。',
-                'この 店[みせ]は 安[やす]いし、おいしいし、いつも 人[ひと]が 多[おお]いです。',
-                '働[はたら]きながら 大学[だいがく]で 勉強[べんきょう]して います。',
-              ],
-              correctAnswer: 3,
-              explanation:
-                "Yaponcha to'g'ri ifodasi: 「働[はたら]きながら 大学[だいがく]で 勉強[べんきょう]して います。」.",
-            },
-            {
-              id: 'ja-minna-l28-ex5',
-              type: 'multiple-choice',
-              prompt:
-                'Suhbatdoshingiz: 「いつも 音楽を 聞きながら 勉強するんですか。」 dedi. Unga eng mos muloyim javob qaysi?',
-              options: [
-                '失礼しました。',
-                'いいえ、食べません。',
-                'ええ、そのほうが 集中できるんです。',
-                '初めまして。',
-              ],
-              correctAnswer: 2,
-              explanation: "To'g'ri javob: 「ええ、そのほうが 集中できるんです。」.",
-            },
-          ],
+          exercises: [...MINNA_N4_QUIZ_DATABASE[28].practice],
         },
       },
       {
@@ -1174,63 +859,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
           instructions:
             "Darsni muvaffaqiyatli yakunlash uchun savollarga to'g'ri javob bering (Kamida 80%).",
           passingScorePercentage: 80,
-          questions: [
-            {
-              id: 'ja-minna-l28-q1',
-              question: '【Mondai 1: Moji/Goi】「給料」の 読[よ]み方[かた]は どれですか。',
-              options: ['おどります', 'きゅうりょう', 'うれます', 'かみます'],
-              correctAnswerIndex: 1,
-              explanation: "「給料」 ning to'g'ri o'qilishi: 「きゅうりょう」 (oylik maosh).",
-            },
-            {
-              id: 'ja-minna-l28-q2',
-              question:
-                '【Mondai 2: Bunpo】（　）に 入[はい]る 最[もっと]も よいものを 1つ えらびなさい。\n「山田[やまだ]さんは 親切[しんせつ]（　）、頭[あたま]も いいです。」',
-              options: ['だし', 'だ', 'な', 'でし'],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: 「だし」. Sabab va sifatlarni sanash: Na-sifat + だし.",
-            },
-            {
-              id: 'ja-minna-l28-q3',
-              question:
-                "【Mondai 3: Bunpo】28-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
-              options: [
-                'V-てあります (Tayyorgarlik natijasi)',
-                'V-ておきます (Oldindan tayyorgarlik)',
-                'V-ています (Doimiy odat va kasbiy holat)',
-                "V-てみます (Sinab ko'rish)",
-              ],
-              correctAnswerIndex: 2,
-              explanation:
-                "To'g'ri grammatik formula: 「V-ています (Doimiy odat va kasbiy holat)」.",
-            },
-            {
-              id: 'ja-minna-l28-q4',
-              question:
-                "【Mondai 4: Dokkai】Quyidagi yaponcha gapning to'g'ri o'zbekcha ma'nosini toping:\n「毎朝[まいあさ] ジョギングを して います。」",
-              options: [
-                "Ishlab yurib, universitetda o'qiyapti.",
-                'Musiqa tinglab ovqatlanaman.',
-                "Bu do'kon arzon ham, mazali ham, shuning uchun doim odam ko'p.",
-                'Har kuni ertalab yugurib turaman.',
-              ],
-              correctAnswerIndex: 3,
-              explanation: "To'g'ri ma'nosi: 「Har kuni ertalab yugurib turaman.」.",
-            },
-            {
-              id: 'ja-minna-l28-q5',
-              question:
-                "【Mondai 5: Kaiwa】Savolga eng to'g'ri javobni tanlang:\n「いつも 音楽を 聞きながら 勉強するんですか。」",
-              options: [
-                '失礼しました。',
-                'ええ、そのほうが 集中できるんです。',
-                '初めまして。',
-                'いいえ、食べません。',
-              ],
-              correctAnswerIndex: 1,
-              explanation: "To'g'ri javob: 「ええ、そのほうが 集中できるんです。」.",
-            },
-          ],
+          questions: [...MINNA_N4_QUIZ_DATABASE[28].test],
         },
       },
     ],
@@ -1473,74 +1102,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
         practiceData: {
           instructions:
             "Darsda o'rganilgan yangi so'zlar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
-          exercises: [
-            {
-              id: 'ja-minna-l29-ex1',
-              type: 'multiple-choice',
-              prompt:
-                "Bo'sh joyga to'g'ri grammatik qo'shimchani tanlang:\n「窓[まど]が（　）います。」",
-              options: ['開けて', '開きます', '開いて', '開けまして'],
-              correctAnswer: 2,
-              explanation:
-                "To'g'ri javob: 「開いて」. O'timsiz fe'l (Jidoushi) + ています holatni bildiradi: 窓が開いています.",
-            },
-            {
-              id: 'ja-minna-l29-ex2',
-              type: 'multiple-choice',
-              prompt: "「折[お]れます」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
-              options: [
-                'sinmoq, butoqlanmoq (daraxt, qalam)',
-                'yonmoq (chiroq, elektr)',
-                "yopilmoq (o'z-o'zidan, jidoshi)",
-                "ochilmoq (o'z-o'zidan, jidoshi)",
-              ],
-              correctAnswer: 0,
-              explanation: "To'g'ri javob: 「sinmoq, butoqlanmoq (daraxt, qalam)」.",
-            },
-            {
-              id: 'ja-minna-l29-ex3',
-              type: 'multiple-choice',
-              prompt: "29-dars grammatik qoidasiga muvofiq to'g'ri tuzilgan gapni aniqlang:",
-              options: [
-                'これ を 窓[まど]が 閉[し]まって います。',
-                '窓[まど]が 閉[し]まって います。',
-                '窓[まど]が 閉[し]まって います か でした。',
-                '窓[まど]が 閉[し]まって います です。',
-              ],
-              correctAnswer: 1,
-              explanation:
-                "To'g'ri gap: 「窓[まど]が 閉[し]まって います。」 (Deraza yopiq turibdi.).",
-            },
-            {
-              id: 'ja-minna-l29-ex4',
-              type: 'multiple-choice',
-              prompt:
-                "Ushbu gapning to'g'ri yaponcha tarjimasini tanlang:\n「Bu stul singan, o'tirmang.」",
-              options: [
-                '電車[でんしゃ]に 傘[かさ]を 忘[わす]れて しまいました。',
-                '窓[まど]が 閉[し]まって います。',
-                'この 本[ほん]は もう 全部[ぜんぶ] 読[よ]んで しまいました。',
-                'この いすは 壊[こわ]れて いますから、座[すわ]らないで ください。',
-              ],
-              correctAnswer: 3,
-              explanation:
-                "Yaponcha to'g'ri ifodasi: 「この いすは 壊[こわ]れて いますから、座[すわ]らないで ください。」.",
-            },
-            {
-              id: 'ja-minna-l29-ex5',
-              type: 'multiple-choice',
-              prompt:
-                'Suhbatdoshingiz: 「電車に 傘を 忘れて しまいました。」 dedi. Unga eng mos muloyim javob qaysi?',
-              options: [
-                'いただきます。',
-                '駅員さんに 問い合わせて みましょう。',
-                'どういたしまして。',
-                'おめでとうございます。',
-              ],
-              correctAnswer: 1,
-              explanation: "To'g'ri javob: 「駅員さんに 問い合わせて みましょう。」.",
-            },
-          ],
+          exercises: [...MINNA_N4_QUIZ_DATABASE[29].practice],
         },
       },
       {
@@ -1552,64 +1114,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
           instructions:
             "Darsni muvaffaqiyatli yakunlash uchun savollarga to'g'ri javob bering (Kamida 80%).",
           passingScorePercentage: 80,
-          questions: [
-            {
-              id: 'ja-minna-l29-q1',
-              question: '【Mondai 1: Moji/Goi】「落とします」の 読[よ]み方[かた]は どれですか。',
-              options: ['しまります', 'つきます', 'あきます', 'おとします'],
-              correctAnswerIndex: 3,
-              explanation:
-                "「落とします」 ning to'g'ri o'qilishi: 「おとします」 (tushirib yubormoq, yo'qotmoq).",
-            },
-            {
-              id: 'ja-minna-l29-q2',
-              question:
-                '【Mondai 2: Bunpo】（　）に 入[はい]る 最[もっと]も よいものを 1つ えらびなさい。\n「財布[さいふ]を 電車[でんしゃ]の 中[なか]に（　）しまいました。」',
-              options: ['忘れて', '忘れない', '忘れ', '忘れた'],
-              correctAnswerIndex: 0,
-              explanation:
-                "To'g'ri javob: 「忘れて」. Afsus va pushaymonlik: V-て形 + しまいました.",
-            },
-            {
-              id: 'ja-minna-l29-q3',
-              question:
-                "【Mondai 3: Bunpo】29-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
-              options: [
-                'V-ます形 ＋ しまいました',
-                'V-た形 ＋ しまいました',
-                'V-辞書形 ＋ しまいました',
-                'V-て形 ＋ しまいました',
-              ],
-              correctAnswerIndex: 3,
-              explanation: "To'g'ri grammatik formula: 「V-て形 ＋ しまいました」.",
-            },
-            {
-              id: 'ja-minna-l29-q4',
-              question:
-                "【Mondai 4: Dokkai】Quyidagi yaponcha gapning to'g'ri o'zbekcha ma'nosini toping:\n「電車[でんしゃ]に 傘[かさ]を 忘[わす]れて しまいました。」",
-              options: [
-                "Bu kitobni allaqachon to'liq o'qib tugatdim.",
-                'Poyezdda soyabonimni unutib qoldiribman (afsus).',
-                "Bu stul singan, o'tirmang.",
-                'Deraza yopiq turibdi.',
-              ],
-              correctAnswerIndex: 1,
-              explanation: "To'g'ri ma'nosi: 「Poyezdda soyabonimni unutib qoldiribman (afsus).」.",
-            },
-            {
-              id: 'ja-minna-l29-q5',
-              question:
-                "【Mondai 5: Kaiwa】Savolga eng to'g'ri javobni tanlang:\n「電車に 傘を 忘れて しまいました。」",
-              options: [
-                'いただきます。',
-                'おめでとうございます。',
-                '駅員さんに 問い合わせて みましょう。',
-                'どういたしまして。',
-              ],
-              correctAnswerIndex: 2,
-              explanation: "To'g'ri javob: 「駅員さんに 問い合わせて みましょう。」.",
-            },
-          ],
+          questions: [...MINNA_N4_QUIZ_DATABASE[29].test],
         },
       },
     ],
@@ -1860,74 +1365,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
         practiceData: {
           instructions:
             "Darsda o'rganilgan yangi so'zlar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
-          exercises: [
-            {
-              id: 'ja-minna-l30-ex1',
-              type: 'multiple-choice',
-              prompt:
-                "Bo'sh joyga to'g'ri grammatik qo'shimchani tanlang:\n「壁[かべ]に カレンダーが（　）あります。」",
-              options: ['はちて', 'はった', 'はります', 'はって'],
-              correctAnswer: 3,
-              explanation:
-                "To'g'ri javob: 「はって」. Bajarilgan harakat natijasi saqlanib turganini bildirishda: 他動詞-て形 + あります.",
-            },
-            {
-              id: 'ja-minna-l30-ex2',
-              type: 'multiple-choice',
-              prompt: "「まとめます」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
-              options: [
-                "bezatmoq, bezak qo'ymoq",
-                'yopishtirmoq (devorga, daftarga)',
-                'osmoq, ilmoq (palto, rasm)',
-                'jamlamoq, tartibga keltirmoq',
-              ],
-              correctAnswer: 3,
-              explanation: "To'g'ri javob: 「jamlamoq, tartibga keltirmoq」.",
-            },
-            {
-              id: 'ja-minna-l30-ex3',
-              type: 'multiple-choice',
-              prompt: "30-dars grammatik qoidasiga muvofiq to'g'ri tuzilgan gapni aniqlang:",
-              options: [
-                '交番[こうばん]に 町[まち]の 地図[ちず]が はって あります。',
-                'これ を 交番[こうばん]に 町[まち]の 地図[ちず]が はって あります。',
-                '交番[こうばん]で 町[まち]の 地図[ちず]が はって あります。',
-                '交番[こうばん]に 町[まち]の 地図[ちず]が はって あります です。',
-              ],
-              correctAnswer: 0,
-              explanation:
-                "To'g'ri gap: 「交番[こうばん]に 町[まち]の 地図[ちず]が はって あります。」 (Militsiya bo'limida shahar xaritasi osib qo'yilgan.).",
-            },
-            {
-              id: 'ja-minna-l30-ex4',
-              type: 'multiple-choice',
-              prompt:
-                "Ushbu gapning to'g'ri yaponcha tarjimasini tanlang:\n「Stol ustida eslatma qog'ozi qo'yilgan.」",
-              options: [
-                '旅行[りょこう]の まえに、切符[きっぷ]を 買[か]って おきます。',
-                'ハサミを 使[つか]ったら、元[もと]の 所[ところ]に 戻[もど]して おいて ください。',
-                '机[つくえ]の 上[うえ]に メモが 置[お]いて あります。',
-                '交番[こうばん]に 町[まち]の 地図[ちず]が はって あります。',
-              ],
-              correctAnswer: 2,
-              explanation:
-                "Yaponcha to'g'ri ifodasi: 「机[つくえ]の 上[うえ]に メモが 置[お]いて あります。」.",
-            },
-            {
-              id: 'ja-minna-l30-ex5',
-              type: 'multiple-choice',
-              prompt:
-                'Suhbatdoshingiz: 「会議の 準備は もう できましたか。」 dedi. Unga eng mos muloyim javob qaysi?',
-              options: [
-                'いいえ、行きません。',
-                'ごめんください。',
-                'お大事に。',
-                'はい、資料を もう コピーして あります。',
-              ],
-              correctAnswer: 3,
-              explanation: "To'g'ri javob: 「はい、資料を もう コピーして あります。」.",
-            },
-          ],
+          exercises: [...MINNA_N4_QUIZ_DATABASE[30].practice],
         },
       },
       {
@@ -1939,63 +1377,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
           instructions:
             "Darsni muvaffaqiyatli yakunlash uchun savollarga to'g'ri javob bering (Kamida 80%).",
           passingScorePercentage: 80,
-          questions: [
-            {
-              id: 'ja-minna-l30-q1',
-              question: '【Mondai 1: Moji/Goi】「花瓶」の 読[よ]み方[かた]は どれですか。',
-              options: ['かびん', 'はります', 'かざります', 'かけます'],
-              correctAnswerIndex: 0,
-              explanation: "「花瓶」 ning to'g'ri o'qilishi: 「かびん」 (vaza, guldon).",
-            },
-            {
-              id: 'ja-minna-l30-q2',
-              question:
-                '【Mondai 2: Bunpo】（　）に 入[はい]る 最[もっと]も よいものを 1つ えらびなさい。\n「旅行[りょこう]の 前[まえ]に、ホテルを（　）おきます。」',
-              options: ['予約し', '予約する', '予約して', '予約した'],
-              correctAnswerIndex: 2,
-              explanation:
-                "To'g'ri javob: 「予約して」. Oldindan tayyorgarlik ko'rish: V-て形 + おきます.",
-            },
-            {
-              id: 'ja-minna-l30-q3',
-              question:
-                "【Mondai 3: Bunpo】30-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
-              options: [
-                'V-て形 ＋ おきます',
-                'V-ます形 ＋ おきます',
-                'V-た形 ＋ おきます',
-                'V-辞書形 ＋ おきます',
-              ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri grammatik formula: 「V-て形 ＋ おきます」.",
-            },
-            {
-              id: 'ja-minna-l30-q4',
-              question:
-                "【Mondai 4: Dokkai】Quyidagi yaponcha gapning to'g'ri o'zbekcha ma'nosini toping:\n「旅行[りょこう]の まえに、切符[きっぷ]を 買[か]って おきます。」",
-              options: [
-                "Sayohatdan oldin chipta sotib olib qo'yaman.",
-                "Qaychini ishlatgach, o'z joyiga qaytarib qo'ying.",
-                "Militsiya bo'limida shahar xaritasi osib qo'yilgan.",
-                "Stol ustida eslatma qog'ozi qo'yilgan.",
-              ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri ma'nosi: 「Sayohatdan oldin chipta sotib olib qo'yaman.」.",
-            },
-            {
-              id: 'ja-minna-l30-q5',
-              question:
-                "【Mondai 5: Kaiwa】Savolga eng to'g'ri javobni tanlang:\n「会議の 準備は もう できましたか。」",
-              options: [
-                'ごめんください。',
-                'いいえ、行きません。',
-                'お大事に。',
-                'はい、資料を もう コピーして あります。',
-              ],
-              correctAnswerIndex: 3,
-              explanation: "To'g'ri javob: 「はい、資料を もう コピーして あります。」.",
-            },
-          ],
+          questions: [...MINNA_N4_QUIZ_DATABASE[30].test],
         },
       },
     ],
@@ -2230,67 +1612,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
         practiceData: {
           instructions:
             "Darsda o'rganilgan yangi so'zlar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
-          exercises: [
-            {
-              id: 'ja-minna-l31-ex1',
-              type: 'multiple-choice',
-              prompt:
-                "Bo'sh joyga to'g'ri grammatik qo'shimchani tanlang:\n「夏休み[なつやすみ]に 国[くに]へ（　）と 思っています。」",
-              options: ['帰った', '帰ります', '帰る', '帰ろう'],
-              correctAnswer: 3,
-              explanation:
-                "To'g'ri javob: 「帰ろう」. Ixtiyor (Volitional) shakli + と思っています kelajakdagi niyatni bildiradi: 帰ろう.",
-            },
-            {
-              id: 'ja-minna-l31-ex2',
-              type: 'multiple-choice',
-              prompt: "「支社[ししゃ]」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
-              options: ['davom ettirmoq', 'topmoq, izlab topmoq', "filial, bo'lim", 'boshlanmoq'],
-              correctAnswer: 2,
-              explanation: "To'g'ri javob: 「filial, bo'lim」.",
-            },
-            {
-              id: 'ja-minna-l31-ex3',
-              type: 'multiple-choice',
-              prompt: "31-dars grammatik qoidasiga muvofiq to'g'ri tuzilgan gapni aniqlang:",
-              options: [
-                '少[すこ]し 休[やす]もう。',
-                'これ を 少[すこ]し 休[やす]もう。',
-                '少[すこ]し 休[やす]もう か でした。',
-                '少[すこ]し 休[やす]もう でした です。',
-              ],
-              correctAnswer: 0,
-              explanation: "To'g'ri gap: 「少[すこ]し 休[やす]もう。」 (Biroz dam olaylik.).",
-            },
-            {
-              id: 'ja-minna-l31-ex4',
-              type: 'multiple-choice',
-              prompt:
-                "Ushbu gapning to'g'ri yaponcha tarjimasini tanlang:\n「Birga kofe ichaylik.」",
-              options: [
-                '少[すこ]し 休[やす]もう。',
-                '将来[しょうらい] 自分[じぶん]の 会社[かいしゃ]を 作[つく]ろうと 思[おも]って います。',
-                '国[くに]へ 帰[かえ]っても、日本語[にほんご]の 勉強[べんきょう]を 続[つづ]ける つもりです。',
-                'いっしょに コーヒーを 飲[の]もう。',
-              ],
-              correctAnswer: 3,
-              explanation: "Yaponcha to'g'ri ifodasi: 「いっしょに コーヒーを 飲[の]もう。」.",
-            },
-            {
-              id: 'ja-minna-l31-ex5',
-              type: 'multiple-choice',
-              prompt:
-                'Suhbatdoshingiz: 「週末は 何を する 予定ですか。」 dedi. Unga eng mos muloyim javob qaysi?',
-              options: [
-                '失礼します。',
-                'はい、そうです。',
-                '京都へ 行こうと 思っています。',
-                'いってらっしゃい。',
-              ],
-              correctAnswer: 2,
-              explanation: "To'g'ri javob: 「京都へ 行こうと 思っています。」.",
-            },
-          ],
+          exercises: [...MINNA_N4_QUIZ_DATABASE[31].practice],
         },
       },
       {
@@ -2302,63 +1624,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
           instructions:
             "Darsni muvaffaqiyatli yakunlash uchun savollarga to'g'ri javob bering (Kamida 80%).",
           passingScorePercentage: 80,
-          questions: [
-            {
-              id: 'ja-minna-l31-q1',
-              question: '【Mondai 1: Moji/Goi】「支社」の 読[よ]み方[かた]は どれですか。',
-              options: ['はじまります', 'つづけます', 'みつけます', 'ししゃ'],
-              correctAnswerIndex: 3,
-              explanation: "「支社」 ning to'g'ri o'qilishi: 「ししゃ」 (filial, bo'lim).",
-            },
-            {
-              id: 'ja-minna-l31-q2',
-              question:
-                '【Mondai 2: Bunpo】（　）に 入[はい]る 最[もっと]も よいものを 1つ えらびなさい。\n「将来[しょうらい] 自分の 会社[かいしゃ]を（　）つもりです。」',
-              options: ['作る', '作って', '作ります', '作ろう'],
-              correctAnswerIndex: 0,
-              explanation:
-                "To'g'ri javob: 「作る」. Qat'iy reja bildirishda: V-辞書形 + つもりです.",
-            },
-            {
-              id: 'ja-minna-l31-q3',
-              question:
-                "【Mondai 3: Bunpo】31-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
-              options: [
-                'V-ます形 ＋ と 思っています',
-                'V-意向形 ＋ と 思っています',
-                'V-た形 ＋ と 思っています',
-                'V-辞書形 ＋ と 思っています',
-              ],
-              correctAnswerIndex: 1,
-              explanation: "To'g'ri grammatik formula: 「V-意向形 ＋ と 思っています」.",
-            },
-            {
-              id: 'ja-minna-l31-q4',
-              question:
-                "【Mondai 4: Dokkai】Quyidagi yaponcha gapning to'g'ri o'zbekcha ma'nosini toping:\n「将来[しょうらい] 自分[じぶん]の 会社[かいしゃ]を 作[つく]ろうと 思[おも]って います。」",
-              options: [
-                'Birga kofe ichaylik.',
-                "Yurtimga qaytgach ham, yapon tili o'rganishni davom ettirish niyatidaman.",
-                "Kelajakda o'z kompaniyamni ochmoqchiman.",
-                'Biroz dam olaylik.',
-              ],
-              correctAnswerIndex: 2,
-              explanation: "To'g'ri ma'nosi: 「Kelajakda o'z kompaniyamni ochmoqchiman.」.",
-            },
-            {
-              id: 'ja-minna-l31-q5',
-              question:
-                "【Mondai 5: Kaiwa】Savolga eng to'g'ri javobni tanlang:\n「週末は 何を する 予定ですか。」",
-              options: [
-                '京都へ 行こうと 思っています。',
-                'いってらっしゃい。',
-                'はい、そうです。',
-                '失礼します。',
-              ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: 「京都へ 行こうと 思っています。」.",
-            },
-          ],
+          questions: [...MINNA_N4_QUIZ_DATABASE[31].test],
         },
       },
     ],
@@ -2592,74 +1858,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
         practiceData: {
           instructions:
             "Darsda o'rganilgan yangi so'zlar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
-          exercises: [
-            {
-              id: 'ja-minna-l32-ex1',
-              type: 'multiple-choice',
-              prompt:
-                "Bo'sh joyga to'g'ri grammatik qo'shimchani tanlang:\n「熱[ねつ]が ありますから、お風呂[ふろ]に（　）ほうがいいです。」",
-              options: ['入らない', '入った', '入って', '入る'],
-              correctAnswer: 0,
-              explanation:
-                "To'g'ri javob: 「入らない」. Salbiy maslahat berishda: V-ない形 + ほうがいいです.",
-            },
-            {
-              id: 'ja-minna-l32-ex2',
-              type: 'multiple-choice',
-              prompt: "「インフルエンザ」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
-              options: [
-                'gripp virusi',
-                'jismoniy mashq qilmoq',
-                'muvaffaqiyat qozonmoq',
-                'muvaffaqiyatsizlikka uchramoq',
-              ],
-              correctAnswer: 0,
-              explanation: "To'g'ri javob: 「gripp virusi」.",
-            },
-            {
-              id: 'ja-minna-l32-ex3',
-              type: 'multiple-choice',
-              prompt: "32-dars grammatik qoidasiga muvofiq to'g'ri tuzilgan gapni aniqlang:",
-              options: [
-                'これ を 熱[ねつ]が あるなら、今日[きょう]は 病院[びょういん]へ 行[い]った ほうが いいです。',
-                '熱[ねつ]が あるなら、今日[きょう]は 病院[びょういん]へ 行[い]った ほうが いいです。',
-                '熱[ねつ]が あるなら、今日[きょう]は 病院[びょういん]へ 行[い]った ほうが いいです か でした。',
-                '熱[ねつ]が あるなら、今日[きょう]は 病院[びょういん]へ 行[い]った ほうが いいだです。',
-              ],
-              correctAnswer: 1,
-              explanation:
-                "To'g'ri gap: 「熱[ねつ]が あるなら、今日[きょう]は 病院[びょういん]へ 行[い]った ほうが いいです。」 (Isitma bo'lsa, bugun shifoxonaga borganingiz ma'qul.).",
-            },
-            {
-              id: 'ja-minna-l32-ex4',
-              type: 'multiple-choice',
-              prompt:
-                "Ushbu gapning to'g'ri yaponcha tarjimasini tanlang:\n「Ko'p spirtli ichimlik ichmaganingiz ma'qul.」",
-              options: [
-                '約束[やくそく]の 時間[じかん]に 間[ま]に合[あ]わないかも しれません。',
-                '明日[あした]は 雨[あめ]が 降[ふ]るでしょう。',
-                '熱[ねつ]が あるなら、今日[きょう]は 病院[びょういん]へ 行[い]った ほうが いいです。',
-                'あまり お酒[さけ]を 飲[の]まない ほうが いいですよ。',
-              ],
-              correctAnswer: 3,
-              explanation:
-                "Yaponcha to'g'ri ifodasi: 「あまり お酒[さけ]を 飲[の]まない ほうが いいですよ。」.",
-            },
-            {
-              id: 'ja-minna-l32-ex5',
-              type: 'multiple-choice',
-              prompt:
-                'Suhbatdoshingiz: 「少し 熱が あるんです。」 dedi. Unga eng mos muloyim javob qaysi?',
-              options: [
-                'さようなら。',
-                'ごちそうさまでした。',
-                'お疲れ様でした。',
-                '無理を しないで、早く 寝たほうが いいですよ。',
-              ],
-              correctAnswer: 3,
-              explanation: "To'g'ri javob: 「無理を しないで、早く 寝たほうが いいですよ。」.",
-            },
-          ],
+          exercises: [...MINNA_N4_QUIZ_DATABASE[32].practice],
         },
       },
       {
@@ -2671,64 +1870,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
           instructions:
             "Darsni muvaffaqiyatli yakunlash uchun savollarga to'g'ri javob bering (Kamida 80%).",
           passingScorePercentage: 80,
-          questions: [
-            {
-              id: 'ja-minna-l32-q1',
-              question: '【Mondai 1: Moji/Goi】「運動します」の 読[よ]み方[かた]は どれですか。',
-              options: ['ごうかくします', 'しっぱいします', 'うんどうします', 'せいこうします'],
-              correctAnswerIndex: 2,
-              explanation:
-                "「運動します」 ning to'g'ri o'qilishi: 「うんどうします」 (jismoniy mashq qilmoq).",
-            },
-            {
-              id: 'ja-minna-l32-q2',
-              question:
-                '【Mondai 2: Bunpo】（　）に 入[はい]る 最[もっと]も よいものを 1つ えらびなさい。\n「明日は 雪[ゆき]が（　）かもしれません。」',
-              options: ['降って', '降り', '降る', '降ろう'],
-              correctAnswerIndex: 2,
-              explanation:
-                "To'g'ri javob: 「降る」. Ehtimollik bildirishda: 普通形 + かもしれません.",
-            },
-            {
-              id: 'ja-minna-l32-q3',
-              question:
-                "【Mondai 3: Bunpo】32-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
-              options: [
-                'ます形 ＋ でしょう',
-                'て形 ＋ でしょう',
-                '普通形 ＋ でしょう',
-                '意向形 ＋ でしょう',
-              ],
-              correctAnswerIndex: 2,
-              explanation: "To'g'ri grammatik formula: 「普通形 ＋ でしょう」.",
-            },
-            {
-              id: 'ja-minna-l32-q4',
-              question:
-                "【Mondai 4: Dokkai】Quyidagi yaponcha gapning to'g'ri o'zbekcha ma'nosini toping:\n「明日[あした]は 雨[あめ]が 降[ふ]るでしょう。」",
-              options: [
-                "Ertaga yomg'ir yog'sa kerak.",
-                'Kelishilgan vaqtga ulgura olmasligim ham mumkin.',
-                "Ko'p spirtli ichimlik ichmaganingiz ma'qul.",
-                "Isitma bo'lsa, bugun shifoxonaga borganingiz ma'qul.",
-              ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri ma'nosi: 「Ertaga yomg'ir yog'sa kerak.」.",
-            },
-            {
-              id: 'ja-minna-l32-q5',
-              question:
-                "【Mondai 5: Kaiwa】Savolga eng to'g'ri javobni tanlang:\n「少し 熱が あるんです。」",
-              options: [
-                'ごちそうさまでした。',
-                '無理を しないで、早く 寝たほうが いいですよ。',
-                'さようなら。',
-                'お疲れ様でした。',
-              ],
-              correctAnswerIndex: 1,
-              explanation: "To'g'ri javob: 「無理を しないで、早く 寝たほうが いいですよ。」.",
-            },
-          ],
+          questions: [...MINNA_N4_QUIZ_DATABASE[32].test],
         },
       },
     ],
@@ -2950,73 +2092,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
         practiceData: {
           instructions:
             "Darsda o'rganilgan yangi so'zlar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
-          exercises: [
-            {
-              id: 'ja-minna-l33-ex1',
-              type: 'multiple-choice',
-              prompt:
-                "Bo'sh joyga to'g'ri grammatik qo'shimchani tanlang:\n「ここに 車[くるま]を（　）な。」",
-              options: ['止めろ', '止めて', '止める', '止め'],
-              correctAnswer: 2,
-              explanation:
-                "To'g'ri javob: 「止める」. Qat'iy taqiq shakli: V-辞書形 + な (Taqiqlash).",
-            },
-            {
-              id: 'ja-minna-l33-ex2',
-              type: 'multiple-choice',
-              prompt: "「伝言[でんごん]」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
-              options: [
-                "shovqin ko'tarmoq, g'alva qilmoq",
-                'qochmoq, juftakni rostlamoq',
-                'xabar, omonat gap',
-                "taslim bo'lmoq, umidni uzmoq",
-              ],
-              correctAnswer: 2,
-              explanation: "To'g'ri javob: 「xabar, omonat gap」.",
-            },
-            {
-              id: 'ja-minna-l33-ex3',
-              type: 'multiple-choice',
-              prompt: "33-dars grammatik qoidasiga muvofiq to'g'ri tuzilgan gapni aniqlang:",
-              options: [
-                'ここに 車[くるま]を 止[と]めるな。',
-                'ここで 車[くるま]を 止[と]めるな。',
-                'これ を ここに 車[くるま]を 止[と]めるな。',
-                'ここに 車[くるま]を 止[と]めるな でした です。',
-              ],
-              correctAnswer: 0,
-              explanation:
-                "To'g'ri gap: 「ここに 車[くるま]を 止[と]めるな。」 (Bu yerga mashina to'xtatma!).",
-            },
-            {
-              id: 'ja-minna-l33-ex4',
-              type: 'multiple-choice',
-              prompt:
-                "Ushbu gapning to'g'ri yaponcha tarjimasini tanlang:\n「Bu yerga mashina to'xtatma!」",
-              options: [
-                '「立[た]ち入[い]り禁止[きんし]」は 入[はい]るなと いう 意味[いみ]です。',
-                '早[はや]く 走[はし]れ！',
-                '田中[たなか]さんに 10分[じゅっぷん]ほど 遅[おく]れると 伝[つた]えて いただけませんか。',
-                'ここに 車[くるま]を 止[と]めるな。',
-              ],
-              correctAnswer: 3,
-              explanation: "Yaponcha to'g'ri ifodasi: 「ここに 車[くるま]を 止[と]めるな。」.",
-            },
-            {
-              id: 'ja-minna-l33-ex5',
-              type: 'multiple-choice',
-              prompt:
-                'Suhbatdoshingiz: 「あの 看板には 何と 書いて ありますか。」 dedi. Unga eng mos muloyim javob qaysi?',
-              options: [
-                '「立入禁止」と 書いて あります。',
-                'お邪魔します。',
-                'はい、どうぞ。',
-                'いただきます。',
-              ],
-              correctAnswer: 0,
-              explanation: "To'g'ri javob: 「「立入禁止」と 書いて あります。」.",
-            },
-          ],
+          exercises: [...MINNA_N4_QUIZ_DATABASE[33].practice],
         },
       },
       {
@@ -3028,63 +2104,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
           instructions:
             "Darsni muvaffaqiyatli yakunlash uchun savollarga to'g'ri javob bering (Kamida 80%).",
           passingScorePercentage: 80,
-          questions: [
-            {
-              id: 'ja-minna-l33-q1',
-              question: '【Mondai 1: Moji/Goi】「騒ぎます」の 読[よ]み方[かた]は どれですか。',
-              options: ['さわぎます', 'あきらめます', 'なげます', 'にげます'],
-              correctAnswerIndex: 0,
-              explanation:
-                "「騒ぎます」 ning to'g'ri o'qilishi: 「さわぎます」 (shovqin ko'tarmoq, g'alva qilmoq).",
-            },
-            {
-              id: 'ja-minna-l33-q2',
-              question:
-                '【Mondai 2: Bunpo】（　）に 入[はい]る 最[もっと]も よいものを 1つ えらびなさい。\n「あの 漢字[かんじ]は 「立入禁止[たちいりきんし]」と（　）意味[いみ]です。」',
-              options: ['かいた', 'おもう', 'する', 'いう'],
-              correctAnswerIndex: 3,
-              explanation: "To'g'ri javob: 「いう」. Ma'nosini tushuntirish: 〜という 意味です.",
-            },
-            {
-              id: 'ja-minna-l33-q3',
-              question:
-                "【Mondai 3: Bunpo】33-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
-              options: [
-                '「〜」 という 読み方です',
-                '「〜」 という 名前です',
-                '「〜」 という 理由です',
-                '「〜」 という 意味です',
-              ],
-              correctAnswerIndex: 3,
-              explanation: "To'g'ri grammatik formula: 「「〜」 という 意味です」.",
-            },
-            {
-              id: 'ja-minna-l33-q4',
-              question:
-                "【Mondai 4: Dokkai】Quyidagi yaponcha gapning to'g'ri o'zbekcha ma'nosini toping:\n「「立[た]ち入[い]り禁止[きんし]」は 入[はい]るなと いう 意味[いみ]です。」",
-              options: [
-                'Tezroq yugur!',
-                "Bu yerga mashina to'xtatma!",
-                "Tanaka janoblariga 10 daqiqacha kechikishimni yetkazib qo'ya olmaysizmi?",
-                "'Tachiiri kinshi' kirma degan ma'noni anglatadi.",
-              ],
-              correctAnswerIndex: 3,
-              explanation: "To'g'ri ma'nosi: 「'Tachiiri kinshi' kirma degan ma'noni anglatadi.」.",
-            },
-            {
-              id: 'ja-minna-l33-q5',
-              question:
-                "【Mondai 5: Kaiwa】Savolga eng to'g'ri javobni tanlang:\n「あの 看板には 何と 書いて ありますか。」",
-              options: [
-                'お邪魔します。',
-                'いただきます。',
-                'はい、どうぞ。',
-                '「立入禁止」と 書いて あります。',
-              ],
-              correctAnswerIndex: 3,
-              explanation: "To'g'ri javob: 「「立入禁止」と 書いて あります。」.",
-            },
-          ],
+          questions: [...MINNA_N4_QUIZ_DATABASE[33].test],
         },
       },
     ],
@@ -3276,74 +2296,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
         practiceData: {
           instructions:
             "Darsda o'rganilgan yangi so'zlar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
-          exercises: [
-            {
-              id: 'ja-minna-l34-ex1',
-              type: 'multiple-choice',
-              prompt:
-                "Bo'sh joyga to'g'ri grammatik qo'shimchani tanlang:\n「説明書[せつめいしょ]の（　）組み立てました。」",
-              options: ['とおりに', 'まえに', 'あいだに', 'あとで'],
-              correctAnswer: 0,
-              explanation:
-                "To'g'ri javob: 「とおりに」. Ko'rsatmaga aynan muvofiq bajarish: Nの + とおりに.",
-            },
-            {
-              id: 'ja-minna-l34-ex2',
-              type: 'multiple-choice',
-              prompt: "「図[ず]」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
-              options: [
-                "yig'moq, qismlardan birlashtirmoq (mebel, mashina)",
-                'chizma, sxema',
-                'tozalamoq, yuvmoq (tish, poyabzal)',
-                "buklamoq, qayirmoq (qog'oz)",
-              ],
-              correctAnswer: 1,
-              explanation: "To'g'ri javob: 「chizma, sxema」.",
-            },
-            {
-              id: 'ja-minna-l34-ex3',
-              type: 'multiple-choice',
-              prompt: "34-dars grammatik qoidasiga muvofiq to'g'ri tuzilgan gapni aniqlang:",
-              options: [
-                '先生[せんせい]が 言[い]った とおりに、書[か]いて ください か でした。',
-                '先生[せんせい]が 言[い]った とおりに、書[か]いて ください でした です。',
-                'これ を 先生[せんせい]が 言[い]った とおりに、書[か]いて ください。',
-                '先生[せんせい]が 言[い]った とおりに、書[か]いて ください。',
-              ],
-              correctAnswer: 3,
-              explanation:
-                "To'g'ri gap: 「先生[せんせい]が 言[い]った とおりに、書[か]いて ください。」 (Ustoz aytganidek qilib yozing.).",
-            },
-            {
-              id: 'ja-minna-l34-ex4',
-              type: 'multiple-choice',
-              prompt:
-                "Ushbu gapning to'g'ri yaponcha tarjimasini tanlang:\n「Yo'riqnomada ko'rsatilgandek yig'dim.」",
-              options: [
-                'ごはんを 食[た]べた あとで、歯[は]を 磨[みが]きます。',
-                '説明書[せつめいしょ]の とおりに、組[く]み立[た]てました。',
-                '先生[せんせい]が 言[い]った とおりに、書[か]いて ください。',
-                '仕事[しごと]の あとで、飲[の]みに 行[い]きましょう。',
-              ],
-              correctAnswer: 1,
-              explanation:
-                "Yaponcha to'g'ri ifodasi: 「説明書[せつめいしょ]の とおりに、組[く]み立[た]てました。」.",
-            },
-            {
-              id: 'ja-minna-l34-ex5',
-              type: 'multiple-choice',
-              prompt:
-                'Suhbatdoshingiz: 「この 機械は どうやって 動かすんですか。」 dedi. Unga eng mos muloyim javob qaysi?',
-              options: [
-                'はい、食べました。',
-                '失礼しました。',
-                'おやすみなさい。',
-                'マニュアルの とおりに やって みてください。',
-              ],
-              correctAnswer: 3,
-              explanation: "To'g'ri javob: 「マニュアルの とおりに やって みてください。」.",
-            },
-          ],
+          exercises: [...MINNA_N4_QUIZ_DATABASE[34].practice],
         },
       },
       {
@@ -3355,64 +2308,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
           instructions:
             "Darsni muvaffaqiyatli yakunlash uchun savollarga to'g'ri javob bering (Kamida 80%).",
           passingScorePercentage: 80,
-          questions: [
-            {
-              id: 'ja-minna-l34-q1',
-              question: '【Mondai 1: Moji/Goi】「順番」の 読[よ]み方[かた]は どれですか。',
-              options: ['みがきます', 'おります', 'じゅんばん', 'くみたてます'],
-              correctAnswerIndex: 2,
-              explanation:
-                "「順番」 ning to'g'ri o'qilishi: 「じゅんばん」 (ketma-ketlik, navbat).",
-            },
-            {
-              id: 'ja-minna-l34-q2',
-              question:
-                '【Mondai 2: Bunpo】（　）に 入[はい]る 最[もっと]も よいものを 1つ えらびなさい。\n「仕事[しごと]が（　）あとで、飲みに行きましょう。」',
-              options: ['終わって', '終わった', '終わる', '終わり'],
-              correctAnswerIndex: 1,
-              explanation:
-                "To'g'ri javob: 「終わった」. Biror ish tugagach keyin bajarish: V-た形 + あとで.",
-            },
-            {
-              id: 'ja-minna-l34-q3',
-              question:
-                "【Mondai 3: Bunpo】34-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
-              options: [
-                'V1-た形 / Nの ＋ あとで V2',
-                'V1-て形 / Nの ＋ あとで V2',
-                'V1-ます形 / Nの ＋ あとで V2',
-                'V1-辞書形 / Nの ＋ あとで V2',
-              ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri grammatik formula: 「V1-た形 / Nの ＋ あとで V2」.",
-            },
-            {
-              id: 'ja-minna-l34-q4',
-              question:
-                "【Mondai 4: Dokkai】Quyidagi yaponcha gapning to'g'ri o'zbekcha ma'nosini toping:\n「ごはんを 食[た]べた あとで、歯[は]を 磨[みが]きます。」",
-              options: [
-                'Ustoz aytganidek qilib yozing.',
-                "Yo'riqnomada ko'rsatilgandek yig'dim.",
-                "Ovqatlangandan so'ng tishimni yuvaman.",
-                'Ishdan keyin ichgani boraylik.',
-              ],
-              correctAnswerIndex: 2,
-              explanation: "To'g'ri ma'nosi: 「Ovqatlangandan so'ng tishimni yuvaman.」.",
-            },
-            {
-              id: 'ja-minna-l34-q5',
-              question:
-                "【Mondai 5: Kaiwa】Savolga eng to'g'ri javobni tanlang:\n「この 機械は どうやって 動かすんですか。」",
-              options: [
-                'マニュアルの とおりに やって みてください。',
-                '失礼しました。',
-                'はい、食べました。',
-                'おやすみなさい。',
-              ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: 「マニュアルの とおりに やって みてください。」.",
-            },
-          ],
+          questions: [...MINNA_N4_QUIZ_DATABASE[34].test],
         },
       },
     ],
@@ -3621,72 +2517,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
         practiceData: {
           instructions:
             "Darsda o'rganilgan yangi so'zlar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
-          exercises: [
-            {
-              id: 'ja-minna-l35-ex1',
-              type: 'multiple-choice',
-              prompt:
-                "Bo'sh joyga to'g'ri grammatik qo'shimchani tanlang:\n「ボタンを（　）、おつりが 出[で]ます。」",
-              options: ['押すば', '押せば', '押しば', '押したらば'],
-              correctAnswer: 1,
-              explanation: "To'g'ri javob: 「押せば」. Shart mayli (Jouken-kei): 押す -> 押せば.",
-            },
-            {
-              id: 'ja-minna-l35-ex2',
-              type: 'multiple-choice',
-              prompt: "「楽[らくな]」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
-              options: [
-                'oson, qulay, rohatbaxsh',
-                "qiyin ahvolda qolmoq, chorasiz bo'lmoq",
-                'ochilmoq, gullamoq (gul)',
-                "o'zgarmoq (rang, holat)",
-              ],
-              correctAnswer: 0,
-              explanation: "To'g'ri javob: 「oson, qulay, rohatbaxsh」.",
-            },
-            {
-              id: 'ja-minna-l35-ex3',
-              type: 'multiple-choice',
-              prompt: "35-dars grammatik qoidasiga muvofiq to'g'ri tuzilgan gapni aniqlang:",
-              options: [
-                '春[はる]に なれば、桜[さくら]が 咲[さ]きます です。',
-                '春[はる]に なれば、桜[さくら]が 咲[さ]きます。',
-                '春[はる]で なれば、桜[さくら]が 咲[さ]きます。',
-                'これ を 春[はる]に なれば、桜[さくら]が 咲[さ]きます。',
-              ],
-              correctAnswer: 1,
-              explanation:
-                "To'g'ri gap: 「春[はる]に なれば、桜[さくら]が 咲[さ]きます。」 (Bahor bo'lsa, sakura gullaydi.).",
-            },
-            {
-              id: 'ja-minna-l35-ex4',
-              type: 'multiple-choice',
-              prompt:
-                "Ushbu gapning to'g'ri yaponcha tarjimasini tanlang:\n「Agar arzon bo'lsa, sotib olmoqchiman.」",
-              options: [
-                '春[はる]に なれば、桜[さくら]が 咲[さ]きます。',
-                '安[やす]ければ、買[か]いたいです。',
-                'カメラなら、秋葉原[あきはばら]が 安[やす]いですよ。',
-                '日本語[にほんご]は 勉強[べんきょう]すれば するほど、面白[おもしろ]くなります。',
-              ],
-              correctAnswer: 1,
-              explanation: "Yaponcha to'g'ri ifodasi: 「安[やす]ければ、買[か]いたいです。」.",
-            },
-            {
-              id: 'ja-minna-l35-ex5',
-              type: 'multiple-choice',
-              prompt:
-                'Suhbatdoshingiz: 「どうすれば 日本語が 上手に なりますか。」 dedi. Unga eng mos muloyim javob qaysi?',
-              options: [
-                '毎日 たくさん 話せば、上手に なりますよ。',
-                'ごちそうさま。',
-                'いいえ、違います。',
-                'いただきます。',
-              ],
-              correctAnswer: 0,
-              explanation: "To'g'ri javob: 「毎日 たくさん 話せば、上手に なりますよ。」.",
-            },
-          ],
+          exercises: [...MINNA_N4_QUIZ_DATABASE[35].practice],
         },
       },
       {
@@ -3698,59 +2529,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
           instructions:
             "Darsni muvaffaqiyatli yakunlash uchun savollarga to'g'ri javob bering (Kamida 80%).",
           passingScorePercentage: 80,
-          questions: [
-            {
-              id: 'ja-minna-l35-q1',
-              question: '【Mondai 1: Moji/Goi】「楽」の 読[よ]み方[かた]は どれですか。',
-              options: ['こまります', 'さきます', 'かわります', 'らくな'],
-              correctAnswerIndex: 3,
-              explanation: "「楽」 ning to'g'ri o'qilishi: 「らくな」 (oson, qulay, rohatbaxsh).",
-            },
-            {
-              id: 'ja-minna-l35-q2',
-              question:
-                '【Mondai 2: Bunpo】（　）に 入[はい]る 最[もっと]も よいものを 1つ えらびなさい。\n「安[やす]（　）、買[か]いたいです。」',
-              options: ['かったらば', 'いば', 'ければ', 'いなら'],
-              correctAnswerIndex: 2,
-              explanation:
-                "To'g'ri javob: 「ければ」. i-sifat shart mayli shakli: 安い -> 安ければ.",
-            },
-            {
-              id: 'ja-minna-l35-q3',
-              question:
-                "【Mondai 3: Bunpo】35-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
-              options: ['N ＋ ば', 'N ＋ なら', 'N ＋ たら', 'N ＋ と'],
-              correctAnswerIndex: 1,
-              explanation: "To'g'ri grammatik formula: 「N ＋ なら」.",
-            },
-            {
-              id: 'ja-minna-l35-q4',
-              question:
-                "【Mondai 4: Dokkai】Quyidagi yaponcha gapning to'g'ri o'zbekcha ma'nosini toping:\n「カメラなら、秋葉原[あきはばら]が 安[やす]いですよ。」",
-              options: [
-                "Agar arzon bo'lsa, sotib olmoqchiman.",
-                'Fotoapparat demoqchimisiz, unda Akihabarada eng arzon!',
-                "Bahor bo'lsa, sakura gullaydi.",
-                "Yapon tilini qancha ko'p o'rgansangiz, shuncha qiziqarli bo'lib boradi.",
-              ],
-              correctAnswerIndex: 1,
-              explanation:
-                "To'g'ri ma'nosi: 「Fotoapparat demoqchimisiz, unda Akihabarada eng arzon!」.",
-            },
-            {
-              id: 'ja-minna-l35-q5',
-              question:
-                "【Mondai 5: Kaiwa】Savolga eng to'g'ri javobni tanlang:\n「どうすれば 日本語が 上手に なりますか。」",
-              options: [
-                'ごちそうさま。',
-                'いただきます。',
-                'いいえ、違います。',
-                '毎日 たくさん 話せば、上手に なりますよ。',
-              ],
-              correctAnswerIndex: 3,
-              explanation: "To'g'ri javob: 「毎日 たくさん 話せば、上手に なりますよ。」.",
-            },
-          ],
+          questions: [...MINNA_N4_QUIZ_DATABASE[35].test],
         },
       },
     ],
@@ -3995,74 +2774,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
         practiceData: {
           instructions:
             "Darsda o'rganilgan yangi so'zlar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
-          exercises: [
-            {
-              id: 'ja-minna-l36-ex1',
-              type: 'multiple-choice',
-              prompt:
-                "Bo'sh joyga to'g'ri grammatik qo'shimchani tanlang:\n「早[はや]く 起[お]きられる（　）、目覚まし[めざまし]を かけます。」",
-              options: ['ために', 'ように', 'とおりに', 'そうに'],
-              correctAnswer: 1,
-              explanation:
-                "To'g'ri javob: 「ように」. Imkoniyat fe'li bilan maqsad bildirishda: 〜ように.",
-            },
-            {
-              id: 'ja-minna-l36-ex2',
-              type: 'multiple-choice',
-              prompt: "「健康[けんこう]」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
-              options: [
-                "ko'nikmoq, o'rganib qolmoq",
-                "o'tib ketmoq (vaqt)",
-                'salomatlik',
-                "pul jamg'armoq, tejab yig'moq",
-              ],
-              correctAnswer: 2,
-              explanation: "To'g'ri javob: 「salomatlik」.",
-            },
-            {
-              id: 'ja-minna-l36-ex3',
-              type: 'multiple-choice',
-              prompt: "36-dars grammatik qoidasiga muvofiq to'g'ri tuzilgan gapni aniqlang:",
-              options: [
-                '速[はや]く 泳[およ]げる ように、毎日[まいにち] 練習[れんしゅう]して います か でした。',
-                '速[はや]く 泳[およ]げる ように、毎日[まいにち] 練習[れんしゅう]して います。',
-                '速[はや]く 泳[およ]げる ように、毎日[まいにち] 練習[れんしゅう]して います です。',
-                'これ を 速[はや]く 泳[およ]げる ように、毎日[まいにち] 練習[れんしゅう]して います。',
-              ],
-              correctAnswer: 1,
-              explanation:
-                "To'g'ri gap: 「速[はや]く 泳[およ]げる ように、毎日[まいにち] 練習[れんしゅう]して います。」 (Tez suza olish uchun har kuni shug'ullanyapman.).",
-            },
-            {
-              id: 'ja-minna-l36-ex4',
-              type: 'multiple-choice',
-              prompt:
-                "Ushbu gapning to'g'ri yaponcha tarjimasini tanlang:\n「Shamollab qolmaslik uchun issiq kiyinib uxlayman.」",
-              options: [
-                '毎日[まいにち] 練習[れんしゅう]して、日本語[にほんご]が 話[はな]せる ように なりました。',
-                '速[はや]く 泳[およ]げる ように、毎日[まいにち] 練習[れんしゅう]して います。',
-                '健康[けんこう]の ために、毎日[まいにち] 野菜[やさい]を 食[た]べる ように して います。',
-                '風邪[かぜ]を ひかない ように、暖[あたた]かく して 寝[ね]ます。',
-              ],
-              correctAnswer: 3,
-              explanation:
-                "Yaponcha to'g'ri ifodasi: 「風邪[かぜ]を ひかない ように、暖[あたた]かく して 寝[ね]ます。」.",
-            },
-            {
-              id: 'ja-minna-l36-ex5',
-              type: 'multiple-choice',
-              prompt:
-                'Suhbatdoshingiz: 「最近 何か 変わったことは ありますか。」 dedi. Unga eng mos muloyim javob qaysi?',
-              options: [
-                '毎日 走るように なりました。',
-                '失礼します。',
-                'お大事に。',
-                'はい、見ました。',
-              ],
-              correctAnswer: 0,
-              explanation: "To'g'ri javob: 「毎日 走るように なりました。」.",
-            },
-          ],
+          exercises: [...MINNA_N4_QUIZ_DATABASE[36].practice],
         },
       },
       {
@@ -4074,64 +2786,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
           instructions:
             "Darsni muvaffaqiyatli yakunlash uchun savollarga to'g'ri javob bering (Kamida 80%).",
           passingScorePercentage: 80,
-          questions: [
-            {
-              id: 'ja-minna-l36-q1',
-              question: '【Mondai 1: Moji/Goi】「曲」の 読[よ]み方[かた]は どれですか。',
-              options: ['きょく', 'ちょきんします', 'すぎます', 'なれます'],
-              correctAnswerIndex: 0,
-              explanation: "「曲」 ning to'g'ri o'qilishi: 「きょく」 (kuy, musiqa ohangi).",
-            },
-            {
-              id: 'ja-minna-l36-q2',
-              question:
-                '【Mondai 2: Bunpo】（　）に 入[はい]る 最[もっと]も よいものを 1つ えらびなさい。\n「日本語[にほんご]の ニュースが（　）ように なりました。」',
-              options: ['わかる', 'わかり', 'わかった', 'わかって'],
-              correctAnswerIndex: 0,
-              explanation:
-                "To'g'ri javob: 「わかる」. Ko'nikma shakllanishi: V-辞書形 + ように なりました.",
-            },
-            {
-              id: 'ja-minna-l36-q3',
-              question:
-                "【Mondai 3: Bunpo】36-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
-              options: [
-                'V-ます形 ＋ ように なりました',
-                'V-た形 ＋ ように なりました',
-                'V-辞書形 ＋ ように なりました',
-                'V-て形 ＋ ように なりました',
-              ],
-              correctAnswerIndex: 2,
-              explanation: "To'g'ri grammatik formula: 「V-辞書形 ＋ ように なりました」.",
-            },
-            {
-              id: 'ja-minna-l36-q4',
-              question:
-                "【Mondai 4: Dokkai】Quyidagi yaponcha gapning to'g'ri o'zbekcha ma'nosini toping:\n「毎日[まいにち] 練習[れんしゅう]して、日本語[にほんご]が 話[はな]せる ように なりました。」",
-              options: [
-                "Har kuni shug'ullanib, yaponcha gapira oladigan bo'lib qoldim.",
-                'Shamollab qolmaslik uchun issiq kiyinib uxlayman.',
-                'Salomatlik uchun har kuni sabzavot yeyishga odatlanganman.',
-                "Tez suza olish uchun har kuni shug'ullanyapman.",
-              ],
-              correctAnswerIndex: 0,
-              explanation:
-                "To'g'ri ma'nosi: 「Har kuni shug'ullanib, yaponcha gapira oladigan bo'lib qoldim.」.",
-            },
-            {
-              id: 'ja-minna-l36-q5',
-              question:
-                "【Mondai 5: Kaiwa】Savolga eng to'g'ri javobni tanlang:\n「最近 何か 変わったことは ありますか。」",
-              options: [
-                '毎日 走るように なりました。',
-                'はい、見ました。',
-                '失礼します。',
-                'お大事に。',
-              ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: 「毎日 走るように なりました。」.",
-            },
-          ],
+          questions: [...MINNA_N4_QUIZ_DATABASE[36].test],
         },
       },
     ],
@@ -4352,74 +3007,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
         practiceData: {
           instructions:
             "Darsda o'rganilgan yangi so'zlar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
-          exercises: [
-            {
-              id: 'ja-minna-l37-ex1',
-              type: 'multiple-choice',
-              prompt:
-                "Bo'sh joyga to'g'ri grammatik qo'shimchani tanlang:\n「弟[おとうと]に パソコンを（　）しまいました。」",
-              options: ['壊させて', '壊られて', '壊して', '壊されて'],
-              correctAnswer: 3,
-              explanation:
-                "To'g'ri javob: 「壊されて」. Ziyon ko'rish ma'nosidagi majhul nisbat: 壊す -> 壊される.",
-            },
-            {
-              id: 'ja-minna-l37-ex2',
-              type: 'multiple-choice',
-              prompt: "「しかります」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
-              options: [
-                'urishmoq, tanbeh bermoq',
-                'maqtamoq',
-                'taklif qilmoq (birga biror joyga borishga)',
-                'iltimos qilmoq, buyurmoq',
-              ],
-              correctAnswer: 0,
-              explanation: "To'g'ri javob: 「urishmoq, tanbeh bermoq」.",
-            },
-            {
-              id: 'ja-minna-l37-ex3',
-              type: 'multiple-choice',
-              prompt: "37-dars grammatik qoidasiga muvofiq to'g'ri tuzilgan gapni aniqlang:",
-              options: [
-                'わたしは 部長[ぶちょう]に ほめられました。',
-                'わたしは 部長[ぶちょう]で ほめられました。',
-                'わたしは 部長[ぶちょう]に ほめられました でした です。',
-                'これ を わたしは 部長[ぶちょう]に ほめられました。',
-              ],
-              correctAnswer: 0,
-              explanation:
-                "To'g'ri gap: 「わたしは 部長[ぶちょう]に ほめられました。」 (Men boshliq tomonidan maqtaldim.).",
-            },
-            {
-              id: 'ja-minna-l37-ex4',
-              type: 'multiple-choice',
-              prompt:
-                "Ushbu gapning to'g'ri yaponcha tarjimasini tanlang:\n「To'la poyezdda oyog'imni bosib olishdi (nohush holat).」",
-              options: [
-                'この 本[ほん]は 有名[ゆうめい]な 作家[さっか]によって 書[か]かれました。',
-                'わたしは 満員電車[まんいんでんしゃ]で 足[あし]を 踏[ふ]まれました。',
-                '雨[あめ]に 降[ふ]られて、服[ふく]が ぬれて しまいました。',
-                'わたしは 部長[ぶちょう]に ほめられました。',
-              ],
-              correctAnswer: 1,
-              explanation:
-                "Yaponcha to'g'ri ifodasi: 「わたしは 満員電車[まんいんでんしゃ]で 足[あし]を 踏[ふ]まれました。」.",
-            },
-            {
-              id: 'ja-minna-l37-ex5',
-              type: 'multiple-choice',
-              prompt:
-                'Suhbatdoshingiz: 「どうして 浮かない 顔を しているんですか。」 dedi. Unga eng mos muloyim javob qaysi?',
-              options: [
-                '満員電車で 足を 踏まれたんです。',
-                'おめでとうございます。',
-                'いただきます。',
-                'ごちそうさまでした。',
-              ],
-              correctAnswer: 0,
-              explanation: "To'g'ri javob: 「満員電車で 足を 踏まれたんです。」.",
-            },
-          ],
+          exercises: [...MINNA_N4_QUIZ_DATABASE[37].practice],
         },
       },
       {
@@ -4431,64 +3019,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
           instructions:
             "Darsni muvaffaqiyatli yakunlash uchun savollarga to'g'ri javob bering (Kamida 80%).",
           passingScorePercentage: 80,
-          questions: [
-            {
-              id: 'ja-minna-l37-q1',
-              question: '【Mondai 1: Moji/Goi】「行います」の 読[よ]み方[かた]は どれですか。',
-              options: ['さそいます', 'おこないます', 'しかります', 'ほめます'],
-              correctAnswerIndex: 1,
-              explanation:
-                "「行います」 ning to'g'ri o'qilishi: 「おこないます」 (o'tkazmoq, amalga oshirmoq (tadbirlar)).",
-            },
-            {
-              id: 'ja-minna-l37-q2',
-              question:
-                '【Mondai 2: Bunpo】（　）に 入[はい]る 最[もっと]も よいものを 1つ えらびなさい。\n「雨[あめ]に（　）服[ふく]が ぬれて しまいました。」',
-              options: ['降って', '降るに', '降らせて', '降られて'],
-              correctAnswerIndex: 3,
-              explanation: "To'g'ri javob: 「降られて」. Noqulaylik majhul nisbati: 雨に降られる.",
-            },
-            {
-              id: 'ja-minna-l37-q3',
-              question:
-                "【Mondai 3: Bunpo】37-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
-              options: [
-                'N1 は N2 を N3 に V-受身',
-                'N1 は N2 に N3 を V-使役',
-                'N1 は N2 を N3 に V-可能',
-                "N1 は N2 に N3 を V-受身 (Noqulaylik / Ziyon ko'rish majhulligi)",
-              ],
-              correctAnswerIndex: 3,
-              explanation:
-                "To'g'ri grammatik formula: 「N1 は N2 に N3 を V-受身 (Noqulaylik / Ziyon ko'rish majhulligi)」.",
-            },
-            {
-              id: 'ja-minna-l37-q4',
-              question:
-                "【Mondai 4: Dokkai】Quyidagi yaponcha gapning to'g'ri o'zbekcha ma'nosini toping:\n「雨[あめ]に 降[ふ]られて、服[ふく]が ぬれて しまいました。」",
-              options: [
-                'Bu kitob mashhur adib tomonidan yozilgan.',
-                "Yomg'ir ostida qolib, kiyimlarim ivib ketdi.",
-                'Men boshliq tomonidan maqtaldim.',
-                "To'la poyezdda oyog'imni bosib olishdi (nohush holat).",
-              ],
-              correctAnswerIndex: 1,
-              explanation: "To'g'ri ma'nosi: 「Yomg'ir ostida qolib, kiyimlarim ivib ketdi.」.",
-            },
-            {
-              id: 'ja-minna-l37-q5',
-              question:
-                "【Mondai 5: Kaiwa】Savolga eng to'g'ri javobni tanlang:\n「どうして 浮かない 顔を しているんですか。」",
-              options: [
-                'ごちそうさまでした。',
-                '満員電車で 足を 踏まれたんです。',
-                'おめでとうございます。',
-                'いただきます。',
-              ],
-              correctAnswerIndex: 1,
-              explanation: "To'g'ri javob: 「満員電車で 足を 踏まれたんです。」.",
-            },
-          ],
+          questions: [...MINNA_N4_QUIZ_DATABASE[37].test],
         },
       },
     ],
@@ -4696,74 +3227,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
         practiceData: {
           instructions:
             "Darsda o'rganilgan yangi so'zlar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
-          exercises: [
-            {
-              id: 'ja-minna-l38-ex1',
-              type: 'multiple-choice',
-              prompt:
-                "Bo'sh joyga to'g'ri grammatik qo'shimchani tanlang:\n「一人[ひとり]で 生活[せいかつ]する（　）は 大変[たいへん]です。」",
-              options: ['もの', 'こと', 'の', 'ところ'],
-              correctAnswer: 2,
-              explanation:
-                "To'g'ri javob: 「の」. Harakatni sifat bilan bog'lab otlashtirishda: V-普通形 + のは Aです.",
-            },
-            {
-              id: 'ja-minna-l38-ex2',
-              type: 'multiple-choice',
-              prompt: "「退院[たいいん]します」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
-              options: [
-                'shifoxonadan chiqmoq',
-                'tashimoq, eltmoq',
-                "qatnashmoq, a'zo bo'lmoq",
-                "tarbiyalamoq, o'stirmoq (bola, o'simlik)",
-              ],
-              correctAnswer: 0,
-              explanation: "To'g'ri javob: 「shifoxonadan chiqmoq」.",
-            },
-            {
-              id: 'ja-minna-l38-ex3',
-              type: 'multiple-choice',
-              prompt: "38-dars grammatik qoidasiga muvofiq to'g'ri tuzilgan gapni aniqlang:",
-              options: [
-                '一人[ひとり]で この 荷物[にもつ]を 運[はこ]ぶのは 難[むずか]しいです。',
-                'これ を 一人[ひとり]で この 荷物[にもつ]を 運[はこ]ぶのは 難[むずか]しいです。',
-                '一人[ひとり]で この 荷物[にもつ]へ 運[はこ]ぶのは 難[むずか]しいです。',
-                '一人[ひとり]で この 荷物[にもつ]を 運[はこ]ぶのは 難[むずか]しいだです。',
-              ],
-              correctAnswer: 0,
-              explanation:
-                "To'g'ri gap: 「一人[ひとり]で この 荷物[にもつ]を 運[はこ]ぶのは 難[むずか]しいです。」 (Bu yukni yolg'iz tashish mushkuldir.).",
-            },
-            {
-              id: 'ja-minna-l38-ex4',
-              type: 'multiple-choice',
-              prompt:
-                "Ushbu gapning to'g'ri yaponcha tarjimasini tanlang:\n「Men yulduzlarni tomosha qilishni yaxshi ko'raman.」",
-              options: [
-                'わたしは 星[ほし]を 見[み]るのが 好[す]きです。',
-                '一人[ひとり]で この 荷物[にもつ]を 運[はこ]ぶのは 難[むずか]しいです。',
-                '電気[でんき]を 消[け]すのを 忘[わす]れました。',
-                '鍵[かぎ]を 探[さが]して いるんです。',
-              ],
-              correctAnswer: 0,
-              explanation:
-                "Yaponcha to'g'ri ifodasi: 「わたしは 星[ほし]を 見[み]るのが 好[す]きです。」.",
-            },
-            {
-              id: 'ja-minna-l38-ex5',
-              type: 'multiple-choice',
-              prompt:
-                'Suhbatdoshingiz: 「趣味は 何ですか。」 dedi. Unga eng mos muloyim javob qaysi?',
-              options: [
-                '休みの日に 絵を 描くのが 好きです。',
-                'おやすみなさい。',
-                '失礼します。',
-                'はい、そうです。',
-              ],
-              correctAnswer: 0,
-              explanation: "To'g'ri javob: 「休みの日に 絵を 描くのが 好きです。」.",
-            },
-          ],
+          exercises: [...MINNA_N4_QUIZ_DATABASE[38].practice],
         },
       },
       {
@@ -4775,65 +3239,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
           instructions:
             "Darsni muvaffaqiyatli yakunlash uchun savollarga to'g'ri javob bering (Kamida 80%).",
           passingScorePercentage: 80,
-          questions: [
-            {
-              id: 'ja-minna-l38-q1',
-              question: '【Mondai 1: Moji/Goi】「退院します」の 読[よ]み方[かた]は どれですか。',
-              options: ['そだてます', 'さんかします', 'はこびます', 'たいいんします'],
-              correctAnswerIndex: 3,
-              explanation:
-                "「退院します」 ning to'g'ri o'qilishi: 「たいいんします」 (shifoxonadan chiqmoq).",
-            },
-            {
-              id: 'ja-minna-l38-q2',
-              question:
-                '【Mondai 2: Bunpo】（　）に 入[はい]る 最[もっと]も よいものを 1つ えらびなさい。\n「花[はな]を（　）のが 好[す]きです。」',
-              options: ['育て', '育てる', '育てて', '育てた'],
-              correctAnswerIndex: 1,
-              explanation:
-                "To'g'ri javob: 「育てる」. Yoqtirgan mashg'ulotni otlashtirish: V-辞書形 + のが 好きです.",
-            },
-            {
-              id: 'ja-minna-l38-q3',
-              question:
-                "【Mondai 3: Bunpo】38-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
-              options: [
-                'V-普通形 ＋ のが 好き / 上手 / 下手 / 速い です',
-                'V-ます形 ＋ のが 好き / 上手 / 下手 です',
-                'V-て形 ＋ のが 好き / 上手 / 下手 です',
-                'V-意向形 ＋ のが 好き / 上手 / 下手 です',
-              ],
-              correctAnswerIndex: 0,
-              explanation:
-                "To'g'ri grammatik formula: 「V-普通形 ＋ のが 好き / 上手 / 下手 / 速い です」.",
-            },
-            {
-              id: 'ja-minna-l38-q4',
-              question:
-                "【Mondai 4: Dokkai】Quyidagi yaponcha gapning to'g'ri o'zbekcha ma'nosini toping:\n「電気[でんき]を 消[け]すのを 忘[わす]れました。」",
-              options: [
-                "Chiroqni o'chirishni unutibman.",
-                "Men yulduzlarni tomosha qilishni yaxshi ko'raman.",
-                "Bu yukni yolg'iz tashish mushkuldir.",
-                'Ertaga kutubxonada dars qilaman.',
-              ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri ma'nosi: 「Chiroqni o'chirishni unutibman.」.",
-            },
-            {
-              id: 'ja-minna-l38-q5',
-              question:
-                "【Mondai 5: Kaiwa】Savolga eng to'g'ri javobni tanlang:\n「趣味は 何ですか。」",
-              options: [
-                'はい、そうです。',
-                '失礼します。',
-                'おやすみなさい。',
-                '休みの日に 絵を 描くのが 好きです。',
-              ],
-              correctAnswerIndex: 3,
-              explanation: "To'g'ri javob: 「休みの日に 絵を 描くのが 好きです。」.",
-            },
-          ],
+          questions: [...MINNA_N4_QUIZ_DATABASE[38].test],
         },
       },
     ],
@@ -5042,74 +3448,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
         practiceData: {
           instructions:
             "Darsda o'rganilgan yangi so'zlar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
-          exercises: [
-            {
-              id: 'ja-minna-l39-ex1',
-              type: 'multiple-choice',
-              prompt:
-                "Bo'sh joyga to'g'ri grammatik qo'shimchani tanlang:\n「地震[じしん]（　）ビルが 倒[たお]れました。」",
-              options: ['で', 'を', 'に', 'へ'],
-              correctAnswer: 0,
-              explanation:
-                "To'g'ri javob: 「で」. Tabiiy ofat yoki hodisa sababini bildirishda: N + で.",
-            },
-            {
-              id: 'ja-minna-l39-ex2',
-              type: 'multiple-choice',
-              prompt: "「安心[あんしん]します」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
-              options: [
-                'javob bermoq',
-                'qulamoq, yiqilmoq (bino, daraxt)',
-                "o'tmoq, kesib o'tmoq",
-                "ko'ngil tinchimoq, taskin topmoq",
-              ],
-              correctAnswer: 3,
-              explanation: "To'g'ri javob: 「ko'ngil tinchimoq, taskin topmoq」.",
-            },
-            {
-              id: 'ja-minna-l39-ex3',
-              type: 'multiple-choice',
-              prompt: "39-dars grammatik qoidasiga muvofiq to'g'ri tuzilgan gapni aniqlang:",
-              options: [
-                'ニュースを 聞[き]いて、安心[あんしん]しました。',
-                'ニュースを 聞[き]いて、安心[あんしん]しました でした です。',
-                'ニュースへ 聞[き]いて、安心[あんしん]しました。',
-                'これ を ニュースを 聞[き]いて、安心[あんしん]しました。',
-              ],
-              correctAnswer: 0,
-              explanation:
-                "To'g'ri gap: 「ニュースを 聞[き]いて、安心[あんしん]しました。」 (Xabarni eshitib, ko'nglim tinchidi.).",
-            },
-            {
-              id: 'ja-minna-l39-ex4',
-              type: 'multiple-choice',
-              prompt:
-                "Ushbu gapning to'g'ri yaponcha tarjimasini tanlang:\n「Kuchli yomg'ir sababli musobaqa bekor qilindi.」",
-              options: [
-                'ニュースを 聞[き]いて、安心[あんしん]しました。',
-                '鍵[かぎ]を 探[さが]して いるんです。',
-                '用事[ようじ]が あるので、お先[さき]に 失礼[しつれい]します。',
-                '大雨[おおあめ]で 試合[しあい]が 中止[ちゅうし]に なりました。',
-              ],
-              correctAnswer: 3,
-              explanation:
-                "Yaponcha to'g'ri ifodasi: 「大雨[おおあめ]で 試合[しあい]が 中止[ちゅうし]に なりました。」.",
-            },
-            {
-              id: 'ja-minna-l39-ex5',
-              type: 'multiple-choice',
-              prompt:
-                'Suhbatdoshingiz: 「どうして 遅れたんですか。」 dedi. Unga eng mos muloyim javob qaysi?',
-              options: [
-                'いただきます。',
-                'さようなら。',
-                'お疲れ様でした。',
-                '大雨で 電車が 止まって しまったんです。',
-              ],
-              correctAnswer: 3,
-              explanation: "To'g'ri javob: 「大雨で 電車が 止まって しまったんです。」.",
-            },
-          ],
+          exercises: [...MINNA_N4_QUIZ_DATABASE[39].practice],
         },
       },
       {
@@ -5121,64 +3460,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
           instructions:
             "Darsni muvaffaqiyatli yakunlash uchun savollarga to'g'ri javob bering (Kamida 80%).",
           passingScorePercentage: 80,
-          questions: [
-            {
-              id: 'ja-minna-l39-q1',
-              question: '【Mondai 1: Moji/Goi】「複雑」の 読[よ]み方[かた]は どれですか。',
-              options: ['とおれます', 'ふくざつな', 'こたえます', 'たおれます'],
-              correctAnswerIndex: 1,
-              explanation: "「複雑」 ning to'g'ri o'qilishi: 「ふくざつな」 (murakkab, chigal).",
-            },
-            {
-              id: 'ja-minna-l39-q2',
-              question:
-                '【Mondai 2: Bunpo】（　）に 入[はい]る 最[もっと]も よいものを 1つ えらびなさい。\n「風邪[かぜ]を（　）、学校[がっこう]を 休みました。」',
-              options: ['ひいたら', 'ひくで', 'ひいて', 'ひき'],
-              correctAnswerIndex: 2,
-              explanation: "To'g'ri javob: 「ひいて」. Tabiiy sabab natijasi: V-て形.",
-            },
-            {
-              id: 'ja-minna-l39-q3',
-              question:
-                "【Mondai 3: Bunpo】39-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
-              options: [
-                'N ＋ に (Sabab)',
-                'N ＋ で (Tabiiy ofat yoki hodisa sababi)',
-                'N ＋ を (Sabab)',
-                'N ＋ へ (Sabab)',
-              ],
-              correctAnswerIndex: 1,
-              explanation:
-                "To'g'ri grammatik formula: 「N ＋ で (Tabiiy ofat yoki hodisa sababi)」.",
-            },
-            {
-              id: 'ja-minna-l39-q4',
-              question:
-                "【Mondai 4: Dokkai】Quyidagi yaponcha gapning to'g'ri o'zbekcha ma'nosini toping:\n「用事[ようじ]が あるので、お先[さき]に 失礼[しつれい]します。」",
-              options: [
-                "Kuchli yomg'ir sababli musobaqa bekor qilindi.",
-                'Ertaga kutubxonada dars qilaman.',
-                "Xabarni eshitib, ko'nglim tinchidi.",
-                "Zarur ishim bo'lganligi sababli, sizlardan oldinroq ketishga ruxsat bersangiz.",
-              ],
-              correctAnswerIndex: 3,
-              explanation:
-                "To'g'ri ma'nosi: 「Zarur ishim bo'lganligi sababli, sizlardan oldinroq ketishga ruxsat bersangiz.」.",
-            },
-            {
-              id: 'ja-minna-l39-q5',
-              question:
-                "【Mondai 5: Kaiwa】Savolga eng to'g'ri javobni tanlang:\n「どうして 遅れたんですか。」",
-              options: [
-                'いただきます。',
-                '大雨で 電車が 止まって しまったんです。',
-                'お疲れ様でした。',
-                'さようなら。',
-              ],
-              correctAnswerIndex: 1,
-              explanation: "To'g'ri javob: 「大雨で 電車が 止まって しまったんです。」.",
-            },
-          ],
+          questions: [...MINNA_N4_QUIZ_DATABASE[39].test],
         },
       },
     ],
@@ -5380,73 +3662,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
         practiceData: {
           instructions:
             "Darsda o'rganilgan yangi so'zlar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
-          exercises: [
-            {
-              id: 'ja-minna-l40-ex1',
-              type: 'multiple-choice',
-              prompt:
-                "Bo'sh joyga to'g'ri grammatik qo'shimchani tanlang:\n「鍵[かぎ]を かけた（　）どうか、忘[わす]れました。」",
-              options: ['か', 'も', 'と', 'に'],
-              correctAnswer: 0,
-              explanation: "To'g'ri javob: 「か」. Ikkilamchi ha/yo'q so'rog'i: 〜かどうか.",
-            },
-            {
-              id: 'ja-minna-l40-ex2',
-              type: 'multiple-choice',
-              prompt: "「〜以上[いじょう]」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
-              options: [
-                "aniqlashtirmoq, tekshirib ko'rmoq",
-                "o'lchamoq (uzunlik, vaqt, harorat)",
-                'sanamoq, hisoblamoq',
-                "...dan ko'p, ortiq",
-              ],
-              correctAnswer: 3,
-              explanation: "To'g'ri javob: 「...dan ko'p, ortiq」.",
-            },
-            {
-              id: 'ja-minna-l40-ex3',
-              type: 'multiple-choice',
-              prompt: "40-dars grammatik qoidasiga muvofiq to'g'ri tuzilgan gapni aniqlang:",
-              options: [
-                '飛行機[ひこうき]が 何時[なんじ]で 着[つ]くか、調[しら]べて ください。',
-                '飛行機[ひこうき]が 何時[なんじ]に 着[つ]くか、調[しら]べて ください でした です。',
-                '飛行機[ひこうき]が 何時[なんじ]に 着[つ]くか、調[しら]べて ください。',
-                'これ を 飛行機[ひこうき]が 何時[なんじ]に 着[つ]くか、調[しら]べて ください。',
-              ],
-              correctAnswer: 2,
-              explanation:
-                "To'g'ri gap: 「飛行機[ひこうき]が 何時[なんじ]に 着[つ]くか、調[しら]べて ください。」 (Samolyot soat nechada yetib kelishini tekshirib ko'ring.).",
-            },
-            {
-              id: 'ja-minna-l40-ex4',
-              type: 'multiple-choice',
-              prompt:
-                "Ushbu gapning to'g'ri yaponcha tarjimasini tanlang:\n「Ertaga yomg'ir yog'adimi-yo'qmi, bilmayman.」",
-              options: [
-                '鍵[かぎ]を 探[さが]して いるんです。',
-                'この ズボンを はいて みても いいですか。',
-                '明日[あした] 雨[あめ]が 降[ふ]るか どうか、わかりません。',
-                '飛行機[ひこうき]が 何時[なんじ]に 着[つ]くか、調[しら]べて ください。',
-              ],
-              correctAnswer: 2,
-              explanation:
-                "Yaponcha to'g'ri ifodasi: 「明日[あした] 雨[あめ]が 降[ふ]るか どうか、わかりません。」.",
-            },
-            {
-              id: 'ja-minna-l40-ex5',
-              type: 'multiple-choice',
-              prompt:
-                'Suhbatdoshingiz: 「忘年会に 出席できるか どうか、教えてください。」 dedi. Unga eng mos muloyim javob qaysi?',
-              options: [
-                '失礼しました。',
-                'ごちそうさまでした。',
-                'いいえ、食べません。',
-                'はい、明日までに お返事します。',
-              ],
-              correctAnswer: 3,
-              explanation: "To'g'ri javob: 「はい、明日までに お返事します。」.",
-            },
-          ],
+          exercises: [...MINNA_N4_QUIZ_DATABASE[40].practice],
         },
       },
       {
@@ -5458,63 +3674,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
           instructions:
             "Darsni muvaffaqiyatli yakunlash uchun savollarga to'g'ri javob bering (Kamida 80%).",
           passingScorePercentage: 80,
-          questions: [
-            {
-              id: 'ja-minna-l40-q1',
-              question: '【Mondai 1: Moji/Goi】「二次会」の 読[よ]み方[かた]は どれですか。',
-              options: ['にじかい', 'はかります', 'たしかめます', 'かぞえます'],
-              correctAnswerIndex: 0,
-              explanation:
-                "「二次会」 ning to'g'ri o'qilishi: 「にじかい」 (ziyofatning ikkinchi davomi).",
-            },
-            {
-              id: 'ja-minna-l40-q2',
-              question:
-                '【Mondai 2: Bunpo】（　）に 入[はい]る 最[もっと]も よいものを 1つ えらびなさい。\n「その 話[はなし]が 本当[ほんとう]か（　）、わかりません。」',
-              options: ['なんとか', 'いつか', 'どうか', 'いなか'],
-              correctAnswerIndex: 2,
-              explanation: "To'g'ri javob: 「どうか」. Ikkilamchi shubha: 〜かどうか.",
-            },
-            {
-              id: 'ja-minna-l40-q3',
-              question:
-                "【Mondai 3: Bunpo】40-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
-              options: [
-                'ます形 ＋ かどうか、〜',
-                'て形 ＋ かどうか、〜',
-                '普通形 ＋ かどうか、〜',
-                '意向形 ＋ かどうか、〜',
-              ],
-              correctAnswerIndex: 2,
-              explanation: "To'g'ri grammatik formula: 「普通形 ＋ かどうか、〜」.",
-            },
-            {
-              id: 'ja-minna-l40-q4',
-              question:
-                "【Mondai 4: Dokkai】Quyidagi yaponcha gapning to'g'ri o'zbekcha ma'nosini toping:\n「この ズボンを はいて みても いいですか。」",
-              options: [
-                "Samolyot soat nechada yetib kelishini tekshirib ko'ring.",
-                "Bu shimni kiyib ko'rsam maylimi?",
-                'Ertaga kutubxonada dars qilaman.',
-                "Ertaga yomg'ir yog'adimi-yo'qmi, bilmayman.",
-              ],
-              correctAnswerIndex: 1,
-              explanation: "To'g'ri ma'nosi: 「Bu shimni kiyib ko'rsam maylimi?」.",
-            },
-            {
-              id: 'ja-minna-l40-q5',
-              question:
-                "【Mondai 5: Kaiwa】Savolga eng to'g'ri javobni tanlang:\n「忘年会に 出席できるか どうか、教えてください。」",
-              options: [
-                'いいえ、食べません。',
-                '失礼しました。',
-                'はい、明日までに お返事します。',
-                'ごちそうさまでした。',
-              ],
-              correctAnswerIndex: 2,
-              explanation: "To'g'ri javob: 「はい、明日までに お返事します。」.",
-            },
-          ],
+          questions: [...MINNA_N4_QUIZ_DATABASE[40].test],
         },
       },
     ],
@@ -5708,74 +3868,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
         practiceData: {
           instructions:
             "Darsda o'rganilgan yangi so'zlar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
-          exercises: [
-            {
-              id: 'ja-minna-l41-ex1',
-              type: 'multiple-choice',
-              prompt:
-                "Bo'sh joyga to'g'ri grammatik qo'shimchani tanlang:\n「社長[しゃちょう]に お土産[みやげ]を（　）。」",
-              options: ['くれました', 'いただきました', 'もらいました', 'あげました'],
-              correctAnswer: 1,
-              explanation:
-                "To'g'ri javob: 「いただきました」. Yuqori martabali shaxsdan qabul qilib olish: いただく.",
-            },
-            {
-              id: 'ja-minna-l41-ex2',
-              type: 'multiple-choice',
-              prompt: "「情報[じょうほう]」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
-              options: [
-                'qabul qilib olmoq (もらいます ning hurmat shakli)',
-                "ma'lumot, axborot",
-                "bermoq (kichiklarga, hayvonlarga, o'simliklarga)",
-                'bermoq (kattalar menga berishi, くれます ning hurmat shakli)',
-              ],
-              correctAnswer: 1,
-              explanation: "To'g'ri javob: 「ma'lumot, axborot」.",
-            },
-            {
-              id: 'ja-minna-l41-ex3',
-              type: 'multiple-choice',
-              prompt: "41-dars grammatik qoidasiga muvofiq to'g'ri tuzilgan gapni aniqlang:",
-              options: [
-                'これ を わたしは 社長[しゃちょう]に 時計[とけい]を いただきました。',
-                'わたしは 社長[しゃちょう]に 時計[とけい]を いただきました でした です。',
-                'わたしは 社長[しゃちょう]で 時計[とけい]を いただきました。',
-                'わたしは 社長[しゃちょう]に 時計[とけい]を いただきました。',
-              ],
-              correctAnswer: 3,
-              explanation:
-                "To'g'ri gap: 「わたしは 社長[しゃちょう]に 時計[とけい]を いただきました。」 (Men prezident janoblaridan soat oldim.).",
-            },
-            {
-              id: 'ja-minna-l41-ex4',
-              type: 'multiple-choice',
-              prompt:
-                "Ushbu gapning to'g'ri yaponcha tarjimasini tanlang:\n「Bo'lim boshlig'ining rafiqalari menga choy berdilar.」",
-              options: [
-                '部長[ぶちょう]の 奥[おく]さんが お茶[ちゃ]を くださいました。',
-                '鍵[かぎ]を 探[さが]して いるんです。',
-                'わたしは 社長[しゃちょう]に 時計[とけい]を いただきました。',
-                'もう 一度[いちど] 説明[せつめい]して くださいませんか。',
-              ],
-              correctAnswer: 0,
-              explanation:
-                "Yaponcha to'g'ri ifodasi: 「部長[ぶちょう]の 奥[おく]さんが お茶[ちゃ]を くださいました。」.",
-            },
-            {
-              id: 'ja-minna-l41-ex5',
-              type: 'multiple-choice',
-              prompt:
-                'Suhbatdoshingiz: 「素敵な ネクタイですね。」 dedi. Unga eng mos muloyim javob qaysi?',
-              options: [
-                'いただきます。',
-                '部長に いただいたんです。',
-                'さようなら。',
-                'はい、あげました。',
-              ],
-              correctAnswer: 1,
-              explanation: "To'g'ri javob: 「部長に いただいたんです。」.",
-            },
-          ],
+          exercises: [...MINNA_N4_QUIZ_DATABASE[41].practice],
         },
       },
       {
@@ -5787,64 +3880,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
           instructions:
             "Darsni muvaffaqiyatli yakunlash uchun savollarga to'g'ri javob bering (Kamida 80%).",
           passingScorePercentage: 80,
-          questions: [
-            {
-              id: 'ja-minna-l41-q1',
-              question: '【Mondai 1: Moji/Goi】「お年玉」の 読[よ]み方[かた]は どれですか。',
-              options: ['くださいます', 'いただきます', 'おとしだま', 'やります'],
-              correctAnswerIndex: 2,
-              explanation:
-                "「お年玉」 ning to'g'ri o'qilishi: 「おとしだま」 (yangi yil pul sovg'asi (bolalarga)).",
-            },
-            {
-              id: 'ja-minna-l41-q2',
-              question:
-                '【Mondai 2: Bunpo】（　）に 入[はい]る 最[もっと]も よいものを 1つ えらびなさい。\n「先生[せんせい]が 辞書[じしょ]を（　）。」',
-              options: ['あげました', 'くださいました', 'やりました', 'いただきました'],
-              correctAnswerIndex: 1,
-              explanation:
-                "To'g'ri javob: 「くださいました」. Hurmatli shaxs so'zlovchiga berishi: くださる.",
-            },
-            {
-              id: 'ja-minna-l41-q3',
-              question:
-                "【Mondai 3: Bunpo】41-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
-              options: [
-                'わたしが N1 に N2 を くださいます',
-                'N1 が わたしに N2 を やります',
-                'N1 が わたしに N2 を いただきます',
-                'N1 が わたしに N2 を くださいます',
-              ],
-              correctAnswerIndex: 3,
-              explanation: "To'g'ri grammatik formula: 「N1 が わたしに N2 を くださいます」.",
-            },
-            {
-              id: 'ja-minna-l41-q4',
-              question:
-                "【Mondai 4: Dokkai】Quyidagi yaponcha gapning to'g'ri o'zbekcha ma'nosini toping:\n「もう 一度[いちど] 説明[せつめい]して くださいませんか。」",
-              options: [
-                "Bo'lim boshlig'ining rafiqalari menga choy berdilar.",
-                'Yana bir bor tushuntirib bera olmaysizmi?',
-                'Men prezident janoblaridan soat oldim.',
-                'Ertaga kutubxonada dars qilaman.',
-              ],
-              correctAnswerIndex: 1,
-              explanation: "To'g'ri ma'nosi: 「Yana bir bor tushuntirib bera olmaysizmi?」.",
-            },
-            {
-              id: 'ja-minna-l41-q5',
-              question:
-                "【Mondai 5: Kaiwa】Savolga eng to'g'ri javobni tanlang:\n「素敵な ネクタイですね。」",
-              options: [
-                'さようなら。',
-                'はい、あげました。',
-                '部長に いただいたんです。',
-                'いただきます。',
-              ],
-              correctAnswerIndex: 2,
-              explanation: "To'g'ri javob: 「部長に いただいたんです。」.",
-            },
-          ],
+          questions: [...MINNA_N4_QUIZ_DATABASE[41].test],
         },
       },
     ],
@@ -6049,74 +4085,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
         practiceData: {
           instructions:
             "Darsda o'rganilgan yangi so'zlar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
-          exercises: [
-            {
-              id: 'ja-minna-l42-ex1',
-              type: 'multiple-choice',
-              prompt:
-                "Bo'sh joyga to'g'ri grammatik qo'shimchani tanlang:\n「大学[だいがく]に 合格[ごうかく]する（　）に、一生懸命[いっしょうけんめい] 勉強[べんきょう]します。」",
-              options: ['もの', 'よう', 'こと', 'ため'],
-              correctAnswer: 3,
-              explanation:
-                "To'g'ri javob: 「ため」. O'z irodasi bilan erishiladigan maqsad: V-辞書形 + ために.",
-            },
-            {
-              id: 'ja-minna-l42-ex2',
-              type: 'multiple-choice',
-              prompt: "「論文[ろんぶん]」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
-              options: [
-                'qaynatmoq (suvni)',
-                'aralashtirmoq',
-                'ilmiy maqola, dissertatsiya',
-                "o'ramoq, qadoqlamoq",
-              ],
-              correctAnswer: 2,
-              explanation: "To'g'ri javob: 「ilmiy maqola, dissertatsiya」.",
-            },
-            {
-              id: 'ja-minna-l42-ex3',
-              type: 'multiple-choice',
-              prompt: "42-dars grammatik qoidasiga muvofiq to'g'ri tuzilgan gapni aniqlang:",
-              options: [
-                '将来[しょうらい] 自分[じぶん]の 店[みせ]を 持[も]つ ために、貯金[ちょきん]して います。',
-                'これ を 将来[しょうらい] 自分[じぶん]の 店[みせ]を 持[も]つ ために、貯金[ちょきん]して います。',
-                '将来[しょうらい] 自分[じぶん]の 店[みせ]へ 持[も]つ ために、貯金[ちょきん]して います。',
-                '将来[しょうらい] 自分[じぶん]の 店[みせ]を 持[も]つ ために、貯金[ちょきん]して います です。',
-              ],
-              correctAnswer: 0,
-              explanation:
-                "To'g'ri gap: 「将来[しょうらい] 自分[じぶん]の 店[みせ]を 持[も]つ ために、貯金[ちょきん]して います。」 (Kelajakda o'z do'konimni ochish uchun pul jamg'aryapman.).",
-            },
-            {
-              id: 'ja-minna-l42-ex4',
-              type: 'multiple-choice',
-              prompt:
-                "Ushbu gapning to'g'ri yaponcha tarjimasini tanlang:\n「Oilam uchun astoydil mehnat qilaman.」",
-              options: [
-                '将来[しょうらい] 自分[じぶん]の 店[みせ]を 持[も]つ ために、貯金[ちょきん]して います。',
-                'この 辞書[じしょ]は 漢字[かんじ]を 調[しら]べるのに 便利[べんり]です。',
-                'この はさみは 紙[かみ]を 切[き]るのに 使[つか]います。',
-                '家族[かぞく]の ために、一生懸命[いっしょうけんめい] 働[はたら]きます。',
-              ],
-              correctAnswer: 3,
-              explanation:
-                "Yaponcha to'g'ri ifodasi: 「家族[かぞく]の ために、一生懸命[いっしょうけんめい] 働[はたら]きます。」.",
-            },
-            {
-              id: 'ja-minna-l42-ex5',
-              type: 'multiple-choice',
-              prompt:
-                'Suhbatdoshingiz: 「何のために 貯金して いるんですか。」 dedi. Unga eng mos muloyim javob qaysi?',
-              options: [
-                'おやすみなさい。',
-                '失礼します。',
-                '将来 留学する ためです。',
-                'いいえ、違います。',
-              ],
-              correctAnswer: 2,
-              explanation: "To'g'ri javob: 「将来 留学する ためです。」.",
-            },
-          ],
+          exercises: [...MINNA_N4_QUIZ_DATABASE[42].practice],
         },
       },
       {
@@ -6128,65 +4097,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
           instructions:
             "Darsni muvaffaqiyatli yakunlash uchun savollarga to'g'ri javob bering (Kamida 80%).",
           passingScorePercentage: 80,
-          questions: [
-            {
-              id: 'ja-minna-l42-q1',
-              question: '【Mondai 1: Moji/Goi】「論文」の 読[よ]み方[かた]は どれですか。',
-              options: ['わかします', 'つつみます', 'ろんぶん', 'まぜます'],
-              correctAnswerIndex: 2,
-              explanation:
-                "「論文」 ning to'g'ri o'qilishi: 「ろんぶん」 (ilmiy maqola, dissertatsiya).",
-            },
-            {
-              id: 'ja-minna-l42-q2',
-              question:
-                '【Mondai 2: Bunpo】（　）に 入[はい]る 最[もっと]も よいものを 1つ えらびなさい。\n「この はさみは 紙[かみ]を（　）のに 便利[べんり]です。」',
-              options: ['切って', '切る', '切った', '切り'],
-              correctAnswerIndex: 1,
-              explanation:
-                "To'g'ri javob: 「切る」. Vositaning vazifasi: V-辞書形 + のに使います/便利です.",
-            },
-            {
-              id: 'ja-minna-l42-q3',
-              question:
-                "【Mondai 3: Bunpo】42-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
-              options: [
-                'V-辞書形 ＋ のに 使います / 便利です / 時間がかかります',
-                'V-ます形 ＋ のに 使います / 便利です',
-                'V-た形 ＋ のに 使います / 便利です',
-                'V-て形 ＋ のに 使います / 便利です',
-              ],
-              correctAnswerIndex: 0,
-              explanation:
-                "To'g'ri grammatik formula: 「V-辞書形 ＋ のに 使います / 便利です / 時間がかかります」.",
-            },
-            {
-              id: 'ja-minna-l42-q4',
-              question:
-                "【Mondai 4: Dokkai】Quyidagi yaponcha gapning to'g'ri o'zbekcha ma'nosini toping:\n「この はさみは 紙[かみ]を 切[き]るのに 使[つか]います。」",
-              options: [
-                "Bu qaychi qog'oz qirqish uchun ishlatiladi.",
-                "Kelajakda o'z do'konimni ochish uchun pul jamg'aryapman.",
-                "Bu lug'at kanjilarni qidirishda juda qulay.",
-                'Oilam uchun astoydil mehnat qilaman.',
-              ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri ma'nosi: 「Bu qaychi qog'oz qirqish uchun ishlatiladi.」.",
-            },
-            {
-              id: 'ja-minna-l42-q5',
-              question:
-                "【Mondai 5: Kaiwa】Savolga eng to'g'ri javobni tanlang:\n「何のために 貯金して いるんですか。」",
-              options: [
-                '失礼します。',
-                'いいえ、違います。',
-                '将来 留学する ためです。',
-                'おやすみなさい。',
-              ],
-              correctAnswerIndex: 2,
-              explanation: "To'g'ri javob: 「将来 留学する ためです。」.",
-            },
-          ],
+          questions: [...MINNA_N4_QUIZ_DATABASE[42].test],
         },
       },
     ],
@@ -6370,73 +4281,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
         practiceData: {
           instructions:
             "Darsda o'rganilgan yangi so'zlar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
-          exercises: [
-            {
-              id: 'ja-minna-l43-ex1',
-              type: 'multiple-choice',
-              prompt:
-                "Bo'sh joyga to'g'ri grammatik qo'shimchani tanlang:\n「今[いま]にも 雨[あめ]が（　）そうです。」",
-              options: ['降った', '降って', '降り', '降る'],
-              correctAnswer: 2,
-              explanation:
-                "To'g'ri javob: 「降り」. Hozir sodir bo'lish arafasidagi holat: V-ます shakli + そうです.",
-            },
-            {
-              id: 'ja-minna-l43-ex2',
-              type: 'multiple-choice',
-              prompt: "「適当[てきとう]な」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
-              options: [
-                'kamaymoq',
-                "ko'paymoq, oshmoq (son, miqdor)",
-                "ko'tarilmoq (narx, harorat)",
-                'munosib, mos keluvchi',
-              ],
-              correctAnswer: 3,
-              explanation: "To'g'ri javob: 「munosib, mos keluvchi」.",
-            },
-            {
-              id: 'ja-minna-l43-ex3',
-              type: 'multiple-choice',
-              prompt: "43-dars grammatik qoidasiga muvofiq to'g'ri tuzilgan gapni aniqlang:",
-              options: [
-                '今[いま]にも 雨[あめ]が 降[ふ]りそうだです。',
-                '今[いま]にも 雨[あめ]が 降[ふ]りそうです か でした。',
-                'これ を 今[いま]にも 雨[あめ]が 降[ふ]りそうです。',
-                '今[いま]にも 雨[あめ]が 降[ふ]りそうです。',
-              ],
-              correctAnswer: 3,
-              explanation:
-                "To'g'ri gap: 「今[いま]にも 雨[あめ]が 降[ふ]りそうです。」 (Hozirning o'zidayoq yomg'ir yog'adigandek bo'lib turibdi.).",
-            },
-            {
-              id: 'ja-minna-l43-ex4',
-              type: 'multiple-choice',
-              prompt:
-                "Ushbu gapning to'g'ri yaponcha tarjimasini tanlang:\n「Bu tort juda mazalidek ko'rinyapti.」",
-              options: [
-                'ちょっと 切符[きっぷ]を 買[か]って 来[き]ます。',
-                'この ケーキは とても おいしそうです。',
-                '鍵[かぎ]を 探[さが]して いるんです。',
-                '今[いま]にも 雨[あめ]が 降[ふ]りそうです。',
-              ],
-              correctAnswer: 1,
-              explanation: "Yaponcha to'g'ri ifodasi: 「この ケーキは とても おいしそうです。」.",
-            },
-            {
-              id: 'ja-minna-l43-ex5',
-              type: 'multiple-choice',
-              prompt:
-                'Suhbatdoshingiz: 「空が 暗くなって きましたね。」 dedi. Unga eng mos muloyim javob qaysi?',
-              options: [
-                'ええ、今にも 雨が 降りそうですね。',
-                'おめでとうございます。',
-                'どういたしまして。',
-                'いただきます。',
-              ],
-              correctAnswer: 0,
-              explanation: "To'g'ri javob: 「ええ、今にも 雨が 降りそうですね。」.",
-            },
-          ],
+          exercises: [...MINNA_N4_QUIZ_DATABASE[43].practice],
         },
       },
       {
@@ -6448,64 +4293,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
           instructions:
             "Darsni muvaffaqiyatli yakunlash uchun savollarga to'g'ri javob bering (Kamida 80%).",
           passingScorePercentage: 80,
-          questions: [
-            {
-              id: 'ja-minna-l43-q1',
-              question: '【Mondai 1: Moji/Goi】「切れます」の 読[よ]み方[かた]は どれですか。',
-              options: ['きれます', 'あがります', 'へります', 'ふえます'],
-              correctAnswerIndex: 0,
-              explanation:
-                "「切れます」 ning to'g'ri o'qilishi: 「きれます」 (uzilmoq (ip, tugma)).",
-            },
-            {
-              id: 'ja-minna-l43-q2',
-              question:
-                '【Mondai 2: Bunpo】（　）に 入[はい]る 最[もっと]も よいものを 1つ えらびなさい。\n「この 料理[りょうり]は（　）そうです。」',
-              options: ['おいしくて', 'おいしい', 'おいし', 'おいしく'],
-              correctAnswerIndex: 2,
-              explanation:
-                "To'g'ri javob: 「おいし」. Tashqi ko'rinishdan baholash: おいしい -> おいしそうです.",
-            },
-            {
-              id: 'ja-minna-l43-q3',
-              question:
-                "【Mondai 3: Bunpo】43-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
-              options: [
-                'V-ます形 ＋ きます',
-                'V-て形 ＋ きます',
-                'V-た形 ＋ きます',
-                'V-辞書形 ＋ きます',
-              ],
-              correctAnswerIndex: 1,
-              explanation: "To'g'ri grammatik formula: 「V-て形 ＋ きます」.",
-            },
-            {
-              id: 'ja-minna-l43-q4',
-              question:
-                "【Mondai 4: Dokkai】Quyidagi yaponcha gapning to'g'ri o'zbekcha ma'nosini toping:\n「ちょっと 切符[きっぷ]を 買[か]って 来[き]ます。」",
-              options: [
-                'Ertaga kutubxonada dars qilaman.',
-                "Hozirning o'zidayoq yomg'ir yog'adigandek bo'lib turibdi.",
-                'Birozga chipta sotib olib qaytaman.',
-                "Bu tort juda mazalidek ko'rinyapti.",
-              ],
-              correctAnswerIndex: 2,
-              explanation: "To'g'ri ma'nosi: 「Birozga chipta sotib olib qaytaman.」.",
-            },
-            {
-              id: 'ja-minna-l43-q5',
-              question:
-                "【Mondai 5: Kaiwa】Savolga eng to'g'ri javobni tanlang:\n「空が 暗くなって きましたね。」",
-              options: [
-                'おめでとうございます。',
-                'どういたしまして。',
-                'いただきます。',
-                'ええ、今にも 雨が 降りそうですね。',
-              ],
-              correctAnswerIndex: 3,
-              explanation: "To'g'ri javob: 「ええ、今にも 雨が 降りそうですね。」.",
-            },
-          ],
+          questions: [...MINNA_N4_QUIZ_DATABASE[43].test],
         },
       },
     ],
@@ -6747,73 +4535,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
         practiceData: {
           instructions:
             "Darsda o'rganilgan yangi so'zlar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
-          exercises: [
-            {
-              id: 'ja-minna-l44-ex1',
-              type: 'multiple-choice',
-              prompt:
-                "Bo'sh joyga to'g'ri grammatik qo'shimchani tanlang:\n「この 薬[くすり]は 苦[にが]くて、（　）にくいです。」",
-              options: ['飲む', '飲み', '飲ま', '飲んで'],
-              correctAnswer: 1,
-              explanation:
-                "To'g'ri javob: 「飲み」. Bajarish qiyin bo'lgan harakat: V-ます shakli + にくい.",
-            },
-            {
-              id: 'ja-minna-l44-ex2',
-              type: 'multiple-choice',
-              prompt: "「調節[ちょうせつ]します」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
-              options: [
-                'moslamoq, sozlamoq (harorat, hajm)',
-                'qurimoq',
-                "yig'lamoq",
-                'kulmoq, jilmaymoq',
-              ],
-              correctAnswer: 0,
-              explanation: "To'g'ri javob: 「moslamoq, sozlamoq (harorat, hajm)」.",
-            },
-            {
-              id: 'ja-minna-l44-ex3',
-              type: 'multiple-choice',
-              prompt: "44-dars grammatik qoidasiga muvofiq to'g'ri tuzilgan gapni aniqlang:",
-              options: [
-                'ゆうべ お酒[さけ]を 飲[の]みすぎました。',
-                'ゆうべ お酒[さけ]を 飲[の]みすぎました でした です。',
-                'ゆうべ お酒[さけ]へ 飲[の]みすぎました。',
-                'これ を ゆうべ お酒[さけ]を 飲[の]みすぎました。',
-              ],
-              correctAnswer: 0,
-              explanation:
-                "To'g'ri gap: 「ゆうべ お酒[さけ]を 飲[の]みすぎました。」 (Kecha kechqurun haddan tashqari ko'p ichib yuboribman.).",
-            },
-            {
-              id: 'ja-minna-l44-ex4',
-              type: 'multiple-choice',
-              prompt:
-                "Ushbu gapning to'g'ri yaponcha tarjimasini tanlang:\n「Bu xona juda ham tor.」",
-              options: [
-                'この 部屋[へや]は 狭[せま]すぎます。',
-                'この パソコンは 使[つか]いやすいです。',
-                'ゆうべ お酒[さけ]を 飲[の]みすぎました。',
-                '東京[とうきょう]の 道[みち]は 複雑[ふくざつ]で、分[わ]かりにくいです。',
-              ],
-              correctAnswer: 0,
-              explanation: "Yaponcha to'g'ri ifodasi: 「この 部屋[へや]は 狭[せま]すぎます。」.",
-            },
-            {
-              id: 'ja-minna-l44-ex5',
-              type: 'multiple-choice',
-              prompt:
-                'Suhbatdoshingiz: 「この 本は どうですか。」 dedi. Unga eng mos muloyim javob qaysi?',
-              options: [
-                'さようなら。',
-                '失礼しました。',
-                '文字が 大きくて、とても 読みやすいです。',
-                'はい、食べました。',
-              ],
-              correctAnswer: 2,
-              explanation: "To'g'ri javob: 「文字が 大きくて、とても 読みやすいです。」.",
-            },
-          ],
+          exercises: [...MINNA_N4_QUIZ_DATABASE[44].practice],
         },
       },
       {
@@ -6825,63 +4547,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
           instructions:
             "Darsni muvaffaqiyatli yakunlash uchun savollarga to'g'ri javob bering (Kamida 80%).",
           passingScorePercentage: 80,
-          questions: [
-            {
-              id: 'ja-minna-l44-q1',
-              question: '【Mondai 1: Moji/Goi】「厚い」の 読[よ]み方[かた]は どれですか。',
-              options: ['わらいます', 'かわきます', 'あつい', 'なきます'],
-              correctAnswerIndex: 2,
-              explanation: "「厚い」 ning to'g'ri o'qilishi: 「あつい」 (qalin (kitob, kiyim)).",
-            },
-            {
-              id: 'ja-minna-l44-q2',
-              question:
-                '【Mondai 2: Bunpo】（　）に 入[はい]る 最[もっと]も よいものを 1つ えらびなさい。\n「お酒[さけ]を 飲み（　）頭[あたま]が 痛[いた]いです。」',
-              options: ['にくい', 'やすい', 'すぎて', 'すぎ'],
-              correctAnswerIndex: 2,
-              explanation:
-                "To'g'ri javob: 「すぎて」. Me'yoridan ortiq harakat: V-ます shakli + すぎる.",
-            },
-            {
-              id: 'ja-minna-l44-q3',
-              question:
-                "【Mondai 3: Bunpo】44-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
-              options: [
-                'V-辞書形 ＋ やすい / にくい',
-                'V-て形 ＋ やすい / にくい',
-                'V-ます形 ＋ やすい / にくい',
-                'V-た形 ＋ やすい / にくい',
-              ],
-              correctAnswerIndex: 2,
-              explanation: "To'g'ri grammatik formula: 「V-ます形 ＋ やすい / にくい」.",
-            },
-            {
-              id: 'ja-minna-l44-q4',
-              question:
-                "【Mondai 4: Dokkai】Quyidagi yaponcha gapning to'g'ri o'zbekcha ma'nosini toping:\n「この パソコンは 使[つか]いやすいです。」",
-              options: [
-                "Tokio yo'llari chigal bo'lgani uchun tushunish qiyin.",
-                'Bu kompyuterdan foydalanish juda oson.',
-                'Bu xona juda ham tor.',
-                "Kecha kechqurun haddan tashqari ko'p ichib yuboribman.",
-              ],
-              correctAnswerIndex: 1,
-              explanation: "To'g'ri ma'nosi: 「Bu kompyuterdan foydalanish juda oson.」.",
-            },
-            {
-              id: 'ja-minna-l44-q5',
-              question:
-                "【Mondai 5: Kaiwa】Savolga eng to'g'ri javobni tanlang:\n「この 本は どうですか。」",
-              options: [
-                'さようなら。',
-                '文字が 大きくて、とても 読みやすいです。',
-                '失礼しました。',
-                'はい、食べました。',
-              ],
-              correctAnswerIndex: 1,
-              explanation: "To'g'ri javob: 「文字が 大きくて、とても 読みやすいです。」.",
-            },
-          ],
+          questions: [...MINNA_N4_QUIZ_DATABASE[44].test],
         },
       },
     ],
@@ -7083,74 +4749,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
         practiceData: {
           instructions:
             "Darsda o'rganilgan yangi so'zlar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
-          exercises: [
-            {
-              id: 'ja-minna-l45-ex1',
-              type: 'multiple-choice',
-              prompt:
-                "Bo'sh joyga to'g'ri grammatik qo'shimchani tanlang:\n「事故[じこ]に あった（　）は、警察[けいさつ]に 連絡[れんらく]してください。」",
-              options: ['場合', 'とおり', 'はず', 'のに'],
-              correctAnswer: 0,
-              explanation:
-                "To'g'ri javob: 「場合」. Kutilmagan noxush vaziyatda ko'riladigan chora: 〜場合は.",
-            },
-            {
-              id: 'ja-minna-l45-ex2',
-              type: 'multiple-choice',
-              prompt: "「約束[やくそく]」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
-              options: [
-                "va'da, kelishuv",
-                'bekor qilmoq',
-                'ishonmoq',
-                "kafolat qog'ozi (garantiya)",
-              ],
-              correctAnswer: 0,
-              explanation: "To'g'ri javob: 「va'da, kelishuv」.",
-            },
-            {
-              id: 'ja-minna-l45-ex3',
-              type: 'multiple-choice',
-              prompt: "45-dars grammatik qoidasiga muvofiq to'g'ri tuzilgan gapni aniqlang:",
-              options: [
-                '火事[かじ]や 地震[じしん]の 場合[ばあい]は、エレベーターへ 使[つか]わないで ください。',
-                'これ を 火事[かじ]や 地震[じしん]の 場合[ばあい]は、エレベーターを 使[つか]わないで ください。',
-                '火事[かじ]や 地震[じしん]の 場合[ばあい]は、エレベーターを 使[つか]わないで ください でした です。',
-                '火事[かじ]や 地震[じしん]の 場合[ばあい]は、エレベーターを 使[つか]わないで ください。',
-              ],
-              correctAnswer: 3,
-              explanation:
-                "To'g'ri gap: 「火事[かじ]や 地震[じしん]の 場合[ばあい]は、エレベーターを 使[つか]わないで ください。」 (Yong'in yoki zilzila bo'lgan taqdirda liftdan foydalanmang.).",
-            },
-            {
-              id: 'ja-minna-l45-ex4',
-              type: 'multiple-choice',
-              prompt:
-                "Ushbu gapning to'g'ri yaponcha tarjimasini tanlang:\n「Majlisga kechikadigan bo'lsangiz, xabar bering.」",
-              options: [
-                '会議[かいぎ]に 遅[おく]れる 場合[ばあい]は、連絡[れんらく]して ください。',
-                '日曜日[にちようび]なのに、働[はたら]かなければ なりません。',
-                '火事[かじ]や 地震[じしん]の 場合[ばあい]は、エレベーターを 使[つか]わないで ください。',
-                '一生懸命[いっしょうけんめい] 勉強[べんきょう]したのに、不合格[ふごうかく]でした。',
-              ],
-              correctAnswer: 0,
-              explanation:
-                "Yaponcha to'g'ri ifodasi: 「会議[かいぎ]に 遅[おく]れる 場合[ばあい]は、連絡[れんらく]して ください。」.",
-            },
-            {
-              id: 'ja-minna-l45-ex5',
-              type: 'multiple-choice',
-              prompt:
-                'Suhbatdoshingiz: 「道が わからない 場合は、どうしますか。」 dedi. Unga eng mos muloyim javob qaysi?',
-              options: [
-                'ごちそうさまでした。',
-                '近くの 交番で 聞くように しています。',
-                'いただきます。',
-                'おやすみなさい。',
-              ],
-              correctAnswer: 1,
-              explanation: "To'g'ri javob: 「近くの 交番で 聞くように しています。」.",
-            },
-          ],
+          exercises: [...MINNA_N4_QUIZ_DATABASE[45].practice],
         },
       },
       {
@@ -7162,64 +4761,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
           instructions:
             "Darsni muvaffaqiyatli yakunlash uchun savollarga to'g'ri javob bering (Kamida 80%).",
           passingScorePercentage: 80,
-          questions: [
-            {
-              id: 'ja-minna-l45-q1',
-              question: '【Mondai 1: Moji/Goi】「中止」の 読[よ]み方[かた]は どれですか。',
-              options: ['ほしょうしょ', 'キャンセルします', 'ちゅうし', 'しんじます'],
-              correctAnswerIndex: 2,
-              explanation:
-                "「中止」 ning to'g'ri o'qilishi: 「ちゅうし」 (to'xtatish, bekor qilish).",
-            },
-            {
-              id: 'ja-minna-l45-q2',
-              question:
-                '【Mondai 2: Bunpo】（　）に 入[はい]る 最[もっと]も よいものを 1つ えらびなさい。\n「約束[やくそく]を した（　）、彼[かれ]は 来[こ]なかった。」',
-              options: ['ので', 'から', 'のに', 'なら'],
-              correctAnswerIndex: 2,
-              explanation: "To'g'ri javob: 「のに」. Kutilganga zid kelganda: 普通形 + のに.",
-            },
-            {
-              id: 'ja-minna-l45-q3',
-              question:
-                "【Mondai 3: Bunpo】45-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
-              options: [
-                '普通形 (Naだ / Nだ) ＋ のに、〜',
-                'ます形 ＋ のに、〜',
-                'て形 ＋ のに、〜',
-                '普通形 (Naな / Nな) ＋ のに、〜',
-              ],
-              correctAnswerIndex: 3,
-              explanation: "To'g'ri grammatik formula: 「普通形 (Naな / Nな) ＋ のに、〜」.",
-            },
-            {
-              id: 'ja-minna-l45-q4',
-              question:
-                "【Mondai 4: Dokkai】Quyidagi yaponcha gapning to'g'ri o'zbekcha ma'nosini toping:\n「一生懸命[いっしょうけんめい] 勉強[べんきょう]したのに、不合格[ふごうかく]でした。」",
-              options: [
-                "Yong'in yoki zilzila bo'lgan taqdirda liftdan foydalanmang.",
-                "Astoydil o'qigan bo'lsam ham (holbuki shuncha o'qidim), imtihondan o'ta olmadim.",
-                "Yakshanba bo'lishiga qaramay, ishlashga majburman.",
-                "Majlisga kechikadigan bo'lsangiz, xabar bering.",
-              ],
-              correctAnswerIndex: 1,
-              explanation:
-                "To'g'ri ma'nosi: 「Astoydil o'qigan bo'lsam ham (holbuki shuncha o'qidim), imtihondan o'ta olmadim.」.",
-            },
-            {
-              id: 'ja-minna-l45-q5',
-              question:
-                "【Mondai 5: Kaiwa】Savolga eng to'g'ri javobni tanlang:\n「道が わからない 場合は、どうしますか。」",
-              options: [
-                'ごちそうさまでした。',
-                '近くの 交番で 聞くように しています。',
-                'いただきます。',
-                'おやすみなさい。',
-              ],
-              correctAnswerIndex: 1,
-              explanation: "To'g'ri javob: 「近くの 交番で 聞くように しています。」.",
-            },
-          ],
+          questions: [...MINNA_N4_QUIZ_DATABASE[45].test],
         },
       },
     ],
@@ -7407,74 +4949,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
         practiceData: {
           instructions:
             "Darsda o'rganilgan yangi so'zlar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
-          exercises: [
-            {
-              id: 'ja-minna-l46-ex1',
-              type: 'multiple-choice',
-              prompt:
-                "Bo'sh joyga to'g'ri grammatik qo'shimchani tanlang:\n「飛行機[ひこうき]は 今[いま] 飛[と]び立[た]つ（　）です。」",
-              options: ['はず', 'ところ', 'ばかり', 'わけ'],
-              correctAnswer: 1,
-              explanation:
-                "To'g'ri javob: 「ところ」. Ayni harakat boshlanish arafasidagi payt: V-辞書形 + ところです.",
-            },
-            {
-              id: 'ja-minna-l46-ex2',
-              type: 'multiple-choice',
-              prompt: "「今[いま]いいですか」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
-              options: [
-                "topshirmoq, qo'liga tutqazmoq",
-                'hozir vaqtingiz bormi?',
-                "yetib bormoq (pochta, jo'natma)",
-                'qaytib kelmoq',
-              ],
-              correctAnswer: 1,
-              explanation: "To'g'ri javob: 「hozir vaqtingiz bormi?」.",
-            },
-            {
-              id: 'ja-minna-l46-ex3',
-              type: 'multiple-choice',
-              prompt: "46-dars grammatik qoidasiga muvofiq to'g'ri tuzilgan gapni aniqlang:",
-              options: [
-                '会議[かいぎ]は 今[いま]から 始[はじ]まる ところだです。',
-                '会議[かいぎ]は 今[いま]から 始[はじ]まる ところです か でした。',
-                '会議[かいぎ]は 今[いま]から 始[はじ]まる ところです。',
-                'これ を 会議[かいぎ]は 今[いま]から 始[はじ]まる ところです。',
-              ],
-              correctAnswer: 2,
-              explanation:
-                "To'g'ri gap: 「会議[かいぎ]は 今[いま]から 始[はじ]まる ところです。」 (Majlis ayni hozir boshlanish arafasida turibdi.).",
-            },
-            {
-              id: 'ja-minna-l46-ex4',
-              type: 'multiple-choice',
-              prompt:
-                "Ushbu gapning to'g'ri yaponcha tarjimasini tanlang:\n「Ayni paytda hujjatlarni tayyorlayotgan edim.」",
-              options: [
-                '彼[かれ]は 先月[せんげつ] 日本[にほん]へ 来[き]た ばかりです。',
-                'たった今[いま] 昼[ひる]ごはんを 食[た]べた ところです。',
-                '会議[かいぎ]は 今[いま]から 始[はじ]まる ところです。',
-                '今[いま] 書類[しょるい]を 作[つく]って いる ところです。',
-              ],
-              correctAnswer: 3,
-              explanation:
-                "Yaponcha to'g'ri ifodasi: 「今[いま] 書類[しょるい]を 作[つく]って いる ところです。」.",
-            },
-            {
-              id: 'ja-minna-l46-ex5',
-              type: 'multiple-choice',
-              prompt:
-                'Suhbatdoshingiz: 「新幹線は もう 出発しましたか。」 dedi. Unga eng mos muloyim javob qaysi?',
-              options: [
-                '失礼します。',
-                'いいえ、食べます。',
-                'ええ、たった今 出た ところです。',
-                'お大事に。',
-              ],
-              correctAnswer: 2,
-              explanation: "To'g'ri javob: 「ええ、たった今 出た ところです。」.",
-            },
-          ],
+          exercises: [...MINNA_N4_QUIZ_DATABASE[46].practice],
         },
       },
       {
@@ -7486,64 +4961,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
           instructions:
             "Darsni muvaffaqiyatli yakunlash uchun savollarga to'g'ri javob bering (Kamida 80%).",
           passingScorePercentage: 80,
-          questions: [
-            {
-              id: 'ja-minna-l46-q1',
-              question: '【Mondai 1: Moji/Goi】「今いいですか」の 読[よ]み方[かた]は どれですか。',
-              options: ['わたします', 'かえってきます', 'いまいいですか', 'とどきます'],
-              correctAnswerIndex: 2,
-              explanation:
-                "「今いいですか」 ning to'g'ri o'qilishi: 「いまいいですか」 (hozir vaqtingiz bormi?).",
-            },
-            {
-              id: 'ja-minna-l46-q2',
-              question:
-                '【Mondai 2: Bunpo】（　）に 入[はい]る 最[もっと]も よいものを 1つ えらびなさい。\n「今[いま] ご飯[はん]を（　）ところです。」',
-              options: ['食べている', '食べた', '食べる', '食べよう'],
-              correctAnswerIndex: 0,
-              explanation:
-                "To'g'ri javob: 「食べている」. Ayni damda davom etayotgan palla: V-ている + ところです.",
-            },
-            {
-              id: 'ja-minna-l46-q3',
-              question:
-                "【Mondai 3: Bunpo】46-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
-              options: [
-                'V-た形 ＋ ばかりです',
-                'V-辞書形 ＋ ばかりです',
-                'V-ている ＋ ばかりです',
-                'V-ます形 ＋ ばかりです',
-              ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri grammatik formula: 「V-た形 ＋ ばかりです」.",
-            },
-            {
-              id: 'ja-minna-l46-q4',
-              question:
-                "【Mondai 4: Dokkai】Quyidagi yaponcha gapning to'g'ri o'zbekcha ma'nosini toping:\n「たった今[いま] 昼[ひる]ごはんを 食[た]べた ところです。」",
-              options: [
-                'Majlis ayni hozir boshlanish arafasida turibdi.',
-                'Ayni paytda hujjatlarni tayyorlayotgan edim.',
-                "U o'tgan oygina Yaponiyaga keldi (kelganiga ko'p bo'lgani yo'q).",
-                "Ayni hozirgina tushlik qilib bo'lgan paytim edi.",
-              ],
-              correctAnswerIndex: 3,
-              explanation: "To'g'ri ma'nosi: 「Ayni hozirgina tushlik qilib bo'lgan paytim edi.」.",
-            },
-            {
-              id: 'ja-minna-l46-q5',
-              question:
-                "【Mondai 5: Kaiwa】Savolga eng to'g'ri javobni tanlang:\n「新幹線は もう 出発しましたか。」",
-              options: [
-                'ええ、たった今 出た ところです。',
-                'いいえ、食べます。',
-                '失礼します。',
-                'お大事に。',
-              ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: 「ええ、たった今 出た ところです。」.",
-            },
-          ],
+          questions: [...MINNA_N4_QUIZ_DATABASE[46].test],
         },
       },
     ],
@@ -7731,74 +5149,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
         practiceData: {
           instructions:
             "Darsda o'rganilgan yangi so'zlar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
-          exercises: [
-            {
-              id: 'ja-minna-l47-ex1',
-              type: 'multiple-choice',
-              prompt:
-                "Bo'sh joyga to'g'ri grammatik qo'shimchani tanlang:\n「天気予報[てんきよほう]に よると、明日は 晴れる（　）です。」",
-              options: ['らしい', 'そう', 'よう', 'みたい'],
-              correctAnswer: 1,
-              explanation:
-                "To'g'ri javob: 「そう」. Eshitilgan axborotni yetkazish: 普通形 + そうです (eshitishimcha).",
-            },
-            {
-              id: 'ja-minna-l47-ex2',
-              type: 'multiple-choice',
-              prompt: "「におい」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
-              options: [
-                "yig'ilmoq, to'planmoq",
-                'hid',
-                'ajrashmoq, xayrlashmoq',
-                'tovush (jonsiz narsalar tovushi)',
-              ],
-              correctAnswer: 1,
-              explanation: "To'g'ri javob: 「hid」.",
-            },
-            {
-              id: 'ja-minna-l47-ex3',
-              type: 'multiple-choice',
-              prompt: "47-dars grammatik qoidasiga muvofiq to'g'ri tuzilgan gapni aniqlang:",
-              options: [
-                'これ を 天気予報[てんきよほう]に よると、明日[あした]は 寒[さむ]く なるそうです。',
-                '天気予報[てんきよほう]に よると、明日[あした]は 寒[さむ]く なるそうだです。',
-                '天気予報[てんきよほう]に よると、明日[あした]は 寒[さむ]く なるそうです。',
-                '天気予報[てんきよほう]で よると、明日[あした]は 寒[さむ]く なるそうです。',
-              ],
-              correctAnswer: 2,
-              explanation:
-                "To'g'ri gap: 「天気予報[てんきよほう]に よると、明日[あした]は 寒[さむ]く なるそうです。」 (Ob-havo ma'lumotlariga ko'ra, ertaga havo soviydi emish.).",
-            },
-            {
-              id: 'ja-minna-l47-ex4',
-              type: 'multiple-choice',
-              prompt:
-                "Ushbu gapning to'g'ri yaponcha tarjimasini tanlang:\n「Eshitishimcha, Ogawa xonim kelasi oy turmushga chiqar ekan.」",
-              options: [
-                '小川[おがわ]さんは 来月[らいげつ] 結婚[けっこん]するそうです。',
-                '隣[となり]の 部屋[へや]に だれか いるようです。',
-                '天気予報[てんきよほう]に よると、明日[あした]は 寒[さむ]く なるそうです。',
-                '台所[だいどころ]から いい においが します。',
-              ],
-              correctAnswer: 0,
-              explanation:
-                "Yaponcha to'g'ri ifodasi: 「小川[おがわ]さんは 来月[らいげつ] 結婚[けっこん]するそうです。」.",
-            },
-            {
-              id: 'ja-minna-l47-ex5',
-              type: 'multiple-choice',
-              prompt:
-                'Suhbatdoshingiz: 「佐藤さんは どこに いますか。」 dedi. Unga eng mos muloyim javob qaysi?',
-              options: [
-                '会議室に いる そうですよ。',
-                'はい、そうです。',
-                'ごちそうさまでした。',
-                'いただきます。',
-              ],
-              correctAnswer: 0,
-              explanation: "To'g'ri javob: 「会議室に いる そうですよ。」.",
-            },
-          ],
+          exercises: [...MINNA_N4_QUIZ_DATABASE[47].practice],
         },
       },
       {
@@ -7810,65 +5161,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
           instructions:
             "Darsni muvaffaqiyatli yakunlash uchun savollarga to'g'ri javob bering (Kamida 80%).",
           passingScorePercentage: 80,
-          questions: [
-            {
-              id: 'ja-minna-l47-q1',
-              question: '【Mondai 1: Moji/Goi】「天気予報」の 読[よ]み方[かた]は どれですか。',
-              options: ['てんきよほう', 'あつまります', 'おと', 'わかれます'],
-              correctAnswerIndex: 0,
-              explanation:
-                "「天気予報」 ning to'g'ri o'qilishi: 「てんきよほう」 (ob-havo ma'lumoti).",
-            },
-            {
-              id: 'ja-minna-l47-q2',
-              question:
-                '【Mondai 2: Bunpo】（　）に 入[はい]る 最[もっと]も よいものを 1つ えらびなさい。\n「外[そと]で 鳥[とり]の 声[こえ]（　）します。」',
-              options: ['に', 'で', 'が', 'を'],
-              correctAnswerIndex: 2,
-              explanation:
-                "To'g'ri javob: 「が」. Sezgi signallari (ovoz, hid, ta'm): 声 / におい / 味が します.",
-            },
-            {
-              id: 'ja-minna-l47-q3',
-              question:
-                "【Mondai 3: Bunpo】47-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
-              options: [
-                '普通形 (Naだ / Nだ) ＋ ようです',
-                '普通形 (Naな / Nの) ＋ ようです',
-                'ます形 ＋ ようです',
-                'て形 ＋ ようです',
-              ],
-              correctAnswerIndex: 1,
-              explanation: "To'g'ri grammatik formula: 「普通形 (Naな / Nの) ＋ ようです」.",
-            },
-            {
-              id: 'ja-minna-l47-q4',
-              question:
-                "【Mondai 4: Dokkai】Quyidagi yaponcha gapning to'g'ri o'zbekcha ma'nosini toping:\n「隣[となり]の 部屋[へや]に だれか いるようです。」",
-              options: [
-                "Qo'shni xonada kimdir borga o'xshaydi (ovoz kelmoqda).",
-                "Ob-havo ma'lumotlariga ko'ra, ertaga havo soviydi emish.",
-                'Oshxonadan yoqimli hid kelyapti.',
-                'Eshitishimcha, Ogawa xonim kelasi oy turmushga chiqar ekan.',
-              ],
-              correctAnswerIndex: 0,
-              explanation:
-                "To'g'ri ma'nosi: 「Qo'shni xonada kimdir borga o'xshaydi (ovoz kelmoqda).」.",
-            },
-            {
-              id: 'ja-minna-l47-q5',
-              question:
-                "【Mondai 5: Kaiwa】Savolga eng to'g'ri javobni tanlang:\n「佐藤さんは どこに いますか。」",
-              options: [
-                'いただきます。',
-                'ごちそうさまでした。',
-                '会議室に いる そうですよ。',
-                'はい、そうです。',
-              ],
-              correctAnswerIndex: 2,
-              explanation: "To'g'ri javob: 「会議室に いる そうですよ。」.",
-            },
-          ],
+          questions: [...MINNA_N4_QUIZ_DATABASE[47].test],
         },
       },
     ],
@@ -8066,74 +5359,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
         practiceData: {
           instructions:
             "Darsda o'rganilgan yangi so'zlar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
-          exercises: [
-            {
-              id: 'ja-minna-l48-ex1',
-              type: 'multiple-choice',
-              prompt:
-                "Bo'sh joyga to'g'ri grammatik qo'shimchani tanlang:\n「先生[せんせい]は 生徒[せいと]に 本[ほん]を（　）。」",
-              options: ['読まれました', '読みました', '読めました', '読ませました'],
-              correctAnswer: 3,
-              explanation:
-                "To'g'ri javob: 「読ませました」. Majburlash / bajartirish nisbati (Shieki): 読む -> 読ませる.",
-            },
-            {
-              id: 'ja-minna-l48-ex2',
-              type: 'multiple-choice',
-              prompt: "「下[お]ろします」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
-              options: [
-                'yetkazib bermoq',
-                'yoqimsiz, istalmagan',
-                'parvarishlamoq, qaramoq',
-                'tushirmoq (yukni)',
-              ],
-              correctAnswer: 3,
-              explanation: "To'g'ri javob: 「tushirmoq (yukni)」.",
-            },
-            {
-              id: 'ja-minna-l48-ex3',
-              type: 'multiple-choice',
-              prompt: "48-dars grammatik qoidasiga muvofiq to'g'ri tuzilgan gapni aniqlang:",
-              options: [
-                '部長[ぶちょう]は ミラーさんへ アメリカへ 出張[しゅっちょう]させました。',
-                '部長[ぶちょう]は ミラーさんを アメリカへ 出張[しゅっちょう]させました でした です。',
-                'これ を 部長[ぶちょう]は ミラーさんを アメリカへ 出張[しゅっちょう]させました。',
-                '部長[ぶちょう]は ミラーさんを アメリカへ 出張[しゅっちょう]させました。',
-              ],
-              correctAnswer: 3,
-              explanation:
-                "To'g'ri gap: 「部長[ぶちょう]は ミラーさんを アメリカへ 出張[しゅっちょう]させました。」 (Bo'lim boshlig'i Miller janoblarini Amerikaga xizmat safariga yubordi.).",
-            },
-            {
-              id: 'ja-minna-l48-ex4',
-              type: 'multiple-choice',
-              prompt:
-                "Ushbu gapning to'g'ri yaponcha tarjimasini tanlang:\n「Men qizimga pianino chalishni o'rgataman (o'rganishiga ruxsat/imkoniyat beraman).」",
-              options: [
-                'わたしは 娘[むすめ]に ピアノを 習[なら]わせます。',
-                '部長[ぶちょう]は ミラーさんを アメリカへ 出張[しゅっちょう]させました。',
-                'すみませんが、明日[あした] 休[やす]ませて いただけませんか。',
-                '自分[じぶん]で やらせて いただけませんか。',
-              ],
-              correctAnswer: 0,
-              explanation:
-                "Yaponcha to'g'ri ifodasi: 「わたしは 娘[むすめ]に ピアノを 習[なら]わせます。」.",
-            },
-            {
-              id: 'ja-minna-l48-ex5',
-              type: 'multiple-choice',
-              prompt:
-                'Suhbatdoshingiz: 「部長、明日は 休ませて いただけませんか。」 dedi. Unga eng mos muloyim javob qaysi?',
-              options: [
-                'さようなら。',
-                'おめでとうございます。',
-                'わかりました。ゆっくり 休んでください。',
-                'いただきます。',
-              ],
-              correctAnswer: 2,
-              explanation: "To'g'ri javob: 「わかりました。ゆっくり 休んでください。」.",
-            },
-          ],
+          exercises: [...MINNA_N4_QUIZ_DATABASE[48].practice],
         },
       },
       {
@@ -8145,64 +5371,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
           instructions:
             "Darsni muvaffaqiyatli yakunlash uchun savollarga to'g'ri javob bering (Kamida 80%).",
           passingScorePercentage: 80,
-          questions: [
-            {
-              id: 'ja-minna-l48-q1',
-              question: '【Mondai 1: Moji/Goi】「生徒」の 読[よ]み方[かた]は どれですか。',
-              options: ['とどけます', 'せいと', 'おろします', 'せわをします'],
-              correctAnswerIndex: 1,
-              explanation:
-                "「生徒」 ning to'g'ri o'qilishi: 「せいと」 (o'quvchi (maktab o'quvchisi)).",
-            },
-            {
-              id: 'ja-minna-l48-q2',
-              question:
-                '【Mondai 2: Bunpo】（　）に 入[はい]る 最[もっと]も よいものを 1つ えらびなさい。\n「子供[こども]に 毎日[まいにち] 野菜[やさい]を（　）ます。」',
-              options: ['食べ', '食べられ', '食べよう', '食べさせ'],
-              correctAnswerIndex: 3,
-              explanation: "To'g'ri javob: 「食べさせ」. Majburiy harakat (Shieki): 食べさせる.",
-            },
-            {
-              id: 'ja-minna-l48-q3',
-              question:
-                "【Mondai 3: Bunpo】48-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
-              options: [
-                'V-受身て形 ＋ いただけませんか',
-                'V-可能て形 ＋ いただけませんか',
-                'V-使役て形 ＋ いただけませんか',
-                'V-意向形 ＋ いただけませんか',
-              ],
-              correctAnswerIndex: 2,
-              explanation: "To'g'ri grammatik formula: 「V-使役て形 ＋ いただけませんか」.",
-            },
-            {
-              id: 'ja-minna-l48-q4',
-              question:
-                "【Mondai 4: Dokkai】Quyidagi yaponcha gapning to'g'ri o'zbekcha ma'nosini toping:\n「すみませんが、明日[あした] 休[やす]ませて いただけませんか。」",
-              options: [
-                "Men qizimga pianino chalishni o'rgataman (o'rganishiga ruxsat/imkoniyat beraman).",
-                "Bo'lim boshlig'i Miller janoblarini Amerikaga xizmat safariga yubordi.",
-                'Kechirasiz, ertaga dam olishimga ruxsat bera olmaysizmi?',
-                "O'zim bajarishimga ijozat bersangiz.",
-              ],
-              correctAnswerIndex: 2,
-              explanation:
-                "To'g'ri ma'nosi: 「Kechirasiz, ertaga dam olishimga ruxsat bera olmaysizmi?」.",
-            },
-            {
-              id: 'ja-minna-l48-q5',
-              question:
-                "【Mondai 5: Kaiwa】Savolga eng to'g'ri javobni tanlang:\n「部長、明日は 休ませて いただけませんか。」",
-              options: [
-                'いただきます。',
-                'さようなら。',
-                'おめでとうございます。',
-                'わかりました。ゆっくり 休んでください。',
-              ],
-              correctAnswerIndex: 3,
-              explanation: "To'g'ri javob: 「わかりました。ゆっくり 休んでください。」.",
-            },
-          ],
+          questions: [...MINNA_N4_QUIZ_DATABASE[48].test],
         },
       },
     ],
@@ -8394,74 +5563,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
         practiceData: {
           instructions:
             "Darsda o'rganilgan yangi so'zlar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
-          exercises: [
-            {
-              id: 'ja-minna-l49-ex1',
-              type: 'multiple-choice',
-              prompt:
-                "Bo'sh joyga to'g'ri grammatik qo'shimchani tanlang:\n「先生[せんせい]は もう（　）。」",
-              options: ['お帰りになりました', '帰られましたです', '帰らせました', 'お帰りしました'],
-              correctAnswer: 0,
-              explanation:
-                "To'g'ri javob: 「お帰りになりました」. Hurmat tili (Sonkeigo): お + V-ます + に なります.",
-            },
-            {
-              id: 'ja-minna-l49-ex2',
-              type: 'multiple-choice',
-              prompt: "「ご存[ぞん]じです」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
-              options: [
-                'biladilar (知っています ning hurmat shakli)',
-                "vaqt o'tkazmoq",
-                'ishlamoq, xizmat qilmoq (kompaniyada)',
-                'boradilar / keladilar / borlar (行きます・来ます・います ning hurmat shakli)',
-              ],
-              correctAnswer: 0,
-              explanation: "To'g'ri javob: 「biladilar (知っています ning hurmat shakli)」.",
-            },
-            {
-              id: 'ja-minna-l49-ex3',
-              type: 'multiple-choice',
-              prompt: "49-dars grammatik qoidasiga muvofiq to'g'ri tuzilgan gapni aniqlang:",
-              options: [
-                'これ を 社長[しゃちょう]は もう お帰[かえ]りに なりました。',
-                '社長[しゃちょう]は もう お帰[かえ]りに なりました。',
-                '社長[しゃちょう]は もう お帰[かえ]りに なりました でした です。',
-                '社長[しゃちょう]は もう お帰[かえ]りで なりました。',
-              ],
-              correctAnswer: 1,
-              explanation:
-                "To'g'ri gap: 「社長[しゃちょう]は もう お帰[かえ]りに なりました。」 (Prezident janoblari allaqachon uyga qaytdilar.).",
-            },
-            {
-              id: 'ja-minna-l49-ex4',
-              type: 'multiple-choice',
-              prompt:
-                "Ushbu gapning to'g'ri yaponcha tarjimasini tanlang:\n「Ustoz qachon keladilar / bo'ladilar?」",
-              options: [
-                '社長[しゃちょう]は もう お帰[かえ]りに なりました。',
-                'お名前[なまえ]は 何[なん]と おっしゃいますか。',
-                'こちらに お掛[か]け ください。',
-                '先生[せんせい]は いつ いらっしゃいますか。',
-              ],
-              correctAnswer: 3,
-              explanation:
-                "Yaponcha to'g'ri ifodasi: 「先生[せんせい]は いつ いらっしゃいますか。」.",
-            },
-            {
-              id: 'ja-minna-l49-ex5',
-              type: 'multiple-choice',
-              prompt:
-                'Suhbatdoshingiz: 「先生は 何時に お見えに なりますか。」 dedi. Unga eng mos muloyim javob qaysi?',
-              options: [
-                '失礼しました。',
-                'おやすみなさい。',
-                'はい、行きます。',
-                '午後 2時に いらっしゃいます。',
-              ],
-              correctAnswer: 3,
-              explanation: "To'g'ri javob: 「午後 2時に いらっしゃいます。」.",
-            },
-          ],
+          exercises: [...MINNA_N4_QUIZ_DATABASE[49].practice],
         },
       },
       {
@@ -8473,63 +5575,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
           instructions:
             "Darsni muvaffaqiyatli yakunlash uchun savollarga to'g'ri javob bering (Kamida 80%).",
           passingScorePercentage: 80,
-          questions: [
-            {
-              id: 'ja-minna-l49-q1',
-              question: '【Mondai 1: Moji/Goi】「お名前」の 読[よ]み方[かた]は どれですか。',
-              options: ['すごします', 'いらっしゃいます', 'つとめます', 'おなまえ'],
-              correctAnswerIndex: 3,
-              explanation: "「お名前」 ning to'g'ri o'qilishi: 「おなまえ」 (ism (hurmat bilan)).",
-            },
-            {
-              id: 'ja-minna-l49-q2',
-              question:
-                '【Mondai 2: Bunpo】（　）に 入[はい]る 最[もっと]も よいものを 1つ えらびなさい。\n「社長[しゃちょう]は 新聞[しんぶん]を（　）になります。」',
-              options: ['お読みに', 'お読みで', 'お読みし', '読まれ'],
-              correctAnswerIndex: 0,
-              explanation:
-                "To'g'ri javob: 「お読みに」. Hurmat tili formulasi: お + V-ます + に なります (お読みに なります).",
-            },
-            {
-              id: 'ja-minna-l49-q3',
-              question:
-                "【Mondai 3: Bunpo】49-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
-              options: [
-                "特殊謙譲語 (Maxsus kamtarlik fe'llari)",
-                'お ＋ V-ます形 ＋ します',
-                'お ＋ V-て形 ＋ ください',
-                "特殊尊敬語 (Maxsus hurmat fe'llari)",
-              ],
-              correctAnswerIndex: 3,
-              explanation: "To'g'ri grammatik formula: 「特殊尊敬語 (Maxsus hurmat fe'llari)」.",
-            },
-            {
-              id: 'ja-minna-l49-q4',
-              question:
-                "【Mondai 4: Dokkai】Quyidagi yaponcha gapning to'g'ri o'zbekcha ma'nosini toping:\n「お名前[なまえ]は 何[なん]と おっしゃいますか。」",
-              options: [
-                'Prezident janoblari allaqachon uyga qaytdilar.',
-                "Marhamat qilib bu yerga o'tiringiz.",
-                'Ismi sharifingiz nima deb ataladi?',
-                "Ustoz qachon keladilar / bo'ladilar?",
-              ],
-              correctAnswerIndex: 2,
-              explanation: "To'g'ri ma'nosi: 「Ismi sharifingiz nima deb ataladi?」.",
-            },
-            {
-              id: 'ja-minna-l49-q5',
-              question:
-                "【Mondai 5: Kaiwa】Savolga eng to'g'ri javobni tanlang:\n「先生は 何時に お見えに なりますか。」",
-              options: [
-                'おやすみなさい。',
-                'はい、行きます。',
-                '失礼しました。',
-                '午後 2時に いらっしゃいます。',
-              ],
-              correctAnswerIndex: 3,
-              explanation: "To'g'ri javob: 「午後 2時に いらっしゃいます。」.",
-            },
-          ],
+          questions: [...MINNA_N4_QUIZ_DATABASE[49].test],
         },
       },
     ],
@@ -8728,74 +5774,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
         practiceData: {
           instructions:
             "Darsda o'rganilgan yangi so'zlar va grammatik konstruksiyalar bo'yicha mashqlarni bajaring.",
-          exercises: [
-            {
-              id: 'ja-minna-l50-ex1',
-              type: 'multiple-choice',
-              prompt:
-                "Bo'sh joyga to'g'ri grammatik qo'shimchani tanlang:\n「明日[あした] 3時[さんじ]に（　）。」",
-              options: ['行かれます', '伺います', 'おっしゃいます', 'いらっしゃいます'],
-              correctAnswer: 1,
-              explanation:
-                "To'g'ri javob: 「伺います」. Kamtarlik tili (Kenjougo): 行く/来る ning kamtarlik shakli 伺う (うかがう).",
-            },
-            {
-              id: 'ja-minna-l50-ex2',
-              type: 'multiple-choice',
-              prompt: "「お目[め]に掛[か]かります」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
-              options: [
-                'uchrashaman (会います ning kamtarlik shakli)',
-                'turibman / borman (います ning kamtarlik shakli)',
-                'yeyman / ichaman / olaman (食べます・飲みます・もらいます ning kamtarlik shakli)',
-                'boraman / kelaman (行きます・来ます ning kamtarlik shakli)',
-              ],
-              correctAnswer: 0,
-              explanation: "To'g'ri javob: 「uchrashaman (会います ning kamtarlik shakli)」.",
-            },
-            {
-              id: 'ja-minna-l50-ex3',
-              type: 'multiple-choice',
-              prompt: "50-dars grammatik qoidasiga muvofiq to'g'ri tuzilgan gapni aniqlang:",
-              options: [
-                'これ を 重[おも]い 荷物[にもつ]を お持[も]ちします。',
-                '重[おも]い 荷物[にもつ]を お持[も]ちします。',
-                '重[おも]い 荷物[にもつ]を お持[も]ちします です。',
-                '重[おも]い 荷物[にもつ]へ お持[も]ちします。',
-              ],
-              correctAnswer: 1,
-              explanation:
-                "To'g'ri gap: 「重[おも]い 荷物[にもつ]を お持[も]ちします。」 (Og'ir yukingizni ko'tarib beraman.).",
-            },
-            {
-              id: 'ja-minna-l50-ex4',
-              type: 'multiple-choice',
-              prompt:
-                "Ushbu gapning to'g'ri yaponcha tarjimasini tanlang:\n「Bugungi rejani tushuntirib beraman.」",
-              options: [
-                '重[おも]い 荷物[にもつ]を お持[も]ちします。',
-                '明日[あした] 3時[さんじ]に 伺[うかが]います。',
-                'アメリカから 参[まい]りました。',
-                '今日[きょう]の 予定[よてい]を ご説明[せつめい]します。',
-              ],
-              correctAnswer: 3,
-              explanation:
-                "Yaponcha to'g'ri ifodasi: 「今日[きょう]の 予定[よてい]を ご説明[せつめい]します。」.",
-            },
-            {
-              id: 'ja-minna-l50-ex5',
-              type: 'multiple-choice',
-              prompt:
-                'Suhbatdoshingiz: 「ご注文は お決まりに なりましたか。」 dedi. Unga eng mos muloyim javob qaysi?',
-              options: [
-                'はい、申します。',
-                'いただきます。',
-                'さようなら。',
-                'はい、コーヒーを お願いします。',
-              ],
-              correctAnswer: 3,
-              explanation: "To'g'ri javob: 「はい、コーヒーを お願いします。」.",
-            },
-          ],
+          exercises: [...MINNA_N4_QUIZ_DATABASE[50].practice],
         },
       },
       {
@@ -8807,64 +5786,7 @@ export const MINNA_N4_LESSONS: Lesson[] = [
           instructions:
             "Darsni muvaffaqiyatli yakunlash uchun savollarga to'g'ri javob bering (Kamida 80%).",
           passingScorePercentage: 80,
-          questions: [
-            {
-              id: 'ja-minna-l50-q1',
-              question: '【Mondai 1: Moji/Goi】「私」の 読[よ]み方[かた]は どれですか。',
-              options: ['わたくし', 'いただきます', 'おります', 'まいります'],
-              correctAnswerIndex: 0,
-              explanation:
-                "「私」 ning to'g'ri o'qilishi: 「わたくし」 (men (わたし ning rasmiy va kamtar shakli)).",
-            },
-            {
-              id: 'ja-minna-l50-q2',
-              question:
-                '【Mondai 2: Bunpo】（　）に 入[はい]る 最[もっと]も よいものを 1つ えらびなさい。\n「わたくしの 名前[なまえ]は 田中[たなか]と（　）。」',
-              options: ['おっしゃいます', '言われます', '申します', 'なさいます'],
-              correctAnswerIndex: 2,
-              explanation:
-                "To'g'ri javob: 「申します」. O'zini tanishtirishda kamtarlik: 申す (もうす).",
-            },
-            {
-              id: 'ja-minna-l50-q3',
-              question:
-                "【Mondai 3: Bunpo】50-dars grammatik qoidasi bo'yicha to'g'ri formulani aniqlang:",
-              options: [
-                "特殊謙譲語 (Maxsus kamtarlik fe'llari)",
-                "特殊尊敬語 (Maxsus hurmat fe'llari)",
-                'お ＋ V-ます形 ＋ になります',
-                'お ＋ V-て形 ＋ ください',
-              ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri grammatik formula: 「特殊謙譲語 (Maxsus kamtarlik fe'llari)」.",
-            },
-            {
-              id: 'ja-minna-l50-q4',
-              question:
-                "【Mondai 4: Dokkai】Quyidagi yaponcha gapning to'g'ri o'zbekcha ma'nosini toping:\n「アメリカから 参[まい]りました。」",
-              options: [
-                "Og'ir yukingizni ko'tarib beraman.",
-                'Bugungi rejani tushuntirib beraman.',
-                'Ertaga soat 3 da xizmatingizga boraman.',
-                'Amerikadan tashrif buyurdim.',
-              ],
-              correctAnswerIndex: 3,
-              explanation: "To'g'ri ma'nosi: 「Amerikadan tashrif buyurdim.」.",
-            },
-            {
-              id: 'ja-minna-l50-q5',
-              question:
-                "【Mondai 5: Kaiwa】Savolga eng to'g'ri javobni tanlang:\n「ご注文は お決まりに なりましたか。」",
-              options: [
-                'はい、コーヒーを お願いします。',
-                'さようなら。',
-                'いただきます。',
-                'はい、申します。',
-              ],
-              correctAnswerIndex: 0,
-              explanation: "To'g'ri javob: 「はい、コーヒーを お願いします。」.",
-            },
-          ],
+          questions: [...MINNA_N4_QUIZ_DATABASE[50].test],
         },
       },
     ],
