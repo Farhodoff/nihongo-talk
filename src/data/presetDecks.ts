@@ -38,12 +38,12 @@ export const PRESET_DECKS: PresetDeck[] = [
     id: 'deck_minna_shokyu1',
     title: "🌸 Minna no Nihongo Shokyu 1 (1–25 Darslar To'liq Lug'ati)",
     description:
-      "Minna no Nihongo Shokyu 1 darsligining barcha 25 ta darsidan 1,135 ta so'z va iboralar to'plami (O'zbekcha tarjima va grammatik belgilar bilan).",
+      "Minna no Nihongo Shokyu 1 darsligining barcha 25 ta darsidan 1,111 ta so'z va iboralar to'plami (O'zbekcha tarjima va grammatik belgilar bilan).",
     language: 'ja',
     level: 'JLPT N5',
     badgeColor: 'bg-emerald-500/10 text-emerald-600 border-emerald-500/20',
     icon: '🌸',
-    cardCount: 1135,
+    cardCount: 1111,
     isPremiumOnly: false,
     loadCards: async () => {
       const data = await import('./decks/minna_shokyu1.json');
@@ -54,12 +54,12 @@ export const PRESET_DECKS: PresetDeck[] = [
     id: 'deck_minna_shokyu2',
     title: "🌿 Minna no Nihongo Shokyu 2 (26–50 Darslar To'liq Lug'ati)",
     description:
-      "Minna no Nihongo Shokyu 2 darsligining barcha 25 ta darsidan 454 ta so'z va iboralar to'plami (O'zbekcha tarjima va grammatik belgilar bilan).",
+      "Minna no Nihongo Shokyu 2 darsligining barcha 25 ta darsidan 451 ta so'z va iboralar to'plami (O'zbekcha tarjima va grammatik belgilar bilan).",
     language: 'ja',
     level: 'JLPT N4',
     badgeColor: 'bg-emerald-500/10 text-emerald-600 border-emerald-500/20',
     icon: '🌿',
-    cardCount: 454,
+    cardCount: 451,
     isPremiumOnly: false,
     loadCards: async () => {
       const data = await import('./decks/minna_shokyu2.json');
@@ -114,13 +114,13 @@ export const PRESET_DECKS: PresetDeck[] = [
   },
   {
     id: 'deck_jlpt_n2',
-    title: '🗾 JLPT N2 Master Deck (Shin Kanzen & Goi 3215)',
-    description: "Shin Kanzen Master, Sou Matome va 3215 ta N2 tayanch so'zlar.",
+    title: '🗾 JLPT N2 Master Deck (Shin Kanzen & Goi 3213)',
+    description: "Shin Kanzen Master, Sou Matome va 3213 ta N2 tayanch so'zlar.",
     language: 'ja',
     level: 'JLPT N2',
     badgeColor: 'bg-indigo-500/10 text-indigo-600 border-indigo-500/20',
     icon: '🗾',
-    cardCount: 3215,
+    cardCount: 3213,
     isPremiumOnly: false,
     loadCards: async () => {
       const data = await import('./decks/jlpt_n2.json');
@@ -131,12 +131,12 @@ export const PRESET_DECKS: PresetDeck[] = [
     id: 'deck_jlpt_n1',
     title: '👑 JLPT N1 Master Deck (Shin Kanzen & Sou Matome)',
     description:
-      "N1 Shin Kanzen & Sou Matome darsliklaridan 55 ta oliy darajadagi akademik va adabiy so'zlar.",
+      "N1 Shin Kanzen & Sou Matome darsliklaridan 205 ta oliy darajadagi akademik va adabiy so'zlar.",
     language: 'ja',
     level: 'JLPT N1',
     badgeColor: 'bg-red-500/10 text-red-600 border-red-500/20',
     icon: '👑',
-    cardCount: 55,
+    cardCount: 205,
     isPremiumOnly: false,
     loadCards: async () => {
       const data = await import('./decks/jlpt_n1.json');

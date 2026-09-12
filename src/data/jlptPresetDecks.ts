@@ -51455,10 +51455,10 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n2-v2538',
-        front: 'アピール（する）',
+        front: 'アピールする',
         back: "o'zini ko'rsatish, targ'ib qilish, jalb etish",
         romaji: 'apiiru',
-        furigana: 'あぴーる（する）',
+        furigana: 'あぴーるする',
         level: 'N2',
         type: 'vocab',
         example:
@@ -51466,10 +51466,10 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n2-v2539',
-        front: 'アプローチ（する）',
+        front: 'アプローチする',
         back: "yaqinlashish, yondashish, munosabat o'rnatish",
         romaji: 'apuroochi',
-        furigana: 'あぷろーち（する）',
+        furigana: 'あぷろーちする',
         level: 'N2',
         type: 'vocab',
         example:
@@ -51499,10 +51499,10 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n2-v2542',
-        front: 'アレンジ（する）',
+        front: 'アレンジする',
         back: "o'zgartirish, moslashtirish, aranjirovka qilish",
         romaji: 'arenji',
-        furigana: 'あれんじ（する）',
+        furigana: 'あれんじする',
         level: 'N2',
         type: 'vocab',
         example:
@@ -51532,10 +51532,10 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n2-v2545',
-        front: 'インストール（する）',
+        front: 'インストールする',
         back: "o'rnatish (kompyuter dasturini)",
         romaji: 'insutooru',
-        furigana: 'いんすとーる（する）',
+        furigana: 'いんすとーるする',
         level: 'N2',
         type: 'vocab',
         example:
@@ -51631,10 +51631,10 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n2-v2554',
-        front: 'オーバー（する）',
+        front: 'オーバーする',
         back: "oshirib yuborish, me'yordan oshish; palto",
         romaji: 'oobaa',
-        furigana: 'おーばー（する）',
+        furigana: 'おーばーする',
         level: 'N2',
         type: 'vocab',
         example:
@@ -51752,10 +51752,10 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n2-v2565',
-        front: 'クリア（する）',
+        front: 'クリアする',
         back: "bosqichdan o'tish; tozalash, aniqlik kiritish",
         romaji: 'kuria',
-        furigana: 'くりあ（する）',
+        furigana: 'くりあする',
         level: 'N2',
         type: 'vocab',
         example:
@@ -51774,10 +51774,10 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n2-v2567',
-        front: 'ケア（する）',
+        front: 'ケアする',
         back: "parvarish qilish, qarash, g'amxo'rlik",
         romaji: 'kea',
-        furigana: 'けあ（する）',
+        furigana: 'けあする',
         level: 'N2',
         type: 'vocab',
         example:
@@ -51851,10 +51851,10 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n2-v2574',
-        front: 'コメント（する）',
+        front: 'コメントする',
         back: 'izoh qoldirish, fikr bildirish',
         romaji: 'komento',
-        furigana: 'こめんと（する）',
+        furigana: 'こめんとする',
         level: 'N2',
         type: 'vocab',
         example:
@@ -51906,10 +51906,10 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n2-v2579',
-        front: 'コントロール（する）',
+        front: 'コントロールする',
         back: 'boshqarish, nazorat qilish',
         romaji: 'kontorooru',
-        furigana: 'こんとろーる（する）',
+        furigana: 'こんとろーるする',
         level: 'N2',
         type: 'vocab',
         example:
@@ -51928,10 +51928,10 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n2-v2581',
-        front: 'サポート（する）',
+        front: 'サポートする',
         back: "qo'llab-quvvatlash, yordam berish",
         romaji: 'sapooto',
-        furigana: 'さぽーと（する）',
+        furigana: 'さぽーとする',
         level: 'N2',
         type: 'vocab',
         example:
@@ -52357,10 +52357,10 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n2-v2620',
-        front: 'ダウン（する）',
+        front: 'ダウンする',
         back: "pasayish, to'xtab qolish; patli kurtka",
         romaji: 'daun',
-        furigana: 'だうん（する）',
+        furigana: 'だうんする',
         level: 'N2',
         type: 'vocab',
         example:
@@ -52368,10 +52368,10 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n2-v2621',
-        front: 'ダウンロード（する）',
+        front: 'ダウンロードする',
         back: 'yuklab olish (internetdan)',
         romaji: 'daunroodo',
-        furigana: 'だうんろーど（する）',
+        furigana: 'だうんろーどする',
         level: 'N2',
         type: 'vocab',
         example:
@@ -52401,10 +52401,10 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n2-v2624',
-        front: 'チャージ（する）',
+        front: 'チャージする',
         back: "mablag' to'ldirish (karta hisobiga); quvvatlash",
         romaji: 'chaaji',
-        furigana: 'ちゃーじ（する）',
+        furigana: 'ちゃーじする',
         level: 'N2',
         type: 'vocab',
         example:
@@ -52445,10 +52445,10 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n2-v2628',
-        front: 'ディスカッション（する）',
+        front: 'ディスカッションする',
         back: 'munozara qilish, muhokama',
         romaji: 'disukasshon',
-        furigana: 'でぃすかっしょん（する）',
+        furigana: 'でぃすかっしょんする',
         level: 'N2',
         type: 'vocab',
         example:
@@ -52533,10 +52533,10 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n2-v2636',
-        front: 'ドライブ（する）',
+        front: 'ドライブする',
         back: 'avtomobilda sayr qilish',
         romaji: 'doraibu',
-        furigana: 'どらいぶ（する）',
+        furigana: 'どらいぶする',
         level: 'N2',
         type: 'vocab',
         example:
@@ -52687,10 +52687,10 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n2-v2650',
-        front: 'ピックアップ（する）',
+        front: 'ピックアップする',
         back: "tanlab olish, ajratib ko'rsatish",
         romaji: 'pikkuappu',
-        furigana: 'ぴっくあっぷ（する）',
+        furigana: 'ぴっくあっぷする',
         level: 'N2',
         type: 'vocab',
         example:
@@ -52819,10 +52819,10 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n2-v2662',
-        front: 'プラス（する）',
+        front: 'プラスする',
         back: "ortiqcha foyda; qo'shish (plyus)",
         romaji: 'purasu',
-        furigana: 'ぷらす（する）',
+        furigana: 'ぷらすする',
         level: 'N2',
         type: 'vocab',
         example:
@@ -52841,10 +52841,10 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n2-v2664',
-        front: 'プレー（する）',
+        front: 'プレーする',
         back: "o'ynash, sport o'yini harakati",
         romaji: 'puree',
-        furigana: 'ぷれー（する）',
+        furigana: 'ぷれーする',
         level: 'N2',
         type: 'vocab',
         example:
@@ -52852,7 +52852,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n2-v2665',
-        front: 'プレゼンテーション／プレゼン（する）',
+        front: 'プレゼンする',
         back: "taqdimot o'tkazish (prezentatsiya)",
         romaji: 'purezenteeshon',
         furigana: 'ぷれぜんてーしょん',
@@ -53017,10 +53017,10 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n2-v2680',
-        front: 'マイナス（する）',
+        front: 'マイナスする',
         back: 'zarar, salbiy jihat; minus',
         romaji: 'mainasu',
-        furigana: 'まいなす（する）',
+        furigana: 'まいなすする',
         level: 'N2',
         type: 'vocab',
         example:
@@ -53061,10 +53061,10 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n2-v2684',
-        front: 'ミス（する）',
+        front: 'ミスする',
         back: 'xato qilish, yanglishish',
         romaji: 'misu',
-        furigana: 'みす（する）',
+        furigana: 'みすする',
         level: 'N2',
         type: 'vocab',
         example:
@@ -53204,10 +53204,10 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n2-v2697',
-        front: 'リクエスト（する）',
+        front: 'リクエストする',
         back: 'iltimos, talab, buyurtma qilish',
         romaji: 'rikuesuto',
-        furigana: 'りくえすと（する）',
+        furigana: 'りくえすとする',
         level: 'N2',
         type: 'vocab',
         example:
@@ -53248,10 +53248,10 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n2-v2701',
-        front: 'リラックス（する）',
+        front: 'リラックスする',
         back: "hordiq chiqarish, erkin bo'shashish",
         romaji: 'rirakkusu',
-        furigana: 'りらっくす（する）',
+        furigana: 'りらっくすする',
         level: 'N2',
         type: 'vocab',
         example:
@@ -53303,10 +53303,10 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n2-v2706',
-        front: 'レンタル（する）',
+        front: 'レンタルする',
         back: 'ijaraga olish / berish',
         romaji: 'rentaru',
-        furigana: 'れんたる（する）',
+        furigana: 'れんたるする',
         level: 'N2',
         type: 'vocab',
         example:

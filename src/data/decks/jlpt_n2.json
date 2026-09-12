@@ -11870,14 +11870,6 @@
     "level": "N2"
   },
   {
-    "front": "道路",
-    "back": "yo'l, ko'cha, trassa\nTurkum: Ot",
-    "phonetic": "どうろ - dourou",
-    "example": "大雨の影響で一部の道路が通行止めになっている。 (Kuchli yomg'ir sababli ba'zi yo'llar harakat uchun yopilgan.)",
-    "category": "Vocabulary",
-    "level": "N2"
-  },
-  {
     "front": "読者",
     "back": "kitobxon, o'quvchi\nTurkum: Ot",
     "phonetic": "どくしゃ - dokusha",
@@ -12066,14 +12058,6 @@
     "back": "qobiliyat, iqtidor, qudrat\nTurkum: Ot",
     "phonetic": "のうりょく - nouryoku",
     "example": "自分の持っている能力を最大限に発揮して挑む。 (O'zimdagi qobiliyatlarni to'liq namoyon etib harakat qilaman.)",
-    "category": "Vocabulary",
-    "level": "N2"
-  },
-  {
-    "front": "廃止",
-    "back": "bekor qilish, tugatish (qonun/tizim)\nTurkum: Ot / Fe'l (Suru verb)",
-    "phonetic": "はいし - haishi",
-    "example": "時代に合わなくなった古い規則を正式に廃止した。 (Zamon talabiga to'g'ri kelmay qolgan eski qoidani rasman bekor qildilar.)",
     "category": "Vocabulary",
     "level": "N2"
   },
@@ -20286,17 +20270,17 @@
     "level": "N2"
   },
   {
-    "front": "アピール（する）",
+    "front": "アピールする",
     "back": "o'zini ko'rsatish, targ'ib qilish, jalb etish\nTurkum: noun, suru verb",
-    "phonetic": "あぴーる（する） - apiiru",
+    "phonetic": "あぴーるする - apiiru",
     "example": "面接で自分の強みをしっかりアピールした。 (Suhbatda o'zimning kuchli tomonlarimni yaqqol ko'rsata oldim.)",
     "category": "Vocabulary",
     "level": "N2"
   },
   {
-    "front": "アプローチ（する）",
+    "front": "アプローチする",
     "back": "yaqinlashish, yondashish, munosabat o'rnatish\nTurkum: noun, suru verb",
-    "phonetic": "あぷろーち（する） - apuroochi",
+    "phonetic": "あぷろーちする - apuroochi",
     "example": "新しい顧客に積極的にアプローチを試みた。 (Yangi mijozlar bilan faol tarzda aloqa o'rnatishga harakat qildim.)",
     "category": "Vocabulary",
     "level": "N2"
@@ -20318,9 +20302,9 @@
     "level": "N2"
   },
   {
-    "front": "アレンジ（する）",
+    "front": "アレンジする",
     "back": "o'zgartirish, moslashtirish, aranjirovka qilish\nTurkum: noun, suru verb",
-    "phonetic": "あれんじ（する） - arenji",
+    "phonetic": "あれんじする - arenji",
     "example": "伝統的な料理を現代風にアレンジした。 (An'anaviy taomni zamonaviy uslubga moslashtirib tayyorladik.)",
     "category": "Vocabulary",
     "level": "N2"
@@ -20342,9 +20326,9 @@
     "level": "N2"
   },
   {
-    "front": "インストール（する）",
+    "front": "インストールする",
     "back": "o'rnatish (kompyuter dasturini)\nTurkum: noun, suru verb",
-    "phonetic": "いんすとーる（する） - insutooru",
+    "phonetic": "いんすとーるする - insutooru",
     "example": "パソコンに新しいセキュリティソフトをインストールした。 (Kompyuterga yangi xavfsizlik dasturini o'rnatdim.)",
     "category": "Vocabulary",
     "level": "N2"
@@ -20414,9 +20398,9 @@
     "level": "N2"
   },
   {
-    "front": "オーバー（する）",
+    "front": "オーバーする",
     "back": "oshirib yuborish, me'yordan oshish; palto\nTurkum: noun, suru verb",
-    "phonetic": "おーばー（する） - oobaa",
+    "phonetic": "おーばーする - oobaa",
     "example": "予算を少しオーバーしてしまった。 (Budjetdan bir oz oshib ketdik.)",
     "category": "Vocabulary",
     "level": "N2"
@@ -20502,9 +20486,9 @@
     "level": "N2"
   },
   {
-    "front": "クリア（する）",
+    "front": "クリアする",
     "back": "bosqichdan o'tish; tozalash, aniqlik kiritish\nTurkum: noun, suru verb",
-    "phonetic": "くりあ（する） - kuria",
+    "phonetic": "くりあする - kuria",
     "example": "ゲームの難しいステージをやっとクリアした。 (O'yinning qiyin bosqichidan nihoyat muvaffaqiyatli o'tdim.)",
     "category": "Vocabulary",
     "level": "N2"
@@ -20518,9 +20502,9 @@
     "level": "N2"
   },
   {
-    "front": "ケア（する）",
+    "front": "ケアする",
     "back": "parvarish qilish, qarash, g'amxo'rlik\nTurkum: noun, suru verb",
-    "phonetic": "けあ（する） - kea",
+    "phonetic": "けあする - kea",
     "example": "日焼けした肌をしっかりとスキンケアした。 (Quyoshda qoraygan terini yaxshilab parvarish qildim.)",
     "category": "Vocabulary",
     "level": "N2"
@@ -20574,9 +20558,9 @@
     "level": "N2"
   },
   {
-    "front": "コメント（する）",
+    "front": "コメントする",
     "back": "izoh qoldirish, fikr bildirish\nTurkum: noun, suru verb",
-    "phonetic": "こめんと（する） - komento",
+    "phonetic": "こめんとする - komento",
     "example": "友人の投稿に温かいコメントを残した。 (Do'stimning postiga samimiy izoh yozib qoldirdim.)",
     "category": "Vocabulary",
     "level": "N2"
@@ -20614,9 +20598,9 @@
     "level": "N2"
   },
   {
-    "front": "コントロール（する）",
+    "front": "コントロールする",
     "back": "boshqarish, nazorat qilish\nTurkum: noun, suru verb",
-    "phonetic": "こんとろーる（する） - kontorooru",
+    "phonetic": "こんとろーるする - kontorooru",
     "example": "感情をコントロールして冷静に対処する。 (Hissiyotlarni boshqarib bosiqlik bilan yondashamiz.)",
     "category": "Vocabulary",
     "level": "N2"
@@ -20630,9 +20614,9 @@
     "level": "N2"
   },
   {
-    "front": "サポート（する）",
+    "front": "サポートする",
     "back": "qo'llab-quvvatlash, yordam berish\nTurkum: noun, suru verb",
-    "phonetic": "さぽーと（する） - sapooto",
+    "phonetic": "さぽーとする - sapooto",
     "example": "後輩のプロジェクトを全力でサポートする。 (Kichik hamkasbim loyihasini bor kuchim bilan qo'llab-quvvatlayman.)",
     "category": "Vocabulary",
     "level": "N2"
@@ -20942,17 +20926,17 @@
     "level": "N2"
   },
   {
-    "front": "ダウン（する）",
+    "front": "ダウンする",
     "back": "pasayish, to'xtab qolish; patli kurtka\nTurkum: noun, suru verb",
-    "phonetic": "だうん（する） - daun",
+    "phonetic": "だうんする - daun",
     "example": "風邪をひいて会社をダウンして休んだ。 (Shamollab qolib tobi qochganim sababli ishga bora olmadim.)",
     "category": "Vocabulary",
     "level": "N2"
   },
   {
-    "front": "ダウンロード（する）",
+    "front": "ダウンロードする",
     "back": "yuklab olish (internetdan)\nTurkum: noun, suru verb",
-    "phonetic": "だうんろーど（する） - daunroodo",
+    "phonetic": "だうんろーどする - daunroodo",
     "example": "公式サイトから申請書類のPDFをダウンロードした。 (Rasmiy saytdan ariza blankasi PDF faylini yuklab oldim.)",
     "category": "Vocabulary",
     "level": "N2"
@@ -20974,9 +20958,9 @@
     "level": "N2"
   },
   {
-    "front": "チャージ（する）",
+    "front": "チャージする",
     "back": "mablag' to'ldirish (karta hisobiga); quvvatlash\nTurkum: noun, suru verb",
-    "phonetic": "ちゃーじ（する） - chaaji",
+    "phonetic": "ちゃーじする - chaaji",
     "example": "改札を通る前に交通系ICカードにチャージした。 (Turniketdan o'tishdan oldin transport kartam hisobini to'ldirib oldim.)",
     "category": "Vocabulary",
     "level": "N2"
@@ -21006,9 +20990,9 @@
     "level": "N2"
   },
   {
-    "front": "ディスカッション（する）",
+    "front": "ディスカッションする",
     "back": "munozara qilish, muhokama\nTurkum: noun, suru verb",
-    "phonetic": "でぃすかっしょん（する） - disukasshon",
+    "phonetic": "でぃすかっしょんする - disukasshon",
     "example": "授業で環境問題についてグループディスカッションを行った。 (Darsda ekologiya muammolari bo'yicha guruhli munozara o'tkazdik.)",
     "category": "Vocabulary",
     "level": "N2"
@@ -21070,9 +21054,9 @@
     "level": "N2"
   },
   {
-    "front": "ドライブ（する）",
+    "front": "ドライブする",
     "back": "avtomobilda sayr qilish\nTurkum: noun, suru verb",
-    "phonetic": "どらいぶ（する） - doraibu",
+    "phonetic": "どらいぶする - doraibu",
     "example": "休日に海岸沿いを車でドライブした。 (Dam olish kuni dengiz sohilida mashinada sayr qildim.)",
     "category": "Vocabulary",
     "level": "N2"
@@ -21182,9 +21166,9 @@
     "level": "N2"
   },
   {
-    "front": "ピックアップ（する）",
+    "front": "ピックアップする",
     "back": "tanlab olish, ajratib ko'rsatish\nTurkum: noun, suru verb",
-    "phonetic": "ぴっくあっぷ（する） - pikkuappu",
+    "phonetic": "ぴっくあっぷする - pikkuappu",
     "example": "重要なニュースをいくつかピックアップして紹介した。 (Bir nechta muhim yangiliklarni tanlab olib tanishtirdim.)",
     "category": "Vocabulary",
     "level": "N2"
@@ -21278,9 +21262,9 @@
     "level": "N2"
   },
   {
-    "front": "プラス（する）",
+    "front": "プラスする",
     "back": "ortiqcha foyda; qo'shish (plyus)\nTurkum: noun, suru verb",
-    "phonetic": "ぷらす（する） - purasu",
+    "phonetic": "ぷらすする - purasu",
     "example": "この経験は将来のキャリアにプラスになる。 (Bu tajriba kelajakdagi faoliyatim uchun katta plyus bo'ladi.)",
     "category": "Vocabulary",
     "level": "N2"
@@ -21294,17 +21278,17 @@
     "level": "N2"
   },
   {
-    "front": "プレー（する）",
+    "front": "プレーする",
     "back": "o'ynash, sport o'yini harakati\nTurkum: noun, suru verb",
-    "phonetic": "ぷれー（する） - puree",
+    "phonetic": "ぷれーする - puree",
     "example": "彼の素晴らしいプレーにスタジアムが沸いた。 (Uning qoyilmaqom o'yini butun stadionni jo'shtirdi.)",
     "category": "Vocabulary",
     "level": "N2"
   },
   {
-    "front": "プレゼンテーション／プレゼン（する）",
+    "front": "プレゼンする",
     "back": "taqdimot o'tkazish (prezentatsiya)\nTurkum: noun, suru verb",
-    "phonetic": "ぷれぜんてーしょん - purezenteeshon",
+    "phonetic": "ぷれぜんする - purezensuru",
     "example": "会議で新製品のプレゼンテーションを行った。 (Majlisda yangi mahsulot taqdimotini o'tkazdim.)",
     "category": "Vocabulary",
     "level": "N2"
@@ -21422,9 +21406,9 @@
     "level": "N2"
   },
   {
-    "front": "マイナス（する）",
+    "front": "マイナスする",
     "back": "zarar, salbiy jihat; minus\nTurkum: noun, suru verb",
-    "phonetic": "まいなす（する） - mainasu",
+    "phonetic": "まいなすする - mainasu",
     "example": "寒波で気温がマイナス5度まで下がった。 (Sovuq oqim sababli harorat minus 5 darajagacha pasaydi.)",
     "category": "Vocabulary",
     "level": "N2"
@@ -21454,9 +21438,9 @@
     "level": "N2"
   },
   {
-    "front": "ミス（する）",
+    "front": "ミスする",
     "back": "xato qilish, yanglishish\nTurkum: noun, suru verb",
-    "phonetic": "みす（する） - misu",
+    "phonetic": "みすする - misu",
     "example": "仕事でケアレスミスをしないよう二重確認する。 (Ishda beparvolik xatolariga yo'l qo'ymaslik uchun ikki marta tekshiraman.)",
     "category": "Vocabulary",
     "level": "N2"
@@ -21558,9 +21542,9 @@
     "level": "N2"
   },
   {
-    "front": "リクエスト（する）",
+    "front": "リクエストする",
     "back": "iltimos, talab, buyurtma qilish\nTurkum: noun, suru verb",
-    "phonetic": "りくえすと（する） - rikuesuto",
+    "phonetic": "りくえすとする - rikuesuto",
     "example": "ラジオ番組に好きな曲をリクエストした。 (Radio dasturiga yoqtirgan qo'shig'imni so'rab buyurtma berdim.)",
     "category": "Vocabulary",
     "level": "N2"
@@ -21590,9 +21574,9 @@
     "level": "N2"
   },
   {
-    "front": "リラックス（する）",
+    "front": "リラックスする",
     "back": "hordiq chiqarish, erkin bo'shashish\nTurkum: noun, suru verb",
-    "phonetic": "りらっくす（する） - rirakkusu",
+    "phonetic": "りらっくすする - rirakkusu",
     "example": "アロマの香りに包まれてリラックスした。 (Xushbo'y hidlar og'ushida orom olib hordiq chiqardim.)",
     "category": "Vocabulary",
     "level": "N2"
@@ -21630,9 +21614,9 @@
     "level": "N2"
   },
   {
-    "front": "レンタル（する）",
+    "front": "レンタルする",
     "back": "ijaraga olish / berish\nTurkum: noun, suru verb",
-    "phonetic": "れんたる（する） - rentaru",
+    "phonetic": "れんたるする - rentaru",
     "example": "観光地で自転車をレンタルして島を一周した。 (Sayyohlik maskanida velosipedni ijaraga olib orolni aylanib chiqdim.)",
     "category": "Vocabulary",
     "level": "N2"

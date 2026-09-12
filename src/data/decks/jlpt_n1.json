@@ -383,5 +383,1055 @@
     "phonetic": "れいせい - Reisei",
     "example": "冷静に判断を下す (Vazminlik bilan to'g'ri qaror qabul qilmoq)",
     "level": "N1"
+  },
+  {
+    "front": "いかなる",
+    "back": "Har qanday, qanday boʻlishidan qatʼi nazar (oliy adabiy)",
+    "phonetic": "いかなる - ikanaru",
+    "example": "いかなる 困難にも 屈しない 覚悟だ。 (Har qanday qiyinchilikka boʻysunmaslikka qatʼiy ahd qildim.)",
+    "level": "N1"
+  },
+  {
+    "front": "屈する",
+    "back": "Tiz choʻkmoq, taslim boʻlmoq, boʻysunmoq",
+    "phonetic": "くっする - kussuru",
+    "example": "理不尽な 権力の 圧力に 屈してはならない。 (Noinsoniy hokimiyat bosimiga boʻysunmaslik darkor.)",
+    "level": "N1"
+  },
+  {
+    "front": "不撓不屈",
+    "back": "Sinmas iroda, yengilmas sabr-matonat",
+    "phonetic": "ふとうふくつ - futoufukutsu",
+    "example": "不撓不屈の 精神で 研究を 成し遂げた。 (Yengilmas iroda va matonat bilan ilmiy tadqiqotni nihoyasiga yetkazdi.)",
+    "level": "N1"
+  },
+  {
+    "front": "超越する",
+    "back": "Chegaralardan oshib oʻtmoq, transsendent boʻlmoq",
+    "phonetic": "ちょうえつする - chouetsu suru",
+    "example": "国境や 言語の 壁を 超越した 絆。 (Davlat chegaralari va til toʻsiqlaridan baland turuvchi qardoshlik rishtasi.)",
+    "level": "N1"
+  },
+  {
+    "front": "普遍的な",
+    "back": "Umumbashariy, hamma joyda oʻzgarmas",
+    "phonetic": "ふへんてきな - fuhenteki na",
+    "example": "人間の 尊厳は 普遍的な 価値で ある。 (Inson qadr-qimmati umumbashariy qadriyatdir.)",
+    "level": "N1"
+  },
+  {
+    "front": "責務",
+    "back": "Muqaddas burch, yuksak masʼuliyat",
+    "phonetic": "せきむ - sekimu",
+    "example": "指導者たる者、社会への 責務を 果たすべきだ。 (Rahbarlik maqomidagi inson jamiyat oldidagi muqaddas burchini ado etishi shart.)",
+    "level": "N1"
+  },
+  {
+    "front": "品格",
+    "back": "Olijanoblik, sharaf, yuksak maʼnaviyat",
+    "phonetic": "ひんかく - hinkaku",
+    "example": "いかなる 状況でも 学者としての 品格を 保つ。 (Har qanday vaziyatda ham olimlik shaʼn-sharafini saqlamoq.)",
+    "level": "N1"
+  },
+  {
+    "front": "あるまじき",
+    "back": "Aslo yoʻl qoʻyib boʻlmaydigan, nomaqbul",
+    "phonetic": "あるまじき - arumajiki",
+    "example": "医療従事者として あるまじき 暴言を 吐く。 (Tibbiyot xodimiga aslo yarashmaydigan qoʻpol soʻzlarni ishlatmoq.)",
+    "level": "N1"
+  },
+  {
+    "front": "襟を 正す",
+    "back": "Oʻzini oʻnglab olmoq, jiddiy xushyor tortmoq",
+    "phonetic": "えりを ただす - eri o tadasu",
+    "example": "先輩の 厳しい 指導に 襟を 正した。 (Katta ustozning talabchan nasihatidan soʻng oʻzimni oʻnglab oldim.)",
+    "level": "N1"
+  },
+  {
+    "front": "自覚を 促す",
+    "back": "Masʼuliyatni anglashga undamoq",
+    "phonetic": "じかくを うながす - jikaku o unagasu",
+    "example": "新任の 役員に リーダーとしての 自覚を 促す。 (Yangi tayinlangan boshqaruvchiga yetakchilik masʼuliyatini his qilishni uqtirmoq.)",
+    "level": "N1"
+  },
+  {
+    "front": "唯一無二",
+    "back": "Yagona va tengsiz, betakror",
+    "phonetic": "ゆいいつむに - yuiitsumuni",
+    "example": "彼の 芸術は 唯一無二の 独創性を 誇る。 (Uning sanʼati betakror va tengsiz oʻziga xoslikka ega.)",
+    "level": "N1"
+  },
+  {
+    "front": "真骨頂",
+    "back": "Haqiqiy asl mahorat, eng kuchli qirra",
+    "phonetic": "しんこっちょう - shinkocchou",
+    "example": "逆境においてこそ、彼の 真骨頂が 発揮される。 (Aynan ogʻir damlarda uning asl mahorati yaqqol namoyon boʻladi.)",
+    "level": "N1"
+  },
+  {
+    "front": "追随を 許さない",
+    "back": "Hech kim tenglasha olmaydigan, oʻzib ketgan",
+    "phonetic": "ついずいを ゆるさない - tsuizui o yurusanai",
+    "example": "技術力において 他社の 追随を 許さない。 (Texnologik salohiyatda boshqa birorta kompaniyani yaqinlashtirmaydi.)",
+    "level": "N1"
+  },
+  {
+    "front": "専売特許",
+    "back": "Faqat bir kishiga xos odat/xususiyat",
+    "phonetic": "せんばいとっきょ - sembaittokkyo",
+    "example": "皮肉な 冗談は 彼の 専売特許だ。 (Pichingli hazillar faqat uning oʻzigagina xos xususiyatdir.)",
+    "level": "N1"
+  },
+  {
+    "front": "極致",
+    "back": "Eng oliy choʻqqi, kamolot nuqtasi",
+    "phonetic": "きょくち - kyokuchi",
+    "example": "伝統工芸の 美の 極致に 達した 逸品。 (Anʼanaviy hunarmandchilik goʻzalligining oliy choʻqqisiga yetgan shoh asar.)",
+    "level": "N1"
+  },
+  {
+    "front": "泥まみれ",
+    "back": "Boshdan-oyoq loyga belangan",
+    "phonetic": "どろまみれ - doromamire",
+    "example": "子どもたちは 泥まみれに なって サッカーに 興じた。 (Bolalar boshdan-oyoq loyga botib futbol oʻynashga shoʻngʻishdi.)",
+    "level": "N1"
+  },
+  {
+    "front": "借金まみれ",
+    "back": "Qarzga botib ketgan",
+    "phonetic": "しゃっきんまみれ - shakkinmamire",
+    "example": "無謀な 投資で 借金まみれに 陥った。 (Oʻylanmagan sarmoyalar oqibatida qarz girdobiga botib qoldi.)",
+    "level": "N1"
+  },
+  {
+    "front": "いいことずくめ",
+    "back": "Barchasi ijobiy, faqat yaxshi xushxabarlar",
+    "phonetic": "いいことずくめ - iikotozukume",
+    "example": "今月は 昇進も 決まり いいことずくめだ。 (Bu oyda mansabim ham oshib, faqatgina xushxabarlar yogʻildi.)",
+    "level": "N1"
+  },
+  {
+    "front": "傷だらけ",
+    "back": "Gʻurra va jarohatlarga toʻla",
+    "phonetic": "きずだらけ - kizudarake",
+    "example": "過酷な 練習で 体が 傷だらけに なった。 (Ogʻir mashgʻulotlar tufayli butun vujudi jarohatlarga toʻldi.)",
+    "level": "N1"
+  },
+  {
+    "front": "埃まみれ",
+    "back": "Chang bosib ketgan",
+    "phonetic": "ほこりまみれ - hokorimamire",
+    "example": "物置の 奥から 埃まみれの アルバムを 見つけた。 (Omborxona toʻridan chang bosgan eski fotoalbomni topib oldim.)",
+    "level": "N1"
+  },
+  {
+    "front": "認識論",
+    "back": "Epistemologiya, bilish nazariyasi (falsafa)",
+    "phonetic": "にんしき論 - ninshikiron",
+    "example": "カントの 認識論に おける 主観と 客観の 関係を 論ずる。 (Kant epistemologiyasidagi subyektivlik va obyektivlik munosabatini tahlil qilamiz.)",
+    "level": "N1"
+  },
+  {
+    "front": "解釈学",
+    "back": "Germenevtika (matn talqini ilmi)",
+    "phonetic": "かいしゃく学 - kaishakugaku",
+    "example": "近代解釈学の 手法を 古典テキストに 適用する。 (Zamonaviy germenevtika metodlarini qadimiy adabiy matnlarga tatbiq etamiz.)",
+    "level": "N1"
+  },
+  {
+    "front": "恣意的な",
+    "back": "Erkin, oʻzboshimchalik bilan qilingan, tasodifiy",
+    "phonetic": "しいてきな - shiiteki na",
+    "example": "言語記号の 音声と 意味の 結びつきは 恣意的で ある。 (Til belgilaridagi tovush va maʼno bogʻliqligi ixtiyoriy/shartlidir.)",
+    "level": "N1"
+  },
+  {
+    "front": "概念規定",
+    "back": "Tushunchaning falsafiy taʼrifi",
+    "phonetic": "がいねんきてい - gainen kitei",
+    "example": "厳密な 概念規定なしに 議論を 進めることは できない。 (Aniq falsafiy tushuncha taʼrifisiz bahsni davom ettirib boʻlmaydi.)",
+    "level": "N1"
+  },
+  {
+    "front": "本質を 洞察する",
+    "back": "Hodisaning tub mohiyatini chuqur fahmlamoq",
+    "phonetic": "ほんしつを どうさつする - honshitsu o dousatsu suru",
+    "example": "表面の 事象に 惑わされず、物事の 本質を 洞察する。 (Yuzaki hodisalarga chalgʻimay narsalarning tub asl mohiyatini chuqur fahmlamoq.)",
+    "level": "N1"
+  },
+  {
+    "front": "齟齬を きたす",
+    "back": "Mos kelmaslik, ziddiyatga uchramoq",
+    "phonetic": "そごを きたす - sogo o kitasu",
+    "example": "両者の 認識の 間に 大きな 齟齬を きたした。 (Har ikki tomonning tushunchasi oʻrtasida katta ziddiyat kelib chiqdi.)",
+    "level": "N1"
+  },
+  {
+    "front": "乖離が 著しい",
+    "back": "Oradagi masofa/tafovut nihoyatda katta",
+    "phonetic": "かいりが いちじるしい - kairi ga ichijirushii",
+    "example": "公約と 実際の 政策の 乖離が 著しい。 (Saylovoldi vaʼdasi bilan amaldagi siyosat oʻrtasidagi tafovut nihoyatda katta.)",
+    "level": "N1"
+  },
+  {
+    "front": "葛藤を 抱える",
+    "back": "Ichki ziddiyat va iztirobda qolmoq",
+    "phonetic": "かっとうを かかえる - kattou o kakaeru",
+    "example": "夢と 現実の 狭間で 深い 葛藤を 抱えている。 (Orzu va qattiq haqiqat oʻrtasida chuqur ichki iztirobni boshdan kechirmoqda.)",
+    "level": "N1"
+  },
+  {
+    "front": "曖昧模糊",
+    "back": "Nihoyatda tushunarsiz, xira, noaniq",
+    "phonetic": "あいまいもこ - aimaimoko",
+    "example": "曖昧模糊とした 返答で 責任を 逃れる。 (Tushunarsiz va chigal javoblar bilan javobgarlikdan qochish.)",
+    "level": "N1"
+  },
+  {
+    "front": "自己矛盾",
+    "back": "Oʻz-oʻziga zid kelish",
+    "phonetic": "じこむじゅん - jikomujun",
+    "example": "彼の 主張は 自己矛盾に 陥っている。 (Uning daʼvosi oʻz-oʻzini inkor qiladigan ziddiyatga botib qolgan.)",
+    "level": "N1"
+  },
+  {
+    "front": "憂慮する",
+    "back": "Tashvishga tushmoq, jiddiy xavotir olmoq",
+    "phonetic": "ゆうりょする - yuuryo suru",
+    "example": "国際情勢の 悪化を 深く 憂慮する。 (Xalqaro vaziyatning yomonlashuvidan jiddiy tashvishdamiz.)",
+    "level": "N1"
+  },
+  {
+    "front": "脆弱な",
+    "back": "Zaif, moʻrt, omonat",
+    "phonetic": "ぜいじゃくな - zeijaku na",
+    "example": "サイバー攻撃に 対して 脆弱な システム。 (Kiberhujumlarga qarshi himoyasi oʻta zaif boʻlgan tizim.)",
+    "level": "N1"
+  },
+  {
+    "front": "諮問機関",
+    "back": "Ekspert maslahat organi, konsullik kengashi",
+    "phonetic": "しもんきかん - shimon kikan",
+    "example": "首相の 諮問機関が 改革案を 答申した。 (Bosh vazir huzuridagi maslahat organi islohotlar rejasini taqdim etdi.)",
+    "level": "N1"
+  },
+  {
+    "front": "覇権を 握る",
+    "back": "Gegemonlikka erishmoq, yetakchilikni qoʻlga olmoq",
+    "phonetic": "はけんを にぎる - haken o nigiru",
+    "example": "世界経済の 覇権を めぐる 争い。 (Jahon iqtisodiyotidagi gegemonlik ustida kechayotgan kurash.)",
+    "level": "N1"
+  },
+  {
+    "front": "隠蔽工作",
+    "back": "Haqiqatni yashirish fitnasi, dalillarni yoʻqotish",
+    "phonetic": "いんぺいこうさく - impeikousaku",
+    "example": "不祥事の 隠蔽工作が 発覚し 批判を 浴びた。 (Qonunbuzarlikni yashirishga qaratilgan fitna fosh boʻlib, qattiq tanqidga uchradi.)",
+    "level": "N1"
+  },
+  {
+    "front": "学術講義",
+    "back": "Akademik ilmiy maʼruza",
+    "phonetic": "がくじゅつこうぎ - gakujutsukougi",
+    "example": "ノーベル賞受賞者による 学術講義を 拝聴する。 (Nobel mukofoti laureatining ilmiy maʼruzasini diqqat bilan tinglash.)",
+    "level": "N1"
+  },
+  {
+    "front": "要旨を 把握する",
+    "back": "Maʼruzaning tub mohiyatini ilgʻab olmoq",
+    "phonetic": "ようしを はあくする - youshi o haaku suru",
+    "example": "長大な 講演の 要旨を 的確に 把握する。 (Katta maʼruzaning eng asosiy magʻzini aniq anglab olmoq.)",
+    "level": "N1"
+  },
+  {
+    "front": "論証",
+    "back": "Ilmiy asoslash, dalillar bilan isbotlash",
+    "phonetic": "ろんしょう - ronshou",
+    "example": "緻密な 論証に より 自説の 正当性を 示す。 (Mukammal mantiqiy isbotlar orqali oʻz gʻoyasining haqligini koʻrsatdi.)",
+    "level": "N1"
+  },
+  {
+    "front": "反論の 余地がない",
+    "back": "Eʼtiroz bildirishga oʻrin qoldirmaydigan",
+    "phonetic": "はんろんの よちがない - hanron no yochi ga nai",
+    "example": "完璧な データで 反論の 余地がない。 (Mukammal dalillar tufayli birorta eʼtirozga oʻrin yoʻq.)",
+    "level": "N1"
+  },
+  {
+    "front": "統合的な 視座",
+    "back": "Integratsiyalashgan yaxlit nuqtayi nazar",
+    "phonetic": "とうごうてきな しざ - tougouteki na shiza",
+    "example": "複眼的かつ 統合的な 視座から 問題を 捉え直す。 (Koʻp qirrali va yaxlit ilmiy nuqtayi nazardan masalani qayta koʻrib chiqish.)",
+    "level": "N1"
+  },
+  {
+    "front": "網羅する",
+    "back": "Barchasini qamrab olmoq, toʻliq oʻz ichiga olmoq",
+    "phonetic": "もうらする - moura suru",
+    "example": "出題範囲の 全ての 項目を 網羅した 問題集。 (Imtihon tushadigan barcha mavzularni toʻliq qamrab olgan testlar toʻplami.)",
+    "level": "N1"
+  },
+  {
+    "front": "精緻な",
+    "back": "Zargarlarcha nozik, yuksak aniqlikdagi",
+    "phonetic": "せいちな - seichi na",
+    "example": "精緻な 分析に 基く 高度な 読解問題。 (Zargarlarcha nozik tahlilga asoslangan yuqori darajadagi matn tahlili.)",
+    "level": "N1"
+  },
+  {
+    "front": "難攻不落",
+    "back": "Zabt etib boʻlmas qalʼa, yengilmas toʻsiq",
+    "phonetic": "なんこうふらく - nankoufukaku",
+    "example": "難攻不落と 呼ばれる N1の 壁を 突破する。 (Yengilmas qalʼa sanalgan JLPT N1 choʻqqisini zabt etmoq.)",
+    "level": "N1"
+  },
+  {
+    "front": "卓越した",
+    "back": "Tengsiz, benuqson, yuksak darajadagi",
+    "phonetic": "たくえつした - takuetsu shita",
+    "example": "卓越した 語学力を 実証してみせた。 (Yuksak va benuqson til bilish mahoratini amalda isbotladi.)",
+    "level": "N1"
+  },
+  {
+    "front": "遺憾なく",
+    "back": "Toʻliq va bekamu koʻst (namoyon etmoq)",
+    "phonetic": "いかんなく - ikan naku",
+    "example": "日頃の 学習の 成果を 遺憾なく 発揮する。 (Muntazam tayyorgarlik mevalarini toʻliq va bekamu koʻst namoyish etmoq.)",
+    "level": "N1"
+  },
+  {
+    "front": "金字塔を 打ち立てる",
+    "back": "Tarixiy yuksak choʻqqi yaratmoq, buyuk yutuqqa erishmoq",
+    "phonetic": "きんじとうを うたてる - kinjitou o uchitateru",
+    "example": "満点合格という 金字塔を 打ち立てた。 (Maksimal ball bilan oʻtib buyuk tarixiy natijani qayd etdi.)",
+    "level": "N1"
+  },
+  {
+    "front": "極致に 達する",
+    "back": "Kamolotning eng oliy choʻqqisiga erishmoq",
+    "phonetic": "きょくちに たっする - kyokuchi ni tassuru",
+    "example": "日本語の 表現力が 極致に 達した。 (Yapon tilida oʻz fikrini ifoda etish mahorati oliy choʻqqiga chiqdi.)",
+    "level": "N1"
+  },
+  {
+    "front": "揺るぎない",
+    "back": "Tebranmas, qatʼiy, mustahkam",
+    "phonetic": "ゆるぎない - yuruginai",
+    "example": "どんな 難問にも 揺るぎない 自信を 持って 臨む。 (Har qanday ogʻir savolga tebranmas qatʼiyat bilan yondashmoq.)",
+    "level": "N1"
+  },
+  {
+    "front": "冠を 戴く",
+    "back": "Gʻoliblik tojini kiymoq, oliy sharafga sazovor boʻlmoq",
+    "phonetic": "かんむりを いただく - kanmuri o itadaku",
+    "example": "N1最高峰の 栄冠を 戴く。 (JLPT N1 ning eng oliy sharafli tojiga sazovor boʻlmoq.)",
+    "level": "N1"
+  },
+  {
+    "front": "名実ともに",
+    "back": "Ham noman, ham amalda (haqiqiy maʼnoda)",
+    "phonetic": "めいじつともに - meijitsutomoni",
+    "example": "名実ともに 日本語の マスターと なった。 (Ham rasman, ham amalda haqiqiy yapon tili ustasiga aylandi.)",
+    "level": "N1"
+  },
+  {
+    "front": "高潔な",
+    "back": "Vijdonli, pokiza, yuksak axloqli",
+    "phonetic": "こうけつな - kouketsu na",
+    "example": "教育者たる者、高潔な 人格が 求められる。 (Murabbiy kishi yuksak va pokiza axloq sohibi boʻlishi darkor.)",
+    "level": "N1"
+  },
+  {
+    "front": "誇り高い",
+    "back": "Gʻururli, shaʼnini baland tutuvchi",
+    "phonetic": "ほこたかい - hokoritakai",
+    "example": "誇り高き 伝統を 次世代に 継承する。 (Gʻururli anʼanalarni kelgusi avlodlarga meros qoldirmoq.)",
+    "level": "N1"
+  },
+  {
+    "front": "恥じない",
+    "back": "Uyaltirib qoʻymaydigan, nomiga munosib",
+    "phonetic": "はじない - hajinai",
+    "example": "プロの 名に 恥じない 仕事を する。 (Professional nomiga dogʻ tushirmaydigan munosib ish qilmoq.)",
+    "level": "N1"
+  },
+  {
+    "front": "模範と なる",
+    "back": "Oʻrnak, ibrat boʻlmoq",
+    "phonetic": "もはんと なる - mohan to naru",
+    "example": "先輩として 後輩の 模範と なる 行動を 心がける。 (Katta safdosh sifatida kichiklarga ibrat boʻladigan xulqni odat qilmoq.)",
+    "level": "N1"
+  },
+  {
+    "front": "使命感",
+    "back": "Burch va masʼuliyat hissi",
+    "phonetic": "しめい感 - shimeikan",
+    "example": "強い 使命感を 持って 難局に 立ち向かう。 (Yuksak masʼuliyat tuygʻusi bilan ogʻir sinovlarga qarshi turmoq.)",
+    "level": "N1"
+  },
+  {
+    "front": "末期",
+    "back": "Soʻnggi bosqich, oxirgi palla",
+    "phonetic": "まっき - makki",
+    "example": "政権の 末期に 至って 汚職が 蔓延した。 (Hokimiyatning soʻnggi pallalariga yetib poraxoʻrlik urchib ketdi.)",
+    "level": "N1"
+  },
+  {
+    "front": "泥沼化する",
+    "back": "Chiqib boʻlmas botqoqlikka aylanmoq",
+    "phonetic": "どろぬま化する - doronumaka suru",
+    "example": "紛争は 泥沼化の 様相を 呈するに 至った。 (Mojaro oxiri koʻrinmas botqoqlikka aylanadigan darajaga yetdi.)",
+    "level": "N1"
+  },
+  {
+    "front": "経緯",
+    "back": "Voqealar rivoji, tafsilotlar silsilasi",
+    "phonetic": "いきさつ - ikisatsu",
+    "example": "事件が ここに 至るまでの 経緯を 説明する。 (Vaziyat ushbu nuqtaga yetib kelguncha boʻlgan jarayonni tushuntirib berish.)",
+    "level": "N1"
+  },
+  {
+    "front": "極限状態",
+    "back": "Oʻta keskin, chekka chegara holati",
+    "phonetic": "きょくげん状態 - kyokugenjoutai",
+    "example": "極限状態に 至っても 冷静さを 保つ。 (Eng keskin chidab boʻlmas holatda ham bosiqlikni saqlab qolmoq.)",
+    "level": "N1"
+  },
+  {
+    "front": "事ここに 至っては",
+    "back": "Ish shunday holatga yetib borgach endi...",
+    "phonetic": "ことここに いたっては - koto koko ni itatte wa",
+    "example": "事ここに 至っては、もはや 隠し立ては できない。 (Ish bu darajagacha yetib borgach, endi hech narsani yashirib boʻlmaydi.)",
+    "level": "N1"
+  },
+  {
+    "front": "撤退を 余儀なくされる",
+    "back": "Chekinishga majbur boʻlmoq",
+    "phonetic": "てったいを よぎなくされる - tettai o yoginaku sareru",
+    "example": "採算悪化により 海外市場からの 撤退を 余儀なくされた。 (Zararlar tufayli xorijiy bozordan chekinishga majbur boʻlindi.)",
+    "level": "N1"
+  },
+  {
+    "front": "延期を 余儀なくされる",
+    "back": "Qoldirishga majbur boʻlmoq",
+    "phonetic": "えんきを よぎなくされる - enki o yoginaku sareru",
+    "example": "悪天候のため 宇宙ロケットの 打ち上げが 延期を 余儀なくされた。 (Yomon ob-havo sababli raketaning uchirilishi qoldirilishga majbur boʻldi.)",
+    "level": "N1"
+  },
+  {
+    "front": "苦衷",
+    "back": "Qalbdagi ogʻir iztirob va nochorlik",
+    "phonetic": "くちゅう - kuchuu",
+    "example": "断腸の 思いで 苦衷の 決断を 下す。 (Yuragi tilka-pora boʻlib nochor ahvolda ogʻir qaror qabul qilmoq.)",
+    "level": "N1"
+  },
+  {
+    "front": "背に腹は変えられない",
+    "back": "Jon saqlash uchun bor narsadan kechishga majbur",
+    "phonetic": "背に腹は変えられない - se ni hara wa kaerarenai",
+    "example": "背に腹は変えられず、赤字覚悟で安売りした。 (Boshqa ilojsizlikdan hatto zararga kirib boʻlsa-da arzon narxda sotdi.)",
+    "level": "N1"
+  },
+  {
+    "front": "窮地に 追い込まれる",
+    "back": "Tubsiz nochor boshi berk koʻchaga kirib qolmoq",
+    "phonetic": "きゅうちに おこまれる - kyuuchi ni oikomareru",
+    "example": "資金繰りが つかず 窮地に 追い込まれた。 (Mablagʻ yetishmovchiligi tufayli nochor ahvolga tushib qoldi.)",
+    "level": "N1"
+  },
+  {
+    "front": "電光石火",
+    "back": "Chaqmoqdek tezkor, bir soniyada",
+    "phonetic": "でんこうせっか - denkousekka",
+    "example": "電光石火の 勢いで 敵の 陣地を 攻略した。 (Chaqmoqdek tezkor surʼatda raqib maydonini zabt etdi.)",
+    "level": "N1"
+  },
+  {
+    "front": "矢継ぎ早に",
+    "back": "Ketma-ket, toʻxtovsiz yogʻdirib",
+    "phonetic": "やつばやに - yatsugibaya ni",
+    "example": "記者から 矢継ぎ早に 質問が 飛び出した。 (Jurnalistlar tomonidan ketma-ket toʻxtovsiz savollar yogʻdirildi.)",
+    "level": "N1"
+  },
+  {
+    "front": "間髪を 入れず",
+    "back": "Qil sigʻmas fursatda, bir zumda",
+    "phonetic": "まはつを いれず - kamhatsu o irezu",
+    "example": "危険を 察知して 間髪を 入れず ブレーキを 踏んだ。 (Xavfni sezishi bilanoq bir lahza ham oʻtmay tormozni bosdi.)",
+    "level": "N1"
+  },
+  {
+    "front": "疾風怒濤",
+    "back": "Dovuldek shiddatli, poʻrtanali",
+    "phonetic": "しっぷうどとう - shippuudotou",
+    "example": "疾風怒濤の 時代を 生き抜く。 (Dovuldek shiddatli va toʻpolonli zamonda sabot bilan yashamoq.)",
+    "level": "N1"
+  },
+  {
+    "front": "咄嗟に",
+    "back": "Bir zumda, koʻz ochib yumguncha",
+    "phonetic": "とっさに - tossa ni",
+    "example": "咄嗟の 機転で 大事故を 免れた。 (Koʻz ochib yumguncha qilingan chaqqonlik sabab katta halokatdan qutulib qoldi.)",
+    "level": "N1"
+  },
+  {
+    "front": "言語道断",
+    "back": "Aql bovar qilmas darajada jirkanch/nomaqbul",
+    "phonetic": "ごんごどうだん - gongodoudan",
+    "example": "公金の 横領など 言語道断の 暴挙だ。 (Davlat gʻaznasini talon-toroj qilish aql bovar qilmas darajadagi qabihlikdir.)",
+    "level": "N1"
+  },
+  {
+    "front": "断じて 許せない",
+    "back": "Qatʼiyan aslo kechirib boʻlmaydigan",
+    "phonetic": "だんじて ゆるせない - danjite yurusenai",
+    "example": "無実の 人を 陥れる 行為は 断じて 許せない。 (Begunoh insonni tuhmatga qoldirish xatti-harakatini aslo kechirib boʻlmaydi.)",
+    "level": "N1"
+  },
+  {
+    "front": "背信行為",
+    "back": "Ishonchga xiyonat qilish",
+    "phonetic": "はいしんこうい - haishinkoui",
+    "example": "長年の 友を 裏切る 背信行為に 憤る。 (Koʻp yillik doʻstga xiyonat qilishdek razolatdan qattiq gʻazabdaman.)",
+    "level": "N1"
+  },
+  {
+    "front": "糾弾する",
+    "back": "Ayblab fosh qilmoq, jamoat oldida qoralash",
+    "phonetic": "きゅうだんする - kyuudan suru",
+    "example": "不正を 働いた 政治家を 厳しく 糾弾する。 (Qingʻirlik qilgan siyosatchini omma oldida qattiq qoralab fosh qilmoq.)",
+    "level": "N1"
+  },
+  {
+    "front": "面目丸潰れ",
+    "back": "Yuzi shuvut boʻlmoq, obroʻsi yer bilan bitta boʻlmoq",
+    "phonetic": "めんぼくまるつぶれ - membokumarutsubure",
+    "example": "不祥事の 発覚で 組織の 面目は 丸潰れだ。 (Jinoyat fosh boʻlishi bilan tashkilotning obroʻsi butkul toʻkildi.)",
+    "level": "N1"
+  },
+  {
+    "front": "弁証法",
+    "back": "Dialektika (qarama-qarshiliklar orqali rivojlanish falsafasi)",
+    "phonetic": "べんしょう法 - benshouhou",
+    "example": "ヘーゲルの 弁証法に おける 正・反・合の 発展。 (Gegel dialektikasidagi tezis, antitezis va sintez taraqqiyoti.)",
+    "level": "N1"
+  },
+  {
+    "front": "唯物論",
+    "back": "Materializm falsafasi",
+    "phonetic": "ゆいぶつ論 - yuibutsuron",
+    "example": "歴史的唯物論の 観点から 経済構造を 読み解く。 (Tarixiy materializm nuqtayi nazaridan iqtisodiy tuzilmani tahlil qilmoq.)",
+    "level": "N1"
+  },
+  {
+    "front": "形而上学",
+    "back": "Metafizika (moddiy olamdan tashqaridagi borliq ilmi)",
+    "phonetic": "けいじ上学 - keijijougaku",
+    "example": "形而上学の 根本問題で ある 存在の 意味を 問う。 (Metafizikaning tub masalasi boʻlgan mavjudlik mohiyatini izlamoq.)",
+    "level": "N1"
+  },
+  {
+    "front": "命題",
+    "back": "Falsafiy tezis, isbotlanishi lozim boʻlgan hukm",
+    "phonetic": "めいだい - meidai",
+    "example": "この 命題の 真偽を 厳密に 検証する。 (Ushbu tezisning haqiqat yoki yolgʻonligini qatʼiy tekshirib koʻrmoq.)",
+    "level": "N1"
+  },
+  {
+    "front": "思索を 深める",
+    "back": "Teran fikr yuritmoq, falsafiy tafakkur qilmoq",
+    "phonetic": "しさくを ふかめる - shisaku o fukameru",
+    "example": "静寂の 中で 人生の 意義に ついて 思索を 深める。 (Sukunat bagʻrida inson umrining maʼnosi haqida teran fikr yuritmoq.)",
+    "level": "N1"
+  },
+  {
+    "front": "宿願を 果たす",
+    "back": "Koʻp yillik ezgu orzusini roʻyobga chiqarmoq",
+    "phonetic": "しゅくがんを はたす - shukugan o hatasu",
+    "example": "念願の 独立を 達成し 宿願を 果たした。 (Orziqib kutilgan mustaqillikka erishib koʻp yillik orzusini roʻyobga chiqardi.)",
+    "level": "N1"
+  },
+  {
+    "front": "粉骨砕身",
+    "back": "Jonini fido qilib, bor kuchi bilan xizmat qilmoq",
+    "phonetic": "ふんこつさいしん - funkotsusaishin",
+    "example": "国家の 繁栄の ために 粉骨砕身の 努力を 重ねる。 (Vatan taraqqiyoti yoʻlida jonini fido qilib tinimsiz xizmat qildi.)",
+    "level": "N1"
+  },
+  {
+    "front": "悲願",
+    "back": "Qalb tubidagi eng buyuk orzu-umid",
+    "phonetic": "ひがん - higan",
+    "example": "オリンピックでの 金メダル獲得は 国民の 悲願であった。 (Olimpiadada oltin medal yutish butun xalqning eng buyuk orzusi edi.)",
+    "level": "N1"
+  },
+  {
+    "front": "志を 貫く",
+    "back": "Yuksak niyatidan chekinmay qatʼiy turmoq",
+    "phonetic": "こころざしを つらぬく - kokorozashi o tsuranuku",
+    "example": "どんな 誘惑にも 負けず 初志を 貫いた。 (Hech qanday vasvasaga aldanmay dastlabki niyatida sobit turdi.)",
+    "level": "N1"
+  },
+  {
+    "front": "身命を 賭す",
+    "back": "Hayotini, borligʻini garovga qoʻymoq",
+    "phonetic": "しんめいを とす - shimmei o tosu",
+    "example": "国民の 命を 守る ために 身命を 賭して 職務を 遂行する。 (Fuqarolar hayotini asrash yoʻlida bor vujudi bilan vazifasini ado etdi.)",
+    "level": "N1"
+  },
+  {
+    "front": "孤高の",
+    "back": "Yolgʻiz, magʻrur, boshqalardan yuksak",
+    "phonetic": "ここうの - kokou no",
+    "example": "世俗の 流行に 流されず、孤高の 道を 歩む。 (Ommaviy mayda shov-shuvlarga ergashmay magʻrur oʻz yoʻlidan yurmoq.)",
+    "level": "N1"
+  },
+  {
+    "front": "独壇場",
+    "back": "Yakka oʻzining maydoni, hech kim teng kela olmaydigan soha",
+    "phonetic": "どくだんじょう - dokudanjou",
+    "example": "即興ディベートは 彼の 独壇場だ。 (Tezkor munozara faqat uning yakka oʻziga xos tengsiz maydonidir.)",
+    "level": "N1"
+  },
+  {
+    "front": "群を 抜く",
+    "back": "Tengdoshlaridan yaqqol ajralib turmoq",
+    "phonetic": "ぐんを ぬく - gun o nuku",
+    "example": "彼の 数学的才能は 同期の 中で 群を 抜いている。 (Uning matematik isteʼdodi tengqurlari ichida yaqqol yaqqol ajralib turadi.)",
+    "level": "N1"
+  },
+  {
+    "front": "無二の 親友",
+    "back": "Tengsiz eng yaqin, sadoqatli doʻst",
+    "phonetic": "むにの しんゆう - muni no shinyuu",
+    "example": "彼こそは 私の 生涯における 無二の 親友だ。 (Aynan u mening butun umrimdagi eng sadoqatli va tengsiz doʻstimdir.)",
+    "level": "N1"
+  },
+  {
+    "front": "冠絶する",
+    "back": "Barchadan mutlaq ustun turmoq",
+    "phonetic": "かんぜつする - kanzetsu suru",
+    "example": "その 圧倒的な 描写力は 当代の 文壇に 冠絶していた。 (Uning qudratli tasvir mahorati oʻsha davr adabiy muhitida barchadan ustun edi.)",
+    "level": "N1"
+  },
+  {
+    "front": "無礼極まる",
+    "back": "Haddan ziyod beadab, oʻta odobsiz",
+    "phonetic": "ぶれいきわまる - bureikiwamaru",
+    "example": "初対面で あのような 暴言を 吐くとは 無礼極まる。 (Ilk uchrashuvdayoq shunday haqorat qilish haddan ziyod odobsizlikdir.)",
+    "level": "N1"
+  },
+  {
+    "front": "感極まる",
+    "back": "Hayajondan koʻzlari yoshlanmoq, qalbi toʻlqinlanmoq",
+    "phonetic": "かんきわまる - kankiwamaru",
+    "example": "卒業式で 恩師の 言葉を 聞いて 感極まった。 (Bitiruv kechasida ustozining soʻzlarini eshitib hayajondan koʻzlariga yosh keldi.)",
+    "level": "N1"
+  },
+  {
+    "front": "危険極まりない",
+    "back": "Oʻta xavfli, halokatli",
+    "phonetic": "きけんきわまりない - kikenkiwamarinai",
+    "example": "ヘルメットも 着用せずに 高所で 作業するのは 危険極まりない。 (Kaskasiz balandlikda ishlash oʻta xavfli va tahlikalidir.)",
+    "level": "N1"
+  },
+  {
+    "front": "遺憾の 極み",
+    "back": "Cheksiz afsus va chuqur nadomat",
+    "phonetic": "いかんの きわみ - ikan no kiwami",
+    "example": "今回の 不祥事は 誠に 遺憾の 極みで あります。 (Ushbu koʻngilsiz hodisadan cheksiz afsusdamiz.)",
+    "level": "N1"
+  },
+  {
+    "front": "痛恨の 極み",
+    "back": "Yurakni tiluvchi ogʻir alam",
+    "phonetic": "つうこんの きわみ - tsuukon no kiwami",
+    "example": "ラスト1秒で 逆転されたことは 痛恨の 極みだ。 (Oxirgi bir soniyada magʻlub boʻlish yurakni tilka-pora qiladigan ogʻir alamdir.)",
+    "level": "N1"
+  },
+  {
+    "front": "行間を 読む",
+    "back": "Satrlar orasidagi yashirin maʼnoni anglamoq",
+    "phonetic": "ぎょうかんを よむ - gyoukan o yomu",
+    "example": "言葉の 表面だけでなく 行間を 読む 洞察が 必須だ。 (Faqat soʻzning yuzasiga emas, satrlar orasidagi asl maʼnoga eʼtibor berish lozim.)",
+    "level": "N1"
+  },
+  {
+    "front": "言外の 意",
+    "back": "Soʻz bilan aytilmagan botiniy maʼno",
+    "phonetic": "げんがいの い - gengai no i",
+    "example": "外交官の スピーチには 言外の 意が 込められている。 (Diplomatning nutqida ochiq aytilmagan botiniy maʼno yashiringan.)",
+    "level": "N1"
+  },
+  {
+    "front": "ニュアンスを 嗅ぎ分ける",
+    "back": "Nozik uslubiy maʼno tuslanishini ilgʻab olmoq",
+    "phonetic": "ニュアンスを かわける - nyuansu o kagiwakeru",
+    "example": "ネイティブ特有の 微妙な ニュアンスを 嗅ぎ分ける。 (Tugʻma soʻzlovchilarga xos nozik maʼno qirralarini aniq ilgʻamoq.)",
+    "level": "N1"
+  },
+  {
+    "front": "論旨の 展開",
+    "back": "Fikr va dalillarning mantiqiy silsilasi",
+    "phonetic": "ろんしの てんかい - ronshi no tenkai",
+    "example": "筆者の 巧みな 論旨の 展開に 引き込まれる。 (Muallifning mahoratli fikr rivoji oʻquvchini oʻziga rom etadi.)",
+    "level": "N1"
+  },
+  {
+    "front": "反語的な",
+    "back": "Pichingli, kinoyali, teskari maʼnodagi",
+    "phonetic": "はんごてきな - hangoteki na",
+    "example": "彼の 賛辞は 実は 反語的な 皮肉であった。 (Uning maqtovi aslida kinoyali piching edi.)",
+    "level": "N1"
+  },
+  {
+    "front": "螺旋構造",
+    "back": "Spiral shaklidagi struktura (DNK)",
+    "phonetic": "らせん構造 - rasenkouzou",
+    "example": "DNAの 二重螺旋構造を 解明した。 (DNKning qoʻshaloq spiral tuzilishi kashf etildi.)",
+    "level": "N1"
+  },
+  {
+    "front": "変異株",
+    "back": "Mutatsiyaga uchragan virus shtammi",
+    "phonetic": "へんい株 - henʼikabu",
+    "example": "新たな 変異株の 感染拡大を 阻止する。 (Yangi mutatsiyaga uchragan shtammning tarqalishini toʻxtatmoq.)",
+    "level": "N1"
+  },
+  {
+    "front": "凝固する",
+    "back": "Iymoq, qotmoq, quyilmoq",
+    "phonetic": "ぎょうこする - gyouko suru",
+    "example": "低温に 達すると 液体が 凝固する。 (Harorat pasayganda suyuqlik qotadi.)",
+    "level": "N1"
+  },
+  {
+    "front": "揮発性",
+    "back": "Uchuvchanlik (gazga aylanuvchanlik)",
+    "phonetic": "きはつ性 - kihatsusei",
+    "example": "ガソリンは 高い 揮発性を 有するため 取扱に 注意する。 (Benzin oʻta yuqori uchuvchanlikka ega boʻlgani bois ehtiyotkorlik bilan ishlatiladi.)",
+    "level": "N1"
+  },
+  {
+    "front": "触媒",
+    "back": "Katalizator (reaksiyani tezlashtiruvchi modda)",
+    "phonetic": "しょくばい - shokubai",
+    "example": "白金を 触媒として 化学反応を 促進させる。 (Platinani katalizator qilib kimyoviy jarayonni jadallashtiradilar.)",
+    "level": "N1"
+  },
+  {
+    "front": "臥薪嘗胆",
+    "back": "Intiqom yoki muvaffaqiyat uchun ogʻir mashaqqatga chidash",
+    "phonetic": "がしんしょうたん - gashinshoutan",
+    "example": "10年間の 臥薪嘗胆の 末、ついに 雪辱を 果たした。 (Oʻn yillik mashaqqatli sabr-matonatdan soʻng nihoyat gʻalaba qozondi.)",
+    "level": "N1"
+  },
+  {
+    "front": "一網打尽",
+    "back": "Bir toʻr bilan barchasini birdaniga qoʻlga olmoq",
+    "phonetic": "いちもうだじん - ichimoudajin",
+    "example": "警察は 詐欺グループの メンバーを 一網打尽に 逮捕した。 (Politsiya firibgarlar toʻdasini bir yoʻla toʻliq qoʻlga oldi.)",
+    "level": "N1"
+  },
+  {
+    "front": "臨機応変",
+    "back": "Vaziyatga qarab oʻzgaruvchan, hozirjavob",
+    "phonetic": "りんきおうへん - rinkiouhen",
+    "example": "不測の 事態にも 臨機応変な 処置を 施す。 (Kutilmagan vaziyatda ham epchillik bilan chora koʻriladi.)",
+    "level": "N1"
+  },
+  {
+    "front": "自縄自縛",
+    "back": "Oʻz qilmishi yoki qoidasi bilan oʻzini oʻzi tuzoqqa ilintirmoq",
+    "phonetic": "じじょうじばく - jijoujibaku",
+    "example": "自ら 作った 規則に 縛られて 自縄自縛に 陥る。 (Oʻzi oʻylab topgan qoidalarga oʻralashib oʻz oyogʻiga oʻzi tuzoq qoʻymoq.)",
+    "level": "N1"
+  },
+  {
+    "front": "起死回生",
+    "back": "Oʻlim yoqasidan hayotga qaytish, moʻjizaviy najot",
+    "phonetic": "きしかいせい - kishikaisei",
+    "example": "起死回生の ホームランで 逆転勝利を 収めた。 (Moʻjizaviy soʻnggi zarba bilan magʻlubiyat yoqasidan gʻalabani ilib ketdi.)",
+    "level": "N1"
+  },
+  {
+    "front": "相まって",
+    "back": "Bir-biri bilan qoʻshilib, oʻzaro taʼsirda",
+    "phonetic": "相まって - aimatte",
+    "example": "才能と 努力が 相まって 偉大な 成果を 生んだ。 (Iqtidor bilan mehnat bir-biriga qoʻshilib buyuk natijani yaratdi.)",
+    "level": "N1"
+  },
+  {
+    "front": "かまけて",
+    "back": "Bir narsaga berilib ketib, boshqa muhim ishni unutmoq",
+    "phonetic": "かまけて - kamakete",
+    "example": "目先の 忙しさに かまけて 健康を 害してしまった。 (Kunlik tashvishlarga berilib ketib salomatligini boy berdi.)",
+    "level": "N1"
+  },
+  {
+    "front": "皮切りに",
+    "back": "Boshlab berish nuqtasi sifatida, dastlab",
+    "phonetic": "皮切りに - kawakiniri",
+    "example": "東京公演を 皮切りに 全国ツアーが 始まる。 (Tokio konsertidan boshlab butun mamlakat boʻylab gastrol safarlari boshlanadi.)",
+    "level": "N1"
+  },
+  {
+    "front": "相応の",
+    "back": "Darajasiga yarasha, munosib",
+    "phonetic": "そうおうの - souou no",
+    "example": "重責を 担うに 相応の 報酬を 支払う。 (Yuksak masʼuliyatga yarasha munosib haq toʻlanadi.)",
+    "level": "N1"
+  },
+  {
+    "front": "余儀ない",
+    "back": "Boshqa chora va yoʻl qolmagan",
+    "phonetic": "よぎない - yoginai",
+    "example": "余儀ない 事情により 欠席いたします。 (Boshqa chorasiz vaziyat tufayli qatnasha olmayman.)",
+    "level": "N1"
+  },
+  {
+    "front": "百戦錬磨",
+    "back": "Yuzlab janglarda toblangan, oʻta tajribali",
+    "phonetic": "ひゃくせんれんま - hyakusenremma",
+    "example": "百戦錬磨の 猛者たちが 集う 最高峰の 舞台。 (Minglab sinovlarda toblangan tajribali insonlar jamlangan eng oliy maydon.)",
+    "level": "N1"
+  },
+  {
+    "front": "乾坤一擲",
+    "back": "Barcha narsani bir tikishga garov qilib tavakkal qilmoq",
+    "phonetic": "けんこんいってき - kenkonʼitteki",
+    "example": "乾坤一擲の 大勝負に 出る。 (Bor narsasini garovga qoʻyib hal qiluvchi buyuk jangga kirishmoq.)",
+    "level": "N1"
+  },
+  {
+    "front": "盤石の",
+    "back": "Qoyadek mustahkam, yiqilmas",
+    "phonetic": "ばんじゃくの - banjaku no",
+    "example": "盤石の 体制を 築き上げて 試験に 臨む。 (Qoyadek mustahkam tayyorgarlik tizimini qurib imtihonga kirishmoq.)",
+    "level": "N1"
+  },
+  {
+    "front": "白眉",
+    "back": "Eng aʼlo durdona, tengqurlari ichida eng sarasi",
+    "phonetic": "はくび - hakubi",
+    "example": "彼の デビュー作は 近代文学の 白眉と 称される。 (Uning debyut asari zamonaviy adabiyotning eng sarasi deb eʼtirof etiladi.)",
+    "level": "N1"
+  },
+  {
+    "front": "泰然自若",
+    "back": "Vazmin, hech narsadan choʻchimaydigan, xotirjam",
+    "phonetic": "たいぜんじじゃく - taizenjijaku",
+    "example": "危機に 瀕しても 泰然自若として 指示を 出す。 (Inqirozga duch kelganda ham zarracha vahimaga tushmay bosiqlik bilan buyruq berdi.)",
+    "level": "N1"
+  },
+  {
+    "front": "名誉ある",
+    "back": "Sharafli, faxrli",
+    "phonetic": "めいよある - meiyo aru",
+    "example": "名誉ある JLPT N1 合格の 栄冠を 獲得した。 (Sharafli JLPT N1 zafarini qoʻlga kiritdim.)",
+    "level": "N1"
+  },
+  {
+    "front": "金字塔",
+    "back": "Mislsiz choʻqqi, unutilmas buyuk yutuq",
+    "phonetic": "きんじとう - kinjitou",
+    "example": "日本語学習における 最高の 金字塔を 刻む。 (Yapon tili oʻrganish yoʻlida eng buyuk choʻqqini zabt etmoq.)",
+    "level": "N1"
+  },
+  {
+    "front": "研鑽を 積む",
+    "back": "Tinimsiz ilm olib mahoratini charxlamoq",
+    "phonetic": "けんさんを つむ - kensan o tsumu",
+    "example": "合格後も 怠ることなく 研鑽を 積み重ねる。 (Muvaffaqiyatdan keyin ham toʻxtamasdan mahoratini yanada charxlab bormoq.)",
+    "level": "N1"
+  },
+  {
+    "front": "真髄",
+    "back": "Asl mohiyat, teran falsafasi",
+    "phonetic": "しんずい - shinzui",
+    "example": "日本文化の 真髄に 触れる。 (Yapon madaniyatining asl teran mohiyatini his etmoq.)",
+    "level": "N1"
+  },
+  {
+    "front": "先駆者",
+    "back": "Pioner, yoʻl ochib beruvchi peshqadam",
+    "phonetic": "せんく者 - senkusha",
+    "example": "新しい 時代の 先駆者として 世界へ 羽ばたく。 (Yangi davrning peshqadami sifatida jahon sari qanot qoqmoq.)",
+    "level": "N1"
+  },
+  {
+    "front": "人工知能の 倫理",
+    "back": "Sunʼiy intellekt etikasi",
+    "phonetic": "じんこうちのうの りんり - jinkouchinou no rinri",
+    "example": "生成AIの 普及に 伴い 人工知能の 倫理が 問われている。 (Generativ sunʼiy intellekt tarqalishi bilan uning etikasi jiddiy muhokama qilinmoqda.)",
+    "level": "N1"
+  },
+  {
+    "front": "アルゴリズムバイアス",
+    "back": "Algoritmik tarafkashlik/ogʻish",
+    "phonetic": "アルゴリズムバイアス - arugorizumu baiasu",
+    "example": "訓練データの 偏りに よる アルゴリズムバイアスを 是正する。 (Oʻrgatish maʼlumotlaridagi nomutanosiblikdan kelib chiqqan algoritm xatosini toʻgʻrilash.)",
+    "level": "N1"
+  },
+  {
+    "front": "自律型兵器",
+    "back": "Avtonom qurollar tizimi",
+    "phonetic": "じりつがたへいき - jiritsugata heiki",
+    "example": "自律型兵器の 開発に 対する 国際的な 規制が 急務だ。 (Avtonom qurollarni ishlab chiqishga xalqaro cheklov qoʻyish kechiktirib boʻlmas vazifadir.)",
+    "level": "N1"
+  },
+  {
+    "front": "特異点",
+    "back": "Singulyarlik (mashina inson aqlidan oʻzib ketadigan nuqta)",
+    "phonetic": "とくいてん - tokuiten (singyurariti)",
+    "example": "技術的特異点が 社会に 与える 衝撃を 予測する。 (Texnologik singulyarlik jamiyatga olib keladigan toʻlqinni oldindan taxmin qilish.)",
+    "level": "N1"
+  },
+  {
+    "front": "人間中心主義",
+    "back": "Antropotsentrizm (insonni markazga qoʻyuvchi falsafa)",
+    "phonetic": "にんげんちゅうしん主義 - ningenchushinshugi",
+    "example": "AI時代における 人間中心主義の 再定義が 求められる。 (AI asrida insonparvarlik falsafasini qayta taʼriflash talab etilmoqda.)",
+    "level": "N1"
+  },
+  {
+    "front": "にかまけて",
+    "back": "Biror narsaga chalgʻib/berilib muhim ishni eʼtiborsiz qoldirmoq",
+    "phonetic": "にかまけて - nikamakete",
+    "example": "多忙に かまけて 親孝行を 怠ってしまった。 (Ish koʻpligiga berilib ketib ota-onaga gʻamxoʻrlik qilishni unutib qoʻydim.)",
+    "level": "N1"
+  },
+  {
+    "front": "を皮切りに",
+    "back": "Ni boshlangʻich nuqta qilib, ketidan davom etmoq",
+    "phonetic": "を皮切りに - o kawakiri ni",
+    "example": "東京を 皮切りに 世界ツアーを 開催する。 (Tokioni boshlab butun dunyo boʻylab konsert beramiz.)",
+    "level": "N1"
+  },
+  {
+    "front": "にかこつけて",
+    "back": "Bir narsani bahona qilib olmoq",
+    "phonetic": "にかこつけて - nikakotsukete",
+    "example": "出張に かこつけて 観光を 楽しむ。 (Xizmat safarini bahona qilib sayohat qilish.)",
+    "level": "N1"
+  },
+  {
+    "front": "を皮切りとして",
+    "back": "Ni start deb olib",
+    "phonetic": "を皮切りとして - o kawakiri to shite",
+    "example": "初日の 大ヒットを 皮切りとして 記録を 更新した。 (Birinchi kundagi ulkan muvaffaqiyatdan boshlab rekordlar yangilandi.)",
+    "level": "N1"
+  },
+  {
+    "front": "怠りなく",
+    "back": "Bekamu koʻst, zarracha beparvoliksiz",
+    "phonetic": "おこたりなく - okotarinaku",
+    "example": "準備を 怠りなく 整えて 本番に 臨む。 (Tayyorgarlikni zarracha kamchiliksiz puxta qilib imtihonga kirishmoq.)",
+    "level": "N1"
+  },
+  {
+    "front": "てやまない",
+    "back": "Tinmay dildan tilamoq, soʻnmas istak bilan",
+    "phonetic": "てやまない - te yamanai",
+    "example": "被災地の 一日も 早い 復興を 祈って やまない。 (Ofat hududining tezroq oyoqqa turishini dildan tinimsiz duo qilamiz.)",
+    "level": "N1"
+  },
+  {
+    "front": "禁じ得ない",
+    "back": "Oʻzini tiyib boʻlmaslik (hissiyotga)",
+    "phonetic": "きんえない - kinji enai",
+    "example": "あまりの 理不尽さに 憤りを 禁じ得ない。 (Bunday nohaqlik oldida gʻazabni tiyib turish mutlaqo imkonsiz.)",
+    "level": "N1"
+  },
+  {
+    "front": "感嘆を 禁じ得ない",
+    "back": "Hayrat va tahsinni tiyolmay qolmoq",
+    "phonetic": "かんたんを 禁じ得ない - kantan o kinjienai",
+    "example": "彼の 圧倒的な 技量に 感嘆を 禁じ得ない。 (Uning tengsiz mahoratiga tahsin aytmasdan iloj yoʻq.)",
+    "level": "N1"
+  },
+  {
+    "front": "愛してやまない",
+    "back": "Jon-dilidan sevmoq, cheksiz muhabbat bogʻlamoq",
+    "phonetic": "あいしてやまない - aishite yamanai",
+    "example": "祖国の 美しい 自然を 愛して やまない。 (Ona yurtning maftunkor tabiatini jon-dilimdan sevaman.)",
+    "level": "N1"
+  },
+  {
+    "front": "涙を 禁じ得ない",
+    "back": "Koʻz yoshlarini tutib turolmaslik",
+    "phonetic": "なみだを 禁じ得ない - namida o kinjienai",
+    "example": "感動物語に 涙を 禁じ得なかった。 (Taʼsirli qissani eshitib koʻz yoshlarini tiyib boʻlmadi.)",
+    "level": "N1"
+  },
+  {
+    "front": "速読術",
+    "back": "Tez oʻqish mahorati",
+    "phonetic": "そくどく術 - sokudokujutsu",
+    "example": "膨大な 情報を 瞬時に 処理する 速読術を 習得する。 (Ulkan maʼlumotlarni bir zumda qayta ishlaydigan tez oʻqish texnikasini egallamoq.)",
+    "level": "N1"
+  },
+  {
+    "front": "斜め読み",
+    "back": "Koʻz yugurtirib kerakli joyni tez topish",
+    "phonetic": "ななめよみ - nanameyomi (sukyaningu)",
+    "example": "時間が ないので 斜め読みで 全体の 要点を 拾い出す。 (Vaqt qisqaligi bois koʻz yugurtirib umumiy asosiy joylarni ajratib olmoq.)",
+    "level": "N1"
+  },
+  {
+    "front": "情報検索",
+    "back": "Kerakli maʼlumotni qidirish va saralash",
+    "phonetic": "じょうほうけんさく - jouhou kensaku",
+    "example": "長文の 中から 必要な 情報を 正確に 検索する。 (Katta matn ichidan kerakli maʼlumotni xatosiz topib olmoq.)",
+    "level": "N1"
+  },
+  {
+    "front": "取捨選択",
+    "back": "Keragini olib, keraksizini chiqarib tashlash",
+    "phonetic": "しゅしゃせんたく - shushasentaku",
+    "example": "溢れる 情報を 取捨選択する 判断力が 肝要だ。 (Koʻp maʼlumotlar ichidan kerakligini saralab olish qobiliyati juda muhim.)",
+    "level": "N1"
+  },
+  {
+    "front": "精読",
+    "back": "Ipidan ignasigacha sinchiklab oʻqish",
+    "phonetic": "せいどく - seidoku",
+    "example": "難解な 契約書は 精読して リスクを 排除する。 (Murakkab shartnomani sinchiklab ipidan ignasigacha oʻqib xatarlarni yoʻqotamiz.)",
+    "level": "N1"
+  },
+  {
+    "front": "冠絶の 栄誉",
+    "back": "Tengsiz oliy sharaf",
+    "phonetic": "かんぜつの えいよ - kanzetsu no eiyo",
+    "example": "JLPT N1 最高峰の 冠絶の 栄誉を 讃える。 (JLPT N1 ning eng oliy choʻqqisidagi tengsiz sharafni eʼtirof etamiz.)",
+    "level": "N1"
+  },
+  {
+    "front": "偉業を 達成する",
+    "back": "Buyuk jasorat va ulkan tarixiy natijaga erishmoq",
+    "phonetic": "いぎょうを たっせいする - igyou o tassei suru",
+    "example": "自らの 人生に おいて 偉大な 偉業を 達成した。 (Oʻz hayotida buyuk va unutilmas natijaga erishdi.)",
+    "level": "N1"
+  },
+  {
+    "front": "至高の 境地",
+    "back": "Eng yuksak kamolot maqomi",
+    "phonetic": "しこうの きょうち - shikou no kyouchi",
+    "example": "語学学習の 至高の 境地へと 到達した。 (Til oʻrganishning eng yuksak kamolot maqomiga yetib bordi.)",
+    "level": "N1"
+  },
+  {
+    "front": "世界への 飛翔",
+    "back": "Jahon uzra parvoz qilish, xalqaro maydonga chiqish",
+    "phonetic": "せかいへの ひしょう - sekai e no hishou",
+    "example": "身につけた 日本語を 翼として、世界へ 飛翔する。 (Egallagan yapon tilini qanot qilib jahon uzra parvoz qilamiz.)",
+    "level": "N1"
+  },
+  {
+    "front": "無窮の 探求",
+    "back": "Cheksiz va tuganmas izlanish",
+    "phonetic": "むきゅうの たんきゅう - mukyuu no tankyuu",
+    "example": "学びに 終わりは ない。無窮の 探求を 続けよう。 (Ilm olishning intihosi yoʻq. Keling, cheksiz izlanishda davom etaylik.)",
+    "level": "N1"
   }
 ]
