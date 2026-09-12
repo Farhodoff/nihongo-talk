@@ -29,6 +29,7 @@ export const ja = {
     submit: '回答を送信',
     language: '言語',
     uzbek: 'ウズベク語 🇺🇿',
+    english: '英語 🇬🇧',
     japanese: '日本語 🇯🇵',
     search: '検索...',
     actions: '操作',

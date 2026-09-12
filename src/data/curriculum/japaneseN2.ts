@@ -822,7 +822,7 @@ export const JAPANESE_N2_LESSONS: Lesson[] = [
     unitTitle: 'Unit 2: Corporate Keigo & High Register',
     language: 'ja',
     level: 'N2',
-    lessonNumber: 1,
+    lessonNumber: 6,
     title: 'Advanced Business Correspondence: 〜申し上げます & 〜存じます',
     description: 'Rasmiy korporativ yozishmalar va diplomatik ehtirom formulalari.',
     estimatedDurationMinutes: 16,
@@ -981,7 +981,7 @@ export const JAPANESE_N2_LESSONS: Lesson[] = [
     unitTitle: 'Unit 2: Corporate Keigo & High Register',
     language: 'ja',
     level: 'N2',
-    lessonNumber: 2,
+    lessonNumber: 7,
     title: 'N2 Advanced Kanji: Macroeconomics, Commerce & Law (融資, 景気, 契約, 義務, 損害)',
     description:
       'Bank krediti, bozor konyunkturasi, shartnomalar va huquqiy javobgarlik kanjilari.',
@@ -1140,7 +1140,7 @@ export const JAPANESE_N2_LESSONS: Lesson[] = [
     unitTitle: 'Unit 2: Corporate Keigo & High Register',
     language: 'ja',
     level: 'N2',
-    lessonNumber: 3,
+    lessonNumber: 8,
     title: 'Formal Negation & Concession: 〜ざるを得ない vs 〜わけにはいかない',
     description:
       "Majburlikdan qilishdan o'zga chora yo'qligi (zaru o enai) va axloqan/vaziyat sababli qila olmaslik (wake ni wa ikanai).",
@@ -1301,7 +1301,7 @@ export const JAPANESE_N2_LESSONS: Lesson[] = [
     unitTitle: 'Unit 2: Corporate Keigo & High Register',
     language: 'ja',
     level: 'N2',
-    lessonNumber: 4,
+    lessonNumber: 9,
     title: 'N2 Choukai: Integrated Information Listening (統合理解)',
     description:
       'Bir nechta shaxslarning fikrlari va jadvalli variantlarni solishtirib yakuniy yechimni topish.',
@@ -1462,7 +1462,7 @@ export const JAPANESE_N2_LESSONS: Lesson[] = [
     unitTitle: 'Unit 2: Corporate Keigo & High Register',
     language: 'ja',
     level: 'N2',
-    lessonNumber: 5,
+    lessonNumber: 10,
     title: 'JLPT N2 Capstone Grand Mastery & N1 Transition Examination',
     description:
       "JLPT N2 oliy-o'rta biznes darajasini to'liq tasdiqlash va N1 oliy darajasiga o'tish sinovi.",
