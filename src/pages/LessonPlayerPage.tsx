@@ -326,7 +326,7 @@ export const LessonPlayerPage: React.FC = () => {
       </div>
 
       {/* Main Content Area */}
-      <div className="mx-auto w-full max-w-4xl flex-1 p-4 md:p-8">
+      <div className="mx-auto w-full max-w-4xl flex-1 p-3 sm:p-4 md:p-8">
         {isLessonCompleted ? (
           <LessonCompletionView
             lesson={lesson}
@@ -336,7 +336,7 @@ export const LessonPlayerPage: React.FC = () => {
             onExit={handleExit}
           />
         ) : currentStep ? (
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             {/* Step Type Pill Header */}
             <div className="mb-2 flex items-center justify-center gap-2">
               <span
@@ -382,24 +382,36 @@ export const LessonPlayerPage: React.FC = () => {
 
       {/* Bottom Step Controller Footer */}
       {!isLessonCompleted && (
-        <div className="sticky bottom-0 z-20 border-t border-border bg-background/90 p-3.5 pb-[max(env(safe-area-inset-bottom),0.875rem)] backdrop-blur-xl sm:p-4">
-          <div className="mx-auto flex max-w-4xl items-center justify-between gap-3 sm:gap-4">
+        <div className="sticky bottom-0 z-20 border-t border-border bg-background/90 p-3 pb-[max(env(safe-area-inset-bottom),0.875rem)] backdrop-blur-xl sm:p-4">
+          <div className="mx-auto flex max-w-4xl items-center justify-between gap-2.5 sm:gap-4">
             <button
               onClick={handlePrevStep}
               disabled={currentStepIdx === 0}
-              className="h-11 rounded-2xl border border-border px-4 text-xs font-bold text-muted-foreground transition-all hover:bg-secondary hover:text-foreground active:scale-95 disabled:cursor-not-allowed disabled:opacity-30"
+              className="h-11 cursor-pointer touch-manipulation select-none rounded-2xl border border-border px-3 text-xs font-bold text-muted-foreground transition-all hover:bg-secondary hover:text-foreground active:scale-95 disabled:cursor-not-allowed disabled:opacity-30 sm:px-4"
             >
-              Oldingi qadam
+              <span className="sm:hidden">Oldingi</span>
+              <span className="hidden sm:inline">Oldingi qadam</span>
             </button>
 
             <button
               onClick={handleNextStep}
-              className="flex h-11 items-center gap-2 rounded-2xl bg-primary px-5 text-xs font-bold text-primary-foreground shadow-lg shadow-primary/25 transition-all hover:opacity-90 active:scale-95 sm:px-6 md:text-sm"
+              aria-label={
+                currentStepIdx === totalSteps - 1 ? 'Darsni Yakunlash' : "Keyingi Qadamga O'tish"
+              }
+              className="flex h-11 cursor-pointer touch-manipulation select-none items-center gap-1.5 rounded-2xl bg-primary px-4 text-xs font-bold text-primary-foreground shadow-lg shadow-primary/25 transition-all hover:opacity-90 active:scale-95 sm:gap-2 sm:px-6 md:text-sm"
             >
               <span>
-                {currentStepIdx === totalSteps - 1
-                  ? 'Darsni Yakunlash 🎉'
-                  : "Keyingi Qadamga O'tish"}
+                {currentStepIdx === totalSteps - 1 ? (
+                  <>
+                    <span className="sm:hidden">Yakunlash 🎉</span>
+                    <span className="hidden sm:inline">Darsni Yakunlash 🎉</span>
+                  </>
+                ) : (
+                  <>
+                    <span className="sm:hidden">Keyingi</span>
+                    <span className="hidden sm:inline">Keyingi Qadamga O'tish</span>
+                  </>
+                )}
               </span>
               <ChevronRight size={16} />
             </button>

@@ -461,12 +461,12 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
   const progressPercentage = Math.round((currentCardIndex / queue.length) * 100);
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col overflow-y-auto bg-background/95 p-4 pb-[max(1.5rem,env(safe-area-inset-bottom,20px))] pt-[max(1rem,env(safe-area-inset-top,16px))] backdrop-blur-xl md:p-8">
+    <div className="fixed inset-0 z-50 flex flex-col overflow-y-auto bg-background/95 p-3 pb-[max(1.5rem,env(safe-area-inset-bottom,20px))] pt-[max(1rem,env(safe-area-inset-top,16px))] backdrop-blur-xl sm:p-4 md:p-8">
       {/* Top Bar */}
-      <div className="mx-auto mb-6 flex w-full max-w-3xl items-center justify-between gap-4">
+      <div className="mx-auto mb-4 flex w-full max-w-3xl items-center justify-between gap-2 sm:mb-6 sm:gap-4">
         <button
           onClick={onClose}
-          className="flex cursor-pointer items-center gap-2 rounded-xl p-2 text-xs font-bold text-muted-foreground transition-all hover:bg-muted/60 hover:text-foreground active:scale-95"
+          className="flex shrink-0 cursor-pointer touch-manipulation items-center gap-1.5 rounded-xl p-2 text-xs font-bold text-muted-foreground transition-all hover:bg-muted/60 hover:text-foreground active:scale-95"
           aria-label={isJa ? '単語帳一覧に戻る' : "To'plamlarga qaytish"}
         >
           <ArrowLeft size={18} />
@@ -476,14 +476,14 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
         </button>
 
         {/* Progress bar */}
-        <div className="max-w-xs flex-1 space-y-1">
-          <div className="flex justify-between text-[11px] font-bold text-muted-foreground">
+        <div className="min-w-[50px] max-w-xs flex-1 space-y-1">
+          <div className="flex justify-between text-[10px] font-bold text-muted-foreground sm:text-[11px]">
             <span>
               {currentCardIndex + 1} / {queue.length}
             </span>
             <span>{progressPercentage}%</span>
           </div>
-          <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
+          <div className="h-1.5 w-full overflow-hidden rounded-full bg-muted sm:h-2">
             <div
               className="h-full rounded-full bg-gradient-to-r from-primary to-[#C9A961] transition-all duration-300"
               style={{ width: `${progressPercentage}%` }}
@@ -491,13 +491,13 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
           </div>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
           {/* Audio Accent toggle */}
           {!isJapanese && (
             <select
               value={accent}
               onChange={(e) => setAccent(e.target.value as any)}
-              className="focus:outline-hidden rounded-xl border border-border bg-muted/60 px-2.5 py-1.5 text-xs font-bold text-foreground"
+              className="focus:outline-hidden rounded-xl border border-border bg-muted/60 px-2 py-1 text-[11px] font-bold text-foreground sm:px-2.5 sm:py-1.5 sm:text-xs"
             >
               <option value="en-US">🇺🇸 US</option>
               <option value="en-GB">🇬🇧 UK</option>
@@ -507,7 +507,7 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
           {/* Auto Audio Playback Toggle */}
           <button
             onClick={toggleAutoAudio}
-            className={`flex cursor-pointer items-center gap-1.5 rounded-xl border px-2.5 py-1.5 text-xs font-extrabold transition-all ${
+            className={`flex cursor-pointer touch-manipulation items-center gap-1 rounded-xl border px-2 py-1 text-[11px] font-extrabold transition-all sm:gap-1.5 sm:px-2.5 sm:py-1.5 sm:text-xs ${
               autoAudio
                 ? 'border-primary/40 bg-primary/10 text-primary shadow-xs'
                 : 'border-border bg-card text-muted-foreground hover:text-foreground'
@@ -529,10 +529,10 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
           </button>
 
           {/* Study Mode: Flashcard / Typing */}
-          <div className="flex rounded-xl border border-border bg-card p-1">
+          <div className="flex rounded-xl border border-border bg-card p-0.5 sm:p-1">
             <button
               onClick={() => setStudyMode('srs')}
-              className={`rounded-lg px-2.5 py-1 text-[11px] font-extrabold transition-all ${
+              className={`touch-manipulation rounded-lg px-2 py-0.5 text-[10px] font-extrabold transition-all sm:px-2.5 sm:py-1 sm:text-[11px] ${
                 studyMode === 'srs'
                   ? 'bg-primary text-primary-foreground shadow-xs'
                   : 'text-muted-foreground'
@@ -542,7 +542,7 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
             </button>
             <button
               onClick={() => setStudyMode('type')}
-              className={`rounded-lg px-2.5 py-1 text-[11px] font-extrabold transition-all ${
+              className={`touch-manipulation rounded-lg px-2 py-0.5 text-[10px] font-extrabold transition-all sm:px-2.5 sm:py-1 sm:text-[11px] ${
                 studyMode === 'type'
                   ? 'bg-primary text-primary-foreground shadow-xs'
                   : 'text-muted-foreground'
@@ -603,12 +603,12 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
             data-testid="study-card"
             style={cardStyle}
             {...swipeHandlers}
-            className="perspective-1000 relative min-h-[340px] w-full cursor-pointer select-none md:min-h-[380px]"
+            className="perspective-1000 relative min-h-[300px] w-full cursor-pointer select-none sm:min-h-[340px] md:min-h-[380px]"
           >
             {/* Visual Swipe Badges */}
             {isDragging && swipeDirection === 'left' && (
               <div
-                className="pointer-events-none absolute right-4 top-4 z-40 flex items-center gap-1.5 rounded-2xl border-2 border-rose-500 bg-rose-500/20 px-3.5 py-1.5 text-xs font-black text-rose-500 shadow-lg backdrop-blur-md"
+                className="pointer-events-none absolute right-3 top-3 z-40 flex items-center gap-1.5 rounded-2xl border-2 border-rose-500 bg-rose-500/20 px-3 py-1 text-xs font-black text-rose-500 shadow-lg backdrop-blur-md sm:right-4 sm:top-4 sm:px-3.5 sm:py-1.5"
                 style={{ opacity: Math.max(0.35, swipeProgress) }}
               >
                 <span>🔄</span>
@@ -617,7 +617,7 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
             )}
             {isDragging && swipeDirection === 'right' && (
               <div
-                className="pointer-events-none absolute left-4 top-4 z-40 flex items-center gap-1.5 rounded-2xl border-2 border-primary bg-primary/20 px-3.5 py-1.5 text-xs font-black text-primary shadow-lg backdrop-blur-md"
+                className="pointer-events-none absolute left-3 top-3 z-40 flex items-center gap-1.5 rounded-2xl border-2 border-primary bg-primary/20 px-3 py-1 text-xs font-black text-primary shadow-lg backdrop-blur-md sm:left-4 sm:top-4 sm:px-3.5 sm:py-1.5"
                 style={{ opacity: Math.max(0.35, swipeProgress) }}
               >
                 <span>👍</span>
@@ -626,42 +626,42 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
             )}
 
             <div
-              className={`transform-style-3d relative h-full min-h-[340px] w-full transition-transform duration-500 md:min-h-[380px] ${
+              className={`transform-style-3d relative h-full min-h-[300px] w-full transition-transform duration-500 sm:min-h-[340px] md:min-h-[380px] ${
                 isFlipped ? 'rotate-y-180' : ''
               }`}
             >
               {/* Front Side */}
-              <div className="backface-hidden absolute inset-0 flex flex-col justify-between rounded-3xl border border-border bg-card p-8 shadow-2xl transition-all hover:border-primary/40">
+              <div className="backface-hidden absolute inset-0 flex flex-col justify-between rounded-2xl border border-border bg-card p-4 shadow-2xl transition-all hover:border-primary/40 sm:rounded-3xl sm:p-6 md:p-8">
                 {/* Top Card Controls */}
                 <div className="flex items-center justify-between">
-                  <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-extrabold text-primary">
+                  <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-[11px] font-extrabold text-primary sm:px-3 sm:py-1 sm:text-xs">
                     {currentSubject?.name || (isJa ? 'SRS 単語カード' : 'SRS Fleshkarta')}
                   </span>
 
                   <div className="flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
                     <button
                       onClick={handleSpeak}
-                      className="cursor-pointer rounded-xl p-2 text-muted-foreground transition-all hover:bg-primary/10 hover:text-primary"
+                      className="cursor-pointer rounded-xl p-1.5 text-muted-foreground transition-all hover:bg-primary/10 hover:text-primary sm:p-2"
                       title={isJa ? '音声再生 (TTS)' : 'Ovoz chiqarish (TTS)'}
                     >
-                      <Volume2 size={20} />
+                      <Volume2 size={18} className="sm:h-5 sm:w-5" />
                     </button>
 
                     {isAdmin && (
                       <>
                         <button
                           onClick={handleStartEdit}
-                          className="cursor-pointer rounded-xl p-2 text-muted-foreground transition-all hover:bg-[#C9A961]/10 hover:text-[#C9A961]"
+                          className="cursor-pointer rounded-xl p-1.5 text-muted-foreground transition-all hover:bg-[#C9A961]/10 hover:text-[#C9A961] sm:p-2"
                           title={isJa ? '編集' : 'Tahrirlash'}
                         >
-                          <Edit3 size={18} />
+                          <Edit3 size={16} className="sm:h-[18px] sm:w-[18px]" />
                         </button>
                         <button
                           onClick={handleDeleteCard}
-                          className="cursor-pointer rounded-xl p-2 text-muted-foreground transition-all hover:bg-rose-500/10 hover:text-rose-500"
+                          className="cursor-pointer rounded-xl p-1.5 text-muted-foreground transition-all hover:bg-rose-500/10 hover:text-rose-500 sm:p-2"
                           title={isJa ? '削除' : "O'chirish"}
                         >
-                          <Trash2 size={18} />
+                          <Trash2 size={16} className="sm:h-[18px] sm:w-[18px]" />
                         </button>
                       </>
                     )}
@@ -669,11 +669,11 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
                 </div>
 
                 {/* Card Front Content */}
-                <div className="my-auto py-6 text-center">
-                  <h3 className="text-3xl font-black leading-tight tracking-tight text-foreground md:text-4xl">
+                <div className="my-auto py-4 text-center sm:py-6">
+                  <h3 className="break-words text-2xl font-black leading-tight tracking-tight text-foreground sm:text-3xl md:text-4xl">
                     {currentCard?.front}
                   </h3>
-                  <p className="flex items-center justify-center gap-1.5 pt-6 text-xs font-bold text-muted-foreground/60">
+                  <p className="flex items-center justify-center gap-1.5 pt-4 text-[11px] font-bold text-muted-foreground/60 sm:pt-6 sm:text-xs">
                     <Keyboard size={14} className="hidden sm:inline" />{' '}
                     {isJa
                       ? 'スペースキーまたはカードをタップ/スワイプして裏返す'
@@ -682,7 +682,7 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
                 </div>
 
                 {/* Footer Status */}
-                <div className="flex items-center justify-between text-[11px] font-bold text-muted-foreground">
+                <div className="flex items-center justify-between text-[10px] font-bold text-muted-foreground sm:text-[11px]">
                   <span>
                     {isJa
                       ? `復習回数: ${currentCard?.repetitions || 0}回`
@@ -697,35 +697,35 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
               </div>
 
               {/* Back Side */}
-              <div className="backface-hidden rotate-y-180 absolute inset-0 flex flex-col justify-between rounded-3xl border-2 border-primary/50 bg-gradient-to-br from-card via-card to-primary/5 p-8 shadow-2xl">
+              <div className="backface-hidden rotate-y-180 absolute inset-0 flex flex-col justify-between rounded-2xl border-2 border-primary/50 bg-gradient-to-br from-card via-card to-primary/5 p-4 shadow-2xl sm:rounded-3xl sm:p-6 md:p-8">
                 {/* Top Card Controls */}
                 <div className="flex items-center justify-between">
-                  <span className="rounded-full bg-emerald-500/15 px-3 py-1 text-xs font-extrabold text-emerald-600 dark:text-emerald-400">
+                  <span className="rounded-full bg-emerald-500/15 px-2.5 py-0.5 text-[11px] font-extrabold text-emerald-600 dark:text-emerald-400 sm:px-3 sm:py-1 sm:text-xs">
                     {isJa ? '解答 (Answer)' : 'Javob'}
                   </span>
                   <div className="flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
                     <button
                       onClick={handleSpeak}
-                      className="cursor-pointer rounded-xl p-2 text-muted-foreground transition-all hover:bg-primary/10 hover:text-primary"
+                      className="cursor-pointer rounded-xl p-1.5 text-muted-foreground transition-all hover:bg-primary/10 hover:text-primary sm:p-2"
                       title={isJa ? '音声再生 (TTS)' : 'Ovoz chiqarish (TTS)'}
                     >
-                      <Volume2 size={20} />
+                      <Volume2 size={18} className="sm:h-5 sm:w-5" />
                     </button>
                   </div>
                 </div>
 
                 {/* Card Back Content */}
-                <div className="my-auto space-y-3 py-4 text-center">
-                  <p className="text-xl font-bold leading-relaxed text-primary md:text-2xl">
+                <div className="my-auto space-y-2 py-3 text-center sm:space-y-3 sm:py-4">
+                  <p className="break-words text-lg font-bold leading-relaxed text-primary sm:text-xl md:text-2xl">
                     {currentCard?.back}
                   </p>
-                  <p className="text-xs font-semibold text-muted-foreground/80">
+                  <p className="break-words text-xs font-semibold text-muted-foreground/80">
                     {currentCard?.front}
                   </p>
                 </div>
 
                 {/* Footer Status */}
-                <div className="flex items-center justify-between text-[11px] font-bold text-muted-foreground">
+                <div className="flex items-center justify-between text-[10px] font-bold text-muted-foreground sm:text-[11px]">
                   <span className="hidden sm:inline">SM-2 Algoritmi</span>
                   <span className="font-extrabold text-primary sm:hidden">
                     {isJa ? '👈 もう一度 | 良好 👉' : '👈 Qayta | Yaxshi 👉'}
@@ -743,18 +743,18 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
 
         {/* Typing Mode Input Form */}
         {studyMode === 'type' && !isFlipped && (
-          <form onSubmit={handleTypeSubmit} className="mt-4 flex w-full gap-2">
+          <form onSubmit={handleTypeSubmit} className="mt-3 flex w-full gap-2 sm:mt-4">
             <input
               type="text"
               placeholder={isJa ? '意味や読み方を入力...' : 'Tarjimasini yozing...'}
               value={typedAnswer}
               onChange={(e) => setTypedAnswer(e.target.value)}
-              className="focus:outline-hidden flex-1 rounded-2xl border border-border bg-muted/60 px-4 py-3 text-sm font-bold text-foreground focus:ring-2 focus:ring-primary"
+              className="focus:outline-hidden flex-1 rounded-2xl border border-border bg-muted/60 px-3.5 py-2.5 text-xs font-bold text-foreground focus:ring-2 focus:ring-primary sm:px-4 sm:py-3 sm:text-sm"
               autoFocus
             />
             <Button
               type="submit"
-              className="rounded-2xl bg-primary px-6 font-bold text-primary-foreground"
+              className="rounded-2xl bg-primary px-4 text-xs font-bold text-primary-foreground sm:px-6 sm:text-sm"
             >
               {isJa ? '判定' : 'Tekshirish'}
             </Button>
@@ -764,18 +764,18 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
         {/* SRS Grading Buttons (Again / Hard / Good / Easy) */}
         {isFlipped && (
           <div
-            className="mt-6 grid w-full grid-cols-2 gap-3 duration-200 animate-in slide-in-from-bottom-3 md:grid-cols-4"
+            className="mt-4 grid w-full grid-cols-2 gap-2 duration-200 animate-in slide-in-from-bottom-3 sm:mt-6 sm:gap-3 md:grid-cols-4"
             style={{ paddingBottom: isTwa ? 'var(--twa-keyboard-offset, 0px)' : undefined }}
           >
             <button
               onClick={() => handleReview(Rating.AGAIN)}
               disabled={isProcessing}
-              className="group cursor-pointer rounded-2xl border border-rose-500/20 bg-rose-500/10 p-3.5 text-center font-black text-rose-500 transition-all hover:bg-rose-500/20 active:scale-95"
+              className="group min-h-[48px] cursor-pointer touch-manipulation select-none rounded-2xl border border-rose-500/20 bg-rose-500/10 p-2.5 text-center font-black text-rose-500 transition-all hover:bg-rose-500/20 active:scale-95 sm:p-3.5"
             >
-              <span className="mb-1 block text-sm leading-none">
+              <span className="mb-0.5 block text-xs font-black leading-tight sm:mb-1 sm:text-sm sm:leading-none">
                 {isJa ? 'もう一度 (Again)' : 'Qayta (Again)'}
               </span>
-              <span className="block text-[10px] font-semibold opacity-80">
+              <span className="block text-[9px] font-semibold opacity-80 sm:text-[10px]">
                 {previewIntervals[Rating.AGAIN]} (1)
               </span>
             </button>
@@ -783,12 +783,12 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
             <button
               onClick={() => handleReview(Rating.HARD)}
               disabled={isProcessing}
-              className="group cursor-pointer rounded-2xl border border-[#C9A961]/30 bg-[#C9A961]/15 p-3.5 text-center font-black text-[#C9A961] transition-all hover:bg-[#C9A961]/25 active:scale-95"
+              className="group min-h-[48px] cursor-pointer touch-manipulation select-none rounded-2xl border border-[#C9A961]/30 bg-[#C9A961]/15 p-2.5 text-center font-black text-[#C9A961] transition-all hover:bg-[#C9A961]/25 active:scale-95 sm:p-3.5"
             >
-              <span className="mb-1 block text-sm leading-none">
+              <span className="mb-0.5 block text-xs font-black leading-tight sm:mb-1 sm:text-sm sm:leading-none">
                 {isJa ? '難しい (Hard)' : 'Qiyin (Hard)'}
               </span>
-              <span className="block text-[10px] font-semibold opacity-80">
+              <span className="block text-[9px] font-semibold opacity-80 sm:text-[10px]">
                 {previewIntervals[Rating.HARD]} (2)
               </span>
             </button>
@@ -796,12 +796,12 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
             <button
               onClick={() => handleReview(Rating.GOOD)}
               disabled={isProcessing}
-              className="group cursor-pointer rounded-2xl border border-primary/30 bg-primary/10 p-3.5 text-center font-black text-primary transition-all hover:bg-primary/20 active:scale-95"
+              className="group min-h-[48px] cursor-pointer touch-manipulation select-none rounded-2xl border border-primary/30 bg-primary/10 p-2.5 text-center font-black text-primary transition-all hover:bg-primary/20 active:scale-95 sm:p-3.5"
             >
-              <span className="mb-1 block text-sm leading-none">
+              <span className="mb-0.5 block text-xs font-black leading-tight sm:mb-1 sm:text-sm sm:leading-none">
                 {isJa ? '普通 (Good)' : 'Yaxshi (Good)'}
               </span>
-              <span className="block text-[10px] font-semibold opacity-80">
+              <span className="block text-[9px] font-semibold opacity-80 sm:text-[10px]">
                 {previewIntervals[Rating.GOOD]} (3)
               </span>
             </button>
@@ -809,12 +809,12 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
             <button
               onClick={() => handleReview(Rating.EASY)}
               disabled={isProcessing}
-              className="group cursor-pointer rounded-2xl border border-emerald-500/20 bg-emerald-500/10 p-3.5 text-center font-black text-emerald-500 transition-all hover:bg-emerald-500/20 active:scale-95"
+              className="group min-h-[48px] cursor-pointer touch-manipulation select-none rounded-2xl border border-emerald-500/20 bg-emerald-500/10 p-2.5 text-center font-black text-emerald-500 transition-all hover:bg-emerald-500/20 active:scale-95 sm:p-3.5"
             >
-              <span className="mb-1 block text-sm leading-none">
+              <span className="mb-0.5 block text-xs font-black leading-tight sm:mb-1 sm:text-sm sm:leading-none">
                 {isJa ? '簡単 (Easy)' : 'Oson (Easy)'}
               </span>
-              <span className="block text-[10px] font-semibold opacity-80">
+              <span className="block text-[9px] font-semibold opacity-80 sm:text-[10px]">
                 {previewIntervals[Rating.EASY]} (4)
               </span>
             </button>

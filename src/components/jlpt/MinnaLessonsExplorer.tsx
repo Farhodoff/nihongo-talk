@@ -391,7 +391,7 @@ export const MinnaLessonsExplorer: React.FC<MinnaLessonsExplorerProps> = ({ init
   return (
     <div className="space-y-6 animate-in fade-in">
       {/* 5-Level Switcher: N5, N4, N3, N2, N1 */}
-      <div className="flex items-center gap-1.5 overflow-x-auto rounded-2xl border border-border bg-card/60 p-1.5 backdrop-blur-sm sm:w-fit sm:gap-2">
+      <div className="scrollbar-none flex touch-pan-x items-center gap-1.5 overflow-x-auto rounded-2xl border border-border bg-card/60 p-1.5 backdrop-blur-sm sm:w-fit sm:gap-2">
         {(['n5', 'n4', 'n3', 'n2', 'n1'] as JlptLevel[]).map((lvl) => {
           const lCfg = LEVEL_CONFIGS[lvl];
           const isActive = activeLevel === lvl;
@@ -405,7 +405,7 @@ export const MinnaLessonsExplorer: React.FC<MinnaLessonsExplorerProps> = ({ init
                 newParams.set('level', lvl);
                 setSearchParams(newParams, { replace: true });
               }}
-              className={`flex shrink-0 cursor-pointer items-center justify-center gap-1.5 rounded-xl px-3 py-1.5 text-xs font-bold transition-all sm:px-3.5 sm:py-2 sm:text-sm ${
+              className={`flex shrink-0 cursor-pointer touch-manipulation select-none items-center justify-center gap-1.5 rounded-xl px-3 py-1.5 text-xs font-bold transition-all sm:px-3.5 sm:py-2 sm:text-sm ${
                 isActive
                   ? 'border border-border bg-card text-foreground shadow-xs'
                   : 'text-muted-foreground hover:bg-muted/50 hover:text-foreground'
@@ -483,14 +483,14 @@ export const MinnaLessonsExplorer: React.FC<MinnaLessonsExplorerProps> = ({ init
       {/* Filters & Search */}
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         {/* Unit Selector Tabs */}
-        <div className="scrollbar-none flex items-center gap-1.5 overflow-x-auto pb-1">
+        <div className="scrollbar-none flex touch-pan-x items-center gap-1.5 overflow-x-auto pb-1">
           {currentUnitTabs.map((tab) => {
             const isActive = selectedUnit === tab.id;
             return (
               <button
                 key={tab.id}
                 onClick={() => setSelectedUnit(tab.id)}
-                className={`flex shrink-0 cursor-pointer items-center gap-1.5 rounded-xl px-3.5 py-2 text-xs font-bold transition-all ${
+                className={`flex shrink-0 cursor-pointer touch-manipulation select-none items-center gap-1.5 rounded-xl px-3.5 py-2 text-xs font-bold transition-all ${
                   isActive
                     ? 'scale-[1.02] bg-primary text-primary-foreground shadow-xs'
                     : 'border border-border bg-card text-muted-foreground hover:bg-muted/70 hover:text-foreground'
@@ -609,7 +609,7 @@ export const MinnaLessonsExplorer: React.FC<MinnaLessonsExplorerProps> = ({ init
               <div className="mt-5 flex items-center justify-between gap-2 border-t border-border pt-4">
                 <button
                   onClick={() => navigate(`/lesson/${lesson.id}`)}
-                  className="flex h-10 flex-1 cursor-pointer items-center justify-center gap-1.5 rounded-xl bg-primary px-4 py-2 text-xs font-bold text-primary-foreground shadow-xs transition-all hover:bg-primary/90 active:scale-95"
+                  className="flex h-10 flex-1 cursor-pointer touch-manipulation select-none items-center justify-center gap-1.5 rounded-xl bg-primary px-4 py-2 text-xs font-bold text-primary-foreground shadow-xs transition-all hover:bg-primary/90 active:scale-95"
                 >
                   <Play size={13} fill="currentColor" />
                   <span>{prog?.completed ? "Qayta O'qish" : 'Darsni Boshlash'}</span>
@@ -624,7 +624,7 @@ export const MinnaLessonsExplorer: React.FC<MinnaLessonsExplorerProps> = ({ init
                     )
                   }
                   title="AI Speaking Coach bilan suhbat"
-                  className="flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-xl border border-border bg-muted/50 text-muted-foreground transition-all hover:bg-muted hover:text-foreground active:scale-95"
+                  className="flex h-10 w-10 shrink-0 cursor-pointer touch-manipulation select-none items-center justify-center rounded-xl border border-border bg-muted/50 text-muted-foreground transition-all hover:bg-muted hover:text-foreground active:scale-95"
                 >
                   <MessageSquare size={15} />
                 </button>

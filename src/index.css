@@ -181,6 +181,20 @@ a {
   .pr-safe {
     padding-right: env(safe-area-inset-right);
   }
+
+  /* Universal scrollbar hiding for horizontal tabs on mobile & desktop */
+  .scrollbar-none,
+  .scrollbar-hide,
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .scrollbar-none::-webkit-scrollbar,
+  .scrollbar-hide::-webkit-scrollbar,
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 /* Custom Scrollbar */

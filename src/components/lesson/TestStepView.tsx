@@ -135,25 +135,25 @@ export const TestStepView: React.FC<TestStepViewProps> = ({
 
       {!isCompleted ? (
         /* Active Question Card */
-        <div className="space-y-6 rounded-3xl border border-border bg-card p-6 shadow-sm">
-          <div className="text-base font-bold leading-snug text-foreground md:text-lg">
+        <div className="space-y-4 rounded-2xl border border-border bg-card p-4 shadow-sm sm:space-y-6 sm:rounded-3xl sm:p-6">
+          <div className="break-words text-base font-bold leading-snug text-foreground md:text-lg">
             <FuriganaText text={currentQuestion.question} />
           </div>
 
-          <div className="space-y-2.5">
+          <div className="space-y-2 sm:space-y-2.5">
             {currentQuestion.options.map((opt, optIdx) => {
               const isSelected = selectedAnswers[currentIdx] === optIdx;
               return (
                 <button
                   key={optIdx}
                   onClick={() => handleSelectOption(optIdx)}
-                  className={`flex min-h-[50px] w-full cursor-pointer items-center justify-between gap-3 rounded-2xl border p-3.5 text-left text-sm transition-all active:scale-[0.99] sm:p-4 ${
+                  className={`flex min-h-[48px] w-full cursor-pointer touch-manipulation select-none items-center justify-between gap-2.5 rounded-2xl border p-3 text-left text-xs transition-all active:scale-[0.99] sm:min-h-[50px] sm:gap-3 sm:p-4 sm:text-sm ${
                     isSelected
                       ? 'border-primary bg-primary/10 font-bold text-primary shadow-sm'
                       : 'border-border bg-secondary/30 text-foreground hover:bg-secondary'
                   }`}
                 >
-                  <div className="flex items-center gap-3">
+                  <div className="flex min-w-0 items-center gap-2.5 sm:gap-3">
                     <span
                       className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-lg text-xs font-black ${
                         isSelected
@@ -163,7 +163,7 @@ export const TestStepView: React.FC<TestStepViewProps> = ({
                     >
                       {String.fromCharCode(65 + optIdx)}
                     </span>
-                    <span className="leading-relaxed">
+                    <span className="break-words leading-relaxed">
                       <FuriganaText text={opt} />
                     </span>
                   </div>
@@ -174,11 +174,11 @@ export const TestStepView: React.FC<TestStepViewProps> = ({
           </div>
 
           {/* Footer Nav Controls */}
-          <div className="flex items-center justify-between gap-3 pt-2">
+          <div className="flex items-center justify-between gap-2.5 pt-2 sm:gap-3">
             <button
               onClick={() => setCurrentIdx((prev) => Math.max(0, prev - 1))}
               disabled={currentIdx === 0}
-              className="h-10 cursor-pointer rounded-xl border border-border px-4 text-xs font-bold text-muted-foreground hover:text-foreground active:scale-95 disabled:cursor-not-allowed disabled:opacity-30"
+              className="h-10 cursor-pointer touch-manipulation select-none rounded-xl border border-border px-3 text-xs font-bold text-muted-foreground hover:text-foreground active:scale-95 disabled:cursor-not-allowed disabled:opacity-30 sm:px-4"
             >
               Oldingisi
             </button>
@@ -187,7 +187,7 @@ export const TestStepView: React.FC<TestStepViewProps> = ({
               <button
                 onClick={() => setCurrentIdx((prev) => prev + 1)}
                 disabled={selectedAnswers[currentIdx] === undefined}
-                className="flex h-10 cursor-pointer items-center gap-1.5 rounded-xl bg-primary px-5 text-xs font-bold text-primary-foreground shadow-sm hover:opacity-90 active:scale-95 disabled:cursor-not-allowed disabled:opacity-40"
+                className="flex h-10 cursor-pointer touch-manipulation select-none items-center gap-1.5 rounded-xl bg-primary px-3.5 text-xs font-bold text-primary-foreground shadow-sm hover:opacity-90 active:scale-95 disabled:cursor-not-allowed disabled:opacity-40 sm:px-5"
               >
                 <span>Keyingisi</span>
                 <ChevronRight size={14} />
@@ -196,10 +196,13 @@ export const TestStepView: React.FC<TestStepViewProps> = ({
               <button
                 onClick={handleFinishTest}
                 disabled={answeredCount < totalQuestions}
-                className="flex h-10 cursor-pointer items-center gap-1.5 rounded-xl bg-emerald-600 px-6 text-xs font-black text-white shadow-md shadow-emerald-600/30 transition-all hover:bg-emerald-500 active:scale-95 disabled:cursor-not-allowed disabled:opacity-40"
+                className="flex h-10 cursor-pointer touch-manipulation select-none items-center gap-1.5 rounded-xl bg-emerald-600 px-4 text-xs font-black text-white shadow-md shadow-emerald-600/30 transition-all hover:bg-emerald-500 active:scale-95 disabled:cursor-not-allowed disabled:opacity-40 sm:px-6"
               >
                 <Sparkles size={14} />
-                <span>Testni Yakunlash</span>
+                <span>
+                  <span className="sm:hidden">Yakunlash</span>
+                  <span className="hidden sm:inline">Testni Yakunlash</span>
+                </span>
               </button>
             )}
           </div>

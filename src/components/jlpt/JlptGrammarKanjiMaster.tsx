@@ -345,10 +345,10 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
         </div>
 
         {/* Sub-Tabs Bar */}
-        <div className="scrollbar-none flex items-center gap-1.5 overflow-x-auto md:mt-6 md:border-t md:border-border md:pt-4">
+        <div className="scrollbar-none flex touch-pan-x items-center gap-1.5 overflow-x-auto md:mt-6 md:border-t md:border-border md:pt-4">
           <button
             onClick={() => setActiveTab('grammar')}
-            className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-bold transition-all ${
+            className={`flex shrink-0 cursor-pointer touch-manipulation select-none items-center gap-2 rounded-xl px-3.5 py-2 text-xs font-bold transition-all sm:px-4 ${
               activeTab === 'grammar'
                 ? 'scale-[1.02] bg-primary text-primary-foreground shadow-xs'
                 : 'text-muted-foreground hover:bg-muted/60 hover:text-foreground'
@@ -362,7 +362,7 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
 
           <button
             onClick={() => setActiveTab('kanji')}
-            className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-bold transition-all ${
+            className={`flex shrink-0 cursor-pointer touch-manipulation select-none items-center gap-2 rounded-xl px-3.5 py-2 text-xs font-bold transition-all sm:px-4 ${
               activeTab === 'kanji'
                 ? 'scale-[1.02] bg-primary text-primary-foreground shadow-xs'
                 : 'text-muted-foreground hover:bg-muted/60 hover:text-foreground'
@@ -376,7 +376,7 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
 
           <button
             onClick={() => setActiveTab('goi')}
-            className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-bold transition-all ${
+            className={`flex shrink-0 cursor-pointer touch-manipulation select-none items-center gap-2 rounded-xl px-3.5 py-2 text-xs font-bold transition-all sm:px-4 ${
               activeTab === 'goi'
                 ? 'scale-[1.02] bg-primary text-primary-foreground shadow-xs'
                 : 'text-muted-foreground hover:bg-muted/60 hover:text-foreground'
@@ -396,7 +396,7 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
               setScore(0);
               setIsQuizCompleted(false);
             }}
-            className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-bold transition-all ${
+            className={`flex shrink-0 cursor-pointer touch-manipulation select-none items-center gap-2 rounded-xl px-3.5 py-2 text-xs font-bold transition-all sm:px-4 ${
               activeTab === 'quiz'
                 ? 'scale-[1.02] bg-primary text-primary-foreground shadow-xs'
                 : 'text-muted-foreground hover:bg-muted/60 hover:text-foreground'
@@ -415,12 +415,12 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
         <div className="max-w-full space-y-4 overflow-hidden rounded-2xl border border-border bg-card p-3.5 shadow-xs sm:p-4">
           <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
             {/* Level Pills */}
-            <div className="scrollbar-none flex max-w-full items-center gap-1.5 overflow-x-auto pb-1 md:pb-0">
+            <div className="scrollbar-none flex max-w-full touch-pan-x items-center gap-1.5 overflow-x-auto pb-1 md:pb-0">
               {(['ALL', 'N5', 'N4', 'N3', 'N2', 'N1'] as const).map((lvl) => (
                 <button
                   key={lvl}
                   onClick={() => setSelectedLevel(lvl)}
-                  className={`shrink-0 whitespace-nowrap rounded-xl px-3.5 py-1.5 text-xs font-bold transition-all ${
+                  className={`shrink-0 cursor-pointer touch-manipulation select-none whitespace-nowrap rounded-xl px-3.5 py-1.5 text-xs font-bold transition-all ${
                     selectedLevel === lvl
                       ? 'bg-primary text-primary-foreground shadow-xs'
                       : 'border border-border bg-muted/60 text-muted-foreground hover:bg-muted hover:text-foreground'
@@ -525,7 +525,7 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
             return (
               <div
                 key={item.id}
-                className="group relative flex flex-col justify-between rounded-2xl border border-border bg-card p-5 shadow-xs transition-all duration-200 hover:border-primary/40"
+                className="group relative flex flex-col justify-between rounded-2xl border border-border bg-card p-4 shadow-xs transition-all duration-200 hover:border-primary/40 sm:p-5"
               >
                 <div>
                   {/* Level Badge & Audio */}
@@ -649,7 +649,7 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
             return (
               <div
                 key={item.id}
-                className="flex flex-col justify-between rounded-2xl border border-border bg-card p-5 shadow-xs transition-all duration-200 hover:border-primary/40"
+                className="flex flex-col justify-between rounded-2xl border border-border bg-card p-4 shadow-xs transition-all duration-200 hover:border-primary/40 sm:p-5"
               >
                 <div>
                   {/* Level Badge & Actions */}
@@ -693,7 +693,7 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
                   <div className="mb-4 flex items-center gap-4">
                     <div
                       onClick={() => setStrokeModalKanji(item)}
-                      className="font-japanese flex h-20 w-20 cursor-pointer items-center justify-center rounded-2xl border border-border bg-muted/40 text-4xl font-black text-[#E8483A] shadow-inner transition hover:scale-105"
+                      className="font-japanese flex h-20 w-20 shrink-0 cursor-pointer items-center justify-center rounded-2xl border border-border bg-muted/40 text-4xl font-black text-[#E8483A] shadow-inner transition hover:scale-105"
                     >
                       {item.kanji}
                     </div>
