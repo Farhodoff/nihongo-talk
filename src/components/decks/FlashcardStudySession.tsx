@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useMemo, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import {
   ArrowLeft,
   CheckCircle2,
@@ -28,6 +29,64 @@ import { safeLocalStorage } from '../../utils/storage/safeLocalStorage';
 import { useTelegramWebApp } from '../../hooks/useTelegramWebApp';
 import { useFlashcardSwipe } from '../../hooks/useFlashcardSwipe';
 
+export function cleanCardFront(front?: string): string {
+  if (!front) return '';
+  const trimmed = front.trim();
+  const knownFixes: Record<string, string> = {
+    みず水: '水',
+    たまご卵: '卵',
+    にく肉: '肉',
+    さかな魚: '魚',
+    やさい野菜: '野菜',
+    くだもの果物: '果物',
+    おちゃお茶: 'お茶',
+    こうちゃ紅茶: '紅茶',
+    ぎゅうにゅう牛乳: '牛乳',
+    えいが映画: '映画',
+    てがみ手紙: '手紙',
+    しゃしん写真: '写真',
+    みせ店: '店',
+    にわ庭: '庭',
+    しゅくだい宿題: '宿題',
+    なに何: '何',
+    たべます食べます: '食べます',
+    のみます飲みます: '飲みます',
+    すいます吸います: '吸います',
+    みます見ます: '見ます',
+    ききます聞きます: '聞きます',
+    よみます読みます: '読みます',
+    かきます書きます: '書きます',
+    かいます買います: '買います',
+    とります撮ります: '撮ります',
+    あいます会います: '会います',
+    あさごはん朝ごはん: '朝ごはん',
+    ひるごはん昼ごはん: '昼ごはん',
+    ばんごはん晩ごはん: '晩ごはん',
+    ときどき時々: '時々',
+    動物どうぶつ: '動物',
+    馬うま: '馬',
+    牧ぼく場じょう: '牧場',
+    乾杯かんぱい: '乾杯',
+    建物たてもの: '建物',
+    転勤てんきん: '転勤',
+    日に本ほん: '日本',
+    神こう戸べ病びょう院いん: '神戸病院',
+    新しん大おお阪さか: '新大阪',
+    富ふ士じ山さん: '富士山',
+    大おお阪さか城じょう: '大阪城',
+    金きん閣かく寺じ: '金閣寺',
+    家や賃ちん: '家賃',
+    和わ室しつ: '和室',
+    押おし入いれ: '押し入れ',
+    布ふ団とん: '布団',
+    母ははの日ひ: '母の日',
+    頑がん張ばります: '頑張ります',
+    'どうぞお元げん気きで。': 'どうぞお元気で。',
+    '一杯いっぱい飲のみましょう。': '一杯飲みましょう。',
+  };
+  return knownFixes[trimmed] || trimmed;
+}
+
 interface FlashcardStudySessionProps {
   subjectId?: string | null; // null or undefined means 'all due cards'
   onClose: () => void;
@@ -43,6 +102,21 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
   const isJa = language === 'ja';
   const isAdmin = isAdminEmail(user?.email);
   const { isTwa, haptics } = useTelegramWebApp();
+
+  // Prevent background body scrolling while study session modal is active
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, []);
+
+  const renderPortal = (node: React.ReactNode) => {
+    if (typeof document === 'undefined') return <>{node}</>;
+    return createPortal(node, document.body);
+  };
 
   // Telegram TWA keyboard viewport handler — track keyboard height so
   // rating buttons stay visible above the soft keyboard
@@ -149,7 +223,7 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
     (e?: React.MouseEvent) => {
       e?.stopPropagation();
       if (currentCard?.front) {
-        speakText(currentCard.front, isJapanese ? 'ja-JP' : accent);
+        speakText(cleanCardFront(currentCard.front), isJapanese ? 'ja-JP' : accent);
       }
     },
     [currentCard, isJapanese, accent],
@@ -159,7 +233,7 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
     if (autoAudio && currentCard && !isFinished && !isEditingCard) {
       const timer = setTimeout(() => {
         if (currentCard?.front) {
-          speakText(currentCard.front, isJapanese ? 'ja-JP' : accent);
+          speakText(cleanCardFront(currentCard.front), isJapanese ? 'ja-JP' : accent);
         }
       }, 350);
       return () => clearTimeout(timer);
@@ -355,19 +429,19 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
   }, [currentCard, isJa]);
 
   if (loading && !isQueueInitialized) {
-    return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/90 p-4 backdrop-blur-md">
+    return renderPortal(
+      <div className="bg-background/98 fixed inset-0 z-[100] flex items-center justify-center p-4 backdrop-blur-2xl">
         <div className="space-y-4 text-center">
           <Loader2 size={40} className="mx-auto animate-spin text-primary" />
           <p className="text-sm font-extrabold text-foreground">Kartochkalar tayyorlanmoqda...</p>
         </div>
-      </div>
+      </div>,
     );
   }
 
   if (queue.length === 0) {
-    return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/95 p-4 backdrop-blur-xl">
+    return renderPortal(
+      <div className="bg-background/98 fixed inset-0 z-[100] flex items-center justify-center p-4 backdrop-blur-2xl">
         <div className="w-full max-w-md space-y-6 rounded-3xl border border-border bg-card p-8 text-center shadow-2xl animate-in zoom-in-95">
           <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-emerald-500/10 text-emerald-500">
             <CheckCircle2 size={36} />
@@ -386,13 +460,13 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
             To'plamlarga Qaytish
           </Button>
         </div>
-      </div>
+      </div>,
     );
   }
 
   if (isFinished) {
-    return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/95 p-4 backdrop-blur-xl">
+    return renderPortal(
+      <div className="bg-background/98 fixed inset-0 z-[100] flex items-center justify-center p-4 backdrop-blur-2xl">
         <div className="w-full max-w-md space-y-6 rounded-3xl border border-border bg-card p-8 text-center shadow-2xl animate-in zoom-in-95">
           <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-3xl bg-[#C9A961]/15 text-[#C9A961]">
             <Trophy size={44} />
@@ -454,14 +528,14 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
             </Button>
           </div>
         </div>
-      </div>
+      </div>,
     );
   }
 
   const progressPercentage = Math.round((currentCardIndex / queue.length) * 100);
 
-  return (
-    <div className="fixed inset-0 z-50 flex flex-col overflow-y-auto bg-background/95 p-3 pb-[max(1.5rem,env(safe-area-inset-bottom,20px))] pt-[max(1rem,env(safe-area-inset-top,16px))] backdrop-blur-xl sm:p-4 md:p-8">
+  return renderPortal(
+    <div className="bg-background/98 fixed inset-0 z-[100] flex flex-col overflow-y-auto p-3 pb-[max(1.5rem,env(safe-area-inset-bottom,20px))] pt-[max(1rem,env(safe-area-inset-top,16px))] backdrop-blur-2xl sm:p-4 md:p-8">
       {/* Top Bar */}
       <div className="mx-auto mb-4 flex w-full max-w-3xl items-center justify-between gap-2 sm:mb-6 sm:gap-4">
         <button
@@ -635,7 +709,11 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
                 {/* Top Card Controls */}
                 <div className="flex items-center justify-between">
                   <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-[11px] font-extrabold text-primary sm:px-3 sm:py-1 sm:text-xs">
-                    {currentSubject?.name || (isJa ? 'SRS 単語カード' : 'SRS Fleshkarta')}
+                    {currentSubject?.name
+                      ? currentSubject.name.replace(/\s*\(\d+\s*ta\s*card\)/gi, '')
+                      : isJa
+                        ? 'SRS 単語カード'
+                        : 'SRS Fleshkarta'}
                   </span>
 
                   <div className="flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
@@ -671,7 +749,7 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
                 {/* Card Front Content */}
                 <div className="my-auto py-4 text-center sm:py-6">
                   <h3 className="break-words text-2xl font-black leading-tight tracking-tight text-foreground sm:text-3xl md:text-4xl">
-                    {currentCard?.front}
+                    {cleanCardFront(currentCard?.front)}
                   </h3>
                   <p className="flex items-center justify-center gap-1.5 pt-4 text-[11px] font-bold text-muted-foreground/60 sm:pt-6 sm:text-xs">
                     <Keyboard size={14} className="hidden sm:inline" />{' '}
@@ -720,7 +798,7 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
                     {currentCard?.back}
                   </p>
                   <p className="break-words text-xs font-semibold text-muted-foreground/80">
-                    {currentCard?.front}
+                    {cleanCardFront(currentCard?.front)}
                   </p>
                 </div>
 
@@ -821,6 +899,6 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
           </div>
         )}
       </div>
-    </div>
+    </div>,
   );
 };

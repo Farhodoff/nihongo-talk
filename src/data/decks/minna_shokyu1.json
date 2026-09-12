@@ -352,9 +352,9 @@
     "level": "N5"
   },
   {
-    "front": "日に本ほん",
+    "front": "日本",
     "back": "Yaponiya",
-    "phonetic": "日に本ほん - nihon",
+    "phonetic": "にほん - nihon",
     "example": "これは わたしが 買った 日本 です。 (Bu men sotib olgan yaponiya.)",
     "category": "Minna no Nihongo 1-dars",
     "level": "N5"
@@ -392,9 +392,9 @@
     "level": "N5"
   },
   {
-    "front": "神こう戸べ病びょう院いん",
+    "front": "神戸病院",
     "back": "Kobe shifoxonasi",
-    "phonetic": "神こう戸べ病びょう院いん - koubebyouin",
+    "phonetic": "こうべびょういん - koubebyouin",
     "example": "これは わたしが 買った 神戸病院 です。 (Bu men sotib olgan kobe shifoxonasi.)",
     "category": "Minna no Nihongo 1-dars",
     "level": "N5"
@@ -1104,9 +1104,9 @@
     "level": "N5"
   },
   {
-    "front": "新しん大おお阪さか",
+    "front": "新大阪",
     "back": "Shin-Osaka (Osakadagi bekat nomi)",
-    "phonetic": "新しん大おお阪さか - shinoosaka",
+    "phonetic": "しんおおさか - shinoosaka",
     "example": "これは わたしが 買った 新大阪 です。 (Bu men sotib olgan shin-osaka (osakadagi bekat nomi).)",
     "category": "Minna no Nihongo 3-dars",
     "level": "N5"
@@ -2088,58 +2088,58 @@
     "level": "N5"
   },
   {
-    "front": "博はか多た",
+    "front": "博多",
     "back": "Hakata (Kyushyudagi shahar)",
-    "phonetic": "博はか多た - hakata",
+    "phonetic": "はかた - hakata",
     "example": "これは わたしが 買った 博多 です。 (Bu men sotib olgan hakata (kyushyudagi shahar).)",
     "category": "Minna no Nihongo 5-dars",
     "level": "N5"
   },
   {
-    "front": "伏ふし見み",
+    "front": "伏見",
     "back": "Fushimi (Kiotodagi tuman)",
-    "phonetic": "伏ふし見み - fushimi",
+    "phonetic": "ふしみ - fushimi",
     "example": "これは わたしが 買った 伏見 です。 (Bu men sotib olgan fushimi (kiotodagi tuman).)",
     "category": "Minna no Nihongo 5-dars",
     "level": "N5"
   },
   {
-    "front": "甲子園こうしえん",
+    "front": "甲子園",
     "back": "Koshien (Osaka yaqinidagi shahar)",
-    "phonetic": "甲子園こうしえん - koushien",
+    "phonetic": "こうしえん - koushien",
     "example": "これは わたしが 買った 甲子園 です。 (Bu men sotib olgan koshien (osaka yaqinidagi shahar).)",
     "category": "Minna no Nihongo 5-dars",
     "level": "N5"
   },
   {
-    "front": "大おお阪さか城じょう",
+    "front": "大阪城",
     "back": "Osaka qal'asi",
-    "phonetic": "大おお阪さか城じょう - oosakajou",
+    "phonetic": "おおさかじょう - oosakajou",
     "example": "これは わたしが 買った 大阪城 です。 (Bu men sotib olgan osaka qal'asi.)",
     "category": "Minna no Nihongo 5-dars",
     "level": "N5"
   },
   {
-    "front": "たべます食べます",
+    "front": "食べます",
     "back": "yemoq",
-    "phonetic": "たべます食べます - tabemasubemasu",
-    "example": "毎日 たべます食べます。 (Har kuni yemoq.)",
+    "phonetic": "たべます - tabemasu",
+    "example": "毎日 食べます。 (Har kuni yemoq.)",
     "category": "Minna no Nihongo 6-dars",
     "level": "N5"
   },
   {
-    "front": "のみます飲みます",
+    "front": "飲みます",
     "back": "ichmoq",
-    "phonetic": "のみます飲みます - nomimasumimasu",
-    "example": "毎日 のみます飲みます。 (Har kuni ichmoq.)",
+    "phonetic": "のみます - nomimasu",
+    "example": "毎日 飲みます。 (Har kuni ichmoq.)",
     "category": "Minna no Nihongo 6-dars",
     "level": "N5"
   },
   {
-    "front": "すいます吸います",
+    "front": "吸います",
     "back": "chekmoq",
-    "phonetic": "すいます吸います - suimasuimasu",
-    "example": "毎日 すいます吸います。 (Har kuni chekmoq.)",
+    "phonetic": "すいます - suimasu",
+    "example": "毎日 吸います。 (Har kuni chekmoq.)",
     "category": "Minna no Nihongo 6-dars",
     "level": "N5"
   },
@@ -2152,50 +2152,50 @@
     "level": "N5"
   },
   {
-    "front": "みます見ます",
+    "front": "見ます",
     "back": "ko'rmoq",
-    "phonetic": "みます見ます - mimasumasu",
-    "example": "毎日 みます見ます。 (Har kuni ko'rmoq.)",
+    "phonetic": "みます - mimasu",
+    "example": "毎日 見ます。 (Har kuni ko'rmoq.)",
     "category": "Minna no Nihongo 6-dars",
     "level": "N5"
   },
   {
-    "front": "ききます聞きます",
+    "front": "聞きます",
     "back": "eshitmoq",
-    "phonetic": "ききます聞きます - kikimasukimasu",
-    "example": "毎日 ききます聞きます。 (Har kuni eshitmoq.)",
+    "phonetic": "ききます - kikimasu",
+    "example": "毎日 聞きます。 (Har kuni eshitmoq.)",
     "category": "Minna no Nihongo 6-dars",
     "level": "N5"
   },
   {
-    "front": "よみます読みます",
+    "front": "読みます",
     "back": "o'qimoq",
-    "phonetic": "よみます読みます - yomimasumimasu",
-    "example": "毎日 よみます読みます。 (Har kuni o'qimoq.)",
+    "phonetic": "よみます - yomimasu",
+    "example": "毎日 読みます。 (Har kuni o'qimoq.)",
     "category": "Minna no Nihongo 6-dars",
     "level": "N5"
   },
   {
-    "front": "かきます書きます",
+    "front": "書きます",
     "back": "yozmoq",
-    "phonetic": "かきます書きます - kakimasukimasu",
-    "example": "毎日 かきます書きます。 (Har kuni yozmoq.)",
+    "phonetic": "かきます - kakimasu",
+    "example": "毎日 書きます。 (Har kuni yozmoq.)",
     "category": "Minna no Nihongo 6-dars",
     "level": "N5"
   },
   {
-    "front": "かいます買います",
+    "front": "買います",
     "back": "sotib olmoq",
-    "phonetic": "かいます買います - kaimasuimasu",
-    "example": "毎日 かいます買います。 (Har kuni sotib olmoq.)",
+    "phonetic": "かいます - kaimasu",
+    "example": "毎日 買います。 (Har kuni sotib olmoq.)",
     "category": "Minna no Nihongo 6-dars",
     "level": "N5"
   },
   {
-    "front": "とります撮ります",
+    "front": "撮ります",
     "back": "olmoq",
-    "phonetic": "とります撮ります - torimasurimasu",
-    "example": "毎日 とります撮ります。 (Har kuni olmoq.)",
+    "phonetic": "とります - torimasu",
+    "example": "毎日 撮ります。 (Har kuni olmoq.)",
     "category": "Minna no Nihongo 6-dars",
     "level": "N5"
   },
@@ -2216,10 +2216,10 @@
     "level": "N5"
   },
   {
-    "front": "あいます会います",
+    "front": "会います",
     "back": "uchratmoq",
-    "phonetic": "あいます会います - aimasuimasu",
-    "example": "毎日 あいます会います。 (Har kuni uchratmoq.)",
+    "phonetic": "あいます - aimasu",
+    "example": "毎日 会います。 (Har kuni uchratmoq.)",
     "category": "Minna no Nihongo 6-dars",
     "level": "N5"
   },
@@ -2240,26 +2240,26 @@
     "level": "N5"
   },
   {
-    "front": "あさごはん朝ごはん",
+    "front": "朝ごはん",
     "back": "ertalabki nonushta",
-    "phonetic": "あさごはん朝ごはん - asagohangohan",
-    "example": "これは わたしが 買った あさごはん朝ごはん です。 (Bu men sotib olgan ertalabki nonushta.)",
+    "phonetic": "あさごはん - asagohan",
+    "example": "これは わたしが 買った 朝ごはん です。 (Bu men sotib olgan ertalabki nonushta.)",
     "category": "Minna no Nihongo 6-dars",
     "level": "N5"
   },
   {
-    "front": "ひるごはん昼ごはん",
+    "front": "昼ごはん",
     "back": "tushlik",
-    "phonetic": "ひるごはん昼ごはん - hirugohangohan",
-    "example": "これは わたしが 買った ひるごはん昼ごはん です。 (Bu men sotib olgan tushlik.)",
+    "phonetic": "ひるごはん - hirugohan",
+    "example": "これは わたしが 買った 昼ごはん です。 (Bu men sotib olgan tushlik.)",
     "category": "Minna no Nihongo 6-dars",
     "level": "N5"
   },
   {
-    "front": "ばんごはん晩ごはん",
+    "front": "晩ごはん",
     "back": "kechki ovqat",
-    "phonetic": "ばんごはん晩ごはん - bangohangohan",
-    "example": "これは わたしが 買った ばんごはん晩ごはん です。 (Bu men sotib olgan kechki ovqat.)",
+    "phonetic": "ばんごはん - bangohan",
+    "example": "これは わたしが 買った 晩ごはん です。 (Bu men sotib olgan kechki ovqat.)",
     "category": "Minna no Nihongo 6-dars",
     "level": "N5"
   },
@@ -2272,74 +2272,74 @@
     "level": "N5"
   },
   {
-    "front": "たまご卵",
+    "front": "卵",
     "back": "tuxum",
-    "phonetic": "たまご卵 - tamago",
-    "example": "これは わたしが 買った たまご卵 です。 (Bu men sotib olgan tuxum.)",
+    "phonetic": "たまご - tamago",
+    "example": "これは わたしが 買った 卵 です。 (Bu men sotib olgan tuxum.)",
     "category": "Minna no Nihongo 6-dars",
     "level": "N5"
   },
   {
-    "front": "にく肉",
+    "front": "肉",
     "back": "go'sht",
-    "phonetic": "にく肉 - niku",
-    "example": "これは わたしが 買った にく肉 です。 (Bu men sotib olgan go'sht.)",
+    "phonetic": "にく - niku",
+    "example": "これは わたしが 買った 肉 です。 (Bu men sotib olgan go'sht.)",
     "category": "Minna no Nihongo 6-dars",
     "level": "N5"
   },
   {
-    "front": "さかな魚",
+    "front": "魚",
     "back": "baliq",
-    "phonetic": "さかな魚 - sakana",
-    "example": "これは わたしが 買った さかな魚 です。 (Bu men sotib olgan baliq.)",
+    "phonetic": "さかな - sakana",
+    "example": "これは わたしが 買った 魚 です。 (Bu men sotib olgan baliq.)",
     "category": "Minna no Nihongo 6-dars",
     "level": "N5"
   },
   {
-    "front": "やさい野菜",
+    "front": "野菜",
     "back": "sabzavot, poliz ekinlari",
-    "phonetic": "やさい野菜 - yasai",
-    "example": "これは わたしが 買った やさい野菜 です。 (Bu men sotib olgan sabzavot, poliz ekinlari.)",
+    "phonetic": "やさい - yasai",
+    "example": "これは わたしが 買った 野菜 です。 (Bu men sotib olgan sabzavot, poliz ekinlari.)",
     "category": "Minna no Nihongo 6-dars",
     "level": "N5"
   },
   {
-    "front": "くだもの果物",
+    "front": "果物",
     "back": "meva",
-    "phonetic": "くだもの果物 - kudamono",
-    "example": "これは わたしが 買った くだもの果物 です。 (Bu men sotib olgan meva.)",
+    "phonetic": "くだもの - kudamono",
+    "example": "これは わたしが 買った 果物 です。 (Bu men sotib olgan meva.)",
     "category": "Minna no Nihongo 6-dars",
     "level": "N5"
   },
   {
-    "front": "みず水",
+    "front": "水",
     "back": "suv",
-    "phonetic": "みず水 - mizu",
-    "example": "これは わたしが 買った みず水 です。 (Bu men sotib olgan suv.)",
+    "phonetic": "みず - mizu",
+    "example": "これは わたしが 買った 水 です。 (Bu men sotib olgan suv.)",
     "category": "Minna no Nihongo 6-dars",
     "level": "N5"
   },
   {
-    "front": "おちゃお茶",
+    "front": "お茶",
     "back": "choy",
-    "phonetic": "おちゃお茶 - ochao",
-    "example": "これは わたしが 買った おちゃお茶 です。 (Bu men sotib olgan choy.)",
+    "phonetic": "おちゃ - ocha",
+    "example": "これは わたしが 買った お茶 です。 (Bu men sotib olgan choy.)",
     "category": "Minna no Nihongo 6-dars",
     "level": "N5"
   },
   {
-    "front": "こうちゃ紅茶",
+    "front": "紅茶",
     "back": "qora choy",
-    "phonetic": "こうちゃ紅茶 - koucha",
-    "example": "これは わたしが 買った こうちゃ紅茶 です。 (Bu men sotib olgan qora choy.)",
+    "phonetic": "こうちゃ - koucha",
+    "example": "これは わたしが 買った 紅茶 です。 (Bu men sotib olgan qora choy.)",
     "category": "Minna no Nihongo 6-dars",
     "level": "N5"
   },
   {
-    "front": "ぎゅうにゅう牛乳",
+    "front": "牛乳",
     "back": "sut",
-    "phonetic": "ぎゅうにゅう牛乳 - gyuunyuu",
-    "example": "これは わたしが 買った ぎゅうにゅう牛乳 です。 (Bu men sotib olgan sut.)",
+    "phonetic": "ぎゅうにゅう - gyuunyuu",
+    "example": "これは わたしが 買った 牛乳 です。 (Bu men sotib olgan sut.)",
     "category": "Minna no Nihongo 6-dars",
     "level": "N5"
   },
@@ -2384,10 +2384,10 @@
     "level": "N5"
   },
   {
-    "front": "えいが映画",
+    "front": "映画",
     "back": "kino",
-    "phonetic": "えいが映画 - eiga",
-    "example": "これは わたしが 買った えいが映画 です。 (Bu men sotib olgan kino.)",
+    "phonetic": "えいが - eiga",
+    "example": "これは わたしが 買った 映画 です。 (Bu men sotib olgan kino.)",
     "category": "Minna no Nihongo 6-dars",
     "level": "N5"
   },
@@ -2400,10 +2400,10 @@
     "level": "N5"
   },
   {
-    "front": "てがみ手紙",
+    "front": "手紙",
     "back": "xat, maktub",
-    "phonetic": "てがみ手紙 - tegami",
-    "example": "これは わたしが 買った てがみ手紙 です。 (Bu men sotib olgan xat, maktub.)",
+    "phonetic": "てがみ - tegami",
+    "example": "これは わたしが 買った 手紙 です。 (Bu men sotib olgan xat, maktub.)",
     "category": "Minna no Nihongo 6-dars",
     "level": "N5"
   },
@@ -2416,18 +2416,18 @@
     "level": "N5"
   },
   {
-    "front": "しゃしん写真",
+    "front": "写真",
     "back": "fotosurat",
-    "phonetic": "しゃしん写真 - shashin",
-    "example": "これは わたしが 買った しゃしん写真 です。 (Bu men sotib olgan fotosurat.)",
+    "phonetic": "しゃしん - shashin",
+    "example": "これは わたしが 買った 写真 です。 (Bu men sotib olgan fotosurat.)",
     "category": "Minna no Nihongo 6-dars",
     "level": "N5"
   },
   {
-    "front": "みせ店",
+    "front": "店",
     "back": "do'kon",
-    "phonetic": "みせ店 - mise",
-    "example": "これは わたしが 買った みせ店 です。 (Bu men sotib olgan do'kon.)",
+    "phonetic": "みせ - mise",
+    "example": "これは わたしが 買った 店 です。 (Bu men sotib olgan do'kon.)",
     "category": "Minna no Nihongo 6-dars",
     "level": "N5"
   },
@@ -2440,18 +2440,18 @@
     "level": "N5"
   },
   {
-    "front": "にわ庭",
+    "front": "庭",
     "back": "hovli, bog",
-    "phonetic": "にわ庭 - niwa",
-    "example": "これは わたしが 買った にわ庭 です。 (Bu men sotib olgan hovli, bog.)",
+    "phonetic": "にわ - niwa",
+    "example": "これは わたしが 買った 庭 です。 (Bu men sotib olgan hovli, bog.)",
     "category": "Minna no Nihongo 6-dars",
     "level": "N5"
   },
   {
-    "front": "しゅくだい宿題",
+    "front": "宿題",
     "back": "uyga vazifa",
-    "phonetic": "しゅくだい宿題 - shukudai",
-    "example": "これは わたしが 買った しゅくだい宿題 です。 (Bu men sotib olgan uyga vazifa.)",
+    "phonetic": "しゅくだい - shukudai",
+    "example": "これは わたしが 買った 宿題 です。 (Bu men sotib olgan uyga vazifa.)",
     "category": "Minna no Nihongo 6-dars",
     "level": "N5"
   },
@@ -2480,10 +2480,10 @@
     "level": "N5"
   },
   {
-    "front": "なに何",
+    "front": "何",
     "back": "nima",
-    "phonetic": "なに何 - nani",
-    "example": "これは わたしが 買った なに何 です。 (Bu men sotib olgan nima.)",
+    "phonetic": "なに - nani",
+    "example": "これは わたしが 買った 何 です。 (Bu men sotib olgan nima.)",
     "category": "Minna no Nihongo 6-dars",
     "level": "N5"
   },
@@ -2512,10 +2512,10 @@
     "level": "N5"
   },
   {
-    "front": "ときどき時々",
+    "front": "時々",
     "back": "ba'zan",
-    "phonetic": "ときどき時々 - tokidoki",
-    "example": "これは わたしが 買った ときどき時々 です。 (Bu men sotib olgan ba'zan.)",
+    "phonetic": "ときどき - tokidoki",
+    "example": "これは わたしが 買った 時々 です。 (Bu men sotib olgan ba'zan.)",
     "category": "Minna no Nihongo 6-dars",
     "level": "N5"
   },
@@ -2576,9 +2576,9 @@
     "level": "N5"
   },
   {
-    "front": "大おお阪さか城じょう公こう園えん",
+    "front": "大阪城公園",
     "back": "Osaka qal'asi bog'i",
-    "phonetic": "大おお阪さか城じょう公こう園えん - oosakajoukouen",
+    "phonetic": "おおさかじょうこうえん - oosakajoukouen",
     "example": "これは わたしが 買った 大阪城公園 です。 (Bu men sotib olgan osaka qal'asi bog'i.)",
     "category": "Minna no Nihongo 6-dars",
     "level": "N5"
@@ -3432,17 +3432,17 @@
     "level": "N5"
   },
   {
-    "front": "富ふ士じ山さん",
+    "front": "富士山",
     "back": "Fuji togi",
-    "phonetic": "富ふ士じ山さん - fujisan",
+    "phonetic": "ふじさん - fujisan",
     "example": "これは わたしが 買った 富士山 です。 (Bu men sotib olgan fuji togi.)",
     "category": "Minna no Nihongo 8-dars",
     "level": "N5"
   },
   {
-    "front": "琵琶湖びわこ",
+    "front": "琵琶湖",
     "back": "Biva ko'li",
-    "phonetic": "琵琶湖びわこ - biwako",
+    "phonetic": "びわこ - biwako",
     "example": "これは わたしが 買った 琵琶湖 です。 (Bu men sotib olgan biva ko'li.)",
     "category": "Minna no Nihongo 8-dars",
     "level": "N5"
@@ -3456,17 +3456,17 @@
     "level": "N5"
   },
   {
-    "front": "「七しち人にんの侍さむらい」",
+    "front": "「七人の侍」",
     "back": "“Yetti samuray”",
-    "phonetic": "「七しち人にんの侍さむらい」 - shichininnosamurai",
+    "phonetic": "しちにんのさむらい - shichininnosamurai",
     "example": "これは わたしが 買った 「七人の侍」 です。 (Bu men sotib olgan “yetti samuray”.)",
     "category": "Minna no Nihongo 8-dars",
     "level": "N5"
   },
   {
-    "front": "金きん閣かく寺じ",
+    "front": "金閣寺",
     "back": "Kinkaji ibodatxonasi",
-    "phonetic": "金きん閣かく寺じ - kinkakuji",
+    "phonetic": "きんかくじ - kinkakuji",
     "example": "これは わたしが 買った 金閣寺 です。 (Bu men sotib olgan kinkaji ibodatxonasi.)",
     "category": "Minna no Nihongo 8-dars",
     "level": "N5"
@@ -3872,9 +3872,9 @@
     "level": "N5"
   },
   {
-    "front": "小お沢ざわ征せい爾じ",
+    "front": "小沢征爾",
     "back": "Ozava Seiji",
-    "phonetic": "小お沢ざわ征せい爾じ - ozawaseiji",
+    "phonetic": "おざわせいじ - ozawaseiji",
     "example": "これは わたしが 買った 小沢征爾 です。 (Bu men sotib olgan ozava seiji.)",
     "category": "Minna no Nihongo 9-dars",
     "level": "N5"
@@ -4256,9 +4256,9 @@
     "level": "N5"
   },
   {
-    "front": "東京とうきょうディズニーランド",
+    "front": "東京ディズニーランド",
     "back": "Tokio Disneylendi",
-    "phonetic": "東京とうきょうディズニーランド - toukyoudezuni-rando",
+    "phonetic": "とうきょうディズニーランド - toukyoudezuni-rando",
     "example": "これは わたしが 買った 東京ディズニーランド です。 (Bu men sotib olgan tokio disneylendi.)",
     "category": "Minna no Nihongo 10-dars",
     "level": "N5"
@@ -5160,9 +5160,9 @@
     "level": "N5"
   },
   {
-    "front": "祗ぎ園おん祭まつり",
+    "front": "祇園祭",
     "back": "(Kiotodagi eng katta bayram)",
-    "phonetic": "祗ぎ園おん祭まつり - gionmatsuri",
+    "phonetic": "ぎおんまつり - gionmatsuri",
     "example": "これは わたしが 買った 祗園祭 です。 (Bu men sotib olgan (kiotodagi eng katta bayram).)",
     "category": "Minna no Nihongo 12-dars",
     "level": "N5"
@@ -5184,9 +5184,9 @@
     "level": "N5"
   },
   {
-    "front": "毎まい日にち屋や",
+    "front": "毎日屋",
     "back": "supermarket nomi (o'ylab topilgan)",
-    "phonetic": "毎まい日にち屋や - mainichiya",
+    "phonetic": "まいにちや - mainichiya",
     "example": "これは わたしが 買った 毎日屋 です。 (Bu men sotib olgan supermarket nomi (o'ylab topilgan).)",
     "category": "Minna no Nihongo 12-dars",
     "level": "N5"
@@ -5520,17 +5520,17 @@
     "level": "N5"
   },
   {
-    "front": "定てい職しょく",
+    "front": "定食",
     "back": "ovqatlar to'plami",
-    "phonetic": "定てい職しょく - teishoku",
+    "phonetic": "ていしょく - teishoku",
     "example": "これは わたしが 買った 定職 です。 (Bu men sotib olgan ovqatlar to'plami.)",
     "category": "Minna no Nihongo 13-dars",
     "level": "N5"
   },
   {
-    "front": "牛ぎゅうどん",
+    "front": "牛丼",
     "back": "gyudon- qaynatilgan guruch ustida mol go'shti",
-    "phonetic": "牛ぎゅうどん - gyuudon",
+    "phonetic": "ぎゅうどん - gyuudon",
     "example": "これは わたしが 買った 牛どん です。 (Bu men sotib olgan gyudon- qaynatilgan guruch ustida mol go'shti.)",
     "category": "Minna no Nihongo 13-dars",
     "level": "N5"
@@ -5920,9 +5920,9 @@
     "level": "N5"
   },
   {
-    "front": "梅うめ田だ",
+    "front": "梅田",
     "back": "Osakadagi tuman nomi",
-    "phonetic": "梅うめ田だ - umeda",
+    "phonetic": "うめだ - umeda",
     "example": "これは わたしが 買った 梅田 です。 (Bu men sotib olgan osakadagi tuman nomi.)",
     "category": "Minna no Nihongo 14-dars",
     "level": "N5"
@@ -6144,17 +6144,17 @@
     "level": "N5"
   },
   {
-    "front": "高校こうこう",
+    "front": "高校",
     "back": "yuqori maktab",
-    "phonetic": "高校こうこう - koukou",
+    "phonetic": "こうこう - koukou",
     "example": "これは わたしが 買った 高校 です。 (Bu men sotib olgan yuqori maktab.)",
     "category": "Minna no Nihongo 15-dars",
     "level": "N5"
   },
   {
-    "front": "日本橋にっぽんばし",
+    "front": "日本橋",
     "back": "Osakadagi savdo hududi nomi",
-    "phonetic": "日本橋にっぽんばし - niponbashi",
+    "phonetic": "にっぽんばし - nipponbashi",
     "example": "これは わたしが 買った 日本橋 です。 (Bu men sotib olgan osakadagi savdo hududi nomi.)",
     "category": "Minna no Nihongo 15-dars",
     "level": "N5"
@@ -6536,9 +6536,9 @@
     "level": "N5"
   },
   {
-    "front": "暗あん証しょう番ばん号ごう",
+    "front": "暗証番号",
     "back": "shaxsiy maxfiy kod",
-    "phonetic": "暗あん証しょう番ばん号ごう - anshoubangou",
+    "phonetic": "あんしょうばんごう - anshoubangou",
     "example": "これは わたしが 買った 暗証番号 です。 (Bu men sotib olgan shaxsiy maxfiy kod.)",
     "category": "Minna no Nihongo 16-dars",
     "level": "N5"
@@ -6552,17 +6552,17 @@
     "level": "N5"
   },
   {
-    "front": "金額きんがく",
+    "front": "金額",
     "back": "pul summasi",
-    "phonetic": "金額きんがく - kingaku",
+    "phonetic": "きんがく - kingaku",
     "example": "これは わたしが 買った 金額 です。 (Bu men sotib olgan pul summasi.)",
     "category": "Minna no Nihongo 16-dars",
     "level": "N5"
   },
   {
-    "front": "確認かくにん",
+    "front": "確認",
     "back": "tasdiq ( ～します tasdiqlamoq)",
-    "phonetic": "確認かくにん - kakunin",
+    "phonetic": "かくにん - kakunin",
     "example": "これは わたしが 買った 確認 です。 (Bu men sotib olgan tasdiq ( ～します tasdiqlamoq).)",
     "category": "Minna no Nihongo 16-dars",
     "level": "N5"
@@ -6632,9 +6632,9 @@
     "level": "N5"
   },
   {
-    "front": "大学前だいがくまえ",
+    "front": "大学前",
     "back": "“Daigakumae”",
-    "phonetic": "大学前だいがくまえ - daigakumae",
+    "phonetic": "だいがくまえ - daigakumae",
     "example": "これは わたしが 買った 大学前 です。 (Bu men sotib olgan “daigakumae”.)",
     "category": "Minna no Nihongo 16-dars",
     "level": "N5"
@@ -7128,17 +7128,17 @@
     "level": "N5"
   },
   {
-    "front": "動物どうぶつ",
+    "front": "動物",
     "back": "jonivor, hayvon",
-    "phonetic": "動物どうぶつ - doubutsu",
+    "phonetic": "どうぶつ - doubutsu",
     "example": "これは わたしが 買った 動物 です。 (Bu men sotib olgan jonivor, hayvon.)",
     "category": "Minna no Nihongo 18-dars",
     "level": "N5"
   },
   {
-    "front": "馬うま",
+    "front": "馬",
     "back": "ot",
-    "phonetic": "馬うま - uma",
+    "phonetic": "うま - uma",
     "example": "これは わたしが 買った 馬 です。 (Bu men sotib olgan ot.)",
     "category": "Minna no Nihongo 18-dars",
     "level": "N5"
@@ -7168,9 +7168,9 @@
     "level": "N5"
   },
   {
-    "front": "牧ぼく場じょう",
+    "front": "牧場",
     "back": "ferma",
-    "phonetic": "牧ぼく場じょう - bokujou",
+    "phonetic": "ぼくじょう - bokujou",
     "example": "これは わたしが 買った 牧場 です。 (Bu men sotib olgan ferma.)",
     "category": "Minna no Nihongo 18-dars",
     "level": "N5"
@@ -7392,9 +7392,9 @@
     "level": "N5"
   },
   {
-    "front": "乾杯かんぱい",
+    "front": "乾杯",
     "back": "Qani, oldik (qadah)",
-    "phonetic": "乾杯かんぱい - kanpai",
+    "phonetic": "かんぱい - kanpai",
     "example": "これは わたしが 買った 乾杯 です。 (Bu men sotib olgan qani, oldik (qadah).)",
     "category": "Minna no Nihongo 19-dars",
     "level": "N5"
@@ -8152,9 +8152,9 @@
     "level": "N5"
   },
   {
-    "front": "家や賃ちん",
+    "front": "家賃",
     "back": "uyning ijara haqi",
-    "phonetic": "家や賃ちん - yachin",
+    "phonetic": "やちん - yachin",
     "example": "これは わたしが 買った 家賃 です。 (Bu men sotib olgan uyning ijara haqi.)",
     "category": "Minna no Nihongo 22-dars",
     "level": "N5"
@@ -8176,25 +8176,25 @@
     "level": "N5"
   },
   {
-    "front": "和わ室しつ",
+    "front": "和室",
     "back": "yaponcha xona",
-    "phonetic": "和わ室しつ - washitsu",
+    "phonetic": "わしつ - washitsu",
     "example": "これは わたしが 買った 和室 です。 (Bu men sotib olgan yaponcha xona.)",
     "category": "Minna no Nihongo 22-dars",
     "level": "N5"
   },
   {
-    "front": "押おし入いれ",
+    "front": "押し入れ",
     "back": "taxmon",
-    "phonetic": "押おし入いれ - oshiire",
+    "phonetic": "おしいれ - oshiire",
     "example": "これは わたしが 買った 押し入れ です。 (Bu men sotib olgan taxmon.)",
     "category": "Minna no Nihongo 22-dars",
     "level": "N5"
   },
   {
-    "front": "布ふ団とん",
+    "front": "布団",
     "back": "ko'rpa",
-    "phonetic": "布ふ団とん - futon",
+    "phonetic": "ふとん - futon",
     "example": "これは わたしが 買った 布団 です。 (Bu men sotib olgan ko'rpa.)",
     "category": "Minna no Nihongo 22-dars",
     "level": "N5"
@@ -8216,25 +8216,25 @@
     "level": "N5"
   },
   {
-    "front": "万ばん里りの長城ちょうじょう",
+    "front": "万里の長城",
     "back": "Buyuk Xitoy devori",
-    "phonetic": "万ばん里りの長城ちょうじょう - banrinochoujou",
+    "phonetic": "ばんりのちょうじょう - banrinochoujou",
     "example": "これは わたしが 買った 万里の長城 です。 (Bu men sotib olgan buyuk xitoy devori.)",
     "category": "Minna no Nihongo 22-dars",
     "level": "N5"
   },
   {
-    "front": "余暇よか開発かいはつセンター",
+    "front": "余暇開発センター",
     "back": "insonlarning bo'sh vatqlari bo'yicha tadqiqot olib boruvchi markaz",
-    "phonetic": "余暇よか開発かいはつセンター - yokakaihatsusenta-",
+    "phonetic": "よかかいはつセンター - yokakaihatsusenta-",
     "example": "これは わたしが 買った 余暇開発センター です。 (Bu men sotib olgan insonlarning bo'sh vatqlari bo'yicha tadqiqot olib boruvchi markaz.)",
     "category": "Minna no Nihongo 22-dars",
     "level": "N5"
   },
   {
-    "front": "レジャー白書はくしょ",
+    "front": "レジャー白書",
     "back": "insonlarning bo'sh vaqtlarini qanday o'tkazishi haqidagi “oq kitob”",
-    "phonetic": "レジャー白書はくしょ - reji-hakusho",
+    "phonetic": "レジャーはくしょ - reji-hakusho",
     "example": "これは わたしが 買った レジャー白書 です。 (Bu men sotib olgan insonlarning bo'sh vaqtlarini qanday o'tkazishi haqidagi “oq kitob”.)",
     "category": "Minna no Nihongo 22-dars",
     "level": "N5"
@@ -8512,57 +8512,57 @@
     "level": "N5"
   },
   {
-    "front": "建物たてもの",
+    "front": "建物",
     "back": "bino",
-    "phonetic": "建物たてもの - tatemono",
+    "phonetic": "たてもの - tatemono",
     "example": "これは わたしが 買った 建物 です。 (Bu men sotib olgan bino.)",
     "category": "Minna no Nihongo 23-dars",
     "level": "N5"
   },
   {
-    "front": "外国人がいこくじん登とう録ろく証しょう",
+    "front": "外国人登録証",
     "back": "chet ellik fuqaroning ro'yxatga olinganlik to'g'risidagi hujjati",
-    "phonetic": "外国人がいこくじん登とう録ろく証しょう - gaikokujintourokushou",
+    "phonetic": "がいこくじんとうろくしょう - gaikokujintourokushou",
     "example": "これは わたしが 買った 外国人登録証 です。 (Bu men sotib olgan chet ellik fuqaroning ro'yxatga olinganlik to'g'risidagi hujjati.)",
     "category": "Minna no Nihongo 23-dars",
     "level": "N5"
   },
   {
-    "front": "聖しょう徳とく太たい子し",
+    "front": "聖徳太子",
     "back": "Shahzoda Shotoku (574-622)",
-    "phonetic": "聖しょう徳とく太たい子し - shoutokutaishi",
+    "phonetic": "しょうとくたいし - shoutokutaishi",
     "example": "これは わたしが 買った 聖徳太子 です。 (Bu men sotib olgan shahzoda shotoku (574-622).)",
     "category": "Minna no Nihongo 23-dars",
     "level": "N5"
   },
   {
-    "front": "法ほう隆りゅう寺じ",
+    "front": "法隆寺",
     "back": "Horyuji- Nara viloyatidagi ibodatxona. U Ⅶ asr boshida shahzoda Shotoku tomonidan qurdirilgan.",
-    "phonetic": "法ほう隆りゅう寺じ - houryuuji",
+    "phonetic": "ほうりゅうじ - houryuuji",
     "example": "これは わたしが 買った 法隆寺 です。 (Bu men sotib olgan horyuji- nara viloyatidagi ibodatxona. u ⅶ asr boshida shahzoda shotoku tomonidan qurdirilgan..)",
     "category": "Minna no Nihongo 23-dars",
     "level": "N5"
   },
   {
-    "front": "元げん気き茶ちゃ",
+    "front": "元気茶",
     "back": "“Genkichya” choy navi (o'ylab topilgan )",
-    "phonetic": "元げん気き茶ちゃ - genkicha",
+    "phonetic": "げんきちゃ - genkicha",
     "example": "これは わたしが 買った 元気茶 です。 (Bu men sotib olgan “genkichya” choy navi (o'ylab topilgan ).)",
     "category": "Minna no Nihongo 23-dars",
     "level": "N5"
   },
   {
-    "front": "本ほん田だ駅えき",
+    "front": "本田駅",
     "back": "“Honda” bekati (o'ylab topilgan )",
-    "phonetic": "本ほん田だ駅えき - hondaeki",
+    "phonetic": "ほんだえき - hondaeki",
     "example": "これは わたしが 買った 本田駅 です。 (Bu men sotib olgan “honda” bekati (o'ylab topilgan ).)",
     "category": "Minna no Nihongo 23-dars",
     "level": "N5"
   },
   {
-    "front": "図と書しょ館かん前まえ",
+    "front": "図書館前",
     "back": "“Toshokanmae” avtobus bekati",
-    "phonetic": "図と書しょ館かん前まえ - toshokanmae",
+    "phonetic": "としょかんまえ - toshokanmae",
     "example": "これは わたしが 買った 図書館前 です。 (Bu men sotib olgan “toshokanmae” avtobus bekati.)",
     "category": "Minna no Nihongo 23-dars",
     "level": "N5"
@@ -8712,25 +8712,25 @@
     "level": "N5"
   },
   {
-    "front": "ワゴン車しゃ",
+    "front": "ワゴン車",
     "back": "mikroavtobus, orqa tomonida ham eshik o'rnatilgan yengil mashina",
-    "phonetic": "ワゴン車しゃ - wagonsha",
+    "phonetic": "ワゴンしゃ - wagonsha",
     "example": "これは わたしが 買った ワゴン車 です。 (Bu men sotib olgan mikroavtobus, orqa tomonida ham eshik o'rnatilgan yengil mashina.)",
     "category": "Minna no Nihongo 24-dars",
     "level": "N5"
   },
   {
-    "front": "［お］弁当べんとう",
+    "front": "お弁当",
     "back": "“Obento”- o'zi bilan olib keladigan ovqat",
-    "phonetic": "［お］弁当べんとう - obentou",
+    "phonetic": "おべんとう - obentou",
     "example": "これは わたしが 買った ［お］弁当 です。 (Bu men sotib olgan “obento”- o'zi bilan olib keladigan ovqat.)",
     "category": "Minna no Nihongo 24-dars",
     "level": "N5"
   },
   {
-    "front": "母ははの日ひ",
+    "front": "母の日",
     "back": "Onalar kuni",
-    "phonetic": "母ははの日ひ - hahanohi",
+    "phonetic": "ははのひ - hahanohi",
     "example": "これは わたしが 買った 母の日 です。 (Bu men sotib olgan onalar kuni.)",
     "category": "Minna no Nihongo 24-dars",
     "level": "N5"
@@ -8840,9 +8840,9 @@
     "level": "N5"
   },
   {
-    "front": "転勤てんきん",
+    "front": "転勤",
     "back": "ish yuzasidan boshqa ishga o'tish",
-    "phonetic": "転勤てんきん - tenkin",
+    "phonetic": "てんきん - tenkin",
     "example": "これは わたしが 買った 転勤 です。 (Bu men sotib olgan ish yuzasidan boshqa ishga o'tish.)",
     "category": "Minna no Nihongo 25-dars",
     "level": "N5"
@@ -8856,9 +8856,9 @@
     "level": "N5"
   },
   {
-    "front": "一杯いっぱい飲のみましょう。",
+    "front": "一杯飲みましょう。",
     "back": "Keling ichamiz.",
-    "phonetic": "一杯いっぱい飲のみましょう。 - ipainomimashou",
+    "phonetic": "いっぱいのみましょう - ippainomimashou",
     "example": "これは わたしが 買った 一杯飲みましょう。 です。 (Bu men sotib olgan keling ichamiz..)",
     "category": "Minna no Nihongo 25-dars",
     "level": "N5"
@@ -8872,17 +8872,17 @@
     "level": "N5"
   },
   {
-    "front": "頑がん張ばります",
+    "front": "頑張ります",
     "back": "harakat qilmoq, tirishmoq",
-    "phonetic": "頑がん張ばります - ganbarimasu",
+    "phonetic": "がんばります - ganbarimasu",
     "example": "毎日 頑張ります。 (Har kuni harakat qilmoq, tirishmoq.)",
     "category": "Minna no Nihongo 25-dars",
     "level": "N5"
   },
   {
-    "front": "どうぞお元げん気きで。",
+    "front": "どうぞお元気で。",
     "back": "Salomat bo'ling.",
-    "phonetic": "どうぞお元げん気きで。 - douzoogenkide",
+    "phonetic": "どうぞおげんきで - douzoogenkide",
     "example": "これは わたしが 買った どうぞお元気で。 です。 (Bu men sotib olgan salomat bo'ling..)",
     "category": "Minna no Nihongo 25-dars",
     "level": "N5"

@@ -65,4 +65,24 @@ describe('useTelegramWebApp Hook', () => {
 
     expect(mockImpact).toHaveBeenCalledWith('heavy');
   });
+
+  it('does not treat standard desktop browser with telegram script as Telegram and does not remove dark class', () => {
+    document.documentElement.classList.add('dark');
+
+    // Simulate desktop browser with script loaded
+    (window as any).Telegram = {
+      WebApp: {
+        initData: '',
+        version: '8.0',
+        colorScheme: 'light',
+      },
+    };
+
+    const { result } = renderHook(() => useTelegramWebApp());
+
+    expect(result.current.isTwa).toBe(false);
+    expect(result.current.webApp).toBeNull();
+    // Dark mode class should NOT be removed!
+    expect(document.documentElement.classList.contains('dark')).toBe(true);
+  });
 });

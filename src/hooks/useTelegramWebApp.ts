@@ -25,7 +25,19 @@ export function useTelegramWebApp(): UseTelegramWebAppReturn {
   useEffect(() => {
     const tg = typeof window !== 'undefined' ? window.Telegram?.WebApp : undefined;
 
-    if (tg && (tg.initData || (tg as any).version || window.location.search.includes('twa=true'))) {
+    // Only consider it a real Telegram WebApp if there is actual initData,
+    // a Telegram URL parameter (e.g. ?twa=true or #tgWebAppData), or TelegramWebviewProxy.
+    // In standard desktop browsers, window.Telegram.WebApp exists from telegram-web-app.js
+    // but initData is empty and the user is NOT inside Telegram.
+    const hasInitData = Boolean(tg?.initData && tg.initData.trim().length > 0);
+    const hasTwaParam =
+      typeof window !== 'undefined' &&
+      (window.location.search.includes('twa=true') ||
+        window.location.hash.includes('tgWebAppData'));
+    const hasProxy = typeof window !== 'undefined' && Boolean((window as any).TelegramWebviewProxy);
+    const isRealTwa = Boolean(tg && (hasInitData || hasTwaParam || hasProxy));
+
+    if (isRealTwa && tg) {
       setWebApp(tg);
       setIsTwa(true);
 
@@ -37,23 +49,34 @@ export function useTelegramWebApp(): UseTelegramWebAppReturn {
         console.warn('Telegram WebApp expand/ready warning:', err);
       }
 
-      // Sync color scheme
+      // Sync color scheme ONLY if running inside real Telegram WebApp
       const scheme = tg.colorScheme === 'light' ? 'light' : 'dark';
       setColorScheme(scheme);
-      if (scheme === 'light') {
-        document.documentElement.classList.remove('dark');
-      } else {
-        document.documentElement.classList.add('dark');
+
+      // Respect user's explicit theme choice if stored
+      const savedTheme =
+        typeof window !== 'undefined' ? localStorage.getItem('study_planner_theme') : null;
+
+      if (!savedTheme) {
+        if (scheme === 'light') {
+          document.documentElement.classList.remove('dark');
+        } else {
+          document.documentElement.classList.add('dark');
+        }
       }
 
       // Listen to theme change
       const handleThemeChange = () => {
         if (tg.colorScheme) {
           setColorScheme(tg.colorScheme);
-          if (tg.colorScheme === 'light') {
-            document.documentElement.classList.remove('dark');
-          } else {
-            document.documentElement.classList.add('dark');
+          const currentSaved =
+            typeof window !== 'undefined' ? localStorage.getItem('study_planner_theme') : null;
+          if (!currentSaved) {
+            if (tg.colorScheme === 'light') {
+              document.documentElement.classList.remove('dark');
+            } else {
+              document.documentElement.classList.add('dark');
+            }
           }
         }
       };
@@ -68,10 +91,8 @@ export function useTelegramWebApp(): UseTelegramWebAppReturn {
         } catch {}
       };
     } else {
-      // Check query param simulation (e.g. for development or testing)
-      if (typeof window !== 'undefined' && window.location.search.includes('twa=true')) {
-        setIsTwa(true);
-      }
+      setIsTwa(false);
+      setWebApp(null);
     }
   }, []);
 
