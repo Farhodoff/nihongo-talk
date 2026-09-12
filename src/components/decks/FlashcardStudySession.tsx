@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo, useCallback } from 'react';
+import React, { useEffect, useState, useMemo, useCallback, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import {
   ArrowLeft,
@@ -10,12 +10,14 @@ import {
   Trophy,
   RotateCcw,
   Keyboard,
+  Sparkles,
 } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { useStudyData } from '../../context/StudyPlannerContext';
 import { useLanguage } from '../../context/LanguageContext';
 import { isAdminEmail } from '../../utils/admin';
 import { Flashcard } from '../../types';
+import { ActivityLoggingService } from '../../services/ActivityLoggingService';
 import {
   Rating,
   Grade,
@@ -174,7 +176,59 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
   const [editFront, setEditFront] = useState('');
   const [editBack, setEditBack] = useState('');
 
+  const [milestoneBonusXp, setMilestoneBonusXp] = useState(0);
+  const [milestoneBadge, setMilestoneBadge] = useState<string | null>(null);
+  const sessionStartTimeRef = useRef<number>(Date.now());
+  const sessionLoggedRef = useRef<boolean>(false);
+
   const currentSubject = subjects.find((s) => s.id === subjectId);
+
+  useEffect(() => {
+    if (isFinished && !sessionLoggedRef.current && reviewedCount > 0) {
+      sessionLoggedRef.current = true;
+      const durationMins = Math.max(
+        1,
+        Math.round((Date.now() - sessionStartTimeRef.current) / 60000),
+      );
+      const isBatchCompleted = queue.length > 0 && currentCardIndex >= queue.length - 1;
+      const { milestoneXp, badge } = ActivityLoggingService.calculateFlashcardMilestoneXP(
+        reviewedCount,
+        isBatchCompleted,
+      );
+
+      if (milestoneXp > 0) {
+        setMilestoneBonusXp(milestoneXp);
+        if (badge) setMilestoneBadge(badge);
+        setTotalXpEarned((prev) => prev + milestoneXp);
+      }
+
+      const subjectTitle =
+        currentSubject?.name || (isJa ? 'フラッシュカード学習' : "Flashcard Mashg'uloti");
+
+      ActivityLoggingService.logActivity({
+        activityType: 'flashcards',
+        activityTitle: `${subjectTitle} (${reviewedCount} ta so'z)`,
+        durationMinutes: durationMins,
+        itemsCount: reviewedCount,
+        xpEarned: totalXpEarned + milestoneXp,
+        metadata: {
+          subjectId,
+          reviewedCount,
+          milestoneBonusXp: milestoneXp,
+          badge,
+        },
+      });
+    }
+  }, [
+    isFinished,
+    reviewedCount,
+    queue.length,
+    currentCardIndex,
+    currentSubject,
+    subjectId,
+    totalXpEarned,
+    isJa,
+  ]);
 
   useEffect(() => {
     if (flashcards.length > 0 && !isQueueInitialized) {
@@ -507,9 +561,29 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
             </div>
           </div>
 
+          {milestoneBonusXp > 0 && (
+            <div className="rounded-2xl border border-amber-500/30 bg-amber-500/10 p-3.5 text-center animate-in zoom-in-95">
+              <div className="flex items-center justify-center gap-2 text-sm font-bold text-amber-400">
+                <Sparkles size={16} />
+                <span>
+                  {isJa
+                    ? `マイルストーン達成ボーナス: +${milestoneBonusXp} XP！`
+                    : `Katta Qism Yakunlandi: +${milestoneBonusXp} XP Bonusi!`}
+                </span>
+              </div>
+              {milestoneBadge && (
+                <p className="mt-1 text-xs font-medium text-amber-300/80">🏅 {milestoneBadge}</p>
+              )}
+            </div>
+          )}
+
           <div className="flex gap-3">
             <Button
               onClick={() => {
+                sessionStartTimeRef.current = Date.now();
+                sessionLoggedRef.current = false;
+                setMilestoneBonusXp(0);
+                setMilestoneBadge(null);
                 setCurrentCardIndex(0);
                 setIsFlipped(false);
                 setIsFinished(false);

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import SmartInsight from '../components/SmartInsight';
 import StudyStatsCards from '../components/analytics/StudyStatsCards';
 import ActivityAnalytics from '../components/analytics/ActivityAnalytics';
@@ -16,6 +17,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { useGamificationInfo } from '../stores';
 
 const ProgressPage: React.FC = () => {
+  const navigate = useNavigate();
   const { sessions, subjects, tasks, settings, flashcards, coachSessions, loading } =
     useStudyData();
   const { totalXp, level } = useGamificationInfo();
@@ -120,7 +122,11 @@ const ProgressPage: React.FC = () => {
       {activeTab === 'overview' && (
         <div className="space-y-8 duration-300 animate-in fade-in">
           <ActivityAnalytics sessions={sessions} />
-          <ActivityHeatmap sessions={sessions} />
+          <ActivityHeatmap
+            sessions={sessions}
+            onStartFlashcards={() => navigate('/decks')}
+            onStartSpeaking={() => navigate('/coach')}
+          />
         </div>
       )}
 

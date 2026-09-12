@@ -47,6 +47,7 @@ import { getOrEnsureSpeakingDeck } from '../utils/subjectResolver';
 import { supabase } from '../lib/supabase';
 import { PitchAccentService, PitchAccentInfo } from '../services/PitchAccentService';
 import { PitchAccentModal } from '../components/speaking/PitchAccentModal';
+import { ActivityLoggingService } from '../services/ActivityLoggingService';
 
 const PROMPT_SUGGESTIONS_BY_LANG: Record<
   'en' | 'ja',
@@ -1105,6 +1106,24 @@ const SpeakingCoachPage: React.FC = () => {
 
           setScenarioEvalResult(evalResult);
           await ScenarioService.saveSessionResult(evalResult, user?.id);
+
+          // Log speaking activity with calibrated XP to Supabase & local cache
+          const { xp: scenarioXp, badge: scenarioBadge } =
+            ActivityLoggingService.calculateSpeakingXP(durSecs, evalResult.fluency_score);
+          await ActivityLoggingService.logActivity({
+            id: sessionUuid,
+            activityType: 'speaking',
+            activityTitle: `AI Coach: ${evalResult.scenario_title || 'Ssenariy suhbati'}`,
+            durationMinutes: Math.max(1, Math.round(durSecs / 60)),
+            itemsCount: 1,
+            xpEarned: scenarioXp,
+            metadata: {
+              scenarioId: evalResult.scenario_id,
+              fluencyScore: evalResult.fluency_score,
+              overallScore: evalResult.overall_score,
+              badge: scenarioBadge,
+            },
+          });
         } catch (err) {
           console.error('Scenario evaluation error:', err);
         } finally {
@@ -1176,6 +1195,23 @@ const SpeakingCoachPage: React.FC = () => {
             },
             user?.id,
           );
+
+          // Log speaking activity with calibrated XP to Supabase & local cache
+          const { xp: standardXp, badge: standardBadge } =
+            ActivityLoggingService.calculateSpeakingXP(durSecs, fluency);
+          await ActivityLoggingService.logActivity({
+            id: sessionUuid,
+            activityType: 'speaking',
+            activityTitle: `AI Coach: ${personaTitle}`,
+            durationMinutes: Math.max(1, Math.round(durSecs / 60)),
+            itemsCount: 1,
+            xpEarned: standardXp,
+            metadata: {
+              fluencyScore: fluency,
+              overallScore: overall,
+              badge: standardBadge,
+            },
+          });
         } catch (err) {
           console.error('Report generation error:', err);
         } finally {
