@@ -28,7 +28,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
     cards: [
       {
         id: 'n5-k1',
-        front: '一 (いち / ひとつ - Ichi / Hitotsu)',
+        front: '一',
         back: 'Bir, 1 (One)',
         romaji: 'ichi / hitotsu',
         furigana: 'ichi / hitotsu',
@@ -38,7 +38,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k2',
-        front: '二 (に / ふたつ - Ni / Futatsu)',
+        front: '二',
         back: 'Ikki, 2 (Two)',
         romaji: 'ni / futatsu',
         furigana: 'ni / futatsu',
@@ -48,7 +48,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k3',
-        front: '三 (さん / みっつ - San / Mittsu)',
+        front: '三',
         back: 'Uch, 3 (Three)',
         romaji: 'san / mittsu',
         furigana: 'san / mittsu',
@@ -58,7 +58,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k4',
-        front: '四 (よん / し - Yon / Shi)',
+        front: '四',
         back: "To'rt, 4 (Four)",
         romaji: 'yon / shi',
         furigana: 'yon / shi',
@@ -68,7 +68,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k5',
-        front: '五 (ご / いつつ - Go / Itsutsu)',
+        front: '五',
         back: 'Besh, 5 (Five)',
         romaji: 'go / itsutsu',
         furigana: 'go / itsutsu',
@@ -78,7 +78,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k6',
-        front: '六 (ろく / むっつ - Roku / Muttsu)',
+        front: '六',
         back: 'Olti, 6 (Six)',
         romaji: 'roku / muttsu',
         furigana: 'roku / muttsu',
@@ -88,7 +88,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k7',
-        front: '七 (なな / しち - Nana / Shichi)',
+        front: '七',
         back: 'Yetti, 7 (Seven)',
         romaji: 'nana / shichi',
         furigana: 'nana / shichi',
@@ -98,7 +98,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k8',
-        front: '八 (はち / やっつ - Hachi / Yattsu)',
+        front: '八',
         back: 'Sakkiz, 8 (Eight)',
         romaji: 'hachi / yattsu',
         furigana: 'hachi / yattsu',
@@ -108,7 +108,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k9',
-        front: '九 (きゅう / く - Kyuu / Ku)',
+        front: '九',
         back: "To'qqiz, 9 (Nine)",
         romaji: 'kyuu / ku',
         furigana: 'kyuu / ku',
@@ -118,7 +118,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k10',
-        front: '十 (じゅう / とお - Juu / Too)',
+        front: '十',
         back: "O'n, 10 (Ten)",
         romaji: 'juu / too',
         furigana: 'juu / too',
@@ -128,7 +128,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k11',
-        front: '人 (ひと - Hito)',
+        front: '人',
         back: 'Odam, Shaxs (Person)',
         romaji: 'hito',
         furigana: 'hito',
@@ -138,7 +138,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k12',
-        front: '名 (な / めい - Na / Mei)',
+        front: '名',
         back: "Ism, Nom, Obro' (Name, Reputation)",
         romaji: 'na / mei',
         furigana: 'na / mei',
@@ -148,7 +148,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k13',
-        front: '方 (かた / ほう - Kata / Hou)',
+        front: '方',
         back: 'Tomon, Taraf, Usul, Hurmatli shaxs (Direction, Person, Method)',
         romaji: 'kata / hou',
         furigana: 'kata / hou',
@@ -158,7 +158,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k14',
-        front: '本 (ほん - Hon)',
+        front: '本',
         back: 'Kitob (Book)',
         romaji: 'hon',
         furigana: 'hon',
@@ -168,7 +168,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k15',
-        front: '日 (ひ - Hi)',
+        front: '日',
         back: 'Quyosh, Kun (Sun, Day)',
         romaji: 'hi',
         furigana: 'hi',
@@ -178,7 +178,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k16',
-        front: '何 (なに / なん - Nani / Nan)',
+        front: '何',
         back: 'Nima, Qanday (What)',
         romaji: 'nani / nan',
         furigana: 'nani / nan',
@@ -188,7 +188,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k17',
-        front: '大 (おお・きい / だい - Oo-kii / Dai)',
+        front: '大',
         back: 'Katta, Ulkan (Big, Large)',
         romaji: 'ookii / dai',
         furigana: 'ookii / dai',
@@ -198,7 +198,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k18',
-        front: '学 (まなぶ - Manabu)',
+        front: '学',
         back: "O'rganmoq, Ilm (Study)",
         romaji: 'gaku / manabu',
         furigana: 'gaku / manabu',
@@ -208,7 +208,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k19',
-        front: '会 (あ・う / かい - A-u / Kai)',
+        front: '会',
         back: 'Uchrashmoq, Jamiyat (Meet, Society)',
         romaji: 'au / kai',
         furigana: 'au / kai',
@@ -218,7 +218,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k20',
-        front: '社 (しゃ / やしろ - Sha / Yashiro)',
+        front: '社',
         back: 'Kompaniya, Jamiyat, Ziyoratgoh (Company, Shinto shrine)',
         romaji: 'sha / yashiro',
         furigana: 'sha / yashiro',
@@ -228,7 +228,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k21',
-        front: '先 (さき - Saki)',
+        front: '先',
         back: 'Oldin, Ilgarigi (Ahead)',
         romaji: 'saki / sen',
         furigana: 'saki / sen',
@@ -238,7 +238,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k22',
-        front: '生 (いきる - Ikiru)',
+        front: '生',
         back: "Yashamoq, Tug'ilish (Life)",
         romaji: 'sei / ikiru',
         furigana: 'sei / ikiru',
@@ -248,7 +248,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k23',
-        front: '行 (い・く / こう - I-ku / Kou)',
+        front: '行',
         back: "Bormoq, O'tkazmoq (To go, Conduct)",
         romaji: 'iku / kou',
         furigana: 'iku / kou',
@@ -258,7 +258,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k24',
-        front: '来 (く・る / らい - Ku-ru / Rai)',
+        front: '来',
         back: 'Kelmoq, Kelasi (To come, Next)',
         romaji: 'kuru / rai',
         furigana: 'kuru / rai',
@@ -268,7 +268,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k25',
-        front: '自 (じ / し - Ji / Shi)',
+        front: '自',
         back: "O'zi, Shaxsiy (Self, Oneself)",
         romaji: 'ji / mizukara',
         furigana: 'ji / mizukara',
@@ -278,7 +278,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k26',
-        front: '車 (くるま - Kuruma)',
+        front: '車',
         back: 'Mashina (Car)',
         romaji: 'kuruma',
         furigana: 'kuruma',
@@ -288,7 +288,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k27',
-        front: '百 (ひゃく - Hyaku)',
+        front: '百',
         back: 'Yuz, 100 (Hundred)',
         romaji: 'hyaku',
         furigana: 'hyaku',
@@ -298,7 +298,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k28',
-        front: '千 (せん - Sen)',
+        front: '千',
         back: 'Ming, 1000 (Thousand)',
         romaji: 'sen',
         furigana: 'sen',
@@ -308,7 +308,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k29',
-        front: '万 (まん / ばん - Man / Ban)',
+        front: '万',
         back: "O'n ming, 10,000 (Ten thousand)",
         romaji: 'man / ban',
         furigana: 'man / ban',
@@ -318,7 +318,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k30',
-        front: '円 (えん / まるい - En / Marui)',
+        front: '円',
         back: 'Yen (yapon puli), Doira (Yen, Circle)',
         romaji: 'en / marui',
         furigana: 'en / marui',
@@ -328,7 +328,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k31',
-        front: '毎 (まい - Mai)',
+        front: '毎',
         back: 'Har, Har bir (Every)',
         romaji: 'mai',
         furigana: 'mai',
@@ -338,7 +338,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k32',
-        front: '時 (とき / じ - Toki / Ji)',
+        front: '時',
         back: 'Vaqt, Soat (Time, Hour)',
         romaji: 'toki / ji',
         furigana: 'toki / ji',
@@ -348,7 +348,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k33',
-        front: '分 (ふん / わかる - Fun / Wakaru)',
+        front: '分',
         back: 'Daqiqa, Qism, Tushunmoq (Minute, Part, Understand)',
         romaji: 'fun / bun / wakaru',
         furigana: 'fun / bun / wakaru',
@@ -358,7 +358,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k34',
-        front: '半 (はん / なかば - Han / Nakaba)',
+        front: '半',
         back: 'Yarim, Yarmi (Half)',
         romaji: 'han / nakaba',
         furigana: 'han / nakaba',
@@ -368,7 +368,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k35',
-        front: '国 (くに / こく - Kuni / Koku)',
+        front: '国',
         back: 'Davlat, Mamlakat, Yurt (Country, Nation)',
         romaji: 'kuni / koku',
         furigana: 'kuni / koku',
@@ -378,7 +378,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k36',
-        front: '月 (つき - Tsuki)',
+        front: '月',
         back: 'Oy (Moon, Month)',
         romaji: 'tsuki',
         furigana: 'tsuki',
@@ -388,7 +388,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k37',
-        front: '火 (ひ / か - Hi / Ka)',
+        front: '火',
         back: 'Olov, Olovli (Fire)',
         romaji: 'hi / ka',
         furigana: 'hi / ka',
@@ -398,7 +398,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k38',
-        front: '水 (みず - Mizu)',
+        front: '水',
         back: 'Suv (Water)',
         romaji: 'mizu',
         furigana: 'mizu',
@@ -408,7 +408,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k39',
-        front: '木 (き - Ki)',
+        front: '木',
         back: 'Daraxt (Tree)',
         romaji: 'ki',
         furigana: 'ki',
@@ -418,7 +418,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k40',
-        front: '金 (かね - Kane)',
+        front: '金',
         back: 'Pul, Oltin (Money, Gold)',
         romaji: 'kane / kin',
         furigana: 'kane / kin',
@@ -428,7 +428,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k41',
-        front: '土 (つち - Tsuchi)',
+        front: '土',
         back: 'Tuproq (Earth, Soil)',
         romaji: 'tsuchi / do',
         furigana: 'tsuchi / do',
@@ -438,7 +438,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k42',
-        front: '書 (か・く / しょ - Ka-ku / Sho)',
+        front: '書',
         back: 'Yozmoq, Kitob, Hujjat (To write, Book)',
         romaji: 'kaku / sho',
         furigana: 'kaku / sho',
@@ -448,7 +448,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k43',
-        front: '友 (とも - Tomo)',
+        front: '友',
         back: "Do'st (Friend)",
         romaji: 'tomo / yuu',
         furigana: 'tomo / yuu',
@@ -458,7 +458,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k44',
-        front: '年 (とし / ねん - Toshi / Nen)',
+        front: '年',
         back: 'Yil, Yosh (Year, Age)',
         romaji: 'toshi / nen',
         furigana: 'toshi / nen',
@@ -468,7 +468,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k45',
-        front: '今 (いま / こん - Ima / Kon)',
+        front: '今',
         back: 'Hozir, Ayni dam (Now, Present)',
         romaji: 'ima / kon',
         furigana: 'ima / kon',
@@ -478,7 +478,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k46',
-        front: '週 (しゅう - Shuu)',
+        front: '週',
         back: 'Hafta (Week)',
         romaji: 'shuu',
         furigana: 'shuu',
@@ -488,7 +488,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k47',
-        front: '休 (やす・む / きゅう - Yasu-mu / Kyuu)',
+        front: '休',
         back: 'Dam olmoq, Tanaffus (To rest, Vacation)',
         romaji: 'yasumu / kyuu',
         furigana: 'yasumu / kyuu',
@@ -498,7 +498,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k48',
-        front: '前 (まえ / ぜん - Mae / Zen)',
+        front: '前',
         back: 'Old, Oldin, Ilgari (Before, Front)',
         romaji: 'mae / zen',
         furigana: 'mae / zen',
@@ -508,7 +508,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k49',
-        front: '午 (ご - Go)',
+        front: '午',
         back: 'Tush, Peshin (Noon)',
         romaji: 'go',
         furigana: 'go',
@@ -518,7 +518,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k50',
-        front: '後 (うしろ / あと / ご - Ushiro / Ato / Go)',
+        front: '後',
         back: "Orqa, Keyin, So'ng (Behind, After, Later)",
         romaji: 'ushiro / ato / go',
         furigana: 'ushiro / ato / go',
@@ -528,7 +528,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k51',
-        front: '校 (こう - Kou)',
+        front: '校',
         back: "Maktab, Ta'lim maskani (School)",
         romaji: 'kou',
         furigana: 'kou',
@@ -538,7 +538,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k52',
-        front: '帰 (かえ・る / き - Kae-ru / Ki)',
+        front: '帰',
         back: 'Qaytmoq (uyga/yurtga) (To return home)',
         romaji: 'kaeru / ki',
         furigana: 'kaeru / ki',
@@ -548,7 +548,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k53',
-        front: '見 (み・る / けん - Mi-ru / Ken)',
+        front: '見',
         back: "Ko'rmoq, Qaramoq, Ko'rsatmoq (To see, Look)",
         romaji: 'miru / ken',
         furigana: 'miru / ken',
@@ -558,7 +558,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k54',
-        front: '聞 (き・く / ぶん - Ki-ku / Bun)',
+        front: '聞',
         back: "Eshitmoq, Tinglamoq, So'ramoq (To hear, Listen, Ask)",
         romaji: 'kiku / bun',
         furigana: 'kiku / bun',
@@ -568,7 +568,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k55',
-        front: '読 (よ・む / どく - Yo-mu / Doku)',
+        front: '読',
         back: "O'qimoq (To read)",
         romaji: 'yomu / doku',
         furigana: 'yomu / doku',
@@ -578,7 +578,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k56',
-        front: '食 (た・べる / しょく - Ta-beru / Shoku)',
+        front: '食',
         back: 'Yemoq, Taom, Oziq-ovqat (To eat, Food)',
         romaji: 'taberu / shoku',
         furigana: 'taberu / shoku',
@@ -588,7 +588,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k57',
-        front: '飲 (の・む / いん - No-mu / In)',
+        front: '飲',
         back: 'Ichmoq, Ichimlik (To drink)',
         romaji: 'nomu / in',
         furigana: 'nomu / in',
@@ -598,7 +598,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k58',
-        front: '買 (か・う / ばい - Ka-u / Bai)',
+        front: '買',
         back: 'Sotib olmoq, Xarid qilmoq (To buy)',
         romaji: 'kau / bai',
         furigana: 'kau / bai',
@@ -608,7 +608,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k59',
-        front: '山 (やま - Yama)',
+        front: '山',
         back: "Tog' (Mountain)",
         romaji: 'yama',
         furigana: 'やま (yama)',
@@ -618,7 +618,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k60',
-        front: '川 (かわ - Kawa)',
+        front: '川',
         back: 'Daryo (River)',
         romaji: 'kawa',
         furigana: 'かわ (kawa)',
@@ -628,7 +628,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k61',
-        front: '子 (こ - Ko)',
+        front: '子',
         back: 'Bola (Child)',
         romaji: 'ko',
         furigana: 'こ (ko)',
@@ -638,7 +638,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k62',
-        front: '女 (おんな - Onna)',
+        front: '女',
         back: 'Ayol (Woman)',
         romaji: 'onna',
         furigana: 'おんな (onna)',
@@ -648,7 +648,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k63',
-        front: '私 (わたし - Watashi)',
+        front: '私',
         back: 'Men (I, me)',
         romaji: 'watashi',
         furigana: 'watashi',
@@ -658,7 +658,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k64',
-        front: '門 (もん - Mon)',
+        front: '門',
         back: 'Darvoza (Gate)',
         romaji: 'mon',
         furigana: 'かど (kado)',
@@ -668,7 +668,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k65',
-        front: '間 (あいだ - Aida)',
+        front: '間',
         back: 'Orasi, Vaqt (Between)',
         romaji: 'aida',
         furigana: 'あいだ (aida)',
@@ -678,7 +678,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k66',
-        front: '母 (はは / ぼ - Haha / Bo)',
+        front: '母',
         back: 'Ona (Mother)',
         romaji: 'haha / bo',
         furigana: 'はは (haha)',
@@ -688,7 +688,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k67',
-        front: '父 (ちち / ふ - Chichi / Fu)',
+        front: '父',
         back: 'Ota (Father)',
         romaji: 'chichi / fu',
         furigana: 'ちち (chichi)',
@@ -698,7 +698,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k68',
-        front: '物 (もの / ぶつ - Mono / Butsu)',
+        front: '物',
         back: 'Narsa, Buyum (Thing, Object)',
         romaji: 'mono / butsu',
         furigana: 'もの (mono)',
@@ -708,7 +708,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k69',
-        front: '朝 (あさ / ちょう - Asa / Chou)',
+        front: '朝',
         back: 'Tong, Ertalab (Morning)',
         romaji: 'asa / chou',
         furigana: 'あさ (asa)',
@@ -718,7 +718,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k70',
-        front: '昼 (ひる / ちゅう - Hiru / Chuu)',
+        front: '昼',
         back: 'Kunduzi, Tush vaqti (Noon, Daytime)',
         romaji: 'hiru / chuu',
         furigana: 'ひる (hiru)',
@@ -728,7 +728,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k71',
-        front: '夜 (よる / や - Yoru / Ya)',
+        front: '夜',
         back: 'Tun, Kecha (Night)',
         romaji: 'yoru / ya',
         furigana: 'よ (yo)',
@@ -738,7 +738,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k72',
-        front: '晩 (ばん - Ban)',
+        front: '晩',
         back: 'Kechqurun, Oqshom (Evening, Night)',
         romaji: 'ban',
         furigana: '-',
@@ -748,7 +748,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k73',
-        front: '町 (まち / ちょう - Machi / Chou)',
+        front: '町',
         back: 'Shahar, Qasaba (Town)',
         romaji: 'machi / chou',
         furigana: 'まち (machi)',
@@ -758,7 +758,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k74',
-        front: '白 (しろ / しろい - Shiro / Shiroi)',
+        front: '白',
         back: 'Oq rang (White)',
         romaji: 'shiro / haku',
         furigana: 'しろ (shiro)',
@@ -768,7 +768,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k75',
-        front: '赤 (あか / あかい - Aka / Akai)',
+        front: '赤',
         back: 'Qizil rang (Red)',
         romaji: 'aka / seki',
         furigana: 'あか (aka)',
@@ -778,7 +778,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k76',
-        front: '青 (あお / あおい - Ao / Aoi)',
+        front: '青',
         back: "Ko'k, Havorang (Blue)",
         romaji: 'ao / sei',
         furigana: 'あお (ao)',
@@ -788,7 +788,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k77',
-        front: '黒 (くろ / くろい - Kuro / Kuroi)',
+        front: '黒',
         back: 'Qora rang (Black)',
         romaji: 'kuro / koku',
         furigana: 'くろ (kuro)',
@@ -798,7 +798,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k78',
-        front: '安 (やす・い / あん - Yasu-i / An)',
+        front: '安',
         back: 'Arzon, Tinch (Cheap, Peaceful)',
         romaji: 'yasui / an',
         furigana: 'やすい (yasu-i)',
@@ -808,7 +808,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k79',
-        front: '高 (たか・い / こう - Taka-i / Kou)',
+        front: '高',
         back: 'Qimmat, Baland (High, Expensive)',
         romaji: 'takai / kou',
         furigana: 'たかい (taka-i)',
@@ -818,7 +818,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k80',
-        front: '小 (ちい・さい / しょう - Chii-sai / Shou)',
+        front: '小',
         back: 'Kichik, Mayda (Small, Little)',
         romaji: 'chiisai / shou',
         furigana: 'ちいさい (chii-sai)',
@@ -828,7 +828,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k81',
-        front: '男 (おとこ / だん - Otoko / Dan)',
+        front: '男',
         back: "Erkak, O'g'il (Man, Male)",
         romaji: 'otoko / dan',
         furigana: 'おとこ (otoko)',
@@ -838,7 +838,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k82',
-        front: '上 (うえ / じょう - Ue / Jou)',
+        front: '上',
         back: 'Tepa, Ustida (Above, Up)',
         romaji: 'ue / jou',
         furigana: 'うえ (ue)',
@@ -848,7 +848,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k83',
-        front: '下 (した / か - Shita / Ka)',
+        front: '下',
         back: 'Past, Ostida (Below, Down)',
         romaji: 'shita / ka',
         furigana: 'した (shita)',
@@ -858,7 +858,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k84',
-        front: '左 (ひだり / さ - Hidari / Sa)',
+        front: '左',
         back: 'Chap tomon (Left)',
         romaji: 'hidari / sa',
         furigana: 'ひだり (hidari)',
@@ -868,7 +868,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k85',
-        front: '右 (みぎ / う / ゆう - Migi / U / Yuu)',
+        front: '右',
         back: "O'ng tomon (Right)",
         romaji: 'migi / yuu',
         furigana: 'みぎ (migi)',
@@ -878,7 +878,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k86',
-        front: '中 (なか / ちゅう - Naka / Chuu)',
+        front: '中',
         back: "Ichida, O'rtasida (Middle, Inside)",
         romaji: 'naka / chuu',
         furigana: 'なか (naka)',
@@ -888,7 +888,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k87',
-        front: '近 (ちか・い / きん - Chika-i / Kin)',
+        front: '近',
         back: 'Yaqin, Atrofida (Near, Close)',
         romaji: 'chikai / kin',
         furigana: 'ちかい (chika-i)',
@@ -898,7 +898,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k88',
-        front: '魚 (さかな / ぎょ - Sakana / Gyo)',
+        front: '魚',
         back: 'Baliq (Fish)',
         romaji: 'sakana / gyo',
         furigana: 'うお (uo)',
@@ -908,7 +908,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k89',
-        front: '手 (て / しゅ - Te / Shu)',
+        front: '手',
         back: "Qo'l (Hand)",
         romaji: 'te / shu',
         furigana: 'て (te)',
@@ -918,7 +918,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k90',
-        front: '犬 (いぬ / けん - Inu / Ken)',
+        front: '犬',
         back: 'It, Kuchuk (Dog)',
         romaji: 'inu / ken',
         furigana: 'いぬ (inu)',
@@ -928,7 +928,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k91',
-        front: '早 (はや・い / そう - Haya-i / Sou)',
+        front: '早',
         back: 'Erta, Barvaqt (Early, Fast)',
         romaji: 'hayai / sou',
         furigana: 'はやい (haya-i)',
@@ -938,7 +938,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k92',
-        front: '計 (はか・る / けい - Haka-ru / Kei)',
+        front: '計',
         back: 'Reja, Hisoblamoq (Measure, Plan)',
         romaji: 'hakaru / kei',
         furigana: 'はかる (haka-ru)',
@@ -948,7 +948,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k93',
-        front: '外 (そと / がい - Soto / Gai)',
+        front: '外',
         back: 'Tashqari, Tashqi (Outside)',
         romaji: 'soto / gai',
         furigana: 'そと (soto)',
@@ -958,7 +958,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k94',
-        front: '兄 (あに / けい - Ani / Kei)',
+        front: '兄',
         back: 'Aka (Older brother)',
         romaji: 'ani / kei',
         furigana: 'あに (ani)',
@@ -968,7 +968,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k95',
-        front: '弟 (おとうと / てい - Otouto / Tei)',
+        front: '弟',
         back: 'Uka (Younger brother)',
         romaji: 'otouto / tei',
         furigana: 'おとうと (otouto)',
@@ -978,7 +978,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k96',
-        front: '姉 (あね / し - Ane / Shi)',
+        front: '姉',
         back: 'Opa (Older sister)',
         romaji: 'ane / shi',
         furigana: 'あね (ane)',
@@ -988,7 +988,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k97',
-        front: '妹 (いもうと / まい - Imouto / Mai)',
+        front: '妹',
         back: 'Singil (Younger sister)',
         romaji: 'imouto / mai',
         furigana: 'いもうと (imouto)',
@@ -998,7 +998,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k98',
-        front: '家 (いえ / か - Ie / Ka)',
+        front: '家',
         back: 'Uy, Oila (House, Home)',
         romaji: 'ie / ka',
         furigana: 'いえ (ie)',
@@ -1008,7 +1008,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k99',
-        front: '族 (ぞく - Zoku)',
+        front: '族',
         back: 'Oila, Qarindoshlar (Family, Tribe)',
         romaji: 'zoku',
         furigana: '-',
@@ -1018,7 +1018,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k100',
-        front: '春 (はる / しゅん - Haru / Shun)',
+        front: '春',
         back: 'Bahor (Spring)',
         romaji: 'haru / shun',
         furigana: 'はる (haru)',
@@ -1028,7 +1028,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k101',
-        front: '夏 (なつ / か - Natsu / Ka)',
+        front: '夏',
         back: 'Yoz fasli (Summer)',
         romaji: 'natsu / ka',
         furigana: 'なつ (natsu)',
@@ -1038,7 +1038,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k102',
-        front: '秋 (あき / しゅう - Aki / Shuu)',
+        front: '秋',
         back: 'Kuz fasli (Autumn, Fall)',
         romaji: 'aki / shuu',
         furigana: 'あき (aki)',
@@ -1048,7 +1048,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k103',
-        front: '冬 (ふゆ / とう - Fuyu / Tou)',
+        front: '冬',
         back: 'Qish fasli (Winter)',
         romaji: 'fuyu / tou',
         furigana: 'ふゆ (fuyu)',
@@ -1058,7 +1058,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k104',
-        front: '気 (き - Ki)',
+        front: '気',
         back: 'Ruh, Kayfiyat, Havo (Spirit, Mood, Air)',
         romaji: 'ki',
         furigana: '-',
@@ -1068,7 +1068,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k105',
-        front: '天 (てん - Ten)',
+        front: '天',
         back: 'Osmon, Falak (Heaven, Sky)',
         romaji: 'ten',
         furigana: 'あめ (ame)',
@@ -1078,7 +1078,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k106',
-        front: '多 (おお・い / た - Oo-i / Ta)',
+        front: '多',
         back: "Ko'p, Talaygina (Many, Much)",
         romaji: 'ooi / ta',
         furigana: 'おおい (oo-i)',
@@ -1088,7 +1088,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k107',
-        front: '少 (すこ・し / すく・ない - Suko-shi / Suku-nai)',
+        front: '少',
         back: 'Kam, Ozgina (Few, Little)',
         romaji: 'sukoshi / sukunai',
         furigana: 'すくない (suku-nai)',
@@ -1098,7 +1098,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k108',
-        front: '元 (げん / もと - Gen / Moto)',
+        front: '元',
         back: 'Asl, Tetiklik (Origin, Healthy)',
         romaji: 'gen / moto',
         furigana: 'もと (moto)',
@@ -1108,7 +1108,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k109',
-        front: '歩 (ある・く / ほ - Aru-ku / Ho)',
+        front: '歩',
         back: 'Piyoda yurmoq (To walk)',
         romaji: 'aruku / ho',
         furigana: 'あるく (aru-ku)',
@@ -1118,7 +1118,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k110',
-        front: '入 (はい・る / にゅう - Hai-ru / Nyuu)',
+        front: '入',
         back: 'Kirmoq, Solmoq (Enter, Put in)',
         romaji: 'hairu / nyuu',
         furigana: 'はいる (hai-ru)',
@@ -1128,7 +1128,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k111',
-        front: '出 (で・る / しゅつ - De-ru / Shutsu)',
+        front: '出',
         back: 'Chiqmoq, Chiqarmoq (Exit, Leave)',
         romaji: 'deru / shutsu',
         furigana: 'でる (de-ru)',
@@ -1138,7 +1138,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k112',
-        front: '立 (た・つ / りつ - Ta-tsu / Ritsu)',
+        front: '立',
         back: 'Turmoq, Tik turmoq (Stand up)',
         romaji: 'tatsu / ritsu',
         furigana: 'たつ (ta-tsu)',
@@ -1148,7 +1148,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k113',
-        front: '止 (と・まる / し - To-maru / Shi)',
+        front: '止',
         back: "To'xtamoq (To stop)",
         romaji: 'tomaru / shi',
         furigana: 'とまる (to-maru)',
@@ -1158,7 +1158,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k114',
-        front: '始 (はじ・まる / し - Haji-maru / Shi)',
+        front: '始',
         back: 'Boshlanmoq, Boshlamoq (To begin)',
         romaji: 'hajimaru / shi',
         furigana: 'はじまる (haji-maru)',
@@ -1168,7 +1168,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k115',
-        front: '開 (あ・ける / かい - A-keru / Kai)',
+        front: '開',
         back: 'Ochmoq, Ochilmoq (To open)',
         romaji: 'akeru / kai',
         furigana: 'あく (a-ku)',
@@ -1178,7 +1178,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k116',
-        front: '海 (うみ / かい - Umi / Kai)',
+        front: '海',
         back: 'Dengiz (Sea)',
         romaji: 'umi / kai',
         furigana: 'うみ (umi)',
@@ -1188,7 +1188,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k117',
-        front: '世 (せ / よ - Se / Yo)',
+        front: '世',
         back: 'Dunyo, Jamiyat, Avlod (World, Age)',
         romaji: 'se / yo',
         furigana: 'よ (yo)',
@@ -1198,7 +1198,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k118',
-        front: '界 (かい - Kai)',
+        front: '界',
         back: 'Olam, Doira (World, Realm)',
         romaji: 'kai',
         furigana: '-',
@@ -1208,7 +1208,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k119',
-        front: '画 (が / かく - Ga / Kaku)',
+        front: '画',
         back: 'Rasm, Tasvir, Reja (Picture, Plan)',
         romaji: 'ga / kaku',
         furigana: '-',
@@ -1218,7 +1218,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k120',
-        front: '映 (えい / うつす - Ei / Utsusu)',
+        front: '映',
         back: 'Aks etmoq, Namoyish (Project, Reflect)',
         romaji: 'ei / utsuru',
         furigana: 'うつる (utsu-ru)',
@@ -1228,7 +1228,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k121',
-        front: '花 (はな / か - Hana / Ka)',
+        front: '花',
         back: 'Gul (Flower)',
         romaji: 'hana / ka',
         furigana: 'はな (hana)',
@@ -1238,7 +1238,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k122',
-        front: '茶 (ちゃ / さ - Cha / Sa)',
+        front: '茶',
         back: 'Choy (Tea)',
         romaji: 'cha / sa',
         furigana: '-',
@@ -1248,7 +1248,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k123',
-        front: '語 (ご / かたる - Go / Kataru)',
+        front: '語',
         back: "Til, So'z (Language, Word)",
         romaji: 'go / kataru',
         furigana: 'かたる (kata-ru)',
@@ -1258,7 +1258,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k124',
-        front: '英 (えい - Ei)',
+        front: '英',
         back: 'Ingliz (English)',
         romaji: 'ei',
         furigana: '-',
@@ -1268,7 +1268,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k125',
-        front: '体 (からだ / たい - Karada / Tai)',
+        front: '体',
         back: 'Tana, Jism (Body)',
         romaji: 'karada / tai',
         furigana: 'からだ (karada)',
@@ -1278,7 +1278,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k126',
-        front: '足 (あし / そく - Ashi / Soku)',
+        front: '足',
         back: "Oyoq, Yetarli bo'lmoq (Foot, Leg)",
         romaji: 'ashi / soku',
         furigana: 'あし (ashi)',
@@ -1288,7 +1288,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k127',
-        front: '口 (くち / こう - Kuchi / Kou)',
+        front: '口',
         back: "Og'iz (Mouth, Opening)",
         romaji: 'kuchi / kou',
         furigana: 'くち (kuchi)',
@@ -1298,7 +1298,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k128',
-        front: '顔 (かお / がん - Kao / Gan)',
+        front: '顔',
         back: 'Yuz, Chehra (Face)',
         romaji: 'kao / gan',
         furigana: 'かお (kao)',
@@ -1308,7 +1308,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k129',
-        front: '耳 (みみ / じ - Mimi / Ji)',
+        front: '耳',
         back: 'Quloq (Ear)',
         romaji: 'mimi / ji',
         furigana: 'みみ (mimi)',
@@ -1318,7 +1318,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k130',
-        front: '目 (め / もく - Me / Moku)',
+        front: '目',
         back: "Ko'z (Eye)",
         romaji: 'me / moku',
         furigana: 'め (me)',
@@ -1328,7 +1328,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k131',
-        front: '知 (し・る / ち - Shi-ru / Chi)',
+        front: '知',
         back: 'Bilmoq (To know)',
         romaji: 'shiru / chi',
         furigana: 'しる (shi-ru)',
@@ -1338,7 +1338,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k132',
-        front: '住 (す・む / じゅう - Su-mu / Juu)',
+        front: '住',
         back: 'Yashamoq, Istiqomat qilmoq (To live)',
         romaji: 'sumu / juu',
         furigana: 'すむ (su-mu)',
@@ -1348,7 +1348,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k133',
-        front: '思 (おも・う / し - Omo-u / Shi)',
+        front: '思',
         back: "O'ylamoq (To think)",
         romaji: 'omou / shi',
         furigana: 'おもう (omo-u)',
@@ -1358,7 +1358,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k134',
-        front: '使 (つか・う / し - Tsuka-u / Shi)',
+        front: '使',
         back: 'Ishlatmoq, Foydalanmoq (To use)',
         romaji: 'tsukau / shi',
         furigana: 'つかう (tsuka-u)',
@@ -1368,7 +1368,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k135',
-        front: '作 (つく・る / さく - Tsuku-ru / Saku)',
+        front: '作',
         back: 'Yasamoq, Tayyorlamoq (To make)',
         romaji: 'tsukuru / saku',
         furigana: 'つくる (tsuku-ru)',
@@ -1378,7 +1378,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k136',
-        front: '品 (しな / ひん - Shina / Hin)',
+        front: '品',
         back: 'Mahsulot, Buyum (Goods, Article)',
         romaji: 'shina / hin',
         furigana: 'しな (shina)',
@@ -1388,7 +1388,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k137',
-        front: '長 (なが・い / ちょう - Naga-i / Chou)',
+        front: '長',
         back: 'Uzun, Rahbar (Long, Leader)',
         romaji: 'nagai / chou',
         furigana: 'ながい (naga-i)',
@@ -1398,7 +1398,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k138',
-        front: '明 (あか・るい / めい - Aka-rui / Mei)',
+        front: '明',
         back: "Yorug', Ravshan (Bright, Clear)",
         romaji: 'akarui / mei',
         furigana: 'あかるい (aka-rui)',
@@ -1408,7 +1408,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k139',
-        front: '肉 (にく - Niku)',
+        front: '肉',
         back: "Go'sht (Meat)",
         romaji: 'niku',
         furigana: '-',
@@ -1418,7 +1418,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k140',
-        front: '問 (とい / もん - Toi / Mon)',
+        front: '問',
         back: 'Savol, Muammo (Question, Problem)',
         romaji: 'toi / mon',
         furigana: 'とう (to-u)',
@@ -1428,7 +1428,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k141',
-        front: '答 (こた・え / とう - Kota-e / Tou)',
+        front: '答',
         back: 'Javob, Javob bermoq (Answer)',
         romaji: 'kotae / tou',
         furigana: 'こたえる (kota-eru)',
@@ -1438,7 +1438,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k142',
-        front: '心 (こころ / しん - Kokoro / Shin)',
+        front: '心',
         back: 'Qalb, Yurak (Heart, Mind)',
         romaji: 'kokoro / shin',
         furigana: 'こころ (kokoro)',
@@ -1448,7 +1448,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k143',
-        front: '配 (くば・る / はい - Kuba-ru / Hai)',
+        front: '配',
         back: 'Tarqatmoq, Xavotir (Distribute)',
         romaji: 'kubaru / hai',
         furigana: 'くばる (kuba-ru)',
@@ -1458,7 +1458,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k144',
-        front: '売 (う・る / ばい - U-ru / Bai)',
+        front: '売',
         back: 'Sotmoq (To sell)',
         romaji: 'uru / bai',
         furigana: 'うる (u-ru)',
@@ -1468,7 +1468,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k145',
-        front: '場 (ば / じょう - Ba / Jou)',
+        front: '場',
         back: 'Joy, Maydon (Place, Location)',
         romaji: 'ba / jou',
         furigana: 'ば (ba)',
@@ -1478,7 +1478,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k146',
-        front: '字 (じ - Ji)',
+        front: '字',
         back: 'Harf, Iyeroglif (Letter, Character)',
         romaji: 'ji',
         furigana: 'あざ (aza)',
@@ -1488,7 +1488,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k147',
-        front: '漢 (かん - Kan)',
+        front: '漢',
         back: 'Xitoy, Xan (Chinese)',
         romaji: 'kan',
         furigana: '-',
@@ -1498,7 +1498,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k148',
-        front: '料 (りょう - Ryou)',
+        front: '料',
         back: "To'lov, Material (Fee, Material)",
         romaji: 'ryou',
         furigana: '-',
@@ -1508,7 +1508,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k149',
-        front: '理 (り - Ri)',
+        front: '理',
         back: 'Mantiq, Sabab (Logic, Reason)',
         romaji: 'ri',
         furigana: '-',
@@ -1518,7 +1518,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k150',
-        front: '主 (おも / しゅ - Omo / Shu)',
+        front: '主',
         back: "Asosiy, Xo'jayin (Main, Master)",
         romaji: 'omo / shu',
         furigana: 'おも (omo)',
@@ -1528,7 +1528,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k151',
-        front: '着 (き・る / つ・く / ちゃく - Ki-ru / Tsu-ku / Chaku)',
+        front: '着',
         back: 'Kiymoq, Yetib kelmoq (To wear, Arrive)',
         romaji: 'kiru / tsuku / chaku',
         furigana: 'きる (ki-ru)',
@@ -1538,7 +1538,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k152',
-        front: '新 (あたら・しい / しん - Atara-shii / Shin)',
+        front: '新',
         back: 'Yangi (New)',
         romaji: 'atarashii / shin',
         furigana: 'あたらしい (atara-shii)',
@@ -1548,7 +1548,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k153',
-        front: '古 (ふる・い / こ - Furu-i / Ko)',
+        front: '古',
         back: 'Eski, Qadimiy (Old)',
         romaji: 'furui / ko',
         furigana: 'ふるい (furu-i)',
@@ -1558,7 +1558,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k154',
-        front: '持 (も・つ / じ - Mo-tsu / Ji)',
+        front: '持',
         back: "Ushlamoq, Bor bo'lmoq (To hold, Have)",
         romaji: 'motsu / ji',
         furigana: 'もつ (mo-tsu)',
@@ -1568,7 +1568,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k155',
-        front: '電 (でん - Den)',
+        front: '電',
         back: 'Elektr (Electricity)',
         romaji: 'den',
         furigana: '-',
@@ -1578,7 +1578,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k156',
-        front: '話 (はな・す / わ - Hana-su / Wa)',
+        front: '話',
         back: 'Gapirmoq, Suhbat (To talk, Story)',
         romaji: 'hanasu / wa',
         furigana: 'はなす (hana-su)',
@@ -1588,7 +1588,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k157',
-        front: '音 (おと / おん - Oto / On)',
+        front: '音',
         back: 'Ovoz, Tovush (Sound, Noise)',
         romaji: 'oto / on',
         furigana: 'おと (oto)',
@@ -1598,7 +1598,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k158',
-        front: '楽 (たの・しい / がく / らく - Tano-shii / Gaku / Raku)',
+        front: '楽',
         back: 'Qiziqarli, Rohatli (Fun, Music)',
         romaji: 'tanoshii / gaku',
         furigana: 'たのしい (tano-shii)',
@@ -1608,7 +1608,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k159',
-        front: '歌 (うた / うた・う - Uta / Uta-u)',
+        front: '歌',
         back: "Qo'shiq, Kuylamoq (Song, To sing)",
         romaji: 'uta / utau',
         furigana: 'うた (uta)',
@@ -1618,7 +1618,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k160',
-        front: '度 (ど / たび - Do / Tabi)',
+        front: '度',
         back: 'Marta, Daraja (Degree, Times)',
         romaji: 'do / tabi',
         furigana: 'たび (tabi)',
@@ -1628,7 +1628,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k161',
-        front: '教 (おし・える / きょう - Oshi-eru / Kyou)',
+        front: '教',
         back: "O'rgatmoq (To teach)",
         romaji: 'oshieru / kyou',
         furigana: 'おしえる (oshi-eru)',
@@ -1638,7 +1638,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k162',
-        front: '習 (なら・う / しゅう - Nara-u / Shuu)',
+        front: '習',
         back: "O'rganmoq (To learn)",
         romaji: 'narau / shuu',
         furigana: 'ならう (nara-u)',
@@ -1648,7 +1648,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k163',
-        front: '貸 (か・す / たい - Ka-su / Tai)',
+        front: '貸',
         back: 'Qarz bermoq, Ijaraga bermoq (To lend)',
         romaji: 'kasu / tai',
         furigana: 'かす (ka-su)',
@@ -1658,7 +1658,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k164',
-        front: '借 (か・りる / しゃく - Ka-riru / Shaku)',
+        front: '借',
         back: 'Qarz olmoq (To borrow)',
         romaji: 'kariru / shaku',
         furigana: 'かりる (ka-riru)',
@@ -1668,7 +1668,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k165',
-        front: '送 (おく・る / そう - Oku-ru / Sou)',
+        front: '送',
         back: "Jo'natmoq (To send)",
         romaji: 'okuru / sou',
         furigana: 'おくる (oku-ru)',
@@ -1678,7 +1678,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k166',
-        front: '強 (つよ・い / きょう - Tsuyo-i / Kyou)',
+        front: '強',
         back: 'Kuchli, Baquvvat (Strong)',
         romaji: 'tsuyoi / kyou',
         furigana: 'つよい (tsuyo-i)',
@@ -1688,7 +1688,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k167',
-        front: '勉 (べん - Ben)',
+        front: '勉',
         back: "G'ayrat qilmoq, O'qimoq (Endeavor)",
         romaji: 'ben',
         furigana: 'つとめる (tsuto-meru)',
@@ -1698,7 +1698,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k168',
-        front: '旅 (たび / りょ - Tabi / Ryo)',
+        front: '旅',
         back: 'Sayohat (Trip, Travel)',
         romaji: 'tabi / ryo',
         furigana: 'たび (tabi)',
@@ -1708,7 +1708,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k169',
-        front: '室 (しつ - Shitsu)',
+        front: '室',
         back: 'Xona (Room)',
         romaji: 'shitsu',
         furigana: 'むろ (muro)',
@@ -1718,7 +1718,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k170',
-        front: '登 (のぼ・る / とう - Nobo-ru / Tou)',
+        front: '登',
         back: "Ko'tarilmoq, Chiqmoq (To climb)",
         romaji: 'noboru / tou',
         furigana: 'のぼる (nobo-ru)',
@@ -1728,7 +1728,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k171',
-        front: '不 (ふ / ぶ - Fu / Bu)',
+        front: '不',
         back: "Inkor qo'shimchasi (Non-, Un-)",
         romaji: 'fu / bu',
         furigana: '-',
@@ -1738,7 +1738,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k172',
-        front: '同 (おな・じ / どう - Ona-ji / Dou)',
+        front: '同',
         back: "Bir xil, O'xshash (Same)",
         romaji: 'onaji / dou',
         furigana: 'おなじ (ona-ji)',
@@ -1748,7 +1748,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k173',
-        front: '言 (い・う / げん - I-u / Gen)',
+        front: '言',
         back: 'Aytmoq, Demoq (To say)',
         romaji: 'iu / gen',
         furigana: 'いう (i-u)',
@@ -1758,7 +1758,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k174',
-        front: '意 (い - I)',
+        front: '意',
         back: "Ma'no, Fikr (Meaning, Intention)",
         romaji: 'i',
         furigana: '-',
@@ -1768,7 +1768,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k175',
-        front: '事 (こと / じ - Koto / Ji)',
+        front: '事',
         back: 'Ish, Masala (Thing, Matter)',
         romaji: 'koto / ji',
         furigana: 'こと (koto)',
@@ -1778,7 +1778,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k176',
-        front: '仕 (し / つかえる - Shi / Tsukaeru)',
+        front: '仕',
         back: 'Xizmat qilmoq, Ish (To serve)',
         romaji: 'shi / tsukaeru',
         furigana: 'つかえる (tsuka-eru)',
@@ -1788,7 +1788,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k177',
-        front: '病 (びょう - Byou)',
+        front: '病',
         back: 'Kasallik (Illness, Sick)',
         romaji: 'byou',
         furigana: 'やむ (ya-mu)',
@@ -1798,7 +1798,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k178',
-        front: '院 (いん - In)',
+        front: '院',
         back: 'Muassasa (Institution)',
         romaji: 'in',
         furigana: '-',
@@ -1808,7 +1808,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k179',
-        front: '医 (い - I)',
+        front: '医',
         back: 'Tibbiyot (Doctor, Medicine)',
         romaji: 'i',
         furigana: '-',
@@ -1818,7 +1818,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k180',
-        front: '者 (もの / しゃ - Mono / Sha)',
+        front: '者',
         back: 'Kishi, Shaxs (Person, Someone)',
         romaji: 'mono / sha',
         furigana: 'もの (mono)',
@@ -1828,7 +1828,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k181',
-        front: '堂 (どう - Dou)',
+        front: '堂',
         back: 'Zal, Katta xona (Hall)',
         romaji: 'dou',
         furigana: '-',
@@ -1838,7 +1838,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k182',
-        front: '屋 (や / おく - Ya / Oku)',
+        front: '屋',
         back: "Do'kon, Xona (Shop, Room)",
         romaji: 'ya / oku',
         furigana: 'や (ya)',
@@ -1848,7 +1848,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k183',
-        front: '用 (よう - You)',
+        front: '用',
         back: 'Foydalanmoq, Ish (To use, Business)',
         romaji: 'you',
         furigana: 'もちいる (mochi-iru)',
@@ -1858,7 +1858,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k184',
-        front: '有 (ゆう / ある - Yuu / Aru)',
+        front: '有',
         back: "Bor bo'lmoq, Mashhur (To have, Exist)",
         romaji: 'yuu / aru',
         furigana: 'ある (a-ru)',
@@ -1868,7 +1868,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k185',
-        front: '店 (みせ / てん - Mise / Ten)',
+        front: '店',
         back: "Do'kon (Shop, Store)",
         romaji: 'mise / ten',
         furigana: 'みせ (mise)',
@@ -1878,7 +1878,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k186',
-        front: '民 (みん / たみ - Min / Tami)',
+        front: '民',
         back: 'Xalq, Fuqaro (People, Nation)',
         romaji: 'min / tami',
         furigana: 'たみ (tami)',
@@ -1888,7 +1888,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k187',
-        front: '正 (ただ・しい / せい / しょう - Tada-shii / Sei / Shou)',
+        front: '正',
         back: "To'g'ri, Aniq (Correct, Right)",
         romaji: 'tadashii / sei',
         furigana: 'ただしい (tada-shii)',
@@ -1898,7 +1898,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k188',
-        front: '銀 (ぎん - Gin)',
+        front: '銀',
         back: 'Kumush (Silver)',
         romaji: 'gin',
         furigana: '-',
@@ -1908,7 +1908,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k189',
-        front: '図 (ず / と - Zu / To)',
+        front: '図',
         back: 'Xarita, Chizma (Drawing, Map)',
         romaji: 'zu / to',
         furigana: 'はかる (haka-ru)',
@@ -1918,7 +1918,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k190',
-        front: '館 (かん - Kan)',
+        front: '館',
         back: 'Katta bino, Saroy (Building, Hall)',
         romaji: 'kan',
         furigana: 'やかた (yakata)',
@@ -1928,7 +1928,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k191',
-        front: '道 (みち / どう - Michi / Dou)',
+        front: '道',
         back: "Yo'l (Road, Way)",
         romaji: 'michi / dou',
         furigana: 'みち (michi)',
@@ -1938,7 +1938,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k192',
-        front: '動 (うご・く / どう - Ugo-ku / Dou)',
+        front: '動',
         back: 'Harakatlanmoq (To move)',
         romaji: 'ugoku / dou',
         furigana: 'うごく (ugo-ku)',
@@ -1948,7 +1948,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k193',
-        front: '建 (た・てる / けん - Ta-teru / Ken)',
+        front: '建',
         back: 'Qurmoq (To build)',
         romaji: 'tateru / ken',
         furigana: 'たてる (ta-teru)',
@@ -1958,7 +1958,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k194',
-        front: '特 (とく - Toku)',
+        front: '特',
         back: 'Maxsus, Alohida (Special)',
         romaji: 'toku',
         furigana: '-',
@@ -1968,7 +1968,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k195',
-        front: '終 (お・わる / しゅう - O-waru / Shuu)',
+        front: '終',
         back: 'Tugamoq, Tugatmoq (To end, Finish)',
         romaji: 'owaru / shuu',
         furigana: 'おわる (o-waru)',
@@ -1978,7 +1978,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k196',
-        front: '駅 (えき - Eki)',
+        front: '駅',
         back: 'Vokzal, Bekat (Station)',
         romaji: 'eki',
         furigana: '-',
@@ -1988,7 +1988,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k197',
-        front: '写 (うつ・す / しゃ - Utsu-su / Sha)',
+        front: '写',
         back: 'Rasmga olmoq, Nusxalamoq (Copy, Photograph)',
         romaji: 'utsusu / sha',
         furigana: 'うつす (utsu-su)',
@@ -1998,7 +1998,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k198',
-        front: '真 (ま / しん - Ma / Shin)',
+        front: '真',
         back: 'Haqiqiy, Rost (True, Reality)',
         romaji: 'ma / shin',
         furigana: 'ま (ma)',
@@ -2008,7 +2008,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k199',
-        front: '牛 (うし / ぎゅう - Ushi / Gyuu)',
+        front: '牛',
         back: 'Sigir, Mol (Cow, Cattle)',
         romaji: 'ushi / gyuu',
         furigana: 'うし (ushi)',
@@ -2018,7 +2018,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k200',
-        front: '員 (いん - In)',
+        front: '員',
         back: "Xodim, A'zo (Member, Employee)",
         romaji: 'in',
         furigana: '-',
@@ -2028,7 +2028,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k201',
-        front: '林 (はやし / りん - Hayashi / Rin)',
+        front: '林',
         back: "To'qayzor, Kichik o'rmon (Grove)",
         romaji: 'hayashi / rin',
         furigana: 'はやし (hayashi)',
@@ -2038,7 +2038,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k202',
-        front: '森 (もり / しん - Mori / Shin)',
+        front: '森',
         back: "O'rmon (Forest)",
         romaji: 'mori / shin',
         furigana: 'もり (mori)',
@@ -2048,7 +2048,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k203',
-        front: '田 (た / でん - Ta / Den)',
+        front: '田',
         back: 'Sholizor (Rice field)',
         romaji: 'ta / den',
         furigana: 'た (ta)',
@@ -2058,7 +2058,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k204',
-        front: '考 (かんが・える / こう - Kanga-eru / Kou)',
+        front: '考',
         back: "O'ylamoq, Mulohaza qilmoq (To consider)",
         romaji: 'kangaeru / kou',
         furigana: 'かんがえる (kanga-eru)',
@@ -2068,7 +2068,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k205',
-        front: '規 (き - Ki)',
+        front: '規',
         back: 'Qoida, Mezon (Rule, Standard)',
         romaji: 'ki',
         furigana: '-',
@@ -2078,7 +2078,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k206',
-        front: '切 (き・る / せつ - Ki-ru / Setsu)',
+        front: '切',
         back: 'Kesmoq (To cut)',
         romaji: 'kiru / setsu',
         furigana: 'きる (ki-ru)',
@@ -2088,7 +2088,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k207',
-        front: '試 (ため・す / し - Tame-su / Shi)',
+        front: '試',
         back: "Sinab ko'rmoq (To test, Try)",
         romaji: 'tamesu / shi',
         furigana: 'こころみる (kokoro-miru)',
@@ -2098,7 +2098,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k208',
-        front: '験 (けん - Ken)',
+        front: '験',
         back: 'Tajriba, Sinov (Test, Experience)',
         romaji: 'ken',
         furigana: '-',
@@ -2108,7 +2108,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k209',
-        front: '部 (ぶ - Bu)',
+        front: '部',
         back: "Qism, Bo'lim (Part, Section)",
         romaji: 'bu',
         furigana: '-',
@@ -2118,7 +2118,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k210',
-        front: '文 (ぶん / もん - Bun / Mon)',
+        front: '文',
         back: 'Gap, Jumla, Yozuv (Sentence, Text)',
         romaji: 'bun / mon',
         furigana: 'ふみ (fumi)',
@@ -2128,7 +2128,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k211',
-        front: '歳 (さい - Sai)',
+        front: '歳',
         back: 'Yosh (Age, Years old)',
         romaji: 'sai',
         furigana: 'とし (toshi)',
@@ -2138,7 +2138,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k212',
-        front: '留 (りゅう / とめる - Ryuu / Tomeru)',
+        front: '留',
         back: "Qolmoq, Chetda o'qimoq (To stay)",
         romaji: 'ryuu / tomeru',
         furigana: 'とまる (to-maru)',
@@ -2148,7 +2148,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k213',
-        front: '議 (ぎ - Gi)',
+        front: '議',
         back: 'Muhokama, Majlis (Discussion, Council)',
         romaji: 'gi',
         furigana: '-',
@@ -2158,7 +2158,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k214',
-        front: '散 (さん / ちる - San / Chiru)',
+        front: '散',
         back: 'Tarqalmoq, Sayr (Scatter, Stroll)',
         romaji: 'san / chiru',
         furigana: 'ちる (chi-ru)',
@@ -2168,7 +2168,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k215',
-        front: '浴 (あ・びる / よく - A-biru / Yoku)',
+        front: '浴',
         back: "Cho'milmoq, Dush qabul qilmoq (To bathe)",
         romaji: 'abiru / yoku',
         furigana: 'あびる (a-biru)',
@@ -2178,7 +2178,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k216',
-        front: '降 (お・りる / ふ・る / こう - O-riru / Fu-ru / Kou)',
+        front: '降',
         back: "Tushmoq, Yog'moq (Descend, Fall)",
         romaji: 'oriru / furu / kou',
         furigana: 'おりる (o-riru)',
@@ -2188,7 +2188,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k217',
-        front: '階 (かい - Kai)',
+        front: '階',
         back: "Qavat, Pog'ona (Storey, Floor)",
         romaji: 'kai',
         furigana: '-',
@@ -2198,7 +2198,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-k218',
-        front: '億 (おく - Oku)',
+        front: '億',
         back: 'Yuz million, 100,000,000 (Hundred million)',
         romaji: 'oku',
         furigana: '-',
@@ -2235,7 +2235,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-v3',
-        front: '食べる (たべる)',
+        front: '食べる',
         back: 'Yemoq (To eat)',
         romaji: 'taberu',
         furigana: 'たべる',
@@ -2245,7 +2245,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n5-v4',
-        front: '行く (いく)',
+        front: '行く',
         back: 'Bormoq (To go)',
         romaji: 'iku',
         furigana: 'いく',
@@ -2264,7 +2264,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
     cards: [
       {
         id: 'n4-k1',
-        front: '不 (フ)',
+        front: '不',
         back: 'Emas, inkor, no- (No-, not, non-)',
         romaji: 'fu, bu',
         furigana: 'フ',
@@ -2274,7 +2274,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k2',
-        front: '世 (よ)',
+        front: '世',
         back: 'Dunyo, zamon, avlod (World, generation)',
         romaji: 'yo',
         furigana: 'よ',
@@ -2284,7 +2284,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k3',
-        front: '主 (おも)',
+        front: '主',
         back: "Asosiy, xo'jayin (Main, master)",
         romaji: 'omo, nushi',
         furigana: 'おも',
@@ -2294,7 +2294,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k4',
-        front: '乗 (のる)',
+        front: '乗',
         back: 'Minmoq, chiqmoq (Ride, board)',
         romaji: 'no-ru, no-seru',
         furigana: 'のる',
@@ -2304,7 +2304,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k5',
-        front: '事 (こと)',
+        front: '事',
         back: 'Ish, hodisa, narsa (Thing, matter, accident)',
         romaji: 'koto',
         furigana: 'こと',
@@ -2314,7 +2314,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k6',
-        front: '京 (みやこ)',
+        front: '京',
         back: 'Poytaxt (Capital)',
         romaji: 'miyako',
         furigana: 'みやこ',
@@ -2324,7 +2324,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k7',
-        front: '仕 (つかえる)',
+        front: '仕',
         back: 'Xizmat qilmoq, ish (Serve, doing)',
         romaji: 'tsuka-eru',
         furigana: 'つかえる',
@@ -2334,7 +2334,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k8',
-        front: '代 (かわる)',
+        front: '代',
         back: "O'rinbosar, davr, narx (Substitute, era, fee)",
         romaji: 'ka-waru, ka-eru, yo, shiro',
         furigana: 'かわる',
@@ -2344,7 +2344,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k9',
-        front: '以 (イ)',
+        front: '以',
         back: '...dan boshlab, orqali (By means of, since)',
         romaji: 'i',
         furigana: 'イ',
@@ -2354,7 +2354,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k10',
-        front: '低 (ひくい)',
+        front: '低',
         back: 'Past (Low, short)',
         romaji: 'hiku-i, hiku-meru',
         furigana: 'ひくい',
@@ -2364,7 +2364,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k11',
-        front: '住 (すむ)',
+        front: '住',
         back: 'Yashamoq (Live, reside)',
         romaji: 'su-mu, su-mau',
         furigana: 'すむ',
@@ -2374,7 +2374,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k12',
-        front: '体 (からだ)',
+        front: '体',
         back: 'Tana, gavda (Body)',
         romaji: 'karada',
         furigana: 'からだ',
@@ -2384,7 +2384,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k13',
-        front: '作 (つくる)',
+        front: '作',
         back: 'Yasamoq, tayyorlamoq (Make, create)',
         romaji: 'tsuku-ru',
         furigana: 'つくる',
@@ -2394,7 +2394,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k14',
-        front: '使 (つかう)',
+        front: '使',
         back: 'Ishlatmoq, elchi (Use, messenger)',
         romaji: 'tsuka-u',
         furigana: 'つかう',
@@ -2404,7 +2404,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k15',
-        front: '便 (たより)',
+        front: '便',
         back: 'Qulaylik, pochta (Convenience, mail)',
         romaji: 'tayo-ri',
         furigana: 'たより',
@@ -2414,7 +2414,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k16',
-        front: '借 (かりる)',
+        front: '借',
         back: 'Qarzga olmoq (Borrow)',
         romaji: 'ka-riru',
         furigana: 'かりる',
@@ -2424,7 +2424,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k17',
-        front: '働 (はたらく)',
+        front: '働',
         back: 'Ishlamoq, mehnat qilmoq (Work)',
         romaji: 'hatara-ku',
         furigana: 'はたらく',
@@ -2434,7 +2434,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k18',
-        front: '元 (もと)',
+        front: '元',
         back: "Asos, boshlang'ich, tetik (Origin, health)",
         romaji: 'moto',
         furigana: 'もと',
@@ -2444,7 +2444,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k19',
-        front: '兄 (あに)',
+        front: '兄',
         back: 'Aka (Older brother)',
         romaji: 'ani',
         furigana: 'あに',
@@ -2454,7 +2454,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k20',
-        front: '光 (ひかる)',
+        front: '光',
         back: "Nur, yorug'lik (Light, ray)",
         romaji: 'hika-ru, hikari',
         furigana: 'ひかる',
@@ -2464,7 +2464,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k21',
-        front: '写 (うつす)',
+        front: '写',
         back: 'Nusxa olmoq, rasmga olmoq (Copy, photograph)',
         romaji: 'utsu-su, utsu-ru',
         furigana: 'うつす',
@@ -2474,7 +2474,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k22',
-        front: '冬 (ふゆ)',
+        front: '冬',
         back: 'Qish (Winter)',
         romaji: 'fuyu',
         furigana: 'ふゆ',
@@ -2484,7 +2484,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k23',
-        front: '切 (きる)',
+        front: '切',
         back: 'Kesmoq (Cut)',
         romaji: 'ki-ru, ki-reru',
         furigana: 'きる',
@@ -2494,7 +2494,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k24',
-        front: '別 (わかれる)',
+        front: '別',
         back: 'Boshqa, ajralmoq (Separate, another)',
         romaji: 'waka-reru',
         furigana: 'わかれる',
@@ -2504,7 +2504,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k25',
-        front: '力 (ちから)',
+        front: '力',
         back: 'Kuch, quvvat (Power, strength)',
         romaji: 'chikara',
         furigana: 'ちから',
@@ -2514,7 +2514,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k26',
-        front: '勉 (つとめる)',
+        front: '勉',
         back: "Tirishmoq, g'ayrat (Endeavor, strive)",
         romaji: 'tsuto-meru',
         furigana: 'つとめる',
@@ -2524,7 +2524,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k27',
-        front: '動 (うごく)',
+        front: '動',
         back: 'Qimirlamoq, harakatlanmoq (Move)',
         romaji: 'ugo-ku, ugo-kasu',
         furigana: 'うごく',
@@ -2534,7 +2534,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k28',
-        front: '区 (ク)',
+        front: '区',
         back: 'Tuman, hudud (Ward, district)',
         romaji: 'ku',
         furigana: 'ク',
@@ -2544,7 +2544,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k29',
-        front: '医 (イ)',
+        front: '医',
         back: 'Tibbiyot, davolash (Medicine, doctor)',
         romaji: 'i',
         furigana: 'イ',
@@ -2554,7 +2554,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k30',
-        front: '去 (さる)',
+        front: '去',
         back: "O'tgan, tark etmoq (Past, leave)",
         romaji: 'sa-ru',
         furigana: 'さる',
@@ -2564,7 +2564,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k31',
-        front: '台 (ダイ)',
+        front: '台',
         back: "Taglik, apparat sanog'i (Platform, counter for machines)",
         romaji: 'dai, tai',
         furigana: 'ダイ',
@@ -2574,7 +2574,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k32',
-        front: '合 (あう)',
+        front: '合',
         back: "Birlashmoq, to'g'ri kelmoq (Fit, match, join)",
         romaji: 'a-u, a-waseru',
         furigana: 'あう',
@@ -2584,7 +2584,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k33',
-        front: '同 (おなじ)',
+        front: '同',
         back: 'Bir xil, teng (Same)',
         romaji: 'ona-ji',
         furigana: 'おなじ',
@@ -2594,7 +2594,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k34',
-        front: '味 (あじ)',
+        front: '味',
         back: "Ta'm, maza, ma'no (Flavor, taste)",
         romaji: 'aji, aji-wau',
         furigana: 'あじ',
@@ -2604,7 +2604,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k35',
-        front: '品 (しな)',
+        front: '品',
         back: 'Mahsulot, tovar (Goods, refinement)',
         romaji: 'shina',
         furigana: 'しな',
@@ -2614,7 +2614,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k36',
-        front: '員 (イン)',
+        front: '員',
         back: "Xodim, a'zo (Member, employee)",
         romaji: 'in',
         furigana: 'イン',
@@ -2624,7 +2624,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k37',
-        front: '問 (とう)',
+        front: '問',
         back: "Savol, so'ramoq (Question, ask)",
         romaji: 'to-u, to-i',
         furigana: 'とう',
@@ -2634,7 +2634,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k38',
-        front: '回 (まわる)',
+        front: '回',
         back: 'Aylanmoq, marta (Times, turn)',
         romaji: 'mawa-ru, mawa-su',
         furigana: 'まわる',
@@ -2644,7 +2644,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k39',
-        front: '図 (はかる)',
+        front: '図',
         back: 'Chizma, reja (Drawing, plan)',
         romaji: 'haka-ru',
         furigana: 'はかる',
@@ -2654,7 +2654,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k40',
-        front: '地 (チ)',
+        front: '地',
         back: 'Yer, zamin (Earth, ground)',
         romaji: 'chi, ji',
         furigana: 'チ',
@@ -2664,7 +2664,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k41',
-        front: '堂 (ドウ)',
+        front: '堂',
         back: 'Zal, bino (Hall, shrine)',
         romaji: 'dou',
         furigana: 'ドウ',
@@ -2674,7 +2674,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k42',
-        front: '場 (ば)',
+        front: '場',
         back: 'Joy, maydon (Place, location)',
         romaji: 'ba',
         furigana: 'ば',
@@ -2684,7 +2684,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k43',
-        front: '声 (こえ)',
+        front: '声',
         back: 'Ovoz (Voice)',
         romaji: 'koe',
         furigana: 'こえ',
@@ -2694,7 +2694,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k44',
-        front: '売 (うる)',
+        front: '売',
         back: 'Sotmoq (Sell)',
         romaji: 'u-ru, u-reru',
         furigana: 'うる',
@@ -2704,7 +2704,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k45',
-        front: '夏 (なつ)',
+        front: '夏',
         back: 'Yoz (Summer)',
         romaji: 'natsu',
         furigana: 'なつ',
@@ -2714,7 +2714,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k46',
-        front: '夕 (ゆう)',
+        front: '夕',
         back: 'Oqshom, shom (Evening)',
         romaji: 'yuu',
         furigana: 'ゆう',
@@ -2724,7 +2724,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k47',
-        front: '夜 (よる)',
+        front: '夜',
         back: 'Tun, kecha (Night)',
         romaji: 'yoru, yo',
         furigana: 'よる',
@@ -2734,7 +2734,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k48',
-        front: '太 (ふとい)',
+        front: '太',
         back: "Semiz, yo'g'on (Fat, thick)",
         romaji: 'futo-i, futo-ru',
         furigana: 'ふとい',
@@ -2744,7 +2744,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k49',
-        front: '好 (すき)',
+        front: '好',
         back: 'Yoqtirmoq (Like, fond of)',
         romaji: 'su-ki, kono-mu',
         furigana: 'すき',
@@ -2754,7 +2754,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k50',
-        front: '妹 (いもうと)',
+        front: '妹',
         back: 'Singil (Younger sister)',
         romaji: 'imouto',
         furigana: 'いもうと',
@@ -2764,7 +2764,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k51',
-        front: '姉 (あね)',
+        front: '姉',
         back: 'Opa (Older sister)',
         romaji: 'ane',
         furigana: 'あね',
@@ -2774,7 +2774,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k52',
-        front: '始 (はじまる)',
+        front: '始',
         back: 'Boshlanmoq, boshlamoq (Begin, start)',
         romaji: 'haji-maru, haji-meru',
         furigana: 'はじまる',
@@ -2784,7 +2784,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k53',
-        front: '字 (あざ)',
+        front: '字',
         back: 'Harf, yozuv (Letter, character)',
         romaji: 'aza',
         furigana: 'あざ',
@@ -2794,7 +2794,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k54',
-        front: '室 (むろ)',
+        front: '室',
         back: 'Xona (Room)',
         romaji: 'muro',
         furigana: 'むろ',
@@ -2804,7 +2804,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k55',
-        front: '家 (いえ)',
+        front: '家',
         back: 'Uy, oila (House, family)',
         romaji: 'ie, ya',
         furigana: 'いえ',
@@ -2814,7 +2814,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k56',
-        front: '寒 (さむい)',
+        front: '寒',
         back: 'Sovuq (havo) (Cold)',
         romaji: 'samu-i',
         furigana: 'さむい',
@@ -2824,7 +2824,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k57',
-        front: '屋 (や)',
+        front: '屋',
         back: "Tom, do'kon, xona (Roof, shop)",
         romaji: 'ya',
         furigana: 'や',
@@ -2834,7 +2834,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k58',
-        front: '工 (コウ)',
+        front: '工',
         back: 'Muhandislik, hunar (Craft, construction)',
         romaji: 'kou, ku',
         furigana: 'コウ',
@@ -2844,7 +2844,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k59',
-        front: '市 (いち)',
+        front: '市',
         back: 'Shahar, bozor (City, market)',
         romaji: 'ichi',
         furigana: 'いち',
@@ -2854,7 +2854,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k60',
-        front: '帰 (かえる)',
+        front: '帰',
         back: 'Qaytmoq (Return)',
         romaji: 'kae-ru, kae-su',
         furigana: 'かえる',
@@ -2864,7 +2864,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k61',
-        front: '広 (ひろい)',
+        front: '広',
         back: 'Keng (Wide, spacious)',
         romaji: 'hiro-i, hiro-garu',
         furigana: 'ひろい',
@@ -2874,7 +2874,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k62',
-        front: '度 (たび)',
+        front: '度',
         back: 'Daraja, marta (Degree, time)',
         romaji: 'tabi',
         furigana: 'たび',
@@ -2884,7 +2884,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k63',
-        front: '建 (たてる)',
+        front: '建',
         back: 'Qurmoq (Build)',
         romaji: 'ta-teru, ta-tsu',
         furigana: 'たてる',
@@ -2894,7 +2894,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k64',
-        front: '引 (ひく)',
+        front: '引',
         back: 'Tortmoq (Pull)',
         romaji: 'hi-ku, hi-keru',
         furigana: 'ひく',
@@ -2904,7 +2904,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k65',
-        front: '弟 (おとうと)',
+        front: '弟',
         back: 'Uka (Younger brother)',
         romaji: 'otouto',
         furigana: 'おとうと',
@@ -2914,7 +2914,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k66',
-        front: '弱 (よわい)',
+        front: '弱',
         back: 'Zaif, kuchsiz (Weak)',
         romaji: 'yowa-i, yowa-ru',
         furigana: 'よわい',
@@ -2924,7 +2924,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k67',
-        front: '強 (つよい)',
+        front: '強',
         back: 'Kuchli (Strong)',
         romaji: 'tsuyo-i, tsuyo-maru',
         furigana: 'つよい',
@@ -2934,7 +2934,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k68',
-        front: '待 (まつ)',
+        front: '待',
         back: 'Kutmoq (Wait)',
         romaji: 'ma-tsu',
         furigana: 'まつ',
@@ -2944,7 +2944,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k69',
-        front: '心 (こころ)',
+        front: '心',
         back: 'Qalb, yurak (Heart, mind)',
         romaji: 'kokoro',
         furigana: 'こころ',
@@ -2954,7 +2954,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k70',
-        front: '思 (おもう)',
+        front: '思',
         back: "O'ylamoq (Think)",
         romaji: 'omo-u',
         furigana: 'おもう',
@@ -2964,7 +2964,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k71',
-        front: '急 (いそぐ)',
+        front: '急',
         back: "Shoshilmoq, to'satdan (Hurry, sudden)",
         romaji: 'iso-gu',
         furigana: 'いそぐ',
@@ -2974,7 +2974,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k72',
-        front: '悪 (わるい)',
+        front: '悪',
         back: 'Yomon (Bad)',
         romaji: 'waru-i',
         furigana: 'わるい',
@@ -2984,7 +2984,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k73',
-        front: '意 (イ)',
+        front: '意',
         back: "Fikr, ma'no, niyat (Mind, meaning)",
         romaji: 'i',
         furigana: 'イ',
@@ -2994,7 +2994,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k74',
-        front: '所 (ところ)',
+        front: '所',
         back: 'Joy, makon (Place)',
         romaji: 'tokoro',
         furigana: 'ところ',
@@ -3004,7 +3004,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k75',
-        front: '持 (もつ)',
+        front: '持',
         back: "Ushlamoq, ega bo'lmoq (Hold, possess)",
         romaji: 'mo-tsu, mo-teru',
         furigana: 'もつ',
@@ -3014,7 +3014,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k76',
-        front: '教 (おしえる)',
+        front: '教',
         back: "O'rgatmoq, ta'lim (Teach, religion)",
         romaji: 'oshi-eru, oso-waru',
         furigana: 'おしえる',
@@ -3024,7 +3024,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k77',
-        front: '文 (ふみ)',
+        front: '文',
         back: 'Matn, jumla, adabiyot (Sentence, literature)',
         romaji: 'fumi',
         furigana: 'ふみ',
@@ -3034,7 +3034,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k78',
-        front: '料 (リョウ)',
+        front: '料',
         back: "To'lov, xomashyo (Fee, ingredients)",
         romaji: 'ryou',
         furigana: 'リョウ',
@@ -3044,7 +3044,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k79',
-        front: '方 (かた)',
+        front: '方',
         back: 'Tomon, shaxs, usul (Direction, person, way)',
         romaji: 'kata',
         furigana: 'かた',
@@ -3054,7 +3054,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k80',
-        front: '旅 (たび)',
+        front: '旅',
         back: 'Sayohat (Travel, trip)',
         romaji: 'tabi',
         furigana: 'たび',
@@ -3064,7 +3064,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k81',
-        front: '族 (ゾク)',
+        front: '族',
         back: 'Oila, toifa (Family, tribe)',
         romaji: 'zoku',
         furigana: 'ゾク',
@@ -3074,7 +3074,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k82',
-        front: '早 (はやい)',
+        front: '早',
         back: 'Erta, tez (Early, fast)',
         romaji: 'haya-i, haya-maru',
         furigana: 'はやい',
@@ -3084,7 +3084,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k83',
-        front: '明 (あかるい)',
+        front: '明',
         back: "Yorug', ravshan (Bright, clear)",
         romaji: 'aka-rui, aki-raka',
         furigana: 'あかるい',
@@ -3094,7 +3094,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k84',
-        front: '映 (うつる)',
+        front: '映',
         back: 'Aks ettirmoq, proyeksiyalamoq (Reflect, project)',
         romaji: 'utsu-ru, utsu-su, ha-eru',
         furigana: 'うつる',
@@ -3104,7 +3104,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k85',
-        front: '春 (はる)',
+        front: '春',
         back: 'Bahor (Spring)',
         romaji: 'haru',
         furigana: 'はる',
@@ -3114,7 +3114,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k86',
-        front: '昼 (ひる)',
+        front: '昼',
         back: 'Kunduz, tush (Noon, daytime)',
         romaji: 'hiru',
         furigana: 'ひる',
@@ -3124,7 +3124,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k87',
-        front: '暑 (あつい)',
+        front: '暑',
         back: 'Issiq (havo) (Hot weather)',
         romaji: 'atsu-i',
         furigana: 'あつい',
@@ -3134,7 +3134,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k88',
-        front: '暗 (くらい)',
+        front: '暗',
         back: "Qorong'i (Dark)",
         romaji: 'kura-i',
         furigana: 'くらい',
@@ -3144,7 +3144,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k89',
-        front: '曜 (ヨウ)',
+        front: '曜',
         back: 'Hafta kuni (Day of week)',
         romaji: 'you',
         furigana: 'ヨウ',
@@ -3154,7 +3154,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k90',
-        front: '有 (ある)',
+        front: '有',
         back: "Bor, mavjud bo'lmoq (Have, exist)",
         romaji: 'a-ru',
         furigana: 'ある',
@@ -3164,7 +3164,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k91',
-        front: '服 (フク)',
+        front: '服',
         back: 'Kiyim, itoat qilmoq (Clothes)',
         romaji: 'fuku',
         furigana: 'フク',
@@ -3174,7 +3174,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k92',
-        front: '朝 (あさ)',
+        front: '朝',
         back: 'Tong, ertalab (Morning)',
         romaji: 'asa',
         furigana: 'あさ',
@@ -3184,7 +3184,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k93',
-        front: '村 (むら)',
+        front: '村',
         back: 'Qishloq (Village)',
         romaji: 'mura',
         furigana: 'むら',
@@ -3194,7 +3194,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k94',
-        front: '林 (はやし)',
+        front: '林',
         back: "O'rmoncha, daraxtzor (Grove, woods)",
         romaji: 'hayashi',
         furigana: 'はやし',
@@ -3204,7 +3204,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k95',
-        front: '森 (もり)',
+        front: '森',
         back: "Katta o'rmon (Forest)",
         romaji: 'mori',
         furigana: 'もり',
@@ -3214,7 +3214,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k96',
-        front: '業 (わざ)',
+        front: '業',
         back: 'Ish, sanoat, kasb (Business, industry)',
         romaji: 'waza',
         furigana: 'わざ',
@@ -3224,7 +3224,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k97',
-        front: '楽 (たのしい)',
+        front: '楽',
         back: 'Musiqa, quvonch, qulay (Music, fun, ease)',
         romaji: 'tano-shii, tano-shimu',
         furigana: 'たのしい',
@@ -3234,7 +3234,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k98',
-        front: '歌 (うた)',
+        front: '歌',
         back: "Qo'shiq, kuylamoq (Song, sing)",
         romaji: 'uta, uta-u',
         furigana: 'うた',
@@ -3244,7 +3244,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k99',
-        front: '止 (とまる)',
+        front: '止',
         back: "To'xtamoq (Stop)",
         romaji: 'to-maru, to-meru',
         furigana: 'とまる',
@@ -3254,7 +3254,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k100',
-        front: '正 (ただしい)',
+        front: '正',
         back: "To'g'ri, adolatli (Correct, right)",
         romaji: 'tada-shii, tada-su, masa',
         furigana: 'ただしい',
@@ -3264,7 +3264,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k101',
-        front: '歩 (あるく)',
+        front: '歩',
         back: 'Yurmoq, qadam (Walk, step)',
         romaji: 'aru-ku, ayu-mu',
         furigana: 'あるく',
@@ -3274,7 +3274,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k102',
-        front: '死 (しぬ)',
+        front: '死',
         back: "O'lmoq, o'lim (Death, die)",
         romaji: 'shi-nu',
         furigana: 'しぬ',
@@ -3284,7 +3284,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k103',
-        front: '民 (たみ)',
+        front: '民',
         back: 'Xalq, aholi (People, citizen)',
         romaji: 'tami',
         furigana: 'たみ',
@@ -3294,7 +3294,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k104',
-        front: '池 (いけ)',
+        front: '池',
         back: 'Hovuz (Pond)',
         romaji: 'ike',
         furigana: 'いけ',
@@ -3304,7 +3304,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k105',
-        front: '注 (そそぐ)',
+        front: '注',
         back: "Quymoq, e'tibor (Pour, concentrate)",
         romaji: 'soso-gu',
         furigana: 'そそぐ',
@@ -3314,7 +3314,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k106',
-        front: '洋 (ヨウ)',
+        front: '洋',
         back: "Okean, g'arbcha (Ocean, western)",
         romaji: 'you',
         furigana: 'ヨウ',
@@ -3324,7 +3324,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k107',
-        front: '洗 (あらう)',
+        front: '洗',
         back: 'Yuvmoq (Wash)',
         romaji: 'ara-u',
         furigana: 'あらう',
@@ -3334,7 +3334,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k108',
-        front: '海 (うみ)',
+        front: '海',
         back: 'Dengiz (Sea, ocean)',
         romaji: 'umi',
         furigana: 'うみ',
@@ -3344,7 +3344,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k109',
-        front: '漢 (カン)',
+        front: '漢',
         back: 'Xitoy (China, Han)',
         romaji: 'kan',
         furigana: 'カン',
@@ -3354,7 +3354,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k110',
-        front: '牛 (うし)',
+        front: '牛',
         back: 'Mol, sigir (Cow, beef)',
         romaji: 'ushi',
         furigana: 'うし',
@@ -3364,7 +3364,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k111',
-        front: '物 (もの)',
+        front: '物',
         back: 'Narsa, buyum (Thing, object)',
         romaji: 'mono',
         furigana: 'もの',
@@ -3374,7 +3374,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k112',
-        front: '特 (トク)',
+        front: '特',
         back: 'Maxsus (Special)',
         romaji: 'toku',
         furigana: 'トク',
@@ -3384,7 +3384,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k113',
-        front: '犬 (いぬ)',
+        front: '犬',
         back: 'It (Dog)',
         romaji: 'inu',
         furigana: 'いぬ',
@@ -3394,7 +3394,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k114',
-        front: '理 (リ)',
+        front: '理',
         back: 'Mantiq, qonuniyat (Reason, logic)',
         romaji: 'ri',
         furigana: 'リ',
@@ -3404,7 +3404,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k115',
-        front: '産 (うむ)',
+        front: '産',
         back: "Tug'moq, ishlab chiqarish (Birth, produce)",
         romaji: 'u-mu, u-mareru',
         furigana: 'うむ',
@@ -3414,7 +3414,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k116',
-        front: '用 (もちいる)',
+        front: '用',
         back: 'Foydalanmoq, vazifa (Use, business)',
         romaji: 'mochi-iru',
         furigana: 'もちいる',
@@ -3424,7 +3424,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k117',
-        front: '田 (た)',
+        front: '田',
         back: 'Sholizor, dala (Rice field)',
         romaji: 'ta',
         furigana: 'た',
@@ -3434,7 +3434,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k118',
-        front: '町 (まち)',
+        front: '町',
         back: 'Shaharcha (Town)',
         romaji: 'machi',
         furigana: 'まち',
@@ -3444,7 +3444,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k119',
-        front: '画 (ガ)',
+        front: '画',
         back: 'Tasvir, reja, chiziq (Picture, plan, stroke)',
         romaji: 'ga, kaku',
         furigana: 'ガ',
@@ -3454,7 +3454,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k120',
-        front: '界 (カイ)',
+        front: '界',
         back: 'Chegara, dunyo (World, boundary)',
         romaji: 'kai',
         furigana: 'カイ',
@@ -3464,7 +3464,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k121',
-        front: '病 (やむ)',
+        front: '病',
         back: 'Kasallik (Illness, disease)',
         romaji: 'ya-mu, yamai',
         furigana: 'やむ',
@@ -3474,7 +3474,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k122',
-        front: '発 (ハツ)',
+        front: '発',
         back: "Boshlanish, jo'nash, ixtiro (Depart, emit)",
         romaji: 'hatsu, hotsu',
         furigana: 'ハツ',
@@ -3484,7 +3484,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k123',
-        front: '県 (ケン)',
+        front: '県',
         back: 'Prefektura, viloyat (Prefecture)',
         romaji: 'ken',
         furigana: 'ケン',
@@ -3494,7 +3494,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k124',
-        front: '真 (ま)',
+        front: '真',
         back: 'Haqiqat, sof (True, reality)',
         romaji: 'ma, makoto',
         furigana: 'ま',
@@ -3504,7 +3504,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k125',
-        front: '着 (きる)',
+        front: '着',
         back: 'Kiymoq, yetib bormoq (Wear, arrive)',
         romaji: 'ki-ru, tsu-ku',
         furigana: 'きる',
@@ -3514,7 +3514,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k126',
-        front: '知 (しる)',
+        front: '知',
         back: 'Bilmoq (Know)',
         romaji: 'shi-ru',
         furigana: 'しる',
@@ -3524,7 +3524,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k127',
-        front: '短 (みじかい)',
+        front: '短',
         back: 'Qisqa (Short)',
         romaji: 'mijika-i',
         furigana: 'みじかい',
@@ -3534,7 +3534,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k128',
-        front: '研 (とぐ)',
+        front: '研',
         back: 'Tadqiqot, sayqallash (Polish, study)',
         romaji: 'to-gu',
         furigana: 'とぐ',
@@ -3544,7 +3544,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k129',
-        front: '私 (わたし)',
+        front: '私',
         back: 'Men, shaxsiy (I, private)',
         romaji: 'watashi, watakushi',
         furigana: 'わたし',
@@ -3554,7 +3554,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k130',
-        front: '秋 (あき)',
+        front: '秋',
         back: 'Kuz (Autumn)',
         romaji: 'aki',
         furigana: 'あき',
@@ -3564,7 +3564,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k131',
-        front: '究 (きわめる)',
+        front: '究',
         back: "Chuqur o'rganish (Research thoroughly)",
         romaji: 'kiwa-meru',
         furigana: 'きわめる',
@@ -3574,7 +3574,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k132',
-        front: '答 (こたえる)',
+        front: '答',
         back: 'Javob bermoq (Answer)',
         romaji: 'kota-eru, kota-e',
         furigana: 'こたえる',
@@ -3584,7 +3584,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k133',
-        front: '紙 (かみ)',
+        front: '紙',
         back: "Qog'oz (Paper)",
         romaji: 'kami',
         furigana: 'かみ',
@@ -3594,7 +3594,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k134',
-        front: '終 (おわる)',
+        front: '終',
         back: 'Tugamoq, tugatmoq (End, finish)',
         romaji: 'o-waru, o-eru',
         furigana: 'おわる',
@@ -3604,7 +3604,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k135',
-        front: '習 (ならう)',
+        front: '習',
         back: "O'rganmoq (Learn)",
         romaji: 'nara-u',
         furigana: 'ならう',
@@ -3614,7 +3614,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k136',
-        front: '考 (かんがえる)',
+        front: '考',
         back: "O'ylamoq, fikr yuritmoq (Think, consider)",
         romaji: 'kanga-eru',
         furigana: 'かんがえる',
@@ -3624,7 +3624,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k137',
-        front: '者 (もの)',
+        front: '者',
         back: 'Kishi, odam (Person)',
         romaji: 'mono',
         furigana: 'もの',
@@ -3634,7 +3634,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k138',
-        front: '肉 (ニク)',
+        front: '肉',
         back: "Go'sht (Meat)",
         romaji: 'niku',
         furigana: 'ニク',
@@ -3644,7 +3644,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k139',
-        front: '自 (みずから)',
+        front: '自',
         back: "O'zi (Self)",
         romaji: 'mizuka-ra',
         furigana: 'みずから',
@@ -3654,7 +3654,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k140',
-        front: '色 (いろ)',
+        front: '色',
         back: 'Rang (Color)',
         romaji: 'iro',
         furigana: 'いろ',
@@ -3664,7 +3664,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k141',
-        front: '英 (エイ)',
+        front: '英',
         back: 'Ingliz, ajoyib (English, brilliant)',
         romaji: 'ei',
         furigana: 'エイ',
@@ -3674,7 +3674,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k142',
-        front: '茶 (チャ)',
+        front: '茶',
         back: 'Choy (Tea)',
         romaji: 'cha, sa',
         furigana: 'チャ',
@@ -3684,7 +3684,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k143',
-        front: '菜 (な)',
+        front: '菜',
         back: "Sabzavot, ko'kat (Vegetable)",
         romaji: 'na',
         furigana: 'な',
@@ -3694,7 +3694,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k144',
-        front: '薬 (くすり)',
+        front: '薬',
         back: 'Dori (Medicine)',
         romaji: 'kusuri',
         furigana: 'くすり',
@@ -3704,7 +3704,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k145',
-        front: '親 (おや)',
+        front: '親',
         back: 'Ota-ona, yaqin (Parent, close)',
         romaji: 'oya, shita-shii',
         furigana: 'おや',
@@ -3714,7 +3714,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k146',
-        front: '計 (はかる)',
+        front: '計',
         back: "O'lchamoq, hisoblamoq (Measure, plan)",
         romaji: 'haka-ru',
         furigana: 'はかる',
@@ -3724,7 +3724,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k147',
-        front: '試 (こころみる)',
+        front: '試',
         back: "Sinab ko'rmoq (Try, test)",
         romaji: 'kokoro-miru, tame-su',
         furigana: 'こころみる',
@@ -3734,7 +3734,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k148',
-        front: '説 (とく)',
+        front: '説',
         back: 'Tushuntirmoq, nazariya (Explain, theory)',
         romaji: 'to-ku',
         furigana: 'とく',
@@ -3744,7 +3744,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k149',
-        front: '貸 (かす)',
+        front: '貸',
         back: 'Qarzga bermoq (Lend)',
         romaji: 'ka-su',
         furigana: 'かす',
@@ -3754,7 +3754,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k150',
-        front: '質 (シツ)',
+        front: '質',
         back: 'Sifat, garov (Quality, matter)',
         romaji: 'shitsu, shichi',
         furigana: 'シツ',
@@ -3764,7 +3764,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k151',
-        front: '赤 (あか)',
+        front: '赤',
         back: 'Qizil (Red)',
         romaji: 'aka, aka-i',
         furigana: 'あか',
@@ -3774,7 +3774,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k152',
-        front: '走 (はしる)',
+        front: '走',
         back: 'Yugurmoq (Run)',
         romaji: 'hashi-ru',
         furigana: 'はしる',
@@ -3784,7 +3784,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k153',
-        front: '起 (おきる)',
+        front: '起',
         back: "Uyg'onmoq, qo'zg'atmoq (Wake up, rise)",
         romaji: 'o-kiru, o-kosu',
         furigana: 'おきる',
@@ -3794,7 +3794,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k154',
-        front: '転 (ころがる)',
+        front: '転',
         back: 'Aylanmoq, yiqilmoq (Revolve, roll)',
         romaji: 'koro-garu, koro-bu',
         furigana: 'ころがる',
@@ -3804,7 +3804,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k155',
-        front: '軽 (かるい)',
+        front: '軽',
         back: 'Yengil (Light)',
         romaji: 'karu-i',
         furigana: 'かるい',
@@ -3814,7 +3814,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k156',
-        front: '近 (ちかい)',
+        front: '近',
         back: 'Yaqin (Near)',
         romaji: 'chika-i',
         furigana: 'ちかい',
@@ -3824,7 +3824,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k157',
-        front: '送 (おくる)',
+        front: '送',
         back: "Jo'natmoq (Send)",
         romaji: 'oku-ru',
         furigana: 'おくる',
@@ -3834,7 +3834,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k158',
-        front: '通 (とおる)',
+        front: '通',
         back: "O'tmoq, qatnamoq (Pass, commute)",
         romaji: 'too-ru, kayo-u',
         furigana: 'とおる',
@@ -3844,7 +3844,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k159',
-        front: '進 (すすむ)',
+        front: '進',
         back: 'Oldinga siljimoq (Advance)',
         romaji: 'susu-mu, susu-meru',
         furigana: 'すすむ',
@@ -3854,7 +3854,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k160',
-        front: '運 (はこぶ)',
+        front: '運',
         back: 'Tashimoq, omad (Carry, luck)',
         romaji: 'hako-bu',
         furigana: 'はこぶ',
@@ -3864,7 +3864,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k161',
-        front: '遠 (とおい)',
+        front: '遠',
         back: 'Uzoq (Far)',
         romaji: 'too-i',
         furigana: 'とおい',
@@ -3874,7 +3874,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k162',
-        front: '都 (みやこ)',
+        front: '都',
         back: 'Metropoliya, sharoit (Metropolis, capital)',
         romaji: 'miyako',
         furigana: 'みやこ',
@@ -3884,7 +3884,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k163',
-        front: '重 (おもい)',
+        front: '重',
         back: "Og'ir, qatlam (Heavy, pile)",
         romaji: 'omo-i, kasa-naru',
         furigana: 'おもい',
@@ -3894,7 +3894,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k164',
-        front: '野 (の)',
+        front: '野',
         back: 'Dala, soha (Field, plains)',
         romaji: 'no',
         furigana: 'の',
@@ -3904,7 +3904,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k165',
-        front: '銀 (ギン)',
+        front: '銀',
         back: 'Kumush (Silver)',
         romaji: 'gin',
         furigana: 'ギン',
@@ -3914,7 +3914,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k166',
-        front: '門 (かど)',
+        front: '門',
         back: 'Darvoza (Gate)',
         romaji: 'kado',
         furigana: 'かど',
@@ -3924,7 +3924,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k167',
-        front: '開 (ひらく)',
+        front: '開',
         back: 'Ochmoq, ochilmoq (Open)',
         romaji: 'hira-ku, a-ku, a-keru',
         furigana: 'ひらく',
@@ -3934,7 +3934,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k168',
-        front: '院 (イン)',
+        front: '院',
         back: 'Muassasa, bino (Institution)',
         romaji: 'in',
         furigana: 'イン',
@@ -3944,7 +3944,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k169',
-        front: '集 (あつまる)',
+        front: '集',
         back: "Yig'ilmoq, to'plamoq (Gather, collect)",
         romaji: 'atsu-maru, atsu-meru',
         furigana: 'あつまる',
@@ -3954,7 +3954,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k170',
-        front: '青 (あお)',
+        front: '青',
         back: "Moviy, ko'k (Blue)",
         romaji: 'ao, ao-i',
         furigana: 'あお',
@@ -3964,7 +3964,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k171',
-        front: '音 (おと)',
+        front: '音',
         back: 'Tovush, ovoz (Sound)',
         romaji: 'oto, ne',
         furigana: 'おと',
@@ -3974,7 +3974,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k172',
-        front: '頭 (あたま)',
+        front: '頭',
         back: 'Bosh (Head)',
         romaji: 'atama, kashira',
         furigana: 'あたま',
@@ -3984,7 +3984,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k173',
-        front: '題 (ダイ)',
+        front: '題',
         back: 'Mavzu, sarlavha (Topic, title)',
         romaji: 'dai',
         furigana: 'ダイ',
@@ -3994,7 +3994,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k174',
-        front: '顔 (かお)',
+        front: '顔',
         back: 'Yuz, chehra (Face)',
         romaji: 'kao',
         furigana: 'かお',
@@ -4004,7 +4004,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k175',
-        front: '風 (かぜ)',
+        front: '風',
         back: 'Shamol, uslub (Wind, style)',
         romaji: 'kaze, kaza',
         furigana: 'かぜ',
@@ -4014,7 +4014,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k176',
-        front: '飯 (めし)',
+        front: '飯',
         back: 'Ovqat, pishirilgan guruch (Meal, rice)',
         romaji: 'meshi',
         furigana: 'めし',
@@ -4024,7 +4024,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k177',
-        front: '館 (やかた)',
+        front: '館',
         back: 'Katta bino, saroy (Building, mansion)',
         romaji: 'yakata',
         furigana: 'やかた',
@@ -4034,7 +4034,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k178',
-        front: '首 (くび)',
+        front: '首',
         back: "Bo'yin, rahbar (Neck, leader)",
         romaji: 'kubi',
         furigana: 'くび',
@@ -4044,7 +4044,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k179',
-        front: '験 (ケン)',
+        front: '験',
         back: 'Sinov, tajriba (Test, verify)',
         romaji: 'ken, gen',
         furigana: 'ケン',
@@ -4054,7 +4054,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k180',
-        front: '鳥 (とり)',
+        front: '鳥',
         back: 'Qush (Bird)',
         romaji: 'tori',
         furigana: 'とり',
@@ -4064,7 +4064,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k181',
-        front: '黒 (くろ)',
+        front: '黒',
         back: 'Qora (Black)',
         romaji: 'kuro, kuro-i',
         furigana: 'くろ',
@@ -4074,7 +4074,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k182',
-        front: '府 (フ)',
+        front: '府',
         back: "Prefektura, ma'muriy markaz (Prefecture, government)",
         romaji: 'fu',
         furigana: 'フ',
@@ -4084,7 +4084,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k183',
-        front: '細 (ほそい)',
+        front: '細',
         back: 'Ingichka, mayda (Thin, slender, detailed)',
         romaji: 'hoso-i, koma-kai',
         furigana: 'ほそい',
@@ -4094,7 +4094,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k184',
-        front: '利 (きく)',
+        front: '利',
         back: 'Foyda, daromad, qulaylik (Benefit, advantage)',
         romaji: 'ki-ku',
         furigana: 'きく',
@@ -4104,7 +4104,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k185',
-        front: '良 (よい)',
+        front: '良',
         back: "Yaxshi, a'lo (Good, excellent)",
         romaji: 'yo-i, i-i',
         furigana: 'よい',
@@ -4114,7 +4114,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k186',
-        front: '変 (かわる)',
+        front: '変',
         back: "G'alati, o'zgarmoq (Change, strange)",
         romaji: 'ka-waru, ka-eru',
         furigana: 'かわる',
@@ -4124,7 +4124,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k187',
-        front: '雪 (ゆき)',
+        front: '雪',
         back: 'Qor (Snow)',
         romaji: 'yuki',
         furigana: 'ゆき',
@@ -4134,7 +4134,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k188',
-        front: '季 (キ)',
+        front: '季',
         back: 'Fasl (Season)',
         romaji: 'ki',
         furigana: 'キ',
@@ -4144,7 +4144,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k189',
-        front: '節 (ふし)',
+        front: '節',
         back: "Fasl, bo'g'in, tejamkorlik (Node, season, clause)",
         romaji: 'fushi',
         furigana: 'ふし',
@@ -4154,7 +4154,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k190',
-        front: '暖 (あたたかい)',
+        front: '暖',
         back: 'Iliq (havo) (Warm weather)',
         romaji: 'atata-kai, atata-maru',
         furigana: 'あたたかい',
@@ -4164,7 +4164,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k191',
-        front: '涼 (すずしい)',
+        front: '涼',
         back: 'Salqin (Cool, refreshing)',
         romaji: 'suzu-shii, suzu-mu',
         furigana: 'すずしい',
@@ -4174,7 +4174,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k192',
-        front: '科 (カ)',
+        front: '科',
         back: "Bo'lim, fan, soha (Department, course, science)",
         romaji: 'ka',
         furigana: 'カ',
@@ -4184,7 +4184,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k193',
-        front: '内 (うち)',
+        front: '内',
         back: 'Ichkari, ichki (Inside, within)',
         romaji: 'uchi',
         furigana: 'うち',
@@ -4194,7 +4194,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k194',
-        front: '晩 (バン)',
+        front: '晩',
         back: 'Oqshom, kechqurun (Night, evening)',
         romaji: 'ban',
         furigana: 'バン',
@@ -4204,7 +4204,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k195',
-        front: '両 (てる)',
+        front: '両',
         back: 'Ikkala, har ikki (Both)',
         romaji: 'teru, futatsu',
         furigana: 'てる',
@@ -4214,7 +4214,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k196',
-        front: '活 (いきる)',
+        front: '活',
         back: 'Jonli, faoliyat (Active, lively)',
         romaji: 'i-kiru, i-kasu',
         furigana: 'いきる',
@@ -4224,7 +4224,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k197',
-        front: '形 (かたち)',
+        front: '形',
         back: "Shakl, ko'rinish (Shape, form)",
         romaji: 'katachi, kata',
         furigana: 'かたち',
@@ -4234,7 +4234,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k198',
-        front: '米 (こめ)',
+        front: '米',
         back: 'Guruch, Amerika (Rice, America)',
         romaji: 'kome, yone',
         furigana: 'こめ',
@@ -4244,7 +4244,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k199',
-        front: '信 (シン)',
+        front: '信',
         back: 'Ishonch, xabar, maktub (Trust, faith, message)',
         romaji: 'shin',
         furigana: 'シン',
@@ -4254,7 +4254,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k200',
-        front: '返 (かえす)',
+        front: '返',
         back: 'Qaytarmoq (Return, reply)',
         romaji: 'kae-su, kae-ru',
         furigana: 'かえす',
@@ -4264,7 +4264,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k201',
-        front: '号 (さけぶ)',
+        front: '号',
         back: 'Raqam, belgi (Number, issue)',
         romaji: 'sake-bu, yobina',
         furigana: 'さけぶ',
@@ -4274,7 +4274,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k202',
-        front: '交 (まじわる)',
+        front: '交',
         back: 'Kesishtirmoq, aralashtirmoq, aloqa (Intersect, mingle, exchange)',
         romaji: 'maji-waru, ma-zeru, kawa-su',
         furigana: 'まじわる',
@@ -4284,7 +4284,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k203',
-        front: '降 (ふる)',
+        front: '降',
         back: "Yog'moq, tushmoq (Fall, get off)",
         romaji: 'fu-ru, o-riru',
         furigana: 'ふる',
@@ -4294,7 +4294,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k204',
-        front: '閉 (しめる)',
+        front: '閉',
         back: 'Yopmoq, yopilmoq (Close, shut)',
         romaji: 'shi-meru, shi-maru, to-jiru',
         furigana: 'しめる',
@@ -4304,7 +4304,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k205',
-        front: '全 (すべて)',
+        front: '全',
         back: "Butun, to'liq, barcha (All, whole)",
         romaji: 'sube-te, matta-ku',
         furigana: 'すべて',
@@ -4314,7 +4314,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k206',
-        front: '若 (わかい)',
+        front: '若',
         back: 'Yosh (Young)',
         romaji: 'waka-i, mo-shikuwa',
         furigana: 'わかい',
@@ -4324,7 +4324,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k207',
-        front: '消 (きえる)',
+        front: '消',
         back: "O'chirmoq, o'chmoq (Extinguish, turn off)",
         romaji: 'ki-eru, ke-su',
         furigana: 'きえる',
@@ -4334,7 +4334,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k208',
-        front: '捨 (すてる)',
+        front: '捨',
         back: 'Tashlab yubormoq (Throw away, discard)',
         romaji: 'sute-ru',
         furigana: 'すてる',
@@ -4344,7 +4344,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k209',
-        front: '座 (すわる)',
+        front: '座',
         back: "O'tirmoq, o'rindiq (Sit, seat)",
         romaji: 'suwa-ru',
         furigana: 'すわる',
@@ -4354,7 +4354,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k210',
-        front: '落 (おちる)',
+        front: '落',
         back: 'Tushib ketmoq, tushirib qoldirmoq (Fall, drop)',
         romaji: 'o-chiru, o-tosu',
         furigana: 'おちる',
@@ -4364,7 +4364,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k211',
-        front: '公 (おおやけ)',
+        front: '公',
         back: 'Jamoat, rasmiy, davlat (Public, official)',
         romaji: 'ooyake',
         furigana: 'おおやけ',
@@ -4374,7 +4374,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k212',
-        front: '伝 (つたわる)',
+        front: '伝',
         back: "Yetkazmoq, o'tkazmoq (Transmit, convey)",
         romaji: 'tsuta-waru, tsuta-eru, tsuda-u',
         furigana: 'つたわる',
@@ -4384,7 +4384,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k213',
-        front: '忘 (わすれる)',
+        front: '忘',
         back: 'Unitmoq (Forget)',
         romaji: 'wasu-reru',
         furigana: 'わすれる',
@@ -4394,7 +4394,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k214',
-        front: '受 (うける)',
+        front: '受',
         back: 'Qabul qilmoq, topshirmoq (Receive, accept)',
         romaji: 'u-keru, u-karu',
         furigana: 'うける',
@@ -4404,7 +4404,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k215',
-        front: '残 (のこる)',
+        front: '残',
         back: 'Qolmoq, qoldirmoq (Remain, leave over)',
         romaji: 'noko-ru, noko-su',
         furigana: 'のこる',
@@ -4414,7 +4414,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k216',
-        front: '寝 (ねる)',
+        front: '寝',
         back: 'Uxlamoq (Sleep, lie down)',
         romaji: 'ne-ru, ne-kasu',
         furigana: 'ねる',
@@ -4424,7 +4424,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k217',
-        front: '園 (その)',
+        front: '園',
         back: "Bog', istirohat bog'i (Garden, park)",
         romaji: 'sono',
         furigana: 'その',
@@ -4434,7 +4434,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k218',
-        front: '決 (きめる)',
+        front: '決',
         back: 'Qaror qilmoq, hal qilmoq (Decide, determine)',
         romaji: 'ki-meru, ki-maru',
         furigana: 'きめる',
@@ -4444,7 +4444,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k219',
-        front: '呼 (よぶ)',
+        front: '呼',
         back: 'Chaqirmoq (Call)',
         romaji: 'yo-bu',
         furigana: 'よぶ',
@@ -4454,7 +4454,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k220',
-        front: '取 (とる)',
+        front: '取',
         back: 'Olmoq, ushlamoq (Take, fetch)',
         romaji: 'to-ru, to-ri',
         furigana: 'とる',
@@ -4464,7 +4464,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k221',
-        front: '調 (しらべる)',
+        front: '調',
         back: 'Tekshirmoq, sozlamoq, ohang (Investigate, tune)',
         romaji: 'shira-beru, totono-u',
         furigana: 'しらべる',
@@ -4474,7 +4474,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k222',
-        front: '遅 (おくれる)',
+        front: '遅',
         back: 'Kech, sekin (Slow, late)',
         romaji: 'oku-reru, oso-i',
         furigana: 'おくれる',
@@ -4484,7 +4484,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k223',
-        front: '部 (ブ)',
+        front: '部',
         back: "Bo'lim, qism, xona (Section, department, part)",
         romaji: 'bu',
         furigana: 'ブ',
@@ -4494,7 +4494,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k224',
-        front: '困 (こまる)',
+        front: '困',
         back: 'Qiyinchilikda qolmoq (Troubled, distressed)',
         romaji: 'koma-ru',
         furigana: 'こまる',
@@ -4504,7 +4504,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k225',
-        front: '押 (おす)',
+        front: '押',
         back: 'Bosmoq, itarmoq (Push, press)',
         romaji: 'o-su, o-saeru',
         furigana: 'おす',
@@ -4514,7 +4514,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k226',
-        front: '席 (セキ)',
+        front: '席',
         back: "O'rindiq, joy (Seat)",
         romaji: 'seki',
         furigana: 'セキ',
@@ -4524,7 +4524,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k227',
-        front: '続 (つづく)',
+        front: '続',
         back: 'Davom etmoq, davom ettirmoq (Continue)',
         romaji: 'tsudu-ku, tsudu-keru',
         furigana: 'つづく',
@@ -4534,7 +4534,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k228',
-        front: '鉄 (くろがね)',
+        front: '鉄',
         back: 'Temir (Iron, steel)',
         romaji: 'kurogane',
         furigana: 'くろがね',
@@ -4544,7 +4544,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k229',
-        front: '祖 (ソ)',
+        front: '祖',
         back: 'Ajdod, bobo (Ancestor, founder)',
         romaji: 'so',
         furigana: 'ソ',
@@ -4554,7 +4554,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k230',
-        front: '泳 (およぐ)',
+        front: '泳',
         back: 'Suzmoq (Swim)',
         romaji: 'oyo-gu',
         furigana: 'およぐ',
@@ -4564,7 +4564,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k231',
-        front: '拾 (ひろう)',
+        front: '拾',
         back: 'Terib olmoq, topib olmoq (Pick up, find)',
         romaji: 'hiro-u',
         furigana: 'ひろう',
@@ -4574,7 +4574,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k232',
-        front: '連 (つれる)',
+        front: '連',
         back: 'Birga olib bormoq, ulanmoq (Connect, lead)',
         romaji: 'tsu-reru, tsura-naru',
         furigana: 'つれる',
@@ -4584,7 +4584,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k233',
-        front: '練 (ねる)',
+        front: '練',
         back: 'Mashq qilmoq, charxlamoq (Practice, train)',
         romaji: 'ne-ru',
         furigana: 'ねる',
@@ -4594,7 +4594,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-k234',
-        front: '線 (すじ)',
+        front: '線',
         back: "Chiziq, yo'nalish (Line, track)",
         romaji: 'suji',
         furigana: 'すじ',
@@ -4613,7 +4613,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
     cards: [
       {
         id: 'n4-g1',
-        front: '～ほうがいい (Hou ga ii)',
+        front: '～ほうがいい',
         back: "...ganing ma'qul (Had better do...)",
         romaji: 'hou ga ii',
         level: 'N4',
@@ -4622,7 +4622,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n4-g2',
-        front: '～つもりの (Tsumori desu)',
+        front: '～つもりの',
         back: '...moqchiman / rejalashtirganman (Intend to do...)',
         romaji: 'tsumori desu',
         level: 'N4',
@@ -4640,7 +4640,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
     cards: [
       {
         id: 'n3-v1',
-        front: '間 (あいだ)',
+        front: '間',
         back: "Oraliq, orasi, vaqt oralig'i (Between, interval)",
         romaji: 'aida',
         furigana: 'あいだ',
@@ -4651,7 +4651,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v2',
-        front: '音 (おと)',
+        front: '音',
         back: 'Ovoz, tovush, shovqin (Sound, noise)',
         romaji: 'oto',
         furigana: 'おと',
@@ -4661,7 +4661,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v3',
-        front: '柄 (がら)',
+        front: '柄',
         back: 'Naqsh, gul, xarakter (Pattern, design, character)',
         romaji: 'gara',
         furigana: 'がら',
@@ -4672,7 +4672,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v4',
-        front: '青 (あお)',
+        front: '青',
         back: "Moviy / ko'k rang (Blue color)",
         romaji: 'ao',
         furigana: 'あお',
@@ -4683,7 +4683,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v5',
-        front: '帯 (おび)',
+        front: '帯',
         back: "Kamar (yapon an'anaviy belbog'i) (Belt, sash)",
         romaji: 'obi',
         furigana: 'おび',
@@ -4693,7 +4693,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v6',
-        front: '黄 (き)',
+        front: '黄',
         back: 'Sariq rang (Yellow color)',
         romaji: 'ki',
         furigana: 'き',
@@ -4704,7 +4704,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v7',
-        front: '味 (あじ)',
+        front: '味',
         back: "Ta'm, maza (Flavor, taste)",
         romaji: 'aji',
         furigana: 'あじ',
@@ -4714,7 +4714,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v8',
-        front: '表 (おもて)',
+        front: '表',
         back: 'Yuzasi, old tomoni, jadval (Front side, surface, table)',
         romaji: 'omote',
         furigana: 'おもて',
@@ -4724,7 +4724,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v9',
-        front: '傷 (きず)',
+        front: '傷',
         back: 'Jarohat, yara, tirnalish (Wound, scratch, injury)',
         romaji: 'kizu',
         furigana: 'きず',
@@ -4735,7 +4735,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v10',
-        front: '穴 (あな)',
+        front: '穴',
         back: 'Teshik, chuqur (Hole, pit)',
         romaji: 'ana',
         furigana: 'あな',
@@ -4745,7 +4745,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v11',
-        front: '親 (おや)',
+        front: '親',
         back: 'Ota-ona (Parent)',
         romaji: 'oya',
         furigana: 'おや',
@@ -4755,7 +4755,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v12',
-        front: '君 (きみ)',
+        front: '君',
         back: "Sen (You - do'stona/norasmiy)",
         romaji: 'kimi',
         furigana: 'きみ',
@@ -4765,7 +4765,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v13',
-        front: '油 (あぶら)',
+        front: '油',
         back: "Yog' (Oil)",
         romaji: 'abura',
         furigana: 'あぶら',
@@ -4775,7 +4775,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v14',
-        front: '貝 (かい)',
+        front: '貝',
         back: "Chig'anoq, mollyuska (Shellfish, shell)",
         romaji: 'kai',
         furigana: 'かい',
@@ -4786,7 +4786,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v15',
-        front: '曲 (きょく)',
+        front: '曲',
         back: 'Musiqa kuyi, ashula (Piece of music, tune)',
         romaji: 'kyoku',
         furigana: 'きょく',
@@ -4797,7 +4797,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v16',
-        front: '案 (あん)',
+        front: '案',
         back: "Taklif, g'oya, reja loyihasi (Plan, idea, suggestion)",
         romaji: 'an',
         furigana: 'あん',
@@ -4808,7 +4808,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v17',
-        front: '顔 (かお)',
+        front: '顔',
         back: 'Yuz, chehra (Face)',
         romaji: 'kao',
         furigana: 'かお',
@@ -4819,7 +4819,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v18',
-        front: '逆 (ぎゃく)',
+        front: '逆',
         back: 'Teskari, aksi (Opposite, reverse)',
         romaji: 'gyaku',
         furigana: 'ぎゃく',
@@ -4829,7 +4829,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v19',
-        front: '胃 (い)',
+        front: '胃',
         back: 'Oshqozon (Stomach)',
         romaji: 'i',
         furigana: 'い',
@@ -4839,7 +4839,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v20',
-        front: '傘 (かさ)',
+        front: '傘',
         back: 'Soyabon (Umbrella)',
         romaji: 'kasa',
         furigana: 'かさ',
@@ -4850,7 +4850,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v21',
-        front: '草 (くさ)',
+        front: '草',
         back: "O't, o'lan, maysa (Grass, weed)",
         romaji: 'kusa',
         furigana: 'くさ',
@@ -4860,7 +4860,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v22',
-        front: '家 (いえ)',
+        front: '家',
         back: 'Uy, xonadon (House, home)',
         romaji: 'ie',
         furigana: 'いえ',
@@ -4870,7 +4870,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v23',
-        front: '数 (かず)',
+        front: '数',
         back: 'Son, miqdor (Number, amount)',
         romaji: 'kazu',
         furigana: 'かず',
@@ -4881,7 +4881,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v24',
-        front: '薬 (くすり)',
+        front: '薬',
         back: 'Dori, dori-darmon (Medicine)',
         romaji: 'kusuri',
         furigana: 'くすり',
@@ -4892,7 +4892,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v25',
-        front: '息 (いき)',
+        front: '息',
         back: 'Nafas (Breath)',
         romaji: 'iki',
         furigana: 'いき',
@@ -4903,7 +4903,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v26',
-        front: '肩 (かた)',
+        front: '肩',
         back: 'Yelka (Shoulder)',
         romaji: 'kata',
         furigana: 'かた',
@@ -4914,7 +4914,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v27',
-        front: '靴 (くつ)',
+        front: '靴',
         back: 'Poyabzal, poyafzal (Shoes)',
         romaji: 'kutsu',
         furigana: 'くつ',
@@ -4924,7 +4924,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v28',
-        front: '池 (いけ)',
+        front: '池',
         back: 'Hovuz (Pond)',
         romaji: 'ike',
         furigana: 'いけ',
@@ -4935,7 +4935,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v29',
-        front: '方 (ほう)',
+        front: '方',
         back: "Tomon, yo'nalish, usul (Direction, side, method)",
         romaji: 'hou',
         furigana: 'ほう',
@@ -4946,7 +4946,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v30',
-        front: '首 (くび)',
+        front: '首',
         back: "Bo'yin (Neck)",
         romaji: 'kubi',
         furigana: 'くび',
@@ -4957,7 +4957,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v31',
-        front: '糸 (いと)',
+        front: '糸',
         back: 'Ip (Thread, yarn)',
         romaji: 'ito',
         furigana: 'いと',
@@ -4967,7 +4967,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v32',
-        front: '形 (かたち)',
+        front: '形',
         back: "Shakl, ko'rinish (Shape, form)",
         romaji: 'katachi',
         furigana: 'かたち',
@@ -4978,7 +4978,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v33',
-        front: '雲 (くも)',
+        front: '雲',
         back: 'Bulut (Cloud)',
         romaji: 'kumo',
         furigana: 'くも',
@@ -4988,7 +4988,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v34',
-        front: '芋 (いも)',
+        front: '芋',
         back: 'Kartoshka, ildizmeva (Potato, yam)',
         romaji: 'imo',
         furigana: 'いも',
@@ -4999,7 +4999,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v35',
-        front: '角 (かど)',
+        front: '角',
         back: "Ko'cha burchagi (Corner, street corner)",
         romaji: 'kado',
         furigana: 'かど',
@@ -5010,7 +5010,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v36',
-        front: '煙 (けむり)',
+        front: '煙',
         back: 'Tutun (Smoke)',
         romaji: 'kemuri',
         furigana: 'けむり',
@@ -5020,7 +5020,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v37',
-        front: '歌 (うた)',
+        front: '歌',
         back: "Qo'shiq (Song)",
         romaji: 'uta',
         furigana: 'うた',
@@ -5031,7 +5031,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v38',
-        front: '壁 (かべ)',
+        front: '壁',
         back: 'Devor (Wall, barrier)',
         romaji: 'kabe',
         furigana: 'かべ',
@@ -5042,7 +5042,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v39',
-        front: '県 (けん)',
+        front: '県',
         back: 'Prefektura, viloyat (Prefecture)',
         romaji: 'ken',
         furigana: 'けん',
@@ -5053,7 +5053,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v40',
-        front: '内 (うち)',
+        front: '内',
         back: 'Ichkari, ichki qism, xonadon (Inside, within)',
         romaji: 'uchi',
         furigana: 'うち',
@@ -5064,7 +5064,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v41',
-        front: '紙 (かみ)',
+        front: '紙',
         back: "Qog'oz (Paper)",
         romaji: 'kami',
         furigana: 'かみ',
@@ -5075,7 +5075,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v42',
-        front: '腰 (こし)',
+        front: '腰',
         back: 'Bel (Waist, lower back)',
         romaji: 'koshi',
         furigana: 'こし',
@@ -5086,7 +5086,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v43',
-        front: '器 (うつわ)',
+        front: '器',
         back: 'Idish, qolip, qobiliyat (Container, vessel)',
         romaji: 'utsuwa',
         furigana: 'うつわ',
@@ -5096,7 +5096,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v44',
-        front: '髪 (かみ)',
+        front: '髪',
         back: 'Soch (Hair)',
         romaji: 'kami',
         furigana: 'かみ',
@@ -5107,7 +5107,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v45',
-        front: '粉 (こな)',
+        front: '粉',
         back: 'Kukun, un (Powder, flour)',
         romaji: 'kona',
         furigana: 'こな',
@@ -5118,7 +5118,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v46',
-        front: '腕 (うで)',
+        front: '腕',
         back: "Qo'l, bilak, mahorat (Arm, skill)",
         romaji: 'ude',
         furigana: 'うで',
@@ -5128,7 +5128,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v47',
-        front: '空 (そら)',
+        front: '空',
         back: 'Osmon (Sky)',
         romaji: 'sora',
         furigana: 'そら',
@@ -5139,7 +5139,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v48',
-        front: '差 (さ)',
+        front: '差',
         back: 'Farq, tafovut (Difference, gap)',
         romaji: 'sa',
         furigana: 'さ',
@@ -5150,7 +5150,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v49',
-        front: '絵 (え)',
+        front: '絵',
         back: 'Rasm, kartina (Picture, drawing)',
         romaji: 'e',
         furigana: 'え',
@@ -5161,7 +5161,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v50',
-        front: '体 (からだ)',
+        front: '体',
         back: 'Tana, jism, salomatlik (Body, health)',
         romaji: 'karada',
         furigana: 'からだ',
@@ -5172,7 +5172,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v51',
-        front: '坂 (さか)',
+        front: '坂',
         back: "Qiyalik, qiyalama yo'l (Slope, hill)",
         romaji: 'saka',
         furigana: 'さか',
@@ -5183,7 +5183,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v52',
-        front: '枝 (えだ)',
+        front: '枝',
         back: 'Shox, novda (Branch, twig)',
         romaji: 'eda',
         furigana: 'えだ',
@@ -5194,7 +5194,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v53',
-        front: '皮 (かわ)',
+        front: '皮',
         back: "Po'st, teri, charm (Skin, peel, leather)",
         romaji: 'kawa',
         furigana: 'かわ',
@@ -5205,7 +5205,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v54',
-        front: '桜 (さくら)',
+        front: '桜',
         back: 'Sakura, yapon olchasi (Cherry blossom)',
         romaji: 'sakura',
         furigana: 'さくら',
@@ -5216,7 +5216,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v55',
-        front: '奥 (おく)',
+        front: '奥',
         back: "Ichkari, to'r, ichki tomon (Interior, inner part)",
         romaji: 'oku',
         furigana: 'おく',
@@ -5227,7 +5227,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v56',
-        front: '缶 (かん)',
+        front: '缶',
         back: 'Konserva qutisi, metall idish (Can, tin)',
         romaji: 'kan',
         furigana: 'かん',
@@ -5238,7 +5238,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v57',
-        front: '皿 (さら)',
+        front: '皿',
         back: 'Likopcha, tarelka (Plate, dish)',
         romaji: 'sara',
         furigana: 'さら',
@@ -5249,7 +5249,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v58',
-        front: '猿 (さる)',
+        front: '猿',
         back: 'Maymun (Monkey)',
         romaji: 'saru',
         furigana: 'さる',
@@ -5259,7 +5259,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v59',
-        front: '塩 (しお)',
+        front: '塩',
         back: 'Tuz (Salt)',
         romaji: 'shio',
         furigana: 'しお',
@@ -5270,7 +5270,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v60',
-        front: '島 (しま)',
+        front: '島',
         back: 'Orol (Island)',
         romaji: 'shima',
         furigana: 'しま',
@@ -5281,7 +5281,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v61',
-        front: '城 (しろ)',
+        front: '城',
         back: "Qal'a, saroy (Castle)",
         romaji: 'shiro',
         furigana: 'しろ',
@@ -5292,7 +5292,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v62',
-        front: '実 (み)',
+        front: '実',
         back: "Meva, hosil, mag'iz (Fruit, substance)",
         romaji: 'mi',
         furigana: 'み',
@@ -5303,7 +5303,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v63',
-        front: '酢 (す)',
+        front: '酢',
         back: 'Sirka (Vinegar)',
         romaji: 'su',
         furigana: 'す',
@@ -5313,7 +5313,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v64',
-        front: '隅 (すみ)',
+        front: '隅',
         back: 'Burchak (ichki burchak) (Corner, nook)',
         romaji: 'sumi',
         furigana: 'すみ',
@@ -5323,7 +5323,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v65',
-        front: '図 (ず)',
+        front: '図',
         back: 'Chizma, diagramma, grafik (Figure, drawing, diagram)',
         romaji: 'zu',
         furigana: 'ず',
@@ -5334,7 +5334,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v66',
-        front: '席 (せき)',
+        front: '席',
         back: "O'rindiq, joy (Seat)",
         romaji: 'seki',
         furigana: 'せき',
@@ -5344,7 +5344,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v67',
-        front: '咳 (せき)',
+        front: '咳',
         back: "Yo'tal (Cough)",
         romaji: 'seki',
         furigana: 'せき',
@@ -5354,7 +5354,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v68',
-        front: '線 (せん)',
+        front: '線',
         back: "Chiziq, yo'l (Line, railway track)",
         romaji: 'sen',
         furigana: 'せん',
@@ -5365,7 +5365,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v69',
-        front: '底 (そこ)',
+        front: '底',
         back: 'Tub, tagi (Bottom, base)',
         romaji: 'soko',
         furigana: 'そこ',
@@ -5376,7 +5376,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v70',
-        front: '側 (がわ)',
+        front: '側',
         back: 'Tomon, taraf (Side)',
         romaji: 'gawa',
         furigana: 'がわ',
@@ -5386,7 +5386,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v71',
-        front: '像 (ぞう)',
+        front: '像',
         back: 'Haykal, tasvir, obraz (Statue, image)',
         romaji: 'zou',
         furigana: 'ぞう',
@@ -5397,7 +5397,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v72',
-        front: '他 (ほか)',
+        front: '他',
         back: "Boshqa, bo'lak, o'zga (Other, another)",
         romaji: 'hoka',
         furigana: 'ほか',
@@ -5407,7 +5407,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v73',
-        front: '畳 (たたみ)',
+        front: '畳',
         back: "Tatami (yapon qamish to'shamasi) (Tatami mat)",
         romaji: 'tatami',
         furigana: 'たたみ',
@@ -5418,7 +5418,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v74',
-        front: '棚 (たな)',
+        front: '棚',
         back: 'Javon, tokcha (Shelf, rack)',
         romaji: 'tana',
         furigana: 'たな',
@@ -5429,7 +5429,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v75',
-        front: '旅 (たび)',
+        front: '旅',
         back: 'Sayohat, safar (Travel, journey)',
         romaji: 'tabi',
         furigana: 'たび',
@@ -5440,7 +5440,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v76',
-        front: '卵 (たまご)',
+        front: '卵',
         back: 'Tuxum (Egg)',
         romaji: 'tamago',
         furigana: 'たまご',
@@ -5451,7 +5451,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v77',
-        front: '台 (だい)',
+        front: '台',
         back: 'Stolcha, taglik, texnika hisoblagichi (Stand, counter for machines)',
         romaji: 'dai',
         furigana: 'だい',
@@ -5462,7 +5462,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v78',
-        front: '茶 (ちゃ)',
+        front: '茶',
         back: 'Choy (Tea, green tea)',
         romaji: 'cha',
         furigana: 'ちゃ',
@@ -5473,7 +5473,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v79',
-        front: '机 (つくえ)',
+        front: '机',
         back: 'Stol, yozuv stoli (Desk)',
         romaji: 'tsukue',
         furigana: 'つくえ',
@@ -5483,7 +5483,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v80',
-        front: '妻 (つま)',
+        front: '妻',
         back: "Xotin, rafiqa (Wife - o'ziniki)",
         romaji: 'tsuma',
         furigana: 'つま',
@@ -5494,7 +5494,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v81',
-        front: '寺 (てら)',
+        front: '寺',
         back: 'Budda ibodatxonasi (Buddhist temple)',
         romaji: 'tera',
         furigana: 'てら',
@@ -5505,7 +5505,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v82',
-        front: '点 (てん)',
+        front: '点',
         back: 'Nuqta, ball, ochko (Point, score)',
         romaji: 'ten',
         furigana: 'てん',
@@ -5516,7 +5516,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v83',
-        front: '鳥 (とり)',
+        front: '鳥',
         back: 'Qush (Bird)',
         romaji: 'tori',
         furigana: 'とり',
@@ -5527,7 +5527,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v84',
-        front: '毒 (どく)',
+        front: '毒',
         back: 'Zahar (Poison, venom)',
         romaji: 'doku',
         furigana: 'どく',
@@ -5538,7 +5538,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v85',
-        front: '謎 (なぞ)',
+        front: '謎',
         back: 'Jumboq, sir-asror, sir (Riddle, mystery)',
         romaji: 'nazo',
         furigana: 'なぞ',
@@ -5549,7 +5549,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v86',
-        front: '鍋 (なべ)',
+        front: '鍋',
         back: 'Qozon, kastryul, nabe taomi (Pot, saucepan, hot pot)',
         romaji: 'nabe',
         furigana: 'なべ',
@@ -5560,7 +5560,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v87',
-        front: '波 (なみ)',
+        front: '波',
         back: "To'lqin (Wave)",
         romaji: 'nami',
         furigana: 'なみ',
@@ -5571,7 +5571,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v88',
-        front: '涙 (なみだ)',
+        front: '涙',
         back: "Ko'z yoshi (Tear)",
         romaji: 'namida',
         furigana: 'なみだ',
@@ -5582,7 +5582,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v89',
-        front: '庭 (にわ)',
+        front: '庭',
         back: "Bog', hovli (Garden, yard)",
         romaji: 'niwa',
         furigana: 'にわ',
@@ -5593,7 +5593,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v90',
-        front: '熱 (ねつ)',
+        front: '熱',
         back: "Harorat (istima), qizg'inlik (Heat, fever)",
         romaji: 'netsu',
         furigana: 'ねつ',
@@ -5603,7 +5603,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v91',
-        front: '葉 (は)',
+        front: '葉',
         back: 'Barg, yaproq (Leaf)',
         romaji: 'ha',
         furigana: 'は',
@@ -5614,7 +5614,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v92',
-        front: '歯 (は)',
+        front: '歯',
         back: 'Tish (Tooth)',
         romaji: 'ha',
         furigana: 'は',
@@ -5625,7 +5625,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v93',
-        front: '箱 (はこ)',
+        front: '箱',
         back: 'Quti (Box)',
         romaji: 'hako',
         furigana: 'はこ',
@@ -5636,7 +5636,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v94',
-        front: '橋 (はし)',
+        front: '橋',
         back: "Ko'prik (Bridge)",
         romaji: 'hashi',
         furigana: 'はし',
@@ -5647,7 +5647,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v95',
-        front: '箸 (はし)',
+        front: '箸',
         back: "Cho'p (yaponcha ovqat cho'plari) (Chopsticks)",
         romaji: 'hashi',
         furigana: 'はし',
@@ -5658,7 +5658,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v96',
-        front: '畑 (はたけ)',
+        front: '畑',
         back: 'Dala, ekinzor, poliz (Field, vegetable garden)',
         romaji: 'hatake',
         furigana: 'はたけ',
@@ -5669,7 +5669,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v97',
-        front: '鼻 (はな)',
+        front: '鼻',
         back: 'Burun (Nose)',
         romaji: 'hana',
         furigana: 'はな',
@@ -5680,7 +5680,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v98',
-        front: '針 (はり)',
+        front: '針',
         back: 'Igna, soat mili (Needle, clock hand)',
         romaji: 'hari',
         furigana: 'はり',
@@ -5690,7 +5690,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v99',
-        front: '倍 (ばい)',
+        front: '倍',
         back: "...barobar, marta ko'p (Times, -fold)",
         romaji: 'bai',
         furigana: 'ばい',
@@ -5701,7 +5701,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v100',
-        front: '晩 (ばん)',
+        front: '晩',
         back: 'Oqshom, kechqurun, kecha (Evening, night)',
         romaji: 'ban',
         furigana: 'ばん',
@@ -5712,7 +5712,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v101',
-        front: '光 (ひかり)',
+        front: '光',
         back: "Nur, yorug'lik (Light, beam)",
         romaji: 'hikari',
         furigana: 'ひかり',
@@ -5723,7 +5723,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v102',
-        front: '羊 (ひつじ)',
+        front: '羊',
         back: "Qo'y (Sheep)",
         romaji: 'hitsuji',
         furigana: 'ひつじ',
@@ -5734,7 +5734,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v103',
-        front: '暇 (ひま)',
+        front: '暇',
         back: "Bo'sh vaqt, bekorchilik (Free time, leisure)",
         romaji: 'hima',
         furigana: 'ひま',
@@ -5745,7 +5745,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v104',
-        front: '服 (ふく)',
+        front: '服',
         back: 'Kiyim, libos (Clothes)',
         romaji: 'fuku',
         furigana: 'ふく',
@@ -5756,7 +5756,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v105',
-        front: '袋 (ふくろ)',
+        front: '袋',
         back: 'Xalta, paket, qop (Bag, sack)',
         romaji: 'fukuro',
         furigana: 'ふくろ',
@@ -5767,7 +5767,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v106',
-        front: '船 (ふね)',
+        front: '船',
         back: 'Kema, qayiq (Ship, boat)',
         romaji: 'fune',
         furigana: 'ふね',
@@ -5777,7 +5777,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v107',
-        front: '星 (ほし)',
+        front: '星',
         back: 'Yulduz, sayyora (Star, planet)',
         romaji: 'hoshi',
         furigana: 'ほし',
@@ -5788,7 +5788,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v108',
-        front: '骨 (ほね)',
+        front: '骨',
         back: 'Suyak (Bone)',
         romaji: 'hone',
         furigana: 'ほね',
@@ -5799,7 +5799,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v109',
-        front: '棒 (ぼう)',
+        front: '棒',
         back: "Tayoq, cho'p, xoda (Stick, pole, rod)",
         romaji: 'bou',
         furigana: 'ぼう',
@@ -5810,7 +5810,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v110',
-        front: '僕 (ぼく)',
+        front: '僕',
         back: 'Men (erkaklar norasmiy) (I, me - male informal)',
         romaji: 'boku',
         furigana: 'ぼく',
@@ -5821,7 +5821,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v111',
-        front: '孫 (まご)',
+        front: '孫',
         back: 'Nabira (Grandchild)',
         romaji: 'mago',
         furigana: 'まご',
@@ -5832,7 +5832,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v112',
-        front: '町 (まち)',
+        front: '町',
         back: 'Shaharcha, tuman (Town, neighborhood)',
         romaji: 'machi',
         furigana: 'まち',
@@ -5843,7 +5843,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v113',
-        front: '街 (まち)',
+        front: '街',
         back: "Shahar ko'chasi, markaz, kvartal (Downtown, city quarter)",
         romaji: 'machi',
         furigana: 'まち',
@@ -5854,7 +5854,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v114',
-        front: '窓 (まど)',
+        front: '窓',
         back: 'Deraza, oyna (Window)',
         romaji: 'mado',
         furigana: 'まど',
@@ -5865,7 +5865,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v115',
-        front: '豆 (まめ)',
+        front: '豆',
         back: "Dukkak, loviya, no'xat (Beans, legumes)",
         romaji: 'mame',
         furigana: 'まめ',
@@ -5876,7 +5876,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v116',
-        front: '湖 (みずうみ)',
+        front: '湖',
         back: "Ko'l (Lake)",
         romaji: 'mizuumi',
         furigana: 'みずうみ',
@@ -5887,7 +5887,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v117',
-        front: '緑 (みどり)',
+        front: '緑',
         back: "Yashil rang, ko'kat, tabiat ko'kalligi (Green, greenery)",
         romaji: 'midori',
         furigana: 'みどり',
@@ -5898,7 +5898,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v118',
-        front: '港 (みなと)',
+        front: '港',
         back: 'Port, bandargoh (Port, harbor)',
         romaji: 'minato',
         furigana: 'みなと',
@@ -5909,7 +5909,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v119',
-        front: '昔 (むかし)',
+        front: '昔',
         back: "Qadim zamon, oldin, o'tmish (Old times, the past)",
         romaji: 'mukashi',
         furigana: 'むかし',
@@ -5920,7 +5920,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v120',
-        front: '娘 (むすめ)',
+        front: '娘',
         back: 'Qiz (farzand) (Daughter)',
         romaji: 'musume',
         furigana: 'むすめ',
@@ -5931,7 +5931,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v121',
-        front: '胸 (むね)',
+        front: '胸',
         back: "Ko'krak, qalb (Chest, heart)",
         romaji: 'mune',
         furigana: 'むね',
@@ -5942,7 +5942,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v122',
-        front: '村 (むら)',
+        front: '村',
         back: 'Qishloq (Village)',
         romaji: 'mura',
         furigana: 'むら',
@@ -5953,7 +5953,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v123',
-        front: '面 (めん)',
+        front: '面',
         back: 'Tomon, jihat, sirt, yuz (Surface, face, aspect)',
         romaji: 'men',
         furigana: 'めん',
@@ -5964,7 +5964,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v124',
-        front: '物 (もの)',
+        front: '物',
         back: 'Narsa, buyum (Thing, object)',
         romaji: 'mono',
         furigana: 'もの',
@@ -5975,7 +5975,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v125',
-        front: '床 (ゆか)',
+        front: '床',
         back: 'Pol (Floor)',
         romaji: 'yuka',
         furigana: 'ゆか',
@@ -5986,7 +5986,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v126',
-        front: '用 (よう)',
+        front: '用',
         back: 'Ish, yumush, maqsad (Business, errand, purpose)',
         romaji: 'you',
         furigana: 'よう',
@@ -5997,7 +5997,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v127',
-        front: '森 (もり)',
+        front: '森',
         back: "Qalin o'rmon, to'qay (Forest, woods)",
         romaji: 'mori',
         furigana: 'もり',
@@ -6008,7 +6008,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v128',
-        front: '雪 (ゆき)',
+        front: '雪',
         back: 'Qor (Snow)',
         romaji: 'yuki',
         furigana: 'ゆき',
@@ -6019,7 +6019,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v129',
-        front: '横 (よこ)',
+        front: '横',
         back: "Yon tomon, yonbosh, ko'ndalang (Side, beside)",
         romaji: 'yoko',
         furigana: 'よこ',
@@ -6030,7 +6030,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v130',
-        front: '約 (やく)',
+        front: '約',
         back: 'Taxminan, qariyb (Approximately, about)',
         romaji: 'yaku',
         furigana: 'やく',
@@ -6041,7 +6041,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v131',
-        front: '指 (ゆび)',
+        front: '指',
         back: 'Barmoq (Finger, toe)',
         romaji: 'yubi',
         furigana: 'ゆび',
@@ -6052,7 +6052,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v132',
-        front: '量 (りょう)',
+        front: '量',
         back: 'Miqdor, hajm (Quantity, amount)',
         romaji: 'ryou',
         furigana: 'りょう',
@@ -6063,7 +6063,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v133',
-        front: '湯 (ゆ)',
+        front: '湯',
         back: 'Qaynoq suv, issiq vanna suvi (Hot water, bath)',
         romaji: 'yu',
         furigana: 'ゆ',
@@ -6074,7 +6074,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v134',
-        front: '夢 (ゆめ)',
+        front: '夢',
         back: 'Tush, orzu (Dream)',
         romaji: 'yume',
         furigana: 'ゆめ',
@@ -6085,7 +6085,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v135',
-        front: '列 (れつ)',
+        front: '列',
         back: 'Qator, navbat (Row, line, queue)',
         romaji: 'retsu',
         furigana: 'れつ',
@@ -6096,7 +6096,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v136',
-        front: '合図 (あいず)',
+        front: '合図',
         back: 'Ishora, belgi, signal',
         romaji: 'aizu',
         furigana: 'あいず',
@@ -6106,7 +6106,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v137',
-        front: '相手 (あいて)',
+        front: '相手',
         back: 'Hamkor, sherik, raqib, suhbatdosh',
         romaji: 'aite',
         furigana: 'あいて',
@@ -6117,7 +6117,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v138',
-        front: '青空 (あおぞら)',
+        front: '青空',
         back: 'Musaffo moviy osmon',
         romaji: 'aozora',
         furigana: 'あおぞら',
@@ -6128,7 +6128,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v139',
-        front: '安心 (あんしん)',
+        front: '安心',
         back: "Xotirjamlik, ko'ngil to'qligi",
         romaji: 'anshin',
         furigana: 'あんしん',
@@ -6139,7 +6139,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v140',
-        front: '案内 (あんない)',
+        front: '案内',
         back: "Yo'l ko'rsatish, tanishtiruv, ekskursiya",
         romaji: 'annai',
         furigana: 'あんない',
@@ -6150,7 +6150,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v141',
-        front: '以下 (いか)',
+        front: '以下',
         back: '...dan past, ...dan kam, quyidagi',
         romaji: 'ika',
         furigana: 'いか',
@@ -6161,7 +6161,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v142',
-        front: '以外 (いがい)',
+        front: '以外',
         back: '...dan boshqa, ...dan tashqari',
         romaji: 'igai',
         furigana: 'いがい',
@@ -6172,7 +6172,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v143',
-        front: '意見 (いけん)',
+        front: '意見',
         back: 'Fikr, mulohaza, taklif',
         romaji: 'iken',
         furigana: 'いけん',
@@ -6183,7 +6183,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v144',
-        front: '以降 (いこう)',
+        front: '以降',
         back: "...dan keyin, ...dan e'tiboran",
         romaji: 'ikou',
         furigana: 'いこう',
@@ -6194,7 +6194,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v145',
-        front: '維持 (いじ)',
+        front: '維持',
         back: 'Saqlab qolish, tutib turish',
         romaji: 'iji',
         furigana: 'いじ',
@@ -6205,7 +6205,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v146',
-        front: '意識 (いしき)',
+        front: '意識',
         back: 'Ong, hush, tushuncha',
         romaji: 'ishiki',
         furigana: 'いしき',
@@ -6216,7 +6216,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v147',
-        front: '医者 (いしゃ)',
+        front: '医者',
         back: "Shifokor, do'xtir",
         romaji: 'isha',
         furigana: 'いしゃ',
@@ -6227,7 +6227,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v148',
-        front: '以上 (いじょう)',
+        front: '以上',
         back: "...dan ko'p, ortiq; shuning bilan tamom",
         romaji: 'ijou',
         furigana: 'いじょう',
@@ -6238,7 +6238,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v149',
-        front: '以前 (いぜん)',
+        front: '以前',
         back: 'Ilgari, oldin, burun',
         romaji: 'izen',
         furigana: 'いぜん',
@@ -6249,7 +6249,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v150',
-        front: '位置 (いち)',
+        front: '位置',
         back: "O'rin, joylashuv, pozitsiya",
         romaji: 'ichi',
         furigana: 'いち',
@@ -6260,7 +6260,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v151',
-        front: '一流 (いちりゅう)',
+        front: '一流',
         back: 'Birinchi toifadagi, oliy darajali',
         romaji: 'ichiryuu',
         furigana: 'いちりゅう',
@@ -6271,7 +6271,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v152',
-        front: '一緒 (いっしょ)',
+        front: '一緒',
         back: 'Birga, birgalikda',
         romaji: 'issho',
         furigana: 'いっしょ',
@@ -6282,7 +6282,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v153',
-        front: '一般 (いっぱん)',
+        front: '一般',
         back: 'Umumiy, ommaviy, odatiy',
         romaji: 'ippan',
         furigana: 'いっぱん',
@@ -6293,7 +6293,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v154',
-        front: '移動 (いどう)',
+        front: '移動',
         back: "Ko'chish, siljish, safar qilish",
         romaji: 'idou',
         furigana: 'いどう',
@@ -6304,7 +6304,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v155',
-        front: '以内 (いない)',
+        front: '以内',
         back: '...ichida, ...muddatda',
         romaji: 'inai',
         furigana: 'いない',
@@ -6315,7 +6315,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v156',
-        front: '田舎 (いなか)',
+        front: '田舎',
         back: 'Qishloq, chekka joy, qishloqjoy',
         romaji: 'inaka',
         furigana: 'いなか',
@@ -6326,7 +6326,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v157',
-        front: '居間 (いま)',
+        front: '居間',
         back: 'Mehmonxona, yashash xonasi (living room)',
         romaji: 'ima',
         furigana: 'いま',
@@ -6337,7 +6337,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v158',
-        front: '意味 (いみ)',
+        front: '意味',
         back: "Ma'no, mazmun",
         romaji: 'imi',
         furigana: 'いみ',
@@ -6348,7 +6348,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v159',
-        front: '印刷 (いんさつ)',
+        front: '印刷',
         back: 'Chop etish, bosma, print',
         romaji: 'insatsu',
         furigana: 'いんさつ',
@@ -6359,7 +6359,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v160',
-        front: '印象 (いんしょう)',
+        front: '印象',
         back: 'Taassurot',
         romaji: 'inshou',
         furigana: 'いんしょう',
@@ -6370,7 +6370,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v161',
-        front: '飲食 (いんしょく)',
+        front: '飲食',
         back: 'Yeb-ichish',
         romaji: 'inshoku',
         furigana: 'いんしょく',
@@ -6381,7 +6381,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v162',
-        front: '飲料 (いんりょう)',
+        front: '飲料',
         back: 'Ichimlik',
         romaji: 'inryou',
         furigana: 'いんりょう',
@@ -6392,7 +6392,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v163',
-        front: '受付 (うけつけ)',
+        front: '受付',
         back: 'Qabulxona, registratsiya',
         romaji: 'uketsuke',
         furigana: 'うけつけ',
@@ -6403,7 +6403,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v164',
-        front: '右折 (うせつ)',
+        front: '右折',
         back: "O'ngga burilish",
         romaji: 'usetsu',
         furigana: 'うせつ',
@@ -6414,7 +6414,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v165',
-        front: '運転 (うんてん)',
+        front: '運転',
         back: 'Haydash, boshqarish',
         romaji: 'unten',
         furigana: 'うんてん',
@@ -6425,7 +6425,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v166',
-        front: '運動 (うんどう)',
+        front: '運動',
         back: 'Jismoniy mashq, harakat, sport',
         romaji: 'undou',
         furigana: 'うんどう',
@@ -6436,7 +6436,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v167',
-        front: '映画 (えいが)',
+        front: '映画',
         back: 'Film, kino',
         romaji: 'eiga',
         furigana: 'えいが',
@@ -6447,7 +6447,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v168',
-        front: '影響 (えいきょう)',
+        front: '影響',
         back: "Ta'sir, asorat",
         romaji: 'eikyou',
         furigana: 'えいきょう',
@@ -6458,7 +6458,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v169',
-        front: '営業 (えいぎょう)',
+        front: '営業',
         back: "Biznes, savdo, xizmat ko'rsatish",
         romaji: 'eigyou',
         furigana: 'えいぎょう',
@@ -6469,7 +6469,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v170',
-        front: '栄養 (えいよう)',
+        front: '栄養',
         back: 'Ozuqa, ozuqaviy moddalar',
         romaji: 'eiyou',
         furigana: 'えいよう',
@@ -6480,7 +6480,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v171',
-        front: '笑顔 (えがお)',
+        front: '笑顔',
         back: 'Tabassum, kulib turgan yuz',
         romaji: 'egao',
         furigana: 'えがお',
@@ -6491,7 +6491,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v172',
-        front: '駅前 (えきまえ)',
+        front: '駅前',
         back: 'Vokzal / bekat oldi',
         romaji: 'ekimae',
         furigana: 'えきまえ',
@@ -6501,7 +6501,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v173',
-        front: '延期 (えんき)',
+        front: '延期',
         back: 'Qoldirish, kechiktirish',
         romaji: 'enki',
         furigana: 'えんき',
@@ -6512,7 +6512,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v174',
-        front: '演奏 (えんそう)',
+        front: '演奏',
         back: 'Musiqiy ijro, chalish',
         romaji: 'ensou',
         furigana: 'えんそう',
@@ -6523,7 +6523,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v175',
-        front: '遠慮 (えんりょ)',
+        front: '遠慮',
         back: 'Tortinish, iymanib turish, cheklash',
         romaji: 'enryo',
         furigana: 'えんりょ',
@@ -6534,7 +6534,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v176',
-        front: '応援 (おうえん)',
+        front: '応援',
         back: "Qo'llab-quvvatlash, muxlislik qilish",
         romaji: 'ouen',
         furigana: 'おうえん',
@@ -6545,7 +6545,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v177',
-        front: '横断 (おうだん)',
+        front: '横断',
         back: "Kesib o'tish, ko'ndalang o'tish",
         romaji: 'oudan',
         furigana: 'おうだん',
@@ -6556,7 +6556,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v178',
-        front: '往復 (おうふく)',
+        front: '往復',
         back: 'Borib kelish, borish-qaytish chiptasi',
         romaji: 'oufuku',
         furigana: 'おうふく',
@@ -6567,7 +6567,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v179',
-        front: '応募 (おうぼ)',
+        front: '応募',
         back: 'Ariza berish, hujjat topshirish',
         romaji: 'oubo',
         furigana: 'おうぼ',
@@ -6578,7 +6578,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v180',
-        front: '応用 (おうよう)',
+        front: '応用',
         back: "Amaliy qo'llash, tatbiq etish",
         romaji: 'ouyou',
         furigana: 'おうよう',
@@ -6589,7 +6589,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v181',
-        front: '大勢 (おおぜい)',
+        front: '大勢',
         back: "Ko'pchilik, juda ko'p odam",
         romaji: 'oozei',
         furigana: 'おおぜい',
@@ -6600,7 +6600,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v182',
-        front: '大家 (おおや)',
+        front: '大家',
         back: 'Uy egasi, ijaraga beruvchi',
         romaji: 'ooya',
         furigana: 'おおや',
@@ -6611,7 +6611,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v183',
-        front: '親子 (おやこ)',
+        front: '親子',
         back: 'Ota-bola, ona-bola (ota-ona va farzand)',
         romaji: 'oyako',
         furigana: 'おやこ',
@@ -6622,7 +6622,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v184',
-        front: '音楽 (おんがく)',
+        front: '音楽',
         back: 'Musiqa',
         romaji: 'ongaku',
         furigana: 'おんがく',
@@ -6633,7 +6633,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v185',
-        front: '温泉 (おんせん)',
+        front: '温泉',
         back: 'Onsen (qaynoq mineral buloq)',
         romaji: 'onsen',
         furigana: 'おんせん',
@@ -6644,7 +6644,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v186',
-        front: '温度 (おんど)',
+        front: '温度',
         back: 'Harorat, gradus',
         romaji: 'ondo',
         furigana: 'おんど',
@@ -6655,7 +6655,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v187',
-        front: '開園 (かいえん)',
+        front: '開園',
         back: "Bog' yoki parkning ochilishi",
         romaji: 'kaien',
         furigana: 'かいえん',
@@ -6666,7 +6666,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v188',
-        front: '絵画 (かいが)',
+        front: '絵画',
         back: "Tasviriy san'at, rasm, polotno",
         romaji: 'kaiga',
         furigana: 'かいが',
@@ -6677,7 +6677,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v189',
-        front: '海外 (かいがい)',
+        front: '海外',
         back: 'Chet el, xorij',
         romaji: 'kaigai',
         furigana: 'かいがい',
@@ -6688,7 +6688,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v190',
-        front: '海岸 (かいがん)',
+        front: '海岸',
         back: "Dengiz qirg'og'i, sohil",
         romaji: 'kaigan',
         furigana: 'かいがん',
@@ -6699,7 +6699,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v191',
-        front: '会議 (かいぎ)',
+        front: '会議',
         back: "Majlis, yig'ilish, muzokara",
         romaji: 'kaigi',
         furigana: 'かいぎ',
@@ -6710,7 +6710,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v192',
-        front: '会計 (かいけい)',
+        front: '会計',
         back: "Hisob-kitob, to'lov kassa",
         romaji: 'kaikei',
         furigana: 'かいけい',
@@ -6721,7 +6721,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v193',
-        front: '解決 (かいけつ)',
+        front: '解決',
         back: 'Yechim, hal qilish',
         romaji: 'kaiketsu',
         furigana: 'かいけつ',
@@ -6732,7 +6732,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v194',
-        front: '改札 (かいさつ)',
+        front: '改札',
         back: 'Chipta nazorati, turniket',
         romaji: 'kaisatsu',
         furigana: 'かいさつ',
@@ -6743,7 +6743,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v195',
-        front: '開始 (かいし)',
+        front: '開始',
         back: 'Boshlanish, start olish',
         romaji: 'kaishi',
         furigana: 'かいし',
@@ -6754,7 +6754,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v196',
-        front: '回収 (かいしゅう)',
+        front: '回収',
         back: "Yig'ib olish, to'plash, utilizatsiya",
         romaji: 'kaishuu',
         furigana: 'かいしゅう',
@@ -6765,7 +6765,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v197',
-        front: '開場 (かいじょう)',
+        front: '開場',
         back: 'Zal yoki maydonning ochilishi',
         romaji: 'kaijou',
         furigana: 'かいじょう',
@@ -6776,7 +6776,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v198',
-        front: '回数 (かいすう)',
+        front: '回数',
         back: 'Marta soni, takrorlanish miqdori',
         romaji: 'kaisuu',
         furigana: 'かいすう',
@@ -6787,7 +6787,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v199',
-        front: '快晴 (かいせい)',
+        front: '快晴',
         back: 'Ochiq musaffo havo, bulutsiz havo',
         romaji: 'kaisei',
         furigana: 'かいせい',
@@ -6798,7 +6798,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v200',
-        front: '解説 (かいせつ)',
+        front: '解説',
         back: 'Tushuntirish, izohlash, sharh',
         romaji: 'kaisetsu',
         furigana: 'かいせつ',
@@ -6809,7 +6809,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v201',
-        front: '階段 (かいだん)',
+        front: '階段',
         back: 'Zina, zinapoya',
         romaji: 'kaidan',
         furigana: 'かいだん',
@@ -6820,7 +6820,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v202',
-        front: '開店 (かいてん)',
+        front: '開店',
         back: "Do'kon ochilishi, ish boshlashi",
         romaji: 'kaiten',
         furigana: 'かいてん',
@@ -6831,7 +6831,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v203',
-        front: '会話 (かいわ)',
+        front: '会話',
         back: "Muloqot, suhbat, so'zlashuv",
         romaji: 'kaiwa',
         furigana: 'かいわ',
@@ -6842,7 +6842,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v204',
-        front: '価格 (かかく)',
+        front: '価格',
         back: 'Narx, qiymat',
         romaji: 'kakaku',
         furigana: 'かかく',
@@ -6853,7 +6853,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v205',
-        front: '科学 (かがく)',
+        front: '科学',
         back: 'Fan, tabiiy fanlar',
         romaji: 'kagaku',
         furigana: 'かがく',
@@ -6864,7 +6864,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v206',
-        front: '家具 (かぐ)',
+        front: '家具',
         back: 'Mebel, jihoz',
         romaji: 'kagu',
         furigana: 'かぐ',
@@ -6875,7 +6875,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v207',
-        front: '確認 (かくにん)',
+        front: '確認',
         back: 'Tekshirish, tasdiqlash',
         romaji: 'kakunin',
         furigana: 'かくにん',
@@ -6886,7 +6886,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v208',
-        front: '過去 (かこ)',
+        front: '過去',
         back: "O'tmish, o'tgan zamon",
         romaji: 'kako',
         furigana: 'かこ',
@@ -6897,7 +6897,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v209',
-        front: '加工 (かこう)',
+        front: '加工',
         back: 'Qayta ishlash, ishlov berish',
         romaji: 'kakou',
         furigana: 'かこう',
@@ -6908,7 +6908,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v210',
-        front: '火災 (かさい)',
+        front: '火災',
         back: "Yong'in, o't ketishi",
         romaji: 'kasai',
         furigana: 'かさい',
@@ -6919,7 +6919,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v211',
-        front: '歌手 (かしゅ)',
+        front: '歌手',
         back: "Qo'shiqchi, xonanda",
         romaji: 'kashu',
         furigana: 'かしゅ',
@@ -6930,7 +6930,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v212',
-        front: '風邪 (かぜ)',
+        front: '風邪',
         back: 'Shamollash, gripp',
         romaji: 'kaze',
         furigana: 'かぜ',
@@ -6941,7 +6941,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v213',
-        front: '感想 (かんそう)',
+        front: '感想',
         back: 'Fikr-mulohaza, taassurot, taqriz',
         romaji: 'kansou',
         furigana: 'かんそう',
@@ -6952,7 +6952,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v214',
-        front: '下線 (かせん)',
+        front: '下線',
         back: 'Tagiga chizilgan chiziq, pastki chiziq',
         romaji: 'kasen',
         furigana: 'かせん',
@@ -6963,7 +6963,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v215',
-        front: '乾燥 (かんそう)',
+        front: '乾燥',
         back: "Qurish, quruqlik, qurg'oqchilik",
         romaji: 'kansou',
         furigana: 'かんそう',
@@ -6974,7 +6974,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v216',
-        front: '花壇 (かだん)',
+        front: '花壇',
         back: "Gulzor, gul to'shagi",
         romaji: 'kadan',
         furigana: 'かだん',
@@ -6985,7 +6985,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v217',
-        front: '感動 (かんどう)',
+        front: '感動',
         back: "Ta'sirlanish, to'lqinlanish, hayrat",
         romaji: 'kandou',
         furigana: 'かんどう',
@@ -6996,7 +6996,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v218',
-        front: '価値 (かち)',
+        front: '価値',
         back: 'Qadr-qimmat, narx, qiymat',
         romaji: 'kachi',
         furigana: 'かち',
@@ -7007,7 +7007,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v219',
-        front: '看板 (かんばん)',
+        front: '看板',
         back: 'Lavha, peshlavha, reklama taxtasi',
         romaji: 'kanban',
         furigana: 'かんばん',
@@ -7018,7 +7018,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v220',
-        front: '課長 (かちょう)',
+        front: '課長',
         back: "Bo'lim boshlig'i, mudir",
         romaji: 'kachou',
         furigana: 'かちょう',
@@ -7029,7 +7029,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v221',
-        front: '外出 (がいしゅつ)',
+        front: '外出',
         back: "Tashqariga chiqish, ko'chaga chiqish",
         romaji: 'gaishutsu',
         furigana: 'がいしゅつ',
@@ -7040,7 +7040,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v222',
-        front: '活動 (かつどう)',
+        front: '活動',
         back: 'Faoliyat, harakat',
         romaji: 'katsudou',
         furigana: 'かつどう',
@@ -7051,7 +7051,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v223',
-        front: '外食 (がいしょく)',
+        front: '外食',
         back: 'Tashqarida ovqatlanish, restoranda yeyish',
         romaji: 'gaishoku',
         furigana: 'がいしょく',
@@ -7062,7 +7062,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v224',
-        front: '仮定 (かてい)',
+        front: '仮定',
         back: 'Faraz, taxmin, gipoteza',
         romaji: 'katei',
         furigana: 'かてい',
@@ -7073,7 +7073,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v225',
-        front: '楽器 (がっき)',
+        front: '楽器',
         back: 'Musiqa asbobi',
         romaji: 'gakki',
         furigana: 'がっき',
@@ -7084,7 +7084,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v226',
-        front: '間隔 (かんかく)',
+        front: '間隔',
         back: "Oraliq, masofa, vaqt oralig'i",
         romaji: 'kankaku',
         furigana: 'かんかく',
@@ -7095,7 +7095,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v227',
-        front: '我慢 (がまん)',
+        front: '我慢',
         back: 'Chidam, sabr, toqat qilish',
         romaji: 'gaman',
         furigana: 'がまん',
@@ -7106,7 +7106,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v228',
-        front: '感覚 (かんかく)',
+        front: '感覚',
         back: "Sezgi, his-tuyg'u",
         romaji: 'kankaku',
         furigana: 'かんかく',
@@ -7117,7 +7117,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v229',
-        front: '気温 (きおん)',
+        front: '気温',
         back: 'Havo harorati',
         romaji: 'kion',
         furigana: 'きおん',
@@ -7128,7 +7128,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v230',
-        front: '観客 (かんきゃく)',
+        front: '観客',
         back: 'Tomoshabin, muxlis',
         romaji: 'kankyaku',
         furigana: 'かんきゃく',
@@ -7139,7 +7139,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v231',
-        front: '機械 (きかい)',
+        front: '機械',
         back: 'Mashina, mexanizm, uskuna',
         romaji: 'kikai',
         furigana: 'きかい',
@@ -7150,7 +7150,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v232',
-        front: '環境 (かんきょう)',
+        front: '環境',
         back: 'Atrof-muhit, sharoit',
         romaji: 'kankyou',
         furigana: 'かんきょう',
@@ -7161,7 +7161,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v233',
-        front: '機会 (きかい)',
+        front: '機会',
         back: 'Imkoniyat, fursat, qulay vaziyat',
         romaji: 'kikai',
         furigana: 'きかい',
@@ -7172,7 +7172,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v234',
-        front: '関係 (かんけい)',
+        front: '関係',
         back: "Aloqa, munosabat, bog'liqlik",
         romaji: 'kankei',
         furigana: 'かんけい',
@@ -7183,7 +7183,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v235',
-        front: '着方 (きかた)',
+        front: '着方',
         back: 'Kiyinish usuli, qanday kiyish',
         romaji: 'kikata',
         furigana: 'きかた',
@@ -7194,7 +7194,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v236',
-        front: '歓迎 (かんげい)',
+        front: '歓迎',
         back: "Samimiy kutib olish, hush ko'rish",
         romaji: 'kangei',
         furigana: 'かんげい',
@@ -7205,7 +7205,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v237',
-        front: '期間 (きかん)',
+        front: '期間',
         back: "Muddat, vaqt oralig'i, davr",
         romaji: 'kikan',
         furigana: 'きかん',
@@ -7216,7 +7216,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v238',
-        front: '感激 (かんげき)',
+        front: '感激',
         back: 'Chuqur hayajon, chuqur minnatdorchilik',
         romaji: 'kangeki',
         furigana: 'かんげき',
@@ -7227,7 +7227,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v239',
-        front: '機関 (きかん)',
+        front: '機関',
         back: 'Tashkilot, organ, vosita, muassasa',
         romaji: 'kikan',
         furigana: 'きかん',
@@ -7238,7 +7238,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v240',
-        front: '観光 (かんこう)',
+        front: '観光',
         back: 'Sayyohlik, turizm',
         romaji: 'kankou',
         furigana: 'かんこう',
@@ -7249,7 +7249,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v241',
-        front: '企業 (きぎょう)',
+        front: '企業',
         back: 'Korxona, kompaniya, biznes korxonasi',
         romaji: 'kigyou',
         furigana: 'きぎょう',
@@ -7260,7 +7260,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v242',
-        front: '観察 (かんさつ)',
+        front: '観察',
         back: 'Kuzatish, sinchkovlik bilan qarash',
         romaji: 'kansatsu',
         furigana: 'かんさつ',
@@ -7271,7 +7271,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v243',
-        front: '期限 (きげん)',
+        front: '期限',
         back: 'Muddat, oxirgi muddat',
         romaji: 'kigen',
         furigana: 'きげん',
@@ -7282,7 +7282,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v244',
-        front: '漢字 (かんじ)',
+        front: '漢字',
         back: 'Kanji (yapon iyeroglifi)',
         romaji: 'kanji',
         furigana: 'かんじ',
@@ -7293,7 +7293,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v245',
-        front: '帰国 (きこく)',
+        front: '帰国',
         back: "Vatanga qaytish, o'z yurtiga borish",
         romaji: 'kikoku',
         furigana: 'きこく',
@@ -7304,7 +7304,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v246',
-        front: '感謝 (かんしゃ)',
+        front: '感謝',
         back: 'Minnatdorchilik, tashakkur',
         romaji: 'kansha',
         furigana: 'かんしゃ',
@@ -7315,7 +7315,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v247',
-        front: '記事 (きじ)',
+        front: '記事',
         back: 'Maqola, gazeta xabari',
         romaji: 'kiji',
         furigana: 'きじ',
@@ -7326,7 +7326,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v248',
-        front: '患者 (かんじゃ)',
+        front: '患者',
         back: 'Bemor, xasta odam',
         romaji: 'kanja',
         furigana: 'かんじゃ',
@@ -7337,7 +7337,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v249',
-        front: '季節 (きせつ)',
+        front: '季節',
         back: 'Fasl, mavsum',
         romaji: 'kisetsu',
         furigana: 'きせつ',
@@ -7348,7 +7348,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v250',
-        front: '感心 (かんしん)',
+        front: '感心',
         back: 'Qoyil qolish, hayratda qolish',
         romaji: 'kanshin',
         furigana: 'かんしん',
@@ -7359,7 +7359,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v251',
-        front: '基礎 (きそ)',
+        front: '基礎',
         back: 'Asos, poydevor, baza',
         romaji: 'kiso',
         furigana: 'きそ',
@@ -7370,7 +7370,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v252',
-        front: '関心 (かんしん)',
+        front: '関心',
         back: "Qiziqish, diqqat-e'tibor",
         romaji: 'kanshin',
         furigana: 'かんしん',
@@ -7381,7 +7381,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v253',
-        front: '規則 (きそく)',
+        front: '規則',
         back: 'Qoida, nizom, intizom',
         romaji: 'kisoku',
         furigana: 'きそく',
@@ -7392,7 +7392,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v254',
-        front: '完成 (かんせい)',
+        front: '完成',
         back: "Tugallanish, bitkazish, to'liq tayyor bo'lish",
         romaji: 'kansei',
         furigana: 'かんせい',
@@ -7403,7 +7403,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v255',
-        front: '期待 (きたい)',
+        front: '期待',
         back: 'Umid, intizorlik, orziqib kutish',
         romaji: 'kitai',
         furigana: 'きたい',
@@ -7414,7 +7414,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v256',
-        front: '帰宅 (きたく)',
+        front: '帰宅',
         back: 'Uyga qaytish',
         romaji: 'kitaku',
         furigana: 'きたく',
@@ -7425,7 +7425,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v257',
-        front: '記録 (きろく)',
+        front: '記録',
         back: 'Qayd, rekord, yozuv',
         romaji: 'kiroku',
         furigana: 'きろく',
@@ -7436,7 +7436,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v258',
-        front: '機長 (きちょう)',
+        front: '機長',
         back: 'Samolyot komandiri / kapitani',
         romaji: 'kichou',
         furigana: 'きちょう',
@@ -7447,7 +7447,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v259',
-        front: '禁煙 (きんえん)',
+        front: '禁煙',
         back: 'Chekish taqiqlangan, chekishni tashlash',
         romaji: "kin'en",
         furigana: 'きんえん',
@@ -7458,7 +7458,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v260',
-        front: '切手 (きって)',
+        front: '切手',
         back: 'Pochta markasi',
         romaji: 'kitte',
         furigana: 'きって',
@@ -7469,7 +7469,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v261',
-        front: '禁止 (きんし)',
+        front: '禁止',
         back: 'Taqiq, man etish',
         romaji: 'kinshi',
         furigana: 'きんし',
@@ -7480,7 +7480,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v262',
-        front: '記念 (きねん)',
+        front: '記念',
         back: 'Xotira, esdalik, bayram sanasi',
         romaji: 'kinen',
         furigana: 'きねん',
@@ -7491,7 +7491,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v263',
-        front: '近所 (きんじょ)',
+        front: '近所',
         back: "Qo'shnichilik, mahalla, yaqin-atrof",
         romaji: 'kinjo',
         furigana: 'きんじょ',
@@ -7502,7 +7502,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v264',
-        front: '昨日 (きのう)',
+        front: '昨日',
         back: 'Kecha, kechagi kun',
         romaji: 'kinou',
         furigana: 'きのう',
@@ -7513,7 +7513,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v265',
-        front: '緊張 (きんちょう)',
+        front: '緊張',
         back: 'Hayajon, taranglik, asabiylik',
         romaji: 'kinchou',
         furigana: 'きんちょう',
@@ -7524,7 +7524,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v266',
-        front: '気分 (きぶん)',
+        front: '気分',
         back: "Kayfiyat, o'zini his qilish holati",
         romaji: 'kibun',
         furigana: 'きぶん',
@@ -7535,7 +7535,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v267',
-        front: '技術 (ぎじゅつ)',
+        front: '技術',
         back: 'Texnika, texnologiya, mahorat',
         romaji: 'gijutsu',
         furigana: 'ぎじゅつ',
@@ -7546,7 +7546,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v268',
-        front: '基本 (きほん)',
+        front: '基本',
         back: 'Asos, tamal toshi, bazaviy qoida',
         romaji: 'kihon',
         furigana: 'きほん',
@@ -7557,7 +7557,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v269',
-        front: '牛乳 (ぎゅうにゅう)',
+        front: '牛乳',
         back: 'Sigir suti',
         romaji: 'gyuunyuu',
         furigana: 'ぎゅうにゅう',
@@ -7568,7 +7568,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v270',
-        front: '希望 (きぼう)',
+        front: '希望',
         back: 'Umid, istak, niyat',
         romaji: 'kibou',
         furigana: 'きぼう',
@@ -7579,7 +7579,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v271',
-        front: '銀行 (ぎんこう)',
+        front: '銀行',
         back: 'Bank',
         romaji: 'ginkou',
         furigana: 'ぎんこう',
@@ -7590,7 +7590,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v272',
-        front: '着物 (きもの)',
+        front: '着物',
         back: 'Kimono (milliy yapon libosi)',
         romaji: 'kimono',
         furigana: 'きもの',
@@ -7601,7 +7601,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v273',
-        front: '空気 (くうき)',
+        front: '空気',
         back: 'Havo, atmosfera, muhit',
         romaji: 'kuuki',
         furigana: 'くうき',
@@ -7612,7 +7612,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v274',
-        front: '休講 (きゅうこう)',
+        front: '休講',
         back: "Darsning qoldirilishi / bekor bo'lishi",
         romaji: 'kyuukou',
         furigana: 'きゅうこう',
@@ -7623,7 +7623,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v275',
-        front: '空港 (くうこう)',
+        front: '空港',
         back: 'Aeroport',
         romaji: 'kuukou',
         furigana: 'くうこう',
@@ -7634,7 +7634,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v276',
-        front: '休日 (きゅうじつ)',
+        front: '休日',
         back: "Dam olish kuni, ta'til kuni",
         romaji: 'kyuujitsu',
         furigana: 'きゅうじつ',
@@ -7645,7 +7645,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v277',
-        front: '草木 (くさき)',
+        front: '草木',
         back: "O't-o'lan va daraxtlar, nabotot",
         romaji: 'kusaki',
         furigana: 'くさき',
@@ -7656,7 +7656,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v278',
-        front: '給料 (きゅうりょう)',
+        front: '給料',
         back: 'Maosh, oylik ish haqi',
         romaji: 'kyuuryou',
         furigana: 'きゅうりょう',
@@ -7667,7 +7667,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v279',
-        front: '草花 (くさばな)',
+        front: '草花',
         back: "Dala gullari, o't-o'lan gullari",
         romaji: 'kusabana',
         furigana: 'くさばな',
@@ -7678,7 +7678,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v280',
-        front: '教育 (きょういく)',
+        front: '教育',
         back: "Ta'lim-tarbiya",
         romaji: 'kyouiku',
         furigana: 'きょういく',
@@ -7689,7 +7689,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v281',
-        front: '果物 (くだもの)',
+        front: '果物',
         back: 'Mevalar',
         romaji: 'kudamono',
         furigana: 'くだもの',
@@ -7700,7 +7700,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v282',
-        front: '教室 (きょうしつ)',
+        front: '教室',
         back: 'Sinfxona, auditoriya',
         romaji: 'kyoushitsu',
         furigana: 'きょうしつ',
@@ -7711,7 +7711,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v283',
-        front: '工夫 (くふう)',
+        front: '工夫',
         back: "Zukkolik, o'ylab topilgan usul, ixtiro",
         romaji: 'kufuu',
         furigana: 'くふう',
@@ -7722,7 +7722,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v284',
-        front: '競争 (きょうそう)',
+        front: '競争',
         back: 'Raqobat, bellashuv, poyga',
         romaji: 'kyousou',
         furigana: 'きょうそう',
@@ -7733,7 +7733,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v285',
-        front: '区別 (くべつ)',
+        front: '区別',
         back: 'Farqlash, ajratish',
         romaji: 'kubetsu',
         furigana: 'くべつ',
@@ -7744,7 +7744,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v286',
-        front: '兄弟 (きょうだい)',
+        front: '兄弟',
         back: 'Aka-uka, aka-singillar',
         romaji: 'kyoudai',
         furigana: 'きょうだい',
@@ -7755,7 +7755,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v287',
-        front: '苦労 (くろう)',
+        front: '苦労',
         back: 'Mashaqqat, qiyinchilik, mehnati sinish',
         romaji: 'kurou',
         furigana: 'くろう',
@@ -7766,7 +7766,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v288',
-        front: '共通 (きょうつう)',
+        front: '共通',
         back: 'Umumiy, mushtarak',
         romaji: 'kyoutsuu',
         furigana: 'きょうつう',
@@ -7777,7 +7777,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v289',
-        front: '訓練 (くんれん)',
+        front: '訓練',
         back: "Mashg'ulot, harbiy/favqulodda tayyorgarlik",
         romaji: 'kunren',
         furigana: 'くんれん',
@@ -7788,7 +7788,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v290',
-        front: '共同 (きょうどう)',
+        front: '共同',
         back: 'Hamkorlikdagi, birgalikdagi',
         romaji: 'kyoudou',
         furigana: 'きょうどう',
@@ -7799,7 +7799,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v291',
-        front: '具合 (ぐあい)',
+        front: '具合',
         back: 'Ahvol, salomatlik holati, qulaylik',
         romaji: 'guai',
         furigana: 'ぐあい',
@@ -7810,7 +7810,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v292',
-        front: '興味 (きょうみ)',
+        front: '興味',
         back: "Qiziqish, e'tibor",
         romaji: 'kyoumi',
         furigana: 'きょうみ',
@@ -7821,7 +7821,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v293',
-        front: '経営 (けいえい)',
+        front: '経営',
         back: 'Boshqaruv, tadbirkorlik, korxonani yuritish',
         romaji: 'keiei',
         furigana: 'けいえい',
@@ -7832,7 +7832,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v294',
-        front: '協力 (きょうりょく)',
+        front: '協力',
         back: "Hamkorlik, ko'maklashish",
         romaji: 'kyouryoku',
         furigana: 'きょうりょく',
@@ -7843,7 +7843,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v295',
-        front: '計画 (けいかく)',
+        front: '計画',
         back: 'Reja, loyiha',
         romaji: 'keikaku',
         furigana: 'けいかく',
@@ -7854,7 +7854,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v296',
-        front: '去年 (きょねん)',
+        front: '去年',
         back: "O'tgan yil",
         romaji: 'kyonen',
         furigana: 'きょねん',
@@ -7865,7 +7865,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v297',
-        front: '敬語 (けいご)',
+        front: '敬語',
         back: "Hurmat so'zlari, keigo (odoblilik shakllari)",
         romaji: 'keigo',
         furigana: 'けいご',
@@ -7876,7 +7876,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v298',
-        front: '距離 (きょり)',
+        front: '距離',
         back: 'Masofa, oraliq masofa',
         romaji: 'kyori',
         furigana: 'きょり',
@@ -7887,7 +7887,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v299',
-        front: '警察 (けいさつ)',
+        front: '警察',
         back: 'Politsiya',
         romaji: 'keisatsu',
         furigana: 'けいさつ',
@@ -7898,7 +7898,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v300',
-        front: '計算 (けいさん)',
+        front: '計算',
         back: 'Hisob-kitob qilish, matematika',
         romaji: 'keisan',
         furigana: 'けいさん',
@@ -7909,7 +7909,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v301',
-        front: '経済 (けいざい)',
+        front: '経済',
         back: 'Iqtisodiyot',
         romaji: 'keizai',
         furigana: 'けいざい',
@@ -7920,7 +7920,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v302',
-        front: '携帯 (けいたい)',
+        front: '携帯',
         back: "Mobil telefon, o'zi bilan olib yurish",
         romaji: 'keitai',
         furigana: 'けいたい',
@@ -7931,7 +7931,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v303',
-        front: '経由 (けいゆ)',
+        front: '経由',
         back: "Orqali o'tish, tranzit qilish",
         romaji: 'keiyu',
         furigana: 'けいゆ',
@@ -7942,7 +7942,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v304',
-        front: '今朝 (けさ)',
+        front: '今朝',
         back: 'Bugun ertalab',
         romaji: 'kesa',
         furigana: 'けさ',
@@ -7953,7 +7953,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v305',
-        front: '景色 (けしき)',
+        front: '景色',
         back: "Manzara, ko'rinish",
         romaji: 'keshiki',
         furigana: 'けしき',
@@ -7964,7 +7964,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v306',
-        front: '血圧 (けつあつ)',
+        front: '血圧',
         back: 'Qon bosimi',
         romaji: 'ketsuatsu',
         furigana: 'けつあつ',
@@ -7975,7 +7975,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v307',
-        front: '血液 (けつえき)',
+        front: '血液',
         back: 'Qon',
         romaji: 'ketsueki',
         furigana: 'けつえき',
@@ -7986,7 +7986,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v308',
-        front: '結果 (けっか)',
+        front: '結果',
         back: 'Natija, yakun',
         romaji: 'kekka',
         furigana: 'けっか',
@@ -7997,7 +7997,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v309',
-        front: '結婚 (けっこん)',
+        front: '結婚',
         back: "Nikoh, turmush qurish, to'y",
         romaji: 'kekkon',
         furigana: 'けっこん',
@@ -8008,7 +8008,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v310',
-        front: '欠席 (けっせき)',
+        front: '欠席',
         back: 'Qatnashmaslik, dars qoldirish',
         romaji: 'kesseki',
         furigana: 'けっせき',
@@ -8019,7 +8019,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v311',
-        front: '欠点 (けってん)',
+        front: '欠点',
         back: 'Kamchilik, nuqson, zaif tomon',
         romaji: 'ketten',
         furigana: 'けってん',
@@ -8030,7 +8030,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v312',
-        front: '喧嘩 (けんか)',
+        front: '喧嘩',
         back: 'Janjal, urushish, aytishuv',
         romaji: 'kenka',
         furigana: 'けんか',
@@ -8041,7 +8041,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v313',
-        front: '見学 (けんがく)',
+        front: '見学',
         back: "Borib ko'rish, o'rganish ekskursiyasi",
         romaji: 'kengaku',
         furigana: 'けんがく',
@@ -8052,7 +8052,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v314',
-        front: '研究 (けんきゅう)',
+        front: '研究',
         back: 'Tadqiqot, ilmiy izlanish',
         romaji: 'kenkyuu',
         furigana: 'けんきゅう',
@@ -8063,7 +8063,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v315',
-        front: '検査 (けんさ)',
+        front: '検査',
         back: 'Tekshiruv, nazorat, laboratoriya tahlili',
         romaji: 'kensa',
         furigana: 'けんさ',
@@ -8074,7 +8074,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v316',
-        front: '建設 (けんせつ)',
+        front: '建設',
         back: 'Qurilish, bunyod etish',
         romaji: 'kensetsu',
         furigana: 'けんせつ',
@@ -8085,7 +8085,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v317',
-        front: '建築 (けんちく)',
+        front: '建築',
         back: "Me'morchilik, arxitektura",
         romaji: 'kenchiku',
         furigana: 'けんちく',
@@ -8096,7 +8096,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v318',
-        front: '見物 (けんぶつ)',
+        front: '見物',
         back: 'Tomosha qilish, sayr qilish',
         romaji: 'kenbutsu',
         furigana: 'けんぶつ',
@@ -8107,7 +8107,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v319',
-        front: '芸術 (げいじゅつ)',
+        front: '芸術',
         back: "San'at",
         romaji: 'geijutsu',
         furigana: 'げいじゅつ',
@@ -8118,7 +8118,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v320',
-        front: '下車 (げしゃ)',
+        front: '下車',
         back: 'Transportdan tushish',
         romaji: 'gesha',
         furigana: 'げしゃ',
@@ -8129,7 +8129,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v321',
-        front: '原因 (げんいん)',
+        front: '原因',
         back: 'Sabab, omil',
         romaji: "gen'in",
         furigana: 'げんいん',
@@ -8140,7 +8140,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v322',
-        front: '玄関 (げんかん)',
+        front: '玄関',
         back: 'Kirish dahlizi, koridor',
         romaji: 'genkan',
         furigana: 'げんかん',
@@ -8151,7 +8151,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v323',
-        front: '現金 (げんきん)',
+        front: '現金',
         back: 'Naqd pul',
         romaji: 'genkin',
         furigana: 'げんきん',
@@ -8162,7 +8162,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v324',
-        front: '言語 (げんご)',
+        front: '言語',
         back: 'Til, nutq tili',
         romaji: 'gengo',
         furigana: 'げんご',
@@ -8173,7 +8173,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v325',
-        front: '原稿 (げんこう)',
+        front: '原稿',
         back: "Qo'lyozma, maqola loyihasi",
         romaji: 'genkou',
         furigana: 'げんこう',
@@ -8184,7 +8184,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v326',
-        front: '現在 (げんざい)',
+        front: '現在',
         back: 'Hozirgi payt, hozirgi zamon',
         romaji: 'genzai',
         furigana: 'げんざい',
@@ -8195,7 +8195,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v327',
-        front: '減少 (げんしょう)',
+        front: '減少',
         back: 'Kamayish, qisqarish',
         romaji: 'genshou',
         furigana: 'げんしょう',
@@ -8206,7 +8206,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v328',
-        front: '原料 (げんりょう)',
+        front: '原料',
         back: 'Xomashyo, material',
         romaji: 'genryou',
         furigana: 'げんりょう',
@@ -8217,7 +8217,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v329',
-        front: '公園 (こうえん)',
+        front: '公園',
         back: "Park, xiyobon, dam olish bog'i",
         romaji: 'kouen',
         furigana: 'こうえん',
@@ -8228,7 +8228,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v330',
-        front: '講演 (こうえん)',
+        front: '講演',
         back: "Ma'ruza, ommaviy nutq",
         romaji: 'kouen',
         furigana: 'こうえん',
@@ -8239,7 +8239,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v331',
-        front: '高温 (こうおん)',
+        front: '高温',
         back: 'Yuqori harorat, qattiq issiq',
         romaji: 'kouon',
         furigana: 'こうおん',
@@ -8250,7 +8250,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v332',
-        front: '効果 (こうか)',
+        front: '効果',
         back: "Samara, ta'sir, natija",
         romaji: 'kouka',
         furigana: 'こうか',
@@ -8261,7 +8261,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v333',
-        front: '交換 (こうかん)',
+        front: '交換',
         back: "Almashish, o'zaro almashuv",
         romaji: 'koukan',
         furigana: 'こうかん',
@@ -8272,7 +8272,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v334',
-        front: '公共 (こうきょう)',
+        front: '公共',
         back: 'Jamoat, umumiy foydalanishdagi',
         romaji: 'koukyou',
         furigana: 'こうきょう',
@@ -8283,7 +8283,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v335',
-        front: '工業 (こうぎょう)',
+        front: '工業',
         back: 'Sanoat, ishlab chiqarish',
         romaji: 'kougyou',
         furigana: 'こうぎょう',
@@ -8294,7 +8294,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v336',
-        front: '広告 (こうこく)',
+        front: '広告',
         back: "Reklama, e'lon",
         romaji: 'koukoku',
         furigana: 'こうこく',
@@ -8305,7 +8305,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v337',
-        front: '工事 (こうじ)',
+        front: '工事',
         back: "Qurilish-ta'mirlash ishlari",
         romaji: 'kouji',
         furigana: 'こうじ',
@@ -8316,7 +8316,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v338',
-        front: '工場 (こうじょう)',
+        front: '工場',
         back: 'Zavod, fabrika',
         romaji: 'koujou',
         furigana: 'こうじょう',
@@ -8327,7 +8327,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v339',
-        front: '紅茶 (こうちゃ)',
+        front: '紅茶',
         back: 'Qora choy',
         romaji: 'koucha',
         furigana: 'こうちゃ',
@@ -8338,7 +8338,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v340',
-        front: '校庭 (こうてい)',
+        front: '校庭',
         back: 'Maktab hovlisi / maydoni',
         romaji: 'koutei',
         furigana: 'こうてい',
@@ -8349,7 +8349,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v341',
-        front: '行動 (こうどう)',
+        front: '行動',
         back: 'Harakat, xatti-harakat, faoliyat',
         romaji: 'koudou',
         furigana: 'こうどう',
@@ -8360,7 +8360,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v342',
-        front: '後輩 (こうはい)',
+        front: '後輩',
         back: 'Kichik kursdosh, kichik hamkasb',
         romaji: 'kouhai',
         furigana: 'こうはい',
@@ -8371,7 +8371,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v343',
-        front: '交番 (こうばん)',
+        front: '交番',
         back: 'Koban (politsiya tayanch punkti)',
         romaji: 'kouban',
         furigana: 'こうばん',
@@ -8382,7 +8382,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v344',
-        front: '好物 (こうぶつ)',
+        front: '好物',
         back: 'Sevimli taom / mahsulot',
         romaji: 'koubutsu',
         furigana: 'こうぶつ',
@@ -8393,7 +8393,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v345',
-        front: '後方 (こうほう)',
+        front: '後方',
         back: 'Orqa tomon, orqa taraf',
         romaji: 'kouhou',
         furigana: 'こうほう',
@@ -8404,7 +8404,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v346',
-        front: '交流 (こうりゅう)',
+        front: '交流',
         back: 'Madaniy almashinuv, muloqot, aloqa',
         romaji: 'kouryuu',
         furigana: 'こうりゅう',
@@ -8415,7 +8415,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v347',
-        front: '国際 (こくさい)',
+        front: '国際',
         back: 'Xalqaro',
         romaji: 'kokusai',
         furigana: 'こくさい',
@@ -8426,7 +8426,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v348',
-        front: '小声 (こごえ)',
+        front: '小声',
         back: 'Past ovoz, pichirlash',
         romaji: 'kogoe',
         furigana: 'こごえ',
@@ -8436,7 +8436,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v349',
-        front: '故障 (こしょう)',
+        front: '故障',
         back: 'Buzilish, nosozlik',
         romaji: 'koshou',
         furigana: 'こしょう',
@@ -8447,7 +8447,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v350',
-        front: '個人 (こじん)',
+        front: '個人',
         back: 'Shaxs, fard, yakka inson',
         romaji: 'kojin',
         furigana: 'こじん',
@@ -8458,7 +8458,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v351',
-        front: '小銭 (こぜに)',
+        front: '小銭',
         back: 'Mayda pul, chaqa',
         romaji: 'kozeni',
         furigana: 'こぜに',
@@ -8469,7 +8469,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v352',
-        front: '小鳥 (ことり)',
+        front: '小鳥',
         back: 'Qushcha, mayda qush',
         romaji: 'kotori',
         furigana: 'ことり',
@@ -8480,7 +8480,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v353',
-        front: '混雑 (こんざつ)',
+        front: '混雑',
         back: 'Gavjumlik, tirbandlik',
         romaji: 'konzatsu',
         furigana: 'こんざつ',
@@ -8491,7 +8491,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v354',
-        front: '今度 (こんど)',
+        front: '今度',
         back: 'Bu safar, keyingi safar',
         romaji: 'kondo',
         furigana: 'こんど',
@@ -8502,7 +8502,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v355',
-        front: '合格 (ごうかく)',
+        front: '合格',
         back: "Imtihondan o'tish, qabul qilinish",
         romaji: 'goukaku',
         furigana: 'ごうかく',
@@ -8513,7 +8513,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v356',
-        front: '合計 (ごうけい)',
+        front: '合計',
         back: 'Jami, umumiy summa',
         romaji: 'goukei',
         furigana: 'ごうけい',
@@ -8524,7 +8524,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v357',
-        front: '最近 (さいきん)',
+        front: '最近',
         back: "Yaqinda, so'nggi paytlarda",
         romaji: 'saikin',
         furigana: 'さいきん',
@@ -8535,7 +8535,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v358',
-        front: '最後 (さいご)',
+        front: '最後',
         back: "Oxiri, so'nggi",
         romaji: 'saigo',
         furigana: 'さいご',
@@ -8546,7 +8546,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v359',
-        front: '最終 (さいしゅう)',
+        front: '最終',
         back: "Eng so'nggi, yakuniy",
         romaji: 'saishuu',
         furigana: 'さいしゅう',
@@ -8557,7 +8557,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v360',
-        front: '最初 (さいしょ)',
+        front: '最初',
         back: 'Boshi, dastlab, ilk bor',
         romaji: 'saisho',
         furigana: 'さいしょ',
@@ -8568,7 +8568,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v361',
-        front: '最上 (さいじょう)',
+        front: '最上',
         back: "Eng oliy, eng a'lo, eng yuqori",
         romaji: 'saijou',
         furigana: 'さいじょう',
@@ -8579,7 +8579,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v362',
-        front: '財布 (さいふ)',
+        front: '財布',
         back: 'Hamyon, karmon',
         romaji: 'saifu',
         furigana: 'さいふ',
@@ -8590,7 +8590,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v363',
-        front: '坂道 (さかみち)',
+        front: '坂道',
         back: "Qiyalik yo'l, tepalikka olib boruvchi yo'l",
         romaji: 'sakamichi',
         furigana: 'さかみち',
@@ -8601,7 +8601,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v364',
-        front: '作物 (さくもつ)',
+        front: '作物',
         back: "Qishloq xo'jalik ekini, hosil",
         romaji: 'sakumotsu',
         furigana: 'さくもつ',
@@ -8612,7 +8612,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v365',
-        front: '左折 (させつ)',
+        front: '左折',
         back: 'Chapga burilish',
         romaji: 'sasetsu',
         furigana: 'させつ',
@@ -8623,7 +8623,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v366',
-        front: '砂糖 (さとう)',
+        front: '砂糖',
         back: 'Shakar',
         romaji: 'satou',
         furigana: 'さとう',
@@ -8634,7 +8634,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v367',
-        front: '参加 (さんか)',
+        front: '参加',
         back: 'Qatnashish, ishtirok etish',
         romaji: 'sanka',
         furigana: 'さんか',
@@ -8645,7 +8645,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v368',
-        front: '算数 (さんすう)',
+        front: '算数',
         back: "Arifmetika, boshlang'ich matematika",
         romaji: 'sansuu',
         furigana: 'さんすう',
@@ -8656,7 +8656,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v369',
-        front: '散歩 (さんぽ)',
+        front: '散歩',
         back: 'Sayr qilish, aylanib kelish',
         romaji: 'sanpo',
         furigana: 'さんぽ',
@@ -8667,7 +8667,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v370',
-        front: '材料 (ざいりょう)',
+        front: '材料',
         back: 'Masalliq, material, xomashyo',
         romaji: 'zairyou',
         furigana: 'ざいりょう',
@@ -8678,7 +8678,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v371',
-        front: '残業 (ざんぎょう)',
+        front: '残業',
         back: 'Ishdan tashqari ishlash, ortiqcha ish vaqti',
         romaji: 'zangyou',
         furigana: 'ざんぎょう',
@@ -8689,7 +8689,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v372',
-        front: '試合 (しあい)',
+        front: '試合',
         back: "Musobaqa, o'yin, uchrashuv",
         romaji: 'shiai',
         furigana: 'しあい',
@@ -8700,7 +8700,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v373',
-        front: '四角 (しかく)',
+        front: '四角',
         back: "To'rtburchak",
         romaji: 'shikaku',
         furigana: 'しかく',
@@ -8711,7 +8711,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v374',
-        front: '仕方 (しかた)',
+        front: '仕方',
         back: 'Chora, iloj, usul',
         romaji: 'shikata',
         furigana: 'しかた',
@@ -8722,7 +8722,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v375',
-        front: '支給 (しきゅう)',
+        front: '支給',
         back: "To'lab berish, berish, ta'minlash",
         romaji: 'shikyuu',
         furigana: 'しきゅう',
@@ -8733,7 +8733,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v376',
-        front: '試験 (しけん)',
+        front: '試験',
         back: 'Imtihon, sinov',
         romaji: 'shiken',
         furigana: 'しけん',
@@ -8744,7 +8744,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v377',
-        front: '資源 (しげん)',
+        front: '資源',
         back: 'Resurslar, tabiiy boyliklar',
         romaji: 'shigen',
         furigana: 'しげん',
@@ -8755,7 +8755,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v378',
-        front: '姿勢 (しせい)',
+        front: '姿勢',
         back: 'Qad-qomat, gavda holati, munosabat',
         romaji: 'shisei',
         furigana: 'しせい',
@@ -8766,7 +8766,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v379',
-        front: '湿気 (しっき)',
+        front: '湿気',
         back: 'Namlik, rutubat',
         romaji: 'shikki',
         furigana: 'しっき',
@@ -8777,7 +8777,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v380',
-        front: '失敗 (しっぱい)',
+        front: '失敗',
         back: 'Muvaffaqiyatsizlik, xato, yutqazish',
         romaji: 'shippai',
         furigana: 'しっぱい',
@@ -8788,7 +8788,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v381',
-        front: '指定 (してい)',
+        front: '指定',
         back: 'Belgilash, tayinlash',
         romaji: 'shitei',
         furigana: 'してい',
@@ -8799,7 +8799,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v382',
-        front: '支店 (してん)',
+        front: '支店',
         back: "Filial, tarmoq bo'limi",
         romaji: 'shiten',
         furigana: 'してん',
@@ -8810,7 +8810,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v383',
-        front: '指導 (しどう)',
+        front: '指導',
         back: "Yo'l-yo'riq ko'rsatish, ustozlik, rahbarlik",
         romaji: 'shidou',
         furigana: 'しどう',
@@ -8821,7 +8821,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v384',
-        front: '始発 (しはつ)',
+        front: '始発',
         back: 'Birinchi reys / birinchi poyezd',
         romaji: 'shihatsu',
         furigana: 'しはつ',
@@ -8832,7 +8832,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v385',
-        front: '芝生 (しばふ)',
+        front: '芝生',
         back: 'Maysazor, chim',
         romaji: 'shibafu',
         furigana: 'しばふ',
@@ -8843,7 +8843,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v386',
-        front: '市民 (しみん)',
+        front: '市民',
         back: 'Shahar fuqarosi, shahar aholisi',
         romaji: 'shimin',
         furigana: 'しみん',
@@ -8854,7 +8854,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v387',
-        front: '氏名 (しめい)',
+        front: '氏名',
         back: "To'liq ism-familiya",
         romaji: 'shimei',
         furigana: 'しめい',
@@ -8865,7 +8865,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v388',
-        front: '社会 (しゃかい)',
+        front: '社会',
         back: 'Jamiyat',
         romaji: 'shakai',
         furigana: 'しゃかい',
@@ -8876,7 +8876,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v389',
-        front: '写真 (しゃしん)',
+        front: '写真',
         back: 'Fotosurat, rasm',
         romaji: 'shashin',
         furigana: 'しゃしん',
@@ -8887,7 +8887,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v390',
-        front: '車道 (しゃどう)',
+        front: '車道',
         back: "Qatnov qismi, avtomobil yo'li",
         romaji: 'shadou',
         furigana: 'しゃどう',
@@ -8898,7 +8898,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v391',
-        front: '斜面 (しゃめん)',
+        front: '斜面',
         back: 'Qiyalik, nishablik',
         romaji: 'shamen',
         furigana: 'しゃめん',
@@ -8909,7 +8909,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v392',
-        front: '習慣 (しゅうかん)',
+        front: '習慣',
         back: "Odat, an'ana",
         romaji: 'shuukan',
         furigana: 'しゅうかん',
@@ -8920,7 +8920,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v393',
-        front: '集合 (しゅうごう)',
+        front: '集合',
         back: "To'planish, yig'ilish",
         romaji: 'shuugou',
         furigana: 'しゅうごう',
@@ -8931,7 +8931,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v394',
-        front: '就職 (しゅうしょく)',
+        front: '就職',
         back: 'Ishga kirish, ishga joylashish',
         romaji: 'shuushoku',
         furigana: 'しゅうしょく',
@@ -8942,7 +8942,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v395',
-        front: '集中 (しゅうちゅう)',
+        front: '集中',
         back: 'Diqqatni jamlash, konsentratsiya',
         romaji: 'shuuchuu',
         furigana: 'しゅうちゅう',
@@ -8953,7 +8953,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v396',
-        front: '終点 (しゅうてん)',
+        front: '終点',
         back: "Oxirgi bekat, so'nggi manzil",
         romaji: 'shuuten',
         furigana: 'しゅうてん',
@@ -8964,7 +8964,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v397',
-        front: '収入 (しゅうにゅう)',
+        front: '収入',
         back: 'Daromad, oylik kirim',
         romaji: 'shuunyuu',
         furigana: 'しゅうにゅう',
@@ -8975,7 +8975,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v398',
-        front: '修理 (しゅうり)',
+        front: '修理',
         back: "Ta'mirlash, tuzatish",
         romaji: 'shuuri',
         furigana: 'しゅうり',
@@ -8986,7 +8986,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v399',
-        front: '終了 (しゅうりょう)',
+        front: '終了',
         back: 'Tugash, yakunlanish',
         romaji: 'shuuryou',
         furigana: 'しゅうりょう',
@@ -8997,7 +8997,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v400',
-        front: '祝日 (しゅくじつ)',
+        front: '祝日',
         back: 'Milliy bayram kuni, dam olish kuni',
         romaji: 'shukujitsu',
         furigana: 'しゅくじつ',
@@ -9008,7 +9008,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v401',
-        front: '縮小 (しゅくしょう)',
+        front: '縮小',
         back: 'Qisqartirish, kichraytirish',
         romaji: 'shukushou',
         furigana: 'しゅくしょう',
@@ -9019,7 +9019,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v402',
-        front: '宿題 (しゅくだい)',
+        front: '宿題',
         back: 'Uyga vazifa',
         romaji: 'shukudai',
         furigana: 'しゅくだい',
@@ -9030,7 +9030,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v403',
-        front: '手術 (しゅじゅつ)',
+        front: '手術',
         back: 'Jarrohlik amaliyoti, operatsiya',
         romaji: 'shujutsu',
         furigana: 'しゅじゅつ',
@@ -9041,7 +9041,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v404',
-        front: '手段 (しゅだん)',
+        front: '手段',
         back: "Vosita, usul, yo'l",
         romaji: 'shudan',
         furigana: 'しゅだん',
@@ -9052,7 +9052,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v405',
-        front: '主張 (しゅちょう)',
+        front: '主張',
         back: "Qat'iy ta'kidlash, o'z fikrida turib olish",
         romaji: 'shuchou',
         furigana: 'しゅちょう',
@@ -9063,7 +9063,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v406',
-        front: '出勤 (しゅっきん)',
+        front: '出勤',
         back: 'Ishga kelish, ishga chiqish',
         romaji: 'shukkin',
         furigana: 'しゅっきん',
@@ -9074,7 +9074,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v407',
-        front: '出身 (しゅっしん)',
+        front: '出身',
         back: "Tug'ilib o'sgan joy, kelib chiqishi",
         romaji: 'shusshin',
         furigana: 'しゅっしん',
@@ -9085,7 +9085,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v408',
-        front: '出席 (しゅっせき)',
+        front: '出席',
         back: "Qatnashish, hozir bo'lish",
         romaji: 'shusseki',
         furigana: 'しゅっせき',
@@ -9096,7 +9096,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v409',
-        front: '出張 (しゅっちょう)',
+        front: '出張',
         back: 'Xizmat safari, komandirovka',
         romaji: 'shucchou',
         furigana: 'しゅっちょう',
@@ -9107,7 +9107,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v410',
-        front: '趣味 (しゅみ)',
+        front: '趣味',
         back: 'Qiziqish, xobbi',
         romaji: 'shumi',
         furigana: 'しゅみ',
@@ -9118,7 +9118,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v411',
-        front: '種目 (しゅもく)',
+        front: '種目',
         back: "Sport turi, yo'nalish",
         romaji: 'shumoku',
         furigana: 'しゅもく',
@@ -9129,7 +9129,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v412',
-        front: '種類 (しゅるい)',
+        front: '種類',
         back: 'Tur, xil, nav',
         romaji: 'shurui',
         furigana: 'しゅるい',
@@ -9140,7 +9140,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v413',
-        front: '使用 (しよう)',
+        front: '使用',
         back: 'Foydalanish, ishlatish',
         romaji: 'shiyou',
         furigana: 'しよう',
@@ -9151,7 +9151,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v414',
-        front: '紹介 (しょうかい)',
+        front: '紹介',
         back: 'Tanishtirish, tavsiya qilish',
         romaji: 'shoukai',
         furigana: 'しょうかい',
@@ -9162,7 +9162,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v415',
-        front: '正月 (しょうがつ)',
+        front: '正月',
         back: 'Yangi yil bayrami (Yaponiyada)',
         romaji: 'shougatsu',
         furigana: 'しょうがつ',
@@ -9173,7 +9173,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v416',
-        front: '小説 (しょうせつ)',
+        front: '小説',
         back: 'Roman, badiiy qissa',
         romaji: 'shousetsu',
         furigana: 'しょうせつ',
@@ -9184,7 +9184,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v417',
-        front: '商売 (しょうばい)',
+        front: '商売',
         back: 'Savdo-sotiq, tijorat, biznes',
         romaji: 'shoubai',
         furigana: 'しょうばい',
@@ -9195,7 +9195,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v418',
-        front: '消費 (しょうひ)',
+        front: '消費',
         back: "Iste'mol, sarflash",
         romaji: 'shouhi',
         furigana: 'しょうひ',
@@ -9206,7 +9206,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v419',
-        front: '商品 (しょうひん)',
+        front: '商品',
         back: 'Mahsulot, tovar',
         romaji: 'shouhin',
         furigana: 'しょうひん',
@@ -9217,7 +9217,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v420',
-        front: '証明 (しょうめい)',
+        front: '証明',
         back: 'Isbotlash, guvohlik berish, tasdiqlash',
         romaji: 'shoumei',
         furigana: 'しょうめい',
@@ -9228,7 +9228,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v421',
-        front: '将来 (しょうらい)',
+        front: '将来',
         back: 'Kelajak, istiqbol',
         romaji: 'shourai',
         furigana: 'しょうらい',
@@ -9239,7 +9239,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v422',
-        front: '初級 (しょきゅう)',
+        front: '初級',
         back: "Boshlang'ich daraja",
         romaji: 'shokyuu',
         furigana: 'しょきゅう',
@@ -9250,7 +9250,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v423',
-        front: '食堂 (しょくどう)',
+        front: '食堂',
         back: 'Oshxona, tamaddixona',
         romaji: 'shokudou',
         furigana: 'しょくどう',
@@ -9261,7 +9261,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v424',
-        front: '食欲 (しょくよく)',
+        front: '食欲',
         back: 'Ishtaha',
         romaji: 'shokuyoku',
         furigana: 'しょくよく',
@@ -9272,7 +9272,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v425',
-        front: '食器 (しょっき)',
+        front: '食器',
         back: 'Idish-tovoq',
         romaji: 'shokki',
         furigana: 'しょっき',
@@ -9283,7 +9283,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v426',
-        front: '書類 (しょるい)',
+        front: '書類',
         back: "Hujjatlar, qog'ozlar",
         romaji: 'shorui',
         furigana: 'しょるい',
@@ -9294,7 +9294,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v427',
-        front: '資料 (しりょう)',
+        front: '資料',
         back: "Materiallar, ma'lumotlar to'plami",
         romaji: 'shiryou',
         furigana: 'しりょう',
@@ -9305,7 +9305,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v428',
-        front: '進学 (しんがく)',
+        front: '進学',
         back: "Keyingi ta'lim bosqichiga o'qishga kirish",
         romaji: 'shingaku',
         furigana: 'しんがく',
@@ -9316,7 +9316,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v429',
-        front: '進行 (しんこう)',
+        front: '進行',
         back: 'Rivojlanish, jarayonning borishi, ilgarilash',
         romaji: 'shinkou',
         furigana: 'しんこう',
@@ -9327,7 +9327,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v430',
-        front: '信号 (しんごう)',
+        front: '信号',
         back: 'Svetofor, signal',
         romaji: 'shingou',
         furigana: 'しんごう',
@@ -9338,7 +9338,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v431',
-        front: '申請 (しんせい)',
+        front: '申請',
         back: 'Ariza topshirish, murojaat qilish',
         romaji: 'shinsei',
         furigana: 'しんせい',
@@ -9349,7 +9349,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v432',
-        front: '心臓 (しんぞう)',
+        front: '心臓',
         back: 'Yurak',
         romaji: 'shinzou',
         furigana: 'しんぞう',
@@ -9360,7 +9360,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v433',
-        front: '柔道 (じゅうどう)',
+        front: '柔道',
         back: 'Dzyudo',
         romaji: 'juudou',
         furigana: 'じゅうどう',
@@ -9371,7 +9371,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v434',
-        front: '性格 (せいかく)',
+        front: '性格',
         back: "Xarakter, fe'l-atvor",
         romaji: 'seikaku',
         furigana: 'せいかく',
@@ -9382,7 +9382,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v435',
-        front: '洗濯 (せんたく)',
+        front: '洗濯',
         back: 'Kir yuvish',
         romaji: 'sentaku',
         furigana: 'せんたく',
@@ -9393,7 +9393,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v436',
-        front: '進歩 (しんぽ)',
+        front: '進歩',
         back: "O'sish, rivojlanish, progress",
         romaji: 'shinpo',
         furigana: 'しんぽ',
@@ -9404,7 +9404,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v437',
-        front: '授業 (じゅぎょう)',
+        front: '授業',
         back: "Dars, mashg'ulot",
         romaji: 'jugyou',
         furigana: 'じゅぎょう',
@@ -9415,7 +9415,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v438',
-        front: '生活 (せいかつ)',
+        front: '生活',
         back: 'Hayot, turmush tarzi',
         romaji: 'seikatsu',
         furigana: 'せいかつ',
@@ -9426,7 +9426,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v439',
-        front: '宣伝 (せんでん)',
+        front: '宣伝',
         back: "Targ'ibot, reklama qilish",
         romaji: 'senden',
         furigana: 'せんでん',
@@ -9437,7 +9437,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v440',
-        front: '親友 (しんゆう)',
+        front: '親友',
         back: "Yaqin do'st, qadrdon do'st",
         romaji: "shin'yuu",
         furigana: 'しんゆう',
@@ -9448,7 +9448,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v441',
-        front: '受験 (じゅけん)',
+        front: '受験',
         back: 'Imtihon topshirish',
         romaji: 'juken',
         furigana: 'じゅけん',
@@ -9459,7 +9459,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v442',
-        front: '制限 (せいげん)',
+        front: '制限',
         back: 'Cheklov, limit',
         romaji: 'seigen',
         furigana: 'せいげん',
@@ -9470,7 +9470,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v443',
-        front: '先輩 (せんぱい)',
+        front: '先輩',
         back: 'Katta kursdosh, katta hamkasb (senpai)',
         romaji: 'senpai',
         furigana: 'せんぱい',
@@ -9481,7 +9481,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v444',
-        front: '森林 (しんりん)',
+        front: '森林',
         back: "Qalin o'rmon, to'qay",
         romaji: 'shinrin',
         furigana: 'しんりん',
@@ -9492,7 +9492,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v445',
-        front: '順番 (じゅんばん)',
+        front: '順番',
         back: 'Navbat, ketma-ketlik',
         romaji: 'junban',
         furigana: 'じゅんばん',
@@ -9503,7 +9503,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v446',
-        front: '成功 (せいこう)',
+        front: '成功',
         back: 'Muvaffaqiyat, yutuq',
         romaji: 'seikou',
         furigana: 'せいこう',
@@ -9514,7 +9514,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v447',
-        front: '専門 (せんもん)',
+        front: '専門',
         back: 'Mutaxassislik, ixtisoslik',
         romaji: 'senmon',
         furigana: 'せんもん',
@@ -9525,7 +9525,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v448',
-        front: '時期 (じき)',
+        front: '時期',
         back: 'Vaqt, mavsum, palla',
         romaji: 'jiki',
         furigana: 'じき',
@@ -9536,7 +9536,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v449',
-        front: '準備 (じゅんび)',
+        front: '準備',
         back: 'Tayyorgarlik, hozirlik',
         romaji: 'junbi',
         furigana: 'じゅんび',
@@ -9547,7 +9547,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v450',
-        front: '成績 (せいせき)',
+        front: '成績',
         back: "O'zlashtirish bahosi, ko'rsatkich, natija",
         romaji: 'seiseki',
         furigana: 'せいせき',
@@ -9558,7 +9558,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v451',
-        front: '線路 (せんろ)',
+        front: '線路',
         back: "Temir yo'l relsi, temiryo'l izi",
         romaji: 'senro',
         furigana: 'せんろ',
@@ -9569,7 +9569,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v452',
-        front: '時給 (じきゅう)',
+        front: '時給',
         back: 'Soatbay ish haqi, soatlik maosh',
         romaji: 'jikyuu',
         furigana: 'じきゅう',
@@ -9580,7 +9580,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v453',
-        front: '上級 (じょうきゅう)',
+        front: '上級',
         back: 'Yuqori daraja, oliy bosqich',
         romaji: 'joukyuu',
         furigana: 'じょうきゅう',
@@ -9591,7 +9591,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v454',
-        front: '清掃 (せいそう)',
+        front: '清掃',
         back: 'Tozalash, tozalik ishlari',
         romaji: 'seisou',
         furigana: 'せいそう',
@@ -9602,7 +9602,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v455',
-        front: '税金 (ぜいきん)',
+        front: '税金',
         back: 'Soliq',
         romaji: 'zeikin',
         furigana: 'ぜいきん',
@@ -9613,7 +9613,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v456',
-        front: '時差 (じさ)',
+        front: '時差',
         back: 'Vaqt farqi (soat mintaqasi)',
         romaji: 'jisa',
         furigana: 'じさ',
@@ -9624,7 +9624,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v457',
-        front: '上空 (じょうくう)',
+        front: '上空',
         back: 'Ochiq osmon, osmon kengliklari',
         romaji: 'joukuu',
         furigana: 'じょうくう',
@@ -9635,7 +9635,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v458',
-        front: '生徒 (せいと)',
+        front: '生徒',
         back: "O'quvchi, maktab o'quvchisi",
         romaji: 'seito',
         furigana: 'せいと',
@@ -9646,7 +9646,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v459',
-        front: '全然 (ぜんぜん)',
+        front: '全然',
         back: 'Umuman, aslo (inkor bilan); juda ham',
         romaji: 'zenzen',
         furigana: 'ぜんぜん',
@@ -9657,7 +9657,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v460',
-        front: '持参 (じさん)',
+        front: '持参',
         back: "O'zi bilan olib kelish",
         romaji: 'jisan',
         furigana: 'じさん',
@@ -9668,7 +9668,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v461',
-        front: '乗車 (じょうしゃ)',
+        front: '乗車',
         back: 'Transportga minish / chiqish',
         romaji: 'jousha',
         furigana: 'じょうしゃ',
@@ -9679,7 +9679,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v462',
-        front: '正答 (せいとう)',
+        front: '正答',
         back: "To'g'ri javob",
         romaji: 'seitou',
         furigana: 'せいとう',
@@ -9690,7 +9690,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v463',
-        front: '全体 (ぜんたい)',
+        front: '全体',
         back: 'Butun, yalpi, butunlay',
         romaji: 'zentai',
         furigana: 'ぜんたい',
@@ -9701,7 +9701,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v464',
-        front: '辞書 (じしょ)',
+        front: '辞書',
         back: "Lug'at",
         romaji: 'jisho',
         furigana: 'じしょ',
@@ -9712,7 +9712,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v465',
-        front: '状態 (じょうたい)',
+        front: '状態',
         back: 'Holat, ahvol',
         romaji: 'joutai',
         furigana: 'じょうたい',
@@ -9723,7 +9723,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v466',
-        front: '製品 (せいひん)',
+        front: '製品',
         back: 'Mahsulot, tovar, tayyor buyum',
         romaji: 'seihin',
         furigana: 'せいひん',
@@ -9734,7 +9734,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v467',
-        front: '倉庫 (そうこ)',
+        front: '倉庫',
         back: 'Omborxona, ombor',
         romaji: 'souko',
         furigana: 'そうこ',
@@ -9745,7 +9745,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v468',
-        front: '事情 (じじょう)',
+        front: '事情',
         back: 'Vaziyat, holat, sabab',
         romaji: 'jijou',
         furigana: 'じじょう',
@@ -9756,7 +9756,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v469',
-        front: '冗談 (じょうだん)',
+        front: '冗談',
         back: 'Hazil, mutoyiba',
         romaji: 'joudan',
         furigana: 'じょうだん',
@@ -9767,7 +9767,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v470',
-        front: '制服 (せいふく)',
+        front: '制服',
         back: 'Forma, maxsus forma',
         romaji: 'seifuku',
         furigana: 'せいふく',
@@ -9778,7 +9778,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v471',
-        front: '掃除 (そうじ)',
+        front: '掃除',
         back: "Tozalash, yig'ishtirish",
         romaji: 'souji',
         furigana: 'そうじ',
@@ -9789,7 +9789,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v472',
-        front: '自信 (じしん)',
+        front: '自信',
         back: "Ishonch, o'z kuchiga ishonch",
         romaji: 'jishin',
         furigana: 'じしん',
@@ -9800,7 +9800,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v473',
-        front: '情報 (じょうほう)',
+        front: '情報',
         back: "Ma'lumot, axborot",
         romaji: 'jouhou',
         furigana: 'じょうほう',
@@ -9811,7 +9811,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v474',
-        front: '生物 (せいぶつ)',
+        front: '生物',
         back: 'Jonivor, tirik mavjudot, biologiya',
         romaji: 'seibutsu',
         furigana: 'せいぶつ',
@@ -9822,7 +9822,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v475',
-        front: '送信 (そうしん)',
+        front: '送信',
         back: "Jo'natish, xabar/xat yuborish",
         romaji: 'soushin',
         furigana: 'そうしん',
@@ -9833,7 +9833,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v476',
-        front: '時代 (じだい)',
+        front: '時代',
         back: 'Davr, zamon',
         romaji: 'jidai',
         furigana: 'じだい',
@@ -9844,7 +9844,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v477',
-        front: '女性 (じょせい)',
+        front: '女性',
         back: 'Ayol kishi, xotin-qiz',
         romaji: 'josei',
         furigana: 'じょせい',
@@ -9855,7 +9855,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v478',
-        front: '性別 (せいべつ)',
+        front: '性別',
         back: 'Jins (erkak yoki ayol)',
         romaji: 'seibetsu',
         furigana: 'せいべつ',
@@ -9866,7 +9866,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v479',
-        front: '想像 (そうぞう)',
+        front: '想像',
         back: 'Tasavvur, hayol qilish',
         romaji: 'souzou',
         furigana: 'そうぞう',
@@ -9877,7 +9877,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v480',
-        front: '自宅 (じたく)',
+        front: '自宅',
         back: "O'z uyi, shaxsiy xonadon",
         romaji: 'jitaku',
         furigana: 'じたく',
@@ -9888,7 +9888,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v481',
-        front: '神社 (じんじゃ)',
+        front: '神社',
         back: 'Sinto ibodatxonasi (yapon ziyoratgohi)',
         romaji: 'jinja',
         furigana: 'じんじゃ',
@@ -9899,7 +9899,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v482',
-        front: '整理 (せいり)',
+        front: '整理',
         back: 'Tartibga keltirish, saralash',
         romaji: 'seiri',
         furigana: 'せいり',
@@ -9910,7 +9910,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v483',
-        front: '早退 (そうたい)',
+        front: '早退',
         back: "Ishdan yoki o'qishdan erta ketish",
         romaji: 'soutai',
         furigana: 'そうたい',
@@ -9921,7 +9921,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v484',
-        front: '実家 (じっか)',
+        front: '実家',
         back: 'Ota-ona uyi, ota hovli',
         romaji: 'jikka',
         furigana: 'じっか',
@@ -9932,7 +9932,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v485',
-        front: '人生 (じんせい)',
+        front: '人生',
         back: "Hayot, umr yo'li",
         romaji: 'jinsei',
         furigana: 'じんせい',
@@ -9943,7 +9943,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v486',
-        front: '世界 (せかい)',
+        front: '世界',
         back: 'Dunyo, olam, jahon',
         romaji: 'sekai',
         furigana: 'せかい',
@@ -9954,7 +9954,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v487',
-        front: '相談 (そうだん)',
+        front: '相談',
         back: 'Maslahatlashish, kengashish',
         romaji: 'soudan',
         furigana: 'そうだん',
@@ -9965,7 +9965,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v488',
-        front: '実験 (じっけん)',
+        front: '実験',
         back: 'Tajriba, laboratoriya sinovi',
         romaji: 'jikken',
         furigana: 'じっけん',
@@ -9976,7 +9976,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v489',
-        front: '人体 (じんたい)',
+        front: '人体',
         back: 'Inson tanasi',
         romaji: 'jintai',
         furigana: 'じんたい',
@@ -9987,7 +9987,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v490',
-        front: '石油 (せきゆ)',
+        front: '石油',
         back: 'Neft, kerosin',
         romaji: 'sekiyu',
         furigana: 'せきゆ',
@@ -9998,7 +9998,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v491',
-        front: '早朝 (そうちょう)',
+        front: '早朝',
         back: 'Barvaqt tong, erta ertalab',
         romaji: 'souchou',
         furigana: 'そうちょう',
@@ -10009,7 +10009,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v492',
-        front: '実行 (じっこう)',
+        front: '実行',
         back: 'Amalga oshirish, ijro qilish',
         romaji: 'jikkou',
         furigana: 'じっこう',
@@ -10020,7 +10020,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v493',
-        front: '水泳 (すいえい)',
+        front: '水泳',
         back: 'Suzish (sport turi)',
         romaji: 'suiei',
         furigana: 'すいえい',
@@ -10031,7 +10031,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v494',
-        front: '接近 (せっきん)',
+        front: '接近',
         back: 'Yaqinlashish',
         romaji: 'sekkin',
         furigana: 'せっきん',
@@ -10042,7 +10042,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v495',
-        front: '想定 (そうてい)',
+        front: '想定',
         back: 'Faraz qilish, hisobga olish',
         romaji: 'soutei',
         furigana: 'そうてい',
@@ -10053,7 +10053,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v496',
-        front: '実際 (じっさい)',
+        front: '実際',
         back: 'Aslida, haqiqatda, amalda',
         romaji: 'jissai',
         furigana: 'じっさい',
@@ -10064,7 +10064,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v497',
-        front: '水筒 (すいとう)',
+        front: '水筒',
         back: 'Suv idishi, termos',
         romaji: 'suitou',
         furigana: 'すいとう',
@@ -10075,7 +10075,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v498',
-        front: '説明 (せつめい)',
+        front: '説明',
         back: 'Tushuntirish, izohlash',
         romaji: 'setsumei',
         furigana: 'せつめい',
@@ -10086,7 +10086,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v499',
-        front: '卒業 (そつぎょう)',
+        front: '卒業',
         back: "Bitiruv, o'qishni tugatish",
         romaji: 'sotsugyou',
         furigana: 'そつぎょう',
@@ -10097,7 +10097,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v500',
-        front: '実物 (じつぶつ)',
+        front: '実物',
         back: 'Asl nusxa, haqiqiy buyum',
         romaji: 'jitsubutsu',
         furigana: 'じつぶつ',
@@ -10108,7 +10108,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v501',
-        front: '数回 (すうかい)',
+        front: '数回',
         back: 'Bir necha marta',
         romaji: 'suukai',
         furigana: 'すうかい',
@@ -10119,7 +10119,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v502',
-        front: '背中 (せなか)',
+        front: '背中',
         back: 'Orqa, orqa tomon, kurak',
         romaji: 'senaka',
         furigana: 'せなか',
@@ -10130,7 +10130,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v503',
-        front: '祖父 (そふ)',
+        front: '祖父',
         back: "Bobo (o'ziniki)",
         romaji: 'sofu',
         furigana: 'そふ',
@@ -10141,7 +10141,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v504',
-        front: '実力 (じつりょく)',
+        front: '実力',
         back: 'Haqiqiy mahorat, salohiyat, kuch',
         romaji: 'jitsuryoku',
         furigana: 'じつりょく',
@@ -10152,7 +10152,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v505',
-        front: '数学 (すうがく)',
+        front: '数学',
         back: 'Matematika',
         romaji: 'suugaku',
         furigana: 'すうがく',
@@ -10163,7 +10163,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v506',
-        front: '世話 (せわ)',
+        front: '世話',
         back: "G'amxo'rlik, qarash, parvarish",
         romaji: 'sewa',
         furigana: 'せわ',
@@ -10174,7 +10174,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v507',
-        front: '祖母 (そぼ)',
+        front: '祖母',
         back: "Buvi (o'ziniki)",
         romaji: 'sobo',
         furigana: 'そぼ',
@@ -10185,7 +10185,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v508',
-        front: '自慢 (じまん)',
+        front: '自慢',
         back: 'Maqtanchoqlik, iftixor qilish',
         romaji: 'jiman',
         furigana: 'じまん',
@@ -10196,7 +10196,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v509',
-        front: '数字 (すうじ)',
+        front: '数字',
         back: 'Raqam, son',
         romaji: 'suuji',
         furigana: 'すうじ',
@@ -10207,7 +10207,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v510',
-        front: '洗剤 (せんざい)',
+        front: '洗剤',
         back: 'Yuvish vositasi, kir yuvish kukuni',
         romaji: 'senzai',
         furigana: 'せんざい',
@@ -10218,7 +10218,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v511',
-        front: '尊敬 (そんけい)',
+        front: '尊敬',
         back: 'Hurmat, ehtirom qilish',
         romaji: 'sonkei',
         furigana: 'そんけい',
@@ -10229,7 +10229,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v512',
-        front: '住所 (じゅうしょ)',
+        front: '住所',
         back: 'Manzil, yashash manzili',
         romaji: 'juusho',
         furigana: 'じゅうしょ',
@@ -10240,7 +10240,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v513',
-        front: '頭痛 (ずつう)',
+        front: '頭痛',
         back: "Bosh og'rig'i",
         romaji: 'zutsuu',
         furigana: 'ずつう',
@@ -10251,7 +10251,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v514',
-        front: '選手 (せんしゅ)',
+        front: '選手',
         back: 'Sportchi',
         romaji: 'senshu',
         furigana: 'せんしゅ',
@@ -10262,7 +10262,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v515',
-        front: '増加 (ぞうか)',
+        front: '増加',
         back: "O'sish, ko'payish",
         romaji: 'zouka',
         furigana: 'ぞうか',
@@ -10273,7 +10273,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v516',
-        front: '渋滞 (じゅうたい)',
+        front: '渋滞',
         back: "Yo'l tirbandligi, tirbandlik",
         romaji: 'juutai',
         furigana: 'じゅうたい',
@@ -10284,7 +10284,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v517',
-        front: '正解 (せいかい)',
+        front: '正解',
         back: "To'g'ri javob, to'g'ri qaror",
         romaji: 'seikai',
         furigana: 'せいかい',
@@ -10295,7 +10295,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v518',
-        front: '先日 (せんじつ)',
+        front: '先日',
         back: "O'tgan kuni, yaqinda",
         romaji: 'senjitsu',
         furigana: 'せんじつ',
@@ -10306,7 +10306,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v519',
-        front: '退院 (たいいん)',
+        front: '退院',
         back: 'Shifoxonadan chiqish',
         romaji: "tai'in",
         furigana: 'たいいん',
@@ -10317,7 +10317,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v520',
-        front: '退会 (たいかい)',
+        front: '退会',
         back: "A'zolikdan chiqish",
         romaji: 'taikai',
         furigana: 'たいかい',
@@ -10328,7 +10328,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v521',
-        front: '大会 (たいかい)',
+        front: '大会',
         back: 'Katta musobaqa, turnir, qurultoy',
         romaji: 'taikai',
         furigana: 'たいかい',
@@ -10339,7 +10339,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v522',
-        front: '退屈 (たいくつ)',
+        front: '退屈',
         back: 'Zerikish, zerikarli',
         romaji: 'taikutsu',
         furigana: 'たいくつ',
@@ -10350,7 +10350,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v523',
-        front: '滞在 (たいざい)',
+        front: '滞在',
         back: 'Turish, vaqtincha istiqomat qilish',
         romaji: 'taizai',
         furigana: 'たいざい',
@@ -10361,7 +10361,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v524',
-        front: '体操 (たいそう)',
+        front: '体操',
         back: 'Badantarbiya, gimnastika',
         romaji: 'taisou',
         furigana: 'たいそう',
@@ -10372,7 +10372,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v525',
-        front: '台風 (たいふう)',
+        front: '台風',
         back: 'Tayfun',
         romaji: 'taifuu',
         furigana: 'たいふう',
@@ -10383,7 +10383,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v526',
-        front: '太陽 (たいよう)',
+        front: '太陽',
         back: 'Quyosh',
         romaji: 'taiyou',
         furigana: 'たいよう',
@@ -10394,7 +10394,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v527',
-        front: '大量 (たいりょう)',
+        front: '大量',
         back: "Katta miqdor, ko'p hajm",
         romaji: 'tairyou',
         furigana: 'たいりょう',
@@ -10405,7 +10405,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v528',
-        front: '体力 (たいりょく)',
+        front: '体力',
         back: 'Jismoniy quvvat, kuch',
         romaji: 'tairyoku',
         furigana: 'たいりょく',
@@ -10416,7 +10416,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v529',
-        front: '沢山 (たくさん)',
+        front: '沢山',
         back: "Ko'p, bisyor",
         romaji: 'takusan',
         furigana: 'たくさん',
@@ -10427,7 +10427,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v530',
-        front: '卓球 (たっきゅう)',
+        front: '卓球',
         back: 'Stol tennisi',
         romaji: 'takkyuu',
         furigana: 'たっきゅう',
@@ -10438,7 +10438,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v531',
-        front: '建物 (たてもの)',
+        front: '建物',
         back: 'Bino, imorat',
         romaji: 'tatemono',
         furigana: 'たてもの',
@@ -10449,7 +10449,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v532',
-        front: '単語 (たんご)',
+        front: '単語',
         back: "So'z, lug'at so'zi",
         romaji: 'tango',
         furigana: 'たんご',
@@ -10460,7 +10460,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v533',
-        front: '担任 (たんにん)',
+        front: '担任',
         back: "Sinf rahbari, mas'ul o'qituvchi",
         romaji: 'tannin',
         furigana: 'たんにん',
@@ -10471,7 +10471,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v534',
-        front: '代金 (だいきん)',
+        front: '代金',
         back: "To'lov summasi, xarid puli",
         romaji: 'daikin',
         furigana: 'だいきん',
@@ -10482,7 +10482,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v535',
-        front: '台所 (だいどころ)',
+        front: '台所',
         back: 'Oshxona (uy oshxonasi)',
         romaji: 'daidokoro',
         furigana: 'だいどころ',
@@ -10493,7 +10493,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v536',
-        front: '代表 (だいひょう)',
+        front: '代表',
         back: 'Vakil, terma jamoa, namunasi',
         romaji: 'daihyou',
         furigana: 'だいひょう',
@@ -10504,7 +10504,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v537',
-        front: '男女 (だんじょ)',
+        front: '男女',
         back: 'Erkak va ayol',
         romaji: 'danjo',
         furigana: 'だんじょ',
@@ -10515,7 +10515,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v538',
-        front: '男性 (だんせい)',
+        front: '男性',
         back: 'Erkak kishi',
         romaji: 'dansei',
         furigana: 'だんせい',
@@ -10526,7 +10526,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v539',
-        front: '団体 (だんたい)',
+        front: '団体',
         back: 'Guruh, jamoa, tashkilot',
         romaji: 'dantai',
         furigana: 'だんたい',
@@ -10537,7 +10537,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v540',
-        front: '暖房 (だんぼう)',
+        front: '暖房',
         back: 'Isitish tizimi, pechka',
         romaji: 'danbou',
         furigana: 'だんぼう',
@@ -10548,7 +10548,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v541',
-        front: '地下 (ちか)',
+        front: '地下',
         back: 'Yer osti, podval',
         romaji: 'chika',
         furigana: 'ちか',
@@ -10559,7 +10559,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v542',
-        front: '地球 (ちきゅう)',
+        front: '地球',
         back: 'Yer sayyorasi, yer kurrasi',
         romaji: 'chikyuu',
         furigana: 'ちきゅう',
@@ -10570,7 +10570,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v543',
-        front: '遅刻 (ちこく)',
+        front: '遅刻',
         back: 'Kechikish',
         romaji: 'chikoku',
         furigana: 'ちこく',
@@ -10581,7 +10581,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v544',
-        front: '知識 (ちしき)',
+        front: '知識',
         back: "Bilim, tushuncha, ma'lumot",
         romaji: 'chishiki',
         furigana: 'ちしき',
@@ -10592,7 +10592,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v545',
-        front: '地図 (ちず)',
+        front: '地図',
         back: 'Xarita',
         romaji: 'chizu',
         furigana: 'ちず',
@@ -10603,7 +10603,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v546',
-        front: '父親 (ちちおや)',
+        front: '父親',
         back: 'Ota',
         romaji: 'chichioya',
         furigana: 'ちちおや',
@@ -10614,7 +10614,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v547',
-        front: '注意 (ちゅうい)',
+        front: '注意',
         back: 'Diqqat, ehtiyotkorlik, ogohlantirish',
         romaji: 'chuui',
         furigana: 'ちゅうい',
@@ -10625,7 +10625,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v548',
-        front: '中級 (ちゅうきゅう)',
+        front: '中級',
         back: "O'rta daraja",
         romaji: 'chuukyuu',
         furigana: 'ちゅうきゅう',
@@ -10636,7 +10636,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v549',
-        front: '中古 (ちゅうこ)',
+        front: '中古',
         back: "Ishlatilgan, ikkinchi qo'l (used)",
         romaji: 'chuuko',
         furigana: 'ちゅうこ',
@@ -10647,7 +10647,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v550',
-        front: '中止 (ちゅうし)',
+        front: '中止',
         back: "To'xtatish, bekor qilish",
         romaji: 'chuushi',
         furigana: 'ちゅうし',
@@ -10658,7 +10658,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v551',
-        front: '駐車 (ちゅうしゃ)',
+        front: '駐車',
         back: "Mashina qo'yish, avtoturargohda to'xtash",
         romaji: 'chuusha',
         furigana: 'ちゅうしゃ',
@@ -10669,7 +10669,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v552',
-        front: '昼食 (ちゅうしょく)',
+        front: '昼食',
         back: 'Tushlik, tushlik ovqati',
         romaji: 'chuushoku',
         furigana: 'ちゅうしょく',
@@ -10680,7 +10680,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v553',
-        front: '中旬 (ちゅうじゅん)',
+        front: '中旬',
         back: "Oyning o'rtasi (11-20 kunlari)",
         romaji: 'chuujun',
         furigana: 'ちゅうじゅん',
@@ -10691,7 +10691,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v554',
-        front: '中心 (ちゅうしん)',
+        front: '中心',
         back: "Markaz, o'zak, diqqat markazi",
         romaji: 'chuushin',
         furigana: 'ちゅうしん',
@@ -10702,7 +10702,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v555',
-        front: '注文 (ちゅうもん)',
+        front: '注文',
         back: 'Buyurtma berish, buyurtma',
         romaji: 'chuumon',
         furigana: 'ちゅうもん',
@@ -10713,7 +10713,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v556',
-        front: '調査 (ちょうさ)',
+        front: '調査',
         back: 'Tekshiruv, tadqiqot, surishtiruv',
         romaji: 'chousa',
         furigana: 'ちょうさ',
@@ -10724,7 +10724,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v557',
-        front: '調子 (ちょうし)',
+        front: '調子',
         back: 'Holat, marom, ohang, kayfiyat',
         romaji: 'choushi',
         furigana: 'ちょうし',
@@ -10735,7 +10735,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v558',
-        front: '頂上 (ちょうじょう)',
+        front: '頂上',
         back: "Cho'qqi, tog' cho'qqisi",
         romaji: 'choujou',
         furigana: 'ちょうじょう',
@@ -10746,7 +10746,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v559',
-        front: '朝食 (ちょうしょく)',
+        front: '朝食',
         back: 'Nonushta',
         romaji: 'choushoku',
         furigana: 'ちょうしょく',
@@ -10757,7 +10757,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v560',
-        front: '調節 (ちょうせつ)',
+        front: '調節',
         back: "Sozlash, moslashtirish, me'yorga keltirish",
         romaji: 'chousetsu',
         furigana: 'ちょうせつ',
@@ -10768,7 +10768,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v561',
-        front: '長男 (ちょうなん)',
+        front: '長男',
         back: "To'ng'ich o'g'il",
         romaji: 'chounan',
         furigana: 'ちょうなん',
@@ -10779,7 +10779,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v562',
-        front: '鳥類 (ちょうるい)',
+        front: '鳥類',
         back: 'Qushlar sinfi, barcha qushlar',
         romaji: 'chourui',
         furigana: 'ちょうるい',
@@ -10790,7 +10790,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v563',
-        front: '貯金 (ちょきん)',
+        front: '貯金',
         back: "Jamg'arma, pul yig'ish",
         romaji: 'chokin',
         furigana: 'ちょきん',
@@ -10801,7 +10801,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v564',
-        front: '直接 (ちょくせつ)',
+        front: '直接',
         back: "Bevosita, to'g'ridan-to'g'ri",
         romaji: 'chokusetsu',
         furigana: 'ちょくせつ',
@@ -10812,7 +10812,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v565',
-        front: '通学 (つうがく)',
+        front: '通学',
         back: "O'qishga qatnash, maktabga borib kelish",
         romaji: 'tsuugaku',
         furigana: 'つうがく',
@@ -10823,7 +10823,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v566',
-        front: '通勤 (つうきん)',
+        front: '通勤',
         back: 'Ishga qatnash, ishga borib kelish',
         romaji: 'tsuukin',
         furigana: 'つうきん',
@@ -10834,7 +10834,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v567',
-        front: '通行 (つうこう)',
+        front: '通行',
         back: "O'tish, yo'ldan qatnash",
         romaji: 'tsuukou',
         furigana: 'つうこう',
@@ -10845,7 +10845,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v568',
-        front: '通訳 (つうやく)',
+        front: '通訳',
         back: "Og'zaki tarjimon, og'zaki tarjima",
         romaji: 'tsuuyaku',
         furigana: 'つうやく',
@@ -10856,7 +10856,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v569',
-        front: '通路 (つうろ)',
+        front: '通路',
         back: "Yo'lak, o'tish joyi",
         romaji: 'tsuuro',
         furigana: 'つうろ',
@@ -10867,7 +10867,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v570',
-        front: '月日 (つきひ)',
+        front: '月日',
         back: "Kunlar va oylar, o'tgan vaqt",
         romaji: 'tsukihi',
         furigana: 'つきひ',
@@ -10878,7 +10878,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v571',
-        front: '都合 (つごう)',
+        front: '都合',
         back: 'Sharoit, qulaylik, vaqt imkoni',
         romaji: 'tsugou',
         furigana: 'つごう',
@@ -10888,7 +10888,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v572',
-        front: '定員 (ていいん)',
+        front: '定員',
         back: "Belgilangan sig'im, qabul kvotasi",
         romaji: 'teiin',
         furigana: 'ていいん',
@@ -10899,7 +10899,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v573',
-        front: '停車 (ていしゃ)',
+        front: '停車',
         back: "Transportning to'xtashi",
         romaji: 'teisha',
         furigana: 'ていしゃ',
@@ -10910,7 +10910,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v574',
-        front: '定食 (ていしょく)',
+        front: '定食',
         back: "Kompleks tushlik/ovqat to'plami",
         romaji: 'teishoku',
         furigana: 'ていしょく',
@@ -10921,7 +10921,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v575',
-        front: '停電 (ていでん)',
+        front: '停電',
         back: "Elektr o'chishi, chiroq o'chishi",
         romaji: 'teiden',
         furigana: 'ていでん',
@@ -10932,7 +10932,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v576',
-        front: '手紙 (てがみ)',
+        front: '手紙',
         back: 'Xat, maktub',
         romaji: 'tegami',
         furigana: 'てがみ',
@@ -10943,7 +10943,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v577',
-        front: '手帳 (てちょう)',
+        front: '手帳',
         back: 'Yon daftarcha, kun tartibi daftari',
         romaji: 'techou',
         furigana: 'てちょう',
@@ -10954,7 +10954,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v578',
-        front: '鉄道 (てつどう)',
+        front: '鉄道',
         back: "Temir yo'l",
         romaji: 'tetsudou',
         furigana: 'てつどう',
@@ -10965,7 +10965,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v579',
-        front: '手袋 (てぶくろ)',
+        front: '手袋',
         back: "Qo'lqop",
         romaji: 'tebukuro',
         furigana: 'てぶくろ',
@@ -10976,7 +10976,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v580',
-        front: '天気 (てんき)',
+        front: '天気',
         back: 'Ob-havo',
         romaji: 'tenki',
         furigana: 'てんき',
@@ -10987,7 +10987,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v581',
-        front: '天井 (てんじょう)',
+        front: '天井',
         back: 'Shift, patalok',
         romaji: 'tenjou',
         furigana: 'てんじょう',
@@ -10998,7 +10998,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v582',
-        front: '点数 (てんすう)',
+        front: '点数',
         back: 'Ball, ochko, baho',
         romaji: 'tensuu',
         furigana: 'てんすう',
@@ -11009,7 +11009,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v583',
-        front: '店長 (てんちょう)',
+        front: '店長',
         back: "Do'kon mudiri, do'kon rahbari",
         romaji: 'tenchou',
         furigana: 'てんちょう',
@@ -11020,7 +11020,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v584',
-        front: '電球 (でんきゅう)',
+        front: '電球',
         back: 'Lampochka',
         romaji: 'denkyuu',
         furigana: 'でんきゅう',
@@ -11031,7 +11031,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v585',
-        front: '伝言 (でんごん)',
+        front: '伝言',
         back: "Og'zaki xabar qoldirish, xabar",
         romaji: 'dengon',
         furigana: 'でんごん',
@@ -11042,7 +11042,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v586',
-        front: '電卓 (でんたく)',
+        front: '電卓',
         back: 'Kalkulyator',
         romaji: 'dentaku',
         furigana: 'でんたく',
@@ -11053,7 +11053,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v587',
-        front: '電池 (でんち)',
+        front: '電池',
         back: 'Batareya, batareyka',
         romaji: 'denchi',
         furigana: 'でんち',
@@ -11064,7 +11064,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v588',
-        front: '当日 (とうじつ)',
+        front: '当日',
         back: "O'sha kun, belgilangan kun",
         romaji: 'toujitsu',
         furigana: 'とうじつ',
@@ -11075,7 +11075,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v589',
-        front: '登場 (とうじょう)',
+        front: '登場',
         back: "Sahnaga chiqish, paydo bo'lish",
         romaji: 'toujou',
         furigana: 'とうじょう',
@@ -11086,7 +11086,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v590',
-        front: '到着 (とうちゃく)',
+        front: '到着',
         back: 'Yetib kelish',
         romaji: 'touchaku',
         furigana: 'とうちゃく',
@@ -11097,7 +11097,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v591',
-        front: '都会 (都会)',
+        front: '都会',
         back: 'Katta shahar, megapolis',
         romaji: 'tokai',
         furigana: '都会',
@@ -11108,7 +11108,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v592',
-        front: '特徴 (とくちょう)',
+        front: '特徴',
         back: "O'ziga xos xususiyat, ajralib turadigan belgi",
         romaji: 'tokuchou',
         furigana: 'とくちょう',
@@ -11119,7 +11119,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v593',
-        front: '独立 (どくりつ)',
+        front: '独立',
         back: "Mustaqillik, o'zini o'zi ta'minlash",
         romaji: 'dokuritsu',
         furigana: 'どくりつ',
@@ -11130,7 +11130,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v594',
-        front: '時計 (とけい)',
+        front: '時計',
         back: "Soat (qo'l yoki devor soati)",
         romaji: 'tokei',
         furigana: 'とけい',
@@ -11141,7 +11141,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v595',
-        front: '土地 (とち)',
+        front: '土地',
         back: 'Yer, maydon, hudud',
         romaji: 'tochi',
         furigana: 'とち',
@@ -11152,7 +11152,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v596',
-        front: '途中 (とちゅう)',
+        front: '途中',
         back: "Yo'l ustida, o'rtasida, chala",
         romaji: 'tochuu',
         furigana: 'とちゅう',
@@ -11163,7 +11163,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v597',
-        front: '特急 (とっきゅう)',
+        front: '特急',
         back: 'Tezyurar ekspress poyezd',
         romaji: 'tokkyuu',
         furigana: 'とっきゅう',
@@ -11174,7 +11174,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v598',
-        front: '徒歩 (とほ)',
+        front: '徒歩',
         back: 'Piyoda yurish',
         romaji: 'toho',
         furigana: 'とほ',
@@ -11185,7 +11185,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v599',
-        front: '同意 (どうい)',
+        front: '同意',
         back: "Rozi bo'lish, ma'qullash",
         romaji: 'doui',
         furigana: 'どうい',
@@ -11196,7 +11196,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v600',
-        front: '道具 (どうぐ)',
+        front: '道具',
         back: 'Asbob, buyum, ish quroli',
         romaji: 'dougu',
         furigana: 'どうぐ',
@@ -11207,7 +11207,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v601',
-        front: '同時 (どうじ)',
+        front: '同時',
         back: "Bir vaqtning o'zida, bir paytda",
         romaji: 'douji',
         furigana: 'どうじ',
@@ -11218,7 +11218,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v602',
-        front: '同席 (どうせき)',
+        front: '同席',
         back: "Bir davrada / stolda o'tirish",
         romaji: 'douseki',
         furigana: 'どうせき',
@@ -11229,7 +11229,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v603',
-        front: '動物 (どうぶつ)',
+        front: '動物',
         back: 'Hayvon, jonivor',
         romaji: 'doubutsu',
         furigana: 'どうぶつ',
@@ -11240,7 +11240,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v604',
-        front: '同様 (どうよう)',
+        front: '同様',
         back: "Bir xil, o'xshash, yanglig'",
         romaji: 'douyou',
         furigana: 'どうよう',
@@ -11251,7 +11251,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v605',
-        front: '努力 (どりょく)',
+        front: '努力',
         back: "Harakat, g'ayrat, mehnat",
         romaji: 'doryoku',
         furigana: 'どりょく',
@@ -11262,7 +11262,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v606',
-        front: '内緒 (ないしょ)',
+        front: '内緒',
         back: 'Sir, maxfiylik',
         romaji: 'naisho',
         furigana: 'ないしょ',
@@ -11273,7 +11273,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v607',
-        front: '内容 (ないよう)',
+        front: '内容',
         back: 'Mazmun, mundarija, mohiyat',
         romaji: 'naiyou',
         furigana: 'ないよう',
@@ -11284,7 +11284,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v608',
-        front: '仲間 (なかま)',
+        front: '仲間',
         back: "Do'stlar, safdoshlar, jamoa a'zosi",
         romaji: 'nakama',
         furigana: 'なかま',
@@ -11295,7 +11295,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v609',
-        front: '発生 (はっせい)',
+        front: '発生',
         back: 'Kelib chiqish, yuz berish',
         romaji: 'hassei',
         furigana: 'はっせい',
@@ -11306,7 +11306,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v610',
-        front: '昼寝 (ひるね)',
+        front: '昼寝',
         back: 'Kunduzgi uyqu, tushki orom',
         romaji: 'hirune',
         furigana: 'ひるね',
@@ -11317,7 +11317,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v611',
-        front: '中身 (なかみ)',
+        front: '中身',
         back: 'Ichidagi narsa, ichki qismi',
         romaji: 'nakami',
         furigana: 'なかみ',
@@ -11328,7 +11328,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v612',
-        front: '発展 (はってん)',
+        front: '発展',
         back: 'Taraqqiyot, rivojlanish',
         romaji: 'hatten',
         furigana: 'はってん',
@@ -11339,7 +11339,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v613',
-        front: '病気 (びょうき)',
+        front: '病気',
         back: 'Kasallik, xastalik',
         romaji: 'byouki',
         furigana: 'びょうき',
@@ -11350,7 +11350,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v614',
-        front: '平均 (へいきん)',
+        front: '平均',
         back: "O'rtacha ko'rsatkich, tenglik",
         romaji: 'heikin',
         furigana: 'へいきん',
@@ -11361,7 +11361,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v615',
-        front: '納得 (なっとく)',
+        front: '納得',
         back: "Qanoatlanish, rozi bo'lish, to'la tushunish",
         romaji: 'nattoku',
         furigana: 'なっとく',
@@ -11372,7 +11372,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v616',
-        front: '発売 (はつばい)',
+        front: '発売',
         back: 'Sotuvga chiqarish, savdoga chiqishi',
         romaji: 'hatsubai',
         furigana: 'はつばい',
@@ -11383,7 +11383,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v617',
-        front: '夫婦 (ふうふ)',
+        front: '夫婦',
         back: 'Er-xotin',
         romaji: 'fuufu',
         furigana: 'ふうふ',
@@ -11394,7 +11394,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v618',
-        front: '平日 (へいじつ)',
+        front: '平日',
         back: 'Ish kunlari (odatiy kunlar)',
         romaji: 'heijitsu',
         furigana: 'へいじつ',
@@ -11405,7 +11405,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v619',
-        front: '名札 (なふだ)',
+        front: '名札',
         back: 'Ism taxtachasi, beyjik',
         romaji: 'nafuda',
         furigana: 'なふだ',
@@ -11416,7 +11416,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v620',
-        front: '発表 (はっぴょう)',
+        front: '発表',
         back: "Taqdimot, e'lon qilish",
         romaji: 'happyou',
         furigana: 'はっぴょう',
@@ -11427,7 +11427,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v621',
-        front: '復習 (ふくしゅう)',
+        front: '復習',
         back: 'Takrorlash, darsni mustahkamlash',
         romaji: 'fukushuu',
         furigana: 'ふくしゅう',
@@ -11438,7 +11438,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v622',
-        front: '部屋 (へや)',
+        front: '部屋',
         back: 'Xona',
         romaji: 'heya',
         furigana: 'へや',
@@ -11449,7 +11449,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v623',
-        front: '日常 (にちじょう)',
+        front: '日常',
         back: 'Kundalik hayot, odatiy turmush',
         romaji: 'nichijou',
         furigana: 'にちじょう',
@@ -11460,7 +11460,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v624',
-        front: '花火 (はなび)',
+        front: '花火',
         back: 'Mushakbozlik, feyerverk',
         romaji: 'hanabi',
         furigana: 'はなび',
@@ -11471,7 +11471,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v625',
-        front: '複数 (ふくすう)',
+        front: '複数',
         back: "Bir nechta, ko'plik",
         romaji: 'fukusuu',
         furigana: 'ふくすう',
@@ -11482,7 +11482,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v626',
-        front: '変化 (へんか)',
+        front: '変化',
         back: "O'zgarish",
         romaji: 'henka',
         furigana: 'へんか',
@@ -11493,7 +11493,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v627',
-        front: '日記 (にっき)',
+        front: '日記',
         back: 'Kundalik (shaxsiy daftar)',
         romaji: 'nikki',
         furigana: 'にっき',
@@ -11504,7 +11504,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v628',
-        front: '花見 (はなみ)',
+        front: '花見',
         back: 'Hanami (sakura gullarini tomosha qilish)',
         romaji: 'hanami',
         furigana: 'はなみ',
@@ -11515,7 +11515,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v629',
-        front: '服装 (ふくそう)',
+        front: '服装',
         back: 'Kiyim-bosh, kiyinish uslubi',
         romaji: 'fukusou',
         furigana: 'ふくそう',
@@ -11526,7 +11526,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v630',
-        front: '返事 (へんじ)',
+        front: '返事',
         back: 'Javob, javob qaytarish',
         romaji: 'henji',
         furigana: 'へんじ',
@@ -11537,7 +11537,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v631',
-        front: '日光 (にっこう)',
+        front: '日光',
         back: 'Quyosh nuri, ziyo',
         romaji: 'nikkou',
         furigana: 'にっこう',
@@ -11548,7 +11548,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v632',
-        front: '母親 (ははおや)',
+        front: '母親',
         back: 'Ona',
         romaji: 'hahaoya',
         furigana: 'ははおや',
@@ -11559,7 +11559,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v633',
-        front: '腹痛 (ふくつう)',
+        front: '腹痛',
         back: "Qorin og'rig'i",
         romaji: 'fukutsuu',
         furigana: 'ふくつう',
@@ -11570,7 +11570,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v634',
-        front: '勉強 (べんきょう)',
+        front: '勉強',
         back: "O'qish, tahsil olish, o'rganish",
         romaji: 'benkyou',
         furigana: 'べんきょう',
@@ -11581,7 +11581,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v635',
-        front: '日程 (にってい)',
+        front: '日程',
         back: 'Kun tartibi, dastur jadvali',
         romaji: 'nittei',
         furigana: 'にってい',
@@ -11592,7 +11592,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v636',
-        front: '反対 (はんたい)',
+        front: '反対',
         back: 'Qarshi, qarshilik, teskari',
         romaji: 'hantai',
         furigana: 'はんたい',
@@ -11603,7 +11603,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v637',
-        front: '不足 (ふそく)',
+        front: '不足',
         back: 'Yetishmovchilik, tanqislik',
         romaji: 'fusoku',
         furigana: 'ふそく',
@@ -11614,7 +11614,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v638',
-        front: '弁当 (べんとう)',
+        front: '弁当',
         back: 'Bento (yapon tamaddi qutisi)',
         romaji: 'bentou',
         furigana: 'べんとう',
@@ -11625,7 +11625,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v639',
-        front: '荷物 (にもつ)',
+        front: '荷物',
         back: 'Yuk, posilka, buyumlar',
         romaji: 'nimotsu',
         furigana: 'にもつ',
@@ -11636,7 +11636,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v640',
-        front: '半年 (はんとし)',
+        front: '半年',
         back: 'Yarim yil, olti oy',
         romaji: 'hantoshi',
         furigana: 'はんとし',
@@ -11647,7 +11647,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v641',
-        front: '双子 (ふたご)',
+        front: '双子',
         back: 'Egizaklar',
         romaji: 'futago',
         furigana: 'ふたご',
@@ -11658,7 +11658,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v642',
-        front: '方角 (ほうがく)',
+        front: '方角',
         back: "Tomon, kompas yo'nalishi",
         romaji: 'hougaku',
         furigana: 'ほうがく',
@@ -11669,7 +11669,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v643',
-        front: '入試 (にゅうし)',
+        front: '入試',
         back: 'Kirish imtihoni',
         romaji: 'nyuushi',
         furigana: 'にゅうし',
@@ -11680,7 +11680,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v644',
-        front: '半分 (はんぶん)',
+        front: '半分',
         back: 'Yarmi, yarim',
         romaji: 'hanbun',
         furigana: 'はんぶん',
@@ -11691,7 +11691,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v645',
-        front: '普段 (ふだん)',
+        front: '普段',
         back: 'Odatda, kundalik turmushda',
         romaji: 'fudan',
         furigana: 'ふだん',
@@ -11702,7 +11702,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v646',
-        front: '方向 (ほうこう)',
+        front: '方向',
         back: "Yo'nalish, taraf",
         romaji: 'houkou',
         furigana: 'ほうこう',
@@ -11713,7 +11713,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v647',
-        front: '入社 (にゅうしゃ)',
+        front: '入社',
         back: 'Kompaniyaga ishga qabul qilinish',
         romaji: 'nyuusha',
         furigana: 'にゅうしゃ',
@@ -11724,7 +11724,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v648',
-        front: '売店 (ばいてん)',
+        front: '売店',
         back: "Do'koncha, kioska",
         romaji: 'baiten',
         furigana: 'ばいてん',
@@ -11735,7 +11735,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v649',
-        front: '普通 (ふつう)',
+        front: '普通',
         back: "Oddiy, odatiy, o'rtacha",
         romaji: 'futsuu',
         furigana: 'ふつう',
@@ -11746,7 +11746,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v650',
-        front: '報告 (ほうこく)',
+        front: '報告',
         back: 'Hisobot, xabar berish',
         romaji: 'houkoku',
         furigana: 'ほうこく',
@@ -11757,7 +11757,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v651',
-        front: '入門 (にゅうもん)',
+        front: '入門',
         back: "Kirish, boshlang'ich qo'llanma",
         romaji: 'nyuumon',
         furigana: 'にゅうもん',
@@ -11768,7 +11768,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v652',
-        front: '番組 (ばんぐみ)',
+        front: '番組',
         back: "Teleko'rsatuv, teledastur",
         romaji: 'bangumi',
         furigana: 'ばんぐみ',
@@ -11779,7 +11779,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v653',
-        front: '布団 (ふとん)',
+        front: '布団',
         back: "Futon (yapon an'anaviy to'shagi)",
         romaji: 'futon',
         furigana: 'ふとん',
@@ -11790,7 +11790,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v654',
-        front: '放送 (ほうそう)',
+        front: '放送',
         back: 'Efirga uzatish, radio/teleeshittirish',
         romaji: 'housou',
         furigana: 'ほうそう',
@@ -11801,7 +11801,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v655',
-        front: '入力 (にゅうりょく)',
+        front: '入力',
         back: "Ma'lumot kiritish, input",
         romaji: 'nyuuryoku',
         furigana: 'にゅうりょく',
@@ -11812,7 +11812,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v656',
-        front: '番号 (ばんごう)',
+        front: '番号',
         back: 'Raqam, nomer',
         romaji: 'bangou',
         furigana: 'ばんごう',
@@ -11823,7 +11823,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v657',
-        front: '古着 (ふるぎ)',
+        front: '古着',
         back: 'Ishlatilgan kiyim, vintel kiyim',
         romaji: 'furugi',
         furigana: 'ふるぎ',
@@ -11834,7 +11834,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v658',
-        front: '方法 (ほうほう)',
+        front: '方法',
         back: "Usul, yo'l, metod",
         romaji: 'houhou',
         furigana: 'ほうほう',
@@ -11845,7 +11845,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v659',
-        front: '人気 (にんき)',
+        front: '人気',
         back: "Mashhurlik, qiziqish, e'tibor",
         romaji: 'ninki',
         furigana: 'にんき',
@@ -11856,7 +11856,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v660',
-        front: '比較 (ひかく)',
+        front: '比較',
         back: 'Taqqoslamoq, qiyoslash',
         romaji: 'hikaku',
         furigana: 'ひかく',
@@ -11867,7 +11867,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v661',
-        front: '風呂 (ふろ)',
+        front: '風呂',
         back: 'Vanna, ofuro',
         romaji: 'furo',
         furigana: 'ふろ',
@@ -11878,7 +11878,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v662',
-        front: '訪問 (ほうもん)',
+        front: '訪問',
         back: 'Tashrif buyurish, mehmonga borish',
         romaji: 'houmon',
         furigana: 'ほうもん',
@@ -11889,7 +11889,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v663',
-        front: '人数 (にんずう)',
+        front: '人数',
         back: 'Odamlar soni, qatnashchilar miqdori',
         romaji: 'ninzuu',
         furigana: 'にんずう',
@@ -11900,7 +11900,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v664',
-        front: '秘書 (ひしょ)',
+        front: '秘書',
         back: 'Kotiba, shaxsiy assistent',
         romaji: 'hisho',
         furigana: 'ひしょ',
@@ -11911,7 +11911,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v665',
-        front: '部長 (ぶちょう)',
+        front: '部長',
         back: "Bo'lim boshlig'i, departament mudiri",
         romaji: 'buchou',
         furigana: 'ぶちょう',
@@ -11922,7 +11922,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v666',
-        front: '歩道 (ほどう)',
+        front: '歩道',
         back: "Piyodalar yo'lkasi, trotuar",
         romaji: 'hodou',
         furigana: 'ほどう',
@@ -11933,7 +11933,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v667',
-        front: '値段 (ねだん)',
+        front: '値段',
         back: 'Narx, baho',
         romaji: 'nedan',
         furigana: 'ねだん',
@@ -11944,7 +11944,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v668',
-        front: '左手 (ひだりて)',
+        front: '左手',
         back: "Chap qo'l, chap tomon",
         romaji: 'hidarite',
         furigana: 'ひだりて',
@@ -11955,7 +11955,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v669',
-        front: '物価 (ぶっか)',
+        front: '物価',
         back: "Iste'mol narxlari, tovar baholari",
         romaji: 'bukka',
         furigana: 'ぶっか',
@@ -11966,7 +11966,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v670',
-        front: '本日 (ほんじつ)',
+        front: '本日',
         back: 'Bugungi kun, bugun (rasmiy)',
         romaji: 'honjitsu',
         furigana: 'ほんじつ',
@@ -11977,7 +11977,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v671',
-        front: '寝坊 (ねぼう)',
+        front: '寝坊',
         back: 'Uyqudan kech qolish, uxlab qolish',
         romaji: 'nebou',
         furigana: 'ねぼう',
@@ -11988,7 +11988,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v672',
-        front: '否定 (ひてい)',
+        front: '否定',
         back: 'Inkor qilish, rad etish',
         romaji: 'hitei',
         furigana: 'ひてい',
@@ -11999,7 +11999,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v673',
-        front: '部品 (ぶひん)',
+        front: '部品',
         back: 'Ehtiyot qism, detal',
         romaji: 'buhin',
         furigana: 'ぶひん',
@@ -12010,7 +12010,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v674',
-        front: '本棚 (ほんだな)',
+        front: '本棚',
         back: 'Kitob javoni',
         romaji: 'hondana',
         furigana: 'ほんだな',
@@ -12021,7 +12021,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v675',
-        front: '年齢 (ねんれい)',
+        front: '年齢',
         back: 'Yosh, umr yoshi',
         romaji: 'nenrei',
         furigana: 'ねんれい',
@@ -12032,7 +12032,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v676',
-        front: '人々 (ひとびと)',
+        front: '人々',
         back: 'Odamlar, insonlar, xalq',
         romaji: 'hitobito',
         furigana: 'ひとびと',
@@ -12043,7 +12043,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v677',
-        front: '部分 (ぶぶん)',
+        front: '部分',
         back: "Qism, bo'lak",
         romaji: 'bubun',
         furigana: 'ぶぶん',
@@ -12054,7 +12054,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v678',
-        front: '翻訳 (ほんやく)',
+        front: '翻訳',
         back: 'Yozma tarjima, tarjima qilish',
         romaji: "hon'yaku",
         furigana: 'ほんやく',
@@ -12065,7 +12065,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v679',
-        front: '農業 (のうぎょう)',
+        front: '農業',
         back: "Qishloq xo'jaligi, dehqonchilik",
         romaji: 'nougyou',
         furigana: 'のうぎょう',
@@ -12076,7 +12076,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v680',
-        front: '避難 (ひなん)',
+        front: '避難',
         back: 'Evakuatsiya, xavfsiz joyga qochish',
         romaji: 'hinan',
         furigana: 'ひなん',
@@ -12087,7 +12087,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v681',
-        front: '文化 (ぶんか)',
+        front: '文化',
         back: 'Madaniyat',
         romaji: 'bunka',
         furigana: 'ぶんか',
@@ -12098,7 +12098,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v682',
-        front: '貿易 (ぼうえき)',
+        front: '貿易',
         back: 'Tashqi savdo, import-eksport',
         romaji: 'boueki',
         furigana: 'ぼうえき',
@@ -12109,7 +12109,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v683',
-        front: '配達 (はいたつ)',
+        front: '配達',
         back: 'Yetkazib berish (dostavka)',
         romaji: 'haitatsu',
         furigana: 'はいたつ',
@@ -12120,7 +12120,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v684',
-        front: '秘密 (ひみつ)',
+        front: '秘密',
         back: 'Sir, maxfiylik',
         romaji: 'himitsu',
         furigana: 'ひみつ',
@@ -12131,7 +12131,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v685',
-        front: '文章 (ぶんしょう)',
+        front: '文章',
         back: 'Matn, jumla, insho',
         romaji: 'bunshou',
         furigana: 'ぶんしょう',
@@ -12142,7 +12142,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v686',
-        front: '帽子 (ぼうし)',
+        front: '帽子',
         back: 'Bosh kiyim, shlyapa, qalpoq',
         romaji: 'boushi',
         furigana: 'ぼうし',
@@ -12153,7 +12153,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v687',
-        front: '発音 (はつおん)',
+        front: '発音',
         back: 'Talaffuz',
         romaji: 'hatsuon',
         furigana: 'はつおん',
@@ -12164,7 +12164,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v688',
-        front: '表紙 (ひょうし)',
+        front: '表紙',
         back: 'Muqova (kitob yoki daftar muqovasi)',
         romaji: 'hyoushi',
         furigana: 'ひょうし',
@@ -12175,7 +12175,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v689',
-        front: '文鳥 (ぶんちょう)',
+        front: '文鳥',
         back: 'Yapon sayroqi qushchasi (chittak)',
         romaji: 'bunchou',
         furigana: 'ぶんちょう',
@@ -12186,7 +12186,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v690',
-        front: '募集 (ぼしゅう)',
+        front: '募集',
         back: "Qabul, tanlov e'loni, to'plash",
         romaji: 'boshuu',
         furigana: 'ぼしゅう',
@@ -12197,7 +12197,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v691',
-        front: '発見 (はっけん)',
+        front: '発見',
         back: 'Kashfiyot, yangilik topish',
         romaji: 'hakken',
         furigana: 'はっけん',
@@ -12208,7 +12208,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v692',
-        front: '表面 (ひょうめん)',
+        front: '表面',
         back: 'Yuzasi, tashqi sirt',
         romaji: 'hyoumen',
         furigana: 'ひょうめん',
@@ -12219,7 +12219,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v693',
-        front: '分類 (ぶんるい)',
+        front: '分類',
         back: 'Tasniflash, toifalarga ajratish',
         romaji: 'bunrui',
         furigana: 'ぶんるい',
@@ -12230,7 +12230,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v694',
-        front: '迷子 (まいご)',
+        front: '迷子',
         back: 'Adashib qolgan bola/odam',
         romaji: 'maigo',
         furigana: 'まいご',
@@ -12241,7 +12241,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v695',
-        front: '窓口 (まどぐち)',
+        front: '窓口',
         back: "Xizmat ko'rsatish darchasi, kassa darchasi",
         romaji: 'madoguchi',
         furigana: 'まどぐち',
@@ -12252,7 +12252,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v696',
-        front: '満員 (まんいん)',
+        front: '満員',
         back: "Liq to'la, joy qolmagan",
         romaji: "man'in",
         furigana: 'まんいん',
@@ -12263,7 +12263,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v697',
-        front: '漫画 (まんが)',
+        front: '漫画',
         back: 'Manga (yapon komiksi)',
         romaji: 'manga',
         furigana: 'まんが',
@@ -12274,7 +12274,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v698',
-        front: '満足 (まんぞく)',
+        front: '満足',
         back: 'Qoniqish, mamnuniyat',
         romaji: 'manzoku',
         furigana: 'まんぞく',
@@ -12285,7 +12285,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v699',
-        front: '見方 (みかた)',
+        front: '見方',
         back: 'Qarashtarz, nuqtai nazar, qarash',
         romaji: 'mikata',
         furigana: 'みかた',
@@ -12296,7 +12296,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v700',
-        front: '道順 (みちじゅん)',
+        front: '道順',
         back: "Borish yo'li, yo'nalish tartibi",
         romaji: 'michijun',
         furigana: 'みちじゅん',
@@ -12307,7 +12307,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v701',
-        front: '見本 (みほん)',
+        front: '見本',
         back: 'Namuna, nusxa',
         romaji: 'mihon',
         furigana: 'みほん',
@@ -12318,7 +12318,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v702',
-        front: '未来 (みらい)',
+        front: '未来',
         back: 'Kelajak, istiqbol',
         romaji: 'mirai',
         furigana: 'みらい',
@@ -12329,7 +12329,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v703',
-        front: '虫歯 (むしば)',
+        front: '虫歯',
         back: 'Karies tish, qurt tushgan tish',
         romaji: 'mushiba',
         furigana: 'むしば',
@@ -12340,7 +12340,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v704',
-        front: '息子 (むすこ)',
+        front: '息子',
         back: "O'g'il (farzand)",
         romaji: 'musuko',
         furigana: 'むすこ',
@@ -12351,7 +12351,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v705',
-        front: '無理 (むり)',
+        front: '無理',
         back: "Ilojsiz, zo'riqish, ortiqcha urinish",
         romaji: 'muri',
         furigana: 'むり',
@@ -12362,7 +12362,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v706',
-        front: '名刺 (めいし)',
+        front: '名刺',
         back: "Tashrif qog'ozi, vizitka",
         romaji: 'meishi',
         furigana: 'めいし',
@@ -12373,7 +12373,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v707',
-        front: '命令 (めいれい)',
+        front: '命令',
         back: 'Buyruq, amr',
         romaji: 'meirei',
         furigana: 'めいれい',
@@ -12384,7 +12384,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v708',
-        front: '免許 (めんきょ)',
+        front: '免許',
         back: 'Guvohnoma, haydovchilik huquqi, litsenziya',
         romaji: 'menkyo',
         furigana: 'めんきょ',
@@ -12395,7 +12395,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v709',
-        front: '面接 (めんせつ)',
+        front: '面接',
         back: 'Suhbat, qabul intervyusi',
         romaji: 'mensetsu',
         furigana: 'めんせつ',
@@ -12406,7 +12406,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v710',
-        front: '毛布 (もうふ)',
+        front: '毛布',
         back: "Adyol, jun ko'rpa",
         romaji: 'moufu',
         furigana: 'もうふ',
@@ -12417,7 +12417,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v711',
-        front: '目的 (もくてき)',
+        front: '目的',
         back: 'Maqsad',
         romaji: 'mokuteki',
         furigana: 'もくてき',
@@ -12428,7 +12428,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v712',
-        front: '目標 (もくひょう)',
+        front: '目標',
         back: "Marra, mo'ljal, nishon",
         romaji: 'mokuhyou',
         furigana: 'もくひょう',
@@ -12439,7 +12439,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v713',
-        front: '文字 (もじ)',
+        front: '文字',
         back: 'Harf, belgi, yozuv',
         romaji: 'moji',
         furigana: 'もじ',
@@ -12450,7 +12450,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v714',
-        front: '物語 (ものがたり)',
+        front: '物語',
         back: 'Qissa, ertak, hikoya',
         romaji: 'monogatari',
         furigana: 'ものがたり',
@@ -12461,7 +12461,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v715',
-        front: '文句 (もんく)',
+        front: '文句',
         back: "Norozilik, shikoyat, e'tiroz",
         romaji: 'monku',
         furigana: 'もんく',
@@ -12472,7 +12472,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v716',
-        front: '問題 (もんだい)',
+        front: '問題',
         back: 'Muammo, masala, test savoli',
         romaji: 'mondai',
         furigana: 'もんだい',
@@ -12483,7 +12483,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v717',
-        front: '野球 (やきゅう)',
+        front: '野球',
         back: 'Beysbol',
         romaji: 'yakyuu',
         furigana: 'やきゅう',
@@ -12494,7 +12494,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v718',
-        front: '役所 (やくしょ)',
+        front: '役所',
         back: 'Davlat idorasi, shahar hokimiyati',
         romaji: 'yakusho',
         furigana: 'やくしょ',
@@ -12505,7 +12505,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v719',
-        front: '約束 (やくそく)',
+        front: '約束',
         back: "Va'da, ahd, uchrashuv vaqti",
         romaji: 'yakusoku',
         furigana: 'やくそく',
@@ -12516,7 +12516,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v720',
-        front: '役割 (やくわり)',
+        front: '役割',
         back: 'Rol, vazifa, burch',
         romaji: 'yakuwari',
         furigana: 'やくわり',
@@ -12527,7 +12527,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v721',
-        front: '野菜 (やさい)',
+        front: '野菜',
         back: 'Sabzavotlar',
         romaji: 'yasai',
         furigana: 'やさい',
@@ -12538,7 +12538,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v722',
-        front: '家賃 (やちん)',
+        front: '家賃',
         back: 'Uy ijarasi haqi',
         romaji: 'yachin',
         furigana: 'やちん',
@@ -12549,7 +12549,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v723',
-        front: '屋根 (やね)',
+        front: '屋根',
         back: 'Tom, uying tomi',
         romaji: 'yane',
         furigana: 'やね',
@@ -12560,7 +12560,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v724',
-        front: '山道 (やまみち)',
+        front: '山道',
         back: "Tog' so'qmog'i, tog' yo'li",
         romaji: 'yamamichi',
         furigana: 'やまみち',
@@ -12571,7 +12571,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v725',
-        front: '夕方 (ゆうがた)',
+        front: '夕方',
         back: 'Oqshom, shom vaqti',
         romaji: 'yuugata',
         furigana: 'ゆうがた',
@@ -12582,7 +12582,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v726',
-        front: '優勝 (ゆうしょう)',
+        front: '優勝',
         back: "G'alaba qozonish, chempionlik",
         romaji: 'yuushou',
         furigana: 'ゆうしょう',
@@ -12593,7 +12593,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v727',
-        front: '友情 (ゆうじょう)',
+        front: '友情',
         back: "Do'stlik, do'stona rishta",
         romaji: 'yuujou',
         furigana: 'ゆうじょう',
@@ -12604,7 +12604,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v728',
-        front: '友人 (ゆうじん)',
+        front: '友人',
         back: "Do'st, qadrdon o'rtoq",
         romaji: 'yuujin',
         furigana: 'ゆうじん',
@@ -12615,7 +12615,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v729',
-        front: '郵送 (ゆうそう)',
+        front: '郵送',
         back: "Pochta orqali jo'natish",
         romaji: 'yuusou',
         furigana: 'ゆうそう',
@@ -12626,7 +12626,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v730',
-        front: '郵便 (ゆうびん)',
+        front: '郵便',
         back: 'Pochta, pochta xizmati',
         romaji: 'yuubin',
         furigana: 'ゆうびん',
@@ -12637,7 +12637,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v731',
-        front: '有料 (ゆうりょう)',
+        front: '有料',
         back: "Pullik, to'lovli",
         romaji: 'yuuryou',
         furigana: 'ゆうりょう',
@@ -12648,7 +12648,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v732',
-        front: '輸出 (ゆしゅつ)',
+        front: '輸出',
         back: 'Eksport qilish, chetga chiqarish',
         romaji: 'yushutsu',
         furigana: 'ゆしゅつ',
@@ -12659,7 +12659,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v733',
-        front: '輸入 (ゆにゅう)',
+        front: '輸入',
         back: 'Import qilish, chetdan keltirish',
         romaji: 'yunyuu',
         furigana: 'ゆにゅう',
@@ -12670,7 +12670,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v734',
-        front: '用意 (ようい)',
+        front: '用意',
         back: "Hozirlik, tayyorgarlik ko'rish",
         romaji: 'youi',
         furigana: 'ようい',
@@ -12681,7 +12681,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v735',
-        front: '容器 (ようき)',
+        front: '容器',
         back: 'Idish, konteyner',
         romaji: 'youki',
         furigana: 'ようき',
@@ -12692,7 +12692,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v736',
-        front: '用具 (ようぐ)',
+        front: '用具',
         back: 'Jihoz, anjom, asbob-uskuna',
         romaji: 'yougu',
         furigana: 'ようぐ',
@@ -12703,7 +12703,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v737',
-        front: '用紙 (ようし)',
+        front: '用紙',
         back: "Qog'oz varag'i, blanka",
         romaji: 'youshi',
         furigana: 'ようし',
@@ -12714,7 +12714,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v738',
-        front: '用事 (ようじ)',
+        front: '用事',
         back: 'Yumush, ish, vazifa',
         romaji: 'youji',
         furigana: 'ようじ',
@@ -12725,7 +12725,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v739',
-        front: '洋式 (ようしき)',
+        front: '洋式',
         back: "G'arbona uslub, zamonaviy uslub",
         romaji: 'youshiki',
         furigana: 'ようしき',
@@ -12736,7 +12736,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v740',
-        front: '洋食 (ようしょく)',
+        front: '洋食',
         back: "G'arb taomlari (yaponcha talqindagi)",
         romaji: 'youshoku',
         furigana: 'ようしょく',
@@ -12747,7 +12747,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v741',
-        front: '様子 (ようす)',
+        front: '様子',
         back: "Holat, vaziyat, ko'rinish",
         romaji: 'yousu',
         furigana: 'ようす',
@@ -12758,7 +12758,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v742',
-        front: '用品 (ようひん)',
+        front: '用品',
         back: 'Kerakli buyumlar, tovarlar',
         romaji: 'youhin',
         furigana: 'ようひん',
@@ -12769,7 +12769,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v743',
-        front: '洋服 (ようふく)',
+        front: '洋服',
         back: 'Yevropacha kiyim, zamonaviy libos',
         romaji: 'youfuku',
         furigana: 'ようふく',
@@ -12780,7 +12780,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v744',
-        front: '翌日 (よくじつ)',
+        front: '翌日',
         back: 'Ertasiga, ertasi kuni',
         romaji: 'yokujitsu',
         furigana: 'よくじつ',
@@ -12791,7 +12791,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v745',
-        front: '予想 (よそう)',
+        front: '予想',
         back: 'Prognoz, oldindan taxmin qilish',
         romaji: 'yosou',
         furigana: 'よそう',
@@ -12802,7 +12802,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v746',
-        front: '予定 (よてい)',
+        front: '予定',
         back: 'Reja, jadval',
         romaji: 'yotei',
         furigana: 'よてい',
@@ -12813,7 +12813,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v747',
-        front: '夜中 (よなか)',
+        front: '夜中',
         back: "Yarim tun, tunning qoq o'rtasi",
         romaji: 'yonaka',
         furigana: 'よなか',
@@ -12824,7 +12824,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v748',
-        front: '予報 (よほう)',
+        front: '予報',
         back: 'Prognoz, oldindan berilgan xabar',
         romaji: 'yohou',
         furigana: 'よほう',
@@ -12835,7 +12835,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v749',
-        front: '予約 (よやく)',
+        front: '予約',
         back: 'Band qilish, oldindan bron qilish',
         romaji: 'yoyaku',
         furigana: 'よやく',
@@ -12846,7 +12846,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v750',
-        front: '来店 (らいてん)',
+        front: '来店',
         back: "Do'konga/restoranga kelish, tashrif",
         romaji: 'raiten',
         furigana: 'らいてん',
@@ -12857,7 +12857,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v751',
-        front: '理由 (りゆう)',
+        front: '理由',
         back: 'Sabab, vaj, dalil',
         romaji: 'riyuu',
         furigana: 'りゆう',
@@ -12868,7 +12868,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v752',
-        front: '留学 (りゅうがく)',
+        front: '留学',
         back: "Chet elda o'qish, xorijiy tahsil",
         romaji: 'ryuugaku',
         furigana: 'りゅうがく',
@@ -12879,7 +12879,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v753',
-        front: '流行 (りゅうこう)',
+        front: '流行',
         back: "Urf bo'lish, moda, epidemiya",
         romaji: 'ryuukou',
         furigana: 'りゅうこう',
@@ -12890,7 +12890,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v754',
-        front: '利用 (りよう)',
+        front: '利用',
         back: 'Foydalanish, ishlatish',
         romaji: 'riyou',
         furigana: 'りよう',
@@ -12901,7 +12901,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v755',
-        front: '両替 (りょうがえ)',
+        front: '両替',
         back: 'Valyuta ayirboshlash, maydalash',
         romaji: 'ryougae',
         furigana: 'りょうがえ',
@@ -12912,7 +12912,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v756',
-        front: '料金 (りょうきん)',
+        front: '料金',
         back: "To'lov narxi, tarif",
         romaji: 'ryoukin',
         furigana: 'りょうきん',
@@ -12923,7 +12923,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v757',
-        front: '両親 (りょうしん)',
+        front: '両親',
         back: 'Ota-ona',
         romaji: 'ryoushin',
         furigana: 'りょうしん',
@@ -12934,7 +12934,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v758',
-        front: '両方 (りょうほう)',
+        front: '両方',
         back: 'Ikkala tomon, har ikkisi',
         romaji: 'ryouhou',
         furigana: 'りょうほう',
@@ -12945,7 +12945,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v759',
-        front: '料理 (りょうり)',
+        front: '料理',
         back: 'Taom, ovqat tayyorlash',
         romaji: 'ryouri',
         furigana: 'りょうり',
@@ -12956,7 +12956,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v760',
-        front: '旅行 (りょこう)',
+        front: '旅行',
         back: 'Sayohat',
         romaji: 'ryokou',
         furigana: 'りょこう',
@@ -12967,7 +12967,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v761',
-        front: '例文 (れいぶん)',
+        front: '例文',
         back: 'Misol jumla',
         romaji: 'reibun',
         furigana: 'れいぶん',
@@ -12978,7 +12978,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v762',
-        front: '列車 (れっしゃ)',
+        front: '列車',
         back: 'Poyezd, poyezd sostavi',
         romaji: 'ressha',
         furigana: 'れっしゃ',
@@ -12989,7 +12989,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v763',
-        front: '練習 (れんしゅう)',
+        front: '練習',
         back: "Mashq, amaliyot, mashg'ulot",
         romaji: 'renshuu',
         furigana: 'れんしゅう',
@@ -13000,7 +13000,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v764',
-        front: '連絡 (れんらく)',
+        front: '連絡',
         back: 'Aloqaga chiqish, xabar berish',
         romaji: 'renraku',
         furigana: 'れんらく',
@@ -13011,7 +13011,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v765',
-        front: '廊下 (ろうか)',
+        front: '廊下',
         back: "Yo'lak, dahliz, koridor",
         romaji: 'rouka',
         furigana: 'ろうか',
@@ -13022,7 +13022,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v766',
-        front: '録音 (ろくおん)',
+        front: '録音',
         back: 'Ovoz yozish, audioyozuv',
         romaji: 'rokuon',
         furigana: 'ろくおん',
@@ -13033,7 +13033,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v767',
-        front: '論文 (ろんぶん)',
+        front: '論文',
         back: 'Ilmiy maqola, ilmiy dissertatsiya',
         romaji: 'ronbun',
         furigana: 'ろんぶん',
@@ -13044,7 +13044,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v768',
-        front: '若者 (わかもの)',
+        front: '若者',
         back: 'Yoshlar, yosh yigit-qizlar',
         romaji: 'wakamono',
         furigana: 'わかもの',
@@ -13055,7 +13055,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v769',
-        front: '和食 (わしょく)',
+        front: '和食',
         back: 'Yapon milliy taomlari',
         romaji: 'washoku',
         furigana: 'わしょく',
@@ -13066,7 +13066,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v770',
-        front: '割合 (わりあい)',
+        front: '割合',
         back: 'Nisbat, foiz; ancha, nisbatan',
         romaji: 'wariai',
         furigana: 'わりあい',
@@ -13077,7 +13077,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v771',
-        front: '割引 (わりびき)',
+        front: '割引',
         back: "Chegirma, narxdan o'tish",
         romaji: 'waribiki',
         furigana: 'わりびき',
@@ -13088,7 +13088,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v772',
-        front: '青信号 (あおしんごう)',
+        front: '青信号',
         back: 'Yashil chiroq (svetofor)',
         romaji: 'aoshingou',
         furigana: 'あおしんごう',
@@ -13099,7 +13099,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v773',
-        front: '赤信号 (あかしんごう)',
+        front: '赤信号',
         back: 'Qizil chiroq (svetofor)',
         romaji: 'akashingou',
         furigana: 'あかしんごう',
@@ -13110,7 +13110,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v774',
-        front: '一部分 (いちぶぶん)',
+        front: '一部分',
         back: 'Bir qismi, qisman',
         romaji: 'ichibubun',
         furigana: 'いちぶぶん',
@@ -13121,7 +13121,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v775',
-        front: '腕時計 (うでどけい)',
+        front: '腕時計',
         back: "Qo'l soati",
         romaji: 'udedokei',
         furigana: 'うでどけい',
@@ -13132,7 +13132,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v776',
-        front: '運転手 (うんてんしゅ)',
+        front: '運転手',
         back: 'Haydovchi, haydovchi xodim',
         romaji: 'untenshu',
         furigana: 'うんてんしゅ',
@@ -13143,7 +13143,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v777',
-        front: '運動靴 (うんどうぐつ)',
+        front: '運動靴',
         back: 'Sport poyabzali, krossovka',
         romaji: 'undougutsu',
         furigana: 'うんどうぐつ',
@@ -13154,7 +13154,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v778',
-        front: '応援歌 (おうえんか)',
+        front: '応援歌',
         back: "Qo'llab-quvvatlash qo'shig'i, madhiya",
         romaji: 'ouenka',
         furigana: 'おうえんか',
@@ -13165,7 +13165,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v779',
-        front: '顔写真 (かおじゃしん)',
+        front: '顔写真',
         back: 'Yuz surati, fotosurat (hujjat uchun)',
         romaji: 'kaojashin',
         furigana: 'かおじゃしん',
@@ -13176,7 +13176,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v780',
-        front: '観光客 (かんこうきゃく)',
+        front: '観光客',
         back: 'Sayyoh, turist',
         romaji: 'kankoukyaku',
         furigana: 'かんこうきゃく',
@@ -13187,7 +13187,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v781',
-        front: '感謝祭 (かんしゃさい)',
+        front: '感謝祭',
         back: 'Shukronalik bayrami, minnatdorchilik festivali',
         romaji: 'kanshasai',
         furigana: 'かんしゃさい',
@@ -13198,7 +13198,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v782',
-        front: '管理人 (かんりにん)',
+        front: '管理人',
         back: 'Bino boshqaruvchisi, qorovul, nazoratchi',
         romaji: 'kanrinin',
         furigana: 'かんりにん',
@@ -13209,7 +13209,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v783',
-        front: '緊張感 (きんちょうかん)',
+        front: '緊張感',
         back: "Hayajon tuyg'usi, taranglik hissi",
         romaji: 'kinchoukan',
         furigana: 'きんちょうかん',
@@ -13220,7 +13220,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v784',
-        front: '警察官 (けいさつかん)',
+        front: '警察官',
         back: 'Politsiya xodimi',
         romaji: 'keisatsukan',
         furigana: 'けいさつかん',
@@ -13231,7 +13231,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v785',
-        front: '掲示板 (けいじばん)',
+        front: '掲示板',
         back: "E'lonlar doskasi",
         romaji: 'keijiban',
         furigana: 'けいじばん',
@@ -13242,7 +13242,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v786',
-        front: '血液型 (けつえきがた)',
+        front: '血液型',
         back: 'Qon guruhi',
         romaji: 'ketsuekigata',
         furigana: 'けつえきがた',
@@ -13253,7 +13253,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v787',
-        front: '結婚式 (けっこんしき)',
+        front: '結婚式',
         back: "To'y marosimi, nikoh to'yi",
         romaji: 'kekkonshiki',
         furigana: 'けっこんしき',
@@ -13264,7 +13264,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v788',
-        front: '高校生 (こうこうせい)',
+        front: '高校生',
         back: "Yuqori sinf / litsey o'quvchisi",
         romaji: 'koukousei',
         furigana: 'こうこうせい',
@@ -13275,7 +13275,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v789',
-        front: '交差点 (こうさてん)',
+        front: '交差点',
         back: 'Chorraha',
         romaji: 'kousaten',
         furigana: 'こうさてん',
@@ -13286,7 +13286,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v790',
-        front: '五角形 (ごかくけい)',
+        front: '五角形',
         back: 'Beshburchak',
         romaji: 'gokakukei',
         furigana: 'ごかくけい',
@@ -13297,7 +13297,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v791',
-        front: '再来週 (さらいしゅう)',
+        front: '再来週',
         back: 'Ikki haftadan keyin, kelasi haftadan keyingi hafta',
         romaji: 'saraishuu',
         furigana: 'さらいしゅう',
@@ -13308,7 +13308,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v792',
-        front: '指導係 (しどうがかり)',
+        front: '指導係',
         back: "Yo'riqchi, murabbiy, mas'ul yo'llovchi",
         romaji: 'shidougakari',
         furigana: 'しどうがかり',
@@ -13319,7 +13319,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v793',
-        front: '市役所 (しやくしょ)',
+        front: '市役所',
         back: 'Shahar hokimiyati (meriya)',
         romaji: 'shiyakusho',
         furigana: 'しやくしょ',
@@ -13330,7 +13330,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v794',
-        front: '週刊誌 (しゅうかんし)',
+        front: '週刊誌',
         back: 'Haftalik jurnal',
         romaji: 'shuukanshi',
         furigana: 'しゅうかんし',
@@ -13341,7 +13341,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v795',
-        front: '奨学金 (しょうがくきん)',
+        front: '奨学金',
         back: 'Grant, stipendiya',
         romaji: 'shougakukin',
         furigana: 'しょうがくきん',
@@ -13352,7 +13352,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v796',
-        front: '小学生 (しょうがくせい)',
+        front: '小学生',
         back: "Boshlang'ich sinf o'quvchisi",
         romaji: 'shougakusei',
         furigana: 'しょうがくせい',
@@ -13363,7 +13363,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v797',
-        front: '消費量 (しょうひりょう)',
+        front: '消費量',
         back: "Iste'mol miqdori / hajmi",
         romaji: 'shouhiryou',
         furigana: 'しょうひりょう',
@@ -13374,7 +13374,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v798',
-        front: '新幹線 (しんかんせん)',
+        front: '新幹線',
         back: 'Shinkansen (tezyurar tezyurar poyezd)',
         romaji: 'shinkansen',
         furigana: 'しんかんせん',
@@ -13385,7 +13385,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v799',
-        front: '新入生 (しんにゅうせい)',
+        front: '新入生',
         back: "Yangi o'quvchi / birinchi kurs talabasi",
         romaji: 'shinnyuusei',
         furigana: 'しんにゅうせい',
@@ -13396,7 +13396,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v800',
-        front: '自転車 (じてんしゃ)',
+        front: '自転車',
         back: 'Velosiped',
         romaji: 'jitensha',
         furigana: 'じてんしゃ',
@@ -13407,7 +13407,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v801',
-        front: '自動車 (じどうしゃ)',
+        front: '自動車',
         back: 'Avtomobil, mashina',
         romaji: 'jidousha',
         furigana: 'じどうしゃ',
@@ -13418,7 +13418,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v802',
-        front: '事務所 (じむしょ)',
+        front: '事務所',
         back: 'Ofis, idora',
         romaji: 'jimusho',
         furigana: 'じむしょ',
@@ -13429,7 +13429,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v803',
-        front: '受験生 (じゅけんせい)',
+        front: '受験生',
         back: 'Abituriyent, imtihon topshiruvchi',
         romaji: 'jukensei',
         furigana: 'じゅけんせい',
@@ -13440,7 +13440,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v804',
-        front: '祖父母 (そふぼ)',
+        front: '祖父母',
         back: 'Bobo va buvi',
         romaji: 'sofubo',
         furigana: 'そふぼ',
@@ -13451,7 +13451,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v805',
-        front: '短時間 (たんじかん)',
+        front: '短時間',
         back: 'Qisqa vaqt ichida, ozgina muddat',
         romaji: 'tanjikan',
         furigana: 'たんじかん',
@@ -13462,7 +13462,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v806',
-        front: '大学生 (だいがくせい)',
+        front: '大学生',
         back: 'Talaba (universitet talabasi)',
         romaji: 'daigakusei',
         furigana: 'だいがくせい',
@@ -13473,7 +13473,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v807',
-        front: '中学生 (ちゅうがくせい)',
+        front: '中学生',
         back: "O'rta maktab o'quvchisi",
         romaji: 'chuugakusei',
         furigana: 'ちゅうがくせい',
@@ -13484,7 +13484,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v808',
-        front: '長時間 (ちょうじかん)',
+        front: '長時間',
         back: 'Uzoq vaqt, ancha muddat',
         romaji: 'choujikan',
         furigana: 'ちょうじかん',
@@ -13495,7 +13495,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v809',
-        front: '調味料 (ちょうみりょう)',
+        front: '調味料',
         back: "Ziravorlar, ta'm beruvchi masalliqlar",
         romaji: 'choumiryou',
         furigana: 'ちょうみりょう',
@@ -13506,7 +13506,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v810',
-        front: '天気図 (てんきず)',
+        front: '天気図',
         back: 'Ob-havo xaritasi, sinoptik xarita',
         romaji: 'tenkizu',
         furigana: 'てんきず',
@@ -13517,7 +13517,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v811',
-        front: '同級生 (どうきゅうせい)',
+        front: '同級生',
         back: 'Sinfdosh, kursdosh',
         romaji: 'doukyuusei',
         furigana: 'どうきゅうせい',
@@ -13528,7 +13528,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v812',
-        front: '人数分 (にんずうぶん)',
+        front: '人数分',
         back: 'Odam soniga mos ulush, porsiya',
         romaji: 'ninzuubun',
         furigana: 'にんずうぶん',
@@ -13539,7 +13539,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v813',
-        front: '歯医者 (はいしゃ)',
+        front: '歯医者',
         back: 'Tish shifokori, stomatolog',
         romaji: 'haisha',
         furigana: 'はいしゃ',
@@ -13550,7 +13550,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v814',
-        front: '不動産 (ふどうさん)',
+        front: '不動産',
         back: "Ko'chmas mulk, rieltorlik firmasi",
         romaji: 'fudousan',
         furigana: 'ふどうさん',
@@ -13561,7 +13561,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v815',
-        front: '文房具 (ぶんぼうぐ)',
+        front: '文房具',
         back: "Kanselyariya mollari, o'quv qurollari",
         romaji: 'bunbougu',
         furigana: 'ぶんぼうぐ',
@@ -13572,7 +13572,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v816',
-        front: '免許証 (めんきょしょう)',
+        front: '免許証',
         back: 'Guvohnoma (haydovchilik guvohnomasi)',
         romaji: 'menkyoshou',
         furigana: 'めんきょしょう',
@@ -13583,7 +13583,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v817',
-        front: '郵便局 (ゆうびんきょく)',
+        front: '郵便局',
         back: "Pochta bo'limi",
         romaji: 'yuubinkyoku',
         furigana: 'ゆうびんきょく',
@@ -13594,7 +13594,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v818',
-        front: '留学生 (りゅうがくせい)',
+        front: '留学生',
         back: 'Chet ellik talaba, xorijiy talaba',
         romaji: 'ryuugakusei',
         furigana: 'りゅうがくせい',
@@ -13605,7 +13605,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v819',
-        front: '冷蔵庫 (れいぞうこ)',
+        front: '冷蔵庫',
         back: 'Muzlatgich',
         romaji: 'reizouko',
         furigana: 'れいぞうこ',
@@ -13616,7 +13616,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v820',
-        front: '赤 (あか)',
+        front: '赤',
         back: 'Qizil rang',
         romaji: 'aka',
         furigana: 'あか',
@@ -13627,7 +13627,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v821',
-        front: '空き家 (あきや)',
+        front: '空き家',
         back: "Bo'sh uy, qarovsiz / tashlandiq uy",
         romaji: 'akiya',
         furigana: 'あきや',
@@ -13638,7 +13638,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v822',
-        front: '辺り (あたり)',
+        front: '辺り',
         back: 'Atrof, tevarak, yon-atrof',
         romaji: 'atari',
         furigana: 'あたり',
@@ -13649,7 +13649,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v823',
-        front: '当たり前 (あたりまえ)',
+        front: '当たり前',
         back: "Tabiiy, o'z-o'zidan tushunarli, odatiy hol",
         romaji: 'atarimae',
         furigana: 'あたりまえ',
@@ -13660,7 +13660,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v824',
-        front: '扱い (あつかい)',
+        front: '扱い',
         back: 'Muomala, munosabat, ishlatish usuli',
         romaji: 'atsukai',
         furigana: 'あつかい',
@@ -13671,7 +13671,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v825',
-        front: '一方通行 (いっぽうつうこう)',
+        front: '一方通行',
         back: 'Bir tomonlama harakat',
         romaji: 'ippoutsuukou',
         furigana: 'いっぽうつうこう',
@@ -13682,7 +13682,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v826',
-        front: '絵の具 (えのぐ)',
+        front: '絵の具',
         back: "Rassomlik bo'yog'i",
         romaji: 'enogu',
         furigana: 'えのぐ',
@@ -13693,7 +13693,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v827',
-        front: '絵はがき (えはがき)',
+        front: '絵はがき',
         back: 'Rasmli otkritka, pochta kartochkasi',
         romaji: 'ehagaki',
         furigana: 'えはがき',
@@ -13704,7 +13704,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v828',
-        front: '横断禁止 (おうだんきんし)',
+        front: '横断禁止',
         back: "Yo'lni kesib o'tish taqiqlangan",
         romaji: 'oudankinshi',
         furigana: 'おうだんきんし',
@@ -13715,7 +13715,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v829',
-        front: '横断歩道 (おうだんほどう)',
+        front: '横断歩道',
         back: "Piyodalar o'tish joyi, zebra",
         romaji: 'oudanhodou',
         furigana: 'おうだんほどう',
@@ -13726,7 +13726,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v830',
-        front: 'お菓子 (おかし)',
+        front: 'お菓子',
         back: 'Shirinlik, pishiriq, konfet',
         romaji: 'okashi',
         furigana: 'おかし',
@@ -13737,7 +13737,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v831',
-        front: 'お代わり (おかわり)',
+        front: 'お代わり',
         back: 'Qayta solish, ikkinchi porsiya',
         romaji: 'okawari',
         furigana: 'おかわり',
@@ -13748,7 +13748,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v832',
-        front: '奥さん (おくさん)',
+        front: '奥さん',
         back: "Rafiqangiz, birovning turmush o'rtog'i",
         romaji: 'okusan',
         furigana: 'おくさん',
@@ -13759,7 +13759,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v833',
-        front: '押入れ (おしいれ)',
+        front: '押入れ',
         back: "Oshiire (an'anaviy devoriy yapon shkafi)",
         romaji: 'oshiire',
         furigana: 'おしいれ',
@@ -13770,7 +13770,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v834',
-        front: 'お知らせ (おしらせ)',
+        front: 'お知らせ',
         back: "E'lon, xabarnoma",
         romaji: 'oshirase',
         furigana: 'おしらせ',
@@ -13781,7 +13781,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v835',
-        front: 'お釣り (おつり)',
+        front: 'お釣り',
         back: 'Qaytim (xarid qaytimi)',
         romaji: 'otsuri',
         furigana: 'おつり',
@@ -13792,7 +13792,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v836',
-        front: 'お手洗い (おてあらい)',
+        front: 'お手洗い',
         back: 'Hojatxona (xushmuomala atama)',
         romaji: 'otearai',
         furigana: 'おてあらい',
@@ -13803,7 +13803,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v837',
-        front: 'お年玉 (おとしだま)',
+        front: 'お年玉',
         back: "Otoshidama (yangi yilda bolalarga beriladigan pul sovg'asi)",
         romaji: 'otoshidama',
         furigana: 'おとしだま',
@@ -13814,7 +13814,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v838',
-        front: 'お腹 (おなか)',
+        front: 'お腹',
         back: 'Qorin',
         romaji: 'onaka',
         furigana: 'おなか',
@@ -13825,7 +13825,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v839',
-        front: 'お見舞い (おみまい)',
+        front: 'お見舞い',
         back: 'Bemor holidan xabar olish, bemorga tashrif',
         romaji: 'omimai',
         furigana: 'おみまい',
@@ -13836,7 +13836,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v840',
-        front: 'お土産 (おみやげ)',
+        front: 'お土産',
         back: "Sayohat sovg'asi (esdalik)",
         romaji: 'omiyage',
         furigana: 'おみやげ',
@@ -13847,7 +13847,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v841',
-        front: '思い出 (おもいで)',
+        front: '思い出',
         back: 'Xotira, esdalik',
         romaji: 'omoide',
         furigana: 'おもいで',
@@ -13858,7 +13858,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v842',
-        front: 'お礼 (おれい)',
+        front: 'お礼',
         back: "Minnatdorchilik, tashakkur sovg'asi",
         romaji: 'orei',
         furigana: 'おれい',
@@ -13869,7 +13869,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v843',
-        front: '海外旅行 (かいがいりょこう)',
+        front: '海外旅行',
         back: 'Chet elga sayohat',
         romaji: 'kaigairyokou',
         furigana: 'かいがいりょこう',
@@ -13880,7 +13880,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v844',
-        front: '香り (かおり)',
+        front: '香り',
         back: "Xushbo'y hid, atir isi",
         romaji: 'kaori',
         furigana: 'かおり',
@@ -13891,7 +13891,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v845',
-        front: '各駅停車 (かくえきていしゃ)',
+        front: '各駅停車',
         back: "Har bir bekatda to'xtaydigan poyezd",
         romaji: 'kakuekiteisha',
         furigana: 'かくえきていしゃ',
@@ -13902,7 +13902,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v846',
-        front: '傘立て (かさたて)',
+        front: '傘立て',
         back: "Soyabon qo'ygich, soyabon idishi",
         romaji: 'kasatate',
         furigana: 'かさたて',
@@ -13913,7 +13913,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v847',
-        front: '家庭教師 (かていきょうし)',
+        front: '家庭教師',
         back: "Uy o'qituvchisi, repetitor",
         romaji: 'kateikyoushi',
         furigana: 'かていきょうし',
@@ -13924,7 +13924,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v848',
-        front: '金持ち (かねもち)',
+        front: '金持ち',
         back: 'Boy odam, badavlat kishi',
         romaji: 'kanemochi',
         furigana: 'かねもち',
@@ -13935,7 +13935,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v849',
-        front: '代わり (かわり)',
+        front: '代わり',
         back: "O'rniga, evaziga",
         romaji: 'kawari',
         furigana: 'かわり',
@@ -13946,7 +13946,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v850',
-        front: '換気扇 (かんきせん)',
+        front: '換気扇',
         back: "Ventilyator, dudbo'ron",
         romaji: 'kankisen',
         furigana: 'かんきせん',
@@ -13957,7 +13957,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v851',
-        front: '環境問題 (かんきょうもんだい)',
+        front: '環境問題',
         back: 'Ekologik muammo, atrof-muhit muammosi',
         romaji: 'kankyoumondai',
         furigana: 'かんきょうもんだい',
@@ -13968,7 +13968,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v852',
-        front: '缶コーヒー (かんこーひー)',
+        front: '缶コーヒー',
         back: 'Bankadagi qahva, metall qutidagi qahva',
         romaji: 'kankoohii',
         furigana: 'かんこーひー',
@@ -13979,7 +13979,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v853',
-        front: '黄色信号 (きいろしんごう)',
+        front: '黄色信号',
         back: 'Sariq chiroq (svetofor)',
         romaji: 'kiiroshingou',
         furigana: 'きいろしんごう',
@@ -13990,7 +13990,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v854',
-        front: '木の実 (きのみ)',
+        front: '木の実',
         back: "Daraxt mevasi, yong'oq, danak",
         romaji: 'kinomi',
         furigana: 'きのみ',
@@ -14001,7 +14001,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v855',
-        front: '決まり (きまり)',
+        front: '決まり',
         back: 'Qoida, tartib, kelishuv',
         romaji: 'kimari',
         furigana: 'きまり',
@@ -14012,7 +14012,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v856',
-        front: '車いす (くるまいす)',
+        front: '車いす',
         back: 'Nogironlar aravachasi',
         romaji: 'kurumaisu',
         furigana: 'くるまいす',
@@ -14023,7 +14023,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v857',
-        front: '携帯電話 (けいたいでんわ)',
+        front: '携帯電話',
         back: 'Mobil telefon',
         romaji: 'keitaidenwa',
         furigana: 'けいたいでんわ',
@@ -14034,7 +14034,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v858',
-        front: '消しゴム (けしごむ)',
+        front: '消しゴム',
         back: "O'chirg'ich",
         romaji: 'keshigomu',
         furigana: 'けしごむ',
@@ -14045,7 +14045,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v859',
-        front: '原稿用紙 (げんこうようし)',
+        front: '原稿用紙',
         back: "Genkoyoshi (yapon katakli insho qog'ozi)",
         romaji: 'genkouyoushi',
         furigana: 'げんこうようし',
@@ -14056,7 +14056,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v860',
-        front: '交換留学 (こうかんりゅうがく)',
+        front: '交換留学',
         back: 'Talabalar almashinuv dasturi',
         romaji: 'koukanryuugaku',
         furigana: 'こうかんりゅうがく',
@@ -14067,7 +14067,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v861',
-        front: '高速道路 (こうそくどうろ)',
+        front: '高速道路',
         back: 'Tezyurar avtomagistral, trassa',
         romaji: 'kousokudouro',
         furigana: 'こうそくどうろ',
@@ -14078,7 +14078,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v862',
-        front: '交通事故 (こうつうじこ)',
+        front: '交通事故',
         back: "Yo'l-transport hodisasi, avariya",
         romaji: 'koutsuujiko',
         furigana: 'こうつうじこ',
@@ -14089,7 +14089,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v863',
-        front: '言葉遊び (ことばあそび)',
+        front: '言葉遊び',
         back: "So'z o'yini, qofiya / topishmoq o'yini",
         romaji: 'kotobaasobi',
         furigana: 'ことばあそび',
@@ -14100,7 +14100,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v864',
-        front: '言葉づかい (ことばづかい)',
+        front: '言葉づかい',
         back: "So'zlashuv odobi, nutq madaniyati",
         romaji: 'kotobadukai',
         furigana: 'ことばづかい',
@@ -14111,7 +14111,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v865',
-        front: '子ども時代 (こどもじだい)',
+        front: '子ども時代',
         back: 'Bolalik davri',
         romaji: 'kodomojidai',
         furigana: 'こどもじだい',
@@ -14122,7 +14122,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v866',
-        front: 'この間 (このあいだ)',
+        front: 'この間',
         back: "Yaqinda, o'tgan kunlarda",
         romaji: 'konoaida',
         furigana: 'このあいだ',
@@ -14133,7 +14133,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v867',
-        front: '木の葉 (このは)',
+        front: '木の葉',
         back: 'Daraxt barglari, xazon',
         romaji: 'konoha',
         furigana: 'このは',
@@ -14144,7 +14144,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v868',
-        front: 'この前 (このまえ)',
+        front: 'この前',
         back: "Yaqinda, o'tgan safar",
         romaji: 'konomae',
         furigana: 'このまえ',
@@ -14155,7 +14155,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v869',
-        front: 'ごみ箱 (ごみばこ)',
+        front: 'ごみ箱',
         back: 'Axlat qutisi',
         romaji: 'gomibako',
         furigana: 'ごみばこ',
@@ -14166,7 +14166,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v870',
-        front: '締め切り (しめきり)',
+        front: '締め切り',
         back: "So'nggi muddat, dedlayn",
         romaji: 'shimekiri',
         furigana: 'しめきり',
@@ -14177,7 +14177,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v871',
-        front: '春夏秋冬 (しゅんかしゅうとう)',
+        front: '春夏秋冬',
         back: "To'rt fasl (bahor, yoz, kuz, qish)",
         romaji: 'shunkashuutou',
         furigana: 'しゅんかしゅうとう',
@@ -14188,7 +14188,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v872',
-        front: '消費期限 (しょうひきげん)',
+        front: '消費期限',
         back: "Iste'mol qilish muddati (yaroqlilik muddati)",
         romaji: 'shouhikigen',
         furigana: 'しょうひきげん',
@@ -14199,7 +14199,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v873',
-        front: '証明写真 (しょうめいしゃしん)',
+        front: '証明写真',
         back: 'Hujjat surati, 3x4 fotosurat',
         romaji: 'shoumeishashin',
         furigana: 'しょうめいしゃしん',
@@ -14210,7 +14210,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v874',
-        front: '知り合い (しりあい)',
+        front: '知り合い',
         back: 'Tanish odam, tanish-bilish',
         romaji: 'shiriai',
         furigana: 'しりあい',
@@ -14221,7 +14221,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v875',
-        front: '新入社員 (しんにゅうしゃいん)',
+        front: '新入社員',
         back: 'Yangi ishga kirgan xodim',
         romaji: 'shinnyuushain',
         furigana: 'しんにゅうしゃいん',
@@ -14232,7 +14232,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v876',
-        front: '自分自身 (じぶんじしん)',
+        front: '自分自身',
         back: "O'z-o'zi, shaxsan o'zi",
         romaji: 'jibunjishin',
         furigana: 'じぶんじしん',
@@ -14243,7 +14243,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v877',
-        front: '炊飯器 (すいはんき)',
+        front: '炊飯器',
         back: 'Guruch pishirgich (multivarka)',
         romaji: 'suihanki',
         furigana: 'すいはんき',
@@ -14254,7 +14254,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v878',
-        front: '全て (すべて)',
+        front: '全て',
         back: 'Barchasi, butkul, hammasi',
         romaji: 'subete',
         furigana: 'すべて',
@@ -14265,7 +14265,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v879',
-        front: '生活習慣 (せいかつしゅうかん)',
+        front: '生活習慣',
         back: 'Hayot tarzi odatlari, kun tartibi',
         romaji: 'seikatsushuukan',
         furigana: 'せいかつしゅうかん',
@@ -14276,7 +14276,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v880',
-        front: '生年月日 (せいねんがっぴ)',
+        front: '生年月日',
         back: "Tug'ilgan sana (yil, oy, kun)",
         romaji: 'seinengappi',
         furigana: 'せいねんがっぴ',
@@ -14287,7 +14287,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v881',
-        front: '専門学校 (せんもんがっこう)',
+        front: '専門学校',
         back: 'Maxsus kasb-hunar kolleji',
         romaji: 'senmongakkou',
         furigana: 'せんもんがっこう',
@@ -14298,7 +14298,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v882',
-        front: '卒業論文 (そつぎょうろんぶん)',
+        front: '卒業論文',
         back: 'Bitiruv malakaviy ishi (diplom ishi)',
         romaji: 'sotsugyouronbun',
         furigana: 'そつぎょうろんぶん',
@@ -14309,7 +14309,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v883',
-        front: '悩み (なやみ)',
+        front: '悩み',
         back: "Tashvish, iztirob, o'y-xayol",
         romaji: 'nayami',
         furigana: 'なやみ',
@@ -14320,7 +14320,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v884',
-        front: '匂い (におい)',
+        front: '匂い',
         back: 'Hid, is',
         romaji: 'nioi',
         furigana: 'におい',
@@ -14331,7 +14331,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v885',
-        front: '入学祝い (にゅうがくいわい)',
+        front: '入学祝い',
         back: "O'qishga kirish sovg'asi / tabrigi",
         romaji: 'nyuugakuiwai',
         furigana: 'にゅうがくいわい',
@@ -14342,7 +14342,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v886',
-        front: '人間関係 (にんげんかんけい)',
+        front: '人間関係',
         back: 'Insonlararo munosabatlar',
         romaji: 'ningenkankei',
         furigana: 'にんげんかんけい',
@@ -14353,7 +14353,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v887',
-        front: '乗り降り (のりおり)',
+        front: '乗り降り',
         back: 'Chiqib-tushish (transportda)',
         romaji: 'noriori',
         furigana: 'のりおり',
@@ -14364,7 +14364,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v888',
-        front: '乗り換え (のりかえ)',
+        front: '乗り換え',
         back: 'Transportni almashtirish, peresadka',
         romaji: 'norikae',
         furigana: 'のりかえ',
@@ -14375,7 +14375,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v889',
-        front: 'はじめ (はじめ)',
+        front: 'はじめ',
         back: 'Boshi, dastlab, ibtido',
         romaji: 'hajime',
         furigana: 'はじめ',
@@ -14386,7 +14386,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v890',
-        front: 'バス停 (ばすてい)',
+        front: 'バス停',
         back: 'Avtobus bekati',
         romaji: 'basutei',
         furigana: 'ばすてい',
@@ -14397,7 +14397,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v891',
-        front: '天気予報 (てんきよほう)',
+        front: '天気予報',
         back: "Ob-havo ma'lumoti / prognozi",
         romaji: 'tenkiyohou',
         furigana: 'てんきよほう',
@@ -14408,7 +14408,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v892',
-        front: '外れ (はずれ)',
+        front: '外れ',
         back: 'Yutuqsiz, omadsiz; chekka joy',
         romaji: 'hazure',
         furigana: 'はずれ',
@@ -14419,7 +14419,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v893',
-        front: '葉っぱ (はっぱ)',
+        front: '葉っぱ',
         back: 'Barg, yaproq',
         romaji: 'happa',
         furigana: 'はっぱ',
@@ -14430,7 +14430,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v894',
-        front: '話し声 (はなしごえ)',
+        front: '話し声',
         back: "Suhbat ovozi, so'zlashuv tovushi",
         romaji: 'hanashigoe',
         furigana: 'はなしごえ',
@@ -14441,7 +14441,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v895',
-        front: '早起き (はやおき)',
+        front: '早起き',
         back: "Erta turish, barvaqt uyg'onish",
         romaji: 'hayaoki',
         furigana: 'はやおき',
@@ -14452,7 +14452,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v896',
-        front: '引き出し (ひきだし)',
+        front: '引き出し',
         back: 'Tortma (stol yoki javon tortmasi)',
         romaji: 'hikidashi',
         furigana: 'ひきだし',
@@ -14463,7 +14463,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v897',
-        front: '久しぶり (ひさしぶり)',
+        front: '久しぶり',
         back: "Uzoq vaqtdan beri, ancha vaqtdan so'ng",
         romaji: 'hisashiburi',
         furigana: 'ひさしぶり',
@@ -14474,7 +14474,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v898',
-        front: '左利き (ひだりきき)',
+        front: '左利き',
         back: "Chapaqay, chap qo'lli",
         romaji: 'hidarikiki',
         furigana: 'ひだりきき',
@@ -14485,7 +14485,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v899',
-        front: '近く (ちかく)',
+        front: '近く',
         back: 'Yaqinida, yaqin atrof',
         romaji: 'chikaku',
         furigana: 'ちかく',
@@ -14496,7 +14496,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v900',
-        front: '続き (つづき)',
+        front: '続き',
         back: 'Davomi',
         romaji: 'tsuzuki',
         furigana: 'つづき',
@@ -14507,7 +14507,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v901',
-        front: '電子レンジ (でんしれんじ)',
+        front: '電子レンジ',
         back: "Mikroto'lqinli pech (mikrovolnovka)",
         romaji: 'denshirenji',
         furigana: 'でんしれんじ',
@@ -14518,7 +14518,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v902',
-        front: '通り (とおり)',
+        front: '通り',
         back: "Ko'cha, xiyobon; bo'yicha",
         romaji: 'toori',
         furigana: 'とおり',
@@ -14529,7 +14529,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v903',
-        front: '年寄り (としより)',
+        front: '年寄り',
         back: 'Keksa odam, qariya',
         romaji: 'toshiyori',
         furigana: 'としより',
@@ -14540,7 +14540,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v904',
-        front: '流れ (ながれ)',
+        front: '流れ',
         back: "Oqim, jarayon yo'nalishi",
         romaji: 'nagare',
         furigana: 'ながれ',
@@ -14551,7 +14551,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v905',
-        front: '夏祭り (なつまつり)',
+        front: '夏祭り',
         back: 'Yozgi xalq sayli, yozgi festival',
         romaji: 'natsumatsuri',
         furigana: 'なつまつり',
@@ -14562,7 +14562,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v906',
-        front: '夏休み (なつやすみ)',
+        front: '夏休み',
         back: "Yozgi ta'til",
         romaji: 'natsuyasumi',
         furigana: 'なつやすみ',
@@ -14573,7 +14573,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v907',
-        front: '斜め (ななめ)',
+        front: '斜め',
         back: 'Qiyalik, burchak ostida, qiyshiq',
         romaji: 'naname',
         furigana: 'ななめ',
@@ -14584,7 +14584,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v908',
-        front: '生ごみ (なまごみ)',
+        front: '生ごみ',
         back: 'Organik chiqindi, oziq-ovqat chiqindisi',
         romaji: 'namagomi',
         furigana: 'なまごみ',
@@ -14595,7 +14595,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v909',
-        front: '一人暮らし (ひとりぐらし)',
+        front: '一人暮らし',
         back: "Yolg'iz yashash, mustaqil ro'zg'or",
         romaji: 'hitorigurashi',
         furigana: 'ひとりぐらし',
@@ -14606,7 +14606,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v910',
-        front: '昼 (ひる)',
+        front: '昼',
         back: 'Kunduz, tush vaqti',
         romaji: 'hiru',
         furigana: 'ひる',
@@ -14617,7 +14617,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v911',
-        front: '誌 (し)',
+        front: '誌',
         back: 'Jurnal, davriy nashr',
         romaji: 'shi',
         furigana: 'し',
@@ -14628,7 +14628,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v912',
-        front: '振り込み (ふりこみ)',
+        front: '振り込み',
         back: "Bank orqali pul o'tkazish, to'lov o'tkazmasi",
         romaji: 'furikomi',
         furigana: 'ふりこみ',
@@ -14639,7 +14639,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v913',
-        front: '祭り (まつり)',
+        front: '祭り',
         back: "Festival, an'anaviy xalq bayrami",
         romaji: 'matsuri',
         furigana: 'まつり',
@@ -14650,7 +14650,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v914',
-        front: '真ん中 (まんなか)',
+        front: '真ん中',
         back: "Qoq o'rtasi, markazi",
         romaji: 'mannaka',
         furigana: 'まんなか',
@@ -14661,7 +14661,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v915',
-        front: '右利き (みぎきき)',
+        front: '右利き',
         back: "O'naqay, o'ng qo'lli",
         romaji: 'migikiki',
         furigana: 'みぎきき',
@@ -14672,7 +14672,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v916',
-        front: '汁 (しる)',
+        front: '汁',
         back: "Sho'rva, suyuqlik, sharbat",
         romaji: 'shiru',
         furigana: 'しる',
@@ -14683,7 +14683,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v917',
-        front: '向こう (むこう)',
+        front: '向こう',
         back: "U tomon, ro'para, qarama-qarshi tomon",
         romaji: 'mukou',
         furigana: 'むこう',
@@ -14694,7 +14694,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v918',
-        front: '目覚まし時計 (めざましどけい)',
+        front: '目覚まし時計',
         back: "Budilnik, uyg'otuvchi soat",
         romaji: 'mezamashidokei',
         furigana: 'めざましどけい',
@@ -14705,7 +14705,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v919',
-        front: '申し込み (もうしこみ)',
+        front: '申し込み',
         back: "Ariza topshirish, ro'yxatdan o'tish",
         romaji: 'moushikomi',
         furigana: 'もうしこみ',
@@ -14716,7 +14716,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v920',
-        front: '焼き魚 (やきざかな)',
+        front: '焼き魚',
         back: 'Qovurilgan baliq, pishirilgan baliq',
         romaji: 'yakizakana',
         furigana: 'やきざかな',
@@ -14727,7 +14727,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v921',
-        front: '焼きそば (やきそば)',
+        front: '焼きそば',
         back: "Yakisoba (yapon qovurilgan lag'moni)",
         romaji: 'yakisoba',
         furigana: 'やきそば',
@@ -14738,7 +14738,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v922',
-        front: '山登り (やまのぼり)',
+        front: '山登り',
         back: "Toqqa chiqish, tog' sayri",
         romaji: 'yamanobori',
         furigana: 'やまのぼり',
@@ -14749,7 +14749,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v923',
-        front: '夕べ (ゆうべ)',
+        front: '夕べ',
         back: 'Kecha oqshom, kecha kechqurun',
         romaji: 'yuube',
         furigana: 'ゆうべ',
@@ -14760,7 +14760,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v924',
-        front: '夕焼け (ゆうやけ)',
+        front: '夕焼け',
         back: "Shom shafag'i, qizg'ish botayotgan quyosh nuri",
         romaji: 'yuuyake',
         furigana: 'ゆうやけ',
@@ -14771,7 +14771,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v925',
-        front: '汚れ (よごれ)',
+        front: '汚れ',
         back: "Kir, dog', kirlanish",
         romaji: 'yogore',
         furigana: 'よごれ',
@@ -14782,7 +14782,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v926',
-        front: '留守番電話 (るすばんでんわ)',
+        front: '留守番電話',
         back: 'Avtojavoblagich telefon',
         romaji: 'rusubandenwa',
         furigana: 'るすばんでんわ',
@@ -14793,7 +14793,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v927',
-        front: 'わが家 (わがや)',
+        front: 'わが家',
         back: "O'z uyimiz, xonadonimiz",
         romaji: 'wagaya',
         furigana: 'わがや',
@@ -14804,7 +14804,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v928',
-        front: '飽きる (あきる)',
+        front: '飽きる',
         back: "To'yib ketmoq, zerikib qolmoq",
         romaji: 'akiru',
         furigana: 'あきる',
@@ -14815,7 +14815,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v929',
-        front: '空く (あく)',
+        front: '空く',
         back: "Bo'shamoq, bo'sh joy bo'lmoq",
         romaji: 'aku',
         furigana: 'あく',
@@ -14826,7 +14826,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v930',
-        front: '空ける (あける)',
+        front: '空ける',
         back: "Bo'shatmoq (vaqt, xona, joy)",
         romaji: 'akeru',
         furigana: 'あける',
@@ -14837,7 +14837,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v931',
-        front: '預ける (あずける)',
+        front: '預ける',
         back: "Saqlashga topshirmoq, omonat qo'ymoq",
         romaji: 'azukeru',
         furigana: 'あずける',
@@ -14848,7 +14848,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v932',
-        front: '与える (あたえる)',
+        front: '与える',
         back: "Bermoq, ta'sir qilmoq, tuhfa etmoq",
         romaji: 'ataeru',
         furigana: 'あたえる',
@@ -14859,7 +14859,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v933',
-        front: '温める (あたためる)',
+        front: '温める',
         back: 'Isitmoq, ilitmoq',
         romaji: 'atatameru',
         furigana: 'あたためる',
@@ -14870,7 +14870,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v934',
-        front: '当たる (あたる)',
+        front: '当たる',
         back: "Tegmoq, yutuq chiqmoq, to'g'ri kelmoq",
         romaji: 'ataru',
         furigana: 'あたる',
@@ -14881,7 +14881,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v935',
-        front: '扱う (あつかう)',
+        front: '扱う',
         back: "Muomala qilmoq, ishlatmoq, sotuvda bo'lmoq",
         romaji: 'atsukau',
         furigana: 'あつかう',
@@ -14892,7 +14892,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v936',
-        front: '集まる (あつまる)',
+        front: '集まる',
         back: "Yig'ilmoq, to'planmoq",
         romaji: 'atsumaru',
         furigana: 'あつまる',
@@ -14903,7 +14903,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v937',
-        front: '集める (あつめる)',
+        front: '集める',
         back: "Yig'moq, to'plamoq",
         romaji: 'atsumeru',
         furigana: 'あつめる',
@@ -14914,7 +14914,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v938',
-        front: 'あふれる (あふれる)',
+        front: 'あふれる',
         back: 'Toshmoq, toshib ketmoq',
         romaji: 'afureru',
         furigana: 'あふれる',
@@ -14925,7 +14925,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v939',
-        front: '余る (あまる)',
+        front: '余る',
         back: "Ortib qolmoq, ortiqcha bo'lmoq",
         romaji: 'amaru',
         furigana: 'あまる',
@@ -14936,7 +14936,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v940',
-        front: '編む (あむ)',
+        front: '編む',
         back: "To'qimoq (jun kiyim)",
         romaji: 'amu',
         furigana: 'あむ',
@@ -14947,7 +14947,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v941',
-        front: '誤る (あやまる)',
+        front: '誤る',
         back: 'Xato qilmoq, yanglishmoq',
         romaji: 'ayamaru',
         furigana: 'あやまる',
@@ -14958,7 +14958,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v942',
-        front: '表す (あらわす)',
+        front: '表す',
         back: 'Ifodalamoq, bildirmoq',
         romaji: 'arawasu',
         furigana: 'あらわす',
@@ -14969,7 +14969,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v943',
-        front: '表れる (あらわれる)',
+        front: '表れる',
         back: "Namoyon bo'lmoq, ko'rinmoq (holat)",
         romaji: 'arawareru',
         furigana: 'あらわれる',
@@ -14980,7 +14980,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v944',
-        front: '現れる (あらわれる)',
+        front: '現れる',
         back: "Paydo bo'lmoq, ko'rinish bermoq",
         romaji: 'arawareru',
         furigana: 'あらわれる',
@@ -14991,7 +14991,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v945',
-        front: '慌てる (あわてる)',
+        front: '慌てる',
         back: 'Shoshib qolmoq, sarosimaga tushmoq',
         romaji: 'awateru',
         furigana: 'あわてる',
@@ -15002,7 +15002,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v946',
-        front: '怒る (おこる)',
+        front: '怒る',
         back: "G'azablanmoq, jahli chiqmoq",
         romaji: 'okoru',
         furigana: 'おこる',
@@ -15013,7 +15013,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v947',
-        front: '急ぐ (いそぐ)',
+        front: '急ぐ',
         back: 'Shoshilmoq, tezlashmoq',
         romaji: 'isogu',
         furigana: 'いそぐ',
@@ -15024,7 +15024,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v948',
-        front: '抱く (だく)',
+        front: '抱く',
         back: "Quchoqlamoq, bag'riga bosmoq",
         romaji: 'daku',
         furigana: 'だく',
@@ -15035,7 +15035,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v949',
-        front: '痛む (いたむ)',
+        front: '痛む',
         back: "Og'rimoq, sanchmoq",
         romaji: 'itamu',
         furigana: 'いたむ',
@@ -15046,7 +15046,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v950',
-        front: '居る (いる)',
+        front: '居る',
         back: "Bo'lmoq, mavjud bo'lmoq (jonli)",
         romaji: 'iru',
         furigana: 'いる',
@@ -15057,7 +15057,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v951',
-        front: '要る (いる)',
+        front: '要る',
         back: "Kerak bo'lmoq, talab qilinmoq",
         romaji: 'iru',
         furigana: 'いる',
@@ -15068,7 +15068,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v952',
-        front: '植える (うえる)',
+        front: '植える',
         back: "Ekmoq (ko'chat, daraxt)",
         romaji: 'ueru',
         furigana: 'うえる',
@@ -15079,7 +15079,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v953',
-        front: '浮く (うく)',
+        front: '浮く',
         back: 'Suzmoq, suv yuzasiga chiqmoq',
         romaji: 'uku',
         furigana: 'うく',
@@ -15090,7 +15090,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v954',
-        front: '受ける (うける)',
+        front: '受ける',
         back: 'Qabul qilmoq; imtihon topshirmoq',
         romaji: 'ukeru',
         furigana: 'うける',
@@ -15101,7 +15101,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v955',
-        front: '疑う (うたがう)',
+        front: '疑う',
         back: 'Shubhalamoq, gumonsiramoq',
         romaji: 'utagau',
         furigana: 'うたがう',
@@ -15112,7 +15112,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v956',
-        front: '打つ (うつ)',
+        front: '打つ',
         back: 'Urmoq, zarba bermoq, terish',
         romaji: 'utsu',
         furigana: 'うつ',
@@ -15123,7 +15123,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v957',
-        front: '映る (うつる)',
+        front: '映る',
         back: "Aks etmoq, ko'rinmoq",
         romaji: 'utsuru',
         furigana: 'うつる',
@@ -15134,7 +15134,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v958',
-        front: '移る (うつる)',
+        front: '移る',
         back: "Ko'chmoq, boshqa joyga o'tmoq",
         romaji: 'utsuru',
         furigana: 'うつる',
@@ -15145,7 +15145,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v959',
-        front: '写る (うつる)',
+        front: '写る',
         back: 'Suratga tushmoq, tasvirlanmoq',
         romaji: 'utsuru',
         furigana: 'うつる',
@@ -15156,7 +15156,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v960',
-        front: '埋める (うめる)',
+        front: '埋める',
         back: "Ko'mmoq, to'ldirmoq",
         romaji: 'umeru',
         furigana: 'うめる',
@@ -15167,7 +15167,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v961',
-        front: '描く (えがく)',
+        front: '描く',
         back: 'Chizmoq, tasvirlamoq',
         romaji: 'egaku',
         furigana: 'えがく',
@@ -15178,7 +15178,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v962',
-        front: '選ぶ (えらぶ)',
+        front: '選ぶ',
         back: 'Tanlamoq, saylamoq',
         romaji: 'erabu',
         furigana: 'えらぶ',
@@ -15189,7 +15189,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v963',
-        front: '置く (おく)',
+        front: '置く',
         back: "Qo'ymoq, joylashtirmoq",
         romaji: 'oku',
         furigana: 'おく',
@@ -15200,7 +15200,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v964',
-        front: '送る (おくる)',
+        front: '送る',
         back: "Jo'natmoq, kuzatib qo'ymoq",
         romaji: 'okuru',
         furigana: 'おくる',
@@ -15211,7 +15211,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v965',
-        front: '贈る (おくる)',
+        front: '贈る',
         back: "Sovg'a qilmoq, in'om etmoq",
         romaji: 'okuru',
         furigana: 'おくる',
@@ -15222,7 +15222,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v966',
-        front: '遅れる (おくれる)',
+        front: '遅れる',
         back: 'Kechikmoq',
         romaji: 'okureru',
         furigana: 'おくれる',
@@ -15233,7 +15233,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v967',
-        front: '行う (おこなう)',
+        front: '行う',
         back: "O'tkazmoq, amalga oshirmoq",
         romaji: 'okonau',
         furigana: 'おこなう',
@@ -15244,7 +15244,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v968',
-        front: '抑える (おさえる)',
+        front: '抑える',
         back: 'Bosmoq, ushlab turmoq, cheklamoq',
         romaji: 'osaeru',
         furigana: 'おさえる',
@@ -15255,7 +15255,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v969',
-        front: '押す (おす)',
+        front: '押す',
         back: 'Bosmoq, itarmoq',
         romaji: 'osu',
         furigana: 'おす',
@@ -15266,7 +15266,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v970',
-        front: '落ちる (おちる)',
+        front: '落ちる',
         back: 'Tushib ketmoq, yiqilmoq',
         romaji: 'ochiru',
         furigana: 'おちる',
@@ -15277,7 +15277,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v971',
-        front: '落とす (おとす)',
+        front: '落とす',
         back: 'Tushirib yubormoq, tushirmoq',
         romaji: 'otosu',
         furigana: 'おとす',
@@ -15288,7 +15288,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v972',
-        front: '踊る (おどる)',
+        front: '踊る',
         back: 'Raqsga tushmoq',
         romaji: 'odoru',
         furigana: 'おどる',
@@ -15299,7 +15299,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v973',
-        front: '驚く (おどろく)',
+        front: '驚く',
         back: 'Hayron qolmoq, lol qolmoq',
         romaji: 'odoroku',
         furigana: 'おどろく',
@@ -15310,7 +15310,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v974',
-        front: '覚える (おぼえる)',
+        front: '覚える',
         back: 'Yodlamoq, eslab qolmoq',
         romaji: 'oboeru',
         furigana: 'おぼえる',
@@ -15321,7 +15321,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v975',
-        front: '折る (おる)',
+        front: '折る',
         back: 'Sindirmoq, bukmoq',
         romaji: 'oru',
         furigana: 'おる',
@@ -15332,7 +15332,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v976',
-        front: '折れる (おれる)',
+        front: '折れる',
         back: 'Sinmoq, bukilmoq',
         romaji: 'oreru',
         furigana: 'おれる',
@@ -15343,7 +15343,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v977',
-        front: '下ろす (おろす)',
+        front: '下ろす',
         back: 'Tushirmoq; pul yechmoq',
         romaji: 'orosu',
         furigana: 'おろす',
@@ -15354,7 +15354,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v978',
-        front: '飼う (かう)',
+        front: '飼う',
         back: 'Boqmoq (uy hayvoni)',
         romaji: 'kau',
         furigana: 'かう',
@@ -15365,7 +15365,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v979',
-        front: '返す (かえす)',
+        front: '返す',
         back: 'Qaytarmoq (qarz yoki kitobni)',
         romaji: 'kaesu',
         furigana: 'かえす',
@@ -15376,7 +15376,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v980',
-        front: '替える (かえる)',
+        front: '替える',
         back: 'Almashtirmoq (eskisini yangisiga)',
         romaji: 'kaeru',
         furigana: 'かえる',
@@ -15387,7 +15387,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v981',
-        front: '換える (かえる)',
+        front: '換える',
         back: 'Almashmoq (valyuta yoki narsa)',
         romaji: 'kaeru',
         furigana: 'かえる',
@@ -15398,7 +15398,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v982',
-        front: '変える (かえる)',
+        front: '変える',
         back: "O'zgartirmoq (reja, odat)",
         romaji: 'kaeru',
         furigana: 'かえる',
@@ -15409,7 +15409,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v983',
-        front: '関わる (かかわる)',
+        front: '関わる',
         back: "Aloqador bo'lmoq, daxli bo'lmoq",
         romaji: 'kakawaru',
         furigana: 'かかわる',
@@ -15420,7 +15420,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v984',
-        front: '隠す (かくす)',
+        front: '隠す',
         back: 'Yashirmoq, berkitmoq',
         romaji: 'kakusu',
         furigana: 'かくす',
@@ -15431,7 +15431,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v985',
-        front: '駆ける (かける)',
+        front: '駆ける',
         back: 'Chopmoq, ildam yugurmoq',
         romaji: 'kakeru',
         furigana: 'かける',
@@ -15442,7 +15442,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v986',
-        front: '囲む (かこむ)',
+        front: '囲む',
         back: "O'rab olmoq, qurshab turmoq",
         romaji: 'kakomu',
         furigana: 'かこむ',
@@ -15453,7 +15453,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v987',
-        front: '重ねる (かさねる)',
+        front: '重ねる',
         back: "Ustma-ust qo'ymoq, takrorlamoq",
         romaji: 'kasaneru',
         furigana: 'かさねる',
@@ -15464,7 +15464,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v988',
-        front: '飾る (かざる)',
+        front: '飾る',
         back: 'Bezamoq, yasatmoq',
         romaji: 'kazaru',
         furigana: 'かざる',
@@ -15475,7 +15475,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v989',
-        front: '貸す (かす)',
+        front: '貸す',
         back: 'Qarzga bermoq, ijaraga bermoq',
         romaji: 'kasu',
         furigana: 'かす',
@@ -15486,7 +15486,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v990',
-        front: '稼ぐ (かせぐ)',
+        front: '稼ぐ',
         back: 'Pul ishlab topmoq',
         romaji: 'kasegu',
         furigana: 'かせぐ',
@@ -15497,7 +15497,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v991',
-        front: '片付ける (かたづける)',
+        front: '片付ける',
         back: "Saranjomlamoq, yig'ishtirmoq",
         romaji: 'katazukeru',
         furigana: 'かたづける',
@@ -15508,7 +15508,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v992',
-        front: '固まる (かたまる)',
+        front: '固まる',
         back: 'Qotmoq, mustahkamlanmoq',
         romaji: 'katamaru',
         furigana: 'かたまる',
@@ -15519,7 +15519,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v993',
-        front: '勝つ (かつ)',
+        front: '勝つ',
         back: "G'alaba qozonmoq, yutmoq",
         romaji: 'katsu',
         furigana: 'かつ',
@@ -15530,7 +15530,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v994',
-        front: '被る (かぶる)',
+        front: '被る',
         back: 'Boshiga kiymoq (bosh kiyim)',
         romaji: 'kaburu',
         furigana: 'かぶる',
@@ -15541,7 +15541,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v995',
-        front: '構う (かまう)',
+        front: '構う',
         back: "Parvo qilmoq, e'tibor bermoq",
         romaji: 'kamau',
         furigana: 'かまう',
@@ -15552,7 +15552,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v996',
-        front: '通う (かよう)',
+        front: '通う',
         back: "Qatnamoq (o'qishga, ishga)",
         romaji: 'kayou',
         furigana: 'かよう',
@@ -15563,7 +15563,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v997',
-        front: '借りる (かりる)',
+        front: '借りる',
         back: 'Qarzga olmoq, ijaraga olmoq',
         romaji: 'kariru',
         furigana: 'かりる',
@@ -15574,7 +15574,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v998',
-        front: '枯れる (かれる)',
+        front: '枯れる',
         back: "Qurimoq, so'lmoq (o'simlik)",
         romaji: 'kareru',
         furigana: 'かれる',
@@ -15585,7 +15585,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v999',
-        front: '乾く (かわく)',
+        front: '乾く',
         back: 'Qurimoq (kiyim, tomoq)',
         romaji: 'kawaku',
         furigana: 'かわく',
@@ -15596,7 +15596,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1000',
-        front: '変わる (かわる)',
+        front: '変わる',
         back: "O'zgarmoq, yangilanmoq",
         romaji: 'kawaru',
         furigana: 'かわる',
@@ -15607,7 +15607,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1001',
-        front: '頑張る (がんばる)',
+        front: '頑張る',
         back: "G'ayrat qilmoq, qat'iyat ko'rsatmoq",
         romaji: 'ganbaru',
         furigana: 'がんばる',
@@ -15618,7 +15618,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1002',
-        front: '聞く (きく)',
+        front: '聞く',
         back: "Eshitmoq, tinglamoq; so'ramoq",
         romaji: 'kiku',
         furigana: 'きく',
@@ -15629,7 +15629,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1003',
-        front: '気付く (きづく)',
+        front: '気付く',
         back: 'Payqamoq, sezib qolmoq',
         romaji: 'kiduku',
         furigana: 'きづく',
@@ -15640,7 +15640,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1004',
-        front: '決める (きめる)',
+        front: '決める',
         back: 'Qaror qilmoq, belgilamoq',
         romaji: 'kimeru',
         furigana: 'きめる',
@@ -15651,7 +15651,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1005',
-        front: '嫌う (きらう)',
+        front: '嫌う',
         back: "Yoqtirmaslik, yomon ko'rmoq",
         romaji: 'kirau',
         furigana: 'きらう',
@@ -15662,7 +15662,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1006',
-        front: '切る (きる)',
+        front: '切る',
         back: 'Kesmoq',
         romaji: 'kiru',
         furigana: 'きる',
@@ -15673,7 +15673,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1007',
-        front: '着る (きる)',
+        front: '着る',
         back: 'Kiymoq (ustki kiyim)',
         romaji: 'kiru',
         furigana: 'きる',
@@ -15684,7 +15684,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1008',
-        front: '配る (くばる)',
+        front: '配る',
         back: 'Tarqatmoq, ulashmoq',
         romaji: 'kubaru',
         furigana: 'くばる',
@@ -15695,7 +15695,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1009',
-        front: '組む (くむ)',
+        front: '組む',
         back: "Tuzmoq, birlashtirmoq, qo'l qovushtirmoq",
         romaji: 'kumu',
         furigana: 'くむ',
@@ -15706,7 +15706,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1010',
-        front: '曇る (くもる)',
+        front: '曇る',
         back: 'Bulut qoplamoq',
         romaji: 'kumoru',
         furigana: 'くもる',
@@ -15717,7 +15717,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1011',
-        front: '比べる (くらべる)',
+        front: '比べる',
         back: 'Solishtirmoq, qiyoslamoq',
         romaji: 'kuraberu',
         furigana: 'くらべる',
@@ -15728,7 +15728,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1012',
-        front: '加える (くわえる)',
+        front: '加える',
         back: "Qo'shmoq, kiritmoq",
         romaji: 'kuwaeru',
         furigana: 'くわえる',
@@ -15739,7 +15739,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1013',
-        front: '消す (けす)',
+        front: '消す',
         back: "O'chirmoq (chiroq, olov)",
         romaji: 'kesu',
         furigana: 'けす',
@@ -15750,7 +15750,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1014',
-        front: '越える (こえる)',
+        front: '越える',
         back: "Oshib o'tmoq (tog'dan, to'siqdan)",
         romaji: 'koeru',
         furigana: 'こえる',
@@ -15761,7 +15761,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1015',
-        front: '超える (こえる)',
+        front: '超える',
         back: "Cheklovdan oshmoq, ortmoq (son, me'yor)",
         romaji: 'koeru',
         furigana: 'こえる',
@@ -15772,7 +15772,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1016',
-        front: '凍る (こおる)',
+        front: '凍る',
         back: 'Muzlamoq, muzlab qolmoq',
         romaji: 'kooru',
         furigana: 'こおる',
@@ -15783,7 +15783,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1017',
-        front: '断る (ことわる)',
+        front: '断る',
         back: 'rad etmoq, rad javobini bermoq, oldindan ogohlantirmoq',
         romaji: 'kotowaru',
         furigana: 'ことわる',
@@ -15794,7 +15794,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1018',
-        front: '困る (こまる)',
+        front: '困る',
         back: 'qiynalmoq, noqulay ahvolda qolmoq, qiyinchilikka duch kelmoq',
         romaji: 'komaru',
         furigana: 'こまる',
@@ -15805,7 +15805,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1019',
-        front: '混む (こむ)',
+        front: '混む',
         back: "gavjum bo'lmoq, tiqilinch bo'lmoq",
         romaji: 'komu',
         furigana: 'こむ',
@@ -15816,7 +15816,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1020',
-        front: '込む (こむ)',
+        front: '込む',
         back: 'ichkariga kirmoq, joylashmoq, tiqilmoq',
         romaji: 'komu',
         furigana: 'こむ',
@@ -15827,7 +15827,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1021',
-        front: '転ぶ (ころぶ)',
+        front: '転ぶ',
         back: 'yiqilmoq, toyib ketmoq',
         romaji: 'korobu',
         furigana: 'ころぶ',
@@ -15838,7 +15838,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1022',
-        front: '壊れる (こわれる)',
+        front: '壊れる',
         back: 'buzilmoq, sinmoq',
         romaji: 'kowareru',
         furigana: 'こわれる',
@@ -15849,7 +15849,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1023',
-        front: '探す (さがす)',
+        front: '探す',
         back: 'qidirmoq, izlamoq (kerakli narsa yoki ish)',
         romaji: 'sagasu',
         furigana: 'さがす',
@@ -15860,7 +15860,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1024',
-        front: '逆らう (さからう)',
+        front: '逆らう',
         back: "qarshi chiqmoq, qarshilik ko'rsatmoq, bo'ysunmaslik",
         romaji: 'sakarau',
         furigana: 'さからう',
@@ -15870,7 +15870,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1025',
-        front: '咲く (さく)',
+        front: '咲く',
         back: 'gullamoq, ochilmoq',
         romaji: 'saku',
         furigana: 'さく',
@@ -15881,7 +15881,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1026',
-        front: '叫ぶ (さけぶ)',
+        front: '叫ぶ',
         back: 'baqirmoq, qichqirmoq',
         romaji: 'sakebu',
         furigana: 'さけぶ',
@@ -15891,7 +15891,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1027',
-        front: '指す (さす)',
+        front: '指す',
         back: "ko'rsatmoq, ishora qilmoq",
         romaji: 'sasu',
         furigana: 'さす',
@@ -15902,7 +15902,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1028',
-        front: '誘う (さそう)',
+        front: '誘う',
         back: 'taklif qilmoq, chaqirmoq',
         romaji: 'sasou',
         furigana: 'さそう',
@@ -15913,7 +15913,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1029',
-        front: '冷める (さめる)',
+        front: '冷める',
         back: 'sovumoq (taom/ichimlik/qiziqish)',
         romaji: 'sameru',
         furigana: 'さめる',
@@ -15924,7 +15924,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1030',
-        front: '覚める (さめる)',
+        front: '覚める',
         back: "uyg'onmoq, hushiga kelmoq",
         romaji: 'sameru',
         furigana: 'さめる',
@@ -15935,7 +15935,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1031',
-        front: '騒ぐ (さわぐ)',
+        front: '騒ぐ',
         back: "shovqin solmoq, to'polon qilmoq",
         romaji: 'sawagu',
         furigana: 'さわぐ',
@@ -15946,7 +15946,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1032',
-        front: '触る (さわる)',
+        front: '触る',
         back: "tegmoq, qo'l tekkizmoq",
         romaji: 'sawaru',
         furigana: 'さわる',
@@ -15957,7 +15957,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1033',
-        front: '沈む (しずむ)',
+        front: '沈む',
         back: "cho'kmoq, botmoq (quyosh/kema)",
         romaji: 'shizumu',
         furigana: 'しずむ',
@@ -15968,7 +15968,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1034',
-        front: '従う (したがう)',
+        front: '従う',
         back: "ergashmoq, bo'ysunmoq, amal qilmoq",
         romaji: 'shitagau',
         furigana: 'したがう',
@@ -15979,7 +15979,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1035',
-        front: '支払う (しはらう)',
+        front: '支払う',
         back: "to'lamoq, to'lov qilmoq",
         romaji: 'shiharau',
         furigana: 'しはらう',
@@ -15990,7 +15990,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1036',
-        front: '示す (しめす)',
+        front: '示す',
         back: "ko'rsatmoq, dalolat bermoq",
         romaji: 'shimesu',
         furigana: 'しめす',
@@ -16001,7 +16001,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1037',
-        front: '締める (しめる)',
+        front: '締める',
         back: "bog'lamoq, mahkamlamoq, taqmoq (kamar/galstuk)",
         romaji: 'shimeru',
         furigana: 'しめる',
@@ -16012,7 +16012,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1038',
-        front: '調べる (しらべる)',
+        front: '調べる',
         back: "tekshirmoq, qidirib o'rganmoq",
         romaji: 'shiraberu',
         furigana: 'しらべる',
@@ -16023,7 +16023,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1039',
-        front: '信じる (しんじる)',
+        front: '信じる',
         back: 'ishonmoq',
         romaji: 'shinjiru',
         furigana: 'しんじる',
@@ -16034,7 +16034,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1040',
-        front: '吸う (すう)',
+        front: '吸う',
         back: 'ichiga tortmoq, chekmoq, nafas olmoq',
         romaji: 'suu',
         furigana: 'すう',
@@ -16045,7 +16045,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1041',
-        front: '過ぎる (すぎる)',
+        front: '過ぎる',
         back: "o'tib ketmoq, oshib ketmoq",
         romaji: 'sugiru',
         furigana: 'すぎる',
@@ -16056,7 +16056,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1042',
-        front: '過ごす (すごす)',
+        front: '過ごす',
         back: "vaqt o'tkazmoq",
         romaji: 'sugosu',
         furigana: 'すごす',
@@ -16067,7 +16067,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1043',
-        front: '進む (すすむ)',
+        front: '進む',
         back: 'oldinga siljimoq, ilgarilamoq, rivojlanmoq',
         romaji: 'susumu',
         furigana: 'すすむ',
@@ -16078,7 +16078,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1044',
-        front: '勧める (すすめる)',
+        front: '勧める',
         back: 'tavsiya qilmoq, taklif etmoq',
         romaji: 'susumeru',
         furigana: 'すすめる',
@@ -16089,7 +16089,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1045',
-        front: '捨てる (すてる)',
+        front: '捨てる',
         back: 'tashlab yubormoq, uloqtirmoq',
         romaji: 'suteru',
         furigana: 'すてる',
@@ -16100,7 +16100,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1046',
-        front: '済む (すむ)',
+        front: '済む',
         back: "bitmoq, tugamoq, hal bo'lmoq",
         romaji: 'sumu',
         furigana: 'すむ',
@@ -16110,7 +16110,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1047',
-        front: '注ぐ (そそぐ)',
+        front: '注ぐ',
         back: "quymoq, to'kmoq",
         romaji: 'sosogu',
         furigana: 'そそぐ',
@@ -16120,7 +16120,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1048',
-        front: '育つ (そだつ)',
+        front: '育つ',
         back: "o'smoq, ulg'aymoq",
         romaji: 'sodatsu',
         furigana: 'そだつ',
@@ -16130,7 +16130,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1049',
-        front: '倒れる (たおれる)',
+        front: '倒れる',
         back: 'yiqilmoq, qulamoq',
         romaji: 'taoreru',
         furigana: 'たおれる',
@@ -16141,7 +16141,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1050',
-        front: '確かめる (たしかめる)',
+        front: '確かめる',
         back: "aniqlashtirmoq, tekshirib ko'rmoq",
         romaji: 'tashikameru',
         furigana: 'たしかめる',
@@ -16152,7 +16152,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1051',
-        front: '足す (たす)',
+        front: '足す',
         back: "qo'shmoq (hisobda yoki qo'shimcha qilmoq)",
         romaji: 'tasu',
         furigana: 'たす',
@@ -16163,7 +16163,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1052',
-        front: '助ける (たすける)',
+        front: '助ける',
         back: 'yordam bermoq, qutqarmoq',
         romaji: 'tasukeru',
         furigana: 'たすける',
@@ -16174,7 +16174,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1053',
-        front: '尋ねる (たずねる)',
+        front: '尋ねる',
         back: "so'ramoq, surishtirmoq",
         romaji: 'tazuneru',
         furigana: 'たずねる',
@@ -16185,7 +16185,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1054',
-        front: '戦う (たたかう)',
+        front: '戦う',
         back: 'kurashmoq, jang qilmoq',
         romaji: 'tatakau',
         furigana: 'たたかう',
@@ -16196,7 +16196,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1055',
-        front: '建つ (たつ)',
+        front: '建つ',
         back: "qurilmoq, qad ko'tarmoq",
         romaji: 'tatsu',
         furigana: 'たつ',
@@ -16207,7 +16207,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1056',
-        front: '経つ (たつ)',
+        front: '経つ',
         back: "(vaqt) o'tmoq",
         romaji: 'tatsu',
         furigana: 'たつ',
@@ -16217,7 +16217,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1057',
-        front: '建てる (たてる)',
+        front: '建てる',
         back: 'qurmoq, bino qilmoq',
         romaji: 'tateru',
         furigana: 'たてる',
@@ -16228,7 +16228,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1058',
-        front: '楽しむ (たのしむ)',
+        front: '楽しむ',
         back: 'zavqlanmoq, maroq olmoq',
         romaji: 'tanoshimu',
         furigana: 'たのしむ',
@@ -16239,7 +16239,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1059',
-        front: '頼む (たのむ)',
+        front: '頼む',
         back: 'iltimos qilmoq, buyurtma qilmoq',
         romaji: 'tanomu',
         furigana: 'たのむ',
@@ -16250,7 +16250,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1060',
-        front: '溜まる (たまる)',
+        front: '溜まる',
         back: "yig'ilib qolmoq, to'planmoq",
         romaji: 'tamaru',
         furigana: 'たまる',
@@ -16261,7 +16261,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1061',
-        front: '貯める (ためる)',
+        front: '貯める',
         back: "jamg'armoq, to'plamoq (pul/boylik)",
         romaji: 'tameru',
         furigana: 'ためる',
@@ -16272,7 +16272,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1062',
-        front: '頼る (たよる)',
+        front: '頼る',
         back: "tayanmoq, suyanmoq, bog'liq bo'lmoq",
         romaji: 'tayoru',
         furigana: 'たよる',
@@ -16283,7 +16283,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1063',
-        front: '照る (てる)',
+        front: '照る',
         back: 'porlamoq, charaqlab nur sochmoq',
         romaji: 'teru',
         furigana: 'てる',
@@ -16294,7 +16294,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1064',
-        front: '違う (ちがう)',
+        front: '違う',
         back: "farq qilmoq, boshqacha bo'lmoq, noto'g'ri bo'lmoq",
         romaji: 'chigau',
         furigana: 'ちがう',
@@ -16305,7 +16305,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1065',
-        front: '捕まえる (つかまえる)',
+        front: '捕まえる',
         back: "tutmoq, qo'lga olmoq",
         romaji: 'tsukamaeru',
         furigana: 'つかまえる',
@@ -16316,7 +16316,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1066',
-        front: 'つかむ (つかむ)',
+        front: 'つかむ',
         back: "ushlamoq, changallamoq, qo'lga kiritmoq",
         romaji: 'tsukamu',
         furigana: 'つかむ',
@@ -16326,7 +16326,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1067',
-        front: '疲れる (つかれる)',
+        front: '疲れる',
         back: 'charchamoq, toliqmoq',
         romaji: 'tsukareru',
         furigana: 'つかれる',
@@ -16337,7 +16337,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1068',
-        front: '付く (つく)',
+        front: '付く',
         back: "yopishmoq, birikmoq, qo'shilmoq",
         romaji: 'tsuku',
         furigana: 'つく',
@@ -16348,7 +16348,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1069',
-        front: '着く (つく)',
+        front: '着く',
         back: 'yetib bormoq, yetib kelmoq',
         romaji: 'tsuku',
         furigana: 'つく',
@@ -16359,7 +16359,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1070',
-        front: '付ける (つける)',
+        front: '付ける',
         back: "taqmoq, qo'ymoq, ulamoq, yoqmoq",
         romaji: 'tsukeru',
         furigana: 'つける',
@@ -16370,7 +16370,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1071',
-        front: '伝える (つたえる)',
+        front: '伝える',
         back: 'yetkazmoq, bildirmoq, xabar qilmoq',
         romaji: 'tsutaeru',
         furigana: 'つたえる',
@@ -16381,7 +16381,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1072',
-        front: '続く (つづく)',
+        front: '続く',
         back: 'davom etmoq',
         romaji: 'tsudzuku',
         furigana: 'つづく',
@@ -16392,7 +16392,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1073',
-        front: '包む (つつむ)',
+        front: '包む',
         back: "o'ramoq, qadoqlamoq",
         romaji: 'tsutsumu',
         furigana: 'つつむ',
@@ -16403,7 +16403,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1074',
-        front: '勤める (つとめる)',
+        front: '勤める',
         back: 'ishlamoq, xizmat qilmoq (tashkilotda)',
         romaji: 'tsutomeru',
         furigana: 'つとめる',
@@ -16414,7 +16414,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1075',
-        front: '務める (つとめる)',
+        front: '務める',
         back: "vazifasini bajarmoq, rol o'ynamoq",
         romaji: 'tsutomeru',
         furigana: 'つとめる',
@@ -16425,7 +16425,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1076',
-        front: '連れる (つれる)',
+        front: '連れる',
         back: 'ergashtirmoq, olib bormoq/kelmoq (odam/jonivorni)',
         romaji: 'tsureru',
         furigana: 'つれる',
@@ -16436,7 +16436,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1077',
-        front: '手伝う (てつだう)',
+        front: '手伝う',
         back: "yordam bermoq, ko'maklashmoq",
         romaji: 'tetsudau',
         furigana: 'てつだう',
@@ -16447,7 +16447,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1078',
-        front: '出かける (でかける)',
+        front: '出かける',
         back: "ko'chaga chiqmoq, jo'nab ketmoq",
         romaji: 'dekakeru',
         furigana: 'でかける',
@@ -16458,7 +16458,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1079',
-        front: '通す (とおす)',
+        front: '通す',
         back: "o'tkazmoq, kiritmoq, oxiriga yetkazmoq",
         romaji: 'toosu',
         furigana: 'とおす',
@@ -16468,7 +16468,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1080',
-        front: '通る (とおる)',
+        front: '通る',
         back: "o'tmoq, qatnamoq",
         romaji: 'tooru',
         furigana: 'とおる',
@@ -16479,7 +16479,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1081',
-        front: '解く (とく)',
+        front: '解く',
         back: 'yechmoq (masala, muammo, tugun)',
         romaji: 'toku',
         furigana: 'とく',
@@ -16490,7 +16490,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1082',
-        front: '溶ける (とける)',
+        front: '溶ける',
         back: 'erimoq',
         romaji: 'tokeru',
         furigana: 'とける',
@@ -16501,7 +16501,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1083',
-        front: '届く (とどく)',
+        front: '届く',
         back: 'yetib bormoq, yetib kelmoq (posilka/xat/ovoz)',
         romaji: 'todoku',
         furigana: 'とどく',
@@ -16512,7 +16512,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1084',
-        front: '届ける (とどける)',
+        front: '届ける',
         back: 'yetkazib bermoq, topshirmoq',
         romaji: 'todokeru',
         furigana: 'とどける',
@@ -16523,7 +16523,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1085',
-        front: '飛ぶ (とぶ)',
+        front: '飛ぶ',
         back: 'uchmoq, sakramoq',
         romaji: 'tobu',
         furigana: 'とぶ',
@@ -16534,7 +16534,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1086',
-        front: '泊まる (とまる)',
+        front: '泊まる',
         back: "tunamoq, qonmoq, mehmon bo'lmoq",
         romaji: 'tomaru',
         furigana: 'とまる',
@@ -16545,7 +16545,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1087',
-        front: '止まる (とまる)',
+        front: '止まる',
         back: "to'xtamoq (harakatdan)",
         romaji: 'tomaru',
         furigana: 'とまる',
@@ -16556,7 +16556,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1088',
-        front: '停める (とめる)',
+        front: '停める',
         back: "to'xtatmoq, qo'ymoq (mashina va transportni)",
         romaji: 'tomeru',
         furigana: 'とめる',
@@ -16566,7 +16566,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1089',
-        front: '止める (とめる)',
+        front: '止める',
         back: "to'xtatmoq, to'xtatib qolmoq, to'smoq",
         romaji: 'tomeru',
         furigana: 'とめる',
@@ -16577,7 +16577,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1090',
-        front: '採る (とる)',
+        front: '採る',
         back: 'qabul qilmoq (ishga), olmoq (namuna/meva)',
         romaji: 'toru',
         furigana: 'とる',
@@ -16588,7 +16588,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1091',
-        front: '撮る (とる)',
+        front: '撮る',
         back: 'suratga olmoq, tasvirga tushirmoq',
         romaji: 'toru',
         furigana: 'とる',
@@ -16598,7 +16598,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1092',
-        front: '怒鳴る (どなる)',
+        front: '怒鳴る',
         back: "baqirib o'shqirmoq, jerkimoq",
         romaji: 'donaru',
         furigana: 'どなる',
@@ -16608,7 +16608,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1093',
-        front: '直す (なおす)',
+        front: '直す',
         back: "tuzatmoq, qayta to'g'rilamoq",
         romaji: 'naosu',
         furigana: 'なおす',
@@ -16619,7 +16619,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1094',
-        front: '治す (なおす)',
+        front: '治す',
         back: 'davolamoq, shifo bermoq',
         romaji: 'naosu',
         furigana: 'なおす',
@@ -16630,7 +16630,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1095',
-        front: '直る (なおる)',
+        front: '直る',
         back: "tuzalmoq, o'nglanmoq (buyum/buzilish)",
         romaji: 'naoru',
         furigana: 'なおる',
@@ -16640,7 +16640,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1096',
-        front: '治る (なおる)',
+        front: '治る',
         back: "tuzalmoq, sog'aymoq (kasallik)",
         romaji: 'naoru',
         furigana: 'なおる',
@@ -16651,7 +16651,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1097',
-        front: '泣く (なく)',
+        front: '泣く',
         back: "yig'lamoq",
         romaji: 'naku',
         furigana: 'なく',
@@ -16662,7 +16662,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1098',
-        front: 'なぐさめる (なぐさめる)',
+        front: 'なぐさめる',
         back: 'tasalli bermoq, yupatmoq',
         romaji: 'nagusameru',
         furigana: 'なぐさめる',
@@ -16673,7 +16673,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1099',
-        front: 'なくす (なくす)',
+        front: 'なくす',
         back: "yo'qotmoq, yo'q qilmoq",
         romaji: 'nakusu',
         furigana: 'なくす',
@@ -16684,7 +16684,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1100',
-        front: '投げる (なげる)',
+        front: '投げる',
         back: "otmoq, irg'itmoq, uloqtirmoq",
         romaji: 'nageru',
         furigana: 'なげる',
@@ -16695,7 +16695,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1101',
-        front: '悩む (なやむ)',
+        front: '悩む',
         back: 'bosh qotirmoq, tashvishlanmoq, qiynalmoq',
         romaji: 'nayamu',
         furigana: 'なやむ',
@@ -16706,7 +16706,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1102',
-        front: '習う (ならう)',
+        front: '習う',
         back: "o'rganmoq (ustozdan ta'lim olmoq)",
         romaji: 'narau',
         furigana: 'ならう',
@@ -16717,7 +16717,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1103',
-        front: '並ぶ (ならぶ)',
+        front: '並ぶ',
         back: 'qatorda turmoq, tizilmoq',
         romaji: 'narabu',
         furigana: 'ならぶ',
@@ -16728,7 +16728,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1104',
-        front: '鳴る (なる)',
+        front: '鳴る',
         back: 'jaranglamoq, jiringlamoq, yangramoq',
         romaji: 'naru',
         furigana: 'なる',
@@ -16739,7 +16739,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1105',
-        front: '慣れる (なれる)',
+        front: '慣れる',
         back: "ko'nikmoq, o'rganib qolmoq",
         romaji: 'nareru',
         furigana: 'なれる',
@@ -16750,7 +16750,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1106',
-        front: '似合う (にあう)',
+        front: '似合う',
         back: 'yarashmoq, mos tushmoq',
         romaji: 'niau',
         furigana: 'にあう',
@@ -16761,7 +16761,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1107',
-        front: '揺る (ゆる)',
+        front: '揺る',
         back: 'tebratmoq, chayqamoq, silkimoq',
         romaji: 'yuru',
         furigana: 'ゆる',
@@ -16772,7 +16772,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1108',
-        front: 'にぎる (にぎる)',
+        front: 'にぎる',
         back: 'siqib ushlamoq, changallamoq, tugmoq (onigiri)',
         romaji: 'nigiru',
         furigana: 'にぎる',
@@ -16783,7 +16783,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1109',
-        front: '逃げる (にげる)',
+        front: '逃げる',
         back: 'qochmoq, qochib ketmoq',
         romaji: 'nigeru',
         furigana: 'にげる',
@@ -16794,7 +16794,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1110',
-        front: '似る (にる)',
+        front: '似る',
         back: "o'xshamoq",
         romaji: 'niru',
         furigana: 'にる',
@@ -16805,7 +16805,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1111',
-        front: '煮る (にる)',
+        front: '煮る',
         back: "qaynatmoq, pishirmoq (sho'rva yoki suyuqlikda)",
         romaji: 'niru',
         furigana: 'にる',
@@ -16816,7 +16816,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1112',
-        front: '脱ぐ (ぬぐ)',
+        front: '脱ぐ',
         back: 'yechmoq (kiyim, poyabzal)',
         romaji: 'nugu',
         furigana: 'ぬぐ',
@@ -16827,7 +16827,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1113',
-        front: '抜ける (ぬける)',
+        front: '抜ける',
         back: "chiqib ketmoq, to'kilmoq, tushib qolmoq",
         romaji: 'nukeru',
         furigana: 'ぬける',
@@ -16838,7 +16838,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1114',
-        front: '濡れる (ぬれる)',
+        front: '濡れる',
         back: "ho'l bo'lmoq, ivimoq",
         romaji: 'nureru',
         furigana: 'ぬれる',
@@ -16849,7 +16849,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1115',
-        front: '眠る (ねむる)',
+        front: '眠る',
         back: 'uxlamoq, uyquga ketmoq',
         romaji: 'nemuru',
         furigana: 'ねむる',
@@ -16860,7 +16860,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1116',
-        front: '寝る (ねる)',
+        front: '寝る',
         back: 'yotmoq, uxlamoq',
         romaji: 'neru',
         furigana: 'ねる',
@@ -16871,7 +16871,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1117',
-        front: '残す (のこす)',
+        front: '残す',
         back: 'qoldirmoq, orttirmoq',
         romaji: 'nokosu',
         furigana: 'のこす',
@@ -16882,7 +16882,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1118',
-        front: '残る (のこる)',
+        front: '残る',
         back: 'qolmoq, saqlanib qolmoq',
         romaji: 'nokoru',
         furigana: 'のこる',
@@ -16893,7 +16893,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1119',
-        front: '載せる (のせる)',
+        front: '載せる',
         back: 'joylashtirmoq, ortmoq, chop etmoq (maqola/xabar)',
         romaji: 'noseru',
         furigana: 'のせる',
@@ -16904,7 +16904,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1120',
-        front: '伸ばす (のばす)',
+        front: '伸ばす',
         back: "cho'zmoq, o'stirmoq, yozmoq",
         romaji: 'nobasu',
         furigana: 'のばす',
@@ -16915,7 +16915,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1121',
-        front: '延ばす (のばす)',
+        front: '延ばす',
         back: "muddatini kechiktirmoq, cho'zmoq (vaqt/kun)",
         romaji: 'nobasu',
         furigana: 'のばす',
@@ -16926,7 +16926,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1122',
-        front: '伸びる (のびる)',
+        front: '伸びる',
         back: "cho'zilmoq, o'smoq, rivojlanmoq",
         romaji: 'nobiru',
         furigana: 'のびる',
@@ -16937,7 +16937,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1123',
-        front: '生える (はえる)',
+        front: '生える',
         back: "unib chiqmoq, o'sib chiqmoq (o't, tish, soqol)",
         romaji: 'haeru',
         furigana: 'はえる',
@@ -16948,7 +16948,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1124',
-        front: '測る (はかる)',
+        front: '測る',
         back: "o'lchamoq (masofa, balandlik, harorat, vaqt)",
         romaji: 'hakaru',
         furigana: 'はかる',
@@ -16958,7 +16958,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1125',
-        front: '履く (はく)',
+        front: '履く',
         back: 'kiymoq (shim, poyabzal, paypoq)',
         romaji: 'haku',
         furigana: 'はく',
@@ -16968,7 +16968,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1126',
-        front: '掃く (はく)',
+        front: '掃く',
         back: 'supurmoq, tozalamoq (supurgi bilan)',
         romaji: 'haku',
         furigana: 'はく',
@@ -16979,7 +16979,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1127',
-        front: '吐く (はく)',
+        front: '吐く',
         back: 'qayt qilmoq, qusmoq; chiqarmoq (nafas)',
         romaji: 'haku',
         furigana: 'はく',
@@ -16990,7 +16990,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1128',
-        front: '嗅ぐ (かぐ)',
+        front: '嗅ぐ',
         back: 'hidlamoq, hidini bilmoq',
         romaji: 'kagu',
         furigana: 'かぐ',
@@ -17001,7 +17001,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1129',
-        front: '運ぶ (はこぶ)',
+        front: '運ぶ',
         back: 'tashimoq, olib bormoq',
         romaji: 'hakobu',
         furigana: 'はこぶ',
@@ -17012,7 +17012,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1130',
-        front: '外す (はずす)',
+        front: '外す',
         back: "yechmoq, olib qo'ymoq (ko'zoynak/soat); joyidan ketmoq",
         romaji: 'hazusu',
         furigana: 'はずす',
@@ -17023,7 +17023,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1131',
-        front: '働く (はたらく)',
+        front: '働く',
         back: 'ishlamoq, mehnat qilmoq',
         romaji: 'hataraku',
         furigana: 'はたらく',
@@ -17034,7 +17034,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1132',
-        front: '話す (はなす)',
+        front: '話す',
         back: "gaplashmoq, so'zlamoq",
         romaji: 'hanasu',
         furigana: 'はなす',
@@ -17045,7 +17045,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1133',
-        front: '払う (はらう)',
+        front: '払う',
         back: "to'lamoq; qoqmoq (changni)",
         romaji: 'harau',
         furigana: 'はらう',
@@ -17055,7 +17055,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1134',
-        front: '貼る (はる)',
+        front: '貼る',
         back: "yopishtirmoq (marka, e'lon)",
         romaji: 'haru',
         furigana: 'はる',
@@ -17066,7 +17066,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1135',
-        front: '晴れる (はれる)',
+        front: '晴れる',
         back: "havo ochilmoq, musaffo bo'lmoq",
         romaji: 'hareru',
         furigana: 'はれる',
@@ -17077,7 +17077,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1136',
-        front: '冷える (ひえる)',
+        front: '冷える',
         back: 'sovumoq, muzlamoq (tana/havo)',
         romaji: 'hieru',
         furigana: 'ひえる',
@@ -17088,7 +17088,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1137',
-        front: '光る (ひかる)',
+        front: '光る',
         back: 'porlamoq, chaqnamoq, yarqiramoq',
         romaji: 'hikaru',
         furigana: 'ひかる',
@@ -17099,7 +17099,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1138',
-        front: '引く (ひく)',
+        front: '引く',
         back: 'tortmoq; chizmoq; shamollamoq (gripp)',
         romaji: 'hiku',
         furigana: 'ひく',
@@ -17110,7 +17110,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1139',
-        front: '弾く (ひく)',
+        front: '弾く',
         back: 'chalmoq (torli va tugmali musiqa asboblarini)',
         romaji: 'hiku',
         furigana: 'ひく',
@@ -17121,7 +17121,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1140',
-        front: '冷やす (ひやす)',
+        front: '冷やす',
         back: 'sovutmoq, muzlatmoq',
         romaji: 'hiyasu',
         furigana: 'ひやす',
@@ -17132,7 +17132,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1141',
-        front: '拾う (ひろう)',
+        front: '拾う',
         back: 'terib olmoq, topib olmoq',
         romaji: 'hirou',
         furigana: 'ひろう',
@@ -17143,7 +17143,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1142',
-        front: '広げる (ひろげる)',
+        front: '広げる',
         back: 'yoymoq, kengaytirmoq, ochmoq',
         romaji: 'hirogeru',
         furigana: 'ひろげる',
@@ -17154,7 +17154,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1143',
-        front: '増える (ふえる)',
+        front: '増える',
         back: "ko'paymoq, ortmoq",
         romaji: 'fueru',
         furigana: 'ふえる',
@@ -17165,7 +17165,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1144',
-        front: '吹く (ふく)',
+        front: '吹く',
         back: 'esmoq (shamol), puflamoq',
         romaji: 'fuku',
         furigana: 'ふく',
@@ -17176,7 +17176,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1145',
-        front: '防ぐ (ふせぐ)',
+        front: '防ぐ',
         back: 'oldini olmoq, himoya qilmoq',
         romaji: 'fusegu',
         furigana: 'ふせぐ',
@@ -17187,7 +17187,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1146',
-        front: '太る (ふとる)',
+        front: '太る',
         back: "semirmoq, to'lishmoq",
         romaji: 'futoru',
         furigana: 'ふとる',
@@ -17198,7 +17198,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1147',
-        front: '踏む (ふむ)',
+        front: '踏む',
         back: 'bosmoq (oyoq bilan)',
         romaji: 'fumu',
         furigana: 'ふむ',
@@ -17209,7 +17209,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1148',
-        front: '降る (ふる)',
+        front: '降る',
         back: "yog'moq (yomg'ir, qor)",
         romaji: 'furu',
         furigana: 'ふる',
@@ -17220,7 +17220,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1149',
-        front: '振る (ふる)',
+        front: '振る',
         back: "silkitmoq, qo'l silkitmoq; tashlab ketmoq (muhabbatda)",
         romaji: 'furu',
         furigana: 'ふる',
@@ -17231,7 +17231,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1150',
-        front: 'ぶつける (ぶつける)',
+        front: 'ぶつける',
         back: "urib olmoq, urmoq, to'qnashtirmoq",
         romaji: 'butsukeru',
         furigana: 'ぶつける',
@@ -17242,7 +17242,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1151',
-        front: '減らす (へらす)',
+        front: '減らす',
         back: 'kamaytirmoq, qisqartirmoq',
         romaji: 'herasu',
         furigana: 'へらす',
@@ -17253,7 +17253,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1152',
-        front: '減る (へる)',
+        front: '減る',
         back: 'kamaymoq, qisqarmoq',
         romaji: 'heru',
         furigana: 'へる',
@@ -17264,7 +17264,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1153',
-        front: 'ほえる (ほえる)',
+        front: 'ほえる',
         back: "hurmoq, vovullamoq, bo'kirmoq",
         romaji: 'hoeru',
         furigana: 'ほえる',
@@ -17275,7 +17275,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1154',
-        front: '干す (ほす)',
+        front: '干す',
         back: 'quritmoq, oftobga yoymoq',
         romaji: 'hosu',
         furigana: 'ほす',
@@ -17286,7 +17286,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1155',
-        front: 'ほめる (ほめる)',
+        front: 'ほめる',
         back: 'maqtamoq, tahsin aytmoq',
         romaji: 'homeru',
         furigana: 'ほめる',
@@ -17297,7 +17297,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1156',
-        front: '掘る (ほる)',
+        front: '掘る',
         back: 'kovlamoq, qazimoq',
         romaji: 'horu',
         furigana: 'ほる',
@@ -17308,7 +17308,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1157',
-        front: '負ける (まける)',
+        front: '負ける',
         back: "yutqazmoq, mag'lub bo'lmoq; narxini arzonlatmoq",
         romaji: 'makeru',
         furigana: 'まける',
@@ -17319,7 +17319,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1158',
-        front: '曲げる (まげる)',
+        front: '曲げる',
         back: 'egmoq, bukmoq',
         romaji: 'mageru',
         furigana: 'まげる',
@@ -17330,7 +17330,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1159',
-        front: '交ざる (まざる)',
+        front: '交ざる',
         back: "aralashmoq, qo'shilib ketmoq",
         romaji: 'mazaru',
         furigana: 'まざる',
@@ -17341,7 +17341,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1160',
-        front: '混ぜる (まぜる)',
+        front: '混ぜる',
         back: 'aralashtirmoq, qormoq',
         romaji: 'mazeru',
         furigana: 'まぜる',
@@ -17352,7 +17352,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1161',
-        front: '間違う (まちがう)',
+        front: '間違う',
         back: "adashmoq, noto'g'ri bo'lmoq",
         romaji: 'machigau',
         furigana: 'まちがう',
@@ -17363,7 +17363,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1162',
-        front: '間違える (まちがえる)',
+        front: '間違える',
         back: 'yanglishmoq, xato qilmoq',
         romaji: 'machigaeru',
         furigana: 'まちがえる',
@@ -17374,7 +17374,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1163',
-        front: 'まとめる (まとめる)',
+        front: 'まとめる',
         back: 'jamlamoq, bir tizimga keltirmoq, xulosa qilmoq',
         romaji: 'matomeru',
         furigana: 'まとめる',
@@ -17385,7 +17385,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1164',
-        front: '学ぶ (まなぶ)',
+        front: '学ぶ',
         back: "o'rganmoq, saboq olmoq, bilim olmoq",
         romaji: 'manabu',
         furigana: 'まなぶ',
@@ -17396,7 +17396,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1165',
-        front: '守る (まもる)',
+        front: '守る',
         back: "himoya qilmoq; rioya qilmoq (qoida/va'da)",
         romaji: 'mamoru',
         furigana: 'まもる',
@@ -17407,7 +17407,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1166',
-        front: '迷う (まよう)',
+        front: '迷う',
         back: 'adashmoq; ikkilanmoq, dovdiramoq',
         romaji: 'mayou',
         furigana: 'まよう',
@@ -17418,7 +17418,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1167',
-        front: '回す (まわす)',
+        front: '回す',
         back: 'aylantirmoq, buramoq',
         romaji: 'mawasu',
         furigana: 'まわす',
@@ -17428,7 +17428,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1168',
-        front: '回る (まわる)',
+        front: '回る',
         back: 'aylanmoq, aylanib chiqmoq',
         romaji: 'mawaru',
         furigana: 'まわる',
@@ -17439,7 +17439,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1169',
-        front: '見つける (みつける)',
+        front: '見つける',
         back: 'topmoq, qidirib topmoq',
         romaji: 'mitsukeru',
         furigana: 'みつける',
@@ -17450,7 +17450,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1170',
-        front: '見つめる (みつめる)',
+        front: '見つめる',
         back: 'tikilib qaramoq, diqqat bilan tikilmoq',
         romaji: 'mitsumeru',
         furigana: 'みつめる',
@@ -17461,7 +17461,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1171',
-        front: '向かう (むかう)',
+        front: '向かう',
         back: "yo'l olmoq, qarab bormoq",
         romaji: 'mukau',
         furigana: 'むかう',
@@ -17472,7 +17472,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1172',
-        front: '迎える (むかえる)',
+        front: '迎える',
         back: 'kutib olmoq, qarshi olmoq',
         romaji: 'mukaeru',
         furigana: 'むかえる',
@@ -17483,7 +17483,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1173',
-        front: '向く (むく)',
+        front: '向く',
         back: "qaratmoq, o'girilmoq, mos kelmoq",
         romaji: 'muku',
         furigana: 'むく',
@@ -17494,7 +17494,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1174',
-        front: '結ぶ (むすぶ)',
+        front: '結ぶ',
         back: "bog'lamoq, tugmoq, shartnoma tuzmoq",
         romaji: 'musubu',
         furigana: 'むすぶ',
@@ -17505,7 +17505,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1175',
-        front: '申す (もうす)',
+        front: '申す',
         back: 'aytmoq, deb atalmoq (kamtarona nutq)',
         romaji: 'mousu',
         furigana: 'もうす',
@@ -17516,7 +17516,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1176',
-        front: '燃える (もえる)',
+        front: '燃える',
         back: 'yonmoq, yonib ketmoq',
         romaji: 'moeru',
         furigana: 'もえる',
@@ -17527,7 +17527,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1177',
-        front: '持つ (もつ)',
+        front: '持つ',
         back: "ushlamoq, egalik qilmoq, ko'tarib yurmoq",
         romaji: 'motsu',
         furigana: 'もつ',
@@ -17538,7 +17538,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1178',
-        front: '戻す (もどす)',
+        front: '戻す',
         back: "qaytarib qo'ymoq, o'z joyiga qo'ymoq",
         romaji: 'modosu',
         furigana: 'もどす',
@@ -17549,7 +17549,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1179',
-        front: '戻る (もどる)',
+        front: '戻る',
         back: "qaytmoq, o'z o'rniga qaytib kelmoq",
         romaji: 'modoru',
         furigana: 'もどる',
@@ -17560,7 +17560,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1180',
-        front: '燃やす (もやす)',
+        front: '燃やす',
         back: 'yoqmoq, yondirmoq, kuydirmoq',
         romaji: 'moyasu',
         furigana: 'もやす',
@@ -17571,7 +17571,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1181',
-        front: '焼く (やく)',
+        front: '焼く',
         back: "pishirmoq (o'tda/tovada), qovurmoq, kuydirmoq",
         romaji: 'yaku',
         furigana: 'やく',
@@ -17582,7 +17582,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1182',
-        front: '訳す (やくす)',
+        front: '訳す',
         back: 'tarjima qilmoq',
         romaji: 'yakusu',
         furigana: 'やくす',
@@ -17593,7 +17593,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1183',
-        front: '破る (やぶる)',
+        front: '破る',
         back: "yirtmoq; buzmoq (va'da, qoida)",
         romaji: 'yaburu',
         furigana: 'やぶる',
@@ -17604,7 +17604,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1184',
-        front: '止む (やむ)',
+        front: '止む',
         back: "to'xtamoq, tinmoq (yomg'ir, shamol)",
         romaji: 'yamu',
         furigana: 'やむ',
@@ -17615,7 +17615,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1185',
-        front: '諦める (あきらめる)',
+        front: '諦める',
         back: "voz kechmoq, taslim bo'lmoq, umidini uzmoq",
         romaji: 'akirameru',
         furigana: 'あきらめる',
@@ -17626,7 +17626,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1186',
-        front: 'ゆでる (ゆでる)',
+        front: 'ゆでる',
         back: 'qaynatmoq (qaynoq suvda: tuxum, sabzavot)',
         romaji: 'yuderu',
         furigana: 'ゆでる',
@@ -17637,7 +17637,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1187',
-        front: '許す (ゆるす)',
+        front: '許す',
         back: 'kechirmoq, ruxsat bermoq',
         romaji: 'yurusu',
         furigana: 'ゆるす',
@@ -17648,7 +17648,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1188',
-        front: '揺れる (ゆれる)',
+        front: '揺れる',
         back: 'silkinmoq, chayqalmoq, tebranmoq',
         romaji: 'yureru',
         furigana: 'ゆれる',
@@ -17659,7 +17659,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1189',
-        front: '酔う (よう)',
+        front: '酔う',
         back: "mast bo'lmoq; ko'ngli aynimoq (transportda)",
         romaji: 'you',
         furigana: 'よう',
@@ -17670,7 +17670,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1190',
-        front: '汚す (よごす)',
+        front: '汚す',
         back: "iflos qilmoq, kirlatmoq, bulg'amoq",
         romaji: 'yogosu',
         furigana: 'よごす',
@@ -17681,7 +17681,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1191',
-        front: '汚れる (よごれる)',
+        front: '汚れる',
         back: 'kirlanmoq, ifloslanmoq',
         romaji: 'yogoreru',
         furigana: 'よごれる',
@@ -17692,7 +17692,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1192',
-        front: '寄る (よる)',
+        front: '寄る',
         back: "yo'l-yo'lakay kirib o'tmoq, yaqinlashmoq",
         romaji: 'yoru',
         furigana: 'よる',
@@ -17703,7 +17703,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1193',
-        front: '喜ぶ (よろこぶ)',
+        front: '喜ぶ',
         back: "quvonmoq, xursand bo'lmoq",
         romaji: 'yorokobu',
         furigana: 'よろこぶ',
@@ -17714,7 +17714,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1194',
-        front: '分ける (わける)',
+        front: '分ける',
         back: "bo'lmoq, taqsimlamoq, ajratmoq",
         romaji: 'wakeru',
         furigana: 'わける',
@@ -17725,7 +17725,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1195',
-        front: '忘れる (わすれる)',
+        front: '忘れる',
         back: 'unutmoq, esdan chiqarmoq',
         romaji: 'wasureru',
         furigana: 'わすれる',
@@ -17736,7 +17736,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1196',
-        front: '割る (わる)',
+        front: '割る',
         back: "sindirmoq, yormoq, bo'lmoq (idish/raqam)",
         romaji: 'waru',
         furigana: 'わる',
@@ -17747,7 +17747,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1197',
-        front: '渡す (わたす)',
+        front: '渡す',
         back: 'topshirmoq, uzatmoq, berib yubormoq',
         romaji: 'watasu',
         furigana: 'わたす',
@@ -17758,7 +17758,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1198',
-        front: '渡る (わたる)',
+        front: '渡る',
         back: "kesib o'tmoq, narigi tomonga o'tmoq",
         romaji: 'wataru',
         furigana: 'わたる',
@@ -17769,7 +17769,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1199',
-        front: 'わく (わく)',
+        front: 'わく',
         back: "qaynamoq (choynak/suv); paydo bo'lmoq (hissiyot)",
         romaji: 'waku',
         furigana: 'わく',
@@ -17780,7 +17780,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1200',
-        front: '別れる (わかれる)',
+        front: '別れる',
         back: 'ayrilmoq, xayrlashmoq',
         romaji: 'wakareru',
         furigana: 'わかれる',
@@ -17791,7 +17791,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1201',
-        front: '歩き回る (あるきまわる)',
+        front: '歩き回る',
         back: 'aylanib yurmoq, piyoda kezib chiqmoq',
         romaji: 'arukimawaru',
         furigana: 'あるきまわる',
@@ -17802,7 +17802,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1202',
-        front: '貸し出す (かしだす)',
+        front: '貸し出す',
         back: 'berib turmoq, ijaraga/foydalanishga bermoq (kutubxona)',
         romaji: 'kashidasu',
         furigana: 'かしだす',
@@ -17813,7 +17813,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1203',
-        front: '言い返す (いいかえす)',
+        front: '言い返す',
         back: 'javob qaytarmoq, gap qaytarmoq',
         romaji: 'iikaesu',
         furigana: 'いいかえす',
@@ -17824,7 +17824,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1204',
-        front: '語り合う (かたりあう)',
+        front: '語り合う',
         back: 'dildan suhbatlashmoq, samimiy gaplashmoq',
         romaji: 'katariau',
         furigana: 'かたりあう',
@@ -17835,7 +17835,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1205',
-        front: '言い出す (いいだす)',
+        front: '言い出す',
         back: 'gap boshlamoq, taklif bilan chiqmoq',
         romaji: 'iidasu',
         furigana: 'いいだす',
@@ -17846,7 +17846,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1206',
-        front: '聞き取る (ききとる)',
+        front: '聞き取る',
         back: "eshitib tushunmoq, eshitib ilg'amoq",
         romaji: 'kikitoru',
         furigana: 'ききとる',
@@ -17857,7 +17857,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1207',
-        front: '言い直す (いいなおす)',
+        front: '言い直す',
         back: "qaytadan to'g'rilab aytmoq",
         romaji: 'iinaosu',
         furigana: 'いいなおす',
@@ -17868,7 +17868,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1208',
-        front: '切り替える (きりかえる)',
+        front: '切り替える',
         back: "almashtirmoq, yangilamoq, qayta yo'naltirmoq (fikr/tizim)",
         romaji: 'kirikaeru',
         furigana: 'きりかえる',
@@ -17879,7 +17879,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1209',
-        front: '受け取る (うけとる)',
+        front: '受け取る',
         back: "qabul qilib olmoq, qo'lga olmoq",
         romaji: 'uketoru',
         furigana: 'うけとる',
@@ -17890,7 +17890,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1210',
-        front: '組み立てる (くみたてる)',
+        front: '組み立てる',
         back: "yig'moq, montaj qilmoq, qismlardan yasamoq",
         romaji: 'kumitateru',
         furigana: 'くみたてる',
@@ -17901,7 +17901,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1211',
-        front: '追い越す (おいこす)',
+        front: '追い越す',
         back: "quvib o'tmoq, ortda qoldirmoq",
         romaji: 'oikosu',
         furigana: 'おいこす',
@@ -17912,7 +17912,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1212',
-        front: '繰り返す (くりかえす)',
+        front: '繰り返す',
         back: 'takrorlamoq, qayta-qayta takrorlamoq',
         romaji: 'kurikaesu',
         furigana: 'くりかえす',
@@ -17923,7 +17923,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1213',
-        front: '追いつく (おいつく)',
+        front: '追いつく',
         back: 'yetib olmoq, yetishib olmoq',
         romaji: 'oitsuku',
         furigana: 'おいつく',
@@ -17934,7 +17934,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1214',
-        front: '締め切る (しめきる)',
+        front: '締め切る',
         back: "muddatini yopmoq, qabulni to'xtatmoq",
         romaji: 'shimekiru',
         furigana: 'しめきる',
@@ -17945,7 +17945,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1215',
-        front: '落ち着く (おちつく)',
+        front: '落ち着く',
         back: "xotirjam bo'lmoq, o'zini bosmoq, bosilmoq",
         romaji: 'ochitsuku',
         furigana: 'おちつく',
@@ -17956,7 +17956,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1216',
-        front: '知り合う (しりあう)',
+        front: '知り合う',
         back: 'tanishmoq, bir-birini bilmoq',
         romaji: 'shiriau',
         furigana: 'しりあう',
@@ -17967,7 +17967,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1217',
-        front: '思い出す (おもいだす)',
+        front: '思い出す',
         back: 'yodga olmoq, eslamoq, xotirlamoq',
         romaji: 'omoidasu',
         furigana: 'おもいだす',
@@ -17978,7 +17978,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1218',
-        front: '付き合う (つきあう)',
+        front: '付き合う',
         back: "hamroh bo'lmoq, uchrashib yurmoq, muloqot qilmoq",
         romaji: 'tsukiau',
         furigana: 'つきあう',
@@ -17989,7 +17989,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1219',
-        front: '買い替える (かいかえる)',
+        front: '買い替える',
         back: 'eskisini yangisiga almashtirib sotib olmoq',
         romaji: 'kaikaeru',
         furigana: 'かいかえる',
@@ -18000,7 +18000,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1220',
-        front: '作り直す (つくりなおす)',
+        front: '作り直す',
         back: 'qaytadan yasamoq, qayta tayyorlamoq',
         romaji: 'tsukurinaosu',
         furigana: 'つくりなおす',
@@ -18011,7 +18011,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1221',
-        front: '書き直す (かきなおす)',
+        front: '書き直す',
         back: "qaytadan ko'chirib yozmoq, qayta yozmoq",
         romaji: 'kakinaosu',
         furigana: 'かきなおす',
@@ -18022,7 +18022,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1222',
-        front: '通りかかる (とおりかかる)',
+        front: '通りかかる',
         back: "tasodifan yonidan o'tib qolmoq, to'g'ri kelib qolmoq",
         romaji: 'toorikakaru',
         furigana: 'とおりかかる',
@@ -18033,7 +18033,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1223',
-        front: 'かき混ぜる (かきまぜる)',
+        front: 'かき混ぜる',
         back: 'yaxshilab aralashtirmoq, chayqamoq',
         romaji: 'kakimazeru',
         furigana: 'かきまぜる',
@@ -18044,7 +18044,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1224',
-        front: '飛び出す (とびだす)',
+        front: '飛び出す',
         back: 'otilib chiqmoq, yugurib chiqmoq',
         romaji: 'tobidasu',
         furigana: 'とびだす',
@@ -18055,7 +18055,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1225',
-        front: 'かけ合う (かけあう)',
+        front: 'かけ合う',
         back: 'muzokara qilmoq, kelishib olmoq; sepmoq (suv)',
         romaji: 'kakeau',
         furigana: 'かけあう',
@@ -18066,7 +18066,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1226',
-        front: '取り替える (とりかえる)',
+        front: '取り替える',
         back: 'almashtirmoq, yangisiga almashtirmoq',
         romaji: 'torikaeru',
         furigana: 'とりかえる',
@@ -18077,7 +18077,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1227',
-        front: '駆け出す (かけだす)',
+        front: '駆け出す',
         back: "yugurib ketmoq, chopib jo'namoq",
         romaji: 'kakedasu',
         furigana: 'かけだす',
@@ -18088,7 +18088,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1228',
-        front: '取り消す (とりけす)',
+        front: '取り消す',
         back: 'bekor qilmoq (buyurtma, reja, gap)',
         romaji: 'torikesu',
         furigana: 'とりけす',
@@ -18099,7 +18099,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1229',
-        front: 'かけ直す (かけなおす)',
+        front: 'かけ直す',
         back: 'qayta telefon qilmoq',
         romaji: 'kakinaosu',
         furigana: 'かけなおす',
@@ -18110,7 +18110,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1230',
-        front: '取り込む (とりこむ)',
+        front: '取り込む',
         back: "ichkariga olmoq (kir); kiritmoq/yuklab olmoq (rasm, ma'lumot)",
         romaji: 'torikomu',
         furigana: 'とりこむ',
@@ -18121,7 +18121,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1231',
-        front: '取り出す (とりだす)',
+        front: '取り出す',
         back: "olib chiqmoq, chiqarib olmoq (cho'ntakdan/sumkadan)",
         romaji: 'toridasu',
         furigana: 'とりだす',
@@ -18132,7 +18132,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1232',
-        front: '飲み終わる (のみおわる)',
+        front: '飲み終わる',
         back: "ichib bo'lmoq, ichib tugatmoq",
         romaji: 'nomiowaru',
         furigana: 'のみおわる',
@@ -18143,7 +18143,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1233',
-        front: '走り出す (はしりだす)',
+        front: '走り出す',
         back: 'yugurib ketmoq, yugura boshlamoq',
         romaji: 'hashiridasu',
         furigana: 'はしりだす',
@@ -18154,7 +18154,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1234',
-        front: '話し合う (はなしあう)',
+        front: '話し合う',
         back: "muhokama qilmoq, o'zaro fikrlashmoq, bamaslahat gaplashmoq",
         romaji: 'hanashiau',
         furigana: 'はなしあう',
@@ -18165,7 +18165,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1235',
-        front: '話しかける (はなしかける)',
+        front: '話しかける',
         back: 'gap qotmoq, gap boshlamoq, murojaat qilmoq',
         romaji: 'hanashikakeru',
         furigana: 'はなしかける',
@@ -18176,7 +18176,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1236',
-        front: '引き受ける (ひきうける)',
+        front: '引き受ける',
         back: "o'z zimmasiga olmoq, qabul qilmoq (vazifa/mas'uliyat)",
         romaji: 'hikiukeru',
         furigana: 'ひきうける',
@@ -18187,7 +18187,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1237',
-        front: '引き出す (ひきだす)',
+        front: '引き出す',
         back: 'yechib olmoq (pul); tortib chiqarmoq; yuzaga chiqarmoq',
         romaji: 'hikidasu',
         furigana: 'ひきだす',
@@ -18198,7 +18198,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1238',
-        front: '引っ越す (ひっこす)',
+        front: '引っ越す',
         back: "ko'chmoq (yangi uyga/shaharga)",
         romaji: 'hikkosu',
         furigana: 'ひっこす',
@@ -18209,7 +18209,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1239',
-        front: '引っ張る (ひっぱる)',
+        front: '引っ張る',
         back: 'tortmoq, siltab tortmoq; yetaklamoq',
         romaji: 'hipparu',
         furigana: 'ひっぱる',
@@ -18220,7 +18220,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1240',
-        front: '振り込む (ふりこむ)',
+        front: '振り込む',
         back: "bank orqali pul o'tkazmoq",
         romaji: 'furikomu',
         furigana: 'ふりこむ',
@@ -18231,7 +18231,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1241',
-        front: '降り出す (ふりだす)',
+        front: '降り出す',
         back: "yog'a boshlamoq (yomg'ir/qor)",
         romaji: 'furidasu',
         furigana: 'ふりだす',
@@ -18242,7 +18242,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1242',
-        front: '待ち合わせる (まちあわせる)',
+        front: '待ち合わせる',
         back: 'belgilangan joyda uchrashmoq, kutib turmoq',
         romaji: 'machiawaseru',
         furigana: 'まちあわせる',
@@ -18253,7 +18253,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1243',
-        front: '見て回る (みてまわる)',
+        front: '見て回る',
         back: "aylanib tomosha qilmoq, ko'zdan kechirmoq",
         romaji: 'mitemawaru',
         furigana: 'みてまわる',
@@ -18264,7 +18264,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1244',
-        front: '向かい合う (むかいあう)',
+        front: '向かい合う',
         back: "yuzma-yuz o'tirmoq/turmoq, ro'para turmoq",
         romaji: 'mukaiau',
         furigana: 'むかいあう',
@@ -18275,7 +18275,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1245',
-        front: '申し込む (もうしこむ)',
+        front: '申し込む',
         back: "ariza topshirmoq, ro'yxatdan o'tishga murojaat qilmoq",
         romaji: 'moushikomu',
         furigana: 'もうしこむ',
@@ -18286,7 +18286,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1246',
-        front: '持ち歩く (もちあるく)',
+        front: '持ち歩く',
         back: "yonida olib yurmoq, ko'tarib yurmoq",
         romaji: 'mochiaruku',
         furigana: 'もちあるく',
@@ -18297,7 +18297,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1247',
-        front: '持ち帰る (もちかえる)',
+        front: '持ち帰る',
         back: 'uyga olib ketmoq (ovqat/hujjat)',
         romaji: 'mochikaeru',
         furigana: 'もちかえる',
@@ -18308,7 +18308,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1248',
-        front: '呼びかける (よびかける)',
+        front: '呼びかける',
         back: 'chaqirmoq, nido qilmoq, murojaat qilib chaqirmoq',
         romaji: 'yobikakeru',
         furigana: 'よびかける',
@@ -18319,7 +18319,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1249',
-        front: '惜しい (おしい)',
+        front: '惜しい',
         back: 'afsuslanarli, ozgina qolgan, hayf',
         romaji: 'oshii',
         furigana: 'おしい',
@@ -18330,7 +18330,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1250',
-        front: '大人しい (おとなしい)',
+        front: '大人しい',
         back: 'yuvosh, bosiq, muloyim, sokin',
         romaji: 'otonashii',
         furigana: 'おとなしい',
@@ -18341,7 +18341,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1251',
-        front: '面白い (おもしろい)',
+        front: '面白い',
         back: 'qiziqarli, kulgili, maroqli',
         romaji: 'omoshiroi',
         furigana: 'おもしろい',
@@ -18352,7 +18352,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1252',
-        front: '硬い (かたい)',
+        front: '硬い',
         back: 'qattiq (modda/tosh), qotib qolgan',
         romaji: 'katai',
         furigana: 'かたい',
@@ -18363,7 +18363,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1253',
-        front: '悲しい (かなしい)',
+        front: '悲しい',
         back: "g'amgin, mahzun, qayg'uli",
         romaji: 'kanashii',
         furigana: 'かなしい',
@@ -18374,7 +18374,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1254',
-        front: '可愛い (かわいい)',
+        front: '可愛い',
         back: 'yoqimtoy, yoqimli, chiroyli',
         romaji: 'kawaii',
         furigana: 'かわいい',
@@ -18385,7 +18385,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1255',
-        front: '辛い (からい)',
+        front: '辛い',
         back: 'achchiq (taom/qalampir)',
         romaji: 'karai',
         furigana: 'からい',
@@ -18396,7 +18396,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1256',
-        front: '軽い (かるい)',
+        front: '軽い',
         back: 'yengil (vazni yengil/oson)',
         romaji: 'karui',
         furigana: 'かるい',
@@ -18407,7 +18407,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1257',
-        front: '可愛らしい (かわいらしい)',
+        front: '可愛らしい',
         back: "juda yoqimtoy, suyukli, ko'rkam",
         romaji: 'kawairashii',
         furigana: 'かわいらしい',
@@ -18418,7 +18418,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1258',
-        front: '汚い (きたない)',
+        front: '汚い',
         back: 'iflos, kir, tartibsiz',
         romaji: 'kitanai',
         furigana: 'きたない',
@@ -18429,7 +18429,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1259',
-        front: '臭い (くさい)',
+        front: '臭い',
         back: "badbo'y, sasigan, qo'lansa",
         romaji: 'kusai',
         furigana: 'くさい',
@@ -18440,7 +18440,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1260',
-        front: '悔しい (くやしい)',
+        front: '悔しい',
         back: "alamli, o'rtanarli, armonli",
         romaji: 'kuyashii',
         furigana: 'くやしい',
@@ -18451,7 +18451,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1261',
-        front: '暗い (くらい)',
+        front: '暗い',
         back: "qorong'i, xira; tushkun",
         romaji: 'kurai',
         furigana: 'くらい',
@@ -18462,7 +18462,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1262',
-        front: '苦しい (くるしい)',
+        front: '苦しい',
         back: "og'ir, mashaqqatli, qiynoqli (nafas/iqtisod)",
         romaji: 'kurushii',
         furigana: 'くるしい',
@@ -18473,7 +18473,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1263',
-        front: '詳しい (くわしい)',
+        front: '詳しい',
         back: 'batafsil, mufassal; yaxshi biladigan',
         romaji: 'kuwashii',
         furigana: 'くわしい',
@@ -18484,7 +18484,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1264',
-        front: '濃い (こい)',
+        front: '濃い',
         back: "to'q (rang), quyuq (choy/sho'rva), o'tkir",
         romaji: 'koi',
         furigana: 'こい',
@@ -18495,7 +18495,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1265',
-        front: '恋しい (こいしい)',
+        front: '恋しい',
         back: "sog'ingan, qumsagan",
         romaji: 'koishii',
         furigana: 'こいしい',
@@ -18506,7 +18506,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1266',
-        front: '細かい (こまかい)',
+        front: '細かい',
         back: 'mayda, maydalangan; nozik (tafsilotlar)',
         romaji: 'komakai',
         furigana: 'こまかい',
@@ -18517,7 +18517,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1267',
-        front: '寂しい (さびしい)',
+        front: '寂しい',
         back: "yolg'iz, g'arib, kimsasiz, sog'inchli",
         romaji: 'sabishii',
         furigana: 'さびしい',
@@ -18528,7 +18528,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1268',
-        front: '若い (わかい)',
+        front: '若い',
         back: 'yosh, navqiron',
         romaji: 'wakai',
         furigana: 'わかい',
@@ -18539,7 +18539,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1269',
-        front: 'ひどい (ひどい)',
+        front: 'ひどい',
         back: "dahshatli, o'ta yomon, shafqatsiz",
         romaji: 'hidoi',
         furigana: 'ひどい',
@@ -18550,7 +18550,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1270',
-        front: '広い (ひろい)',
+        front: '広い',
         back: 'keng, bepoyon',
         romaji: 'hiroi',
         furigana: 'ひろい',
@@ -18561,7 +18561,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1271',
-        front: '深い (ふかい)',
+        front: '深い',
         back: "chuqur (suv/ma'no/o'rmon)",
         romaji: 'fukai',
         furigana: 'ふかい',
@@ -18572,7 +18572,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1272',
-        front: '太い (ふとい)',
+        front: '太い',
         back: "yo'g'on, semiz, qalin (ip/daraxt)",
         romaji: 'futoi',
         furigana: 'ふとい',
@@ -18583,7 +18583,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1273',
-        front: '欲しい (ほしい)',
+        front: '欲しい',
         back: 'istalgan, kerakli, xohlaydigan',
         romaji: 'hoshii',
         furigana: 'ほしい',
@@ -18594,7 +18594,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1274',
-        front: '細い (ほそい)',
+        front: '細い',
         back: 'ingichka, oriq, nozik',
         romaji: 'hosoi',
         furigana: 'ほそい',
@@ -18605,7 +18605,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1275',
-        front: '細長い (ほそながい)',
+        front: '細長い',
         back: 'uzunchoq, ingichka va uzun',
         romaji: 'hosonagai',
         furigana: 'ほそながい',
@@ -18616,7 +18616,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1276',
-        front: '貧しい (まずしい)',
+        front: '貧しい',
         back: "kambag'al, qashshoq, yetishmovchilikda",
         romaji: 'mazushii',
         furigana: 'まずしい',
@@ -18627,7 +18627,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1277',
-        front: 'まぶしい (まぶしい)',
+        front: 'まぶしい',
         back: "ko'zni qamashtiradigan, yorqin",
         romaji: 'mabushii',
         furigana: 'まぶしい',
@@ -18638,7 +18638,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1278',
-        front: '丸い (まるい)',
+        front: '丸い',
         back: 'dumaloq, doira shaklidagi',
         romaji: 'marui',
         furigana: 'まるい',
@@ -18649,7 +18649,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1279',
-        front: '難しい (むずかしい)',
+        front: '難しい',
         back: 'qiyin, murakkab',
         romaji: 'muzukashii',
         furigana: 'むずかしい',
@@ -18660,7 +18660,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1280',
-        front: '珍しい (めずらしい)',
+        front: '珍しい',
         back: 'kamyob, noyob, nodir',
         romaji: 'mezurashii',
         furigana: 'めずらしい',
@@ -18671,7 +18671,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1281',
-        front: '申し訳ない (もうしわけない)',
+        front: '申し訳ない',
         back: 'juda xijolatdaman, ming bor uzr',
         romaji: 'moushiwakenai',
         furigana: 'もうしわけない',
@@ -18682,7 +18682,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1282',
-        front: '易しい (やさしい)',
+        front: '易しい',
         back: 'oson, yengil, sodda',
         romaji: 'yasashii',
         furigana: 'やさしい',
@@ -18693,7 +18693,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1283',
-        front: '優しい (やさしい)',
+        front: '優しい',
         back: "mehribon, shirinso'z, g'amxo'r",
         romaji: 'yasashii',
         furigana: 'やさしい',
@@ -18704,7 +18704,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1284',
-        front: '柔らかい (やわらかい)',
+        front: '柔らかい',
         back: "yumshoq (non/go'sht/yostiq)",
         romaji: 'yawarakai',
         furigana: 'やわらかい',
@@ -18715,7 +18715,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1285',
-        front: 'ゆるい (ゆるい)',
+        front: 'ゆるい',
         back: "bo'sh, keng (kiyim); muloyim (qoida)",
         romaji: 'yurui',
         furigana: 'ゆるい',
@@ -18726,7 +18726,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1286',
-        front: '安全な (あんぜんな)',
+        front: '安全な',
         back: 'xavfsiz, bexatar',
         romaji: 'anzen na',
         furigana: 'あんぜんな',
@@ -18737,7 +18737,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1287',
-        front: '意外な (いがいな)',
+        front: '意外な',
         back: "kutilmagan, tasavvur qilib bo'lmaydigan",
         romaji: 'igai na',
         furigana: 'いがいな',
@@ -18748,7 +18748,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1288',
-        front: '一般的な (いっぱんてきな)',
+        front: '一般的な',
         back: 'umumiy, keng tarqalgan, odatiy',
         romaji: 'ippanteki na',
         furigana: 'いっぱんてきな',
@@ -18759,7 +18759,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1289',
-        front: '嫌な (いやな)',
+        front: '嫌な',
         back: 'yoqimsiz, noxush, jirkanch',
         romaji: 'iya na',
         furigana: 'いやな',
@@ -18770,7 +18770,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1290',
-        front: '確実な (かくじつな)',
+        front: '確実な',
         back: 'aniq, ishonchli, muqarrar',
         romaji: 'kakujitsu na',
         furigana: 'かくじつな',
@@ -18781,7 +18781,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1291',
-        front: '活動的な (かつどうてきな)',
+        front: '活動的な',
         back: "faol, serg'ayrat, harakatchan",
         romaji: 'katsudouteki na',
         furigana: 'かつどうてきな',
@@ -18792,7 +18792,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1292',
-        front: '可能な (かのうな)',
+        front: '可能な',
         back: "mumkin bo'lgan, amalga oshadigan, ehtimoli bor",
         romaji: 'kanou na',
         furigana: 'かのうな',
@@ -18803,7 +18803,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1293',
-        front: '簡単な (かんたんな)',
+        front: '簡単な',
         back: 'oddiy, oson, sodda',
         romaji: 'kantan na',
         furigana: 'かんたんな',
@@ -18814,7 +18814,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1294',
-        front: '危険な (きけんな)',
+        front: '危険な',
         back: 'xavfli, tahlikali',
         romaji: 'kiken na',
         furigana: 'きけんな',
@@ -18825,7 +18825,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1295',
-        front: '基礎的な (きそてきな)',
+        front: '基礎的な',
         back: "boshlang'ich, tayanch, poydevoriy",
         romaji: 'kisoteki na',
         furigana: 'きそてきな',
@@ -18836,7 +18836,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1296',
-        front: '基本的な (きほんてきな)',
+        front: '基本的な',
         back: 'asosiy, fundamental, tub',
         romaji: 'kihonteki na',
         furigana: 'きほんてきな',
@@ -18847,7 +18847,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1297',
-        front: '急な (きゅうな)',
+        front: '急な',
         back: "to'satdan, shoshilinch; tik (qiyalik)",
         romaji: 'kyuu na',
         furigana: 'きゅうな',
@@ -18858,7 +18858,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1298',
-        front: '嫌いな (きらいな)',
+        front: '嫌いな',
         back: "yoqmaydigan, yomon ko'radigan",
         romaji: 'kirai na',
         furigana: 'きらいな',
@@ -18869,7 +18869,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1299',
-        front: '具体的な (ぐたいてきな)',
+        front: '具体的な',
         back: 'aniq, muayyan, aniq misolli',
         romaji: 'gutaiteki na',
         furigana: 'ぐたいてきな',
@@ -18880,7 +18880,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1300',
-        front: '経済的な (けいざいてきな)',
+        front: '経済的な',
         back: 'tejamkor, iqtisodiy jihatdan foydali',
         romaji: 'keizaiteki na',
         furigana: 'けいざいてきな',
@@ -18891,7 +18891,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1301',
-        front: '健康な (けんこうな)',
+        front: '健康な',
         back: "sog'lom, baquvvat",
         romaji: 'kenkou na',
         furigana: 'けんこうな',
@@ -18902,7 +18902,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1302',
-        front: '元気な (げんきな)',
+        front: '元気な',
         back: "tetik, baquvvat, sho'x, sog'-omon",
         romaji: 'genki na',
         furigana: 'げんきな',
@@ -18913,7 +18913,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1303',
-        front: '効果的な (こうかてきな)',
+        front: '効果的な',
         back: 'samarali, natijali',
         romaji: 'koukateki na',
         furigana: 'こうかてきな',
@@ -18924,7 +18924,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1304',
-        front: '高価な (こうかな)',
+        front: '高価な',
         back: 'qimmatbaho, qimmat',
         romaji: 'kouka na',
         furigana: 'こうかな',
@@ -18935,7 +18935,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1305',
-        front: '最高な (さいこうな)',
+        front: '最高な',
         back: "eng zo'r, ajoyib, oliy darajadagi",
         romaji: 'saikou na',
         furigana: 'さいこうな',
@@ -18946,7 +18946,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1306',
-        front: '最終的な (さいしゅうてきな)',
+        front: '最終的な',
         back: 'yakuniy, oxirgi',
         romaji: 'saishuuteki na',
         furigana: 'さいしゅうてきな',
@@ -18957,7 +18957,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1307',
-        front: '最低な (さいていな)',
+        front: '最低な',
         back: 'eng past, eng yomon, tuban',
         romaji: 'saitei na',
         furigana: 'さいていな',
@@ -18968,7 +18968,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1308',
-        front: '盛んな (さかんな)',
+        front: '盛んな',
         back: "rivojlangan, qizg'in, jo'shqin",
         romaji: 'sakan na',
         furigana: 'さかんな',
@@ -18979,7 +18979,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1309',
-        front: '様々な (さまざまな)',
+        front: '様々な',
         back: 'turli xil, xilma-xil, har xil',
         romaji: 'samazama na',
         furigana: 'さまざまな',
@@ -18990,7 +18990,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1310',
-        front: '残念な (ざんねんな)',
+        front: '残念な',
         back: 'afsuslanarli, achinarli',
         romaji: 'zannen na',
         furigana: 'ざんねんな',
@@ -19001,7 +19001,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1311',
-        front: '幸せな (しあわせな)',
+        front: '幸せな',
         back: 'baxtli, saodatli',
         romaji: 'shiawase na',
         furigana: 'しあわせな',
@@ -19012,7 +19012,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1312',
-        front: '静かな (しずかな)',
+        front: '静かな',
         back: 'sokin, tinch, shovqinsiz',
         romaji: 'shizuka na',
         furigana: 'しずかな',
@@ -19023,7 +19023,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1313',
-        front: '自然な (しぜんな)',
+        front: '自然な',
         back: 'tabiiy, odatiy',
         romaji: 'shizen na',
         furigana: 'しぜんな',
@@ -19034,7 +19034,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1314',
-        front: '失礼な (しつれいな)',
+        front: '失礼な',
         back: "odobdan tashqari, qo'pol, behurmat",
         romaji: 'shitsurei na',
         furigana: 'しつれいな',
@@ -19045,7 +19045,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1315',
-        front: '主要な (しゅような)',
+        front: '主要な',
         back: 'asosiy, yetakchi, muhim',
         romaji: 'shuyou na',
         furigana: 'しゅような',
@@ -19056,7 +19056,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1316',
-        front: '正直な (しょうじきな)',
+        front: '正直な',
         back: "rostgo'y, to'g'riso'z, samimiy",
         romaji: 'shoujiki na',
         furigana: 'しょうじきな',
@@ -19067,7 +19067,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1317',
-        front: '親切な (しんせつな)',
+        front: '親切な',
         back: "mehribon, oqko'ngil, iltifotli",
         romaji: 'shinsetsu na',
         furigana: 'しんせつな',
@@ -19078,7 +19078,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1318',
-        front: '新鮮な (しんせんな)',
+        front: '新鮮な',
         back: 'yangi, yangi uzilgan, toza (baliq/sabzavot)',
         romaji: 'shinsen na',
         furigana: 'しんせんな',
@@ -19089,7 +19089,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1319',
-        front: '慎重な (しんちょうな)',
+        front: '慎重な',
         back: 'ehtiyotkor, mulohazali, puxta',
         romaji: 'shinchou na',
         furigana: 'しんちょうな',
@@ -19100,7 +19100,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1320',
-        front: '実用的な (じつようてきな)',
+        front: '実用的な',
         back: "amaliy, hayotda qo'llash qulay bo'lgan",
         romaji: 'jitsuyouteki na',
         furigana: 'じつようてきな',
@@ -19111,7 +19111,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1321',
-        front: '自動的な (じどうてきな)',
+        front: '自動的な',
         back: "avtomatik, o'z-o'zidan ishlaydigan",
         romaji: 'jidouteki na',
         furigana: 'じどうてきな',
@@ -19122,7 +19122,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1322',
-        front: '地味な (じみな)',
+        front: '地味な',
         back: "kamtarona, ko'zga tashlanmaydigan, sodda",
         romaji: 'jimi na',
         furigana: 'じみな',
@@ -19133,7 +19133,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1323',
-        front: '重大な (じゅうだいな)',
+        front: '重大な',
         back: "jiddiy, ulkan, og'ir oqibatli",
         romaji: 'juudai na',
         furigana: 'じゅうだいな',
@@ -19144,7 +19144,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1324',
-        front: '自由な (じゆうな)',
+        front: '自由な',
         back: 'erkin, mustaqil',
         romaji: 'jiyuu na',
         furigana: 'じゆうな',
@@ -19155,7 +19155,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1325',
-        front: '十分な (じゅうぶんな)',
+        front: '十分な',
         back: 'yetarli, qanoatlantiradigan darajada',
         romaji: 'juubun na',
         furigana: 'じゅうぶんな',
@@ -19166,7 +19166,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1326',
-        front: '重要な (じゅうような)',
+        front: '重要な',
         back: 'muhim, ahamiyatli',
         romaji: 'juuyou na',
         furigana: 'じゅうような',
@@ -19177,7 +19177,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1327',
-        front: '上品な (じょうひんな)',
+        front: '上品な',
         back: 'nafis, xushbichim, olijanob',
         romaji: 'jouhin na',
         furigana: 'じょうひんな',
@@ -19188,7 +19188,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1328',
-        front: '丈夫な (じょうぶな)',
+        front: '丈夫な',
         back: 'baquvvat, mustahkam, chidamli',
         romaji: 'joubu na',
         furigana: 'じょうぶな',
@@ -19199,7 +19199,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1329',
-        front: '人工的な (じんこうてきな)',
+        front: '人工的な',
         back: "sun'iy",
         romaji: 'jinkouteki na',
         furigana: 'じんこうてきな',
@@ -19210,7 +19210,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1330',
-        front: '素敵な (すてきな)',
+        front: '素敵な',
         back: "ajoyib, ko'rkam, maftunkor",
         romaji: 'suteki na',
         furigana: 'すてきな',
@@ -19221,7 +19221,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1331',
-        front: '清潔な (せいけつな)',
+        front: '清潔な',
         back: 'top-toza, ozoda, pokiza',
         romaji: 'seiketsu na',
         furigana: 'せいけつな',
@@ -19232,7 +19232,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1332',
-        front: '正確な (せいかくな)',
+        front: '正確な',
         back: "aniq, to'g'ri, xatosiz",
         romaji: 'seikaku na',
         furigana: 'せいかくな',
@@ -19243,7 +19243,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1333',
-        front: '積極的な (せっきょくてきな)',
+        front: '積極的な',
         back: "faol, tashabbuskor, qat'iyatli",
         romaji: 'sekkyokuteki na',
         furigana: 'せっきょくてきな',
@@ -19254,7 +19254,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1334',
-        front: '専門的な (せんもんてきな)',
+        front: '専門的な',
         back: 'kasbiy, mutaxassislikka oid, maxsus',
         romaji: 'senmonteki na',
         furigana: 'せんもんてきな',
@@ -19265,7 +19265,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1335',
-        front: '全体的な (ぜんたいてきな)',
+        front: '全体的な',
         back: 'umumiy, yalpi, butun qamrovli',
         romaji: 'zentaiteki na',
         furigana: 'ぜんたいてきな',
@@ -19276,7 +19276,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1336',
-        front: '相当な (そうとうな)',
+        front: '相当な',
         back: 'anchagina, salmoqli, ancha katta',
         romaji: 'soutou na',
         furigana: 'そうとうな',
@@ -19287,7 +19287,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1337',
-        front: '退屈な (たいくつな)',
+        front: '退屈な',
         back: 'zerikarli, bekorchilik',
         romaji: 'taikutsu na',
         furigana: 'たいくつな',
@@ -19298,7 +19298,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1338',
-        front: '大切な (たいせつな)',
+        front: '大切な',
         back: 'qadrli, muhim, qimmatli',
         romaji: 'taisetsu na',
         furigana: 'たいせつな',
@@ -19309,7 +19309,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1339',
-        front: '大変な (たいへんな)',
+        front: '大変な',
         back: "og'ir, mashaqqatli; dahshatli",
         romaji: 'taihen na',
         furigana: 'たいへんな',
@@ -19320,7 +19320,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1340',
-        front: '確かな (たしかな)',
+        front: '確かな',
         back: 'aniq, ishonchli, shubhasiz',
         romaji: 'tashika na',
         furigana: 'たしかな',
@@ -19331,7 +19331,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1341',
-        front: '短気な (たんきな)',
+        front: '短気な',
         back: "jizzaki, sabrsiz, tez achchig'i chiqadigan",
         romaji: 'tanki na',
         furigana: 'たんきな',
@@ -19342,7 +19342,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1342',
-        front: '単純な (たんじゅんな)',
+        front: '単純な',
         back: "oddiy, sodda, murakkab bo'lmagan",
         romaji: 'tanjun na',
         furigana: 'たんじゅんな',
@@ -19353,7 +19353,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1343',
-        front: '大事な (だいじな)',
+        front: '大事な',
         back: 'muhim, ahamiyatli, ardoqli',
         romaji: 'daiji na',
         furigana: 'だいじな',
@@ -19364,7 +19364,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1344',
-        front: '代表的な (だいひょうてきな)',
+        front: '代表的な',
         back: "tipik, asosiy namoyandasi bo'lgan",
         romaji: 'daihyouteki na',
         furigana: 'だいひょうてきな',
@@ -19375,7 +19375,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1345',
-        front: '丁寧な (ていねいな)',
+        front: '丁寧な',
         back: 'xushmuomala, odobli, puxta',
         romaji: 'teinei na',
         furigana: 'ていねいな',
@@ -19386,7 +19386,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1346',
-        front: '当然な (とうぜんな)',
+        front: '当然な',
         back: "tabiiy, kutilgan, o'z-o'zidan ravshan",
         romaji: 'touzen na',
         furigana: 'とうぜんな',
@@ -19397,7 +19397,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1347',
-        front: '得意な (とくいな)',
+        front: '得意な',
         back: "mohir, usta, zo'r biladigan",
         romaji: 'tokui na',
         furigana: 'とくいな',
@@ -19408,7 +19408,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1348',
-        front: '特別な (とくべつな)',
+        front: '特別な',
         back: "maxsus, o'zgacha, alohida",
         romaji: 'tokubetsu na',
         furigana: 'とくべつな',
@@ -19419,7 +19419,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1349',
-        front: '苦手な (にがてな)',
+        front: '苦手な',
         back: "no'noq, unchalik yoqtirmaydigan, qiynaladigan",
         romaji: 'nigate na',
         furigana: 'にがてな',
@@ -19430,7 +19430,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1350',
-        front: '熱心な (ねっしんな)',
+        front: '熱心な',
         back: "ixlosli, g'ayratli, berilib ishlaydigan",
         romaji: 'nesshin na',
         furigana: 'ねっしんな',
@@ -19441,7 +19441,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1351',
-        front: '派手な (はでな)',
+        front: '派手な',
         back: "dabdabali, yaltiroq, ko'zga tashlanadigan",
         romaji: 'hade na',
         furigana: 'はでな',
@@ -19452,7 +19452,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1352',
-        front: '必要な (ひつような)',
+        front: '必要な',
         back: 'zarur, kerakli',
         romaji: 'hitsuyou na',
         furigana: 'ひつような',
@@ -19463,7 +19463,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1353',
-        front: '不安な (ふあんな)',
+        front: '不安な',
         back: 'xavotirli, bezovta, notinch',
         romaji: 'fuan na',
         furigana: 'ふあんな',
@@ -19474,7 +19474,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1354',
-        front: '複雑な (ふくざつな)',
+        front: '複雑な',
         back: 'murakkab, chigal',
         romaji: 'fukuzatsu na',
         furigana: 'ふくざつな',
@@ -19485,7 +19485,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1355',
-        front: '不思議な (ふしぎな)',
+        front: '不思議な',
         back: "g'aroyib, aql bovar qilmas, mo''jizaviy",
         romaji: 'fushigi na',
         furigana: 'ふしぎな',
@@ -19496,7 +19496,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1356',
-        front: '不便な (ふべんな)',
+        front: '不便な',
         back: 'noqulay (transport/masofa)',
         romaji: 'fuben na',
         furigana: 'ふべんな',
@@ -19507,7 +19507,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1357',
-        front: '不要な (ふような)',
+        front: '不要な',
         back: 'keraksiz, ortiqcha',
         romaji: 'fuyou na',
         furigana: 'ふような',
@@ -19518,7 +19518,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1358',
-        front: '平気な (へいきな)',
+        front: '平気な',
         back: "beparvo, xotirjam, hech narsa bo'lmagandek",
         romaji: 'heiki na',
         furigana: 'へいきな',
@@ -19529,7 +19529,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1359',
-        front: '下手な (へたな)',
+        front: '下手な',
         back: "no'noq, qo'lidan kelmaydigan",
         romaji: 'heta na',
         furigana: 'へたな',
@@ -19540,7 +19540,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1360',
-        front: '変な (へんな)',
+        front: '変な',
         back: "g'alati, ajablanarli",
         romaji: 'hen na',
         furigana: 'へんな',
@@ -19551,7 +19551,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1361',
-        front: '別な (べつな)',
+        front: '別な',
         back: "boshqa, alohida, bo'lakcha",
         romaji: 'betsu na',
         furigana: 'べつな',
@@ -19562,7 +19562,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1362',
-        front: '便利な (べんりな)',
+        front: '便利な',
         back: 'qulay, foydali, oson',
         romaji: 'benri na',
         furigana: 'べんりな',
@@ -19573,7 +19573,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1363',
-        front: '身近な (みぢかな)',
+        front: '身近な',
         back: 'kundalik hayotdagi yaqin, tanish',
         romaji: 'mijika na',
         furigana: 'みぢかな',
@@ -19584,7 +19584,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1364',
-        front: '無理な (むりな)',
+        front: '無理な',
         back: "imkonsiz, ortiqcha zo'riqishli, bo'lmaydigan",
         romaji: 'muri na',
         furigana: 'むりな',
@@ -19595,7 +19595,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1365',
-        front: '迷惑な (めいわくな)',
+        front: '迷惑な',
         back: 'noqulaylik keltiruvchi, xalal beruvchi',
         romaji: 'meiwaku na',
         furigana: 'めいわくな',
@@ -19606,7 +19606,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1366',
-        front: '面倒な (めんどうな)',
+        front: '面倒な',
         back: "daxmaza, ovoragarchilikli, erinchoqlik uyg'otadigan",
         romaji: 'mendou na',
         furigana: 'めんどうな',
@@ -19617,7 +19617,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1367',
-        front: '有名な (ゆうめいな)',
+        front: '有名な',
         back: 'mashhur, tanilgan',
         romaji: 'yuumei na',
         furigana: 'ゆうめいな',
@@ -19628,7 +19628,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1368',
-        front: '楽な (らくな)',
+        front: '楽な',
         back: 'oson, yengil, rohatli',
         romaji: 'raku na',
         furigana: 'らくな',
@@ -19639,7 +19639,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1369',
-        front: '立派な (りっぱな)',
+        front: '立派な',
         back: "ko'rkam, qoyilmaqom, ulug'vor, munosib",
         romaji: 'rippa na',
         furigana: 'りっぱな',
@@ -19650,7 +19650,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1370',
-        front: '結構 (けっこう)',
+        front: '結構',
         back: "ancha, ancha-muncha; yetarli (yo'q, shart emas)",
         romaji: 'kekkou',
         furigana: 'けっこう',
@@ -19661,7 +19661,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1371',
-        front: '決して (けっして)',
+        front: '決して',
         back: 'aslo, sira, hargiz (+ inkor)',
         romaji: 'kesshite',
         furigana: 'けっして',
@@ -19672,7 +19672,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1372',
-        front: '先に (さきに)',
+        front: '先に',
         back: 'avval, oldinroq',
         romaji: 'sakini',
         furigana: 'さきに',
@@ -19683,7 +19683,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1373',
-        front: 'さっき (さっき)',
+        front: 'さっき',
         back: 'boyagina, hozirgina',
         romaji: 'sakki',
         furigana: 'さっき',
@@ -19694,7 +19694,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1374',
-        front: '早速 (さっそく)',
+        front: '早速',
         back: 'darhol, kechiktirmasdan',
         romaji: 'sassoku',
         furigana: 'さっそく',
@@ -19705,7 +19705,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1375',
-        front: '次第に (しだいに)',
+        front: '次第に',
         back: 'asta-sekin, borgan sari',
         romaji: 'shidaini',
         furigana: 'しだいに',
@@ -19716,7 +19716,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1376',
-        front: 'しばらく (しばらく)',
+        front: 'しばらく',
         back: 'bir muddat, bir oz vaqt',
         romaji: 'shibaraku',
         furigana: 'しばらく',
@@ -19727,7 +19727,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1377',
-        front: '正直 (しょうじき)',
+        front: '正直',
         back: "to'g'risi, rostini aytsam",
         romaji: 'shoujiki',
         furigana: 'しょうじき',
@@ -19738,7 +19738,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1378',
-        front: '実は (じつは)',
+        front: '実は',
         back: "aslida, haqiqatda, ochig'ini aytganda",
         romaji: 'jitsuwa',
         furigana: 'じつは',
@@ -19749,7 +19749,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1379',
-        front: '十分 (じゅうぶん)',
+        front: '十分',
         back: "yetarli, yetarlicha, to'la-to'kis",
         romaji: 'juubun',
         furigana: 'じゅうぶん',
@@ -19760,7 +19760,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1380',
-        front: 'ずいぶん (ずいぶん)',
+        front: 'ずいぶん',
         back: 'ancha, ancha-muncha, ancha sezilarli',
         romaji: 'zuibun',
         furigana: 'ずいぶん',
@@ -19771,7 +19771,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1381',
-        front: 'ずっと (ずっと)',
+        front: 'ずっと',
         back: "doim, to'xtovsiz; ancha (taqqoslashda)",
         romaji: 'zutto',
         furigana: 'ずっと',
@@ -19782,7 +19782,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1382',
-        front: 'せっかく (せっかく)',
+        front: 'せっかく',
         back: 'shuncha mehnat qilib, maxsus, ataylab',
         romaji: 'sekkaku',
         furigana: 'せっかく',
@@ -19793,7 +19793,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1383',
-        front: '絶対 (ぜったい)',
+        front: '絶対',
         back: 'mutlaqo, albatta, shubhasiz',
         romaji: 'zettai',
         furigana: 'ぜったい',
@@ -19804,7 +19804,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1384',
-        front: '相当 (そうとう)',
+        front: '相当',
         back: 'anchagina, ancha sezilarli darajada',
         romaji: 'soutou',
         furigana: 'そうとう',
@@ -19815,7 +19815,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1385',
-        front: '互いに (たがいに)',
+        front: '互いに',
         back: "bir-biriga, o'zaro",
         romaji: 'tagaini',
         furigana: 'たがいに',
@@ -19826,7 +19826,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1386',
-        front: '多少 (たしょう)',
+        front: '多少',
         back: 'ozmuncha, biroz, ozgina',
         romaji: 'tashou',
         furigana: 'たしょう',
@@ -19837,7 +19837,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1387',
-        front: '例えば (たとえば)',
+        front: '例えば',
         back: 'masalan, aytaylik',
         romaji: 'tatoeba',
         furigana: 'たとえば',
@@ -19848,7 +19848,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1388',
-        front: 'たまに (たまに)',
+        front: 'たまに',
         back: "onda-sonda, ba'zida, vaqti-vaqti bilan",
         romaji: 'tamani',
         furigana: 'たまに',
@@ -19859,7 +19859,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1389',
-        front: 'だいたい (だいたい)',
+        front: 'だいたい',
         back: 'taxminan, asosan, deyarli',
         romaji: 'daitai',
         furigana: 'だいたい',
@@ -19870,7 +19870,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1390',
-        front: 'だんだん (だんだん)',
+        front: 'だんだん',
         back: 'asta-sekin, borgan sari',
         romaji: 'dandan',
         furigana: 'だんだん',
@@ -19881,7 +19881,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1391',
-        front: 'ちょっと (ちょっと)',
+        front: 'ちょっと',
         back: 'biroz, sal, ozgina; bir daqiqa',
         romaji: 'chotto',
         furigana: 'ちょっと',
@@ -19892,7 +19892,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1392',
-        front: 'ちょうど (ちょうど)',
+        front: 'ちょうど',
         back: "roppa-rosa, ayni, to'g'ri kelgan",
         romaji: 'choudo',
         furigana: 'ちょうど',
@@ -19903,7 +19903,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1393',
-        front: '次々 (つぎつぎ)',
+        front: '次々',
         back: 'ketma-ket, birin-ketin',
         romaji: 'tsugitsugi',
         furigana: 'つぎつぎ',
@@ -19914,7 +19914,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1394',
-        front: 'つまり (つまり)',
+        front: 'つまり',
         back: "ya'ni, xullas, demak",
         romaji: 'tsumari',
         furigana: 'つまり',
@@ -19925,7 +19925,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1395',
-        front: '当然 (とうぜん)',
+        front: '当然',
         back: "albatta, tabiiyki, o'z-o'zidan ravshan",
         romaji: 'touzen',
         furigana: 'とうぜん',
@@ -19936,7 +19936,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1396',
-        front: 'とうとう (とうとう)',
+        front: 'とうとう',
         back: 'oxir-oqibat, nihoyat, oxiri',
         romaji: 'toutou',
         furigana: 'とうとう',
@@ -19947,7 +19947,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1397',
-        front: '時々 (ときどき)',
+        front: '時々',
         back: "ba'zan, vaqti-vaqti bilan",
         romaji: 'tokidoki',
         furigana: 'ときどき',
@@ -19958,7 +19958,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1398',
-        front: '特に (とくに)',
+        front: '特に',
         back: 'ayniqsa, asosan, alohida',
         romaji: 'tokuni',
         furigana: 'とくに',
@@ -19969,7 +19969,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1399',
-        front: '突然 (とつぜん)',
+        front: '突然',
         back: "to'satdan, kutilmaganda",
         romaji: 'totsuzen',
         furigana: 'とつぜん',
@@ -19980,7 +19980,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1400',
-        front: '何か (なにか)',
+        front: '何か',
         back: 'biror narsa, nimadir',
         romaji: 'nanika',
         furigana: 'なにか',
@@ -19991,7 +19991,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1401',
-        front: '何も (なにも)',
+        front: '何も',
         back: 'hech narsa (+ inkor)',
         romaji: 'nanimo',
         furigana: 'なにも',
@@ -20002,7 +20002,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1402',
-        front: '初めて (はじめて)',
+        front: '初めて',
         back: 'birinchi marta, ilk bor',
         romaji: 'hajimete',
         furigana: 'はじめて',
@@ -20013,7 +20013,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1403',
-        front: '非常に (ひじょうに)',
+        front: '非常に',
         back: "o'ta, nihoyatda, g'oyatda",
         romaji: 'hijouni',
         furigana: 'ひじょうに',
@@ -20024,7 +20024,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1404',
-        front: '別に (べつに)',
+        front: '別に',
         back: 'unchalik emas, alohida emas (+ inkor)',
         romaji: 'betsuni',
         furigana: 'べつに',
@@ -20035,7 +20035,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1405',
-        front: '別々に (べつべつに)',
+        front: '別々に',
         back: "alohida-alohida, bo'lakcha",
         romaji: 'betsubetsuni',
         furigana: 'べつべつに',
@@ -20046,7 +20046,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1406',
-        front: '全く (まったく)',
+        front: '全く',
         back: 'mutlaqo, aslo (+ inkor); rostdan ham',
         romaji: 'mattaku',
         furigana: 'まったく',
@@ -20057,7 +20057,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1407',
-        front: '最も (もっとも)',
+        front: '最も',
         back: 'eng, eng yuqori darajada',
         romaji: 'mottomo',
         furigana: 'もっとも',
@@ -20068,7 +20068,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1408',
-        front: 'ミックス (する) (みっくす)',
+        front: 'ミックス',
         back: 'aralashtirmoq, miks qilmoq',
         romaji: 'mikkusu (suru)',
         furigana: 'みっくす',
@@ -20079,7 +20079,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1409',
-        front: 'ミルク (みるく)',
+        front: 'ミルク',
         back: 'sut',
         romaji: 'miruku',
         furigana: 'みるく',
@@ -20090,7 +20090,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1410',
-        front: 'メール (する) (めーる)',
+        front: 'メール',
         back: "elektron xat (yozmoq), email jo'natmoq",
         romaji: 'meeru (suru)',
         furigana: 'めーる',
@@ -20101,7 +20101,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1411',
-        front: 'メールアドレス (めーるあどれす)',
+        front: 'メールアドレス',
         back: 'elektron pochta manzili',
         romaji: 'meeru adoresu',
         furigana: 'めーるあどれす',
@@ -20112,7 +20112,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1412',
-        front: 'メッセージ (めっせーじ)',
+        front: 'メッセージ',
         back: 'xabar, maktub',
         romaji: 'messeoji',
         furigana: 'めっせーじ',
@@ -20123,7 +20123,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1413',
-        front: 'メニュー (めにゅー)',
+        front: 'メニュー',
         back: 'taomnoma, menyu',
         romaji: 'menyuu',
         furigana: 'めにゅー',
@@ -20134,7 +20134,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1414',
-        front: 'メモ (する) (めも)',
+        front: 'メモ',
         back: 'qayd, eslatma (yozib olmoq)',
         romaji: 'memo (suru)',
         furigana: 'めも',
@@ -20145,7 +20145,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1415',
-        front: 'メンバー (めんばー)',
+        front: 'メンバー',
         back: "a'zo, jamoa a'zosi",
         romaji: 'menbaa',
         furigana: 'めんばー',
@@ -20156,7 +20156,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1416',
-        front: 'ヨーグルト (よーぐると)',
+        front: 'ヨーグルト',
         back: 'yogurt, qatiq',
         romaji: 'yooguruto',
         furigana: 'よーぐると',
@@ -20167,7 +20167,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1417',
-        front: 'ラーメン (らーめん)',
+        front: 'ラーメン',
         back: "ramen (yapon lag'mon sho'rvasi)",
         romaji: 'raamen',
         furigana: 'らーめん',
@@ -20178,7 +20178,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1418',
-        front: 'ライオン (らいおん)',
+        front: 'ライオン',
         back: 'sher, arslon',
         romaji: 'raion',
         furigana: 'らいおん',
@@ -20189,7 +20189,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1419',
-        front: 'ラケット (らけっと)',
+        front: 'ラケット',
         back: 'raketka (tennis yoki badminton)',
         romaji: 'raketto',
         furigana: 'らけっと',
@@ -20200,7 +20200,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1420',
-        front: 'ラジカセ (らじかせ)',
+        front: 'ラジカセ',
         back: 'radiomagnitofon',
         romaji: 'rajikase',
         furigana: 'らじかせ',
@@ -20211,7 +20211,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1421',
-        front: 'ランチ (らんち)',
+        front: 'ランチ',
         back: 'tushlik taomi',
         romaji: 'ranchi',
         furigana: 'らんち',
@@ -20222,7 +20222,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1422',
-        front: 'リサイクル (する) (りさいくる)',
+        front: 'リサイクル',
         back: 'qayta ishlash, qayta ishlamoq',
         romaji: 'risaikuru (suru)',
         furigana: 'りさいくる',
@@ -20233,7 +20233,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1423',
-        front: 'リスト (りすと)',
+        front: 'リスト',
         back: "ro'yxat",
         romaji: 'risuto',
         furigana: 'りすと',
@@ -20244,7 +20244,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1424',
-        front: 'リビング (りびんぐ)',
+        front: 'リビング',
         back: 'mehmonxona, umumiy yashash xonasi',
         romaji: 'ribingu',
         furigana: 'りびんぐ',
@@ -20255,7 +20255,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1425',
-        front: 'ルール (るーる)',
+        front: 'ルール',
         back: 'qoida',
         romaji: 'ruuru',
         furigana: 'るーる',
@@ -20266,7 +20266,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1426',
-        front: 'レインコート (れいんこーと)',
+        front: 'レインコート',
         back: "yomg'irpo'sh, plash",
         romaji: 'reinkooto',
         furigana: 'れいんこーと',
@@ -20277,7 +20277,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1427',
-        front: 'レジ (れじ)',
+        front: 'レジ',
         back: "kassa (do'konda)",
         romaji: 'reji',
         furigana: 'れじ',
@@ -20288,7 +20288,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1428',
-        front: 'レシピ (れしぴ)',
+        front: 'レシピ',
         back: 'pishirish retsepti',
         romaji: 'reshipi',
         furigana: 'れしぴ',
@@ -20299,7 +20299,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1429',
-        front: 'レッスン (れっすん)',
+        front: 'レッスン',
         back: "dars, mashg'ulot (musiqa, sport, til)",
         romaji: 'ressun',
         furigana: 'れっすん',
@@ -20310,7 +20310,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1430',
-        front: 'レンズ (れんず)',
+        front: 'レンズ',
         back: "linza (ko'zoynak yoki fotoapparat)",
         romaji: 'renzu',
         furigana: 'れんず',
@@ -20321,7 +20321,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1431',
-        front: 'ロケット (ろけっと)',
+        front: 'ロケット',
         back: 'raketa',
         romaji: 'roketto',
         furigana: 'ろけっと',
@@ -20332,7 +20332,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1432',
-        front: 'ロッカー (ろっかー)',
+        front: 'ロッカー',
         back: "shkafcha, seyf (kiyim yoki yuk qo'yish uchun)",
         romaji: 'rokkaa',
         furigana: 'ろっかー',
@@ -20343,7 +20343,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1433',
-        front: 'ロック (する) (ろっく)',
+        front: 'ロック',
         back: 'qulflamoq, qulf; rok musiqasi',
         romaji: 'rokku (suru)',
         furigana: 'ろっく',
@@ -20354,7 +20354,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1434',
-        front: 'ロビー (ろびー)',
+        front: 'ロビー',
         back: 'vestibyul, kutish zali (mehmonxonada)',
         romaji: 'robii',
         furigana: 'ろびー',
@@ -20365,7 +20365,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1435',
-        front: 'ロボット (ろぼっと)',
+        front: 'ロボット',
         back: 'robot',
         romaji: 'robotto',
         furigana: 'ろぼっと',
@@ -20376,7 +20376,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1436',
-        front: 'ワイン (わいん)',
+        front: 'ワイン',
         back: 'vino, musallas',
         romaji: 'wain',
         furigana: 'わいん',
@@ -20387,7 +20387,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1437',
-        front: 'ワンピース (わんぴーす)',
+        front: 'ワンピース',
         back: "ko'ylak (bir parcha ayollar ko'ylagi)",
         romaji: 'wanpiisu',
         furigana: 'わんぴーす',
@@ -20398,7 +20398,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1438',
-        front: '一方 (いっぽう)',
+        front: '一方',
         back: 'boshqa tomondan, ayni paytda',
         romaji: 'ippou',
         furigana: 'いっぽう',
@@ -20409,7 +20409,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1439',
-        front: 'けれど / けれども (けれど / けれども)',
+        front: 'けれど / けれども',
         back: "lekin, biroq, shunday bo'lsa-da",
         romaji: 'keredo / keredomo',
         furigana: 'けれど / けれども',
@@ -20420,7 +20420,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1440',
-        front: 'すると (すると)',
+        front: 'すると',
         back: 'shu payt, shunda, birdan',
         romaji: 'suruto',
         furigana: 'すると',
@@ -20431,7 +20431,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1441',
-        front: 'そこで (そこで)',
+        front: 'そこで',
         back: 'shuning uchun, shu sababli (chora sifatida)',
         romaji: 'sokode',
         furigana: 'そこで',
@@ -20442,7 +20442,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1442',
-        front: 'そして (そして)',
+        front: 'そして',
         back: 'va, keyin, shuningdek',
         romaji: 'soshite',
         furigana: 'そして',
@@ -20453,7 +20453,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1443',
-        front: 'そのうえ (そのうえ)',
+        front: 'そのうえ',
         back: 'bunisi kamdek, ustiga-ustak, qolaversa',
         romaji: 'sonoue',
         furigana: 'そのうえ',
@@ -20464,7 +20464,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1444',
-        front: 'それから (それから)',
+        front: 'それから',
         back: "undankeyin, so'ngra",
         romaji: 'sorekara',
         furigana: 'それから',
@@ -20475,7 +20475,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1445',
-        front: 'それで (それで)',
+        front: 'それで',
         back: "shuning uchun, natijada; xo'sh keyin-chi",
         romaji: 'sorede',
         furigana: 'それで',
@@ -20486,7 +20486,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1446',
-        front: 'それに (それに)',
+        front: 'それに',
         back: 'bundan tashqari, shuningdek, yana',
         romaji: 'soreni',
         furigana: 'それに',
@@ -20497,7 +20497,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1447',
-        front: 'だが (だが)',
+        front: 'だが',
         back: 'lekin, biroq',
         romaji: 'daga',
         furigana: 'だが',
@@ -20508,7 +20508,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1448',
-        front: 'だから (だから)',
+        front: 'だから',
         back: 'shuning uchun, shu bois',
         romaji: 'dakara',
         furigana: 'だから',
@@ -20519,7 +20519,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1449',
-        front: 'ついでに (ついでに)',
+        front: 'ついでに',
         back: "yo'l-yo'lakay, fursatdan foydalanib",
         romaji: 'tsuideni',
         furigana: 'ついでに',
@@ -20530,7 +20530,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1450',
-        front: 'ところが (ところが)',
+        front: 'ところが',
         back: 'lekin, kutilmaganda esa, biroq',
         romaji: 'tokoroga',
         furigana: 'ところが',
@@ -20541,7 +20541,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1451',
-        front: 'なお (なお)',
+        front: 'なお',
         back: "qo'shimcha ravishda, shuni ham eslatamizki",
         romaji: 'nao',
         furigana: 'なお',
@@ -20552,7 +20552,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1452',
-        front: 'また (また)',
+        front: 'また',
         back: 'shuningdek, hamda, yana',
         romaji: 'mata',
         furigana: 'また',
@@ -20563,7 +20563,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1453',
-        front: 'または (または)',
+        front: 'または',
         back: 'yoki, yoxud',
         romaji: 'matawa',
         furigana: 'または',
@@ -20574,7 +20574,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1454',
-        front: '大雨 (おおあめ)',
+        front: '大雨',
         back: "kuchli jala, qattiq yomg'ir",
         romaji: 'ooame',
         furigana: 'おおあめ',
@@ -20585,7 +20585,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1455',
-        front: '大掃除 (おおそうじ)',
+        front: '大掃除',
         back: 'katta tozalash, hashar',
         romaji: 'oosouji',
         furigana: 'おおそうじ',
@@ -20596,7 +20596,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1456',
-        front: '大雪 (おおゆき)',
+        front: '大雪',
         back: "qalin qor, kuchli qor bo'roni",
         romaji: 'ooyuki',
         furigana: 'おおゆき',
@@ -20607,7 +20607,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1457',
-        front: '大吉 (だいきち)',
+        front: '大吉',
         back: 'eng katta omad (fol ochishda)',
         romaji: 'daikichi',
         furigana: 'だいきち',
@@ -20618,7 +20618,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1458',
-        front: '大通り (おおどおり)',
+        front: '大通り',
         back: "katta ko'cha, markaziy xiyobon",
         romaji: 'oodoori',
         furigana: 'おおどおり',
@@ -20629,7 +20629,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1459',
-        front: '各駅 (かくえき)',
+        front: '各駅',
         back: 'har bir stansiya',
         romaji: 'kakueki',
         furigana: 'かくえき',
@@ -20640,7 +20640,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1460',
-        front: '各学校 (かくがっこう)',
+        front: '各学校',
         back: 'har bir maktab',
         romaji: 'kakugakkou',
         furigana: 'かくがっこう',
@@ -20651,7 +20651,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1461',
-        front: '各季節 (かくきせつ)',
+        front: '各季節',
         back: 'har bir fasl',
         romaji: 'kakukisetsu',
         furigana: 'かくきせつ',
@@ -20662,7 +20662,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1462',
-        front: '各地 (かくち)',
+        front: '各地',
         back: 'turli joylar, har bir hudud',
         romaji: 'kakuchi',
         furigana: 'かくち',
@@ -20673,7 +20673,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1463',
-        front: '各日 (かくじつ)',
+        front: '各日',
         back: 'har kuni, har bir kun',
         romaji: 'kakujitsu',
         furigana: 'かくじつ',
@@ -20684,7 +20684,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1464',
-        front: '各国 (かっこく)',
+        front: '各国',
         back: 'har bir davlat, barcha mamlakatlar',
         romaji: 'kakkoku',
         furigana: 'かっこく',
@@ -20695,7 +20695,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1465',
-        front: '後期 (こうき)',
+        front: '後期',
         back: 'ikkinchi yarim yillik, keyingi bosqich',
         romaji: 'kouki',
         furigana: 'こうき',
@@ -20706,7 +20706,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1466',
-        front: '後半 (こうはん)',
+        front: '後半',
         back: "ikkinchi qism, ikkinchi bo'lim (o'yinda)",
         romaji: 'kouhan',
         furigana: 'こうはん',
@@ -20717,7 +20717,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1467',
-        front: '今回 (こんかい)',
+        front: '今回',
         back: 'bu safar, galgi',
         romaji: 'konkai',
         furigana: 'こんかい',
@@ -20728,7 +20728,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1468',
-        front: '今学期 (こんがっき)',
+        front: '今学期',
         back: 'ushbu semestr',
         romaji: 'kongakki',
         furigana: 'こんがっき',
@@ -20739,7 +20739,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1469',
-        front: '今後 (こんご)',
+        front: '今後',
         back: 'bundan buyon, kelgusida',
         romaji: 'kongo',
         furigana: 'こんご',
@@ -20750,7 +20750,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1470',
-        front: '新車 (しんしゃ)',
+        front: '新車',
         back: 'yangi mashina',
         romaji: 'shinsha',
         furigana: 'しんしゃ',
@@ -20761,7 +20761,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1471',
-        front: '新商品 (しんしょうひん)',
+        front: '新商品',
         back: 'yangi mahsulot, yangi tovar',
         romaji: 'shinshouhin',
         furigana: 'しんしょうひん',
@@ -20772,7 +20772,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1472',
-        front: '新製品 (しんせいひん)',
+        front: '新製品',
         back: 'yangi ishlab chiqarilgan mahsulot',
         romaji: 'shinseihin',
         furigana: 'しんせいひん',
@@ -20783,7 +20783,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1473',
-        front: '前後 (ぜんご)',
+        front: '前後',
         back: 'oldin va keyin, atrofida (raqam)',
         romaji: 'zengo',
         furigana: 'ぜんご',
@@ -20794,7 +20794,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1474',
-        front: '前日 (ぜんじつ)',
+        front: '前日',
         back: "bir kun oldin, o'tgan kun",
         romaji: 'zenjitsu',
         furigana: 'ぜんじつ',
@@ -20805,7 +20805,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1475',
-        front: '前半 (ぜんはん)',
+        front: '前半',
         back: 'birinchi yarim, dastlabki qism',
         romaji: 'zenhan',
         furigana: 'ぜんはん',
@@ -20816,7 +20816,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1476',
-        front: '全員 (ぜんいん)',
+        front: '全員',
         back: "barcha a'zolar, hamma",
         romaji: "zen'in",
         furigana: 'ぜんいん',
@@ -20827,7 +20827,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1477',
-        front: '全国 (ぜんこく)',
+        front: '全国',
         back: 'butun mamlakat',
         romaji: 'zenkoku',
         furigana: 'ぜんこく',
@@ -20838,7 +20838,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1478',
-        front: '全部 (ぜんぶ)',
+        front: '全部',
         back: 'hammasi, barchasi',
         romaji: 'zenbu',
         furigana: 'ぜんぶ',
@@ -20849,7 +20849,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1479',
-        front: '不規則 (ふきそく)',
+        front: '不規則',
         back: 'tartibsiz, noqonuniy, noaniq',
         romaji: 'fukisoku',
         furigana: 'ふきそく',
@@ -20860,7 +20860,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1480',
-        front: '不用品 (ふようひん)',
+        front: '不用品',
         back: 'keraksiz buyum, ortiqcha narsa',
         romaji: 'fuyouhin',
         furigana: 'ふようひん',
@@ -20871,7 +20871,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1481',
-        front: '夕食 (ゆうしょく)',
+        front: '夕食',
         back: 'kechki ovqat',
         romaji: 'yuushoku',
         furigana: 'ゆうしょく',
@@ -20882,7 +20882,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1482',
-        front: '夕飯 (ゆうはん)',
+        front: '夕飯',
         back: "kechki ovqat (og'zaki so'zlashuv)",
         romaji: 'yuuhan',
         furigana: 'ゆうはん',
@@ -20893,7 +20893,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1483',
-        front: '夕日 (ゆうひ)',
+        front: '夕日',
         back: 'botaotgan quyosh, shafaq nuri',
         romaji: 'yuuhi',
         furigana: 'ゆうひ',
@@ -20904,7 +20904,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1484',
-        front: '大学院 (だいがくいん)',
+        front: '大学院',
         back: 'magistratura, aspirantura',
         romaji: 'daigakuin',
         furigana: 'だいがくいん',
@@ -20915,7 +20915,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1485',
-        front: '美容院 (びよういん)',
+        front: '美容院',
         back: "go'zallik saloni, sartaroshxona",
         romaji: 'biyouin',
         furigana: 'びよういん',
@@ -20926,7 +20926,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1486',
-        front: '病院 (びょういん)',
+        front: '病院',
         back: 'shifoxona, kasalxona',
         romaji: 'byouin',
         furigana: 'びょういん',
@@ -20937,7 +20937,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1487',
-        front: '職員 (しょくいん)',
+        front: '職員',
         back: 'xodim, xizmatchi',
         romaji: 'shokuin',
         furigana: 'しょくいん',
@@ -20948,7 +20948,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1488',
-        front: '会員 (かいいん)',
+        front: '会員',
         back: "klub a'zosi, a'zo",
         romaji: 'kaiin',
         furigana: 'かいいん',
@@ -20959,7 +20959,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1489',
-        front: '社員 (しゃいん)',
+        front: '社員',
         back: 'kompaniya xodimi, ishchi',
         romaji: 'shain',
         furigana: 'しゃいん',
@@ -20970,7 +20970,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1490',
-        front: '店員 (てんいん)',
+        front: '店員',
         back: "sotuvchi, do'kon xodimi",
         romaji: "ten'in",
         furigana: 'てんいん',
@@ -20981,7 +20981,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1491',
-        front: '部員 (ぶいん)',
+        front: '部員',
         back: "to'garak a'zosi, klub qatnashchisi",
         romaji: 'buin',
         furigana: 'ぶいん',
@@ -20992,7 +20992,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1492',
-        front: '動物園 (どうぶつえん)',
+        front: '動物園',
         back: "hayvonot bog'i",
         romaji: 'doubutsuen',
         furigana: 'どうぶつえん',
@@ -21003,7 +21003,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1493',
-        front: '保育園 (ほいくえん)',
+        front: '保育園',
         back: "bolalar bog'chasi, yasli",
         romaji: 'hoikuen',
         furigana: 'ほいくえん',
@@ -21014,7 +21014,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1494',
-        front: '営業課 (えいぎょうか)',
+        front: '営業課',
         back: "savdo bo'limi, sotuv bo'linmasi",
         romaji: 'eigyouka',
         furigana: 'えいぎょうか',
@@ -21025,7 +21025,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1495',
-        front: '学生課 (がくせいか)',
+        front: '学生課',
         back: "talabalar bo'limi (universitetda)",
         romaji: 'gakuseika',
         furigana: 'がくせいか',
@@ -21036,7 +21036,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1496',
-        front: '総務課 (そうむか)',
+        front: '総務課',
         back: "umumiy boshqaruv bo'limi, devonxona",
         romaji: 'soumuka',
         furigana: 'そうむか',
@@ -21047,7 +21047,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1497',
-        front: '画家 (がか)',
+        front: '画家',
         back: 'rassom',
         romaji: 'gaka',
         furigana: 'がか',
@@ -21058,7 +21058,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1498',
-        front: '作家 (さっか)',
+        front: '作家',
         back: 'yozuvchi, ijodkor',
         romaji: 'sakka',
         furigana: 'さっか',
@@ -21069,7 +21069,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1499',
-        front: '小説家 (しょうせつか)',
+        front: '小説家',
         back: 'roman yozuvchisi, nosir',
         romaji: 'shousetsuka',
         furigana: 'しょうせつか',
@@ -21080,7 +21080,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1500',
-        front: '専門家 (せんもんか)',
+        front: '専門家',
         back: 'mutaxassis, ekspert',
         romaji: 'senmonka',
         furigana: 'せんもんか',
@@ -21091,7 +21091,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1501',
-        front: '運動会 (うんどうかい)',
+        front: '運動会',
         back: 'maktab sport musobaqasi, sport bayrami',
         romaji: 'undoukai',
         furigana: 'うんどうかい',
@@ -21102,7 +21102,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1502',
-        front: '歓迎会 (かんげいかい)',
+        front: '歓迎会',
         back: 'kutib olish bazmi, qutlov kechasi',
         romaji: 'kangeikai',
         furigana: 'かんげいかい',
@@ -21113,7 +21113,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1503',
-        front: '観察会 (かんさつかい)',
+        front: '観察会',
         back: 'kuzatuv tadbiri (tabiat/yulduzlar)',
         romaji: 'kansatsukai',
         furigana: 'かんさつかい',
@@ -21124,7 +21124,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1504',
-        front: '講演会 (こうえんかい)',
+        front: '講演会',
         back: "ma'ruza kechasi, seminar",
         romaji: 'kouenkai',
         furigana: 'こうえんかい',
@@ -21135,7 +21135,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1505',
-        front: '食事会 (しょくじかい)',
+        front: '食事会',
         back: 'birga ovqatlanish kechasi, ziyofat',
         romaji: 'shokujikai',
         furigana: 'しょくじかい',
@@ -21146,7 +21146,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1506',
-        front: '説明会 (せつめいかい)',
+        front: '説明会',
         back: "tushuntirish yig'ilishi, brifing",
         romaji: 'setsumeikai',
         furigana: 'せつめいかい',
@@ -21157,7 +21157,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1507',
-        front: '町内会 (ちょうないかい)',
+        front: '町内会',
         back: "mahalla qo'mitasi, mahalla kengashi",
         romaji: 'chounaikai',
         furigana: 'ちょうないかい',
@@ -21168,7 +21168,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1508',
-        front: '展覧会 (てんらんかい)',
+        front: '展覧会',
         back: "ko'rgazma",
         romaji: 'tenrankai',
         furigana: 'てんらんかい',
@@ -21179,7 +21179,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1509',
-        front: '発表会 (はっぴょうかい)',
+        front: '発表会',
         back: 'taqdimot kechasi, hisobot konserti',
         romaji: 'happyoukai',
         furigana: 'はっぴょうかい',
@@ -21190,7 +21190,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1510',
-        front: '勉強会 (べんきょうかい)',
+        front: '勉強会',
         back: "o'quv to'garagi, dars mashg'uloti guruhi",
         romaji: 'benkyoukai',
         furigana: 'べんきょうかい',
@@ -21201,7 +21201,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1511',
-        front: '生き方 (いきかた)',
+        front: '生き方',
         back: "hayot tarzi, yashash yo'li",
         romaji: 'ikikata',
         furigana: 'いきかた',
@@ -21212,7 +21212,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1512',
-        front: '選び方 (えらびかた)',
+        front: '選び方',
         back: "tanlash usuli, tanlash yo'li",
         romaji: 'erabikata',
         furigana: 'えらびかた',
@@ -21223,7 +21223,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1513',
-        front: '考え方 (かんがえかた)',
+        front: '考え方',
         back: 'fikrlash tarzi, dunyoqarash',
         romaji: 'kangaekata',
         furigana: 'かんがえかた',
@@ -21234,7 +21234,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1514',
-        front: '使い方 (つかいかた)',
+        front: '使い方',
         back: 'ishlatish qoidasi, foydalanish usuli',
         romaji: 'tsukaikata',
         furigana: 'つかいかた',
@@ -21245,7 +21245,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1515',
-        front: '撮り方 (とりかた)',
+        front: '撮り方',
         back: 'suratga olish uslubi',
         romaji: 'torikata',
         furigana: 'とりかた',
@@ -21256,7 +21256,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1516',
-        front: 'やり方 (やりかた)',
+        front: 'やり方',
         back: "bajarish usuli, yo'l-yo'rig'i",
         romaji: 'yarikata',
         furigana: 'やりかた',
@@ -21267,7 +21267,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1517',
-        front: '教え方 (おしえかた)',
+        front: '教え方',
         back: "o'qitish uslubi, tushuntirish tarzi",
         romaji: 'oshiekata',
         furigana: 'おしえかた',
@@ -21278,7 +21278,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1518',
-        front: '建て方 (たてかた)',
+        front: '建て方',
         back: "qurilish usuli, qad ko'tarish uslubi",
         romaji: 'tatekata',
         furigana: 'たてかた',
@@ -21289,7 +21289,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1519',
-        front: '疲れ方 (つかれかた)',
+        front: '疲れ方',
         back: 'charchoq darajasi, toliqish holati',
         romaji: 'tsukarekata',
         furigana: 'つかれかた',
@@ -21300,7 +21300,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1520',
-        front: '褒め方 (ほめかた)',
+        front: '褒め方',
         back: "maqtash usuli, e'tirof etish tarzi",
         romaji: 'homekata',
         furigana: 'ほめかた',
@@ -21311,7 +21311,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1521',
-        front: '応接室 (おうせつしつ)',
+        front: '応接室',
         back: 'mehmonxona xonasi, qabulxona (idorada)',
         romaji: 'ousetsushitsu',
         furigana: 'おうせつしつ',
@@ -21322,7 +21322,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1522',
-        front: '会議室 (かいぎしつ)',
+        front: '会議室',
         back: "majlislar zali, yig'ilish xonasi",
         romaji: 'kaigishitsu',
         furigana: 'かいぎしつ',
@@ -21333,7 +21333,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1523',
-        front: '研究室 (けんきゅうしつ)',
+        front: '研究室',
         back: 'laboratoriya, professor xonasi',
         romaji: 'kenkyuushitsu',
         furigana: 'けんきゅうしつ',
@@ -21344,7 +21344,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1524',
-        front: 'コピー室 (こぴーしつ)',
+        front: 'コピー室',
         back: "nusxa ko'chirish xonasi",
         romaji: 'kopiishitsu',
         furigana: 'こぴーしつ',
@@ -21355,7 +21355,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1525',
-        front: 'コンピューター室 (こんぴゅーたーしつ)',
+        front: 'コンピューター室',
         back: 'kompyuter xonasi',
         romaji: 'konpyuutaa-shitsu',
         furigana: 'こんぴゅーたーしつ',
@@ -21366,7 +21366,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1526',
-        front: '事務室 (じむしつ)',
+        front: '事務室',
         back: "ofis, ma'muriyat xonasi, kantselyariya",
         romaji: 'jimushitsu',
         furigana: 'じむしつ',
@@ -21377,7 +21377,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1527',
-        front: '科学者 (かがくしゃ)',
+        front: '科学者',
         back: 'olim, fan arbobi',
         romaji: 'kagakusha',
         furigana: 'かがくしゃ',
@@ -21388,7 +21388,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1528',
-        front: '希望者 (きぼうしゃ)',
+        front: '希望者',
         back: 'istak bildiruvchi, talabgor',
         romaji: 'kibousha',
         furigana: 'きぼうしゃ',
@@ -21399,7 +21399,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1529',
-        front: '経験者 (けいけんしゃ)',
+        front: '経験者',
         back: 'tajribali kishi, amaliyoti bor shaxs',
         romaji: 'keikensha',
         furigana: 'けいけんしゃ',
@@ -21410,7 +21410,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1530',
-        front: '参加者 (さんかしゃ)',
+        front: '参加者',
         back: 'ishtirokchi, qatnashchi',
         romaji: 'sankasha',
         furigana: 'さんかしゃ',
@@ -21421,7 +21421,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1531',
-        front: '指導者 (しどうしゃ)',
+        front: '指導者',
         back: "rahbar, murabbiy, yo'l-yo'riq ko'rsatuvchi",
         romaji: 'shidousha',
         furigana: 'しどうしゃ',
@@ -21432,7 +21432,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1532',
-        front: '歩行者 (ほこうしゃ)',
+        front: '歩行者',
         back: 'piyoda',
         romaji: 'hokousha',
         furigana: 'ほこうしゃ',
@@ -21443,7 +21443,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1533',
-        front: '優勝者 (ゆうしょうしゃ)',
+        front: '優勝者',
         back: "chempion, g'olib",
         romaji: 'yuushousha',
         furigana: 'ゆうしょうしゃ',
@@ -21454,7 +21454,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1534',
-        front: '利用者 (りようしゃ)',
+        front: '利用者',
         back: "foydalanuvchi, iste'molchi",
         romaji: 'riyousha',
         furigana: 'りようしゃ',
@@ -21465,7 +21465,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1535',
-        front: '旅行者 (りょこうしゃ)',
+        front: '旅行者',
         back: 'sayyoh, sayohatchi',
         romaji: 'ryokousha',
         furigana: 'りょこうしゃ',
@@ -21476,7 +21476,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1536',
-        front: '教科書 (きょうかしょ)',
+        front: '教科書',
         back: 'darslik',
         romaji: 'kyoukasho',
         furigana: 'きょうかしょ',
@@ -21487,7 +21487,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1537',
-        front: '証明書 (しょうめいしょ)',
+        front: '証明書',
         back: "guvohnoma, ma'lumotnoma, sertifikat",
         romaji: 'shoumeisho',
         furigana: 'しょうめいしょ',
@@ -21498,7 +21498,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1538',
-        front: '申込書 (もうしこみしょ)',
+        front: '申込書',
         back: "ariza blankasi, ro'yxatdan o'tish varaqasi",
         romaji: 'moushikomisho',
         furigana: 'もうしこみしょ',
@@ -21509,7 +21509,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1539',
-        front: '集合時 (しゅうごうじ)',
+        front: '集合時',
         back: "yig'ilish vaqti",
         romaji: 'shuugouji',
         furigana: 'しゅうごうじ',
@@ -21520,7 +21520,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1540',
-        front: '日時 (にちじ)',
+        front: '日時',
         back: 'sana va vaqt',
         romaji: 'nichiji',
         furigana: 'にちじ',
@@ -21531,7 +21531,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1541',
-        front: '運動場 (うんどうじょう)',
+        front: '運動場',
         back: 'sport maydoni, stadion',
         romaji: 'undoujou',
         furigana: 'うんどうじょう',
@@ -21542,7 +21542,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1542',
-        front: '会場 (かいじょう)',
+        front: '会場',
         back: "tadbir o'tadigan joy, zal",
         romaji: 'kaijou',
         furigana: 'かいじょう',
@@ -21553,7 +21553,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1543',
-        front: 'スキー場 (すきーじょう)',
+        front: 'スキー場',
         back: "chang'i bazasi, tosh yo'lagi",
         romaji: 'sukiijou',
         furigana: 'すきーじょう',
@@ -21564,7 +21564,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1544',
-        front: '駐車場 (ちゅうしゃじょう)',
+        front: '駐車場',
         back: 'avtoturargoh, parkovka',
         romaji: 'chuushajou',
         furigana: 'ちゅうしゃじょう',
@@ -21575,7 +21575,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1545',
-        front: '聞き上手 (ききじょうず)',
+        front: '聞き上手',
         back: 'yaxshi tinglovchi, suhbatdoshini tinglashga usta',
         romaji: 'kikijouzu',
         furigana: 'ききじょうず',
@@ -21586,7 +21586,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1546',
-        front: '話し上手 (はなしじょうず)',
+        front: '話し上手',
         back: "so'zga usta, notiq, qiziq gapirib beruvchi",
         romaji: 'hanashijouzu',
         furigana: 'はなしじょうず',
@@ -21597,7 +21597,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1547',
-        front: '料理上手 (りょうりじょうず)',
+        front: '料理上手',
         back: 'pazanda, ovqat pishirishga mohir',
         romaji: 'ryourijouzu',
         furigana: 'りょうりじょうず',
@@ -21608,7 +21608,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1548',
-        front: '子ども達 (こどもたち)',
+        front: '子ども達',
         back: 'bolalar',
         romaji: 'kodomotachi',
         furigana: 'こどもたち',
@@ -21619,7 +21619,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1549',
-        front: '私達 (わたしたち)',
+        front: '私達',
         back: 'biz, bizlar',
         romaji: 'watashitachi',
         furigana: 'わたしたち',
@@ -21630,7 +21630,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1550',
-        front: '食事代 (しょくじだい)',
+        front: '食事代',
         back: 'ovqatlanish xarajati, ovqat puli',
         romaji: 'shokujidai',
         furigana: 'しょくじだい',
@@ -21641,7 +21641,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1551',
-        front: 'ホテル代 (ほてるだい)',
+        front: 'ホテル代',
         back: "mehmonxona to'lovi, yotoqxona puli",
         romaji: 'hoterudai',
         furigana: 'ほてるだい',
@@ -21652,7 +21652,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1552',
-        front: '温泉地 (おんせんち)',
+        front: '温泉地',
         back: 'issiq buloqli kurort hududi',
         romaji: 'onsenchii',
         furigana: 'おんせんち',
@@ -21663,7 +21663,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1553',
-        front: '中心地 (ちゅうしんち)',
+        front: '中心地',
         back: "shahar markazi, qoq o'rtasi",
         romaji: 'chuushinchi',
         furigana: 'ちゅうしんち',
@@ -21674,7 +21674,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1554',
-        front: '観光地 (かんこうち)',
+        front: '観光地',
         back: 'sayyohlik maskani, diqqatga sazovor joy',
         romaji: 'kankouchi',
         furigana: 'かんこうち',
@@ -21685,7 +21685,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1555',
-        front: '世界中 (せかいじゅう)',
+        front: '世界中',
         back: "butun dunyo, yer yuzi bo'ylab",
         romaji: 'sekaijuu',
         furigana: 'せかいじゅう',
@@ -21696,7 +21696,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1556',
-        front: '期間中 (きかんちゅう)',
+        front: '期間中',
         back: 'belgilangan muddat davomida',
         romaji: 'kikanchuu',
         furigana: 'きかんちゅう',
@@ -21707,7 +21707,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1557',
-        front: '建設中 (けんせつちゅう)',
+        front: '建設中',
         back: 'qurilayotgan, qurilish bosqichida',
         romaji: 'kensetsuchuu',
         furigana: 'けんせつちゅう',
@@ -21718,7 +21718,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1558',
-        front: '工事中 (こうじちゅう)',
+        front: '工事中',
         back: "ta'mirlash ketmoqda, yo'l ta'mirda",
         romaji: 'koujichuu',
         furigana: 'こうじちゅう',
@@ -21729,7 +21729,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1559',
-        front: '今週中 (こんしゅうちゅう)',
+        front: '今週中',
         back: 'shu hafta ichida',
         romaji: 'konshuuchuu',
         furigana: 'こんしゅうちゅう',
@@ -21740,7 +21740,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1560',
-        front: '滞在中 (たいざいちゅう)',
+        front: '滞在中',
         back: 'yashab turgan paytda, safar davomida',
         romaji: 'taizaichuu',
         furigana: 'たいざいちゅう',
@@ -21751,7 +21751,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1561',
-        front: '留学中 (りゅうがくちゅう)',
+        front: '留学中',
         back: 'chet elda tahsil olayotgan vaqtda',
         romaji: 'ryuugakuchuu',
         furigana: 'りゅうがくちゅう',
@@ -21762,7 +21762,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1562',
-        front: '一流店 (いちりゅうてん)',
+        front: '一流店',
         back: "birinchi toifali nufuzli do'kon/restoran",
         romaji: 'ichiryuuten',
         furigana: 'いちりゅうてん',
@@ -21773,7 +21773,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1563',
-        front: '家具店 (かぐてん)',
+        front: '家具店',
         back: "mebel do'koni",
         romaji: 'kaguten',
         furigana: 'かぐてん',
@@ -21784,7 +21784,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1564',
-        front: '喫茶店 (きっさてん)',
+        front: '喫茶店',
         back: 'qahvaxona, kofexona',
         romaji: 'kissaten',
         furigana: 'きっさてん',
@@ -21795,7 +21795,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1565',
-        front: '専門店 (せんもんてん)',
+        front: '専門店',
         back: "ixtisoslashgan maxsus do'kon",
         romaji: 'senmonten',
         furigana: 'せんもんてん',
@@ -21806,7 +21806,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1566',
-        front: '電気店 (でんきてん)',
+        front: '電気店',
         back: "maishiy texnika va elektronika do'koni",
         romaji: 'denkiten',
         furigana: 'でんきてん',
@@ -21817,7 +21817,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1567',
-        front: '館内 (かんない)',
+        front: '館内',
         back: 'bino ichi, muzey/kutubxona ichkarisi',
         romaji: 'kannai',
         furigana: 'かんない',
@@ -21828,7 +21828,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1568',
-        front: '市内 (しない)',
+        front: '市内',
         back: 'shahar ichi, shahar hududi',
         romaji: 'shinai',
         furigana: 'しない',
@@ -21839,7 +21839,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1569',
-        front: '車内 (しゃない)',
+        front: '車内',
         back: 'poyezd/mashina ichi, vagon ichkarisi',
         romaji: 'shanai',
         furigana: 'しゃない',
@@ -21850,7 +21850,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1570',
-        front: '時間内 (じかんない)',
+        front: '時間内',
         back: 'belgilangan vaqt ichida',
         romaji: 'jikannai',
         furigana: 'じかんない',
@@ -21861,7 +21861,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1571',
-        front: '店内 (てんない)',
+        front: '店内',
         back: "do'kon ichi, restoran ichkarisi",
         romaji: 'tennai',
         furigana: 'てんない',
@@ -21872,7 +21872,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1572',
-        front: '売り場 (うりば)',
+        front: '売り場',
         back: "savdo bo'limi, rasta",
         romaji: 'uriba',
         furigana: 'うりば',
@@ -21883,7 +21883,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1573',
-        front: 'ごみ置き場 (ごみおきば)',
+        front: 'ごみ置き場',
         back: 'chiqindixona, axlat tashlash joyi',
         romaji: 'gomiokiba',
         furigana: 'ごみおきば',
@@ -21894,7 +21894,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1574',
-        front: '乗り場 (のりば)',
+        front: '乗り場',
         back: 'transportga minish joyi, bekat',
         romaji: 'noriba',
         furigana: 'のりば',
@@ -21905,7 +21905,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1575',
-        front: '暗証番号 (あんしょうばんごう)',
+        front: '暗証番号',
         back: 'maxfiy PIN kod, parolli raqam',
         romaji: 'anshoubangou',
         furigana: 'あんしょうばんごう',
@@ -21916,7 +21916,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1576',
-        front: '電話番号 (でんわばんごう)',
+        front: '電話番号',
         back: 'telefon raqami',
         romaji: 'denwabangou',
         furigana: 'でんわばんごう',
@@ -21927,7 +21927,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1577',
-        front: '予約番号 (よやくばんごう)',
+        front: '予約番号',
         back: 'bron raqami, buyurtma kodi',
         romaji: 'yoyakubangou',
         furigana: 'よやくばんごう',
@@ -21938,7 +21938,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1578',
-        front: '会費 (かいひ)',
+        front: '会費',
         back: "a'zolik badali, klub to'lovi",
         romaji: 'kaihi',
         furigana: 'かいひ',
@@ -21949,7 +21949,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1579',
-        front: '交通費 (こうつうひ)',
+        front: '交通費',
         back: "yo'l kira haqi, transport xarajati",
         romaji: 'koutsuuhi',
         furigana: 'こうつうひ',
@@ -21960,7 +21960,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1580',
-        front: '営業口 (えいぎょうぐち)',
+        front: '営業口',
         back: "mijozlar kirish eshigi, xizmat ko'rsatish kirishi",
         romaji: 'eigyouguchi',
         furigana: 'えいぎょうぐち',
@@ -21971,7 +21971,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1581',
-        front: '出発口 (しゅっぱつぐち)',
+        front: '出発口',
         back: "jo'nab ketish darvozasi (aeroportda)",
         romaji: 'shuppatsuguchi',
         furigana: 'しゅっぱつぐち',
@@ -21982,7 +21982,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1582',
-        front: '誕生日 (たんじょうび)',
+        front: '誕生日',
         back: "tug'ilgan kun",
         romaji: 'tanjoubi',
         furigana: 'たんじょうび',
@@ -21993,7 +21993,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1583',
-        front: '定休日 (ていきゅうび)',
+        front: '定休日',
         back: "muntazam dam olish kuni (do'konda)",
         romaji: 'teikyuubi',
         furigana: 'ていきゅうび',
@@ -22004,7 +22004,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1584',
-        front: '到着口 (とうちゃくぐち)',
+        front: '到着口',
         back: 'yetib kelish zali, kelish darvozasi',
         romaji: 'touchakuguchi',
         furigana: 'とうちゃくぐち',
@@ -22015,7 +22015,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1585',
-        front: '医学部 (いがくぶ)',
+        front: '医学部',
         back: 'tibbiyot fakulteti',
         romaji: 'igakubu',
         furigana: 'いがくぶ',
@@ -22026,7 +22026,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1586',
-        front: '営業部 (えいぎょうぶ)',
+        front: '営業部',
         back: 'savdo va marketing boshqarmasi',
         romaji: 'eigyoubu',
         furigana: 'えいぎょうぶ',
@@ -22037,7 +22037,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1587',
-        front: 'サッカー部 (さっかーぶ)',
+        front: 'サッカー部',
         back: "futbol to'garagi, futbol klubi",
         romaji: 'sakkaa-bu',
         furigana: 'さっかーぶ',
@@ -22048,7 +22048,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1588',
-        front: '食べ放題 (たべほうだい)',
+        front: '食べ放題',
         back: "cheksiz yeyish, 'shved stoli'",
         romaji: 'tabehoudai',
         furigana: 'たべほうだい',
@@ -22059,7 +22059,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1589',
-        front: '乗り放題 (のりほうだい)',
+        front: '乗り放題',
         back: 'cheksiz yurish chiptasi (metro/poyezdda)',
         romaji: 'norihoudai',
         furigana: 'のりほうだい',
@@ -22070,7 +22070,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1590',
-        front: '週末 (しゅうまつ)',
+        front: '週末',
         back: 'dam olish kunlari, hafta oxiri',
         romaji: 'shuumatsu',
         furigana: 'しゅうまつ',
@@ -22081,7 +22081,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1591',
-        front: '年末 (ねんまつ)',
+        front: '年末',
         back: 'yil oxiri',
         romaji: 'nenmatsu',
         furigana: 'ねんまつ',
@@ -22092,7 +22092,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1592',
-        front: '会社名 (かいしゃめい)',
+        front: '会社名',
         back: 'korxona nomi, kompaniya nomi',
         romaji: 'kaishamei',
         furigana: 'かいしゃめい',
@@ -22103,7 +22103,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1593',
-        front: '商品名 (しょうひんめい)',
+        front: '商品名',
         back: 'mahsulot nomi, tovar nomi',
         romaji: 'shouhinmei',
         furigana: 'しょうひんめい',
@@ -22114,7 +22114,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1594',
-        front: '生き物 (いきもの)',
+        front: '生き物',
         back: 'jonzot, tirik mavjudot',
         romaji: 'ikimono',
         furigana: 'いきもの',
@@ -22125,7 +22125,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1595',
-        front: '落とし物 (おとしもの)',
+        front: '落とし物',
         back: "tushirib qoldirilgan buyum, yo'qolgan narsa",
         romaji: 'otoshimono',
         furigana: 'おとしもの',
@@ -22136,7 +22136,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1596',
-        front: '買い物 (かいもの)',
+        front: '買い物',
         back: "xarid, bozor-o'char",
         romaji: 'kaimono',
         furigana: 'かいもの',
@@ -22147,7 +22147,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1597',
-        front: '品物 (しなもの)',
+        front: '品物',
         back: 'buyum, mahsulot, tovar',
         romaji: 'shinamono',
         furigana: 'しなもの',
@@ -22158,7 +22158,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1598',
-        front: '調べ物 (しらべもの)',
+        front: '調べ物',
         back: "ma'lumot qidirish, surishtiruv",
         romaji: 'shirabemono',
         furigana: 'しらべもの',
@@ -22169,7 +22169,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1599',
-        front: '洗濯物 (せんたくもの)',
+        front: '洗濯物',
         back: 'yuviladigan/yuvilgan kir',
         romaji: 'sentakumono',
         furigana: 'せんたくもの',
@@ -22180,7 +22180,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1600',
-        front: '食べ物 (たべもの)',
+        front: '食べ物',
         back: 'oziq-ovqat, taom',
         romaji: 'tabemono',
         furigana: 'たべもの',
@@ -22191,7 +22191,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1601',
-        front: '飲み物 (のみもの)',
+        front: '飲み物',
         back: 'ichimlik',
         romaji: 'nomimono',
         furigana: 'のみもの',
@@ -22202,7 +22202,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1602',
-        front: '乗り物 (のりもの)',
+        front: '乗り物',
         back: 'transport vositasi, miniladigan narsa',
         romaji: 'norimono',
         furigana: 'のりもの',
@@ -22213,7 +22213,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1603',
-        front: '持ち物 (もちもの)',
+        front: '持ち物',
         back: 'yonidagi buyumlar, yuk, anjomlar',
         romaji: 'mochimono',
         furigana: 'もちもの',
@@ -22224,7 +22224,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1604',
-        front: '忘れ物 (わすれもの)',
+        front: '忘れ物',
         back: 'unutilgan buyum, esdan chiqqan narsa',
         romaji: 'wasuremono',
         furigana: 'わすれもの',
@@ -22235,7 +22235,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1605',
-        front: 'ケーキ屋 (けーきや)',
+        front: 'ケーキ屋',
         back: "tort va pishiriqlar do'koni",
         romaji: 'keekiya',
         furigana: 'けーきや',
@@ -22246,7 +22246,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1606',
-        front: '写真屋 (しゃしんや)',
+        front: '写真屋',
         back: "fotostudiya, fotosurat do'koni",
         romaji: 'shashinya',
         furigana: 'しゃしんや',
@@ -22257,7 +22257,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1607',
-        front: '服屋 (ふくや)',
+        front: '服屋',
         back: "kiyim-kechak do'koni",
         romaji: 'fukuya',
         furigana: 'ふくや',
@@ -22268,7 +22268,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1608',
-        front: '不動産屋 (ふどうさんや)',
+        front: '不動産屋',
         back: "ko'chmas mulk agentligi, rieltor",
         romaji: "fudousan'ya",
         furigana: 'ふどうさんや',
@@ -22279,7 +22279,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1609',
-        front: '本屋 (ほんや)',
+        front: '本屋',
         back: "kitob do'koni",
         romaji: "hon'ya",
         furigana: 'ほんや',
@@ -22290,7 +22290,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1610',
-        front: '八百屋 (やおや)',
+        front: '八百屋',
         back: "sabzavot va meva do'koni",
         romaji: 'yaoya',
         furigana: 'やおや',
@@ -22301,7 +22301,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1611',
-        front: '教師用 (きょうしよう)',
+        front: '教師用',
         back: "o'qituvchilar uchun mo'ljallangan",
         romaji: 'kyoushiyou',
         furigana: 'きょうしよう',
@@ -22312,7 +22312,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1612',
-        front: 'ご自宅用 (ごじたくよう)',
+        front: 'ご自宅用',
         back: "uyda o'zi ishlatish uchun",
         romaji: 'gojitakuyou',
         furigana: 'ごじたくよう',
@@ -22323,7 +22323,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1613',
-        front: '使用料 (しようりょう)',
+        front: '使用料',
         back: "foydalanish to'lovi, ijara haqi",
         romaji: 'shiyouryou',
         furigana: 'しようりょう',
@@ -22334,7 +22334,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1614',
-        front: '送料 (そうりょう)',
+        front: '送料',
         back: 'yetkazib berish haqi, pochta xarajati',
         romaji: 'souryou',
         furigana: 'そうりょう',
@@ -22345,7 +22345,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1615',
-        front: '入園料 (にゅうえんりょう)',
+        front: '入園料',
         back: "bog'ga/hayvonot bog'iga kirish chipta to'lovi",
         romaji: 'nyuuenryou',
         furigana: 'にゅうえんりょう',
@@ -22356,7 +22356,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1616',
-        front: '汗をかく (あせをかく)',
+        front: '汗をかく',
         back: 'terlamoq, ter chiqmoq',
         romaji: 'ase o kaku',
         furigana: 'あせをかく',
@@ -22367,7 +22367,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1617',
-        front: '汗を流す (あせをながす)',
+        front: '汗を流す',
         back: "ter to'kmoq, astoydil mehnat qilmoq; dushda yuvinmoq",
         romaji: 'ase o nagasu',
         furigana: 'あせをながす',
@@ -22378,7 +22378,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1618',
-        front: '息をのむ (いきをのむ)',
+        front: '息をのむ',
         back: 'lol qolmoq, nafasini ichiga yutmoq (hayratdan)',
         romaji: 'iki o nomu',
         furigana: 'いきをのむ',
@@ -22389,7 +22389,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1619',
-        front: '一生懸命 (いっしょうけんめい)',
+        front: '一生懸命',
         back: 'bor kuchi bilan, sidqidildan, jon-jahdi bilan',
         romaji: 'isshoukenmei',
         furigana: 'いっしょうけんめい',
@@ -22400,7 +22400,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1620',
-        front: 'うそをつく (うそをつく)',
+        front: 'うそをつく',
         back: "yolg'on gapirmoq, aldash",
         romaji: 'uso o tsuku',
         furigana: 'うそをつく',
@@ -22411,7 +22411,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1621',
-        front: '生まれ変わる (うまれかわる)',
+        front: '生まれ変わる',
         back: "qayta tug'ilmoq; butunlay yangilanmoq",
         romaji: 'umarekawaru',
         furigana: 'うまれかわる',
@@ -22422,7 +22422,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1622',
-        front: '気がする (きがする)',
+        front: '気がする',
         back: 'tuyulmoq, shunday his qilmoq',
         romaji: 'ki ga suru',
         furigana: 'きがする',
@@ -22433,7 +22433,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1623',
-        front: '気が付く (きがつく)',
+        front: '気が付く',
         back: 'payqamoq, sezib qolmoq, anglamoq',
         romaji: 'ki ga tsuku',
         furigana: 'きがつく',
@@ -22444,7 +22444,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1624',
-        front: '気に入る (きにいる)',
+        front: '気に入る',
         back: "yoqmoq, ko'ngilga o'tirmoq",
         romaji: 'ki ni iru',
         furigana: 'きにいる',
@@ -22455,7 +22455,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1625',
-        front: '気にする (きにする)',
+        front: '気にする',
         back: "tashvishlanmoq, ko'ngilga olmoq, parvo qilmoq",
         romaji: 'ki ni suru',
         furigana: 'きにする',
@@ -22466,7 +22466,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1626',
-        front: '気になる (きになる)',
+        front: '気になる',
         back: "qiziqtirmoq, xavotir uyg'otmoq, ko'nglida turmoq",
         romaji: 'ki ni naru',
         furigana: 'きになる',
@@ -22477,7 +22477,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1627',
-        front: '手間をかける (てまをかける)',
+        front: '手間をかける',
         back: "ko'p mehnat sarflamoq, vaqt ajratib erinmay qilmoq",
         romaji: 'tema o kakeru',
         furigana: 'てまをかける',
@@ -22488,7 +22488,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1628',
-        front: '年を取る (としをとる)',
+        front: '年を取る',
         back: "yoshi ulg'aymoq, keksaymoq",
         romaji: 'toshi o toru',
         furigana: 'としをとる',
@@ -22499,7 +22499,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1629',
-        front: '気の毒 (きのどく)',
+        front: '気の毒',
         back: 'achinarli, rahm keladigan',
         romaji: 'kinodoku',
         furigana: 'きのどく',
@@ -22510,7 +22510,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1630',
-        front: '間に合う (まにあう)',
+        front: '間に合う',
         back: 'vaqtida ulgurmoq',
         romaji: 'maniau',
         furigana: 'まにあう',
@@ -22521,7 +22521,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1631',
-        front: '気を付ける (きをつける)',
+        front: '気を付ける',
         back: "ehtiyot bo'lmoq, diqqat qilmoq",
         romaji: 'ki o tsukeru',
         furigana: 'きをつける',
@@ -22532,7 +22532,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1632',
-        front: '身に付ける (みにつける)',
+        front: '身に付ける',
         back: "o'rganib olmoq, o'zlashtirmoq; taqmoq",
         romaji: 'mi ni tsukeru',
         furigana: 'みにつける',
@@ -22543,7 +22543,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1633',
-        front: '具合が悪い (ぐあいがわるい)',
+        front: '具合が悪い',
         back: "tobim yo'q, o'zimni yomon his qilyapman",
         romaji: 'guai ga warui',
         furigana: 'ぐあいがわるい',
@@ -22554,7 +22554,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1634',
-        front: '耳に入る (みみにはいる)',
+        front: '耳に入る',
         back: 'quloqqa chalinmoq, eshitilib qolmoq',
         romaji: 'mimi ni hairu',
         furigana: 'みみにはいる',
@@ -22565,7 +22565,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1635',
-        front: '調子が悪い (ちょうしがわるい)',
+        front: '調子が悪い',
         back: "ishlamay qolmoq, soz emas; tobi yo'q",
         romaji: 'choushi ga warui',
         furigana: 'ちょうしがわるい',
@@ -22576,7 +22576,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1636',
-        front: '目覚める (めざめる)',
+        front: '目覚める',
         back: "uyg'onmoq; qiziqishi uyg'onmoq",
         romaji: 'mezameru',
         furigana: 'めざめる',
@@ -22587,7 +22587,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1637',
-        front: '手が空く (てがあく)',
+        front: '手が空く',
         back: "qo'li bo'shamoq, ishi bitmoq",
         romaji: 'te ga aku',
         furigana: 'てがあく',
@@ -22598,7 +22598,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1638',
-        front: '手に入る (てにはいる)',
+        front: '手に入る',
         back: "qo'lga kiritmoq, topmoq, ega bo'lmoq",
         romaji: 'te ni hairu',
         furigana: 'てにはいる',
@@ -22609,7 +22609,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1639',
-        front: '面倒くさい (めんどうくさい)',
+        front: '面倒くさい',
         back: 'juda erinchoqlik keltiradigan, daxmazali',
         romaji: 'mendoukusai',
         furigana: 'めんどうくさい',
@@ -22620,7 +22620,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1640',
-        front: '明日 (あす) (あす)',
+        front: '明日',
         back: 'ertaga (rasmiy nutq ohangida)',
         romaji: 'asu',
         furigana: 'あす',
@@ -22631,7 +22631,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1641',
-        front: 'いらしてください (いらしてください)',
+        front: 'いらしてください',
         back: 'marhamat qilib keling / tashrif buyuring (hurmat shakli)',
         romaji: 'irashite kudasai',
         furigana: 'いらしてください',
@@ -22642,7 +22642,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1642',
-        front: 'いらっしゃいます (いらっしゃいます)',
+        front: 'いらっしゃいます',
         back: "borlar, keladilar, bo'ladilar (hurmat shakli: sonkeigo)",
         romaji: 'irasshaimasu',
         furigana: 'いらっしゃいます',
@@ -22653,7 +22653,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1643',
-        front: 'いらっしゃいませ (いらっしゃいませ)',
+        front: 'いらっしゃいませ',
         back: "xush kelibsiz! (do'kon va restoranda mijozlarga)",
         romaji: 'irasshaimase',
         furigana: 'いらっしゃいませ',
@@ -22664,7 +22664,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1644',
-        front: '伺います (うかがいます)',
+        front: '伺います',
         back: "boraman, kelaman; eshitaman, so'rayman (kamtarona: kenjougo)",
         romaji: 'ukagaimasu',
         furigana: 'うかがいます',
@@ -22675,7 +22675,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1645',
-        front: 'お預かりいたします (おあずかりいたします)',
+        front: 'お預かりいたします',
         back: 'qabul qilib olaman, saqlab beraman (kamtarona: kenjougo)',
         romaji: 'oazukari itashimasu',
         furigana: 'おあずかりいたします',
@@ -22686,7 +22686,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1646',
-        front: 'おいでになる (おいでになる)',
+        front: 'おいでになる',
         back: "tashrif buyurmoq, bormoq, bo'lmoq (hurmat shakli)",
         romaji: 'oide ni naru',
         furigana: 'おいでになる',
@@ -22697,7 +22697,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1647',
-        front: 'お帰りですか (おかえりですか)',
+        front: 'お帰りですか',
         back: 'uyingizga ketyapsizmi?, qaytyapsizmi? (xushmuomala)',
         romaji: 'okaeri desu ka',
         furigana: 'おかえりですか',
@@ -22708,7 +22708,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1648',
-        front: 'お聞きする (おききする)',
+        front: 'お聞きする',
         back: "so'ramoq, tinglamoq (kamtarona: kenjougo)",
         romaji: 'okiki suru',
         furigana: 'おききする',
@@ -22719,7 +22719,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1649',
-        front: 'お決まりでしょうか (おきまりでしょうか)',
+        front: 'お決まりでしょうか',
         back: 'tanladingizmi?, qaror qildingizmi? (restoranda)',
         romaji: 'okimari deshou ka',
         furigana: 'おきまりでしょうか',
@@ -22730,7 +22730,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1650',
-        front: 'お客様 / お客さん (おきゃくさま / おきゃくさん)',
+        front: 'お客様 / お客さん',
         back: 'hurmatli mehmon, mijoz',
         romaji: 'okyakusama / okyakusan',
         furigana: 'おきゃくさま / おきゃくさん',
@@ -22741,7 +22741,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1651',
-        front: 'お子様 / お子さん (おこさま / おこさん)',
+        front: 'お子様 / お子さん',
         back: 'farzand (birovning bolasiga nisbatan hurmat)',
         romaji: 'okosama / okosan',
         furigana: 'おこさま / おこさん',
@@ -22752,7 +22752,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1652',
-        front: 'お先 (おさき)',
+        front: 'お先',
         back: 'oldinroq (ishdan ketishda)',
         romaji: 'osaki',
         furigana: 'おさき',
@@ -22763,7 +22763,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1653',
-        front: 'お幸せに (おしあわせに)',
+        front: 'お幸せに',
         back: "baxtli bo'linglar! (to'yda qutlov)",
         romaji: 'oshiawase ni',
         furigana: 'おしあわせに',
@@ -22774,7 +22774,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1654',
-        front: 'お世話になっております (おせわになっております)',
+        front: 'お世話になっております',
         back: 'hamkorligingiz va yordamingiz uchun doimo tashakkur',
         romaji: 'osewa ni natte orimasu',
         furigana: 'おせわになっております',
@@ -22785,7 +22785,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1655',
-        front: 'お疲れさまです (おつかれさまです)',
+        front: 'お疲れさまです',
         back: 'charchamang!, mehnatingizga rahmat (hamkasblarga salom)',
         romaji: 'otsukaresama desu',
         furigana: 'おつかれさまです',
@@ -22796,7 +22796,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1656',
-        front: 'おっしゃる (おっしゃる)',
+        front: 'おっしゃる',
         back: 'aytmoq, demoq (hurmat shakli: 言う ning sonkeigosi)',
         romaji: 'ossharu',
         furigana: 'おっしゃる',
@@ -22807,7 +22807,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1657',
-        front: 'お伝えします (おつたえします)',
+        front: 'お伝えします',
         back: "yetkazib qo'yaman, bildiraman (kamtarona: kenjougo)",
         romaji: 'otsutae shimasu',
         furigana: 'おつたえします',
@@ -22818,7 +22818,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1658',
-        front: 'お願いします (おねがいします)',
+        front: 'お願いします',
         back: 'iltimos qilaman, shunday qilib bersangiz',
         romaji: 'onegai shimasu',
         furigana: 'おねがいします',
@@ -22829,7 +22829,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1659',
-        front: 'お待ちください (おまちください)',
+        front: 'お待ちください',
         back: 'iltimos, kutib turing',
         romaji: 'omachi kudasai',
         furigana: 'おまちください',
@@ -22840,7 +22840,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1660',
-        front: 'お待ちしております (おまちしております)',
+        front: 'お待ちしております',
         back: 'sizni intiqib kutib qolamiz (kamtarona va hurmatli)',
         romaji: 'omachi shite orimasu',
         furigana: 'おまちしております',
@@ -22851,7 +22851,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1661',
-        front: 'お見せください (おみせください)',
+        front: 'お見せください',
         back: "ko'rsatib yuboring (hurmatli iltimos)",
         romaji: 'omise kudasai',
         furigana: 'おみせください',
@@ -22862,7 +22862,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1662',
-        front: 'お目にかかる (おめにかかる)',
+        front: 'お目にかかる',
         back: "uchrashmoq, ko'rishmoq (kamtarona: 会う ning kenjougosi)",
         romaji: 'ome ni kakaru',
         furigana: 'おめにかかる',
@@ -22873,7 +22873,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1663',
-        front: 'お持ちください (おもちください)',
+        front: 'お持ちください',
         back: "o'zingiz bilan olib keling (hurmatli iltimos)",
         romaji: 'omochi kudasai',
         furigana: 'おもちください',
@@ -22884,7 +22884,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1664',
-        front: 'お渡しする (おわたしする)',
+        front: 'お渡しする',
         back: 'topshirmoq, bermoq (kamtarona: kenjougo)',
         romaji: 'owatashi suru',
         furigana: 'おわたしする',
@@ -22895,7 +22895,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1665',
-        front: '構いません (かまいません)',
+        front: '構いません',
         back: "zarari yo'q, mayli, hechqisi yo'q",
         romaji: 'kamaimasen',
         furigana: 'かまいません',
@@ -22906,7 +22906,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1666',
-        front: '結構です (けっこうです)',
+        front: '結構です',
         back: "yaxshi, ma'qul; yo'q, shart emas",
         romaji: 'kekkou desu',
         furigana: 'けっこうです',
@@ -22917,7 +22917,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1667',
-        front: 'ご遠慮ください (ごえんりょください)',
+        front: 'ご遠慮ください',
         back: "iltimos, qilmang / o'zingizni tiying (muloyim taqiq)",
         romaji: 'goenryo kudasai',
         furigana: 'ごえんりょください',
@@ -22928,7 +22928,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1668',
-        front: 'ご存知 (ごぞんじ)',
+        front: 'ご存知',
         back: "bilmoq, xabardor bo'lmoq (hurmat shakli: 知っている ning sonkeigosi)",
         romaji: 'gozonji',
         furigana: 'ごぞんじ',
@@ -22939,7 +22939,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1669',
-        front: 'ごぶさたしております (ごぶさたしております)',
+        front: 'ごぶさたしております',
         back: 'ancha vaqtdan beri xabar ololmay xijolatdaman',
         romaji: 'gobusata shite orimasu',
         furigana: 'ごぶさたしております',
@@ -22950,7 +22950,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1670',
-        front: 'ご覧になる (ごらんになる)',
+        front: 'ご覧になる',
         back: "ko'rmoq, qaramoq (hurmat shakli: 見る ning sonkeigosi)",
         romaji: 'goran ni naru',
         furigana: 'ごらんになる',
@@ -22961,7 +22961,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1671',
-        front: '差し上げる (さしあげる)',
+        front: '差し上げる',
         back: 'taqdim etmoq, bermoq (kamtarona: あげる ning kenjougosi)',
         romaji: 'sashiageru',
         furigana: 'さしあげる',
@@ -22972,7 +22972,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1672',
-        front: '失礼します (しつれいします)',
+        front: '失礼します',
         back: 'kechirasiz, ruxsatingiz bilan (kirishda yoki ketishda)',
         romaji: 'shitsurei shimasu',
         furigana: 'しつれいします',
@@ -22983,7 +22983,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1673',
-        front: '失礼ですが (しつれいですが)',
+        front: '失礼ですが',
         back: 'aybga buyurmasangiz, kechirasiz-u (savol oldidan)',
         romaji: 'shitsurei desu ga',
         furigana: 'しつれいですが',
@@ -22994,7 +22994,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1674',
-        front: '少々 (しょうしょう)',
+        front: '少々',
         back: 'bir oz, ozgina (rasmiy muloyim nutqda)',
         romaji: 'shoushou',
         furigana: 'しょうしょう',
@@ -23005,7 +23005,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1675',
-        front: '承知しました (しょうちしました)',
+        front: '承知しました',
         back: "tushundim, ma'qul, xo'p bo'ladi (kamtarona tasdiq)",
         romaji: 'shouchi shimashita',
         furigana: 'しょうちしました',
@@ -23016,7 +23016,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1676',
-        front: 'すみません (すみません)',
+        front: 'すみません',
         back: 'kechirasiz, uzr; rahmat',
         romaji: 'sumimasen',
         furigana: 'すみません',
@@ -23027,7 +23027,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1677',
-        front: '〜と申します (〜ともうします)',
+        front: '〜と申します',
         back: "ismim ... deb ataladi (kamtarona o'zini tanishtirish)",
         romaji: '~ to moushimasu',
         furigana: '〜ともうします',
@@ -23038,7 +23038,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1678',
-        front: 'どうぞ (どうぞ)',
+        front: 'どうぞ',
         back: 'marhamat, bemalol',
         romaji: 'douzo',
         furigana: 'どうぞ',
@@ -23049,7 +23049,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1679',
-        front: 'どちら様 (どちらさま)',
+        front: 'どちら様',
         back: "kim ekanlar? (kim so'zining juda xushmuomala shakli)",
         romaji: 'dochirasama',
         furigana: 'どちらさま',
@@ -23060,7 +23060,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1680',
-        front: 'どなた様 (どなたさま)',
+        front: 'どなた様',
         back: 'qaysi kishi?, qaysi inson? (juda hurmatli)',
         romaji: 'donatasama',
         furigana: 'どなたさま',
@@ -23071,7 +23071,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1681',
-        front: '拝見いたします (はいけんいたします)',
+        front: '拝見いたします',
         back: "ko'rib chiqaman, ko'zdan kechiraman (kamtarona: kenjougo)",
         romaji: 'haiken itashimasu',
         furigana: 'はいけんいたします',
@@ -23082,7 +23082,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1682',
-        front: '皆様 (みなさま)',
+        front: '皆様',
         back: 'barchangiz, azizlarim (juda hurmatli)',
         romaji: 'minasama',
         furigana: 'みなさま',
@@ -23093,7 +23093,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1683',
-        front: '召し上がってください (めしあがってください)',
+        front: '召し上がってください',
         back: 'tanovul qiling, oling (hurmat shakli)',
         romaji: 'meshiagatte kudasai',
         furigana: 'めしあがってください',
@@ -23104,8 +23104,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1684',
-        front:
-          '申し訳ありません / 申し訳ございません (もうしわけありません / もうしわけございません)',
+        front: '申し訳ありません / 申し訳ございません',
         back: 'ming bor uzr, xijolatdaman (juda rasmiy uzr)',
         romaji: 'moushiwake arimasen / moushiwake gozaimasen',
         furigana: 'もうしわけありません / もうしわけございません',
@@ -23116,7 +23115,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1685',
-        front: 'よろしいでしょうか (よろしいでしょうか)',
+        front: 'よろしいでしょうか',
         back: "maylimi?, ma'qulmi? (xushmuomala ruxsat so'rash)",
         romaji: 'yoroshii deshou ka',
         furigana: 'よろしいでしょうか',
@@ -23127,7 +23126,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1686',
-        front: '私 (わたくし) (わたくし)',
+        front: '私',
         back: "kamina, men (o'ta rasmiy kamtarona olmosh)",
         romaji: 'watakushi',
         furigana: 'わたくし',
@@ -23138,7 +23137,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1687',
-        front: '〜位 (〜い)',
+        front: '〜位',
         back: "~o'rin, ~daraja (musobaqada: 1-o'rin va h.k.)",
         romaji: '~i',
         furigana: '〜い',
@@ -23149,7 +23148,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1688',
-        front: '〜億 (〜おく)',
+        front: '〜億',
         back: '~yuz million (100 000 000)',
         romaji: '~oku',
         furigana: '〜おく',
@@ -23160,7 +23159,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1689',
-        front: '〜回 (〜かい)',
+        front: '〜回',
         back: '~marta, ~marotaba',
         romaji: '~kai',
         furigana: '〜かい',
@@ -23171,7 +23170,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1690',
-        front: '〜階 (〜かい)',
+        front: '〜階',
         back: '~qavat (binolarda)',
         romaji: '~kai',
         furigana: '〜かい',
@@ -23182,7 +23181,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1691',
-        front: '〜日間 (〜にちかん / 〜かかん)',
+        front: '〜日間',
         back: '~kun davomida',
         romaji: '~nichikan / ~kakan',
         furigana: '〜にちかん / 〜かかん',
@@ -23193,7 +23192,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1692',
-        front: '〜か月 (〜かげつ)',
+        front: '〜か月',
         back: '~oy davomida',
         romaji: '~kagetsu',
         furigana: '〜かげつ',
@@ -23204,7 +23203,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1693',
-        front: '〜巻 (〜かん)',
+        front: '〜巻',
         back: '~jild, ~tom (kitob, manga seriyasida)',
         romaji: '~kan',
         furigana: '〜かん',
@@ -23215,7 +23214,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1694',
-        front: '〜軒 (〜けん / 〜げん)',
+        front: '〜軒',
         back: "~ta uy, ~ta do'kon/bino",
         romaji: '~ken / ~gen',
         furigana: '〜けん / 〜げん',
@@ -23226,7 +23225,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1695',
-        front: '〜個 (〜こ)',
+        front: '〜個',
         back: '~dona (mayda narsalar, mevalar, qutilar)',
         romaji: '~ko',
         furigana: '〜こ',
@@ -23237,7 +23236,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1696',
-        front: '〜歳 (〜さい)',
+        front: '〜歳',
         back: '~yosh (inson yoshi)',
         romaji: '~sai',
         furigana: '〜さい',
@@ -23248,7 +23247,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1697',
-        front: '〜冊 (〜さつ)',
+        front: '〜冊',
         back: '~ta kitob, daftar, jild',
         romaji: '~satsu',
         furigana: '〜さつ',
@@ -23259,7 +23258,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1698',
-        front: '〜皿 (〜さら)',
+        front: '〜皿',
         back: '~tarelka, ~likopcha taom',
         romaji: '~sara',
         furigana: '〜さら',
@@ -23270,7 +23269,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1699',
-        front: '〜色 (〜しょく / 〜いろ)',
+        front: '〜色',
         back: '~xil rang',
         romaji: '~shoku / ~iro',
         furigana: '〜しょく / 〜いろ',
@@ -23281,7 +23280,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1700',
-        front: '〜字 (〜じ)',
+        front: '〜字',
         back: '~ta harf, ~ta iyeroglif/belgi',
         romaji: '~ji',
         furigana: '〜じ',
@@ -23292,7 +23291,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1701',
-        front: '〜時間 (〜じかん)',
+        front: '〜時間',
         back: '~soat davomida',
         romaji: '~jikan',
         furigana: '〜じかん',
@@ -23303,7 +23302,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1702',
-        front: '〜台 (〜だい)',
+        front: '〜台',
         back: '~ta texnika, avtomobil, kompyuter',
         romaji: '~dai',
         furigana: '〜だい',
@@ -23314,7 +23313,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1703',
-        front: '〜段 (〜だん)',
+        front: '〜段',
         back: "~pog'ona, ~zina; dzyudo/shaxmat darajasi",
         romaji: '~dan',
         furigana: '〜だん',
@@ -23325,7 +23324,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1704',
-        front: '〜週 (〜しゅう)',
+        front: '〜週',
         back: '~hafta; aylanma',
         romaji: '~shuu',
         furigana: '〜しゅう',
@@ -23336,7 +23335,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1705',
-        front: '〜点 (〜てん)',
+        front: '〜点',
         back: '~ball, ~ochko',
         romaji: '~ten',
         furigana: '〜てん',
@@ -23347,7 +23346,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1706',
-        front: '〜頭 (〜とう)',
+        front: '〜頭',
         back: '~bosh yirik hayvon (sigir, ot, fil, sher)',
         romaji: '~tou',
         furigana: '〜とう',
@@ -23358,7 +23357,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1707',
-        front: '〜度 (〜ど)',
+        front: '〜度',
         back: '~marta; ~harorat darajasi (gradus)',
         romaji: '~do',
         furigana: '〜ど',
@@ -23369,7 +23368,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1708',
-        front: '〜年目 (〜ねんめ)',
+        front: '〜年目',
         back: '~inchi yil (davr ketma-ketligida)',
         romaji: '~nenme',
         furigana: '〜ねんめ',
@@ -23380,7 +23379,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1709',
-        front: '〜杯 (〜はい / 〜ばい / 〜ぱい)',
+        front: '〜杯',
         back: '~finjon, ~stakan, ~piyola suyuqlik',
         romaji: '~hai / ~bai / ~pai',
         furigana: '〜はい / 〜ばい / 〜ぱい',
@@ -23391,7 +23390,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1710',
-        front: '〜泊〜日 (〜はく〜か / 〜はく〜にち)',
+        front: '〜泊〜日',
         back: '~kecha ~kunduz (sayohat muddati)',
         romaji: '~haku ~ka / ~haku ~nichi',
         furigana: '〜はく〜か / 〜はく〜にち',
@@ -23402,7 +23401,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1711',
-        front: '〜箱 (〜はこ / 〜ばこ)',
+        front: '〜箱',
         back: '~quti',
         romaji: '~hako / ~bako',
         furigana: '〜はこ / 〜ばこ',
@@ -23413,7 +23412,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1712',
-        front: '〜番 (〜ばん)',
+        front: '〜番',
         back: '~raqam, ~tartib raqami',
         romaji: '~ban',
         furigana: '〜ばん',
@@ -23424,7 +23423,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1713',
-        front: '〜匹 (〜ひき / 〜びき / 〜ぴき)',
+        front: '〜匹',
         back: '~ta mayda hayvon (mushuk, it, baliq)',
         romaji: '~hiki / ~biki / ~piki',
         furigana: '〜ひき / 〜びき / 〜ぴき',
@@ -23435,7 +23434,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1714',
-        front: '〜秒 (〜びょう)',
+        front: '〜秒',
         back: '~soniya',
         romaji: '~byou',
         furigana: '〜びょう',
@@ -23446,7 +23445,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1715',
-        front: '〜分 (〜ふん / 〜ぷん)',
+        front: '〜分',
         back: '~daqiqa; ulush',
         romaji: '~fun / ~pun',
         furigana: '〜ふん / 〜ぷん',
@@ -23457,7 +23456,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1716',
-        front: '〜部 (〜ぶ)',
+        front: '〜部',
         back: "~nusxa (gazeta, jurnallar); bo'lim",
         romaji: '~bu',
         furigana: '〜ぶ',
@@ -23468,7 +23467,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1717',
-        front: '〜分の〜 (〜ぶんの〜)',
+        front: '〜分の〜',
         back: '~dan bir qism, kasr (uchdan bir: 3分の1)',
         romaji: '~bun no ~',
         furigana: '〜ぶんの〜',
@@ -23479,7 +23478,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1718',
-        front: '〜本 (〜ほん / 〜ぼん / 〜ぽん)',
+        front: '〜本',
         back: '~dona uzun narsa (qalam, shisha idish, daraxt, poyezd)',
         romaji: '~hon / ~bon / ~pon',
         furigana: '〜ほん / 〜ぼん / 〜ぽん',
@@ -23490,7 +23489,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1719',
-        front: '〜枚 (〜まい)',
+        front: '〜枚',
         back: "~varaqa, ~dona yupqa yassi buyum (qog'oz, kiyim, likop)",
         romaji: '~mai',
         furigana: '〜まい',
@@ -23501,7 +23500,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1720',
-        front: '〜名様 (〜めいさま)',
+        front: '〜名様',
         back: '~nafar hurmatli kishi/mehmon',
         romaji: '~meisama',
         furigana: '〜めいさま',
@@ -23512,7 +23511,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n3-v1721',
-        front: '〜割 (〜わり)',
+        front: '〜割',
         back: "~o'n foiz, ulush (masalan, 3割 = 30%)",
         romaji: '~wari',
         furigana: '〜わり',
@@ -23532,7 +23531,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
     cards: [
       {
         id: 'n3-k1',
-        front: '準備 (じゅんび - Junbi)',
+        front: '準備',
         back: 'Tayyorgarlik, Hozirlik (Preparation)',
         romaji: 'junbi',
         level: 'N3',
@@ -23541,7 +23540,7 @@ export const JLPT_PRESET_DECKS: JlptPresetDeck[] = [
       },
       {
         id: 'n2-k2',
-        front: '一生懸命 (いっしょうけんめい)',
+        front: '一生懸命',
         back: "Bor kuch bilan shug'ullanish / Harakat qilish (With utmost effort)",
         romaji: 'isshoukenmei',
         level: 'N2',
