@@ -31,26 +31,44 @@ export const JAPANESE_N1_LESSONS: Lesson[] = [
           vocabulary: [
             {
               term: 'いかなる',
-              reading: 'Ikanaru',
-              meaning: "Har qanday / Qanday bo'lmasin (oliy adabiy)",
-              exampleSentence: 'いかなる 困難[こんなん]にも 屈[くっ]しない。',
-              exampleTranslation: "Har qanday qiyinchilikka bo'ysunmaslik.",
+              reading: 'ikanaru',
+              meaning: 'Har qanday, qanday boʻlishidan qatʼi nazar (oliy adabiy)',
+              exampleSentence: 'いかなる 困難[こんなん]にも 屈[くっ]しない 覚悟[かくご]だ。',
+              exampleTranslation: 'Har qanday qiyinchilikka boʻysunmaslikka qatʼiy ahd qildim.',
             },
             {
               term: '屈[くっ]する',
-              reading: 'Kussuru',
-              meaning: "Tiz cho'kmoq / Bo'ysunmoq",
-              exampleSentence: '圧力[あつりょく]に 屈[くっ]する。',
-              exampleTranslation: "Bosimga bo'ysunmoq.",
+              reading: 'kussuru',
+              meaning: 'Tiz choʻkmoq, taslim boʻlmoq, boʻysunmoq',
+              exampleSentence:
+                '理不尽[りふじん]な 権力[けんりょく]の 圧力[あつりょく]に 屈[くっ]してはならない。',
+              exampleTranslation: 'Noinsoniy hokimiyat bosimiga boʻysunmaslik darkor.',
             },
             {
-              term: '妥協[だきょう]を許さない',
-              reading: 'Dakyou o yurusanai',
-              meaning: 'Kelishuvga bormaydigan, murosasiz darajada sifat talabchan',
+              term: '不撓[ふとう]不屈[ふくつ]',
+              reading: 'futoufukutsu',
+              meaning: 'Sinmas iroda, yengilmas sabr-matonat',
               exampleSentence:
-                '品質[ひんしつ]に対[たい]して 妥協[だきょう]を 許[ゆる]さない 姿勢[しせい]を 貫[つらぬ]く。',
+                '不撓[ふとう]不屈[ふくつ]の 精神[せいしん]で 研究[けんきゅう]を 成[な]し遂[と]げた。',
               exampleTranslation:
-                'Sifat masalasida aslo murosaga bormaydigan qatʼiy yondashuvni saqlaydi.',
+                'Yengilmas iroda va matonat bilan ilmiy tadqiqotni nihoyasiga yetkazdi.',
+            },
+            {
+              term: '超越[ちょうえつ]する',
+              reading: 'chouetsu suru',
+              meaning: 'Chegaralardan oshib oʻtmoq, transsendent boʻlmoq',
+              exampleSentence:
+                '国境[こっきょう]や 言語[げんご]の 壁[かべ]を 超越[ちょうえつ]した 絆[きずな]。',
+              exampleTranslation:
+                'Davlat chegaralari va til toʻsiqlaridan baland turuvchi qardoshlik rishtasi.',
+            },
+            {
+              term: '普遍[ふへん]的[てき]な',
+              reading: 'fuhenteki na',
+              meaning: 'Umumbashariy, hamma joyda oʻzgarmas',
+              exampleSentence:
+                '人間[にんげん]の 尊厳[そんげん]は 普遍[ふへん]的[てき]な 価値[かち]で ある。',
+              exampleTranslation: 'Inson qadr-qimmati umumbashariy qadriyatdir.',
             },
           ],
           grammarRules: [
@@ -195,28 +213,48 @@ export const JAPANESE_N1_LESSONS: Lesson[] = [
             "1. 〜たるもの (Ot + taru mono): Boshqaruvchi, olim yoki rahbar kabi yuqori maqom egasi qanday bo'lishi shartligini bildiradi: 医者[いしゃ]たるもの、患者[かんじゃ]の 命[いのち]を 最優先[さいゆうせん]に すべきだ (Shifokor degan zot bemor hayotini eng birinchi o'ringa qo'yishi shart). 2. 〜まじき (Fe'l lug'at shakli + majiki + Ot): Ushbu kasb yoki maqomdagi inson uchun mutlaqo kechirib bo'lmas xato: 政治家[せいじか]として あるまじき 発言[はつげん] (Siyosatchi uchun mutlaqo yarashmaydigan/kechirilmas bayonot).",
           vocabulary: [
             {
-              term: '発言[はつげん]',
-              reading: 'Hatsugen',
-              meaning: 'Rasmiy bayonot / Fikr bildirish',
-              exampleSentence: '無責任[むせきにん]な 発言[はつげん]。',
-              exampleTranslation: "Mas'uliyatsiz bayonot.",
-            },
-            {
-              term: '妥協[だきょう]を許さない',
-              reading: 'Dakyou o yurusanai',
-              meaning: 'Kelishuvga bormaydigan, murosasiz darajada sifat talabchan',
+              term: '責務[せきむ]',
+              reading: 'sekimu',
+              meaning: 'Muqaddas burch, yuksak masʼuliyat',
               exampleSentence:
-                '品質[ひんしつ]に対[たい]して 妥協[だきょう]を 許[ゆる]さない 姿勢[しせい]を 貫[つらぬ]く。',
+                '指導[しどう]者[しゃ]たる者、社会[しゃかい]への 責務[せきむ]を 果[は]たすべきだ。',
               exampleTranslation:
-                'Sifat masalasida aslo murosaga bormaydigan qatʼiy yondashuvni saqlaydi.',
+                'Rahbarlik maqomidagi inson jamiyat oldidagi muqaddas burchini ado etishi shart.',
             },
             {
-              term: '精通[せいつう]している',
-              reading: 'Seitsuu shite iru',
-              meaning: 'Bir sohani mukammal, ipidan ignasigacha bilmoq',
+              term: '品格[ひんかく]',
+              reading: 'hinkaku',
+              meaning: 'Olijanoblik, sharaf, yuksak maʼnaviyat',
               exampleSentence:
-                '彼[かれ]は 日本[にほん]の 古典[こてん]文学[ぶんがく]に 精通[せいつう]しています。',
-              exampleTranslation: 'U yapon klassik adabiyotini mukammal darajada biladi.',
+                'いかなる 状況[じょうきょう]でも 学者[がくしゃ]としての 品格[ひんかく]を 保[たも]つ。',
+              exampleTranslation: 'Har qanday vaziyatda ham olimlik shaʼn-sharafini saqlamoq.',
+            },
+            {
+              term: 'あるまじき',
+              reading: 'arumajiki',
+              meaning: 'Aslo yoʻl qoʻyib boʻlmaydigan, nomaqbul',
+              exampleSentence:
+                '医療[いりょう]従事[じゅうじ]者[しゃ]として あるまじき 暴言[ぼうげん]を 吐[は]く。',
+              exampleTranslation:
+                'Tibbiyot xodimiga aslo yarashmaydigan qoʻpol soʻzlarni ishlatmoq.',
+            },
+            {
+              term: '襟[えり]を 正[ただ]す',
+              reading: 'eri o tadasu',
+              meaning: 'Oʻzini oʻnglab olmoq, jiddiy xushyor tortmoq',
+              exampleSentence:
+                '先輩[せんぱい]の 厳[きび]しい 指導[しどう]に 襟[えり]を 正[ただ]した。',
+              exampleTranslation:
+                'Katta ustozning talabchan nasihatidan soʻng oʻzimni oʻnglab oldim.',
+            },
+            {
+              term: '自覚[じかく]を 促[うなが]す',
+              reading: 'jikaku o unagasu',
+              meaning: 'Masʼuliyatni anglashga undamoq',
+              exampleSentence:
+                '新任[しんにん]の 役員[やくいん]に リーダーとしての 自覚[じかく]を 促[うなが]す。',
+              exampleTranslation:
+                'Yangi tayinlangan boshqaruvchiga yetakchilik masʼuliyatini his qilishni uqtirmoq.',
             },
           ],
           grammarRules: [
@@ -363,26 +401,46 @@ export const JAPANESE_N1_LESSONS: Lesson[] = [
             "1. 〜ならでは (Ot + narade wa): Faqat shu joy, inson yoki san'atga xos takrorlanmas ajoyib xususiyat: 京都[きょうと]ならではの 伝統[でんとう]美[び] (Faqat Kiotoga xos an'anaviy go'zallik). 2. 〜をおいて他[ほか]にない: Bu vazifani bajarishga undan o'zga munosib yo'q: この大役[たいやく]を 果[は]たせるのは、彼[かれ]をおいて他[ほか]にない (Bu ulkan mas'uliyatni uddalay oladigan undan boshqa hech kim yo'q).",
           vocabulary: [
             {
-              term: '伝統[でんとう]美[び]',
-              reading: 'Dentoubi',
-              meaning: "An'anaviy go'zallik",
-              exampleSentence: '日本[にほん]の 伝統[でんとう]美[び]。',
-              exampleTranslation: "Yaponiyaning an'anaviy go'zalligi.",
-            },
-            {
-              term: '精通[せいつう]している',
-              reading: 'Seitsuu shite iru',
-              meaning: 'Bir sohani mukammal, ipidan ignasigacha bilmoq',
+              term: '唯一[ゆいいつ]無二[むに]',
+              reading: 'yuiitsumuni',
+              meaning: 'Yagona va tengsiz, betakror',
               exampleSentence:
-                '彼[かれ]は 日本[にほん]の 古典[こてん]文学[ぶんがく]に 精通[せいつう]しています。',
-              exampleTranslation: 'U yapon klassik adabiyotini mukammal darajada biladi.',
+                '彼[かれ]の 芸術[げいじゅつ]は 唯一[ゆいいつ]無二[むに]の 独創[どくそう]性[せい]を 誇[ほこ]る。',
+              exampleTranslation: 'Uning sanʼati betakror va tengsiz oʻziga xoslikka ega.',
             },
             {
-              term: '余儀[よぎ]なくされる',
-              reading: 'Yogi naku sareru',
-              meaning: 'Majbur boʻlib qolmoq (vaziyat taqozosi bilan)',
-              exampleSentence: '計画[けいかく]の 変更[へんこう]を 余儀[よぎ]なくされました。',
-              exampleTranslation: 'Rejani oʻzgartirishga majbur boʻldik.',
+              term: '真骨頂[しんこっちょう]',
+              reading: 'shinkocchou',
+              meaning: 'Haqiqiy asl mahorat, eng kuchli qirra',
+              exampleSentence:
+                '逆境[ぎゃっきょう]においてこそ、彼[かれ]の 真骨頂[しんこっちょう]が 発揮[はっき]される。',
+              exampleTranslation: 'Aynan ogʻir damlarda uning asl mahorati yaqqol namoyon boʻladi.',
+            },
+            {
+              term: '追随[ついずい]を 許[ゆる]さない',
+              reading: 'tsuizui o yurusanai',
+              meaning: 'Hech kim tenglasha olmaydigan, oʻzib ketgan',
+              exampleSentence:
+                '技術[ぎじゅつ]力[りょく]において 他社[たしゃ]の 追随[ついずい]を 許[ゆる]さない。',
+              exampleTranslation:
+                'Texnologik salohiyatda boshqa birorta kompaniyani yaqinlashtirmaydi.',
+            },
+            {
+              term: '専売[せんばい]特許[とっきょ]',
+              reading: 'sembaittokkyo',
+              meaning: 'Faqat bir kishiga xos odat/xususiyat',
+              exampleSentence:
+                '皮肉[ひにく]な 冗談[じょうだん]は 彼[かれ]の 専売[せんばい]特許[とっきょ]だ。',
+              exampleTranslation: 'Pichingli hazillar faqat uning oʻzigagina xos xususiyatdir.',
+            },
+            {
+              term: '極致[きょくち]',
+              reading: 'kyokuchi',
+              meaning: 'Eng oliy choʻqqi, kamolot nuqtasi',
+              exampleSentence:
+                '伝統[でんとう]工芸[こうげい]の 美[び]の 極致[きょくち]に 達[たっ]した 逸品[いっぴん]。',
+              exampleTranslation:
+                'Anʼanaviy hunarmandchilik goʻzalligining oliy choʻqqisiga yetgan shoh asar.',
             },
           ],
           grammarRules: [
@@ -528,27 +586,43 @@ export const JAPANESE_N1_LESSONS: Lesson[] = [
             "1. 〜ずくめ: Butunlay shu narsalardan iborat (ijobiy yoki qora rang kabi abstrakt hodisalar): 結構[けっこう]ずくめ (Faqat quvonchli xabarlar), 黒[くろ]ずくめの 服[ふく] (Toza qora kiyim). 2. 〜まみれ: Suyuqlik yoki ifloslikka badanning to'liq belanishi (yopishib qolish): 泥[どろ]まみれ (Loyga belangan), 血[ち]まみれ (Qonga belangan). 3. 〜だらけ: Yuzada juda ko'p tarqoq salbiy narsalar bo'lishi: 間違[まちが]いだらけ (Xatolarga to'la), ゴミだらけ (Chiqindiga to'la).",
           vocabulary: [
             {
-              term: '結構[けっこう]ずくめ',
-              reading: 'Kekkouzukume',
-              meaning: 'Faqat xushxabarlar / Ajoyib voqealar',
-              exampleSentence: '今年[ことし]は 結構[けっこう]ずくめの 1年[いちねん]だった。',
-              exampleTranslation: "Bu yil faqat quvonchli voqealarga boy bo'ldi.",
-            },
-            {
-              term: '余儀[よぎ]なくされる',
-              reading: 'Yogi naku sareru',
-              meaning: 'Majbur boʻlib qolmoq (vaziyat taqozosi bilan)',
-              exampleSentence: '計画[けいかく]の 変更[へんこう]を 余儀[よぎ]なくされました。',
-              exampleTranslation: 'Rejani oʻzgartirishga majbur boʻldik.',
-            },
-            {
-              term: '拍車[はくしゃ]をかける',
-              reading: 'Hakusha o kakeru',
-              meaning: 'Yana-da tezlashtirmoq, kuchaytirmoq',
+              term: '泥[どろ]まみれ',
+              reading: 'doromamire',
+              meaning: 'Boshdan-oyoq loyga belangan',
               exampleSentence:
-                '技術[ぎじゅつ]革新[かくしん]が 経済[けいざい]成長[せいちょう]に 拍車[はくしゃ]をかけました。',
-              exampleTranslation:
-                'Texnologik yangiliklar iqtisodiy oʻsishni yana-da jadallashtirdi.',
+                '子[こ]どもたちは 泥[どろ]まみれに なって サッカーに 興[きょう]じた。',
+              exampleTranslation: 'Bolalar boshdan-oyoq loyga botib futbol oʻynashga shoʻngʻishdi.',
+            },
+            {
+              term: '借金[しゃっきん]まみれ',
+              reading: 'shakkinmamire',
+              meaning: 'Qarzga botib ketgan',
+              exampleSentence:
+                '無謀[むぼう]な 投資[とうし]で 借金[しゃっきん]まみれに 陥[おちい]った。',
+              exampleTranslation: 'Oʻylanmagan sarmoyalar oqibatida qarz girdobiga botib qoldi.',
+            },
+            {
+              term: 'いいことずくめ',
+              reading: 'iikotozukume',
+              meaning: 'Barchasi ijobiy, faqat yaxshi xushxabarlar',
+              exampleSentence: '今月[こんげつ]は 昇進[しょうしん]も 決[き]まり いいことずくめだ。',
+              exampleTranslation: 'Bu oyda mansabim ham oshib, faqatgina xushxabarlar yogʻildi.',
+            },
+            {
+              term: '傷[きず]だらけ',
+              reading: 'kizudarake',
+              meaning: 'Gʻurra va jarohatlarga toʻla',
+              exampleSentence:
+                '過酷[かこく]な 練習[れんしゅう]で 体[からだ]が 傷[きず]だらけに なった。',
+              exampleTranslation: 'Ogʻir mashgʻulotlar tufayli butun vujudi jarohatlarga toʻldi.',
+            },
+            {
+              term: '埃[ほこり]まみれ',
+              reading: 'hokorimamire',
+              meaning: 'Chang bosib ketgan',
+              exampleSentence:
+                '物置[ものおき]の 奥[おく]から 埃[ほこり]まみれの アルバムを 見[み]つけた。',
+              exampleTranslation: 'Omborxona toʻridan chang bosgan eski fotoalbomni topib oldim.',
             },
           ],
           grammarRules: [
@@ -692,27 +766,49 @@ export const JAPANESE_N1_LESSONS: Lesson[] = [
           ],
           vocabulary: [
             {
-              term: '分節化[ぶんせつか]',
-              reading: 'Bunsetsuka',
-              meaning: "Bo'laklarga ajratib anglash (Strukturalizm)",
-              exampleSentence: '概念[がいねん]を 分節化[ぶんせつか]する。',
-              exampleTranslation: 'Tushunchalarni kategoriyalarga ajratmoq.',
-            },
-            {
-              term: '媒介[ばいかい]',
-              reading: 'Baikai',
-              meaning: "Vositachilik / Oraliq vosita bo'lish",
-              exampleSentence: '言葉[ことば]に 媒介[ばいかい]された 認識[にんしき]。',
-              exampleTranslation: 'Til vositasida shakllangan idrok.',
-            },
-            {
-              term: '妥協[だきょう]を許さない',
-              reading: 'Dakyou o yurusanai',
-              meaning: 'Kelishuvga bormaydigan, murosasiz darajada sifat talabchan',
+              term: '認識[にんしき]論',
+              reading: 'ninshikiron',
+              meaning: 'Epistemologiya, bilish nazariyasi (falsafa)',
               exampleSentence:
-                '品質[ひんしつ]に対[たい]して 妥協[だきょう]を 許[ゆる]さない 姿勢[しせい]を 貫[つらぬ]く。',
+                'カントの 認識[にんしき]論に おける 主観[しゅかん]と 客観[きゃっかん]の 関係[かんけい]を 論[ろん]ずる。',
               exampleTranslation:
-                'Sifat masalasida aslo murosaga bormaydigan qatʼiy yondashuvni saqlaydi.',
+                'Kant epistemologiyasidagi subyektivlik va obyektivlik munosabatini tahlil qilamiz.',
+            },
+            {
+              term: '解釈[かいしゃく]学',
+              reading: 'kaishakugaku',
+              meaning: 'Germenevtika (matn talqini ilmi)',
+              exampleSentence:
+                '近代[きんだい]解釈[かいしゃく]学の 手法[しゅほう]を 古典[こてん]テキストに 適用[てきよう]する。',
+              exampleTranslation:
+                'Zamonaviy germenevtika metodlarini qadimiy adabiy matnlarga tatbiq etamiz.',
+            },
+            {
+              term: '恣意[しい]的[てき]な',
+              reading: 'shiiteki na',
+              meaning: 'Erkin, oʻzboshimchalik bilan qilingan, tasodifiy',
+              exampleSentence:
+                '言語[げんご]記号[きごう]の 音声[おんせい]と 意味[いみ]の 結[むす]びつきは 恣意[しい]的[てき]で ある。',
+              exampleTranslation:
+                'Til belgilaridagi tovush va maʼno bogʻliqligi ixtiyoriy/shartlidir.',
+            },
+            {
+              term: '概念[がいねん]規定[きてい]',
+              reading: 'gainen kitei',
+              meaning: 'Tushunchaning falsafiy taʼrifi',
+              exampleSentence:
+                '厳密[げんみつ]な 概念[がいねん]規定[きてい]なしに 議論[ぎろん]を 進[すす]めることは できない。',
+              exampleTranslation:
+                'Aniq falsafiy tushuncha taʼrifisiz bahsni davom ettirib boʻlmaydi.',
+            },
+            {
+              term: '本質[ほんしつ]を 洞察[どうさつ]する',
+              reading: 'honshitsu o dousatsu suru',
+              meaning: 'Hodisaning tub mohiyatini chuqur fahmlamoq',
+              exampleSentence:
+                '表面[ひょうめん]の 事象[じしょう]に 惑[まど]わされず、物事[ものごと]の 本質[ほんしつ]を 洞察[どうさつ]する。',
+              exampleTranslation:
+                'Yuzaki hodisalarga chalgʻimay narsalarning tub asl mohiyatini chuqur fahmlamoq.',
             },
           ],
           grammarRules: [
@@ -857,26 +953,48 @@ export const JAPANESE_N1_LESSONS: Lesson[] = [
             '齟齬 (sogo - kelishmovchilik / uzviy ziddiyat), 乖離 (kairi - keskin uzilish / begonalashuv), 曖昧 (aimai - noaniq / mavhum), 矛盾 (mujun - ziddiyat / paradoks), 葛藤 (kattou - ichki ruhiy kurash).',
           vocabulary: [
             {
-              term: '齟齬[そご]',
-              reading: 'Sogo',
-              meaning: 'Ziddiyat / Mos kelmaslik',
-              exampleSentence: '両者[りょうしゃ]の 意見[いけん]に 齟齬[そご]が 生[しょう]じる。',
-              exampleTranslation: 'Ikkala tomon fikrida ziddiyat yuzaga keldi.',
-            },
-            {
-              term: '乖離[かいり]',
-              reading: 'Kairi',
-              meaning: "Keskin uzilish / Bog'liqlik yo'qolishi",
-              exampleSentence: '理想[りそう]と 現実[げんじつ]の 乖離[かいり]。',
-              exampleTranslation: "Orzu va haqiqat o'rtasidagi keskin uzilish.",
-            },
-            {
-              term: '精通[せいつう]している',
-              reading: 'Seitsuu shite iru',
-              meaning: 'Bir sohani mukammal, ipidan ignasigacha bilmoq',
+              term: '齟齬[そご]を きたす',
+              reading: 'sogo o kitasu',
+              meaning: 'Mos kelmaslik, ziddiyatga uchramoq',
               exampleSentence:
-                '彼[かれ]は 日本[にほん]の 古典[こてん]文学[ぶんがく]に 精通[せいつう]しています。',
-              exampleTranslation: 'U yapon klassik adabiyotini mukammal darajada biladi.',
+                '両者[りょうしゃ]の 認識[にんしき]の 間[あいだ]に 大[おお]きな 齟齬[そご]を きたした。',
+              exampleTranslation:
+                'Har ikki tomonning tushunchasi oʻrtasida katta ziddiyat kelib chiqdi.',
+            },
+            {
+              term: '乖離[かいり]が 著[いちじる]しい',
+              reading: 'kairi ga ichijirushii',
+              meaning: 'Oradagi masofa/tafovut nihoyatda katta',
+              exampleSentence:
+                '公約[こうやく]と 実際[じっさい]の 政策[せいさく]の 乖離[かいり]が 著[いちじる]しい。',
+              exampleTranslation:
+                'Saylovoldi vaʼdasi bilan amaldagi siyosat oʻrtasidagi tafovut nihoyatda katta.',
+            },
+            {
+              term: '葛藤[かっとう]を 抱[かか]える',
+              reading: 'kattou o kakaeru',
+              meaning: 'Ichki ziddiyat va iztirobda qolmoq',
+              exampleSentence:
+                '夢[ゆめ]と 現実[げんじつ]の 狭間[はざま]で 深[ふか]い 葛藤[かっとう]を 抱[かか]えている。',
+              exampleTranslation:
+                'Orzu va qattiq haqiqat oʻrtasida chuqur ichki iztirobni boshdan kechirmoqda.',
+            },
+            {
+              term: '曖昧[あいまい]模糊[もこ]',
+              reading: 'aimaimoko',
+              meaning: 'Nihoyatda tushunarsiz, xira, noaniq',
+              exampleSentence:
+                '曖昧[あいまい]模糊[もこ]とした 返答[へんとう]で 責任[せきにん]を 逃[のが]れる。',
+              exampleTranslation: 'Tushunarsiz va chigal javoblar bilan javobgarlikdan qochish.',
+            },
+            {
+              term: '自己[じこ]矛盾[むじゅん]',
+              reading: 'jikomujun',
+              meaning: 'Oʻz-oʻziga zid kelish',
+              exampleSentence:
+                '彼[かれ]の 主張[しゅちょう]は 自己[じこ]矛盾[むじゅん]に 陥[おちい]っている。',
+              exampleTranslation:
+                'Uning daʼvosi oʻz-oʻzini inkor qiladigan ziddiyatga botib qolgan.',
             },
           ],
           grammarRules: [
@@ -1011,25 +1129,45 @@ export const JAPANESE_N1_LESSONS: Lesson[] = [
             '憂慮 (yuuryo - chuqur tashvish/xavotir), 脆弱 (zeijaku - zaiflik/himoyasizlik), 覇権 (haken - gegemoniya/hukmronlik), 諮問 (shimon - rasmiy konsultatsiya/ekspert maslahati), 隠蔽 (inpei - faktlarni qasddan yashirish).',
           vocabulary: [
             {
-              term: '憂慮[ゆうりょ]',
-              reading: 'Yuuryo',
-              meaning: 'Chuqur tashvish / Xavotir',
-              exampleSentence: '事態[じたい]を 深[ふか]く 憂慮[ゆうりょ]する。',
-              exampleTranslation: 'Vaziyatdan chuqur xavotirdamiz.',
+              term: '憂慮[ゆうりょ]する',
+              reading: 'yuuryo suru',
+              meaning: 'Tashvishga tushmoq, jiddiy xavotir olmoq',
+              exampleSentence:
+                '国際[こくさい]情勢[じょうせい]の 悪化[あっか]を 深[ふか]く 憂慮[ゆうりょ]する。',
+              exampleTranslation: 'Xalqaro vaziyatning yomonlashuvidan jiddiy tashvishdamiz.',
             },
             {
-              term: '脆弱[ぜいじゃく]性',
-              reading: 'Zeijakusei',
-              meaning: 'Zaiflik / Omonatlik (Vulnerability)',
-              exampleSentence: 'システムの 脆弱[ぜいじゃく]性。',
-              exampleTranslation: 'Tizimning zaif tomoni.',
+              term: '脆弱[ぜいじゃく]な',
+              reading: 'zeijaku na',
+              meaning: 'Zaif, moʻrt, omonat',
+              exampleSentence:
+                'サイバー攻撃[こうげき]に 対[たい]して 脆弱[ぜいじゃく]な システム。',
+              exampleTranslation: 'Kiberhujumlarga qarshi himoyasi oʻta zaif boʻlgan tizim.',
             },
             {
-              term: '余儀[よぎ]なくされる',
-              reading: 'Yogi naku sareru',
-              meaning: 'Majbur boʻlib qolmoq (vaziyat taqozosi bilan)',
-              exampleSentence: '計画[けいかく]の 変更[へんこう]を 余儀[よぎ]なくされました。',
-              exampleTranslation: 'Rejani oʻzgartirishga majbur boʻldik.',
+              term: '諮問[しもん]機関[きかん]',
+              reading: 'shimon kikan',
+              meaning: 'Ekspert maslahat organi, konsullik kengashi',
+              exampleSentence:
+                '首相[しゅしょう]の 諮問[しもん]機関[きかん]が 改革[かいかく]案[あん]を 答申[とうしん]した。',
+              exampleTranslation:
+                'Bosh vazir huzuridagi maslahat organi islohotlar rejasini taqdim etdi.',
+            },
+            {
+              term: '覇権[はけん]を 握[にぎ]る',
+              reading: 'haken o nigiru',
+              meaning: 'Gegemonlikka erishmoq, yetakchilikni qoʻlga olmoq',
+              exampleSentence: '世界[せかい]経済[けいざい]の 覇権[はけん]を めぐる 争[あらそ]い。',
+              exampleTranslation: 'Jahon iqtisodiyotidagi gegemonlik ustida kechayotgan kurash.',
+            },
+            {
+              term: '隠蔽[いんぺい]工作[こうさく]',
+              reading: 'impeikousaku',
+              meaning: 'Haqiqatni yashirish fitnasi, dalillarni yoʻqotish',
+              exampleSentence:
+                '不祥事[ふしょうじ]の 隠蔽[いんぺい]工作[こうさく]が 発覚[はっかく]し 批判[ひはん]を 浴[あ]びた。',
+              exampleTranslation:
+                'Qonunbuzarlikni yashirishga qaratilgan fitna fosh boʻlib, qattiq tanqidga uchradi.',
             },
           ],
           grammarRules: [
@@ -1183,28 +1321,46 @@ export const JAPANESE_N1_LESSONS: Lesson[] = [
           ],
           vocabulary: [
             {
-              term: '精通[せいつう]している',
-              reading: 'Seitsuu shite iru',
-              meaning: 'Bir sohani mukammal, ipidan ignasigacha bilmoq',
+              term: '学術[がくじゅつ]講義[こうぎ]',
+              reading: 'gakujutsukougi',
+              meaning: 'Akademik ilmiy maʼruza',
               exampleSentence:
-                '彼[かれ]は 日本[にほん]の 古典[こてん]文学[ぶんがく]に 精通[せいつう]しています。',
-              exampleTranslation: 'U yapon klassik adabiyotini mukammal darajada biladi.',
-            },
-            {
-              term: '余儀[よぎ]なくされる',
-              reading: 'Yogi naku sareru',
-              meaning: 'Majbur boʻlib qolmoq (vaziyat taqozosi bilan)',
-              exampleSentence: '計画[けいかく]の 変更[へんこう]を 余儀[よぎ]なくされました。',
-              exampleTranslation: 'Rejani oʻzgartirishga majbur boʻldik.',
-            },
-            {
-              term: '拍車[はくしゃ]をかける',
-              reading: 'Hakusha o kakeru',
-              meaning: 'Yana-da tezlashtirmoq, kuchaytirmoq',
-              exampleSentence:
-                '技術[ぎじゅつ]革新[かくしん]が 経済[けいざい]成長[せいちょう]に 拍車[はくしゃ]をかけました。',
+                'ノーベル賞[しょう]受賞[じゅしょう]者[しゃ]による 学術[がくじゅつ]講義[こうぎ]を 拝聴[はいちょう]する。',
               exampleTranslation:
-                'Texnologik yangiliklar iqtisodiy oʻsishni yana-da jadallashtirdi.',
+                'Nobel mukofoti laureatining ilmiy maʼruzasini diqqat bilan tinglash.',
+            },
+            {
+              term: '要旨[ようし]を 把握[はあく]する',
+              reading: 'youshi o haaku suru',
+              meaning: 'Maʼruzaning tub mohiyatini ilgʻab olmoq',
+              exampleSentence:
+                '長大[ちょうだい]な 講演[こうえん]の 要旨[ようし]を 的確[てきかく]に 把握[はあく]する。',
+              exampleTranslation: 'Katta maʼruzaning eng asosiy magʻzini aniq anglab olmoq.',
+            },
+            {
+              term: '論証[ろんしょう]',
+              reading: 'ronshou',
+              meaning: 'Ilmiy asoslash, dalillar bilan isbotlash',
+              exampleSentence:
+                '緻密[ちみつ]な 論証[ろんしょう]に より 自説[じせつ]の 正当[せいとう]性[せい]を 示[しめ]す。',
+              exampleTranslation:
+                'Mukammal mantiqiy isbotlar orqali oʻz gʻoyasining haqligini koʻrsatdi.',
+            },
+            {
+              term: '反論[はんろん]の 余地[よち]がない',
+              reading: 'hanron no yochi ga nai',
+              meaning: 'Eʼtiroz bildirishga oʻrin qoldirmaydigan',
+              exampleSentence: '完璧[かんぺき]な データで 反論[はんろん]の 余地[よち]がない。',
+              exampleTranslation: 'Mukammal dalillar tufayli birorta eʼtirozga oʻrin yoʻq.',
+            },
+            {
+              term: '統合[とうごう]的[てき]な 視座[しざ]',
+              reading: 'tougouteki na shiza',
+              meaning: 'Integratsiyalashgan yaxlit nuqtayi nazar',
+              exampleSentence:
+                '複眼[ふくがん]的[てき]かつ 統合[とうごう]的[てき]な 視座[しざ]から 問題[もんだい]を 捉[とら]え直[なお]す。',
+              exampleTranslation:
+                'Koʻp qirrali va yaxlit ilmiy nuqtayi nazardan masalani qayta koʻrib chiqish.',
             },
           ],
         },
@@ -1349,29 +1505,47 @@ export const JAPANESE_N1_LESSONS: Lesson[] = [
           ],
           vocabulary: [
             {
-              term: '余儀[よぎ]なくされる',
-              reading: 'Yogi naku sareru',
-              meaning: 'Majbur boʻlib qolmoq (vaziyat taqozosi bilan)',
-              exampleSentence: '計画[けいかく]の 変更[へんこう]を 余儀[よぎ]なくされました。',
-              exampleTranslation: 'Rejani oʻzgartirishga majbur boʻldik.',
+              term: '網羅[もうら]する',
+              reading: 'moura suru',
+              meaning: 'Barchasini qamrab olmoq, toʻliq oʻz ichiga olmoq',
+              exampleSentence:
+                '出題[しゅつだい]範囲[はんい]の 全[すべ]ての 項目[こうもく]を 網羅[もうら]した 問題[もんだい]集[しゅう]。',
+              exampleTranslation:
+                'Imtihon tushadigan barcha mavzularni toʻliq qamrab olgan testlar toʻplami.',
             },
             {
-              term: '拍車[はくしゃ]をかける',
-              reading: 'Hakusha o kakeru',
-              meaning: 'Yana-da tezlashtirmoq, kuchaytirmoq',
+              term: '精緻[せいち]な',
+              reading: 'seichi na',
+              meaning: 'Zargarlarcha nozik, yuksak aniqlikdagi',
               exampleSentence:
-                '技術[ぎじゅつ]革新[かくしん]が 経済[けいざい]成長[せいちょう]に 拍車[はくしゃ]をかけました。',
+                '精緻[せいち]な 分析[ぶんせき]に 基[づ]く 高度[こうど]な 読解[どっかい]問題[もんだい]。',
               exampleTranslation:
-                'Texnologik yangiliklar iqtisodiy oʻsishni yana-da jadallashtirdi.',
+                'Zargarlarcha nozik tahlilga asoslangan yuqori darajadagi matn tahlili.',
             },
             {
-              term: '妥協[だきょう]を許さない',
-              reading: 'Dakyou o yurusanai',
-              meaning: 'Kelishuvga bormaydigan, murosasiz darajada sifat talabchan',
+              term: '難攻[なんこう]不落[ふらく]',
+              reading: 'nankoufukaku',
+              meaning: 'Zabt etib boʻlmas qalʼa, yengilmas toʻsiq',
               exampleSentence:
-                '品質[ひんしつ]に対[たい]して 妥協[だきょう]を 許[ゆる]さない 姿勢[しせい]を 貫[つらぬ]く。',
+                '難攻[なんこう]不落[ふらく]と 呼[よ]ばれる N1の 壁[かべ]を 突破[とっぱ]する。',
+              exampleTranslation: 'Yengilmas qalʼa sanalgan JLPT N1 choʻqqisini zabt etmoq.',
+            },
+            {
+              term: '卓越[たくえつ]した',
+              reading: 'takuetsu shita',
+              meaning: 'Tengsiz, benuqson, yuksak darajadagi',
+              exampleSentence:
+                '卓越[たくえつ]した 語学[ごがく]力[りょく]を 実証[じっしょう]してみせた。',
+              exampleTranslation: 'Yuksak va benuqson til bilish mahoratini amalda isbotladi.',
+            },
+            {
+              term: '遺憾[いかん]なく',
+              reading: 'ikan naku',
+              meaning: 'Toʻliq va bekamu koʻst (namoyon etmoq)',
+              exampleSentence:
+                '日頃[ひごろ]の 学習[がくしゅう]の 成果[せいか]を 遺憾[いかん]なく 発揮[はっき]する。',
               exampleTranslation:
-                'Sifat masalasida aslo murosaga bormaydigan qatʼiy yondashuvni saqlaydi.',
+                'Muntazam tayyorgarlik mevalarini toʻliq va bekamu koʻst namoyish etmoq.',
             },
           ],
         },
@@ -1523,30 +1697,43 @@ export const JAPANESE_N1_LESSONS: Lesson[] = [
           ],
           vocabulary: [
             {
-              term: '拍車[はくしゃ]をかける',
-              reading: 'Hakusha o kakeru',
-              meaning: 'Yana-da tezlashtirmoq, kuchaytirmoq',
+              term: '金字塔[きんじとう]を 打[う]ち立[た]てる',
+              reading: 'kinjitou o uchitateru',
+              meaning: 'Tarixiy yuksak choʻqqi yaratmoq, buyuk yutuqqa erishmoq',
               exampleSentence:
-                '技術[ぎじゅつ]革新[かくしん]が 経済[けいざい]成長[せいちょう]に 拍車[はくしゃ]をかけました。',
-              exampleTranslation:
-                'Texnologik yangiliklar iqtisodiy oʻsishni yana-da jadallashtirdi.',
+                '満点[まんてん]合格[ごうかく]という 金字塔[きんじとう]を 打[う]ち立[た]てた。',
+              exampleTranslation: 'Maksimal ball bilan oʻtib buyuk tarixiy natijani qayd etdi.',
             },
             {
-              term: '妥協[だきょう]を許さない',
-              reading: 'Dakyou o yurusanai',
-              meaning: 'Kelishuvga bormaydigan, murosasiz darajada sifat talabchan',
+              term: '極致[きょくち]に 達[たっ]する',
+              reading: 'kyokuchi ni tassuru',
+              meaning: 'Kamolotning eng oliy choʻqqisiga erishmoq',
               exampleSentence:
-                '品質[ひんしつ]に対[たい]して 妥協[だきょう]を 許[ゆる]さない 姿勢[しせい]を 貫[つらぬ]く。',
+                '日本語[にほんご]の 表現[ひょうげん]力[りょく]が 極致[きょくち]に 達[たっ]した。',
               exampleTranslation:
-                'Sifat masalasida aslo murosaga bormaydigan qatʼiy yondashuvni saqlaydi.',
+                'Yapon tilida oʻz fikrini ifoda etish mahorati oliy choʻqqiga chiqdi.',
             },
             {
-              term: '精通[せいつう]している',
-              reading: 'Seitsuu shite iru',
-              meaning: 'Bir sohani mukammal, ipidan ignasigacha bilmoq',
+              term: '揺[ゆ]るぎない',
+              reading: 'yuruginai',
+              meaning: 'Tebranmas, qatʼiy, mustahkam',
               exampleSentence:
-                '彼[かれ]は 日本[にほん]の 古典[こてん]文学[ぶんがく]に 精通[せいつう]しています。',
-              exampleTranslation: 'U yapon klassik adabiyotini mukammal darajada biladi.',
+                'どんな 難問[なんもん]にも 揺[ゆ]るぎない 自信[じしん]を 持[も]って 臨[のぞ]む。',
+              exampleTranslation: 'Har qanday ogʻir savolga tebranmas qatʼiyat bilan yondashmoq.',
+            },
+            {
+              term: '冠[かんむり]を 戴[いただ]く',
+              reading: 'kanmuri o itadaku',
+              meaning: 'Gʻoliblik tojini kiymoq, oliy sharafga sazovor boʻlmoq',
+              exampleSentence: 'N1最高[さいこう]峰[ほう]の 栄冠[えいかん]を 戴[いただ]く。',
+              exampleTranslation: 'JLPT N1 ning eng oliy sharafli tojiga sazovor boʻlmoq.',
+            },
+            {
+              term: '名実[めいじつ]ともに',
+              reading: 'meijitsutomoni',
+              meaning: 'Ham noman, ham amalda (haqiqiy maʼnoda)',
+              exampleSentence: '名実[めいじつ]ともに 日本語[にほんご]の マスターと なった。',
+              exampleTranslation: 'Ham rasman, ham amalda haqiqiy yapon tili ustasiga aylandi.',
             },
           ],
         },
@@ -1672,26 +1859,45 @@ export const JAPANESE_N1_LESSONS: Lesson[] = [
           ],
           vocabulary: [
             {
-              term: '指導者[しどうしゃ]',
-              reading: 'Shidousha',
-              meaning: "Etakchi / Yo'lboshchi",
-              exampleSentence: '優れた指導者。',
-              exampleTranslation: 'Ajoyib etakchi.',
-            },
-            {
-              term: '精通[せいつう]している',
-              reading: 'Seitsuu shite iru',
-              meaning: 'Bir sohani mukammal, ipidan ignasigacha bilmoq',
+              term: '高潔[こうけつ]な',
+              reading: 'kouketsu na',
+              meaning: 'Vijdonli, pokiza, yuksak axloqli',
               exampleSentence:
-                '彼[かれ]は 日本[にほん]の 古典[こてん]文学[ぶんがく]に 精通[せいつう]しています。',
-              exampleTranslation: 'U yapon klassik adabiyotini mukammal darajada biladi.',
+                '教育[きょういく]者[しゃ]たる者、高潔[こうけつ]な 人格[じんかく]が 求[もと]められる。',
+              exampleTranslation: 'Murabbiy kishi yuksak va pokiza axloq sohibi boʻlishi darkor.',
             },
             {
-              term: '余儀[よぎ]なくされる',
-              reading: 'Yogi naku sareru',
-              meaning: 'Majbur boʻlib qolmoq (vaziyat taqozosi bilan)',
-              exampleSentence: '計画[けいかく]の 変更[へんこう]を 余儀[よぎ]なくされました。',
-              exampleTranslation: 'Rejani oʻzgartirishga majbur boʻldik.',
+              term: '誇[ほこ]り高[たか]い',
+              reading: 'hokoritakai',
+              meaning: 'Gʻururli, shaʼnini baland tutuvchi',
+              exampleSentence:
+                '誇[ほこ]り高[たか]き 伝統[でんとう]を 次世代[じせだい]に 継承[けいしょう]する。',
+              exampleTranslation: 'Gʻururli anʼanalarni kelgusi avlodlarga meros qoldirmoq.',
+            },
+            {
+              term: '恥[は]じない',
+              reading: 'hajinai',
+              meaning: 'Uyaltirib qoʻymaydigan, nomiga munosib',
+              exampleSentence: 'プロの 名[な]に 恥[は]じない 仕事[しごと]を する。',
+              exampleTranslation: 'Professional nomiga dogʻ tushirmaydigan munosib ish qilmoq.',
+            },
+            {
+              term: '模範[もはん]と なる',
+              reading: 'mohan to naru',
+              meaning: 'Oʻrnak, ibrat boʻlmoq',
+              exampleSentence:
+                '先輩[せんぱい]として 後輩[こうはい]の 模範[もはん]と なる 行動[こうどう]を 心[こころ]がける。',
+              exampleTranslation:
+                'Katta safdosh sifatida kichiklarga ibrat boʻladigan xulqni odat qilmoq.',
+            },
+            {
+              term: '使命[しめい]感',
+              reading: 'shimeikan',
+              meaning: 'Burch va masʼuliyat hissi',
+              exampleSentence:
+                '強[つよ]い 使命[しめい]感を 持[も]って 難局[なんきょく]に 立[た]ち向[む]かう。',
+              exampleTranslation:
+                'Yuksak masʼuliyat tuygʻusi bilan ogʻir sinovlarga qarshi turmoq.',
             },
           ],
           grammarRules: [
@@ -1834,27 +2040,47 @@ export const JAPANESE_N1_LESSONS: Lesson[] = [
           ],
           vocabulary: [
             {
-              term: '事態[じたい]',
-              reading: 'Jitai',
-              meaning: 'Vaziyat / Ahvol',
-              exampleSentence: '事態が悪化する。',
-              exampleTranslation: 'Vaziyat yomonlashadi.',
-            },
-            {
-              term: '余儀[よぎ]なくされる',
-              reading: 'Yogi naku sareru',
-              meaning: 'Majbur boʻlib qolmoq (vaziyat taqozosi bilan)',
-              exampleSentence: '計画[けいかく]の 変更[へんこう]を 余儀[よぎ]なくされました。',
-              exampleTranslation: 'Rejani oʻzgartirishga majbur boʻldik.',
-            },
-            {
-              term: '拍車[はくしゃ]をかける',
-              reading: 'Hakusha o kakeru',
-              meaning: 'Yana-da tezlashtirmoq, kuchaytirmoq',
+              term: '末期[まっき]',
+              reading: 'makki',
+              meaning: 'Soʻnggi bosqich, oxirgi palla',
               exampleSentence:
-                '技術[ぎじゅつ]革新[かくしん]が 経済[けいざい]成長[せいちょう]に 拍車[はくしゃ]をかけました。',
+                '政権[せいけん]の 末期[まっき]に 至[いた]って 汚職[おしょく]が 蔓延[まんえん]した。',
               exampleTranslation:
-                'Texnologik yangiliklar iqtisodiy oʻsishni yana-da jadallashtirdi.',
+                'Hokimiyatning soʻnggi pallalariga yetib poraxoʻrlik urchib ketdi.',
+            },
+            {
+              term: '泥沼[どろぬま]化する',
+              reading: 'doronumaka suru',
+              meaning: 'Chiqib boʻlmas botqoqlikka aylanmoq',
+              exampleSentence:
+                '紛争[ふんそう]は 泥沼[どろぬま]化の 様相[ようそう]を 呈[てい]するに 至[いた]った。',
+              exampleTranslation: 'Mojaro oxiri koʻrinmas botqoqlikka aylanadigan darajaga yetdi.',
+            },
+            {
+              term: '経緯[いきさつ]',
+              reading: 'ikisatsu',
+              meaning: 'Voqealar rivoji, tafsilotlar silsilasi',
+              exampleSentence:
+                '事件[じけん]が ここに 至[いた]るまでの 経緯[いきさつ]を 説明[せつめい]する。',
+              exampleTranslation:
+                'Vaziyat ushbu nuqtaga yetib kelguncha boʻlgan jarayonni tushuntirib berish.',
+            },
+            {
+              term: '極限[きょくげん]状態',
+              reading: 'kyokugenjoutai',
+              meaning: 'Oʻta keskin, chekka chegara holati',
+              exampleSentence:
+                '極限[きょくげん]状態に 至[いた]っても 冷静[れいせい]さを 保[たも]つ。',
+              exampleTranslation: 'Eng keskin chidab boʻlmas holatda ham bosiqlikni saqlab qolmoq.',
+            },
+            {
+              term: '事[こと]ここに 至[いた]っては',
+              reading: 'koto koko ni itatte wa',
+              meaning: 'Ish shunday holatga yetib borgach endi...',
+              exampleSentence:
+                '事[こと]ここに 至[いた]っては、もはや 隠[かく]し立[だ]ては できない。',
+              exampleTranslation:
+                'Ish bu darajagacha yetib borgach, endi hech narsani yashirib boʻlmaydi.',
             },
           ],
           grammarRules: [
@@ -1994,29 +2220,46 @@ export const JAPANESE_N1_LESSONS: Lesson[] = [
           ],
           vocabulary: [
             {
-              term: '欠航[けっこう]',
-              reading: 'Kekkou',
-              meaning: 'Reys/parvozning bekor qilinishi',
-              exampleSentence: '全便欠航となった。',
-              exampleTranslation: 'Barcha reyslar bekor qilindi.',
+              term: '撤退[てったい]を 余儀[よぎ]なくされる',
+              reading: 'tettai o yoginaku sareru',
+              meaning: 'Chekinishga majbur boʻlmoq',
+              exampleSentence:
+                '採算[さいさん]悪化[あっか]により 海外[かいがい]市場[しじょう]からの 撤退[てったい]を 余儀[よぎ]なくされた。',
+              exampleTranslation: 'Zararlar tufayli xorijiy bozordan chekinishga majbur boʻlindi.',
             },
             {
-              term: '拍車[はくしゃ]をかける',
-              reading: 'Hakusha o kakeru',
-              meaning: 'Yana-da tezlashtirmoq, kuchaytirmoq',
+              term: '延期[えんき]を 余儀[よぎ]なくされる',
+              reading: 'enki o yoginaku sareru',
+              meaning: 'Qoldirishga majbur boʻlmoq',
               exampleSentence:
-                '技術[ぎじゅつ]革新[かくしん]が 経済[けいざい]成長[せいちょう]に 拍車[はくしゃ]をかけました。',
+                '悪天候[あくてんこう]のため 宇宙[うちゅう]ロケットの 打[う]ち上[あ]げが 延期[えんき]を 余儀[よぎ]なくされた。',
               exampleTranslation:
-                'Texnologik yangiliklar iqtisodiy oʻsishni yana-da jadallashtirdi.',
+                'Yomon ob-havo sababli raketaning uchirilishi qoldirilishga majbur boʻldi.',
             },
             {
-              term: '妥協[だきょう]を許さない',
-              reading: 'Dakyou o yurusanai',
-              meaning: 'Kelishuvga bormaydigan, murosasiz darajada sifat talabchan',
+              term: '苦衷[くちゅう]',
+              reading: 'kuchuu',
+              meaning: 'Qalbdagi ogʻir iztirob va nochorlik',
               exampleSentence:
-                '品質[ひんしつ]に対[たい]して 妥協[だきょう]を 許[ゆる]さない 姿勢[しせい]を 貫[つらぬ]く。',
+                '断腸[だんちょう]の 思[おも]いで 苦衷[くちゅう]の 決断[けつだん]を 下[くだ]す。',
               exampleTranslation:
-                'Sifat masalasida aslo murosaga bormaydigan qatʼiy yondashuvni saqlaydi.',
+                'Yuragi tilka-pora boʻlib nochor ahvolda ogʻir qaror qabul qilmoq.',
+            },
+            {
+              term: '背に腹は変えられない',
+              reading: 'se ni hara wa kaerarenai',
+              meaning: 'Jon saqlash uchun bor narsadan kechishga majbur',
+              exampleSentence: '背に腹は変えられず、赤字覚悟で安売りした。',
+              exampleTranslation:
+                'Boshqa ilojsizlikdan hatto zararga kirib boʻlsa-da arzon narxda sotdi.',
+            },
+            {
+              term: '窮地[きゅうち]に 追[お]い込[こ]まれる',
+              reading: 'kyuuchi ni oikomareru',
+              meaning: 'Tubsiz nochor boshi berk koʻchaga kirib qolmoq',
+              exampleSentence:
+                '資金[しきん]繰[ぐ]りが つかず 窮地[きゅうち]に 追[お]い込[こ]まれた。',
+              exampleTranslation: 'Mablagʻ yetishmovchiligi tufayli nochor ahvolga tushib qoldi.',
             },
           ],
           grammarRules: [
@@ -2163,28 +2406,44 @@ export const JAPANESE_N1_LESSONS: Lesson[] = [
           ],
           vocabulary: [
             {
-              term: '飛び出す[とびだす]',
-              reading: 'Tobidasu',
-              meaning: 'Otilib chiqmoq',
-              exampleSentence: '勢いよく飛び出す。',
-              exampleTranslation: 'Shiddat bilan otilib chiqmoq.',
+              term: '電光[でんこう]石火[せっか]',
+              reading: 'denkousekka',
+              meaning: 'Chaqmoqdek tezkor, bir soniyada',
+              exampleSentence:
+                '電光[でんこう]石火[せっか]の 勢[いきお]いで 敵[てき]の 陣地[じんち]を 攻略[こうりゃく]した。',
+              exampleTranslation: 'Chaqmoqdek tezkor surʼatda raqib maydonini zabt etdi.',
             },
             {
-              term: '妥協[だきょう]を許さない',
-              reading: 'Dakyou o yurusanai',
-              meaning: 'Kelishuvga bormaydigan, murosasiz darajada sifat talabchan',
+              term: '矢継[やつ]ぎ早[ばや]に',
+              reading: 'yatsugibaya ni',
+              meaning: 'Ketma-ket, toʻxtovsiz yogʻdirib',
               exampleSentence:
-                '品質[ひんしつ]に対[たい]して 妥協[だきょう]を 許[ゆる]さない 姿勢[しせい]を 貫[つらぬ]く。',
+                '記者[きしゃ]から 矢継[やつ]ぎ早[ばや]に 質問[しつもん]が 飛[と]び出[だ]した。',
               exampleTranslation:
-                'Sifat masalasida aslo murosaga bormaydigan qatʼiy yondashuvni saqlaydi.',
+                'Jurnalistlar tomonidan ketma-ket toʻxtovsiz savollar yogʻdirildi.',
             },
             {
-              term: '精通[せいつう]している',
-              reading: 'Seitsuu shite iru',
-              meaning: 'Bir sohani mukammal, ipidan ignasigacha bilmoq',
+              term: '間[ま]髪[はつ]を 入[い]れず',
+              reading: 'kamhatsu o irezu',
+              meaning: 'Qil sigʻmas fursatda, bir zumda',
               exampleSentence:
-                '彼[かれ]は 日本[にほん]の 古典[こてん]文学[ぶんがく]に 精通[せいつう]しています。',
-              exampleTranslation: 'U yapon klassik adabiyotini mukammal darajada biladi.',
+                '危険[きけん]を 察知[さっち]して 間[ま]髪[はつ]を 入[い]れず ブレーキを 踏[ふ]んだ。',
+              exampleTranslation: 'Xavfni sezishi bilanoq bir lahza ham oʻtmay tormozni bosdi.',
+            },
+            {
+              term: '疾風[しっぷう]怒濤[どとう]',
+              reading: 'shippuudotou',
+              meaning: 'Dovuldek shiddatli, poʻrtanali',
+              exampleSentence: '疾風[しっぷう]怒濤[どとう]の 時代[じだい]を 生[い]き抜[ぬ]く。',
+              exampleTranslation: 'Dovuldek shiddatli va toʻpolonli zamonda sabot bilan yashamoq.',
+            },
+            {
+              term: '咄嗟[とっさ]に',
+              reading: 'tossa ni',
+              meaning: 'Bir zumda, koʻz ochib yumguncha',
+              exampleSentence: '咄嗟[とっさ]の 機転[きてん]で 大事故[だいじこ]を 免[まぬが]れた。',
+              exampleTranslation:
+                'Koʻz ochib yumguncha qilingan chaqqonlik sabab katta halokatdan qutulib qoldi.',
             },
           ],
           grammarRules: [
@@ -2330,26 +2589,49 @@ export const JAPANESE_N1_LESSONS: Lesson[] = [
           ],
           vocabulary: [
             {
-              term: '行為[こうい]',
-              reading: 'Koui',
-              meaning: 'Harakat / Qilmish',
-              exampleSentence: '違法な行為。',
-              exampleTranslation: 'Noqonuniy qilmish.',
-            },
-            {
-              term: '精通[せいつう]している',
-              reading: 'Seitsuu shite iru',
-              meaning: 'Bir sohani mukammal, ipidan ignasigacha bilmoq',
+              term: '言語[ごんご]道断[どうだん]',
+              reading: 'gongodoudan',
+              meaning: 'Aql bovar qilmas darajada jirkanch/nomaqbul',
               exampleSentence:
-                '彼[かれ]は 日本[にほん]の 古典[こてん]文学[ぶんがく]に 精通[せいつう]しています。',
-              exampleTranslation: 'U yapon klassik adabiyotini mukammal darajada biladi.',
+                '公金[こうきん]の 横領[おうりょう]など 言語[ごんご]道断[どうだん]の 暴挙[ぼうきょ]だ。',
+              exampleTranslation:
+                'Davlat gʻaznasini talon-toroj qilish aql bovar qilmas darajadagi qabihlikdir.',
             },
             {
-              term: '余儀[よぎ]なくされる',
-              reading: 'Yogi naku sareru',
-              meaning: 'Majbur boʻlib qolmoq (vaziyat taqozosi bilan)',
-              exampleSentence: '計画[けいかく]の 変更[へんこう]を 余儀[よぎ]なくされました。',
-              exampleTranslation: 'Rejani oʻzgartirishga majbur boʻldik.',
+              term: '断[だん]じて 許[ゆる]せない',
+              reading: 'danjite yurusenai',
+              meaning: 'Qatʼiyan aslo kechirib boʻlmaydigan',
+              exampleSentence:
+                '無実[むじつ]の 人[ひと]を 陥[おとしい]れる 行為[こうい]は 断[だん]じて 許[ゆる]せない。',
+              exampleTranslation:
+                'Begunoh insonni tuhmatga qoldirish xatti-harakatini aslo kechirib boʻlmaydi.',
+            },
+            {
+              term: '背信[はいしん]行為[こうい]',
+              reading: 'haishinkoui',
+              meaning: 'Ishonchga xiyonat qilish',
+              exampleSentence:
+                '長年[ながねん]の 友[とも]を 裏切[うらぎ]る 背信[はいしん]行為[こうい]に 憤[いきどお]る。',
+              exampleTranslation:
+                'Koʻp yillik doʻstga xiyonat qilishdek razolatdan qattiq gʻazabdaman.',
+            },
+            {
+              term: '糾弾[きゅうだん]する',
+              reading: 'kyuudan suru',
+              meaning: 'Ayblab fosh qilmoq, jamoat oldida qoralash',
+              exampleSentence:
+                '不正[ふせい]を 働[はたら]いた 政治[せいじ]家を 厳[きび]しく 糾弾[きゅうだん]する。',
+              exampleTranslation:
+                'Qingʻirlik qilgan siyosatchini omma oldida qattiq qoralab fosh qilmoq.',
+            },
+            {
+              term: '面目[めんぼく]丸潰[まるつぶ]れ',
+              reading: 'membokumarutsubure',
+              meaning: 'Yuzi shuvut boʻlmoq, obroʻsi yer bilan bitta boʻlmoq',
+              exampleSentence:
+                '不祥事[ふしょうじ]の 発覚[はっかく]で 組織[そしき]の 面目[めんぼく]は 丸潰[まるつぶ]れだ。',
+              exampleTranslation:
+                'Jinoyat fosh boʻlishi bilan tashkilotning obroʻsi butkul toʻkildi.',
             },
           ],
           grammarRules: [
@@ -2491,27 +2773,48 @@ export const JAPANESE_N1_LESSONS: Lesson[] = [
           ],
           vocabulary: [
             {
-              term: '普遍的[ふへんてき]',
-              reading: 'Fuhenteki',
-              meaning: 'Universal / Barcha uchun umumiy',
-              exampleSentence: '普遍的な真理。',
-              exampleTranslation: 'Universal haqiqat.',
-            },
-            {
-              term: '余儀[よぎ]なくされる',
-              reading: 'Yogi naku sareru',
-              meaning: 'Majbur boʻlib qolmoq (vaziyat taqozosi bilan)',
-              exampleSentence: '計画[けいかく]の 変更[へんこう]を 余儀[よぎ]なくされました。',
-              exampleTranslation: 'Rejani oʻzgartirishga majbur boʻldik.',
-            },
-            {
-              term: '拍車[はくしゃ]をかける',
-              reading: 'Hakusha o kakeru',
-              meaning: 'Yana-da tezlashtirmoq, kuchaytirmoq',
+              term: '弁証[べんしょう]法',
+              reading: 'benshouhou',
+              meaning: 'Dialektika (qarama-qarshiliklar orqali rivojlanish falsafasi)',
               exampleSentence:
-                '技術[ぎじゅつ]革新[かくしん]が 経済[けいざい]成長[せいちょう]に 拍車[はくしゃ]をかけました。',
+                'ヘーゲルの 弁証[べんしょう]法に おける 正[せい]・反[はん]・合[ごう]の 発展[はってん]。',
+              exampleTranslation: 'Gegel dialektikasidagi tezis, antitezis va sintez taraqqiyoti.',
+            },
+            {
+              term: '唯物[ゆいぶつ]論',
+              reading: 'yuibutsuron',
+              meaning: 'Materializm falsafasi',
+              exampleSentence:
+                '歴史[れきし]的[てき]唯物[ゆいぶつ]論の 観点[かんてん]から 経済[けいざい]構造[こうぞう]を 読み解[と]く。',
               exampleTranslation:
-                'Texnologik yangiliklar iqtisodiy oʻsishni yana-da jadallashtirdi.',
+                'Tarixiy materializm nuqtayi nazaridan iqtisodiy tuzilmani tahlil qilmoq.',
+            },
+            {
+              term: '形而[けいじ]上学',
+              reading: 'keijijougaku',
+              meaning: 'Metafizika (moddiy olamdan tashqaridagi borliq ilmi)',
+              exampleSentence:
+                '形而[けいじ]上学の 根本[こんぽん]問題[もんだい]で ある 存在[そんざい]の 意味[いみ]を 問[と]う。',
+              exampleTranslation:
+                'Metafizikaning tub masalasi boʻlgan mavjudlik mohiyatini izlamoq.',
+            },
+            {
+              term: '命題[めいだい]',
+              reading: 'meidai',
+              meaning: 'Falsafiy tezis, isbotlanishi lozim boʻlgan hukm',
+              exampleSentence:
+                'この 命題[めいだい]の 真偽[しんぎ]を 厳密[げんみつ]に 検証[けんしょう]する。',
+              exampleTranslation:
+                'Ushbu tezisning haqiqat yoki yolgʻonligini qatʼiy tekshirib koʻrmoq.',
+            },
+            {
+              term: '思索[しさく]を 深[ふか]める',
+              reading: 'shisaku o fukameru',
+              meaning: 'Teran fikr yuritmoq, falsafiy tafakkur qilmoq',
+              exampleSentence:
+                '静寂[せいじゃく]の 中[なか]で 人生[じんせい]の 意義[いぎ]に ついて 思索[しさく]を 深[ふか]める。',
+              exampleTranslation:
+                'Sukunat bagʻrida inson umrining maʼnosi haqida teran fikr yuritmoq.',
             },
           ],
           grammarRules: [
@@ -2653,29 +2956,48 @@ export const JAPANESE_N1_LESSONS: Lesson[] = [
           ],
           vocabulary: [
             {
-              term: '真相[しんそう]',
-              reading: 'Shinsou',
-              meaning: 'Haqiqat / Asl holat',
-              exampleSentence: '真相を究明する。',
-              exampleTranslation: 'Haqiqatni aniqlamoq.',
+              term: '宿願[しゅくがん]を 果[は]たす',
+              reading: 'shukugan o hatasu',
+              meaning: 'Koʻp yillik ezgu orzusini roʻyobga chiqarmoq',
+              exampleSentence:
+                '念願[ねんがん]の 独立[どくりつ]を 達成[たっせい]し 宿願[しゅくがん]を 果[は]たした。',
+              exampleTranslation:
+                'Orziqib kutilgan mustaqillikka erishib koʻp yillik orzusini roʻyobga chiqardi.',
             },
             {
-              term: '拍車[はくしゃ]をかける',
-              reading: 'Hakusha o kakeru',
-              meaning: 'Yana-da tezlashtirmoq, kuchaytirmoq',
+              term: '粉骨[ふんこつ]砕身[さいしん]',
+              reading: 'funkotsusaishin',
+              meaning: 'Jonini fido qilib, bor kuchi bilan xizmat qilmoq',
               exampleSentence:
-                '技術[ぎじゅつ]革新[かくしん]が 経済[けいざい]成長[せいちょう]に 拍車[はくしゃ]をかけました。',
+                '国家[こっか]の 繁栄[はんえい]の ために 粉骨[ふんこつ]砕身[さいしん]の 努力[どりょく]を 重[かさ]ねる。',
               exampleTranslation:
-                'Texnologik yangiliklar iqtisodiy oʻsishni yana-da jadallashtirdi.',
+                'Vatan taraqqiyoti yoʻlida jonini fido qilib tinimsiz xizmat qildi.',
             },
             {
-              term: '妥協[だきょう]を許さない',
-              reading: 'Dakyou o yurusanai',
-              meaning: 'Kelishuvga bormaydigan, murosasiz darajada sifat talabchan',
+              term: '悲願[ひがん]',
+              reading: 'higan',
+              meaning: 'Qalb tubidagi eng buyuk orzu-umid',
               exampleSentence:
-                '品質[ひんしつ]に対[たい]して 妥協[だきょう]を 許[ゆる]さない 姿勢[しせい]を 貫[つらぬ]く。',
+                'オリンピックでの 金[きん]メダル獲得[かくとく]は 国民[こくみん]の 悲願[ひがん]であった。',
               exampleTranslation:
-                'Sifat masalasida aslo murosaga bormaydigan qatʼiy yondashuvni saqlaydi.',
+                'Olimpiadada oltin medal yutish butun xalqning eng buyuk orzusi edi.',
+            },
+            {
+              term: '志[こころざし]を 貫[つらぬ]く',
+              reading: 'kokorozashi o tsuranuku',
+              meaning: 'Yuksak niyatidan chekinmay qatʼiy turmoq',
+              exampleSentence:
+                'どんな 誘惑[ゆうわく]にも 負[ま]けず 初志[しょし]を 貫[つらぬ]いた。',
+              exampleTranslation: 'Hech qanday vasvasaga aldanmay dastlabki niyatida sobit turdi.',
+            },
+            {
+              term: '身命[しんめい]を 賭[と]す',
+              reading: 'shimmei o tosu',
+              meaning: 'Hayotini, borligʻini garovga qoʻymoq',
+              exampleSentence:
+                '国民[こくみん]の 命[いのち]を 守[まも]る ために 身命[しんめい]を 賭[と]して 職務[しょくむ]を 遂行[すいこう]する。',
+              exampleTranslation:
+                'Fuqarolar hayotini asrash yoʻlida bor vujudi bilan vazifasini ado etdi.',
             },
           ],
           grammarRules: [
@@ -2806,28 +3128,48 @@ export const JAPANESE_N1_LESSONS: Lesson[] = [
           ],
           vocabulary: [
             {
-              term: '好機[こうき]',
-              reading: 'Kouki',
-              meaning: 'Qulay imkoniyat',
-              exampleSentence: '絶好の好機。',
-              exampleTranslation: 'Juda qulay imkoniyat.',
-            },
-            {
-              term: '妥協[だきょう]を許さない',
-              reading: 'Dakyou o yurusanai',
-              meaning: 'Kelishuvga bormaydigan, murosasiz darajada sifat talabchan',
+              term: '孤高[ここう]の',
+              reading: 'kokou no',
+              meaning: 'Yolgʻiz, magʻrur, boshqalardan yuksak',
               exampleSentence:
-                '品質[ひんしつ]に対[たい]して 妥協[だきょう]を 許[ゆる]さない 姿勢[しせい]を 貫[つらぬ]く。',
+                '世俗[せぞく]の 流行[りゅうこう]に 流[なが]されず、孤高[ここう]の 道[みち]を 歩[あゆ]む。',
               exampleTranslation:
-                'Sifat masalasida aslo murosaga bormaydigan qatʼiy yondashuvni saqlaydi.',
+                'Ommaviy mayda shov-shuvlarga ergashmay magʻrur oʻz yoʻlidan yurmoq.',
             },
             {
-              term: '精通[せいつう]している',
-              reading: 'Seitsuu shite iru',
-              meaning: 'Bir sohani mukammal, ipidan ignasigacha bilmoq',
+              term: '独壇場[どくだんじょう]',
+              reading: 'dokudanjou',
+              meaning: 'Yakka oʻzining maydoni, hech kim teng kela olmaydigan soha',
+              exampleSentence: '即興[そっきょう]ディベートは 彼[かれ]の 独壇場[どくだんじょう]だ。',
+              exampleTranslation:
+                'Tezkor munozara faqat uning yakka oʻziga xos tengsiz maydonidir.',
+            },
+            {
+              term: '群[ぐん]を 抜[ぬ]く',
+              reading: 'gun o nuku',
+              meaning: 'Tengdoshlaridan yaqqol ajralib turmoq',
               exampleSentence:
-                '彼[かれ]は 日本[にほん]の 古典[こてん]文学[ぶんがく]に 精通[せいつう]しています。',
-              exampleTranslation: 'U yapon klassik adabiyotini mukammal darajada biladi.',
+                '彼[かれ]の 数学[すうがく]的[てき]才能[さいのう]は 同期[どうき]の 中[なか]で 群[ぐん]を 抜[ぬ]いている。',
+              exampleTranslation:
+                'Uning matematik isteʼdodi tengqurlari ichida yaqqol yaqqol ajralib turadi.',
+            },
+            {
+              term: '無二[むに]の 親友[しんゆう]',
+              reading: 'muni no shinyuu',
+              meaning: 'Tengsiz eng yaqin, sadoqatli doʻst',
+              exampleSentence:
+                '彼[かれ]こそは 私[わたし]の 生涯[しょうがい]における 無二[むに]の 親友[しんゆう]だ。',
+              exampleTranslation:
+                'Aynan u mening butun umrimdagi eng sadoqatli va tengsiz doʻstimdir.',
+            },
+            {
+              term: '冠絶[かんぜつ]する',
+              reading: 'kanzetsu suru',
+              meaning: 'Barchadan mutlaq ustun turmoq',
+              exampleSentence:
+                'その 圧倒[あっとう]的[てき]な 描写[びょうしゃ]力[りょく]は 当代[とうだい]の 文壇[ぶんだん]に 冠絶[かんぜつ]していた。',
+              exampleTranslation:
+                'Uning qudratli tasvir mahorati oʻsha davr adabiy muhitida barchadan ustun edi.',
             },
           ],
           grammarRules: [
@@ -2968,26 +3310,47 @@ export const JAPANESE_N1_LESSONS: Lesson[] = [
           ],
           vocabulary: [
             {
-              term: '失礼[しつれい]',
-              reading: 'Shitsurei',
-              meaning: 'Behurmatlik',
-              exampleSentence: '失礼な態度。',
-              exampleTranslation: 'Behurmat munosabat.',
-            },
-            {
-              term: '精通[せいつう]している',
-              reading: 'Seitsuu shite iru',
-              meaning: 'Bir sohani mukammal, ipidan ignasigacha bilmoq',
+              term: '無礼[ぶれい]極[きわ]まる',
+              reading: 'bureikiwamaru',
+              meaning: 'Haddan ziyod beadab, oʻta odobsiz',
               exampleSentence:
-                '彼[かれ]は 日本[にほん]の 古典[こてん]文学[ぶんがく]に 精通[せいつう]しています。',
-              exampleTranslation: 'U yapon klassik adabiyotini mukammal darajada biladi.',
+                '初対面[しょたいめん]で あのような 暴言[ぼうげん]を 吐[は]くとは 無礼[ぶれい]極[きわ]まる。',
+              exampleTranslation:
+                'Ilk uchrashuvdayoq shunday haqorat qilish haddan ziyod odobsizlikdir.',
             },
             {
-              term: '余儀[よぎ]なくされる',
-              reading: 'Yogi naku sareru',
-              meaning: 'Majbur boʻlib qolmoq (vaziyat taqozosi bilan)',
-              exampleSentence: '計画[けいかく]の 変更[へんこう]を 余儀[よぎ]なくされました。',
-              exampleTranslation: 'Rejani oʻzgartirishga majbur boʻldik.',
+              term: '感極[かんきわ]まる',
+              reading: 'kankiwamaru',
+              meaning: 'Hayajondan koʻzlari yoshlanmoq, qalbi toʻlqinlanmoq',
+              exampleSentence:
+                '卒業[そつぎょう]式[しき]で 恩師[おんし]の 言葉[ことば]を 聞[き]いて 感極[かんきわ]まった。',
+              exampleTranslation:
+                'Bitiruv kechasida ustozining soʻzlarini eshitib hayajondan koʻzlariga yosh keldi.',
+            },
+            {
+              term: '危険[きけん]極[きわ]まりない',
+              reading: 'kikenkiwamarinai',
+              meaning: 'Oʻta xavfli, halokatli',
+              exampleSentence:
+                'ヘルメットも 着用[ちゃくよう]せずに 高所[こうしょ]で 作業[さぎょう]するのは 危険[きけん]極[きわ]まりない。',
+              exampleTranslation: 'Kaskasiz balandlikda ishlash oʻta xavfli va tahlikalidir.',
+            },
+            {
+              term: '遺憾[いかん]の 極[きわ]み',
+              reading: 'ikan no kiwami',
+              meaning: 'Cheksiz afsus va chuqur nadomat',
+              exampleSentence:
+                '今回[こんかい]の 不祥事[ふしょうじ]は 誠[まこと]に 遺憾[いかん]の 極[きわ]みで あります。',
+              exampleTranslation: 'Ushbu koʻngilsiz hodisadan cheksiz afsusdamiz.',
+            },
+            {
+              term: '痛恨[つうこん]の 極[きわ]み',
+              reading: 'tsuukon no kiwami',
+              meaning: 'Yurakni tiluvchi ogʻir alam',
+              exampleSentence:
+                'ラスト1秒[びょう]で 逆転[ぎゃくてん]されたことは 痛恨[つうこん]の 極[きわ]みだ。',
+              exampleTranslation:
+                'Oxirgi bir soniyada magʻlub boʻlish yurakni tilka-pora qiladigan ogʻir alamdir.',
             },
           ],
           grammarRules: [
@@ -3145,28 +3508,47 @@ export const JAPANESE_N1_LESSONS: Lesson[] = [
           ],
           vocabulary: [
             {
-              term: '精通[せいつう]している',
-              reading: 'Seitsuu shite iru',
-              meaning: 'Bir sohani mukammal, ipidan ignasigacha bilmoq',
+              term: '行間[ぎょうかん]を 読[よ]む',
+              reading: 'gyoukan o yomu',
+              meaning: 'Satrlar orasidagi yashirin maʼnoni anglamoq',
               exampleSentence:
-                '彼[かれ]は 日本[にほん]の 古典[こてん]文学[ぶんがく]に 精通[せいつう]しています。',
-              exampleTranslation: 'U yapon klassik adabiyotini mukammal darajada biladi.',
-            },
-            {
-              term: '余儀[よぎ]なくされる',
-              reading: 'Yogi naku sareru',
-              meaning: 'Majbur boʻlib qolmoq (vaziyat taqozosi bilan)',
-              exampleSentence: '計画[けいかく]の 変更[へんこう]を 余儀[よぎ]なくされました。',
-              exampleTranslation: 'Rejani oʻzgartirishga majbur boʻldik.',
-            },
-            {
-              term: '拍車[はくしゃ]をかける',
-              reading: 'Hakusha o kakeru',
-              meaning: 'Yana-da tezlashtirmoq, kuchaytirmoq',
-              exampleSentence:
-                '技術[ぎじゅつ]革新[かくしん]が 経済[けいざい]成長[せいちょう]に 拍車[はくしゃ]をかけました。',
+                '言葉[ことば]の 表面[ひょうめん]だけでなく 行間[ぎょうかん]を 読[よ]む 洞察[どうさつ]が 必須[ひっす]だ。',
               exampleTranslation:
-                'Texnologik yangiliklar iqtisodiy oʻsishni yana-da jadallashtirdi.',
+                'Faqat soʻzning yuzasiga emas, satrlar orasidagi asl maʼnoga eʼtibor berish lozim.',
+            },
+            {
+              term: '言外[げんがい]の 意[い]',
+              reading: 'gengai no i',
+              meaning: 'Soʻz bilan aytilmagan botiniy maʼno',
+              exampleSentence:
+                '外交[がいこう]官[かん]の スピーチには 言外[げんがい]の 意[い]が 込[こ]められている。',
+              exampleTranslation:
+                'Diplomatning nutqida ochiq aytilmagan botiniy maʼno yashiringan.',
+            },
+            {
+              term: 'ニュアンスを 嗅[か]ぎ分[わ]ける',
+              reading: 'nyuansu o kagiwakeru',
+              meaning: 'Nozik uslubiy maʼno tuslanishini ilgʻab olmoq',
+              exampleSentence:
+                'ネイティブ特有[とくゆう]の 微妙[びみょう]な ニュアンスを 嗅[か]ぎ分[わ]ける。',
+              exampleTranslation:
+                'Tugʻma soʻzlovchilarga xos nozik maʼno qirralarini aniq ilgʻamoq.',
+            },
+            {
+              term: '論旨[ろんし]の 展開[てんかい]',
+              reading: 'ronshi no tenkai',
+              meaning: 'Fikr va dalillarning mantiqiy silsilasi',
+              exampleSentence:
+                '筆者[ひっしゃ]の 巧[たく]みな 論旨[ろんし]の 展開[てんかい]に 引[ひ]き込[こ]まれる。',
+              exampleTranslation: 'Muallifning mahoratli fikr rivoji oʻquvchini oʻziga rom etadi.',
+            },
+            {
+              term: '反語[はんご]的[てき]な',
+              reading: 'hangoteki na',
+              meaning: 'Pichingli, kinoyali, teskari maʼnodagi',
+              exampleSentence:
+                '彼[かれ]の 賛辞[さんじ]は 実[じつ]は 反語[はんご]的[てき]な 皮肉[ひにく]であった。',
+              exampleTranslation: 'Uning maqtovi aslida kinoyali piching edi.',
             },
           ],
         },
@@ -3300,29 +3682,45 @@ export const JAPANESE_N1_LESSONS: Lesson[] = [
           ],
           vocabulary: [
             {
-              term: '糾弾[きゅうだん]',
-              reading: 'Kyuudan',
-              meaning: 'Ayblash / Qoralash',
-              exampleSentence: '不正を糾弾する。',
-              exampleTranslation: 'Nohaqlikni qoralash.',
+              term: '螺旋[らせん]構造',
+              reading: 'rasenkouzou',
+              meaning: 'Spiral shaklidagi struktura (DNK)',
+              exampleSentence: 'DNAの 二重[にじゅう]螺旋[らせん]構造を 解明[かいめい]した。',
+              exampleTranslation: 'DNKning qoʻshaloq spiral tuzilishi kashf etildi.',
             },
             {
-              term: '拍車[はくしゃ]をかける',
-              reading: 'Hakusha o kakeru',
-              meaning: 'Yana-da tezlashtirmoq, kuchaytirmoq',
+              term: '変異[へんい]株',
+              reading: 'henʼikabu',
+              meaning: 'Mutatsiyaga uchragan virus shtammi',
               exampleSentence:
-                '技術[ぎじゅつ]革新[かくしん]が 経済[けいざい]成長[せいちょう]に 拍車[はくしゃ]をかけました。',
-              exampleTranslation:
-                'Texnologik yangiliklar iqtisodiy oʻsishni yana-da jadallashtirdi.',
+                '新[あたら]たな 変異[へんい]株の 感染[かんせん]拡大[かくだい]を 阻止[そし]する。',
+              exampleTranslation: 'Yangi mutatsiyaga uchragan shtammning tarqalishini toʻxtatmoq.',
             },
             {
-              term: '妥協[だきょう]を許さない',
-              reading: 'Dakyou o yurusanai',
-              meaning: 'Kelishuvga bormaydigan, murosasiz darajada sifat talabchan',
+              term: '凝固[ぎょうこ]する',
+              reading: 'gyouko suru',
+              meaning: 'Iymoq, qotmoq, quyilmoq',
               exampleSentence:
-                '品質[ひんしつ]に対[たい]して 妥協[だきょう]を 許[ゆる]さない 姿勢[しせい]を 貫[つらぬ]く。',
+                '低温[ていおん]に 達[たっ]すると 液体[えきたい]が 凝固[ぎょうこ]する。',
+              exampleTranslation: 'Harorat pasayganda suyuqlik qotadi.',
+            },
+            {
+              term: '揮発[きはつ]性',
+              reading: 'kihatsusei',
+              meaning: 'Uchuvchanlik (gazga aylanuvchanlik)',
+              exampleSentence:
+                'ガソリンは 高[たか]い 揮発[きはつ]性を 有[ゆう]するため 取扱[とりあつかい]に 注意[ちゅうい]する。',
               exampleTranslation:
-                'Sifat masalasida aslo murosaga bormaydigan qatʼiy yondashuvni saqlaydi.',
+                'Benzin oʻta yuqori uchuvchanlikka ega boʻlgani bois ehtiyotkorlik bilan ishlatiladi.',
+            },
+            {
+              term: '触媒[しょくばい]',
+              reading: 'shokubai',
+              meaning: 'Katalizator (reaksiyani tezlashtiruvchi modda)',
+              exampleSentence:
+                '白金[はっきん]を 触媒[しょくばい]として 化学[かがく]反応[はんのう]を 促進[そくしん]させる。',
+              exampleTranslation:
+                'Platinani katalizator qilib kimyoviy jarayonni jadallashtiradilar.',
             },
           ],
           grammarRules: [
@@ -3465,28 +3863,47 @@ export const JAPANESE_N1_LESSONS: Lesson[] = [
           ],
           vocabulary: [
             {
-              term: '一期一会[いちごいちえ]',
-              reading: 'Ichigo ichie',
-              meaning: 'Takrorlanmas yagona uchrashuv',
-              exampleSentence: '一期一会の出会いを大切にする。',
-              exampleTranslation: 'Qadrli takrorlanmas uchrashuvni qadrlash.',
-            },
-            {
-              term: '妥協[だきょう]を許さない',
-              reading: 'Dakyou o yurusanai',
-              meaning: 'Kelishuvga bormaydigan, murosasiz darajada sifat talabchan',
+              term: '臥薪[がしん]嘗胆[しょうたん]',
+              reading: 'gashinshoutan',
+              meaning: 'Intiqom yoki muvaffaqiyat uchun ogʻir mashaqqatga chidash',
               exampleSentence:
-                '品質[ひんしつ]に対[たい]して 妥協[だきょう]を 許[ゆる]さない 姿勢[しせい]を 貫[つらぬ]く。',
+                '10年間[ねんかん]の 臥薪[がしん]嘗胆[しょうたん]の 末[すえ]、ついに 雪辱[せつじょく]を 果[は]たした。',
               exampleTranslation:
-                'Sifat masalasida aslo murosaga bormaydigan qatʼiy yondashuvni saqlaydi.',
+                'Oʻn yillik mashaqqatli sabr-matonatdan soʻng nihoyat gʻalaba qozondi.',
             },
             {
-              term: '精通[せいつう]している',
-              reading: 'Seitsuu shite iru',
-              meaning: 'Bir sohani mukammal, ipidan ignasigacha bilmoq',
+              term: '一網[いちもう]打尽[だじん]',
+              reading: 'ichimoudajin',
+              meaning: 'Bir toʻr bilan barchasini birdaniga qoʻlga olmoq',
               exampleSentence:
-                '彼[かれ]は 日本[にほん]の 古典[こてん]文学[ぶんがく]に 精通[せいつう]しています。',
-              exampleTranslation: 'U yapon klassik adabiyotini mukammal darajada biladi.',
+                '警察[けいさつ]は 詐欺[さぎ]グループの メンバーを 一網[いちもう]打尽[だじん]に 逮捕[たいほ]した。',
+              exampleTranslation: 'Politsiya firibgarlar toʻdasini bir yoʻla toʻliq qoʻlga oldi.',
+            },
+            {
+              term: '臨機[りんき]応変[おうへん]',
+              reading: 'rinkiouhen',
+              meaning: 'Vaziyatga qarab oʻzgaruvchan, hozirjavob',
+              exampleSentence:
+                '不測[ふそく]の 事態[じたい]にも 臨機[りんき]応変[おうへん]な 処置[しょち]を 施[ほどこ]す。',
+              exampleTranslation: 'Kutilmagan vaziyatda ham epchillik bilan chora koʻriladi.',
+            },
+            {
+              term: '自縄[じじょう]自縛[じばく]',
+              reading: 'jijoujibaku',
+              meaning: 'Oʻz qilmishi yoki qoidasi bilan oʻzini oʻzi tuzoqqa ilintirmoq',
+              exampleSentence:
+                '自[みずか]ら 作[つく]った 規則[きそく]に 縛[しば]られて 自縄[じじょう]自縛[じばく]に 陥[おちい]る。',
+              exampleTranslation:
+                'Oʻzi oʻylab topgan qoidalarga oʻralashib oʻz oyogʻiga oʻzi tuzoq qoʻymoq.',
+            },
+            {
+              term: '起死[きし]回生[かいせい]',
+              reading: 'kishikaisei',
+              meaning: 'Oʻlim yoqasidan hayotga qaytish, moʻjizaviy najot',
+              exampleSentence:
+                '起死[きし]回生[かいせい]の ホームランで 逆転[ぎゃくてん]勝利[しょうり]を 収[おさ]めた。',
+              exampleTranslation:
+                'Moʻjizaviy soʻnggi zarba bilan magʻlubiyat yoqasidan gʻalabani ilib ketdi.',
             },
           ],
           grammarRules: [
@@ -3643,28 +4060,45 @@ export const JAPANESE_N1_LESSONS: Lesson[] = [
           ],
           vocabulary: [
             {
-              term: '妥協[だきょう]を許さない',
-              reading: 'Dakyou o yurusanai',
-              meaning: 'Kelishuvga bormaydigan, murosasiz darajada sifat talabchan',
+              term: '相まって',
+              reading: 'aimatte',
+              meaning: 'Bir-biri bilan qoʻshilib, oʻzaro taʼsirda',
               exampleSentence:
-                '品質[ひんしつ]に対[たい]して 妥協[だきょう]を 許[ゆる]さない 姿勢[しせい]を 貫[つらぬ]く。',
+                '才能[さいのう]と 努力[どりょく]が 相[あい]まって 偉大[いだい]な 成果[せいか]を 生[う]んだ。',
               exampleTranslation:
-                'Sifat masalasida aslo murosaga bormaydigan qatʼiy yondashuvni saqlaydi.',
+                'Iqtidor bilan mehnat bir-biriga qoʻshilib buyuk natijani yaratdi.',
             },
             {
-              term: '精通[せいつう]している',
-              reading: 'Seitsuu shite iru',
-              meaning: 'Bir sohani mukammal, ipidan ignasigacha bilmoq',
+              term: 'かまけて',
+              reading: 'kamakete',
+              meaning: 'Bir narsaga berilib ketib, boshqa muhim ishni unutmoq',
               exampleSentence:
-                '彼[かれ]は 日本[にほん]の 古典[こてん]文学[ぶんがく]に 精通[せいつう]しています。',
-              exampleTranslation: 'U yapon klassik adabiyotini mukammal darajada biladi.',
+                '目先[めさき]の 忙[いそが]しさに かまけて 健康[けんこう]を 害[がい]してしまった。',
+              exampleTranslation: 'Kunlik tashvishlarga berilib ketib salomatligini boy berdi.',
             },
             {
-              term: '余儀[よぎ]なくされる',
-              reading: 'Yogi naku sareru',
-              meaning: 'Majbur boʻlib qolmoq (vaziyat taqozosi bilan)',
-              exampleSentence: '計画[けいかく]の 変更[へんこう]を 余儀[よぎ]なくされました。',
-              exampleTranslation: 'Rejani oʻzgartirishga majbur boʻldik.',
+              term: '皮切りに',
+              reading: 'kawakiniri',
+              meaning: 'Boshlab berish nuqtasi sifatida, dastlab',
+              exampleSentence:
+                '東京[とうきょう]公演[こうえん]を 皮切[かわき]りに 全国[ぜんこく]ツアーが 始[はじ]まる。',
+              exampleTranslation:
+                'Tokio konsertidan boshlab butun mamlakat boʻylab gastrol safarlari boshlanadi.',
+            },
+            {
+              term: '相応[そうおう]の',
+              reading: 'souou no',
+              meaning: 'Darajasiga yarasha, munosib',
+              exampleSentence:
+                '重責[じゅうせき]を 担[にな]うに 相応[そうおう]の 報酬[ほうしゅう]を 支払[しはら]う。',
+              exampleTranslation: 'Yuksak masʼuliyatga yarasha munosib haq toʻlanadi.',
+            },
+            {
+              term: '余儀[よぎ]ない',
+              reading: 'yoginai',
+              meaning: 'Boshqa chora va yoʻl qolmagan',
+              exampleSentence: '余儀[よぎ]ない 事情[じじょう]により 欠席[けっせき]いたします。',
+              exampleTranslation: 'Boshqa chorasiz vaziyat tufayli qatnasha olmayman.',
             },
           ],
         },
@@ -3803,28 +4237,48 @@ export const JAPANESE_N1_LESSONS: Lesson[] = [
           ],
           vocabulary: [
             {
-              term: '精通[せいつう]している',
-              reading: 'Seitsuu shite iru',
-              meaning: 'Bir sohani mukammal, ipidan ignasigacha bilmoq',
+              term: '百戦[ひゃくせん]錬磨[れんま]',
+              reading: 'hyakusenremma',
+              meaning: 'Yuzlab janglarda toblangan, oʻta tajribali',
               exampleSentence:
-                '彼[かれ]は 日本[にほん]の 古典[こてん]文学[ぶんがく]に 精通[せいつう]しています。',
-              exampleTranslation: 'U yapon klassik adabiyotini mukammal darajada biladi.',
-            },
-            {
-              term: '余儀[よぎ]なくされる',
-              reading: 'Yogi naku sareru',
-              meaning: 'Majbur boʻlib qolmoq (vaziyat taqozosi bilan)',
-              exampleSentence: '計画[けいかく]の 変更[へんこう]を 余儀[よぎ]なくされました。',
-              exampleTranslation: 'Rejani oʻzgartirishga majbur boʻldik.',
-            },
-            {
-              term: '拍車[はくしゃ]をかける',
-              reading: 'Hakusha o kakeru',
-              meaning: 'Yana-da tezlashtirmoq, kuchaytirmoq',
-              exampleSentence:
-                '技術[ぎじゅつ]革新[かくしん]が 経済[けいざい]成長[せいちょう]に 拍車[はくしゃ]をかけました。',
+                '百戦[ひゃくせん]錬磨[れんま]の 猛者[もさ]たちが 集[あつ]う 最高[さいこう]峰[ほう]の 舞台[ぶたい]。',
               exampleTranslation:
-                'Texnologik yangiliklar iqtisodiy oʻsishni yana-da jadallashtirdi.',
+                'Minglab sinovlarda toblangan tajribali insonlar jamlangan eng oliy maydon.',
+            },
+            {
+              term: '乾坤[けんこん]一擲[いってき]',
+              reading: 'kenkonʼitteki',
+              meaning: 'Barcha narsani bir tikishga garov qilib tavakkal qilmoq',
+              exampleSentence: '乾坤[けんこん]一擲[いってき]の 大[だい]勝負[しょうぶ]に 出[で]る。',
+              exampleTranslation:
+                'Bor narsasini garovga qoʻyib hal qiluvchi buyuk jangga kirishmoq.',
+            },
+            {
+              term: '盤石[ばんじゃく]の',
+              reading: 'banjaku no',
+              meaning: 'Qoyadek mustahkam, yiqilmas',
+              exampleSentence:
+                '盤石[ばんじゃく]の 体制[たいせい]を 築[きず]き上[あ]げて 試験[しけん]に 臨[のぞ]む。',
+              exampleTranslation:
+                'Qoyadek mustahkam tayyorgarlik tizimini qurib imtihonga kirishmoq.',
+            },
+            {
+              term: '白眉[はくび]',
+              reading: 'hakubi',
+              meaning: 'Eng aʼlo durdona, tengqurlari ichida eng sarasi',
+              exampleSentence:
+                '彼[かれ]の デビュー作[さく]は 近代[きんだい]文学[ぶんがく]の 白眉[はくび]と 称[しょう]される。',
+              exampleTranslation:
+                'Uning debyut asari zamonaviy adabiyotning eng sarasi deb eʼtirof etiladi.',
+            },
+            {
+              term: '泰然[たいぜん]自若[じじゃく]',
+              reading: 'taizenjijaku',
+              meaning: 'Vazmin, hech narsadan choʻchimaydigan, xotirjam',
+              exampleSentence:
+                '危機[きき]に 瀕[ひん]しても 泰然[たいぜん]自若[じじゃく]として 指示[しじ]を 出[だ]す。',
+              exampleTranslation:
+                'Inqirozga duch kelganda ham zarracha vahimaga tushmay bosiqlik bilan buyruq berdi.',
             },
           ],
         },
@@ -3964,29 +4418,44 @@ export const JAPANESE_N1_LESSONS: Lesson[] = [
           ],
           vocabulary: [
             {
-              term: '余儀[よぎ]なくされる',
-              reading: 'Yogi naku sareru',
-              meaning: 'Majbur boʻlib qolmoq (vaziyat taqozosi bilan)',
-              exampleSentence: '計画[けいかく]の 変更[へんこう]を 余儀[よぎ]なくされました。',
-              exampleTranslation: 'Rejani oʻzgartirishga majbur boʻldik.',
+              term: '名誉[めいよ]ある',
+              reading: 'meiyo aru',
+              meaning: 'Sharafli, faxrli',
+              exampleSentence:
+                '名誉[めいよ]ある JLPT N1 合格[ごうかく]の 栄冠[えいかん]を 獲得[かくとく]した。',
+              exampleTranslation: 'Sharafli JLPT N1 zafarini qoʻlga kiritdim.',
             },
             {
-              term: '拍車[はくしゃ]をかける',
-              reading: 'Hakusha o kakeru',
-              meaning: 'Yana-da tezlashtirmoq, kuchaytirmoq',
+              term: '金字塔[きんじとう]',
+              reading: 'kinjitou',
+              meaning: 'Mislsiz choʻqqi, unutilmas buyuk yutuq',
               exampleSentence:
-                '技術[ぎじゅつ]革新[かくしん]が 経済[けいざい]成長[せいちょう]に 拍車[はくしゃ]をかけました。',
-              exampleTranslation:
-                'Texnologik yangiliklar iqtisodiy oʻsishni yana-da jadallashtirdi.',
+                '日本[にほん]語[ご]学習[がくしゅう]における 最高[さいこう]の 金字塔[きんじとう]を 刻[きざ]む。',
+              exampleTranslation: 'Yapon tili oʻrganish yoʻlida eng buyuk choʻqqini zabt etmoq.',
             },
             {
-              term: '妥協[だきょう]を許さない',
-              reading: 'Dakyou o yurusanai',
-              meaning: 'Kelishuvga bormaydigan, murosasiz darajada sifat talabchan',
+              term: '研鑽[けんさん]を 積[つ]む',
+              reading: 'kensan o tsumu',
+              meaning: 'Tinimsiz ilm olib mahoratini charxlamoq',
               exampleSentence:
-                '品質[ひんしつ]に対[たい]して 妥協[だきょう]を 許[ゆる]さない 姿勢[しせい]を 貫[つらぬ]く。',
+                '合格[ごうかく]後[ご]も 怠[おこた]ることなく 研鑽[けんさん]を 積[つ]み重[かさ]ねる。',
               exampleTranslation:
-                'Sifat masalasida aslo murosaga bormaydigan qatʼiy yondashuvni saqlaydi.',
+                'Muvaffaqiyatdan keyin ham toʻxtamasdan mahoratini yanada charxlab bormoq.',
+            },
+            {
+              term: '真髄[しんずい]',
+              reading: 'shinzui',
+              meaning: 'Asl mohiyat, teran falsafasi',
+              exampleSentence: '日本[にほん]文化[ぶんか]の 真髄[しんずい]に 触[ふ]れる。',
+              exampleTranslation: 'Yapon madaniyatining asl teran mohiyatini his etmoq.',
+            },
+            {
+              term: '先駆[せんく]者',
+              reading: 'senkusha',
+              meaning: 'Pioner, yoʻl ochib beruvchi peshqadam',
+              exampleSentence:
+                '新[あたら]しい 時代[じだい]の 先駆[せんく]者として 世界[せかい]へ 羽[は]ばたく。',
+              exampleTranslation: 'Yangi davrning peshqadami sifatida jahon sari qanot qoqmoq.',
             },
           ],
         },
@@ -4114,25 +4583,49 @@ export const JAPANESE_N1_LESSONS: Lesson[] = [
           ],
           vocabulary: [
             {
-              term: '孕む[はらむ]',
-              reading: 'Haramu',
-              meaning: "O'z ichiga olmoq, xavf yoki ziddiyatni yashirin saqlamoq",
-              exampleSentence: '重大[じゅうだい]な 危機[きき]を 孕んで[はらんで]いる。',
-              exampleTranslation: "Jiddiy inqirozni o'zida yashirmoqda.",
+              term: '人工[じんこう]知能[ちのう]の 倫理[りんり]',
+              reading: 'jinkouchinou no rinri',
+              meaning: 'Sunʼiy intellekt etikasi',
+              exampleSentence:
+                '生成[せいせい]AIの 普及[ふきゅう]に 伴[ともな]い 人工[じんこう]知能[ちのう]の 倫理[りんり]が 問[と]われている。',
+              exampleTranslation:
+                'Generativ sunʼiy intellekt tarqalishi bilan uning etikasi jiddiy muhokama qilinmoqda.',
             },
             {
-              term: '委ねる[ゆだねる]',
-              reading: 'Yudaneru',
-              meaning: "Ixtiyoriga topshirmoq, butunlay ishonib qo'ymoq",
-              exampleSentence: '運命[うんめい]を 他人[たにん]に 委ねる[ゆだねる]な。',
-              exampleTranslation: "Taqdiringni o'zgalar qo'liga topshirma.",
+              term: 'アルゴリズムバイアス',
+              reading: 'arugorizumu baiasu',
+              meaning: 'Algoritmik tarafkashlik/ogʻish',
+              exampleSentence:
+                '訓練[くんれん]データの 偏[かたよ]りに よる アルゴリズムバイアスを 是正[ぜせい]する。',
+              exampleTranslation:
+                'Oʻrgatish maʼlumotlaridagi nomutanosiblikdan kelib chiqqan algoritm xatosini toʻgʻrilash.',
             },
             {
-              term: '計り知れない[はかりしれない]',
-              reading: 'Hakarishirenai',
-              meaning: "Cheksiz, o'lchab bo'lmaydigan darajada ulkan",
-              exampleSentence: '損害[そんがい]は 計り知れない[はかりしれない]。',
-              exampleTranslation: "Zarar ko'lami behisobdir.",
+              term: '自律[じりつ]型[がた]兵器[へいき]',
+              reading: 'jiritsugata heiki',
+              meaning: 'Avtonom qurollar tizimi',
+              exampleSentence:
+                '自律[じりつ]型[がた]兵器[へいき]の 開発[かいはつ]に 対[たい]する 国際[こくさい]的[てき]な 規制[きせい]が 急務[きゅうむ]だ。',
+              exampleTranslation:
+                'Avtonom qurollarni ishlab chiqishga xalqaro cheklov qoʻyish kechiktirib boʻlmas vazifadir.',
+            },
+            {
+              term: '特異[とくい]点[てん]（シンギュラリティ）',
+              reading: 'singyurariti',
+              meaning: 'Singulyarlik (mashina inson aqlidan oʻzib ketadigan nuqta)',
+              exampleSentence:
+                '技術[ぎじゅつ]的[てき]特異[とくい]点[てん]が 社会[しゃかい]に 与[あた]える 衝撃[しょうげき]を 予測[よそく]する。',
+              exampleTranslation:
+                'Texnologik singulyarlik jamiyatga olib keladigan toʻlqinni oldindan taxmin qilish.',
+            },
+            {
+              term: '人間[にんげん]中心[ちゅうしん]主義',
+              reading: 'ningenchushinshugi',
+              meaning: 'Antropotsentrizm (insonni markazga qoʻyuvchi falsafa)',
+              exampleSentence:
+                'AI時代[じだい]における 人間[にんげん]中心[ちゅうしん]主義の 再定義[さいていぎ]が 求[もと]められる。',
+              exampleTranslation:
+                'AI asrida insonparvarlik falsafasini qayta taʼriflash talab etilmoqda.',
             },
           ],
           grammarRules: [
@@ -4271,18 +4764,46 @@ export const JAPANESE_N1_LESSONS: Lesson[] = [
           ],
           vocabulary: [
             {
-              term: 'おろそか',
-              reading: 'Orosoka',
-              meaning: "E'tiborsiz, beparvo qarash",
-              exampleSentence: '勉強[べんきょう]を おろそかに する。',
-              exampleTranslation: "O'qishga beparvolik qilmoq.",
+              term: 'にかまけて',
+              reading: 'nikamakete',
+              meaning: 'Biror narsaga chalgʻib/berilib muhim ishni eʼtiborsiz qoldirmoq',
+              exampleSentence:
+                '多忙[たぼう]に かまけて 親孝行[おやこうこう]を 怠[おこた]ってしまった。',
+              exampleTranslation:
+                'Ish koʻpligiga berilib ketib ota-onaga gʻamxoʻrlik qilishni unutib qoʻydim.',
             },
             {
-              term: '皮切り[かわきり]',
-              reading: 'Kawakiri',
-              meaning: 'Boshlanish, muqaddima, birinchi start',
-              exampleSentence: '今大会[こんたいかい]を 皮切りに[かわきりに] 飛躍[ひやく]する。',
-              exampleTranslation: 'Ushbu musobaqadan boshlab yuksak parvoz qiladi.',
+              term: 'を皮切りに',
+              reading: 'o kawakiri ni',
+              meaning: 'Ni boshlangʻich nuqta qilib, ketidan davom etmoq',
+              exampleSentence:
+                '東京[とうきょう]を 皮切[かわき]りに 世界[せかい]ツアーを 開催[かいさい]する。',
+              exampleTranslation: 'Tokioni boshlab butun dunyo boʻylab konsert beramiz.',
+            },
+            {
+              term: 'にかこつけて',
+              reading: 'nikakotsukete',
+              meaning: 'Bir narsani bahona qilib olmoq',
+              exampleSentence: '出張[しゅっちょう]に かこつけて 観光[かんこう]を 楽しむ。',
+              exampleTranslation: 'Xizmat safarini bahona qilib sayohat qilish.',
+            },
+            {
+              term: 'を皮切りとして',
+              reading: 'o kawakiri to shite',
+              meaning: 'Ni start deb olib',
+              exampleSentence:
+                '初日[しょにち]の 大ヒットを 皮切[かわき]りとして 記録[きろく]を 更新[こうしん]した。',
+              exampleTranslation:
+                'Birinchi kundagi ulkan muvaffaqiyatdan boshlab rekordlar yangilandi.',
+            },
+            {
+              term: '怠[おこた]りなく',
+              reading: 'okotarinaku',
+              meaning: 'Bekamu koʻst, zarracha beparvoliksiz',
+              exampleSentence:
+                '準備[じゅんび]を 怠[おこた]りなく 整[ととの]えて 本番[ほんばん]に 臨[のぞ]む。',
+              exampleTranslation:
+                'Tayyorgarlikni zarracha kamchiliksiz puxta qilib imtihonga kirishmoq.',
             },
           ],
           grammarRules: [
@@ -4432,18 +4953,45 @@ export const JAPANESE_N1_LESSONS: Lesson[] = [
           ],
           vocabulary: [
             {
-              term: '憤り[いきどおり]',
-              reading: 'Ikidoori',
-              meaning: "Qat'iy g'azab, haqsizlikdan kelib chiqqan nafrat",
-              exampleSentence: '不正[ふせい]に 強い[つよい] 憤り[いきどおり]を 覚える[おぼえる]。',
-              exampleTranslation: "Nohaqlikdan qattiq g'azabga to'lmoq.",
+              term: 'てやまない',
+              reading: 'te yamanai',
+              meaning: 'Tinmay dildan tilamoq, soʻnmas istak bilan',
+              exampleSentence:
+                '被災[ひさい]地[ち]の 一日[いちにち]も 早[はや]い 復興[ふっこう]を 祈[いの]って やまない。',
+              exampleTranslation:
+                'Ofat hududining tezroq oyoqqa turishini dildan tinimsiz duo qilamiz.',
             },
             {
-              term: '理不尽[りふじん]',
-              reading: 'Rifujin',
-              meaning: 'Mantiqsiz, adolatsiz, nohaq',
-              exampleSentence: '理不尽[りふじん]な 要求[ようきゅう]を 拒否[きょひ]する。',
-              exampleTranslation: 'Asossiz va adolatsiz talabni rad etmoq.',
+              term: '禁[きん]じ得[え]ない',
+              reading: 'kinji enai',
+              meaning: 'Oʻzini tiyib boʻlmaslik (hissiyotga)',
+              exampleSentence:
+                'あまりの 理不尽[りふじん]さに 憤[いきどお]りを 禁[きん]じ得[え]ない。',
+              exampleTranslation: 'Bunday nohaqlik oldida gʻazabni tiyib turish mutlaqo imkonsiz.',
+            },
+            {
+              term: '感嘆[かんたん]を 禁じ得ない',
+              reading: 'kantan o kinjienai',
+              meaning: 'Hayrat va tahsinni tiyolmay qolmoq',
+              exampleSentence:
+                '彼[かれ]の 圧倒[あっとう]的[てき]な 技量[ぎりょう]に 感嘆[かんたん]を 禁[きん]じ得[え]ない。',
+              exampleTranslation: 'Uning tengsiz mahoratiga tahsin aytmasdan iloj yoʻq.',
+            },
+            {
+              term: '愛[あい]してやまない',
+              reading: 'aishite yamanai',
+              meaning: 'Jon-dilidan sevmoq, cheksiz muhabbat bogʻlamoq',
+              exampleSentence:
+                '祖国[そこく]の 美[うつく]しい 自然[しぜん]を 愛[あい]して やまない。',
+              exampleTranslation: 'Ona yurtning maftunkor tabiatini jon-dilimdan sevaman.',
+            },
+            {
+              term: '涙[なみだ]を 禁じ得ない',
+              reading: 'namida o kinjienai',
+              meaning: 'Koʻz yoshlarini tutib turolmaslik',
+              exampleSentence:
+                '感動物語[かんどうものがたり]に 涙[なみだ]を 禁[きん]じ得[え]なかった。',
+              exampleTranslation: 'Taʼsirli qissani eshitib koʻz yoshlarini tiyib boʻlmadi.',
             },
           ],
           grammarRules: [
@@ -4592,18 +5140,48 @@ export const JAPANESE_N1_LESSONS: Lesson[] = [
           ],
           vocabulary: [
             {
-              term: '免除[めんじょ]',
-              reading: 'Menjo',
-              meaning: "Omon qoldirish, to'lov yoki majburiyatdan ozod qilish",
-              exampleSentence: '授業料[じゅぎょうりょう]が 免除[めんじょ]される。',
-              exampleTranslation: "O'qish to'lovidan ozod qilinadi.",
+              term: '速読[そくどく]術',
+              reading: 'sokudokujutsu',
+              meaning: 'Tez oʻqish mahorati',
+              exampleSentence:
+                '膨大[ぼうだい]な 情報[じょうほう]を 瞬時[しゅんじ]に 処理[しょり]する 速読[そくどく]術を 習得[しゅうとく]する。',
+              exampleTranslation:
+                'Ulkan maʼlumotlarni bir zumda qayta ishlaydigan tez oʻqish texnikasini egallamoq.',
             },
             {
-              term: '適用[てきよう]',
-              reading: 'Tekiyou',
-              meaning: "Qo'llanilishi, tatbiq etilishi",
-              exampleSentence: '割引[わりびき]が 適用[てきよう]される。',
-              exampleTranslation: "Chegirma qo'llaniladi.",
+              term: '斜[なな]め読[よ]み（スキャニング）',
+              reading: 'nanameyomi',
+              meaning: 'Koʻz yugurtirib kerakli joyni tez topish',
+              exampleSentence:
+                '時間[じかん]が ないので 斜[なな]め読[よ]みで 全体[ぜんたい]の 要点[ようてん]を 拾[ひろ]い出[だ]す。',
+              exampleTranslation:
+                'Vaqt qisqaligi bois koʻz yugurtirib umumiy asosiy joylarni ajratib olmoq.',
+            },
+            {
+              term: '情報[じょうほう]検索[けんさく]',
+              reading: 'jouhou kensaku',
+              meaning: 'Kerakli maʼlumotni qidirish va saralash',
+              exampleSentence:
+                '長文[ちょうぶん]の 中[なか]から 必要[ひつよう]な 情報[じょうほう]を 正確[せいかく]に 検索[けんさく]する。',
+              exampleTranslation: 'Katta matn ichidan kerakli maʼlumotni xatosiz topib olmoq.',
+            },
+            {
+              term: '取捨[しゅしゃ]選択[せんたく]',
+              reading: 'shushasentaku',
+              meaning: 'Keragini olib, keraksizini chiqarib tashlash',
+              exampleSentence:
+                '溢[あふ]れる 情報[じょうほう]を 取捨[しゅしゃ]選択[せんたく]する 判断[はんだん]力[りょく]が 肝要[かんよう]だ。',
+              exampleTranslation:
+                'Koʻp maʼlumotlar ichidan kerakligini saralab olish qobiliyati juda muhim.',
+            },
+            {
+              term: '精読[せいどく]',
+              reading: 'seidoku',
+              meaning: 'Ipidan ignasigacha sinchiklab oʻqish',
+              exampleSentence:
+                '難解[なんかい]な 契約[けいやく]書は 精読[せいどく]して リスクを 排除[はいじょ]する。',
+              exampleTranslation:
+                'Murakkab shartnomani sinchiklab ipidan ignasigacha oʻqib xatarlarni yoʻqotamiz.',
             },
           ],
           grammarRules: [
@@ -4742,20 +5320,46 @@ export const JAPANESE_N1_LESSONS: Lesson[] = [
           ],
           vocabulary: [
             {
-              term: '極致[きょくち]',
-              reading: 'Kyokuchi',
-              meaning: "Eng yuksak cho'qqi, kamolot darajasi",
-              exampleSentence: '芸道[げいどう]の 極致[きょくち]に 達する[たっする]。',
-              exampleTranslation: "San'atning eng oliy cho'qqisiga yetishmoq.",
+              term: '冠絶[かんぜつ]の 栄誉[えいよ]',
+              reading: 'kanzetsu no eiyo',
+              meaning: 'Tengsiz oliy sharaf',
+              exampleSentence:
+                'JLPT N1 最高[さいこう]峰[ほう]の 冠絶[かんぜつ]の 栄誉[えいよ]を 讃[たた]える。',
+              exampleTranslation:
+                'JLPT N1 ning eng oliy choʻqqisidagi tengsiz sharafni eʼtirof etamiz.',
             },
             {
-              term: '精進[しょうじん]',
-              reading: 'Shoujin',
-              meaning: "Tinimsiz mehnat qilish, o'z ustida sidqidildan ishlash",
+              term: '偉業[いぎょう]を 達成[たっせい]する',
+              reading: 'igyou o tassei suru',
+              meaning: 'Buyuk jasorat va ulkan tarixiy natijaga erishmoq',
               exampleSentence:
-                '今後[こんご]も 一層[いっそう]の 精進[しょうじん]を 重ねる[かさねる]。',
+                '自[みずか]らの 人生[じんせい]に おいて 偉大[いだい]な 偉業[いぎょう]を 達成[たっせい]した。',
+              exampleTranslation: 'Oʻz hayotida buyuk va unutilmas natijaga erishdi.',
+            },
+            {
+              term: '至高[しこう]の 境地[きょうち]',
+              reading: 'shikou no kyouchi',
+              meaning: 'Eng yuksak kamolot maqomi',
+              exampleSentence:
+                '語学[ごがく]学習[がくしゅう]の 至高[しこう]の 境地[きょうち]へと 到達[とうたつ]した。',
+              exampleTranslation: 'Til oʻrganishning eng yuksak kamolot maqomiga yetib bordi.',
+            },
+            {
+              term: '世界[せかい]への 飛翔[ひしょう]',
+              reading: 'sekai e no hishou',
+              meaning: 'Jahon uzra parvoz qilish, xalqaro maydonga chiqish',
+              exampleSentence:
+                '身[み]につけた 日本語[にほんご]を 翼[つばさ]として、世界[せかい]へ 飛翔[ひしょう]する。',
+              exampleTranslation: 'Egallagan yapon tilini qanot qilib jahon uzra parvoz qilamiz.',
+            },
+            {
+              term: '無窮[むきゅう]の 探求[たんきゅう]',
+              reading: 'mukyuu no tankyuu',
+              meaning: 'Cheksiz va tuganmas izlanish',
+              exampleSentence:
+                '学[まな]びに 終[お]わりは ない。無窮[むきゅう]の 探求[たんきゅう]を 続[つづ]けよう。',
               exampleTranslation:
-                "Kelajakda ham yanada chuqurroq o'z ustida ishlashda davom etadi.",
+                'Ilm olishning intihosi yoʻq. Keling, cheksiz izlanishda davom etaylik.',
             },
           ],
           grammarRules: [

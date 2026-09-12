@@ -26,25 +26,44 @@ export const JAPANESE_N2_LESSONS: Lesson[] = [
           vocabulary: [
             {
               term: '衰[おとろ]える',
-              reading: 'Otoroeru',
-              meaning: 'Zaiflashmoq / Pasaymoq',
-              exampleSentence: '体力[たいりょく]が 衰[おとろ]える。',
-              exampleTranslation: 'Jismoniy quvvat zaiflashmoqda.',
+              reading: 'otoroeru',
+              meaning: 'Zaiflashmoq, kuchi pasaymoq',
+              exampleSentence:
+                '年[とし]を 取[と]るにつれて、体力[たいりょく]が 衰[おとろ]えて きた。',
+              exampleTranslation: 'Yosh oʻtgan sari jismoniy quvvat pasayib bordi.',
             },
             {
               term: '深刻[しんこく]化',
-              reading: 'Shinkokuka',
-              meaning: 'Jiddiylashuv / Chuqurlashuv',
-              exampleSentence: '問題[もんだい]が 深刻[しんこく]化する。',
-              exampleTranslation: 'Muammo jiddiylashmoqda.',
+              reading: 'shinkokuka',
+              meaning: 'Jiddiylashuv, chuqurlashuv',
+              exampleSentence:
+                '少子[しょうし]高齢[こうれい]化が ますます 深刻[しんこく]化 している。',
+              exampleTranslation: 'Aholining keksayishi tobora jiddiylashmoqda.',
             },
             {
-              term: '把握[はあく]する',
-              reading: 'Haaku suru',
-              meaning: 'Vaziyatni toʻliq anglab yetmoq, tushunmoq',
+              term: '変容[へんよう]する',
+              reading: 'henyou suru',
+              meaning: 'Shaklan yoki mazmunan oʻzgarmoq',
               exampleSentence:
-                '現状[げんじょう]を 正確[せいかく]に 把握[はあく]する 必要[ひつよう]があります。',
-              exampleTranslation: 'Hozirgi holatni aniq anglab yetish zarur.',
+                '時代[じだい]の 変化[へんか]に 伴[ともな]って、生活[せいかつ]様式[ようしき]が 変容[へんよう]した。',
+              exampleTranslation: 'Zamon oʻzgarishi bilan turmush tarzi oʻzgardi.',
+            },
+            {
+              term: '推移[すいい]する',
+              reading: 'suii suru',
+              meaning: 'Vaqt davomida siljimoq, oʻzgarib bormoq',
+              exampleSentence:
+                '為替[かわせ]レートの 推移[すいい]を 慎重[しんちょう]に 見守[みまも]る。',
+              exampleTranslation:
+                'Valyuta kursining oʻzgarishini ehtiyotkorlik bilan kuzatmoqdamiz.',
+            },
+            {
+              term: '連動[れんどう]する',
+              reading: 'rendou suru',
+              meaning: 'Oʻzaro bogʻliq holda birgalikda harakatlanmoq',
+              exampleSentence:
+                '物価[ぶっか]の 上昇[じょうしょう]に 連動[れんどう]して 給料[きゅうりょう]が 上[あ]がる。',
+              exampleTranslation: 'Narxlar oshishiga bogʻliq ravishda ish haqi oshadi.',
             },
           ],
           grammarRules: [
@@ -190,24 +209,42 @@ export const JAPANESE_N2_LESSONS: Lesson[] = [
           vocabulary: [
             {
               term: '予算[よさん]',
-              reading: 'Yosan',
-              meaning: 'Byudjet',
-              exampleSentence: '予算[よさん]を 立[た]てる。',
-              exampleTranslation: 'Byudjet tuzmoq.',
+              reading: 'yosan',
+              meaning: 'Budjet, rejalashtirilgan mablagʻ',
+              exampleSentence: '新規[しんき]事業[じぎょう]の 予算[よさん]を 獲得[かくとく]する。',
+              exampleTranslation: 'Yangi loyiha uchun budjetni qoʻlga kiritish.',
             },
             {
               term: '判断[はんだん]',
-              reading: 'Handan',
-              meaning: 'Qaror / Baholash / Hukm',
-              exampleSentence: '冷静[れいせい]に 判断[はんだん]する。',
-              exampleTranslation: 'Vazminlik bilan baholamoq.',
+              reading: 'handan',
+              meaning: 'Hukm, toʻgʻri baho berish, xulosa',
+              exampleSentence:
+                '状況[じょうきょう]に 応[おう]じた 迅速[じんそく]な 判断[はんだん]が 求[もと]められる。',
+              exampleTranslation: 'Vaziyatga qarab tezkor xulosa chiqarish talab etiladi.',
             },
             {
-              term: '促進[そくしん]する',
-              reading: 'Sokushin suru',
-              meaning: 'Rivojlanishni jadallashtirmoq, ragʻbatlantirmoq',
-              exampleSentence: '国際[こくさい] 交流[こうりゅう]を 促進[そくしん]します。',
-              exampleTranslation: 'Xalqaro almashinuvni ragʻbatlantiramiz.',
+              term: '裁量[さいりょう]',
+              reading: 'sairyou',
+              meaning: 'Oʻz ixtiyori, mustaqil qaror huquqi',
+              exampleSentence:
+                '各[かく]社員[しゃいん]の 裁量[さいりょう]に 任[まか]せて 業務[ぎょうむ]を 進[すす]める。',
+              exampleTranslation: 'Har bir xodimning oʻz ixtiyoriga topshirib ishni olib boramiz.',
+            },
+            {
+              term: '見解[けんかい]',
+              reading: 'kenkai',
+              meaning: 'Nuqtayi nazar, rasmiy qarash',
+              exampleSentence:
+                '政府[せいふ]は 公式[こうしき]な 見解[けんかい]を 発表[はっぴょう]した。',
+              exampleTranslation: 'Hukumat oʻzining rasmiy nuqtayi nazarini eʼlon qildi.',
+            },
+            {
+              term: '決断[けつだん]を 下[くだ]す',
+              reading: 'ketsudan o kudasu',
+              meaning: 'Qatʼiy qaror qabul qilmoq',
+              exampleSentence:
+                '社長[しゃちょう]は 苦渋[くじゅう]の 決断[けつだん]を 下[くだ]した。',
+              exampleTranslation: 'Prezident ogʻir, ammo qatʼiy qarorni qabul qildi.',
             },
           ],
           grammarRules: [
@@ -353,25 +390,44 @@ export const JAPANESE_N2_LESSONS: Lesson[] = [
             '1. 〜かねる (Muloyim rasmiy rad etish / Masu asosi + kaneru): Sharoit yoki mas\'uliyat sababli "... qila olmayman": そのような ご要望[ようぼう]には 応[おう]じかねます (Bunday talabni qondira olmaymiz). 2. 〜かねない (Salbiy/xatarli narsaning sodir bo\'lish xavfi / Masu asosi + kanenai): "... bo\'lib qolishi xavfi bor": スピードを 出[だ]しすぎると、大[おお]きな 事故[じこ]を 起[お]こしかねない (Juda tez yursa, katta avariyaga sabab bo\'lib qolishi mumkin!).',
           vocabulary: [
             {
-              term: '応[おう]じかねます',
-              reading: 'Oujikanemasu',
-              meaning: 'Qabul qila olmaymiz / Qondira olmaymiz (muloyim)',
-              exampleSentence: 'ご期待[きたい]には 添[そ]いかねます。',
-              exampleTranslation: 'Umidlaringizni oqlay olmasak kerak.',
+              term: '口頭[こうとう]で',
+              reading: 'koutou de',
+              meaning: 'Ogʻzaki tarzda',
+              exampleSentence:
+                '重要[じゅうよう]な 件[けん]なので 口頭[こうとう]で 伝[つた]えます。',
+              exampleTranslation: 'Muhim masala boʻlgani uchun ogʻzaki yetkazaman.',
             },
             {
-              term: '促進[そくしん]する',
-              reading: 'Sokushin suru',
-              meaning: 'Rivojlanishni jadallashtirmoq, ragʻbatlantirmoq',
-              exampleSentence: '国際[こくさい] 交流[こうりゅう]を 促進[そくしん]します。',
-              exampleTranslation: 'Xalqaro almashinuvni ragʻbatlantiramiz.',
+              term: '確認[かくにん]を 怠[おこた]る',
+              reading: 'kakunin o okotaru',
+              meaning: 'Tekshirishni eʼtibordan chetda qoldirmoq',
+              exampleSentence:
+                '最終[さいしゅう]確認[かくにん]を 怠[おこた]った ために ミスが 生[しょう]じた。',
+              exampleTranslation:
+                'Yakuniy tekshirishga beparvo boʻlingani tufayli xato kelib chiqdi.',
             },
             {
-              term: '配慮[はいりょ]する',
-              reading: 'Hairyo suru',
-              meaning: 'Eʼtibor bermoq, gʻamxoʻrlik qilmoq',
-              exampleSentence: '周囲[しゅうい]の 人[ひと]への 配慮[はいりょ]が 欠[か]かせません。',
-              exampleTranslation: 'Atrofdagilarga eʼtibor va gʻamxoʻrlik qilish juda muhim.',
+              term: '慎重[しんちょう]な',
+              reading: 'shinchou na',
+              meaning: 'Ehtiyotkor, bosiq, mulohazali',
+              exampleSentence:
+                '契約[けいやく]には 慎重[しんちょう]な 態度[たいど]が 必要[ひつよう]だ。',
+              exampleTranslation: 'Shartnoma tuzishda ehtiyotkorlik zarur.',
+            },
+            {
+              term: '綿密[めんみつ]な',
+              reading: 'menmitsu na',
+              meaning: 'Ipidan ignasigacha puxta, mayda-chuydasigacha oʻylangan',
+              exampleSentence: '綿密[めんみつ]な 計画[けいかく]を 立[た]てて 実行[じっこう]する。',
+              exampleTranslation: 'Puxta reja tuzib uni amalga oshiramiz.',
+            },
+            {
+              term: '不手際[ふてぎわ]',
+              reading: 'futegiwa',
+              meaning: 'Qovun tushirish, noʻnoqlik, ehtiyotsizlik',
+              exampleSentence:
+                '私[わたし]の 不手際[ふてぎわ]で ご迷惑[めいわく]を おかけしました。',
+              exampleTranslation: 'Mening ehtiyotsizligim sabab sizga noqulaylik tugʻdirdim.',
             },
           ],
           grammarRules: [
@@ -513,26 +569,42 @@ export const JAPANESE_N2_LESSONS: Lesson[] = [
             "1. 〜っこない (Masu asosi + kkonai): Gapiruvchining sub'ektiv ishonchi bo'yicha \"mutlaqo iloji yo'q / imkonsiz\": こんな難[むずか]しい 本[ほん]、1日[いちにち]で 読[よ]めっこない (Bunday qiyin kitobni 1 kunda o'qib bo'larmidi!). 2. 〜げ (Sifat asosi + ge): Tashqaridan sezilayotgan holat/tuyg'u: 寂[さび]しげな 表情[ひょうじょう] (G'amgin ko'ringan yuz ifodasi), 自信[じしん]ありげに 話[はな]す (Ishonchi komilligi sezilib gapirish).",
           vocabulary: [
             {
-              term: '表情[ひょうじょう]',
-              reading: 'Hyoujou',
-              meaning: 'Yuz ifodasi',
-              exampleSentence: '明[あか]るい 表情[ひょうじょう]。',
-              exampleTranslation: 'Ochiq yuz ifodasi.',
-            },
-            {
-              term: '配慮[はいりょ]する',
-              reading: 'Hairyo suru',
-              meaning: 'Eʼtibor bermoq, gʻamxoʻrlik qilmoq',
-              exampleSentence: '周囲[しゅうい]の 人[ひと]への 配慮[はいりょ]が 欠[か]かせません。',
-              exampleTranslation: 'Atrofdagilarga eʼtibor va gʻamxoʻrlik qilish juda muhim.',
-            },
-            {
-              term: '遵守[じゅんしゅ]する',
-              reading: 'Junshu suru',
-              meaning: 'Qoidalarga qatʼiy rioya qilmoq',
+              term: '融資[ゆうし]',
+              reading: 'yuushi',
+              meaning: 'Kredit, bank moliyalashtirishi',
               exampleSentence:
-                '法令[ほうれい]を 遵守[じゅんしゅ]することが 義務[ぎむ]づけられています。',
-              exampleTranslation: 'Qonun-qoidalarga qatʼiy rioya qilish majburiy etib belgilangan.',
+                '新[あたら]しい 工場[こうじょう]の ために 銀行[ぎんこう]から 融資[ゆうし]を 受[う]ける。',
+              exampleTranslation: 'Yangi zavod uchun bankdan kredit mablagʻi olindi.',
+            },
+            {
+              term: '景気[けいき]',
+              reading: 'keiki',
+              meaning: 'Iqtisodiy vaziyat, bozor konʼyunkturasi',
+              exampleSentence: '景気[けいき]の 回復[かいふく]が 期待[きたい]されている。',
+              exampleTranslation: 'Iqtisodiyotning tiklanishi kutilmoqda.',
+            },
+            {
+              term: '契約[けいやく]',
+              reading: 'keiyaku',
+              meaning: 'Rasmiy bitim, shartnoma',
+              exampleSentence:
+                '双方[そうほう]が 合意[ごうい]して 契約[けいやく]を 締結[ていけつ]した。',
+              exampleTranslation: 'Har ikki tomon kelishib shartnoma imzoladi.',
+            },
+            {
+              term: '損害[そんがい]を 被[こうむ]る',
+              reading: 'songai o koumuru',
+              meaning: 'Zarar koʻrmoq, ziyon tortmoq',
+              exampleSentence: '台風[たいふう]で 多大[ただい]な 損害[そんがい]を 被[こうむ]った。',
+              exampleTranslation: 'Toʻfon sababli ulkan zarar koʻrildi.',
+            },
+            {
+              term: '利潤[りじゅん]',
+              reading: 'rijun',
+              meaning: 'Foyda, sof daromad',
+              exampleSentence:
+                '企業[きぎょう]は 適正[てきせい]な 利潤[りじゅん]を 追求[ついきゅう]する。',
+              exampleTranslation: 'Korxona munosib daromad olishga intiladi.',
             },
           ],
           grammarRules: [
@@ -676,26 +748,45 @@ export const JAPANESE_N2_LESSONS: Lesson[] = [
           ],
           vocabulary: [
             {
-              term: '尊厳[そんげん]',
-              reading: 'Songen',
-              meaning: 'Insoniy qadr-qimmat',
-              exampleSentence: '人間[にんげん]の 尊厳[そんげん]。',
-              exampleTranslation: 'Inson qadr-qimmati.',
-            },
-            {
-              term: '葛藤[かっとう]',
-              reading: 'Kattou',
-              meaning: 'Ichki ziddiyat / Ruhiy kurash',
-              exampleSentence: '倫理的[りんりてき]な 葛藤[かっとう]。',
-              exampleTranslation: 'Axloqiy ichki kurash.',
-            },
-            {
-              term: '把握[はあく]する',
-              reading: 'Haaku suru',
-              meaning: 'Vaziyatni toʻliq anglab yetmoq, tushunmoq',
+              term: '臨機[りんき]応変[おうへん]',
+              reading: 'rinkiouhen',
+              meaning: 'Vaziyatga moslashuvchan, epchil yondashuv',
               exampleSentence:
-                '現状[げんじょう]を 正確[せいかく]に 把握[はあく]する 必要[ひつよう]があります。',
-              exampleTranslation: 'Hozirgi holatni aniq anglab yetish zarur.',
+                '予想[よそう]外[がい]の 事態[じたい]にも 臨機[りんき]応変[おうへん]に 対応[たいおう]する。',
+              exampleTranslation:
+                'Kutilmagan vaziyatda ham vaziyatga qarab epchillik bilan ish koʻriladi.',
+            },
+            {
+              term: '的確[てきかく]な',
+              reading: 'tekikaku na',
+              meaning: 'Aniq, nishonga tekkan, toʻgʻri',
+              exampleSentence: '上司[じょうし]から 的確[てきかく]な 指示[しじ]を 受[う]けました。',
+              exampleTranslation: 'Boshliqdan aniq koʻrsatma oldim.',
+            },
+            {
+              term: '迅速[じんそく]な',
+              reading: 'jinsoku na',
+              meaning: 'Tezkor, kechiktirib boʻlmaydigan',
+              exampleSentence:
+                'クレームには 迅速[じんそく]な 対応[たいおう]が 不可欠[ふかけつ]だ。',
+              exampleTranslation: 'Mijoz eʼtiroziga tezkor javob berish shart.',
+            },
+            {
+              term: '柔軟[じゅうなん]性',
+              reading: 'juunansei',
+              meaning: 'Moslashuvchanlik, egiluvchanlik',
+              exampleSentence:
+                '変化[へんか]の 激[はげ]しい 時代[じだい]には 柔軟[じゅうなん]性が 求[もと]められる。',
+              exampleTranslation: 'Tez oʻzgaruvchan zamonda moslashuvchanlik talab qilinadi.',
+            },
+            {
+              term: '機転[きてん]が 利[き]く',
+              reading: 'kiten ga kiku',
+              meaning: 'Ziyrak, hozirjavob, topqir',
+              exampleSentence:
+                '彼女[かのじょ]は 機転[きてん]が 利[き]いて トラブルを 防[ふせ]いだ。',
+              exampleTranslation:
+                'U ziyraklik qilib kelib chiqishi mumkin boʻlgan muammoning oldini oldi.',
             },
           ],
           grammarRules: [
@@ -839,26 +930,43 @@ export const JAPANESE_N2_LESSONS: Lesson[] = [
             "1. お/ご + Fe'l asosi + 申[もう]し上[あ]げます (Chuqur ehtirom bilan bildiramiz): 心[こころ]より お礼[れい] 申[もう]し上[あ]げます (Chin qalbimizdan minnatdorchilik bildiramiz); お詫[わ]び 申[もう]し上[あ]げます (Kechirim so'raymiz). 2. 〜と 存[ぞん]じます (Deb hisoblaymiz / O'ylaymiz - omou ning oliy Kenjougo shakli): 幸[さいわ]いに 存[ぞん]じます (Baxtiyor bo'lardik).",
           vocabulary: [
             {
-              term: 'お詫[わ]び',
-              reading: 'Owabi',
-              meaning: 'Uzr / Kechirim',
-              exampleSentence: '深[ふか]く お詫[わ]び 申[もう]し上[あ]げます。',
-              exampleTranslation: "Chuqur uzr so'raymiz.",
+              term: '義務[ぎむ]',
+              reading: 'gimu',
+              meaning: 'Majburiyat, qonuniy burch',
+              exampleSentence: '国民[こくみん]には 納税[のうぜい]の 義務[ぎむ]が ある。',
+              exampleTranslation: 'Fuqarolarda soliq toʻlash majburiyati bor.',
             },
             {
-              term: '把握[はあく]する',
-              reading: 'Haaku suru',
-              meaning: 'Vaziyatni toʻliq anglab yetmoq, tushunmoq',
+              term: '規則[きそく]',
+              reading: 'kisoku',
+              meaning: 'Nizom, ichki tartib-qoida',
+              exampleSentence: '社内[しゃない]の 規則[きそく]を しっかり 守[まも]りましょう。',
+              exampleTranslation: 'Kompaniyaning ichki tartib-qoidalariga qatʼiy amal qilaylik.',
+            },
+            {
+              term: '免除[めんじょ]される',
+              reading: 'menjo sareru',
+              meaning: 'Ozod qilinmoq, kechirilmoq',
               exampleSentence:
-                '現状[げんじょう]を 正確[せいかく]に 把握[はあく]する 必要[ひつよう]があります。',
-              exampleTranslation: 'Hozirgi holatni aniq anglab yetish zarur.',
+                '成績[せいせき]優秀[ゆうしゅう]者[しゃ]は 授業[じゅぎょう]料[りょう]が 免除[めんじょ]される。',
+              exampleTranslation: 'Aʼlochi talabalar kontrakt toʻlovidan ozod qilinadi.',
             },
             {
-              term: '促進[そくしん]する',
-              reading: 'Sokushin suru',
-              meaning: 'Rivojlanishni jadallashtirmoq, ragʻbatlantirmoq',
-              exampleSentence: '国際[こくさい] 交流[こうりゅう]を 促進[そくしん]します。',
-              exampleTranslation: 'Xalqaro almashinuvni ragʻbatlantiramiz.',
+              term: '違反[いはん]する',
+              reading: 'ihan suru',
+              meaning: 'Qoidani buzmoq',
+              exampleSentence:
+                '交通[こうつう]ルールに 違反[いはん]して 罰金[ばっきん]を 払[はら]った。',
+              exampleTranslation: 'Yoʻl qoidasini buzib jarima toʻladim.',
+            },
+            {
+              term: '徹底[てってい]する',
+              reading: 'tettei suru',
+              meaning: 'Toʻliq va qatʼiy joriy qilmoq',
+              exampleSentence:
+                '安全[あんぜん]管理[かんり]を 職場[しょくば]全体[ぜんたい]で 徹底[てってい]する。',
+              exampleTranslation:
+                'Xavfsizlik qoidalarini butun jamoada toʻliq va qatʼiy joriy etamiz.',
             },
           ],
           grammarRules: [
@@ -999,25 +1107,43 @@ export const JAPANESE_N2_LESSONS: Lesson[] = [
             "融 (yuu - erish/moliya), 資 (shi - resurs/mablag'), 景 (kei - manzara/iqtisodiy vaziyat), 契 (kei - bitim/shartnoma), 約 (yaku - va'da/chegara), 損 (son - ziyon), 害 (gai - zarar).",
           vocabulary: [
             {
-              term: '融資[ゆうし]',
-              reading: 'Yuushi',
-              meaning: 'Kredit / Moliyalashtirish',
-              exampleSentence: '銀行[ぎんこう]から 融資[ゆうし]を 受[う]ける。',
-              exampleTranslation: 'Bankdan kredit olmoq.',
+              term: '傾向[けいこう]',
+              reading: 'keikou',
+              meaning: 'Moyillik, tendensiya',
+              exampleSentence:
+                '若者[わかもの]の 読書[どくしょ]離[ばな]れの 傾向[けいこう]が 見[み]られる。',
+              exampleTranslation: 'Yoshlarda kitob oʻqishdan uzoqlashish moyilligi koʻrinmoqda.',
             },
             {
-              term: '景気[けいき]',
-              reading: 'Keiki',
-              meaning: 'Bozor iqtisodiy holati / Konyunktura',
-              exampleSentence: '景気[けいき]が 回復[かいふく]する。',
-              exampleTranslation: 'Iqtisodiy vaziyat tiklanmoqda.',
+              term: '偏[かたよ]り',
+              reading: 'katayori',
+              meaning: 'Bir yoqlamalilik, nomutanosiblik',
+              exampleSentence:
+                '栄養[えいよう]の 偏[かたよ]りに 気[き]を つけて 食事[しょくじ]を とる。',
+              exampleTranslation:
+                'Oziqlanishning bir yoqlama boʻlib qolishiga eʼtibor berish kerak.',
             },
             {
-              term: '配慮[はいりょ]する',
-              reading: 'Hairyo suru',
-              meaning: 'Eʼtibor bermoq, gʻamxoʻrlik qilmoq',
-              exampleSentence: '周囲[しゅうい]の 人[ひと]への 配慮[はいりょ]が 欠[か]かせません。',
-              exampleTranslation: 'Atrofdagilarga eʼtibor va gʻamxoʻrlik qilish juda muhim.',
+              term: '皮肉[ひにく]な',
+              reading: 'hiniku na',
+              meaning: 'Kinoyali, piching, achchiq hazil',
+              exampleSentence: '彼[かれ]は よく 皮肉[ひにく]な 冗談[じょうだん]を 言[い]う。',
+              exampleTranslation: 'U tez-tez kinoyali hazillar qilib turadi.',
+            },
+            {
+              term: '冷淡[れいたん]な',
+              reading: 'reitan na',
+              meaning: 'Sovuq, befarq, shafqatsiz',
+              exampleSentence:
+                '困[こま]っている 人[ひと]に 冷淡[れいたん]な 態度[たいど]を 取[と]るべきではない。',
+              exampleTranslation: 'Qiynalgan odamga sovuqqon munosabatda boʻlmaslik kerak.',
+            },
+            {
+              term: '顕著[けんちょ]な',
+              reading: 'kencho na',
+              meaning: 'Yaqqol koʻzga tashlanadigan, sezilarli',
+              exampleSentence: '売上[うりあげ]に 顕著[けんちょ]な 伸[の]びが 見[み]られた。',
+              exampleTranslation: 'Savdo hajmida yaqqol oʻsish kuzatildi.',
             },
           ],
           grammarRules: [
@@ -1158,26 +1284,41 @@ export const JAPANESE_N2_LESSONS: Lesson[] = [
             "1. 〜ざるを得[え]ない (Nai asosi + zaru o enai / する -> せざるを得ない): Xohlamasa ham sharoit taqozosi bilan \"... qilishdan o'zga chora yo'q\": 事実[じじつ]を 認[みと]めざるを得ない (Haqiqatni tan olishdan boshqa chora yo'q). 2. 〜わけにはいかない: Axloq, burch yoki ijtimoiy qoida sababli \"... qila olmayman / qilishga haqqim yo'q\": 大事[だいじ]な 会議[かいぎ]だから、休[やす]むわけには いかない (Muhim majlis bo'lgani uchun, bormay qola olmayman).",
           vocabulary: [
             {
-              term: '認[みと]める',
-              reading: 'Mitomeru',
-              meaning: "Tan olmoq / E'tirof etmoq",
-              exampleSentence: '失敗[しっぱい]を 認[みと]める。',
-              exampleTranslation: 'Xatoni tan olmoq.',
+              term: '不満[ふまん]を 漏[も]らす',
+              reading: 'fuman o morasu',
+              meaning: 'Noroziligini bildirmoq, nolimoq',
+              exampleSentence: '待遇[たいぐう]に ついて 不満[ふまん]を 漏[も]らした。',
+              exampleTranslation: 'Shart-sharoitlar borasida noroziligini bildirdi.',
             },
             {
-              term: '配慮[はいりょ]する',
-              reading: 'Hairyo suru',
-              meaning: 'Eʼtibor bermoq, gʻamxoʻrlik qilmoq',
-              exampleSentence: '周囲[しゅうい]の 人[ひと]への 配慮[はいりょ]が 欠[か]かせません。',
-              exampleTranslation: 'Atrofdagilarga eʼtibor va gʻamxoʻrlik qilish juda muhim.',
+              term: '改善[かいぜん]',
+              reading: 'kaizen',
+              meaning: 'Yaxshilanish, takomillashtirish',
+              exampleSentence: '業務[ぎょうむ]効率[こうりつ]の 改善[かいぜん]に 取[と]り組[く]む。',
+              exampleTranslation: 'Ish samaradorligini takomillashtirish ustida ishlamoqdamiz.',
             },
             {
-              term: '遵守[じゅんしゅ]する',
-              reading: 'Junshu suru',
-              meaning: 'Qoidalarga qatʼiy rioya qilmoq',
+              term: '要求[ようきゅう]する',
+              reading: 'youkyuu suru',
+              meaning: 'Talab qilmoq',
               exampleSentence:
-                '法令[ほうれい]を 遵守[じゅんしゅ]することが 義務[ぎむ]づけられています。',
-              exampleTranslation: 'Qonun-qoidalarga qatʼiy rioya qilish majburiy etib belgilangan.',
+                '労働[ろうどう]条件[じょうけん]の 改善[かいぜん]を 会社[かいしゃ]に 要求[ようきゅう]する。',
+              exampleTranslation: 'Kompaniyadan mehnat sharoitlarini yaxshilashni talab qilishdi.',
+            },
+            {
+              term: '妥協[だきょう]する',
+              reading: 'dakyou suru',
+              meaning: 'Murosaga kelmoq, yon bermoq',
+              exampleSentence:
+                'お互[たが]いに 妥協[だきょう]して 解決[かいけつ]策[さく]を 見[み]いだした。',
+              exampleTranslation: 'Oʻzaro murosaga kelib yechim topildi.',
+            },
+            {
+              term: '納得[なっとく]が いく',
+              reading: 'nattoku ga iku',
+              meaning: 'Qanoat hosil qilmoq, tushunib rozi boʻlmoq',
+              exampleSentence: '説明[せつめい]を 聞[き]いて ようやく 納得[なっとく]が いった。',
+              exampleTranslation: 'Tushuntirishni tinglab nihoyat koʻnglim toʻldi.',
             },
           ],
           grammarRules: [
@@ -1337,27 +1478,42 @@ export const JAPANESE_N2_LESSONS: Lesson[] = [
           ],
           vocabulary: [
             {
-              term: '配慮[はいりょ]する',
-              reading: 'Hairyo suru',
-              meaning: 'Eʼtibor bermoq, gʻamxoʻrlik qilmoq',
-              exampleSentence: '周囲[しゅうい]の 人[ひと]への 配慮[はいりょ]が 欠[か]かせません。',
-              exampleTranslation: 'Atrofdagilarga eʼtibor va gʻamxoʻrlik qilish juda muhim.',
+              term: '効率[こうりつ]',
+              reading: 'kouritsu',
+              meaning: 'Samaradorlik, unumdorlik',
+              exampleSentence: '作業[さぎょう]の 効率[こうりつ]を 上[あ]げる 工夫[くふう]を する。',
+              exampleTranslation: 'Ish samaradorligini oshirish choralarini koʻrmoq.',
             },
             {
-              term: '遵守[じゅんしゅ]する',
-              reading: 'Junshu suru',
-              meaning: 'Qoidalarga qatʼiy rioya qilmoq',
+              term: '手順[てじゅん]',
+              reading: 'tejun',
+              meaning: 'Ketma-ketlik, ish jarayoni bosqichlari',
               exampleSentence:
-                '法令[ほうれい]を 遵守[じゅんしゅ]することが 義務[ぎむ]づけられています。',
-              exampleTranslation: 'Qonun-qoidalarga qatʼiy rioya qilish majburiy etib belgilangan.',
+                '正[ただ]しい 手順[てじゅん]に 沿[そ]って 機械[きかい]を 操作[そうさ]する。',
+              exampleTranslation: 'Toʻgʻri ketma-ketlikka rioya qilgan holda texnikani boshqarish.',
             },
             {
-              term: '把握[はあく]する',
-              reading: 'Haaku suru',
-              meaning: 'Vaziyatni toʻliq anglab yetmoq, tushunmoq',
+              term: '省[はぶ]く',
+              reading: 'habuku',
+              meaning: 'Qisqartirmoq, ortiqchasini chiqarib tashlamoq',
               exampleSentence:
-                '現状[げんじょう]を 正確[せいかく]に 把握[はあく]する 必要[ひつよう]があります。',
-              exampleTranslation: 'Hozirgi holatni aniq anglab yetish zarur.',
+                '無駄[むだ]な 手間[てま]を 省[はぶ]いて 時間[じかん]を 節約[せつやく]する。',
+              exampleTranslation: 'Ortiqcha zahmatni qisqartirib vaqtni tejaymiz.',
+            },
+            {
+              term: '合理[ごうり]的[てき]な',
+              reading: 'gouriteki na',
+              meaning: 'Mantiqiy, oqilona',
+              exampleSentence: '合理[ごうり]的[てき]な 判断[はんだん]が 功[こう]を 奏[そう]した。',
+              exampleTranslation: 'Oqilona qaror oʻz mevasini berdi.',
+            },
+            {
+              term: '滞[とどこお]る',
+              reading: 'todokooru',
+              meaning: 'Kechikmoq, toʻxtab qolmoq, toʻplanib qolmoq',
+              exampleSentence:
+                '書類[しょるい]の 処理[しょり]が 滞[とどこお]って 迷惑[めいわく]を かけた。',
+              exampleTranslation: 'Hujjatlarni rasmiylashtirish kechikib ketdi.',
             },
           ],
         },
@@ -1500,27 +1656,43 @@ export const JAPANESE_N2_LESSONS: Lesson[] = [
           ],
           vocabulary: [
             {
-              term: '遵守[じゅんしゅ]する',
-              reading: 'Junshu suru',
-              meaning: 'Qoidalarga qatʼiy rioya qilmoq',
+              term: '要約[ようやく]',
+              reading: 'youyaku',
+              meaning: 'Xulosa, qisqacha mazmun',
               exampleSentence:
-                '法令[ほうれい]を 遵守[じゅんしゅ]することが 義務[ぎむ]づけられています。',
-              exampleTranslation: 'Qonun-qoidalarga qatʼiy rioya qilish majburiy etib belgilangan.',
+                '長[なが]い 論文[ろんぶん]の 要約[ようやく]を 100字[じ]以内で 書[か]く。',
+              exampleTranslation: 'Uzun maqolaning qisqacha xulosasini 100 belgida yozing.',
             },
             {
-              term: '把握[はあく]する',
-              reading: 'Haaku suru',
-              meaning: 'Vaziyatni toʻliq anglab yetmoq, tushunmoq',
-              exampleSentence:
-                '現状[げんじょう]を 正確[せいかく]に 把握[はあく]する 必要[ひつよう]があります。',
-              exampleTranslation: 'Hozirgi holatni aniq anglab yetish zarur.',
+              term: '論理[ろんり]的[てき]な',
+              reading: 'ronriteki na',
+              meaning: 'Mantiqiy, asosli',
+              exampleSentence: '論理[ろんり]的[てき]な 思考[しこう]力[りょく]を 鍛[きた]える。',
+              exampleTranslation: 'Mantiqiy fikrlash qobiliyatini charxlamoq.',
             },
             {
-              term: '促進[そくしん]する',
-              reading: 'Sokushin suru',
-              meaning: 'Rivojlanishni jadallashtirmoq, ragʻbatlantirmoq',
-              exampleSentence: '国際[こくさい] 交流[こうりゅう]を 促進[そくしん]します。',
-              exampleTranslation: 'Xalqaro almashinuvni ragʻbatlantiramiz.',
+              term: '矛盾[むじゅん]',
+              reading: 'mujun',
+              meaning: 'Ziddiyat, mantiqsizlik',
+              exampleSentence:
+                '発言[はつげん]と 行動[こうどう]の 間[あいだ]に 矛盾[むじゅん]が ある。',
+              exampleTranslation: 'Gap va harakat oʻrtasida ziddiyat bor.',
+            },
+            {
+              term: '根拠[こんきょ]',
+              reading: 'konkyo',
+              meaning: 'Asos, dalil, isbot',
+              exampleSentence:
+                '主張[しゅちょう]の 根拠[こんきょ]を 明確[めいかく]に 示[しめ]してください。',
+              exampleTranslation: 'Qarashingizning dalil va asosini aniq koʻrsating.',
+            },
+            {
+              term: '仮説[かせつ]を 立[た]てる',
+              reading: 'kasetsu o tateru',
+              meaning: 'Faraz (gipoteza) ilgari surmoq',
+              exampleSentence:
+                '実験[じっけん]の 前[まえ]に 仮説[かせつ]を 立[た]てて 検証[けんしょう]する。',
+              exampleTranslation: 'Tajribadan oldin gipoteza ilgari surib, uni tekshiramiz.',
             },
           ],
         },
@@ -1637,25 +1809,43 @@ export const JAPANESE_N2_LESSONS: Lesson[] = [
           ],
           vocabulary: [
             {
-              term: '単[たん]なる',
-              reading: 'Tannaru',
-              meaning: 'Shunchaki / Oddiy',
-              exampleSentence: '単なる偶然です。',
-              exampleTranslation: 'Shunchaki tasodif xolos.',
+              term: '存[ぞん]じ上[あ]げる',
+              reading: 'zonjiageru',
+              meaning: 'Bilmoq, tanimoq (Kenjougo - Shiru)',
+              exampleSentence:
+                'その 先生[せんせい]の お名前[なまえ]は よく 存[ぞん]じ上[あ]げております。',
+              exampleTranslation: 'U ustozning nomini juda yaxshi bilaman.',
             },
             {
-              term: '促進[そくしん]する',
-              reading: 'Sokushin suru',
-              meaning: 'Rivojlanishni jadallashtirmoq, ragʻbatlantirmoq',
-              exampleSentence: '国際[こくさい] 交流[こうりゅう]を 促進[そくしん]します。',
-              exampleTranslation: 'Xalqaro almashinuvni ragʻbatlantiramiz.',
+              term: '承知[しょうち]する',
+              reading: 'shouchi suru',
+              meaning: 'Qabul qilmoq, tushunmoq (Wakaru)',
+              exampleSentence:
+                'ご依頼[いらい]の 件[けん]、確[たし]かに 承知[しょうち]いたしました。',
+              exampleTranslation: 'Iltimosingizni toʻliq qabul qildim, xoʻp boʻladi.',
             },
             {
-              term: '配慮[はいりょ]する',
-              reading: 'Hairyo suru',
-              meaning: 'Eʼtibor bermoq, gʻamxoʻrlik qilmoq',
-              exampleSentence: '周囲[しゅうい]の 人[ひと]への 配慮[はいりょ]が 欠[か]かせません。',
-              exampleTranslation: 'Atrofdagilarga eʼtibor va gʻamxoʻrlik qilish juda muhim.',
+              term: '申し伝える',
+              reading: 'moushitsutaeru',
+              meaning: 'Yetkazib qoʻymoq (Kamtarlik)',
+              exampleSentence: '課長[かちょう]に その旨[むね]を 申[もう]し伝[つた]えます。',
+              exampleTranslation: 'Boʻlim boshligʻiga ushbu gapni yetkazib qoʻyaman.',
+            },
+            {
+              term: 'お目[め]に かかる',
+              reading: 'ome ni kakaru',
+              meaning: 'Uchrashmoq (Au ning kamtarlik shakli)',
+              exampleSentence: '明日[あした] お目[め]に かかれるのを 楽[たの]しみに しております。',
+              exampleTranslation: 'Ertaga siz bilan koʻrishishni intizorlik bilan kutaman.',
+            },
+            {
+              term: 'ご足労[そくろう]',
+              reading: 'gosokurou',
+              meaning: 'Tashrif mashaqqati (Hurmat)',
+              exampleSentence:
+                '遠方[えんぽう]から ご足労[そくろう]いただき、誠[まこと]に ありがとうございます。',
+              exampleTranslation:
+                'Olis yoʻl bosib tashrif buyurganingiz uchun samimiy minnatdormiz.',
             },
           ],
           grammarRules: [
@@ -1791,26 +1981,46 @@ export const JAPANESE_N2_LESSONS: Lesson[] = [
           ],
           vocabulary: [
             {
-              term: '議論[ぎろん]',
-              reading: 'Giron',
-              meaning: 'Munozara / Bahs',
-              exampleSentence: '活発な議論が行われた。',
-              exampleTranslation: "Qizg'in munozara bo'lib o'tdi.",
-            },
-            {
-              term: '配慮[はいりょ]する',
-              reading: 'Hairyo suru',
-              meaning: 'Eʼtibor bermoq, gʻamxoʻrlik qilmoq',
-              exampleSentence: '周囲[しゅうい]の 人[ひと]への 配慮[はいりょ]が 欠[か]かせません。',
-              exampleTranslation: 'Atrofdagilarga eʼtibor va gʻamxoʻrlik qilish juda muhim.',
-            },
-            {
-              term: '遵守[じゅんしゅ]する',
-              reading: 'Junshu suru',
-              meaning: 'Qoidalarga qatʼiy rioya qilmoq',
+              term: 'お心得[こころえ]',
+              reading: 'okokoroe',
+              meaning: 'Yodda tutish kerak boʻlgan odob, qoida',
               exampleSentence:
-                '法令[ほうれい]を 遵守[じゅんしゅ]することが 義務[ぎむ]づけられています。',
-              exampleTranslation: 'Qonun-qoidalarga qatʼiy rioya qilish majburiy etib belgilangan.',
+                '新入[しんにゅう]社員[しゃいん]としての 心得[こころえ]を 学[まな]ぶ。',
+              exampleTranslation:
+                'Yangi xodim sifatida burch va odob-axloq qoidalarini oʻrganamiz.',
+            },
+            {
+              term: '振[ふ]る舞[ま]い',
+              reading: 'furumai',
+              meaning: 'Xulq-atvor, oʻzini tutish',
+              exampleSentence:
+                '公式[こうしき]な 場[ば]に ふさわしい 振[ふ]る舞[ま]いが 求[もと]められる。',
+              exampleTranslation: 'Rasmiy doirada munosib xulq-atvor talab qilinadi.',
+            },
+            {
+              term: '礼儀[れいぎ]作法[さほう]',
+              reading: 'reigisahou',
+              meaning: 'Odob-axloq qoidalari, etiket',
+              exampleSentence:
+                '日本[にほん]の 伝統[でんとう]的[てき]な 礼儀[れいぎ]作法[さほう]を 身[み]につける。',
+              exampleTranslation: 'Yaponiyaning anʼanaviy etiket qoidalarini oʻzlashtirmoq.',
+            },
+            {
+              term: '恐縮[きょうしゅく]する',
+              reading: 'kyoushuku suru',
+              meaning: 'Xijolat chekmoq, noqulay sezmoq (ehtiromda)',
+              exampleSentence:
+                '過分[かぶん]な お褒[ほ]めの 言葉[ことば]を いただき 恐縮[きょうしゅく]しております。',
+              exampleTranslation: 'Katta maqtovlaringizdan xijolatdaman.',
+            },
+            {
+              term: '配慮[はいりょ]が 行[い]き届[とど]く',
+              reading: 'hairyo ga yukitodoku',
+              meaning: 'Har tomonlama gʻamxoʻrlik koʻrsatilgan',
+              exampleSentence:
+                'お客様[きゃくさま]への 配慮[はいりょ]が 行[い]き届[とど]いた サービスだ。',
+              exampleTranslation:
+                'Mijozlarga har tomonlama eʼtibor qaratilgan aʼlo darajadagi xizmat.',
             },
           ],
           grammarRules: [
@@ -1953,27 +2163,48 @@ export const JAPANESE_N2_LESSONS: Lesson[] = [
           ],
           vocabulary: [
             {
-              term: '規約[きやく]',
-              reading: 'Kiyaku',
-              meaning: 'Nizom / Qoidalar',
-              exampleSentence: '規約に同意する。',
-              exampleTranslation: "Nizomga rozi bo'lmoq.",
+              term: '市場[しじょう]動向[どうこう]',
+              reading: 'shijou doukou',
+              meaning: 'Bozor harakati, iqtisodiy tendensiya',
+              exampleSentence:
+                '最新[さいしん]の 市場[しじょう]動向[どうこう]を 分析[ぶんせき]して 戦略[せんりゃく]を 立[た]てる。',
+              exampleTranslation:
+                'Eng soʻnggi bozor tendensiyalarini tahlil qilib strategiya tuzamiz.',
             },
             {
-              term: '遵守[じゅんしゅ]する',
-              reading: 'Junshu suru',
-              meaning: 'Qoidalarga qatʼiy rioya qilmoq',
+              term: '株価[かぶか]',
+              reading: 'kabuka',
+              meaning: 'Aksiya narxi',
               exampleSentence:
-                '法令[ほうれい]を 遵守[じゅんしゅ]することが 義務[ぎむ]づけられています。',
-              exampleTranslation: 'Qonun-qoidalarga qatʼiy rioya qilish majburiy etib belgilangan.',
+                '好業績[こうぎょうせき]を 受[う]けて 株価[かぶか]が 急上昇[きゅうじょうしょう]した。',
+              exampleTranslation:
+                'Muvaffaqiyatli moliyaviy natijalar sababli aksiya narxi keskin koʻtarildi.',
             },
             {
-              term: '把握[はあく]する',
-              reading: 'Haaku suru',
-              meaning: 'Vaziyatni toʻliq anglab yetmoq, tushunmoq',
+              term: '為替[かわせ]変動[へんどう]',
+              reading: 'kawase hendou',
+              meaning: 'Valyuta tebranishi',
               exampleSentence:
-                '現状[げんじょう]を 正確[せいかく]に 把握[はあく]する 必要[ひつよう]があります。',
-              exampleTranslation: 'Hozirgi holatni aniq anglab yetish zarur.',
+                '為替[かわせ]変動[へんどう]の リスクを 回避[かいひ]する 手段[しゅだん]を 講[こう]じる。',
+              exampleTranslation:
+                'Valyuta tebranishi xavfini kamaytirish choralarini koʻrmoqdamiz.',
+            },
+            {
+              term: '赤字[あかじ]に 転[てん]じる',
+              reading: 'akaji ni tenjiru',
+              meaning: 'Zararga kirmoq (defitsit)',
+              exampleSentence:
+                '売上[うりあげ]減少[げんしょう]により 今期[こんき]は 赤字[あかじ]に 転[てん]じた。',
+              exampleTranslation:
+                'Savdo kamayishi tufayli ushbu chorakda moliyaviy zarar koʻrildi.',
+            },
+            {
+              term: '黒字[くろじ]',
+              reading: 'kuroji',
+              meaning: 'Foyda, profitsit',
+              exampleSentence:
+                '徹底[てってい]した コスト削減[さくげん]で 黒字[くろじ]を 達成[たっせい]した。',
+              exampleTranslation: 'Xarajatlarni qisqartirish hisobiga sof foyda qoʻlga kiritildi.',
             },
           ],
           grammarRules: [
@@ -2116,26 +2347,45 @@ export const JAPANESE_N2_LESSONS: Lesson[] = [
           ],
           vocabulary: [
             {
-              term: '勝[か]ち目[め]',
-              reading: 'Kachime',
-              meaning: "G'alaba imkoniyati",
-              exampleSentence: '勝ち目がない。',
-              exampleTranslation: "G'alaba qozonish imkoni yo'q.",
-            },
-            {
-              term: '把握[はあく]する',
-              reading: 'Haaku suru',
-              meaning: 'Vaziyatni toʻliq anglab yetmoq, tushunmoq',
+              term: '温暖[おんだん]化',
+              reading: 'ondanka',
+              meaning: 'Global isish',
               exampleSentence:
-                '現状[げんじょう]を 正確[せいかく]に 把握[はあく]する 必要[ひつよう]があります。',
-              exampleTranslation: 'Hozirgi holatni aniq anglab yetish zarur.',
+                '地球[ちきゅう]温暖[おんだん]化の 影響[えいきょう]で 異常[いじょう]気象[きしょう]が 増[ふ]えている。',
+              exampleTranslation: 'Global isish taʼsirida anomal ob-havo hodisalari koʻpaymoqda.',
             },
             {
-              term: '促進[そくしん]する',
-              reading: 'Sokushin suru',
-              meaning: 'Rivojlanishni jadallashtirmoq, ragʻbatlantirmoq',
-              exampleSentence: '国際[こくさい] 交流[こうりゅう]を 促進[そくしん]します。',
-              exampleTranslation: 'Xalqaro almashinuvni ragʻbatlantiramiz.',
+              term: '猛暑[もうしょ]',
+              reading: 'mousho',
+              meaning: 'Jazirama issiq',
+              exampleSentence:
+                '今年[ことし]の 夏[なつ]は 連日[れんじつ] 猛暑[もうしょ]が 続[つづ]いている。',
+              exampleTranslation: 'Bu yil yozda ketma-ket jazirama issiq davom etmoqda.',
+            },
+            {
+              term: '避難[ひなん]勧告[かんこく]',
+              reading: 'hinan kankoku',
+              meaning: 'Xavfsiz joyga evakuatsiya qilish tavsiyasi',
+              exampleSentence:
+                '河川[かせん]の 氾濫[はんらん]に 伴[ともな]い 避難[ひなん]勧告[かんこく]が 出[で]された。',
+              exampleTranslation: 'Daryo toshishi sababli evakuatsiya tavsiyasi eʼlon qilindi.',
+            },
+            {
+              term: '防災[ぼうさい]',
+              reading: 'bousai',
+              meaning: 'Tabiiy ofatlarning oldini olish va himoyalanish',
+              exampleSentence:
+                '地域[ちいき]の 防災[ぼうさい]訓練[くんれん]に 積極[せっきょく]的[てき]に 参加[さんか]する。',
+              exampleTranslation:
+                'Mahalliy ofatdan himoyalanish mashgʻulotlarida faol qatnashamiz.',
+            },
+            {
+              term: '土砂[どしゃ]崩[くず]れ',
+              reading: 'doshakuzure',
+              meaning: 'Koʻchki, tuproq koʻchishi',
+              exampleSentence:
+                '大雨[おおあめ]で 山道[やまみち]が 土砂[どしゃ]崩[くず]れを 起[お]こした。',
+              exampleTranslation: 'Kuchli yomgʻir tufayli togʻ yoʻlida tuproq koʻchkisi yuz berdi.',
             },
           ],
           grammarRules: [
@@ -2275,25 +2525,39 @@ export const JAPANESE_N2_LESSONS: Lesson[] = [
           ],
           vocabulary: [
             {
-              term: '成果[せいか]',
-              reading: 'Seika',
-              meaning: 'Natija / Meva',
-              exampleSentence: '努力の成果が出た。',
-              exampleTranslation: 'Mehnat mevasini berdi.',
+              term: '手短[てみじか]に',
+              reading: 'temijika ni',
+              meaning: 'Qisqacha, choʻzmasdan',
+              exampleSentence: '時間[じかん]が ないので 手短[てみじか]に 報告[ほうこく]します。',
+              exampleTranslation: 'Vaqt oz boʻlgani uchun qisqacha hisobot beraman.',
             },
             {
-              term: '促進[そくしん]する',
-              reading: 'Sokushin suru',
-              meaning: 'Rivojlanishni jadallashtirmoq, ragʻbatlantirmoq',
-              exampleSentence: '国際[こくさい] 交流[こうりゅう]を 促進[そくしん]します。',
-              exampleTranslation: 'Xalqaro almashinuvni ragʻbatlantiramiz.',
+              term: '要点[ようてん]',
+              reading: 'youten',
+              meaning: 'Eng asosiy nuqta, tub mohiyat',
+              exampleSentence: '話[はな]しの 要点[ようてん]を 簡潔[かんけつ]に まとめてください。',
+              exampleTranslation: 'Mavzuning asosiy nuqtasini londa qilib jamlang.',
             },
             {
-              term: '配慮[はいりょ]する',
-              reading: 'Hairyo suru',
-              meaning: 'Eʼtibor bermoq, gʻamxoʻrlik qilmoq',
-              exampleSentence: '周囲[しゅうい]の 人[ひと]への 配慮[はいりょ]が 欠[か]かせません。',
-              exampleTranslation: 'Atrofdagilarga eʼtibor va gʻamxoʻrlik qilish juda muhim.',
+              term: '言[い]い換[か]える',
+              reading: 'iikaeru',
+              meaning: 'Boshqacha qilib ifodalamoq, taʼriflamoq',
+              exampleSentence: '分[わ]かりやすく 言[い]い換[か]えると こういうことです。',
+              exampleTranslation: 'Osonroq tushuntirganda mana bu maʼnoni bildiradi.',
+            },
+            {
+              term: '聞き返す',
+              reading: 'kikikaesu',
+              meaning: 'Qayta soʻrab aniqlashtirmoq',
+              exampleSentence: '聞き取れなかったので、恐縮しながら聞き返した。',
+              exampleTranslation: 'Yaxshi eshita olmaganim sabab uzr soʻrab qayta soʻradim.',
+            },
+            {
+              term: '口を挟む',
+              reading: 'kuchi o hasamu',
+              meaning: 'Gapga suqulmoq, oraga tushmoq',
+              exampleSentence: '上司たちの議論の最中に口を挟む。',
+              exampleTranslation: 'Rahbarlar bahslashayotganda gapga suqulish.',
             },
           ],
           grammarRules: [
@@ -2442,26 +2706,44 @@ export const JAPANESE_N2_LESSONS: Lesson[] = [
           ],
           vocabulary: [
             {
-              term: '持続可能[じぞくかのう]',
-              reading: 'Jizokukanou',
-              meaning: 'Barqaror (sustainable)',
-              exampleSentence: '持続可能な社会を目指す。',
-              exampleTranslation: 'Barqaror jamiyat sari intilish.',
-            },
-            {
-              term: '配慮[はいりょ]する',
-              reading: 'Hairyo suru',
-              meaning: 'Eʼtibor bermoq, gʻamxoʻrlik qilmoq',
-              exampleSentence: '周囲[しゅうい]の 人[ひと]への 配慮[はいりょ]が 欠[か]かせません。',
-              exampleTranslation: 'Atrofdagilarga eʼtibor va gʻamxoʻrlik qilish juda muhim.',
-            },
-            {
-              term: '遵守[じゅんしゅ]する',
-              reading: 'Junshu suru',
-              meaning: 'Qoidalarga qatʼiy rioya qilmoq',
+              term: '賛否[さんぴ]両論[りょうろん]',
+              reading: 'sanpiryouron',
+              meaning: 'Maʼqullovchilar va qarshilar bahsi (fikrlar xilma-xilligi)',
               exampleSentence:
-                '法令[ほうれい]を 遵守[じゅんしゅ]することが 義務[ぎむ]づけられています。',
-              exampleTranslation: 'Qonun-qoidalarga qatʼiy rioya qilish majburiy etib belgilangan.',
+                '新[あたら]しい 法案[ほうあん]に ついて 賛否[さんぴ]両論[りょうろん]が 巻[ま]き起[お]こった。',
+              exampleTranslation:
+                'Yangi qonun loyihasi yuzasidan ikki xil qarama-qarshi fikrlar paydo boʻldi.',
+            },
+            {
+              term: '対照[たいしょう]的[てき]な',
+              reading: 'taishouteki na',
+              meaning: 'Keskin farq qiluvchi, kontrastli',
+              exampleSentence: '双子[ふたご]なのに 性格[せいかく]は 対照[たいしょう]的[てき]だ。',
+              exampleTranslation: 'Egizak boʻlishsa-da feʼl-atvorlari butunlay qarama-qarshi.',
+            },
+            {
+              term: '妥協[だきょう]点[てん]',
+              reading: 'dakyouten',
+              meaning: 'Murosa nuqtasi, oʻzaro qoniqarli yechim',
+              exampleSentence:
+                '議論[ぎろん]を 重[かさ]ねて 妥協[だきょう]点[てん]を 模索[もさく]する。',
+              exampleTranslation: 'Muzokaralar olib borib oʻzaro murosa yoʻlini qidirmoqdamiz.',
+            },
+            {
+              term: '相容[あいい]れない',
+              reading: 'aiirenai',
+              meaning: 'Bir-biriga aslo toʻgʻri kelmaydigan, murosasiz',
+              exampleSentence:
+                '双方[そうほう]の 主張[しゅちょう]は 根本[こんぽん]的[てき]に 相容[あいい]れない。',
+              exampleTranslation: 'Har ikki tomonning daʼvolari tubdan bir-biriga zid.',
+            },
+            {
+              term: '二面[にめん]性',
+              reading: 'nimensei',
+              meaning: 'Ikkiyoqlamalilik, ikki qirra',
+              exampleSentence:
+                '科学[かがく]技術[ぎじゅつ]には 便益[べんえき]と 危険[きけん]という 二面[にめん]性が ある。',
+              exampleTranslation: 'Fan va texnikada foyda hamda xavf degan ikki qirra mavjud.',
             },
           ],
           grammarRules: [
@@ -2609,27 +2891,46 @@ export const JAPANESE_N2_LESSONS: Lesson[] = [
           ],
           vocabulary: [
             {
-              term: '総会[そうかい]',
-              reading: 'Soukai',
-              meaning: "Bosh assambleya / Umumiy yig'ilish",
-              exampleSentence: '年次総会を開催する。',
-              exampleTranslation: "Yillik bosh assambleyani o'tkazmoq.",
+              term: '起因[きいん]する',
+              reading: 'kiin suru',
+              meaning: 'Biror sababdan kelib chiqmoq',
+              exampleSentence:
+                '今回[こんかい]の 事故[じこ]は 整備[せいび]不良[ふりょう]に 起因[きいん]している。',
+              exampleTranslation:
+                'Bu galgi halokat texnik xizmat koʻrsatilmaganidan kelib chiqqan.',
             },
             {
-              term: '遵守[じゅんしゅ]する',
-              reading: 'Junshu suru',
-              meaning: 'Qoidalarga qatʼiy rioya qilmoq',
-              exampleSentence:
-                '法令[ほうれい]を 遵守[じゅんしゅ]することが 義務[ぎむ]づけられています。',
-              exampleTranslation: 'Qonun-qoidalarga qatʼiy rioya qilish majburiy etib belgilangan.',
+              term: '誘発[ゆうはつ]する',
+              reading: 'yuuhatsu suru',
+              meaning: 'Keltirib chiqarmoq, sababchi boʻlmoq',
+              exampleSentence: '過度[かど]な ストレスが 胃潰瘍[いかいよう]を 誘発[ゆうはつ]する。',
+              exampleTranslation:
+                'Haddan ortiq stress oshqozon yarasi kelib chiqishiga sabab boʻladi.',
             },
             {
-              term: '把握[はあく]する',
-              reading: 'Haaku suru',
-              meaning: 'Vaziyatni toʻliq anglab yetmoq, tushunmoq',
+              term: '要因[よういん]',
+              reading: 'youin',
+              meaning: 'Omil, muhim sabab',
               exampleSentence:
-                '現状[げんじょう]を 正確[せいかく]に 把握[はあく]する 必要[ひつよう]があります。',
-              exampleTranslation: 'Hozirgi holatni aniq anglab yetish zarur.',
+                '成功[せいこう]の 主要[しゅよう]な 要因[よういん]を 分析[ぶんせき]する。',
+              exampleTranslation: 'Muvaffaqiyatning asosiy omillarini tahlil qilmoq.',
+            },
+            {
+              term: '招[まね]く',
+              reading: 'maneku',
+              meaning: 'Oqibatni boshlab kelmoq, yomon natijaga sabab boʻlmoq',
+              exampleSentence:
+                '軽率[けいそつ]な 発言[はつげん]が 大[おお]きな 誤解[ごかい]を 招[まね]いた。',
+              exampleTranslation:
+                'Oʻylanmay aytilgan gap katta tushunmovchilikni keltirib chiqardi.',
+            },
+            {
+              term: 'もたらす',
+              reading: 'motarasu',
+              meaning: 'Keltirmoq, olib kelmoq (yaxshi yoki yomon natija)',
+              exampleSentence:
+                '新[あたら]しい 発見[はっけん]が 医療[いりょう]に 大[おお]きな 進歩[しんぽ]を もたらした。',
+              exampleTranslation: 'Yangi kashfiyot tibbiyotga ulkan yuksalish olib keldi.',
             },
           ],
           grammarRules: [
@@ -2774,26 +3075,41 @@ export const JAPANESE_N2_LESSONS: Lesson[] = [
           ],
           vocabulary: [
             {
-              term: '契機[けいき]',
-              reading: 'Keiki',
-              meaning: 'Turtki / Imkoniyat / Burilish nuqtasi',
-              exampleSentence: '発展の契機となる。',
-              exampleTranslation: "Rivojlanishga turtki bo'lmoq.",
-            },
-            {
-              term: '把握[はあく]する',
-              reading: 'Haaku suru',
-              meaning: 'Vaziyatni toʻliq anglab yetmoq, tushunmoq',
+              term: '限定[げんてい]する',
+              reading: 'gentei suru',
+              meaning: 'Cheklamoq, belgilab qoʻymoq',
               exampleSentence:
-                '現状[げんじょう]を 正確[せいかく]に 把握[はあく]する 必要[ひつよう]があります。',
-              exampleTranslation: 'Hozirgi holatni aniq anglab yetish zarur.',
+                '対象[たいしょう]を 大学生[だいがくせい]に 限定[げんてい]して アンケートを 行[おこな]う。',
+              exampleTranslation: 'Ishtirokchilarni talabalar bilan cheklab soʻrovnoma oʻtkazamiz.',
             },
             {
-              term: '促進[そくしん]する',
-              reading: 'Sokushin suru',
-              meaning: 'Rivojlanishni jadallashtirmoq, ragʻbatlantirmoq',
-              exampleSentence: '国際[こくさい] 交流[こうりゅう]を 促進[そくしん]します。',
-              exampleTranslation: 'Xalqaro almashinuvni ragʻbatlantiramiz.',
+              term: '一存[いちぞん]',
+              reading: 'ichizon',
+              meaning: 'Bir shaxsning oʻzicha bergan qarori',
+              exampleSentence: '私[わたし]の 一存[いちぞん]では 決[き]めかねます。',
+              exampleTranslation: 'Mening bir oʻzimning xohishim bilan hal qilib boʻlmaydi.',
+            },
+            {
+              term: '特化[とっか]する',
+              reading: 'tokka suru',
+              meaning: 'Tor sohaga ixtisoslashmoq',
+              exampleSentence:
+                'AI開発[かいはつ]に 特化[とっか]した 専門[せんもん]チームを 編成[へんせい]した。',
+              exampleTranslation: 'Sunʼiy intellektga ixtisoslashgan maxsus jamoa tuzildi.',
+            },
+            {
+              term: '独占[どくせん]する',
+              reading: 'dokusen suru',
+              meaning: 'Monopoliya qilmoq, yakka oʻzlashtirmoq',
+              exampleSentence: '大企業[だいきぎょう]が 市場[しじょう]を 独占[どくせん]している。',
+              exampleTranslation: 'Yirik korxona bozorni monopoliya qilib olgan.',
+            },
+            {
+              term: '偏重[へんちょう]する',
+              reading: 'henchou suru',
+              meaning: 'Faqat bir tomoniga ortiqcha baho berib yubormoq',
+              exampleSentence: '学歴[がくれき]ばかりを 偏重[へんちょう]するのは よくありません。',
+              exampleTranslation: 'Faqat diplomga ortiqcha baho berib yuborish yaxshi emas.',
             },
           ],
           grammarRules: [
@@ -2935,25 +3251,43 @@ export const JAPANESE_N2_LESSONS: Lesson[] = [
           ],
           vocabulary: [
             {
-              term: '込[こ]める',
-              reading: 'Komeru',
-              meaning: "Bag'ishlamoq / Bag'riga olmoq",
-              exampleSentence: '心を込めて作りました。',
-              exampleTranslation: 'Samimiy qalb bilan tayyorladim.',
+              term: '示唆[しさ]する',
+              reading: 'shisa suru',
+              meaning: 'Tushunishga ishora qilmoq, koʻrsatib bermoq',
+              exampleSentence:
+                'この 研究[けんきゅう]結果[けっか]は 新[あたら]しい 可能性[かのうせい]を 示唆[しさ]している。',
+              exampleTranslation: 'Ushbu tadqiqot natijasi yangi imkoniyatlarga ishora qilmoqda.',
             },
             {
-              term: '促進[そくしん]する',
-              reading: 'Sokushin suru',
-              meaning: 'Rivojlanishni jadallashtirmoq, ragʻbatlantirmoq',
-              exampleSentence: '国際[こくさい] 交流[こうりゅう]を 促進[そくしん]します。',
-              exampleTranslation: 'Xalqaro almashinuvni ragʻbatlantiramiz.',
+              term: '言及[げんきゅう]する',
+              reading: 'genkyuu suru',
+              meaning: 'Tilga olmoq, eslatib oʻtmoq',
+              exampleSentence:
+                'スピーチの 中[なか]で 環境[かんきょう]問題[もんだい]に 言及[げんきゅう]した。',
+              exampleTranslation: 'Nutq davomida ekologik muammolarni tilga oldi.',
             },
             {
-              term: '配慮[はいりょ]する',
-              reading: 'Hairyo suru',
-              meaning: 'Eʼtibor bermoq, gʻamxoʻrlik qilmoq',
-              exampleSentence: '周囲[しゅうい]の 人[ひと]への 配慮[はいりょ]が 欠[か]かせません。',
-              exampleTranslation: 'Atrofdagilarga eʼtibor va gʻamxoʻrlik qilish juda muhim.',
+              term: '核心[かくしん]',
+              reading: 'kakushin',
+              meaning: 'Magʻzi, tub oʻzagi, eng muhim qismi',
+              exampleSentence: '問題[もんだい]の 核心[かくしん]を 突[つ]く 質問[しつもん]を する。',
+              exampleTranslation: 'Masalaning tub mohiyatiga yetib boradigan savol bermoq.',
+            },
+            {
+              term: '論点[ろんてん]',
+              reading: 'ronten',
+              meaning: 'Bahs mavzusi, muhokama qilinayotgan masala',
+              exampleSentence:
+                '議論[ぎろん]が ズレてきたので、もう 一度[いちど] 論点[ろんてん]を 整理[せいり]しよう。',
+              exampleTranslation:
+                'Bahs chetga chiqib ketdi, keling yana bir bor mavzu oʻzagini tartibga solaylik.',
+            },
+            {
+              term: '裏付[うらづ]け',
+              reading: 'uradzuke',
+              meaning: 'Asosli tasdiq, qoʻllab-quvvatlovchi isbot',
+              exampleSentence: '確固[かっこ]たる データに よる 裏付[うらづ]けが 必要[ひつよう]だ。',
+              exampleTranslation: 'Mustahkam statistik maʼlumotlar bilan tasdiqlanishi shart.',
             },
           ],
           grammarRules: [
@@ -3111,26 +3445,44 @@ export const JAPANESE_N2_LESSONS: Lesson[] = [
           ],
           vocabulary: [
             {
-              term: '促進[そくしん]する',
-              reading: 'Sokushin suru',
-              meaning: 'Rivojlanishni jadallashtirmoq, ragʻbatlantirmoq',
-              exampleSentence: '国際[こくさい] 交流[こうりゅう]を 促進[そくしん]します。',
-              exampleTranslation: 'Xalqaro almashinuvni ragʻbatlantiramiz.',
-            },
-            {
-              term: '配慮[はいりょ]する',
-              reading: 'Hairyo suru',
-              meaning: 'Eʼtibor bermoq, gʻamxoʻrlik qilmoq',
-              exampleSentence: '周囲[しゅうい]の 人[ひと]への 配慮[はいりょ]が 欠[か]かせません。',
-              exampleTranslation: 'Atrofdagilarga eʼtibor va gʻamxoʻrlik qilish juda muhim.',
-            },
-            {
-              term: '遵守[じゅんしゅ]する',
-              reading: 'Junshu suru',
-              meaning: 'Qoidalarga qatʼiy rioya qilmoq',
+              term: '必然[ひつぜん]',
+              reading: 'hitsuzen',
+              meaning: 'Muqarrarlik, tabiiy zarurat',
               exampleSentence:
-                '法令[ほうれい]を 遵守[じゅんしゅ]することが 義務[ぎむ]づけられています。',
-              exampleTranslation: 'Qonun-qoidalarga qatʼiy rioya qilish majburiy etib belgilangan.',
+                '努力[どりょく]を 続[つづ]けた 結果[けっか]としての 成功[せいこう]は 必然[ひつぜん]だ。',
+              exampleTranslation: 'Toʻxtovsiz mehnat natijasidagi zafar bu muqarrar haqiqatdir.',
+            },
+            {
+              term: '当然[とうぜん]',
+              reading: 'touzen',
+              meaning: 'Tabiiy hol, oʻz-oʻzidan tushunarli',
+              exampleSentence:
+                '約束[やくそく]を 破[やぶ]れば 信頼[しんらい]を 失[うしな]うのは 当然[とうぜん]だ。',
+              exampleTranslation: 'Vaʼdani buzsa ishonchni yoʻqotish tabiiy hol.',
+            },
+            {
+              term: '妥当[だとう]な',
+              reading: 'datou na',
+              meaning: 'Munosib, oʻrinli, asosli',
+              exampleSentence:
+                '今回[こんかい]の 判断[はんだん]は 極[きわ]めて 妥当[だとう]だと 評価[ひょうか]された。',
+              exampleTranslation: 'Bu galgi qaror juda oʻrinli deb baholandi.',
+            },
+            {
+              term: '筋合[すじあ]い',
+              reading: 'sujiai',
+              meaning: 'Haq-huquq, mantiqiy asos',
+              exampleSentence:
+                'あなたに そんな 批判[ひはん]を される 筋合[すじあ]いは ありません。',
+              exampleTranslation: 'Sizning bunday tanqid qilishga hech qanday haqqingiz yoʻq.',
+            },
+            {
+              term: '納得[なっとく]せざるを得[え]ない',
+              reading: 'nattoku sezaru o enai',
+              meaning: 'Koʻnmasdan iloji yoʻq, tan olishga majbur',
+              exampleSentence:
+                'これほど 証拠[しょうこ]が 揃[そろ]えば、納得[なっとく]せざるを得[え]ない。',
+              exampleTranslation: 'Shuncha dalil turganda qabul qilmasdan boshqa iloj yoʻq.',
             },
           ],
         },
@@ -3264,27 +3616,47 @@ export const JAPANESE_N2_LESSONS: Lesson[] = [
           ],
           vocabulary: [
             {
-              term: '採用[さいよう]',
-              reading: 'Saiyou',
-              meaning: 'Ishga qabul qilish',
-              exampleSentence: '新卒を採用する。',
-              exampleTranslation: 'Bitiruvchilarni ishga olmoq.',
+              term: '遺伝子[いでんし]',
+              reading: 'idenshi',
+              meaning: 'Gen, irsiyat kodi',
+              exampleSentence:
+                '最先端[さいせんたん]の 遺伝子[いでんし]組[く]み換[か]え 技術[ぎじゅつ]を 研究[けんきゅう]する。',
+              exampleTranslation:
+                'Eng ilgʻor genetik modifikatsiya texnologiyasini tadqiq qilmoqdamiz.',
             },
             {
-              term: '遵守[じゅんしゅ]する',
-              reading: 'Junshu suru',
-              meaning: 'Qoidalarga qatʼiy rioya qilmoq',
+              term: '生殖[せいしょく]',
+              reading: 'seishoku',
+              meaning: 'Koʻpayish, reproduksiya',
               exampleSentence:
-                '法令[ほうれい]を 遵守[じゅんしゅ]することが 義務[ぎむ]づけられています。',
-              exampleTranslation: 'Qonun-qoidalarga qatʼiy rioya qilish majburiy etib belgilangan.',
+                '生物[せいぶつ]の 生殖[せいしょく]機能[きのう]を 解明[かいめい]する。',
+              exampleTranslation: 'Tirik mavjudotlarning koʻpayish funksiyasini oʻrganish.',
             },
             {
-              term: '把握[はあく]する',
-              reading: 'Haaku suru',
-              meaning: 'Vaziyatni toʻliq anglab yetmoq, tushunmoq',
+              term: '抗体[こうたい]',
+              reading: 'koutai',
+              meaning: 'Antitana (immunitet)',
               exampleSentence:
-                '現状[げんじょう]を 正確[せいかく]に 把握[はあく]する 必要[ひつよう]があります。',
-              exampleTranslation: 'Hozirgi holatni aniq anglab yetish zarur.',
+                'ワクチンを 接種[せっしゅ]して 体内[たいない]に 抗体[こうたい]を 作[つく]る。',
+              exampleTranslation: 'Vaksina olib tanada antitanalar hosil qilinadi.',
+            },
+            {
+              term: '生息[せいそく]地',
+              reading: 'seisokuchi',
+              meaning: 'Yashash makoni, yovvoyi tabiat muhiti',
+              exampleSentence:
+                '環境[かんきょう]破壊[はかい]により 希少[きしょう]動物[どうぶつ]の 生息[せいそく]地が 脅[おびや]かされている。',
+              exampleTranslation:
+                'Tabiat ifloslanishi oqibatida noyob hayvonlarning yashash makoni xavf ostida qoldi.',
+            },
+            {
+              term: '生態[せいたい]系',
+              reading: 'seitaikei',
+              meaning: 'Ekotizim',
+              exampleSentence:
+                '外来[がいらい]種[しゅ]の 侵入[しんにゅう]が 生態[せいたい]系を 乱[みだ]す。',
+              exampleTranslation:
+                'Chet eldan kirib kelgan begona turlar ekotizim muvozanatini buzadi.',
             },
           ],
           grammarRules: [
@@ -3421,26 +3793,44 @@ export const JAPANESE_N2_LESSONS: Lesson[] = [
           ],
           vocabulary: [
             {
-              term: '政府[せいふ]',
-              reading: 'Seifu',
-              meaning: 'Hukumat',
-              exampleSentence: '政府の方針。',
-              exampleTranslation: "Hukumat yo'nalishi.",
+              term: '予防[よぼう]接種[せっしゅ]',
+              reading: 'yobousesshu',
+              meaning: 'Emlash, vaksina qabul qilish',
+              exampleSentence: 'インフルエンザの 予防[よぼう]接種[せっしゅ]を 受[う]けて おく。',
+              exampleTranslation: 'Grippga qarshi emlanib qoʻyish.',
             },
             {
-              term: '把握[はあく]する',
-              reading: 'Haaku suru',
-              meaning: 'Vaziyatni toʻliq anglab yetmoq, tushunmoq',
+              term: '免疫[めんえき]力',
+              reading: 'menʼekiryoku',
+              meaning: 'Immunitet quvvati, kasallikka qarshilik kuchi',
               exampleSentence:
-                '現状[げんじょう]を 正確[せいかく]に 把握[はあく]する 必要[ひつよう]があります。',
-              exampleTranslation: 'Hozirgi holatni aniq anglab yetish zarur.',
+                '十分[じゅうぶん]な 睡眠[すいみん]をとって 免疫[めんえき]力を 高[たか]める。',
+              exampleTranslation: 'Yetarlicha uxlab immunitetni kuchaytiramiz.',
             },
             {
-              term: '促進[そくしん]する',
-              reading: 'Sokushin suru',
-              meaning: 'Rivojlanishni jadallashtirmoq, ragʻbatlantirmoq',
-              exampleSentence: '国際[こくさい] 交流[こうりゅう]を 促進[そくしん]します。',
-              exampleTranslation: 'Xalqaro almashinuvni ragʻbatlantiramiz.',
+              term: '慢性[まんせい]',
+              reading: 'mansei',
+              meaning: 'Surunkali (kasallik)',
+              exampleSentence:
+                '慢性[まんせい]的[てき]な 睡眠[すいみん]不足[ぶそく]に 悩[なや]まされている。',
+              exampleTranslation: 'Surunkali uyqusizlikdan aziyat chekmoqda.',
+            },
+            {
+              term: '処方[しょほう]箋[せん]',
+              reading: 'shohousen',
+              meaning: 'Shifokor retsepti',
+              exampleSentence:
+                '医師[いし]の 処方[しょほう]箋[せん]を 持[も]って 薬局[やっきょく]へ 行[い]く。',
+              exampleTranslation: 'Shifokor retsepti bilan dorixonaga bormoq.',
+            },
+            {
+              term: '診断[しんだん]書',
+              reading: 'shindansho',
+              meaning: 'Tibbiy maʼlumotnoma (tashxis qogʻozi)',
+              exampleSentence:
+                '会社[かいしゃ]に 休職[きゅうしょく]のための 診断[しんだん]書を 提出[ていしゅつ]した。',
+              exampleTranslation:
+                'Ishdan taʼtil olish uchun korxonaga tibbiy tashxis xulosasini topshirdim.',
             },
           ],
           grammarRules: [
@@ -3581,25 +3971,45 @@ export const JAPANESE_N2_LESSONS: Lesson[] = [
           ],
           vocabulary: [
             {
-              term: '直[ただ]ちに',
-              reading: 'Tadachini',
-              meaning: 'Zudlik bilan / Darhol',
-              exampleSentence: '直ちに報告しなさい。',
-              exampleTranslation: 'Darhol hisobot bering.',
+              term: '前提[ぜんてい]',
+              reading: 'zentei',
+              meaning: 'Boshlangʻich shart, asosiy presuppozitsiya',
+              exampleSentence:
+                '合意[ごうい]を 前提[ぜんてい]として 交渉[こうしょう]を 開始[かいし]する。',
+              exampleTranslation: 'Kelishuvni boshlangʻich shart deb olib muzokarani boshlaymiz.',
             },
             {
-              term: '促進[そくしん]する',
-              reading: 'Sokushin suru',
-              meaning: 'Rivojlanishni jadallashtirmoq, ragʻbatlantirmoq',
-              exampleSentence: '国際[こくさい] 交流[こうりゅう]を 促進[そくしん]します。',
-              exampleTranslation: 'Xalqaro almashinuvni ragʻbatlantiramiz.',
+              term: '仮[かり]に',
+              reading: 'kari ni',
+              meaning: 'Faraz qilaylik, deylik',
+              exampleSentence:
+                '仮[かり]に 失敗[しっぱい]したとしても、次[つぎ]の 策[さく]が ある。',
+              exampleTranslation: 'Deylik, hatto oʻxshamagan taqdirda ham, zaxira rejamiz bor.',
             },
             {
-              term: '配慮[はいりょ]する',
-              reading: 'Hairyo suru',
-              meaning: 'Eʼtibor bermoq, gʻamxoʻrlik qilmoq',
-              exampleSentence: '周囲[しゅうい]の 人[ひと]への 配慮[はいりょ]が 欠[か]かせません。',
-              exampleTranslation: 'Atrofdagilarga eʼtibor va gʻamxoʻrlik qilish juda muhim.',
+              term: '万一[まんいち]',
+              reading: 'manʼichi',
+              meaning: 'Mabodo, bamisoli tasodifan',
+              exampleSentence:
+                '万一[まんいち] 事故[じこ]が 起[お]きたら すぐに 連絡[れんらく]してください。',
+              exampleTranslation: 'Mabodo biror falokat yuz bersa zudlik bilan xabar bering.',
+            },
+            {
+              term: '制約[せいやく]',
+              reading: 'seiyaku',
+              meaning: 'Cheklovchi shartlar, toʻsiq',
+              exampleSentence:
+                '予算[よさん]の 制約[せいやく]の 中[なか]で 最善[さいぜん]を 尽[つ]くす。',
+              exampleTranslation:
+                'Budjet cheklovlari doirasida qoʻldan kelgan barcha ishni qilamiz.',
+            },
+            {
+              term: '不可欠[ふかけつ]な',
+              reading: 'fukaketsu na',
+              meaning: 'Usiz tasavvur qilib boʻlmaydigan, oʻta zarur',
+              exampleSentence:
+                '水分[すいぶん]補給[ほきゅう]は 健康[けんこう]維持[いじ]に 不可欠[ふかけつ]だ。',
+              exampleTranslation: 'Yetarli suv ichish salomatlikni saqlashda oʻta zarur.',
             },
           ],
           grammarRules: [
@@ -3740,26 +4150,46 @@ export const JAPANESE_N2_LESSONS: Lesson[] = [
           ],
           vocabulary: [
             {
-              term: 'ぎりぎり',
-              reading: 'Girigiri',
-              meaning: "Zo'rg me'yorida / oxirgi momentda",
-              exampleSentence: '電車にぎりぎり間に合った。',
-              exampleTranslation: "Poyezdga zo'rg'a ulgurdim.",
-            },
-            {
-              term: '配慮[はいりょ]する',
-              reading: 'Hairyo suru',
-              meaning: 'Eʼtibor bermoq, gʻamxoʻrlik qilmoq',
-              exampleSentence: '周囲[しゅうい]の 人[ひと]への 配慮[はいりょ]が 欠[か]かせません。',
-              exampleTranslation: 'Atrofdagilarga eʼtibor va gʻamxoʻrlik qilish juda muhim.',
-            },
-            {
-              term: '遵守[じゅんしゅ]する',
-              reading: 'Junshu suru',
-              meaning: 'Qoidalarga qatʼiy rioya qilmoq',
+              term: '考察[こうさつ]する',
+              reading: 'kousatsu suru',
+              meaning: 'Tahlil qilib xulosa yasamoq (ilmiy)',
               exampleSentence:
-                '法令[ほうれい]を 遵守[じゅんしゅ]することが 義務[ぎむ]づけられています。',
-              exampleTranslation: 'Qonun-qoidalarga qatʼiy rioya qilish majburiy etib belgilangan.',
+                '実験[じっけん]データに 基[づ]いて 今後[こんご]の 課題[かだい]を 考察[こうさつ]する。',
+              exampleTranslation:
+                'Eksperiment maʼlumotlari asosida istiqboldagi vazifalarni tahlil qilamiz.',
+            },
+            {
+              term: '言及[げんきゅう]に 値[あたい]する',
+              reading: 'genkyuu ni ataisuru',
+              meaning: 'Eslatib oʻtishga arzigulik',
+              exampleSentence:
+                'この 発見[はっけん]は 特筆[とくひつ]大書[たいしょ]して 言及[げんきゅう]に 値[あたい]する。',
+              exampleTranslation: 'Ushbu kashfiyot alohida tilga olishga arziydi.',
+            },
+            {
+              term: '前述[ぜんじゅつ]の',
+              reading: 'zenjutsu no',
+              meaning: 'Yuqorida aytib oʻtilgan',
+              exampleSentence:
+                '前述[ぜんじゅつ]の 通[とお]り、新[あたら]しい 計画[けいかく]を 推進[すいしん]する。',
+              exampleTranslation:
+                'Yuqorida aytib oʻtilganidek, yangi rejani hayotga tatbiq etamiz.',
+            },
+            {
+              term: '後述[こうじゅつ]する',
+              reading: 'koujutsu suru',
+              meaning: 'Quyida/keyinroq bayon etilmoq',
+              exampleSentence:
+                '詳細[しょうさい]な 手順[てじゅん]に ついては 第3章[だいさんしょう]で 後述[こうじゅつ]する。',
+              exampleTranslation: 'Batafsil ketma-ketlik haqida 3-bobda quyida soʻz yuritiladi.',
+            },
+            {
+              term: '概説[がいせつ]する',
+              reading: 'gaisetsu suru',
+              meaning: 'Qisqacha umumiy tushuncha bermoq',
+              exampleSentence:
+                'まず 本書[ほんしょ]の 全体[ぜんたい]像[ぞう]を 概説[がいせつ]する。',
+              exampleTranslation: 'Avval ushbu kitobning umumiy mazmunini qisqacha bayon qilamiz.',
             },
           ],
           grammarRules: [
@@ -3894,27 +4324,46 @@ export const JAPANESE_N2_LESSONS: Lesson[] = [
           ],
           vocabulary: [
             {
-              term: '断念[だんねん]する',
-              reading: 'Dannen suru',
-              meaning: 'Umid uzmoq / Voz kechmoq',
-              exampleSentence: '計画を断念する。',
-              exampleTranslation: 'Rejadan voz kechmoq.',
+              term: '相違[そうい]点',
+              reading: 'souiten',
+              meaning: 'Farqli jihat',
+              exampleSentence:
+                '両者[りょうしゃ]の 主張[しゅちょう]の 相違[そうい]点を 表[ひょう]に まとめる。',
+              exampleTranslation:
+                'Har ikki tomon qarashlaridagi farqli jihatlarni jadvalga joylaymiz.',
             },
             {
-              term: '遵守[じゅんしゅ]する',
-              reading: 'Junshu suru',
-              meaning: 'Qoidalarga qatʼiy rioya qilmoq',
+              term: '類似[るいじ]点',
+              reading: 'ruijiten',
+              meaning: 'Oʻxshash jihat',
               exampleSentence:
-                '法令[ほうれい]を 遵守[じゅんしゅ]することが 義務[ぎむ]づけられています。',
-              exampleTranslation: 'Qonun-qoidalarga qatʼiy rioya qilish majburiy etib belgilangan.',
+                '2つの 事件[じけん]には 多[おお]くの 類似[るいじ]点が 認[みと]められる。',
+              exampleTranslation: 'Bu ikki hodisada koʻplab oʻxshash jihatlar koʻzga tashlanadi.',
             },
             {
-              term: '把握[はあく]する',
-              reading: 'Haaku suru',
-              meaning: 'Vaziyatni toʻliq anglab yetmoq, tushunmoq',
+              term: '照合[しょうごう]する',
+              reading: 'shougou suru',
+              meaning: 'Bir-biriga solishtirib tekshirmoq',
               exampleSentence:
-                '現状[げんじょう]を 正確[せいかく]に 把握[はあく]する 必要[ひつよう]があります。',
-              exampleTranslation: 'Hozirgi holatni aniq anglab yetish zarur.',
+                '名簿[めいぼ]と 身分[みぶん]証明[しょうめい]書を 照合[しょうごう]する。',
+              exampleTranslation:
+                'Roʻyxat bilan shaxsni tasdiqlovchi hujjatni bir-biriga solishtirib tekshirmoq.',
+            },
+            {
+              term: '整合[せいごう]性',
+              reading: 'seigousei',
+              meaning: 'Mantiqiy muvofiqlik, uygʻunlik',
+              exampleSentence:
+                '全体[ぜんたい]の 整合[せいごう]性を 保[たも]つように 修正[しゅうせい]する。',
+              exampleTranslation: 'Umumiy mantiqiy uygʻunlikni saqlab qolish uchun tahrir qilamiz.',
+            },
+            {
+              term: '乖離[かいり]する',
+              reading: 'kairi suru',
+              meaning: 'Ajralib qolmoq, oradagi masofa ochilib ketmoq',
+              exampleSentence:
+                '理想[りそう]と 現実[げんじつ]が 大[おお]きく 乖離[かいり]している。',
+              exampleTranslation: 'Orzu bilan real haqiqat bir-biridan ancha uzoqlashib ketgan.',
             },
           ],
           grammarRules: [
@@ -4063,27 +4512,46 @@ export const JAPANESE_N2_LESSONS: Lesson[] = [
           ],
           vocabulary: [
             {
-              term: '遵守[じゅんしゅ]する',
-              reading: 'Junshu suru',
-              meaning: 'Qoidalarga qatʼiy rioya qilmoq',
+              term: '骨子[こっし]',
+              reading: 'kosshi',
+              meaning: 'Asosiy magʻzi, bosh mazmuni',
               exampleSentence:
-                '法令[ほうれい]を 遵守[じゅんしゅ]することが 義務[ぎむ]づけられています。',
-              exampleTranslation: 'Qonun-qoidalarga qatʼiy rioya qilish majburiy etib belgilangan.',
+                '新[あたら]しい 提案[ていあん]の 骨子[こっし]を 説明[せつめい]する。',
+              exampleTranslation: 'Yangi taklifning asosiy magʻzini tushuntirib berish.',
             },
             {
-              term: '把握[はあく]する',
-              reading: 'Haaku suru',
-              meaning: 'Vaziyatni toʻliq anglab yetmoq, tushunmoq',
+              term: '趣旨[しゅし]',
+              reading: 'shushi',
+              meaning: 'Maqsad, niyat, mohiyat',
               exampleSentence:
-                '現状[げんじょう]を 正確[せいかく]に 把握[はあく]する 必要[ひつよう]があります。',
-              exampleTranslation: 'Hozirgi holatni aniq anglab yetish zarur.',
+                'イベントの 趣旨[しゅし]を ご理解[りかい]いただき ご協力[きょうりょく]ください。',
+              exampleTranslation:
+                'Tadbirning maqsadini toʻgʻri tushunib hamkorlik qilishingizni soʻraymiz.',
             },
             {
-              term: '促進[そくしん]する',
-              reading: 'Sokushin suru',
-              meaning: 'Rivojlanishni jadallashtirmoq, ragʻbatlantirmoq',
-              exampleSentence: '国際[こくさい] 交流[こうりゅう]を 促進[そくしん]します。',
-              exampleTranslation: 'Xalqaro almashinuvni ragʻbatlantiramiz.',
+              term: '概要[がいよう]を 掴[つか]む',
+              reading: 'gaiyou o tsukamu',
+              meaning: 'Umumiy mazmunni anglab olmoq',
+              exampleSentence:
+                'まず 全体[ぜんたい]の 概要[がいよう]を 掴[つか]んでから 細部[さいぶ]に 入[はい]る。',
+              exampleTranslation: 'Avval umumiy mazmunni anglab olib, soʻng detallarga oʻtamiz.',
+            },
+            {
+              term: '意図[いと]を 汲[く]み取[と]る',
+              reading: 'ito o kumitoru',
+              meaning: 'Gapiruvchining ichki niyatini ilgʻab olmoq',
+              exampleSentence:
+                '相手[あいて]の 意図[いと]を 正確[せいかく]に 汲[く]み取[と]って 返答[へんとう]する。',
+              exampleTranslation: 'Suhbatdoshning niyatini aniq ilgʻab javob qaytarish.',
+            },
+            {
+              term: '補足[ほそく]する',
+              reading: 'hosoku suru',
+              meaning: 'Toʻldirmoq, qoʻshimcha qilmoq',
+              exampleSentence:
+                '説明[せつめい]が 不足[ふそく]していたので データで 補足[ほそく]した。',
+              exampleTranslation:
+                'Tushuntirish yetarli boʻlmagani sababli raqamlar bilan toʻldirdim.',
             },
           ],
         },
@@ -4226,26 +4694,43 @@ export const JAPANESE_N2_LESSONS: Lesson[] = [
           ],
           vocabulary: [
             {
-              term: '把握[はあく]する',
-              reading: 'Haaku suru',
-              meaning: 'Vaziyatni toʻliq anglab yetmoq, tushunmoq',
+              term: '文脈[ぶんみゃく]',
+              reading: 'bunmyaku',
+              meaning: 'Matn konteksti, mazmuniy oqim',
               exampleSentence:
-                '現状[げんじょう]を 正確[せいかく]に 把握[はあく]する 必要[ひつよう]があります。',
-              exampleTranslation: 'Hozirgi holatni aniq anglab yetish zarur.',
+                '前後の 文脈[ぶんみゃく]から 単語[たんご]の 意味[いみ]を 推測[すいそく]する。',
+              exampleTranslation: 'Oldi-orqasidagi matn kontekstidan soʻz maʼnosini taxmin qilish.',
             },
             {
-              term: '促進[そくしん]する',
-              reading: 'Sokushin suru',
-              meaning: 'Rivojlanishni jadallashtirmoq, ragʻbatlantirmoq',
-              exampleSentence: '国際[こくさい] 交流[こうりゅう]を 促進[そくしん]します。',
-              exampleTranslation: 'Xalqaro almashinuvni ragʻbatlantiramiz.',
+              term: '修飾[しゅうしょく]する',
+              reading: 'shuushoku suru',
+              meaning: 'Aniqlamoq, sifatlamoq (grammatikada)',
+              exampleSentence: '形容詞[けいようし]が 名詞[めいし]を 修飾[しゅうしょく]している。',
+              exampleTranslation: 'Sifat otni aniqlab kelmoqda.',
             },
             {
-              term: '配慮[はいりょ]する',
-              reading: 'Hairyo suru',
-              meaning: 'Eʼtibor bermoq, gʻamxoʻrlik qilmoq',
-              exampleSentence: '周囲[しゅうい]の 人[ひと]への 配慮[はいりょ]が 欠[か]かせません。',
-              exampleTranslation: 'Atrofdagilarga eʼtibor va gʻamxoʻrlik qilish juda muhim.',
+              term: '呼応[こおう]する',
+              reading: 'koou suru',
+              meaning: 'Sintaktik moslashmoq (masalan, 決して va ない)',
+              exampleSentence:
+                '副詞[ふくし]と 文末[ぶんまつ]の 否定[ひてい]表現[ひょうげん]が 呼応[こおう]する。',
+              exampleTranslation: 'Ravish bilan gap oxiridagi inkor bir-biriga mos keladi.',
+            },
+            {
+              term: '倒置[とうち]',
+              reading: 'touchi',
+              meaning: 'Inversiya (gap boʻlaklari oʻrni almashishi)',
+              exampleSentence:
+                '感情[かんじょう]を 強調[きょうちょう]するために 倒置[とうち]を 用[もち]いる。',
+              exampleTranslation: 'Hissiyotni kuchaytirish maqsadida inversiya usuli qoʻllanadi.',
+            },
+            {
+              term: '係[かか]り結[むす]び',
+              reading: 'kakarimusubi',
+              meaning: 'Grammatik bogʻliqlik va mutanosiblik',
+              exampleSentence:
+                '文[ぶん]の 構造[こうぞう]と 係[かか]り結[むす]びを 正確[せいかく]に 把握[はあく]する。',
+              exampleTranslation: 'Gap tuzilishi va grammatik bogʻliqlikni aniq tushunib olmoq.',
             },
           ],
         },
@@ -4384,26 +4869,44 @@ export const JAPANESE_N2_LESSONS: Lesson[] = [
           ],
           vocabulary: [
             {
-              term: '促進[そくしん]する',
-              reading: 'Sokushin suru',
-              meaning: 'Rivojlanishni jadallashtirmoq, ragʻbatlantirmoq',
-              exampleSentence: '国際[こくさい] 交流[こうりゅう]を 促進[そくしん]します。',
-              exampleTranslation: 'Xalqaro almashinuvni ragʻbatlantiramiz.',
+              term: '商談[しょうだん]',
+              reading: 'shoudan',
+              meaning: 'Biznes muzokaralari, savdo-sotiq kelishuvi',
+              exampleSentence: '海外[かいがい]の クライアントと 商談[しょうだん]を 行[おこな]う。',
+              exampleTranslation: 'Xorijiy mijoz bilan biznes muzokaralarini oʻtkazish.',
             },
             {
-              term: '配慮[はいりょ]する',
-              reading: 'Hairyo suru',
-              meaning: 'Eʼtibor bermoq, gʻamxoʻrlik qilmoq',
-              exampleSentence: '周囲[しゅうい]の 人[ひと]への 配慮[はいりょ]が 欠[か]かせません。',
-              exampleTranslation: 'Atrofdagilarga eʼtibor va gʻamxoʻrlik qilish juda muhim.',
-            },
-            {
-              term: '遵守[じゅんしゅ]する',
-              reading: 'Junshu suru',
-              meaning: 'Qoidalarga qatʼiy rioya qilmoq',
+              term: '見積[みつ]もり',
+              reading: 'mitsumori',
+              meaning: 'Hisob-kitob, kotirovka, smeta',
               exampleSentence:
-                '法令[ほうれい]を 遵守[じゅんしゅ]することが 義務[ぎむ]づけられています。',
-              exampleTranslation: 'Qonun-qoidalarga qatʼiy rioya qilish majburiy etib belgilangan.',
+                '工事[こうじ]の 見積[みつ]もりを 取引[とりひき]先[さき]に 依頼[いらい]した。',
+              exampleTranslation:
+                'Hamkor kompaniyaga qurilish smetasini hisoblab berishni soʻrab murojaat qildik.',
+            },
+            {
+              term: '納期[のうき]',
+              reading: 'nouki',
+              meaning: 'Buyurtmani topshirish muddati (deadline)',
+              exampleSentence: '納期[のうき]に 間[ま]に合[あ]わせるために 残業[ざんぎょう]した。',
+              exampleTranslation:
+                'Topshirish muddatiga ulgurish uchun ishdan keyin qolib ishladim.',
+            },
+            {
+              term: '納品[のうひん]する',
+              reading: 'nouhin suru',
+              meaning: 'Mahsulotni buyurtmachiga topshirmoq',
+              exampleSentence:
+                '完成[かんせい]した ソフトウェアを 予定[よてい]通[どお]り 納品[のうひん]した。',
+              exampleTranslation: 'Tayyor boʻlgan dasturiy taʼminot reja boʻyicha topshirildi.',
+            },
+            {
+              term: '請求[せいきゅう]書',
+              reading: 'seikyuusho',
+              meaning: 'Hisob-faktura (toʻlov varaqasi)',
+              exampleSentence:
+                '月末[げつまつ]に 請求[せいきゅう]書を 発行[はっこう]して 送付[そうふ]する。',
+              exampleTranslation: 'Oy oxirida hisob-fakturani chiqarib joʻnatamiz.',
             },
           ],
         },
@@ -4536,27 +5039,45 @@ export const JAPANESE_N2_LESSONS: Lesson[] = [
           ],
           vocabulary: [
             {
-              term: '配慮[はいりょ]する',
-              reading: 'Hairyo suru',
-              meaning: 'Eʼtibor bermoq, gʻamxoʻrlik qilmoq',
-              exampleSentence: '周囲[しゅうい]の 人[ひと]への 配慮[はいりょ]が 欠[か]かせません。',
-              exampleTranslation: 'Atrofdagilarga eʼtibor va gʻamxoʻrlik qilish juda muhim.',
+              term: '語彙[ごい]力',
+              reading: 'goiryoku',
+              meaning: 'Lugʻat boyligi',
+              exampleSentence:
+                'N2合格[ごうかく]には 豊富[ほうふ]な 語彙[ごい]力が 欠[か]かせない。',
+              exampleTranslation: 'N2 imtihonidan oʻtish uchun boy soʻz zaxirasi shart.',
             },
             {
-              term: '遵守[じゅんしゅ]する',
-              reading: 'Junshu suru',
-              meaning: 'Qoidalarga qatʼiy rioya qilmoq',
+              term: '読解[どっかい]スピード',
+              reading: 'dokkai supiido',
+              meaning: 'Matn oʻqish tezligi',
               exampleSentence:
-                '法令[ほうれい]を 遵守[じゅんしゅ]することが 義務[ぎむ]づけられています。',
-              exampleTranslation: 'Qonun-qoidalarga qatʼiy rioya qilish majburiy etib belgilangan.',
+                '毎日[まいにち] 新聞[しんぶん]を 読[よ]んで 読解[どっかい]スピードを 上[あ]げる。',
+              exampleTranslation: 'Har kuni gazeta oʻqib matn tushunish tezligini oshirmoqdaman.',
             },
             {
-              term: '把握[はあく]する',
-              reading: 'Haaku suru',
-              meaning: 'Vaziyatni toʻliq anglab yetmoq, tushunmoq',
+              term: '時間[じかん]配分[はいぶん]',
+              reading: 'jikan haibun',
+              meaning: 'Vaqtni toʻgʻri taqsimlash',
               exampleSentence:
-                '現状[げんじょう]を 正確[せいかく]に 把握[はあく]する 必要[ひつよう]があります。',
-              exampleTranslation: 'Hozirgi holatni aniq anglab yetish zarur.',
+                '本番[ほんばん]の 試験[しけん]では 時間[じかん]配分[はいぶん]が 合否[ごうひ]を 分[わ]ける。',
+              exampleTranslation:
+                'Haqiqiy imtihonda vaqtni toʻgʻri taqsimlash natijani hal qiladi.',
+            },
+            {
+              term: '模擬[もぎ]試験[しけん]',
+              reading: 'mogi shiken',
+              meaning: 'Sinov imtihoni (Mock exam)',
+              exampleSentence:
+                '模擬[もぎ]試験[しけん]で 弱点[じゃくてん]を 見[み]つけて 克服[こくふく]する。',
+              exampleTranslation: 'Sinov imtihoni orqali zaif nuqtalarni aniqlab bartaraf etamiz.',
+            },
+            {
+              term: '正答[せいとう]率',
+              reading: 'seitouritsu',
+              meaning: 'Toʻgʻri javob berish foizi',
+              exampleSentence: '過去[かこ]問[もん]の 正答[せいとう]率が 80％を 超[こ]えた。',
+              exampleTranslation:
+                'Oʻtgan yillardagi test savollarida toʻgʻri javob berish koʻrsatkichim 80% dan oshdi.',
             },
           ],
         },
@@ -4698,27 +5219,48 @@ export const JAPANESE_N2_LESSONS: Lesson[] = [
           ],
           vocabulary: [
             {
-              term: '遵守[じゅんしゅ]する',
-              reading: 'Junshu suru',
-              meaning: 'Qoidalarga qatʼiy rioya qilmoq',
+              term: '飛躍[ひやく]的[てき]な',
+              reading: 'hiyokuteki na',
+              meaning: 'Sakrashdek tezkor, ulkan, mislsiz',
               exampleSentence:
-                '法令[ほうれい]を 遵守[じゅんしゅ]することが 義務[ぎむ]づけられています。',
-              exampleTranslation: 'Qonun-qoidalarga qatʼiy rioya qilish majburiy etib belgilangan.',
+                '毎日[まいにち]の 努力[どりょく]で 日本語[にほんご]能力[のうりょく]が 飛躍[ひやく]的[てき]に 向上[こうじょう]した。',
+              exampleTranslation:
+                'Har kungi muntazam mehnat evaziga yapon tili mahoratim ulkan darajada koʻtarildi.',
             },
             {
-              term: '把握[はあく]する',
-              reading: 'Haaku suru',
-              meaning: 'Vaziyatni toʻliq anglab yetmoq, tushunmoq',
+              term: '合格[ごうかく]証書',
+              reading: 'goukaku shousho',
+              meaning: 'Muvaffaqiyat sertifikati, diplom',
               exampleSentence:
-                '現状[げんじょう]を 正確[せいかく]に 把握[はあく]する 必要[ひつよう]があります。',
-              exampleTranslation: 'Hozirgi holatni aniq anglab yetish zarur.',
+                '努力[どりょく]の 結晶[けっしょう]である JLPT N2 合格[ごうかく]証書を 手[て]に 入[い]れた。',
+              exampleTranslation: 'Tirishqoqlik mevasi boʻlgan JLPT N2 diplomini qoʻlga kiritdim.',
             },
             {
-              term: '促進[そくしん]する',
-              reading: 'Sokushin suru',
-              meaning: 'Rivojlanishni jadallashtirmoq, ragʻbatlantirmoq',
-              exampleSentence: '国際[こくさい] 交流[こうりゅう]を 促進[そくしん]します。',
-              exampleTranslation: 'Xalqaro almashinuvni ragʻbatlantiramiz.',
+              term: '意欲[いよく]',
+              reading: 'iyoku',
+              meaning: 'Kuchli xohish, ishtiyoq, intilish',
+              exampleSentence:
+                '次[つぎ]の 目標[もくひょう]である N1へ 向[む]けて 学習[がくしゅう]意欲[いよく]を 高[たか]める。',
+              exampleTranslation:
+                'Keyingi choʻqqi boʻlgan N1 tomon oʻrganish ishtiyoqimni oshiraman.',
+            },
+            {
+              term: '確固[かっこ]たる',
+              reading: 'kakkotaru',
+              meaning: 'Mustahkam, tebranmas, qatʼiy',
+              exampleSentence:
+                '確固[かっこ]たる 自信[じしん]を 持[も]って ビジネスの 現場[げんば]で 活躍[かつやく]する。',
+              exampleTranslation:
+                'Mustahkam ishonch bilan ishbilarmonlik maydonida faoliyat yuritaman.',
+            },
+            {
+              term: '探求[たんきゅう]心',
+              reading: 'tankyuushin',
+              meaning: 'Izlanuvchanlik, yangilikka chanqoqlik',
+              exampleSentence:
+                '尽[つ]きない 探求[たんきゅう]心を 持[も]って、さらに 深[ふか]い 日本語[にほんご]の 世界[せかい]へ 進[すす]む。',
+              exampleTranslation:
+                'Tugamas izlanuvchanlik bilan yapon tilining yanada teran olamiga qadam qoʻyamiz.',
             },
           ],
         },
