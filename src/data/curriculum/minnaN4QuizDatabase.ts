@@ -107,7 +107,7 @@ export const MINNA_N4_QUIZ_DATABASE: Record<number, LessonQuizSet> = {
           "Kayfiyatim juda a'lo",
           'Hech narsa yoqmayapti',
           'Vaqtim kam qoldi',
-          "O'zimni yomon his qilyapman (mazam yo'q)",
+          "O'zimni yomon his qilyapman",
         ],
         correctAnswer: 3,
         explanation:
@@ -424,12 +424,7 @@ export const MINNA_N4_QUIZ_DATABASE: Record<number, LessonQuizSet> = {
         id: 'ja-minna-l28-ex2',
         type: 'multiple-choice',
         prompt: '「〜ながら」 jumlasida asosiy harakat qaysi biri hisoblanadi?',
-        options: [
-          'Birinchi harakat',
-          'Ikkala harakat teng',
-          'Hech biri',
-          'Ikkinchi (asosiy oxirgi) harakat',
-        ],
+        options: ['Birinchi harakat', 'Ikkala harakat teng', 'Hech biri', 'Ikkinchi harakat'],
         correctAnswer: 3,
         explanation:
           '〜ながら da ikkinchi bajarilayotgan asosiy harakat muhimroq hisoblanadi (masalan, musiqa eshitib dars qilaman — asosiy ish dars qilish).',
@@ -869,7 +864,7 @@ export const MINNA_N4_QUIZ_DATABASE: Record<number, LessonQuizSet> = {
         type: 'multiple-choice',
         prompt: "«復習 (ふくしゅう)» so'zining ma'nosi qaysi?",
         options: [
-          "Oldindan o'rganish (vazifa)",
+          "Oldindan o'rganish",
           'Imtihon topshirish',
           'Mashq yozish',
           "O'tilgan darsni takrorlash",
@@ -883,12 +878,7 @@ export const MINNA_N4_QUIZ_DATABASE: Record<number, LessonQuizSet> = {
       {
         id: 'ja-minna-l30-q1',
         question: '【Mondai 1: Moji/Goi】「予定表（よていひょう）」の 意[い]味[み]は どれですか。',
-        options: [
-          'Hisobot daftari',
-          'Kundalik darslik',
-          'Reja jadvali (jadval)',
-          'Xarajat varaqasi',
-        ],
+        options: ['Hisobot daftari', 'Kundalik darslik', 'Reja jadvali', 'Xarajat varaqasi'],
         correctAnswerIndex: 2,
         explanation: '「予定表 (よていひょう)」 — reja jadvali / tadbirlar grafigi.',
       },
@@ -1265,12 +1255,7 @@ export const MINNA_N4_QUIZ_DATABASE: Record<number, LessonQuizSet> = {
       {
         id: 'ja-minna-l32-q2',
         question: '【Mondai 1: Moji/Goi】「晴（は）れます」の 意[い]味[み]は どれですか。',
-        options: [
-          "Yomg'ir yog'moq",
-          "Havo ochilmoq (musaffo bo'lmoq)",
-          'Shamol esmoq',
-          'Qor tushmoq',
-        ],
+        options: ["Yomg'ir yog'moq", 'Havo ochilmoq', 'Shamol esmoq', 'Qor tushmoq'],
         correctAnswerIndex: 1,
         explanation: "「晴れます (はれます)」 — havo ochiq va quyoshli bo'lmoq.",
       },
@@ -1404,12 +1389,7 @@ export const MINNA_N4_QUIZ_DATABASE: Record<number, LessonQuizSet> = {
         id: 'ja-minna-l33-ex6',
         type: 'multiple-choice',
         prompt: '«使用禁止 (しようきんし)» belgisi nimani bildiradi?',
-        options: [
-          'Erkin foydalaning',
-          "Ta'mirlandi",
-          'Sotiladi',
-          'Foydalanma (ishlatish taqiqlanadi)',
-        ],
+        options: ['Erkin foydalaning', "Ta'mirlandi", 'Sotiladi', 'Foydalanish taqiqlanadi'],
         correctAnswer: 3,
         explanation: "「使用禁止」 — ishlatish qat'iyan man etiladi.",
       },
@@ -1462,12 +1442,7 @@ export const MINNA_N4_QUIZ_DATABASE: Record<number, LessonQuizSet> = {
       {
         id: 'ja-minna-l33-q2',
         question: '【Mondai 1: Moji/Goi】「本日休業（ほんじつきゅうぎょう）」の 意[い]味[み]は？',
-        options: [
-          "Bugun dam olish kuni (do'kon yopiq)",
-          'Bugun bayram',
-          "Do'kon ochiq",
-          'Yangi mahsulot keldi',
-        ],
+        options: ['Bugun dam olish kuni', 'Bugun bayram', "Do'kon ochiq", 'Yangi mahsulot keldi'],
         correctAnswerIndex: 0,
         explanation: "「本日休業」 — bugun ish faoliyati yo'q (yopiq).",
       },
@@ -1517,7 +1492,7 @@ export const MINNA_N4_QUIZ_DATABASE: Record<number, LessonQuizSet> = {
           "Qo'l bilan ushlab ko'rish kerak",
           "Tozalab qo'yish kerak",
           'Yuvish kerak',
-          "Tegmaslik kerak (qo'l tekkizish taqiqlanadi)",
+          "Qo'l tekkizmaslik kerak",
         ],
         correctAnswerIndex: 3,
         explanation: '「触れるな (teginma) という意味」 — ushlash taqiqlanadi.',
@@ -1643,7 +1618,7 @@ export const MINNA_N4_QUIZ_DATABASE: Record<number, LessonQuizSet> = {
       {
         id: 'ja-minna-l34-q1',
         question: '【Mondai 1: Moji/Goi】「矢印（やじるし）」の 意[い]味[み]は どれですか。',
-        options: ['Doira belgisi', "To'rtburchak", "Ko'rsatkich strelka (belgi)", 'Chiziq'],
+        options: ['Doira belgisi', "To'rtburchak", "Ko'rsatkich strelka", 'Chiziq'],
         correctAnswerIndex: 2,
         explanation: "「矢印 (やじるし)」 — ko'rsatkich nayza/strelka belgisi.",
       },
@@ -1697,12 +1672,7 @@ export const MINNA_N4_QUIZ_DATABASE: Record<number, LessonQuizSet> = {
         id: 'ja-minna-l34-q8',
         question:
           '【Mondai 3: Dokkai】「この 薬は 毎食後[まいしょくご]（ご飯を 食べた あとで）、水と 一緒に 飲んで ください。」 Ushbu dori qachon ichiladi?',
-        options: [
-          'Ovqatdan oldin',
-          'Faqat ertalab och qoringa',
-          "Ovqatdan so'ng (har safar ovqatlangach)",
-          'Uxlayotganda',
-        ],
+        options: ['Ovqatdan oldin', 'Faqat ertalab och qoringa', "Ovqatdan so'ng", 'Uxlayotganda'],
         correctAnswerIndex: 2,
         explanation: '「毎食後 (ご飯を 食べた あとで)」 — ovqatdan keyin.',
       },
@@ -1807,7 +1777,7 @@ export const MINNA_N4_QUIZ_DATABASE: Record<number, LessonQuizSet> = {
         id: 'ja-minna-l35-ex9',
         type: 'multiple-choice',
         prompt: "«咲[さ]きます» fe'lining ma'nosi nima?\n「桜[さくら]が 咲きました。」",
-        options: ["to'kilmoq", 'ochilmoq (gul)', 'qurimoq', "o'smoq"],
+        options: ["to'kilmoq", 'ochilmoq', 'qurimoq', "o'smoq"],
         correctAnswer: 1,
         explanation: '「咲きます (さきます)」 — gul ochilmoq, gullamoq.',
       },
@@ -1947,7 +1917,7 @@ export const MINNA_N4_QUIZ_DATABASE: Record<number, LessonQuizSet> = {
         prompt: '«〜ように» va «〜ために» farqi qaysi?',
         options: [
           "〜ように faqat o'tgan zamonda ishlatiladi",
-          "〜ように (inson xohishiga bog'liq bo'lmagan yoki imkoniyat/inkor fe'llar) / 〜ために (inson ixtiyoridagi aniq maqsad)",
+          "〜ように noirodaviy fe'llar bilan, 〜ために maqsadli harakat bilan",
           "〜ために inkor fe'llar bilan keladi",
           'Ikkalasi mutlaqo bir xil',
         ],
@@ -1959,7 +1929,7 @@ export const MINNA_N4_QUIZ_DATABASE: Record<number, LessonQuizSet> = {
         id: 'ja-minna-l36-ex5',
         type: 'multiple-choice',
         prompt: "«貯金 (ちょきん) します» fe'lining ma'nosi qaysi?",
-        options: ['Pul sarflamoq', 'Qarz olmoq', 'Bank ochmoq', "Pul jamg'armoq (tejamoq)"],
+        options: ['Pul sarflamoq', 'Qarz olmoq', 'Bank ochmoq', "Pul jamg'armoq"],
         correctAnswer: 3,
         explanation: "「貯金します (ちょきんします)」 — pul jamg'armoq, omonatga qo'ymoq.",
       },
@@ -2001,7 +1971,7 @@ export const MINNA_N4_QUIZ_DATABASE: Record<number, LessonQuizSet> = {
         id: 'ja-minna-l36-ex9',
         type: 'multiple-choice',
         prompt: "«できるだけ» ravishining ma'nosi nima?",
-        options: ["Iloji boricha (qo'ldan kelgancha)", 'Hech qachon', 'Tezda', 'Faqatgina'],
+        options: ['Iloji boricha', 'Hech qachon', 'Tezda', 'Faqatgina'],
         correctAnswer: 0,
         explanation:
           "「できるだけ」 — imkoni boricha, qo'ldan kelguncha (masalan, できるだけ 早く).",
@@ -2231,7 +2201,7 @@ export const MINNA_N4_QUIZ_DATABASE: Record<number, LessonQuizSet> = {
       {
         id: 'ja-minna-l37-q3',
         question: '【Mondai 1: Moji/Goi】「踏（ふ）みます」の 意[い]味[み]は どれですか。',
-        options: ['Urmoq', 'Bosmoq (oyoq bilan)', 'Chaqirmoq', 'Ochmoq'],
+        options: ['Urmoq', 'Bosmoq', 'Chaqirmoq', 'Ochmoq'],
         correctAnswerIndex: 1,
         explanation: '「踏みます (ふみます)」 — oyoq bilan bosmoq.',
       },
@@ -2542,7 +2512,7 @@ export const MINNA_N4_QUIZ_DATABASE: Record<number, LessonQuizSet> = {
         prompt: "«〜から» va «〜ので» o'rtasidagi farq qaysi?",
         options: [
           "〜ので faqat inkor fe'llar bilan keladi",
-          '〜から (shaxsiy subyektiv fikr va buyruq bilan kela oladi) / 〜ので (obyektiv, muloyim sabab)',
+          '〜から shaxsiy sabab, 〜ので muloyim va obyektiv sabab',
           'Ikkalasi har doim bir xil',
           '〜から faqat ob-havoda ishlatiladi',
         ],
@@ -3347,7 +3317,7 @@ export const MINNA_N4_QUIZ_DATABASE: Record<number, LessonQuizSet> = {
         options: [
           'Eshik va deraza',
           'Xona va oshxona',
-          'Isitish tizimi va Sovutish tizimi (konditsioner)',
+          'Isitish tizimi va Sovutish tizimi',
           'Chiroq va fonus',
         ],
         correctAnswer: 2,
@@ -3882,7 +3852,7 @@ export const MINNA_N4_QUIZ_DATABASE: Record<number, LessonQuizSet> = {
         options: [
           '〜たばかりです faqat kecha uchun ishlatiladi',
           'Ikkalasi har qanday holatda bir xil',
-          "〜たところです (ayni lahzada sodir bo'ldi) / 〜たばかりです (so'zlovchi nazarida hali ko'p vaqt o'tmadi)",
+          '〜たところです ayni lahzada, 〜たばかりです subyektiv yaqinda',
           '〜たところです inkor shaklda keladi',
         ],
         correctAnswer: 2,
@@ -4300,7 +4270,7 @@ export const MINNA_N4_QUIZ_DATABASE: Record<number, LessonQuizSet> = {
       {
         id: 'ja-minna-l48-q1',
         question: '【Mondai 1: Moji/Goi】「生徒（せいと）」の 意[い]味[み]は どれですか。',
-        options: ["O'quvchi (maktab o'quvchisi)", 'Talaba', "O'qituvchi", 'Xodim'],
+        options: ["O'quvchi", 'Talaba', "O'qituvchi", 'Xodim'],
         correctAnswerIndex: 0,
         explanation: "「生徒 (せいと)」 — o'rta/katta maktab o'quvchisi.",
       },
@@ -4314,7 +4284,7 @@ export const MINNA_N4_QUIZ_DATABASE: Record<number, LessonQuizSet> = {
       {
         id: 'ja-minna-l48-q3',
         question: '【Mondai 1: Moji/Goi】「届（とど）けます」の 意[い]味[み]は どれですか。',
-        options: ['Qabul qilmoq', "Yo'qotmoq", "Yetkazib bermoq (qo'lda)", 'Kechiktirmoq'],
+        options: ['Qabul qilmoq', "Yo'qotmoq", 'Yetkazib bermoq', 'Kechiktirmoq'],
         correctAnswerIndex: 2,
         explanation: '「届けます (とどけます)」 — manziliga yetkazib topshirmoq.',
       },
@@ -4366,7 +4336,7 @@ export const MINNA_N4_QUIZ_DATABASE: Record<number, LessonQuizSet> = {
         options: [
           'Loyiha bekor qilinishini',
           'Boshqa odam bajarishini',
-          "Ushbu loyihani o'ziga topshirishlarini (o'zi bajarishiga ruxsat berishlarini)",
+          "Ushbu loyihani o'ziga topshirishlarini",
           'Maoshini oshirishni',
         ],
         correctAnswerIndex: 2,
@@ -4494,7 +4464,7 @@ export const MINNA_N4_QUIZ_DATABASE: Record<number, LessonQuizSet> = {
       {
         id: 'ja-minna-l49-q2',
         question: '【Mondai 1: Moji/Goi】「勤（つと）めます」の 意[い]味[み]は どれですか。',
-        options: ['Ishlamoq / Xizmat qilmoq (kompaniyada)', 'Dam olmoq', "O'qimoq", 'Topmoq'],
+        options: ['Ishlamoq / Xizmat qilmoq', 'Dam olmoq', "O'qimoq", 'Topmoq'],
         correctAnswerIndex: 0,
         explanation: '「勤めます (つとめます)」 — kompaniya yoki muassasada xizmat qilmoq.',
       },
@@ -4680,7 +4650,7 @@ export const MINNA_N4_QUIZ_DATABASE: Record<number, LessonQuizSet> = {
       {
         id: 'ja-minna-l50-q3',
         question: '【Mondai 1: Moji/Goi】「存（ぞん）じます」の 意[い]味[み]は どれですか。',
-        options: ["Bilmoq / O'ylamoq (kamtarlik)", 'Eshatmoq', 'Yozmoq', 'Bormoq'],
+        options: ["Bilmoq / O'ylamoq", 'Eshatmoq', 'Yozmoq', 'Bormoq'],
         correctAnswerIndex: 0,
         explanation: '「存じます (ぞんじます)」 — 知っています / 思います ning kamtarlik shakli.',
       },

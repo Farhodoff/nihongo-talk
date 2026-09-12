@@ -3,7 +3,7 @@ import { PushNotificationService } from '../../services/PushNotificationService'
 import { useStudyData } from '../../context/StudyPlannerContext';
 import { toast } from '../../hooks/use-toast';
 import { useLanguage } from '../../context/LanguageContext';
-import { UzbekistanFlag, JapanFlag } from '../common/FlagIcons';
+import { UzbekistanFlag, JapanFlag, UKFlag } from '../common/FlagIcons';
 import AIProviderSection from './AIProviderSection';
 
 import { isSuperAdmin } from '../../utils/admin';
@@ -99,17 +99,23 @@ const PreferencesSection: React.FC<PreferencesSectionProps> = ({
             <div className="rounded-lg bg-primary/10 p-2.5 text-lg text-primary">🌐</div>
             <div>
               <span className="block text-sm font-semibold text-foreground">
-                {language === 'uz' ? 'Ilova Interfeys Tili' : 'アプリの表示言語'}
+                {language === 'uz'
+                  ? 'Ilova Interfeys Tili'
+                  : language === 'ja'
+                    ? 'アプリの表示言語'
+                    : 'Interface Language'}
               </span>
               <span className="text-xs text-muted-foreground">
                 {language === 'uz'
                   ? 'Menyu va tugmalar tilini tanlang'
-                  : 'メニューとボタンの言語を選択'}
+                  : language === 'ja'
+                    ? 'メニューとボタンの言語を選択'
+                    : 'Select menu and button language'}
               </span>
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <button
               type="button"
               onClick={() => {
@@ -139,6 +145,21 @@ const PreferencesSection: React.FC<PreferencesSectionProps> = ({
             >
               <JapanFlag className="h-2.5 w-4" />
               <span>日本語</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setLanguage('en');
+                toast({ title: 'English selected' });
+              }}
+              className={`flex cursor-pointer items-center gap-2 rounded-xl border px-3.5 py-2 text-xs font-bold transition-all ${
+                language === 'en'
+                  ? 'border-primary bg-primary text-primary-foreground shadow-xs'
+                  : 'border-border bg-card text-muted-foreground hover:bg-muted'
+              }`}
+            >
+              <UKFlag className="h-2.5 w-4" />
+              <span>English</span>
             </button>
           </div>
         </div>

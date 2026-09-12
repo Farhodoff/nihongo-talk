@@ -27,7 +27,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Sheet, SheetContent } from './ui/sheet';
 import { Button } from './ui/Button';
 import { AppLogo } from './AppLogo';
-import { UzbekistanFlag, JapanFlag } from './common/FlagIcons';
+import { UzbekistanFlag, JapanFlag, UKFlag } from './common/FlagIcons';
 import { GlobalAnnouncementBanner } from './GlobalAnnouncementBanner';
 import { QuickCommandPalette } from './common/QuickCommandPalette';
 
@@ -123,18 +123,58 @@ const Layout: React.FC = () => {
 
   const navItems: NavItem[] = useMemo(() => {
     const isJa = language === 'ja';
+    const isEn = language === 'en';
     // 100% Japanese (JLPT) Navigation
     return [
       { name: isJa ? 'JLPTマスター' : 'JLPT Master', path: '/jlpt', icon: BookOpen },
-      { name: isJa ? '個人学習プラン' : 'Shaxsiy Rejam', path: '/personal-plan', icon: Target },
+      {
+        name: isJa ? '個人学習プラン' : isEn ? 'My Study Plan' : 'Shaxsiy Rejam',
+        path: '/personal-plan',
+        icon: Target,
+      },
       { name: isJa ? '単語・語彙分析' : 'Vocabulary', path: '/vocabulary?lang=ja', icon: Brain },
       { name: isJa ? '会話シナリオ' : 'Scenarios', path: '/scenarios?lang=ja', icon: Sparkles },
       { name: isJa ? 'AIスピーキング' : 'Speaking', path: '/speaking-coach?lang=ja', icon: Mic },
-      { name: isJa ? 'フラッシュカード' : 'Fleshkard', path: '/flashcards', icon: Copy },
+      {
+        name: isJa ? 'フラッシュカード' : isEn ? 'Flashcards' : 'Fleshkard',
+        path: '/flashcards',
+        icon: Copy,
+      },
       { name: isJa ? '集中タイマー' : 'Pomodoro', path: '/focus', icon: Clock },
       { name: isJa ? '進捗・分析' : 'Progress', path: '/progress', icon: BarChart3 },
     ];
   }, [language]);
+
+  const cycleLanguage = () => {
+    if (language === 'uz') setLanguage('ja');
+    else if (language === 'ja') setLanguage('en');
+    else setLanguage('uz');
+  };
+
+  const renderLanguageFlagAndCode = (flagClass: string) => {
+    if (language === 'uz') {
+      return (
+        <>
+          <UzbekistanFlag className={flagClass} />
+          <span>UZ</span>
+        </>
+      );
+    }
+    if (language === 'ja') {
+      return (
+        <>
+          <JapanFlag className={flagClass} />
+          <span>JA</span>
+        </>
+      );
+    }
+    return (
+      <>
+        <UKFlag className={flagClass} />
+        <span>EN</span>
+      </>
+    );
+  };
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -144,6 +184,7 @@ const Layout: React.FC = () => {
 
   const getPageTitle = () => {
     const isJa = language === 'ja';
+    const isEn = language === 'en';
     const found = navItems.find((item) => item.path === location.pathname);
     if (found) return found.name;
     if (location.pathname.startsWith('/scenarios')) return isJa ? '会話シナリオ' : 'Scenarios';
@@ -151,11 +192,20 @@ const Layout: React.FC = () => {
       return isJa ? 'AIスピーキング' : 'Speaking';
     if (location.pathname === '/jlpt') return isJa ? 'JLPTマスター' : 'JLPT Master';
     if (location.pathname === '/progress')
-      return isJa ? '学習進捗 & アナリティクス' : "O'quv Statistikasi & Progress";
+      return isJa
+        ? '学習進捗 & アナリティクス'
+        : isEn
+          ? 'Study Statistics & Progress'
+          : "O'quv Statistikasi & Progress";
     if (location.pathname === '/admin')
-      return isJa ? 'システム管理者ダッシュボード' : 'Super Admin Paneli';
-    if (location.pathname === '/personal-plan') return isJa ? '個人学習プラン' : 'Shaxsiy Rejam';
-    if (location.pathname === '/settings') return isJa ? '設定' : 'Sozlamalar';
+      return isJa
+        ? 'システム管理者ダッシュボード'
+        : isEn
+          ? 'Super Admin Dashboard'
+          : 'Super Admin Paneli';
+    if (location.pathname === '/personal-plan')
+      return isJa ? '個人学習プラン' : isEn ? 'My Study Plan' : 'Shaxsiy Rejam';
+    if (location.pathname === '/settings') return isJa ? '設定' : isEn ? 'Settings' : 'Sozlamalar';
     return 'Nihongo Talk';
   };
 
@@ -248,10 +298,14 @@ const Layout: React.FC = () => {
               {focusState.mode === 'focus'
                 ? language === 'ja'
                   ? '集中'
-                  : 'Fokus'
+                  : language === 'en'
+                    ? 'Focus'
+                    : 'Fokus'
                 : language === 'ja'
                   ? '休憩'
-                  : 'Tanaffus'}
+                  : language === 'en'
+                    ? 'Break'
+                    : 'Tanaffus'}
             </span>
             <span className="font-mono text-base font-bold tabular-nums leading-none text-foreground sm:text-lg">
               {formatTime(focusState.timeLeft)}
@@ -274,21 +328,17 @@ const Layout: React.FC = () => {
           <div className="flex shrink-0 items-center gap-1.5">
             <button
               type="button"
-              onClick={() => setLanguage(language === 'uz' ? 'ja' : 'uz')}
+              onClick={cycleLanguage}
               className="flex items-center gap-1 rounded-xl border border-border/80 bg-muted/80 px-2.5 py-1 text-[11px] font-bold text-muted-foreground shadow-xs transition-all hover:bg-muted hover:text-foreground active:scale-95"
-              title={language === 'uz' ? '日本語 (JA)' : "O'zbekcha (UZ)"}
+              title={
+                language === 'uz'
+                  ? '日本語 (JA)'
+                  : language === 'ja'
+                    ? 'English (EN)'
+                    : "O'zbekcha (UZ)"
+              }
             >
-              {language === 'uz' ? (
-                <>
-                  <UzbekistanFlag className="h-2.5 w-3.5" />
-                  <span>UZ</span>
-                </>
-              ) : (
-                <>
-                  <JapanFlag className="h-2.5 w-3.5" />
-                  <span>JA</span>
-                </>
-              )}
+              {renderLanguageFlagAndCode('h-2.5 w-3.5')}
             </button>
           </div>
         </header>
@@ -342,10 +392,24 @@ const Layout: React.FC = () => {
             type="button"
             onClick={() => openRatingModal()}
             className={`flex w-full items-center ${isCollapsed ? 'justify-center' : ''} gap-2.5 rounded-xl border border-amber-500/25 bg-amber-500/10 px-3 py-2 text-xs font-semibold text-amber-600 shadow-xs transition-all hover:bg-amber-500/20 active:scale-95 dark:text-amber-400`}
-            title={language === 'ja' ? 'アプリを評価・フィードバック' : 'Ilovani baholash (5★)'}
+            title={
+              language === 'ja'
+                ? 'アプリを評価・フィードバック'
+                : language === 'en'
+                  ? 'Rate & Feedback (5★)'
+                  : 'Ilovani baholash (5★)'
+            }
           >
             <Star size={16} className="shrink-0 fill-amber-400 text-amber-500" />
-            {!isCollapsed && <span>{language === 'ja' ? '⭐ アプリ評価' : '⭐ Baholash'}</span>}
+            {!isCollapsed && (
+              <span>
+                {language === 'ja'
+                  ? '⭐ アプリ評価'
+                  : language === 'en'
+                    ? '⭐ Rate App'
+                    : '⭐ Baholash'}
+              </span>
+            )}
           </button>
 
           <div className="flex items-center gap-1.5">
@@ -358,30 +422,36 @@ const Layout: React.FC = () => {
                     : 'text-muted-foreground hover:bg-muted/80 hover:text-foreground'
                 }`
               }
-              title={isCollapsed ? (language === 'ja' ? '設定' : 'Sozlamalar') : ''}
+              title={
+                isCollapsed
+                  ? language === 'ja'
+                    ? '設定'
+                    : language === 'en'
+                      ? 'Settings'
+                      : 'Sozlamalar'
+                  : ''
+              }
             >
               <SettingsIcon size={16} />
-              {!isCollapsed && <span>{language === 'ja' ? '設定' : 'Sozlamalar'}</span>}
+              {!isCollapsed && (
+                <span>
+                  {language === 'ja' ? '設定' : language === 'en' ? 'Settings' : 'Sozlamalar'}
+                </span>
+              )}
             </NavLink>
 
             <button
-              onClick={() => setLanguage(language === 'uz' ? 'ja' : 'uz')}
+              onClick={cycleLanguage}
               className="flex shrink-0 items-center gap-1.5 rounded-xl border border-border/80 bg-muted/80 px-2.5 py-1.5 text-[11px] font-bold text-muted-foreground shadow-xs transition-all hover:bg-muted hover:text-foreground"
               title={
-                language === 'uz' ? '日本語に切り替え (Switch to Japanese)' : "O'zbek tiliga o'tish"
+                language === 'uz'
+                  ? '日本語に切り替え (Switch to Japanese)'
+                  : language === 'ja'
+                    ? 'Switch to English'
+                    : "O'zbek tiliga o'tish"
               }
             >
-              {language === 'uz' ? (
-                <>
-                  <UzbekistanFlag className="h-2.5 w-4" />
-                  <span>UZ</span>
-                </>
-              ) : (
-                <>
-                  <JapanFlag className="h-2.5 w-4" />
-                  <span>JA</span>
-                </>
-              )}
+              {renderLanguageFlagAndCode('h-2.5 w-4')}
             </button>
           </div>
         </div>
@@ -418,8 +488,16 @@ const Layout: React.FC = () => {
               icon: BookOpen,
             },
             { name: t('nav.aiCoach') || 'Speaking', path: '/speaking-coach', icon: Mic },
-            { name: t('nav.flashcards') || 'Fleshkard', path: '/flashcards', icon: Copy },
-            { name: language === 'ja' ? 'プラン' : 'Rejam', path: '/personal-plan', icon: Target },
+            {
+              name: t('nav.flashcards') || (language === 'en' ? 'Flashcards' : 'Fleshkard'),
+              path: '/flashcards',
+              icon: Copy,
+            },
+            {
+              name: language === 'ja' ? 'プラン' : language === 'en' ? 'My Plan' : 'Rejam',
+              path: '/personal-plan',
+              icon: Target,
+            },
           ].map((item) => {
             const isItemActive =
               location.pathname.startsWith(item.path) ||

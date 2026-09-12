@@ -1757,12 +1757,7 @@ export const JAPANESE_N2_LESSONS: Lesson[] = [
             {
               id: 'ja-n2-u2-l5-q4',
               question: "JLPT ning eng yuqori oliy cho'qqisi qaysi daraja?",
-              options: [
-                'JLPT N5',
-                'JLPT N2',
-                'JLPT N1 (Native-like Academic & Classical Mastery)',
-                'CEFR B1',
-              ],
+              options: ['JLPT N5', 'JLPT N2', 'JLPT N1', 'CEFR B1'],
               correctAnswerIndex: 2,
               explanation: 'JLPT N1.',
             },
@@ -2973,12 +2968,7 @@ export const JAPANESE_N2_LESSONS: Lesson[] = [
               id: 'ja-n2-u4-l2-q1',
               question:
                 "「に先立って」 grammatik birikmasi fe'lning qaysi shakli bilan ishlatiladi?",
-              options: [
-                'Nai-form',
-                'Ba-form',
-                "Lug'at shakli (Dictionary form) yoki Ot",
-                'Te-form',
-              ],
+              options: ['Nai-form', 'Ba-form', "Lug'at shakli yoki Ot", 'Te-form'],
               correctAnswerIndex: 2,
               explanation: 'Dict-form / Noun + に先立って.',
             },
@@ -3389,8 +3379,7 @@ export const JAPANESE_N2_LESSONS: Lesson[] = [
     level: 'N2',
     lessonNumber: 20,
     title: 'N2 Listening Comprehension (聴解 - 即時応答 & 概要理解)',
-    description:
-      "JLPT N2 Chokkai tinglab tushunish ko'nikmasi: Tezkor javob (Sokuji outou) va Asosiy g'oya (Gaiyou rikai).",
+    description: "JLPT N2 Tinglab tushunish: Tezkor javob va Asosiy g'oya.",
     estimatedDurationMinutes: 18,
     icon: '🎧',
     steps: [
@@ -3576,8 +3565,7 @@ export const JAPANESE_N2_LESSONS: Lesson[] = [
     level: 'N2',
     lessonNumber: 21,
     title: 'N2 Business Kanji (職・企・業・採)',
-    description:
-      'Ish va biznesga oid N2 kanjilar: 職 (ish/kasb), 企 (reja/korxona), 業 (sanoat), 採 (qabul qilish).',
+    description: 'Ish va biznesga oid N2 kanjilar (職, 企, 業, 採).',
     estimatedDurationMinutes: 16,
     icon: '🏢',
     steps: [
@@ -3642,8 +3630,7 @@ export const JAPANESE_N2_LESSONS: Lesson[] = [
           grammarRules: [
             {
               pattern: 'N2 Business Kanji (職・企・業・採)',
-              meaning:
-                'Ish va biznesga oid N2 kanjilar: 職 (ish/kasb), 企 (reja/korxona), 業 (sanoat), 採 (qabul qilish).',
+              meaning: 'Ish va biznesga oid N2 kanjilar: 職、企、業、採。',
               usageNotes: 'N2 darajadagi 1000 ta kanjidan biznes sohasida eng faol qism.',
               examples: [
                 {
@@ -3730,7 +3717,7 @@ export const JAPANESE_N2_LESSONS: Lesson[] = [
               question:
                 "«N2 Business Kanji (職・企・業・採)» qoidasi bo'yicha qaysi ta'rif eng to'g'ri?",
               options: [
-                'Ish va biznesga oid N2 kanjilar: 職 (ish/kasb), 企 (reja/korxona), 業 (sanoat), 採 (qabul qilish).',
+                'Ish va biznesga oid N2 kanjilar guruhi: 職、企、業、採',
                 "Faqat o'tmish zamondagi shaxsiy hissiyotlar uchun ishlatiladi.",
                 "Faqat bolalar o'rtasidagi so'zlashuvda qo'llaniladi.",
                 "Qat'iy taqiq va buyruq shakli hisoblanadi.",
@@ -3753,8 +3740,7 @@ export const JAPANESE_N2_LESSONS: Lesson[] = [
     level: 'N2',
     lessonNumber: 22,
     title: 'N2 Legal & Government Kanji (法・律・規・政)',
-    description:
-      'Qonunchilik va davlat boshqaruvi kanjilari: 法 (qonun), 律 (qoida), 規 (nizom), 政 (siyosat).',
+    description: 'Qonunchilik va davlat boshqaruvi kanjilari (法, 律, 規, 政).',
     estimatedDurationMinutes: 16,
     icon: '🏛️',
     steps: [
@@ -3816,8 +3802,7 @@ export const JAPANESE_N2_LESSONS: Lesson[] = [
           grammarRules: [
             {
               pattern: 'N2 Legal & Government Kanji (法・律・規・政)',
-              meaning:
-                'Qonunchilik va davlat boshqaruvi kanjilari: 法 (qonun), 律 (qoida), 規 (nizom), 政 (siyosat).',
+              meaning: 'Qonunchilik va davlat boshqaruvi kanjilari: 法、律、規、政。',
               usageNotes: "N2 matn va yangiliklarda ko'p uchraydigan qonunchilik kanjilari.",
               examples: [
                 {
@@ -3908,7 +3893,7 @@ export const JAPANESE_N2_LESSONS: Lesson[] = [
               question:
                 "«N2 Legal & Government Kanji (法・律・規・政)» qoidasi bo'yicha qaysi ta'rif eng to'g'ri?",
               options: [
-                'Qonunchilik va davlat boshqaruvi kanjilari: 法 (qonun), 律 (qoida), 規 (nizom), 政 (siyosat).',
+                'Qonunchilik va davlat boshqaruviga oid N2 kanjilar: 法、律、規、政',
                 "Faqat o'tmish zamondagi shaxsiy hissiyotlar uchun ishlatiladi.",
                 "Faqat bolalar o'rtasidagi so'zlashuvda qo'llaniladi.",
                 "Qat'iy taqiq va buyruq shakli hisoblanadi.",

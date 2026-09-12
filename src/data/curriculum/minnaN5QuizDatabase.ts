@@ -74,12 +74,7 @@ export const MINNA_N5_QUIZ_DATABASE: Record<number, LessonQuizSet> = {
         id: 'ja-minna-l1-ex8',
         type: 'multiple-choice',
         prompt: "Ushbu gapning to'g'ri o'zbekcha tarjimasini tanlang:\n「あの方は どなたですか。」",
-        options: [
-          'U kishi kimlar? (hurmat shakli)',
-          'Bu narsa nima?',
-          'U kishi qayerlik?',
-          'Siz talabamisiz?',
-        ],
+        options: ['U kishi kimlar?', 'Bu narsa nima?', 'U kishi qayerlik?', 'Siz talabamisiz?'],
         correctAnswer: 0,
         explanation: '「あの方」 - u kishi (hurmat shakli), 「どなた」 - kim (hurmat shakli).',
       },
@@ -489,7 +484,7 @@ export const MINNA_N5_QUIZ_DATABASE: Record<number, LessonQuizSet> = {
       {
         id: 'ja-minna-l3-q3',
         question: '【Mondai 1: Moji/Goi】「受付（うけつけ）」の 意[い]味[み]は どれですか。',
-        options: ['Qabulxona (Reception)', 'Zina', 'Lift', 'Hojatxona'],
+        options: ['Qabulxona', 'Zina', 'Lift', 'Hojatxona'],
         correctAnswerIndex: 0,
         explanation: '「受付」 - qabulxona.',
       },
@@ -1915,7 +1910,7 @@ export const MINNA_N5_QUIZ_DATABASE: Record<number, LessonQuizSet> = {
         id: 'ja-minna-l11-q8',
         question:
           '【Mondai 3: Dokkai】「家族は ４人です。両親と 姉が １人 います。」 Oilada jami nechta farzand bor?',
-        options: ['4 ta', "2 ta (so'zlovchi va opasi)", '1 ta', '3 ta'],
+        options: ['4 ta', '2 ta', '1 ta', '3 ta'],
         correctAnswerIndex: 1,
         explanation: "Ota-ona (2 kishi) + opa (1 kishi) + so'zlovchi = 4 kishi (farzandlar 2 ta).",
       },
@@ -1923,7 +1918,7 @@ export const MINNA_N5_QUIZ_DATABASE: Record<number, LessonQuizSet> = {
         id: 'ja-minna-l11-q9',
         question:
           '【Mondai 3: Dokkai】「速達で 送りますから、あした 着きます。」 Xat qachon yetib boradi?',
-        options: ['Keyingi hafta', 'Indinga', 'Ertaga (tezkor pochta sababli)', 'Bugun kechqurun'],
+        options: ['Keyingi hafta', 'Indinga', 'Ertaga', 'Bugun kechqurun'],
         correctAnswerIndex: 2,
         explanation: '「速達で（tezkor pochtada）送りますから、あした 着きます」.',
       },
@@ -2225,7 +2220,7 @@ export const MINNA_N5_QUIZ_DATABASE: Record<number, LessonQuizSet> = {
       {
         id: 'ja-minna-l13-q3',
         question: '【Mondai 1: Moji/Goi】「週末（しゅうまつ）」の 意[い]味[み]は どれですか。',
-        options: ['Hafta oxiri (dam olish kunlari)', 'Yil oxiri', 'Oy oxiri', 'Ertaga'],
+        options: ['Hafta oxiri', 'Yil oxiri', 'Oy oxiri', 'Ertaga'],
         correctAnswerIndex: 0,
         explanation: '「週末」 - hafta oxiri.',
       },
@@ -3527,9 +3522,9 @@ export const MINNA_N5_QUIZ_DATABASE: Record<number, LessonQuizSet> = {
           "【Mondai 3: Dokkai】「A: これ、食べる？ B: ううん、お腹が いっぱいだから、食べない。」 Suhbatdoshlar o'rtasida qanday munosabat bor?",
         options: [
           "O'qituvchi va o'quvchi",
-          'Boshliq va xodim (rasmiy uslub)',
+          'Boshliq va xodim',
           'Notanish insonlar',
-          "Yaqin do'stlar / tengdoshlar (oddiy uslubda gaplashyapti)",
+          "Yaqin do'stlar / tengdoshlar",
         ],
         correctAnswerIndex: 3,
         explanation: "Oddiy uslub (Futsuugo) do'stlar va oila a'zolari orasida ishlatiladi.",

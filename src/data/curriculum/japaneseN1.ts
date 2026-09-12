@@ -335,7 +335,7 @@ export const JAPANESE_N1_LESSONS: Lesson[] = [
               question: '「たるもの」ning grammatik kelib chiqishi qaysi manbaga borib taqaladi?',
               options: [
                 'Zamonaviy sleng',
-                "Mumtoz yapon tili bog'lovchi sifati (たり -> たる)",
+                "Mumtoz yapon tili bog'lovchi sifati",
                 'Xitoycha raqamlar',
                 "Inglizcha o'zlashma",
               ],
@@ -708,7 +708,7 @@ export const JAPANESE_N1_LESSONS: Lesson[] = [
               id: 'ja-n1-u1-l4-q3',
               question: "〜まみれ qaysi so'zlar bilan eng ko'p ishlatiladi?",
               options: [
-                '血[ち] (qon), 汗[あせ] (ter), 泥[どろ] (loy), 油[あぶら]',
+                '血[ち], 汗[あせ], 泥[どろ], 油[あぶら]',
                 'Quvonch, kulgi',
                 'Kitob, qalam',
                 'Poyezd, mashina',
@@ -1962,7 +1962,7 @@ export const JAPANESE_N1_LESSONS: Lesson[] = [
                 '「医者[いしゃ]たる者[もの]、患者[かんじゃ]の 命[いのち]を 第一[だいいち]に 考え[かんがえ]るべきだ」における「〜たる者」の意味[いみ]は？',
               options: [
                 "Shifokor bo'lishni xohlagan kishi",
-                "Shifokorlik maqomidagi shaxs (bo'lgan odam) sifatida",
+                'Shifokorlik maqomidagi shaxs sifatida',
                 'Shifokor bilan uchrashganda',
                 "Shifokor bo'lgani sababli emas",
               ],
@@ -2488,12 +2488,7 @@ export const JAPANESE_N1_LESSONS: Lesson[] = [
             {
               id: 'ja-n1-u3-l4-q1',
               question: "「〜が早いか」 grammatik shakli fe'lning qaysi ko'rinishiga ulqanadi?",
-              options: [
-                "Dictionary form (Lug'at shakli) yoki Ta-form",
-                'Te-form',
-                'Nai-form',
-                'Imperative',
-              ],
+              options: ["Lug'at shakli yoki Ta-shakli", 'Te-form', 'Nai-form', 'Imperative'],
               correctAnswerIndex: 0,
               explanation: 'Dict-form / Ta-form.',
             },
@@ -2515,7 +2510,7 @@ export const JAPANESE_N1_LESSONS: Lesson[] = [
               id: 'ja-n1-u3-l4-q3',
               question: '「〜が早いか」の 文法[ぶんぽう]的[てき]な 接続[せつぞく]ルールは？',
               options: [
-                "Fe'lning o'tgan zamon (Ta) shakli",
+                "Fe'lning o'tgan zamon (Ta-shakli)",
                 "Fe'lning lug'at shakli",
                 "Fe'lning Masu asosi",
                 "Ot so'z turkumi",

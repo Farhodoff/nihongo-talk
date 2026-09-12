@@ -5,7 +5,7 @@ export const en = {
     jlptHub: 'JLPT Master',
     scenarios: 'Scenarios',
     aiCoach: 'Speaking',
-    flashcards: 'Fleshkard',
+    flashcards: 'Flashcards',
     focus: 'Pomodoro',
     progress: 'Progress',
     community: 'Community',
@@ -179,6 +179,8 @@ export const en = {
     speakingUserMessage: 'ラーメンをたべたいです！',
     speakingAiMessage2: 'いいですね！🍜 辛いのは大丈夫ですか？',
     seoTitle: 'Nihongo Talk',
+    seoDescription:
+      'Not just textbooks — real conversation. Chat with AI, get instant feedback on mistakes, and advance every day in just 10 minutes.',
     subtitle:
       'Not just textbooks — real conversation. Chat with AI, get instant feedback on mistakes, and advance every day in just 10 minutes.',
     seoKeywords:

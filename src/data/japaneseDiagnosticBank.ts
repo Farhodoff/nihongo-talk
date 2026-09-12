@@ -731,7 +731,7 @@ export const JAPANESE_DIAGNOSTIC_BANK: DiagnosticQuestion[] = [
       "Qo'l berib ko'rishish",
       'Xato qilish',
       'Voz kechish',
-      "Rejalashtirish / Tayyorgarlik ko'rish (bron qilish)",
+      "Rejalashtirish / Tayyorgarlik ko'rish",
     ],
     correctAnswerIndex: 3,
     explanation:

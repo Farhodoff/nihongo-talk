@@ -169,7 +169,7 @@ export const JAPANESE_N3_LESSONS: Lesson[] = [
               id: 'ja-n3-u1-l1-q4',
               question: 'Tarixiy kashfiyotlar va binolar qurilishi qaysi nisbatda aytiladi?',
               options: [
-                "To'g'ridan-to'g'ri majhul nisbatda (masalan: 1964年[ねん]に 開通[かいつう]された)",
+                "To'g'ridan-to'g'ri majhul nisbatda",
                 'Te-form',
                 'Buyruq shaklida',
                 'Xohish shaklida',
@@ -618,12 +618,7 @@ export const JAPANESE_N3_LESSONS: Lesson[] = [
               id: 'ja-n3-u1-l3-q2',
               question:
                 "Guruh 1 fe'llarida 〜させられる ning so'zlashuvdagi qisqartma shakli qaysi?",
-              options: [
-                '〜される (masalan: 飲まされる, 行かされる)',
-                '〜ておく',
-                '〜てある',
-                '〜てしまう',
-              ],
+              options: ['〜される', '〜ておく', '〜てある', '〜てしまう'],
               correctAnswerIndex: 0,
               explanation: '〜される (nomasareru).',
             },
@@ -862,7 +857,7 @@ export const JAPANESE_N3_LESSONS: Lesson[] = [
               question: "〜てある qaysi turdagi fe'llar bilan ishlatiladi?",
               options: [
                 'Faqat inkor shaklda',
-                "Faqat o'timli fe'llar (Transitive verbs) bilan va egaga が (ga) qo'yiladi",
+                "Faqat o'timli fe'llar bilan va egaga が qo'yiladi",
                 "Faqat harakat fe'llari",
                 'Sifatlar bilan',
               ],
@@ -872,7 +867,7 @@ export const JAPANESE_N3_LESSONS: Lesson[] = [
             {
               id: 'ja-n3-u1-l4-q3',
               question: "So'zlashuvda「〜ておく」qanday qisqaradi?",
-              options: ['〜なきゃ', '〜てる', '〜とく (masalan: 買っとく = Katte oku)', '〜ちゃう'],
+              options: ['〜なきゃ', '〜てる', '〜とく', '〜ちゃう'],
               correctAnswerIndex: 2,
               explanation: '〜toku.',
             },
@@ -1381,12 +1376,7 @@ export const JAPANESE_N3_LESSONS: Lesson[] = [
             {
               id: 'ja-n3-u2-l1-q10',
               question: '「〜ことにする」oldidan feʼl qaysi shaklda keladi?',
-              options: [
-                'Lugʻat shakli yoki Nai shakli (Jisho-kei / Nai-kei)',
-                'Masu shakli',
-                'Te shakli',
-                'Ta shakli',
-              ],
+              options: ['Lugʻat shakli yoki Nai shakli', 'Masu shakli', 'Te shakli', 'Ta shakli'],
               correctAnswerIndex: 0,
               explanation: 'Feʼlning oddiy hozirgi zamon shakllari: V-lugʻat / V-nai + ことにする.',
             },
@@ -1530,7 +1520,7 @@ export const JAPANESE_N3_LESSONS: Lesson[] = [
               question: "«〜ように» va «〜ために» o'rtasidagi farq nima?",
               options: [
                 'Ikkisi ham taqiq',
-                "〜ように imkoniyat fe'llari va inkor bilan keladi (maqsad holatga yo'naltirilgan); 〜ために esa to'g'ridan-to'g'ri irodaviy harakat bilan keladi",
+                "〜ように imkoniyat va inkor fe'llar bilan, 〜ために esa irodaviy harakat bilan keladi",
                 "Hech qanday farq yo'q",
                 "Birinchisi o'tgan zamon",
               ],
@@ -1834,7 +1824,7 @@ export const JAPANESE_N3_LESSONS: Lesson[] = [
             {
               id: 'ja-n3-u2-l3-q8',
               question: '「よさそうだ」qaysi soʻzning koʻrinish shakli?',
-              options: ['いい (Yaxshi)', 'よくない', 'よかった', 'よる'],
+              options: ['いい', 'よくない', 'よかった', 'よる'],
               correctAnswerIndex: 0,
               explanation:
                 'いい (yoi) sifatining koʻrinish shakli istisno tariqasida よさそうだ boʻladi.',
@@ -2014,12 +2004,7 @@ export const JAPANESE_N3_LESSONS: Lesson[] = [
             {
               id: 'ja-n3-u2-l4-q3',
               question: 'Ot bilan «warini» qanday ulanadi?',
-              options: [
-                'Ot + な + わりに',
-                'Ot + の + わりに (Masalan: 年齢[ねんれい]の わりに)',
-                'Ot + わりに',
-                'Ot + だ + わりに',
-              ],
+              options: ['Ot + な + わりに', 'Ot + の + わりに', 'Ot + わりに', 'Ot + だ + わりに'],
               correctAnswerIndex: 1,
               explanation: 'Ot + の + わりに.',
             },
@@ -2284,12 +2269,7 @@ export const JAPANESE_N3_LESSONS: Lesson[] = [
               id: 'ja-n3-u2-l5-q5',
               question:
                 '日本[にほん]の 職場[しょくば]における「報・連・相（ほうれんそう）」の「相」とは 何[なん]のことか？',
-              options: [
-                '相談[そうだん] (Maslahatlashish)',
-                '掃除[そうじ] (Tozalash)',
-                '相撲[すもう] (Sport)',
-                '相互[そうご] (Oʻzaro)',
-              ],
+              options: ['相談[そうだん]', '掃除[そうじ]', '相撲[すもう]', '相互[そうご]'],
               correctAnswerIndex: 0,
               explanation: 'Horenso: 報告 (Hisobot), 連絡 (Bogʻlanish), 相談 (Maslahat).',
             },
@@ -2311,7 +2291,7 @@ export const JAPANESE_N3_LESSONS: Lesson[] = [
               id: 'ja-n3-u2-l5-q7',
               question: '「有給[ゆうきゅう]休暇[きゅうか]」とは どのような 休暇[きゅうか]か？',
               options: [
-                '給料[きゅうりょう]が 出[で]る 休[やす]み (Haq toʻlanadigan taʼtil)',
+                '給料[きゅうりょう]が 出[で]る 休[やす]み',
                 '無給[むきゅう]の 休[やす]み',
                 '病気[びょうき]の 時[とき]だけの 休[やす]み',
                 '週末[しゅうまつ]の 休[やす]み',
@@ -2841,10 +2821,10 @@ export const JAPANESE_N3_LESSONS: Lesson[] = [
               question:
                 '自分[じぶん]の 家族[かぞく]の ことについて 取引[とりひき]先[さき]に 話[はな]す 時[とき]、どちらを 使[つか]うか？',
               options: [
-                '謙譲語[けんじょうご] (Kamtarlik shakllari)',
-                '尊敬語[そんけいご] (Hurmat shakllari)',
-                'タメ口[ぐち] (Doʻstona erkin soʻzlashuv)',
-                '命令形[めいれいけい] (Buyruq shakli)',
+                '謙譲語[けんじょうご]',
+                '尊敬語[そんけいご]',
+                'タメ口[ぐち]',
+                '命令形[めいれいけい]',
               ],
               correctAnswerIndex: 0,
               explanation:
@@ -3037,12 +3017,7 @@ export const JAPANESE_N3_LESSONS: Lesson[] = [
             {
               id: 'ja-n3-u3-l3-q7',
               question: '「政府」ning toʻgʻri oʻqilishi va maʼnosi:',
-              options: [
-                'せいふ (Hukumat)',
-                'せいほ (Sud)',
-                'しょうふ (Vazirlik)',
-                'じょうふ (Boshqaruv)',
-              ],
+              options: ['せいふ', 'せいほ', 'しょうふ', 'じょうふ'],
               correctAnswerIndex: 0,
               explanation: '政府 = せいふ (Hukumat).',
             },
@@ -4520,7 +4495,7 @@ export const JAPANESE_N3_LESSONS: Lesson[] = [
               question:
                 '「〜ではないだろうか」という 表現[ひょうげん]の 筆者[ひっしゃ]の ニュアンスは？',
               options: [
-                '自分[じぶん]の 意見[いけん]を 丁寧[ていねい]に 主張[しゅちょう]している (Ehtimol shunday emasmi / Menimcha shunday)',
+                '自分[じぶん]の 意見[いけん]を 丁寧[ていねい]に 主張[しゅちょう]している',
                 '完全[かんぜん]に 否定[ひてい]している',
                 '質問[しつもん]して 答[こた]えを 待[ま]っている',
                 '意味[いみ]が 分[わ]かっていない',
@@ -4691,7 +4666,7 @@ export const JAPANESE_N3_LESSONS: Lesson[] = [
               options: [
                 '〜ないそうだ',
                 '〜ないべきだ',
-                '〜はずが ない (Hazu ga nai) / 〜わけが ない',
+                '〜はずが ない / 〜わけが ない',
                 '〜ないだろう',
               ],
               correctAnswerIndex: 2,
@@ -4755,7 +4730,7 @@ export const JAPANESE_N3_LESSONS: Lesson[] = [
               id: 'ja-n3-u4-l5-q10',
               question: '「〜わけがない」の意味[いみ]として 最適[さいてき]なものは？',
               options: [
-                '絶対に 〜のはずがない (Mantiqan aslo bunday boʻlishi mumkin emas)',
+                '絶対に 〜のはずがない',
                 '〜かもしれない',
                 '〜したほうがいい',
                 '〜のはずだ',
@@ -4954,12 +4929,7 @@ export const JAPANESE_N3_LESSONS: Lesson[] = [
             {
               id: 'ja-n3-u5-l1-q8',
               question: '「論文」ning toʻgʻri oʻqilishi va maʼnosi:',
-              options: [
-                'ろんぶん (Ilmiy maqola, tezis)',
-                'ろんもん (Darslik)',
-                'らんぶん (Jurnal)',
-                'りんぶん (Gazeta)',
-              ],
+              options: ['ろんぶん', 'ろんもん', 'らんぶん', 'りんぶん'],
               correctAnswerIndex: 0,
               explanation: '論文 = ろんぶん (Ilmiy maqola, dissertatsiya).',
             },
@@ -5357,12 +5327,7 @@ export const JAPANESE_N3_LESSONS: Lesson[] = [
             {
               id: 'ja-n3-u5-l3-q3',
               question: 'Qaysi shart shaklidan keyin buyruq yoki taklif kela OLMAYDI?',
-              options: [
-                '〜なら',
-                '〜ば',
-                '〜たら',
-                "〜と (To dan keyin buyruq/taklif qo'llab bo'lmaydi)",
-              ],
+              options: ['〜なら', '〜ば', '〜たら', '〜と'],
               correctAnswerIndex: 3,
               explanation: '〜と cannot be followed by volition/command.',
             },
@@ -5420,7 +5385,7 @@ export const JAPANESE_N3_LESSONS: Lesson[] = [
               id: 'ja-n3-u5-l3-q10',
               question: '「〜と」ning ikkinchi qismida qaysi shakllar KELMAYDI?',
               options: [
-                'Buyruq, iltimos va xohish shakllari (〜てください, 〜たい)',
+                'Buyruq, iltimos va xohish shakllari',
                 'Oʻtmish zamon faktlari',
                 'Oʻz-oʻzidan sodir boʻladigan holatlar',
                 'Tabiiy hodisalar',
@@ -5847,12 +5812,7 @@ export const JAPANESE_N3_LESSONS: Lesson[] = [
               id: 'ja-n3-u5-l5-q4',
               question:
                 "JLPT N3 imtihonida Dokkai bo'limi umumiy ballning qancha qismini tashkil etadi?",
-              options: [
-                "60 ball (umumiy 180 balldan til bilimlari va o'qish birgalikda 120 ball beradi)",
-                '180 ball',
-                '5 ball',
-                '10 ball',
-              ],
+              options: ['60 ball', '180 ball', '5 ball', '10 ball'],
               correctAnswerIndex: 0,
               explanation: 'Substantial weighted portion of exam.',
             },
@@ -6330,7 +6290,7 @@ export const JAPANESE_N3_LESSONS: Lesson[] = [
               type: 'multiple-choice',
               prompt:
                 "Gap:「雨が [ 1. 降った 2. にも 3. かかわらず 4. 試合は ] 行われた。」 To'g'ri tartib: 1 -> 2 -> 3 -> 4. Yulduzcha 3-o'rinda qaysi son turadi?",
-              options: ['1', '2', '4', '3 (かかわらず)'],
+              options: ['1', '2', '4', '3'],
               correctAnswer: 3,
               explanation: '降った(1) にも(2) かかわらず(3) 試合は(4).',
             },
@@ -6827,7 +6787,7 @@ export const JAPANESE_N3_LESSONS: Lesson[] = [
               type: 'multiple-choice',
               prompt:
                 '「子供[こども]の ころは、よく 川[かわ]で 泳[およ]いだ _______ だ。」 (Eski xotiralarni eslash)',
-              options: ['はず', 'もの (mono da)', 'こと', 'わけ'],
+              options: ['はず', 'もの', 'こと', 'わけ'],
               correctAnswer: 1,
               explanation: 'Ta mono da (used to do in the past).',
             },
@@ -7057,12 +7017,7 @@ export const JAPANESE_N3_LESSONS: Lesson[] = [
               type: 'multiple-choice',
               prompt:
                 '「先生[せんせい]、お忙[いそが]しい ところ、お時間[じかん]を いただき、_______。」',
-              options: [
-                'すみません',
-                'どうも',
-                '誠[まこと]に ありがとうございます (Makoto ni arigatou gozaimasu)',
-                'おめでとう',
-              ],
+              options: ['すみません', 'どうも', '誠[まこと]に ありがとうございます', 'おめでとう'],
               correctAnswer: 2,
               explanation: 'Makoto ni arigatou gozaimasu (chuqur minnatdorchilik).',
             },
@@ -7119,12 +7074,7 @@ export const JAPANESE_N3_LESSONS: Lesson[] = [
             {
               id: 'ja-n3-u6-l5-q4',
               question: "JLPT N3 darajasidan so'ng qaysi yuqori darajaga o'tiladi?",
-              options: [
-                'JLPT N1',
-                'N4',
-                'C1',
-                'JLPT N2 (Upper-Intermediate / Professional Business Japanese)',
-              ],
+              options: ['JLPT N1', 'N4', 'C1', 'JLPT N2'],
               correctAnswerIndex: 3,
               explanation: 'JLPT N2.',
             },
@@ -7176,12 +7126,7 @@ export const JAPANESE_N3_LESSONS: Lesson[] = [
               id: 'ja-n3-u6-l5-q9',
               question:
                 '【総合[そうごう]漢字[かんじ]】「維持[いじ]」ning toʻgʻri maʼnosi va oʻqilishi qaysi?',
-              options: [
-                'いじ (Mavjud holatni saqlab turmoq)',
-                'ゆじ (Buzmoq)',
-                'いし (Tosh)',
-                'いぢ (Kechikmoq)',
-              ],
+              options: ['いじ', 'ゆじ', 'いし', 'いぢ'],
               correctAnswerIndex: 0,
               explanation: '維持 = いじ (Mavjud sifat yoki darajani barqaror saqlamoq).',
             },

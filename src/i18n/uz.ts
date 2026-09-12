@@ -179,6 +179,8 @@ export const uz = {
     speakingUserMessage: 'ラーメンをたべたいです！',
     speakingAiMessage2: 'いいですね！🍜 辛いのは大丈夫ですか？',
     seoTitle: 'Nihongo Talk',
+    seoDescription:
+      'Darslik emas — haqiqiy suhbat. AI bilan gaplashing, xatolaringizni shu zahoti tuzating va har kuni 10 daqiqada oldinga siljing.',
     subtitle:
       'Darslik emas — haqiqiy suhbat. AI bilan gaplashing, xatolaringizni shu zahoti tuzating va har kuni 10 daqiqada oldinga siljing.',
     seoKeywords:
