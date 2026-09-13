@@ -1,19 +1,8 @@
 export const SUPER_ADMIN_EMAIL = 'fsoyilov@gmail.com';
 
-export const SUPER_ADMIN_EMAILS = [
-  'fsoyilov@gmail.com',
-  'fsoyilovv@gmail.com',
-  'soyilovfarhod157@gmail.com',
-  'soyilovfarhod684@gmail.com',
-];
+export const SUPER_ADMIN_EMAILS = ['fsoyilov@gmail.com'];
 
-export const DEFAULT_ADMIN_EMAILS = [
-  'fsoyilov@gmail.com',
-  'fsoyilovv@gmail.com',
-  'soyilovfarhod157@gmail.com',
-  'soyilovfarhod684@gmail.com',
-  'admin@nihongo-talk.jp',
-];
+export const DEFAULT_ADMIN_EMAILS = ['fsoyilov@gmail.com', 'admin@nihongo-talk.jp'];
 
 export interface AdminAuditLogEntry {
   id: string;
