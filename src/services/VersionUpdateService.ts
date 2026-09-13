@@ -197,12 +197,18 @@ export class VersionUpdateServiceClass {
    */
   public setupChunkErrorRecovery(): void {
     const handleChunkError = async (errorMsg: string) => {
+      const lower = errorMsg.toLowerCase();
       const isChunkError =
-        errorMsg.includes('Failed to fetch dynamically imported module') ||
-        errorMsg.includes('error loading dynamically imported module') ||
-        errorMsg.includes('Importing a module script failed') ||
-        errorMsg.includes('Loading chunk failed') ||
-        errorMsg.includes('is not a valid JavaScript MIME type');
+        lower.includes('failed to fetch dynamically imported module') ||
+        lower.includes('error loading dynamically imported module') ||
+        lower.includes('importing a module script failed') ||
+        lower.includes('loading chunk failed') ||
+        lower.includes('failed to load module script') ||
+        lower.includes('expected a javascript-or-wasm module script') ||
+        lower.includes('is not a valid javascript mime type') ||
+        lower.includes('mime type of "text/html"') ||
+        lower.includes('non-precached-url') ||
+        lower.includes('cross-world service worker');
 
       if (isChunkError) {
         console.warn(

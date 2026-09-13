@@ -9,7 +9,10 @@
     { "source": "/sw.js", "destination": "/sw.js" },
     { "source": "/version.json", "destination": "/version.json" },
     { "source": "/workbox-(.*).js", "destination": "/workbox-$1.js" },
-    { "source": "/((?!api/|sw\\.js|workbox-|version\\.json).*)", "destination": "/index.html" }
+    {
+      "source": "/((?!api/|assets/|sw\\.js|workbox-|version\\.json).*)",
+      "destination": "/index.html"
+    }
   ],
   "crons": [
     {

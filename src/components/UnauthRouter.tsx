@@ -43,6 +43,7 @@ export const UnauthRouter: React.FC = () => (
           <Route path="/admin" element={<AuthPage />} />
           <Route path="/developers" element={<DeveloperApiPage />} />
           <Route path="/api-docs" element={<Navigate to="/developers" replace />} />
+          <Route path="/dashboard" element={<Navigate to="/auth?redirect=/dashboard" replace />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Suspense>
