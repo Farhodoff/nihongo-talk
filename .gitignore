@@ -67,6 +67,7 @@ key.txt
 test-report-screenshot.png
 test_reports/
 reports/
+report/
 .npm-local-cache/
 .agents/
 skills-lock.json

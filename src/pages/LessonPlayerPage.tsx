@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { LearningOrchestrator } from '../services/LearningOrchestrator';
-import { Award, BookOpen, BrainCircuit, AlertCircle, ChevronRight, X } from 'lucide-react';
+import { AlertCircle, ChevronRight, X } from 'lucide-react';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { LessonService } from '../services/LessonService';
 import { LearningSignalService } from '../services/LearningSignalService';
@@ -272,9 +272,9 @@ export const LessonPlayerPage: React.FC = () => {
   }
 
   return (
-    <div className="flex min-h-screen flex-col justify-between bg-background">
+    <div className="flex h-full w-full flex-col justify-between overflow-hidden bg-background">
       {/* Top Navigation Bar */}
-      <div className="sticky top-0 z-20 border-b border-border bg-background/80 px-3.5 py-2.5 pt-[max(env(safe-area-inset-top),0.75rem)] backdrop-blur-xl sm:px-4 sm:py-3">
+      <div className="z-20 shrink-0 border-b border-border bg-background/80 px-3.5 py-2.5 pt-[max(env(safe-area-inset-top),0.75rem)] backdrop-blur-xl sm:px-4 sm:py-3">
         <div className="mx-auto flex max-w-4xl items-center justify-between gap-3 sm:gap-4">
           {/* Left: Exit & Title */}
           <div className="flex min-w-0 items-center gap-2.5 sm:gap-3">
@@ -325,8 +325,8 @@ export const LessonPlayerPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Main Content Area */}
-      <div className="mx-auto w-full max-w-4xl flex-1 p-3 sm:p-4 md:p-8">
+      {/* Main Content Area - Scrollable Container with bottom buffer */}
+      <div className="mx-auto w-full max-w-4xl flex-1 overflow-y-auto overscroll-contain p-3.5 pb-24 sm:p-5 sm:pb-28 md:p-8">
         {isLessonCompleted ? (
           <LessonCompletionView
             lesson={lesson}
@@ -338,9 +338,9 @@ export const LessonPlayerPage: React.FC = () => {
         ) : currentStep ? (
           <div className="space-y-4 sm:space-y-6">
             {/* Step Type Pill Header */}
-            <div className="mb-2 flex items-center justify-center gap-2">
+            <div className="mb-2 flex items-center justify-center">
               <span
-                className={`flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-bold ${
+                className={`rounded-full px-3.5 py-1 text-xs font-bold ${
                   currentStep.type === 'learn'
                     ? 'border border-blue-500/20 bg-blue-500/10 text-blue-500'
                     : currentStep.type === 'practice'
@@ -348,10 +348,7 @@ export const LessonPlayerPage: React.FC = () => {
                       : 'border border-emerald-500/20 bg-emerald-500/10 text-emerald-500'
                 }`}
               >
-                {currentStep.type === 'learn' && <BookOpen size={13} />}
-                {currentStep.type === 'practice' && <BrainCircuit size={13} />}
-                {currentStep.type === 'test' && <Award size={13} />}
-                <span>{currentStep.title}</span>
+                {currentStep.title}
               </span>
             </div>
 
@@ -382,7 +379,7 @@ export const LessonPlayerPage: React.FC = () => {
 
       {/* Bottom Step Controller Footer */}
       {!isLessonCompleted && (
-        <div className="sticky bottom-0 z-20 border-t border-border bg-background/90 p-3 pb-[max(env(safe-area-inset-bottom),0.875rem)] backdrop-blur-xl sm:p-4">
+        <div className="z-20 shrink-0 border-t border-border bg-background/90 p-3 pb-[max(env(safe-area-inset-bottom),0.875rem)] backdrop-blur-xl sm:p-4">
           <div className="mx-auto flex max-w-4xl items-center justify-between gap-2.5 sm:gap-4">
             <button
               onClick={handlePrevStep}

@@ -16,7 +16,7 @@ import {
   Shield,
 } from 'lucide-react';
 import { useStudyData } from '../../context/StudyPlannerContext';
-import { isAdminEmail } from '../../utils/admin';
+import { isAdminEmail, isUserAdmin } from '../../utils/admin';
 
 import { toast } from '../../hooks/use-toast';
 
@@ -62,7 +62,7 @@ export const ExamsManager: React.FC = () => {
   };
 
   useEffect(() => {
-    if (isAdminEmail(user?.email)) {
+    if (isUserAdmin(user) || isAdminEmail(user?.email, (user as any)?.role)) {
       fetchExams();
     } else {
       setLoading(false);

@@ -15,7 +15,7 @@ import {
 import { Button } from '../ui/Button';
 import { useStudyData } from '../../context/StudyPlannerContext';
 import { useLanguage } from '../../context/LanguageContext';
-import { isAdminEmail } from '../../utils/admin';
+import { isUserAdmin } from '../../utils/admin';
 import { Flashcard } from '../../types';
 import { ActivityLoggingService } from '../../services/ActivityLoggingService';
 import {
@@ -102,7 +102,7 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
     useStudyData();
   const { language } = useLanguage();
   const isJa = language === 'ja';
-  const isAdmin = isAdminEmail(user?.email);
+  const isAdmin = isUserAdmin(user);
   const { isTwa, haptics } = useTelegramWebApp();
 
   // Prevent background body scrolling while study session modal is active

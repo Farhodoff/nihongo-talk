@@ -1,5 +1,5 @@
-import React, { useState, useMemo } from 'react';
-import { CheckCircle2, XCircle, ArrowRight, Sparkles } from 'lucide-react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
+import { CheckCircle2, XCircle, ArrowRight } from 'lucide-react';
 import { PracticeExercise } from '../../types/lesson';
 import { FuriganaText } from '../jlpt/FuriganaText';
 
@@ -25,6 +25,7 @@ export const PracticeStepView: React.FC<PracticeStepViewProps> = ({
   const [currentIdx, setCurrentIdx] = useState(0);
   const [selectedOption, setSelectedOption] = useState<number | string | null>(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const submitRef = useRef<HTMLDivElement>(null);
 
   // Dynamic shuffle for multiple-choice exercise options
   const activeExercises = useMemo(() => {
@@ -58,6 +59,18 @@ export const PracticeStepView: React.FC<PracticeStepViewProps> = ({
       ? selectedOption === currentExercise.correctAnswer
       : String(selectedOption).trim().toLowerCase() ===
         String(currentExercise.correctAnswer).trim().toLowerCase());
+
+  // Determine 2-column layout based on text length
+  const isTwoColumns = useMemo(() => {
+    if (!currentExercise?.options || currentExercise.options.length < 2) return false;
+    return currentExercise.options.every((opt) => opt.length <= 24 && !opt.includes('\n'));
+  }, [currentExercise]);
+
+  useEffect(() => {
+    if (isSubmitted && submitRef.current) {
+      submitRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  }, [isSubmitted]);
 
   const handleSelectOption = (optIdx: number) => {
     if (isSubmitted) return;
@@ -124,13 +137,17 @@ export const PracticeStepView: React.FC<PracticeStepViewProps> = ({
 
       {/* Exercise Card */}
       <div className="space-y-4 rounded-2xl border border-border bg-card p-4 shadow-sm sm:space-y-6 sm:rounded-3xl sm:p-6">
-        <div className="break-words text-base font-bold leading-snug text-foreground sm:text-lg">
+        <div className="break-words text-base font-bold leading-snug text-foreground sm:text-lg md:text-xl">
           <FuriganaText text={currentExercise.prompt} />
         </div>
 
-        {/* Options list */}
+        {/* Options list: 2 columns for short text, 1 column for long sentences */}
         {currentExercise.options && (
-          <div className="space-y-2 sm:space-y-2.5">
+          <div
+            className={
+              isTwoColumns ? 'grid grid-cols-2 gap-2.5 sm:gap-3' : 'space-y-2 sm:space-y-2.5'
+            }
+          >
             {currentExercise.options.map((opt, optIdx) => {
               const isSelected = selectedOption === optIdx;
               let btnStyle = 'border-border bg-secondary/30 hover:bg-secondary text-foreground';
@@ -151,21 +168,21 @@ export const PracticeStepView: React.FC<PracticeStepViewProps> = ({
                   key={optIdx}
                   onClick={() => handleSelectOption(optIdx)}
                   disabled={isSubmitted}
-                  className={`flex min-h-[48px] w-full cursor-pointer touch-manipulation select-none items-center justify-between gap-2.5 rounded-2xl border p-3 text-left text-xs transition-all active:scale-[0.99] sm:min-h-[50px] sm:gap-3 sm:p-4 sm:text-sm ${btnStyle}`}
+                  className={`flex min-h-[50px] w-full cursor-pointer touch-manipulation select-none items-center justify-between gap-2 rounded-2xl border p-3 text-left text-sm transition-all active:scale-[0.99] sm:min-h-[56px] sm:gap-3 sm:p-4 sm:text-base ${btnStyle}`}
                 >
-                  <div className="flex min-w-0 items-center gap-2.5 sm:gap-3">
-                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-border bg-card text-xs font-black text-muted-foreground">
+                  <div className="flex min-w-0 items-center gap-2 sm:gap-3">
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-xl border border-border bg-card text-xs font-black text-muted-foreground sm:h-8 sm:w-8 sm:text-sm">
                       {String.fromCharCode(65 + optIdx)}
                     </span>
-                    <span className="break-words leading-relaxed">
+                    <span className="break-words font-medium leading-relaxed">
                       <FuriganaText text={opt} />
                     </span>
                   </div>
                   {isSubmitted && optIdx === currentExercise.correctAnswer && (
-                    <CheckCircle2 size={18} className="shrink-0 text-emerald-500" />
+                    <CheckCircle2 size={18} className="shrink-0 text-emerald-500 sm:h-5 sm:w-5" />
                   )}
                   {isSubmitted && isSelected && !isCorrect && (
-                    <XCircle size={18} className="shrink-0 text-rose-500" />
+                    <XCircle size={18} className="shrink-0 text-rose-500 sm:h-5 sm:w-5" />
                   )}
                 </button>
               );
@@ -178,12 +195,12 @@ export const PracticeStepView: React.FC<PracticeStepViewProps> = ({
           <button
             onClick={handleCheckAnswer}
             disabled={selectedOption === null}
-            className="flex h-11 w-full cursor-pointer touch-manipulation select-none items-center justify-center rounded-2xl bg-primary text-xs font-bold text-primary-foreground shadow-md transition-all hover:opacity-90 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-50 sm:h-12 sm:text-sm"
+            className="sm:h-13 flex h-12 w-full cursor-pointer touch-manipulation select-none items-center justify-center rounded-2xl bg-primary text-sm font-black text-primary-foreground shadow-md shadow-primary/25 transition-all hover:opacity-90 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-50 sm:text-base"
           >
             Javobni Tekshirish
           </button>
         ) : (
-          <div className="space-y-4 animate-in fade-in">
+          <div ref={submitRef} className="space-y-4 animate-in fade-in">
             {/* Result Alert */}
             <div
               className={`flex items-start gap-3 rounded-2xl border p-3.5 sm:p-4 ${
@@ -193,48 +210,58 @@ export const PracticeStepView: React.FC<PracticeStepViewProps> = ({
               }`}
             >
               {isCorrect ? (
-                <CheckCircle2 size={18} className="mt-0.5 shrink-0 sm:h-5 sm:w-5" />
+                <CheckCircle2 size={20} className="mt-0.5 shrink-0 sm:h-5 sm:w-5" />
               ) : (
-                <XCircle size={18} className="mt-0.5 shrink-0 sm:h-5 sm:w-5" />
+                <XCircle size={20} className="mt-0.5 shrink-0 sm:h-5 sm:w-5" />
               )}
-              <div className="text-xs leading-relaxed">
-                <div className="mb-0.5 text-xs font-bold sm:text-sm">
+              <div className="text-xs leading-relaxed sm:text-sm">
+                <div className="mb-0.5 font-bold">
                   {isCorrect ? "To'g'ri javob! 🎉" : "Noto'g'ri javob 💡"}
                 </div>
                 {currentExercise.explanation && (
-                  <div className="mt-1 break-words text-foreground/80">
+                  <div className="mt-1 break-words text-foreground/85">
                     <FuriganaText text={currentExercise.explanation} />
                   </div>
                 )}
               </div>
             </div>
 
-            {/* Navigation between exercises */}
-            <div className="flex items-center justify-between gap-2.5 sm:gap-3">
+            {/* Prominent Davom Etish (Next Exercise) Button */}
+            {currentIdx < exercises.length - 1 ? (
               <button
-                onClick={handlePrevExercise}
-                disabled={currentIdx === 0}
-                className="h-10 cursor-pointer touch-manipulation select-none rounded-xl border border-border px-3 text-xs font-bold text-muted-foreground hover:text-foreground active:scale-95 disabled:cursor-not-allowed disabled:opacity-30 sm:px-4"
+                onClick={handleNextExercise}
+                className="sm:h-13 flex h-12 w-full cursor-pointer touch-manipulation select-none items-center justify-center gap-2 rounded-2xl bg-primary text-sm font-black text-primary-foreground shadow-lg shadow-primary/25 transition-all hover:opacity-90 active:scale-[0.99] sm:text-base"
               >
-                <span className="sm:hidden">Oldingi</span>
-                <span className="hidden sm:inline">Oldingi mashq</span>
+                <span>Davom etish</span>
+                <ArrowRight size={18} />
               </button>
-              {currentIdx < exercises.length - 1 ? (
+            ) : (
+              <div className="space-y-2">
+                <div className="flex items-center justify-center gap-1.5 py-1 text-xs font-bold text-emerald-500">
+                  <CheckCircle2 size={16} />
+                  <span>Barcha amaliy mashqlar yakunlandi!</span>
+                </div>
                 <button
                   onClick={handleNextExercise}
-                  className="flex h-10 cursor-pointer touch-manipulation select-none items-center gap-1.5 rounded-xl bg-primary px-3.5 text-xs font-bold text-primary-foreground shadow-sm hover:opacity-90 active:scale-95 sm:px-5"
+                  className="sm:h-13 flex h-12 w-full cursor-pointer touch-manipulation select-none items-center justify-center gap-2 rounded-2xl bg-emerald-600 text-sm font-black text-white shadow-lg shadow-emerald-600/25 transition-all hover:bg-emerald-500 active:scale-[0.99] sm:text-base"
                 >
-                  <span className="sm:hidden">Keyingi</span>
-                  <span className="hidden sm:inline">Keyingi mashq</span>
-                  <ArrowRight size={14} />
+                  <span>Dars Testiga O'tish</span>
+                  <ArrowRight size={18} />
                 </button>
-              ) : (
-                <div className="flex items-center gap-1 text-xs font-bold text-emerald-500">
-                  <Sparkles size={14} />
-                  <span>Barcha mashqlar bajarildi!</span>
-                </div>
-              )}
-            </div>
+              </div>
+            )}
+
+            {/* Back to previous exercise (if needed) */}
+            {currentIdx > 0 && (
+              <div className="pt-0.5 text-center">
+                <button
+                  onClick={handlePrevExercise}
+                  className="cursor-pointer text-xs font-semibold text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  ← Oldingi mashqqa qaytish
+                </button>
+              </div>
+            )}
           </div>
         )}
       </div>

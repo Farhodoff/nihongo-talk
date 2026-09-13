@@ -437,12 +437,28 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
         return;
       }
 
+      const cachedUser = safeLocalStorage.getJSON<any>('study_planner_user_cache', null);
+      const metaRole =
+        (currentUser as any).app_metadata?.role || (currentUser as any).user_metadata?.role;
+      const cachedRole =
+        cachedUser?.id === currentUser.id && cachedUser?.role && cachedUser.role !== 'authenticated'
+          ? cachedUser.role
+          : undefined;
+      const resolvedRole = metaRole || cachedRole || (currentUser as any).role;
+      if (resolvedRole && resolvedRole !== 'authenticated') {
+        currentUser = { ...currentUser, role: resolvedRole } as User;
+      }
+
       safeLocalStorage.setJSON('study_planner_user_cache', currentUser);
       if (currentUser.email) {
         safeLocalStorage.setItem('study_planner_user_email', currentUser.email);
       }
       setUser((prev) =>
-        prev?.id === currentUser.id && prev?.email === currentUser.email ? prev : currentUser,
+        prev?.id === currentUser.id &&
+        prev?.email === currentUser.email &&
+        (prev as any)?.role === (currentUser as any)?.role
+          ? prev
+          : currentUser,
       );
       if (currentUser && currentUser.user_metadata) {
         const meta = currentUser.user_metadata;
@@ -781,6 +797,12 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
           if (prof.target_goal) {
             setTargetGoal(prof.target_goal);
             LearningTrackStorage.setTargetGoal(activeLang, prof.target_goal);
+          }
+          if (prof.role && prof.role !== 'authenticated') {
+            const roleUpdatedUser = { ...currentUser, role: prof.role } as User;
+            setUser(roleUpdatedUser);
+            useAuthStore.getState().setUser(roleUpdatedUser);
+            safeLocalStorage.setJSON('study_planner_user_cache', roleUpdatedUser);
           }
         } else if (currentUser?.id) {
           // Initialize profiles row if not present

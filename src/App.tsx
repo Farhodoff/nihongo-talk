@@ -1,9 +1,10 @@
 import React, { Suspense, useEffect, useState } from 'react';
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { Session } from '@supabase/supabase-js';
 import ErrorBoundary from './components/ErrorBoundary';
 import GlobalAudioPlayer from './components/GlobalAudioPlayer';
 import Layout from './components/Layout';
+import { VersionUpdateService } from './services/VersionUpdateService';
 import { StudyPlannerProvider } from './context/StudyPlannerContext';
 import { FocusTimerProvider } from './context/FocusTimerContext';
 import { LanguageProvider } from './context/LanguageContext';
@@ -60,15 +61,63 @@ import { isTelegramWebApp, initTelegramAuth } from './utils/telegramAuth';
 const AdminRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const user = useAuthStore((s) => s.user);
   const loading = useAuthStore((s) => s.loading);
-  if (isPublicPreviewActive()) {
-    return <>{children}</>;
-  }
+  const [checkingDb, setCheckingDb] = useState(false);
+  const [isDbAdmin, setIsDbAdmin] = useState<boolean | null>(null);
+
   const cachedUser = safeLocalStorage.getJSON<any>('study_planner_user_cache', null);
   const effectiveUser = user || cachedUser;
-  if (loading && !effectiveUser) {
+  const isPreview = isPublicPreviewActive();
+
+  useEffect(() => {
+    if (isPreview) return;
+    if (!effectiveUser?.id) return;
+    if (isUserAdmin(effectiveUser)) {
+      setIsDbAdmin(true);
+      return;
+    }
+    let isMounted = true;
+    setCheckingDb(true);
+    supabase
+      .from('profiles')
+      .select('role')
+      .eq('id', effectiveUser.id)
+      .single()
+      .then(
+        ({ data }) => {
+          if (!isMounted) return;
+          if (data?.role === 'admin' || data?.role === 'superadmin') {
+            setIsDbAdmin(true);
+            const updated = { ...effectiveUser, role: data.role };
+            useAuthStore.getState().setUser(updated);
+            safeLocalStorage.setJSON('study_planner_user_cache', updated);
+          } else {
+            setIsDbAdmin(false);
+          }
+          setCheckingDb(false);
+        },
+        () => {
+          if (isMounted) {
+            setIsDbAdmin(false);
+            setCheckingDb(false);
+          }
+        },
+      );
+    return () => {
+      isMounted = false;
+    };
+  }, [effectiveUser?.id, isPreview]);
+
+  if (isPreview) {
+    return <>{children}</>;
+  }
+
+  if ((loading && !effectiveUser) || checkingDb) {
     return <PageLoader />;
   }
-  if (!isUserAdmin(effectiveUser)) {
+  if (isUserAdmin(effectiveUser) || isDbAdmin === true) {
+    return <>{children}</>;
+  }
+  if (isDbAdmin === false || !isUserAdmin(effectiveUser)) {
     return <Navigate to="/jlpt" replace />;
   }
   return <>{children}</>;
@@ -86,6 +135,14 @@ const PageLoader = () => (
 
 import ReloadPrompt from './components/pwa/ReloadPrompt';
 import UnauthRouter from './components/UnauthRouter';
+
+const RouteVersionWatcher: React.FC = () => {
+  const location = useLocation();
+  useEffect(() => {
+    VersionUpdateService.checkForUpdate();
+  }, [location.pathname]);
+  return null;
+};
 
 const App: React.FC = () => {
   const [session, setSession] = useState<Session | null>(() => {
@@ -236,6 +293,7 @@ const App: React.FC = () => {
         <StudyPlannerProvider>
           <FocusTimerProvider>
             <BrowserRouter>
+              <RouteVersionWatcher />
               <div className="relative h-screen overflow-hidden bg-background text-foreground transition-colors duration-200">
                 <Suspense fallback={<PageLoader />}>
                   <Routes>

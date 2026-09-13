@@ -33,7 +33,7 @@ import { Button } from '../components/ui/Button';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { useLanguage } from '../context/LanguageContext';
 import { useFlashcardImport } from '../hooks/useFlashcardImport';
-import { isAdminEmail, isSuperAdmin } from '../utils/admin';
+import { isSuperAdmin, isUserAdmin } from '../utils/admin';
 import { PRESET_DECKS, PresetDeck, PresetSubDeck } from '../data/presetDecks';
 import { PresetDeckService, DeckPart } from '../services/PresetDeckService';
 import { toast } from '../hooks/use-toast';
@@ -82,7 +82,7 @@ const DecksPage: React.FC = () => {
   const [isImportingPreset, setIsImportingPreset] = useState(false);
   const [standaloneAlbums, setStandaloneAlbums] = useState<PresetSubDeck[]>([]);
 
-  const isAdmin = isAdminEmail(user?.email);
+  const isAdmin = isUserAdmin(user);
 
   const activeSubjects = subjects.filter((s) => !s.isArchived);
   const archivedSubjects = subjects.filter((s) => !!s.isArchived);

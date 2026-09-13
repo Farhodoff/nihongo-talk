@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Award, CheckCircle2, XCircle, ChevronRight, RotateCcw, Sparkles } from 'lucide-react';
+import { Award, CheckCircle2, XCircle, ChevronRight, RotateCcw } from 'lucide-react';
 import { TestQuestion } from '../../types/lesson';
 import { FuriganaText } from '../jlpt/FuriganaText';
 
@@ -58,6 +58,11 @@ export const TestStepView: React.FC<TestStepViewProps> = ({
   const currentQuestion = activeQuestions[currentIdx];
   const totalQuestions = activeQuestions.length;
   const answeredCount = Object.keys(selectedAnswers).length;
+
+  const isTwoColumns = useMemo(() => {
+    if (!currentQuestion?.options || currentQuestion.options.length < 2) return false;
+    return currentQuestion.options.every((opt) => opt.length <= 24 && !opt.includes('\n'));
+  }, [currentQuestion]);
 
   const handleSelectOption = (optionIdx: number) => {
     if (isCompleted) return;
@@ -136,26 +141,30 @@ export const TestStepView: React.FC<TestStepViewProps> = ({
       {!isCompleted ? (
         /* Active Question Card */
         <div className="space-y-4 rounded-2xl border border-border bg-card p-4 shadow-sm sm:space-y-6 sm:rounded-3xl sm:p-6">
-          <div className="break-words text-base font-bold leading-snug text-foreground md:text-lg">
+          <div className="break-words text-base font-bold leading-snug text-foreground sm:text-lg md:text-xl">
             <FuriganaText text={currentQuestion.question} />
           </div>
 
-          <div className="space-y-2 sm:space-y-2.5">
+          <div
+            className={
+              isTwoColumns ? 'grid grid-cols-2 gap-2.5 sm:gap-3' : 'space-y-2 sm:space-y-2.5'
+            }
+          >
             {currentQuestion.options.map((opt, optIdx) => {
               const isSelected = selectedAnswers[currentIdx] === optIdx;
               return (
                 <button
                   key={optIdx}
                   onClick={() => handleSelectOption(optIdx)}
-                  className={`flex min-h-[48px] w-full cursor-pointer touch-manipulation select-none items-center justify-between gap-2.5 rounded-2xl border p-3 text-left text-xs transition-all active:scale-[0.99] sm:min-h-[50px] sm:gap-3 sm:p-4 sm:text-sm ${
+                  className={`flex min-h-[50px] w-full cursor-pointer touch-manipulation select-none items-center justify-between gap-2 rounded-2xl border p-3 text-left text-sm transition-all active:scale-[0.99] sm:min-h-[56px] sm:gap-3 sm:p-4 sm:text-base ${
                     isSelected
                       ? 'border-primary bg-primary/10 font-bold text-primary shadow-sm'
                       : 'border-border bg-secondary/30 text-foreground hover:bg-secondary'
                   }`}
                 >
-                  <div className="flex min-w-0 items-center gap-2.5 sm:gap-3">
+                  <div className="flex min-w-0 items-center gap-2 sm:gap-3">
                     <span
-                      className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-lg text-xs font-black ${
+                      className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-xl text-xs font-black sm:h-8 sm:w-8 sm:text-sm ${
                         isSelected
                           ? 'bg-primary text-primary-foreground'
                           : 'border border-border bg-card text-muted-foreground'
@@ -163,11 +172,13 @@ export const TestStepView: React.FC<TestStepViewProps> = ({
                     >
                       {String.fromCharCode(65 + optIdx)}
                     </span>
-                    <span className="break-words leading-relaxed">
+                    <span className="break-words font-medium leading-relaxed">
                       <FuriganaText text={opt} />
                     </span>
                   </div>
-                  {isSelected && <CheckCircle2 size={18} className="shrink-0 text-primary" />}
+                  {isSelected && (
+                    <CheckCircle2 size={18} className="shrink-0 text-primary sm:h-5 sm:w-5" />
+                  )}
                 </button>
               );
             })}
@@ -178,7 +189,7 @@ export const TestStepView: React.FC<TestStepViewProps> = ({
             <button
               onClick={() => setCurrentIdx((prev) => Math.max(0, prev - 1))}
               disabled={currentIdx === 0}
-              className="h-10 cursor-pointer touch-manipulation select-none rounded-xl border border-border px-3 text-xs font-bold text-muted-foreground hover:text-foreground active:scale-95 disabled:cursor-not-allowed disabled:opacity-30 sm:px-4"
+              className="h-11 cursor-pointer touch-manipulation select-none rounded-xl border border-border px-3.5 text-xs font-bold text-muted-foreground hover:text-foreground active:scale-95 disabled:cursor-not-allowed disabled:opacity-30 sm:px-4 sm:text-sm"
             >
               Oldingisi
             </button>
@@ -187,22 +198,19 @@ export const TestStepView: React.FC<TestStepViewProps> = ({
               <button
                 onClick={() => setCurrentIdx((prev) => prev + 1)}
                 disabled={selectedAnswers[currentIdx] === undefined}
-                className="flex h-10 cursor-pointer touch-manipulation select-none items-center gap-1.5 rounded-xl bg-primary px-3.5 text-xs font-bold text-primary-foreground shadow-sm hover:opacity-90 active:scale-95 disabled:cursor-not-allowed disabled:opacity-40 sm:px-5"
+                className="flex h-11 flex-1 cursor-pointer touch-manipulation select-none items-center justify-center gap-2 rounded-xl bg-primary px-4 text-xs font-bold text-primary-foreground shadow-md transition-all hover:opacity-90 active:scale-95 disabled:cursor-not-allowed disabled:opacity-40 sm:h-12 sm:text-sm"
               >
-                <span>Keyingisi</span>
-                <ChevronRight size={14} />
+                <span>Davom etish</span>
+                <ChevronRight size={16} />
               </button>
             ) : (
               <button
                 onClick={handleFinishTest}
                 disabled={answeredCount < totalQuestions}
-                className="flex h-10 cursor-pointer touch-manipulation select-none items-center gap-1.5 rounded-xl bg-emerald-600 px-4 text-xs font-black text-white shadow-md shadow-emerald-600/30 transition-all hover:bg-emerald-500 active:scale-95 disabled:cursor-not-allowed disabled:opacity-40 sm:px-6"
+                className="flex h-11 flex-1 cursor-pointer touch-manipulation select-none items-center justify-center gap-2 rounded-xl bg-emerald-600 px-4 text-xs font-black text-white shadow-md shadow-emerald-600/30 transition-all hover:bg-emerald-500 active:scale-95 disabled:cursor-not-allowed disabled:opacity-40 sm:h-12 sm:text-sm"
               >
-                <Sparkles size={14} />
-                <span>
-                  <span className="sm:hidden">Yakunlash</span>
-                  <span className="hidden sm:inline">Testni Yakunlash</span>
-                </span>
+                <CheckCircle2 size={16} />
+                <span>Testni Yakunlash</span>
               </button>
             )}
           </div>

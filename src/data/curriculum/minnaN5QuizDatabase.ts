@@ -93,14 +93,73 @@ export const MINNA_N5_QUIZ_DATABASE: Record<number, LessonQuizSet> = {
         prompt:
           'Suhbatdoshingiz: 「初めまして、どうぞ よろしく お願いします。」 dedi. Unga eng mos muloyim javob qaysi?',
         options: [
-          'ごちそうさまでした。',
-          'いいえ、違います。',
-          'こちらこそ よろしく お願いします。',
+          'ごちそうさまでした',
+          'いいえ、違います',
+          'こちらこそ よろしく',
           '失礼ですが、お名前は？',
         ],
         correctAnswer: 2,
         explanation:
           "Tanishuvda 'Hursandman' iborasiga javoban 「こちらこそ よろしく お願いします」 deyiladi.",
+      },
+      {
+        id: 'ja-minna-l1-ex11',
+        type: 'multiple-choice',
+        prompt:
+          "Kichik bolalarga erkalash yoki yaqinlik qo'shimchasini tanlang:\n「テレサ（　）は 9歳です。」",
+        options: ['さん', 'ちゃん', 'じん', 'さま'],
+        correctAnswer: 1,
+        explanation:
+          'Kichik yoshdagi bolalarga erkalash va mehr bilan murojaat qilishda 「～ちゃん」 ishlatiladi.',
+      },
+      {
+        id: 'ja-minna-l1-ex12',
+        type: 'multiple-choice',
+        prompt:
+          "Kelgan mamlakatni ifodalovchi chiqish kelishigi qo'shimchasini tanlang:\n「わたしは アメリカ（　）来ました。」",
+        options: ['から', 'まで', 'より', 'で'],
+        correctAnswer: 0,
+        explanation:
+          "Qayerdan kelganlikni ifodalashda 「から (dan)」 zarrachasi qo'yiladi: 「アメリカから 来ました」.",
+      },
+      {
+        id: 'ja-minna-l1-ex13',
+        type: 'multiple-choice',
+        prompt:
+          "Xushmuomala tarzda ism so'rash iborasini to'ldiring:\n「（　）ですが、お名前は？」",
+        options: ['すみません', '失礼（しつれい）', 'ありがとう', 'ごめん'],
+        correctAnswer: 1,
+        explanation:
+          "Yapon madaniyatida birovning ismini so'rashdan oldin odob yuzasidan 「失礼ですが (Kechirasiz, ammo...)」 deyiladi.",
+      },
+      {
+        id: 'ja-minna-l1-ex14',
+        type: 'multiple-choice',
+        prompt: "「研究者（けんきゅうしゃ）」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
+        options: ['talaba', 'muhandis', 'tadqiqotchi', 'shifokor'],
+        correctAnswer: 2,
+        explanation:
+          "「研究者（けんきゅうしゃ）」 — ilmiy tadqiqotchi, izlanuvchi degan ma'noni bildiradi.",
+      },
+      {
+        id: 'ja-minna-l1-ex15',
+        type: 'multiple-choice',
+        prompt:
+          "Savolga to'g'ri inkor javobni tanlang:\n「ミラーさんは 医者ですか。」\n「いいえ、（　）。」",
+        options: ['医者です', '医者じゃ ありません', '学生です', 'アメリカ人です'],
+        correctAnswer: 1,
+        explanation:
+          "「いいえ」 (yo'q) bilan boshlangan inkor javobda kesim 「じゃ ありません」 bilan tugallanadi.",
+      },
+      {
+        id: 'ja-minna-l1-ex16',
+        type: 'multiple-choice',
+        prompt:
+          "Millat yoki davlat fuqaroligini yasovchi qo'shimchani tanlang:\n「シュミットさんは ドイツ（　）です。」",
+        options: ['語（ご）', '人（じん）', '本（ほん）', '方（かた）'],
+        correctAnswer: 1,
+        explanation:
+          "Davlat nomiga 「人（じん）」 qo'shilganda millat yoki fuqarolik yasaladi: ドイツ人 (nemis).",
       },
     ],
     test: [
@@ -127,21 +186,35 @@ export const MINNA_N5_QUIZ_DATABASE: Record<number, LessonQuizSet> = {
       },
       {
         id: 'ja-minna-l1-q4',
+        question: '【Mondai 1: Moji/Goi】「医者」の 読[よ]み方[かた]は どれですか。',
+        options: ['いしゃ', 'ぎんこういん', 'きょうし', 'しゃいん'],
+        correctAnswerIndex: 0,
+        explanation: "「医者」 ning to'g'ri o'qilishi: 「いしゃ」 (shifokor, vrach).",
+      },
+      {
+        id: 'ja-minna-l1-q5',
+        question: '【Mondai 1: Moji/Goi】「エンジニア」の 意[い]味[み]は どれですか。',
+        options: ['Muhandis', "O'qituvchi", 'Talaba', 'Xodim'],
+        correctAnswerIndex: 0,
+        explanation: "「エンジニア」 — muhandis degan ma'noni anglatadi (katakana so'z).",
+      },
+      {
+        id: 'ja-minna-l1-q6',
         question:
           '【Mondai 2: Bunpo】（　）に 入る 最も よいものを 1つ えらびなさい。\n「わたし（　）学生です。」',
         options: ['の', 'は', 'も', 'が'],
         correctAnswerIndex: 1,
-        explanation: 'Ega/mavzuni ifodalovchi zarracha: 「は」.',
+        explanation: 'Ega/mavzuni ifodalovchi zarracha: 「は (wa)」.',
       },
       {
-        id: 'ja-minna-l1-q5',
+        id: 'ja-minna-l1-q7',
         question: '【Mondai 2: Bunpo】「ワンさんは 医者（　）ありません。」',
         options: ['で', 'に', 'じゃ', 'を'],
         correctAnswerIndex: 2,
         explanation: 'Inkor konstruksiyasida 「じゃ ありません」 ishlatiladi.',
       },
       {
-        id: 'ja-minna-l1-q6',
+        id: 'ja-minna-l1-q8',
         question:
           '【Mondai 2: Bunpo】「カリナさんは インドネシア人です。マリアさん（　）インドネシア人ですか。」',
         options: ['と', 'の', 'へ', 'も'],
@@ -149,45 +222,88 @@ export const MINNA_N5_QUIZ_DATABASE: Record<number, LessonQuizSet> = {
         explanation: "O'xshashlikni bildirish uchun 'ham' ma'nosidagi 「も」 qo'llaniladi.",
       },
       {
-        id: 'ja-minna-l1-q7',
+        id: 'ja-minna-l1-q9',
         question: '【Mondai 2: Bunpo】「シュミットさんは パワー電気（　）エンジニアです。」',
         options: ['の', 'は', 'も', 'に'],
         correctAnswerIndex: 0,
         explanation: "Tashkilot va kasbni bog'lashda 「の」 zarrachasi qo'yiladi.",
       },
       {
-        id: 'ja-minna-l1-q8',
-        question:
-          '【Mondai 3: Dokkai】Quyidagi gapdan Miller qayerlik ekanini aniqlang:\n「はじめまして。マイク・ミラーです。アメリカから 来ました。どうぞ よろしく。」',
-        options: ['Angliya', 'Amerika', 'Germaniya', 'Yaponiya'],
-        correctAnswerIndex: 1,
-        explanation: '「アメリカから 来ました」 - Amerikadan keldim.',
-      },
-      {
-        id: 'ja-minna-l1-q9',
-        question:
-          "【Mondai 3: Dokkai】Ushbu gapning to'g'ri o'zbekcha ma'nosini toping:\n「あの方は 神戸病院の 医者です。」",
-        options: [
-          'U kishi Sakura shifoxonasining hamshirasi.',
-          'U kishi Kobe universitetining talabasi.',
-          'U kishi Kobe shifoxonasining shifokori.',
-          'Bu kishi bank xodimi.',
-        ],
-        correctAnswerIndex: 2,
-        explanation: '「神戸病院の 医者」 - Kobe shifoxonasining shifokori.',
-      },
-      {
         id: 'ja-minna-l1-q10',
         question:
-          '【Mondai 4: Kaiwa】Savolga eng mos muloyim javobni tanlang:\n「失礼ですが、お名前は？」',
+          "【Mondai 2: Bunpo】Hurmat bilan shaxsni so'rash so'zini tanlang:\n「あの 方[かた]は （　）ですか。」",
+        options: ['だれ', 'どなた', 'なん', 'どこ'],
+        correctAnswerIndex: 1,
+        explanation:
+          "「あの方」 (u kishi) hurmat shakli bo'lgani uchun, unga mos ravishda 「どなた」 (kim - hurmat shakli) ishlatiladi.",
+      },
+      {
+        id: 'ja-minna-l1-q11',
+        question:
+          "【Mondai 2: Bunpo】Yosh so'rash iborasini tanlang:\n「テレサちゃんは （　）ですか。」",
+        options: ['何歳（なんさい）', 'だれ', 'どこ', 'なん'],
+        correctAnswerIndex: 0,
+        explanation:
+          "Yosh so'rash uchun 「何歳（なんさい）」 yoki muloyim tarzda 「おいくつ」 ishlatiladi.",
+      },
+      {
+        id: 'ja-minna-l1-q12',
+        question:
+          '【Mondai 3: Kaiwa】Savolga eng mos muloyim javobni tanlang:\n「失礼ですが、お名前は？」',
+        options: ['アメリカから 来ました', 'はい、そうです', '学生じゃ ありません', 'ミラーです'],
+        correctAnswerIndex: 3,
+        explanation:
+          "Ism so'ralganda to'g'ridan-to'g'ri ism aytiladi: 「ミラーです。」 (O'z ismiga hech qachon 'san' qo'shilmaydi).",
+      },
+      {
+        id: 'ja-minna-l1-q13',
+        question: "【Mondai 3: Kaiwa】Birinchi bor ko'rishganda aytiladigan tanishuv so'zi qaysi?",
+        options: ['初めまして', 'おはよう', 'さようなら', 'すみません'],
+        correctAnswerIndex: 0,
+        explanation:
+          'Birinchi marta uchrashganda suhbat doimo 「初めまして (Hajimemashite)」 bilan boshlanadi.',
+      },
+      {
+        id: 'ja-minna-l1-q14',
+        question:
+          "【Mondai 3: Kaiwa】「ミラーさんは 先生ですか。」\nUshbu savolga to'g'ri inkor javobni toping:",
         options: [
-          'アメリカから 来ました。',
-          'はい、そうです。',
-          'いいえ、学生じゃありません。',
-          'ミラーです。',
+          'はい、先生です',
+          'いいえ、学生です',
+          'いいえ、会社員です',
+          'いいえ、先生じゃ ありません',
         ],
         correctAnswerIndex: 3,
-        explanation: "Ism so'ralganda to'g'ridan-to'g'ri ism aytiladi: 「ミラーです。」",
+        explanation:
+          "So'ralgan kasbni inkor qilish uchun to'g'ri grammatik javob: 「いいえ、先生じゃ ありません」.",
+      },
+      {
+        id: 'ja-minna-l1-q15',
+        question:
+          '【Mondai 4: Dokkai】Quyidagi matndan Miller qayerdan kelganini va kimligini aniqlang:\n「はじめまして。マイク・ミラーです。アメリカから 来ました。IMCの 社員です。どうぞ よろしく。」',
+        options: [
+          "Angliya / O'qituvchi",
+          'Amerika / IMC firmasi xodimi',
+          'Germaniya / Muhandis',
+          'Braziliya / Bank xodimi',
+        ],
+        correctAnswerIndex: 1,
+        explanation:
+          'Matnda: 「アメリカから 来ました」 (AQSHdan keldim) va 「IMCの 社員です」 (IMC kompaniyasi xodimiman) deyilgan.',
+      },
+      {
+        id: 'ja-minna-l1-q16',
+        question:
+          "【Mondai 4: Dokkai】Quyidagi matn asosida to'g'ri hukmni toping:\n「あの方は ワットさんです。イギリス人です。さくら大学の 先生です。」",
+        options: [
+          'Watt talaba',
+          'Watt Kobe shifoxonasida ishlaydi',
+          "Watt Sakura universiteti o'qituvchisi",
+          'Watt amerikalik',
+        ],
+        correctAnswerIndex: 2,
+        explanation:
+          "Matnda: 「さくら大学の 先生です」 (Sakura universiteti o'qituvchisi) deb aniq keltirilgan.",
       },
     ],
   },
@@ -199,7 +315,7 @@ export const MINNA_N5_QUIZ_DATABASE: Record<number, LessonQuizSet> = {
         prompt: "So'zlovchining o'ziga yaqin buyumni ko'rsatish olmoshi qaysi?",
         options: ['あれ', 'それ', 'これ', 'どれ'],
         correctAnswer: 2,
-        explanation: "So'zlovchiga yaqin buyumlar uchun 「これ」 ishlatiladi.",
+        explanation: "So'zlovchiga yaqin buyumlar uchun 「これ」 (bu) ishlatiladi.",
       },
       {
         id: 'ja-minna-l2-ex2',
@@ -207,7 +323,8 @@ export const MINNA_N5_QUIZ_DATABASE: Record<number, LessonQuizSet> = {
         prompt: "Tinglovchiga (suhbatdoshga) yaqin turgan buyumni ko'rsatuvchi olmosh qaysi?",
         options: ['どれ', 'これ', 'あれ', 'それ'],
         correctAnswer: 3,
-        explanation: 'Suhbatdoshga yaqin buyumlar uchun 「それ」 ishlatiladi.',
+        explanation:
+          "Suhbatdoshga (tinglovchiga) yaqin buyumlar uchun 「それ」 (u, o'sha) ishlatiladi.",
       },
       {
         id: 'ja-minna-l2-ex3',
@@ -215,65 +332,131 @@ export const MINNA_N5_QUIZ_DATABASE: Record<number, LessonQuizSet> = {
         prompt: "Ikkala suhbatdoshdan ham uzoqda joylashgan buyumni ko'rsatish olmoshi qaysi?",
         options: ['あれ', 'これ', 'それ', 'この'],
         correctAnswer: 0,
-        explanation: 'Har ikkisidan uzoqdagi buyum uchun 「あれ」 ishlatiladi.',
+        explanation:
+          'Har ikkala suhbatdoshdan ham uzoqdagi buyum uchun 「あれ」 (ana u, anavi) ishlatiladi.',
       },
       {
         id: 'ja-minna-l2-ex4',
         type: 'multiple-choice',
         prompt:
-          "Ot oldidan keladigan ko'rsatish so'zini to'g'ri tanlang:\n「（　）本は わたしのです。」",
-        options: ['これ', 'この', 'ここ', 'こちら'],
-        correctAnswer: 1,
-        explanation: 'Ot bilan bevosita birikib kelishda 「この + Ot」 shakli ishlatiladi.',
+          "Uch yoki undan ortiq narsadan bittasini tanlab so'rash uchun qaysi olmosh ishlatiladi?",
+        options: ['これ', 'それ', 'あれ', 'どれ'],
+        correctAnswer: 3,
+        explanation:
+          "Mustaqil so'roq olmoshi sifatida bir nechtadan birini aniqlashda 「どれ」 (qaysi biri) ishlatiladi.",
       },
       {
         id: 'ja-minna-l2-ex5',
         type: 'multiple-choice',
         prompt:
-          "Bo'sh joyga to'g'ri so'roq olmoshini qo'ying:\n「これは （　）ですか。」「辞書です。」",
-        options: ['どこ', 'だれ', 'なん（何）', 'どれ'],
-        correctAnswer: 2,
-        explanation: "Narsa-buyum nomini so'rash uchun 「なん（何）」 ishlatiladi.",
+          "Ot oldidan keladigan yaqindagi ko'rsatish so'zini to'g'ri tanlang:\n「（　）本は わたしのです。」",
+        options: ['これ', 'この', 'ここ', 'こちら'],
+        correctAnswer: 1,
+        explanation:
+          'Ot bilan bevosita birikib kelganda 「この + Ot」 shakli ishlatiladi. 「これ本」 deyilmaydi!',
       },
       {
         id: 'ja-minna-l2-ex6',
         type: 'multiple-choice',
-        prompt: 'Tasdiqlovchi qisqa javobni tanlang:\n「それは 辞書ですか。」「はい、（　）。」',
-        options: ['なんですか', '違います', 'あれです', 'そうです'],
-        correctAnswer: 3,
-        explanation: "Narsaning aynan o'shaligini tasdiqlash uchun 「はい、そうです」 deyiladi.",
+        prompt:
+          "Suhbatdoshingiz yonidagi buyum haqida gapirganda qaysi birikma to'g'ri?\n「（　）傘は あなたのですか。」",
+        options: ['その', 'それ', 'あの', 'どの'],
+        correctAnswer: 0,
+        explanation: 'Suhbatdoshga yaqin turgan ot oldidan 「その + Ot」 keladi.',
       },
       {
         id: 'ja-minna-l2-ex7',
         type: 'multiple-choice',
         prompt:
-          'Inkor javobini tanlang:\n「これは シャープペンシルですか。」「いいえ、（　）。ボールペンです。」',
-        options: ['違います（ちがいます）', 'そうです', 'あります', 'いません'],
-        correctAnswer: 0,
-        explanation: "Noto'g'ri taxminni inkor etish uchun 「いいえ、違います」 ishlatiladi.",
+          "Har ikkalasidan uzoqdagi mashina haqida gapirganda qaysi ko'rsatish so'zi ishlatiladi?\n「（　）車は ドイツの 自動車です。」",
+        options: ['この', 'その', 'あの', 'どの'],
+        correctAnswer: 2,
+        explanation:
+          'Har ikkala suhbatdoshdan ham uzoqda turgan narsalar oldidan 「あの + Ot」 keladi.',
       },
       {
         id: 'ja-minna-l2-ex8',
         type: 'multiple-choice',
         prompt:
-          "Muqobil (tanlov) savoliga to'g'ri javobni tanlang:\n「これは 『９』ですか、『７』ですか。」",
-        options: ['はい、そうです。', '『９』です。', 'いいえ、違います。', 'なんですか。'],
+          "Ot oldidan keluvchi so'roq so'zini to'g'ri tanlang:\n「あなたの 鞄は （　）鞄ですか。」",
+        options: ['どれ', 'どの', 'だれ', 'なん'],
         correctAnswer: 1,
-        explanation: 'Muqobil savolda variantlardan biri tanlanadi.',
+        explanation:
+          "Ot bilan birikuvchi 'Qaysi?' so'rog'i uchun 「どの + Ot」 (masalan: どの鞄) ishlatiladi.",
       },
       {
         id: 'ja-minna-l2-ex9',
         type: 'multiple-choice',
-        prompt: 'Mavzuni bildiruvchi 「の」 zarrachasini tanlang:\n「これは 自動車（　）本です。」',
-        options: ['も', 'は', 'の', 'と'],
+        prompt:
+          "Bo'sh joyga to'g'ri so'roq olmoshini qo'ying:\n「これは （　）ですか。」「辞書です。」",
+        options: ['どこ', 'だれ', 'なん（何）', 'どれ'],
         correctAnswer: 2,
-        explanation: 'Avtomobil haqidagi kitob: 「自動車の 本」.',
+        explanation: "Narsa-buyum nomini so'rash uchun 「なん（何 - nima）」 ishlatiladi.",
       },
       {
         id: 'ja-minna-l2-ex10',
         type: 'multiple-choice',
         prompt:
-          "Sovg'a topshirish iborasiga eng to'g'ri javobni tanlang:\n「これ、ほんの 気持ちです。どうぞ。」",
+          "Buyumning egasini so'rash uchun qaysi so'roq so'zi qo'yiladi?\n「あれは （　）の 鞄ですか。」「佐藤さんのです。」",
+        options: ['なん', 'だれ', 'どこ', 'どれ'],
+        correctAnswer: 1,
+        explanation:
+          "Insonning shaxsi yoki buyum egasini so'rash uchun 「だれ（誰 - kim）」 ishlatiladi: 「だれの (kimning)」.",
+      },
+      {
+        id: 'ja-minna-l2-ex11',
+        type: 'multiple-choice',
+        prompt: 'Tasdiqlovchi qisqa javobni tanlang:\n「それは 辞書ですか。」「はい、（　）。」',
+        options: ['なんですか', '違います', 'あれです', 'そうです'],
+        correctAnswer: 3,
+        explanation:
+          "Ot kesimini tasdiqlab 'Ha, shunday' deyish uchun 「はい、そうです」 qo'llaniladi.",
+      },
+      {
+        id: 'ja-minna-l2-ex12',
+        type: 'multiple-choice',
+        prompt:
+          "Inkor javobini to'g'ri tanlang:\n「これは シャープペンシルですか。」「いいえ、（　）。ボールペンです。」",
+        options: ['違います（ちがいます）', 'そうです', 'あります', 'いません'],
+        correctAnswer: 0,
+        explanation:
+          "Noto'g'ri taxminni rad etish uchun 「いいえ、違います（ちがいます）」 ishlatiladi.",
+      },
+      {
+        id: 'ja-minna-l2-ex13',
+        type: 'multiple-choice',
+        prompt:
+          "Muqobil (tanlov) savoliga to'g'ri javobni tanlang:\n「これは 『９』ですか、『７』ですか。」",
+        options: ['はい、そうです。', '『９』です。', 'いいえ、違います。', 'なんですか。'],
+        correctAnswer: 1,
+        explanation:
+          "Muqobil (GAP1ですか、GAP2ですか) savolida 'ha' yoki 'yo'q' aytilmaydi, to'g'ridan-to'g'ri variantlardan biri tanlanadi.",
+      },
+      {
+        id: 'ja-minna-l2-ex14',
+        type: 'multiple-choice',
+        prompt:
+          'Mavzuni/tarkibni bildiruvchi 「の」 zarrachasini tanlang:\n「これは 自動車（　）本です。」',
+        options: ['も', 'は', 'の', 'と'],
+        correctAnswer: 2,
+        explanation:
+          'Narsa nima haqida ekanini (mavzusini) bildirish uchun 「の」 ishlatiladi: 「自動車の 本」 (avtomobillar haqidagi kitob).',
+      },
+      {
+        id: 'ja-minna-l2-ex15',
+        type: 'multiple-choice',
+        prompt:
+          "Suhbatdosh bergan yangi ma'lumotni tushunganda qanday javob beriladi?\n「この 傘は 山田さんのです。」「（　）。」",
+        options: ['そうですか', 'そうです', '違います', 'どういたしまして'],
+        correctAnswer: 0,
+        explanation:
+          "Yangi ma'lumotni qabul qilib, 'Ha shundaymi? / Tushunarli' deyish uchun 「そうですか」 iborasi ishlatiladi.",
+      },
+      {
+        id: 'ja-minna-l2-ex16',
+        type: 'multiple-choice',
+        prompt:
+          "Sovg'a topshirish iborasiga odob bilan eng to'g'ri javobni tanlang:\n「これ、ほんの 気持ちです。どうぞ。」",
         options: [
           'ごちそうさまでした。',
           '失礼します。',
@@ -282,7 +465,7 @@ export const MINNA_N5_QUIZ_DATABASE: Record<number, LessonQuizSet> = {
         ],
         correctAnswer: 3,
         explanation:
-          "Sovg'a olganda minnatdorchilik bildiriladi: 「どうも ありがとう ございます。」",
+          "Sovg'a qabul qilib olinganda minnatdorchilik bildiriladi: 「どうも ありがとう ございます。」 (Katta rahmat).",
       },
     ],
     test: [
@@ -291,55 +474,112 @@ export const MINNA_N5_QUIZ_DATABASE: Record<number, LessonQuizSet> = {
         question: '【Mondai 1: Moji/Goi】「本」の 読[よ]み方[かた]は どれですか。',
         options: ['ほん', 'じしょ', 'ざっし', 'しんぶん'],
         correctAnswerIndex: 0,
-        explanation: "「本」 ning o'qilishi: 「ほん」 (kitob).",
+        explanation: "「本」 ning Hiragana o'qilishi: 「ほん」 (kitob).",
       },
       {
         id: 'ja-minna-l2-q2',
         question: '【Mondai 1: Moji/Goi】「じしょ」を 漢[かん]字[じ]で どう 書[か]きますか。',
         options: ['時計', '辞書', '自動車', '雑誌'],
         correctAnswerIndex: 1,
-        explanation: "「じしょ」 lug'at so'zi 「辞書」 deb yoziladi.",
+        explanation: "「じしょ」 (lug'at) so'zi Kanji bilan 「辞書」 deb yoziladi.",
       },
       {
         id: 'ja-minna-l2-q3',
         question: '【Mondai 1: Moji/Goi】「傘（かさ）」の 意[い]味[み]は どれですか。',
         options: ['Soat', 'Kalit', 'Soyabon', 'Sumka'],
         correctAnswerIndex: 2,
-        explanation: '「傘（かさ）」 soyabon degani.',
+        explanation: "「傘（かさ）」 yapon tilida 'soyabon' degan ma'noni anglatadi.",
       },
       {
         id: 'ja-minna-l2-q4',
-        question:
-          "【Mondai 2: Bunpo】（　）に 入る 最も よいものを 1つ えらびなさい。\n「（　）は わたしの 鍵です。」（so'zlovchining qo'lidagi buyum）",
-        options: ['この', 'それ', 'あれ', 'これ'],
-        correctAnswerIndex: 3,
-        explanation: "So'zlovchining qo'lidagi buyum: 「これ」.",
+        question: '【Mondai 1: Moji/Goi】「時計（とけい）」の 意[い]味[み]は どれですか。',
+        options: ['Qalam', 'Soat', 'Yon daftarcha', 'Gazeta'],
+        correctAnswerIndex: 1,
+        explanation: '「時計（とけい）」 - soat.',
       },
       {
         id: 'ja-minna-l2-q5',
-        question: '【Mondai 2: Bunpo】「（　）傘は あなたのですか。」',
-        options: ['その', 'それ', 'あれ', 'ここ'],
-        correctAnswerIndex: 0,
-        explanation: 'Ot oldidan 「その + 傘」 keladi.',
+        question:
+          "【Mondai 2: Bunpo】（　）に 入る 最も よいものを 1つ えらびなさい。\n「（　）は わたしの 鍵[かぎ]です。」（so'zlovchining o'z qo'lidagi buyum）",
+        options: ['この', 'それ', 'あれ', 'これ'],
+        correctAnswerIndex: 3,
+        explanation:
+          "So'zlovchining o'ziga yaqin turgan mustaqil buyum uchun 「これ」 ishlatiladi.",
       },
       {
         id: 'ja-minna-l2-q6',
-        question: '【Mondai 2: Bunpo】「あれは （　）の 鞄ですか。」「佐藤さんのです。」',
-        options: ['なん', 'だれ', 'どこ', 'どれ'],
-        correctAnswerIndex: 1,
-        explanation: "Egasini so'rash: 「だれの (kimning)」.",
+        question: '【Mondai 2: Bunpo】「（　）傘は あなたのですか。」（suhbatdosh yonidagi buyum）',
+        options: ['その', 'それ', 'あれ', 'ここ'],
+        correctAnswerIndex: 0,
+        explanation:
+          "Ot oldidan kelganda va suhbatdoshga yaqin bo'lganda 「その + Ot」 shakli tanlanadi.",
       },
       {
         id: 'ja-minna-l2-q7',
-        question: '【Mondai 2: Bunpo】「これは 日本語（　）テープです。」',
-        options: ['も', 'は', 'の', 'と'],
-        correctAnswerIndex: 2,
-        explanation: 'Yapon tili lentasi: 「日本語の テープ」.',
+        question: '【Mondai 2: Bunpo】「あれは （　）の 鞄[かばん]ですか。」「佐藤さんのです。」',
+        options: ['なん', 'だれ', 'どこ', 'どれ'],
+        correctAnswerIndex: 1,
+        explanation:
+          "Buyum kimga tegishli ekanini (egasini) so'rashda: 「だれの (kimning)」 qo'llaniladi.",
       },
       {
         id: 'ja-minna-l2-q8',
+        question: '【Mondai 2: Bunpo】「これは 日本語[にほんご]（　）テープです。」',
+        options: ['も', 'は', 'の', 'と'],
+        correctAnswerIndex: 2,
+        explanation:
+          "Lenta mavzusini/tarkibini ko'rsatish uchun 「日本語の テープ」 (yapon tili lentasi) bo'ladi.",
+      },
+      {
+        id: 'ja-minna-l2-q9',
+        question: '【Mondai 2: Bunpo】「これは （　）ですか。」「手帳[てちょう]です。」',
+        options: ['だれ', 'なん', 'どこ', 'どの'],
+        correctAnswerIndex: 1,
+        explanation: "Narsa nima ekanini so'rashda: 「これは 何（なん）ですか」.",
+      },
+      {
+        id: 'ja-minna-l2-q10',
+        question: '【Mondai 2: Bunpo】「田中さんの 傘は （　）ですか。」「あの 青い 傘です。」',
+        options: ['どれ', 'どの', 'だれ', 'なん'],
+        correctAnswerIndex: 0,
+        explanation: "Mustaqil ravishda 'Qaysi biri?' deb so'ralganda 「どれ」 ishlatiladi.",
+      },
+      {
+        id: 'ja-minna-l2-q11',
+        question: '【Mondai 2: Bunpo】「ミラーさんの 机[つくえ]は （　）机ですか。」',
+        options: ['どれ', 'どの', 'だれ', 'どこ'],
+        correctAnswerIndex: 1,
+        explanation: "Ot oldidan keladigan so'roq so'zi: 「どの + 机」 (qaysi stol).",
+      },
+      {
+        id: 'ja-minna-l2-q12',
+        question: '【Mondai 3: Kaiwa】「それは 辞書ですか。」「いいえ、（　）。雑誌です。」',
+        options: ['そうです', '違[ちが]います', 'あります', 'なんですか'],
+        correctAnswerIndex: 1,
+        explanation: "Noto'g'ri taxminni inkor etish uchun 「いいえ、違います」 deyiladi.",
+      },
+      {
+        id: 'ja-minna-l2-q13',
         question:
-          "【Mondai 3: Dokkai】Ushbu gapdan qanday ma'no kelib chiqadi?\n「その 手帳は ミラーさんのですか。」「いいえ、山田さんのです。」",
+          "【Mondai 3: Kaiwa】Tanlov savoliga to'g'ri javobni tanlang:\n「それは 鉛筆[えんぴつ]ですか、ボールペンですか。」",
+        options: ['はい、そうです。', 'ボールペンです。', 'いいえ、違います。', 'なんですか。'],
+        correctAnswerIndex: 1,
+        explanation:
+          "Tanlov (muqobil) savollarida 'ha' yoki 'yo'q' deyilmaydi, to'g'ridan-to'g'ri tanlov aytiladi.",
+      },
+      {
+        id: 'ja-minna-l2-q14',
+        question:
+          '【Mondai 3: Kaiwa】A:「これ、（　）気持ちです。どうぞ。」 B:「どうも ありがとう。」',
+        options: ['ほんの', 'どの', 'なんの', 'だれの'],
+        correctAnswerIndex: 0,
+        explanation:
+          "Sovg'a berganda kamsuqumlik bilan aytiladigan barqaror ibora: 「ほんの 気持ちです」 (arzimagan sovg'a).",
+      },
+      {
+        id: 'ja-minna-l2-q15',
+        question:
+          "【Mondai 4: Dokkai】Ushbu dialogdan qanday ma'no kelib chiqadi?\n「その 手帳[てちょう]は ミラーさんのですか。」「いいえ、山田さんのです。」",
         options: [
           'Bu yangi daftarcha.',
           'Daftarcha Miller saniki.',
@@ -347,32 +587,20 @@ export const MINNA_N5_QUIZ_DATABASE: Record<number, LessonQuizSet> = {
           'Daftarcha Yamada saniki.',
         ],
         correctAnswerIndex: 3,
-        explanation: '「山田さんのです」 - Yamada saniki.',
+        explanation: "「山田さんのです」 jumlasidan daftarcha Yamada saniki ekani aniq bo'ladi.",
       },
       {
-        id: 'ja-minna-l2-q9',
+        id: 'ja-minna-l2-q16',
         question:
-          "【Mondai 3: Dokkai】Ushbu gapning to'g'ri tarjimasini tanlang:\n「この カメラは 誰のですか。」",
+          "【Mondai 4: Dokkai】Ushbu gapning to'g'ri ma'nosini tanlang:\n「この カメラは 誰[だれ]のですか。」「わたしのです。」",
         options: [
-          'Bu kamera kimniki?',
-          'U kamera qayerda?',
-          'Bu kamera qancha turadi?',
-          'Kamera yapon tilidami?',
+          'Bu kamera kimniki? - Meniki.',
+          'U kamera qayerda? - Uyda.',
+          'Bu kamera qancha turadi? - Qimmat.',
+          'Kamera yapon tilidami? - Ha.',
         ],
         correctAnswerIndex: 0,
-        explanation: '「この カメラは 誰のですか」 - Bu kamera kimniki?',
-      },
-      {
-        id: 'ja-minna-l2-q10',
-        question: '【Mondai 4: Kaiwa】A:「コーヒーを どうぞ。」 B:「（　）。」',
-        options: [
-          'いいえ、違います。',
-          'どうも ありがとう ございます。',
-          '初めまして。',
-          'さようなら。',
-        ],
-        correctAnswerIndex: 1,
-        explanation: 'Taklif uchun minnatdorchilik: 「どうも ありがとう ございます。」',
+        explanation: '「このカメラは誰のですか」 = Bu kamera kimniki?, 「わたしのです」 = Meniki.',
       },
     ],
   },
@@ -381,18 +609,18 @@ export const MINNA_N5_QUIZ_DATABASE: Record<number, LessonQuizSet> = {
       {
         id: 'ja-minna-l3-ex1',
         type: 'multiple-choice',
-        prompt: "So'zlovchi turgan joyni ko'rsatuvchi olmosh qaysi?",
+        prompt: "So'zlovchi o'zi turgan joyni ko'rsatuvchi olmosh qaysi?",
         options: ['どこ', 'そこ', 'あそこ', 'ここ'],
         correctAnswer: 3,
-        explanation: "So'zlovchi turgan joy uchun 「ここ」 ishlatiladi.",
+        explanation: "So'zlovchi turgan joy uchun 「ここ」 (bu yer) ishlatiladi.",
       },
       {
         id: 'ja-minna-l3-ex2',
         type: 'multiple-choice',
-        prompt: "Tinglovchi turgan joyni ko'rsatuvchi olmosh qaysi?",
+        prompt: "Suhbatdosh (tinglovchi) turgan joyni ko'rsatuvchi olmosh qaysi?",
         options: ['そこ', 'ここ', 'あそこ', 'どこ'],
         correctAnswer: 0,
-        explanation: 'Suhbatdosh turgan joy uchun 「そこ」 ishlatiladi.',
+        explanation: "Suhbatdosh turgan joy uchun 「そこ」 (u yer, o'sha yer) ishlatiladi.",
       },
       {
         id: 'ja-minna-l3-ex3',
@@ -400,16 +628,16 @@ export const MINNA_N5_QUIZ_DATABASE: Record<number, LessonQuizSet> = {
         prompt: "Ikkala suhbatdoshdan ham uzoqdagi joyni ko'rsatuvchi olmosh qaysi?",
         options: ['ここ', 'あそこ', 'そこ', 'こちら'],
         correctAnswer: 1,
-        explanation: 'Uzoqdagi joy uchun 「あそこ」 ishlatiladi.',
+        explanation: 'Ikkala shaxsdan ham uzoqdagi joy uchun 「あそこ」 (ana u yer) ishlatiladi.',
       },
       {
         id: 'ja-minna-l3-ex4',
         type: 'multiple-choice',
         prompt:
           "Joy so'rash uchun qaysi so'roq olmoshi ishlatiladi?\n「お手洗いは （　）ですか。」",
-        options: ['なん', 'だれ', 'どこ / どちら', 'いくら'],
+        options: ['なん', 'だれ', 'どこ', 'いくら'],
         correctAnswer: 2,
-        explanation: "Joy so'rashda 「どこ」 yoki muloyim shaklda 「どちら」 ishlatiladi.",
+        explanation: "Joy so'rashda 「どこ」 (yoki muloyim shaklda 「どちら」) ishlatiladi.",
       },
       {
         id: 'ja-minna-l3-ex5',
@@ -417,7 +645,7 @@ export const MINNA_N5_QUIZ_DATABASE: Record<number, LessonQuizSet> = {
         prompt: "Muloyim yo'nalish so'zini tanlang:\n「エレベーターは （　）で ございます。」",
         options: ['ここ', 'あそこ', 'そこ', 'あちら'],
         correctAnswer: 3,
-        explanation: "Muloyim shaklda yo'nalish 「あちら」 deb aytiladi.",
+        explanation: "Muloyim ohangda yo'nalish yoki joy 「あちら」 (ana u tarafda) deb aytiladi.",
       },
       {
         id: 'ja-minna-l3-ex6',
@@ -425,7 +653,7 @@ export const MINNA_N5_QUIZ_DATABASE: Record<number, LessonQuizSet> = {
         prompt: "Narx so'rash so'rog'ini tanlang:\n「この ネクタイは （　）ですか。」",
         options: ['いくら', 'なん', 'どこ', 'どちら'],
         correctAnswer: 0,
-        explanation: "Narx so'rashda 「いくら」 ishlatiladi.",
+        explanation: "Narx so'rashda 「いくら」 (qancha turadi) ishlatiladi.",
       },
       {
         id: 'ja-minna-l3-ex7',
@@ -434,7 +662,8 @@ export const MINNA_N5_QUIZ_DATABASE: Record<number, LessonQuizSet> = {
           'Ishlab chiqarilgan mamlakatni bildiruvchi zarrachani tanlang:\n「これは イタリア（　）靴です。」',
         options: ['は', 'の', 'で', 'に'],
         correctAnswer: 1,
-        explanation: "Mamlakat mahsuloti bog'lanishida 「の」 qo'yiladi.",
+        explanation:
+          "Ishlab chiqarilgan mamlakat va mahsulot orasiga 「の」 zarrachasi qo'yiladi: 「イタリアの 靴」.",
       },
       {
         id: 'ja-minna-l3-ex8',
@@ -442,7 +671,8 @@ export const MINNA_N5_QUIZ_DATABASE: Record<number, LessonQuizSet> = {
         prompt: "Qavat qo'shimchasini to'g'ri tanlang:\n「会議室は ３（　）です。」",
         options: ['時', '円', '階（がい）', '歳'],
         correctAnswer: 2,
-        explanation: 'Bino qavatlari uchun 「〜階（かい/がい）」 ishlatiladi.',
+        explanation:
+          'Bino qavatlari uchun 「〜階（かい/がい）」 ishlatiladi: 3-qavat 「3階（さんがい）」.',
       },
       {
         id: 'ja-minna-l3-ex9',
@@ -450,20 +680,71 @@ export const MINNA_N5_QUIZ_DATABASE: Record<number, LessonQuizSet> = {
         prompt: 'Yapon pul birligini tanlang:\n「この 時計は 15,000（　）です。」',
         options: ['本', '階', '人', '円（えん）'],
         correctAnswer: 3,
-        explanation: 'Yapon pul birligi 「円（えん）」 - yen.',
+        explanation: 'Yapon pul birligi 「円（えん - yen）」.',
       },
       {
         id: 'ja-minna-l3-ex10',
         type: 'multiple-choice',
-        prompt: "Do'kon xodimi: 「いらっしゃいませ！」 dedi. Xaridor qanday boshlashi mumkin?",
-        options: [
-          'すみません、その ワインを 見せてください。',
-          'おやすみなさい。',
-          'ただいま。',
-          'お疲れ様でした。',
-        ],
+        prompt: "Do'konda xaridor sotuvchiga buyumni ko'rsatishni qanday iltimos qiladi?",
+        options: ['その ワインを 見せてください', 'おやすみなさい', 'ただいま', 'お疲れ様でした'],
         correctAnswer: 0,
-        explanation: "Do'konda xaridorni kutib olganda: 「すみません、〜を見せてください」.",
+        explanation:
+          "Do'konda biror buyumni ko'rish uchun: 「[Buyum] を 見せて ください」 deyiladi.",
+      },
+      {
+        id: 'ja-minna-l3-ex11',
+        type: 'multiple-choice',
+        prompt: "Suhbatdoshdan uning vatanini ehtirom bilan so'rang:\n「（　）は どちらですか。」",
+        options: ['お国（おくに）', 'うち', '会社', '部屋'],
+        correctAnswer: 0,
+        explanation:
+          "Suhbatdoshning vatani ehtirom bilan 「お国（おくに）」 deb so'raladi: 「お国は どちらですか」.",
+      },
+      {
+        id: 'ja-minna-l3-ex12',
+        type: 'multiple-choice',
+        prompt:
+          "Suhbatdosh ishlaydigan korxonani so'rashda qaysi so'roq olmoshi mos keladi?\n「会社は （　）ですか。」",
+        options: ['なん', 'どちら', 'だれ', 'どれ'],
+        correctAnswer: 1,
+        explanation:
+          "Yapon tilida kompaniya yoki universitet so'ralganda 'nima' emas, balki 「どちら」 yoki 「どこ」 ishlatiladi.",
+      },
+      {
+        id: 'ja-minna-l3-ex13',
+        type: 'multiple-choice',
+        prompt:
+          'Xarid qilishga qaror qilganda sotuvchiga qanday aytiladi?\n「じゃ、（　）を ください。」',
+        options: ['これ', 'どこ', 'なん', 'だれ'],
+        correctAnswer: 0,
+        explanation:
+          "Xaridda tanlangan buyum uchun: 「じゃ、これを ください」 (Unday bo'lsa, buni bering) deyiladi.",
+      },
+      {
+        id: 'ja-minna-l3-ex14',
+        type: 'multiple-choice',
+        prompt: "「地下（ちか）」 so'zining to'g'ri o'zbekcha ma'nosi qaysi?",
+        options: ['tom / tom qismi', "yer osti / yerto'la", '1-qavat', 'tashqari'],
+        correctAnswer: 1,
+        explanation: "「地下（ちか）」 — yer osti, yerto'la (podval) qavatlarini bildiradi.",
+      },
+      {
+        id: 'ja-minna-l3-ex15',
+        type: 'multiple-choice',
+        prompt: "1-qavat yapon tilida qanday o'qiladi?",
+        options: ['いちかい', 'いっかい', 'ひとつ', 'いちばん'],
+        correctAnswer: 1,
+        explanation: "1-qavat maxsus tovush o'zgarishi bilan 「いっかい (一階)」 deb o'qiladi.",
+      },
+      {
+        id: 'ja-minna-l3-ex16',
+        type: 'multiple-choice',
+        prompt:
+          "Xizmat ko'rsatishda 「です」 ning eng muloyim hurmat shakli qaysi?\n「ワイン 売り場は 地下1階（　）。」",
+        options: ['じゃ ありません', 'で ございます', 'でした', 'く ありません'],
+        correctAnswer: 1,
+        explanation:
+          "Do'kon va mehmonxona xodimlari mijozlarga hurmat bilan 「～で ございます」 deb gapirishadi.",
       },
     ],
     test: [
@@ -472,82 +753,129 @@ export const MINNA_N5_QUIZ_DATABASE: Record<number, LessonQuizSet> = {
         question: '【Mondai 1: Moji/Goi】「部屋」の 読[よ]み方[かた]は どれですか。',
         options: ['うけつけ', 'しょくどう', 'へや', 'かいぎしつ'],
         correctAnswerIndex: 2,
-        explanation: "「部屋」 ning o'qilishi: 「へや」 (xona).",
+        explanation: "「部屋」 ning to'g'ri o'qilishi: 「へや」 (xona).",
       },
       {
         id: 'ja-minna-l3-q2',
         question: '【Mondai 1: Moji/Goi】「しょくどう」を 漢[かん]字[じ]で どう 書[か]きますか。',
         options: ['部屋', '教室', '事務所', '食堂'],
         correctAnswerIndex: 3,
-        explanation: 'Oshxona 「食堂」 deb yoziladi.',
+        explanation: 'Oshxona iyeroglifda 「食堂」 deb yoziladi.',
       },
       {
         id: 'ja-minna-l3-q3',
         question: '【Mondai 1: Moji/Goi】「受付（うけつけ）」の 意[い]味[み]は どれですか。',
         options: ['Qabulxona', 'Zina', 'Lift', 'Hojatxona'],
         correctAnswerIndex: 0,
-        explanation: '「受付」 - qabulxona.',
+        explanation: '「受付（うけつけ）」 — qabulxona, registratura.',
       },
       {
         id: 'ja-minna-l3-q4',
-        question: '【Mondai 2: Bunpo】「事務所は （　）です。」（uzoqdagi joy）',
-        options: ['ここ', 'あそこ', 'そこ', 'これ'],
+        question: '【Mondai 1: Moji/Goi】「うりば」を 漢[かん]字[じ]で どう 書[か]きますか。',
+        options: ['買場', '売場（売り場）', '場所', '市場'],
         correctAnswerIndex: 1,
-        explanation: 'Uzoqdagi joy: 「あそこ」.',
+        explanation: "Savdo bo'limi/rastasi kanchisi: 「売り場」.",
       },
       {
         id: 'ja-minna-l3-q5',
-        question: '【Mondai 2: Bunpo】「お国は （　）ですか。」（hurmat shakli）',
-        options: ['なん', 'だれ', 'どちら', 'いくら'],
-        correctAnswerIndex: 2,
-        explanation: "Qayerdansiz deb so'rashda 「どちら」 ishlatiladi.",
+        question:
+          '【Mondai 1: Moji/Goi】「ちか」の 漢[かん]字[じ]と 意[い]味[み]の 組[く]み合[あ]わせは どれですか。',
+        options: ['地下 (yer osti)', '地上 (yer usti)', "近所 (qo'shni)", '地方 (viloyat)'],
+        correctAnswerIndex: 0,
+        explanation: "「ちか」 — kanjisi 「地下」 bo'lib, yer osti (podval) ma'nosini bildiradi.",
       },
       {
         id: 'ja-minna-l3-q6',
-        question: '【Mondai 2: Bunpo】「ワイン 売り場は （　）階ですか。」',
-        options: ['どれ', 'だれ', 'どこ', '何（なん）'],
-        correctAnswerIndex: 3,
-        explanation: 'Nechanchi qavat: 「何階（なんがい）」.',
+        question:
+          '【Mondai 2: Bunpo】「事務所は （　）です。」（Ikkala suhbatdoshdan uzoqdagi joy）',
+        options: ['ここ', 'あそこ', 'そこ', 'これ'],
+        correctAnswerIndex: 1,
+        explanation: 'Har ikkala suhbatdoshdan uzoqda joylashgan joy: 「あそこ」 (ana u yer).',
       },
       {
         id: 'ja-minna-l3-q7',
-        question: '【Mondai 2: Bunpo】「この カメラは 日本（　）です。」',
-        options: ['の', 'は', 'で', 'も'],
-        correctAnswerIndex: 0,
-        explanation: 'Yaponiya mahsuloti: 「日本の」.',
+        question:
+          "【Mondai 2: Bunpo】Suhbatdoshdan vatanini hurmat bilan so'rash:\n「お国は （　）ですか。」",
+        options: ['なん', 'だれ', 'どちら', 'いくら'],
+        correctAnswerIndex: 2,
+        explanation: "Mamlakat, tashkilot so'ralganda muloyim holda 「どちら」 ishlatiladi.",
       },
       {
         id: 'ja-minna-l3-q8',
-        question:
-          "【Mondai 3: Dokkai】「すみません、ワイン 売り場は どこですか。」「地下 １階で ございます。」 Vino bo'limi qayerda?",
-        options: ['2-qavatda', 'Podval 1-qavatda', '3-qavatda', 'Tashqarida'],
-        correctAnswerIndex: 1,
-        explanation: '「地下 １階」 - podval 1-qavat.',
+        question: '【Mondai 2: Bunpo】「ワイン 売り場は （　）階ですか。」',
+        options: ['どれ', 'だれ', 'どこ', '何（なん）'],
+        correctAnswerIndex: 3,
+        explanation: "Nechanchi qavat degan so'roq birikmasi: 「何階（なんがい）」.",
       },
       {
         id: 'ja-minna-l3-q9',
-        question:
-          '【Mondai 3: Dokkai】「この 靴は 8,400円です。ドイツの 靴です。」 Poyabzal qayerdan va qancha?',
-        options: [
-          'Yaponiya, 4,800 yen',
-          'Italiya, 8,400 yen',
-          'Germaniya, 8,400 yen',
-          'Fransiya, 8,000 yen',
-        ],
-        correctAnswerIndex: 2,
-        explanation: 'Germaniya poyabzali, 8,400 yen.',
+        question: '【Mondai 2: Bunpo】「この カメラは 日本（　）です。」',
+        options: ['の', 'は', 'で', 'も'],
+        correctAnswerIndex: 0,
+        explanation:
+          "Ishlab chiqarilgan joyni ifodalashda 「日本の (Yaponiya mahsuloti)」 bo'ladi.",
       },
       {
         id: 'ja-minna-l3-q10',
-        question: '【Mondai 4: Kaiwa】A:「その シャツを ください。」 B:「（　）。」',
-        options: [
-          '失礼します。',
-          'いいえ、違います。',
-          'お疲れ様でした。',
-          'はい、かしこまりました。',
-        ],
+        question: '【Mondai 2: Bunpo】「エレベーターは あちら（　）ございます。」',
+        options: ['に', 'で', 'を', 'は'],
+        correctAnswerIndex: 1,
+        explanation: "Do'kondagi o'ta muloyim bog'lama: 「～で ございます」.",
+      },
+      {
+        id: 'ja-minna-l3-q11',
+        question: '【Mondai 2: Bunpo】「この ネクタイは （　）ですか。」「3,000円です。」',
+        options: ['なん', 'いくら', 'どこ', 'どれ'],
+        correctAnswerIndex: 1,
+        explanation: "Narx so'rashda 「いくら」 (qancha) ishlatiladi.",
+      },
+      {
+        id: 'ja-minna-l3-q12',
+        question:
+          "【Mondai 3: Kaiwa】Xaridor:「その シャツを ください。」 Sotuvchining eng to'g'ri xushmuomala javobi:",
+        options: ['失礼します', 'いいえ、違います', 'お疲れ様でした', 'はい、かしこまりました'],
         correctAnswerIndex: 3,
-        explanation: "Sotuvchi 「はい、かしこまりました」 (Xo'p bo'ladi) deb javob beradi.",
+        explanation:
+          "Sotuvchi xaridorni qabul qilganda 「はい、かしこまりました」 (Xo'p bo'ladi) deb aytadi.",
+      },
+      {
+        id: 'ja-minna-l3-q13',
+        question: "【Mondai 3: Kaiwa】Sotuvchi xaridorni do'konga kirganda qanday kutib oladi?",
+        options: ['いらっしゃいませ', 'おかえりなさい', 'ごめんください', 'いただきます'],
+        correctAnswerIndex: 0,
+        explanation:
+          "Do'kon yoki restoranga mijoz kirganda xodimlar 「いらっしゃいませ！」 (Xush kelibsiz!) deydi.",
+      },
+      {
+        id: 'ja-minna-l3-q14',
+        question:
+          "【Mondai 3: Kaiwa】Do'konda narxni bilib bo'lgach, sotib olishga qaror qilganda nima deyiladi?",
+        options: ['じゃ、これを ください', 'どうも すみません', 'いいえ、違います', '失礼ですが'],
+        correctAnswerIndex: 0,
+        explanation:
+          '«じゃ、これを ください» (U holda, buni bering) xarid qilishning asosiy iborasi.',
+      },
+      {
+        id: 'ja-minna-l3-q15',
+        question:
+          "【Mondai 4: Dokkai】Quyidagi dialogdan vino bo'limi qayerda ekanini toping:\n「すみません、ワイン 売り場は どこですか。」\n「地下 1階で ございます。」",
+        options: ['1-qavatda', 'Yer osti (podval) 1-qavatda', '3-qavatda', 'Tashqarida'],
+        correctAnswerIndex: 1,
+        explanation: '「地下 1階 (chika ikkai)」 — yer osti 1-qavatida.',
+      },
+      {
+        id: 'ja-minna-l3-q16',
+        question:
+          '【Mondai 4: Dokkai】Quyidagi matn asosida poyafzalning kelib chiqishi va narxini aniqlang:\n「これは イタリアの 靴です。8,400円です。」',
+        options: [
+          'Yaponiya / 4,800 yen',
+          'Italiya / 8,400 yen',
+          'Germaniya / 8,400 yen',
+          'Fransiya / 8,000 yen',
+        ],
+        correctAnswerIndex: 1,
+        explanation:
+          "Matnda: 「イタリアの 靴」 (Italiya poyafzali) va 「8,400円」 (8,400 yen) deb aniq ko'rsatilgan.",
       },
     ],
   },
@@ -556,166 +884,270 @@ export const MINNA_N5_QUIZ_DATABASE: Record<number, LessonQuizSet> = {
       {
         id: 'ja-minna-l4-ex1',
         type: 'multiple-choice',
-        prompt: "「起きます（おきます）」 fe'lining ma'nosi qaysi?",
+        prompt: "「起[お]きます」 fe'lining to'g'ri ma'nosi qaysi?",
         options: ["Uyg'onmoq, turmoq", 'Uxlamoq', 'Ishlamoq', 'Dam olmoq'],
         correctAnswer: 0,
-        explanation: "「起きます」 - uyg'onmoq, o'rnidan turmoq.",
+        explanation: "「起きます（おきます）」 - uyg'onmoq, uyqudan turmoq.",
       },
       {
         id: 'ja-minna-l4-ex2',
         type: 'multiple-choice',
-        prompt:
-          "Aniq vaqt bildiruvchi so'zdan keyin qaysi zarracha qo'yiladi?\n「毎朝 6時（　）起きます。」",
-        options: ['で', 'に', 'を', 'へ'],
+        prompt: "「寝[ね]ます」 fe'lining to'g'ri ma'nosi qaysi?",
+        options: ['Ishlamoq', 'Uxlamoq, yotmoq', "O'qimoq", 'Tugamoq'],
         correctAnswer: 1,
-        explanation: "Aniq soat/vaqt bilan harakat bajarilganda 「に」 zarrachasi qo'yiladi.",
+        explanation: '「寝ます（ねます）」 - uxlamoq, yotmoq.',
       },
       {
         id: 'ja-minna-l4-ex3',
         type: 'multiple-choice',
-        prompt:
-          'Boshlanish va tugash vaqtini bildiruvchi zarrachalarni tanlang:\n「銀行は 9時（　）3時（　）です。」',
-        options: ['に、で', 'まで、から', 'から、まで', 'と、へ'],
+        prompt: "「働[はたら]きます」 fe'lining to'g'ri ma'nosi qaysi?",
+        options: ['Dam olmoq', "O'rganmoq", 'Ishlamoq, mehnat qilmoq', 'Tugamoq'],
         correctAnswer: 2,
-        explanation: 'Qaysi vaqtdan qaysi vaqtgacha: 「から、まで」.',
+        explanation: '「働きます（はたらきます）」 - ishlamoq, xizmat qilmoq.',
       },
       {
         id: 'ja-minna-l4-ex4',
         type: 'multiple-choice',
-        prompt: "Hozirgi zamon fe'l inkor shaklini to'g'ri tanlang:\n「日曜日は 働き（　）。」",
-        options: ['ませんでした', 'ます', 'ました', 'ません'],
-        correctAnswer: 3,
-        explanation: "Fe'lning hozirgi zamon inkor shakli 「〜ません」.",
+        prompt: "「勉強[べんきょう]します」 fe'lining ma'nosi qaysi?",
+        options: ['Sayr qilmoq', "Dars qilmoq, o'qimoq", 'Dam olmoq', 'Ishlamoq'],
+        correctAnswer: 1,
+        explanation: "「勉強します（べんきょうします）」 - dars qilmoq, o'qimoq.",
       },
       {
         id: 'ja-minna-l4-ex5',
         type: 'multiple-choice',
-        prompt: "O'tgan zamon tasdiq shaklini to'g'ri tanlang:\n「きのう 勉強し（　）。」",
-        options: ['ました', 'ます', 'ません', 'ませんでした'],
-        correctAnswer: 0,
-        explanation: "Fe'lning o'tgan zamon tasdiq shakli 「〜ました」.",
+        prompt: "Soat 4:00 yapon tilida qanday to'g'ri aytiladi?",
+        options: ['しじ', 'よんじ', 'よじ', 'よっじ'],
+        correctAnswer: 2,
+        explanation:
+          "Soat 4 yapon tilida istisno hisoblanib, 「よじ」 deb o'qiladi (shiji yoki yonji deyilmaydi).",
       },
       {
         id: 'ja-minna-l4-ex6',
         type: 'multiple-choice',
-        prompt: "O'tgan zamon inkor shaklini to'g'ri tanlang:\n「おととい 働き（　）。」",
-        options: ['ません', 'ませんでした', 'ました', 'ます'],
+        prompt: "Soat 9:00 yapon tilida qanday to'g'ri aytiladi?",
+        options: ['きゅうじ', 'くじ', 'ここのじ', 'きゅじ'],
         correctAnswer: 1,
-        explanation: "Fe'lning o'tgan zamon inkor shakli 「〜ませんでした」.",
+        explanation: "Soat 9 istisno bo'lib, 「くじ」 deb aytiladi (kyuuji emas).",
       },
       {
         id: 'ja-minna-l4-ex7',
         type: 'multiple-choice',
-        prompt:
-          "Ikki otni bog'lovchi 'va' zarrachasini tanlang:\n「休みは 月曜日（　）火曜日です。」",
-        options: ['の', 'も', 'と', 'に'],
-        correctAnswer: 2,
-        explanation: "Otlar orasida 'va' ma'nosida 「と」 ishlatiladi.",
+        prompt: "Soat 7:00 yapon tilida qanday to'g'ri aytiladi?",
+        options: ['ななじ', 'しちじ', 'しちび', 'ななび'],
+        correctAnswer: 1,
+        explanation: 'Soat 7 uchun odatda 「しちじ」 ishlatiladi.',
       },
       {
         id: 'ja-minna-l4-ex8',
         type: 'multiple-choice',
-        prompt: "Vaqt so'rash so'rog'ini tanlang:\n「今 （　）時（　）分ですか。」",
-        options: ['いくら、なん', 'どこ、どれ', 'だれ、いつ', '何、何（なんじ、なんぷん）'],
-        correctAnswer: 3,
-        explanation: "Vaqtni so'rash: 「何時何分（なんじ なんぷん）」.",
+        prompt: "「9時半[くじはん]」 iborasining to'g'ri ma'nosi qaysi?",
+        options: [
+          "9 dan 15 daqiqa o'tdi",
+          "Soat to'qqiz yarim (9:30)",
+          "To'qqizga 20 daqiqa bor",
+          'Soat roppa-rosa 9:00',
+        ],
+        correctAnswer: 1,
+        explanation: "「半（はん）」 yarim degani. 9時半 = 9:30 (to'qqiz yarim).",
       },
       {
         id: 'ja-minna-l4-ex9',
         type: 'multiple-choice',
-        prompt: "Hafta kunini so'rash so'rog'ini tanlang:\n「今日は （　）曜日ですか。」",
-        options: ['何（なん）', 'いつ', 'だれ', 'どこ'],
-        correctAnswer: 0,
-        explanation: 'Hafta kuni: 「何曜日（なんようび）」.',
+        prompt:
+          "Aniq vaqt bildiruvchi so'zdan keyin qaysi zarracha qo'yiladi?\n「毎朝[まいあさ] 6時[ろくじ]（　）起[お]きます。」",
+        options: ['で', 'に', 'を', 'へ'],
+        correctAnswer: 1,
+        explanation:
+          "Aniq soat yoki vaqtda harakat sodir bo'lganda 「に」 zarrachasi qo'yiladi (6時に 起きます).",
       },
       {
         id: 'ja-minna-l4-ex10',
         type: 'multiple-choice',
-        prompt: "Telefon raqamini aytishda chiziqcha (-) qanday o'qiladi?\n「012-345-6789」",
-        options: ['と', 'の', 'は', 'に'],
+        prompt: "Quyidagi qaysi vaqt so'zidan keyin 「に」 zarrachasi qo'yilMAYDI?",
+        options: ['7時[しちじ]', '明日[あした]', '月曜日[げつようび]', '5月[ごがつ] 1日[ついたち]'],
         correctAnswer: 1,
-        explanation: "Telefon raqamidagi chiziqcha 「の」 deb o'qiladi.",
+        explanation:
+          "Nisbiy vaqt so'zlari (今日, 明日, きのう, 毎朝 kabi) orqasidan 「に」 qo'yilmaydi.",
+      },
+      {
+        id: 'ja-minna-l4-ex11',
+        type: 'multiple-choice',
+        prompt:
+          'Boshlanish va tugash vaqtini bildiruvchi zarrachalar juftligini tanlang:\n「銀行[ぎんこう]は 9時[くじ]（　）3時[さんじ]（　）です。」',
+        options: ['に、で', 'まで、から', 'から、まで', 'と、へ'],
+        correctAnswer: 2,
+        explanation:
+          "Boshlanish vaqti uchun 「から」 (~dan), tugash vaqti uchun 「まで」 (~gacha) qo'llanadi.",
+      },
+      {
+        id: 'ja-minna-l4-ex12',
+        type: 'multiple-choice',
+        prompt:
+          "Hozirgi/kelasi zamon fe'l inkor shaklini to'g'ri tanlang:\n「日曜日は 働き（　）。」",
+        options: ['ませんでした', 'ます', 'ました', 'ません'],
+        correctAnswer: 3,
+        explanation:
+          "Hozirgi/kelasi zamon bo'lishsiz shakli: 「〜ません」 (Yakshanba kuni ishlamayman).",
+      },
+      {
+        id: 'ja-minna-l4-ex13',
+        type: 'multiple-choice',
+        prompt: "O'tgan zamon tasdiq shaklini to'g'ri tanlang:\n「きのう 勉強し（　）。」",
+        options: ['ました', 'ます', 'ません', 'ませんでした'],
+        correctAnswer: 0,
+        explanation: "O'tgan zamon tasdiq shakli: 「〜ました」 (Kecha dars qildim).",
+      },
+      {
+        id: 'ja-minna-l4-ex14',
+        type: 'multiple-choice',
+        prompt: "O'tgan zamon inkor shaklini to'g'ri tanlang:\n「おととい 働き（　）。」",
+        options: ['ません', 'ました', 'ませんでした', 'ます'],
+        correctAnswer: 2,
+        explanation: "O'tgan zamon inkor shakli: 「〜ませんでした」 (O'tgan kuni ishlamadim).",
+      },
+      {
+        id: 'ja-minna-l4-ex15',
+        type: 'multiple-choice',
+        prompt:
+          "Ikki otni bog'lovchi 'va' yuklamasini tanlang:\n「土曜日[どようび]（　）日曜日[にちようび]は 休みです。」",
+        options: ['と', 'も', 'は', 'に'],
+        correctAnswer: 0,
+        explanation: "Ikki otni 'va' deb bog'lashda 「と」 zarrachasi qo'yiladi (土曜日と 日曜日).",
+      },
+      {
+        id: 'ja-minna-l4-ex16',
+        type: 'multiple-choice',
+        prompt:
+          'Hamdardlik yoki kelishuv bildiruvchi gap yakunini tanlang:\n「毎日[まいにち] 10時[じゅうじ]まで 勉強します。… 大変（　）。」',
+        options: ['ですね', 'ですか', 'でした', 'ません'],
+        correctAnswer: 0,
+        explanation:
+          'Hamdardlik yoki tasdiqlash uchun 「ね」 ishlatiladi: 「大変ですね」 (Qiyin ekan-a!).',
       },
     ],
     test: [
       {
         id: 'ja-minna-l4-q1',
-        question: '【Mondai 1: Moji/Goi】「朝」の 読[よ]み方[かた]は どれですか。',
-        options: ['あさ', 'ひる', 'ばん', 'よる'],
-        correctAnswerIndex: 0,
-        explanation: "「朝」 ning o'qilishi: 「あさ」 (ertalab).",
+        question: '【Mondai 1: Moji/Goi】「銀行」の 読[よ]み方[かた]は どれですか。',
+        options: ['ゆうびんきょく', 'ぎんこう', 'びじゅつかん', 'としょかん'],
+        correctAnswerIndex: 1,
+        explanation: "「銀行」 ning to'g'ri o'qilishi 「ぎんこう」 (bank).",
       },
       {
         id: 'ja-minna-l4-q2',
-        question:
-          '【Mondai 1: Moji/Goi】「べんきょうします」を 漢[かん]字[じ]で どう 書[か]きますか。',
-        options: ['起きます', '勉強します', '寝ます', '働きます'],
-        correctAnswerIndex: 1,
-        explanation: "O'qimoq/o'rganmoq 「勉強します」 deb yoziladi.",
+        question: '【Mondai 1: Moji/Goi】「としょかん」を 漢[かん]字[じ]で どう 書[か]きますか。',
+        options: ['郵便局', '美術館', '図書館', '大使館'],
+        correctAnswerIndex: 2,
+        explanation: '「としょかん」 (kutubxona) iyeroglifda 「図書館」 deb yoziladi.',
       },
       {
         id: 'ja-minna-l4-q3',
-        question:
-          '【Mondai 1: Moji/Goi】「郵便局（ゆうびんきょく）」の 意[い]味[み]は どれですか。',
-        options: ['Bank', 'Kutubxona', 'Pochtaxona', 'Muzey'],
+        question: '【Mondai 1: Moji/Goi】「今朝」の 読[よ]み方[かた]は どれですか。',
+        options: ['こんあさ', 'きょうあさ', 'けさ', 'まいあさ'],
         correctAnswerIndex: 2,
-        explanation: '「郵便局」 - pochtaxona.',
+        explanation: "「今朝」 (bugun ertalab) so'zi maxsus o'qilishga ega: 「けさ」.",
       },
       {
         id: 'ja-minna-l4-q4',
-        question: '【Mondai 2: Bunpo】「わたしは 毎晩 11時（　）寝ます。」',
-        options: ['へ', 'で', 'を', 'に'],
-        correctAnswerIndex: 3,
-        explanation: "Aniq vaqt bilan 「に」 qo'llaniladi.",
+        question: '【Mondai 1: Moji/Goi】「まいばん」を 漢[かん]字[じ]で どう 書[か]きますか。',
+        options: ['毎朝', '毎晩', '毎日', '毎月'],
+        correctAnswerIndex: 1,
+        explanation: '「まいばん」 (har kecha) iyeroglifda 「毎晩」 deb yoziladi.',
       },
       {
         id: 'ja-minna-l4-q5',
-        question: '【Mondai 2: Bunpo】「昼休みは 12時（　）1時までです。」',
-        options: ['から', 'まで', 'に', 'と'],
+        question: '【Mondai 1: Moji/Goi】「休み」の 読[よ]み方[かた]は どれですか。',
+        options: ['やすみ', 'おやすみ', 'ひるやすみ', 'たてもの'],
         correctAnswerIndex: 0,
-        explanation: '12 dan: 「12時から」.',
+        explanation: "「休み」 ning o'qilishi 「やすみ」 (dam olish, ta'til).",
       },
       {
         id: 'ja-minna-l4-q6',
-        question: '【Mondai 2: Bunpo】「きのうの 晩 勉強しましたか。」「いいえ、（　）。」',
-        options: ['勉強しました', '勉強しませんでした', '勉強します', '勉強しません'],
-        correctAnswerIndex: 1,
-        explanation: "O'tgan zamon inkoriga: 「勉強しませんでした」.",
+        question: '【Mondai 1: Moji/Goi】「月曜日」の「月」の 読[よ]み方[かた]は どれですか。',
+        options: ['か', 'すい', 'げつ', 'きん'],
+        correctAnswerIndex: 2,
+        explanation: "「月曜日（げつようび）」 - dushanba. 「月」 bu yerda 「げつ」 deb o'qiladi.",
       },
       {
         id: 'ja-minna-l4-q7',
-        question: '【Mondai 2: Bunpo】「デパートは 何時（　）終わりますか。」',
-        options: ['を', 'で', 'に', 'が'],
-        correctAnswerIndex: 2,
-        explanation: 'Nechida tugaydi: 「何時に 終わりますか」.',
+        question: '【Mondai 2: Bunpou】今[いま]、ニューヨークは 午前[ごぜん] 4時[よじ]（　）。',
+        options: ['です', 'に', 'から', 'まで'],
+        correctAnswerIndex: 0,
+        explanation: 'Hozir Nyu-Yorkda ertalabki soat 4: 「午前4時です」.',
       },
       {
         id: 'ja-minna-l4-q8',
-        question:
-          '【Mondai 3: Dokkai】「カリナさんは 毎朝 7時に 起きます。シャワーを 浴びて、大学へ 行きます。」 Karina har kuni soat nechida turadi?',
-        options: ['9:00 da', '6:00 da', '8:00 da', '7:00 da'],
-        correctAnswerIndex: 3,
-        explanation: '「毎朝 7時に 起きます」.',
+        question: '【Mondai 2: Bunpou】明日[あした]の 朝[あさ] 7時[しちじ]（　）起[お]きます。',
+        options: ['を', 'に', 'で', 'へ'],
+        correctAnswerIndex: 1,
+        explanation:
+          "Aniq vaqtda harakat bajarilganda 「に」 zarrachasi qo'yiladi (7時に 起きます).",
       },
       {
         id: 'ja-minna-l4-q9',
-        question:
-          '【Mondai 3: Dokkai】「図書館は 午前9時から 午後5時までです。土曜日と 日曜日は 休みです。」 Kutubxona qachon dam oladi?',
-        options: ['Shanba va yakshanba', 'Dushanba', 'Juma', 'Har kuni ishlaydi'],
-        correctAnswerIndex: 0,
-        explanation: '「土曜日と 日曜日は 休みです」.',
+        question: '【Mondai 2: Bunpou】わたしは きのう 働[はたら]き（　）。',
+        options: ['ます', 'ません', 'ました', 'ませんでした'],
+        correctAnswerIndex: 2,
+        explanation: "「きのう」 (kecha) o'tgan zamon bo'lgani uchun 「〜ました」 to'g'ri.",
       },
       {
         id: 'ja-minna-l4-q10',
-        question: '【Mondai 4: Kaiwa】A:「そちらは 何時までですか。」 B:「（　）。」',
-        options: [
-          'はい、そうです。',
-          '午後7時までです。',
-          'きのう 終わりました。',
-          'どこも 行きません。',
-        ],
+        question:
+          '【Mondai 2: Bunpou】今朝[けさ] 何時[なんじ]に 起[お]きましたか。… 6時[ろくじ]に （　）。',
+        options: ['起きます', '起きました', '起きません', '起きませんでした'],
         correctAnswerIndex: 1,
-        explanation: "Nechigacha deb so'ralganda: 「午後7時までです」.",
+        explanation:
+          "Savol o'tgan zamonda bo'lgani uchun (何時に 起きましたか), javob ham o'tgan zamonda: 「起きました」.",
+      },
+      {
+        id: 'ja-minna-l4-q11',
+        question: '【Mondai 2: Bunpou】郵便局[ゆうびんきょく]は 9時[くじ]（　）5時[ごじ]までです。',
+        options: ['に', 'で', 'から', 'と'],
+        correctAnswerIndex: 2,
+        explanation: "Boshlanish vaqtini ko'rsatish uchun 「から」 (~dan) ishlatiladi.",
+      },
+      {
+        id: 'ja-minna-l4-q12',
+        question:
+          '【Mondai 2: Bunpou】昼休[ひるやす]みは 12時[じゅうにじ]から 1時[いちじ]（　）です。',
+        options: ['まで', 'に', 'を', 'へ'],
+        correctAnswerIndex: 0,
+        explanation: 'Tugash vaqtini bildirish uchun 「まで」 (~gacha) ishlatiladi.',
+      },
+      {
+        id: 'ja-minna-l4-q13',
+        question:
+          '【Mondai 2: Bunpou】銀行[ぎんこう]の 休[やす]みは 土曜日[どようび]（　）日曜日[にちようび]です。',
+        options: ['と', 'から', 'まで', 'に'],
+        correctAnswerIndex: 0,
+        explanation: "Shanba VA yakshanba: otlarni bog'lovchi 「と」 yuklamasi.",
+      },
+      {
+        id: 'ja-minna-l4-q14',
+        question:
+          '【Mondai 2: Bunpou】昨日の 晩[ばん] 勉強[べんきょう]しましたか。… いいえ、勉強（　）。',
+        options: ['しました', 'しませんでした', 'します', 'しません'],
+        correctAnswerIndex: 1,
+        explanation: "Inkor o'tgan zamon javobi: 「いいえ、勉強しませんでした」.",
+      },
+      {
+        id: 'ja-minna-l4-q15',
+        question:
+          '【Mondai 3: Sentence/Dialogue】A:「そちらは 何時[なんじ]までですか。」B:「（　）。」',
+        options: ['5時までです', '5時からです', '日曜日です', 'ニューヨークです'],
+        correctAnswerIndex: 0,
+        explanation:
+          '「何時までですか」 (Soat nechagacha?) savoliga 「〜時までです」 deb javob qaytariladi.',
+      },
+      {
+        id: 'ja-minna-l4-q16',
+        question:
+          '【Mondai 3: Sentence/Dialogue】A:「毎日[まいにち] 10時[じゅうじ]まで 勉強[べんきょう]します。」B:「（　）。」',
+        options: ['大変[たいへん]ですね', '失礼[しつれい]ですが', 'どういたしまして', 'こちらこそ'],
+        correctAnswerIndex: 0,
+        explanation:
+          'Birovning kechgacha dars qilishini eshitganda hamdardlik bildirish: 「大変ですね」 (Qiyin ekan-a!).',
       },
     ],
   },
@@ -724,174 +1156,280 @@ export const MINNA_N5_QUIZ_DATABASE: Record<number, LessonQuizSet> = {
       {
         id: 'ja-minna-l5-ex1',
         type: 'multiple-choice',
-        prompt:
-          "Harakat yo'nalishi (boradigan joy) zarrachasini tanlang:\n「明日 京都（　）行きます。」",
-        options: ['で', 'へ（え）', 'を', 'に'],
+        prompt: "「行[い]きます」 fe'lining to'g'ri ma'nosi qaysi?",
+        options: ['Kelmoq', 'Bormoq', 'Qaytmoq', 'Uxlash'],
         correctAnswer: 1,
         explanation:
-          "Bormoq, kelmoq, qaytmoq fe'llari bilan yo'nalish zarrachasi 「へ (e)」 qo'yiladi.",
+          "「行きます（いきます）」 - bormoq (harakat so'zlovchidan uzoqlashuvchi yo'nalishda).",
       },
       {
         id: 'ja-minna-l5-ex2',
         type: 'multiple-choice',
-        prompt:
-          'Transport (harakat vositasi) zarrachasini tanlang:\n「飛行機（　）東京へ 行きました。」',
-        options: ['を', 'へ', 'で', 'に'],
-        correctAnswer: 2,
-        explanation: 'Transport vositasi vosita zarrachasi 「で」 bilan keladi.',
+        prompt: "「来[き]ます」 fe'lining to'g'ri ma'nosi qaysi?",
+        options: ['Bormoq', 'Kelmoq', 'Qaytmoq', 'Ketmoq'],
+        correctAnswer: 1,
+        explanation: "「来ます（きます）」 - kelmoq (harakat so'zlovchi turgan tarafga yo'nalgan).",
       },
       {
         id: 'ja-minna-l5-ex3',
         type: 'multiple-choice',
-        prompt:
-          "Piyoda yurishda zarracha ololmaydigan so'zni tanlang:\n「駅まで （　）行きました。」",
-        options: ['タクシーで', '電車で', 'バスで', '歩いて（あるいて）'],
-        correctAnswer: 3,
-        explanation: "「歩いて」 o'zi ravish bo'lib, zarrachasiz qo'llanadi.",
+        prompt: "「帰[かえ]ります」 fe'lining to'g'ri ma'nosi qaysi?",
+        options: ['Bormoq', 'Ishlamoq', "Qaytmoq (uyga yoki o'z vataniga)", 'Dars qilmoq'],
+        correctAnswer: 2,
+        explanation: "「帰ります（かえります）」 - o'zining uyi, shahri yoki vataniga qaytmoq.",
       },
       {
         id: 'ja-minna-l5-ex4',
         type: 'multiple-choice',
         prompt:
-          'Birgalikda boriladigan inson zarrachasini tanlang:\n「家族（　）日本へ 来ました。」',
-        options: ['と', 'で', 'へ', 'を'],
-        correctAnswer: 0,
-        explanation: 'Birov bilan birga harakat qilganda 「と」 ishlatiladi.',
+          "Yo'nalish va boriladigan manzilni bildiruvchi zarrachani tanlang:\n「来週[らいしゅう] 京都[きょうと]（　）行[い]きます。」",
+        options: ['で', 'へ', 'を', 'に'],
+        correctAnswer: 1,
+        explanation:
+          "Harakat yo'nalishi (boradigan joy) uchun 「へ (e deb o'qiladi)」 zarrachasi ishlatiladi.",
       },
       {
         id: 'ja-minna-l5-ex5',
         type: 'multiple-choice',
         prompt:
-          "Hech qayerga bormaslik inkorini to'g'ri tanlang:\n「日曜日は どこ（　）行きませんでした。」",
-        options: ['に', 'へも（も）', 'で', 'と'],
-        correctAnswer: 1,
-        explanation: 'Butunlay inkor qilish uchun 「どこへも / どこも 行きませんでした」 deyiladi.',
+          'Transport vositasini bildiruvchi zarrachani tanlang:\n「電車[でんしゃ]（　）会社[かいしゃ]へ 行[い]きます。」',
+        options: ['で', 'へ', 'を', 'に'],
+        correctAnswer: 0,
+        explanation:
+          'Harakatlanish vositasi (transport) uchun 「で」 zarrachasi ishlatiladi (電車で = poyezdda).',
       },
       {
         id: 'ja-minna-l5-ex6',
         type: 'multiple-choice',
-        prompt: "Vaqt so'rog'ini tanlang:\n「（　）国へ 帰りますか。」「来年です。」",
-        options: ['だれ', 'どこ', 'いつ', 'なん'],
+        prompt: "Quyidagi qaysi holatda 「で」 zarrachasi qo'yilMAYDI?",
+        options: ['バスで', '自転車[じてんしゃ]で', '歩[ある]いて', 'タクシーで'],
         correctAnswer: 2,
-        explanation: "Qachon deb so'rash uchun 「いつ」 ishlatiladi.",
+        explanation:
+          "「歩いて（あるいて）」 - piyoda degani bo'lib, undan keyin 「で」 qo'yilmaydi (xato: 歩いてで).",
       },
       {
         id: 'ja-minna-l5-ex7',
         type: 'multiple-choice',
         prompt:
-          "Yolg'iz o'zi borish iborasini tanlang:\n「わたしは （　）スーパーへ 行きました。」",
-        options: ['ふたりで', 'ともだちと', 'かぞくで', 'ひとりで'],
-        correctAnswer: 3,
-        explanation: "Yolg'iz ma'nosida 「ひとりで」 ishlatiladi.",
+          'Hamrohlik (birgalikda harakat) zarrachasini tanlang:\n「家族[かぞく]（　）日本[にほん]へ 来[き]ました。」',
+        options: ['と', 'へ', 'で', 'を'],
+        correctAnswer: 0,
+        explanation:
+          "Biror kimsa bilan birga harakat qilganda 「と」 qo'yiladi (家族と = oilam bilan).",
       },
       {
         id: 'ja-minna-l5-ex8',
         type: 'multiple-choice',
-        prompt: "Kelasi hafta ma'nosidagi so'zni tanlang:\n「（　）大阪へ 行きます。」",
-        options: ['来週（らいしゅう）', '先週', '今週', '毎朝'],
+        prompt:
+          "«Yolg'iz, bir o'zim» ma'nosidagi to'g'ri iborani tanlang:\n「（　）東京[とうきょう]へ 行[い]きます。」",
+        options: ['一人[ひとり]で', '一人[ひとり]と', '一人[ひとり]へ', '一人[ひとり]に'],
         correctAnswer: 0,
-        explanation: 'Kelasi hafta - 「来週（らいしゅう）」.',
+        explanation:
+          "Yolg'iz, bir o'zi harakat qilganda 「一人で（ひとりで）」 iborasi ishlatiladi (と qo'yilmaydi).",
       },
       {
         id: 'ja-minna-l5-ex9',
         type: 'multiple-choice',
-        prompt: "O'tgan yil ma'nosidagi so'zni tanlang:\n「（　）日本へ 来ました。」",
-        options: ['今年', '去年（きょねん）', '来年', '来月'],
-        correctAnswer: 1,
-        explanation: "O'tgan yil - 「去年（きょねん）」.",
+        prompt:
+          "«Hech qayerga bormayman» jumlasini to'g'ri to'ldiring:\n「日曜日[にちようび]は どこ（　）行[い]きません。」",
+        options: ['へも', 'へ', 'でも', 'とも'],
+        correctAnswer: 0,
+        explanation:
+          "Butunlay inkor qilish uchun so'roq so'ziga 「へも」 qo'shiladi: 「どこへも 行きません」 (yoki どこも 行きません).",
       },
       {
         id: 'ja-minna-l5-ex10',
         type: 'multiple-choice',
-        prompt: "Poezd yo'nalish platformasi so'rog'i:\n「東京行きは （　）番線ですか。」",
-        options: ['どれ', 'どこ', '何（なん）', 'だれ'],
+        prompt:
+          "«Qachon?» so'rog'ini bildiruvchi to'g'ri so'zni tanlang:\n「（　）国[くに]へ 帰[かえ]りますか。」",
+        options: ['だれ', 'いつ', 'どこ', 'なん'],
+        correctAnswer: 1,
+        explanation:
+          "«Qachon?» umumiy vaqt so'rog'i yapon tilida 「いつ」 bo'ladi (orqasidan に qo'yilmaydi).",
+      },
+      {
+        id: 'ja-minna-l5-ex11',
+        type: 'multiple-choice',
+        prompt: "Oyning 1-kuni yapon tilida qanday o'qiladi?",
+        options: ['いちにち', 'ついたち', 'いちじつ', 'ひたち'],
+        correctAnswer: 1,
+        explanation: "Oyning 1-kuni sanasi maxsus istisno o'qilishga ega: 「ついたち」.",
+      },
+      {
+        id: 'ja-minna-l5-ex12',
+        type: 'multiple-choice',
+        prompt: "Oyning 4-kuni yapon tilida qanday o'qiladi?",
+        options: ['よんにち', 'しにち', 'よっか', 'いつか'],
         correctAnswer: 2,
-        explanation: "Nechanchi yo'l (perron): 「何番線（なんばんせん）」.",
+        explanation:
+          'Oyning 4-kuni maxsus istisno: 「よっか」 (yoki 14-kun: じゅうよっか, 24-kun: にじゅうよっか).',
+      },
+      {
+        id: 'ja-minna-l5-ex13',
+        type: 'multiple-choice',
+        prompt: "Oyning 20-kuni yapon tilida qanday o'qiladi?",
+        options: ['にじゅうにち', 'はつか', 'ふつか', 'はつひ'],
+        correctAnswer: 1,
+        explanation: "Oyning 20-kuni alohida an'anaviy o'qilishga ega: 「はつか」.",
+      },
+      {
+        id: 'ja-minna-l5-ex14',
+        type: 'multiple-choice',
+        prompt: "「去年[きょねん]」 so'zining to'g'ri ma'nosi qaysi?",
+        options: ['Kelasi yil', 'Bu yil', "O'tgan yil", 'Har yili'],
+        correctAnswer: 2,
+        explanation:
+          "「去年（きょねん）」 - o'tgan yil. (Bu yil: 今年・ことし, Kelasi yil: 来年・らいねん).",
+      },
+      {
+        id: 'ja-minna-l5-ex15',
+        type: 'multiple-choice',
+        prompt:
+          "Suhbatdosh bilmagan ma'lumotni qat'iy yetkazishda gap oxiriga nima qo'shiladi?\n「この 電車[でんしゃ]は 甲子園[こうしえん]へ 行[い]きません（　）。」",
+        options: ['ね', 'よ', 'か', 'も'],
+        correctAnswer: 1,
+        explanation:
+          "Suhbatdoshga yangi ma'lumot berish va ogohlantirish uchun gap oxiriga 「よ」 qo'shiladi.",
+      },
+      {
+        id: 'ja-minna-l5-ex16',
+        type: 'multiple-choice',
+        prompt: "«Tug'ilgan kuningiz qachon?» jumlasini to'g'ri tuzing:\n「（　）は いつですか。」",
+        options: ['お名前[なまえ]', 'お誕生日[たんじょうび]', 'お国[くに]', 'お仕事[しごと]'],
+        correctAnswer: 1,
+        explanation: "Tug'ilgan kun: 「誕生日（たんじょうび）」. Hurmat shaklida 「お誕生日」.",
       },
     ],
     test: [
       {
         id: 'ja-minna-l5-q1',
-        question: '【Mondai 1: Moji/Goi】「電車」の 読[よ]み方[かた]は どれですか。',
-        options: ['じてんしゃ', 'ひこうき', 'でんしゃ', 'ちかてつ'],
-        correctAnswerIndex: 2,
-        explanation: "「電車」 ning o'qilishi: 「でんしゃ」.",
+        question: '【Mondai 1: Moji/Goi】「飛行機」の 読[よ]み方[かた]は どれですか。',
+        options: ['しんかんせん', 'ひこうき', 'ちかてつ', 'ふね'],
+        correctAnswerIndex: 1,
+        explanation: "「飛行機」 ning to'g'ri o'qilishi 「ひこうき」 (samolyot).",
       },
       {
         id: 'ja-minna-l5-q2',
-        question: '【Mondai 1: Moji/Goi】「いきます」を 漢[かん]字[じ]で どう 書[か]きますか。',
-        options: ['起きます', '来ます', '帰ります', '行きます'],
-        correctAnswerIndex: 3,
-        explanation: 'Bormoq - 「行きます」.',
+        question: '【Mondai 1: Moji/Goi】「ちかてつ」を 漢[かん]字[じ]で どう 書[か]きますか。',
+        options: ['電車', '地下鉄', '新幹線', '自動車'],
+        correctAnswerIndex: 1,
+        explanation: '「ちかてつ」 (metro) iyeroglifda 「地下鉄」 deb yoziladi.',
       },
       {
         id: 'ja-minna-l5-q3',
-        question: '【Mondai 1: Moji/Goi】「自転車（じてんしゃ）」の 意[い]味[み]は どれですか。',
-        options: ['Velosiped', 'Poyezd', 'Kema', 'Taksi'],
-        correctAnswerIndex: 0,
-        explanation: '「自転車」 - velosiped.',
+        question: '【Mondai 1: Moji/Goi】「来月」の 読[よ]み方[かた]は どれですか。',
+        options: ['こんげつ', 'せんげつ', 'まいげつ', 'らいげつ'],
+        correctAnswerIndex: 3,
+        explanation: "「来月」 (kelasi oy) ning o'qilishi 「らいげつ」.",
       },
       {
         id: 'ja-minna-l5-q4',
-        question: '【Mondai 2: Bunpo】「わたしは タクシー（　）うちへ 帰ります。」',
-        options: ['へ', 'で', 'を', 'に'],
+        question: '【Mondai 1: Moji/Goi】「ともだち」を 漢[かん]字[じ]で どう 書[か]きますか。',
+        options: ['家族', '友達', '先生', '学生'],
         correctAnswerIndex: 1,
-        explanation: 'Taksida (transport vositasi): 「タクシーで」.',
+        explanation: "「ともだち」 (do'st) iyeroglifda 「友達」 deb yoziladi.",
       },
       {
         id: 'ja-minna-l5-q5',
-        question: '【Mondai 2: Bunpo】「だれ（　）病院へ 行きましたか。」「友達と 行きました。」',
-        options: ['へ', 'で', 'と', 'を'],
-        correctAnswerIndex: 2,
-        explanation: 'Kim bilan: 「だれと」.',
+        question: '【Mondai 1: Moji/Goi】「8日」の 読[よ]み方[かた]は どれですか。',
+        options: ['ようか', 'なのか', 'むいか', 'いつか'],
+        correctAnswerIndex: 0,
+        explanation: 'Oyning 8-kuni: 「ようか」. (7-kun: なのか, 6-kun: むいか).',
       },
       {
         id: 'ja-minna-l5-q6',
-        question: '【Mondai 2: Bunpo】「山田さんは 来月 日本（　）来ます。」',
-        options: ['から', 'で', 'を', 'へ'],
-        correctAnswerIndex: 3,
-        explanation: 'Yaponiyaga keladi: 「日本へ 来ます」.',
+        question: '【Mondai 1: Moji/Goi】「14日」の 読[よ]み方[かた]は どれですか。',
+        options: ['じゅうよんにち', 'じゅうよっか', 'じゅうしにち', 'じゅういつか'],
+        correctAnswerIndex: 1,
+        explanation: "14-kun maxsus shaklda 「じゅうよっか」 deb o'qiladi.",
       },
       {
         id: 'ja-minna-l5-q7',
-        question:
-          '【Mondai 2: Bunpo】「先週 どこへ 行きましたか。」「どこ（　）行きませんでした。」',
-        options: ['へも', 'で', 'に', 'と'],
+        question: '【Mondai 2: Bunpou】明日[あした] 東京[とうきょう]（　）行[い]きます。',
+        options: ['へ', 'で', 'を', 'から'],
         correctAnswerIndex: 0,
-        explanation: 'Hech qayerga bormadim: 「どこへも 行きませんでした」.',
+        explanation: "Boriladigan joy yoki manzil uchun 「へ」 qo'yiladi.",
       },
       {
         id: 'ja-minna-l5-q8',
-        question:
-          '【Mondai 3: Dokkai】「ミラーさんは 去年の 10月に アメリカから 日本へ 来ました。新幹線で 京都へ 行きました。」 Miller qachon va qayerdan Yaponiyaga kelgan?',
-        options: [
-          'Bu yili noyabrda, Germaniyadan',
-          "O'tgan yili oktyabrda, Amerikadan",
-          "O'tgan oyda, Angliyadan",
-          "O'tgan yili, Yaponiyadan",
-        ],
-        correctAnswerIndex: 1,
-        explanation: '「去年の 10月に アメリカから 日本へ 来ました」.',
+        question: '【Mondai 2: Bunpou】駅[えき]まで 歩[ある]いて（　）行[い]きました。',
+        options: ['で', 'へ', 'を', '（何も入らない）'],
+        correctAnswerIndex: 3,
+        explanation: "「歩いて」 (piyoda) so'zidan keyin transport zarrachasi 「で」 qo'yilmaydi.",
       },
       {
         id: 'ja-minna-l5-q9',
-        question:
-          '【Mondai 3: Dokkai】「サントスさんは 自転車で 会社へ 行きます。歩いて 15分です。」 Santos ishga nima bilan boradi?',
-        options: ['Piyoda', 'Avtobusda', 'Velosipedda', 'Poyezdda'],
-        correctAnswerIndex: 2,
-        explanation: '「自転車で 会社へ 行きます」.',
+        question: '【Mondai 2: Bunpou】新幹線[しんかんせん]（　）大阪[おおさか]へ 行[い]きます。',
+        options: ['で', 'へ', 'と', 'に'],
+        correctAnswerIndex: 0,
+        explanation: "Tezyurar poyezd transport vositasi bo'lgani sababli 「で」 qo'yiladi.",
       },
       {
         id: 'ja-minna-l5-q10',
-        question: '【Mondai 4: Kaiwa】A:「京都まで どうやって 行きますか。」 B:「（　）。」',
+        question:
+          '【Mondai 2: Bunpou】だれ（　）日本[にほん]へ 来[き]ましたか。… 家族[かぞく]と 来[き]ました。',
+        options: ['と', 'で', 'へ', 'も'],
+        correctAnswerIndex: 0,
+        explanation: "«Kim bilan?» so'rog'i uchun 「だれと」 zarrachasi to'g'ri.",
+      },
+      {
+        id: 'ja-minna-l5-q11',
+        question: '【Mondai 2: Bunpou】きのう どこ（　）行[い]きませんでした。',
+        options: ['へも', 'へ', 'で', 'と'],
+        correctAnswerIndex: 0,
+        explanation: '«Hech qayerga bormadim»: 「どこへも 行きませんでした」.',
+      },
+      {
+        id: 'ja-minna-l5-q12',
+        question:
+          '【Mondai 2: Bunpou】（　）日本[にほん]へ 来[き]ましたか。… 3月[さんがつ]に 来[き]ました。',
+        options: ['いつ', 'どこ', 'だれ', 'なん'],
+        correctAnswerIndex: 0,
+        explanation: "Vaqtni so'rashda 「いつ」 (Qachon?) so'roq so'zi qo'llaniladi.",
+      },
+      {
+        id: 'ja-minna-l5-q13',
+        question: '【Mondai 2: Bunpou】わたしの 誕生[たんじょう]日[び]は 6月[ろくがつ]（　）です。',
+        options: ['10日[とおか]', '10日[じゅうにち]', '10日[とうか]', '10日[じゅうがつ]'],
+        correctAnswerIndex: 0,
+        explanation: "Oyning 10-kuni yapon tilida 「とおか」 deb o'qiladi.",
+      },
+      {
+        id: 'ja-minna-l5-q14',
+        question:
+          '【Mondai 2: Bunpou】甲子園[こうしえん]まで 何番[なんばん]線[せん]ですか。… 5番線（　）。',
+        options: ['ですよ', 'ですね', 'でした', 'ません'],
+        correctAnswerIndex: 0,
+        explanation:
+          "Suhbatdoshga bilmagan platforma raqamini ma'lum qilishda 「〜ですよ」 to'g'ri.",
+      },
+      {
+        id: 'ja-minna-l5-q15',
+        question:
+          '【Mondai 3: Sentence/Dialogue】A:「いつ 国[くに]へ 帰[かえ]りますか。」B:「（　）。」',
         options: [
-          'はい、行きます。',
-          'あした 行きます。',
-          '友達と 行きます。',
-          '新幹線で 行きます。',
+          '来週[らいしゅう] 帰[かえ]ります',
+          '飛行機[ひこうき]で 帰ります',
+          '友達[ともだち]と 帰ります',
+          '一人[ひとり]で 帰ります',
         ],
-        correctAnswerIndex: 3,
-        explanation: 'Transport aytiladi: 「新幹線で 行きます」.',
+        correctAnswerIndex: 0,
+        explanation:
+          "«いつ» (Qachon?) savoliga vaqt bildiruvchi so'z bilan javob beriladi: 「来週 帰ります」.",
+      },
+      {
+        id: 'ja-minna-l5-q16',
+        question:
+          '【Mondai 3: Sentence/Dialogue】A:「タクシーで 行[い]きますか。」B:「いいえ、（　）。」',
+        options: [
+          '電車[でんしゃ]で 行[い]きます',
+          '京都[きょうと]へ 行きます',
+          'あした 行きます',
+          '家族[かぞく]と 行きます',
+        ],
+        correctAnswerIndex: 0,
+        explanation:
+          '«Taksida borasizmi?» degan transport savoliga rad javobidan keyin boshqa transport keltiriladi: 「いいえ、電車で行きます」.',
       },
     ],
   },

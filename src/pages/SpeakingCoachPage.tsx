@@ -16,7 +16,7 @@ import {
 import { useStudyData } from '../context/StudyPlannerContext';
 import { ErrorVaultService } from '../services/ErrorVaultService';
 import { MasteryEngine } from '../services/MasteryEngine';
-import { isAdminEmail, isSuperAdmin } from '../utils/admin';
+import { isSuperAdmin, isUserAdmin } from '../utils/admin';
 import { toast } from '../hooks/use-toast';
 import { useSEO } from '../hooks/useSEO';
 import SessionReportModal from '../components/speaking/SessionReportModal';
@@ -154,8 +154,8 @@ const SpeakingCoachPage: React.FC = () => {
     flashcards,
     updateFlashcard,
   } = useStudyData();
-  const isAdmin = isAdminEmail(user?.email);
-  const isSuper = isSuperAdmin(user?.email);
+  const isAdmin = isUserAdmin(user);
+  const isSuper = isSuperAdmin(user?.email, (user as any)?.role);
 
   // Clean up any legacy cards that contain "🎙️ Manba:" to keep cards clean and distraction-free
   const hasCleanedLegacyCardsRef = useRef(false);

@@ -3,7 +3,7 @@ import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Button } from '../components/ui/Button';
 import { useStudyData } from '../context/StudyPlannerContext';
-import { isAdminEmail } from '../utils/admin';
+import { isUserAdmin } from '../utils/admin';
 import { Flashcard } from '../types';
 import {
   Rating,
@@ -26,7 +26,7 @@ const StudyModePage: React.FC = () => {
 
   const { user, flashcards, subjects, reviewFlashcard, updateFlashcard, deleteFlashcard, loading } =
     useStudyData();
-  const isAdmin = isAdminEmail(user?.email);
+  const isAdmin = isUserAdmin(user);
   const { haptics } = useTelegramWebApp();
 
   const [queue, setQueue] = useState<Flashcard[]>([]);

@@ -5,6 +5,7 @@ import { registerSW } from 'virtual:pwa-register';
 import { initErrorTracking } from './lib/errorTracking';
 import { installConsoleShield } from './lib/consoleFilter';
 import { FlashcardOfflineSync } from './services/FlashcardOfflineSync';
+import { VersionUpdateService } from './services/VersionUpdateService';
 
 import './index.css';
 
@@ -17,7 +18,11 @@ initErrorTracking();
 // Offline-first fleshkartalar avtomatik sinxronizatsiyasi
 FlashcardOfflineSync.initAutoSync();
 
-// PWA service worker-ni ro'yxatdan o'tkazish va avtomatik yangilash (kesh tiqilib qolishini oldini olish)
+// Real-time kesh tozalash va yangi versiyani kuzatish xizmatlarini ishga tushirish
+VersionUpdateService.startPeriodicCheck(30000);
+VersionUpdateService.setupChunkErrorRecovery();
+
+// PWA service worker-ni ro'yxatdan o'tkazish va avtomatik yangilash
 let isRefreshing = false;
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.addEventListener('controllerchange', () => {
@@ -28,32 +33,22 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-const updateSW = registerSW({
+registerSW({
   immediate: true,
   onRegisteredSW(_swUrl, registration) {
     if (registration) {
-      // 1. Dastlabki kirganda yangilanishni darhol tekshirish
       registration.update().catch(() => {});
-
-      // 2. Har 60 soniyada yangi deploy borligini tekshirish
       setInterval(() => {
         registration.update().catch(() => {});
-      }, 60 * 1000);
-
-      // 3. Foydalanuvchi ilovaga qaytganida (tab active bo'lganda) tekshirish
-      document.addEventListener('visibilitychange', () => {
-        if (document.visibilityState === 'visible') {
-          registration.update().catch(() => {});
-        }
-      });
+      }, 30 * 1000);
     }
   },
   onNeedRefresh() {
-    console.info('[PWA] Yangi versiya aniqlandi, avtomatik o‘rnatilmoqda...');
-    updateSW(true);
+    console.info('[PWA] Yangi versiya aniqlandi, kesh tozalab avtomatik o‘rnatilmoqda...');
+    VersionUpdateService.applyUpdate();
   },
   onRegisterError(error) {
-    console.warn('[PWA] ServiceWorker registration ignored:', error);
+    console.warn('[PWA] ServiceWorker registration warning:', error);
   },
 });
 
@@ -63,13 +58,7 @@ window.addEventListener('vite:preloadError', async (event) => {
   console.warn(
     '[Vite] Dynamic import preload error detected. Keshlarni tozalab qayta yuklanmoqda...',
   );
-  if ('caches' in window) {
-    try {
-      const keys = await caches.keys();
-      await Promise.all(keys.map((k) => caches.delete(k)));
-    } catch {}
-  }
-  window.location.reload();
+  await VersionUpdateService.applyUpdate();
 });
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

@@ -28,7 +28,16 @@ import {
 } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { useNavigate } from 'react-router-dom';
-import { isAdminEmail, isSuperAdmin, grantAdminRole, revokeAdminRole } from '../utils/admin';
+import {
+  isAdminEmail,
+  isSuperAdmin,
+  isUserAdmin,
+  grantAdminRole,
+  revokeAdminRole,
+  SUPER_ADMIN_EMAIL,
+  getAdminAuditLogs,
+  AdminAuditLogEntry,
+} from '../utils/admin';
 import { UserNotificationService } from '../services/UserNotificationService';
 import { AdminAiCardCleanerModal } from '../components/decks/AdminAiCardCleanerModal';
 import { AdminScenarioManager } from '../components/admin/AdminScenarioManager';
@@ -45,6 +54,8 @@ interface UserRecord {
   role?: string;
   created_at: string;
   last_sign_in_at?: string;
+  admin_assigned_by?: string;
+  admin_assigned_at?: string;
 }
 
 interface UserAggregatedStats {
@@ -84,19 +95,38 @@ export interface DatabaseResourceMetrics {
   profiles: number;
 }
 
-const RoleBadge: React.FC<{ role?: string; email?: string }> = ({ role, email }) => {
+const RoleBadge: React.FC<{
+  role?: string;
+  email?: string;
+  assignedBy?: string;
+  assignedAt?: string;
+}> = ({ role, email, assignedBy, assignedAt }) => {
   if (isSuperAdmin(email) || role === 'superadmin') {
     return (
-      <span className="inline-flex shrink-0 items-center gap-1 rounded-full border border-[#C9A961]/30 bg-[#C9A961]/15 px-2.5 py-0.5 text-[10px] font-black uppercase tracking-wider text-[#C9A961]">
-        👑 Superadmin
-      </span>
+      <div className="flex flex-col items-start gap-0.5">
+        <span className="inline-flex shrink-0 items-center gap-1 rounded-full border border-[#C9A961]/30 bg-[#C9A961]/15 px-2.5 py-0.5 text-[10px] font-black uppercase tracking-wider text-[#C9A961]">
+          👑 Superadmin
+        </span>
+        <span className="text-[9px] text-[#C9A961]/80">Asosiy Boshqaruvchi</span>
+      </div>
     );
   }
   if (role === 'admin' || isAdminEmail(email)) {
     return (
-      <span className="inline-flex shrink-0 items-center gap-1 rounded-full border border-primary/25 bg-primary/10 px-2.5 py-0.5 text-[10px] font-black uppercase tracking-wider text-primary">
-        🛡️ Admin
-      </span>
+      <div className="flex flex-col items-start gap-0.5">
+        <span className="inline-flex shrink-0 items-center gap-1 rounded-full border border-primary/25 bg-primary/10 px-2.5 py-0.5 text-[10px] font-black uppercase tracking-wider text-primary">
+          🛡️ Admin
+        </span>
+        {assignedBy && (
+          <span
+            className="text-[9px] text-muted-foreground"
+            title={assignedAt ? `Tayinlangan: ${new Date(assignedAt).toLocaleString()}` : undefined}
+          >
+            Tayinlagan:{' '}
+            <span className="font-mono text-foreground/80">{assignedBy.split('@')[0]}</span>
+          </span>
+        )}
+      </div>
     );
   }
   return (
@@ -224,6 +254,31 @@ export default function AdminDashboardPage() {
   const [msgTitle, setMsgTitle] = useState('🎁 Maxsus Xabar');
   const [msgContent, setMsgContent] = useState('');
   const [sendingMsg, setSendingMsg] = useState(false);
+
+  // Admin Assignment Dialog State
+  const [assignAdminModalOpen, setAssignAdminModalOpen] = useState(false);
+  const [assignAdminEmailInput, setAssignAdminEmailInput] = useState('');
+  const [assigningAdmin, setAssigningAdmin] = useState(false);
+
+  // Admin Action Confirmation Dialog State (Grant / Revoke)
+  const [confirmActionModal, setConfirmActionModal] = useState<{
+    isOpen: boolean;
+    type: 'grant' | 'revoke';
+    targetEmail: string;
+    targetId?: string;
+    targetName?: string;
+    loading: boolean;
+  }>({
+    isOpen: false,
+    type: 'grant',
+    targetEmail: '',
+    loading: false,
+  });
+
+  // Admin Audit Logs Modal State
+  const [auditModalOpen, setAuditModalOpen] = useState(false);
+  const [auditLogs, setAuditLogs] = useState<AdminAuditLogEntry[]>([]);
+  const [loadingAuditLogs, setLoadingAuditLogs] = useState(false);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -426,6 +481,8 @@ export default function AdminDashboardPage() {
               : u.role || 'user',
           created_at: u.created_at || new Date().toISOString(),
           last_sign_in_at: u.last_sign_in_at || u.last_sign_in,
+          admin_assigned_by: u.admin_assigned_by,
+          admin_assigned_at: u.admin_assigned_at,
         }));
       } else {
         newStatus.rpcUsers = {
@@ -448,9 +505,37 @@ export default function AdminDashboardPage() {
                 : u.role || 'user',
             created_at: u.created_at || new Date().toISOString(),
             last_sign_in_at: u.updated_at,
+            admin_assigned_by: u.admin_assigned_by,
+            admin_assigned_at: u.admin_assigned_at,
           }));
         }
       }
+
+      // Enrich loaded users with profiles attribution if not already present
+      try {
+        const { data: profRows } = await supabase
+          .from('profiles')
+          .select('id, email, role, admin_assigned_by, admin_assigned_at');
+        if (Array.isArray(profRows) && profRows.length > 0) {
+          const profIdMap = new Map(profRows.map((p) => [p.id, p]));
+          const profEmailMap = new Map(
+            profRows.filter((p) => p.email).map((p) => [p.email.toLowerCase(), p]),
+          );
+          loadedUsers = loadedUsers.map((u) => {
+            const p =
+              profIdMap.get(u.id) || (u.email ? profEmailMap.get(u.email.toLowerCase()) : null);
+            if (p) {
+              return {
+                ...u,
+                role: u.role === 'superadmin' ? 'superadmin' : p.role || u.role,
+                admin_assigned_by: p.admin_assigned_by || u.admin_assigned_by,
+                admin_assigned_at: p.admin_assigned_at || u.admin_assigned_at,
+              };
+            }
+            return u;
+          });
+        }
+      } catch {}
     } catch (uErr: any) {
       newStatus.rpcUsers = { ok: false, count: 0, error: uErr?.message || 'RPC exception' };
     }
@@ -836,37 +921,52 @@ export default function AdminDashboardPage() {
   );
 
   useEffect(() => {
-    if (user?.email) {
-      setAuthEmail(user.email);
-      setAuthRole(
-        (
-          (
-            user as {
-              role?: string;
-              user_metadata?: { role?: string };
-              app_metadata?: { role?: string };
-            }
-          )?.role ||
-          (user as { user_metadata?: { role?: string } })?.user_metadata?.role ||
-          (user as { app_metadata?: { role?: string } })?.app_metadata?.role
-        )?.toLowerCase(),
-      );
-    } else {
-      supabase.auth
-        .getUser()
-        .then(({ data }) => {
-          if (data?.user?.email) {
-            setAuthEmail(data.user.email);
-            setAuthRole(
-              (data.user.user_metadata?.role || data.user.app_metadata?.role)?.toLowerCase(),
-            );
+    const resolveAdminRole = async () => {
+      let email = user?.email;
+      let rawRole = (user as any)?.role;
+      let metaRole = (user as any)?.user_metadata?.role || (user as any)?.app_metadata?.role;
+      let resolvedRole = rawRole && rawRole !== 'authenticated' ? rawRole : undefined;
+      resolvedRole = resolvedRole || metaRole;
+
+      if (!email) {
+        try {
+          const { data } = await supabase.auth.getUser();
+          if (data?.user) {
+            email = data.user.email;
+            metaRole = data.user.user_metadata?.role || data.user.app_metadata?.role;
+            resolvedRole = metaRole || (data.user as any).role;
+            if (resolvedRole === 'authenticated') resolvedRole = metaRole;
           }
-        })
-        .catch(() => {});
-    }
+        } catch {}
+      }
+
+      if (email) {
+        setAuthEmail(email);
+        // If role not resolved yet, check profiles table
+        if (!resolvedRole || resolvedRole === 'authenticated') {
+          try {
+            const uid = user?.id || (await supabase.auth.getUser()).data?.user?.id;
+            if (uid) {
+              const { data: prof } = await supabase
+                .from('profiles')
+                .select('role')
+                .eq('id', uid)
+                .single();
+              if (prof?.role) resolvedRole = prof.role;
+            }
+          } catch {}
+        }
+        if (resolvedRole && resolvedRole !== 'authenticated') {
+          setAuthRole(resolvedRole.toLowerCase());
+        }
+      }
+    };
+    resolveAdminRole();
   }, [user]);
 
-  const isAuthorized = Boolean(authEmail && isAdminEmail(authEmail, authRole));
+  const isAuthorized = Boolean(
+    authEmail && (isAdminEmail(authEmail, authRole) || isUserAdmin(user)),
+  );
 
   useEffect(() => {
     let isMounted = true;
@@ -1030,8 +1130,14 @@ export default function AdminDashboardPage() {
     }
   };
 
-  const handleToggleAdmin = async (targetEmail: string, targetRole?: string) => {
-    if (!isSuperAdmin(user?.email)) {
+  const handleOpenConfirmModal = (
+    type: 'grant' | 'revoke',
+    targetEmail: string,
+    targetRole?: string,
+    targetId?: string,
+    targetName?: string,
+  ) => {
+    if (!isSuperAdmin(user?.email, authRole || (user as any)?.role)) {
       toast({
         variant: 'destructive',
         title: 'Ruxsat Cheklangan',
@@ -1039,7 +1145,7 @@ export default function AdminDashboardPage() {
       });
       return;
     }
-    if (isSuperAdmin(targetEmail)) {
+    if (isSuperAdmin(targetEmail, targetRole)) {
       toast({
         variant: 'destructive',
         title: 'Taqiqlangan',
@@ -1047,36 +1153,147 @@ export default function AdminDashboardPage() {
       });
       return;
     }
-    if (isAdminEmail(targetEmail, targetRole)) {
-      const success = await revokeAdminRole(targetEmail);
-      if (success) {
-        toast({
-          title: '🛡️ Adminlik Bekor Qilindi',
-          description: `${targetEmail} adminlikdan chiqarildi.`,
-        });
+    setConfirmActionModal({
+      isOpen: true,
+      type,
+      targetEmail,
+      targetId,
+      targetName,
+      loading: false,
+    });
+  };
+
+  const executeConfirmedAdminAction = async () => {
+    if (!confirmActionModal.targetEmail) return;
+    setConfirmActionModal((prev) => ({ ...prev, loading: true }));
+    try {
+      const actorEmail = user?.email || SUPER_ADMIN_EMAIL;
+      if (confirmActionModal.type === 'revoke') {
+        const success = await revokeAdminRole(
+          confirmActionModal.targetEmail,
+          confirmActionModal.targetId,
+          actorEmail,
+        );
+        if (success) {
+          toast({
+            title: '🛡️ Adminlik Bekor Qilindi',
+            description: `${confirmActionModal.targetEmail} adminlikdan chiqarildi.`,
+          });
+          setConfirmActionModal({ isOpen: false, type: 'revoke', targetEmail: '', loading: false });
+          await fetchAdminData();
+        } else {
+          toast({
+            variant: 'destructive',
+            title: 'Xatolik',
+            description: `${confirmActionModal.targetEmail} adminlikni bekor qilishda xatolik yuz berdi.`,
+          });
+          setConfirmActionModal((prev) => ({ ...prev, loading: false }));
+        }
       } else {
-        toast({
-          variant: 'destructive',
-          title: 'Xatolik',
-          description: `${targetEmail} adminlikni bekor qilishda xatolik yuz berdi.`,
-        });
+        const success = await grantAdminRole(
+          confirmActionModal.targetEmail,
+          confirmActionModal.targetId,
+          actorEmail,
+        );
+        if (success) {
+          toast({
+            title: '🛡️ Admin Roli Berildi',
+            description: `${confirmActionModal.targetEmail} ga Admin roli muvaffaqiyatli berildi!`,
+          });
+          setConfirmActionModal({ isOpen: false, type: 'grant', targetEmail: '', loading: false });
+          await fetchAdminData();
+        } else {
+          toast({
+            variant: 'destructive',
+            title: 'Xatolik',
+            description: `${confirmActionModal.targetEmail} ga admin roli berishda xatolik yuz berdi.`,
+          });
+          setConfirmActionModal((prev) => ({ ...prev, loading: false }));
+        }
       }
-    } else {
-      const success = await grantAdminRole(targetEmail);
+    } catch (e: any) {
+      toast({
+        variant: 'destructive',
+        title: 'Xatolik',
+        description: e?.message || 'Amalni bajarishda xatolik yuz berdi.',
+      });
+      setConfirmActionModal((prev) => ({ ...prev, loading: false }));
+    }
+  };
+
+  const handleOpenAuditModal = async () => {
+    setAuditModalOpen(true);
+    setLoadingAuditLogs(true);
+    try {
+      const logs = await getAdminAuditLogs();
+      setAuditLogs(logs);
+    } catch {
+      setAuditLogs([]);
+    } finally {
+      setLoadingAuditLogs(false);
+    }
+  };
+
+  const handleToggleAdmin = (targetEmail: string, targetRole?: string, targetId?: string) => {
+    const isCurrentlyAdmin = isAdminEmail(targetEmail, targetRole);
+    handleOpenConfirmModal(
+      isCurrentlyAdmin ? 'revoke' : 'grant',
+      targetEmail,
+      targetRole,
+      targetId,
+    );
+  };
+
+  const handleAssignAdminByEmail = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const emailToAssign = assignAdminEmailInput.trim();
+    if (!emailToAssign) {
+      toast({
+        variant: 'destructive',
+        title: 'Xatolik',
+        description: 'Iltimos, email manzilini kiriting.',
+      });
+      return;
+    }
+    if (isSuperAdmin(emailToAssign)) {
+      toast({
+        variant: 'destructive',
+        title: 'Taqiqlangan',
+        description: 'Ushbu foydalanuvchi allaqachon Super Admin.',
+      });
+      return;
+    }
+    setAssigningAdmin(true);
+    try {
+      const matchedUser = usersList.find(
+        (u) => u.email?.toLowerCase() === emailToAssign.toLowerCase(),
+      );
+      const actorEmail = user?.email || SUPER_ADMIN_EMAIL;
+      const success = await grantAdminRole(emailToAssign, matchedUser?.id, actorEmail);
       if (success) {
         toast({
           title: '🛡️ Admin Roli Berildi',
-          description: `${targetEmail} ga Admin roli muvaffaqiyatli berildi!`,
+          description: `${emailToAssign} muvaffaqiyatli Admin etib tayinlandi!`,
         });
+        setAssignAdminEmailInput('');
+        setAssignAdminModalOpen(false);
+        await fetchAdminData();
       } else {
         toast({
           variant: 'destructive',
           title: 'Xatolik',
-          description: `${targetEmail} ga admin roli berishda xatolik yuz berdi.`,
+          description: `${emailToAssign} ga admin roli berishda xatolik yuz berdi.`,
         });
       }
+    } catch (err: any) {
+      toast({
+        variant: 'destructive',
+        title: 'Xatolik',
+        description: err?.message || 'Kutilmagan xatolik yuz berdi.',
+      });
+    } finally {
+      setAssigningAdmin(false);
     }
-    await fetchAdminData();
   };
 
   const exportUsersToCSV = () => {
@@ -1329,6 +1546,31 @@ export default function AdminDashboardPage() {
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-2 self-start sm:self-auto">
+          {isSuperAdmin(user?.email, authRole || (user as any)?.role) ? (
+            <>
+              <button
+                onClick={() => setAssignAdminModalOpen(true)}
+                className="flex min-h-[36px] cursor-pointer items-center gap-1.5 rounded-xl border border-primary/30 bg-primary/10 px-3 py-1.5 text-xs font-bold text-primary transition-colors hover:bg-primary/20"
+                title={isJa ? '管理者を指名' : 'Yangi admin tayinlash'}
+              >
+                <ShieldCheck size={14} className="text-primary" />{' '}
+                {isJa ? '管理者指名' : 'Admin Tayinlash'}
+              </button>
+              <button
+                onClick={handleOpenAuditModal}
+                className="flex min-h-[36px] cursor-pointer items-center gap-1.5 rounded-xl border border-border bg-muted px-3 py-1.5 text-xs font-bold text-foreground transition-colors hover:bg-muted/80"
+                title={isJa ? '管理者権限変更ログ' : 'Adminlar tayinlash va bekor qilish tarixi'}
+              >
+                <Clock size={14} className="text-primary" />{' '}
+                {isJa ? '管理者履歴' : 'Adminlar Tarixi'}
+              </button>
+            </>
+          ) : (
+            <div className="flex min-h-[36px] items-center gap-1.5 rounded-xl border border-primary/20 bg-primary/5 px-3 py-1.5 text-xs font-medium text-primary">
+              <ShieldCheck size={14} />
+              <span>{isJa ? '管理者権限' : 'Admin Vakolati'}</span>
+            </div>
+          )}
           <button
             onClick={() => setIsBroadcastOpen(true)}
             className="flex min-h-[36px] cursor-pointer items-center gap-1.5 rounded-xl border border-border bg-muted px-3 py-1.5 text-xs font-bold text-foreground transition-colors hover:bg-muted/80"
@@ -1868,6 +2110,18 @@ export default function AdminDashboardPage() {
               </div>
             )}
 
+            {/* Superadmin vs Regular Admin notice banner */}
+            {!isSuperAdmin(user?.email, authRole || (user as any)?.role) && (
+              <div className="mx-4 mt-3 flex items-center gap-2 rounded-xl border border-primary/20 bg-primary/5 p-3 text-xs text-primary">
+                <ShieldCheck size={16} className="shrink-0 text-primary" />
+                <span>
+                  {isJa
+                    ? '注意: あなたは管理者権限でログインしています。新規管理者の指名や権限解除はスーパー管理者 (fsoyilov@gmail.com) のみ実行可能です。'
+                    : 'Eslatma: Siz Admin vakolati bilan tizimdasiz. Yangi admin tayinlash yoki adminlikni bekor qilish faqat Super Admin (fsoyilov@gmail.com) vakolatida.'}
+                </span>
+              </div>
+            )}
+
             <div className="-mx-3 overflow-x-auto px-3 sm:mx-0 sm:px-0">
               <table className="w-full min-w-[640px] text-left text-xs">
                 <thead className="border-b border-border bg-muted/50 font-semibold text-muted-foreground">
@@ -1906,7 +2160,12 @@ export default function AdminDashboardPage() {
                             </div>
                           </td>
                           <td className="p-3">
-                            <RoleBadge role={u.role} email={u.email} />
+                            <RoleBadge
+                              role={u.role}
+                              email={u.email}
+                              assignedBy={u.admin_assigned_by}
+                              assignedAt={u.admin_assigned_at}
+                            />
                           </td>
                           <td className="p-3">
                             {stat && stat.totalSessions > 0 ? (
@@ -1982,22 +2241,27 @@ export default function AdminDashboardPage() {
                               >
                                 {isJa ? 'メッセージ' : 'Xabar'}
                               </Button>
-                              {isSuperAdmin(user?.email) && !isSuperAdmin(u.email) && (
-                                <Button
-                                  size="sm"
-                                  variant="ghost"
-                                  onClick={() => handleToggleAdmin(u.email, u.role)}
-                                  className="h-7 px-2 text-[11px] text-muted-foreground hover:text-foreground"
-                                >
-                                  {isJa
-                                    ? isAdminEmail(u.email, u.role)
-                                      ? '管理者権限解除'
-                                      : '管理者付与'
-                                    : isAdminEmail(u.email, u.role)
-                                      ? 'Adminlikni olish'
-                                      : 'Admin qilish'}
-                                </Button>
-                              )}
+                              {isSuperAdmin(user?.email, authRole || (user as any)?.role) &&
+                                !isSuperAdmin(u.email, u.role) && (
+                                  <Button
+                                    size="sm"
+                                    variant="ghost"
+                                    onClick={() => handleToggleAdmin(u.email, u.role, u.id)}
+                                    className={`h-7 px-2 text-[11px] font-semibold transition-colors ${
+                                      isAdminEmail(u.email, u.role)
+                                        ? 'text-red-400 hover:bg-red-500/15 hover:text-red-300'
+                                        : 'text-primary hover:bg-primary/10'
+                                    }`}
+                                  >
+                                    {isJa
+                                      ? isAdminEmail(u.email, u.role)
+                                        ? '管理者権限解除'
+                                        : '管理者付与'
+                                      : isAdminEmail(u.email, u.role)
+                                        ? 'Adminlikni olish'
+                                        : 'Admin qilish'}
+                                  </Button>
+                                )}
                             </div>
                           </td>
                         </tr>
@@ -2408,6 +2672,325 @@ export default function AdminDashboardPage() {
               </Button>
               <Button onClick={handleSendMsg} disabled={sendingMsg} className="flex-1 text-xs">
                 Yuborish
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Assign Admin Modal */}
+      {assignAdminModalOpen && (
+        <div
+          className="backdrop-blur-xs fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4"
+          onClick={() => {
+            if (!assigningAdmin) setAssignAdminModalOpen(false);
+          }}
+        >
+          <div
+            className="w-full max-w-md space-y-4 rounded-2xl border border-border bg-card p-5 shadow-xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between border-b border-border pb-3">
+              <div className="flex items-center gap-2">
+                <ShieldCheck size={18} className="text-primary" />
+                <h3 className="text-sm font-bold text-foreground">
+                  {isJa ? '管理者権限の付与' : 'Yangi Admin Tayinlash'}
+                </h3>
+              </div>
+              <button
+                onClick={() => setAssignAdminModalOpen(false)}
+                disabled={assigningAdmin}
+                className="cursor-pointer rounded-lg p-1 text-muted-foreground hover:bg-muted hover:text-foreground"
+              >
+                <X size={16} />
+              </button>
+            </div>
+
+            <p className="text-xs text-muted-foreground">
+              {isJa
+                ? '登録済みユーザーのメールアドレスを指定して管理者権限を付与します。'
+                : "Ro'yxatdan o'tgan foydalanuvchining email manzilini kiritib, unga Admin maqomini bering."}
+            </p>
+
+            <form onSubmit={handleAssignAdminByEmail} className="space-y-4">
+              <div>
+                <label className="mb-1.5 block text-xs font-semibold text-foreground">
+                  {isJa ? '対象メールアドレス' : 'Foydalanuvchi Emaili'}
+                </label>
+                <input
+                  type="email"
+                  value={assignAdminEmailInput}
+                  onChange={(e) => setAssignAdminEmailInput(e.target.value)}
+                  placeholder="masalan: user@nihongo-talk.jp"
+                  required
+                  disabled={assigningAdmin}
+                  className="focus:outline-hidden w-full rounded-xl border border-border bg-background px-3 py-2 text-xs text-foreground placeholder:text-muted-foreground focus:border-primary"
+                />
+              </div>
+
+              {/* Suggestions from loaded users */}
+              {assignAdminEmailInput.trim().length > 1 && (
+                <div className="max-h-28 overflow-y-auto rounded-xl border border-border/70 bg-muted/40 p-1.5 text-xs">
+                  {usersList
+                    .filter(
+                      (u) =>
+                        u.email
+                          ?.toLowerCase()
+                          .includes(assignAdminEmailInput.toLowerCase().trim()) &&
+                        !isSuperAdmin(u.email),
+                    )
+                    .slice(0, 3)
+                    .map((matched) => (
+                      <button
+                        key={matched.id}
+                        type="button"
+                        onClick={() => setAssignAdminEmailInput(matched.email)}
+                        className="flex w-full cursor-pointer items-center justify-between rounded-lg px-2 py-1 text-left hover:bg-muted"
+                      >
+                        <span className="truncate font-medium text-foreground">
+                          {matched.email}
+                        </span>
+                        <span className="text-[10px] text-muted-foreground">
+                          {matched.full_name || 'Talaba'} ({matched.role || 'user'})
+                        </span>
+                      </button>
+                    ))}
+                </div>
+              )}
+
+              <div className="flex gap-2 pt-1">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => setAssignAdminModalOpen(false)}
+                  disabled={assigningAdmin}
+                  className="flex-1 text-xs"
+                >
+                  {isJa ? 'キャンセル' : 'Bekor qilish'}
+                </Button>
+                <Button
+                  type="submit"
+                  disabled={assigningAdmin || !assignAdminEmailInput.trim()}
+                  className="flex-1 gap-1.5 bg-primary text-xs text-primary-foreground shadow-md shadow-primary/20 hover:bg-primary/90"
+                >
+                  {assigningAdmin ? (
+                    <Loader2 size={13} className="animate-spin" />
+                  ) : (
+                    <ShieldCheck size={13} />
+                  )}
+                  {isJa ? '管理者を付与' : 'Admin Qilish'}
+                </Button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Admin Action Confirmation Dialog (Grant / Revoke) */}
+      {confirmActionModal.isOpen && (
+        <div
+          className="backdrop-blur-xs fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4"
+          onClick={() => {
+            if (!confirmActionModal.loading) {
+              setConfirmActionModal((prev) => ({ ...prev, isOpen: false }));
+            }
+          }}
+        >
+          <div
+            className="w-full max-w-md space-y-4 rounded-2xl border border-border bg-card p-5 shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between border-b border-border pb-3">
+              <div className="flex items-center gap-2">
+                {confirmActionModal.type === 'revoke' ? (
+                  <AlertTriangle size={20} className="text-red-400" />
+                ) : (
+                  <ShieldCheck size={20} className="text-primary" />
+                )}
+                <h3 className="text-sm font-bold text-foreground">
+                  {confirmActionModal.type === 'revoke'
+                    ? isJa
+                      ? '管理者権限の解除確認'
+                      : 'Adminlikni Bekor Qilish'
+                    : isJa
+                      ? '管理者権限の付与確認'
+                      : 'Admin Qilib Tayinlash'}
+                </h3>
+              </div>
+              <button
+                onClick={() => {
+                  if (!confirmActionModal.loading) {
+                    setConfirmActionModal((prev) => ({ ...prev, isOpen: false }));
+                  }
+                }}
+                disabled={confirmActionModal.loading}
+                className="cursor-pointer rounded-lg p-1 text-muted-foreground hover:bg-muted hover:text-foreground"
+              >
+                <X size={16} />
+              </button>
+            </div>
+
+            <div className="space-y-1 rounded-xl border border-border bg-muted/40 p-3 text-xs">
+              <div className="font-semibold text-foreground">
+                {confirmActionModal.targetName || 'Foydalanuvchi'}:
+              </div>
+              <div className="font-mono font-bold text-primary">
+                {confirmActionModal.targetEmail}
+              </div>
+            </div>
+
+            <p className="text-xs leading-relaxed text-muted-foreground">
+              {confirmActionModal.type === 'revoke' ? (
+                <>
+                  <span className="font-semibold text-red-400">⚠️ Diqqat:</span> Siz haqiqatan ham
+                  ushbu foydalanuvchini adminlikdan olib tashlamoqchimisiz? Foydalanuvchi Admin
+                  Panelga kirish, o'quv bazasi va kontentni boshqarish huquqlaridan mahrum qilinadi.
+                </>
+              ) : (
+                <>
+                  <span className="font-semibold text-primary">🛡️ Ma'lumot:</span> Ushbu
+                  foydalanuvchiga Adminlik maqomini bermoqchimisiz? U Admin Panel va tizim
+                  resurslarini boshqarish huquqiga ega bo'ladi.
+                </>
+              )}
+            </p>
+
+            <div className="flex gap-2 pt-2">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => setConfirmActionModal((prev) => ({ ...prev, isOpen: false }))}
+                disabled={confirmActionModal.loading}
+                className="flex-1 text-xs"
+              >
+                {isJa ? 'キャンセル' : 'Bekor qilish'}
+              </Button>
+              <Button
+                type="button"
+                onClick={executeConfirmedAdminAction}
+                disabled={confirmActionModal.loading}
+                className={`flex-1 gap-1.5 text-xs font-bold text-white shadow-md ${
+                  confirmActionModal.type === 'revoke'
+                    ? 'bg-red-600 shadow-red-600/20 hover:bg-red-700'
+                    : 'bg-primary text-primary-foreground shadow-primary/20 hover:bg-primary/90'
+                }`}
+              >
+                {confirmActionModal.loading ? (
+                  <Loader2 size={13} className="animate-spin" />
+                ) : confirmActionModal.type === 'revoke' ? (
+                  <AlertTriangle size={13} />
+                ) : (
+                  <ShieldCheck size={13} />
+                )}
+                {confirmActionModal.type === 'revoke'
+                  ? isJa
+                    ? '解除を実行'
+                    : 'Ha, Adminlikdan Olish'
+                  : isJa
+                    ? '権限を付与'
+                    : 'Ha, Admin Qilish'}
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Admin Audit History Logs Modal */}
+      {auditModalOpen && (
+        <div
+          className="backdrop-blur-xs fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4"
+          onClick={() => setAuditModalOpen(false)}
+        >
+          <div
+            className="flex max-h-[85vh] w-full max-w-2xl flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between border-b border-border p-4">
+              <div className="flex items-center gap-2">
+                <Clock size={18} className="text-primary" />
+                <div>
+                  <h3 className="text-sm font-bold text-foreground">
+                    {isJa ? '管理者権限 監査ログ' : 'Adminlar Tarixi va Audit Jurnali'}
+                  </h3>
+                  <p className="text-[11px] text-muted-foreground">
+                    {isJa
+                      ? '誰がいつ管理者を指名・解除したかの全履歴'
+                      : 'Qaysi admin kimni tayinlagan va adminlikdan olganligi tarixi'}
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => setAuditModalOpen(false)}
+                className="cursor-pointer rounded-lg p-1 text-muted-foreground hover:bg-muted hover:text-foreground"
+              >
+                <X size={16} />
+              </button>
+            </div>
+
+            <div className="flex-1 space-y-3 overflow-y-auto p-4">
+              {loadingAuditLogs ? (
+                <div className="flex h-36 flex-col items-center justify-center gap-2 text-xs text-muted-foreground">
+                  <Loader2 size={20} className="animate-spin text-primary" />
+                  <span>{isJa ? '監査ログを読み込み中...' : 'Audit jurnali yuklanmoqda...'}</span>
+                </div>
+              ) : auditLogs.length === 0 ? (
+                <div className="flex h-36 flex-col items-center justify-center rounded-xl border border-dashed border-border text-xs text-muted-foreground">
+                  <span>
+                    {isJa
+                      ? '監査履歴はありません'
+                      : "Hozircha admin o'zgarishlar tarixi mavjud emas"}
+                  </span>
+                </div>
+              ) : (
+                <div className="overflow-x-auto rounded-xl border border-border">
+                  <table className="w-full text-left text-xs">
+                    <thead className="border-b border-border bg-muted/50 font-semibold text-muted-foreground">
+                      <tr>
+                        <th className="p-2.5">Sana / Vaqt</th>
+                        <th className="p-2.5">Amal</th>
+                        <th className="p-2.5">Foydalanuvchi</th>
+                        <th className="p-2.5">Ijrochi Admin</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-border/60 font-sans">
+                      {auditLogs.map((log) => (
+                        <tr key={log.id} className="transition-colors hover:bg-muted/30">
+                          <td className="whitespace-nowrap p-2.5 font-mono text-[11px] text-muted-foreground">
+                            {new Date(log.created_at).toLocaleString()}
+                          </td>
+                          <td className="whitespace-nowrap p-2.5">
+                            {log.action === 'GRANT_ADMIN' ? (
+                              <span className="inline-flex items-center gap-1 rounded-full border border-primary/20 bg-primary/10 px-2 py-0.5 text-[10px] font-bold text-primary">
+                                <ShieldCheck size={11} /> Admin Tayinlandi
+                              </span>
+                            ) : (
+                              <span className="inline-flex items-center gap-1 rounded-full border border-red-500/20 bg-red-500/10 px-2 py-0.5 text-[10px] font-bold text-red-400">
+                                <AlertTriangle size={11} /> Bekor Qilindi
+                              </span>
+                            )}
+                          </td>
+                          <td className="p-2.5 font-mono text-[11px] text-foreground">
+                            {log.target_email}
+                          </td>
+                          <td className="p-2.5 font-mono text-[11px] text-muted-foreground">
+                            {log.performed_by_email || 'Superadmin'}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </div>
+
+            <div className="flex justify-end border-t border-border bg-muted/20 p-3">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setAuditModalOpen(false)}
+                className="text-xs"
+              >
+                {isJa ? '閉じる' : 'Yopish'}
               </Button>
             </div>
           </div>

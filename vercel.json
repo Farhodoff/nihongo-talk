@@ -7,8 +7,9 @@
     { "source": "/api/telegram/(.*)", "destination": "/api/telegram.js" },
     { "source": "/api/(.*)", "destination": "/api/$1" },
     { "source": "/sw.js", "destination": "/sw.js" },
+    { "source": "/version.json", "destination": "/version.json" },
     { "source": "/workbox-(.*).js", "destination": "/workbox-$1.js" },
-    { "source": "/((?!api/|sw\\.js|workbox-).*)", "destination": "/index.html" }
+    { "source": "/((?!api/|sw\\.js|workbox-|version\\.json).*)", "destination": "/index.html" }
   ],
   "crons": [
     {
@@ -57,6 +58,23 @@
         {
           "key": "Cache-Control",
           "value": "public, max-age=86400, stale-while-revalidate=604800"
+        }
+      ]
+    },
+    {
+      "source": "/(version\\.json|sw\\.js)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate, max-age=0"
+        },
+        {
+          "key": "Pragma",
+          "value": "no-cache"
+        },
+        {
+          "key": "Expires",
+          "value": "0"
         }
       ]
     },

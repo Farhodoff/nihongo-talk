@@ -8,8 +8,8 @@ import {
   Menu,
   Settings as SettingsIcon,
   Mic,
-  Brain,
-  Sparkles,
+  Languages,
+  MessageSquare,
   Shield,
   BarChart3,
   Star,
@@ -22,7 +22,7 @@ import { useRatingModalStore } from '../stores';
 import { useFocusTimerContext } from '../context/FocusTimerContext';
 import { useLanguage } from '../context/LanguageContext';
 import { useStudyData } from '../context/StudyPlannerContext';
-import { isAdminEmail } from '../utils/admin';
+import { isAdminEmail, isUserAdmin } from '../utils/admin';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Sheet, SheetContent } from './ui/sheet';
 import { Button } from './ui/Button';
@@ -51,7 +51,9 @@ const Layout: React.FC = () => {
   const { language, setLanguage, t } = useLanguage();
   const { user } = useStudyData();
   const displayEmail = user?.email || '';
-  const isAdmin = Boolean(displayEmail && isAdminEmail(displayEmail, (user as any)?.role));
+  const isAdmin = Boolean(
+    isUserAdmin(user) || (displayEmail && isAdminEmail(displayEmail, (user as any)?.role)),
+  );
 
   const isRatingOpen = useRatingModalStore((s) => s.isOpen);
   const isRatingSubmitting = useRatingModalStore((s) => s.isSubmitting);
@@ -132,8 +134,16 @@ const Layout: React.FC = () => {
         path: '/personal-plan',
         icon: Target,
       },
-      { name: isJa ? '単語・語彙分析' : 'Vocabulary', path: '/vocabulary?lang=ja', icon: Brain },
-      { name: isJa ? '会話シナリオ' : 'Scenarios', path: '/scenarios?lang=ja', icon: Sparkles },
+      {
+        name: isJa ? '単語・語彙分析' : 'Vocabulary',
+        path: '/vocabulary?lang=ja',
+        icon: Languages,
+      },
+      {
+        name: isJa ? '会話シナリオ' : 'Scenarios',
+        path: '/scenarios?lang=ja',
+        icon: MessageSquare,
+      },
       { name: isJa ? 'AIスピーキング' : 'Speaking', path: '/speaking-coach?lang=ja', icon: Mic },
       {
         name: isJa ? 'フラッシュカード' : isEn ? 'Flashcards' : 'Fleshkard',

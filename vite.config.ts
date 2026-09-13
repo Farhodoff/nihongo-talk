@@ -1,13 +1,55 @@
 import react from '@vitejs/plugin-react';
 import path from 'path';
+import fs from 'fs';
 import { defineConfig } from 'vitest/config';
 import { VitePWA } from 'vite-plugin-pwa';
 import { telegramApiPlugin } from './server/vitePlugin.js';
 import { visualizer } from 'rollup-plugin-visualizer';
 
+const buildTimestamp = Date.now();
+
+function versionGeneratorPlugin() {
+  return {
+    name: 'version-generator-plugin',
+    buildStart() {
+      const versionData = {
+        version: process.env.npm_package_version || '1.1.0',
+        buildTimestamp,
+        buildDate: new Date(buildTimestamp).toISOString(),
+      };
+      const publicDir = path.resolve(__dirname, 'public');
+      if (!fs.existsSync(publicDir)) {
+        fs.mkdirSync(publicDir, { recursive: true });
+      }
+      fs.writeFileSync(
+        path.resolve(publicDir, 'version.json'),
+        JSON.stringify(versionData, null, 2),
+        'utf-8',
+      );
+    },
+    generateBundle() {
+      const versionData = {
+        version: process.env.npm_package_version || '1.1.0',
+        buildTimestamp,
+        buildDate: new Date(buildTimestamp).toISOString(),
+      };
+      this.emitFile({
+        type: 'asset',
+        fileName: 'version.json',
+        source: JSON.stringify(versionData, null, 2),
+      });
+    },
+  };
+}
+
 // https://vitejs.dev/config/
 export default defineConfig({
+  define: {
+    __APP_BUILD_TIMESTAMP__: buildTimestamp,
+    __APP_VERSION__: JSON.stringify(process.env.npm_package_version || '1.1.0'),
+  },
   plugins: [
+    versionGeneratorPlugin(),
     ...(process.env.ANALYZE === 'true'
       ? [
           visualizer({
@@ -92,10 +134,29 @@ export default defineConfig({
         skipWaiting: true,
         clientsClaim: true,
         cleanupOutdatedCaches: true,
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
+        globPatterns: ['**/*.{js,css,ico,png,svg,woff2}'],
         navigateFallback: '/index.html',
-        navigateFallbackDenylist: [/^\/api/],
+        navigateFallbackDenylist: [/^\/api/, /^\/version\.json/],
         runtimeCaching: [
+          {
+            urlPattern: ({ request }) => request.mode === 'navigate',
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'html-cache',
+              networkTimeoutSeconds: 2,
+              expiration: {
+                maxEntries: 1,
+                maxAgeSeconds: 24 * 60 * 60,
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
+          {
+            urlPattern: /version\.json/i,
+            handler: 'NetworkOnly',
+          },
           {
             urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
             handler: 'CacheFirst',
