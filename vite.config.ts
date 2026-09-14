@@ -196,6 +196,7 @@ export default defineConfig({
   },
   build: {
     outDir: 'build', // Vercel uchun output papkasini 'build' ga o'zgartirish
+    modulePreload: false, // PWA Service Worker bilan cross-world preload warning'larini oldini olish
     rollupOptions: {
       output: {
         manualChunks(id) {
