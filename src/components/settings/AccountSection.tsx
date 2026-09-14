@@ -69,7 +69,7 @@ const AccountSection: React.FC = () => {
     if (confirm(`${user.email} manziliga parolni tiklash havolasi yuborilsinmi?`)) {
       try {
         const { error } = await supabase.auth.resetPasswordForEmail(user.email, {
-          redirectTo: `${window.location.origin}/settings`,
+          redirectTo: `${window.location.origin}/auth/reset-password`,
         });
         if (error) throw error;
         toast({ title: '📧 Parolni tiklash havolasi pochtangizga yuborildi!' });
