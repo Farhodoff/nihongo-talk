@@ -4,9 +4,9 @@ import { spawn } from 'child_process';
 import path from 'path';
 import fs from 'fs';
 
-const url = 'https://qmuimxnknxwarvnkpnlo.supabase.co';
-const serviceKey = 'sb_secret_TIaGYS4KLZznubJn1pw-hA_Yg7JibPN';
-const anonKey = 'sb_publishable_6g0Ei_1Cw46e1mJLKj_1Ug_sOmhlgoI';
+const url = process.env.VITE_SUPABASE_URL || 'https://qmuimxnknxwarvnkpnlo.supabase.co';
+const serviceKey = process.env.SERVICE_ROLE || process.env.SUPABASE_SERVICE_ROLE_KEY || '';
+const anonKey = process.env.VITE_SUPABASE_ANON_KEY || 'sb_publishable_6g0Ei_1Cw46e1mJLKj_1Ug_sOmhlgoI';
 
 const adminClient = createClient(url, serviceKey);
 const anonClient = createClient(url, anonKey);
