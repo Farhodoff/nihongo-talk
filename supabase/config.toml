@@ -1,14 +1,39 @@
 
+[auth]
+enabled = true
+site_url = "https://kaiwa.live"
+additional_redirect_urls = [
+  "https://kaiwa.live",
+  "https://kaiwa.live/**",
+  "https://nihon-talk.vercel.app",
+  "https://nihon-talk.vercel.app/**",
+  "http://localhost:5173",
+  "http://localhost:5173/**",
+  "http://localhost:3000",
+  "http://localhost:3000/**"
+]
+
+[auth.mfa.totp]
+enroll_enabled = true
+verify_enabled = true
+
+[auth.email]
+enable_signup = true
+double_confirm_changes = true
+enable_confirmations = false
+secure_password_change = false
+max_frequency = "1m0s"
+otp_length = 8
+otp_expiry = 3600
+
+[storage.vector]
+enabled = false
+
 [functions.update-xp]
 enabled = true
 verify_jwt = true
 import_map = "./functions/update-xp/deno.json"
-# Uncomment to specify a custom file path to the entrypoint.
-# Supported file extensions are: .ts, .js, .mjs, .jsx, .tsx
 entrypoint = "./functions/update-xp/index.ts"
-# Specifies static files to be bundled with the function. Supports glob patterns.
-# For example, if you want to serve static HTML pages in your function:
-# static_files = [ "./functions/update-xp/*.html" ]
 
 [functions.telegram-bot]
 verify_jwt = false
