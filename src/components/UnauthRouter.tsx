@@ -1,16 +1,17 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense } from 'react';
 import { StudyPlannerProvider } from '../context/StudyPlannerContext';
+import { lazyWithRetry } from '../utils/lazyRetry';
 
 // Lazy load auth related and public pages
-const AuthPage = lazy(() => import('../pages/AuthPage'));
-const LandingPage = lazy(() => import('../pages/LandingPage'));
-const DeveloperApiPage = lazy(() => import('../pages/DeveloperApiPage'));
-const PricingPage = lazy(() =>
+const AuthPage = lazyWithRetry(() => import('../pages/AuthPage'));
+const LandingPage = lazyWithRetry(() => import('../pages/LandingPage'));
+const DeveloperApiPage = lazyWithRetry(() => import('../pages/DeveloperApiPage'));
+const PricingPage = lazyWithRetry(() =>
   import('../pages/PricingPage').then((m) => ({ default: m.PricingPage })),
 );
-const JlptHubPage = lazy(() => import('../pages/JlptHubPage'));
-const SpeakingCoachPage = lazy(() => import('../pages/SpeakingCoachPage'));
+const JlptHubPage = lazyWithRetry(() => import('../pages/JlptHubPage'));
+const SpeakingCoachPage = lazyWithRetry(() => import('../pages/SpeakingCoachPage'));
 
 /**
  * Router used when the user is not authenticated.

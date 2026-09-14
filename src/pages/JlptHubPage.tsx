@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useState } from 'react';
+import React, { Suspense, useState } from 'react';
 import {
   Target,
   FileText,
@@ -14,18 +14,21 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { useLanguage } from '../context/LanguageContext';
 import { useSEO } from '../hooks/useSEO';
+import { lazyWithRetry } from '../utils/lazyRetry';
 
-const MinnaLessonsExplorer = lazy(() => import('../components/jlpt/MinnaLessonsExplorer'));
-const JlptGrammarKanjiMaster = lazy(() => import('../components/jlpt/JlptGrammarKanjiMaster'));
-const KanjiCanvasPractice = lazy(() => import('../components/jlpt/KanjiCanvasPractice'));
+const MinnaLessonsExplorer = lazyWithRetry(() => import('../components/jlpt/MinnaLessonsExplorer'));
+const JlptGrammarKanjiMaster = lazyWithRetry(
+  () => import('../components/jlpt/JlptGrammarKanjiMaster'),
+);
+const KanjiCanvasPractice = lazyWithRetry(() => import('../components/jlpt/KanjiCanvasPractice'));
 
-const JlptReadingPage = lazy(() =>
+const JlptReadingPage = lazyWithRetry(() =>
   import('./JlptReadingPage').then((m) => ({ default: m.JlptReadingPage })),
 );
-const JlptListeningMockPage = lazy(() =>
+const JlptListeningMockPage = lazyWithRetry(() =>
   import('./JlptListeningMockPage').then((m) => ({ default: m.JlptListeningMockPage })),
 );
-const JlptMockExamPage = lazy(() =>
+const JlptMockExamPage = lazyWithRetry(() =>
   import('./JlptMockExamPage').then((m) => ({ default: m.JlptMockExamPage })),
 );
 
