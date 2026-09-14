@@ -101,7 +101,7 @@ const RoleBadge: React.FC<{
   assignedBy?: string | null;
   assignedAt?: string | null;
 }> = ({ role, email, assignedBy, assignedAt }) => {
-  if (isSuperAdmin(email) || role === 'superadmin') {
+  if (isSuperAdmin(email, role)) {
     return (
       <div className="flex flex-col items-start gap-0.5">
         <span className="inline-flex shrink-0 items-center gap-1 rounded-full border border-[#C9A961]/30 bg-[#C9A961]/15 px-2.5 py-0.5 text-[10px] font-black uppercase tracking-wider text-[#C9A961]">
@@ -111,7 +111,7 @@ const RoleBadge: React.FC<{
       </div>
     );
   }
-  if (role === 'admin' || isAdminEmail(email)) {
+  if (role === 'admin' || isAdminEmail(email, role)) {
     return (
       <div className="flex flex-col items-start gap-0.5">
         <span className="inline-flex shrink-0 items-center gap-1 rounded-full border border-primary/25 bg-primary/10 px-2.5 py-0.5 text-[10px] font-black uppercase tracking-wider text-primary">
@@ -527,7 +527,11 @@ export default function AdminDashboardPage() {
             if (p) {
               return {
                 ...u,
-                role: u.role === 'superadmin' ? 'superadmin' : p.role || u.role,
+                role: isSuperAdmin(u.email)
+                  ? 'superadmin'
+                  : p.role === 'superadmin'
+                    ? 'admin'
+                    : p.role || u.role,
                 admin_assigned_by: p.admin_assigned_by || u.admin_assigned_by,
                 admin_assigned_at: p.admin_assigned_at || u.admin_assigned_at,
               };

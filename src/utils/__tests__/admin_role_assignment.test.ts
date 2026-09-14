@@ -45,6 +45,7 @@ describe('Admin Role Assignment & Authorization Tests', () => {
     it('rejects regular users from superadmin privileges', () => {
       expect(isSuperAdmin('student@example.com')).toBe(false);
       expect(isSuperAdmin('someone_else@study.com', 'admin')).toBe(false);
+      expect(isSuperAdmin('someone_else@study.com', 'superadmin')).toBe(false);
       expect(isSuperAdmin('student@example.com', 'authenticated')).toBe(false);
     });
 

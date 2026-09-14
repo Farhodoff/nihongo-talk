@@ -62,4 +62,38 @@ describe('Admin Email Security & English Track Gating Tests', () => {
     expect(isEnglishTrackAllowed('student@gmail.com')).toBe(false);
     expect(isEnglishTrackAllowed('john.doe@gmail.com')).toBe(false);
   });
+
+  it('strictly enforces single superadmin rule: ONLY fsoyilov@gmail.com is superadmin even with role=superadmin', () => {
+    // Attackers or non-fsoyilov users attempting to pass role='superadmin' MUST be rejected
+    expect(isSuperAdmin('attacker@evil.com', 'superadmin')).toBe(false);
+    expect(isSuperAdmin('hacker@domain.com', 'superadmin')).toBe(false);
+    expect(isSuperAdmin('admin@nihongo-talk.jp', 'superadmin')).toBe(false);
+    expect(isSuperAdmin('fsoyilovv@gmail.com', 'superadmin')).toBe(false);
+    expect(isSuperAdmin('soyilovfarhod157@gmail.com', 'superadmin')).toBe(false);
+    expect(isSuperAdmin('random_user@domain.com', 'superadmin')).toBe(false);
+    expect(isSuperAdmin(null, 'superadmin')).toBe(false);
+    expect(isSuperAdmin(undefined, 'superadmin')).toBe(false);
+    expect(isSuperAdmin('', 'superadmin')).toBe(false);
+
+    // ONLY fsoyilov@gmail.com is recognized as Super Admin
+    expect(isSuperAdmin('fsoyilov@gmail.com', 'superadmin')).toBe(true);
+    expect(isSuperAdmin('fsoyilov@gmail.com', 'admin')).toBe(true);
+    expect(isSuperAdmin('fsoyilov@gmail.com', 'user')).toBe(true);
+    expect(isSuperAdmin('fsoyilov@gmail.com', null)).toBe(true);
+    expect(isSuperAdmin('FSOYILOV@GMAIL.COM', 'superadmin')).toBe(true);
+    expect(isSuperAdmin('  fsoyilov@gmail.com  ', 'superadmin')).toBe(true);
+  });
+
+  it('verifies helper admins in DEFAULT_ADMIN_EMAILS have admin rights but NOT superadmin rights', () => {
+    // admin@nihongo-talk.jp is a trusted helper admin
+    expect(isAdminEmail('admin@nihongo-talk.jp')).toBe(true);
+    expect(isAdminEmail('ADMIN@NIHONGO-TALK.JP')).toBe(true);
+    expect(isAdminEmail('  admin@nihongo-talk.jp  ')).toBe(true);
+    expect(isAdminEmail('admin@nihongo-talk.jp', 'admin')).toBe(true);
+
+    // But it is strictly NOT superadmin under any role argument
+    expect(isSuperAdmin('admin@nihongo-talk.jp')).toBe(false);
+    expect(isSuperAdmin('admin@nihongo-talk.jp', 'admin')).toBe(false);
+    expect(isSuperAdmin('admin@nihongo-talk.jp', 'superadmin')).toBe(false);
+  });
 });

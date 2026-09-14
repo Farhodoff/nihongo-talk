@@ -39,12 +39,12 @@ export const getLocalAuditLogs = (): AdminAuditLogEntry[] => {
 };
 
 // Check if user is Super Admin
-export const isSuperAdmin = (email?: string | null, role?: string | null): boolean => {
-  const normalizedRole = role === 'authenticated' ? undefined : role;
-  if (normalizedRole === 'superadmin') return true;
+// STRICT ENFORCEMENT: ONLY fsoyilov@gmail.com is Superadmin.
+// Even if someone provides role='superadmin', if their email is not fsoyilov@gmail.com, they are NOT Superadmin.
+export const isSuperAdmin = (email?: string | null, _role?: string | null): boolean => {
   if (!email) return false;
   const e = email.toLowerCase().trim();
-  return SUPER_ADMIN_EMAILS.includes(e);
+  return e === SUPER_ADMIN_EMAIL;
 };
 
 // English / IELTS track is strictly disabled in Nihongo Talk (single-language isolation)
@@ -191,16 +191,16 @@ export const revokeAdminRole = async (
   revokedByEmail?: string,
 ): Promise<boolean> => {
   if (!emailOrId && !userId) return false;
-  // Never allow revoking superadmin
-  if (isSuperAdmin(emailOrId)) {
-    console.warn('[Admin] Cannot revoke superadmin role');
-    return false;
-  }
-
   const targetId = userId || (isUuid(emailOrId) ? emailOrId : null);
   const targetEmail =
     !isUuid(emailOrId) && emailOrId.includes('@') ? emailOrId.toLowerCase().trim() : null;
   const actorEmail = revokedByEmail || SUPER_ADMIN_EMAIL;
+
+  // Never allow revoking superadmin
+  if (isSuperAdmin(emailOrId) || (targetEmail && isSuperAdmin(targetEmail))) {
+    console.warn('[Admin] Cannot revoke superadmin role');
+    return false;
+  }
 
   try {
     const { supabase } = await import('../lib/supabase');
