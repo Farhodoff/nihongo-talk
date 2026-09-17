@@ -651,3 +651,5 @@ export const ScenarioPickerPage: React.FC = () => {
     </div>
   );
 };
+
+export default ScenarioPickerPage;

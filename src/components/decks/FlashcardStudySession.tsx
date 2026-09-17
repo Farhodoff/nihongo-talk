@@ -11,6 +11,8 @@ import {
   RotateCcw,
   Keyboard,
   Sparkles,
+  Globe,
+  ShieldCheck,
 } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { useStudyData } from '../../context/StudyPlannerContext';
@@ -18,6 +20,7 @@ import { useLanguage } from '../../context/LanguageContext';
 import { isUserAdmin } from '../../utils/admin';
 import { Flashcard } from '../../types';
 import { ActivityLoggingService } from '../../services/ActivityLoggingService';
+import { GlobalFlashcardOverrideService } from '../../services/GlobalFlashcardOverrideService';
 import {
   Rating,
   Grade,
@@ -175,6 +178,9 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
   const [isEditingCard, setIsEditingCard] = useState(false);
   const [editFront, setEditFront] = useState('');
   const [editBack, setEditBack] = useState('');
+  const [editPhonetic, setEditPhonetic] = useState('');
+  const [editExample, setEditExample] = useState('');
+  const [editGlobal, setEditGlobal] = useState(true);
 
   const [milestoneBonusXp, setMilestoneBonusXp] = useState(0);
   const [milestoneBadge, setMilestoneBadge] = useState<string | null>(null);
@@ -414,8 +420,11 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
   const handleStartEdit = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (!currentCard) return;
-    setEditFront(currentCard.front);
-    setEditBack(currentCard.back);
+    setEditFront(currentCard.front || '');
+    setEditBack(currentCard.back || '');
+    setEditPhonetic((currentCard as any).phonetic || '');
+    setEditExample((currentCard as any).example || '');
+    setEditGlobal(isAdmin);
     setIsEditingCard(true);
   };
 
@@ -424,18 +433,48 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
     if (!currentCard || !editFront.trim() || !editBack.trim()) return;
 
     try {
-      await updateFlashcard(currentCard.id, {
-        front: editFront.trim(),
-        back: editBack.trim(),
-      });
+      const cleanF = editFront.trim();
+      const cleanB = editBack.trim();
+      const cleanP = editPhonetic.trim();
+      const cleanE = editExample.trim();
+
+      // 1. Update user card in personal DB if available
+      if (currentCard.id) {
+        await updateFlashcard(currentCard.id, {
+          front: cleanF,
+          back: cleanB,
+        });
+      }
+
+      // 2. If Admin selected Global production database update
+      if (isAdmin && editGlobal) {
+        await GlobalFlashcardOverrideService.saveGlobalOverride(
+          {
+            word: currentCard.front,
+            front: cleanF,
+            phonetic: cleanP,
+            back: cleanB,
+            example: cleanE,
+            deck_id: (currentCard as any).deckId,
+          },
+          user?.email || 'admin',
+        );
+        toast({
+          title: '🌐 Global Baza Yangilandi',
+          description: "Fleshkarta barcha foydalanuvchilar va production uchun to'liq saqlandi!",
+        });
+      } else {
+        toast({ title: '✅ Kartochka yangilandi' });
+      }
 
       setQueue((prev) =>
         prev.map((c) =>
-          c.id === currentCard.id ? { ...c, front: editFront.trim(), back: editBack.trim() } : c,
+          c.id === currentCard.id || c.front === currentCard.front
+            ? { ...c, front: cleanF, back: cleanB, phonetic: cleanP, example: cleanE }
+            : c,
         ),
       );
       setIsEditingCard(false);
-      toast({ title: '✅ Kartochka yangilandi' });
     } catch {
       toast({
         variant: 'destructive',
@@ -705,41 +744,103 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
       {/* Main Interactive Flashcard Stage */}
       <div className="mx-auto flex w-full max-w-2xl flex-1 flex-col items-center justify-center py-4">
         {isEditingCard ? (
-          <div className="relative flex min-h-[340px] w-full flex-col justify-between rounded-3xl border border-border bg-card p-8 shadow-2xl md:min-h-[380px]">
-            <div className="space-y-3 text-left">
-              <div>
-                <label className="text-xs font-bold text-muted-foreground">
-                  {isJa ? '表面 (Front)' : 'Old qism (Front)'}
-                </label>
-                <input
-                  type="text"
-                  value={editFront}
-                  onChange={(e) => setEditFront(e.target.value)}
-                  className="focus:outline-hidden w-full rounded-xl border border-border bg-muted px-3 py-2 text-sm font-bold text-foreground"
-                />
+          <div className="relative flex min-h-[380px] w-full flex-col justify-between rounded-3xl border border-border bg-card p-6 shadow-2xl md:p-8">
+            <div className="space-y-3.5 text-left">
+              <div className="flex items-center justify-between border-b border-border/50 pb-2">
+                <span className="flex items-center gap-2 text-sm font-black text-foreground">
+                  <Edit3 size={16} className="text-amber-500" />
+                  {isJa ? 'カード編集' : 'Fleshkartani tahrirlash'}
+                </span>
+                {isAdmin && (
+                  <span className="flex items-center gap-1 rounded-lg bg-amber-500/10 px-2.5 py-0.5 text-[11px] font-bold text-amber-600">
+                    <ShieldCheck size={13} /> Admin
+                  </span>
+                )}
               </div>
+
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                <div>
+                  <label className="mb-1 block text-xs font-bold text-muted-foreground">
+                    {isJa ? '単語・漢字 (Front)' : "So'z / Yaponcha (Front)"}
+                  </label>
+                  <input
+                    type="text"
+                    value={editFront}
+                    onChange={(e) => setEditFront(e.target.value)}
+                    className="focus:outline-hidden w-full rounded-xl border border-border bg-muted/70 px-3 py-2 text-sm font-bold text-foreground focus:ring-2 focus:ring-primary"
+                  />
+                </div>
+                <div>
+                  <label className="mb-1 block text-xs font-bold text-muted-foreground">
+                    {isJa ? '読み・ふりがな (Phonetic)' : "O'qilishi / Furigana (Phonetic)"}
+                  </label>
+                  <input
+                    type="text"
+                    value={editPhonetic}
+                    onChange={(e) => setEditPhonetic(e.target.value)}
+                    placeholder="Masalan: わたし - watashi"
+                    className="focus:outline-hidden w-full rounded-xl border border-border bg-muted/70 px-3 py-2 text-sm font-medium text-foreground focus:ring-2 focus:ring-primary"
+                  />
+                </div>
+              </div>
+
               <div>
-                <label className="text-xs font-bold text-muted-foreground">
-                  {isJa ? '裏面 (Back)' : 'Orqa qism (Back)'}
+                <label className="mb-1 block text-xs font-bold text-muted-foreground">
+                  {isJa ? '意味・翻訳 (Back)' : "O'zbekcha tarjimasi / Ma'nosi (Back)"}
                 </label>
                 <textarea
                   value={editBack}
                   onChange={(e) => setEditBack(e.target.value)}
-                  rows={3}
-                  className="focus:outline-hidden w-full rounded-xl border border-border bg-muted px-3 py-2 text-sm font-semibold text-foreground"
+                  rows={2}
+                  className="focus:outline-hidden w-full rounded-xl border border-border bg-muted/70 px-3 py-2 text-sm font-semibold text-foreground focus:ring-2 focus:ring-primary"
                 />
               </div>
+
+              <div>
+                <label className="mb-1 block text-xs font-bold text-muted-foreground">
+                  {isJa
+                    ? '例文・文法構造 (Structure & Example)'
+                    : 'Struktura / Misol jumlasi (Example)'}
+                </label>
+                <textarea
+                  value={editExample}
+                  onChange={(e) => setEditExample(e.target.value)}
+                  rows={2}
+                  placeholder="Misol jumlasi yoki grammatik izoh..."
+                  className="focus:outline-hidden w-full rounded-xl border border-border bg-muted/70 px-3 py-2 text-xs font-medium text-foreground focus:ring-2 focus:ring-primary"
+                />
+              </div>
+
+              {isAdmin && (
+                <label className="flex cursor-pointer items-center gap-2 rounded-xl border border-primary/20 bg-primary/5 p-2.5 transition-colors hover:bg-primary/10">
+                  <input
+                    type="checkbox"
+                    checked={editGlobal}
+                    onChange={(e) => setEditGlobal(e.target.checked)}
+                    className="h-4 w-4 rounded-sm border-primary text-primary focus:ring-primary"
+                  />
+                  <div className="text-xs">
+                    <span className="flex items-center gap-1 font-black text-primary">
+                      <Globe size={14} /> Umumiy production bazasiga saqlash
+                    </span>
+                    <span className="text-[11px] text-muted-foreground">
+                      O'zgarish barcha foydalanuvchilar va darsliklar uchun to'liq amal qiladi.
+                    </span>
+                  </div>
+                </label>
+              )}
+
               <div className="flex justify-end gap-2 pt-2">
                 <Button
                   onClick={() => setIsEditingCard(false)}
                   variant="secondary"
-                  className="text-xs"
+                  className="text-xs font-bold"
                 >
                   {isJa ? 'キャンセル' : 'Bekor qilish'}
                 </Button>
                 <Button
                   onClick={handleSaveEdit}
-                  className="bg-primary text-xs font-bold text-primary-foreground"
+                  className="bg-primary text-xs font-bold text-primary-foreground shadow-md"
                 >
                   {isJa ? '保存' : 'Saqlash'}
                 </Button>

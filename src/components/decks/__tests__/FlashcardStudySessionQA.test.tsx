@@ -19,13 +19,16 @@ const sampleCards = [
   },
 ];
 
+let currentMockUser: any = { id: 'u1', email: 'test@example.com' };
+const mockUpdateFlashcard = vi.fn().mockResolvedValue(true);
+
 vi.mock('../../../context/StudyPlannerContext', () => ({
   useStudyData: () => ({
-    user: { id: 'u1', email: 'test@example.com' },
+    user: currentMockUser,
     flashcards: sampleCards,
     subjects: [{ id: 'subj-1', name: 'JLPT N2 Vocabulary' }],
     reviewFlashcard: mockReviewFlashcard,
-    updateFlashcard: vi.fn(),
+    updateFlashcard: mockUpdateFlashcard,
     deleteFlashcard: vi.fn(),
     loading: false,
   }),
@@ -155,6 +158,39 @@ describe('FlashcardStudySession Component Live QA', () => {
     await waitFor(() => {
       expect(mockReviewFlashcard).toHaveBeenCalledWith('card-1', Rating.GOOD);
       expect(mockImpact).toHaveBeenCalledWith('light');
+    });
+  });
+
+  it('allows admin users to edit card fields and saves global override to database', async () => {
+    currentMockUser = { id: 'admin-1', email: 'fsoyilov@gmail.com' };
+    const handleClose = vi.fn();
+    render(<FlashcardStudySession subjectId="subj-1" onClose={handleClose} />);
+
+    // Admin edit button should be rendered because user is fsoyilov@gmail.com
+    const editBtn = await screen.findByTitle('Tahrirlash');
+    expect(editBtn).toBeDefined();
+    fireEvent.click(editBtn);
+
+    // Edit form should be open with 4 fields
+    expect(await screen.findByText('Fleshkartani tahrirlash')).toBeDefined();
+    expect(screen.getByText(/Admin/i)).toBeDefined();
+    expect(screen.getByText(/Umumiy production bazasiga saqlash/i)).toBeDefined();
+
+    // Verify inputs exist
+    const frontInput = screen.getByDisplayValue('手負い');
+    const backInput = screen.getByDisplayValue('Yaralangan, jarohatlangan');
+    expect(frontInput).toBeDefined();
+    expect(backInput).toBeDefined();
+
+    // Change translation
+    fireEvent.change(backInput, { target: { value: 'Yarador, shikastlangan (Admin)' } });
+
+    // Save edit
+    const saveBtn = screen.getByText('Saqlash');
+    fireEvent.click(saveBtn);
+
+    await waitFor(() => {
+      expect(mockUpdateFlashcard).toHaveBeenCalled();
     });
   });
 });

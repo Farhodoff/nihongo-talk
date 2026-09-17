@@ -3,6 +3,7 @@ import { Flashcard } from '../types';
 import { generateUUID, isUuid } from '../utils/uuid';
 import { PRESET_DECKS } from '../data/presetDecks';
 import { FlashcardOfflineSync } from './FlashcardOfflineSync';
+import { GlobalFlashcardOverrideService } from './GlobalFlashcardOverrideService';
 
 const CACHE_KEY_PREFIX = 'study_planner_flashcards_cache_';
 
@@ -72,6 +73,14 @@ export function sanitizeCardContent(card: Flashcard): { card: Flashcard; wasModi
   let front = card.front || '';
   let back = card.back || '';
   let wasModified = false;
+
+  // 0. Check global overrides from Admin / Super Admin
+  const overridden = GlobalFlashcardOverrideService.applyOverrideToCard({ front, back } as any);
+  if (overridden.front !== front || overridden.back !== back) {
+    front = overridden.front;
+    back = overridden.back;
+    wasModified = true;
+  }
 
   const frontClean = front.trim();
 

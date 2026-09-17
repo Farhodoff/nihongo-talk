@@ -33,6 +33,19 @@ export interface PresetSubDeck {
   createdAt: string;
 }
 
+async function loadAndApplyOverrides(
+  importPromise: Promise<{ default: any }>,
+): Promise<PresetCard[]> {
+  const data = await importPromise;
+  try {
+    const { GlobalFlashcardOverrideService } =
+      await import('../services/GlobalFlashcardOverrideService');
+    return GlobalFlashcardOverrideService.applyOverridesToCards(data.default as PresetCard[]);
+  } catch {
+    return data.default as PresetCard[];
+  }
+}
+
 export const PRESET_DECKS: PresetDeck[] = [
   {
     id: 'deck_minna_shokyu1',
@@ -45,10 +58,7 @@ export const PRESET_DECKS: PresetDeck[] = [
     icon: '🌸',
     cardCount: 1111,
     isPremiumOnly: false,
-    loadCards: async () => {
-      const data = await import('./decks/minna_shokyu1.json');
-      return data.default as PresetCard[];
-    },
+    loadCards: () => loadAndApplyOverrides(import('./decks/minna_shokyu1.json')),
   },
   {
     id: 'deck_minna_shokyu2',
@@ -61,10 +71,7 @@ export const PRESET_DECKS: PresetDeck[] = [
     icon: '🌿',
     cardCount: 451,
     isPremiumOnly: false,
-    loadCards: async () => {
-      const data = await import('./decks/minna_shokyu2.json');
-      return data.default as PresetCard[];
-    },
+    loadCards: () => loadAndApplyOverrides(import('./decks/minna_shokyu2.json')),
   },
   {
     id: 'deck_jlpt_n5',
@@ -77,10 +84,7 @@ export const PRESET_DECKS: PresetDeck[] = [
     icon: '🌸',
     cardCount: 218,
     isPremiumOnly: false,
-    loadCards: async () => {
-      const data = await import('./decks/jlpt_n5.json');
-      return data.default as PresetCard[];
-    },
+    loadCards: () => loadAndApplyOverrides(import('./decks/jlpt_n5.json')),
   },
   {
     id: 'deck_jlpt_n4',
@@ -92,10 +96,7 @@ export const PRESET_DECKS: PresetDeck[] = [
     icon: '🎌',
     cardCount: 310,
     isPremiumOnly: false,
-    loadCards: async () => {
-      const data = await import('./decks/jlpt_n4.json');
-      return data.default as PresetCard[];
-    },
+    loadCards: () => loadAndApplyOverrides(import('./decks/jlpt_n4.json')),
   },
   {
     id: 'deck_jlpt_n3',
@@ -107,10 +108,7 @@ export const PRESET_DECKS: PresetDeck[] = [
     icon: '🏮',
     cardCount: 1730,
     isPremiumOnly: false,
-    loadCards: async () => {
-      const data = await import('./decks/jlpt_n3.json');
-      return data.default as PresetCard[];
-    },
+    loadCards: () => loadAndApplyOverrides(import('./decks/jlpt_n3.json')),
   },
   {
     id: 'deck_jlpt_n2',
@@ -122,10 +120,7 @@ export const PRESET_DECKS: PresetDeck[] = [
     icon: '🗾',
     cardCount: 3213,
     isPremiumOnly: false,
-    loadCards: async () => {
-      const data = await import('./decks/jlpt_n2.json');
-      return data.default as PresetCard[];
-    },
+    loadCards: () => loadAndApplyOverrides(import('./decks/jlpt_n2.json')),
   },
   {
     id: 'deck_jlpt_n1',
@@ -138,9 +133,6 @@ export const PRESET_DECKS: PresetDeck[] = [
     icon: '👑',
     cardCount: 205,
     isPremiumOnly: false,
-    loadCards: async () => {
-      const data = await import('./decks/jlpt_n1.json');
-      return data.default as PresetCard[];
-    },
+    loadCards: () => loadAndApplyOverrides(import('./decks/jlpt_n1.json')),
   },
 ];

@@ -78,6 +78,14 @@ const AdminRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     }
     let isMounted = true;
     setCheckingDb(true);
+
+    const safetyTimer = setTimeout(() => {
+      if (isMounted) {
+        setCheckingDb(false);
+        setIsDbAdmin(false);
+      }
+    }, 1500);
+
     supabase
       .from('profiles')
       .select('role')
@@ -86,6 +94,7 @@ const AdminRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       .then(
         ({ data }) => {
           if (!isMounted) return;
+          clearTimeout(safetyTimer);
           if (data?.role === 'admin' || data?.role === 'superadmin') {
             setIsDbAdmin(true);
             const updated = { ...effectiveUser, role: data.role };
@@ -98,6 +107,7 @@ const AdminRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         },
         () => {
           if (isMounted) {
+            clearTimeout(safetyTimer);
             setIsDbAdmin(false);
             setCheckingDb(false);
           }
@@ -105,6 +115,7 @@ const AdminRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       );
     return () => {
       isMounted = false;
+      clearTimeout(safetyTimer);
     };
   }, [effectiveUser?.id, isPreview]);
 
@@ -323,6 +334,10 @@ const App: React.FC = () => {
                       <Route path="jlpt" element={<JlptHubPage />} />
                       <Route path="scenarios" element={<ScenarioPickerPage />} />
                       <Route
+                        path="coach"
+                        element={<Navigate to="/speaking-coach?lang=ja" replace />}
+                      />
+                      <Route
                         path="jlpt-speaking"
                         element={<Navigate to="/speaking-coach?lang=ja" replace />}
                       />
@@ -353,6 +368,7 @@ const App: React.FC = () => {
                         path="jlpt/mock-exam"
                         element={<Navigate to="/jlpt?tab=mock" replace />}
                       />
+                      <Route path="exams" element={<Navigate to="/jlpt?tab=mock" replace />} />
                       <Route path="calendar" element={<CalendarPage />} />
                       <Route path="subjects" element={<SubjectsPage />} />
                       <Route path="subjects/:id" element={<SubjectDetailPage />} />
@@ -404,6 +420,7 @@ const App: React.FC = () => {
                         element={<Navigate to="/reset-password" replace />}
                       />
                       <Route path="auth" element={<Navigate to="/jlpt" replace />} />
+                      <Route path="admin/login" element={<Navigate to="/auth" replace />} />
                       <Route path="login" element={<Navigate to="/jlpt" replace />} />
                       <Route path="register" element={<Navigate to="/jlpt" replace />} />
                       <Route path="signup" element={<Navigate to="/jlpt" replace />} />
@@ -412,6 +429,7 @@ const App: React.FC = () => {
                     <Route path="/auth/reset-password" element={<AuthPage />} />
                     <Route path="/reset-password" element={<AuthPage />} />
                     <Route path="/auth" element={<Navigate to="/jlpt" replace />} />
+                    <Route path="/admin/login" element={<Navigate to="/auth" replace />} />
                     <Route path="/login" element={<Navigate to="/jlpt" replace />} />
                     <Route path="/register" element={<Navigate to="/jlpt" replace />} />
                     <Route path="/signup" element={<Navigate to="/jlpt" replace />} />

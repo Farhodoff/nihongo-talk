@@ -1,4 +1,15 @@
-import { ArrowLeft, CheckCircle2, Copy, Loader2, Volume2, Trash2, Edit3, X } from 'lucide-react';
+import {
+  ArrowLeft,
+  CheckCircle2,
+  Copy,
+  Loader2,
+  Volume2,
+  Trash2,
+  Edit3,
+  X,
+  Globe,
+  ShieldCheck,
+} from 'lucide-react';
 import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Button } from '../components/ui/Button';
@@ -18,6 +29,7 @@ import { PersonalLearningPlanService } from '../services/PersonalLearningPlanSer
 import { isFlashcardAnswerCorrect } from '../utils/flashcardMatching';
 import { useTelegramWebApp } from '../hooks/useTelegramWebApp';
 import { useFlashcardSwipe } from '../hooks/useFlashcardSwipe';
+import { GlobalFlashcardOverrideService } from '../services/GlobalFlashcardOverrideService';
 
 const StudyModePage: React.FC = () => {
   const { subjectId } = useParams<{ subjectId?: string }>();
@@ -63,6 +75,9 @@ const StudyModePage: React.FC = () => {
   const [isEditingCard, setIsEditingCard] = useState(false);
   const [editFront, setEditFront] = useState('');
   const [editBack, setEditBack] = useState('');
+  const [editPhonetic, setEditPhonetic] = useState('');
+  const [editExample, setEditExample] = useState('');
+  const [editGlobal, setEditGlobal] = useState(true);
 
   const [allAvailableCards, setAllAvailableCards] = useState<Flashcard[]>([]);
   const [batchLimit, setBatchLimit] = useState<'10' | '25' | '50' | 'all'>('25');
@@ -267,28 +282,59 @@ const StudyModePage: React.FC = () => {
   const handleStartEdit = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (!currentCard) return;
-    setEditFront(currentCard.front);
-    setEditBack(currentCard.back);
+    setEditFront(currentCard.front || '');
+    setEditBack(currentCard.back || '');
+    setEditPhonetic((currentCard as any).phonetic || '');
+    setEditExample((currentCard as any).example || '');
+    setEditGlobal(isAdmin);
     setIsEditingCard(true);
   };
 
   const handleSaveEdit = async () => {
     if (!currentCard || !editFront.trim() || !editBack.trim()) return;
     try {
-      await updateFlashcard(currentCard.id, {
-        front: editFront.trim(),
-        back: editBack.trim(),
-      });
+      const cleanF = editFront.trim();
+      const cleanB = editBack.trim();
+      const cleanP = editPhonetic.trim();
+      const cleanE = editExample.trim();
+
+      if (currentCard.id) {
+        await updateFlashcard(currentCard.id, {
+          front: cleanF,
+          back: cleanB,
+        });
+      }
+
+      if (isAdmin && editGlobal) {
+        await GlobalFlashcardOverrideService.saveGlobalOverride(
+          {
+            word: currentCard.front,
+            front: cleanF,
+            phonetic: cleanP,
+            back: cleanB,
+            example: cleanE,
+            deck_id: (currentCard as any).deckId,
+          },
+          user?.email || 'admin',
+        );
+        toast({
+          title: '🌐 Global Baza Yangilandi',
+          description: "Fleshkarta barcha foydalanuvchilar va production uchun to'liq saqlandi!",
+        });
+      } else {
+        toast({ title: "✅ Kartochka to'g'rilandi va saqlandi" });
+      }
 
       // Update local queue state
       setQueue((prev) =>
         prev.map((c, idx) =>
-          idx === currentCardIndex ? { ...c, front: editFront.trim(), back: editBack.trim() } : c,
+          idx === currentCardIndex || c.id === currentCard.id || c.front === currentCard.front
+            ? { ...c, front: cleanF, back: cleanB, phonetic: cleanP, example: cleanE }
+            : c,
         ),
       );
 
       setIsEditingCard(false);
-      toast({ title: "✅ Kartochka to'g'rilandi va saqlandi" });
     } catch (err) {
       console.error('Failed to edit flashcard:', err);
       toast({
@@ -506,33 +552,112 @@ const StudyModePage: React.FC = () => {
   return (
     <div className="relative mx-auto max-w-4xl space-y-6 p-4 pb-[max(2rem,env(safe-area-inset-bottom,24px))] md:p-8">
       {isEditingCard && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="w-full max-w-lg rounded-3xl border border-border bg-card p-6 shadow-2xl">
-            <div className="mb-4 flex items-center justify-between">
-              <h3 className="font-bold">Kartochkani tahrirlash</h3>
+        <div className="backdrop-blur-xs fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
+          <div className="w-full max-w-lg space-y-4 rounded-3xl border border-border bg-card p-6 shadow-2xl">
+            <div className="flex items-center justify-between border-b border-border/50 pb-3">
+              <div className="flex items-center gap-2">
+                <Edit3 size={18} className="text-amber-500" />
+                <h3 className="text-base font-black text-foreground">Kartochkani tahrirlash</h3>
+                {isAdmin && (
+                  <span className="flex items-center gap-1 rounded-lg bg-amber-500/10 px-2 py-0.5 text-[11px] font-bold text-amber-600">
+                    <ShieldCheck size={13} /> Admin
+                  </span>
+                )}
+              </div>
               <button
                 onClick={() => setIsEditingCard(false)}
-                className="rounded-full p-1 hover:bg-muted"
+                className="rounded-full p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
               >
-                <X size={20} />
+                <X size={18} />
               </button>
             </div>
-            <div className="space-y-4">
-              <input
-                value={editFront}
-                onChange={(e) => setEditFront(e.target.value)}
-                className="w-full rounded-xl border border-border bg-muted p-3"
-                placeholder="Old qismi"
-              />
-              <textarea
-                value={editBack}
-                onChange={(e) => setEditBack(e.target.value)}
-                className="h-32 w-full rounded-xl border border-border bg-muted p-3"
-                placeholder="Orqa qismi"
-              />
-              <Button onClick={handleSaveEdit} className="w-full">
-                Saqlash
-              </Button>
+
+            <div className="space-y-3 text-xs">
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                <div>
+                  <label className="mb-1 block font-bold text-muted-foreground">
+                    Yaponcha so'z / Kanji (Front)
+                  </label>
+                  <input
+                    value={editFront}
+                    onChange={(e) => setEditFront(e.target.value)}
+                    className="focus:outline-hidden w-full rounded-xl border border-border bg-muted/70 p-2.5 text-sm font-bold text-foreground focus:ring-2 focus:ring-primary"
+                    placeholder="Old qismi (Front)"
+                  />
+                </div>
+                <div>
+                  <label className="mb-1 block font-bold text-muted-foreground">
+                    O'qilishi / Furigana (Phonetic)
+                  </label>
+                  <input
+                    value={editPhonetic}
+                    onChange={(e) => setEditPhonetic(e.target.value)}
+                    className="focus:outline-hidden w-full rounded-xl border border-border bg-muted/70 p-2.5 text-sm font-medium text-foreground focus:ring-2 focus:ring-primary"
+                    placeholder="Masalan: わたし - watashi"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="mb-1 block font-bold text-muted-foreground">
+                  O'zbekcha tarjimasi / Ma'nosi (Back)
+                </label>
+                <textarea
+                  value={editBack}
+                  onChange={(e) => setEditBack(e.target.value)}
+                  rows={2}
+                  className="focus:outline-hidden w-full rounded-xl border border-border bg-muted/70 p-2.5 text-sm font-semibold text-foreground focus:ring-2 focus:ring-primary"
+                  placeholder="Orqa qismi (Back)"
+                />
+              </div>
+
+              <div>
+                <label className="mb-1 block font-bold text-muted-foreground">
+                  Struktura / Misol jumlasi (Example)
+                </label>
+                <textarea
+                  value={editExample}
+                  onChange={(e) => setEditExample(e.target.value)}
+                  rows={2}
+                  className="focus:outline-hidden w-full rounded-xl border border-border bg-muted/70 p-2.5 text-xs font-medium text-foreground focus:ring-2 focus:ring-primary"
+                  placeholder="Misol jumlasi yoki grammatik struktura..."
+                />
+              </div>
+
+              {isAdmin && (
+                <label className="flex cursor-pointer items-center gap-2.5 rounded-xl border border-primary/20 bg-primary/5 p-3 transition-colors hover:bg-primary/10">
+                  <input
+                    type="checkbox"
+                    checked={editGlobal}
+                    onChange={(e) => setEditGlobal(e.target.checked)}
+                    className="h-4 w-4 rounded-sm border-primary text-primary focus:ring-primary"
+                  />
+                  <div className="text-xs">
+                    <span className="flex items-center gap-1 font-black text-primary">
+                      <Globe size={14} /> Umumiy production bazasiga saqlash
+                    </span>
+                    <span className="text-[11px] text-muted-foreground">
+                      Barcha darsliklar va o'quvchilar uchun global o'zgaradi.
+                    </span>
+                  </div>
+                </label>
+              )}
+
+              <div className="flex justify-end gap-2 pt-2">
+                <Button
+                  onClick={() => setIsEditingCard(false)}
+                  variant="secondary"
+                  className="text-xs font-bold"
+                >
+                  Bekor qilish
+                </Button>
+                <Button
+                  onClick={handleSaveEdit}
+                  className="bg-primary text-xs font-bold text-primary-foreground shadow-md"
+                >
+                  Saqlash
+                </Button>
+              </div>
             </div>
           </div>
         </div>
