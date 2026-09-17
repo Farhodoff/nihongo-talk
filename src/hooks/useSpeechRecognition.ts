@@ -343,6 +343,24 @@ export const useSpeechRecognition = ({
     }
   }, [isLiveSessionRef, isProcessingRef, startVolumeMeter, stopVolumeMeter, stopMicrophoneStream]);
 
+  // Auto-resume audioContext when coming back to foreground
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        if (audioContextRef.current && audioContextRef.current.state === 'suspended') {
+          audioContextRef.current.resume().catch(() => {});
+        }
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, []);
+
   useEffect(() => {
     if (typeof window === 'undefined') return;
 

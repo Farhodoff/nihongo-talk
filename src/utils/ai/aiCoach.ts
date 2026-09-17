@@ -718,7 +718,9 @@ export const analyzeSpeakingSession = async (
     };
   }
 
-  const conversationText = history
+  // Limit to the most recent 30 turns to avoid token limit exhaustion during long sessions
+  const recentHistory = history.length > 30 ? history.slice(-30) : history;
+  const conversationText = recentHistory
     .map((h) => `${h.role === 'user' ? 'Student' : 'Coach'}: ${h.content}`)
     .join('\n');
 

@@ -435,6 +435,29 @@ export const useTTS = ({
 
   const sharedAudioCtxRef = useRef<AudioContext | null>(null);
 
+  // Auto-resume AudioContext and SpeechSynthesis when returning to foreground on mobile
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        if (sharedAudioCtxRef.current && sharedAudioCtxRef.current.state === 'suspended') {
+          sharedAudioCtxRef.current.resume().catch(() => {});
+        }
+        if (typeof window !== 'undefined' && window.speechSynthesis?.paused) {
+          try {
+            window.speechSynthesis.resume();
+          } catch {}
+        }
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, []);
+
   const unlockAudio = useCallback(() => {
     if (typeof window !== 'undefined' && window.speechSynthesis) {
       try {

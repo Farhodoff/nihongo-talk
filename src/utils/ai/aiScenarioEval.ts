@@ -1,23 +1,30 @@
-import { ConversationScenario, ScenarioSessionResult } from '../../components/speaking/scenarioTypes';
+import {
+  ConversationScenario,
+  ScenarioSessionResult,
+} from '../../components/speaking/scenarioTypes';
 import { callSelectedAIProvider } from './aiCore';
 
 export interface EvaluateScenarioParams {
-    scenario: ConversationScenario;
-    chatHistory: { role: 'user' | 'assistant'; content: string }[];
-    durationSeconds: number;
-    recordedUrl?: string | null;
+  scenario: ConversationScenario;
+  chatHistory: { role: 'user' | 'assistant'; content: string }[];
+  durationSeconds: number;
+  recordedUrl?: string | null;
 }
 
 export const evaluateScenarioSession = async ({
-    scenario,
-    chatHistory,
-    durationSeconds,
-    recordedUrl
+  scenario,
+  chatHistory,
+  durationSeconds,
+  recordedUrl,
 }: EvaluateScenarioParams): Promise<ScenarioSessionResult> => {
-    const userMessages = chatHistory.filter(h => h.role === 'user').map(h => h.content);
-    const transcript = userMessages.join('\n');
+  // Limit to the most recent 30 user turns to avoid token limit overflow on extended sessions
+  const userMessages = chatHistory
+    .filter((h) => h.role === 'user')
+    .map((h) => h.content)
+    .slice(-30);
+  const transcript = userMessages.join('\n');
 
-    const prompt = `
+  const prompt = `
       Act as an expert Japanese Language Oral Examiner & Pronunciation Coach.
       Scenario Context: "${scenario.title_ja}" (${scenario.title_uz})
       Target JLPT Difficulty: ${scenario.difficulty}
@@ -54,57 +61,72 @@ export const evaluateScenarioSession = async ({
       }
     `;
 
-    try {
-        const response = await callSelectedAIProvider(prompt, undefined, true);
-        const cleanedText = response.replace(/```json/g, "").replace(/```/g, "").trim();
-        const json = JSON.parse(cleanedText);
+  try {
+    const response = await callSelectedAIProvider(prompt, undefined, true);
+    const cleanedText = response
+      .replace(/```json/g, '')
+      .replace(/```/g, '')
+      .trim();
+    const json = JSON.parse(cleanedText);
 
-        const pronunciation_score = Math.min(100, Math.max(0, json.pronunciation_score || 75));
-        const fluency_score = Math.min(100, Math.max(0, json.fluency_score || 70));
-        const grammar_score = Math.min(100, Math.max(0, json.grammar_score || 80));
-        const vocabulary_score = Math.min(100, Math.max(0, json.vocabulary_score || 75));
-        const overall_score = Math.min(100, Math.max(0, json.overall_score || Math.round((pronunciation_score + fluency_score + grammar_score + vocabulary_score) / 4)));
+    const pronunciation_score = Math.min(100, Math.max(0, json.pronunciation_score || 75));
+    const fluency_score = Math.min(100, Math.max(0, json.fluency_score || 70));
+    const grammar_score = Math.min(100, Math.max(0, json.grammar_score || 80));
+    const vocabulary_score = Math.min(100, Math.max(0, json.vocabulary_score || 75));
+    const overall_score = Math.min(
+      100,
+      Math.max(
+        0,
+        json.overall_score ||
+          Math.round((pronunciation_score + fluency_score + grammar_score + vocabulary_score) / 4),
+      ),
+    );
 
-        return {
-            id: `sec-${Date.now()}`,
-            scenario_id: scenario.id,
-            scenario_title: scenario.title_en || scenario.title_ja || scenario.title_uz,
-            pronunciation_score,
-            fluency_score,
-            grammar_score,
-            vocabulary_score,
-            overall_score,
-            duration_seconds: durationSeconds,
-            user_audio_url: recordedUrl || undefined,
-            ai_feedback: json.ai_feedback || "Barakalla! Yaponcha muloqot va talaffuz mashqida yaxshi natija ko'rsatdingiz. Mashqlarni davom ettiring!",
-            key_phrases_used: Array.isArray(json.key_phrases_used) ? json.key_phrases_used : [],
-            key_phrases_missed: Array.isArray(json.key_phrases_missed) ? json.key_phrases_missed : scenario.key_phrases,
-            created_at: new Date().toISOString()
-        };
-    } catch (error) {
-        console.error('Scenario evaluation error:', error);
-        
-        // Fallback default calculation if AI fails
-        const matched = scenario.key_phrases.filter(kp => 
-            transcript.toLowerCase().includes(kp.toLowerCase())
-        );
-        const missed = scenario.key_phrases.filter(kp => !matched.includes(kp));
+    return {
+      id: `sec-${Date.now()}`,
+      scenario_id: scenario.id,
+      scenario_title: scenario.title_en || scenario.title_ja || scenario.title_uz,
+      pronunciation_score,
+      fluency_score,
+      grammar_score,
+      vocabulary_score,
+      overall_score,
+      duration_seconds: durationSeconds,
+      user_audio_url: recordedUrl || undefined,
+      ai_feedback:
+        json.ai_feedback ||
+        "Barakalla! Yaponcha muloqot va talaffuz mashqida yaxshi natija ko'rsatdingiz. Mashqlarni davom ettiring!",
+      key_phrases_used: Array.isArray(json.key_phrases_used) ? json.key_phrases_used : [],
+      key_phrases_missed: Array.isArray(json.key_phrases_missed)
+        ? json.key_phrases_missed
+        : scenario.key_phrases,
+      created_at: new Date().toISOString(),
+    };
+  } catch (error) {
+    console.error('Scenario evaluation error:', error);
 
-        return {
-            id: `sec-${Date.now()}`,
-            scenario_id: scenario.id,
-            scenario_title: scenario.title_en || scenario.title_ja || scenario.title_uz,
-            pronunciation_score: 80,
-            fluency_score: 75,
-            grammar_score: 82,
-            vocabulary_score: 70 + matched.length * 5,
-            overall_score: 78,
-            duration_seconds: durationSeconds,
-            user_audio_url: recordedUrl || undefined,
-            ai_feedback: "Suhbat yakunlandi! Pronunciation va iboralar ishlatilishi tahlil qilindi. Yapon tilida muloqotni rivojlantirish uchun ko'proq audio mashqlarni bajaring.",
-            key_phrases_used: matched,
-            key_phrases_missed: missed,
-            created_at: new Date().toISOString()
-        };
-    }
+    // Fallback default calculation if AI fails
+    const matched = scenario.key_phrases.filter((kp) =>
+      transcript.toLowerCase().includes(kp.toLowerCase()),
+    );
+    const missed = scenario.key_phrases.filter((kp) => !matched.includes(kp));
+
+    return {
+      id: `sec-${Date.now()}`,
+      scenario_id: scenario.id,
+      scenario_title: scenario.title_en || scenario.title_ja || scenario.title_uz,
+      pronunciation_score: 80,
+      fluency_score: 75,
+      grammar_score: 82,
+      vocabulary_score: 70 + matched.length * 5,
+      overall_score: 78,
+      duration_seconds: durationSeconds,
+      user_audio_url: recordedUrl || undefined,
+      ai_feedback:
+        "Suhbat yakunlandi! Pronunciation va iboralar ishlatilishi tahlil qilindi. Yapon tilida muloqotni rivojlantirish uchun ko'proq audio mashqlarni bajaring.",
+      key_phrases_used: matched,
+      key_phrases_missed: missed,
+      created_at: new Date().toISOString(),
+    };
+  }
 };

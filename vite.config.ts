@@ -187,6 +187,34 @@ export default defineConfig(({ mode }) => {
                 },
               },
             },
+            {
+              urlPattern: /\.(?:mp3|wav|ogg|m4a)$/i,
+              handler: 'CacheFirst',
+              options: {
+                cacheName: 'audio-assets-cache',
+                expiration: {
+                  maxEntries: 100,
+                  maxAgeSeconds: 60 * 60 * 24 * 30, // 30 days
+                },
+                cacheableResponse: {
+                  statuses: [0, 200],
+                },
+              },
+            },
+            {
+              urlPattern: /^https:\/\/.*\.supabase\.co\/storage\/v1\/object\/public\/.*audio.*/i,
+              handler: 'CacheFirst',
+              options: {
+                cacheName: 'supabase-audio-cache',
+                expiration: {
+                  maxEntries: 100,
+                  maxAgeSeconds: 60 * 60 * 24 * 30,
+                },
+                cacheableResponse: {
+                  statuses: [0, 200],
+                },
+              },
+            },
           ],
         },
       }),

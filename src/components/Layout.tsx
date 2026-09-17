@@ -28,6 +28,7 @@ import { Sheet, SheetContent } from './ui/sheet';
 import { Button } from './ui/Button';
 import { AppLogo } from './AppLogo';
 import { UzbekistanFlag, JapanFlag, UKFlag } from './common/FlagIcons';
+import ErrorBoundary from './ErrorBoundary';
 import { GlobalAnnouncementBanner } from './GlobalAnnouncementBanner';
 import { QuickCommandPalette } from './common/QuickCommandPalette';
 
@@ -484,7 +485,9 @@ const Layout: React.FC = () => {
                 : 'h-full overflow-y-auto pb-[max(6.5rem,calc(env(safe-area-inset-bottom)+5rem))] md:pb-8'
             }`}
           >
-            <Outlet />
+            <ErrorBoundary inline={true} key={location.pathname}>
+              <Outlet />
+            </ErrorBoundary>
           </motion.div>
         </AnimatePresence>
       </main>

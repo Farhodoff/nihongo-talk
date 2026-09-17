@@ -1,5 +1,6 @@
 import { supabase } from '../lib/supabase';
 import { logger } from '../utils/logger';
+import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
 
 export interface WritingHistoryItem {
   id: string;
@@ -103,19 +104,19 @@ export class HistoryService {
 
     const scopedKey = getStorageKey('study_planner_ielts_writing_history', userId);
     const rawLocal =
-      localStorage.getItem('study_planner_ielts_writing_history') ||
-      (userId ? localStorage.getItem(scopedKey) : null);
+      safeLocalStorage.getItem('study_planner_ielts_writing_history') ||
+      (userId ? safeLocalStorage.getItem(scopedKey) : null);
     const list: WritingHistoryItem[] = rawLocal ? JSON.parse(rawLocal) : [];
     list.unshift(newItem);
-    localStorage.setItem('study_planner_ielts_writing_history', JSON.stringify(list.slice(0, 50)));
+    safeLocalStorage.setJSON('study_planner_ielts_writing_history', list.slice(0, 50));
     if (userId) {
-      localStorage.setItem(scopedKey, JSON.stringify(list.slice(0, 50)));
+      safeLocalStorage.setJSON(scopedKey, list.slice(0, 50));
     }
 
     return newItem;
   }
 
-  static async getWritingHistory(): Promise<WritingHistoryItem[]> {
+  static async getWritingHistory(limit: number = 100): Promise<WritingHistoryItem[]> {
     let userId: string | null = null;
     try {
       const {
@@ -130,9 +131,9 @@ export class HistoryService {
 
     if (typeof navigator !== 'undefined' && !navigator.onLine) {
       const local = userId
-        ? localStorage.getItem(scopedKey) ||
-          localStorage.getItem('study_planner_ielts_writing_history')
-        : localStorage.getItem('study_planner_ielts_writing_history');
+        ? safeLocalStorage.getItem(scopedKey) ||
+          safeLocalStorage.getItem('study_planner_ielts_writing_history')
+        : safeLocalStorage.getItem('study_planner_ielts_writing_history');
       return local ? JSON.parse(local) : [];
     }
 
@@ -143,7 +144,7 @@ export class HistoryService {
           .select('*')
           .eq('user_id', userId)
           .order('created_at', { ascending: false })
-          .limit(100);
+          .limit(limit);
         if (!error && data) {
           const mapped = data.map((item: any) => ({
             id: item.id || item.user_id,
@@ -155,7 +156,7 @@ export class HistoryService {
             feedback: item.feedback,
             createdAt: item.created_at,
           }));
-          localStorage.setItem(scopedKey, JSON.stringify(mapped.slice(0, 50)));
+          safeLocalStorage.setJSON(scopedKey, mapped.slice(0, 50));
           return mapped;
         } else if (error) {
           handleTableError('ielts_writing_history', error);
@@ -166,9 +167,9 @@ export class HistoryService {
     }
 
     const local = userId
-      ? localStorage.getItem(scopedKey) ||
-        localStorage.getItem('study_planner_ielts_writing_history')
-      : localStorage.getItem('study_planner_ielts_writing_history');
+      ? safeLocalStorage.getItem(scopedKey) ||
+        safeLocalStorage.getItem('study_planner_ielts_writing_history')
+      : safeLocalStorage.getItem('study_planner_ielts_writing_history');
     return local ? JSON.parse(local) : [];
   }
 
@@ -231,22 +232,19 @@ export class HistoryService {
 
     const scopedKey = getStorageKey('study_planner_speaking_coach_sessions', userId);
     const rawLocal =
-      localStorage.getItem('study_planner_speaking_coach_sessions') ||
-      (userId ? localStorage.getItem(scopedKey) : null);
+      safeLocalStorage.getItem('study_planner_speaking_coach_sessions') ||
+      (userId ? safeLocalStorage.getItem(scopedKey) : null);
     const list: SpeakingSessionItem[] = rawLocal ? JSON.parse(rawLocal) : [];
     list.unshift(newItem);
-    localStorage.setItem(
-      'study_planner_speaking_coach_sessions',
-      JSON.stringify(list.slice(0, 50)),
-    );
+    safeLocalStorage.setJSON('study_planner_speaking_coach_sessions', list.slice(0, 50));
     if (userId) {
-      localStorage.setItem(scopedKey, JSON.stringify(list.slice(0, 50)));
+      safeLocalStorage.setJSON(scopedKey, list.slice(0, 50));
     }
 
     return newItem;
   }
 
-  static async getSpeakingHistory(): Promise<SpeakingSessionItem[]> {
+  static async getSpeakingHistory(limit: number = 100): Promise<SpeakingSessionItem[]> {
     let userId: string | null = null;
     try {
       const {
@@ -261,9 +259,9 @@ export class HistoryService {
 
     if (typeof navigator !== 'undefined' && !navigator.onLine) {
       const local = userId
-        ? localStorage.getItem(scopedKey) ||
-          localStorage.getItem('study_planner_speaking_coach_sessions')
-        : localStorage.getItem('study_planner_speaking_coach_sessions');
+        ? safeLocalStorage.getItem(scopedKey) ||
+          safeLocalStorage.getItem('study_planner_speaking_coach_sessions')
+        : safeLocalStorage.getItem('study_planner_speaking_coach_sessions');
       return local ? JSON.parse(local) : [];
     }
 
@@ -274,7 +272,7 @@ export class HistoryService {
           .select('*')
           .eq('user_id', userId)
           .order('created_at', { ascending: false })
-          .limit(100);
+          .limit(limit);
         if (!error && data) {
           const mapped = data.map((item: any) => ({
             id: item.id || item.user_id,
@@ -287,7 +285,7 @@ export class HistoryService {
             feedback: item.feedback,
             createdAt: item.created_at,
           }));
-          localStorage.setItem(scopedKey, JSON.stringify(mapped.slice(0, 50)));
+          safeLocalStorage.setJSON(scopedKey, mapped.slice(0, 50));
           return mapped;
         } else if (error) {
           handleTableError('speaking_coach_sessions', error);
@@ -298,9 +296,9 @@ export class HistoryService {
     }
 
     const local = userId
-      ? localStorage.getItem(scopedKey) ||
-        localStorage.getItem('study_planner_speaking_coach_sessions')
-      : localStorage.getItem('study_planner_speaking_coach_sessions');
+      ? safeLocalStorage.getItem(scopedKey) ||
+        safeLocalStorage.getItem('study_planner_speaking_coach_sessions')
+      : safeLocalStorage.getItem('study_planner_speaking_coach_sessions');
     return local ? JSON.parse(local) : [];
   }
 
@@ -338,19 +336,19 @@ export class HistoryService {
 
     const scopedKey = getStorageKey('study_planner_mock_exams_history', userId);
     const rawLocal =
-      localStorage.getItem('study_planner_mock_exams_history') ||
-      (userId ? localStorage.getItem(scopedKey) : null);
+      safeLocalStorage.getItem('study_planner_mock_exams_history') ||
+      (userId ? safeLocalStorage.getItem(scopedKey) : null);
     const list: MockExamItem[] = rawLocal ? JSON.parse(rawLocal) : [];
     list.unshift(newItem);
-    localStorage.setItem('study_planner_mock_exams_history', JSON.stringify(list.slice(0, 50)));
+    safeLocalStorage.setJSON('study_planner_mock_exams_history', list.slice(0, 50));
     if (userId) {
-      localStorage.setItem(scopedKey, JSON.stringify(list.slice(0, 50)));
+      safeLocalStorage.setJSON(scopedKey, list.slice(0, 50));
     }
 
     return newItem;
   }
 
-  static async getMockExamsHistory(): Promise<MockExamItem[]> {
+  static async getMockExamsHistory(limit: number = 100): Promise<MockExamItem[]> {
     let userId: string | null = null;
     try {
       const {
@@ -365,9 +363,9 @@ export class HistoryService {
 
     if (typeof navigator !== 'undefined' && !navigator.onLine) {
       const local = userId
-        ? localStorage.getItem(scopedKey) ||
-          localStorage.getItem('study_planner_mock_exams_history')
-        : localStorage.getItem('study_planner_mock_exams_history');
+        ? safeLocalStorage.getItem(scopedKey) ||
+          safeLocalStorage.getItem('study_planner_mock_exams_history')
+        : safeLocalStorage.getItem('study_planner_mock_exams_history');
       return local ? JSON.parse(local) : [];
     }
 
@@ -378,7 +376,7 @@ export class HistoryService {
           .select('*')
           .eq('user_id', userId)
           .order('created_at', { ascending: false })
-          .limit(100);
+          .limit(limit);
         if (!error && data) {
           const mapped = data.map((item: any) => ({
             id: item.id || item.user_id,
@@ -389,7 +387,7 @@ export class HistoryService {
             bandScore: item.band_score,
             createdAt: item.created_at,
           }));
-          localStorage.setItem(scopedKey, JSON.stringify(mapped.slice(0, 50)));
+          safeLocalStorage.setJSON(scopedKey, mapped.slice(0, 50));
           return mapped;
         } else if (error) {
           handleTableError('mock_exams_history', error);
@@ -400,8 +398,9 @@ export class HistoryService {
     }
 
     const local = userId
-      ? localStorage.getItem(scopedKey) || localStorage.getItem('study_planner_mock_exams_history')
-      : localStorage.getItem('study_planner_mock_exams_history');
+      ? safeLocalStorage.getItem(scopedKey) ||
+        safeLocalStorage.getItem('study_planner_mock_exams_history')
+      : safeLocalStorage.getItem('study_planner_mock_exams_history');
     return local ? JSON.parse(local) : [];
   }
 }
