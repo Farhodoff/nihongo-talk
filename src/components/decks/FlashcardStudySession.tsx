@@ -1018,7 +1018,9 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
         {isFlipped && (
           <div
             className="mt-4 grid w-full grid-cols-2 gap-2 duration-200 animate-in slide-in-from-bottom-3 sm:mt-6 sm:gap-3 md:grid-cols-4"
-            style={{ paddingBottom: isTwa ? 'var(--twa-keyboard-offset, 0px)' : undefined }}
+            style={{
+              paddingBottom: 'var(--keyboard-offset, var(--twa-keyboard-offset, 0px))',
+            }}
           >
             <button
               onClick={() => handleReview(Rating.AGAIN)}

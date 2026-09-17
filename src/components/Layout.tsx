@@ -31,6 +31,7 @@ import { UzbekistanFlag, JapanFlag, UKFlag } from './common/FlagIcons';
 import ErrorBoundary from './ErrorBoundary';
 import { GlobalAnnouncementBanner } from './GlobalAnnouncementBanner';
 import { QuickCommandPalette } from './common/QuickCommandPalette';
+import { useKeyboardOffset } from '../hooks/useKeyboardOffset';
 
 interface NavItem {
   name: string;
@@ -39,6 +40,7 @@ interface NavItem {
 }
 
 const Layout: React.FC = () => {
+  const { isKeyboardOpen } = useKeyboardOffset();
   const location = useLocation();
   const navigate = useNavigate();
   const { focusState } = useFocusTimerContext();
@@ -496,7 +498,9 @@ const Layout: React.FC = () => {
       {!isFullScreenPage && (
         <nav
           aria-label="Mobil asosiy navigatsiya"
-          className="glass-card fixed bottom-0 z-40 flex w-full items-center justify-around border-t border-border bg-background/95 px-2 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-1.5 backdrop-blur-md md:hidden"
+          className={`glass-card fixed bottom-0 z-40 flex w-full items-center justify-around border-t border-border bg-background/95 px-2 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-1.5 backdrop-blur-md transition-transform duration-200 md:hidden ${
+            isKeyboardOpen ? 'pointer-events-none translate-y-full' : 'translate-y-0'
+          }`}
         >
           {[
             {

@@ -66,28 +66,58 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
   const [vocabData, setVocabData] = useState<JlptVocabItem[]>([]);
   const [grammarQuestions, setGrammarQuestions] = useState<JlptGrammarQuestion[]>([]);
   const [isLoadingData, setIsLoadingData] = useState(true);
+  const [tabLoading, setTabLoading] = useState(false);
 
+  // Load dataset corresponding to activeTab on-demand
   useEffect(() => {
-    const loadData = async () => {
+    let isMounted = true;
+    const loadTabDataset = async () => {
       try {
-        const [gkModule, kanjiDbModule, questionsModule, vocabModule] = await Promise.all([
-          import('../../data/jlptGrammarKanji'),
-          import('../../data/jlptKanjiDatabase'),
-          import('../../data/jlpt/grammar_data'),
-          import('../../data/jlptVocabData'),
-        ]);
-        setGrammarData(gkModule.JLPT_GRAMMAR_DATA);
-        setKanjiData(kanjiDbModule.JLPT_KANJI_DATABASE || gkModule.JLPT_KANJI_DATA);
-        setVocabData(vocabModule.JLPT_VOCAB_DATA);
-        setGrammarQuestions(questionsModule.JLPT_GRAMMAR_QUESTIONS);
+        if (activeTab === 'grammar' && grammarData.length === 0) {
+          const gkModule = await import('../../data/jlptGrammarKanji');
+          if (isMounted) setGrammarData(gkModule.JLPT_GRAMMAR_DATA);
+        } else if (activeTab === 'kanji' && kanjiData.length === 0) {
+          setTabLoading(true);
+          const kanjiDbModule = await import('../../data/jlptKanjiDatabase');
+          if (isMounted) setKanjiData(kanjiDbModule.JLPT_KANJI_DATABASE);
+        } else if (activeTab === 'goi' && vocabData.length === 0) {
+          setTabLoading(true);
+          const vocabModule = await import('../../data/jlptVocabData');
+          if (isMounted) setVocabData(vocabModule.JLPT_VOCAB_DATA);
+        } else if (activeTab === 'quiz' && grammarQuestions.length === 0) {
+          setTabLoading(true);
+          const questionsModule = await import('../../data/jlpt/grammar_data');
+          if (isMounted) setGrammarQuestions(questionsModule.JLPT_GRAMMAR_QUESTIONS);
+        }
       } catch (err) {
-        console.error('Failed to load JLPT data', err);
+        console.error('Failed to load JLPT dataset for ' + activeTab, err);
       } finally {
-        setIsLoadingData(false);
+        if (isMounted) {
+          setIsLoadingData(false);
+          setTabLoading(false);
+        }
       }
     };
-    loadData();
-  }, []);
+    loadTabDataset();
+    return () => {
+      isMounted = false;
+    };
+  }, [activeTab]);
+
+  // Background prefetch for instant tab switching when idle
+  useEffect(() => {
+    const timer = setTimeout(async () => {
+      try {
+        if (kanjiData.length === 0) {
+          const m = await import('../../data/jlptKanjiDatabase');
+          setKanjiData(m.JLPT_KANJI_DATABASE);
+        }
+      } catch {
+        // Non-blocking prefetch
+      }
+    }, 2500);
+    return () => clearTimeout(timer);
+  }, [kanjiData.length]);
 
   // Stroke Modal State
   const [strokeModalKanji, setStrokeModalKanji] = useState<JlptKanjiItem | null>(null);
@@ -635,7 +665,15 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
       )}
 
       {/* TAB 2: KANJI LIST */}
-      {activeTab === 'kanji' && (
+      {activeTab === 'kanji' && tabLoading && (
+        <div className="flex flex-col items-center justify-center space-y-3 p-12">
+          <div className="h-10 w-10 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
+          <p className="text-sm text-muted-foreground">
+            {language === 'ja' ? '漢字データを読み込んでいます...' : 'Kanji bazasi yuklanmoqda...'}
+          </p>
+        </div>
+      )}
+      {activeTab === 'kanji' && !tabLoading && (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {filteredKanji.map((item) => {
             const status = getItemStatus(item.id);
@@ -754,7 +792,15 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
       )}
 
       {/* TAB 3: GOI (VOCABULARY) LIST */}
-      {activeTab === 'goi' && (
+      {activeTab === 'goi' && tabLoading && (
+        <div className="flex flex-col items-center justify-center space-y-3 p-12">
+          <div className="h-10 w-10 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
+          <p className="text-sm text-muted-foreground">
+            {language === 'ja' ? '語彙データを読み込んでいます...' : "Lug'at bazasi yuklanmoqda..."}
+          </p>
+        </div>
+      )}
+      {activeTab === 'goi' && !tabLoading && (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {filteredVocab.map((item) => {
             const status = getItemStatus(item.id);
@@ -898,7 +944,17 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
       )}
 
       {/* TAB 4: QUIZ MODE */}
-      {activeTab === 'quiz' && (
+      {activeTab === 'quiz' && tabLoading && (
+        <div className="flex flex-col items-center justify-center space-y-3 p-12">
+          <div className="h-10 w-10 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
+          <p className="text-sm text-muted-foreground">
+            {language === 'ja'
+              ? 'クイズデータを読み込んでいます...'
+              : 'Test savollari yuklanmoqda...'}
+          </p>
+        </div>
+      )}
+      {activeTab === 'quiz' && !tabLoading && (
         <div className="mx-auto max-w-2xl space-y-4">
           {/* Level Switcher for Quiz */}
           <div className="flex items-center justify-between gap-2 overflow-x-auto rounded-2xl border border-border bg-card p-3 shadow-xs">
