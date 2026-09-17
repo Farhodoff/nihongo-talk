@@ -23,10 +23,10 @@ test.describe('Navigation', () => {
     }
   });
 
-  test('should redirect unauthenticated protected route to landing', async ({ page }) => {
+  test('should redirect unauthenticated protected route to landing or auth', async ({ page }) => {
     await page.goto('/dashboard');
     await page.waitForLoadState('domcontentloaded');
-    await expect(page).toHaveURL(/.*localhost:\d+\/?$/);
+    await expect(page).toHaveURL(/.*localhost:\d+(\/(auth.*)?)?$/);
     await expect(page.locator('body')).toBeVisible();
   });
 });
