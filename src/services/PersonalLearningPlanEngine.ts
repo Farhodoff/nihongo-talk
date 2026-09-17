@@ -458,10 +458,10 @@ LEVEL_PEDAGOGICAL_BLUEPRINT:
 ${getLevelPedagogicalDirectives(goal.language, goal.goalType, cleanCurrent === 'ZERO' ? 'ZERO' : targetLevelCode, goal.targetLevel)}
 
 DIAGNOSTIC_RESULT:
-${JSON.stringify((state as any)?.diagnosticSummary || (state as any)?.diagnosticLevel || 'Barcha diagnostik savollar topshirilgan')}
+${JSON.stringify(state.diagnosticSummary || state.diagnosticLevel || 'Barcha diagnostik savollar topshirilgan')}
 
 LATEST_MOCK_RESULTS:
-${JSON.stringify((state as any)?.recentMockScores || 'Oxirgi mock test natijasi mavjud emas')}
+${JSON.stringify(state.recentMockScores || 'Oxirgi mock test natijasi mavjud emas')}
 
 ACTIVE_WEAKNESSES:
 ${JSON.stringify(weaknessesWithSeverity)}
@@ -475,7 +475,7 @@ ${JSON.stringify(evaluation || 'Birinchi hafta (oldingi evaluation mavjud emas)'
 SRS_STATE:
 - DUE_CARDS: ${srsSummary.dueCount}
 - OVERDUE_CARDS: ${srsSummary.overdueCount}
-- RETENTION: ${(state as any)?.reviewSummary?.averageRetentionScore || 80}%
+- RETENTION: ${state.reviewSummary?.averageRetentionScore || 80}%
 
 COMPLETED_LESSON_IDS:
 ${JSON.stringify(completedLessonIds)}
@@ -582,7 +582,7 @@ ${prompt}`;
         goal.language,
       );
 
-      const daysOfWeek = [
+      const daysOfWeek: WeeklyPlanDay['day'][] = [
         'monday',
         'tuesday',
         'wednesday',
@@ -800,7 +800,7 @@ ${prompt}`;
         }
 
         return {
-          day: dayName as any,
+          day: dayName,
           tasks: validatedTasks,
         };
       });

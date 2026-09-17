@@ -64,10 +64,11 @@ export const GlobalAnnouncementBanner: React.FC = () => {
           </button>
           <button
             onClick={() => handleDismiss(activeAnnouncement.id)}
-            className="rounded-full p-1 text-white/80 transition-all hover:bg-white/10 hover:text-white"
+            className="flex min-h-[44px] min-w-[44px] items-center justify-center rounded-full text-white/80 transition-all hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
             title="Yopish"
+            aria-label="E'lonni yopish"
           >
-            <X size={15} />
+            <X size={18} />
           </button>
         </div>
       </div>

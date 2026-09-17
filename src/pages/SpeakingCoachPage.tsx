@@ -456,6 +456,7 @@ const SpeakingCoachPage: React.FC = () => {
     transcriptBufferRef,
     error,
     setError,
+    isSupported,
     audioVolume,
     startListening,
     commitSpeechNow,
@@ -1364,25 +1365,57 @@ const SpeakingCoachPage: React.FC = () => {
             onClick={() => {
               setSearchParams({ lang: language });
             }}
-            className="flex shrink-0 cursor-pointer items-center gap-1 rounded-xl border border-border bg-muted px-2.5 py-1 text-[11px] font-bold text-muted-foreground transition-all hover:bg-muted/80 hover:text-foreground"
+            className="flex min-h-[44px] shrink-0 cursor-pointer items-center gap-1 rounded-xl border border-border bg-muted px-3 py-2 text-xs font-bold text-muted-foreground transition-all hover:bg-muted/80 hover:text-foreground"
             title="Ssenariydan chiqish"
+            aria-label="Ssenariydan chiqish"
           >
-            <X size={13} />
+            <X size={15} />
             <span className="hidden sm:inline">Chiqish</span>
           </button>
         </div>
       )}
 
+      {/* Unsupported Browser Banner */}
+      {!isSupported && (
+        <div
+          role="alert"
+          aria-live="polite"
+          className="mx-3 mb-2 flex items-center justify-between rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-xs text-amber-200 backdrop-blur-sm animate-in fade-in md:mx-5"
+        >
+          <div className="flex items-center gap-2.5">
+            <span className="text-lg">🎙️</span>
+            <div>
+              <p className="font-semibold text-amber-300">
+                {language === 'ja'
+                  ? 'Ovozli suhbat ushbu brauzerda cheklangan'
+                  : 'Speech recognition not supported in this browser'}
+              </p>
+              <p className="text-[11px] text-amber-300/80">
+                {language === 'ja'
+                  ? 'Eng yaxshi tajriba uchun Google Chrome yoki Microsoft Edge brauzeridan foydalaning. Matn orqali suhbatlashish faol.'
+                  : 'For the full voice experience, please use Google Chrome or Microsoft Edge. Text chat mode remains fully operational.'}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Error Banner */}
       {error && (
-        <div className="mx-3 mb-2 flex items-center justify-center gap-2 rounded-xl border border-rose-500/20 bg-rose-500/10 p-2.5 text-center text-xs text-rose-600 backdrop-blur-sm animate-in fade-in dark:text-rose-400 md:mx-5">
-          <ShieldAlert size={14} />
-          <span className="font-medium">{error}</span>
+        <div
+          role="alert"
+          className="mx-3 mb-2 flex items-center justify-between gap-2 rounded-xl border border-rose-500/20 bg-rose-500/10 px-3 py-2 text-xs text-rose-600 backdrop-blur-sm animate-in fade-in dark:text-rose-400 md:mx-5"
+        >
+          <div className="flex items-center gap-2">
+            <ShieldAlert size={16} className="shrink-0" />
+            <span className="font-medium">{error}</span>
+          </div>
           <button
             onClick={() => setError(null)}
-            className="ml-2 rounded-md p-0.5 hover:bg-rose-500/20"
+            className="flex min-h-[44px] min-w-[44px] items-center justify-center rounded-lg hover:bg-rose-500/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500"
+            aria-label="Xatolik xabarini yopish"
           >
-            <X size={12} />
+            <X size={16} />
           </button>
         </div>
       )}

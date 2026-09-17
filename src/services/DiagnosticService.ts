@@ -15,6 +15,14 @@ import { LearningTrackStorage } from '../utils/storage/LearningTrackStorage';
 import { LevelPromotionCandidate } from '../types/learningPath';
 import { supabase } from '../lib/supabase';
 import { toDeterministicUUID } from '../utils/uuid';
+import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
+import { logger } from '../utils/logger';
+
+interface DbSessionAnswers {
+  mode?: 'adaptive' | 'standard';
+  state?: AdaptiveDiagnosticState;
+  session?: DiagnosticSessionState;
+}
 
 const DIAGNOSTIC_SESSION_PREFIX = 'study_planner_diag_session_';
 const DIAGNOSTIC_ADAPTIVE_PREFIX = 'study_planner_diag_adaptive_';
@@ -633,9 +641,9 @@ export const DiagnosticService = {
     const activeUserId = state.userId || 'guest';
     const key = `${DIAGNOSTIC_ADAPTIVE_PREFIX}${activeUserId}_${state.language}`;
     try {
-      localStorage.setItem(key, JSON.stringify(state));
+      safeLocalStorage.setJSON(key, state);
     } catch (e) {
-      console.warn('[DiagnosticService] Failed to save adaptive session:', e);
+      logger.warn('DiagnosticService', 'Failed to save adaptive session', e);
     }
 
     if (supabase?.from && activeUserId && activeUserId !== 'guest') {
@@ -651,7 +659,7 @@ export const DiagnosticService = {
       });
       if (promise && typeof promise.then === 'function') {
         promise.then(({ error }) => {
-          if (error) console.warn('[DiagnosticService] DB adaptive session save error:', error);
+          if (error) logger.warn('DiagnosticService', 'DB adaptive session save error', error);
         });
       }
     }
@@ -663,10 +671,9 @@ export const DiagnosticService = {
   ): AdaptiveDiagnosticState | null {
     const key = `${DIAGNOSTIC_ADAPTIVE_PREFIX}${userId || 'guest'}_${language}`;
     try {
-      const raw = localStorage.getItem(key);
-      if (raw) return JSON.parse(raw);
+      return safeLocalStorage.getJSON<AdaptiveDiagnosticState | null>(key, null);
     } catch (e) {
-      console.warn('[DiagnosticService] Failed to load adaptive session:', e);
+      logger.warn('DiagnosticService', 'Failed to load adaptive session', e);
     }
     return null;
   },
@@ -675,9 +682,9 @@ export const DiagnosticService = {
     const activeUserId = userId || 'guest';
     const key = `${DIAGNOSTIC_ADAPTIVE_PREFIX}${activeUserId}_${language}`;
     try {
-      localStorage.removeItem(key);
+      safeLocalStorage.removeItem(key);
     } catch (e) {
-      console.warn('[DiagnosticService] Failed to clear adaptive session:', e);
+      logger.warn('DiagnosticService', 'Failed to clear adaptive session', e);
     }
 
     if (supabase?.from && activeUserId && activeUserId !== 'guest') {
@@ -685,7 +692,7 @@ export const DiagnosticService = {
       const promise = supabase.from('diagnostic_sessions').delete().eq('id', uuid);
       if (promise && typeof promise.then === 'function') {
         promise.then(({ error }) => {
-          if (error) console.warn('[DiagnosticService] DB adaptive session delete error:', error);
+          if (error) logger.warn('DiagnosticService', 'DB adaptive session delete error', error);
         });
       }
     }
@@ -698,9 +705,9 @@ export const DiagnosticService = {
     const activeUserId = session.userId || 'guest';
     const key = `${DIAGNOSTIC_SESSION_PREFIX}${activeUserId}_${session.language}`;
     try {
-      localStorage.setItem(key, JSON.stringify(session));
+      safeLocalStorage.setJSON(key, session);
     } catch (e) {
-      console.warn('[DiagnosticService] Failed to save session:', e);
+      logger.warn('DiagnosticService', 'Failed to save session', e);
     }
 
     if (supabase?.from && activeUserId && activeUserId !== 'guest') {
@@ -717,7 +724,7 @@ export const DiagnosticService = {
       });
       if (promise && typeof promise.then === 'function') {
         promise.then(({ error }) => {
-          if (error) console.warn('[DiagnosticService] DB session save error:', error);
+          if (error) logger.warn('DiagnosticService', 'DB session save error', error);
         });
       }
     }
@@ -726,10 +733,9 @@ export const DiagnosticService = {
   getSavedSession(userId: string, language: SupportedLanguage): DiagnosticSessionState | null {
     const key = `${DIAGNOSTIC_SESSION_PREFIX}${userId || 'guest'}_${language}`;
     try {
-      const raw = localStorage.getItem(key);
-      if (raw) return JSON.parse(raw);
+      return safeLocalStorage.getJSON<DiagnosticSessionState | null>(key, null);
     } catch (e) {
-      console.warn('[DiagnosticService] Failed to load session:', e);
+      logger.warn('DiagnosticService', 'Failed to load session', e);
     }
     return null;
   },
@@ -738,9 +744,9 @@ export const DiagnosticService = {
     const activeUserId = userId || 'guest';
     const key = `${DIAGNOSTIC_SESSION_PREFIX}${activeUserId}_${language}`;
     try {
-      localStorage.removeItem(key);
+      safeLocalStorage.removeItem(key);
     } catch (e) {
-      console.warn('[DiagnosticService] Failed to clear session:', e);
+      logger.warn('DiagnosticService', 'Failed to clear session', e);
     }
 
     if (supabase?.from && activeUserId && activeUserId !== 'guest') {
@@ -748,7 +754,7 @@ export const DiagnosticService = {
       const promise = supabase.from('diagnostic_sessions').delete().eq('id', uuid);
       if (promise && typeof promise.then === 'function') {
         promise.then(({ error }) => {
-          if (error) console.warn('[DiagnosticService] DB session delete error:', error);
+          if (error) logger.warn('DiagnosticService', 'DB session delete error', error);
         });
       }
     }
@@ -758,7 +764,7 @@ export const DiagnosticService = {
     const activeUserId = result.userId || 'guest';
     const key = `${DIAGNOSTIC_RESULT_PREFIX}${activeUserId}_${result.language}`;
     try {
-      localStorage.setItem(key, JSON.stringify(result));
+      safeLocalStorage.setJSON(key, result);
 
       // Immediate Database Persistence
       if (
@@ -855,7 +861,7 @@ export const DiagnosticService = {
       });
       if (promise && typeof promise.then === 'function') {
         promise.then(({ error }) => {
-          if (error) console.warn('[DiagnosticService] DB diagnostic result save error:', error);
+          if (error) logger.warn('DiagnosticService', 'DB diagnostic result save error', error);
         });
       }
     }
@@ -864,10 +870,9 @@ export const DiagnosticService = {
   getLatestDiagnosticResult(userId: string, language: SupportedLanguage): DiagnosticResult | null {
     const key = `${DIAGNOSTIC_RESULT_PREFIX}${userId || 'guest'}_${language}`;
     try {
-      const raw = localStorage.getItem(key);
-      if (raw) return JSON.parse(raw);
+      return safeLocalStorage.getJSON<DiagnosticResult | null>(key, null);
     } catch (e) {
-      console.warn('[DiagnosticService] Failed to load result:', e);
+      logger.warn('DiagnosticService', 'Failed to load result', e);
     }
     return null;
   },
@@ -907,7 +912,7 @@ export const DiagnosticService = {
           recommendedFirstLessonId: '',
           completedAt: dbResult.created_at,
         };
-        localStorage.setItem(resKey, JSON.stringify(mappedResult));
+        safeLocalStorage.setJSON(resKey, mappedResult);
       }
 
       // 2. Sync Active Session
@@ -922,17 +927,17 @@ export const DiagnosticService = {
         .maybeSingle();
 
       if (!sessErr && dbSession && dbSession.answers) {
-        const answersData = dbSession.answers as any;
+        const answersData = dbSession.answers as DbSessionAnswers;
         if (answersData.mode === 'adaptive' && answersData.state) {
           const adaptiveKey = `${DIAGNOSTIC_ADAPTIVE_PREFIX}${userId}_${language}`;
-          localStorage.setItem(adaptiveKey, JSON.stringify(answersData.state));
+          safeLocalStorage.setJSON(adaptiveKey, answersData.state);
         } else if (answersData.mode === 'standard' && answersData.session) {
           const sessionKey = `${DIAGNOSTIC_SESSION_PREFIX}${userId}_${language}`;
-          localStorage.setItem(sessionKey, JSON.stringify(answersData.session));
+          safeLocalStorage.setJSON(sessionKey, answersData.session);
         }
       }
     } catch (e) {
-      console.warn('[DiagnosticService] DB sync error:', e);
+      logger.warn('DiagnosticService', 'DB sync error', e);
     }
   },
 };

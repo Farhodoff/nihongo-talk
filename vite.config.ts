@@ -226,17 +226,38 @@ export default defineConfig(({ mode }) => {
                 return 'dnd-kit';
               }
             }
-            if (id.includes('/data/curriculum/japanese')) {
-              return 'curriculum-japanese';
+            if (id.includes('minnaN5')) {
+              return 'curriculum-minna-n5';
+            }
+            if (id.includes('minnaN4')) {
+              return 'curriculum-minna-n4';
+            }
+            if (id.includes('japaneseN1')) {
+              return 'curriculum-n1';
+            }
+            if (id.includes('japaneseN2')) {
+              return 'curriculum-n2';
+            }
+            if (id.includes('japaneseN3')) {
+              return 'curriculum-n3';
+            }
+            if (id.includes('japaneseN4') || id.includes('japaneseN5')) {
+              return 'curriculum-n4-n5';
+            }
+            if (id.includes('curriculumLessons')) {
+              return 'curriculum-core';
             }
             if (id.includes('/data/jlptGrammarKanji')) {
               return 'jlpt-grammar-kanji-data';
+            }
+            if (id.includes('/data/jlptVocabData') || id.includes('/data/jlptVocabDatabase')) {
+              return 'jlpt-vocab-data';
             }
           },
         },
       },
       // Chunk size warning limit
-      chunkSizeWarningLimit: 1800,
+      chunkSizeWarningLimit: 2500,
       // esbuild minification (tezroq va default)
       minify: 'esbuild',
       // CSS code splitting

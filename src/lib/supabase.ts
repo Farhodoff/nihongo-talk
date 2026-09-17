@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
+import { logger } from '../utils/logger';
 
 const rawUrl = import.meta.env.VITE_SUPABASE_URL || import.meta.env.NEXT_PUBLIC_SUPABASE_URL;
 const rawKey =
@@ -47,7 +48,10 @@ export const supabaseUrl = isValidUrl(rawUrl) ? rawUrl!.trim() : DEFAULT_SUPABAS
 export const supabaseAnonKey = isValidAnonKey(rawKey) ? rawKey!.trim() : DEFAULT_SUPABASE_ANON_KEY;
 
 if (!isValidUrl(rawUrl) || !isValidAnonKey(rawKey)) {
-  console.warn('Supabase client: Initialized with default or placeholder credentials.');
+  logger.warn(
+    'SupabaseClient',
+    'Initialized with default or fallback credentials. Ensure VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY are set for production.',
+  );
 }
 
 // Concurrency queue — prevent socket flooding while keeping response fast
