@@ -1,0 +1,2378 @@
+[
+  {
+    "id": "jlpt-n4-kanji",
+    "title": "⛩️ JLPT N4 Essential Kanji (漢字 234)",
+    "description": "N4 darajasi uchun barcha 234 ta asosiy Kanji iyerogliflari va birikmalari",
+    "level": "N4",
+    "icon": "Sparkles",
+    "cards": [
+      {
+        "id": "n4-k1",
+        "front": "不",
+        "back": "Emas, inkor, no- (No-, not, non-)",
+        "romaji": "fu, bu",
+        "furigana": "フ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "不便 (ふべん (Fuben)) — Noqulay"
+      },
+      {
+        "id": "n4-k2",
+        "front": "世",
+        "back": "Dunyo, zamon, avlod (World, generation)",
+        "romaji": "yo",
+        "furigana": "よ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "世界 (せかい (Sekai)) — Dunyo"
+      },
+      {
+        "id": "n4-k3",
+        "front": "主",
+        "back": "Asosiy, xo'jayin (Main, master)",
+        "romaji": "omo, nushi",
+        "furigana": "おも",
+        "level": "N4",
+        "type": "kanji",
+        "example": "主人 (しゅじん (Shujin)) — Xo'jayin, er"
+      },
+      {
+        "id": "n4-k4",
+        "front": "乗",
+        "back": "Minmoq, chiqmoq (Ride, board)",
+        "romaji": "no-ru, no-seru",
+        "furigana": "のる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "乗る (のる (Noru)) — Minmoq"
+      },
+      {
+        "id": "n4-k5",
+        "front": "事",
+        "back": "Ish, hodisa, narsa (Thing, matter, accident)",
+        "romaji": "koto",
+        "furigana": "こと",
+        "level": "N4",
+        "type": "kanji",
+        "example": "仕事 (しごと (Shigoto)) — Ish, mehnat"
+      },
+      {
+        "id": "n4-k6",
+        "front": "京",
+        "back": "Poytaxt (Capital)",
+        "romaji": "miyako",
+        "furigana": "みやこ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "東京 (とうきょう (Toukyou)) — Tokio"
+      },
+      {
+        "id": "n4-k7",
+        "front": "仕",
+        "back": "Xizmat qilmoq, ish (Serve, doing)",
+        "romaji": "tsuka-eru",
+        "furigana": "つかえる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "仕事 (しごと (Shigoto)) — Ish, xizmat"
+      },
+      {
+        "id": "n4-k8",
+        "front": "代",
+        "back": "O'rinbosar, davr, narx (Substitute, era, fee)",
+        "romaji": "ka-waru, ka-eru, yo, shiro",
+        "furigana": "かわる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "時代 (じだい (Jidai)) — Davr, zamon"
+      },
+      {
+        "id": "n4-k9",
+        "front": "以",
+        "back": "...dan boshlab, orqali (By means of, since)",
+        "romaji": "i",
+        "furigana": "イ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "以上 (いじょう (Ijou)) — ...dan ortiq"
+      },
+      {
+        "id": "n4-k10",
+        "front": "低",
+        "back": "Past (Low, short)",
+        "romaji": "hiku-i, hiku-meru",
+        "furigana": "ひくい",
+        "level": "N4",
+        "type": "kanji",
+        "example": "低い (ひくい (Hikui)) — Past"
+      },
+      {
+        "id": "n4-k11",
+        "front": "住",
+        "back": "Yashamoq (Live, reside)",
+        "romaji": "su-mu, su-mau",
+        "furigana": "すむ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "住む (すむ (Sumu)) — Yashamoq"
+      },
+      {
+        "id": "n4-k12",
+        "front": "体",
+        "back": "Tana, gavda (Body)",
+        "romaji": "karada",
+        "furigana": "からだ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "体 (からだ (Karada)) — Tana"
+      },
+      {
+        "id": "n4-k13",
+        "front": "作",
+        "back": "Yasamoq, tayyorlamoq (Make, create)",
+        "romaji": "tsuku-ru",
+        "furigana": "つくる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "作る (つくる (Tsukuru)) — Yasamoq"
+      },
+      {
+        "id": "n4-k14",
+        "front": "使",
+        "back": "Ishlatmoq, elchi (Use, messenger)",
+        "romaji": "tsuka-u",
+        "furigana": "つかう",
+        "level": "N4",
+        "type": "kanji",
+        "example": "使う (つかう (Tsukau)) — Ishlatmoq"
+      },
+      {
+        "id": "n4-k15",
+        "front": "便",
+        "back": "Qulaylik, pochta (Convenience, mail)",
+        "romaji": "tayo-ri",
+        "furigana": "たより",
+        "level": "N4",
+        "type": "kanji",
+        "example": "便利 (べんり (Benri)) — Qulay"
+      },
+      {
+        "id": "n4-k16",
+        "front": "借",
+        "back": "Qarzga olmoq (Borrow)",
+        "romaji": "ka-riru",
+        "furigana": "かりる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "借りる (かりる (Kariru)) — Qarz olmoq"
+      },
+      {
+        "id": "n4-k17",
+        "front": "働",
+        "back": "Ishlamoq, mehnat qilmoq (Work)",
+        "romaji": "hatara-ku",
+        "furigana": "はたらく",
+        "level": "N4",
+        "type": "kanji",
+        "example": "働く (はたらく (Hataraku)) — Ishlamoq"
+      },
+      {
+        "id": "n4-k18",
+        "front": "元",
+        "back": "Asos, boshlang'ich, tetik (Origin, health)",
+        "romaji": "moto",
+        "furigana": "もと",
+        "level": "N4",
+        "type": "kanji",
+        "example": "元気 (げんき (Genki)) — Tetik, sog'lom"
+      },
+      {
+        "id": "n4-k19",
+        "front": "兄",
+        "back": "Aka (Older brother)",
+        "romaji": "ani",
+        "furigana": "あに",
+        "level": "N4",
+        "type": "kanji",
+        "example": "兄 (あに (Ani)) — Akam"
+      },
+      {
+        "id": "n4-k20",
+        "front": "光",
+        "back": "Nur, yorug'lik (Light, ray)",
+        "romaji": "hika-ru, hikari",
+        "furigana": "ひかる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "光る (ひかる (Hikaru)) — Yaltiramoq"
+      },
+      {
+        "id": "n4-k21",
+        "front": "写",
+        "back": "Nusxa olmoq, rasmga olmoq (Copy, photograph)",
+        "romaji": "utsu-su, utsu-ru",
+        "furigana": "うつす",
+        "level": "N4",
+        "type": "kanji",
+        "example": "写真 (しゃしん (Shashin)) — Fotosurat"
+      },
+      {
+        "id": "n4-k22",
+        "front": "冬",
+        "back": "Qish (Winter)",
+        "romaji": "fuyu",
+        "furigana": "ふゆ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "冬 (ふゆ (Fuyu)) — Qish"
+      },
+      {
+        "id": "n4-k23",
+        "front": "切",
+        "back": "Kesmoq (Cut)",
+        "romaji": "ki-ru, ki-reru",
+        "furigana": "きる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "切る (きる (Kiru)) — Kesmoq"
+      },
+      {
+        "id": "n4-k24",
+        "front": "別",
+        "back": "Boshqa, ajralmoq (Separate, another)",
+        "romaji": "waka-reru",
+        "furigana": "わかれる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "別れる (わかれる (Wakareru)) — Ajralmoq"
+      },
+      {
+        "id": "n4-k25",
+        "front": "力",
+        "back": "Kuch, quvvat (Power, strength)",
+        "romaji": "chikara",
+        "furigana": "ちから",
+        "level": "N4",
+        "type": "kanji",
+        "example": "力 (ちから (Chikara)) — Kuch"
+      },
+      {
+        "id": "n4-k26",
+        "front": "勉",
+        "back": "Tirishmoq, g'ayrat (Endeavor, strive)",
+        "romaji": "tsuto-meru",
+        "furigana": "つとめる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "勉強 (べんきょう (Benkyou)) — O'qish, ta'lim"
+      },
+      {
+        "id": "n4-k27",
+        "front": "動",
+        "back": "Qimirlamoq, harakatlanmoq (Move)",
+        "romaji": "ugo-ku, ugo-kasu",
+        "furigana": "うごく",
+        "level": "N4",
+        "type": "kanji",
+        "example": "動く (うごく (Ugoku)) — Harakatlanmoq"
+      },
+      {
+        "id": "n4-k28",
+        "front": "区",
+        "back": "Tuman, hudud (Ward, district)",
+        "romaji": "ku",
+        "furigana": "ク",
+        "level": "N4",
+        "type": "kanji",
+        "example": "区役所 (くやくしょ (Kuyakusho)) — Tuman hokimiyati"
+      },
+      {
+        "id": "n4-k29",
+        "front": "医",
+        "back": "Tibbiyot, davolash (Medicine, doctor)",
+        "romaji": "i",
+        "furigana": "イ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "医者 (いしゃ (Isha)) — Shifokor"
+      },
+      {
+        "id": "n4-k30",
+        "front": "去",
+        "back": "O'tgan, tark etmoq (Past, leave)",
+        "romaji": "sa-ru",
+        "furigana": "さる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "去年 (きょねん (Kyonen)) — O'tgan yil"
+      },
+      {
+        "id": "n4-k31",
+        "front": "台",
+        "back": "Taglik, apparat sanog'i (Platform, counter for machines)",
+        "romaji": "dai, tai",
+        "furigana": "ダイ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "台所 (だいどころ (Daidokoro)) — Oshxona"
+      },
+      {
+        "id": "n4-k32",
+        "front": "合",
+        "back": "Birlashmoq, to'g'ri kelmoq (Fit, match, join)",
+        "romaji": "a-u, a-waseru",
+        "furigana": "あう",
+        "level": "N4",
+        "type": "kanji",
+        "example": "間に合う (まにあう (Maniau)) — Ulgurolmoq"
+      },
+      {
+        "id": "n4-k33",
+        "front": "同",
+        "back": "Bir xil, teng (Same)",
+        "romaji": "ona-ji",
+        "furigana": "おなじ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "同じ (おなじ (Onaji)) — Bir xil"
+      },
+      {
+        "id": "n4-k34",
+        "front": "味",
+        "back": "Ta'm, maza, ma'no (Flavor, taste)",
+        "romaji": "aji, aji-wau",
+        "furigana": "あじ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "意味 (いみ (Imi)) — Ma'no"
+      },
+      {
+        "id": "n4-k35",
+        "front": "品",
+        "back": "Mahsulot, tovar (Goods, refinement)",
+        "romaji": "shina",
+        "furigana": "しな",
+        "level": "N4",
+        "type": "kanji",
+        "example": "品物 (しなもの (Shinamono)) — Mahsulot"
+      },
+      {
+        "id": "n4-k36",
+        "front": "員",
+        "back": "Xodim, a'zo (Member, employee)",
+        "romaji": "in",
+        "furigana": "イン",
+        "level": "N4",
+        "type": "kanji",
+        "example": "会社員 (かいしゃいん (Kaishain)) — Firma xodimi"
+      },
+      {
+        "id": "n4-k37",
+        "front": "問",
+        "back": "Savol, so'ramoq (Question, ask)",
+        "romaji": "to-u, to-i",
+        "furigana": "とう",
+        "level": "N4",
+        "type": "kanji",
+        "example": "質問 (しつもん (Shitsumon)) — Savol"
+      },
+      {
+        "id": "n4-k38",
+        "front": "回",
+        "back": "Aylanmoq, marta (Times, turn)",
+        "romaji": "mawa-ru, mawa-su",
+        "furigana": "まわる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "回る (まわる (Mawaru)) — Aylanmoq"
+      },
+      {
+        "id": "n4-k39",
+        "front": "図",
+        "back": "Chizma, reja (Drawing, plan)",
+        "romaji": "haka-ru",
+        "furigana": "はかる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "地図 (ちず (Chizu)) — Xarita"
+      },
+      {
+        "id": "n4-k40",
+        "front": "地",
+        "back": "Yer, zamin (Earth, ground)",
+        "romaji": "chi, ji",
+        "furigana": "チ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "地下 (ちか (Chika)) — Yer osti"
+      },
+      {
+        "id": "n4-k41",
+        "front": "堂",
+        "back": "Zal, bino (Hall, shrine)",
+        "romaji": "dou",
+        "furigana": "ドウ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "食堂 (しょくどう (Shokudou)) — Oshxona"
+      },
+      {
+        "id": "n4-k42",
+        "front": "場",
+        "back": "Joy, maydon (Place, location)",
+        "romaji": "ba",
+        "furigana": "ば",
+        "level": "N4",
+        "type": "kanji",
+        "example": "場所 (ばしょ (Basho)) — Joy"
+      },
+      {
+        "id": "n4-k43",
+        "front": "声",
+        "back": "Ovoz (Voice)",
+        "romaji": "koe",
+        "furigana": "こえ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "声 (こえ (Koe)) — Ovoz"
+      },
+      {
+        "id": "n4-k44",
+        "front": "売",
+        "back": "Sotmoq (Sell)",
+        "romaji": "u-ru, u-reru",
+        "furigana": "うる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "売る (うる (Uru)) — Sotmoq"
+      },
+      {
+        "id": "n4-k45",
+        "front": "夏",
+        "back": "Yoz (Summer)",
+        "romaji": "natsu",
+        "furigana": "なつ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "夏 (なつ (Natsu)) — Yoz"
+      },
+      {
+        "id": "n4-k46",
+        "front": "夕",
+        "back": "Oqshom, shom (Evening)",
+        "romaji": "yuu",
+        "furigana": "ゆう",
+        "level": "N4",
+        "type": "kanji",
+        "example": "夕方 (ゆうがた (Yuugata)) — Kechki payt"
+      },
+      {
+        "id": "n4-k47",
+        "front": "夜",
+        "back": "Tun, kecha (Night)",
+        "romaji": "yoru, yo",
+        "furigana": "よる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "夜 (よる (Yoru)) — Tun"
+      },
+      {
+        "id": "n4-k48",
+        "front": "太",
+        "back": "Semiz, yo'g'on (Fat, thick)",
+        "romaji": "futo-i, futo-ru",
+        "furigana": "ふとい",
+        "level": "N4",
+        "type": "kanji",
+        "example": "太い (ふとい (Futoi)) — Yo'g'on"
+      },
+      {
+        "id": "n4-k49",
+        "front": "好",
+        "back": "Yoqtirmoq (Like, fond of)",
+        "romaji": "su-ki, kono-mu",
+        "furigana": "すき",
+        "level": "N4",
+        "type": "kanji",
+        "example": "好き (すき (Suki)) — Sevimli"
+      },
+      {
+        "id": "n4-k50",
+        "front": "妹",
+        "back": "Singil (Younger sister)",
+        "romaji": "imouto",
+        "furigana": "いもうと",
+        "level": "N4",
+        "type": "kanji",
+        "example": "妹 (いもうと (Imouto)) — Singlim"
+      },
+      {
+        "id": "n4-k51",
+        "front": "姉",
+        "back": "Opa (Older sister)",
+        "romaji": "ane",
+        "furigana": "あね",
+        "level": "N4",
+        "type": "kanji",
+        "example": "姉 (あね (Ane)) — Opam"
+      },
+      {
+        "id": "n4-k52",
+        "front": "始",
+        "back": "Boshlanmoq, boshlamoq (Begin, start)",
+        "romaji": "haji-maru, haji-meru",
+        "furigana": "はじまる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "始まる (はじまる (Hajimaru)) — Boshlanmoq"
+      },
+      {
+        "id": "n4-k53",
+        "front": "字",
+        "back": "Harf, yozuv (Letter, character)",
+        "romaji": "aza",
+        "furigana": "あざ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "漢字 (かんじ (Kanji)) — Kanji"
+      },
+      {
+        "id": "n4-k54",
+        "front": "室",
+        "back": "Xona (Room)",
+        "romaji": "muro",
+        "furigana": "むろ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "教室 (きょうしつ (Kyoushitsu)) — Sinfxona"
+      },
+      {
+        "id": "n4-k55",
+        "front": "家",
+        "back": "Uy, oila (House, family)",
+        "romaji": "ie, ya",
+        "furigana": "いえ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "家族 (かぞく (Kazoku)) — Oila"
+      },
+      {
+        "id": "n4-k56",
+        "front": "寒",
+        "back": "Sovuq (havo) (Cold)",
+        "romaji": "samu-i",
+        "furigana": "さむい",
+        "level": "N4",
+        "type": "kanji",
+        "example": "寒い (さむい (Samui)) — Sovuq"
+      },
+      {
+        "id": "n4-k57",
+        "front": "屋",
+        "back": "Tom, do'kon, xona (Roof, shop)",
+        "romaji": "ya",
+        "furigana": "や",
+        "level": "N4",
+        "type": "kanji",
+        "example": "部屋 (へや (Heya)) — Xona"
+      },
+      {
+        "id": "n4-k58",
+        "front": "工",
+        "back": "Muhandislik, hunar (Craft, construction)",
+        "romaji": "kou, ku",
+        "furigana": "コウ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "工場 (こうじょう (Koujou)) — Zavod"
+      },
+      {
+        "id": "n4-k59",
+        "front": "市",
+        "back": "Shahar, bozor (City, market)",
+        "romaji": "ichi",
+        "furigana": "いち",
+        "level": "N4",
+        "type": "kanji",
+        "example": "市民 (しみん (Shimin)) — Shahar aholisi"
+      },
+      {
+        "id": "n4-k60",
+        "front": "帰",
+        "back": "Qaytmoq (Return)",
+        "romaji": "kae-ru, kae-su",
+        "furigana": "かえる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "帰る (かえる (Kaeru)) — Qaytmoq"
+      },
+      {
+        "id": "n4-k61",
+        "front": "広",
+        "back": "Keng (Wide, spacious)",
+        "romaji": "hiro-i, hiro-garu",
+        "furigana": "ひろい",
+        "level": "N4",
+        "type": "kanji",
+        "example": "広い (ひろい (Hiroi)) — Keng"
+      },
+      {
+        "id": "n4-k62",
+        "front": "度",
+        "back": "Daraja, marta (Degree, time)",
+        "romaji": "tabi",
+        "furigana": "たび",
+        "level": "N4",
+        "type": "kanji",
+        "example": "一度 (いちど (Ichido)) — Bir marta"
+      },
+      {
+        "id": "n4-k63",
+        "front": "建",
+        "back": "Qurmoq (Build)",
+        "romaji": "ta-teru, ta-tsu",
+        "furigana": "たてる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "建てる (たてる (Tateru)) — Qurmoq"
+      },
+      {
+        "id": "n4-k64",
+        "front": "引",
+        "back": "Tortmoq (Pull)",
+        "romaji": "hi-ku, hi-keru",
+        "furigana": "ひく",
+        "level": "N4",
+        "type": "kanji",
+        "example": "引く (ひく (Hiku)) — Tortmoq"
+      },
+      {
+        "id": "n4-k65",
+        "front": "弟",
+        "back": "Uka (Younger brother)",
+        "romaji": "otouto",
+        "furigana": "おとうと",
+        "level": "N4",
+        "type": "kanji",
+        "example": "弟 (おとうと (Otouto)) — Ukam"
+      },
+      {
+        "id": "n4-k66",
+        "front": "弱",
+        "back": "Zaif, kuchsiz (Weak)",
+        "romaji": "yowa-i, yowa-ru",
+        "furigana": "よわい",
+        "level": "N4",
+        "type": "kanji",
+        "example": "弱い (よわい (Yowai)) — Zaif"
+      },
+      {
+        "id": "n4-k67",
+        "front": "強",
+        "back": "Kuchli (Strong)",
+        "romaji": "tsuyo-i, tsuyo-maru",
+        "furigana": "つよい",
+        "level": "N4",
+        "type": "kanji",
+        "example": "強い (つよい (Tsuyoi)) — Kuchli"
+      },
+      {
+        "id": "n4-k68",
+        "front": "待",
+        "back": "Kutmoq (Wait)",
+        "romaji": "ma-tsu",
+        "furigana": "まつ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "待つ (まつ (Matsu)) — Kutmoq"
+      },
+      {
+        "id": "n4-k69",
+        "front": "心",
+        "back": "Qalb, yurak (Heart, mind)",
+        "romaji": "kokoro",
+        "furigana": "こころ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "心 (こころ (Kokoro)) — Qalb"
+      },
+      {
+        "id": "n4-k70",
+        "front": "思",
+        "back": "O'ylamoq (Think)",
+        "romaji": "omo-u",
+        "furigana": "おもう",
+        "level": "N4",
+        "type": "kanji",
+        "example": "思う (おもう (Omou)) — O'ylamoq"
+      },
+      {
+        "id": "n4-k71",
+        "front": "急",
+        "back": "Shoshilmoq, to'satdan (Hurry, sudden)",
+        "romaji": "iso-gu",
+        "furigana": "いそぐ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "急ぐ (いそぐ (Isogu)) — Shoshilmoq"
+      },
+      {
+        "id": "n4-k72",
+        "front": "悪",
+        "back": "Yomon (Bad)",
+        "romaji": "waru-i",
+        "furigana": "わるい",
+        "level": "N4",
+        "type": "kanji",
+        "example": "悪い (わるい (Warui)) — Yomon"
+      },
+      {
+        "id": "n4-k73",
+        "front": "意",
+        "back": "Fikr, ma'no, niyat (Mind, meaning)",
+        "romaji": "i",
+        "furigana": "イ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "意見 (いけん (Iken)) — Fikr"
+      },
+      {
+        "id": "n4-k74",
+        "front": "所",
+        "back": "Joy, makon (Place)",
+        "romaji": "tokoro",
+        "furigana": "ところ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "場所 (ばしょ (Basho)) — Joy"
+      },
+      {
+        "id": "n4-k75",
+        "front": "持",
+        "back": "Ushlamoq, ega bo'lmoq (Hold, possess)",
+        "romaji": "mo-tsu, mo-teru",
+        "furigana": "もつ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "持つ (もつ (Motsu)) — Ushlamoq"
+      },
+      {
+        "id": "n4-k76",
+        "front": "教",
+        "back": "O'rgatmoq, ta'lim (Teach, religion)",
+        "romaji": "oshi-eru, oso-waru",
+        "furigana": "おしえる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "教える (おしえる (Oshieru)) — O'rgatmoq"
+      },
+      {
+        "id": "n4-k77",
+        "front": "文",
+        "back": "Matn, jumla, adabiyot (Sentence, literature)",
+        "romaji": "fumi",
+        "furigana": "ふみ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "作文 (さくぶん (Sakubun)) — Insho"
+      },
+      {
+        "id": "n4-k78",
+        "front": "料",
+        "back": "To'lov, xomashyo (Fee, ingredients)",
+        "romaji": "ryou",
+        "furigana": "リョウ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "料理 (りょうり (Ryouri)) — Taom"
+      },
+      {
+        "id": "n4-k79",
+        "front": "方",
+        "back": "Tomon, shaxs, usul (Direction, person, way)",
+        "romaji": "kata",
+        "furigana": "かた",
+        "level": "N4",
+        "type": "kanji",
+        "example": "方法 (ほうほう (Houhou)) — Usul"
+      },
+      {
+        "id": "n4-k80",
+        "front": "旅",
+        "back": "Sayohat (Travel, trip)",
+        "romaji": "tabi",
+        "furigana": "たび",
+        "level": "N4",
+        "type": "kanji",
+        "example": "旅行 (りょこう (Ryokou)) — Sayohat"
+      },
+      {
+        "id": "n4-k81",
+        "front": "族",
+        "back": "Oila, toifa (Family, tribe)",
+        "romaji": "zoku",
+        "furigana": "ゾク",
+        "level": "N4",
+        "type": "kanji",
+        "example": "家族 (かぞく (Kazoku)) — Oila"
+      },
+      {
+        "id": "n4-k82",
+        "front": "早",
+        "back": "Erta, tez (Early, fast)",
+        "romaji": "haya-i, haya-maru",
+        "furigana": "はやい",
+        "level": "N4",
+        "type": "kanji",
+        "example": "早い (はやい (Hayai)) — Erta"
+      },
+      {
+        "id": "n4-k83",
+        "front": "明",
+        "back": "Yorug', ravshan (Bright, clear)",
+        "romaji": "aka-rui, aki-raka",
+        "furigana": "あかるい",
+        "level": "N4",
+        "type": "kanji",
+        "example": "明るい (あかるい (Akarui)) — Yorug'"
+      },
+      {
+        "id": "n4-k84",
+        "front": "映",
+        "back": "Aks ettirmoq, proyeksiyalamoq (Reflect, project)",
+        "romaji": "utsu-ru, utsu-su, ha-eru",
+        "furigana": "うつる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "映画 (えいが (Eiga)) — Film, kino"
+      },
+      {
+        "id": "n4-k85",
+        "front": "春",
+        "back": "Bahor (Spring)",
+        "romaji": "haru",
+        "furigana": "はる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "春 (はる (Haru)) — Bahor"
+      },
+      {
+        "id": "n4-k86",
+        "front": "昼",
+        "back": "Kunduz, tush (Noon, daytime)",
+        "romaji": "hiru",
+        "furigana": "ひる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "昼ご飯 (ひるごはん (Hirugohan)) — Tushlik"
+      },
+      {
+        "id": "n4-k87",
+        "front": "暑",
+        "back": "Issiq (havo) (Hot weather)",
+        "romaji": "atsu-i",
+        "furigana": "あつい",
+        "level": "N4",
+        "type": "kanji",
+        "example": "暑い (あつい (Atsui)) — Issiq"
+      },
+      {
+        "id": "n4-k88",
+        "front": "暗",
+        "back": "Qorong'i (Dark)",
+        "romaji": "kura-i",
+        "furigana": "くらい",
+        "level": "N4",
+        "type": "kanji",
+        "example": "暗い (くらい (Kurai)) — Qorong'i"
+      },
+      {
+        "id": "n4-k89",
+        "front": "曜",
+        "back": "Hafta kuni (Day of week)",
+        "romaji": "you",
+        "furigana": "ヨウ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "日曜日 (にちようび (Nichiyoubi)) — Yakshanba"
+      },
+      {
+        "id": "n4-k90",
+        "front": "有",
+        "back": "Bor, mavjud bo'lmoq (Have, exist)",
+        "romaji": "a-ru",
+        "furigana": "ある",
+        "level": "N4",
+        "type": "kanji",
+        "example": "有名 (ゆうめい (Yuumei)) — Mashhur"
+      },
+      {
+        "id": "n4-k91",
+        "front": "服",
+        "back": "Kiyim, itoat qilmoq (Clothes)",
+        "romaji": "fuku",
+        "furigana": "フク",
+        "level": "N4",
+        "type": "kanji",
+        "example": "服 (ふく (Fuku)) — Kiyim"
+      },
+      {
+        "id": "n4-k92",
+        "front": "朝",
+        "back": "Tong, ertalab (Morning)",
+        "romaji": "asa",
+        "furigana": "あさ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "朝 (あさ (Asa)) — Tong"
+      },
+      {
+        "id": "n4-k93",
+        "front": "村",
+        "back": "Qishloq (Village)",
+        "romaji": "mura",
+        "furigana": "むら",
+        "level": "N4",
+        "type": "kanji",
+        "example": "村 (むら (Mura)) — Qishloq"
+      },
+      {
+        "id": "n4-k94",
+        "front": "林",
+        "back": "O'rmoncha, daraxtzor (Grove, woods)",
+        "romaji": "hayashi",
+        "furigana": "はやし",
+        "level": "N4",
+        "type": "kanji",
+        "example": "林 (はやし (Hayashi)) — Daraxtzor"
+      },
+      {
+        "id": "n4-k95",
+        "front": "森",
+        "back": "Katta o'rmon (Forest)",
+        "romaji": "mori",
+        "furigana": "もり",
+        "level": "N4",
+        "type": "kanji",
+        "example": "森 (もり (Mori)) — O'rmon"
+      },
+      {
+        "id": "n4-k96",
+        "front": "業",
+        "back": "Ish, sanoat, kasb (Business, industry)",
+        "romaji": "waza",
+        "furigana": "わざ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "授業 (じゅぎょう (Jugyou)) — Dars"
+      },
+      {
+        "id": "n4-k97",
+        "front": "楽",
+        "back": "Musiqa, quvonch, qulay (Music, fun, ease)",
+        "romaji": "tano-shii, tano-shimu",
+        "furigana": "たのしい",
+        "level": "N4",
+        "type": "kanji",
+        "example": "音楽 (おんがく (Ongaku)) — Musiqa"
+      },
+      {
+        "id": "n4-k98",
+        "front": "歌",
+        "back": "Qo'shiq, kuylamoq (Song, sing)",
+        "romaji": "uta, uta-u",
+        "furigana": "うた",
+        "level": "N4",
+        "type": "kanji",
+        "example": "歌 (うた (Uta)) — Qo'shiq"
+      },
+      {
+        "id": "n4-k99",
+        "front": "止",
+        "back": "To'xtamoq (Stop)",
+        "romaji": "to-maru, to-meru",
+        "furigana": "とまる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "止まる (とまる (Tomaru)) — To'xtamoq"
+      },
+      {
+        "id": "n4-k100",
+        "front": "正",
+        "back": "To'g'ri, adolatli (Correct, right)",
+        "romaji": "tada-shii, tada-su, masa",
+        "furigana": "ただしい",
+        "level": "N4",
+        "type": "kanji",
+        "example": "正しい (ただしい (Tadashii)) — To'g'ri"
+      },
+      {
+        "id": "n4-k101",
+        "front": "歩",
+        "back": "Yurmoq, qadam (Walk, step)",
+        "romaji": "aru-ku, ayu-mu",
+        "furigana": "あるく",
+        "level": "N4",
+        "type": "kanji",
+        "example": "歩く (あるく (Aruku)) — Piyoda yurmoq"
+      },
+      {
+        "id": "n4-k102",
+        "front": "死",
+        "back": "O'lmoq, o'lim (Death, die)",
+        "romaji": "shi-nu",
+        "furigana": "しぬ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "死ぬ (しぬ (Shinu)) — O'lmoq"
+      },
+      {
+        "id": "n4-k103",
+        "front": "民",
+        "back": "Xalq, aholi (People, citizen)",
+        "romaji": "tami",
+        "furigana": "たみ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "市民 (しみん (Shimin)) — Shahar aholisi"
+      },
+      {
+        "id": "n4-k104",
+        "front": "池",
+        "back": "Hovuz (Pond)",
+        "romaji": "ike",
+        "furigana": "いけ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "池 (いけ (Ike)) — Hovuz"
+      },
+      {
+        "id": "n4-k105",
+        "front": "注",
+        "back": "Quymoq, e'tibor (Pour, concentrate)",
+        "romaji": "soso-gu",
+        "furigana": "そそぐ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "注意 (ちゅうい (Chuui)) — Diqqat"
+      },
+      {
+        "id": "n4-k106",
+        "front": "洋",
+        "back": "Okean, g'arbcha (Ocean, western)",
+        "romaji": "you",
+        "furigana": "ヨウ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "洋服 (ようふく (Youfuku)) — G'arbcha kiyim"
+      },
+      {
+        "id": "n4-k107",
+        "front": "洗",
+        "back": "Yuvmoq (Wash)",
+        "romaji": "ara-u",
+        "furigana": "あらう",
+        "level": "N4",
+        "type": "kanji",
+        "example": "洗う (あらう (Arau)) — Yuvmoq"
+      },
+      {
+        "id": "n4-k108",
+        "front": "海",
+        "back": "Dengiz (Sea, ocean)",
+        "romaji": "umi",
+        "furigana": "うみ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "海 (うみ (Umi)) — Dengiz"
+      },
+      {
+        "id": "n4-k109",
+        "front": "漢",
+        "back": "Xitoy (China, Han)",
+        "romaji": "kan",
+        "furigana": "カン",
+        "level": "N4",
+        "type": "kanji",
+        "example": "漢字 (かんじ (Kanji)) — Kanji"
+      },
+      {
+        "id": "n4-k110",
+        "front": "牛",
+        "back": "Mol, sigir (Cow, beef)",
+        "romaji": "ushi",
+        "furigana": "うし",
+        "level": "N4",
+        "type": "kanji",
+        "example": "牛乳 (ぎゅうにゅう (Gyuunyuu)) — Sut"
+      },
+      {
+        "id": "n4-k111",
+        "front": "物",
+        "back": "Narsa, buyum (Thing, object)",
+        "romaji": "mono",
+        "furigana": "もの",
+        "level": "N4",
+        "type": "kanji",
+        "example": "食べ物 (たべもの (Tabemono)) — Yegulik"
+      },
+      {
+        "id": "n4-k112",
+        "front": "特",
+        "back": "Maxsus (Special)",
+        "romaji": "toku",
+        "furigana": "トク",
+        "level": "N4",
+        "type": "kanji",
+        "example": "特別 (とくべつ (Tokubetsu)) — Maxsus"
+      },
+      {
+        "id": "n4-k113",
+        "front": "犬",
+        "back": "It (Dog)",
+        "romaji": "inu",
+        "furigana": "いぬ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "犬 (いぬ (Inu)) — It"
+      },
+      {
+        "id": "n4-k114",
+        "front": "理",
+        "back": "Mantiq, qonuniyat (Reason, logic)",
+        "romaji": "ri",
+        "furigana": "リ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "料理 (りょうり (Ryouri)) — Taom"
+      },
+      {
+        "id": "n4-k115",
+        "front": "産",
+        "back": "Tug'moq, ishlab chiqarish (Birth, produce)",
+        "romaji": "u-mu, u-mareru",
+        "furigana": "うむ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "生産 (せいさん (Seisan)) — Ishlab chiqarish"
+      },
+      {
+        "id": "n4-k116",
+        "front": "用",
+        "back": "Foydalanmoq, vazifa (Use, business)",
+        "romaji": "mochi-iru",
+        "furigana": "もちいる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "用事 (ようじ (Youji)) — Yumush"
+      },
+      {
+        "id": "n4-k117",
+        "front": "田",
+        "back": "Sholizor, dala (Rice field)",
+        "romaji": "ta",
+        "furigana": "た",
+        "level": "N4",
+        "type": "kanji",
+        "example": "田んぼ (たんぼ (Tanbo)) — Sholizor"
+      },
+      {
+        "id": "n4-k118",
+        "front": "町",
+        "back": "Shaharcha (Town)",
+        "romaji": "machi",
+        "furigana": "まち",
+        "level": "N4",
+        "type": "kanji",
+        "example": "町 (まち (Machi)) — Shaharcha"
+      },
+      {
+        "id": "n4-k119",
+        "front": "画",
+        "back": "Tasvir, reja, chiziq (Picture, plan, stroke)",
+        "romaji": "ga, kaku",
+        "furigana": "ガ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "映画 (えいが (Eiga)) — Kino"
+      },
+      {
+        "id": "n4-k120",
+        "front": "界",
+        "back": "Chegara, dunyo (World, boundary)",
+        "romaji": "kai",
+        "furigana": "カイ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "世界 (せかい (Sekai)) — Dunyo"
+      },
+      {
+        "id": "n4-k121",
+        "front": "病",
+        "back": "Kasallik (Illness, disease)",
+        "romaji": "ya-mu, yamai",
+        "furigana": "やむ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "病気 (びょうき (Byouki)) — Kasallik"
+      },
+      {
+        "id": "n4-k122",
+        "front": "発",
+        "back": "Boshlanish, jo'nash, ixtiro (Depart, emit)",
+        "romaji": "hatsu, hotsu",
+        "furigana": "ハツ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "出発 (しゅっぱつ (Shuppatsu)) — Jo'nash"
+      },
+      {
+        "id": "n4-k123",
+        "front": "県",
+        "back": "Prefektura, viloyat (Prefecture)",
+        "romaji": "ken",
+        "furigana": "ケン",
+        "level": "N4",
+        "type": "kanji",
+        "example": "県 (けん (Ken)) — Prefektura"
+      },
+      {
+        "id": "n4-k124",
+        "front": "真",
+        "back": "Haqiqat, sof (True, reality)",
+        "romaji": "ma, makoto",
+        "furigana": "ま",
+        "level": "N4",
+        "type": "kanji",
+        "example": "写真 (しゃしん (Shashin)) — Fotosurat"
+      },
+      {
+        "id": "n4-k125",
+        "front": "着",
+        "back": "Kiymoq, yetib bormoq (Wear, arrive)",
+        "romaji": "ki-ru, tsu-ku",
+        "furigana": "きる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "着る (きる (Kiru)) — Kiymoq"
+      },
+      {
+        "id": "n4-k126",
+        "front": "知",
+        "back": "Bilmoq (Know)",
+        "romaji": "shi-ru",
+        "furigana": "しる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "知る (しる (Shiru)) — Bilmoq"
+      },
+      {
+        "id": "n4-k127",
+        "front": "短",
+        "back": "Qisqa (Short)",
+        "romaji": "mijika-i",
+        "furigana": "みじかい",
+        "level": "N4",
+        "type": "kanji",
+        "example": "短い (みじかい (Mijikai)) — Qisqa"
+      },
+      {
+        "id": "n4-k128",
+        "front": "研",
+        "back": "Tadqiqot, sayqallash (Polish, study)",
+        "romaji": "to-gu",
+        "furigana": "とぐ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "研究 (けんきゅう (Kenkyuu)) — Tadqiqot"
+      },
+      {
+        "id": "n4-k129",
+        "front": "私",
+        "back": "Men, shaxsiy (I, private)",
+        "romaji": "watashi, watakushi",
+        "furigana": "わたし",
+        "level": "N4",
+        "type": "kanji",
+        "example": "私 (わたし (Watashi)) — Men"
+      },
+      {
+        "id": "n4-k130",
+        "front": "秋",
+        "back": "Kuz (Autumn)",
+        "romaji": "aki",
+        "furigana": "あき",
+        "level": "N4",
+        "type": "kanji",
+        "example": "秋 (あき (Aki)) — Kuz"
+      },
+      {
+        "id": "n4-k131",
+        "front": "究",
+        "back": "Chuqur o'rganish (Research thoroughly)",
+        "romaji": "kiwa-meru",
+        "furigana": "きわめる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "研究 (けんきゅう (Kenkyuu)) — Tadqiqot"
+      },
+      {
+        "id": "n4-k132",
+        "front": "答",
+        "back": "Javob bermoq (Answer)",
+        "romaji": "kota-eru, kota-e",
+        "furigana": "こたえる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "答える (こたえる (Kotaeru)) — Javob bermoq"
+      },
+      {
+        "id": "n4-k133",
+        "front": "紙",
+        "back": "Qog'oz (Paper)",
+        "romaji": "kami",
+        "furigana": "かみ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "手紙 (てがみ (Tegami)) — Xat"
+      },
+      {
+        "id": "n4-k134",
+        "front": "終",
+        "back": "Tugamoq, tugatmoq (End, finish)",
+        "romaji": "o-waru, o-eru",
+        "furigana": "おわる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "終わる (おわる (Owaru)) — Tugamoq"
+      },
+      {
+        "id": "n4-k135",
+        "front": "習",
+        "back": "O'rganmoq (Learn)",
+        "romaji": "nara-u",
+        "furigana": "ならう",
+        "level": "N4",
+        "type": "kanji",
+        "example": "習う (ならう (Narau)) — O'rganmoq"
+      },
+      {
+        "id": "n4-k136",
+        "front": "考",
+        "back": "O'ylamoq, fikr yuritmoq (Think, consider)",
+        "romaji": "kanga-eru",
+        "furigana": "かんがえる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "考える (かんがえる (Kangaeru)) — O'ylamoq"
+      },
+      {
+        "id": "n4-k137",
+        "front": "者",
+        "back": "Kishi, odam (Person)",
+        "romaji": "mono",
+        "furigana": "もの",
+        "level": "N4",
+        "type": "kanji",
+        "example": "医者 (いしゃ (Isha)) — Shifokor"
+      },
+      {
+        "id": "n4-k138",
+        "front": "肉",
+        "back": "Go'sht (Meat)",
+        "romaji": "niku",
+        "furigana": "ニク",
+        "level": "N4",
+        "type": "kanji",
+        "example": "牛肉 (ぎゅうにく (Gyuuniku)) — Mol go'shti"
+      },
+      {
+        "id": "n4-k139",
+        "front": "自",
+        "back": "O'zi (Self)",
+        "romaji": "mizuka-ra",
+        "furigana": "みずから",
+        "level": "N4",
+        "type": "kanji",
+        "example": "自分 (じぶん (Jibun)) — O'zi"
+      },
+      {
+        "id": "n4-k140",
+        "front": "色",
+        "back": "Rang (Color)",
+        "romaji": "iro",
+        "furigana": "いろ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "色 (いろ (Iro)) — Rang"
+      },
+      {
+        "id": "n4-k141",
+        "front": "英",
+        "back": "Ingliz, ajoyib (English, brilliant)",
+        "romaji": "ei",
+        "furigana": "エイ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "英語 (えいご (Eigo)) — Ingliz tili"
+      },
+      {
+        "id": "n4-k142",
+        "front": "茶",
+        "back": "Choy (Tea)",
+        "romaji": "cha, sa",
+        "furigana": "チャ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "お茶 (おちゃ (Ocha)) — Choy"
+      },
+      {
+        "id": "n4-k143",
+        "front": "菜",
+        "back": "Sabzavot, ko'kat (Vegetable)",
+        "romaji": "na",
+        "furigana": "な",
+        "level": "N4",
+        "type": "kanji",
+        "example": "野菜 (やさい (Yasai)) — Sabzavot"
+      },
+      {
+        "id": "n4-k144",
+        "front": "薬",
+        "back": "Dori (Medicine)",
+        "romaji": "kusuri",
+        "furigana": "くすり",
+        "level": "N4",
+        "type": "kanji",
+        "example": "薬 (くすり (Kusuri)) — Dori"
+      },
+      {
+        "id": "n4-k145",
+        "front": "親",
+        "back": "Ota-ona, yaqin (Parent, close)",
+        "romaji": "oya, shita-shii",
+        "furigana": "おや",
+        "level": "N4",
+        "type": "kanji",
+        "example": "両親 (りょうしん (Ryoushin)) — Ota-ona"
+      },
+      {
+        "id": "n4-k146",
+        "front": "計",
+        "back": "O'lchamoq, hisoblamoq (Measure, plan)",
+        "romaji": "haka-ru",
+        "furigana": "はかる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "時計 (とけい (Tokei)) — Soat"
+      },
+      {
+        "id": "n4-k147",
+        "front": "試",
+        "back": "Sinab ko'rmoq (Try, test)",
+        "romaji": "kokoro-miru, tame-su",
+        "furigana": "こころみる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "試合 (しあい (Shiai)) — Musobaqa"
+      },
+      {
+        "id": "n4-k148",
+        "front": "説",
+        "back": "Tushuntirmoq, nazariya (Explain, theory)",
+        "romaji": "to-ku",
+        "furigana": "とく",
+        "level": "N4",
+        "type": "kanji",
+        "example": "説明 (せつめい (Setsumei)) — Tushuntirish"
+      },
+      {
+        "id": "n4-k149",
+        "front": "貸",
+        "back": "Qarzga bermoq (Lend)",
+        "romaji": "ka-su",
+        "furigana": "かす",
+        "level": "N4",
+        "type": "kanji",
+        "example": "貸す (かす (Kasu)) — Qarzga bermoq"
+      },
+      {
+        "id": "n4-k150",
+        "front": "質",
+        "back": "Sifat, garov (Quality, matter)",
+        "romaji": "shitsu, shichi",
+        "furigana": "シツ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "質問 (しつもん (Shitsumon)) — Savol"
+      },
+      {
+        "id": "n4-k151",
+        "front": "赤",
+        "back": "Qizil (Red)",
+        "romaji": "aka, aka-i",
+        "furigana": "あか",
+        "level": "N4",
+        "type": "kanji",
+        "example": "赤い (あかい (Akai)) — Qizil"
+      },
+      {
+        "id": "n4-k152",
+        "front": "走",
+        "back": "Yugurmoq (Run)",
+        "romaji": "hashi-ru",
+        "furigana": "はしる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "走る (はしる (Hashiru)) — Yugurmoq"
+      },
+      {
+        "id": "n4-k153",
+        "front": "起",
+        "back": "Uyg'onmoq, qo'zg'atmoq (Wake up, rise)",
+        "romaji": "o-kiru, o-kosu",
+        "furigana": "おきる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "起きる (おきる (Okiru)) — Uyg'onmoq"
+      },
+      {
+        "id": "n4-k154",
+        "front": "転",
+        "back": "Aylanmoq, yiqilmoq (Revolve, roll)",
+        "romaji": "koro-garu, koro-bu",
+        "furigana": "ころがる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "自転車 (じてんしゃ (Jitensha)) — Velosiped"
+      },
+      {
+        "id": "n4-k155",
+        "front": "軽",
+        "back": "Yengil (Light)",
+        "romaji": "karu-i",
+        "furigana": "かるい",
+        "level": "N4",
+        "type": "kanji",
+        "example": "軽い (かるい (Karui)) — Yengil"
+      },
+      {
+        "id": "n4-k156",
+        "front": "近",
+        "back": "Yaqin (Near)",
+        "romaji": "chika-i",
+        "furigana": "ちかい",
+        "level": "N4",
+        "type": "kanji",
+        "example": "近い (ちかい (Chikai)) — Yaqin"
+      },
+      {
+        "id": "n4-k157",
+        "front": "送",
+        "back": "Jo'natmoq (Send)",
+        "romaji": "oku-ru",
+        "furigana": "おくる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "送る (おくる (Okuru)) — Jo'natmoq"
+      },
+      {
+        "id": "n4-k158",
+        "front": "通",
+        "back": "O'tmoq, qatnamoq (Pass, commute)",
+        "romaji": "too-ru, kayo-u",
+        "furigana": "とおる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "通る (とおる (Tooru)) — O'tib ketmoq"
+      },
+      {
+        "id": "n4-k159",
+        "front": "進",
+        "back": "Oldinga siljimoq (Advance)",
+        "romaji": "susu-mu, susu-meru",
+        "furigana": "すすむ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "進む (すすむ (Susumu)) — Oldinga siljimoq"
+      },
+      {
+        "id": "n4-k160",
+        "front": "運",
+        "back": "Tashimoq, omad (Carry, luck)",
+        "romaji": "hako-bu",
+        "furigana": "はこぶ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "運動 (うんどう (Undou)) — Mashq"
+      },
+      {
+        "id": "n4-k161",
+        "front": "遠",
+        "back": "Uzoq (Far)",
+        "romaji": "too-i",
+        "furigana": "とおい",
+        "level": "N4",
+        "type": "kanji",
+        "example": "遠い (とおい (Tooi)) — Uzoq"
+      },
+      {
+        "id": "n4-k162",
+        "front": "都",
+        "back": "Metropoliya, sharoit (Metropolis, capital)",
+        "romaji": "miyako",
+        "furigana": "みやこ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "都会 (とかい (Tokai)) — Katta shahar"
+      },
+      {
+        "id": "n4-k163",
+        "front": "重",
+        "back": "Og'ir, qatlam (Heavy, pile)",
+        "romaji": "omo-i, kasa-naru",
+        "furigana": "おもい",
+        "level": "N4",
+        "type": "kanji",
+        "example": "重い (おもい (Omoi)) — Og'ir"
+      },
+      {
+        "id": "n4-k164",
+        "front": "野",
+        "back": "Dala, soha (Field, plains)",
+        "romaji": "no",
+        "furigana": "の",
+        "level": "N4",
+        "type": "kanji",
+        "example": "野菜 (やさい (Yasai)) — Sabzavot"
+      },
+      {
+        "id": "n4-k165",
+        "front": "銀",
+        "back": "Kumush (Silver)",
+        "romaji": "gin",
+        "furigana": "ギン",
+        "level": "N4",
+        "type": "kanji",
+        "example": "銀行 (ぎんこう (Ginkou)) — Bank"
+      },
+      {
+        "id": "n4-k166",
+        "front": "門",
+        "back": "Darvoza (Gate)",
+        "romaji": "kado",
+        "furigana": "かど",
+        "level": "N4",
+        "type": "kanji",
+        "example": "校門 (こうもん (Koumon)) — Maktab darvozasi"
+      },
+      {
+        "id": "n4-k167",
+        "front": "開",
+        "back": "Ochmoq, ochilmoq (Open)",
+        "romaji": "hira-ku, a-ku, a-keru",
+        "furigana": "ひらく",
+        "level": "N4",
+        "type": "kanji",
+        "example": "開ける (あける (Akeru)) — Ochmoq"
+      },
+      {
+        "id": "n4-k168",
+        "front": "院",
+        "back": "Muassasa, bino (Institution)",
+        "romaji": "in",
+        "furigana": "イン",
+        "level": "N4",
+        "type": "kanji",
+        "example": "病院 (びょういん (Byouin)) — Kasalxona"
+      },
+      {
+        "id": "n4-k169",
+        "front": "集",
+        "back": "Yig'ilmoq, to'plamoq (Gather, collect)",
+        "romaji": "atsu-maru, atsu-meru",
+        "furigana": "あつまる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "集める (あつめる (Atsumeru)) — To'plamoq"
+      },
+      {
+        "id": "n4-k170",
+        "front": "青",
+        "back": "Moviy, ko'k (Blue)",
+        "romaji": "ao, ao-i",
+        "furigana": "あお",
+        "level": "N4",
+        "type": "kanji",
+        "example": "青い (あおい (Aoi)) — Moviy"
+      },
+      {
+        "id": "n4-k171",
+        "front": "音",
+        "back": "Tovush, ovoz (Sound)",
+        "romaji": "oto, ne",
+        "furigana": "おと",
+        "level": "N4",
+        "type": "kanji",
+        "example": "音 (おと (Oto)) — Tovush"
+      },
+      {
+        "id": "n4-k172",
+        "front": "頭",
+        "back": "Bosh (Head)",
+        "romaji": "atama, kashira",
+        "furigana": "あたま",
+        "level": "N4",
+        "type": "kanji",
+        "example": "頭 (あたま (Atama)) — Bosh"
+      },
+      {
+        "id": "n4-k173",
+        "front": "題",
+        "back": "Mavzu, sarlavha (Topic, title)",
+        "romaji": "dai",
+        "furigana": "ダイ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "宿題 (しゅくだい (Shukudai)) — Uyga vazifa"
+      },
+      {
+        "id": "n4-k174",
+        "front": "顔",
+        "back": "Yuz, chehra (Face)",
+        "romaji": "kao",
+        "furigana": "かお",
+        "level": "N4",
+        "type": "kanji",
+        "example": "顔 (かお (Kao)) — Yuz"
+      },
+      {
+        "id": "n4-k175",
+        "front": "風",
+        "back": "Shamol, uslub (Wind, style)",
+        "romaji": "kaze, kaza",
+        "furigana": "かぜ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "風 (かぜ (Kaze)) — Shamol"
+      },
+      {
+        "id": "n4-k176",
+        "front": "飯",
+        "back": "Ovqat, pishirilgan guruch (Meal, rice)",
+        "romaji": "meshi",
+        "furigana": "めし",
+        "level": "N4",
+        "type": "kanji",
+        "example": "ご飯 (ごはん (Gohan)) — Ovqat"
+      },
+      {
+        "id": "n4-k177",
+        "front": "館",
+        "back": "Katta bino, saroy (Building, mansion)",
+        "romaji": "yakata",
+        "furigana": "やかた",
+        "level": "N4",
+        "type": "kanji",
+        "example": "図書館 (としょかん (Toshokan)) — Kutubxona"
+      },
+      {
+        "id": "n4-k178",
+        "front": "首",
+        "back": "Bo'yin, rahbar (Neck, leader)",
+        "romaji": "kubi",
+        "furigana": "くび",
+        "level": "N4",
+        "type": "kanji",
+        "example": "首 (くび (Kubi)) — Bo'yin"
+      },
+      {
+        "id": "n4-k179",
+        "front": "験",
+        "back": "Sinov, tajriba (Test, verify)",
+        "romaji": "ken, gen",
+        "furigana": "ケン",
+        "level": "N4",
+        "type": "kanji",
+        "example": "試験 (しけん (Shiken)) — Imtihon"
+      },
+      {
+        "id": "n4-k180",
+        "front": "鳥",
+        "back": "Qush (Bird)",
+        "romaji": "tori",
+        "furigana": "とり",
+        "level": "N4",
+        "type": "kanji",
+        "example": "鳥 (とり (Tori)) — Qush"
+      },
+      {
+        "id": "n4-k181",
+        "front": "黒",
+        "back": "Qora (Black)",
+        "romaji": "kuro, kuro-i",
+        "furigana": "くろ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "黒い (くろい (Kuroi)) — Qora"
+      },
+      {
+        "id": "n4-k182",
+        "front": "府",
+        "back": "Prefektura, ma'muriy markaz (Prefecture, government)",
+        "romaji": "fu",
+        "furigana": "フ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "政府 (せいふ (Seifu)) — Hukumat"
+      },
+      {
+        "id": "n4-k183",
+        "front": "細",
+        "back": "Ingichka, mayda (Thin, slender, detailed)",
+        "romaji": "hoso-i, koma-kai",
+        "furigana": "ほそい",
+        "level": "N4",
+        "type": "kanji",
+        "example": "細かい (こまかい (Komakai)) — Mayda, batafsil"
+      },
+      {
+        "id": "n4-k184",
+        "front": "利",
+        "back": "Foyda, daromad, qulaylik (Benefit, advantage)",
+        "romaji": "ki-ku",
+        "furigana": "きく",
+        "level": "N4",
+        "type": "kanji",
+        "example": "便利 (べんり (Benri)) — Qulay"
+      },
+      {
+        "id": "n4-k185",
+        "front": "良",
+        "back": "Yaxshi, a'lo (Good, excellent)",
+        "romaji": "yo-i, i-i",
+        "furigana": "よい",
+        "level": "N4",
+        "type": "kanji",
+        "example": "良い (よい (Yoi)) — Yaxshi"
+      },
+      {
+        "id": "n4-k186",
+        "front": "変",
+        "back": "G'alati, o'zgarmoq (Change, strange)",
+        "romaji": "ka-waru, ka-eru",
+        "furigana": "かわる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "大変 (たいへん (Taihen)) — Juda qiyin, jiddiy"
+      },
+      {
+        "id": "n4-k187",
+        "front": "雪",
+        "back": "Qor (Snow)",
+        "romaji": "yuki",
+        "furigana": "ゆき",
+        "level": "N4",
+        "type": "kanji",
+        "example": "雪 (ゆき (Yuki)) — Qor"
+      },
+      {
+        "id": "n4-k188",
+        "front": "季",
+        "back": "Fasl (Season)",
+        "romaji": "ki",
+        "furigana": "キ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "季節 (きせつ (Kisetsu)) — Yil fasli"
+      },
+      {
+        "id": "n4-k189",
+        "front": "節",
+        "back": "Fasl, bo'g'in, tejamkorlik (Node, season, clause)",
+        "romaji": "fushi",
+        "furigana": "ふし",
+        "level": "N4",
+        "type": "kanji",
+        "example": "季節 (きせつ (Kisetsu)) — Fasl"
+      },
+      {
+        "id": "n4-k190",
+        "front": "暖",
+        "back": "Iliq (havo) (Warm weather)",
+        "romaji": "atata-kai, atata-maru",
+        "furigana": "あたたかい",
+        "level": "N4",
+        "type": "kanji",
+        "example": "暖かい (あたたかい (Atatakai)) — Iliq"
+      },
+      {
+        "id": "n4-k191",
+        "front": "涼",
+        "back": "Salqin (Cool, refreshing)",
+        "romaji": "suzu-shii, suzu-mu",
+        "furigana": "すずしい",
+        "level": "N4",
+        "type": "kanji",
+        "example": "涼しい (すずしい (Suzushii)) — Salqin"
+      },
+      {
+        "id": "n4-k192",
+        "front": "科",
+        "back": "Bo'lim, fan, soha (Department, course, science)",
+        "romaji": "ka",
+        "furigana": "カ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "科学 (かがく (Kagaku)) — Fan, ilm-fan"
+      },
+      {
+        "id": "n4-k193",
+        "front": "内",
+        "back": "Ichkari, ichki (Inside, within)",
+        "romaji": "uchi",
+        "furigana": "うち",
+        "level": "N4",
+        "type": "kanji",
+        "example": "案内 (あんない (Annai)) — Yo'l ko'rsatish"
+      },
+      {
+        "id": "n4-k194",
+        "front": "晩",
+        "back": "Oqshom, kechqurun (Night, evening)",
+        "romaji": "ban",
+        "furigana": "バン",
+        "level": "N4",
+        "type": "kanji",
+        "example": "今晩 (こんばん (Konban)) — Bugun kechqurun"
+      },
+      {
+        "id": "n4-k195",
+        "front": "両",
+        "back": "Ikkala, har ikki (Both)",
+        "romaji": "teru, futatsu",
+        "furigana": "てる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "両親 (りょうしん (Ryoushin)) — Ota-ona"
+      },
+      {
+        "id": "n4-k196",
+        "front": "活",
+        "back": "Jonli, faoliyat (Active, lively)",
+        "romaji": "i-kiru, i-kasu",
+        "furigana": "いきる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "生活 (せいかつ (Seikatsu)) — Hayot, turmush"
+      },
+      {
+        "id": "n4-k197",
+        "front": "形",
+        "back": "Shakl, ko'rinish (Shape, form)",
+        "romaji": "katachi, kata",
+        "furigana": "かたち",
+        "level": "N4",
+        "type": "kanji",
+        "example": "人形 (にんぎょう (Ningyou)) — Qo'g'irchoq"
+      },
+      {
+        "id": "n4-k198",
+        "front": "米",
+        "back": "Guruch, Amerika (Rice, America)",
+        "romaji": "kome, yone",
+        "furigana": "こめ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "お米 (おこめ (Okome)) — Guruch"
+      },
+      {
+        "id": "n4-k199",
+        "front": "信",
+        "back": "Ishonch, xabar, maktub (Trust, faith, message)",
+        "romaji": "shin",
+        "furigana": "シン",
+        "level": "N4",
+        "type": "kanji",
+        "example": "信号 (しんごう (Shingou)) — Svetofor"
+      },
+      {
+        "id": "n4-k200",
+        "front": "返",
+        "back": "Qaytarmoq (Return, reply)",
+        "romaji": "kae-su, kae-ru",
+        "furigana": "かえす",
+        "level": "N4",
+        "type": "kanji",
+        "example": "返す (かえす (Kaesu)) — Qaytarmoq"
+      },
+      {
+        "id": "n4-k201",
+        "front": "号",
+        "back": "Raqam, belgi (Number, issue)",
+        "romaji": "sake-bu, yobina",
+        "furigana": "さけぶ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "信号 (しんごう (Shingou)) — Svetofor"
+      },
+      {
+        "id": "n4-k202",
+        "front": "交",
+        "back": "Kesishtirmoq, aralashtirmoq, aloqa (Intersect, mingle, exchange)",
+        "romaji": "maji-waru, ma-zeru, kawa-su",
+        "furigana": "まじわる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "交通 (こうつう (Koutsuu)) — Yo'l harakati"
+      },
+      {
+        "id": "n4-k203",
+        "front": "降",
+        "back": "Yog'moq, tushmoq (Fall, get off)",
+        "romaji": "fu-ru, o-riru",
+        "furigana": "ふる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "降りる (おりる (Oriru)) — Tushmoq"
+      },
+      {
+        "id": "n4-k204",
+        "front": "閉",
+        "back": "Yopmoq, yopilmoq (Close, shut)",
+        "romaji": "shi-meru, shi-maru, to-jiru",
+        "furigana": "しめる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "閉める (しめる (Shimeru)) — Yopmoq"
+      },
+      {
+        "id": "n4-k205",
+        "front": "全",
+        "back": "Butun, to'liq, barcha (All, whole)",
+        "romaji": "sube-te, matta-ku",
+        "furigana": "すべて",
+        "level": "N4",
+        "type": "kanji",
+        "example": "全部 (ぜんぶ (Zenbu)) — Barchasi"
+      },
+      {
+        "id": "n4-k206",
+        "front": "若",
+        "back": "Yosh (Young)",
+        "romaji": "waka-i, mo-shikuwa",
+        "furigana": "わかい",
+        "level": "N4",
+        "type": "kanji",
+        "example": "若い (わかい (Wakai)) — Yosh"
+      },
+      {
+        "id": "n4-k207",
+        "front": "消",
+        "back": "O'chirmoq, o'chmoq (Extinguish, turn off)",
+        "romaji": "ki-eru, ke-su",
+        "furigana": "きえる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "消す (けす (Kesu)) — O'chirmoq"
+      },
+      {
+        "id": "n4-k208",
+        "front": "捨",
+        "back": "Tashlab yubormoq (Throw away, discard)",
+        "romaji": "sute-ru",
+        "furigana": "すてる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "捨てる (すてる (Suteru)) — Tashlab yubormoq"
+      },
+      {
+        "id": "n4-k209",
+        "front": "座",
+        "back": "O'tirmoq, o'rindiq (Sit, seat)",
+        "romaji": "suwa-ru",
+        "furigana": "すわる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "座る (すわる (Suwaru)) — O'tirmoq"
+      },
+      {
+        "id": "n4-k210",
+        "front": "落",
+        "back": "Tushib ketmoq, tushirib qoldirmoq (Fall, drop)",
+        "romaji": "o-chiru, o-tosu",
+        "furigana": "おちる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "落ちる (おちる (Ochiru)) — Yiqilmoq, tushmoq"
+      },
+      {
+        "id": "n4-k211",
+        "front": "公",
+        "back": "Jamoat, rasmiy, davlat (Public, official)",
+        "romaji": "ooyake",
+        "furigana": "おおやけ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "公園 (こうえん (Kouen)) — Park, istirohat bog'i"
+      },
+      {
+        "id": "n4-k212",
+        "front": "伝",
+        "back": "Yetkazmoq, o'tkazmoq (Transmit, convey)",
+        "romaji": "tsuta-waru, tsuta-eru, tsuda-u",
+        "furigana": "つたわる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "伝える (つたえる (Tsutaeru)) — Yetkazmoq"
+      },
+      {
+        "id": "n4-k213",
+        "front": "忘",
+        "back": "Unitmoq (Forget)",
+        "romaji": "wasu-reru",
+        "furigana": "わすれる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "忘れる (わすれる (Wasureru)) — Unitmoq"
+      },
+      {
+        "id": "n4-k214",
+        "front": "受",
+        "back": "Qabul qilmoq, topshirmoq (Receive, accept)",
+        "romaji": "u-keru, u-karu",
+        "furigana": "うける",
+        "level": "N4",
+        "type": "kanji",
+        "example": "受ける (うける (Ukeru)) — Qabul qilmoq"
+      },
+      {
+        "id": "n4-k215",
+        "front": "残",
+        "back": "Qolmoq, qoldirmoq (Remain, leave over)",
+        "romaji": "noko-ru, noko-su",
+        "furigana": "のこる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "残る (のこる (Nokoru)) — Qolmoq"
+      },
+      {
+        "id": "n4-k216",
+        "front": "寝",
+        "back": "Uxlamoq (Sleep, lie down)",
+        "romaji": "ne-ru, ne-kasu",
+        "furigana": "ねる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "寝る (ねる (Neru)) — Uxlamoq"
+      },
+      {
+        "id": "n4-k217",
+        "front": "園",
+        "back": "Bog', istirohat bog'i (Garden, park)",
+        "romaji": "sono",
+        "furigana": "その",
+        "level": "N4",
+        "type": "kanji",
+        "example": "公園 (こうえん (Kouen)) — Bog', park"
+      },
+      {
+        "id": "n4-k218",
+        "front": "決",
+        "back": "Qaror qilmoq, hal qilmoq (Decide, determine)",
+        "romaji": "ki-meru, ki-maru",
+        "furigana": "きめる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "決める (きめる (Kimeru)) — Qaror qilmoq"
+      },
+      {
+        "id": "n4-k219",
+        "front": "呼",
+        "back": "Chaqirmoq (Call)",
+        "romaji": "yo-bu",
+        "furigana": "よぶ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "呼ぶ (よぶ (Yobu)) — Chaqirmoq"
+      },
+      {
+        "id": "n4-k220",
+        "front": "取",
+        "back": "Olmoq, ushlamoq (Take, fetch)",
+        "romaji": "to-ru, to-ri",
+        "furigana": "とる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "取る (とる (Toru)) — Olmoq"
+      },
+      {
+        "id": "n4-k221",
+        "front": "調",
+        "back": "Tekshirmoq, sozlamoq, ohang (Investigate, tune)",
+        "romaji": "shira-beru, totono-u",
+        "furigana": "しらべる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "調べる (しらべる (Shiraberu)) — Tekshirmoq"
+      },
+      {
+        "id": "n4-k222",
+        "front": "遅",
+        "back": "Kech, sekin (Slow, late)",
+        "romaji": "oku-reru, oso-i",
+        "furigana": "おくれる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "遅い (おそい (Osoi)) — Sekin, kech"
+      },
+      {
+        "id": "n4-k223",
+        "front": "部",
+        "back": "Bo'lim, qism, xona (Section, department, part)",
+        "romaji": "bu",
+        "furigana": "ブ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "全部 (ぜんぶ (Zenbu)) — Hammasi"
+      },
+      {
+        "id": "n4-k224",
+        "front": "困",
+        "back": "Qiyinchilikda qolmoq (Troubled, distressed)",
+        "romaji": "koma-ru",
+        "furigana": "こまる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "困る (こまる (Komaru)) — Qiyin ahvolda qolmoq"
+      },
+      {
+        "id": "n4-k225",
+        "front": "押",
+        "back": "Bosmoq, itarmoq (Push, press)",
+        "romaji": "o-su, o-saeru",
+        "furigana": "おす",
+        "level": "N4",
+        "type": "kanji",
+        "example": "押す (おす (Osu)) — Bosmoq, itarmoq"
+      },
+      {
+        "id": "n4-k226",
+        "front": "席",
+        "back": "O'rindiq, joy (Seat)",
+        "romaji": "seki",
+        "furigana": "セキ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "席 (せき (Seki)) — Joy, o'rindiq"
+      },
+      {
+        "id": "n4-k227",
+        "front": "続",
+        "back": "Davom etmoq, davom ettirmoq (Continue)",
+        "romaji": "tsudu-ku, tsudu-keru",
+        "furigana": "つづく",
+        "level": "N4",
+        "type": "kanji",
+        "example": "続ける (つづける (Tsudukeru)) — Davom ettirmoq"
+      },
+      {
+        "id": "n4-k228",
+        "front": "鉄",
+        "back": "Temir (Iron, steel)",
+        "romaji": "kurogane",
+        "furigana": "くろがね",
+        "level": "N4",
+        "type": "kanji",
+        "example": "地下鉄 (ちかてつ (Chikatetsu)) — Metro"
+      },
+      {
+        "id": "n4-k229",
+        "front": "祖",
+        "back": "Ajdod, bobo (Ancestor, founder)",
+        "romaji": "so",
+        "furigana": "ソ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "祖父 (そふ (Sofu)) — Bobom"
+      },
+      {
+        "id": "n4-k230",
+        "front": "泳",
+        "back": "Suzmoq (Swim)",
+        "romaji": "oyo-gu",
+        "furigana": "およぐ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "泳ぐ (およぐ (Oyogu)) — Suzmoq"
+      },
+      {
+        "id": "n4-k231",
+        "front": "拾",
+        "back": "Terib olmoq, topib olmoq (Pick up, find)",
+        "romaji": "hiro-u",
+        "furigana": "ひろう",
+        "level": "N4",
+        "type": "kanji",
+        "example": "拾う (ひろう (Hirou)) — Terib olmoq"
+      },
+      {
+        "id": "n4-k232",
+        "front": "連",
+        "back": "Birga olib bormoq, ulanmoq (Connect, lead)",
+        "romaji": "tsu-reru, tsura-naru",
+        "furigana": "つれる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "連れて行く (つれていく (Tsureteiku)) — Olib bormoq"
+      },
+      {
+        "id": "n4-k233",
+        "front": "練",
+        "back": "Mashq qilmoq, charxlamoq (Practice, train)",
+        "romaji": "ne-ru",
+        "furigana": "ねる",
+        "level": "N4",
+        "type": "kanji",
+        "example": "練習 (れんしゅう (Renshuu)) — Mashq"
+      },
+      {
+        "id": "n4-k234",
+        "front": "線",
+        "back": "Chiziq, yo'nalish (Line, track)",
+        "romaji": "suji",
+        "furigana": "すじ",
+        "level": "N4",
+        "type": "kanji",
+        "example": "線 (せん (Sen)) — Chiziq"
+      }
+    ]
+  },
+  {
+    "id": "jlpt-n4-grammar",
+    "title": "📜 JLPT N4 Essential Grammar Pattern (文法)",
+    "description": "N4 bosqichining asosiy grammatik konstruksiyalari",
+    "level": "N4",
+    "icon": "CheckCircle2",
+    "cards": [
+      {
+        "id": "n4-g1",
+        "front": "～ほうがいい",
+        "back": "...ganing ma'qul (Had better do...)",
+        "romaji": "hou ga ii",
+        "level": "N4",
+        "type": "grammar",
+        "example": "薬を飲んだほうがいいですよ。(Kusuri wo nonda hou ga ii desu yo)"
+      },
+      {
+        "id": "n4-g2",
+        "front": "～つもりの",
+        "back": "...moqchiman / rejalashtirganman (Intend to do...)",
+        "romaji": "tsumori desu",
+        "level": "N4",
+        "type": "grammar",
+        "example": "来年日本へ行くつもりです。(Rainen Nihon e iku tsumori desu)"
+      }
+    ]
+  }
+]

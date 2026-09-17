@@ -162,9 +162,7 @@ export class TelegramDatasetService {
     // 3. Fallback to local storage history if Supabase is offline
     if (allSessions.length === 0 && typeof window !== 'undefined') {
       try {
-        const localHistory = JSON.parse(
-          localStorage.getItem('nihon_talk_scenario_history') || '[]',
-        );
+        const localHistory = safeLocalStorage.getJSON<any[]>('nihon_talk_scenario_history', []);
         allSessions = localHistory.filter((s: any) => {
           const d = s.created_at || s.timestamp || new Date().toISOString();
           if (todayStr === 'ALL') return true;
@@ -406,14 +404,14 @@ export class TelegramDatasetService {
       const now = new Date();
       const currentHour = now.getHours();
       const todayStr = now.toISOString().split('T')[0];
-      const lastDispatched = localStorage.getItem('nihon_talk_telegram_last_dispatched_date');
+      const lastDispatched = safeLocalStorage.getItem('nihon_talk_telegram_last_dispatched_date');
 
       // Agar kechki soat 22:00 (yoki keyinroq) bo'lsa va bugun hali yuborilmagan bo'lsa
       if (currentHour >= 22 && lastDispatched !== todayStr) {
         try {
           const result = await TelegramDatasetService.sendDailyReportToTelegram();
           if (result.success) {
-            localStorage.setItem('nihon_talk_telegram_last_dispatched_date', todayStr);
+            safeLocalStorage.setItem('nihon_talk_telegram_last_dispatched_date', todayStr);
             console.log('✅ Nihon Talk Daily 22:00 Telegram Telemetry Dispatched Successfully');
           }
         } catch (e) {

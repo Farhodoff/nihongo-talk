@@ -3,8 +3,14 @@ import type { TelegramWebAppUser } from '../types/telegram-webapp';
 import { toDeterministicUUID } from './uuid';
 import { safeLocalStorage } from './storage/safeLocalStorage';
 
-export const TELEGRAM_SUPERADMIN_ID = 6756073816;
-export const TELEGRAM_SUPERADMIN_IDS = [6756073816, 6839776532];
+const envAdminIds = (import.meta.env.VITE_TELEGRAM_ADMIN_IDS || '')
+  .split(',')
+  .map((s: string) => Number(s.trim()))
+  .filter((n: number) => !isNaN(n) && n > 0);
+
+export const TELEGRAM_SUPERADMIN_ID = envAdminIds[0] || 6756073816;
+export const TELEGRAM_SUPERADMIN_IDS =
+  envAdminIds.length > 0 ? envAdminIds : [6756073816, 6839776532];
 
 /**
  * Checks whether the current runtime environment is inside Telegram WebApp (Mini App).

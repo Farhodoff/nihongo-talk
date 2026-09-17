@@ -1,7 +1,7 @@
 import { useRef, useCallback, useEffect, useState } from 'react';
 import { trackTTSTelemetry } from '../lib/errorTracking';
 import { cleanJapaneseTTS } from '../utils/ai';
-import { supabase } from '../lib/supabase';
+import { supabase, supabaseAnonKey } from '../lib/supabase';
 
 // Cached access token to avoid calling getSession() repeatedly on every sentence chunk
 let cachedAuthToken: string | null = null;
@@ -22,7 +22,7 @@ async function getAuthToken(): Promise<string> {
       }
     }
   } catch {}
-  return import.meta.env.VITE_SUPABASE_ANON_KEY || 'sb_publishable_6g0Ei_1Cw46e1mJLKj_1Ug_sOmhlgoI';
+  return supabaseAnonKey;
 }
 
 // High-speed In-Memory Audio Cache for 0ms TTS playback on repeated or prefetched text

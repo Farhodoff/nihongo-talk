@@ -4,33 +4,26 @@ import { generateUUID, isUuid } from '../utils/uuid';
 import { PRESET_DECKS } from '../data/presetDecks';
 import { FlashcardOfflineSync } from './FlashcardOfflineSync';
 import { GlobalFlashcardOverrideService } from './GlobalFlashcardOverrideService';
+import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
 
 const CACHE_KEY_PREFIX = 'study_planner_flashcards_cache_';
 
 export const getLocalFlashcardCache = (userId: string): Flashcard[] => {
-  try {
-    const raw = localStorage.getItem(CACHE_KEY_PREFIX + userId);
-    if (raw) return JSON.parse(raw);
-    if (userId === 'guest' || userId === 'local_user') {
-      const altKey = userId === 'guest' ? 'local_user' : 'guest';
-      const altRaw = localStorage.getItem(CACHE_KEY_PREFIX + altKey);
-      if (altRaw) return JSON.parse(altRaw);
-    }
-    return [];
-  } catch {
-    return [];
+  const cards = safeLocalStorage.getJSON<Flashcard[] | null>(CACHE_KEY_PREFIX + userId, null);
+  if (cards && Array.isArray(cards)) return cards;
+  if (userId === 'guest' || userId === 'local_user') {
+    const altKey = userId === 'guest' ? 'local_user' : 'guest';
+    const altCards = safeLocalStorage.getJSON<Flashcard[] | null>(CACHE_KEY_PREFIX + altKey, null);
+    if (altCards && Array.isArray(altCards)) return altCards;
   }
+  return [];
 };
 
 export const setLocalFlashcardCache = (userId: string, cards: Flashcard[]): void => {
-  try {
-    localStorage.setItem(CACHE_KEY_PREFIX + userId, JSON.stringify(cards));
-    if (userId === 'guest' || userId === 'local_user') {
-      localStorage.setItem(CACHE_KEY_PREFIX + 'guest', JSON.stringify(cards));
-      localStorage.setItem(CACHE_KEY_PREFIX + 'local_user', JSON.stringify(cards));
-    }
-  } catch (e) {
-    console.warn('Failed to update flashcard local cache:', e);
+  safeLocalStorage.setJSON(CACHE_KEY_PREFIX + userId, cards);
+  if (userId === 'guest' || userId === 'local_user') {
+    safeLocalStorage.setJSON(CACHE_KEY_PREFIX + 'guest', cards);
+    safeLocalStorage.setJSON(CACHE_KEY_PREFIX + 'local_user', cards);
   }
 };
 

@@ -1,4 +1,4 @@
-import { supabase } from '../lib/supabase';
+import { supabase, supabaseUrl, supabaseAnonKey } from '../lib/supabase';
 import { purgeOversizedCookies } from '../lib/consoleFilter';
 
 export interface DeepSeekRequestOptions {
@@ -120,13 +120,8 @@ export const callDeepSeek = async (
     return `AI_ERROR: AI xizmatida xatolik yuz berdi (HTTP ${status}). Iltimos qayta urinib ko'ring.`;
   };
 
-  const baseUrl =
-    import.meta.env.VITE_SUPABASE_URL ||
-    import.meta.env.NEXT_PUBLIC_SUPABASE_URL ||
-    'https://qmuimxnknxwarvnkpnlo.supabase.co';
-  const directUrl = `${baseUrl.replace(/\/$/, '')}/functions/v1/deepseek`;
-  const anonKey =
-    import.meta.env.VITE_SUPABASE_ANON_KEY || 'sb_publishable_6g0Ei_1Cw46e1mJLKj_1Ug_sOmhlgoI';
+  const directUrl = `${supabaseUrl.replace(/\/$/, '')}/functions/v1/deepseek`;
+  const anonKey = supabaseAnonKey;
 
   // 1. Primary Direct Route: Supabase Edge Function (Low latency, authoritative)
   try {
@@ -262,13 +257,8 @@ export const streamDeepSeekTokens = async (
 ): Promise<string> => {
   purgeOversizedCookies();
 
-  const baseUrl =
-    import.meta.env.VITE_SUPABASE_URL ||
-    import.meta.env.NEXT_PUBLIC_SUPABASE_URL ||
-    'https://qmuimxnknxwarvnkpnlo.supabase.co';
-  const directUrl = `${baseUrl.replace(/\/$/, '')}/functions/v1/deepseek`;
-  const anonKey =
-    import.meta.env.VITE_SUPABASE_ANON_KEY || 'sb_publishable_6g0Ei_1Cw46e1mJLKj_1Ug_sOmhlgoI';
+  const directUrl = `${supabaseUrl.replace(/\/$/, '')}/functions/v1/deepseek`;
+  const anonKey = supabaseAnonKey;
 
   const payload: Record<string, unknown> = {
     model: 'deepseek-chat',
