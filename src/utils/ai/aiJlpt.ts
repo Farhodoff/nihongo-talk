@@ -1,61 +1,62 @@
 import { callSelectedAIProvider } from './aiCore';
 import { parseAIError } from './aiConfig';
-import { generateAlgorithmicJlptPlan } from '../curriculum/jlptAlgorithmicPlanner';
 
 export interface JlptStudyPlanDay {
-    day: number;
-    title: string;
-    focusArea: 'Kanji' | 'Vocabulary' | 'Grammar' | 'Reading' | 'Listening' | 'Speaking';
-    tasks: string[];
-    pomodoroTargetMinutes: number;
-    vocabularyList?: { word: string; meaning: string; reading?: string; example?: string }[];
-    grammarNotes?: { rule: string; explanation: string; example?: string }[];
-    kanjiList?: { kanji: string; meaning: string; onyomi?: string; kunyomi?: string }[];
+  day: number;
+  title: string;
+  focusArea: 'Kanji' | 'Vocabulary' | 'Grammar' | 'Reading' | 'Listening' | 'Speaking';
+  tasks: string[];
+  pomodoroTargetMinutes: number;
+  vocabularyList?: { word: string; meaning: string; reading?: string; example?: string }[];
+  grammarNotes?: { rule: string; explanation: string; example?: string }[];
+  kanjiList?: { kanji: string; meaning: string; onyomi?: string; kunyomi?: string }[];
 }
 
 export interface JlptStudyPlanResult {
-    headline: string;
-    summary: string;
-    dailyPlan: JlptStudyPlanDay[];
-    recommendedTips: string[];
+  headline: string;
+  summary: string;
+  dailyPlan: JlptStudyPlanDay[];
+  recommendedTips: string[];
 }
 
 function enrichJlptPlanWithConcreteContent(
-    aiDailyPlan: JlptStudyPlanDay[],
-    algorithmicDailyPlan: JlptStudyPlanDay[]
+  aiDailyPlan: JlptStudyPlanDay[],
+  algorithmicDailyPlan: JlptStudyPlanDay[],
 ): JlptStudyPlanDay[] {
-    return aiDailyPlan.map((dayItem, idx) => {
-        const algoItem = algorithmicDailyPlan[idx % algorithmicDailyPlan.length] || algorithmicDailyPlan[0];
+  return aiDailyPlan.map((dayItem, idx) => {
+    const algoItem =
+      algorithmicDailyPlan[idx % algorithmicDailyPlan.length] || algorithmicDailyPlan[0];
 
-        const vocabularyList = (dayItem.vocabularyList && dayItem.vocabularyList.length > 0)
-            ? dayItem.vocabularyList
-            : algoItem.vocabularyList;
+    const vocabularyList =
+      dayItem.vocabularyList && dayItem.vocabularyList.length > 0
+        ? dayItem.vocabularyList
+        : algoItem.vocabularyList;
 
-        const grammarNotes = (dayItem.grammarNotes && dayItem.grammarNotes.length > 0)
-            ? dayItem.grammarNotes
-            : algoItem.grammarNotes;
+    const grammarNotes =
+      dayItem.grammarNotes && dayItem.grammarNotes.length > 0
+        ? dayItem.grammarNotes
+        : algoItem.grammarNotes;
 
-        const kanjiList = (dayItem.kanjiList && dayItem.kanjiList.length > 0)
-            ? dayItem.kanjiList
-            : algoItem.kanjiList;
+    const kanjiList =
+      dayItem.kanjiList && dayItem.kanjiList.length > 0 ? dayItem.kanjiList : algoItem.kanjiList;
 
-        return {
-            ...dayItem,
-            vocabularyList,
-            grammarNotes,
-            kanjiList
-        };
-    });
+    return {
+      ...dayItem,
+      vocabularyList,
+      grammarNotes,
+      kanjiList,
+    };
+  });
 }
 
 export const generateJlptStudyPlan = async (
-    currentLevel: any,
-    targetLevel: any,
-    durationDays: number = 30,
-    planType: string = 'general',
-    specialGoal?: string
+  currentLevel: any,
+  targetLevel: any,
+  durationDays: number = 30,
+  planType: string = 'general',
+  specialGoal?: string,
 ): Promise<JlptStudyPlanResult> => {
-    const prompt = `
+  const prompt = `
       Act as an elite Japanese Language JLPT Academic Director & Curriculum Planner.
       Generate a ${durationDays}-day hyper-structured study plan for a student.
 
@@ -102,29 +103,42 @@ export const generateJlptStudyPlan = async (
       4. ONLY return valid JSON. No markdown backticks, no explanations.
     `;
 
-    const algorithmicDailyPlan = generateAlgorithmicJlptPlan(currentLevel, targetLevel, durationDays, planType, specialGoal);
+  const { generateAlgorithmicJlptPlan } = await import('../curriculum/jlptAlgorithmicPlanner');
+  const algorithmicDailyPlan = generateAlgorithmicJlptPlan(
+    currentLevel,
+    targetLevel,
+    durationDays,
+    planType,
+    specialGoal,
+  );
 
-    try {
-        const response = await callSelectedAIProvider(prompt, undefined, true);
-        const cleanedText = response.replace(/```json/g, '').replace(/```/g, '').trim();
-        const parsed = JSON.parse(cleanedText);
-        const dailyPlanRaw = parsed.dailyPlan || parsed.daily_plan || parsed.plan;
-        const finalDailyPlan = (Array.isArray(dailyPlanRaw) && dailyPlanRaw.length > 0)
-            ? enrichJlptPlanWithConcreteContent(dailyPlanRaw, algorithmicDailyPlan)
-            : algorithmicDailyPlan;
+  try {
+    const response = await callSelectedAIProvider(prompt, undefined, true);
+    const cleanedText = response
+      .replace(/```json/g, '')
+      .replace(/```/g, '')
+      .trim();
+    const parsed = JSON.parse(cleanedText);
+    const dailyPlanRaw = parsed.dailyPlan || parsed.daily_plan || parsed.plan;
+    const finalDailyPlan =
+      Array.isArray(dailyPlanRaw) && dailyPlanRaw.length > 0
+        ? enrichJlptPlanWithConcreteContent(dailyPlanRaw, algorithmicDailyPlan)
+        : algorithmicDailyPlan;
 
-        return {
-            headline: parsed.headline || `${targetLevel} Darajasiga Intensiv Tayyorgarlik Rejasi 🎯`,
-            summary: parsed.summary || `${currentLevel} darajadan ${targetLevel} darajaga erishish uchun ${durationDays} kunlik maxsus o'quv dasturi.`,
-            recommendedTips: parsed.recommendedTips || [
-                "Har kuni kamida 30 daqiqa yapon tilida audiolar tinglang.",
-                "Har bir yangi kanjini misol jumlalar bilan birga yod oling.",
-                "Haftada bir marta o'tilgan barcha grammatik qoidalarni qayta takrorlang."
-            ],
-            dailyPlan: finalDailyPlan
-        };
-    } catch (err: any) {
-        console.error("AI JLPT Plan Generation error:", err);
-        throw new Error(parseAIError(err));
-    }
+    return {
+      headline: parsed.headline || `${targetLevel} Darajasiga Intensiv Tayyorgarlik Rejasi 🎯`,
+      summary:
+        parsed.summary ||
+        `${currentLevel} darajadan ${targetLevel} darajaga erishish uchun ${durationDays} kunlik maxsus o'quv dasturi.`,
+      recommendedTips: parsed.recommendedTips || [
+        'Har kuni kamida 30 daqiqa yapon tilida audiolar tinglang.',
+        'Har bir yangi kanjini misol jumlalar bilan birga yod oling.',
+        "Haftada bir marta o'tilgan barcha grammatik qoidalarni qayta takrorlang.",
+      ],
+      dailyPlan: finalDailyPlan,
+    };
+  } catch (err: any) {
+    console.error('AI JLPT Plan Generation error:', err);
+    throw new Error(parseAIError(err));
+  }
 };

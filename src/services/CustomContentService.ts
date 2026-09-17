@@ -1,5 +1,5 @@
-import { JlptKanjiItem, JlptGrammarItem, JlptVocabItem } from '../data/jlptGrammarKanji';
-import { JlptGrammarQuestion } from '../data/jlpt/grammar_data';
+import type { JlptKanjiItem, JlptGrammarItem, JlptVocabItem } from '../data/jlptGrammarKanji';
+import type { JlptGrammarQuestion } from '../data/jlpt/grammar_data';
 import { supabase } from '../lib/supabase';
 
 import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
@@ -7,6 +7,15 @@ import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
 const CUSTOM_KANJI_KEY = 'study_planner_custom_admin_kanji';
 const CUSTOM_GRAMMAR_KEY = 'study_planner_custom_admin_grammar';
 const CUSTOM_QUIZ_KEY = 'study_planner_custom_admin_quiz_questions';
+
+export const VALID_JLPT_LEVELS = ['N5', 'N4', 'N3', 'N2', 'N1'] as const;
+export type JlptLevel = (typeof VALID_JLPT_LEVELS)[number];
+
+export function parseJlptLevel(val: unknown, fallback: JlptLevel = 'N5'): JlptLevel {
+  return typeof val === 'string' && (VALID_JLPT_LEVELS as readonly string[]).includes(val)
+    ? (val as JlptLevel)
+    : fallback;
+}
 
 export interface BulkImportResult {
   added: number;
@@ -337,7 +346,7 @@ export class CustomContentService {
         const list = Array.isArray(parsed) ? parsed : [parsed];
         return list.map((item: any) => ({
           kanji: item.kanji || item.char || item.character || '',
-          level: (['N5', 'N4', 'N3', 'N2', 'N1'].includes(item.level) ? item.level : 'N5') as any,
+          level: parseJlptLevel(item.level),
           onyomi: item.onyomi || item.on || '-',
           kunyomi: item.kunyomi || item.kun || '-',
           meaningUz: item.meaningUz || item.meaning_uz || item.meaning || item.tarjima || '',
@@ -360,7 +369,7 @@ export class CustomContentService {
       if (line.includes('|')) {
         const parts = line.split('|').map((p) => p.trim());
         const kanji = parts[0] || '';
-        const level = (['N5', 'N4', 'N3', 'N2', 'N1'].includes(parts[1]) ? parts[1] : 'N5') as any;
+        const level = parseJlptLevel(parts[1]);
         const onyomi = parts[2] || '-';
         const kunyomi = parts[3] || '-';
         const meaningUz = parts[4] || '';
@@ -387,7 +396,7 @@ export class CustomContentService {
         if (parts[0] && parts[1]) {
           result.push({
             kanji: parts[0],
-            level: (['N5', 'N4', 'N3', 'N2', 'N1'].includes(parts[2]) ? parts[2] : 'N5') as any,
+            level: parseJlptLevel(parts[2]),
             onyomi: parts[3] || '-',
             kunyomi: parts[4] || '-',
             meaningUz: parts[1],
@@ -610,7 +619,7 @@ export class CustomContentService {
         const list = Array.isArray(parsed) ? parsed : [parsed];
         return list.map((item: any) => ({
           title: item.title || item.pattern || item.grammar || '',
-          level: (['N5', 'N4', 'N3', 'N2', 'N1'].includes(item.level) ? item.level : 'N5') as any,
+          level: parseJlptLevel(item.level),
           romaji: item.romaji || '',
           meaningUz: item.meaningUz || item.meaning_uz || item.meaning || item.tarjima || '',
           structure: item.structure || item.formula || '',
@@ -631,7 +640,7 @@ export class CustomContentService {
       if (line.includes('|')) {
         const parts = line.split('|').map((p) => p.trim());
         const title = parts[0] || '';
-        const level = (['N5', 'N4', 'N3', 'N2', 'N1'].includes(parts[1]) ? parts[1] : 'N5') as any;
+        const level = parseJlptLevel(parts[1]);
         const romaji = parts[2] || '';
         const structure = parts[3] || '';
         const meaningUz = parts[4] || '';
@@ -656,7 +665,7 @@ export class CustomContentService {
         if (parts[0] && parts[1]) {
           result.push({
             title: parts[0],
-            level: (['N5', 'N4', 'N3', 'N2', 'N1'].includes(parts[2]) ? parts[2] : 'N5') as any,
+            level: parseJlptLevel(parts[2]),
             romaji: parts[3] || '',
             structure: parts[4] || '',
             meaningUz: parts[1],
@@ -1028,7 +1037,7 @@ export class CustomContentService {
         const parsed = JSON.parse(trimmed);
         const list = Array.isArray(parsed) ? parsed : [parsed];
         return list.map((item: any) => ({
-          level: (['N5', 'N4', 'N3', 'N2', 'N1'].includes(item.level) ? item.level : 'N5') as any,
+          level: parseJlptLevel(item.level),
           pattern: item.pattern || '',
           questionText: item.questionText || item.question_text || item.question || '',
           options: Array.isArray(item.options) ? item.options : [],
@@ -1071,7 +1080,7 @@ export class CustomContentService {
         }
         const expl = parts[3] || '';
         const rawLvl = parts[4]?.toUpperCase();
-        const level = (['N5', 'N4', 'N3', 'N2', 'N1'].includes(rawLvl) ? rawLvl : 'N5') as any;
+        const level = parseJlptLevel(rawLvl);
         const pattern = parts[5] || '';
 
         if (qText && opts.length >= 2) {

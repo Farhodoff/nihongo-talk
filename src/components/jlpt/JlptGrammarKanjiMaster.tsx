@@ -13,9 +13,6 @@ import {
   ArrowRight,
 } from 'lucide-react';
 import type { JlptGrammarItem, JlptKanjiItem, JlptVocabItem } from '../../data/jlptGrammarKanji';
-import { JLPT_GRAMMAR_DATABASE } from '../../data/jlptGrammarDatabase';
-import { JLPT_KANJI_DATABASE } from '../../data/jlptKanjiDatabase';
-import { JLPT_VOCAB_DATABASE } from '../../data/jlptVocabDatabase';
 import type { JlptGrammarQuestion } from '../../data/jlpt/grammar_data';
 import { speakText } from '../../utils/audioTts';
 import { useStudyData } from '../../context/StudyPlannerContext';
@@ -73,13 +70,14 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
   useEffect(() => {
     const loadData = async () => {
       try {
-        const [gkModule, questionsModule, vocabModule] = await Promise.all([
+        const [gkModule, kanjiDbModule, questionsModule, vocabModule] = await Promise.all([
           import('../../data/jlptGrammarKanji'),
+          import('../../data/jlptKanjiDatabase'),
           import('../../data/jlpt/grammar_data'),
           import('../../data/jlptVocabData'),
         ]);
         setGrammarData(gkModule.JLPT_GRAMMAR_DATA);
-        setKanjiData(gkModule.JLPT_KANJI_DATA);
+        setKanjiData(kanjiDbModule.JLPT_KANJI_DATABASE || gkModule.JLPT_KANJI_DATA);
         setVocabData(vocabModule.JLPT_VOCAB_DATA);
         setGrammarQuestions(questionsModule.JLPT_GRAMMAR_QUESTIONS);
       } catch (err) {
@@ -105,13 +103,10 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
   const [missedQuizQuestions, setMissedQuizQuestions] = useState<JlptGrammarQuestion[]>([]);
   const [quizFlashcardsSaved, setQuizFlashcardsSaved] = useState(false);
 
-  // Merge databases (or fallback) + Admin Custom Content
-  const baseGrammar: JlptGrammarItem[] =
-    JLPT_GRAMMAR_DATABASE.length > 0 ? JLPT_GRAMMAR_DATABASE : grammarData;
-  const baseKanji: JlptKanjiItem[] =
-    JLPT_KANJI_DATABASE.length > 0 ? JLPT_KANJI_DATABASE : kanjiData;
-  const baseVocab: JlptVocabItem[] =
-    JLPT_VOCAB_DATABASE.length > 0 ? JLPT_VOCAB_DATABASE : vocabData;
+  // Merge databases (loaded dynamically) + Admin Custom Content
+  const baseGrammar: JlptGrammarItem[] = grammarData;
+  const baseKanji: JlptKanjiItem[] = kanjiData;
+  const baseVocab: JlptVocabItem[] = vocabData;
 
   const grammarSource = useMemo(
     () => CustomContentService.mergeGrammar(baseGrammar),

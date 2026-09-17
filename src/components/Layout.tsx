@@ -227,6 +227,7 @@ const Layout: React.FC = () => {
           key={item.path}
           to={item.path}
           onClick={onClick}
+          aria-label={item.name}
           className={({ isActive }) =>
             `group relative flex items-center ${isCollapsed ? 'justify-center' : ''} gap-3.5 rounded-xl px-3.5 py-2.5 text-sm font-medium transition-all duration-200 ${
               isActive
@@ -490,7 +491,10 @@ const Layout: React.FC = () => {
 
       {/* Mobile Bottom Navigation */}
       {!isFullScreenPage && (
-        <nav className="glass-card fixed bottom-0 z-40 flex w-full items-center justify-around border-t border-border bg-background/95 px-2 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-1.5 backdrop-blur-md md:hidden">
+        <nav
+          aria-label="Mobil asosiy navigatsiya"
+          className="glass-card fixed bottom-0 z-40 flex w-full items-center justify-around border-t border-border bg-background/95 px-2 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-1.5 backdrop-blur-md md:hidden"
+        >
           {[
             {
               name: 'JLPT',
@@ -521,6 +525,8 @@ const Layout: React.FC = () => {
               <NavLink
                 key={item.path}
                 to={item.path}
+                aria-label={item.name}
+                aria-current={isItemActive ? 'page' : undefined}
                 className={`flex h-12 w-16 cursor-pointer flex-col items-center justify-center rounded-xl p-1 transition-all duration-200 active:scale-95 ${
                   isItemActive
                     ? 'bg-primary/10 font-bold text-primary shadow-xs'

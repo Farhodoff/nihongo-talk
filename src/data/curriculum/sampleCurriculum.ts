@@ -1,5 +1,4 @@
 import { Lesson } from '../../types/lesson';
-import { ALL_CURRICULUM_LESSONS } from './curriculumLessons';
 
 /**
  * Legacy sample lessons preserved for backward compatibility with existing tests.
@@ -489,15 +488,7 @@ const LEGACY_SAMPLE_LESSONS: Lesson[] = [
   },
 ];
 
-/** IDs of legacy lessons that must take precedence over curriculum versions */
-const LEGACY_IDS = new Set(LEGACY_SAMPLE_LESSONS.map((l) => l.id));
-
 /**
- * SAMPLE_LESSONS: Legacy sample lessons take priority over curriculum duplicates.
- * This ensures backward compatibility for all existing tests while including
- * the full 275+ lesson curriculum.
+ * SAMPLE_LESSONS: Handcrafted legacy sample lessons preserved for backward compatibility.
  */
-export const SAMPLE_LESSONS: Lesson[] = [
-  ...LEGACY_SAMPLE_LESSONS,
-  ...ALL_CURRICULUM_LESSONS.filter((l) => !LEGACY_IDS.has(l.id)),
-];
+export const SAMPLE_LESSONS: Lesson[] = LEGACY_SAMPLE_LESSONS;

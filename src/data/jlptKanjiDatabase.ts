@@ -1,4 +1,4 @@
-import { JlptKanjiItem } from './jlptGrammarKanji';
+import type { JlptKanjiItem } from './jlptGrammarKanji';
 
 export const JLPT_KANJI_DATABASE: JlptKanjiItem[] = [
   {
