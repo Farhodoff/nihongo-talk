@@ -1,0 +1,4447 @@
+{
+  "26": {
+    "practice": [
+      {
+        "id": "ja-minna-l26-ex1",
+        "type": "multiple-choice",
+        "prompt": "「探[さが]します」 fe'lining to'g'ri o'zbekcha ma'nosi qaysi?",
+        "options": ["qidirmoq", "kutmoq", "kechikmoq", "topshirmoq"],
+        "correctAnswer": 0,
+        "explanation": "「探します (さがします)」 — qidirmoq, izlamoq degan ma'noni bildiradi."
+      },
+      {
+        "id": "ja-minna-l26-ex2",
+        "type": "multiple-choice",
+        "prompt": "「遅[おく]れます」 so'zining ma'nosi qaysi?",
+        "options": ["ulgurmoq", "kechikmoq", "jo'namoq", "to'xtamoq"],
+        "correctAnswer": 1,
+        "explanation": "「遅れます (おくれます)」 — vaqtdan kechikmoq (masalan, 電車に遅れます)."
+      },
+      {
+        "id": "ja-minna-l26-ex3",
+        "type": "multiple-choice",
+        "prompt": "Sabab/izoh so'rash shaklini to'ldiring:\n「どうして 昨日[きのう] 来[こ]なかった（　）ですか。」",
+        "options": ["の", "か", "ん", "よ"],
+        "correctAnswer": 2,
+        "explanation": "Sabab yoki vaziyat izohini so'rashda oddiy shakldan keyin 「んですか」 qo'yiladi."
+      },
+      {
+        "id": "ja-minna-l26-ex4",
+        "type": "multiple-choice",
+        "prompt": "Muloyim iltimos formulasini tanlang:\n「日本語で 手紙を 書いたんですが、ちょっと（　）いただけませんか。」",
+        "options": ["見ます", "見ない", "見よう", "見て"],
+        "correctAnswer": 3,
+        "explanation": "〜ていただけませんか qolipi oldidan fe'l Te-shaklida keladi: 「見て いただけませんか」."
+      },
+      {
+        "id": "ja-minna-l26-ex5",
+        "type": "multiple-choice",
+        "prompt": "Maslahat so'rash iborasini to'ldiring:\n「カメラを 買いたいんですが、どこで（　）いいですか。」",
+        "options": ["買えば", "買ったら", "買うなら", "買っても"],
+        "correctAnswer": 1,
+        "explanation": "Eng qulay maslahat so'rash shakli: 「〜たら いいですか」 (qayerdan sotib olsam yaxshi bo'ladi?)."
+      },
+      {
+        "id": "ja-minna-l26-ex6",
+        "type": "multiple-choice",
+        "prompt": "I-sifatdan keyin 「んです」 qanday ulanadi?\n「頭[あたま]が （　）んです。」",
+        "options": ["痛く", "痛な", "痛い", "痛み"],
+        "correctAnswer": 2,
+        "explanation": "I-sifatlar to'g'ridan-to'g'ri lug'at shaklida 「んです」 ga ulanadi: 「痛いんです」."
+      },
+      {
+        "id": "ja-minna-l26-ex7",
+        "type": "multiple-choice",
+        "prompt": "Na-sifat va Ot so'z turkumlarida 「んです」 ulanishi qanday?\n「明日は （　）んです。」",
+        "options": ["暇だ", "暇", "暇で", "暇な"],
+        "correctAnswer": 3,
+        "explanation": "Hozirgi zamon tasdiqda Na-sifat va Otga 「な」 qo'shilib 「〜なんです」 bo'ladi (暇なんです)."
+      },
+      {
+        "id": "ja-minna-l26-ex8",
+        "type": "multiple-choice",
+        "prompt": "「燃[も]える ごみ」 iborasining ma'nosi qaysi?",
+        "options": [
+          "Yonuvchan chiqindi",
+          "Yonmaydigan chiqindi",
+          "Qayta ishlanadigan chiqindi",
+          "Katta hajmli chiqindi"
+        ],
+        "correctAnswer": 0,
+        "explanation": "「燃えるごみ」 — yonuvchan, yoqib yuboriladigan maishiy chiqindi."
+      },
+      {
+        "id": "ja-minna-l26-ex9",
+        "type": "multiple-choice",
+        "prompt": "Vaziyatga mos kirish so'zini tanlang:\n「パスポートを なくして しまった（　）、どうしたら いいですか。」",
+        "options": ["んで", "んから", "んですが", "んので"],
+        "correctAnswer": 2,
+        "explanation": "Mavzuni boshlab, suhbatdoshdan yo'l-yo'riq so'rashda 「〜んですが」 qo'llaniladi."
+      },
+      {
+        "id": "ja-minna-l26-ex10",
+        "type": "multiple-choice",
+        "prompt": "Quyidagi gapning to'g'ri ma'nosi qaysi:\n「気分[きぶん]が 悪[わる]いんです。」",
+        "options": [
+          "Kayfiyatim juda a'lo",
+          "Hech narsa yoqmayapti",
+          "Vaqtim kam qoldi",
+          "O'zimni yomon his qilyapman"
+        ],
+        "correctAnswer": 3,
+        "explanation": "「気分が 悪いんです」 — tobi qochganligi yoki o'zini noxush his qilayotganini bildiradi."
+      }
+    ],
+    "test": [
+      {
+        "id": "ja-minna-l26-q1",
+        "question": "【Mondai 1: Moji/Goi】「遅刻（ちこく）」の 意[い]味[み]は どれですか。",
+        "options": ["Erta kelish", "Qatnashish", "Kechikish", "Dam olish"],
+        "correctAnswerIndex": 2,
+        "explanation": "「遅刻 (ちこく)」 — belgilangan vaqtdan kechikish."
+      },
+      {
+        "id": "ja-minna-l26-q2",
+        "question": "【Mondai 1: Moji/Goi】「ごみ捨[す]て場[ば]」の 読[よ]み方[かた]は どれですか。",
+        "options": ["ごみすてじょう", "ごみとりば", "ごみおきば", "ごみすてば"],
+        "correctAnswerIndex": 3,
+        "explanation": "「ごみ捨て場」 ning to'g'ri o'qilishi: 「ごみすてば」 (chiqindi tashlash joyi)."
+      },
+      {
+        "id": "ja-minna-l26-q3",
+        "question": "【Mondai 1: Moji/Goi】「電車の 時間に （　）。走ったから 大丈夫でした。」",
+        "options": ["間に合いました", "遅れました", "忘れました", "落ちました"],
+        "correctAnswerIndex": 0,
+        "explanation": "Yugurganim sababli ulgurdim: 「間に合いました (まにあいました)」."
+      },
+      {
+        "id": "ja-minna-l26-q4",
+        "question": "【Mondai 2: Bunpo】（　）に 入る 最も よいものを 選びなさい。\n「きれいな 写真ですね。どこで （　）んですか。」",
+        "options": ["撮る", "撮った", "撮って", "撮り"],
+        "correctAnswerIndex": 1,
+        "explanation": "O'tgan zamondagi ish-harakat sababi: 「撮った んですか」."
+      },
+      {
+        "id": "ja-minna-l26-q5",
+        "question": "【Mondai 2: Bunpo】「来週から 旅行に 行く（　）、カメラを 貸して いただけませんか。」",
+        "options": ["んですから", "んで", "んので", "んですが"],
+        "correctAnswerIndex": 3,
+        "explanation": "Iltimosdan oldin vaziyatni bildirish uchun 「〜んですが」 qo'yiladi."
+      },
+      {
+        "id": "ja-minna-l26-q6",
+        "question": "【Mondai 2: Bunpo】「エアコンが 動かないんですが、だれに （　）いいですか。」",
+        "options": ["連絡したら", "連絡すれば", "連絡するなら", "連絡しても"],
+        "correctAnswerIndex": 0,
+        "explanation": "Maslahat so'rash: 「だれに 連絡したら いいですか」."
+      },
+      {
+        "id": "ja-minna-l26-q7",
+        "question": "【Mondai 2: Bunpo】「どうして パーティーに 行かないんですか。」「用事[ようじ]が （　）んです。」",
+        "options": ["あって", "ある", "あり", "あった"],
+        "correctAnswerIndex": 1,
+        "explanation": "Hozirgi zamon sabab izohi: 「ある んです」."
+      },
+      {
+        "id": "ja-minna-l26-q8",
+        "question": "【Mondai 3: Dokkai】Quyidagi matndan qaysi xulosa to'g'ri?\n「すみません、この パソコンの 使い方が よく わからないんですが、教えて いただけませんか。」",
+        "options": [
+          "So'zlovchi kompyuterni sotib olmoqchi",
+          "So'zlovchi kompyuterni tuzatib berishni so'rayapti",
+          "So'zlovchi kompyuterdan foydalanishni o'rgatishni iltimos qilyapti",
+          "So'zlovchi yangi kompyuter olib keldi"
+        ],
+        "correctAnswerIndex": 2,
+        "explanation": "「教えて いただけませんか」 orqali o'rgatib qo'yishni iltimos qilmoqda."
+      },
+      {
+        "id": "ja-minna-l26-q9",
+        "question": "【Mondai 3: Dokkai】「引っ越しを したいんですが、いい 不動産屋を 知りませんか。」 Ushbu shaxs nima qilmoqchi?",
+        "options": [
+          "Ko'chmoqchi va ijaraxonalar bo'yicha maslahat so'ramoqchi",
+          "Uy sotmoqchi",
+          "Mehmon chaqirmoqchi",
+          "Mebel sotib olmoqchi"
+        ],
+        "correctAnswerIndex": 0,
+        "explanation": "「引っ越し (ko'chish)」 qilmoqchi va 「不動産屋 (ko'chmas mulk agentligi)」 haqida so'ramoqda."
+      },
+      {
+        "id": "ja-minna-l26-q10",
+        "question": "【Mondai 4: Kaiwa】「日本語が とても お上手ですね。」 Eng mos kamtarona javobni tanlang:",
+        "options": [
+          "はい、上手です。",
+          "いいえ、まだまだです。",
+          "どういたしまして。",
+          "そうですか、知っています。"
+        ],
+        "correctAnswerIndex": 1,
+        "explanation": "Yapon madaniyatida maqtovga nisbatan kamtarlik bilan 「いいえ、まだまだです」 (yo'g'-e, hali ancha bor) deb javob beriladi."
+      }
+    ]
+  },
+  "27": {
+    "practice": [
+      {
+        "id": "ja-minna-l27-ex1",
+        "type": "multiple-choice",
+        "prompt": "Guruh 1 fe'llarining imkoniyat shakliga o'tish qoidasi qaysi?\n「書[か]きます」 -> （　）",
+        "options": ["書きます", "書かせます", "書かれます", "書けます"],
+        "correctAnswer": 3,
+        "explanation": "Guruh 1 fe'llarida i-ustun e-ustunga almashadi: 書きます -> 書けます (kakemasu)."
+      },
+      {
+        "id": "ja-minna-l27-ex2",
+        "type": "multiple-choice",
+        "prompt": "Guruh 2 fe'llarining imkoniyat shakli qaysi?\n「食[た]べます」 -> （　）",
+        "options": ["食べられます", "食べれます", "食べさせます", "食べます"],
+        "correctAnswer": 0,
+        "explanation": "Guruh 2 fe'llarida ます o'rniga られます qo'yiladi: 食べられます."
+      },
+      {
+        "id": "ja-minna-l27-ex3",
+        "type": "multiple-choice",
+        "prompt": "Imkoniyat fe'llarida obyekt zarrachasi odatda qaysi biri bo'ladi?\n「わたしは 漢字[かんじ]（　）読めます。」",
+        "options": ["を", "が", "に", "で"],
+        "correctAnswer": 1,
+        "explanation": "Imkoniyat fe'llarida (可能動詞) obyekt zarrachasi を dan が ga o'zgaradi."
+      },
+      {
+        "id": "ja-minna-l27-ex4",
+        "type": "multiple-choice",
+        "prompt": "Tabiiy ko'rinish va ataylab ko'rish farqini tanlang:\n「天気が いいので、富士山[ふじさん]が （　）。」",
+        "options": ["見られます", "見ます", "見えます", "見せます"],
+        "correctAnswer": 2,
+        "explanation": "Ko'zga tabiiy ko'rinib turishi uchun 「見えます (mie-masu)」 ishlatiladi."
+      },
+      {
+        "id": "ja-minna-l27-ex5",
+        "type": "multiple-choice",
+        "prompt": "Eshitilish farqini tanlang:\n「隣の 部屋から ピアノの 音が （　）。」",
+        "options": ["聞こえます", "聞けます", "聞きます", "聞かせます"],
+        "correctAnswer": 0,
+        "explanation": "Ixtiyorsiz quloqqa eshitilib turishiga nisbatan 「聞こえます (kikoe-masu)」 qo'llaniladi."
+      },
+      {
+        "id": "ja-minna-l27-ex6",
+        "type": "multiple-choice",
+        "prompt": "Guruh 3 「来[き]ます」 fe'lining imkoniyat shakli qaysi?",
+        "options": ["来れます (きれます)", "来られます (こられます)", "来させます", "来ます"],
+        "correctAnswer": 1,
+        "explanation": "「来ます (きます)」 ning imkoniyat shakli: 「来られます (こられます)」."
+      },
+      {
+        "id": "ja-minna-l27-ex7",
+        "type": "multiple-choice",
+        "prompt": "「〜しか」 zarrachasi bilan fe'l qaysi shaklda keladi?\n「ひらがな（　）書けません。」",
+        "options": ["だけ", "でも", "しか", "ほど"],
+        "correctAnswer": 2,
+        "explanation": "「しか」 faqat inkor fe'llar bilan ishlatilib, \"...dan boshqa hech narsa qila olmayman / faqatgina\" ma'nosini beradi."
+      },
+      {
+        "id": "ja-minna-l27-ex8",
+        "type": "multiple-choice",
+        "prompt": "Taqqoslab farqlash zarrachasini tanlang:\n「ワインは 飲みますが、ビール（　）飲みません。」",
+        "options": ["も", "を", "が", "は"],
+        "correctAnswer": 3,
+        "explanation": "Ikki holatni taqqoslashda ikkinchi narsa ortidan 「は」 qo'yiladi."
+      },
+      {
+        "id": "ja-minna-l27-ex9",
+        "type": "multiple-choice",
+        "prompt": "Yangi bino/inshoot qurilib bitishiga qaysi fe'l ishlatiladi?\n「駅の 前に 大きな スーパーが （　）。」",
+        "options": ["なりました", "できました", "ありました", "建てました"],
+        "correctAnswer": 1,
+        "explanation": "Do'kon, yo'l yoki inshoot tayyor bo'lishi / qurilishi uchun 「できます (できました)」 qo'llaniladi."
+      },
+      {
+        "id": "ja-minna-l27-ex10",
+        "type": "multiple-choice",
+        "prompt": "Guruh 3 「します」 ning imkoniyat shakli qaysi?",
+        "options": ["しられます", "せます", "できます", "やれます"],
+        "correctAnswer": 2,
+        "explanation": "「します」 fe'lining imkoniyat shakli mustaqil so'z 「できます」 bo'ladi."
+      }
+    ],
+    "test": [
+      {
+        "id": "ja-minna-l27-q1",
+        "question": "【Mondai 1: Moji/Goi】「景色（けしき）」の 読[よ]み方[かた]は どれですか。",
+        "options": ["けいしき", "けしき", "ふうけい", "ばしょ"],
+        "correctAnswerIndex": 1,
+        "explanation": "「景色」 ning to'g'ri o'qilishi: 「けしき」 (manzara)."
+      },
+      {
+        "id": "ja-minna-l27-q2",
+        "question": "【Mondai 1: Moji/Goi】「声（こえ）」と「音（おと）」の 使い分けとして 正しいものは？",
+        "options": [
+          "Jonsiz narsalar tovushi: 声 / Inson ovozi: 音",
+          "Ikkalasi har qanday holatda bir xil",
+          "Inson va jonivorlar tovushi: 声 / Jonsiz narsalar tovushi: 音",
+          "Faqat musiqa uchun 声 ishlatiladi"
+        ],
+        "correctAnswerIndex": 2,
+        "explanation": "Tirik mavjudot ovozi — 声 (こえ), jonsiz narsalar/texnika shovqini — 音 (おと)."
+      },
+      {
+        "id": "ja-minna-l27-q3",
+        "question": "【Mondai 1: Moji/Goi】「昔（むかし）」の 反対（はんたい）の 言葉は どれですか。",
+        "options": ["昨日", "未来", "毎日", "今 (現在)"],
+        "correctAnswerIndex": 3,
+        "explanation": "「昔 (qadimda/ilgari)」 so'zining ziddi — 「今 (hozir)」."
+      },
+      {
+        "id": "ja-minna-l27-q4",
+        "question": "【Mondai 2: Bunpo】「わたしは 泳[およ]ぐ ことが できません」の 可能動詞文は どれですか。",
+        "options": [
+          "わたしは 泳げません",
+          "わたしは 泳げます",
+          "わたしは 泳がれます",
+          "わたしは 泳ぎます"
+        ],
+        "correctAnswerIndex": 0,
+        "explanation": "Inkor imkoniyat: 泳ぐことができません = 泳げません."
+      },
+      {
+        "id": "ja-minna-l27-q5",
+        "question": "【Mondai 2: Bunpo】「この 部屋から 海（　）見えます。」",
+        "options": ["を", "に", "が", "で"],
+        "correctAnswerIndex": 2,
+        "explanation": "Tabiiy ko'rinishda subyekt bilan 「が」 keladi: 海が 見えます."
+      },
+      {
+        "id": "ja-minna-l27-q6",
+        "question": "【Mondai 2: Bunpo】「財布の中に 100円（　）ありません。」",
+        "options": ["だけ", "でも", "も", "しか"],
+        "correctAnswerIndex": 3,
+        "explanation": "Inkor bilan birga kelib \"faqatgina ... bor xolos\": 「100円しか ありません」."
+      },
+      {
+        "id": "ja-minna-l27-q7",
+        "question": "【Mondai 2: Bunpo】「新幹線の中で インターネットが （　）。」",
+        "options": ["使えます", "使いられます", "使わせます", "使います"],
+        "correctAnswerIndex": 0,
+        "explanation": "Guruh 1 fe'li: 使う -> 使えます (foydalana oladi)."
+      },
+      {
+        "id": "ja-minna-l27-q8",
+        "question": "【Mondai 3: Dokkai】「ここでは スマートフォンで 映画が 見られます。」 Bu qanday ma'no bildiradi?",
+        "options": [
+          "Kinoga borish shart",
+          "Bu yerda smartfonda film tomosha qilish imkoniyati mavjud",
+          "Smartfon sotiladi",
+          "Film ko'rish taqiqlanadi"
+        ],
+        "correctAnswerIndex": 1,
+        "explanation": "「映画が 見られます」 — texnik sharoit yoki ruxsat orqali film ko'ra olish imkoni bor."
+      },
+      {
+        "id": "ja-minna-l27-q9",
+        "question": "【Mondai 3: Dokkai】「英語は 話せますが、日本語は まだ 話せません。」 Ushbu inson haqida nima to'g'ri?",
+        "options": [
+          "Faqat yaponcha gapiradi",
+          "Ikkala tilni ham bilmaydi",
+          "Ikkala tilni mukammal biladi",
+          "Inglizcha gapira oladi, lekin yaponcha hali gapira olmaydi"
+        ],
+        "correctAnswerIndex": 3,
+        "explanation": "Inglizcha biladi (話せます), yaponcha esa hali yo'q (まだ 話せません)."
+      },
+      {
+        "id": "ja-minna-l27-q10",
+        "question": "【Mondai 4: Kaiwa】「一人で 病院へ 行けますか。」 Eng to'g'ri javobni tanlang:",
+        "options": [
+          "ええ、大丈夫です。一人で 行けます。",
+          "はい、一人で 行きます。",
+          "いいえ、行きません。",
+          "どういたしまして。"
+        ],
+        "correctAnswerIndex": 0,
+        "explanation": "Imkoniyat savoliga mos javob: 「ええ、大丈夫です。一人で 行けます。」 (Ha, xavotir olmang, bir o'zim bora olaman)."
+      }
+    ]
+  },
+  "28": {
+    "practice": [
+      {
+        "id": "ja-minna-l28-ex1",
+        "type": "multiple-choice",
+        "prompt": "Bir vaqtning o'zida ikkita ish qilish qoidasi qaysi?\n「音楽[おんがく]を （　）ながら、勉強します。」",
+        "options": ["聞く", "聞いて", "聞き", "聞かない"],
+        "correctAnswer": 2,
+        "explanation": "〜ながら fe'lning Masu-asosiga qo'shiladi: 聞きます -> 聞きながら."
+      },
+      {
+        "id": "ja-minna-l28-ex2",
+        "type": "multiple-choice",
+        "prompt": "「〜ながら」 jumlasida asosiy harakat qaysi biri hisoblanadi?",
+        "options": ["Birinchi harakat", "Ikkala harakat teng", "Hech biri", "Ikkinchi harakat"],
+        "correctAnswer": 3,
+        "explanation": "〜ながら da ikkinchi bajarilayotgan asosiy harakat muhimroq hisoblanadi (masalan, musiqa eshitib dars qilaman — asosiy ish dars qilish)."
+      },
+      {
+        "id": "ja-minna-l28-ex3",
+        "type": "multiple-choice",
+        "prompt": "Doimiy odat va kasbiy faoliyat shaklini tanlang:\n「毎朝[まいあさ] ジョギングを （　）。」",
+        "options": ["しています", "します", "した", "しよう"],
+        "correctAnswer": 0,
+        "explanation": "Doimiy takrorlanuvchi odatni ifodalash uchun 「〜ています」 ishlatiladi."
+      },
+      {
+        "id": "ja-minna-l28-ex4",
+        "type": "multiple-choice",
+        "prompt": "Bir nechta sabablarni sanab ko'rsatish bog'lovchisi qaysi?\n「熱[ねつ]も （　）、頭[あたま]も 痛いので、帰ります。」",
+        "options": ["あって", "あるし", "あるから", "あれば"],
+        "correctAnswer": 1,
+        "explanation": "Bir necha sababni sanashda oddiy shakl + し qo'llaniladi: 「熱も あるし」."
+      },
+      {
+        "id": "ja-minna-l28-ex5",
+        "type": "multiple-choice",
+        "prompt": "I-sifatga 「し」 qanday ulanadi?\n「値段[ねだん]も （　）し、味[あじ]も いいです。」",
+        "options": ["安くて", "安な", "安く", "安い"],
+        "correctAnswer": 3,
+        "explanation": "I-sifat to'g'ridan-to'g'ri ulanadi: 安いし (arzon ham, ta'mi ham yaxshi)."
+      },
+      {
+        "id": "ja-minna-l28-ex6",
+        "type": "multiple-choice",
+        "prompt": "Na-sifatga 「し」 qanday ulanadi?\n「この 店は （　）し、店員[てんいん]も 親切[しんせつ]です。」",
+        "options": ["静かだ", "静かな", "静かで", "静かに"],
+        "correctAnswer": 0,
+        "explanation": "Hozirgi zamon tasdiqda Na-sifatga 「だ」 qo'shilib 「静かだし」 bo'ladi."
+      },
+      {
+        "id": "ja-minna-l28-ex7",
+        "type": "multiple-choice",
+        "prompt": "O'zbekcha 'qo'shimchasiga / bundan tashqari' ma'nosidagi bog'lovchi qaysi?",
+        "options": ["それで", "それに", "しかし", "それから"],
+        "correctAnswer": 1,
+        "explanation": "Sabablarni to'ldirishda 「それに」 (bundan tashqari, uning ustiga) ishlatiladi."
+      },
+      {
+        "id": "ja-minna-l28-ex8",
+        "type": "multiple-choice",
+        "prompt": "Sababdan kelib chiqqan natija bog'lovchisi qaysi?",
+        "options": ["それに", "でも", "それで", "ですから"],
+        "correctAnswer": 2,
+        "explanation": "Sabablar sanalgach xulosa chiqarishda 「それで」 (shu sababli ham) ishlatiladi."
+      },
+      {
+        "id": "ja-minna-l28-ex9",
+        "type": "multiple-choice",
+        "prompt": "「通[かよ]います」 so'zining ma'nosi qaysi?\n「大学[だいがく]に 通っています。」",
+        "options": ["qatnamoq", "yashamoq", "o'qimoq", "ishlamoq"],
+        "correctAnswer": 0,
+        "explanation": "「通います (かよいます)」 — universitet yoki ishxonaga muntazam qatnamoq."
+      },
+      {
+        "id": "ja-minna-l28-ex10",
+        "type": "multiple-choice",
+        "prompt": "「熱心[ねっしん]な」 sifatining ma'nosi qaysi?",
+        "options": ["Dangasa", "G'ayratli / Jonboz / Astoydil", "Xavfli", "Kuchsiz"],
+        "correctAnswer": 1,
+        "explanation": "「熱心な (ねっしんな)」 — astoydil, g'ayrat bilan yondashuvchi."
+      }
+    ],
+    "test": [
+      {
+        "id": "ja-minna-l28-q1",
+        "question": "【Mondai 1: Moji/Goi】「真面目（まじめ）な」の 意[い]味[み]は どれですか。",
+        "options": ["Mas'uliyatli / Jiddiy", "Quvnoq", "Qiziqarli", "Qo'rqoq"],
+        "correctAnswerIndex": 0,
+        "explanation": "「真面目な (まじめな)」 — jiddiy, mas'uliyatli, vijdoni pok."
+      },
+      {
+        "id": "ja-minna-l28-q2",
+        "question": "【Mondai 1: Moji/Goi】「経験（けいけん）」の 読[よ]み方[かた]は どれですか。",
+        "options": ["けいかん", "けいけん", "げんけん", "こうけん"],
+        "correctAnswerIndex": 1,
+        "explanation": "「経験」 ning to'g'ri o'qilishi: 「けいけん」 (tajriba)."
+      },
+      {
+        "id": "ja-minna-l28-q3",
+        "question": "【Mondai 1: Moji/Goi】「給料（きゅうりょう）」の 意[い]味[み]は どれですか。",
+        "options": ["Soliq", "Chipta narxi", "Oylik maosh", "Mukofot puli"],
+        "correctAnswerIndex": 2,
+        "explanation": "「給料 (きゅうりょう)」 — oylik ish haqi (maosh)."
+      },
+      {
+        "id": "ja-minna-l28-q4",
+        "question": "【Mondai 2: Bunpo】「運転[うんてん]し（　）、スマホを 見ては いけません。」",
+        "options": ["てから", "まえに", "あとで", "ながら"],
+        "correctAnswerIndex": 3,
+        "explanation": "Mashina haydayotgan paytda bir vaqtda telefonga qarash: 「運転しながら」."
+      },
+      {
+        "id": "ja-minna-l28-q5",
+        "question": "【Mondai 2: Bunpo】「鈴木先生は 親切（　）、教え方も 上手です。」",
+        "options": ["なし", "だし", "で", "に"],
+        "correctAnswerIndex": 1,
+        "explanation": "Na-sifat oddiy shakl: 「親切だし」 (mehribon ham, o'rgatishi ham yaxshi)."
+      },
+      {
+        "id": "ja-minna-l28-q6",
+        "question": "【Mondai 2: Bunpo】「休みの 日は いつも 掃除[そうじ]を （　）。」",
+        "options": ["します", "して", "しています", "しよう"],
+        "correctAnswerIndex": 2,
+        "explanation": "Dam olish kunlaridagi doimiy odat: 「掃除を しています」."
+      },
+      {
+        "id": "ja-minna-l28-q7",
+        "question": "【Mondai 2: Bunpo】「頭も 痛いし、喉[のど]も （　）し、今日は 早く 帰ります。」",
+        "options": ["痛く", "痛かった", "痛な", "痛い"],
+        "correctAnswerIndex": 3,
+        "explanation": "I-sifat sababini sanash: 「喉も 痛いし」."
+      },
+      {
+        "id": "ja-minna-l28-q8",
+        "question": "【Mondai 3: Dokkai】「あの レストランは 料理も おいしいし、値段も 安いです。それに 駅から 近いです。」 Nima uchun bu restoran mashhur?",
+        "options": [
+          "Ovqati mazali, arzon va stantsiyaga ham yaqin bo'lgani sababli",
+          "Faqat stantsiyaga yaqin bo'lgani uchun",
+          "Qimmat va hashamatli bo'lgani uchun",
+          "Hech kim bormagani uchun"
+        ],
+        "correctAnswerIndex": 0,
+        "explanation": "Uchta ijobiy sabab sanalgan: ovqat mazali, narx arzon, stantsiyaga yaqin."
+      },
+      {
+        "id": "ja-minna-l28-q9",
+        "question": "【Mondai 3: Dokkai】「働きながら 大学に 通うのは 大変ですが、将来のために 頑張っています。」 Muallif nima qilmoqda?",
+        "options": [
+          "Universitetni tashlab ketdi",
+          "Faqat uyda dam olyapti",
+          "Ish bilan bir vaqtda o'qishga qatnamoqda",
+          "Kompaniya ochdi"
+        ],
+        "correctAnswerIndex": 2,
+        "explanation": "「働きながら 大学に 通う」 — ishlab turib universitetga qatnamoqda."
+      },
+      {
+        "id": "ja-minna-l28-q10",
+        "question": "【Mondai 4: Kaiwa】「どうして この アパートを 選んだんですか。」 Eng mos javobni tanlang:",
+        "options": [
+          "ええ、選びました。",
+          "アパートに 住みたいです。",
+          "いいえ、選びませんでした。",
+          "家賃[やちん]も 安いし、日当たりも いいですから。"
+        ],
+        "correctAnswerIndex": 3,
+        "explanation": "Nega aynan shu uyni tanlaganini bir necha sabablar bilan izohlash: 「家賃も 安いし、日当たりも いいですから」."
+      }
+    ]
+  },
+  "29": {
+    "practice": [
+      {
+        "id": "ja-minna-l29-ex1",
+        "type": "multiple-choice",
+        "prompt": "Eshikning o'zi ochiq turgan holati qaysi fe'l bilan ifodalanadi?\n「ドアが （　）います。」",
+        "options": ["開けて", "開いて", "閉めて", "閉まって"],
+        "correctAnswer": 1,
+        "explanation": "O'zlik fe'li (自動詞): 開きます -> 「ドアが 開いて います」."
+      },
+      {
+        "id": "ja-minna-l29-ex2",
+        "type": "multiple-choice",
+        "prompt": "Chiroq o'chib qolgan holatni ifodalang:\n「電気[でんき]が （　）います。」",
+        "options": ["消して", "消した", "消えて", "消える"],
+        "correctAnswer": 2,
+        "explanation": "Avtomatik o'chish (自動詞): 消えます -> 「消えて います」."
+      },
+      {
+        "id": "ja-minna-l29-ex3",
+        "type": "multiple-choice",
+        "prompt": "Idishning sinib qolgan holati qaysi fe'l bilan aytiladi?\n「コップが （　）います。」",
+        "options": ["割って", "壊して", "折れて", "割れて"],
+        "correctAnswer": 3,
+        "explanation": "Shisha/chinni buyum sinishi: 割れます -> 「割れて います」."
+      },
+      {
+        "id": "ja-minna-l29-ex4",
+        "type": "multiple-choice",
+        "prompt": "Kiyim kirlanib qolganini bildiring:\n「服[ふく]が （　）います。」",
+        "options": ["汚れて", "汚して", "破って", "破れて"],
+        "correctAnswer": 0,
+        "explanation": "Kirlanib qolgan holat: 汚れます -> 「汚れて います」."
+      },
+      {
+        "id": "ja-minna-l29-ex5",
+        "type": "multiple-choice",
+        "prompt": "Kutilmagan xato yoki afsuslanish ifodasini tanlang:\n「電車に 傘[かさ]を （　）しまいました。」",
+        "options": ["忘れ", "忘れた", "忘れて", "忘れない"],
+        "correctAnswer": 2,
+        "explanation": "〜てしまいました afsusli xatoni bildiradi: 「忘れて しまいました」."
+      },
+      {
+        "id": "ja-minna-l29-ex6",
+        "type": "multiple-choice",
+        "prompt": "Ish-harakatni to'liq yakunlash ifodasi qaysi?\n「この 本を もう （　）しまいました。」",
+        "options": ["読み", "読んだ", "読もう", "読んで"],
+        "correctAnswer": 3,
+        "explanation": "Butunlay tugatish: 「読んで しまいました」 (to'liq o'qib tugatdim)."
+      },
+      {
+        "id": "ja-minna-l29-ex7",
+        "type": "multiple-choice",
+        "prompt": "Qog'oz yoki kiyim yirtilishiga qaysi fe'l qo'llaniladi?",
+        "options": ["破れます (やぶれます)", "壊れます", "折れます", "倒れます"],
+        "correctAnswer": 0,
+        "explanation": "Qog'oz, xalta, mato yirtilishi — 「破れます (やぶれます)」."
+      },
+      {
+        "id": "ja-minna-l29-ex8",
+        "type": "multiple-choice",
+        "prompt": "Og'zaki tilda 「〜てしまいました」 qanday qisqaradi?",
+        "options": ["〜じゃありません", "〜ちゃいました", "〜ておきました", "〜なきゃ"],
+        "correctAnswer": 1,
+        "explanation": "Og'zaki so'zlashuvda 〜てしまう -> 〜ちゃう (忘れてしまいました -> 忘れちゃいました)."
+      },
+      {
+        "id": "ja-minna-l29-ex9",
+        "type": "multiple-choice",
+        "prompt": "Shox yoki qalam kabi cho'ziq narsalar sinishiga qaysi fe'l ishlatiladi?",
+        "options": ["割れます", "壊れます", "切れます", "折れます (おれます)"],
+        "correctAnswer": 3,
+        "explanation": "Daraxt shoxi, qalam, suyak sinishi — 「折れます (おれます)」."
+      },
+      {
+        "id": "ja-minna-l29-ex10",
+        "type": "multiple-choice",
+        "prompt": "Xato qilish fe'li qaysi?\n「道[みち]を （　）しまいました。」",
+        "options": ["まちがえて", "落として", "こわして", "わすれて"],
+        "correctAnswer": 0,
+        "explanation": "Yo'ldan adashish yoki xato qilish: 「まちがえて しまいました」."
+      }
+    ],
+    "test": [
+      {
+        "id": "ja-minna-l29-q1",
+        "question": "【Mondai 1: Moji/Goi】「壊（こわ）れます」の 意[い]味[み]は どれですか。",
+        "options": ["Yirtilmoq", "Sinmoq", "O'chmoq", "Buzilmoq / Ishdan chiqmoq"],
+        "correctAnswerIndex": 3,
+        "explanation": "「壊れます (こわれます)」 — mashina, soat, televizor buzilishi."
+      },
+      {
+        "id": "ja-minna-l29-q2",
+        "question": "【Mondai 1: Moji/Goi】「財布を （　）しまいました。」と「財布が （　）ています。」に入る 正しい 組み合わせは？",
+        "options": ["落として / 落ち", "落ちて / 落とし", "壊して / 割れ", "閉めて / 開い"],
+        "correctAnswerIndex": 0,
+        "explanation": "Ega ob'ekt bo'lsa (財布を) o'zgalik fe'l: 落とします; ega sub'ekt bo'lsa (財布が) o'zlik fe'l: 落ちます ishlatiladi."
+      },
+      {
+        "id": "ja-minna-l29-q3",
+        "question": "【Mondai 1: Moji/Goi】「消（き）えます」の 反対（はんたい）の 自動詞は？",
+        "options": ["点けます", "点（つ）きます", "開きます", "閉まります"],
+        "correctAnswerIndex": 1,
+        "explanation": "Chiroq o'chishi (消えます) ning ziddi — yonishi (点きます)."
+      },
+      {
+        "id": "ja-minna-l29-q4",
+        "question": "【Mondai 2: Bunpo】「窓[まど]が （　）いますから、寒いです。」",
+        "options": ["開けて", "閉めて", "開いて", "閉まって"],
+        "correctAnswerIndex": 2,
+        "explanation": "Deraza ochiq turgan holat: 「開いて います」."
+      },
+      {
+        "id": "ja-minna-l29-q5",
+        "question": "【Mondai 2: Bunpo】「パスポートを （　）しまいました。どうしよう。」",
+        "options": ["なくして", "なくした", "なくす", "なくさない"],
+        "correctAnswerIndex": 0,
+        "explanation": "Yo'qotib qo'yish afsusi: 「なくして しまいました」."
+      },
+      {
+        "id": "ja-minna-l29-q6",
+        "question": "【Mondai 2: Bunpo】「あ、袋[ふくろ]が （　）いますよ。荷物が 落ちますよ。」",
+        "options": ["破って", "破れて", "壊れて", "割れて"],
+        "correctAnswerIndex": 1,
+        "explanation": "Xalta yirtilib turgan holat: 「破れて います」."
+      },
+      {
+        "id": "ja-minna-l29-q7",
+        "question": "【Mondai 2: Bunpo】「宿題[しゅくだい]は もう やって （　）。」",
+        "options": ["ありました", "おきました", "しまいました", "みせました"],
+        "correctAnswerIndex": 2,
+        "explanation": "Topshiriqni to'liq bajarib bo'lish: 「やって しまいました」."
+      },
+      {
+        "id": "ja-minna-l29-q8",
+        "question": "【Mondai 3: Dokkai】「電車の中に かばんを 忘れて しまいました。駅員[えきいん]に 相談したら、すぐ 見つかりました。」 Nima sodir bo'ldi?",
+        "options": [
+          "Sumka topilmadi",
+          "Poyezd kechikdi",
+          "Yangi sumka sotib oldi",
+          "Poyezdda sumka qolib ketdi, ammo vokzal xodimi yordamida tezda topildi"
+        ],
+        "correctAnswerIndex": 3,
+        "explanation": "Sumkasini unutib qoldirdi (忘れてしまいました) va tezda topildi (すぐ 見つかりました)."
+      },
+      {
+        "id": "ja-minna-l29-q9",
+        "question": "【Mondai 3: Dokkai】「この ボタンを 押すと、自動[じどう]で ドアが 閉まります。」 Qanday eshik haqida gap ketyapti?",
+        "options": [
+          "Qo'lda yopiladigan",
+          "Tugma bosilsa avtomatik yopiladigan",
+          "Umuman yopilmaydigan",
+          "Buzilgan eshik"
+        ],
+        "correctAnswerIndex": 1,
+        "explanation": "「自動で ドアが 閉まります」 — avtomatik ravishda yopiladi."
+      },
+      {
+        "id": "ja-minna-l29-q10",
+        "question": "【Mondai 4: Kaiwa】「大切な お皿を 割って しまいました。すみません。」 Qanday munosabat eng mos?",
+        "options": [
+          "おめでとうございます。",
+          "はい、割りました。",
+          "いいえ、気に しないで ください。けがは ありませんでしたか。",
+          "どういたしまして。"
+        ],
+        "correctAnswerIndex": 2,
+        "explanation": "Afsus bildirilganda tasalli berish va xavotir olish: 「いいえ、気に しないで ください。けがは ありませんでしたか」."
+      }
+    ]
+  },
+  "30": {
+    "practice": [
+      {
+        "id": "ja-minna-l30-ex1",
+        "type": "multiple-choice",
+        "prompt": "Kimdir aniq maqsad bilan devorga taqvim ilib qo'ygan holat qaysi?\n「壁[かべ]に カレンダーが （　）あります。」",
+        "options": ["掛けて", "掛かって", "掛けた", "掛ける"],
+        "correctAnswer": 0,
+        "explanation": "〜てあります oldidan o'zgalik fe'li (他動詞) Te-shaklda keladi: 「掛けて あります」."
+      },
+      {
+        "id": "ja-minna-l30-ex2",
+        "type": "multiple-choice",
+        "prompt": "Kelajakdagi dars uchun oldindan tayyorgarlik ko'rish iborasi qaysi?\n「あしたの 授業[じゅぎょう]の 予習[よしゅう]を （　）おきます。」",
+        "options": ["した", "して", "する", "しない"],
+        "correctAnswer": 1,
+        "explanation": "Kelajak foydasi uchun oldindan qilib qo'yish: 「〜て おきます」."
+      },
+      {
+        "id": "ja-minna-l30-ex3",
+        "type": "multiple-choice",
+        "prompt": "Ishlatib bo'lgach narsani asl joyiga qaytarib qo'yish qaysi fe'l?",
+        "options": ["出します", "並べます", "戻します (もどします)", "捨てます"],
+        "correctAnswer": 2,
+        "explanation": "Asl joyiga qaytarish — 「戻します (もどします)」."
+      },
+      {
+        "id": "ja-minna-l30-ex4",
+        "type": "multiple-choice",
+        "prompt": "Narsani o'z holicha tegilmasdan qoldirish ifodasi qaysi?\n「そのままに （　）おいて ください。」",
+        "options": ["ならべて", "片づけて", "しまって", "して"],
+        "correctAnswer": 3,
+        "explanation": "O'zgarishsiz qoldirish: 「そのままに して おいて ください」."
+      },
+      {
+        "id": "ja-minna-l30-ex5",
+        "type": "multiple-choice",
+        "prompt": "Yig'ishtirib tartibga keltirish qaysi fe'l?\n「部屋[へや]を （　）おきます。」",
+        "options": ["並べて", "片づけて", "貼って", "植えて"],
+        "correctAnswer": 1,
+        "explanation": "Xonani yig'ishtirib tartibga keltirib qo'yish — 「片づけて (かたづけて)」."
+      },
+      {
+        "id": "ja-minna-l30-ex6",
+        "type": "multiple-choice",
+        "prompt": "«〜てあります» va «〜ています» farqi qaysi?",
+        "options": [
+          "〜てあります — inkor / 〜ています — tasdiq",
+          "Ikkalasi bir xil",
+          "〜てあります — kimgadir xos maqsadli natija / 〜ています — oddiy mavjud holat",
+          "〜てあります faqat odamlar uchun ishlatiladi"
+        ],
+        "correctAnswer": 2,
+        "explanation": "〜てあります (kimdir qasddan tayyorlab qo'ygan), 〜ています (oddiy holat: eshik ochiq turibdi)."
+      },
+      {
+        "id": "ja-minna-l30-ex7",
+        "type": "multiple-choice",
+        "prompt": "Og'zaki tilda «〜ておきます» qanday qisqaradi?",
+        "options": ["〜ちゃう", "〜ちゃいます", "〜ないと", "〜ときます"],
+        "correctAnswer": 3,
+        "explanation": "So'zlashuv tilida 〜ておく -> 〜とく (買っておきます -> 買っときます)."
+      },
+      {
+        "id": "ja-minna-l30-ex8",
+        "type": "multiple-choice",
+        "prompt": "Guldastani stol ustiga bezab qo'yish qaysi fe'l?",
+        "options": ["飾ります (かざります)", "植えます", "貼ります", "しまいます"],
+        "correctAnswer": 0,
+        "explanation": "Bezatish — 「飾ります (かざります)」."
+      },
+      {
+        "id": "ja-minna-l30-ex9",
+        "type": "multiple-choice",
+        "prompt": "Qog'oz yoki e'lonni devorga yopishtirib qo'ymoq qaysi?",
+        "options": ["掛けます", "置きます", "貼ります (はります)", "並べます"],
+        "correctAnswer": 2,
+        "explanation": "Yopishtirish — 「貼ります (はります)」."
+      },
+      {
+        "id": "ja-minna-l30-ex10",
+        "type": "multiple-choice",
+        "prompt": "«復習 (ふくしゅう)» so'zining ma'nosi qaysi?",
+        "options": [
+          "Oldindan o'rganish",
+          "Imtihon topshirish",
+          "Mashq yozish",
+          "O'tilgan darsni takrorlash"
+        ],
+        "correctAnswer": 3,
+        "explanation": "「復習 (ふくしゅう)」 — o'tilgan mavzuni takrorlash (予習 esa darsdan oldin tayyorlanish)."
+      }
+    ],
+    "test": [
+      {
+        "id": "ja-minna-l30-q1",
+        "question": "【Mondai 1: Moji/Goi】「予定表（よていひょう）」の 意[い]味[み]は どれですか。",
+        "options": ["Hisobot daftari", "Kundalik darslik", "Reja jadvali", "Xarajat varaqasi"],
+        "correctAnswerIndex": 2,
+        "explanation": "「予定表 (よていひょう)」 — reja jadvali / tadbirlar grafigi."
+      },
+      {
+        "id": "ja-minna-l30-q2",
+        "question": "【Mondai 1: Moji/Goi】「並（なら）べます」の 読[よ]み方[かた]は どれですか。",
+        "options": ["くらべます", "しらべます", "えらびます", "ならべます"],
+        "correctAnswerIndex": 3,
+        "explanation": "「並べます」 ning to'g'ri o'qilishi: 「ならべます」 (qator qilib termoq)."
+      },
+      {
+        "id": "ja-minna-l30-q3",
+        "question": "【Mondai 1: Moji/Goi】「相談（そうだん）します」の 意[い]味[み]は どれですか。",
+        "options": [
+          "Maslahatlashmoq / Fikr almashmoq",
+          "Kechikmoq",
+          "Qaror qabul qilmoq",
+          "Xabar bermoq"
+        ],
+        "correctAnswerIndex": 0,
+        "explanation": "「相談します (そうだんします)」 — maslahatlashmoq."
+      },
+      {
+        "id": "ja-minna-l30-q4",
+        "question": "【Mondai 2: Bunpo】「会議室[かいぎしつ]の テービルに 資料[しりょう]が （　）あります。」",
+        "options": ["並んで", "並べて", "並べた", "並ぶ"],
+        "correctAnswerIndex": 1,
+        "explanation": "他動詞＋てあります: 「並べて あります」."
+      },
+      {
+        "id": "ja-minna-l30-q5",
+        "question": "【Mondai 2: Bunpo】「旅行の 前に 切符[きっぷ]を （　）おきます。」",
+        "options": ["買わないで", "買った", "買おう", "買って"],
+        "correctAnswerIndex": 3,
+        "explanation": "Sayohatdan oldin chipta olib qo'yish: 「買って おきます」."
+      },
+      {
+        "id": "ja-minna-l30-q6",
+        "question": "【Mondai 2: Bunpo】「ハサミを 使ったら、元の 所へ （　）おいて ください。」",
+        "options": ["戻して", "戻って", "戻す", "戻した"],
+        "correctAnswerIndex": 0,
+        "explanation": "Joyiga qaytarib qo'yish: 「戻して おいて ください」."
+      },
+      {
+        "id": "ja-minna-l30-q7",
+        "question": "【Mondai 2: Bunpo】「壁に 地図[ちず]（　）貼って あります。」",
+        "options": ["を", "が", "に", "で"],
+        "correctAnswerIndex": 1,
+        "explanation": "〜てあります konstruksiyasida predmet zarrachasi 「が」 bo'ladi: 地図が 貼って あります."
+      },
+      {
+        "id": "ja-minna-l30-q8",
+        "question": "【Mondai 3: Dokkai】「パーティーの 準備は もう できましたか。」「はい、飲み物は 冷蔵庫[れいぞうこ]に 入れて あります。」 Nima qilingan?",
+        "options": [
+          "Ichimliklar sotib olinmagan",
+          "Ichimliklar tugab qolgan",
+          "Ichimliklar muzlatgichga solib qo'yilgan",
+          "Hech qanday tayyorgarlik ko'rilmagan"
+        ],
+        "correctAnswerIndex": 2,
+        "explanation": "Tayyorgarlik ko'rilgan: muzlatgichga kiritib qo'yilgan (入れて あります)."
+      },
+      {
+        "id": "ja-minna-l30-q9",
+        "question": "【Mondai 3: Dokkai】「まだ 使って いますから、その 資料は 片づけないで そのままに して おいて ください。」 So'zlovchi nimani xohlamoqda?",
+        "options": [
+          "Hujjatlarga tegmasdan o'z holicha qoldirishni",
+          "Hujjatlarni darhol yig'ishtirib tashlashni",
+          "Yangi hujjat yozishni",
+          "Hujjatlarni yoqib yuborishni"
+        ],
+        "correctAnswerIndex": 0,
+        "explanation": "「片づけないで そのままに して おいて ください」 — yig'ishtirmay o'z holicha qoldiring."
+      },
+      {
+        "id": "ja-minna-l30-q10",
+        "question": "【Mondai 4: Kaiwa】「窓を 閉めましょうか。」 Eng mos javobni tanlang:",
+        "options": [
+          "いいえ、閉めました。",
+          "あ、暑いですから、開けて おいて ください。",
+          "はい、開けません。",
+          "どういたしまして。"
+        ],
+        "correctAnswerIndex": 1,
+        "explanation": "Havo issiqligi sababli ochiq qoldirish iltimosi: 「開けて おいて ください」."
+      }
+    ]
+  },
+  "31": {
+    "practice": [
+      {
+        "id": "ja-minna-l31-ex1",
+        "type": "multiple-choice",
+        "prompt": "Guruh 1 fe'llarining 意向形 (Volitional form) ga o'tish qoidasi qaysi?\n「行[い]きます」 -> （　）",
+        "options": ["行よう", "行こうと", "行ける", "行こう"],
+        "correctAnswer": 3,
+        "explanation": "Guruh 1 fe'llarida i-ustun o-ustunga aylanib う qo'shiladi: 行きます -> 行こう (ikou)."
+      },
+      {
+        "id": "ja-minna-l31-ex2",
+        "type": "multiple-choice",
+        "prompt": "Guruh 2 fe'llarining 意向形 qaysi?\n「食[た]べます」 -> （　）",
+        "options": ["食べよう", "食べとう", "食べろ", "食べようと"],
+        "correctAnswer": 0,
+        "explanation": "Guruh 2 fe'llarida ます o'rniga よう qo'yiladi: 食べよう (tabeyou)."
+      },
+      {
+        "id": "ja-minna-l31-ex3",
+        "type": "multiple-choice",
+        "prompt": "Guruh 3 「来[き]ます」 va 「します」 ning 意向形 shakli qaysi?",
+        "options": ["きよう / せよう", "こよう / しよう", "こよう / さよう", "これる / できる"],
+        "correctAnswer": 1,
+        "explanation": "Guruh 3: 来ます -> 来よう (こよう); します -> しよう."
+      },
+      {
+        "id": "ja-minna-l31-ex4",
+        "type": "multiple-choice",
+        "prompt": "O'zining biror rejasini bildirish iborasi qaysi?\n「週末[しゅうまつ]は 家で （　）と 思っています。」",
+        "options": ["休む", "休んで", "休もう", "休んだ"],
+        "correctAnswer": 2,
+        "explanation": "Rejalashtirish: V-意向形＋と 思っています (dam olmoqchiman)."
+      },
+      {
+        "id": "ja-minna-l31-ex5",
+        "type": "multiple-choice",
+        "prompt": "Qat'iy niyatni bildirish qolipi qaysi?\n「国へ 帰っても、日本語の 勉強を （　）つもりです。」",
+        "options": ["続ける", "続けよう", "続けた", "続けて"],
+        "correctAnswer": 0,
+        "explanation": "〜つもりです oldidan fe'lning lug'at shakli keladi: 「続ける つもりです」."
+      },
+      {
+        "id": "ja-minna-l31-ex6",
+        "type": "multiple-choice",
+        "prompt": "Rasmiy jadval yoki dasturdagi rejani bildirish qaysi?\n「来月[らいげつ] 出張[しゅっちょう]する （　）です。」",
+        "options": ["つもり", "予定 (よてい)", "思い", "約束"],
+        "correctAnswer": 1,
+        "explanation": "Rasmiy reja: V-辞書形 / Nの＋予定です (yotei desu)."
+      },
+      {
+        "id": "ja-minna-l31-ex7",
+        "type": "multiple-choice",
+        "prompt": "Niyat inkorini bildirish shakli qaysi?\n「タバコは もう （　）つもりです。」",
+        "options": ["吸う", "吸おう", "吸わない", "吸って"],
+        "correctAnswer": 2,
+        "explanation": "Qat'iy inkor niyat: V-ない形＋つもりです (chekmaslik niyatidaman)."
+      },
+      {
+        "id": "ja-minna-l31-ex8",
+        "type": "multiple-choice",
+        "prompt": "Ot so'z turkumiga 「予定です」 qanday qo'shiladi?\n「会議[かいぎ]は 来週の （　）予定です。」",
+        "options": ["月曜日", "月曜日に", "月曜日にて", "月曜日の"],
+        "correctAnswer": 3,
+        "explanation": "Ot bilan birikganda の qo'shiladi: 「月曜日の 予定です」."
+      },
+      {
+        "id": "ja-minna-l31-ex9",
+        "type": "multiple-choice",
+        "prompt": "«卒業 (そつぎょう) します» fe'lining ma'nosi nima?",
+        "options": ["O'qishga kirmoq", "O'qishni bitirmoq", "Imtihondan o'tmoq", "Dam olmoq"],
+        "correctAnswer": 1,
+        "explanation": "「卒業します (そつぎょうします)」 — o'qishni tamomlamoq, bitirmoq."
+      },
+      {
+        "id": "ja-minna-l31-ex10",
+        "type": "multiple-choice",
+        "prompt": "Do'stlar orasida «〜ましょう» (birga qilaylik) ning norasmiy varianti qaysi?",
+        "options": ["V-て形", "V-た形", "V-意向形", "V-ない形"],
+        "correctAnswer": 2,
+        "explanation": "Oddiy do'stona muloqotda 〜ましょう o'rniga V-意向形 ishlatiladi (行こう! 食べよう!)."
+      }
+    ],
+    "test": [
+      {
+        "id": "ja-minna-l31-q1",
+        "question": "【Mondai 1: Moji/Goi】「展覧会（てんらんかい）」の 読[よ]み方[かた]は どれですか。",
+        "options": ["てんらかい", "てんらんかい", "けんらんかい", "てんかんかい"],
+        "correctAnswerIndex": 1,
+        "explanation": "「展覧会」 ning to'g'ri o'qilishi: 「てんらんかい」 (ko'rgazma)."
+      },
+      {
+        "id": "ja-minna-l31-q2",
+        "question": "【Mondai 1: Moji/Goi】「案内（あんない）します」の 意[い]味[み]は どれですか。",
+        "options": [
+          "Taklif qilmoq",
+          "Yordam bermoq",
+          "Yo'l ko'rsatmoq / Tanishtirmoq",
+          "Boshlamoq"
+        ],
+        "correctAnswerIndex": 2,
+        "explanation": "「案内します」 — tanishtirmoq, yo'l ko'rsatmoq."
+      },
+      {
+        "id": "ja-minna-l31-q3",
+        "question": "【Mondai 1: Moji/Goi】「本社（ほんしゃ）」の 反対（はんたい）の 言葉は？",
+        "options": ["会社（かいしゃ）", "社会（しゃかい）", "神社（じんじゃ）", "支社（ししゃ）"],
+        "correctAnswerIndex": 3,
+        "explanation": "Bosh ofis (本社) ning ziddi — filial (支社)."
+      },
+      {
+        "id": "ja-minna-l31-q4",
+        "question": "【Mondai 2: Bunpo】「将来 自分の 会社を （　）と 思っています。」",
+        "options": ["作ろう", "作る", "作った", "作り"],
+        "correctAnswerIndex": 0,
+        "explanation": "V-意向形＋と思っています: 「作ろうと 思っています」."
+      },
+      {
+        "id": "ja-minna-l31-q5",
+        "question": "【Mondai 2: Bunpo】「今度の 週末は どこへも （　）つもりです。」",
+        "options": ["行こう", "行く", "行かない", "行った"],
+        "correctAnswerIndex": 2,
+        "explanation": "Inkor niyat: 「行かない つもりです」 (hech qayerga bormaslik niyatidaman)."
+      },
+      {
+        "id": "ja-minna-l31-q6",
+        "question": "【Mondai 2: Bunpo】「飛行機の 出発は 10時の （　）です。」",
+        "options": ["つもり", "思い", "考え", "予定"],
+        "correctAnswerIndex": 3,
+        "explanation": "Rejali parvoz vaqti: 「10時の 予定です」."
+      },
+      {
+        "id": "ja-minna-l31-q7",
+        "question": "【Mondai 2: Bunpo】「ちょっと 疲れたね。お茶でも （　）。」",
+        "options": ["飲もう", "飲め", "飲む", "飲んだ"],
+        "correctAnswerIndex": 0,
+        "explanation": "Do'stona taklif (意向形): 「飲もう (ichaylik)」."
+      },
+      {
+        "id": "ja-minna-l31-q8",
+        "question": "【Mondai 3: Dokkai】「大学を 卒業したら、大学院に 進学する つもりです。研究を 続けたいからです。」 Bu inson nima qilmoqchi?",
+        "options": [
+          "Ishga kirmoqchi",
+          "Magistraturada o'qishni davom ettirmoqchi",
+          "Chet elga ketmoqchi",
+          "O'qishni butunlay to'xtatmoqchi"
+        ],
+        "correctAnswerIndex": 1,
+        "explanation": "「大学院に 進学する つもりです」 — magistratura/aspiranturada o'qimoqchi."
+      },
+      {
+        "id": "ja-minna-l31-q9",
+        "question": "【Mondai 3: Dokkai】「来週の 会議は 水曜日に 変更に なりました。資料は 火曜日までに 準備する 予定です。」 Rejaga ko'ra nima qilinadi?",
+        "options": [
+          "Chorshanba kuni hujjat tayyorlanadi",
+          "Majlis bekor bo'ldi",
+          "Dushanba kuni majlis bo'ladi",
+          "Seshanbagacha hujjatlar tayyorlanib, majlis chorshanba kuni o'tkaziladi"
+        ],
+        "correctAnswerIndex": 3,
+        "explanation": "Majlis chorshanbaga surilgan (水曜日に変更), hujjatlar seshanbagacha tayyorlanadi (火曜日までに準備)."
+      },
+      {
+        "id": "ja-minna-l31-q10",
+        "question": "【Mondai 4: Kaiwa】「夏休みは どう しますか。」 Eng mos javobni tanlang:",
+        "options": [
+          "北海道[ほっかいどう]へ 行こうと 思っています。",
+          "夏休みは 暑いです。",
+          "はい、夏休みです。",
+          "どういたしまして。"
+        ],
+        "correctAnswerIndex": 0,
+        "explanation": "Ta'til rejasi haqida: 「北海道へ 行こうと 思っています」 (Xokkaydoga bormoqchiman)."
+      }
+    ]
+  },
+  "32": {
+    "practice": [
+      {
+        "id": "ja-minna-l32-ex1",
+        "type": "multiple-choice",
+        "prompt": "Foydali maslahat berish qolipi qaysi?\n「熱が あるなら、病院へ （　）ほうが いいですよ。」",
+        "options": ["行く", "行って", "行った", "行こう"],
+        "correctAnswer": 2,
+        "explanation": "Maslahat berishda fe'lning o'tgan zamoni Ta-shakli qo'yiladi: 「行った ほうが いいです」."
+      },
+      {
+        "id": "ja-minna-l32-ex2",
+        "type": "multiple-choice",
+        "prompt": "Salbiy harakatdan qaytarish maslahati qanday bo'ladi?\n「無理を （　）ほうが いいですよ。」",
+        "options": ["した", "しないで", "しなくて", "しない"],
+        "correctAnswer": 3,
+        "explanation": "Qilmaslik maslahati: V-ない形＋ほうがいいです (zo'riqmagan ma'qul)."
+      },
+      {
+        "id": "ja-minna-l32-ex3",
+        "type": "multiple-choice",
+        "prompt": "Ehtimoli yuqori bo'lgan ob-havo taxmini qaysi?\n「あしたは 雨が （　）でしょう。」",
+        "options": ["降る", "降ります", "降って", "降った"],
+        "correctAnswer": 0,
+        "explanation": "〜でしょう oldidan oddiy shakl keladi: 「降る でしょう」 (yog'sa kerak)."
+      },
+      {
+        "id": "ja-minna-l32-ex4",
+        "type": "multiple-choice",
+        "prompt": "50% ehtimollik (bo'lishi ham, bo'lmasligi ham mumkin) grammatikasi qaysi?",
+        "options": ["〜でしょう", "〜かもしれません", "〜はずです", "〜つもりです"],
+        "correctAnswer": 1,
+        "explanation": "Gumon va 50% ehtimollik uchun 「〜かもしれません」 qo'llanadi."
+      },
+      {
+        "id": "ja-minna-l32-ex5",
+        "type": "multiple-choice",
+        "prompt": "Na-sifatga 「でしょう」 qanday ulanadi?\n「あしたは （　）でしょう。」",
+        "options": ["暇だ", "暇な", "暇で", "暇"],
+        "correctAnswer": 3,
+        "explanation": "Hozirgi zamon tasdiqda Na-sifat va Ot to'g'ridan-to'g'ri (だ-siz) ulanadi: 「暇でしょう」."
+      },
+      {
+        "id": "ja-minna-l32-ex6",
+        "type": "multiple-choice",
+        "prompt": "«合格 (ごうかく) します» fe'lining ma'nosi nima?",
+        "options": ["Imtihondan o'tmoq", "Yiqilmoq", "Kechikmoq", "Tugatmoq"],
+        "correctAnswer": 0,
+        "explanation": "「合格します (ごうかくします)」 — sinov yoki imtihondan muvaffaqiyatli o'tmoq."
+      },
+      {
+        "id": "ja-minna-l32-ex7",
+        "type": "multiple-choice",
+        "prompt": "«十分 (じゅうぶん) な» so'zining ma'nosi qaysi?",
+        "options": ["Kamchilik", "Yetarli", "Qimmat", "Xavfli"],
+        "correctAnswer": 1,
+        "explanation": "「十分な (じゅうぶんな)」 — yetarli darajada (masalan, 十分な 睡眠)."
+      },
+      {
+        "id": "ja-minna-l32-ex8",
+        "type": "multiple-choice",
+        "prompt": "Yomg'ir to'xtashiga qaysi fe'l ishlatiladi?\n「雨が （　）。」",
+        "options": ["止まります", "終わります", "止みます (やみます)", "消えます"],
+        "correctAnswer": 2,
+        "explanation": "Yomg'ir yoki qor yog'ishdan to'xtashi — 「止みます (やみます)」."
+      },
+      {
+        "id": "ja-minna-l32-ex9",
+        "type": "multiple-choice",
+        "prompt": "Shamollash iborasi qaysi?\n「風邪[かぜ]を （　）。」",
+        "options": ["ひきました", "とりました", "かけました", "しました"],
+        "correctAnswer": 0,
+        "explanation": "Shamollab qolmoq — 「風邪を ひきます」."
+      },
+      {
+        "id": "ja-minna-l32-ex10",
+        "type": "multiple-choice",
+        "prompt": "Kasal tuzalishiga qaysi fe'l qo'yiladi?\n「病気[びょうき]が （　）。」",
+        "options": ["直りました", "治りました (なおりました)", "直しました", "止めました"],
+        "correctAnswer": 1,
+        "explanation": "Inson kasalligi tuzalishi iyeroglifi — 「治ります (なおります)」."
+      }
+    ],
+    "test": [
+      {
+        "id": "ja-minna-l32-q1",
+        "question": "【Mondai 1: Moji/Goi】「成功（せいこう）」の 反対（はんたい）の 言葉は？",
+        "options": ["失敗（しっぱい）", "合格（ごうかく）", "中止（ちゅうし）", "安全（あんぜん）"],
+        "correctAnswerIndex": 0,
+        "explanation": "Muvaffaqiyat (成功) ning aksi — muvaffaqiyatsizlik (失敗)."
+      },
+      {
+        "id": "ja-minna-l32-q2",
+        "question": "【Mondai 1: Moji/Goi】「晴（は）れます」の 意[い]味[み]は どれですか。",
+        "options": ["Yomg'ir yog'moq", "Havo ochilmoq", "Shamol esmoq", "Qor tushmoq"],
+        "correctAnswerIndex": 1,
+        "explanation": "「晴れます (はれます)」 — havo ochiq va quyoshli bo'lmoq."
+      },
+      {
+        "id": "ja-minna-l32-q3",
+        "question": "【Mondai 1: Moji/Goi】「咳（せき）が 出（で）ます」の 意[い]味[み]は？",
+        "options": ["Boshtoshog'i tutmoq", "Ko'ngil aynimoq", "Yo'talmoq", "Qon ketmoq"],
+        "correctAnswerIndex": 2,
+        "explanation": "「咳が出る」 — yo'tal tutmoq, yo'talmoq."
+      },
+      {
+        "id": "ja-minna-l32-q4",
+        "question": "【Mondai 2: Bunpo】「疲れたときは、お風呂[ふろ]に 入って 早く （　）ほうが いいです。」",
+        "options": ["寝る", "寝て", "寝よう", "寝た"],
+        "correctAnswerIndex": 3,
+        "explanation": "Maslahat: 「寝た ほうが いいです」."
+      },
+      {
+        "id": "ja-minna-l32-q5",
+        "question": "【Mondai 2: Bunpo】「約束の 時間に 遅れる（　）。電話を かけて おこう。」",
+        "options": ["でしょう", "かもしれません", "つもりです", "予定です"],
+        "correctAnswerIndex": 1,
+        "explanation": "Kechikish xavfi (ehtimoli): 「遅れる かもしれません」."
+      },
+      {
+        "id": "ja-minna-l32-q6",
+        "question": "【Mondai 2: Bunpo】「空が 暗く なりましたね。雨が （　）かもしれません。」",
+        "options": ["降った", "降ります", "降る", "降ろう"],
+        "correctAnswerIndex": 2,
+        "explanation": "Oddiy shakl: 「降る かもしれません」."
+      },
+      {
+        "id": "ja-minna-l32-q7",
+        "question": "【Mondai 2: Bunpo】「お酒を 飲んだら、車を 運転（　）ほうが いいです。」",
+        "options": ["した", "しないで", "しなくて", "しない"],
+        "correctAnswerIndex": 3,
+        "explanation": "Taqiq/qaytarish maslahati: 「運転しない ほうが いいです」."
+      },
+      {
+        "id": "ja-minna-l32-q8",
+        "question": "【Mondai 3: Dokkai】「明日は 全国的に 天気が 崩れ、午後は 強い 風が 吹くでしょう。」 Ob-havo qanday bo'ladi?",
+        "options": [
+          "Ertaga havo aynib, tushdan keyin kuchli shamol esadi",
+          "Kun bo'yi musaffo va iliq",
+          "Faqat kechasi yomg'ir yog'adi",
+          "Qor yog'ib sovuq bo'ladi"
+        ],
+        "correctAnswerIndex": 0,
+        "explanation": "「天気が 崩れ (havo buzilib)」, 「強い 風が 吹くでしょう (kuchli shamol essa kerak)」."
+      },
+      {
+        "id": "ja-minna-l32-q9",
+        "question": "【Mondai 3: Dokkai】「田中さんは 今 出張中ですから、今日の 会議には 来られないかもしれません。」 Tanaka haqida nima deyilgan?",
+        "options": [
+          "Albatta majlisga keladi",
+          "Kasalxonada yotibdi",
+          "Xizmat safarida bo'lgani uchun bugun kela olmasligi mumkin",
+          "Hozir ofisda o'tiribdi"
+        ],
+        "correctAnswerIndex": 2,
+        "explanation": "Safarda ekanligi sababli kela olmasligi ehtimoli bor: 「来られないかもしれません」."
+      },
+      {
+        "id": "ja-minna-l32-q10",
+        "question": "【Mondai 4: Kaiwa】「咳が 止まらないんです。」 Eng to'g'ri shifokorona maslahatni tanlang:",
+        "options": [
+          "おめでとうございます。",
+          "はい、止まりました。",
+          "どういたしまして。",
+          "温かい 物を 飲んで、ゆっくり 休んだ ほうが いいですよ。"
+        ],
+        "correctAnswerIndex": 3,
+        "explanation": "Xamdardlik va maslahat: 「温かい 物を 飲んで、ゆっくり 休んだ ほうが いいですよ」."
+      }
+    ]
+  },
+  "33": {
+    "practice": [
+      {
+        "id": "ja-minna-l33-ex1",
+        "type": "multiple-choice",
+        "prompt": "Guruh 1 fe'llarining 命令形 (Buyruq shakli) ga o'tishi qaysi?\n「行[い]きます」 -> （　）",
+        "options": ["行こ", "行け", "行きろ", "行かせ"],
+        "correctAnswer": 1,
+        "explanation": "Guruh 1 fe'llarida i-ustun e-ustunga aylanadi: 行きます -> 行け (ike)."
+      },
+      {
+        "id": "ja-minna-l33-ex2",
+        "type": "multiple-choice",
+        "prompt": "Guruh 2 fe'llarining 命令形 shakli qaysi?\n「食[た]べます」 -> （　）",
+        "options": ["食べれ", "食べよ", "食べろ", "食べえ"],
+        "correctAnswer": 2,
+        "explanation": "Guruh 2 fe'llarida ます o'rniga ろ qo'yiladi: 食べろ (tabero)."
+      },
+      {
+        "id": "ja-minna-l33-ex3",
+        "type": "multiple-choice",
+        "prompt": "Barcha fe'llar uchun 禁止形 (Taqiq shakli) qanday yasaladi?",
+        "options": ["V-ない形 ＋ な", "V-ます形 ＋ な", "V-て形 ＋ な", "V-辞書形 ＋ な"],
+        "correctAnswer": 3,
+        "explanation": "Taqiq shakli fe'lning lug'at shakliga 「な」 qo'shib yasaladi: 行くな, 食べるな, するな."
+      },
+      {
+        "id": "ja-minna-l33-ex4",
+        "type": "multiple-choice",
+        "prompt": "Belgilar ma'nosini tushuntirish qolipi qaysi?\n「『立入禁止[たちいりきんし]』は ここに （　）と いう 意味です。」",
+        "options": ["入るな", "入れ", "入ろう", "入って"],
+        "correctAnswer": 0,
+        "explanation": "Kirish taqiqlanganligi ma'nosi: 「入るな (kirma) という 意味です」."
+      },
+      {
+        "id": "ja-minna-l33-ex5",
+        "type": "multiple-choice",
+        "prompt": "Birov aytgan gapni boshqalarga yetkazish qolipi qaysi?\n「田中さんは 明日[あした] （　）と 言っていました。」",
+        "options": ["休んで", "休み", "休む", "休もう"],
+        "correctAnswer": 2,
+        "explanation": "Xabar yetkazish: 普通形＋と 言っていました (ertaga dam olaman deb aytgandi)."
+      },
+      {
+        "id": "ja-minna-l33-ex6",
+        "type": "multiple-choice",
+        "prompt": "«使用禁止 (しようきんし)» belgisi nimani bildiradi?",
+        "options": ["Erkin foydalaning", "Ta'mirlandi", "Sotiladi", "Foydalanish taqiqlanadi"],
+        "correctAnswer": 3,
+        "explanation": "「使用禁止」 — ishlatish qat'iyan man etiladi."
+      },
+      {
+        "id": "ja-minna-l33-ex7",
+        "type": "multiple-choice",
+        "prompt": "«非常口 (ひじょうぐち)» nima?",
+        "options": ["Favqulodda chiqish eshigi", "Asosiy eshik", "Kassa zali", "Lift"],
+        "correctAnswer": 0,
+        "explanation": "「非常口」 — yong'in yoki ofatda qochib chiqish eshigi."
+      },
+      {
+        "id": "ja-minna-l33-ex8",
+        "type": "multiple-choice",
+        "prompt": "Guruh 3 「来[き]ます」 ning buyruq shakli qaysi?",
+        "options": ["きろ", "来い (こい)", "こよう", "きれ"],
+        "correctAnswer": 1,
+        "explanation": "「来ます」 ning buyruq shakli — 「来い (こい)」."
+      },
+      {
+        "id": "ja-minna-l33-ex9",
+        "type": "multiple-choice",
+        "prompt": "Guruh 3 「します」 ning buyruq shakli qaysi?",
+        "options": ["しれ", "しよう", "すれ", "しろ / せよ"],
+        "correctAnswer": 3,
+        "explanation": "「します」 ning buyruq shakli — 「しろ (yoki rasmiy yozuvda せよ)」."
+      },
+      {
+        "id": "ja-minna-l33-ex10",
+        "type": "multiple-choice",
+        "prompt": "Muloyim yetkazish iltimosi qaysi?\n「先生に よろしく （　）ください。」",
+        "options": ["伝えて (つたえて)", "言って", "話して", "教えて"],
+        "correctAnswer": 0,
+        "explanation": "Salom yetkazib qo'yish — 「よろしく お伝えください」."
+      }
+    ],
+    "test": [
+      {
+        "id": "ja-minna-l33-q1",
+        "question": "【Mondai 1: Moji/Goi】「規則（きそく）を 守（まも）ります」の 意[い]味[み]は？",
+        "options": [
+          "Qoidalarni buzmoq",
+          "Qoida yozmoq",
+          "Qoidalardan qochmoq",
+          "Qoidalarga rioya qilmoq"
+        ],
+        "correctAnswerIndex": 3,
+        "explanation": "「規則を守る」 — qoidalarga amal qilmoq, rioya etmoq."
+      },
+      {
+        "id": "ja-minna-l33-q2",
+        "question": "【Mondai 1: Moji/Goi】「本日休業（ほんじつきゅうぎょう）」の 意[い]味[み]は？",
+        "options": ["Bugun dam olish kuni", "Bugun bayram", "Do'kon ochiq", "Yangi mahsulot keldi"],
+        "correctAnswerIndex": 0,
+        "explanation": "「本日休業」 — bugun ish faoliyati yo'q (yopiq)."
+      },
+      {
+        "id": "ja-minna-l33-q3",
+        "question": "【Mondai 1: Moji/Goi】「諦（あきら）めます」の 意[い]味[み]は どれですか。",
+        "options": ["G'alaba qozonmoq", "Taslim bo'lmoq / Umidni uzmoq", "Boshlamoq", "Tirishmoq"],
+        "correctAnswerIndex": 1,
+        "explanation": "「諦める (あきらめる)」 — taslim bo'lish, qo'l siltash."
+      },
+      {
+        "id": "ja-minna-l33-q4",
+        "question": "【Mondai 2: Bunpo】「『駐車違反[ちゅうしゃいはん]』は 車を （　）と いう 意味です。」",
+        "options": ["止めろ", "止めよう", "止めるな", "止めて"],
+        "correctAnswerIndex": 2,
+        "explanation": "Mashina qo'yish mumkin emas: 「車を 止めるな (to'xtatma) という 意味です」."
+      },
+      {
+        "id": "ja-minna-l33-q5",
+        "question": "【Mondai 2: Bunpo】「試合[しあい]中、監督[かんとく]が『走れ！ （　）！』と 叫[さけ]んだ。」",
+        "options": ["諦めるな", "諦めろ", "諦めて", "諦めよう"],
+        "correctAnswerIndex": 0,
+        "explanation": "Murabbiy hayqirig'i (Taslim bo'lma!): 「諦めるな！」."
+      },
+      {
+        "id": "ja-minna-l33-q6",
+        "question": "【Mondai 2: Bunpo】「山田さんは『明日の 会議に 出席[しゅっせき]（　）』と 言っていました。」",
+        "options": ["して", "する", "しろ", "しよう"],
+        "correctAnswerIndex": 1,
+        "explanation": "Oddiy shakl: 「出席する と 言っていました」."
+      },
+      {
+        "id": "ja-minna-l33-q7",
+        "question": "【Mondai 2: Bunpo】「危[あぶ]ない！ そこから （　）！」",
+        "options": ["離れるな", "離れて", "離れろ (はなれろ)", "離れる"],
+        "correctAnswerIndex": 2,
+        "explanation": "Xavfli paytdagi favqulodda buyruq: 「離れろ！ (Uzoqlash!)」."
+      },
+      {
+        "id": "ja-minna-l33-q8",
+        "question": "【Mondai 3: Dokkai】「この マークは『手を 触[ふ]れるな』と いう 意味ですから、触ってはいけません。」 Nima qilish kerak?",
+        "options": [
+          "Qo'l bilan ushlab ko'rish kerak",
+          "Tozalab qo'yish kerak",
+          "Yuvish kerak",
+          "Qo'l tekkizmaslik kerak"
+        ],
+        "correctAnswerIndex": 3,
+        "explanation": "「触れるな (teginma) という意味」 — ushlash taqiqlanadi."
+      },
+      {
+        "id": "ja-minna-l33-q9",
+        "question": "【Mondai 3: Dokkai】「部長は 今 外出中ですが、『3時頃[ごろ]に 戻る』と 言っていました。」 Boshliq qachon keladi?",
+        "options": [
+          "Kechki 6 da",
+          "Soat 3 larda qaytishini aytgan",
+          "Bugun umuman kelmaydi",
+          "Ertaga ertalab keladi"
+        ],
+        "correctAnswerIndex": 1,
+        "explanation": "Xabar mazmuni: 「3時頃に 戻る」 (soat 3 larda qaytadi)."
+      },
+      {
+        "id": "ja-minna-l33-q10",
+        "question": "【Mondai 4: Kaiwa】「すみません、この 漢字は 何と 読みますか。」 Eng to'g'ri javobni tanlang:",
+        "options": [
+          "はい、読みます。",
+          "禁煙です。",
+          "『きんえん』と 読みます。",
+          "どういたしまして。"
+        ],
+        "correctAnswerIndex": 2,
+        "explanation": "O'qilish so'ralganda: 「『きんえん』と 読みます」."
+      }
+    ]
+  },
+  "34": {
+    "practice": [
+      {
+        "id": "ja-minna-l34-ex1",
+        "type": "multiple-choice",
+        "prompt": "Ko'rsatilgandek bir xil bajarish qolipi qaysi?\n「わたしが （　）とおりに、やって ください。」",
+        "options": ["言った", "言って", "言おう", "言わない"],
+        "correctAnswer": 0,
+        "explanation": "Aytilganidek: V-た形＋とおりに (yoki V-辞書形＋とおりに)."
+      },
+      {
+        "id": "ja-minna-l34-ex2",
+        "type": "multiple-choice",
+        "prompt": "Ot so'z turkumiga «とおりに» qanday ulanadi?\n「説明書[せつめいしょ]（　）とおりに、組み立てます。」",
+        "options": ["な", "の", "に", "で"],
+        "correctAnswer": 1,
+        "explanation": "Ot bilan kelganda 「の」 qo'yiladi: 「説明書の とおりに」."
+      },
+      {
+        "id": "ja-minna-l34-ex3",
+        "type": "multiple-choice",
+        "prompt": "Ketma-ketlik («keyin») qolipi qaysi?\n「仕事が （　）あとで、飲みに行きませんか。」",
+        "options": ["終わる", "終わって", "終わった", "終われ"],
+        "correctAnswer": 2,
+        "explanation": "Ish-harakat yakunlangach: V-た形＋あとで (tugagandan keyin)."
+      },
+      {
+        "id": "ja-minna-l34-ex4",
+        "type": "multiple-choice",
+        "prompt": "Biror narsani qo'shmasdan / qilmasdan bajarish qaysi?\n「砂糖[さとう]を （　）コーヒーを 飲みます。」",
+        "options": ["入れなくて", "入れず", "入れない", "入れないで"],
+        "correctAnswer": 3,
+        "explanation": "Qilmasdan turib: V-ないで (shakar solmasdan ichaman)."
+      },
+      {
+        "id": "ja-minna-l34-ex5",
+        "type": "multiple-choice",
+        "prompt": "Hamroh holat bilan harakat qilish qaysi?\n「醤油[しょうゆ]を （　）刺身[さしみ]を 食べます。」",
+        "options": ["つけないで", "つけて", "つけてから", "つける"],
+        "correctAnswer": 1,
+        "explanation": "Sousga botirgan holatda yeyish: V-て形 (つけて 食べます)."
+      },
+      {
+        "id": "ja-minna-l34-ex6",
+        "type": "multiple-choice",
+        "prompt": "«組み立てます (くみたてます)» fe'lining ma'nosi nima?",
+        "options": ["Buzmoq", "Tozalamoq", "Yig'moq / Qismlardan yig'ib yasamoq", "Sotmoq"],
+        "correctAnswer": 2,
+        "explanation": "「組み立てます」 — mebel yoki qismlarni yig'moq."
+      },
+      {
+        "id": "ja-minna-l34-ex7",
+        "type": "multiple-choice",
+        "prompt": "«磨[みが]きます» qaysi so'z bilan birikadi?",
+        "options": ["本[ほん]", "手[て]", "顔[かお]", "歯[は]"],
+        "correctAnswer": 3,
+        "explanation": "Tish yuvish/tozalash — 「歯を 磨きます」."
+      },
+      {
+        "id": "ja-minna-l34-ex8",
+        "type": "multiple-choice",
+        "prompt": "Qog'ozni buklash qaysi fe'l?",
+        "options": ["折ります (おります)", "破ります", "切ります", "貼ります"],
+        "correctAnswer": 0,
+        "explanation": "Qog'ozni buklash (origami) — 「折ります」."
+      },
+      {
+        "id": "ja-minna-l34-ex9",
+        "type": "multiple-choice",
+        "prompt": "Ot bilan «あとで» qanday birikadi?\n「食事[しょくじ]（　）あとで、薬を 飲みます。」",
+        "options": ["な", "に", "の", "で"],
+        "correctAnswer": 2,
+        "explanation": "Ot bilan の ulanadi: 「食事の あとで」 (ovqatdan keyin)."
+      },
+      {
+        "id": "ja-minna-l34-ex10",
+        "type": "multiple-choice",
+        "prompt": "«気がつきます (きがつきます)» iborasining ma'nosi qaysi?",
+        "options": [
+          "Xushidan ketmoq",
+          "Unutmoq",
+          "Xursand bo'lmoq",
+          "Payqab qolmoq / Sezib qolmoq"
+        ],
+        "correctAnswer": 3,
+        "explanation": "「気がつきます」 — e'tibor qaratmoq, payqab qolmoq."
+      }
+    ],
+    "test": [
+      {
+        "id": "ja-minna-l34-q1",
+        "question": "【Mondai 1: Moji/Goi】「矢印（やじるし）」の 意[い]味[み]は どれですか。",
+        "options": ["Doira belgisi", "To'rtburchak", "Ko'rsatkich strelka", "Chiziq"],
+        "correctAnswerIndex": 2,
+        "explanation": "「矢印 (やじるし)」 — ko'rsatkich nayza/strelka belgisi."
+      },
+      {
+        "id": "ja-minna-l34-q2",
+        "question": "【Mondai 1: Moji/Goi】「細（ほそ）い」の 反対（はんたい）の 言葉は？",
+        "options": ["長（なが）い", "短（みじか）い", "広（ひろ）い", "太（ふと）い"],
+        "correctAnswerIndex": 3,
+        "explanation": "Ingichka (細い) ning ziddi — yo'g'on / semiz (太い)."
+      },
+      {
+        "id": "ja-minna-l34-q3",
+        "question": "【Mondai 1: Moji/Goi】「説明書（せつめいしょ）」の 読[よ]み方[かた]は どれですか。",
+        "options": ["せつめいしょ", "せつめいほん", "しょうめいしょ", "あんないしょ"],
+        "correctAnswerIndex": 0,
+        "explanation": "「説明書」 ning to'g'ri o'qilishi: 「せつめいしょ」 (yo'riqnoma)."
+      },
+      {
+        "id": "ja-minna-l34-q4",
+        "question": "【Mondai 2: Bunpo】「図[ず]の （　）とおりに、紙を 折って ください。」",
+        "options": ["な", "の", "に", "で"],
+        "correctAnswerIndex": 1,
+        "explanation": "Ot bilan birikishi: 「図の とおりに」 (chizmadagidek)."
+      },
+      {
+        "id": "ja-minna-l34-q5",
+        "question": "【Mondai 2: Bunpo】「新しい パソコンを （　）あとで、古い パソコンを 捨てました。」",
+        "options": ["買う", "買って", "買おう", "買った"],
+        "correctAnswerIndex": 3,
+        "explanation": "V-た形＋あとで: 「買った あとで」."
+      },
+      {
+        "id": "ja-minna-l34-q6",
+        "question": "【Mondai 2: Bunpo】「昨日の 夜は 傘を （　）出かけたので、濡[ぬ]れて しまいました。」",
+        "options": ["持たないで", "持たなくて", "持たずに", "持つ"],
+        "correctAnswerIndex": 0,
+        "explanation": "Soyabon olmasdan chiqish: 「持たないで 出かけた」."
+      },
+      {
+        "id": "ja-minna-l34-q7",
+        "question": "【Mondai 2: Bunpo】「先生が （　）とおりに、発音[はつおん]して みて ください。」",
+        "options": ["言う", "言った", "言って", "言おう"],
+        "correctAnswerIndex": 1,
+        "explanation": "Ustoz aytganidek: 「言った とおりに」."
+      },
+      {
+        "id": "ja-minna-l34-q8",
+        "question": "【Mondai 3: Dokkai】「この 薬は 毎食後[まいしょくご]（ご飯を 食べた あとで）、水と 一緒に 飲んで ください。」 Ushbu dori qachon ichiladi?",
+        "options": [
+          "Ovqatdan oldin",
+          "Faqat ertalab och qoringa",
+          "Ovqatdan so'ng",
+          "Uxlayotganda"
+        ],
+        "correctAnswerIndex": 2,
+        "explanation": "「毎食後 (ご飯を 食べた あとで)」 — ovqatdan keyin."
+      },
+      {
+        "id": "ja-minna-l34-q9",
+        "question": "【Mondai 3: Dokkai】「家具を 組み立てるときは、必ず 説明書を 見ながら やって ください。」 Qanday maslahat berilgan?",
+        "options": [
+          "Albatta yo'riqnomaga qarab, ko'rsatilganidek yig'ish",
+          "Yo'riqnomaga qaramasdan yasash",
+          "Yangi mebel sotib olish",
+          "Usta chaqirish"
+        ],
+        "correctAnswerIndex": 0,
+        "explanation": "「説明書を 見ながら (yo'riqnomaga qaragan holda)」 yig'ish aytilmoqda."
+      },
+      {
+        "id": "ja-minna-l34-q10",
+        "question": "【Mondai 4: Kaiwa】「これから コンサートに 行くんですが、チケットは 買いましたか。」「いいえ、会場[かいじょう]に （　）あとで、買います。」",
+        "options": ["着く", "着いた", "着いて", "着いたの"],
+        "correctAnswerIndex": 1,
+        "explanation": "Joyiga yetib borgach sotib olaman: 「着いた あとで」."
+      }
+    ]
+  },
+  "35": {
+    "practice": [
+      {
+        "id": "ja-minna-l35-ex1",
+        "type": "multiple-choice",
+        "prompt": "Guruh 1 fe'llarining 条件形 (Shart shakli) qoidasi qaysi?\n「行[い]きます」 -> （　）",
+        "options": ["行ったら", "行くなら", "行くと", "行けば"],
+        "correctAnswer": 3,
+        "explanation": "Guruh 1 fe'llarida u-tovushi e-tovushiga o'tib ば qo'shiladi: 行く -> 行けば (ikeba)."
+      },
+      {
+        "id": "ja-minna-l35-ex2",
+        "type": "multiple-choice",
+        "prompt": "Guruh 2 fe'llarining 条件形 qanday yasaladi?\n「食[た]べます」 -> （　）",
+        "options": ["食べれば", "食べたば", "食べたら", "食べるなら"],
+        "correctAnswer": 0,
+        "explanation": "Guruh 2 fe'llarida る o'rniga れば qo'yiladi: 食べる -> 食べれば (tabereba)."
+      },
+      {
+        "id": "ja-minna-l35-ex3",
+        "type": "multiple-choice",
+        "prompt": "I-sifatlarning shart shakli qaysi?\n「安[やす]い」 -> （　）",
+        "options": ["安いなら", "安ければ", "安かったら", "安くて"],
+        "correctAnswer": 1,
+        "explanation": "I-sifatlarda oxirgi い tushib ければ qo'yiladi: 安い -> 安ければ (arzon bo'lsa)."
+      },
+      {
+        "id": "ja-minna-l35-ex4",
+        "type": "multiple-choice",
+        "prompt": "Na-sifat va Ot so'z turkumlarining shart shakli qaysi?\n「明日[あした] （　）、散歩[さんぽ]に 行きます。」",
+        "options": ["暇ば", "暇であれば", "暇なら", "暇ならば"],
+        "correctAnswer": 2,
+        "explanation": "Na-sifat va Ot uchun: 「〜なら」 (暇なら, 雨なら)."
+      },
+      {
+        "id": "ja-minna-l35-ex5",
+        "type": "multiple-choice",
+        "prompt": "Mavzu bo'yicha tavsiya/taklif berishda qaysi biri ishlatiladi?\n「カメラを 買う（　）、秋葉原[あきはばら]が いいですよ。」",
+        "options": ["なら", "ば", "たら", "と"],
+        "correctAnswer": 0,
+        "explanation": "Suhbatdosh aytgan mavzu bo'yicha maslahat: 「〜なら」 (Kamera olmoqchi bo'lsangiz, Akixabara yaxshi)."
+      },
+      {
+        "id": "ja-minna-l35-ex6",
+        "type": "multiple-choice",
+        "prompt": "«Qancha ko'p ... bo'lsa, shuncha ... bo'ladi» qolipi qaysi?",
+        "options": ["V-たら V-なら", "V-ば V-ほど", "V-ても V-から", "V-なら V-ば"],
+        "correctAnswer": 1,
+        "explanation": "Proporsional ortish qolipi: 「V-ば V-ほど」 (masalan, 読めば 読むほど — qancha ko'p o'qisa shuncha...)."
+      },
+      {
+        "id": "ja-minna-l35-ex7",
+        "type": "multiple-choice",
+        "prompt": "Guruh 3 「来[き]ます」 va 「します」 ning 条件形 shakli qaysi?",
+        "options": ["きたら / したら", "これば / せれば", "くれば / すれば", "きれば / されば"],
+        "correctAnswer": 2,
+        "explanation": "Guruh 3: 来る -> 来れば (kureba); する -> すれば (sureba)."
+      },
+      {
+        "id": "ja-minna-l35-ex8",
+        "type": "multiple-choice",
+        "prompt": "«いい (yaxshi)» sifatining shart shakli qaysi?",
+        "options": ["いいなら", "いければ", "よかったら", "よければ"],
+        "correctAnswer": 3,
+        "explanation": "「いい」 ning asosi 「よい」 bo'lgani uchun uning shart shakli: 「よければ」."
+      },
+      {
+        "id": "ja-minna-l35-ex9",
+        "type": "multiple-choice",
+        "prompt": "«咲[さ]きます» fe'lining ma'nosi nima?\n「桜[さくら]が 咲きました。」",
+        "options": ["to'kilmoq", "ochilmoq", "qurimoq", "o'smoq"],
+        "correctAnswer": 1,
+        "explanation": "「咲きます (さきます)」 — gul ochilmoq, gullamoq."
+      },
+      {
+        "id": "ja-minna-l35-ex10",
+        "type": "multiple-choice",
+        "prompt": "«珍[めずら]しい» sifatining ma'nosi qaysi?",
+        "options": ["Oddiy", "Qimmatbaho", "Noyob / Kamdan-kam uchraydigan", "Xavfli"],
+        "correctAnswer": 2,
+        "explanation": "「珍しい (めずらしい)」 — nodir, kamyob, antiqa."
+      }
+    ],
+    "test": [
+      {
+        "id": "ja-minna-l35-q1",
+        "question": "【Mondai 1: Moji/Goi】「困（こま）ります」の 意[い]味[み]は どれですか。",
+        "options": [
+          "Xursand bo'lmoq",
+          "Qiyin ahvolda qolmoq / Xijolat bo'lmoq",
+          "Dam olmoq",
+          "Boshlamoq"
+        ],
+        "correctAnswerIndex": 1,
+        "explanation": "「困ります (こまります)」 — qiyinchilikka duch kelmoq, chora topolmay qiynalmoq."
+      },
+      {
+        "id": "ja-minna-l35-q2",
+        "question": "【Mondai 1: Moji/Goi】「島（しま）」の 読[よ]み方[かた]は どれですか。",
+        "options": ["やま", "かわ", "しま", "まち"],
+        "correctAnswerIndex": 2,
+        "explanation": "「島」 ning to'g'ri o'qilishi: 「しま」 (orol)."
+      },
+      {
+        "id": "ja-minna-l35-q3",
+        "question": "【Mondai 1: Moji/Goi】「近所（きんじょ）」の 意[い]味[み]は どれですか。",
+        "options": ["Uzoq shahar", "Kasalxona", "Vokzal", "Mahalla / Qo'shnichilik hududi"],
+        "correctAnswerIndex": 3,
+        "explanation": "「近所 (きんじょ)」 — yaqin atrofdagi qo'shnilar/mahalla."
+      },
+      {
+        "id": "ja-minna-l35-q4",
+        "question": "【Mondai 2: Bunpo】「ボタンを （　）、お釣り[つり]が 出ます。」",
+        "options": ["押せば", "押したら", "押すと", "押すなら"],
+        "correctAnswerIndex": 0,
+        "explanation": "V-ば shart shakli: 「押せば」 (bosilsa)."
+      },
+      {
+        "id": "ja-minna-l35-q5",
+        "question": "【Mondai 2: Bunpo】「時間が （　）、映画を 見に行きましょう。」",
+        "options": ["あったら", "あると", "あれば", "あるなら"],
+        "correctAnswerIndex": 2,
+        "explanation": "Fe'l sharti: ある -> 「あれば」."
+      },
+      {
+        "id": "ja-minna-l35-q6",
+        "question": "【Mondai 2: Bunpo】「パソコンの こと（　）、田中さんに 聞いて ください。」",
+        "options": ["ば", "たら", "と", "なら"],
+        "correctAnswerIndex": 3,
+        "explanation": "Mavzu bo'yicha maslahat: 「パソコンの ことなら」."
+      },
+      {
+        "id": "ja-minna-l35-q7",
+        "question": "【Mondai 2: Bunpo】「日本語は 話せ（　）話すほど 上手に なります。」",
+        "options": ["ば", "たら", "なら", "と"],
+        "correctAnswerIndex": 0,
+        "explanation": "V-ば V-ほど konstruksiyasi: 「話せば 話すほど」."
+      },
+      {
+        "id": "ja-minna-l35-q8",
+        "question": "【Mondai 3: Dokkai】「天気が よければ、屋上[おくじょう]から 富士山が 見えます。」 Qachon Fujisan tog'i ko'rinadi?",
+        "options": ["Faqat yomg'ir yog'sa", "Havo yaxshi bo'lsa", "Kechasi", "Qishda"],
+        "correctAnswerIndex": 1,
+        "explanation": "「天気が よければ (havo yaxshi bo'lsa)」 ko'rinadi."
+      },
+      {
+        "id": "ja-minna-l35-q9",
+        "question": "【Mondai 3: Dokkai】「何か わからない ことが あれば、いつでも 私に 質問して ください。」 Ushbu e'lon nimani bildiradi?",
+        "options": [
+          "Savol berish taqiqlanadi",
+          "Faqat yozma ravishda savol berish kerak",
+          "Dars tugadi",
+          "Agar tushunarsiz narsa bo'lsa, xohlagan vaqtda menga savol berishingiz mumkin"
+        ],
+        "correctAnswerIndex": 3,
+        "explanation": "「わからない ことが あれば、いつでも 質問して ください」."
+      },
+      {
+        "id": "ja-minna-l35-q10",
+        "question": "【Mondai 4: Kaiwa】「温泉[おんせん]に 行きたいんですが、どこが いいですか。」「温泉なら、（　）が おすすめですよ。」",
+        "options": ["箱根[はこね]", "図書館", "空港", "学校"],
+        "correctAnswerIndex": 0,
+        "explanation": "Issiq buloqlar (onsen) bo'yicha mashhur maskan — 箱根 (Xakone)."
+      }
+    ]
+  },
+  "36": {
+    "practice": [
+      {
+        "id": "ja-minna-l36-ex1",
+        "type": "multiple-choice",
+        "prompt": "Maqsad ifodalash («...bo'lishi uchun») konstruksiyasi qaysi?\n「忘れない（　）、メモを します。」",
+        "options": ["ために", "ようにして", "ように", "ようになって"],
+        "correctAnswer": 2,
+        "explanation": "Harakat imkoniyati yoki inkor maqsadida: 「V-ない形＋ように」 (unutib qo'ymaslik uchun)."
+      },
+      {
+        "id": "ja-minna-l36-ex2",
+        "type": "multiple-choice",
+        "prompt": "Qobiliyat yoki odatdagi o'zgarish («...qila oladigan bo'ldim») qaysi?",
+        "options": [
+          "〜ように します",
+          "〜ことに なりました",
+          "〜ことに します",
+          "〜ように なりました"
+        ],
+        "correctAnswer": 3,
+        "explanation": "Holatning o'zgarishi: 「V-可能形/辞書形＋ように なりました」."
+      },
+      {
+        "id": "ja-minna-l36-ex3",
+        "type": "multiple-choice",
+        "prompt": "Kundalik odat qilish yoki harakat qilish shakli qaysi?\n「毎日 野菜を 食べる（　）います。」",
+        "options": ["ように して", "ように なって", "ことに して", "ために して"],
+        "correctAnswer": 0,
+        "explanation": "O'zining shaxsiy intilishi bilan odat qilish: 「〜ように しています」."
+      },
+      {
+        "id": "ja-minna-l36-ex4",
+        "type": "multiple-choice",
+        "prompt": "«〜ように» va «〜ために» farqi qaysi?",
+        "options": [
+          "〜ように faqat o'tgan zamonda ishlatiladi",
+          "〜ように noirodaviy fe'llar bilan, 〜ために maqsadli harakat bilan",
+          "〜ために inkor fe'llar bilan keladi",
+          "Ikkalasi mutlaqo bir xil"
+        ],
+        "correctAnswer": 1,
+        "explanation": "〜ように (imkoniyat fe'li, inkor: 読めるように, 見えるように, 忘れないように). 〜ために (ixtiyoriy fe'l: 家を買うために)."
+      },
+      {
+        "id": "ja-minna-l36-ex5",
+        "type": "multiple-choice",
+        "prompt": "«貯金 (ちょきん) します» fe'lining ma'nosi qaysi?",
+        "options": ["Pul sarflamoq", "Qarz olmoq", "Bank ochmoq", "Pul jamg'armoq"],
+        "correctAnswer": 3,
+        "explanation": "「貯金します (ちょきんします)」 — pul jamg'armoq, omonatga qo'ymoq."
+      },
+      {
+        "id": "ja-minna-l36-ex6",
+        "type": "multiple-choice",
+        "prompt": "Semirish va ozish juftligi qaysi?",
+        "options": [
+          "太[ふと]ります と やせます",
+          "増[ふ]えます と 減[へ]ります",
+          "上[あ]がります と 下[さ]がります",
+          "太[ふと]ります と 伸[の]びます"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Vazn ortishi — 太ります (ふとります), vazn yo'qotish — やせます."
+      },
+      {
+        "id": "ja-minna-l36-ex7",
+        "type": "multiple-choice",
+        "prompt": "O'rganib qolish/ko'nikish fe'li qaysi?\n「日本の 生活に （　）。」",
+        "options": ["習[なら]いました", "慣[な]れました", "並[なら]びました", "直[なお]りました"],
+        "correctAnswer": 1,
+        "explanation": "Moslashmoq, ko'nikmoq — 「慣れます (なれます)」."
+      },
+      {
+        "id": "ja-minna-l36-ex8",
+        "type": "multiple-choice",
+        "prompt": "Qattiq va yumshoq sifatlari juftligi qaysi?",
+        "options": [
+          "重[おも]い と 軽[かる]い",
+          "太[ふと]い と 細[ほそ]い",
+          "硬[かた]い と 軟[やわ]らかい",
+          "濃[こ]い と 薄[うす]い"
+        ],
+        "correctAnswer": 2,
+        "explanation": "Qattiq — 硬い (かたい), yumshoq — 軟らかい (やわらかい)."
+      },
+      {
+        "id": "ja-minna-l36-ex9",
+        "type": "multiple-choice",
+        "prompt": "«できるだけ» ravishining ma'nosi nima?",
+        "options": ["Iloji boricha", "Hech qachon", "Tezda", "Faqatgina"],
+        "correctAnswer": 0,
+        "explanation": "「できるだけ」 — imkoni boricha, qo'ldan kelguncha (masalan, できるだけ 早く)."
+      },
+      {
+        "id": "ja-minna-l36-ex10",
+        "type": "multiple-choice",
+        "prompt": "«必ず (かならず)» so'zining ma'nosi qaysi?",
+        "options": ["Ehtimol", "Albatta / Muqarrar", "Ba'zan", "Hech qachon"],
+        "correctAnswer": 1,
+        "explanation": "「必ず (かならず)」 — albatta, shak-shubhasiz."
+      }
+    ],
+    "test": [
+      {
+        "id": "ja-minna-l36-q1",
+        "question": "【Mondai 1: Moji/Goi】「届（とど）きます」の 意[い]味[み]は どれですか。",
+        "options": ["Yetib bormoq / Topshirilmoq", "Jo'natmoq", "Kechikmoq", "Qaytarmoq"],
+        "correctAnswerIndex": 0,
+        "explanation": "「届きます (とどきます)」 — pochta yoki yuk manziliga yetib bormoq."
+      },
+      {
+        "id": "ja-minna-l36-q2",
+        "question": "【Mondai 1: Moji/Goi】「工場（こうじょう）」の 読[よ]み方[かた]は どれですか。",
+        "options": ["こうば", "こうじょう", "こうばしょ", "さぎょうじょう"],
+        "correctAnswerIndex": 1,
+        "explanation": "「工場」 ning asosiy rasmiy o'qilishi: 「こうじょう」 (zavod, fabrika)."
+      },
+      {
+        "id": "ja-minna-l36-q3",
+        "question": "【Mondai 1: Moji/Goi】「健康（けんこう）」の 意[い]味[み]は どれですか。",
+        "options": ["Boylik", "Xotirjamlik", "Salomatlik / Sog'liq", "Baxt"],
+        "correctAnswerIndex": 2,
+        "explanation": "「健康 (けんこう)」 — inson sog'lig'i va salomatligi."
+      },
+      {
+        "id": "ja-minna-l36-q4",
+        "question": "【Mondai 2: Bunpo】「早く 泳げる（　）、毎日 練習しています。」",
+        "options": ["ために", "ようにして", "ようになって", "ように"],
+        "correctAnswerIndex": 3,
+        "explanation": "Imkoniyat fe'li (泳げる) bilan maqsad: 「泳げる ように」."
+      },
+      {
+        "id": "ja-minna-l36-q5",
+        "question": "【Mondai 2: Bunpo】「日本へ 来てから、刺身が 食べられる（　）。」",
+        "options": ["ように します", "ように なりました", "ことに なりました", "ために なりました"],
+        "correctAnswerIndex": 1,
+        "explanation": "Holatdagi o'zgarish: 「食べられる ように なりました」 (yeya oladigan bo'lib qoldim)."
+      },
+      {
+        "id": "ja-minna-l36-q6",
+        "question": "【Mondai 2: Bunpo】「健康のために、油[あぶら]っこい 物を 食べない（　）います。」",
+        "options": ["ように なって", "ことに して", "ように して", "ために して"],
+        "correctAnswerIndex": 2,
+        "explanation": "Shaxsiy odat qilish: 「食べない ように しています」."
+      },
+      {
+        "id": "ja-minna-l36-q7",
+        "question": "【Mondai 2: Bunpo】「後ろの 人にも 聞こえる（　）、大きな 声で 話して ください。」",
+        "options": ["ために", "ようにして", "なら", "ように"],
+        "correctAnswerIndex": 3,
+        "explanation": "Eshitilishi uchun (聞こえる): 「聞こえる ように」."
+      },
+      {
+        "id": "ja-minna-l36-q8",
+        "question": "【Mondai 3: Dokkai】「眼鏡[めがね]を かけると、字が はっきり 見える ように なります。」 Ko'zoynak taqilganda nima o'zgaradi?",
+        "options": [
+          "Yozuvlar aniq va ravshan ko'rinadigan bo'ladi",
+          "Harflar xira bo'ladi",
+          "Ko'z og'riydi",
+          "Kitob o'qib bo'lmaydi"
+        ],
+        "correctAnswerIndex": 0,
+        "explanation": "「字が はっきり 見える ように なります」 — yozuvlar ravshan ko'rinadi."
+      },
+      {
+        "id": "ja-minna-l36-q9",
+        "question": "【Mondai 3: Dokkai】「風邪を ひかないように、手洗いと うがいを 必ず するように して います。」 Ushbu inson qanday odatga ega?",
+        "options": [
+          "Dori ichmaydi",
+          "Faqat qishda qo'l yuvadi",
+          "Shamollamaslik uchun albatta qo'l yuvish va tomoq chayishni odat qilgan",
+          "Ko'chaga chiqmaydi"
+        ],
+        "correctAnswerIndex": 2,
+        "explanation": "Shamollamaslik maqsadida qo'l yuvish va tomoq chayishni doimiy odat qilgan."
+      },
+      {
+        "id": "ja-minna-l36-q10",
+        "question": "【Mondai 4: Kaiwa】「日本語の 新聞が 読めるように なりましたか。」 Eng mos javobni tanlang:",
+        "options": [
+          "はい、読みませんでした。",
+          "新聞は 面白いです。",
+          "どういたしまして。",
+          "いいえ、まだ 読めません。辞書を 使えば、少し 読めます。"
+        ],
+        "correctAnswerIndex": 3,
+        "explanation": "O'zgarish jarayoni haqidagi tabiiy javob: 「いいえ、まだ 読めません。辞書を 使えば、少し 読めます」."
+      }
+    ]
+  },
+  "37": {
+    "practice": [
+      {
+        "id": "ja-minna-l37-ex1",
+        "type": "multiple-choice",
+        "prompt": "Guruh 1 fe'llarining 受身 (Majhul nisbat) ga o'tishi qaysi?\n「書[か]きます」 -> （　）",
+        "options": ["書けます", "書かれます", "書かせます", "書きます"],
+        "correctAnswer": 1,
+        "explanation": "Guruh 1 fe'llarida i-ustun a-ustunga aylanib れます qo'shiladi: 書く -> 書かれる (kakareru)."
+      },
+      {
+        "id": "ja-minna-l37-ex2",
+        "type": "multiple-choice",
+        "prompt": "Guruh 2 fe'llarining 受身 shakli qaysi?\n「褒[ほ]めます」 -> （　）",
+        "options": ["褒まれます", "褒めさせます", "褒められます", "褒めれます"],
+        "correctAnswer": 2,
+        "explanation": "Guruh 2 fe'llarida ます o'rniga られます qo'yiladi: 褒められます (maqtaldim)."
+      },
+      {
+        "id": "ja-minna-l37-ex3",
+        "type": "multiple-choice",
+        "prompt": "Harbiy yoki subyekt tomonidan qilinganini ko'rsatuvchi zarracha qaysi?\n「わたしは 先生（　）褒められました。」",
+        "options": ["を", "が", "で", "に"],
+        "correctAnswer": 3,
+        "explanation": "Majhul nisbatda ish-harakatni bajargan shaxs oldidan 「に」 zarrachasi qo'yiladi (先生に 褒められました)."
+      },
+      {
+        "id": "ja-minna-l37-ex4",
+        "type": "multiple-choice",
+        "prompt": "Ziyon ko'rish (迷惑受身) qolipi qaysi?\n「満員電車[まんいんでんしゃ]で 足（　）踏[ふ]まれました。」",
+        "options": ["を", "に", "が", "で"],
+        "correctAnswer": 0,
+        "explanation": "Tananing biror a'zosi yoki buyum ziyon ko'rganda: 「足 を 踏まれました」."
+      },
+      {
+        "id": "ja-minna-l37-ex5",
+        "type": "multiple-choice",
+        "prompt": "Kashfiyot yoki asar kim tomonidan yaratilganini bildirish zarrachasi qaysi?\n「電話は ベル（　）発明[はつめい]されました。」",
+        "options": ["について", "にとって", "によって", "に対して"],
+        "correctAnswer": 2,
+        "explanation": "Tarixiy kashfiyot/yaratilishda muallif ortidan 「〜によって」 qo'yiladi."
+      },
+      {
+        "id": "ja-minna-l37-ex6",
+        "type": "multiple-choice",
+        "prompt": "Xomashyodan ishlab chiqarilish qolipi qaysi?\n「お酒は 米（　）造[つく]られます。」",
+        "options": ["で", "に", "を", "から"],
+        "correctAnswer": 3,
+        "explanation": "Xomashyo kimyoviy o'zgarib narsa yasalishida 「から」 (boshlang'ich mahsulot) ishlatiladi."
+      },
+      {
+        "id": "ja-minna-l37-ex7",
+        "type": "multiple-choice",
+        "prompt": "Guruh 3 「来[き]ます」 ning 受身 shakli qaysi?",
+        "options": ["来られます (こられます)", "きられます", "こさせます", "きさせます"],
+        "correctAnswer": 0,
+        "explanation": "「来ます」 ning majhul shakli — 「来られます (こられます)」."
+      },
+      {
+        "id": "ja-minna-l37-ex8",
+        "type": "multiple-choice",
+        "prompt": "Guruh 3 「します」 ning 受身 shakli qaysi?",
+        "options": ["しられます", "されます", "させます", "すれます"],
+        "correctAnswer": 1,
+        "explanation": "「します」 ning majhul nisbat shakli — 「されます」."
+      },
+      {
+        "id": "ja-minna-l37-ex9",
+        "type": "multiple-choice",
+        "prompt": "«叱[しか]ります» fe'lining ma'nosi nima?",
+        "options": ["Maqtamoq", "Kechirmoq", "Kuzatmoq", "Urishmoq / Tanbeh bermoq"],
+        "correctAnswer": 3,
+        "explanation": "「叱ります (しかります)」 — bolaga yoki kichiklarga tanbeh bermoq, urishmoq."
+      },
+      {
+        "id": "ja-minna-l37-ex10",
+        "type": "multiple-choice",
+        "prompt": "«泥棒 (どろぼう)» so'zining ma'nosi qaysi?",
+        "options": ["O'g'ri", "Politsiyachi", "Qo'riqchi", "Begona"],
+        "correctAnswer": 0,
+        "explanation": "「泥棒 (どろぼう)」 — o'g'ri, talonchi."
+      }
+    ],
+    "test": [
+      {
+        "id": "ja-minna-l37-q1",
+        "question": "【Mondai 1: Moji/Goi】「輸出（ゆしゅつ）」の 反対（はんたい）の 言葉は？",
+        "options": [
+          "出発（しゅっぱつ）",
+          "到着（とうちゃく）",
+          "生産（せいさん）",
+          "輸入（ゆにゅう）"
+        ],
+        "correctAnswerIndex": 3,
+        "explanation": "Eksport (輸出) ning aksi — import (輸入)."
+      },
+      {
+        "id": "ja-minna-l37-q2",
+        "question": "【Mondai 1: Moji/Goi】「翻訳（ほんやく）します」の 意[い]味[み]は？",
+        "options": [
+          "Yozma tarjima qilmoq",
+          "Og'zaki tarjima qilmoq",
+          "Kitob chop etmoq",
+          "Chop qilmoq"
+        ],
+        "correctAnswerIndex": 0,
+        "explanation": "「翻訳します (ほんやくします)」 — yozma tarjima qilmoq (og'zaki esa 通訳 - つうやく)."
+      },
+      {
+        "id": "ja-minna-l37-q3",
+        "question": "【Mondai 1: Moji/Goi】「踏（ふ）みます」の 意[い]味[み]は どれですか。",
+        "options": ["Urmoq", "Bosmoq", "Chaqirmoq", "Ochmoq"],
+        "correctAnswerIndex": 1,
+        "explanation": "「踏みます (ふみます)」 — oyoq bilan bosmoq."
+      },
+      {
+        "id": "ja-minna-l37-q4",
+        "question": "【Mondai 2: Bunpo】「わたしは 母（　）叱られました。」",
+        "options": ["を", "が", "に", "で"],
+        "correctAnswerIndex": 2,
+        "explanation": "Majhul nisbatda harakat bajaruvchisi: 「母に 叱られました」."
+      },
+      {
+        "id": "ja-minna-l37-q5",
+        "question": "【Mondai 2: Bunpo】「泥棒に お金（　）盗[ぬす]まれました。」",
+        "options": ["を", "に", "が", "で"],
+        "correctAnswerIndex": 0,
+        "explanation": "Ziyon ko'rgan narsa obyekt: 「お金を 盗まれました」."
+      },
+      {
+        "id": "ja-minna-l37-q6",
+        "question": "【Mondai 2: Bunpo】「『源氏物語[げんじものがたり]』は 紫式部[むらさきしきぶ]（　）書かれました。」",
+        "options": ["について", "によって", "にとって", "に対して"],
+        "correctAnswerIndex": 1,
+        "explanation": "Mualliflik: 「紫式部によって 書かれました」."
+      },
+      {
+        "id": "ja-minna-l37-q7",
+        "question": "【Mondai 2: Bunpo】「雨に （　）、服が 濡れて しまいました。」",
+        "options": ["降って", "降らせて", "降られて", "降る"],
+        "correctAnswerIndex": 2,
+        "explanation": "Yomg'ir ostida qolish ziyon majhuli: 雨に 降られて (furarete)."
+      },
+      {
+        "id": "ja-minna-l37-q8",
+        "question": "【Mondai 3: Dokkai】「日本の アニメは 世界中の 若者に 愛[あい]されて います。」 Ushbu gapdan nima anglashiladi?",
+        "options": [
+          "Animatsiyani faqat Yaponiyada ko'rishadi",
+          "Yoshlar multfilm ko'rmaydi",
+          "Yapon anime ishlab chiqarishi to'xtatildi",
+          "Yapon animatsiyasi butun dunyo yoshlari tomonidan seviladi"
+        ],
+        "correctAnswerIndex": 3,
+        "explanation": "「世界中の 若者に 愛されています」 — butun dunyo yoshlari tomonidan seviladi."
+      },
+      {
+        "id": "ja-minna-l37-q9",
+        "question": "【Mondai 3: Dokkai】「昨日 部長に 英語の スピーチを 褒められて、とても うれしかったです。」 Nega xursand bo'ldi?",
+        "options": [
+          "Boshliq unga sovg'a bergani uchun",
+          "Boshliq tomonidan nutqi maqtalgani uchun",
+          "Ishdan erta ketgani uchun",
+          "Ingliz tili imtihonidan yiqilgani uchun"
+        ],
+        "correctAnswerIndex": 1,
+        "explanation": "「部長に 英語の スピーチを 褒められて」 — nutqi maqtalgani sababli."
+      },
+      {
+        "id": "ja-minna-l37-q10",
+        "question": "【Mondai 4: Kaiwa】「どうしたんですか。元気がないですね。」「ええ、弟に 大切な 本を （　）。」",
+        "options": ["汚したんです", "汚れたんです", "汚されたんです", "汚すんです"],
+        "correctAnswerIndex": 2,
+        "explanation": "Ukasining xatti-harakati sababli kitobi kirlanganini bildirish: 「汚されたんです」."
+      }
+    ]
+  },
+  "38": {
+    "practice": [
+      {
+        "id": "ja-minna-l38-ex1",
+        "type": "multiple-choice",
+        "prompt": "Fe'lni gap egasiga aylantirish («...qilish qiziqarli») qolipi qaysi?\n「外国語を 勉強する（　）は 楽しいです。」",
+        "options": ["の", "こと", "もの", "よう"],
+        "correctAnswer": 0,
+        "explanation": "Fe'lni otlashtirish: V-普通形＋のは A です (勉強するのは 楽しいです)."
+      },
+      {
+        "id": "ja-minna-l38-ex2",
+        "type": "multiple-choice",
+        "prompt": "Yoqtirish, qobiliyat yoki tezlik sifatlari oldidan qaysi zarracha keladi?\n「わたしは 絵[え]を 描[か]く（　）が 好きです。」",
+        "options": ["こと", "の", "もの", "わけ"],
+        "correctAnswer": 1,
+        "explanation": "V-普通形＋のが 好き / 上手 / 下手 / 速い です."
+      },
+      {
+        "id": "ja-minna-l38-ex3",
+        "type": "multiple-choice",
+        "prompt": "Unutib qo'yish obyektini otlashtirish qolipi qaysi?\n「鍵[かぎ]を 掛[か]ける（　）を 忘れました。」",
+        "options": ["こと", "もの", "の", "ところ"],
+        "correctAnswer": 2,
+        "explanation": "Obyektni otlashtirish: V-普通形＋のを 忘れました (qulflashni unutibman)."
+      },
+      {
+        "id": "ja-minna-l38-ex4",
+        "type": "multiple-choice",
+        "prompt": "Xabardorlikni so'rash («...ekanini bilasizmi?») qolipi qaysi?\n「木村さんが 結婚した（　）を 知っていますか。」",
+        "options": ["こと", "もの", "わけ", "の"],
+        "correctAnswer": 3,
+        "explanation": "Voqelikdan xabardorlik: V-普通形＋のを 知っていますか."
+      },
+      {
+        "id": "ja-minna-l38-ex5",
+        "type": "multiple-choice",
+        "prompt": "Diqqat markazidagi narsani ajratib ko'rsatish qolipi qaysi?\n「わたしが 生まれた（　）は 小さな 村です。」",
+        "options": ["こと", "の", "もの", "ところ"],
+        "correctAnswer": 1,
+        "explanation": "Aniqlovchi o'rnida: 「私が 生まれた のは 小さな 村です」."
+      },
+      {
+        "id": "ja-minna-l38-ex6",
+        "type": "multiple-choice",
+        "prompt": "Na-sifatdan keyin «の» qanday ulanadi?\n「操作[そうさ]が （　）のは 便利です。」",
+        "options": ["簡単だ", "簡単で", "簡単な", "簡単に"],
+        "correctAnswer": 2,
+        "explanation": "Na-sifatda hozirgi zamon tasdiqda 「な」 ulanadi: 「簡単な のは」."
+      },
+      {
+        "id": "ja-minna-l38-ex7",
+        "type": "multiple-choice",
+        "prompt": "«入院 (にゅういん) します» fe'lining ma'nosi nima?",
+        "options": ["Kasalxonadan chiqmoq", "Dori ichmoq", "Davolamoq", "Kasalxonaga yotmoq"],
+        "correctAnswer": 3,
+        "explanation": "「入院します (にゅういんします)」 — kasalxonaga statsionar davolanishga yotmoq."
+      },
+      {
+        "id": "ja-minna-l38-ex8",
+        "type": "multiple-choice",
+        "prompt": "Kasalxonadan tuzalib chiqish qaysi fe'l?",
+        "options": ["退院します (たいいんします)", "入院します", "通院します", "退職します"],
+        "correctAnswer": 0,
+        "explanation": "Kasalxonadan chiqish — 「退院します (たいいんします)」."
+      },
+      {
+        "id": "ja-minna-l38-ex9",
+        "type": "multiple-choice",
+        "prompt": "Elektr yoki kalitni yoqish/ulash qaysi fe'l?\n「電源[でんげん]を （　）。」",
+        "options": ["切ります", "掛けます", "入れます", "消します"],
+        "correctAnswer": 2,
+        "explanation": "Quvvat/tokni ulash — 「電源を 入れます」 (o'chirish esa 切ります)."
+      },
+      {
+        "id": "ja-minna-l38-ex10",
+        "type": "multiple-choice",
+        "prompt": "«整理 (せいり) します» so'zining ma'nosi qaysi?",
+        "options": ["Buzmoq", "Yo'qotmoq", "Yig'ishtirmoq", "Tartibga solmoq / Saralamoq"],
+        "correctAnswer": 3,
+        "explanation": "「整理します (せいりします)」 — hujjat va ma'lumotlarni tartiblash, saralash."
+      }
+    ],
+    "test": [
+      {
+        "id": "ja-minna-l38-q1",
+        "question": "【Mondai 1: Moji/Goi】「海岸（かいがん）」の 読[よ]み方[かた]は どれですか。",
+        "options": ["うみがん", "かいきし", "かいがん", "うみきし"],
+        "correctAnswerIndex": 2,
+        "explanation": "「海岸」 ning to'g'ri o'qilishi: 「かいがん」 (dengiz sohili/qirg'og'i)."
+      },
+      {
+        "id": "ja-minna-l38-q2",
+        "question": "【Mondai 1: Moji/Goi】「書類（しょるい）」の 意[い]味[み]は どれですか。",
+        "options": ["Kitob", "Daftar", "Xat", "Hujjatlar / Qog'ozlar"],
+        "correctAnswerIndex": 3,
+        "explanation": "「書類 (しょるい)」 — rasmiy hujjatlar to'plami."
+      },
+      {
+        "id": "ja-minna-l38-q3",
+        "question": "【Mondai 1: Moji/Goi】「嘘（うそ）を つきます」の 意[い]味[み]は？",
+        "options": [
+          "Yolg'on gapirmoq / Aldamoq",
+          "Rost gapirmoq",
+          "Qasam ichmoq",
+          "Kechirim so'ramoq"
+        ],
+        "correctAnswerIndex": 0,
+        "explanation": "「嘘をつく」 — yolg'on gapirmoq."
+      },
+      {
+        "id": "ja-minna-l38-q4",
+        "question": "【Mondai 2: Bunpo】「一人で 旅行する（　）は 不安[ふあん]ですが、楽しいです。」",
+        "options": ["こと", "の", "もの", "わけ"],
+        "correctAnswerIndex": 1,
+        "explanation": "Mavzuni otlashtirish: 「旅行する のは」."
+      },
+      {
+        "id": "ja-minna-l38-q5",
+        "question": "【Mondai 2: Bunpo】「彼女は 歌を 歌う（　）が とても 上手です。」",
+        "options": ["こと", "もの", "よう", "の"],
+        "correctAnswerIndex": 3,
+        "explanation": "Qobiliyat (上手): 「歌う のが 上手です」."
+      },
+      {
+        "id": "ja-minna-l38-q6",
+        "question": "【Mondai 2: Bunpo】「牛乳を 買う（　）を 忘れて しまいました。」",
+        "options": ["の", "こと", "もの", "わけ"],
+        "correctAnswerIndex": 0,
+        "explanation": "Unutib qo'yish: 「買う のを 忘れました」."
+      },
+      {
+        "id": "ja-minna-l38-q7",
+        "question": "【Mondai 2: Bunpo】「来月 新しい 支社が できる（　）を 知っていますか。」",
+        "options": ["こと", "の", "もの", "よう"],
+        "correctAnswerIndex": 1,
+        "explanation": "Xabardorlik: 「できる のを 知っていますか」."
+      },
+      {
+        "id": "ja-minna-l38-q8",
+        "question": "【Mondai 3: Dokkai】「朝 早く 起きるのは 苦手ですが、毎朝 散歩する のは 気持ちが いいです。」 Nima haqida aytilmoqda?",
+        "options": [
+          "Ertalab turish unga oson",
+          "Kechasi uxlash yoqimli",
+          "Ertalab turish qiyin bo'lsa-da, ertalabki sayr juda yoqimli",
+          "Sayr qilishni yoqtirmaydi"
+        ],
+        "correctAnswerIndex": 2,
+        "explanation": "Barvaqt turish qiyin (苦手), lekin sayr yoqimli (気持ちがいい)."
+      },
+      {
+        "id": "ja-minna-l38-q9",
+        "question": "【Mondai 3: Dokkai】「私が 一番 欲しい のは、家族と ゆっくり 過ごす 時間です。」 So'zlovchi nimani eng ko'p xohlaydi?",
+        "options": [
+          "Oilasi bilan xotirjam vaqt o'tkazishni",
+          "Yangi uy sotib olishni",
+          "Ko'p pul topishni",
+          "Sayohatga yolg'iz ketishni"
+        ],
+        "correctAnswerIndex": 0,
+        "explanation": "「一番 欲しい のは、家族と ゆっくり 過ごす 時間です」."
+      },
+      {
+        "id": "ja-minna-l38-q10",
+        "question": "【Mondai 4: Kaiwa】「窓を 閉めるのを 忘れました。」 Eng mos javobni tanlang:",
+        "options": [
+          "おめでとうございます。",
+          "じゃあ、閉めて 来ましょう。",
+          "はい、忘れました。",
+          "どういたしまして。"
+        ],
+        "correctAnswerIndex": 1,
+        "explanation": "Yordam taklifi: 「じゃあ、閉めて 来ましょう」 (unda borib yopib kelay)."
+      }
+    ]
+  },
+  "39": {
+    "practice": [
+      {
+        "id": "ja-minna-l39-ex1",
+        "type": "multiple-choice",
+        "prompt": "His-tuyg'u uyg'otgan sabab qaysi shaklda bog'lanadi?\n「ニュースを （　）、びっくりしました。」",
+        "options": ["聞くので", "聞いたから", "聞けば", "聞いて"],
+        "correctAnswer": 3,
+        "explanation": "His-tuyg'u fe'llari (びっくりする, 安心する) oldidan sabab Te-shaklda keladi: 「聞いて びっくりしました」."
+      },
+      {
+        "id": "ja-minna-l39-ex2",
+        "type": "multiple-choice",
+        "prompt": "I-sifat sabab shaklida qanday ulanadi?\n「試験[しけん]が （　）、安心しました。」",
+        "options": ["易しくて", "易しいから", "易しいので", "易しければ"],
+        "correctAnswer": 0,
+        "explanation": "I-sifat sabab bo'lganda くて qo'yiladi: 「易しくて (oson bo'lgani uchun) 安心しました」."
+      },
+      {
+        "id": "ja-minna-l39-ex3",
+        "type": "multiple-choice",
+        "prompt": "Tabiiy ofat yoki hodisa sababida qaysi zarracha qo'yiladi?\n「地震[じしん]（　）ビルが 倒[たお]れました。」",
+        "options": ["に", "で", "を", "から"],
+        "correctAnswer": 1,
+        "explanation": "Ofat, avariya yoki kasallik sababi Ot ortidan 「で」 zarrachasi bilan keladi (地震で, 事故で)."
+      },
+      {
+        "id": "ja-minna-l39-ex4",
+        "type": "multiple-choice",
+        "prompt": "Xushmuomala sabab bog'lovchisi «〜ので» oldidan oddiy shakl qanday ulanadi?\n「用事[ようじ]が （　）ので、お先に 失礼します。」",
+        "options": ["あります", "あって", "ある", "あった"],
+        "correctAnswer": 2,
+        "explanation": "〜ので oldidan oddiy fe'l shakli keladi: 「用事が あるので」."
+      },
+      {
+        "id": "ja-minna-l39-ex5",
+        "type": "multiple-choice",
+        "prompt": "Na-sifatga «ので» qanday ulanadi?\n「操作[そうさ]が （　）ので、だれでも 使えます。」",
+        "options": ["簡単な", "簡単にな", "簡単だ", "簡単で"],
+        "correctAnswer": 0,
+        "explanation": "Hozirgi zamon tasdiqda Na-sifat va Otga 「な」 qo'shiladi: 「簡単な ので」."
+      },
+      {
+        "id": "ja-minna-l39-ex6",
+        "type": "multiple-choice",
+        "prompt": "«〜から» va «〜ので» o'rtasidagi farq qaysi?",
+        "options": [
+          "〜ので faqat inkor fe'llar bilan keladi",
+          "〜から shaxsiy sabab, 〜ので muloyim va obyektiv sabab",
+          "Ikkalasi har doim bir xil",
+          "〜から faqat ob-havoda ishlatiladi"
+        ],
+        "correctAnswer": 1,
+        "explanation": "〜ので yumshoq va obyektiv sabab bo'lib, iltimos yoki kechirim so'rashda juda xushmuomala eshitiladi."
+      },
+      {
+        "id": "ja-minna-l39-ex7",
+        "type": "multiple-choice",
+        "prompt": "«がっかりします» fe'lining ma'nosi nima?",
+        "options": [
+          "Xursand bo'lmoq",
+          "Qo'rqib ketmoq",
+          "Hafsala pir bo'lmoq / Tushkunlikka tushmoq",
+          "Charchamoq"
+        ],
+        "correctAnswer": 2,
+        "explanation": "「がっかりします」 — umid oqlanmay hafsala pir bo'lish."
+      },
+      {
+        "id": "ja-minna-l39-ex8",
+        "type": "multiple-choice",
+        "prompt": "«安心 (あんしん) します» fe'lining ma'nosi qaysi?",
+        "options": [
+          "Xavotir olmoq",
+          "Qo'rqmoq",
+          "G'azablanmoq",
+          "Xotirjam bo'lmoq / Ko'ngli joyiga tushmoq"
+        ],
+        "correctAnswer": 3,
+        "explanation": "「安心します」 — xavf yoki xavotir ortda qolib yengil tortish."
+      },
+      {
+        "id": "ja-minna-l39-ex9",
+        "type": "multiple-choice",
+        "prompt": "Ishdan ruxsat olib erta ketish qaysi so'z?",
+        "options": [
+          "遅刻 (ちこく) します",
+          "早退 (そうたい) します",
+          "欠勤 (けっきん) します",
+          "退職 (たいしょく) します"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Vaqtidan erta ketish — 「早退します (そうたいします)」."
+      },
+      {
+        "id": "ja-minna-l39-ex10",
+        "type": "multiple-choice",
+        "prompt": "«邪魔 (じゃま) な» so'zining ma'nosi qaysi?",
+        "options": ["Foydali", "Toza", "Xalaqit beruvchi / Ortiqcha to'siq", "Xushbichim"],
+        "correctAnswer": 2,
+        "explanation": "「邪魔な (じゃまな)」 — yo'lni to'sib turgan yoki xalaqit qiluvchi narsa."
+      }
+    ],
+    "test": [
+      {
+        "id": "ja-minna-l39-q1",
+        "question": "【Mondai 1: Moji/Goi】「倒（たお）れます」の 意[い]味[み]は どれですか。",
+        "options": ["Qurilmoq", "Yiqilmoq / Qulamoq (bino, daraxt)", "Buzilmoq", "Yonmoq"],
+        "correctAnswerIndex": 1,
+        "explanation": "「倒れます (たおれます)」 — daraxt yoki binoning qulab tushishi."
+      },
+      {
+        "id": "ja-minna-l39-q2",
+        "question": "【Mondai 1: Moji/Goi】「複雑（ふくざつ）な」の 反対（はんたい）の 言葉は？",
+        "options": [
+          "困難（こんなん）な",
+          "危険（きけん）な",
+          "単純（たんじゅん）な",
+          "大切（たいせつ）な"
+        ],
+        "correctAnswerIndex": 2,
+        "explanation": "Murakkab (複雑な) ning aksi — oddiy, sodda (単純な)."
+      },
+      {
+        "id": "ja-minna-l39-q3",
+        "question": "【Mondai 1: Moji/Goi】「お見舞（みま）い」の 意[い]味[み]は どれですか。",
+        "options": [
+          "To'y sovg'asi",
+          "Tug'ilgan kun",
+          "Sayohat xotirasi",
+          "Bemor holidan xabar olish"
+        ],
+        "correctAnswerIndex": 3,
+        "explanation": "「お見舞い (おみまい)」 — kasal kishini ko'rgani borish yoki dalda sovg'asi."
+      },
+      {
+        "id": "ja-minna-l39-q4",
+        "question": "【Mondai 2: Bunpo】「家族の 写真を （　）、国を 思い出しました。」",
+        "options": ["見て", "見ると", "見れば", "見たら"],
+        "correctAnswerIndex": 0,
+        "explanation": "Xotira va his-tuyg'u sababi: 「見て、思い出しました」."
+      },
+      {
+        "id": "ja-minna-l39-q5",
+        "question": "【Mondai 2: Bunpo】「事故（　）電車が 止まって しまいました。」",
+        "options": ["に", "を", "で", "から"],
+        "correctAnswerIndex": 2,
+        "explanation": "Hodisa sababi: 「事故で」."
+      },
+      {
+        "id": "ja-minna-l39-q6",
+        "question": "【Mondai 2: Bunpo】「明日 テストが （　）ので、今日は 早く 帰ります。」",
+        "options": ["あって", "あった", "あり", "ある"],
+        "correctAnswerIndex": 3,
+        "explanation": "Muloyim sabab: 「ある ので」."
+      },
+      {
+        "id": "ja-minna-l39-q7",
+        "question": "【Mondai 2: Bunpo】「気分が （　）ので、少し 休んでも いいですか。」",
+        "options": ["悪い", "悪くて", "悪な", "悪かった"],
+        "correctAnswerIndex": 0,
+        "explanation": "I-sifat oddiy shakl: 「悪い ので」."
+      },
+      {
+        "id": "ja-minna-l39-q8",
+        "question": "【Mondai 3: Dokkai】「強い 台風の 影響[えいきょう]で、本日の 飛行機は すべて 欠航[けっこう]と なりました。」 Samolyotlar nega uchmadi?",
+        "options": [
+          "Yo'lovchilar kamligi sababli",
+          "Kuchli tayfun ta'siri sababli barcha parvozlar bekor qilindi",
+          "Texnik nosozlik tufayli",
+          "Uchuvchilar kelmagani uchun"
+        ],
+        "correctAnswerIndex": 1,
+        "explanation": "「強い 台風の 影響で (kuchli tayfun oqibatida) 欠航 (parvoz bekor)."
+      },
+      {
+        "id": "ja-minna-l39-q9",
+        "question": "【Mondai 3: Dokkai】「合格の 知らせを 聞いて、家族みんなで 飛び上がって 喜びました。」 Oila a'zolari nega quvondi?",
+        "options": [
+          "Yangi mashina sotib olib",
+          "Uzoq safarga ketib",
+          "Kasalxonadan chiqib",
+          "Imtihondan o'tganlik xabarini eshitib"
+        ],
+        "correctAnswerIndex": 3,
+        "explanation": "「合格の 知らせを 聞いて (o'tganlik xabarini eshitib)」 quvondi."
+      },
+      {
+        "id": "ja-minna-l39-q10",
+        "question": "【Mondai 4: Kaiwa】「遅れて すみません。道が 混んでいたものですから。」 Eng mos javobni tanlang:",
+        "options": [
+          "いいえ、大変でしたね。",
+          "おめでとうございます。",
+          "はい、混んでいました。",
+          "どういたしまして。"
+        ],
+        "correctAnswerIndex": 0,
+        "explanation": "Kechikish sababini tushunib qabul qilish: 「いいえ、大変でしたね」 (yo'g'-e, qiynalibsiz-da)."
+      }
+    ]
+  },
+  "40": {
+    "practice": [
+      {
+        "id": "ja-minna-l40-ex1",
+        "type": "multiple-choice",
+        "prompt": "Gap ichiga so'roq gapni kiritish qolipi qaysi?\n「会議が 何時に 始まる（　）、教えて ください。」",
+        "options": ["かどうか", "のを", "か", "ので"],
+        "correctAnswer": 2,
+        "explanation": "So'roq so'zli gap (何時) ichki ergash gap bo'lganda 「か」 qo'yiladi: 「始まるか」."
+      },
+      {
+        "id": "ja-minna-l40-ex2",
+        "type": "multiple-choice",
+        "prompt": "«...yoki yo'qligi» (ha/yo'q savoli) kiritilganda qaysi qo'yiladi?\n「間違いが ない（　）、確かめて ください。」",
+        "options": ["か", "のか", "ので", "かどうか"],
+        "correctAnswer": 3,
+        "explanation": "So'roq olmoshisiz gapda: 「普通形＋かどうか」 (xato bor-yo'qligini tekshiring)."
+      },
+      {
+        "id": "ja-minna-l40-ex3",
+        "type": "multiple-choice",
+        "prompt": "Biror narsani sinab ko'rish ifodasi qaysi?\n「この 服を着て （　）も いいですか。」",
+        "options": ["みて", "おいて", "しまって", "あって"],
+        "correctAnswer": 0,
+        "explanation": "Sinab ko'rish: 「V-て形＋みます」 (kiyib ko'rsam maylimi?)."
+      },
+      {
+        "id": "ja-minna-l40-ex4",
+        "type": "multiple-choice",
+        "prompt": "«確かめます (たしかめます)» fe'lining ma'nosi nima?",
+        "options": ["Aniq hisoblamoq", "Tekshirmoq / Aniq bilib olmoq", "Qidirmoq", "Topshirmoq"],
+        "correctAnswer": 1,
+        "explanation": "「確かめます (たしかめます)」 — aniqlamoq, ishonch hosil qilish uchun tekshirmoq."
+      },
+      {
+        "id": "ja-minna-l40-ex5",
+        "type": "multiple-choice",
+        "prompt": "«出発 (しゅっぱつ) します» ning ziddi qaysi fe'l?",
+        "options": ["出発します", "散歩します", "通います", "到着 (とうちゃく) します"],
+        "correctAnswer": 3,
+        "explanation": "Jo'nab ketish (出発) ning ziddi — yetib kelish (到着)."
+      },
+      {
+        "id": "ja-minna-l40-ex6",
+        "type": "multiple-choice",
+        "prompt": "«酔[よ]います» qaysi vaziyatlarda ishlatiladi?",
+        "options": [
+          "Mast bo'lish yoki transportda ko'ngil aynishi",
+          "Faqat yiqilish",
+          "Faqat kasal bo'lish",
+          "Xursand bo'lish"
+        ],
+        "correctAnswer": 0,
+        "explanation": "「酔います」 — 1. spirtli ichimlikdan mast bo'lish; 2. mashina/kema chayqashidan ko'ngil aynishi (車に酔う)."
+      },
+      {
+        "id": "ja-minna-l40-ex7",
+        "type": "multiple-choice",
+        "prompt": "Kiyim o'lchami mos kelishiga qaysi fe'l ishlatiladi?\n「サイズが （　）。」",
+        "options": ["会います", "合います (あいます)", "集まります", "開きます"],
+        "correctAnswer": 1,
+        "explanation": "O'lcham yoki talabning mos tushishi — 「合います (あいます)」."
+      },
+      {
+        "id": "ja-minna-l40-ex8",
+        "type": "multiple-choice",
+        "prompt": "Uzunlik yoki og'irlikni o'lchash fe'li qaysi?",
+        "options": ["数えます", "払います", "測ります / 計ります (はかります)", "調べます"],
+        "correctAnswer": 2,
+        "explanation": "O'lchash — 「測ります / 計ります (はかります)」."
+      },
+      {
+        "id": "ja-minna-l40-ex9",
+        "type": "multiple-choice",
+        "prompt": "Soni yoki donasini hisoblash qaysi fe'l?",
+        "options": ["数えます (かぞえます)", "答えます", "教えます", "覚えます"],
+        "correctAnswer": 0,
+        "explanation": "Sanamoq — 「数えます (かぞえます)」."
+      },
+      {
+        "id": "ja-minna-l40-ex10",
+        "type": "multiple-choice",
+        "prompt": "«忘年会 (ぼうねんかい)» nima?",
+        "options": [
+          "Yangi yil ertalabki marosimi",
+          "Yil oxiridagi bayram kechasi",
+          "Kutubxona tadbiri",
+          "Majlis"
+        ],
+        "correctAnswer": 1,
+        "explanation": "「忘年会 (ぼうねんかい)」 — yil yakunida o'tgan yilni xotirlab o'tkaziladigan yapon do'stona kechasi."
+      }
+    ],
+    "test": [
+      {
+        "id": "ja-minna-l40-q1",
+        "question": "【Mondai 1: Moji/Goi】「表（おもて）」の 反対（はんたい）の 言葉は？",
+        "options": ["裏（うら）", "上（うえ）", "下（した）", "中（なか）"],
+        "correctAnswerIndex": 0,
+        "explanation": "Old tomon (表) ning ziddi — orqa tomon / teskari tomon (裏 - うら)."
+      },
+      {
+        "id": "ja-minna-l40-q2",
+        "question": "【Mondai 1: Moji/Goi】「返事（へんじ）」の 意[い]味[み]は どれですか。",
+        "options": ["Savol", "Javob (chaqiruvga / xatga)", "Xato", "Maktub"],
+        "correctAnswerIndex": 1,
+        "explanation": "「返事 (へんじ)」 — chaqirilganda yoki xatga beriladigan javob."
+      },
+      {
+        "id": "ja-minna-l40-q3",
+        "question": "【Mondai 1: Moji/Goi】「傷（きず）」の 意[い]味[み]は どれですか。",
+        "options": ["Dori", "Shifoxona", "Yara / Jarohat / Tirnalish", "Sovg'a"],
+        "correctAnswerIndex": 2,
+        "explanation": "「傷 (きず)」 — jarohat yoki buyumdagi tirnalgan joy."
+      },
+      {
+        "id": "ja-minna-l40-q4",
+        "question": "【Mondai 2: Bunpo】「どこに 鍵を 置いた（　）、思い出せません。」",
+        "options": ["かどうか", "ので", "のに", "か"],
+        "correctAnswerIndex": 3,
+        "explanation": "So'roq so'z (どこ): 「置いたか、思い出せません」."
+      },
+      {
+        "id": "ja-minna-l40-q5",
+        "question": "【Mondai 2: Bunpo】「明日 パーティーに 行ける（　）、まだ わかりません。」",
+        "options": ["か", "かどうか", "ので", "なら"],
+        "correctAnswerIndex": 1,
+        "explanation": "Ha/yo'q savoli: 「行けるかどうか」."
+      },
+      {
+        "id": "ja-minna-l40-q6",
+        "question": "【Mondai 2: Bunpo】「日本の お酒を 飲んで （　）たいです。」",
+        "options": ["おき", "しまい", "み", "あり"],
+        "correctAnswerIndex": 2,
+        "explanation": "Sinab ko'rish istagi: 「飲んで みたいです」."
+      },
+      {
+        "id": "ja-minna-l40-q7",
+        "question": "【Mondai 2: Bunpo】「荷物の 重さを （　）みます。」",
+        "options": ["数えて", "調べて", "確かめて", "測って"],
+        "correctAnswerIndex": 3,
+        "explanation": "Og'irlikni o'lchash: 「測って みます」."
+      },
+      {
+        "id": "ja-minna-l40-q8",
+        "question": "【Mondai 3: Dokkai】「サイズが 合うかどうか、試着室[しちゃくしつ]で 着て みて ください。」 Xaridorga nima tavsiya etildi?",
+        "options": [
+          "O'lchami mos kelishini kiyinish xonasida kiyib ko'rish",
+          "Darhol kiyimni sotib olish",
+          "Kiyimni boshqa do'kondan qidirish",
+          "Puli to'lash"
+        ],
+        "correctAnswerIndex": 0,
+        "explanation": "「サイズが 合うかどうか、着て みて ください」 — kiyib ko'ring."
+      },
+      {
+        "id": "ja-minna-l40-q9",
+        "question": "【Mondai 3: Dokkai】「忘年会に 参加[さんか]するかどうか、金曜日までに 返事を して ください。」 Nima qilish kerak?",
+        "options": [
+          "Juma kuni mehmonga borish",
+          "Bekor qilish",
+          "Juma kunigacha tadbirda qatnashish-qatnashmasligini xabar qilish",
+          "Pulini to'lash"
+        ],
+        "correctAnswerIndex": 2,
+        "explanation": "Qatnashish-qatnashmaslik javobini jumagacha yetkazish kerak."
+      },
+      {
+        "id": "ja-minna-l40-q10",
+        "question": "【Mondai 4: Kaiwa】「この 靴[くつ]、履[は]いて みても いいですか。」 店員の 返事として 最も よいものは？",
+        "options": [
+          "いいえ、履きません。",
+          "靴です。",
+          "どういたしまして。",
+          "はい、どうぞ お履き ください。"
+        ],
+        "correctAnswerIndex": 3,
+        "explanation": "Do'kon xodimining xushmuomala ruxsati: 「はい、どうぞ お履き ください」."
+      }
+    ]
+  },
+  "41": {
+    "practice": [
+      {
+        "id": "ja-minna-l41-ex1",
+        "type": "multiple-choice",
+        "prompt": "Ustoz yoki kattalardan sovg'a qabul qilganda qaysi fe'l ishlatiladi?\n「わたしは 先生に 本を （　）。」",
+        "options": ["もらいました", "いただきました", "あげました", "くれました"],
+        "correctAnswer": 1,
+        "explanation": "もらう ning oliy hurmat shakli — 「いただく (いただきました)」."
+      },
+      {
+        "id": "ja-minna-l41-ex2",
+        "type": "multiple-choice",
+        "prompt": "Boshliq menga biror narsa berganda qaysi fe'l qo'yiladi?\n「社長[しゃちょう]が わたしに 時計を （　）。」",
+        "options": ["くれました", "いただきました", "くださいました", "やりました"],
+        "correctAnswer": 2,
+        "explanation": "くれる ning hurmat shakli — 「くださる (くださいました)」."
+      },
+      {
+        "id": "ja-minna-l41-ex3",
+        "type": "multiple-choice",
+        "prompt": "Kichiklarga, hayvonlarga yoki o'simliklarga berishda qaysi fe'l ishlatiladi?\n「花に 水を （　）。」",
+        "options": ["あげました", "いただきました", "くれました", "やりました"],
+        "correctAnswer": 3,
+        "explanation": "O'simlikka suv quyish yoki hayvonga ozuqa berish — 「やる (やりました)」."
+      },
+      {
+        "id": "ja-minna-l41-ex4",
+        "type": "multiple-choice",
+        "prompt": "Ustozdan dars olib yordam qabul qilish ifodasi qaysi?\n「先生に 文法を 教えて （　）。」",
+        "options": ["いただきました", "あげました", "やりました", "くれました"],
+        "correctAnswer": 0,
+        "explanation": "Hurmatli kishidan yordam olish: 「〜て いただきました」."
+      },
+      {
+        "id": "ja-minna-l41-ex5",
+        "type": "multiple-choice",
+        "prompt": "Boshliq shaxsan biz uchun yaxshilik qilib bergan holat qaysi?\n「部長が 空港まで 車で 送って （　）。」",
+        "options": ["くれました", "いただきました", "くださいました", "やりました"],
+        "correctAnswer": 2,
+        "explanation": "Hurmatli kishining biz uchun harakati: 「〜て くださいました」."
+      },
+      {
+        "id": "ja-minna-l41-ex6",
+        "type": "multiple-choice",
+        "prompt": "Juda xushmuomala iltimos shakli qaysi?\n「コピーの 使い方が わからないので、教えて （　）。」",
+        "options": ["ください", "ちょうだい", "くれ", "くださいませんか"],
+        "correctAnswer": 3,
+        "explanation": "Eng muloyim iltimos shakllaridan biri: 「〜て くださいませんか」."
+      },
+      {
+        "id": "ja-minna-l41-ex7",
+        "type": "multiple-choice",
+        "prompt": "Bolaga qiziqarli kitob o'qib berish qaysi?\n「息子[むすこ]に 絵本を 読んで （　）。」",
+        "options": ["やりました", "いただきました", "くださいました", "もらいました"],
+        "correctAnswer": 0,
+        "explanation": "O'z farzandiga/kichiklarga ezgulik qilib berish: 「〜て やりました」."
+      },
+      {
+        "id": "ja-minna-l41-ex8",
+        "type": "multiple-choice",
+        "prompt": "«お年玉 (おとしだま)» nima?",
+        "options": [
+          "Tug'ilgan kun sovg'asi",
+          "Yaponiyada Yangi yilda bolalarga beriladigan pul sovg'asi",
+          "To'y puli",
+          "Kasalxona sovg'asi"
+        ],
+        "correctAnswer": 1,
+        "explanation": "「お年玉 (おとしだま)」 — yapon an'anasida Yangi yilda kattalar bolalarga beradigan maxsus pul sovg'asi."
+      },
+      {
+        "id": "ja-minna-l41-ex9",
+        "type": "multiple-choice",
+        "prompt": "«興味 (きょうみ) が あります» iborasining ma'nosi qaysi?",
+        "options": ["Xavotiri bor", "Shubhasi bor", "Qo'rquvi bor", "Qiziqishi bor"],
+        "correctAnswer": 3,
+        "explanation": "「興味がある」 — biror sohaga qiziqish bildirmoq."
+      },
+      {
+        "id": "ja-minna-l41-ex10",
+        "type": "multiple-choice",
+        "prompt": "«お祝い (おいわい)» so'zining ma'nosi nima?",
+        "options": ["Tabrik sovg'asi / Qutlov", "Kechirim so'rash", "Xayrlashuv", "Maslahat"],
+        "correctAnswer": 0,
+        "explanation": "「お祝い」 — to'y, tug'ilgan kun kabi bayram tabrigi va hadyasi."
+      }
+    ],
+    "test": [
+      {
+        "id": "ja-minna-l41-q1",
+        "question": "【Mondai 1: Moji/Goi】「珍（めずら）しい」の 意[い]味[み]は どれですか。",
+        "options": ["Oddiy", "Katta", "Qimmat", "Nodir / Kamyob / Qiziq"],
+        "correctAnswerIndex": 3,
+        "explanation": "「珍しい」 — kamdan-kam ko'riladigan, nodir."
+      },
+      {
+        "id": "ja-minna-l41-q2",
+        "question": "【Mondai 1: Moji/Goi】「猿（さる）」に えさを （　）。",
+        "options": ["やりました", "いただきました", "くださいました", "もらいしました"],
+        "correctAnswerIndex": 0,
+        "explanation": "Hayvonga yemish berish: 「えさを やりました」."
+      },
+      {
+        "id": "ja-minna-l41-q3",
+        "question": "【Mondai 1: Moji/Goi】「発音（はつおん）」の 意[い]味[み]は どれですか。",
+        "options": ["Imlo qoidasi", "Talaffuz", "Tovush balandligi", "Tezlik"],
+        "correctAnswerIndex": 1,
+        "explanation": "「発音 (はつおん)」 — tovushlarning talaffuz qilinishi."
+      },
+      {
+        "id": "ja-minna-l41-q4",
+        "question": "【Mondai 2: Bunpo】「先生、この 手紙の 漢字を 直して （　）。」",
+        "options": ["やりませんか", "あげませんか", "いただけませんか", "くれませんか"],
+        "correctAnswerIndex": 2,
+        "explanation": "Ustozdan iltimos: 「直して いただけませんか」."
+      },
+      {
+        "id": "ja-minna-l41-q5",
+        "question": "【Mondai 2: Bunpo】「社長の 奥様が お茶を （　）。」",
+        "options": ["くださいました", "いただきました", "やりました", "あげました"],
+        "correctAnswerIndex": 0,
+        "explanation": "Hurmatli shaxs berdi: 「くださいました」."
+      },
+      {
+        "id": "ja-minna-l41-q6",
+        "question": "【Mondai 2: Bunpo】「犬を 散歩に 連れて 行って （　）。」",
+        "options": ["いただきました", "やりました", "くださいました", "もらいました"],
+        "correctAnswerIndex": 1,
+        "explanation": "Uy hayvonini aylantirish: 「行って やりました」."
+      },
+      {
+        "id": "ja-minna-l41-q7",
+        "question": "【Mondai 2: Bunpo】「わたしは 先輩[せんぱい]に 辞書を （　）。」",
+        "options": ["くださいました", "やりました", "いただきました", "あげました"],
+        "correctAnswerIndex": 2,
+        "explanation": "Kattalardan qabul qilib oldim: 「いただきました」."
+      },
+      {
+        "id": "ja-minna-l41-q8",
+        "question": "【Mondai 3: Dokkai】「日本へ 来たばかりの とき、田中さんが 色々な 手続きを 手伝って くださいました。」 Tanaka nima qildi?",
+        "options": [
+          "Hech narsa qilmadi",
+          "Pul qarz berdi",
+          "Yaponiyadan qaytib ketdi",
+          "Yaponiyaga endi kelgan paytda turli rasmiylashtirish ishlarida samimiy yordam berdi"
+        ],
+        "correctAnswerIndex": 3,
+        "explanation": "「手伝って くださいました」 — beg'araz yordam qilib bergan."
+      },
+      {
+        "id": "ja-minna-l41-q9",
+        "question": "【Mondai 3: Dokkai】「お正月に 祖父[そふ]から お年玉を いただいて、大切に 貯金しました。」 Pulni nima qildi?",
+        "options": [
+          "Hammasini sarfladi",
+          "Bobosidan olgan Yangi yil hadyasini ehtiyotlab jamg'arib qo'ydi",
+          "Yo'qotib qo'ydi",
+          "Do'stiga berdi"
+        ],
+        "correctAnswerIndex": 1,
+        "explanation": "Bobosidan sovg'a oldi (いただいて) va jamg'ardi (貯金しました)."
+      },
+      {
+        "id": "ja-minna-l41-q10",
+        "question": "【Mondai 4: Kaiwa】「素敵な ネクタイですね。」「ありがとうございます。部長が （　）んです。」",
+        "options": ["いただいた", "やった", "くださった", "あげた"],
+        "correctAnswerIndex": 2,
+        "explanation": "Boshliq menga sovg'a qilgan: 「部長が くださった んです」."
+      }
+    ]
+  },
+  "42": {
+    "practice": [
+      {
+        "id": "ja-minna-l42-ex1",
+        "type": "multiple-choice",
+        "prompt": "Aniq ixtiyoriy maqsad («...uchun») qolipi qaysi?\n「自分の 店を 持つ（　）、貯金して います。」",
+        "options": ["ために", "ように", "のに", "ので"],
+        "correctAnswer": 0,
+        "explanation": "Ixtiyoriy aniq maqsad: V-辞書形＋ために (o'z do'konimga ega bo'lish uchun)."
+      },
+      {
+        "id": "ja-minna-l42-ex2",
+        "type": "multiple-choice",
+        "prompt": "Ot so'z turkumiga «ために» qanday ulanadi?\n「家族[かぞく]（　）ために、一生懸命[いっしょうけんめい] 働きます。」",
+        "options": ["な", "の", "に", "で"],
+        "correctAnswer": 1,
+        "explanation": "Ot bilan birikishi: 「家族の ために」 (oila manfaati uchun)."
+      },
+      {
+        "id": "ja-minna-l42-ex3",
+        "type": "multiple-choice",
+        "prompt": "Buyumning qo'llanilish sohasi/vazifasini bildirish qolipi qaysi?\n「この ハサミは 花を 切る（　）使います。」",
+        "options": ["ために", "ように", "のに", "ので"],
+        "correctAnswer": 2,
+        "explanation": "Foydalanish vazifasi: V-辞書形＋のに 使います (gul qirqish uchun ishlatiladi)."
+      },
+      {
+        "id": "ja-minna-l42-ex4",
+        "type": "multiple-choice",
+        "prompt": "Baholash sifati («qulay / oson») bilan «のに» qolipi qaysi?\n「この カバンは 旅行に 行く（　）便利です。」",
+        "options": ["ために", "ように", "ので", "のに"],
+        "correctAnswer": 3,
+        "explanation": "Baholash: V-辞書形＋のに 便利です (sayohatga borish uchun juda qulay)."
+      },
+      {
+        "id": "ja-minna-l42-ex5",
+        "type": "multiple-choice",
+        "prompt": "Sarflanadigan vaqt va xarajat ifodasi qaysi?\n「家を 建てる（　）3年 かかりました。」",
+        "options": ["ために", "のに", "ように", "ので"],
+        "correctAnswer": 1,
+        "explanation": "Vaqt/mablag' sarfi: V-辞書形＋のに 時間 / お金 が かかります."
+      },
+      {
+        "id": "ja-minna-l42-ex6",
+        "type": "multiple-choice",
+        "prompt": "«沸[わ]かします» qaysi so'z bilan birikadi?",
+        "options": ["ご飯", "魚", "お湯[ゆ]", "肉"],
+        "correctAnswer": 2,
+        "explanation": "Suv qaynatish — 「お湯を 沸かします」."
+      },
+      {
+        "id": "ja-minna-l42-ex7",
+        "type": "multiple-choice",
+        "prompt": "«包[つつ]みます» fe'lining ma'nosi nima?",
+        "options": ["Ochmoq", "Yirtmoq", "Qaynatmoq", "O'ramoq / O'rab qo'ymoq"],
+        "correctAnswer": 3,
+        "explanation": "«包みます (つつみます)» — sovg'a yoki narsani qog'oz/matoga o'ramoq."
+      },
+      {
+        "id": "ja-minna-l42-ex8",
+        "type": "multiple-choice",
+        "prompt": "Konserva ochadigan asbob qaysi?",
+        "options": ["缶切[かんき]り", "栓抜[せんぬ]き", "やかん", "ミキサー"],
+        "correctAnswer": 0,
+        "explanation": "Konserva ochqich — 「缶切り (かんきり)」 (栓抜き esa shisha qopqog'ini ochqich)."
+      },
+      {
+        "id": "ja-minna-l42-ex9",
+        "type": "multiple-choice",
+        "prompt": "«計算 (けいさん) します» so'zining ma'nosi qaysi?",
+        "options": ["To'lamoq", "Sanamoq", "Hisoblamoq / Hisob-kitob qilmoq", "Yozmoq"],
+        "correctAnswer": 2,
+        "explanation": "«計算します» — matematik hisob-kitob qilmoq."
+      },
+      {
+        "id": "ja-minna-l42-ex10",
+        "type": "multiple-choice",
+        "prompt": "«弁護士 (べんごし)» qanday kasb egasi?",
+        "options": ["Shifokor", "Muhandis", "O'qituvchi", "Advokat / Huquqshunos"],
+        "correctAnswer": 3,
+        "explanation": "«弁護士 (べんごし)» — advokat."
+      }
+    ],
+    "test": [
+      {
+        "id": "ja-minna-l42-q1",
+        "question": "【Mondai 1: Moji/Goi】「法律（ほうりつ）」の 読[よ]み方[かた]は どれですか。",
+        "options": ["ほうりく", "ほりつ", "ほうりつ", "ほうりき"],
+        "correctAnswerIndex": 2,
+        "explanation": "「法律」 ning to'g'ri o'qilishi: 「ほうりつ」 (qonun)."
+      },
+      {
+        "id": "ja-minna-l42-q2",
+        "question": "【Mondai 1: Moji/Goi】「混（ま）ぜます」の 意[い]味[み]は どれですか。",
+        "options": ["Bo'lmoq", "Pishirmoq", "Yuvmoq", "Aralashtirmoq"],
+        "correctAnswerIndex": 3,
+        "explanation": "「混ぜます (まぜます)」 — qorishmoq, aralashtirmoq."
+      },
+      {
+        "id": "ja-minna-l42-q3",
+        "question": "【Mondai 1: Moji/Goi】「平和（へいわ）」の 反対（はんたい）の 言葉は？",
+        "options": ["戦争（せんそう）", "喧嘩（けんか）", "危険（きけん）", "事件（じけん）"],
+        "correctAnswerIndex": 0,
+        "explanation": "Tinchlik (平和) ning ziddi — urush (戦争 - せんそう)."
+      },
+      {
+        "id": "ja-minna-l42-q4",
+        "question": "【Mondai 2: Bunpo】「留学（　）ために、一生懸命 アルバイトを しています。」",
+        "options": ["の", "する", "な", "に"],
+        "correctAnswerIndex": 1,
+        "explanation": "Fe'l: 「留学する ために」 (o'qishga ketish uchun)."
+      },
+      {
+        "id": "ja-minna-l42-q5",
+        "question": "【Mondai 2: Bunpo】「健康（　）ために、毎朝 歩いています。」",
+        "options": ["な", "に", "で", "の"],
+        "correctAnswerIndex": 3,
+        "explanation": "Ot bilan birikishi: 「健康の ために」."
+      },
+      {
+        "id": "ja-minna-l42-q6",
+        "question": "【Mondai 2: Bunpo】「この やかんは お湯を 沸かす（　）使います。」",
+        "options": ["のに", "ために", "ように", "ので"],
+        "correctAnswerIndex": 0,
+        "explanation": "V-辞書形＋のに 使います: 「沸かす のに」."
+      },
+      {
+        "id": "ja-minna-l42-q7",
+        "question": "【Mondai 2: Bunpo】「駅前の スーパーは 買い物（　）とても 便利です。」",
+        "options": ["で", "に", "を", "と"],
+        "correctAnswerIndex": 1,
+        "explanation": "Ot＋に 便利です: 「買い物に 便利です」."
+      },
+      {
+        "id": "ja-minna-l42-q8",
+        "question": "【Mondai 3: Dokkai】「新しい 空港を 造るのに 10年以上の 歳月[さいげつ]と 多額[たがく]の 費用[ひよう]が かかりました。」 Aeroport qurilishi haqida nima to'g'ri?",
+        "options": [
+          "10 kunda qurildi",
+          "Hech qanday xarajat ketmadi",
+          "Qurilish uchun 10 yildan ortiq vaqt va juda katta mablag' sarflandi",
+          "Hali qurib bitkazilmadi"
+        ],
+        "correctAnswerIndex": 2,
+        "explanation": "10 yildan ko'p vaqt va katta xarajat ketganligi bildirilgan."
+      },
+      {
+        "id": "ja-minna-l42-q9",
+        "question": "【Mondai 3: Dokkai】「弁護士に なるために、毎晩 夜遅くまで 法律の 勉強を 続けています。」 Bu shaxsning maqsadi nima?",
+        "options": ["Advokat bo'lish", "Sudya bo'lish", "Chet elga ketish", "Kompaniya ochish"],
+        "correctAnswerIndex": 0,
+        "explanation": "「弁護士に なるために」 — advokat bo'lish maqsadi."
+      },
+      {
+        "id": "ja-minna-l42-q10",
+        "question": "【Mondai 4: Kaiwa】「この はさみは 何に 使うんですか。」 Eng mos javobni tanlang:",
+        "options": [
+          "はい、使いました。",
+          "硬い 物を 切るのに 使います。",
+          "はさみです。",
+          "どういたしまして。"
+        ],
+        "correctAnswerIndex": 1,
+        "explanation": "Qo'llanish maqsadi: 「硬い 物を 切るのに 使います」."
+      }
+    ]
+  },
+  "43": {
+    "practice": [
+      {
+        "id": "ja-minna-l43-ex1",
+        "type": "multiple-choice",
+        "prompt": "Ko'rinishidan qandaydir hodisa yuz beradigandek tuyulishi qaysi?\n「今にも 雨が （　）そうです。」",
+        "options": ["降る", "降った", "降って", "降り"],
+        "correctAnswer": 3,
+        "explanation": "Fe'lning Masu-asosi＋そうです: 降ります -> 「降りそうです」 (yog'adiganga o'xshaydi)."
+      },
+      {
+        "id": "ja-minna-l43-ex2",
+        "type": "multiple-choice",
+        "prompt": "I-sifatdan tashqi ko'rinish tuyg'usi qanday yasaladi?\n「この ケーキは （　）そうです。」",
+        "options": ["おいし", "おいしい", "おいしくて", "おいしかった"],
+        "correctAnswer": 0,
+        "explanation": "I-sifatda oxirgi い tushib qoladi: おいしい -> 「おいしそうです」 (mazaliga o'xshaydi)."
+      },
+      {
+        "id": "ja-minna-l43-ex3",
+        "type": "multiple-choice",
+        "prompt": "«いい (yaxshi)» sifatining «〜そうです» shakli qaysi?",
+        "options": ["いいそう", "よさそう", "よいそう", "いくそう"],
+        "correctAnswer": 1,
+        "explanation": "«いい» ning asosi «よい» bo'lib, maxsus qoida bo'yicha 「よさそうです」 bo'ladi."
+      },
+      {
+        "id": "ja-minna-l43-ex4",
+        "type": "multiple-choice",
+        "prompt": "Biror narsani borib qilib qaytish ifodasi qaysi?\n「ちょっと たばこを （　）きます。」",
+        "options": ["買う", "買おう", "買って", "買ったら"],
+        "correctAnswer": 2,
+        "explanation": "Borib kelish harakati: 「V-て形＋きます」 (sotib olib kelaman)."
+      },
+      {
+        "id": "ja-minna-l43-ex5",
+        "type": "multiple-choice",
+        "prompt": "«増[ふ]えます» ning ziddi qaysi fe'l?",
+        "options": ["減[へ]ります", "下[さ]がります", "落[お]ちます", "消[き]えます"],
+        "correctAnswer": 0,
+        "explanation": "Ko'paymoq (増えます) ning ziddi — kamaymoq (減ります - へります)."
+      },
+      {
+        "id": "ja-minna-l43-ex6",
+        "type": "multiple-choice",
+        "prompt": "Ip yoki sim uzilib ketishi qaysi fe'l?\n「ひもが （　）そうです。」",
+        "options": ["落ち", "切れ", "とれ", "壊れ"],
+        "correctAnswer": 1,
+        "explanation": "Ip uzilishi — 「切れます (きれます)」."
+      },
+      {
+        "id": "ja-minna-l43-ex7",
+        "type": "multiple-choice",
+        "prompt": "Tugma uzilib tushishi qaysi fe'l?",
+        "options": ["落ちます", "切れます", "とれます", "外れます"],
+        "correctAnswer": 2,
+        "explanation": "Tugma tushishi — 「ボタンが とれます」."
+      },
+      {
+        "id": "ja-minna-l43-ex8",
+        "type": "multiple-choice",
+        "prompt": "Narx ko'tarilishi va tushishi juftligi qaysi?",
+        "options": [
+          "増えます <-> 減ります",
+          "太ります <-> やせます",
+          "出ます <-> 入ります",
+          "上がります <-> 下がります"
+        ],
+        "correctAnswer": 3,
+        "explanation": "Narx, harorat: 上がります (ko'tarilmoq) <-> 下がります (tushmoq)."
+      },
+      {
+        "id": "ja-minna-l43-ex9",
+        "type": "multiple-choice",
+        "prompt": "«今にも (いまにも)» so'zining ma'nosi nima?",
+        "options": [
+          "Hech qachon",
+          "Hozirning o'zidayoq / Mana-mana deb turibdi",
+          "Ba'zida",
+          "Ertaga"
+        ],
+        "correctAnswer": 1,
+        "explanation": "«今にも» — ayni shu daqiqada sodir bo'lish arafasida ekanlikni bildiradi."
+      },
+      {
+        "id": "ja-minna-l43-ex10",
+        "type": "multiple-choice",
+        "prompt": "«暖房 (だんぼう)» va «冷房 (れいぼう)» nima?",
+        "options": [
+          "Eshik va deraza",
+          "Xona va oshxona",
+          "Isitish tizimi va Sovutish tizimi",
+          "Chiroq va fonus"
+        ],
+        "correctAnswer": 2,
+        "explanation": "暖房 (isitgich/pech), 冷房 (konditsioner/sovutgich)."
+      }
+    ],
+    "test": [
+      {
+        "id": "ja-minna-l43-q1",
+        "question": "【Mondai 1: Moji/Goi】「丈夫（じょうぶ）な」の 反対（はんたい）の 言葉は？",
+        "options": ["強い", "壊れやすい / 弱い", "重い", "硬い"],
+        "correctAnswerIndex": 1,
+        "explanation": "Pishiq, baquvvat (丈夫な) ning ziddi — mo'rt, tez sinadigan / zaif."
+      },
+      {
+        "id": "ja-minna-l43-q2",
+        "question": "【Mondai 1: Moji/Goi】「変（へん）な」の 意[い]味[み]は どれですか。",
+        "options": ["Oddiy", "Chiroyli", "G'alati / Noodatiy", "Qimmat"],
+        "correctAnswerIndex": 2,
+        "explanation": "「変な (へんな)」 — g'alati, beo'xshov, odatdagidan farqli."
+      },
+      {
+        "id": "ja-minna-l43-q3",
+        "question": "【Mondai 1: Moji/Goi】「荷物が （　）そうです。」",
+        "options": ["落とす", "落ちる", "落とした", "落ち"],
+        "correctAnswerIndex": 3,
+        "explanation": "Tushib ketay deyapti: 「落ちそうです」."
+      },
+      {
+        "id": "ja-minna-l43-q4",
+        "question": "【Mondai 2: Bunpo】「この 料理は 辛[から]（　）ですね。」",
+        "options": ["そう", "いそう", "くてそう", "くそう"],
+        "correctAnswerIndex": 0,
+        "explanation": "I-sifat: 辛い -> 「辛そうですね」 (achchiqqa o'xshaydi-ya)."
+      },
+      {
+        "id": "ja-minna-l43-q5",
+        "question": "【Mondai 2: Bunpo】「あの 人は まじめ（　）ですね。」",
+        "options": ["だそう", "なそう", "そう", "でそう"],
+        "correctAnswerIndex": 2,
+        "explanation": "Na-sifat: 「まじめそうですね」."
+      },
+      {
+        "id": "ja-minna-l43-q6",
+        "question": "【Mondai 2: Bunpo】「寒いですね。温かい お茶を （　）きましょうか。」",
+        "options": ["淹れる", "淹れた", "淹れよう", "淹[い]れて"],
+        "correctAnswerIndex": 3,
+        "explanation": "Damlab kelaymi: 「淹れて きましょうか」."
+      },
+      {
+        "id": "ja-minna-l43-q7",
+        "question": "【Mondai 2: Bunpo】「天気が （　）ですから、傘は 要らないでしょう。」",
+        "options": ["よさそう", "いいそう", "よいそう", "よかった"],
+        "correctAnswerIndex": 0,
+        "explanation": "いい sifatidan: 「よさそうです」."
+      },
+      {
+        "id": "ja-minna-l43-q8",
+        "question": "【Mondai 3: Dokkai】「ボタンが とれそうですよ。針[はり]と 糸[いと]を 貸しましょうか。」 Nima tavsiya qilinyapti?",
+        "options": [
+          "Yangi kiyim sotib olishni",
+          "Tugma uzilib tushay deb turibdi, igna-ip beraymi deb taklif qilyapti",
+          "Kiyimni tashlab yuborishni",
+          "Eshikni yopishni"
+        ],
+        "correctAnswerIndex": 1,
+        "explanation": "Tugmasi uzilish arafasida ekanini ko'rib igna-ip taklif qilmoqda."
+      },
+      {
+        "id": "ja-minna-l43-q9",
+        "question": "【Mondai 3: Dokkai】「ちょっと 郵便局[ゆうびんきょく]へ 行って 来ます。30分くらいで 戻ります。」 So'zlovchi nima qilmoqchi?",
+        "options": [
+          "Pochtaga ishga kirmoqchi",
+          "Bugun qaytib kelmaydi",
+          "Uzoq safarga ketyapti",
+          "Pochtaga borib, taxminan 30 daqiqada qaytib keladi"
+        ],
+        "correctAnswerIndex": 3,
+        "explanation": "「行って 来ます」 — borib kelaman (30 daqiqada qaytaman)."
+      },
+      {
+        "id": "ja-minna-l43-q10",
+        "question": "【Mondai 4: Kaiwa】「おいしそうな りんごですね。」「ええ、青森[あおもり]から 送って くれたんですよ。一つ （　）。」",
+        "options": ["どうぞ", "いただきます", "ごちそうさまでした", "結構です"],
+        "correctAnswerIndex": 0,
+        "explanation": "Mevalarni mehmonga iltifot qilish: 「一つ どうぞ (bittasini oling)」."
+      }
+    ]
+  },
+  "44": {
+    "practice": [
+      {
+        "id": "ja-minna-l44-ex1",
+        "type": "multiple-choice",
+        "prompt": "Me'yordan oshib ketish («haddan ziyod ko'p...») qolipi qaysi?\n「昨日の 夜は お酒を （　）すぎました。」",
+        "options": ["飲んで", "飲む", "飲み", "飲んだ"],
+        "correctAnswer": 2,
+        "explanation": "Fe'lning Masu-asosi＋すぎます: 飲みます -> 「飲みすぎました」."
+      },
+      {
+        "id": "ja-minna-l44-ex2",
+        "type": "multiple-choice",
+        "prompt": "Qilish oson / qulay bo'lgan holat qaysi?\n「この 薬は 苦くないので、（　）やすいです。」",
+        "options": ["飲む", "飲んで", "飲まない", "飲み"],
+        "correctAnswer": 3,
+        "explanation": "Fe'lning Masu-asosi＋やすい: 「飲みやすい」 (ichish oson/qulay)."
+      },
+      {
+        "id": "ja-minna-l44-ex3",
+        "type": "multiple-choice",
+        "prompt": "Qilish qiyin / noqulay bo'lgan sifat qaysi?\n「東京の 地下鉄は 複雑で、（　）にくいです。」",
+        "options": ["わかり", "わかる", "わかって", "わから"],
+        "correctAnswer": 0,
+        "explanation": "Fe'lning Masu-asosi＋にくい: 「わかりにくい」 (tushunish qiyin/chalkash)."
+      },
+      {
+        "id": "ja-minna-l44-ex4",
+        "type": "multiple-choice",
+        "prompt": "I-sifatni o'zgartirish (harakat natijasi) qanday yasaladi?\n「音[おと]を （　）します。」",
+        "options": ["大きい", "大きく", "大きに", "大きくて"],
+        "correctAnswer": 1,
+        "explanation": "I-sifat＋く します: 大きい -> 「大きく します」 (ovozini kattaroq/balandroq qilaman)."
+      },
+      {
+        "id": "ja-minna-l44-ex5",
+        "type": "multiple-choice",
+        "prompt": "Na-sifatni o'zgartirish shakli qaysi?\n「部屋を （　）します。」",
+        "options": ["きれいな", "きれいく", "きれいで", "きれいに"],
+        "correctAnswer": 3,
+        "explanation": "Na-sifat＋に します: 「きれいに します」 (tozalamoq/chiroyli qilmoq)."
+      },
+      {
+        "id": "ja-minna-l44-ex6",
+        "type": "multiple-choice",
+        "prompt": "Otni tanlash/qaror qilish shakli qaysi?\n「わたしは コーヒー（　）します。」",
+        "options": ["に", "を", "が", "で"],
+        "correctAnswer": 0,
+        "explanation": "Buyurtma yoki tanlov: Ot＋に します (men kofe tanlayman/buyurtma qilaman)."
+      },
+      {
+        "id": "ja-minna-l44-ex7",
+        "type": "multiple-choice",
+        "prompt": "«泣[な]きます» va «笑[わら]います» juftligi nima?",
+        "options": [
+          "Kechikmoq <-> Shoshilmoq",
+          "Yig'lamoq <-> Kulmoq",
+          "Dam olmoq <-> Ishlamoq",
+          "Boshlamoq <-> Tugatmoq"
+        ],
+        "correctAnswer": 1,
+        "explanation": "泣きます (yig'lamoq) <-> 笑います (kulmoq)."
+      },
+      {
+        "id": "ja-minna-l44-ex8",
+        "type": "multiple-choice",
+        "prompt": "Kiyim ho'l bo'lishi va qurishi juftligi qaysi?",
+        "options": [
+          "汚れます <-> 片づきます",
+          "壊れます <-> 治ります",
+          "濡れます (ぬれます) <-> 乾きます (かわきます)",
+          "落ちます <-> 拾います"
+        ],
+        "correctAnswer": 2,
+        "explanation": "Ho'l bo'lmoq — 濡れます (ぬれます), qurimoq — 乾きます (かわきます)."
+      },
+      {
+        "id": "ja-minna-l44-ex9",
+        "type": "multiple-choice",
+        "prompt": "Qor yoki muzda toyib ketish qaysi fe'l?",
+        "options": ["滑ります (すべります)", "転びます", "倒れます", "落ちます"],
+        "correctAnswer": 0,
+        "explanation": "Sirpanmoq, toyib ketmoq — 「滑ります (すべります)」."
+      },
+      {
+        "id": "ja-minna-l44-ex10",
+        "type": "multiple-choice",
+        "prompt": "«調節 (ちょうせつ) します» so'zining ma'nosi nima?",
+        "options": ["Buzmoq", "Sozlamoq / Moslashtirmoq", "O'chirmoq", "Ko'chirmoq"],
+        "correctAnswer": 1,
+        "explanation": "«調節します» — ovoz, harorat yoki hajm me'yorini sozlamoq."
+      }
+    ],
+    "test": [
+      {
+        "id": "ja-minna-l44-q1",
+        "question": "【Mondai 1: Moji/Goi】「濃（こ）い」の 反対（はんたい）の 言葉は？",
+        "options": ["薄（うす）い", "厚（あつ）い", "深（ふか）い", "浅（あさ）い"],
+        "correctAnswerIndex": 0,
+        "explanation": "Quyuq / o'tkir (濃い) ning ziddi — suyuk / och rang (薄い - うすい)."
+      },
+      {
+        "id": "ja-minna-l44-q2",
+        "question": "【Mondai 1: Moji/Goi】「安全（あんぜん）な」の 反対（はんたい）の 言葉は？",
+        "options": [
+          "不便（ふべん）な",
+          "危険（きけん）な",
+          "大変（たいへん）な",
+          "複雑（ふくざつ）な"
+        ],
+        "correctAnswerIndex": 1,
+        "explanation": "Xavfsiz (安全な) ning aksi — xavfli (危険な)."
+      },
+      {
+        "id": "ja-minna-l44-q3",
+        "question": "【Mondai 1: Moji/Goi】「空気（くうき）」の 読[よ]み方[かた]は どれですか。",
+        "options": ["そらき", "くうげ", "くうき", "からき"],
+        "correctAnswerIndex": 2,
+        "explanation": "「空気」 ning to'g'ri o'qilishi: 「くうき」 (havo/atmosfera)."
+      },
+      {
+        "id": "ja-minna-l44-q4",
+        "question": "【Mondai 2: Bunpo】「ご飯を （　）すぎて、お腹が 痛いです。」",
+        "options": ["食べる", "食べて", "食べた", "食べ"],
+        "correctAnswerIndex": 3,
+        "explanation": "V-ます形＋すぎます: 「食べすぎて」 (haddan ziyod ko'p yeb yuborib)."
+      },
+      {
+        "id": "ja-minna-l44-q5",
+        "question": "【Mondai 2: Bunpo】「この ペンは とても （　）やすいです。」",
+        "options": ["書く", "書き", "書いて", "書かない"],
+        "correctAnswerIndex": 1,
+        "explanation": "Yozishga juda qulay/oson: 「書きやすいです」."
+      },
+      {
+        "id": "ja-minna-l44-q6",
+        "question": "【Mondai 2: Bunpo】「字が 小さくて、（　）にくいです。」",
+        "options": ["読む", "読んだ", "読み", "読ま"],
+        "correctAnswerIndex": 2,
+        "explanation": "O'qish noqulay/qiyin: 「読みにくいです」."
+      },
+      {
+        "id": "ja-minna-l44-q7",
+        "question": "【Mondai 2: Bunpo】「テレビの 音を もう 少し （　）して ください。」",
+        "options": ["小さい", "小さに", "小さくて", "小さく"],
+        "correctAnswerIndex": 3,
+        "explanation": "I-sifat: 小さい -> 「小さく して ください」."
+      },
+      {
+        "id": "ja-minna-l44-q8",
+        "question": "【Mondai 3: Dokkai】「雪道[ゆきみち]は 滑りやすいですから、急いで 走らないで ゆっくり 歩いて ください。」 Qanday ogohlantirish berilgan?",
+        "options": [
+          "Qorli yo'l sirpanchiq bo'lgani uchun yugurmasdan asta-sekin yurish kerak",
+          "Yugurib ketish kerak",
+          "Moshinada tez yurish kerak",
+          "Qorda o'ynash kerak"
+        ],
+        "correctAnswerIndex": 0,
+        "explanation": "「滑りやすいですから (sirpanchiq bo'lgani uchun)」 asta yurish so'ralmoqda."
+      },
+      {
+        "id": "ja-minna-l44-q9",
+        "question": "【Mondai 3: Dokkai】「この スマートフォンは ボタンが 大きくて 操作しやすいので、お年寄りにも 人気です。」 Smartfon nega mashhur?",
+        "options": [
+          "Juda qimmatligi sababli",
+          "Ekran kichikligi uchun",
+          "Tugmalari katta va ishlatish oson bo'lgani uchun keksalarga ham yoqadi",
+          "Hech kim ishlatolmagani uchun"
+        ],
+        "correctAnswerIndex": 2,
+        "explanation": "Tugmalari katta va boshqarish oson: 「操作しやすいので」."
+      },
+      {
+        "id": "ja-minna-l44-q10",
+        "question": "【Mondai 4: Kaiwa】「ご注文は お決まりですか。」「ええ、わたしは 天ぷら定食[ていしょく]（　）します。」",
+        "options": ["を", "が", "で", "に"],
+        "correctAnswerIndex": 3,
+        "explanation": "Buyurtma tanlashda: 「天ぷら定食に します」."
+      }
+    ]
+  },
+  "45": {
+    "practice": [
+      {
+        "id": "ja-minna-l45-ex1",
+        "type": "multiple-choice",
+        "prompt": "Favqulodda holat yoki ehtimoliy vaziyatda («...taqdirda») qolipi qaysi?\n「火事[かじ]や 地震の （　）、エレベーターを 使わないで ください。」",
+        "options": ["のに", "場合は (ばあいは)", "ので", "から"],
+        "correctAnswer": 1,
+        "explanation": "Vaziyat/holat taqdirida: Ot＋の＋場合は (ばあいは)."
+      },
+      {
+        "id": "ja-minna-l45-ex2",
+        "type": "multiple-choice",
+        "prompt": "Kutilgan natijaga mutlaqo zid norozilik/hayrat («holbuki... shunga qaramay») qolipi qaysi?\n「約束[やくそく]を （　）のに、彼は 来ませんでした。」",
+        "options": ["して", "する", "した", "しよう"],
+        "correctAnswer": 2,
+        "explanation": "〜のに (holbuki va'da qilgan edi, kelmadi): V-た形＋のに."
+      },
+      {
+        "id": "ja-minna-l45-ex3",
+        "type": "multiple-choice",
+        "prompt": "Na-sifatga «のに» qanday ulanadi?\n「静か（　）のに、眠[ねむ]れません。」",
+        "options": ["だ", "で", "に", "な"],
+        "correctAnswer": 3,
+        "explanation": "Hozirgi zamon tasdiqda Na-sifat va Otga 「な」 qo'shiladi: 「静かな のに」."
+      },
+      {
+        "id": "ja-minna-l45-ex4",
+        "type": "multiple-choice",
+        "prompt": "Otga «場合は» qanday birikadi?\n「事故[じこ]（　）場合は、すぐに 警察[けいさつ]に 連絡して ください。」",
+        "options": ["の", "な", "に", "で"],
+        "correctAnswer": 0,
+        "explanation": "Ot bilan birikishi: 「事故の 場合は」."
+      },
+      {
+        "id": "ja-minna-l45-ex5",
+        "type": "multiple-choice",
+        "prompt": "«領収書 (りょうしゅうしょ)» nima?",
+        "options": ["Pasport", "Chipta", "To'lov cheki / Kvitansiya", "Kafolat xati"],
+        "correctAnswer": 2,
+        "explanation": "«領収書 (りょうしゅうしょ)» — to'lov qilinganligini tasdiqlovchi rasmiy kvitansiya/chek."
+      },
+      {
+        "id": "ja-minna-l45-ex6",
+        "type": "multiple-choice",
+        "prompt": "«保証書 (ほしょうしょ)» nima?",
+        "options": [
+          "Haydovchilik guvohnomasi",
+          "Taklifnoma",
+          "Tushuntirish xati",
+          "Kafolat qog'ozi / Kafolat guvohnomasi"
+        ],
+        "correctAnswer": 3,
+        "explanation": "«保証書 (ほしょうしょ)» — mahsulotning kafolat xati."
+      },
+      {
+        "id": "ja-minna-l45-ex7",
+        "type": "multiple-choice",
+        "prompt": "«中止 (ちゅうし)» so'zining ma'nosi qaysi?",
+        "options": ["Tadbirni bekor qilish / To'xtatish", "Boshlash", "Davom ettirish", "Tugatish"],
+        "correctAnswer": 0,
+        "explanation": "«中止 (ちゅうし)» — rejalashtirilgan tadbir yoki musobaqani bekor qilish."
+      },
+      {
+        "id": "ja-minna-l45-ex8",
+        "type": "multiple-choice",
+        "prompt": "«梅雨 (つゆ)» nima?",
+        "options": [
+          "Qishki qor",
+          "Yaponiyadagi yoz boshi yomg'irlar mavsumi",
+          "Kuzgi shamol",
+          "Issiq havo"
+        ],
+        "correctAnswer": 1,
+        "explanation": "«梅雨 (つゆ)» — Yaponiyada iyun-iyul oylarida davom etadigan yog'ingarchilik mavsumi."
+      },
+      {
+        "id": "ja-minna-l45-ex9",
+        "type": "multiple-choice",
+        "prompt": "Fe'lning lug'at shakliga «場合は» qanday ulanadi?\n「道が わからない（　）は、電話して ください。」",
+        "options": ["時", "こと", "の", "場合 (ばあい)"],
+        "correctAnswer": 3,
+        "explanation": "V-辞書形＋場合は: 「わからない 場合は」."
+      },
+      {
+        "id": "ja-minna-l45-ex10",
+        "type": "multiple-choice",
+        "prompt": "«〜のに» jumlasi oxirida buyruq yoki iltimos kela oladimi?",
+        "options": [
+          "Yo'q, 〜のに ortidan hissiy norozilik, achinish yoki kutilmagan fakt keladi",
+          "Ha, doim buyruq keladi",
+          "Faqat iltimos keladi",
+          "Faqat savol keladi"
+        ],
+        "correctAnswer": 0,
+        "explanation": "〜のに kutilmagan zid haqiqatni bildiradi va undan keyin buyruq yoki iltimos shakllari qo'llanilmaydi."
+      }
+    ],
+    "test": [
+      {
+        "id": "ja-minna-l45-q1",
+        "question": "【Mondai 1: Moji/Goi】「係員（かかりいん）」の 意[い]味[み]は どれですか。",
+        "options": ["Boshliq", "Mijoz", "Haydovchi", "Mas'ul xodim / Navbatchi xodim"],
+        "correctAnswerIndex": 3,
+        "explanation": "「係員 (かかりいん)」 — biror tadbir yoki joydagi mas'ul/navbatchi xodim."
+      },
+      {
+        "id": "ja-minna-l45-q2",
+        "question": "【Mondai 1: Moji/Goi】「案内状（あんないじょう）」の 意[い]味[み]は？",
+        "options": ["Taklifnoma / E'lon xati", "Rahmatnoma", "Shikoyat xati", "Buyurtma xati"],
+        "correctAnswerIndex": 0,
+        "explanation": "「案内状 (あんないじょう)」 — tadbirga chaqiruv xati/taklifnoma."
+      },
+      {
+        "id": "ja-minna-l45-q3",
+        "question": "【Mondai 1: Moji/Goi】「信（しん）じます」の 意[い]味[み]は どれですか。",
+        "options": ["Shubhalanmoq", "Ishonmoq", "Aldamoq", "Bosh tortmoq"],
+        "correctAnswerIndex": 1,
+        "explanation": "「信じます (しんじます)」 — ishonmoq, iymon keltirmoq."
+      },
+      {
+        "id": "ja-minna-l45-q4",
+        "question": "【Mondai 2: Bunpo】「パスポートを なくした （　）、大使館[たいしかん]へ 行って ください。」",
+        "options": ["のに", "ので", "場合は", "から"],
+        "correctAnswerIndex": 2,
+        "explanation": "Yo'qotilgan vaziyat taqdirida: 「なくした 場合は」."
+      },
+      {
+        "id": "ja-minna-l45-q5",
+        "question": "【Mondai 2: Bunpo】「一生懸命[いっしょうけんめい] 勉強した（　）、不合格でした。」",
+        "options": ["のに", "ので", "から", "場合は"],
+        "correctAnswerIndex": 0,
+        "explanation": "Kutilganiga zid afsus: 「勉強した のに、不合格でした」 (shuncha o'qiganimga qaramay yiqildim)."
+      },
+      {
+        "id": "ja-minna-l45-q6",
+        "question": "【Mondai 2: Bunpo】「日曜日（　）のに、会社へ 行かなければ なりません。」",
+        "options": ["だ", "な", "に", "で"],
+        "correctAnswerIndex": 1,
+        "explanation": "Ot bilan 〜のに: 「日曜日 なのに」 (yakshanba bo'lishiga qaramay)."
+      },
+      {
+        "id": "ja-minna-l45-q7",
+        "question": "【Mondai 2: Bunpo】「都合[つごう]が （　）場合は、事前に ご連絡ください。」",
+        "options": ["悪く", "悪な", "悪い", "悪かった"],
+        "correctAnswerIndex": 2,
+        "explanation": "I-sifat: 「悪い 場合は」."
+      },
+      {
+        "id": "ja-minna-l45-q8",
+        "question": "【Mondai 3: Dokkai】「雨天[うてん]の 場合は、花火大会[はなびたいかい]は 翌日[よくじつ]に 延期[えんき]と なります。」 Yomg'ir yog'sa nima bo'ladi?",
+        "options": [
+          "Mushakbozlik butunlay bekor qilinadi",
+          "Yomg'irda ham o'tkaziladi",
+          "Bino ichida o'tkaziladi",
+          "Mushakbozlik ertasi kunga suriladi"
+        ],
+        "correctAnswerIndex": 3,
+        "explanation": "「翌日に 延期 (ertasi kunga ko'chiriladi)」."
+      },
+      {
+        "id": "ja-minna-l45-q9",
+        "question": "【Mondai 3: Dokkai】「目覚まし時計を セットして おいたのに、鳴らなくて 遅刻して しまいました。」 Nima sodir bo'ldi?",
+        "options": [
+          "Soat jiringladi",
+          "Budilnikni qo'yib qo'ygan bo'lsa ham jiringlamay qoldi va kechikdi",
+          "Vaqtida uyg'ondi",
+          "Kasal bo'lib qoldi"
+        ],
+        "correctAnswerIndex": 1,
+        "explanation": "Budilnik qo'yganiga qaramay (おいたのに) jiringlamay qolgan."
+      },
+      {
+        "id": "ja-minna-l45-q10",
+        "question": "【Mondai 4: Kaiwa】「時間に 間に合わない場合は、どうすれば いいですか。」 Eng mos javobni tanlang:",
+        "options": [
+          "はい、間に合いました。",
+          "時間です。",
+          "すぐに 担当者[たんとうしゃ]に 電話して ください。",
+          "どういたしまして。"
+        ],
+        "correctAnswerIndex": 2,
+        "explanation": "Yo'riqnoma: 「すぐに 担当者に 電話して ください」."
+      }
+    ]
+  },
+  "46": {
+    "practice": [
+      {
+        "id": "ja-minna-l46-ex1",
+        "type": "multiple-choice",
+        "prompt": "Ayni shu daqiqada boshlanish arafasida ekanlik qaysi shaklda aytiladi?\n「今から 昼ご飯を （　）ところです。」",
+        "options": ["食べる", "食べている", "食べた", "食べよう"],
+        "correctAnswer": 0,
+        "explanation": "Boshlanish arafasi: V-辞書形＋ところです (ayni hozir yeyish arafasidaman)."
+      },
+      {
+        "id": "ja-minna-l46-ex2",
+        "type": "multiple-choice",
+        "prompt": "Harakat ayni paytda qizg'in davom etayotgani qaysi?\n「今 資料を （　）ところです。」",
+        "options": ["作る", "作っている", "作った", "作ろう"],
+        "correctAnswer": 1,
+        "explanation": "Jarayon: V-ている＋ところです (ayni hozir tayyorlayotgan paytim)."
+      },
+      {
+        "id": "ja-minna-l46-ex3",
+        "type": "multiple-choice",
+        "prompt": "Harakat ayni daqiqada tugaganlik ifodasi qaysi?\n「たった今 帰って （　）ところです。」",
+        "options": ["来る", "来ている", "来た", "来よう"],
+        "correctAnswer": 2,
+        "explanation": "Lahzalik tugash: V-た形＋ところです (ayni hozirgina qaytib keldim)."
+      },
+      {
+        "id": "ja-minna-l46-ex4",
+        "type": "multiple-choice",
+        "prompt": "Harakat yaqindagina bajarilganini (vaqt ko'p o'tmaganini) bildirish qolipi qaysi?\n「先月 日本へ （　）ばかりです。」",
+        "options": ["来る", "来ている", "来て", "来た"],
+        "correctAnswer": 3,
+        "explanation": "Yaqindagina bajarilganlik: V-た形＋ばかりです (o'tgan oygina keldim)."
+      },
+      {
+        "id": "ja-minna-l46-ex5",
+        "type": "multiple-choice",
+        "prompt": "Qat'iy mantiqiy ishonch («albatta shunday bo'lishi kerak») qolipi qaysi?\n「田中さんは 今日 来る（　）です。」",
+        "options": ["つもり", "はず", "予定", "よう"],
+        "correctAnswer": 1,
+        "explanation": "Mantiqiy qat'iyat: 普通形＋はずです (albatta kelishi kerak)."
+      },
+      {
+        "id": "ja-minna-l46-ex6",
+        "type": "multiple-choice",
+        "prompt": "«〜たところです» va «〜たばかりです» farqi qaysi?",
+        "options": [
+          "〜たばかりです faqat kecha uchun ishlatiladi",
+          "Ikkalasi har qanday holatda bir xil",
+          "〜たところです ayni lahzada, 〜たばかりです subyektiv yaqinda",
+          "〜たところです inkor shaklda keladi"
+        ],
+        "correctAnswer": 2,
+        "explanation": "〜たところ (bir necha daqiqa/lahza oldin), 〜たばかり (hatto bir oy o'tgan bo'lsa ham ruhiy jihatdan yaqinda)."
+      },
+      {
+        "id": "ja-minna-l46-ex7",
+        "type": "multiple-choice",
+        "prompt": "«宅配便 (たくはいびん)» nima?",
+        "options": [
+          "Poyezd chiptasi",
+          "Xat",
+          "Yuk poyezdi",
+          "Tezkor eshikma-eshik kuryerlik yetkazmasi"
+        ],
+        "correctAnswer": 3,
+        "explanation": "«宅配便 (たくはいびん)» — Yaponiyada juda rivojlangan uyga to'g'ridan-to'g'ri yetkazib berish xizmati."
+      },
+      {
+        "id": "ja-minna-l46-ex8",
+        "type": "multiple-choice",
+        "prompt": "«留守 (るす)» so'zining ma'nosi qaysi?",
+        "options": [
+          "Uyda hech kim yo'qligi / Uyda yo'q payt",
+          "Uyda o'tirish",
+          "Mehmon kutish",
+          "Ko'chish"
+        ],
+        "correctAnswer": 0,
+        "explanation": "«留守 (るす)» — uyda yoki ofisda insonning yo'qligi."
+      },
+      {
+        "id": "ja-minna-l46-ex9",
+        "type": "multiple-choice",
+        "prompt": "Otga «はずです» qanday ulanadi?\n「彼は 今日 休みの （　）です。」",
+        "options": ["なはず", "であるはず", "はず", "にはず"],
+        "correctAnswer": 2,
+        "explanation": "Ot bilan birikishi: 「休みの はずです」."
+      },
+      {
+        "id": "ja-minna-l46-ex10",
+        "type": "multiple-choice",
+        "prompt": "«たった今 (たったいま)» ravishining ma'nosi nima?",
+        "options": ["Ertaga", "Bir oy oldin", "Sekin-asta", "Ayni hozirgina / Bir lahza oldin"],
+        "correctAnswer": 3,
+        "explanation": "«たった今» — ayni shu lahzagina, hozirgina."
+      }
+    ],
+    "test": [
+      {
+        "id": "ja-minna-l46-q1",
+        "question": "【Mondai 1: Moji/Goi】「原因（げんいん）」の 読[よ]み方[かた]は どれですか。",
+        "options": ["げんじん", "もといん", "げんいん", "げんおん"],
+        "correctAnswerIndex": 2,
+        "explanation": "「原因」 ning to'g'ri o'qilishi: 「げんいん」 (sabab)."
+      },
+      {
+        "id": "ja-minna-l46-q2",
+        "question": "【Mondai 1: Moji/Goi】「渡（わた）します」の 意[い]味[み]は どれですか。",
+        "options": ["O'tmoq", "Sotib olmoq", "Qabul qilmoq", "Topshirmoq / Qo'liga bermoq"],
+        "correctAnswerIndex": 3,
+        "explanation": "「渡します (わたします)」 — narsani egasiga topshirmoq."
+      },
+      {
+        "id": "ja-minna-l46-q3",
+        "question": "【Mondai 1: Moji/Goi】「焼（や）きます」の 意[い]味[み]は どれですか。",
+        "options": ["Pishirmoq (kabob, go'sht, non)", "Qaynatmoq", "Kesmoq", "Muzlatmoq"],
+        "correctAnswerIndex": 0,
+        "explanation": "「焼きます (やきます)」 — qovurmoq, olovda pishirmoq."
+      },
+      {
+        "id": "ja-minna-l46-q4",
+        "question": "【Mondai 2: Bunpo】「バスは 今 出発（　）ところです。」",
+        "options": ["している", "する", "した", "しよう"],
+        "correctAnswerIndex": 1,
+        "explanation": "Boshlanish arafasi: 「出発する ところです」."
+      },
+      {
+        "id": "ja-minna-l46-q5",
+        "question": "【Mondai 2: Bunpo】「たった今 荷物が 届いた（　）です。」",
+        "options": ["ばかり", "はず", "よう", "ところ"],
+        "correctAnswerIndex": 3,
+        "explanation": "Hozirginagina: 「届いた ところです」."
+      },
+      {
+        "id": "ja-minna-l46-q6",
+        "question": "【Mondai 2: Bunpo】「この 靴は 先週 （　）ばかりなのに、もう 壊れました。」",
+        "options": ["買った", "買う", "買っている", "買おう"],
+        "correctAnswerIndex": 0,
+        "explanation": "Yaqindagina olingan bo'lishiga qaramay: 「買った ばかりなのに」."
+      },
+      {
+        "id": "ja-minna-l46-q7",
+        "question": "【Mondai 2: Bunpo】「真面目な 田中さんが 約束を 忘れる（　）が ありません。」",
+        "options": ["つもり", "はず", "予定", "わけ"],
+        "correctAnswerIndex": 1,
+        "explanation": "Inkor ishonch: 「忘れる はずが ありません」 (unutishi aslo mumkin emas)."
+      },
+      {
+        "id": "ja-minna-l46-q8",
+        "question": "【Mondai 3: Dokkai】「宅配便が 来たとき、留守だったので、不在票[ふざいひょう]が 入っていました。」 Nima sodir bo'ldi?",
+        "options": [
+          "Yuk yetib kelmadi",
+          "Yuk buzilib qolgan",
+          "Kuryer kelganda uyda hech kim bo'lmagani uchun eslatma qog'ozi qoldirib ketilgan",
+          "Kuryer boshqa uyga borgan"
+        ],
+        "correctAnswerIndex": 2,
+        "explanation": "Uyda yo'qligi (留守) sababli xabarnoma qog'ozi (不在票) qoldirilgan."
+      },
+      {
+        "id": "ja-minna-l46-q9",
+        "question": "【Mondai 3: Dokkai】「あ、ちょうど よかった。今から コーヒーを 淹れる ところだから、一緒に 飲もう。」 Qachon kofe ichiladi?",
+        "options": [
+          "Ayni hozir kofe damlanayotgan arafada",
+          "Ertaga",
+          "Kechqurun",
+          "Bir soatdan keyin"
+        ],
+        "correctAnswerIndex": 0,
+        "explanation": "「今から 淹れる ところ」 — ayni hozir damlash arafasidaman."
+      },
+      {
+        "id": "ja-minna-l46-q10",
+        "question": "【Mondai 4: Kaiwa】「山田さんは まだ ですか。」「ええ、でも 3時の 電車に 乗ったと 言っていましたから、もう （　）はずです。」",
+        "options": ["着いた", "着く", "着いている", "着かない"],
+        "correctAnswerIndex": 1,
+        "explanation": "Mantiqiy xulosa: 「もう 着く はずです」 (allaqachon yetib kelishi kerak)."
+      }
+    ]
+  },
+  "47": {
+    "practice": [
+      {
+        "id": "ja-minna-l47-ex1",
+        "type": "multiple-choice",
+        "prompt": "Eshitilgan xabar yoki mish-mishni yetkazish («eshitishimcha... emish») qolipi qaysi?\n「天気予報[てんきよほう]に よると、明日は 寒くなる（　）です。」",
+        "options": ["よう", "らしい", "はず", "そう"],
+        "correctAnswer": 3,
+        "explanation": "Eshitilgan xabarni yetkazish: 普通形＋そうです (sovuq bo'lar emish)."
+      },
+      {
+        "id": "ja-minna-l47-ex2",
+        "type": "multiple-choice",
+        "prompt": "Belgilarga qarab shaxsiy xulosa chiqarish («ko'rinishidan / tuyulishidan») qolipi qaysi?\n「隣の 部屋に だれか いる（　）です。」",
+        "options": ["よう", "そう", "はず", "つもり"],
+        "correctAnswer": 0,
+        "explanation": "His-tuyg'u va belgilardan xulosa: 普通形＋ようです (kimdir borga o'xshaydi)."
+      },
+      {
+        "id": "ja-minna-l47-ex3",
+        "type": "multiple-choice",
+        "prompt": "Na-sifatga eshitilgan xabar «そうです» qanday ulanadi?\n「あの 店は （　）そうです。」",
+        "options": ["有名", "有名だ", "有名な", "有名で"],
+        "correctAnswer": 1,
+        "explanation": "伝聞 (eshitishimcha) da Na-sifatga 「だ」 qo'shiladi: 「有名だ そうです」."
+      },
+      {
+        "id": "ja-minna-l47-ex4",
+        "type": "multiple-choice",
+        "prompt": "Na-sifatga taxmin «ようです» qanday ulanadi?\n「山田さんは （　）ようです。」",
+        "options": ["暇だ", "暇で", "暇な", "暇に"],
+        "correctAnswer": 2,
+        "explanation": "推量 (tuyulishidan) da Na-sifatga 「な」 qo'shiladi: 「暇な ようです」."
+      },
+      {
+        "id": "ja-minna-l47-ex5",
+        "type": "multiple-choice",
+        "prompt": "Hid kelishini ifodalashda qaysi fe'l ishlatiladi?\n「いい におい（　）します。」",
+        "options": ["が", "を", "に", "で"],
+        "correctAnswer": 0,
+        "explanation": "Tuyg'u a'zolaridan tovush/hid/ta'm kelganda 「が します」: においが します."
+      },
+      {
+        "id": "ja-minna-l47-ex6",
+        "type": "multiple-choice",
+        "prompt": "Tovush eshitilayotganini bildirish qaysi?\n「外で 変な 音（　）します。」",
+        "options": ["を", "が", "に", "で"],
+        "correctAnswer": 1,
+        "explanation": "Tovush sezilishi: 音が します."
+      },
+      {
+        "id": "ja-minna-l47-ex7",
+        "type": "multiple-choice",
+        "prompt": "Manbaga havola berish iborasi qaysi?\n「新聞に （　）、物価[ぶっか]が 上がるそうです。」",
+        "options": ["ついて", "とって", "よると", "よれば"],
+        "correctAnswer": 2,
+        "explanation": "Manbani keltirish: 「〜に よると」 (gazetaga ko'ra)."
+      },
+      {
+        "id": "ja-minna-l47-ex8",
+        "type": "multiple-choice",
+        "prompt": "«パトカー» nima?",
+        "options": [
+          "Tez yordam mashinasi",
+          "O't o'chirish mashinasi",
+          "Taksi",
+          "Politsiya patrul mashinasi"
+        ],
+        "correctAnswer": 3,
+        "explanation": "«パトカー» — patrul politsiya avtomobili."
+      },
+      {
+        "id": "ja-minna-l47-ex9",
+        "type": "multiple-choice",
+        "prompt": "«救急車 (きゅうきゅうしゃ)» nima?",
+        "options": [
+          "Politsiya mashinasi",
+          "Tez tibbiy yordam mashinasi",
+          "Avtobus",
+          "Yuk mashinasi"
+        ],
+        "correctAnswer": 1,
+        "explanation": "«救急車 (きゅうきゅうしゃ)» — tez tibbiy yordam avtomobili."
+      },
+      {
+        "id": "ja-minna-l47-ex10",
+        "type": "multiple-choice",
+        "prompt": "«賛成 (さんせい)» ning ziddi qaysi so'z?",
+        "options": ["参加 (さんか)", "出発 (しゅっぱつ)", "反対 (はんたい)", "成功 (せいこう)"],
+        "correctAnswer": 2,
+        "explanation": "Rozilik, qo'llab-quvvatlash (賛成) ning ziddi — qarshilik (反対)."
+      }
+    ],
+    "test": [
+      {
+        "id": "ja-minna-l47-q1",
+        "question": "【Mondai 1: Moji/Goi】「人口（じんこう）」の 読[よ]み方[かた]は どれですか。",
+        "options": ["にんこう", "じんこう", "じんぐち", "ひとぐち"],
+        "correctAnswerIndex": 1,
+        "explanation": "「人口」 ning to'g'ri o'qilishi: 「じんこう」 (aholi soni)."
+      },
+      {
+        "id": "ja-minna-l47-q2",
+        "question": "【Mondai 1: Moji/Goi】「集（あつ）まります」の 意[い]味[み]は どれですか。",
+        "options": ["Tarqalmoq", "Kechikmoq", "Yig'ilmoq / To'planmoq", "Ketmoq"],
+        "correctAnswerIndex": 2,
+        "explanation": "「集まります (あつまります)」 — insonlar yoki buyumlar yig'ilishi."
+      },
+      {
+        "id": "ja-minna-l47-q3",
+        "question": "【Mondai 1: Moji/Goi】「別（わか）れます」の 意[い]味[み]は どれですか。",
+        "options": ["Uchrashmoq", "Qo'shilmoq", "Do'stlashmoq", "Xayrlashmoq / Ajralmoq"],
+        "correctAnswerIndex": 3,
+        "explanation": "「別れます (わかれます)」 — odamlarning ajralishi/xayrlashuvi."
+      },
+      {
+        "id": "ja-minna-l47-q4",
+        "question": "【Mondai 2: Bunpo】「ニュースに よると、昨日 新しい 薬が 発見された（　）。」",
+        "options": ["そうです", "ようです", "はずです", "つもりです"],
+        "correctAnswerIndex": 0,
+        "explanation": "Xabar yetkazish: 「発見された そうです」."
+      },
+      {
+        "id": "ja-minna-l47-q5",
+        "question": "【Mondai 2: Bunpo】「人が たくさん 集まっていますね。事故が あった（　）です。」",
+        "options": ["そう", "はず", "よう", "つもり"],
+        "correctAnswerIndex": 2,
+        "explanation": "Vaziyat belgisidan taxmin: 「あった ようです」 (avariya bo'lganga o'xshaydi)."
+      },
+      {
+        "id": "ja-minna-l47-q6",
+        "question": "【Mondai 2: Bunpo】「台所[だいどころ]から カレーの いい におい（　）します。」",
+        "options": ["を", "に", "で", "が"],
+        "correctAnswerIndex": 3,
+        "explanation": "Hid sezilishi: 「においが します」."
+      },
+      {
+        "id": "ja-minna-l47-q7",
+        "question": "【Mondai 2: Bunpo】「彼は 日本に 長く 住んでいたので、日本の 文化に （　）ようです。」",
+        "options": ["詳しい", "詳しく", "詳しな", "詳しかった"],
+        "correctAnswerIndex": 0,
+        "explanation": "I-sifat: 「詳しい ようです」."
+      },
+      {
+        "id": "ja-minna-l47-q8",
+        "question": "【Mondai 3: Dokkai】「パトカーの サイレンが 聞こえます。近くで 何か 事件が あったようです。」 Nima eshitilmoqda?",
+        "options": [
+          "Musiqa",
+          "Politsiya sirenasining ovozi eshitilib, yaqinda hodisa yuz bergandek tuyulmoqda",
+          "Yong'in ovozi",
+          "Qo'shiq"
+        ],
+        "correctAnswerIndex": 1,
+        "explanation": "Politsiya mashinasi ovozi (パトカーのサイレン) eshitilmoqda."
+      },
+      {
+        "id": "ja-minna-l47-q9",
+        "question": "【Mondai 3: Dokkai】「天気予報に よると、今年の 冬は 例年[れいねん]より 暖かくなるそうです。」 Qish qanday bo'lishi kutilmoqda?",
+        "options": [
+          "Juda qahraton sovuq",
+          "Qor yog'maydi",
+          "Tez tugaydi",
+          "Odatdagidan ko'ra iliqroq bo'lishi xabar qilinmoqda"
+        ],
+        "correctAnswerIndex": 3,
+        "explanation": "「例年より 暖かくなるそうです」 — har yilgidan iliqroq bo'lar emish."
+      },
+      {
+        "id": "ja-minna-l47-q10",
+        "question": "【Mondai 4: Kaiwa】「小川さん、来月 結婚するそうですよ。」 Eng mos munosabatni tanlang:",
+        "options": [
+          "えっ、本当ですか。おめでたいですね。",
+          "いいえ、結婚しません。",
+          "結婚です。",
+          "どういたしまして。"
+        ],
+        "correctAnswerIndex": 0,
+        "explanation": "Xabarni eshitgandagi tabiiy quvonch: 「えっ、本当ですか。おめでたいですね」."
+      }
+    ]
+  },
+  "48": {
+    "practice": [
+      {
+        "id": "ja-minna-l48-ex1",
+        "type": "multiple-choice",
+        "prompt": "Guruh 1 fe'llarining 使役 (Causative - qildirmoq) shakli qaysi?\n「行[い]きます」 -> （　）",
+        "options": ["行かれます", "行けます", "行かせます", "行きます"],
+        "correctAnswer": 2,
+        "explanation": "Guruh 1 fe'llarida i-ustun a-ustunga aylanib せます qo'shiladi: 行く -> 行かせる (ikasemasu)."
+      },
+      {
+        "id": "ja-minna-l48-ex2",
+        "type": "multiple-choice",
+        "prompt": "Guruh 2 fe'llarining 使役 shakli qaysi?\n「食[た]べます」 -> （　）",
+        "options": ["食べられます", "食べれます", "食べせます", "食べさせます"],
+        "correctAnswer": 3,
+        "explanation": "Guruh 2 fe'llarida ます o'rniga させます qo'yiladi: 食べさせます (yedirmoq)."
+      },
+      {
+        "id": "ja-minna-l48-ex3",
+        "type": "multiple-choice",
+        "prompt": "Harakatlanuvchi shaxs zarrachasi o'zlik fe'lda qaysi biri bo'ladi?\n「先生は 生徒[せいと]（　）走らせました。」",
+        "options": ["を", "に", "が", "で"],
+        "correctAnswer": 0,
+        "explanation": "Avtomatik/harakat fe'lida bajaruvchi shaxs ortidan 「を」 keladi (生徒を 走らせました)."
+      },
+      {
+        "id": "ja-minna-l48-ex4",
+        "type": "multiple-choice",
+        "prompt": "Obyektli (o'zgalik) fe'lda bajaruvchi shaxs qaysi zarracha bilan keladi?\n「母は 子ども（　）本を 読ませました。」",
+        "options": ["を", "に", "が", "で"],
+        "correctAnswer": 1,
+        "explanation": "Obyekt mavjud bo'lganda shaxs ortidan 「に」 qo'yiladi (子どもに 本を 読ませました)."
+      },
+      {
+        "id": "ja-minna-l48-ex5",
+        "type": "multiple-choice",
+        "prompt": "O'ziga ijozat berishlarini juda muloyim so'rash qolipi qaysi?\n「今日は 早く （　）いただけませんか。」",
+        "options": ["帰られて", "帰って", "帰ってから", "帰らせて"],
+        "correctAnswer": 3,
+        "explanation": "O'ziga ruxsat so'rash: 「V-使役て形＋いただけませんか」 (帰らせて いただけませんか)."
+      },
+      {
+        "id": "ja-minna-l48-ex6",
+        "type": "multiple-choice",
+        "prompt": "Guruh 3 「来[き]ます」 ning 使役 shakli qaysi?",
+        "options": ["来させます (こさせます)", "きさせます", "こられます", "きます"],
+        "correctAnswer": 0,
+        "explanation": "「来ます」 ning qildirmoq shakli — 「来させます (こさせます)」."
+      },
+      {
+        "id": "ja-minna-l48-ex7",
+        "type": "multiple-choice",
+        "prompt": "Guruh 3 「します」 ning 使役 shakli qaysi?",
+        "options": ["されます", "させます", "しらせます", "せます"],
+        "correctAnswer": 1,
+        "explanation": "「します」 ning causative shakli — 「させます」."
+      },
+      {
+        "id": "ja-minna-l48-ex8",
+        "type": "multiple-choice",
+        "prompt": "«世話 (せわ) を します» iborasining ma'nosi qaysi?",
+        "options": ["Tashlab ketmoq", "Urmoq", "G'amxo'rlik qilmoq / Qaramoq", "Chaqirmoq"],
+        "correctAnswer": 2,
+        "explanation": "«世話をする» — bolaga, bemorga yoki hayvonga g'amxo'rlik qilish, qarash."
+      },
+      {
+        "id": "ja-minna-l48-ex9",
+        "type": "multiple-choice",
+        "prompt": "«塾 (じゅく)» nima?",
+        "options": ["Qo'shimcha o'quv markazi / Kurs", "Maktab", "Universitet", "Kutubxona"],
+        "correctAnswer": 0,
+        "explanation": "«塾 (じゅく)» — maktabdan tashqari repetitorlik o'quv markazi."
+      },
+      {
+        "id": "ja-minna-l48-ex10",
+        "type": "multiple-choice",
+        "prompt": "«自由 (じゆう) に» so'zining ma'nosi qaysi?",
+        "options": ["Tezda", "Erkin tarzda / O'z xohishicha", "Majburan", "Xavfsiz"],
+        "correctAnswer": 1,
+        "explanation": "«自由に (じゆうに)» — erkin holda, xohlagancha."
+      }
+    ],
+    "test": [
+      {
+        "id": "ja-minna-l48-q1",
+        "question": "【Mondai 1: Moji/Goi】「生徒（せいと）」の 意[い]味[み]は どれですか。",
+        "options": ["O'quvchi", "Talaba", "O'qituvchi", "Xodim"],
+        "correctAnswerIndex": 0,
+        "explanation": "「生徒 (せいと)」 — o'rta/katta maktab o'quvchisi."
+      },
+      {
+        "id": "ja-minna-l48-q2",
+        "question": "【Mondai 1: Moji/Goi】「運（はこ）びます」の 読[よ]み方[かた]は どれですか。",
+        "options": ["えらびます", "はこびます", "ならびます", "あそびます"],
+        "correctAnswerIndex": 1,
+        "explanation": "「運びます」 ning to'g'ri o'qilishi: 「はこびます」 (tashimoq)."
+      },
+      {
+        "id": "ja-minna-l48-q3",
+        "question": "【Mondai 1: Moji/Goi】「届（とど）けます」の 意[い]味[み]は どれですか。",
+        "options": ["Qabul qilmoq", "Yo'qotmoq", "Yetkazib bermoq", "Kechiktirmoq"],
+        "correctAnswerIndex": 2,
+        "explanation": "「届けます (とどけます)」 — manziliga yetkazib topshirmoq."
+      },
+      {
+        "id": "ja-minna-l48-q4",
+        "question": "【Mondai 2: Bunpo】「部長は 田中さん（　）大阪へ 出張させました。」",
+        "options": ["に", "で", "から", "を"],
+        "correctAnswerIndex": 3,
+        "explanation": "Harakatlanuvchi shaxs: 「田中さんを 出張させました」."
+      },
+      {
+        "id": "ja-minna-l48-q5",
+        "question": "【Mondai 2: Bunpo】「父は 妹（　）ピアノを 習わせています。」",
+        "options": ["を", "に", "が", "で"],
+        "correctAnswerIndex": 1,
+        "explanation": "Obyekt bor: 「妹に ピアノを 習わせています」."
+      },
+      {
+        "id": "ja-minna-l48-q6",
+        "question": "【Mondai 2: Bunpo】「気分が 悪いので、少し （　）いただけませんか。」",
+        "options": ["休まれて", "休んで", "休ませて", "休まされて"],
+        "correctAnswerIndex": 2,
+        "explanation": "O'ziga dam olishga ruxsat so'rash: 「休ませて いただけませんか」."
+      },
+      {
+        "id": "ja-minna-l48-q7",
+        "question": "【Mondai 2: Bunpo】「子どもに 好きな 料理を （　）あげました。」",
+        "options": ["選んで", "選ばれて", "選ぼう", "選ばせて"],
+        "correctAnswerIndex": 3,
+        "explanation": "Bolaga tanlashga imkon/ruxsat berish: 「選ばせて あげました」."
+      },
+      {
+        "id": "ja-minna-l48-q8",
+        "question": "【Mondai 3: Dokkai】「先生は 学生たちに 自由に 意見を 言わせました。」 Darsda nima bo'ldi?",
+        "options": [
+          "O'qituvchi talabalarga o'z fikrlarini erkin bildirishga imkoniyat yaratdi",
+          "Talabalarga gapirish taqiqlandi",
+          "Faqat o'qituvchi gapirdi",
+          "Dars bekor qilindi"
+        ],
+        "correctAnswerIndex": 0,
+        "explanation": "Fikrlarini erkin bildirishga ruxsat berdi (言わせました)."
+      },
+      {
+        "id": "ja-minna-l48-q9",
+        "question": "【Mondai 3: Dokkai】「すみません、この 企画[きかく]は 私に やらせて いただけないでしょうか。」 So'zlovchi nima so'ramoqda?",
+        "options": [
+          "Loyiha bekor qilinishini",
+          "Boshqa odam bajarishini",
+          "Ushbu loyihani o'ziga topshirishlarini",
+          "Maoshini oshirishni"
+        ],
+        "correctAnswerIndex": 2,
+        "explanation": "O'zi bajarishga ruxsat so'ramoqda: 「私に やらせて いただけないでしょうか」."
+      },
+      {
+        "id": "ja-minna-l48-q10",
+        "question": "【Mondai 4: Kaiwa】「すみません、頭が 痛いので、今日は 早く 帰らせて いただけませんか。」 部長の 返事として 最も よいものは？",
+        "options": [
+          "おめでとうございます。",
+          "はい、帰りました。",
+          "どういたしまして。",
+          "ええ、いいですよ。お大事に。"
+        ],
+        "correctAnswerIndex": 3,
+        "explanation": "Hamdardlik bilan ruxsat berish: 「ええ、いいですよ。お大事に」 (mayli, albatta, o'zingizni ehtiyot qiling)."
+      }
+    ]
+  },
+  "49": {
+    "practice": [
+      {
+        "id": "ja-minna-l49-ex1",
+        "type": "multiple-choice",
+        "prompt": "«行きます», «来ます», «います» ning umumiy oliy hurmat (Sonkeigo) fe'li qaysi?",
+        "options": ["参ります", "いらっしゃいます", "お目にかかります", "いただきます"],
+        "correctAnswer": 1,
+        "explanation": "Boshqalar borishi/kelishi/bo'lishi hurmat fe'li — 「いらっしゃいます」."
+      },
+      {
+        "id": "ja-minna-l49-ex2",
+        "type": "multiple-choice",
+        "prompt": "«食べます» va «飲みます» ning Sonkeigo shakli qaysi?",
+        "options": ["いただきます", "申します", "召し上がります (めしあがります)", "なさいます"],
+        "correctAnswer": 2,
+        "explanation": "Hurmatli kishining yeb-ichishi — 「召し上がります (めしあがります)」."
+      },
+      {
+        "id": "ja-minna-l49-ex3",
+        "type": "multiple-choice",
+        "prompt": "«言います» ning Sonkeigo shakli qaysi?",
+        "options": ["申します", "存じます", "伺います", "おっしゃいます"],
+        "correctAnswer": 3,
+        "explanation": "Hurmatli shaxs gapirishi — 「おっしゃいます」."
+      },
+      {
+        "id": "ja-minna-l49-ex4",
+        "type": "multiple-choice",
+        "prompt": "«します» ning Sonkeigo shakli qaysi?",
+        "options": ["なさいます", "いたします", "参ります", "ご覧になります"],
+        "correctAnswer": 0,
+        "explanation": "Hurmatli shaxs qilishi — 「なさいます」."
+      },
+      {
+        "id": "ja-minna-l49-ex5",
+        "type": "multiple-choice",
+        "prompt": "«見ます» ning Sonkeigo shakli qaysi?",
+        "options": [
+          "拝見します",
+          "伺います",
+          "ご覧に なります (ごらんになります)",
+          "お目にかかります"
+        ],
+        "correctAnswer": 2,
+        "explanation": "Hurmatli shaxs ko'rishi/tomosha qilishi — 「ご覧に なります」."
+      },
+      {
+        "id": "ja-minna-l49-ex6",
+        "type": "multiple-choice",
+        "prompt": "«知っています» ning Sonkeigo shakli qaysi?",
+        "options": ["存じています", "存じます", "知られます", "ご存じです (ごぞんじです)"],
+        "correctAnswer": 3,
+        "explanation": "Bilasizmi / biladilar — 「ご存じです (ごぞんじです)」."
+      },
+      {
+        "id": "ja-minna-l49-ex7",
+        "type": "multiple-choice",
+        "prompt": "Muntazam fe'llarning hurmat qolipi qaysi?\n「社長は もう 新聞を （　）。」",
+        "options": ["お読みに なりました", "お読みしました", "読まれました", "お読みに しました"],
+        "correctAnswer": 0,
+        "explanation": "お＋V-ます形＋になります: 「お読みに なりました」."
+      },
+      {
+        "id": "ja-minna-l49-ex8",
+        "type": "multiple-choice",
+        "prompt": "Muloyim taklif/iltimos qolipi qaysi?\n「どうぞ こちらに （　）。」",
+        "options": [
+          "お掛け します",
+          "お掛け ください",
+          "掛けて いただきます",
+          "掛けて くださいませんか"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Hurmat bilan taklif: お＋V-ます形＋ください (「お掛け ください」 - o'tiring)."
+      },
+      {
+        "id": "ja-minna-l49-ex9",
+        "type": "multiple-choice",
+        "prompt": "Suhbatdoshning turmush o'rtog'iga qanday murojaat qilinadi?",
+        "options": ["妻", "家内", "女の人", "奥様 (おくさま)"],
+        "correctAnswer": 3,
+        "explanation": "Boshqalarning rafiqasi — 「奥様 (おくさま)」 (o'ziniki esa 妻 / 家内)."
+      },
+      {
+        "id": "ja-minna-l49-ex10",
+        "type": "multiple-choice",
+        "prompt": "«過ごします (すごします)» fe'lining ma'nosi nima?",
+        "options": ["Vaqt o'tkazmoq", "Uyquga ketmoq", "Kechikmoq", "Tezlashmoq"],
+        "correctAnswer": 0,
+        "explanation": "«過ごします» — dam olish yoki vaqtni o'tkazmoq."
+      }
+    ],
+    "test": [
+      {
+        "id": "ja-minna-l49-q1",
+        "question": "【Mondai 1: Moji/Goi】「旅館（りょかん）」の 読[よ]み方[かた]は どれですか。",
+        "options": ["りょけん", "りょこう", "ホテル", "りょかん"],
+        "correctAnswerIndex": 3,
+        "explanation": "「旅館」 ning to'g'ri o'qilishi: 「りょかん」 (an'anaviy yapon mehmonxonasi)."
+      },
+      {
+        "id": "ja-minna-l49-q2",
+        "question": "【Mondai 1: Moji/Goi】「勤（つと）めます」の 意[い]味[み]は どれですか。",
+        "options": ["Ishlamoq / Xizmat qilmoq", "Dam olmoq", "O'qimoq", "Topmoq"],
+        "correctAnswerIndex": 0,
+        "explanation": "「勤めます (つとめます)」 — kompaniya yoki muassasada xizmat qilmoq."
+      },
+      {
+        "id": "ja-minna-l49-q3",
+        "question": "【Mondai 1: Moji/Goi】「寄（よ）ります」の 意[い]味[み]は どれですか。",
+        "options": ["Uzoqlashmoq", "Yo'l-yo'lakay kirib o'tmoq", "To'xtamoq", "Qaytib kelmoq"],
+        "correctAnswerIndex": 1,
+        "explanation": "«寄ります (よります)» — yo'l ustida biror joyga qisqa vaqtga kirib o'tmoq."
+      },
+      {
+        "id": "ja-minna-l49-q4",
+        "question": "【Mondai 2: Bunpo】「先生は 何時頃[なんじごろ] 研究室に （　）か。」",
+        "options": ["参ります", "おります", "いらっしゃいます", "申します"],
+        "correctAnswerIndex": 2,
+        "explanation": "Ustozning bo'lishi: 「いらっしゃいますか」."
+      },
+      {
+        "id": "ja-minna-l49-q5",
+        "question": "【Mondai 2: Bunpo】「お茶を （　）か。」「ええ、いただきます。」",
+        "options": ["召し上がります", "いただきます", "申します", "なさいます"],
+        "correctAnswerIndex": 0,
+        "explanation": "Choy ichasizmi: 「召し上がりますか」."
+      },
+      {
+        "id": "ja-minna-l49-q6",
+        "question": "【Mondai 2: Bunpo】「社長は 会議室で 資料を （　）。」",
+        "options": ["拝見して います", "ご覧に なっています", "見て います", "見せて います"],
+        "correctAnswerIndex": 1,
+        "explanation": "Rahbar ko'rib chiqmoqdalar: 「ご覧に なっています」."
+      },
+      {
+        "id": "ja-minna-l49-q7",
+        "question": "【Mondai 2: Bunpo】「どうぞ こちらから （　）ください。」",
+        "options": ["お入って", "入って", "お入り", "入られ"],
+        "correctAnswerIndex": 2,
+        "explanation": "Xushmuomala taklif: 「お入り ください」."
+      },
+      {
+        "id": "ja-minna-l49-q8",
+        "question": "【Mondai 3: Dokkai】「部長は 先ほど お客様と 一緒に お出かけに なりました。夕方には お戻りに なる 予定です。」 Boshliq haqida nima deyilgan?",
+        "options": [
+          "Boshliq bugun ishga kelmadi",
+          "Boshliq ofisda majlis o'tkazmoqda",
+          "Boshliq kasal bo'lib qoldi",
+          "Boshliq hozirgina mijoz bilan chiqib ketdi, kechqurun qaytishi kutilmoqda"
+        ],
+        "correctAnswerIndex": 3,
+        "explanation": "Chiqib ketdilar (お出かけになりました) va kechqurun qaytadilar (お戻りになる)."
+      },
+      {
+        "id": "ja-minna-l49-q9",
+        "question": "【Mondai 3: Dokkai】「あの方の お名前を ご存じですか。」「いいえ、存じません。」 Suhbat mazmuni qanday?",
+        "options": [
+          "U kishi kim? - Do'stim.",
+          "U kishining ismini bilasizmi? - Yo'q, bilmayman.",
+          "U kishi qayerlik? - Yaponiyalik.",
+          "Ismingiz nima? - Tanaka."
+        ],
+        "correctAnswerIndex": 1,
+        "explanation": "Ismini bilasizmi (ご存じですか) - Yo'q, bilmayman (存じません)."
+      },
+      {
+        "id": "ja-minna-l49-q10",
+        "question": "【Mondai 4: Kaiwa】「コーヒーと 紅茶[こうちゃ]、どちらが よろしいですか。」 Eng mos javobni tanlang:",
+        "options": [
+          "コーヒーを 召し上がります。",
+          "コーヒーで いらっしゃいます。",
+          "コーヒーを お願いします。",
+          "どういたしまして。"
+        ],
+        "correctAnswerIndex": 2,
+        "explanation": "O'ziga buyurtma qilganda oddiy xushmuomala javob: 「コーヒーを お願いします」."
+      }
+    ]
+  },
+  "50": {
+    "practice": [
+      {
+        "id": "ja-minna-l50-ex1",
+        "type": "multiple-choice",
+        "prompt": "«行きます» va «来ます» ning Kenjougo (kamtarlik) shakli qaysi?\n「明日 先生の お宅へ （　）。」",
+        "options": ["参ります (まいります)", "いらっしゃいます", "申します", "お目にかかります"],
+        "correctAnswer": 0,
+        "explanation": "O'zining borishi/kelishi kamtarlik shakli — 「参ります (まいります)」."
+      },
+      {
+        "id": "ja-minna-l50-ex2",
+        "type": "multiple-choice",
+        "prompt": "«います» ning Kenjougo shakli qaysi?\n「わたしは 東京に （　）。」",
+        "options": ["いらっしゃいます", "おります", "存じます", "ございます"],
+        "correctAnswer": 1,
+        "explanation": "O'zining bo'lishi/yashashi — 「おります」."
+      },
+      {
+        "id": "ja-minna-l50-ex3",
+        "type": "multiple-choice",
+        "prompt": "«言います» ning Kenjougo shakli qaysi?\n「ミラーと （　）。」",
+        "options": ["おっしゃいます", "存じます", "申します (もうします)", "いただきます"],
+        "correctAnswer": 2,
+        "explanation": "O'zining ismini yoki so'zini aytishi — 「申します (もうします)」."
+      },
+      {
+        "id": "ja-minna-l50-ex4",
+        "type": "multiple-choice",
+        "prompt": "«します» ning Kenjougo shakli qaysi?",
+        "options": ["なさいます", "参ります", "ございます", "いたします"],
+        "correctAnswer": 3,
+        "explanation": "Qilmoqning kamtarlik shakli — 「いたします」."
+      },
+      {
+        "id": "ja-minna-l50-ex5",
+        "type": "multiple-choice",
+        "prompt": "«見ます» ning Kenjougo shakli qaysi?\n「資料を （　）。」",
+        "options": ["ご覧になります", "拝見します (はいけんします)", "伺います", "存じます"],
+        "correctAnswer": 1,
+        "explanation": "Kattalarning narsasini hurmat bilan ko'rish/o'rganish — 「拝見します」."
+      },
+      {
+        "id": "ja-minna-l50-ex6",
+        "type": "multiple-choice",
+        "prompt": "«聞きます» va «行きます (uyiga borish)» ning Kenjougo shakli qaysi?",
+        "options": ["申します", "参ります", "伺います (うかがいます)", "お目にかかります"],
+        "correctAnswer": 2,
+        "explanation": "So'rash, xabar olish yoki uyiga borish — 「伺います (うかがいます)」."
+      },
+      {
+        "id": "ja-minna-l50-ex7",
+        "type": "multiple-choice",
+        "prompt": "«会います» ning oliy kamtarlik shakli qaysi?",
+        "options": ["ご覧になります", "拝見します", "いらっしゃいます", "お目にかかります"],
+        "correctAnswer": 3,
+        "explanation": "Hurmatli kishi bilan ko'rishish — 「お目にかかります」."
+      },
+      {
+        "id": "ja-minna-l50-ex8",
+        "type": "multiple-choice",
+        "prompt": "O'zining harakati bilan boshqalarga yordam berish qolipi qaysi?\n「重そうですね。荷物を （　）。」",
+        "options": ["お持ちしましょうか", "お持ちになりますか", "お持ちください", "持たれますか"],
+        "correctAnswer": 0,
+        "explanation": "Kamtarlik bilan xizmat taklif qilish: 「お＋V-ます形＋します」 (お持ちしましょうか)."
+      },
+      {
+        "id": "ja-minna-l50-ex9",
+        "type": "multiple-choice",
+        "prompt": "O'zini kamsuqumlik bilan atash so'zi qaysi?",
+        "options": ["おれ", "ぼく", "わたくし", "あなた"],
+        "correctAnswer": 2,
+        "explanation": "Rasmiy ishbilarmonlikda eng xushmuomala so'z — 「わたくし」."
+      },
+      {
+        "id": "ja-minna-l50-ex10",
+        "type": "multiple-choice",
+        "prompt": "Kango (xitoycha so'zlar) uchun kamtarlik qolipi qaysi?\n「駅まで （　）します。」",
+        "options": ["お案内", "案内に", "ご案内になり", "ご案内 (ごあんない)"],
+        "correctAnswer": 3,
+        "explanation": "Kango so'zlar oldidan ご qo'yiladi: 「ご案内 します」."
+      }
+    ],
+    "test": [
+      {
+        "id": "ja-minna-l50-q1",
+        "question": "【Mondai 1: Moji/Goi】「乾杯（かんぱい）」の 意[い]味[み]は どれですか。",
+        "options": ["Xayrlashuv", "Kechirim", "Qadah so'zi / Qadah ko'tarish", "Tabrik"],
+        "correctAnswerIndex": 2,
+        "explanation": "「乾杯 (かんぱい)」 — qadah so'zi aytib ko'tarish."
+      },
+      {
+        "id": "ja-minna-l50-q2",
+        "question": "【Mondai 1: Moji/Goi】「お礼（れい）」の 意[い]味[み]は どれですか。",
+        "options": ["Xabar", "Salom", "Uchrashuv", "Minnatdorlik / Tashakkur sovg'asi"],
+        "correctAnswerIndex": 3,
+        "explanation": "「お礼 (おれい)」 — minnatdorlik yoki tashakkur sifatida berilgan sovg'a."
+      },
+      {
+        "id": "ja-minna-l50-q3",
+        "question": "【Mondai 1: Moji/Goi】「存（ぞん）じます」の 意[い]味[み]は どれですか。",
+        "options": ["Bilmoq / O'ylamoq", "Eshatmoq", "Yozmoq", "Bormoq"],
+        "correctAnswerIndex": 0,
+        "explanation": "「存じます (ぞんじます)」 — 知っています / 思います ning kamtarlik shakli."
+      },
+      {
+        "id": "ja-minna-l50-q4",
+        "question": "【Mondai 2: Bunpo】「明日 3時に そちらへ （　）。」",
+        "options": ["いらっしゃいます", "伺います (うかがいます)", "おっしゃいます", "なさいます"],
+        "correctAnswerIndex": 1,
+        "explanation": "Mijoz yoki hamkor ofisiga borish (kamtarlik): 「伺います」."
+      },
+      {
+        "id": "ja-minna-l50-q5",
+        "question": "【Mondai 2: Bunpo】「部長、お手紙を （　）しても よろしいでしょうか。」",
+        "options": ["ご覧", "お見", "見られ", "拝見"],
+        "correctAnswerIndex": 3,
+        "explanation": "Boshliq xatini ko'rish: 「拝見しても (ko'zdan kechirsam)」."
+      },
+      {
+        "id": "ja-minna-l50-q6",
+        "question": "【Mondai 2: Bunpo】「工場の中を （　）いたします。」",
+        "options": ["ご案内", "お案内", "案内に", "案内され"],
+        "correctAnswerIndex": 0,
+        "explanation": "ご＋Ot＋いたします: 「ご案内 いたします」."
+      },
+      {
+        "id": "ja-minna-l50-q7",
+        "question": "【Mondai 2: Bunpo】「初めまして。IMCの ミラーと （　）。」",
+        "options": ["おっしゃいます", "申します", "参ります", "ございます"],
+        "correctAnswerIndex": 1,
+        "explanation": "O'zini tanishtirish: 「ミラーと 申します」."
+      },
+      {
+        "id": "ja-minna-l50-q8",
+        "question": "【Mondai 3: Dokkai】「本日は お忙しい中、お時間を いただき、誠[まこと]に ありがとうございました。」 Xat nima haqida?",
+        "options": [
+          "Majlisni bekor qilish",
+          "Kechikkanlik uchun uzr so'rash",
+          "Vaqt ajratgani uchun chuqur minnatdorlik bildirish",
+          "Yangi ishga kirish"
+        ],
+        "correctAnswerIndex": 2,
+        "explanation": "Vaqt ajratganligi uchun xushmuomala tashakkurnoma."
+      },
+      {
+        "id": "ja-minna-l50-q9",
+        "question": "【Mondai 3: Dokkai】「明日 社長に お目にかかる 予定です。新しい プロジェクトの 計画書を お渡しします。」 Muallif ertaga nima qiladi?",
+        "options": [
+          "Prezident bilan uchrashib, yangi loyiha rejasini topshiradi",
+          "Prezidentni kutib oladi",
+          "Ishdan bo'shaydi",
+          "Uyda dam oladi"
+        ],
+        "correctAnswerIndex": 0,
+        "explanation": "Prezident/rahbar bilan uchrashadi (お目にかかる) va rejani topshiradi (お渡しする)."
+      },
+      {
+        "id": "ja-minna-l50-q10",
+        "question": "【Mondai 4: Kaiwa】「コーヒーを お淹れしましょうか。」 Eng mos xushmuomala javobni tanlang:",
+        "options": [
+          "はい、淹れました。",
+          "恐れ入ります。お願いします。",
+          "コーヒーです。",
+          "どういたしまして。"
+        ],
+        "correctAnswerIndex": 1,
+        "explanation": "Iltifotga minnatdor javob: 「恐れ入ります。お願いします」 (Rahmat, iltimos)."
+      }
+    ]
+  }
+}

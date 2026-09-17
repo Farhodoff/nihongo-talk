@@ -137,9 +137,34 @@ export default defineConfig(({ mode }) => {
           clientsClaim: true,
           cleanupOutdatedCaches: true,
           globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
+          globIgnores: [
+            '**/jlpt-vocab-data-*.js',
+            '**/curriculum-core-*.js',
+            '**/jlpt_n2-*.js',
+            '**/jlpt_n3-*.js',
+            '**/AdminDashboardPage-*.js',
+            '**/JlptGrammarKanjiMaster-*.js',
+            '**/jlpt-grammar-kanji-data-*.js',
+            '**/minna_shokyu*.js',
+          ],
           navigateFallback: '/index.html',
           navigateFallbackDenylist: [/^\/api/, /^\/version\.json/],
           runtimeCaching: [
+            {
+              urlPattern:
+                /assets\/(?:jlpt-vocab-data|curriculum-core|jlpt_n[1-5]|jlpt-grammar-kanji-data|AdminDashboardPage|JlptGrammarKanjiMaster|minna_shokyu).*\.js$/i,
+              handler: 'StaleWhileRevalidate',
+              options: {
+                cacheName: 'large-data-chunks-cache',
+                expiration: {
+                  maxEntries: 15,
+                  maxAgeSeconds: 30 * 24 * 60 * 60,
+                },
+                cacheableResponse: {
+                  statuses: [0, 200],
+                },
+              },
+            },
             {
               urlPattern: ({ request }) => request.mode === 'navigate',
               handler: 'NetworkFirst',
