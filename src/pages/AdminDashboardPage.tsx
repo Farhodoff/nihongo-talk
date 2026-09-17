@@ -19,7 +19,6 @@ import {
   ShieldCheck,
   Download,
   Radio,
-  Send,
   Eye,
   ArrowUpDown,
   ChevronRight,
@@ -44,6 +43,10 @@ import { AdminScenarioManager } from '../components/admin/AdminScenarioManager';
 import { AdminSpeechAnalytics } from '../components/admin/AdminSpeechAnalytics';
 import { AdminDatasetVaultModal } from '../components/admin/AdminDatasetVaultModal';
 import { AdminContentStudio } from '../components/admin/AdminContentStudio';
+import { AdminAuditLogsModal } from '../components/admin/AdminAuditLogsModal';
+import { AdminBroadcastModal } from '../components/admin/AdminBroadcastModal';
+import { AdminUserDetailModal } from '../components/admin/AdminUserDetailModal';
+import { RoleBadge } from '../components/admin/RoleBadge';
 import { SvgLineChart } from '../components/ui/SvgCharts';
 import { toast } from '../hooks/use-toast';
 
@@ -94,47 +97,6 @@ export interface DatabaseResourceMetrics {
   learningGoals: number;
   profiles: number;
 }
-
-const RoleBadge: React.FC<{
-  role?: string;
-  email?: string;
-  assignedBy?: string | null;
-  assignedAt?: string | null;
-}> = ({ role, email, assignedBy, assignedAt }) => {
-  if (isSuperAdmin(email, role)) {
-    return (
-      <div className="flex flex-col items-start gap-0.5">
-        <span className="inline-flex shrink-0 items-center gap-1 rounded-full border border-[#C9A961]/30 bg-[#C9A961]/15 px-2.5 py-0.5 text-[10px] font-black uppercase tracking-wider text-[#C9A961]">
-          👑 Superadmin
-        </span>
-        <span className="text-[9px] text-[#C9A961]/80">Asosiy Boshqaruvchi</span>
-      </div>
-    );
-  }
-  if (role === 'admin' || isAdminEmail(email, role)) {
-    return (
-      <div className="flex flex-col items-start gap-0.5">
-        <span className="inline-flex shrink-0 items-center gap-1 rounded-full border border-primary/25 bg-primary/10 px-2.5 py-0.5 text-[10px] font-black uppercase tracking-wider text-primary">
-          🛡️ Admin
-        </span>
-        {assignedBy && (
-          <span
-            className="text-[9px] text-muted-foreground"
-            title={assignedAt ? `Tayinlangan: ${new Date(assignedAt).toLocaleString()}` : undefined}
-          >
-            Tayinlagan:{' '}
-            <span className="font-mono text-foreground/80">{assignedBy.split('@')[0]}</span>
-          </span>
-        )}
-      </div>
-    );
-  }
-  return (
-    <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-muted px-2.5 py-0.5 text-[10px] font-semibold text-muted-foreground">
-      Student
-    </span>
-  );
-};
 
 export default function AdminDashboardPage() {
   const navigate = useNavigate();
@@ -238,12 +200,6 @@ export default function AdminDashboardPage() {
   const [isVaultOpen, setIsVaultOpen] = useState(false);
   const [selectedDetailUser, setSelectedDetailUser] = useState<UserRecord | null>(null);
   const [isBroadcastOpen, setIsBroadcastOpen] = useState(false);
-  const [broadcastTitle, setBroadcastTitle] = useState('');
-  const [broadcastMessage, setBroadcastMessage] = useState('');
-  const [broadcastTag, setBroadcastTag] = useState<'general' | 'system' | 'update' | 'promo'>(
-    'general',
-  );
-  const [sendingBroadcast, setSendingBroadcast] = useState(false);
   const [isRealtimeActive, setIsRealtimeActive] = useState(false);
   const secretClicksRef = useRef(0);
   const userListRef = useRef(usersList);
@@ -1090,48 +1046,6 @@ export default function AdminDashboardPage() {
     setMessageModalUser(null);
     setMsgContent('');
     setMsgTitle('🎁 Maxsus Xabar');
-  };
-
-  const handleSendBroadcast = async () => {
-    if (!broadcastTitle.trim() || !broadcastMessage.trim()) {
-      toast({
-        variant: 'destructive',
-        title: "To'liq to'ldiring",
-        description: 'Sarlavha va xabar matnini kiriting.',
-      });
-      return;
-    }
-    setSendingBroadcast(true);
-    try {
-      const success = await UserNotificationService.sendGlobalBroadcastAnnouncement({
-        title: broadcastTitle.trim(),
-        message: broadcastMessage.trim(),
-        tag: broadcastTag,
-      });
-      if (success) {
-        toast({
-          title: "📢 Global E'lon Yuborildi",
-          description: "Barcha platforma foydalanuvchilariga e'lon muvaffaqiyatli tarqatildi.",
-        });
-        setIsBroadcastOpen(false);
-        setBroadcastTitle('');
-        setBroadcastMessage('');
-      } else {
-        toast({
-          variant: 'destructive',
-          title: 'Xatolik',
-          description: "E'lonni yuborishda xatolik yuz berdi.",
-        });
-      }
-    } catch (e: any) {
-      toast({
-        variant: 'destructive',
-        title: 'Xatolik',
-        description: e?.message || "E'lon yuborilmadi.",
-      });
-    } finally {
-      setSendingBroadcast(false);
-    }
   };
 
   const handleOpenConfirmModal = (
@@ -2373,260 +2287,24 @@ export default function AdminDashboardPage() {
       </div>
 
       {/* User Profile Detail View Modal */}
-      {selectedDetailUser && (
-        <div
-          className="backdrop-blur-xs fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4"
-          onClick={() => setSelectedDetailUser(null)}
-        >
-          <div
-            className="max-h-[90vh] w-full max-w-2xl space-y-5 overflow-y-auto rounded-2xl border border-border bg-card p-6 shadow-2xl duration-200 animate-in zoom-in-95"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex items-center justify-between border-b border-border pb-3">
-              <div className="flex items-center gap-3">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-lg font-black text-primary">
-                  {(selectedDetailUser.full_name || selectedDetailUser.email)[0].toUpperCase()}
-                </div>
-                <div>
-                  <h3 className="flex items-center gap-2 text-base font-bold text-foreground">
-                    {selectedDetailUser.full_name || selectedDetailUser.email.split('@')[0]}
-                    <RoleBadge role={selectedDetailUser.role} email={selectedDetailUser.email} />
-                  </h3>
-                  <p className="font-mono text-xs text-muted-foreground">
-                    {selectedDetailUser.email}
-                  </p>
-                </div>
-              </div>
-              <button
-                onClick={() => setSelectedDetailUser(null)}
-                className="rounded-lg p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-              >
-                <X size={18} />
-              </button>
-            </div>
-
-            {/* Individual Stats Grid */}
-            {(() => {
-              const stat = userStatsMap[selectedDetailUser.id];
-              return (
-                <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-                  <div className="rounded-xl border border-border/80 bg-muted/40 p-3">
-                    <span className="text-[10px] font-medium uppercase text-muted-foreground">
-                      Jami Mashg'ulot
-                    </span>
-                    <div className="mt-0.5 text-base font-black text-foreground">
-                      {stat?.totalSessions || 0} ta
-                    </div>
-                  </div>
-                  <div className="rounded-xl border border-border/80 bg-muted/40 p-3">
-                    <span className="text-[10px] font-medium uppercase text-muted-foreground">
-                      O'rganish Vaqti
-                    </span>
-                    <div className="mt-0.5 text-base font-black text-foreground">
-                      {stat?.totalDurationMinutes || 0} daqiqa
-                    </div>
-                  </div>
-                  <div className="rounded-xl border border-border/80 bg-muted/40 p-3">
-                    <span className="text-[10px] font-medium uppercase text-muted-foreground">
-                      Speaking & Coach
-                    </span>
-                    <div className="mt-0.5 text-base font-black text-primary">
-                      {(stat?.speakingSessions || 0) + (stat?.aiCoachSessions || 0)} seans
-                    </div>
-                  </div>
-                  <div className="rounded-xl border border-border/80 bg-muted/40 p-3">
-                    <span className="text-[10px] font-medium uppercase text-muted-foreground">
-                      O'rtacha Ball
-                    </span>
-                    <div className="mt-0.5 text-base font-black text-emerald-400">
-                      {stat?.avgScore ? `${stat.avgScore}%` : '—'}
-                    </div>
-                  </div>
-                </div>
-              );
-            })()}
-
-            {/* User Metadata */}
-            <div className="space-y-2 rounded-xl border border-border bg-muted/20 p-3.5 text-xs">
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Foydalanuvchi UUID:</span>
-                <span className="select-all font-mono text-foreground">
-                  {selectedDetailUser.id}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Ro'yxatdan o'tgan sana:</span>
-                <span className="text-foreground">
-                  {selectedDetailUser.created_at
-                    ? new Date(selectedDetailUser.created_at).toLocaleString()
-                    : "Noma'lum"}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Oxirgi login / faollik:</span>
-                <span className="text-foreground">
-                  {selectedDetailUser.last_sign_in_at
-                    ? new Date(selectedDetailUser.last_sign_in_at).toLocaleString()
-                    : '—'}
-                </span>
-              </div>
-            </div>
-
-            {/* Speech Sessions History for this user */}
-            <div className="space-y-2">
-              <h4 className="flex items-center gap-1.5 text-xs font-bold text-foreground">
-                <Mic size={14} className="text-primary" />
-                Muloqot va AI Coach Tarixi ({userDetailSpeechRecords.length})
-              </h4>
-              {userDetailSpeechRecords.length > 0 ? (
-                <div className="max-h-48 space-y-2 overflow-y-auto pr-1">
-                  {userDetailSpeechRecords.map((rec) => (
-                    <div
-                      key={rec.id}
-                      className="flex items-center justify-between gap-2 rounded-xl border border-border/70 bg-muted/40 p-2.5 text-xs"
-                    >
-                      <div>
-                        <div className="font-bold text-foreground">{rec.persona_title}</div>
-                        <div className="text-[10px] text-muted-foreground">
-                          {rec.type} • {new Date(rec.created_at).toLocaleString()}
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <span className="font-extrabold text-emerald-400">{rec.score}%</span>
-                        <div className="text-[10px] text-muted-foreground">
-                          {rec.duration_seconds}s
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="rounded-xl border border-dashed border-border bg-muted/20 p-4 text-center text-xs text-muted-foreground">
-                  Ushbu foydalanuvchi hali muloqot mashg'ulotlarini bajarmagan
-                </div>
-              )}
-            </div>
-
-            {/* Modal Action Buttons */}
-            <div className="flex items-center justify-end gap-2 border-t border-border pt-2">
-              <Button
-                variant="outline"
-                onClick={() => {
-                  setMessageModalUser({
-                    id: selectedDetailUser.id,
-                    email: selectedDetailUser.email,
-                  });
-                  setSelectedDetailUser(null);
-                }}
-                className="gap-1.5 text-xs"
-              >
-                <Send size={13} /> Xabar Yuborish
-              </Button>
-              <Button onClick={() => setSelectedDetailUser(null)} className="text-xs">
-                Yopish
-              </Button>
-            </div>
-          </div>
-        </div>
-      )}
+      <AdminUserDetailModal
+        user={selectedDetailUser}
+        userStats={selectedDetailUser ? userStatsMap[selectedDetailUser.id] : undefined}
+        speechRecords={userDetailSpeechRecords}
+        onClose={() => setSelectedDetailUser(null)}
+        onOpenMessageModal={(targetUser) => {
+          setMessageModalUser(targetUser);
+          setSelectedDetailUser(null);
+        }}
+        isJa={isJa}
+      />
 
       {/* Global Broadcast Announcement Modal */}
-      {isBroadcastOpen && (
-        <div
-          className="backdrop-blur-xs fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4"
-          onClick={() => setIsBroadcastOpen(false)}
-        >
-          <div
-            className="w-full max-w-md space-y-4 rounded-2xl border border-border bg-card p-5 shadow-2xl duration-200 animate-in zoom-in-95"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex items-center justify-between">
-              <h3 className="flex items-center gap-2 text-sm font-bold text-foreground">
-                <Radio size={16} className="text-primary" />
-                Barcha Foydalanuvchilarga E'lon Yuborish
-              </h3>
-              <button
-                onClick={() => setIsBroadcastOpen(false)}
-                className="text-muted-foreground hover:text-foreground"
-              >
-                ✕
-              </button>
-            </div>
-
-            <div className="space-y-3 text-xs">
-              <div>
-                <label className="mb-1 block text-[11px] font-semibold text-muted-foreground">
-                  E'lon Turi
-                </label>
-                <div className="grid grid-cols-4 gap-1.5">
-                  {(['general', 'update', 'system', 'promo'] as const).map((tag) => (
-                    <button
-                      key={tag}
-                      type="button"
-                      onClick={() => setBroadcastTag(tag)}
-                      className={`rounded-lg border py-1.5 text-[11px] font-semibold capitalize transition-colors ${
-                        broadcastTag === tag
-                          ? 'border-primary bg-primary text-primary-foreground'
-                          : 'border-border bg-muted text-muted-foreground'
-                      }`}
-                    >
-                      {tag}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <div>
-                <label className="mb-1 block text-[11px] font-semibold text-muted-foreground">
-                  Sarlavha
-                </label>
-                <input
-                  type="text"
-                  value={broadcastTitle}
-                  onChange={(e) => setBroadcastTitle(e.target.value)}
-                  placeholder="Masalan: 📢 Yangi JLPT N3 Darslari Qo'shildi!"
-                  className="w-full rounded-xl border border-border bg-muted px-3 py-2 text-xs text-foreground outline-none focus:border-primary"
-                />
-              </div>
-
-              <div>
-                <label className="mb-1 block text-[11px] font-semibold text-muted-foreground">
-                  Xabar Matni
-                </label>
-                <textarea
-                  rows={4}
-                  value={broadcastMessage}
-                  onChange={(e) => setBroadcastMessage(e.target.value)}
-                  placeholder="E'lon tafsilotlarini yozing..."
-                  className="w-full resize-none rounded-xl border border-border bg-muted px-3 py-2 text-xs text-foreground outline-none focus:border-primary"
-                />
-              </div>
-            </div>
-
-            <div className="flex gap-2">
-              <Button
-                variant="outline"
-                onClick={() => setIsBroadcastOpen(false)}
-                className="flex-1 text-xs"
-              >
-                Bekor qilish
-              </Button>
-              <Button
-                onClick={handleSendBroadcast}
-                disabled={sendingBroadcast}
-                className="flex-1 gap-1.5 bg-primary text-xs text-primary-foreground shadow-md shadow-primary/20 hover:bg-primary/90"
-              >
-                {sendingBroadcast ? (
-                  <Loader2 size={13} className="animate-spin" />
-                ) : (
-                  <Send size={13} />
-                )}
-                E'lonni Tarqatish
-              </Button>
-            </div>
-          </div>
-        </div>
-      )}
+      <AdminBroadcastModal
+        isOpen={isBroadcastOpen}
+        onClose={() => setIsBroadcastOpen(false)}
+        isJa={isJa}
+      />
 
       {/* Direct User Message Modal */}
       {messageModalUser && (
@@ -2897,106 +2575,13 @@ export default function AdminDashboardPage() {
       )}
 
       {/* Admin Audit History Logs Modal */}
-      {auditModalOpen && (
-        <div
-          className="backdrop-blur-xs fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4"
-          onClick={() => setAuditModalOpen(false)}
-        >
-          <div
-            className="flex max-h-[85vh] w-full max-w-2xl flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-2xl"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex items-center justify-between border-b border-border p-4">
-              <div className="flex items-center gap-2">
-                <Clock size={18} className="text-primary" />
-                <div>
-                  <h3 className="text-sm font-bold text-foreground">
-                    {isJa ? '管理者権限 監査ログ' : 'Adminlar Tarixi va Audit Jurnali'}
-                  </h3>
-                  <p className="text-[11px] text-muted-foreground">
-                    {isJa
-                      ? '誰がいつ管理者を指名・解除したかの全履歴'
-                      : 'Qaysi admin kimni tayinlagan va adminlikdan olganligi tarixi'}
-                  </p>
-                </div>
-              </div>
-              <button
-                onClick={() => setAuditModalOpen(false)}
-                className="cursor-pointer rounded-lg p-1 text-muted-foreground hover:bg-muted hover:text-foreground"
-              >
-                <X size={16} />
-              </button>
-            </div>
-
-            <div className="flex-1 space-y-3 overflow-y-auto p-4">
-              {loadingAuditLogs ? (
-                <div className="flex h-36 flex-col items-center justify-center gap-2 text-xs text-muted-foreground">
-                  <Loader2 size={20} className="animate-spin text-primary" />
-                  <span>{isJa ? '監査ログを読み込み中...' : 'Audit jurnali yuklanmoqda...'}</span>
-                </div>
-              ) : auditLogs.length === 0 ? (
-                <div className="flex h-36 flex-col items-center justify-center rounded-xl border border-dashed border-border text-xs text-muted-foreground">
-                  <span>
-                    {isJa
-                      ? '監査履歴はありません'
-                      : "Hozircha admin o'zgarishlar tarixi mavjud emas"}
-                  </span>
-                </div>
-              ) : (
-                <div className="overflow-x-auto rounded-xl border border-border">
-                  <table className="w-full text-left text-xs">
-                    <thead className="border-b border-border bg-muted/50 font-semibold text-muted-foreground">
-                      <tr>
-                        <th className="p-2.5">Sana / Vaqt</th>
-                        <th className="p-2.5">Amal</th>
-                        <th className="p-2.5">Foydalanuvchi</th>
-                        <th className="p-2.5">Ijrochi Admin</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-border/60 font-sans">
-                      {auditLogs.map((log) => (
-                        <tr key={log.id} className="transition-colors hover:bg-muted/30">
-                          <td className="whitespace-nowrap p-2.5 font-mono text-[11px] text-muted-foreground">
-                            {new Date(log.created_at).toLocaleString()}
-                          </td>
-                          <td className="whitespace-nowrap p-2.5">
-                            {log.action === 'GRANT_ADMIN' ? (
-                              <span className="inline-flex items-center gap-1 rounded-full border border-primary/20 bg-primary/10 px-2 py-0.5 text-[10px] font-bold text-primary">
-                                <ShieldCheck size={11} /> Admin Tayinlandi
-                              </span>
-                            ) : (
-                              <span className="inline-flex items-center gap-1 rounded-full border border-red-500/20 bg-red-500/10 px-2 py-0.5 text-[10px] font-bold text-red-400">
-                                <AlertTriangle size={11} /> Bekor Qilindi
-                              </span>
-                            )}
-                          </td>
-                          <td className="p-2.5 font-mono text-[11px] text-foreground">
-                            {log.target_email}
-                          </td>
-                          <td className="p-2.5 font-mono text-[11px] text-muted-foreground">
-                            {log.performed_by_email || 'Superadmin'}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              )}
-            </div>
-
-            <div className="flex justify-end border-t border-border bg-muted/20 p-3">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setAuditModalOpen(false)}
-                className="text-xs"
-              >
-                {isJa ? '閉じる' : 'Yopish'}
-              </Button>
-            </div>
-          </div>
-        </div>
-      )}
+      <AdminAuditLogsModal
+        isOpen={auditModalOpen}
+        onClose={() => setAuditModalOpen(false)}
+        auditLogs={auditLogs}
+        loading={loadingAuditLogs}
+        isJa={isJa}
+      />
 
       {/* SECRET DEVELOPER DATASET & VOICE VAULT MODAL */}
       <AdminDatasetVaultModal isOpen={isVaultOpen} onClose={() => setIsVaultOpen(false)} />

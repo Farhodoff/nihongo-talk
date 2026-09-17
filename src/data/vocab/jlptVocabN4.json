@@ -1,0 +1,1826 @@
+[
+  {
+    "id": "vocab_n4_n4_1",
+    "level": "N4",
+    "word": "案内",
+    "reading": "あんない",
+    "romaji": "annai",
+    "meaningUz": "Yo'l ko'rsatish, Tanishtirish",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "街を案内します",
+        "romaji": "",
+        "uz": "Shahar bo'ylab yo'l ko'rsataman"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_2",
+    "level": "N4",
+    "word": "安心",
+    "reading": "あんしん",
+    "romaji": "anshin",
+    "meaningUz": "Xotirjamlik, Ko'ngil to'qligi",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "家族の声を聞いて安心しました",
+        "romaji": "",
+        "uz": "Oilam ovozini eshitib xotirjam bo'ldim"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_3",
+    "level": "N4",
+    "word": "安全",
+    "reading": "あんぜん",
+    "romaji": "anzen",
+    "meaningUz": "Xavfsizlik, Behatarlik",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "ここは安全な場所です",
+        "romaji": "",
+        "uz": "Bu yer xavfsiz joy"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_4",
+    "level": "N4",
+    "word": "意見",
+    "reading": "いけん",
+    "romaji": "iken",
+    "meaningUz": "Fikr, Mulohaza",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "自分の意見を言う",
+        "romaji": "",
+        "uz": "O'z fikrini aytmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_5",
+    "level": "N4",
+    "word": "急ぐ",
+    "reading": "いそぐ",
+    "romaji": "isogu",
+    "meaningUz": "Shoshilmoq",
+    "partOfSpeech": "Fe'l",
+    "examples": [
+      {
+        "ja": "時間に遅れるので急ぎましょう",
+        "romaji": "",
+        "uz": "Vaqtga kech qolamiz, shoshamiz"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_6",
+    "level": "N4",
+    "word": "以内",
+    "reading": "いない",
+    "romaji": "inai",
+    "meaningUz": "Ichida, Davomida",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "一週間以内に返事します",
+        "romaji": "",
+        "uz": "Bir hafta ichida javob beraman"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_7",
+    "level": "N4",
+    "word": "祈る",
+    "reading": "いのる",
+    "romaji": "inoru",
+    "meaningUz": "Duo qilmoq, Tilak bildirmoq",
+    "partOfSpeech": "Fe'l",
+    "examples": [
+      {
+        "ja": "合格を祈っています",
+        "romaji": "",
+        "uz": "Muvaffaqiyatli o'tishingizni tilayman"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_8",
+    "level": "N4",
+    "word": "運動",
+    "reading": "うんどう",
+    "romaji": "undou",
+    "meaningUz": "Jismoniy mashq, Sport",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "毎朝運動をします",
+        "romaji": "",
+        "uz": "Har tong mashq qilaman"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_9",
+    "level": "N4",
+    "word": "運転",
+    "reading": "うんてん",
+    "romaji": "unten",
+    "meaningUz": "Haydash, Boshqarish",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "車を運転できますか",
+        "romaji": "",
+        "uz": "Mashina hayday olasizmi?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_10",
+    "level": "N4",
+    "word": "遠慮",
+    "reading": "えんりょ",
+    "romaji": "enryo",
+    "meaningUz": "Tortinish, Iymanmoq",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "遠慮しないで食べてください",
+        "romaji": "",
+        "uz": "Tortinmasdan yeng"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_11",
+    "level": "N4",
+    "word": "送る",
+    "reading": "おくる",
+    "romaji": "okuru",
+    "meaningUz": "Yubormoq, Kuzatib qo'ymoq",
+    "partOfSpeech": "Fe'l",
+    "examples": [
+      {
+        "ja": "駅まで送ります",
+        "romaji": "",
+        "uz": "Vokzalga qadar kuzatib qo'yaman"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_12",
+    "level": "N4",
+    "word": "怒る",
+    "reading": "おこる",
+    "romaji": "okoru",
+    "meaningUz": "Jahli chiqmoq, G'azablanmoq",
+    "partOfSpeech": "Fe'l",
+    "examples": [
+      {
+        "ja": "先生が怒りました",
+        "romaji": "",
+        "uz": "O'qituvchining jahli chiqdi"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_13",
+    "level": "N4",
+    "word": "落ちる",
+    "reading": "おちる",
+    "romaji": "ochiru",
+    "meaningUz": "Tushib ketmoq, Yiqilmoq",
+    "partOfSpeech": "Fe'l",
+    "examples": [
+      {
+        "ja": "ペンが床に落ちました",
+        "romaji": "",
+        "uz": "Ruchka polga tushib ketdi"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_14",
+    "level": "N4",
+    "word": "思い出す",
+    "reading": "おもいだす",
+    "romaji": "omoidasu",
+    "meaningUz": "Eslamoq, Yodga olmoq",
+    "partOfSpeech": "Fe'l",
+    "examples": [
+      {
+        "ja": "昔のことを思い出しました",
+        "romaji": "",
+        "uz": "Qadimgi xotiralarni esladim"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_15",
+    "level": "N4",
+    "word": "海岸",
+    "reading": "かいがん",
+    "romaji": "kaigan",
+    "meaningUz": "Dengiz qirg'og'i, Sohili",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "海岸を散歩する",
+        "romaji": "",
+        "uz": "Dengiz qirg'og'ida sayr qilmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_16",
+    "level": "N4",
+    "word": "会議",
+    "reading": "かいぎ",
+    "romaji": "kaigi",
+    "meaningUz": "Majlis, Yig'ilish",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "大事な会議に参加する",
+        "romaji": "",
+        "uz": "Muhim yig'ilishda qatnashmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_17",
+    "level": "N4",
+    "word": "会場",
+    "reading": "かいじょう",
+    "romaji": "kaijou",
+    "meaningUz": "Tadbir joyi, Majlis zali",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "試験の会場へ行く",
+        "romaji": "",
+        "uz": "Imtihon zali tomon bormoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_18",
+    "level": "N4",
+    "word": "火事",
+    "reading": "かじ",
+    "romaji": "kaji",
+    "meaningUz": "Yong'in",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "火事に気をつけてください",
+        "romaji": "",
+        "uz": "Yong'indan ehtiyot bo'ling"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_19",
+    "level": "N4",
+    "word": "通う",
+    "reading": "かよう",
+    "romaji": "kayou",
+    "meaningUz": "Qatnamoq",
+    "partOfSpeech": "Fe'l",
+    "examples": [
+      {
+        "ja": "大学に通っています",
+        "romaji": "",
+        "uz": "Universitetga qatnayapman"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_20",
+    "level": "N4",
+    "word": "関係",
+    "reading": "かんけい",
+    "romaji": "kankei",
+    "meaningUz": "Aloqa, Bog'liqlik",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "彼とは親しい関係です",
+        "romaji": "",
+        "uz": "U bilan yaqin munosabatdaman"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_21",
+    "level": "N4",
+    "word": "簡単",
+    "reading": "かんたん",
+    "romaji": "kantan",
+    "meaningUz": "Oson, Oddiy",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "この問題は簡単です",
+        "romaji": "",
+        "uz": "Bu masala oson"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_22",
+    "level": "N4",
+    "word": "機会",
+    "reading": "きかい",
+    "romaji": "kikai",
+    "meaningUz": "Imkoniyat, Fursat",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "留学する機会を得た",
+        "romaji": "",
+        "uz": "Chet elda o'qish imkoniyatiga ega bo'ldim"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_23",
+    "level": "N4",
+    "word": "危険",
+    "reading": "きけん",
+    "romaji": "kiken",
+    "meaningUz": "Xavfli, Xatarli",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "夜道は危険です",
+        "romaji": "",
+        "uz": "Tungi yo'l xavfli"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_24",
+    "level": "N4",
+    "word": "聞こえる",
+    "reading": "きこえる",
+    "romaji": "kikoeru",
+    "meaningUz": "Eshitilmoq",
+    "partOfSpeech": "Fe'l",
+    "examples": [
+      {
+        "ja": "鳥の声が聞こえます",
+        "romaji": "",
+        "uz": "Qushlarning ovozi eshitilyapti"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_25",
+    "level": "N4",
+    "word": "技術",
+    "reading": "ぎじゅつ",
+    "romaji": "gijutsu",
+    "meaningUz": "Texnika, Texnologiya, Mahorat",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "日本の技術は進んでいる",
+        "romaji": "",
+        "uz": "Yaponiya texnologiyasi rivojlangan"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_26",
+    "level": "N4",
+    "word": "季節",
+    "reading": "きせつ",
+    "romaji": "kisetsu",
+    "meaningUz": "Fasl, Mavsum",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "春は一番好きな季節です",
+        "romaji": "",
+        "uz": "Bahor eng yoqtirgan faslim"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_27",
+    "level": "N4",
+    "word": "規則",
+    "reading": "きそく",
+    "romaji": "kisoku",
+    "meaningUz": "Qoida, Nizom",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "学校の規則を守る",
+        "romaji": "",
+        "uz": "Maktab qoidalariga rioya qilmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_28",
+    "level": "N4",
+    "word": "気分",
+    "reading": "きぶん",
+    "romaji": "kibun",
+    "meaningUz": "Kayfiyat, O'zini his qilish",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "今日はとても気分がいい",
+        "romaji": "",
+        "uz": "Bugun kayfiyatim a'lo"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_29",
+    "level": "N4",
+    "word": "希望",
+    "reading": "きぼう",
+    "romaji": "kibou",
+    "meaningUz": "Umid, Istak",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "将来の希望を語る",
+        "romaji": "",
+        "uz": "Kelajakdagi orzu-umidlarni aytmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_30",
+    "level": "N4",
+    "word": "決める",
+    "reading": "きめる",
+    "romaji": "kimeru",
+    "meaningUz": "Qaror qilmoq, Belgilamoq",
+    "partOfSpeech": "Fe'l",
+    "examples": [
+      {
+        "ja": "日程を決めましょう",
+        "romaji": "",
+        "uz": "Jadvalni belgilaylik"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_31",
+    "level": "N4",
+    "word": "興味",
+    "reading": "きょうみ",
+    "romaji": "kyoumi",
+    "meaningUz": "Qiziqish",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "日本文化に興味があります",
+        "romaji": "",
+        "uz": "Yapon madaniyatiga qiziqishim bor"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_32",
+    "level": "N4",
+    "word": "具合",
+    "reading": "ぐあい",
+    "romaji": "guai",
+    "meaningUz": "Ahvol, Sog'lik holati",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "体の具合はどうですか",
+        "romaji": "",
+        "uz": "Sog'lig'ingiz ahvoli qanday?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_33",
+    "level": "N4",
+    "word": "空港",
+    "reading": "くうこう",
+    "romaji": "kuukou",
+    "meaningUz": "Aeroport",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "空港へ友達を迎えに行く",
+        "romaji": "",
+        "uz": "Aeroportga do'stimni kutib olgani bormoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_34",
+    "level": "N4",
+    "word": "比べる",
+    "reading": "くらべる",
+    "romaji": "kuraberu",
+    "meaningUz": "Taqqoslamoq, Solishtirmoq",
+    "partOfSpeech": "Fe'l",
+    "examples": [
+      {
+        "ja": "東京と大阪を比べる",
+        "romaji": "",
+        "uz": "Tokio va Osakani solishtirmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_35",
+    "level": "N4",
+    "word": "景色",
+    "reading": "けしき",
+    "romaji": "keshiki",
+    "meaningUz": "Manzara",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "山の景色が美しい",
+        "romaji": "",
+        "uz": "Tog' manzarasi go'zal"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_36",
+    "level": "N4",
+    "word": "計画",
+    "reading": "けいかく",
+    "romaji": "keikaku",
+    "meaningUz": "Reja, Dastur",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "旅行の計画を立てる",
+        "romaji": "",
+        "uz": "Sayohat rejasini tuzmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_37",
+    "level": "N4",
+    "word": "経験",
+    "reading": "けいけん",
+    "romaji": "keiken",
+    "meaningUz": "Tajriba",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "良い経験になりました",
+        "romaji": "",
+        "uz": "Yaxshi tajriba bo'ldi"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_38",
+    "level": "N4",
+    "word": "研究",
+    "reading": "けんきゅう",
+    "romaji": "kenkyuu",
+    "meaningUz": "Tadqiqot, Ilmiy izlanish",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "AIについて研究する",
+        "romaji": "",
+        "uz": "Sun'iy intellekt bo'yicha tadqiqot olib bormoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_39",
+    "level": "N4",
+    "word": "故障",
+    "reading": "こしょう",
+    "romaji": "koshou",
+    "meaningUz": "Buzilish, Nosozlik",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "パソコンが故障した",
+        "romaji": "",
+        "uz": "Kompyuter buzildi"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_40",
+    "level": "N4",
+    "word": "断る",
+    "reading": "ことわる",
+    "romaji": "kotowaru",
+    "meaningUz": "Rad etmoq, Rad javobi bermoq",
+    "partOfSpeech": "Fe'l",
+    "examples": [
+      {
+        "ja": "誘いを丁寧に断る",
+        "romaji": "",
+        "uz": "Taklifni xushmuomalalik bilan rad etmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_41",
+    "level": "N4",
+    "word": "探す",
+    "reading": "さがす",
+    "romaji": "sagasu",
+    "meaningUz": "Qidirmoq, Izlamoq",
+    "partOfSpeech": "Fe'l",
+    "examples": [
+      {
+        "ja": "鍵を探しています",
+        "romaji": "",
+        "uz": "Kalitimni qidiryapman"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_42",
+    "level": "N4",
+    "word": "寂しい",
+    "reading": "さびしい",
+    "romaji": "sabishii",
+    "meaningUz": "Yolg'iz, G'amgin",
+    "partOfSpeech": "い-Sifat",
+    "examples": [
+      {
+        "ja": "一人で寂しいです",
+        "romaji": "",
+        "uz": "Yakka o'zim yolg'izman"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_43",
+    "level": "N4",
+    "word": "触る",
+    "reading": "さわる",
+    "romaji": "sawaru",
+    "meaningUz": "Tegmoq, Qo'l tekkizmoq",
+    "partOfSpeech": "Fe'l",
+    "examples": [
+      {
+        "ja": "展示物に触らないでください",
+        "romaji": "",
+        "uz": "Eksponatlarga qo'l tekkizmang"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_44",
+    "level": "N4",
+    "word": "参加",
+    "reading": "さんか",
+    "romaji": "sanka",
+    "meaningUz": "Qatnashish, Ishtirok",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "パーティーに参加する",
+        "romaji": "",
+        "uz": "Kechada ishtirok etmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_45",
+    "level": "N4",
+    "word": "事故",
+    "reading": "じこ",
+    "romaji": "jiko",
+    "meaningUz": "Falokat, Avariya",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "交通事故に注意する",
+        "romaji": "",
+        "uz": "Yo'l transport hodisasidan ehtiyot bo'lmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_46",
+    "level": "N4",
+    "word": "地震",
+    "reading": "じしん",
+    "romaji": "jishin",
+    "meaningUz": "Zilzila",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "大きな地震が起きた",
+        "romaji": "",
+        "uz": "Katta zilzila sodir bo'ldi"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_47",
+    "level": "N4",
+    "word": "自信",
+    "reading": "じしん",
+    "romaji": "jishin",
+    "meaningUz": "O'ziga ishonch",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "自分に自信を持つ",
+        "romaji": "",
+        "uz": "O'ziga ishonch hosil qilmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_48",
+    "level": "N4",
+    "word": "時代",
+    "reading": "じだい",
+    "romaji": "jidai",
+    "meaningUz": "Davr, Zamon",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "新しい時代が始まった",
+        "romaji": "",
+        "uz": "Yangi davr boshlandi"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_49",
+    "level": "N4",
+    "word": "失敗",
+    "reading": "しっぱい",
+    "romaji": "shippai",
+    "meaningUz": "Muvaffaqiyatsizlik, Xato",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "失敗を恐れない",
+        "romaji": "",
+        "uz": "Muvaffaqiyatsizlikdan qo'rqmaslik"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_50",
+    "level": "N4",
+    "word": "失礼",
+    "reading": "しつれい",
+    "romaji": "shitsurei",
+    "meaningUz": "Odobsizlik, Kechirasiz",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "失礼いたします",
+        "romaji": "",
+        "uz": "Kechirasiz / Ijozat bering"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_51",
+    "level": "N4",
+    "word": "習慣",
+    "reading": "しゅうかん",
+    "romaji": "shuukan",
+    "meaningUz": "Odat, Ko'nikma",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "毎朝読書する習慣",
+        "romaji": "",
+        "uz": "Har tong kitob o'qish odati"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_52",
+    "level": "N4",
+    "word": "住所",
+    "reading": "じゅうしょ",
+    "romaji": "juusho",
+    "meaningUz": "Yashash manzili",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "住所を書いてください",
+        "romaji": "",
+        "uz": "Manzilingizni yozing"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_53",
+    "level": "N4",
+    "word": "準備",
+    "reading": "じゅんび",
+    "romaji": "junbi",
+    "meaningUz": "Tayyorgarlik",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "試験の準備をする",
+        "romaji": "",
+        "uz": "Imtihonga tayyorgarlik ko'rmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_54",
+    "level": "N4",
+    "word": "紹介",
+    "reading": "しょうかい",
+    "romaji": "shoukai",
+    "meaningUz": "Tanishtirish",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "友達を紹介します",
+        "romaji": "",
+        "uz": "Do'stimni tanishtiraman"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_55",
+    "level": "N4",
+    "word": "将来",
+    "reading": "しょうらい",
+    "romaji": "shourai",
+    "meaningUz": "Kelajak",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "将来エンジニアになりたい",
+        "romaji": "",
+        "uz": "Kelajakda muhandis bo'lmoqchiman"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_56",
+    "level": "N4",
+    "word": "食事",
+    "reading": "しょくじ",
+    "romaji": "shokuji",
+    "meaningUz": "Ovqatlanish, Taom",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "一緒に食事をしましょう",
+        "romaji": "",
+        "uz": "Birga taomlanaylik"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_57",
+    "level": "N4",
+    "word": "知らせる",
+    "reading": "しらせる",
+    "romaji": "shiraseru",
+    "meaningUz": "Xabar bermoq, Bildirmoq",
+    "partOfSpeech": "Fe'l",
+    "examples": [
+      {
+        "ja": "結果を後で知らせます",
+        "romaji": "",
+        "uz": "Natijani keyinroq xabar qilaman"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_58",
+    "level": "N4",
+    "word": "調べる",
+    "reading": "しらべる",
+    "romaji": "shiraberu",
+    "meaningUz": "Tekshirmoq, Qidirib bilmoq",
+    "partOfSpeech": "Fe'l",
+    "examples": [
+      {
+        "ja": "辞書で単語を調べる",
+        "romaji": "",
+        "uz": "Lug'atdan so'zni izlab topmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_59",
+    "level": "N4",
+    "word": "心配",
+    "reading": "しんぱい",
+    "romaji": "shinpai",
+    "meaningUz": "Xavotir, Tashvish",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "心配しないでください",
+        "romaji": "",
+        "uz": "Xavotir olmang"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_60",
+    "level": "N4",
+    "word": "素晴らしい",
+    "reading": "すばらしい",
+    "romaji": "subarashii",
+    "meaningUz": "Ajoyib, A'lo darajada",
+    "partOfSpeech": "い-Sifat",
+    "examples": [
+      {
+        "ja": "素晴らしい景色ですね",
+        "romaji": "",
+        "uz": "Ajoyib manzara-a!"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_61",
+    "level": "N4",
+    "word": "進む",
+    "reading": "すすむ",
+    "romaji": "susumu",
+    "meaningUz": "Oldinga siljimoq, Rivojlanmoq",
+    "partOfSpeech": "Fe'l",
+    "examples": [
+      {
+        "ja": "前へ進みましょう",
+        "romaji": "",
+        "uz": "Oldinga qarab intilaylik"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_62",
+    "level": "N4",
+    "word": "説明",
+    "reading": "せつめい",
+    "romaji": "setsumei",
+    "meaningUz": "Tushuntirish, Izoh",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "理由を説明してください",
+        "romaji": "",
+        "uz": "Sababini tushuntirib bering"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_63",
+    "level": "N4",
+    "word": "専門",
+    "reading": "せんもん",
+    "romaji": "senmon",
+    "meaningUz": "Mutaxassislik",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "私の専門はITです",
+        "romaji": "",
+        "uz": "Mening soham IT"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_64",
+    "level": "N4",
+    "word": "相談",
+    "reading": "そうだん",
+    "romaji": "soudan",
+    "meaningUz": "Maslahatlashish",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "先生に相談する",
+        "romaji": "",
+        "uz": "O'qituvchi bilan maslahatlashmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_65",
+    "level": "N4",
+    "word": "育てる",
+    "reading": "そだてる",
+    "romaji": "sodateru",
+    "meaningUz": "O'stirmoq, Tarbiyalamoq",
+    "partOfSpeech": "Fe'l",
+    "examples": [
+      {
+        "ja": "花を育てる",
+        "romaji": "",
+        "uz": "Gul o'stirmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_66",
+    "level": "N4",
+    "word": "訪ねる",
+    "reading": "たずねる",
+    "romaji": "tazuneru",
+    "meaningUz": "Ziyorat qilmoq, Tashrif buyurmoq",
+    "partOfSpeech": "Fe'l",
+    "examples": [
+      {
+        "ja": "友人の家を訪ねる",
+        "romaji": "",
+        "uz": "Do'stining uyiga tashrif buyurmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_67",
+    "level": "N4",
+    "word": "倒れる",
+    "reading": "たおれる",
+    "romaji": "taoreru",
+    "meaningUz": "Yiqilmoq, Qulamoq",
+    "partOfSpeech": "Fe'l",
+    "examples": [
+      {
+        "ja": "強い風で木が倒れた",
+        "romaji": "",
+        "uz": "Kuchli shamolda daraxt quladi"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_68",
+    "level": "N4",
+    "word": "確か",
+    "reading": "たしか",
+    "romaji": "tashika",
+    "meaningUz": "Aniq, Adashmasam",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "彼は確か20歳です",
+        "romaji": "",
+        "uz": "U adashmasam 20 yoshda"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_69",
+    "level": "N4",
+    "word": "足す",
+    "reading": "たす",
+    "romaji": "tasu",
+    "meaningUz": "Qo'shmoq",
+    "partOfSpeech": "Fe'l",
+    "examples": [
+      {
+        "ja": "砂糖を足してください",
+        "romaji": "",
+        "uz": "Shakar qo'shing"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_70",
+    "level": "N4",
+    "word": "助ける",
+    "reading": "たすける",
+    "romaji": "tasukeru",
+    "meaningUz": "Yordam bermoq, Qutqarmoq",
+    "partOfSpeech": "Fe'l",
+    "examples": [
+      {
+        "ja": "困っている人を助ける",
+        "romaji": "",
+        "uz": "Qiyin ahvoldagi insonga yordam bermoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_71",
+    "level": "N4",
+    "word": "正しい",
+    "reading": "ただしい",
+    "romaji": "tadashii",
+    "meaningUz": "To'g'ri, Haqiqiy",
+    "partOfSpeech": "い-Sifat",
+    "examples": [
+      {
+        "ja": "正しい答えを選ぶ",
+        "romaji": "",
+        "uz": "To'g'ri javobni tanlamoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_72",
+    "level": "N4",
+    "word": "建てる",
+    "reading": "たてる",
+    "romaji": "tateru",
+    "meaningUz": "Qurmoq, Bino qilmoq",
+    "partOfSpeech": "Fe'l",
+    "examples": [
+      {
+        "ja": "新しい家を建てる",
+        "romaji": "",
+        "uz": "Yangi uy qurmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_73",
+    "level": "N4",
+    "word": "楽しむ",
+    "reading": "たのしむ",
+    "romaji": "tanoshimu",
+    "meaningUz": "Zavqlanmoq, Rohatlanmoq",
+    "partOfSpeech": "Fe'l",
+    "examples": [
+      {
+        "ja": "旅行を楽しむ",
+        "romaji": "",
+        "uz": "Sayohatdan zavqlanmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_74",
+    "level": "N4",
+    "word": "足りる",
+    "reading": "たりる",
+    "romaji": "tariru",
+    "meaningUz": "Yetarli bo'lmoq",
+    "partOfSpeech": "Fe'l",
+    "examples": [
+      {
+        "ja": "時間は十分足ります",
+        "romaji": "",
+        "uz": "Vaqt bemalol yetadi"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_75",
+    "level": "N4",
+    "word": "注意",
+    "reading": "ちゅうい",
+    "romaji": "chuui",
+    "meaningUz": "Diqqat, Ehtiyotkorlik",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "車に注意してください",
+        "romaji": "",
+        "uz": "Mashinalardan ehtiyot bo'ling"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_76",
+    "level": "N4",
+    "word": "伝える",
+    "reading": "つたえる",
+    "romaji": "tsutaeru",
+    "meaningUz": "Yetkazmoq, Xabar qilmoq",
+    "partOfSpeech": "Fe'l",
+    "examples": [
+      {
+        "ja": "メッセージを伝える",
+        "romaji": "",
+        "uz": "Xabarni yetkazmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_77",
+    "level": "N4",
+    "word": "続ける",
+    "reading": "つづける",
+    "romaji": "tsuzukeru",
+    "meaningUz": "Davom ettirmoq",
+    "partOfSpeech": "Fe'l",
+    "examples": [
+      {
+        "ja": "日本語の勉強を続ける",
+        "romaji": "",
+        "uz": "Yapon tili o'rganishni davom ettirmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_78",
+    "level": "N4",
+    "word": "手伝う",
+    "reading": "てつだう",
+    "romaji": "tetsudau",
+    "meaningUz": "Yordamlashmoq",
+    "partOfSpeech": "Fe'l",
+    "examples": [
+      {
+        "ja": "母の料理を手伝う",
+        "romaji": "",
+        "uz": "Onamning ovqatiga yordamlashmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_79",
+    "level": "N4",
+    "word": "特別",
+    "reading": "とくべつ",
+    "romaji": "tokubetsu",
+    "meaningUz": "Maxsus, Alohida",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "特別な日を祝う",
+        "romaji": "",
+        "uz": "Maxsus kunni nishonlamoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_80",
+    "level": "N4",
+    "word": "届ける",
+    "reading": "とどける",
+    "romaji": "todokeru",
+    "meaningUz": "Yetkazib bermoq",
+    "partOfSpeech": "Fe'l",
+    "examples": [
+      {
+        "ja": "荷物を届ける",
+        "romaji": "",
+        "uz": "Yukni yetkazib bermoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_81",
+    "level": "N4",
+    "word": "直す",
+    "reading": "なおす",
+    "romaji": "naosu",
+    "meaningUz": "Tuzatmoq, Qayta to'g'rilamoq",
+    "partOfSpeech": "Fe'l",
+    "examples": [
+      {
+        "ja": "時計を直す",
+        "romaji": "",
+        "uz": "Soatni tuzatmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_82",
+    "level": "N4",
+    "word": "亡くなる",
+    "reading": "なくなる",
+    "romaji": "nakunaru",
+    "meaningUz": "Vafot etmoq",
+    "partOfSpeech": "Fe'l",
+    "examples": [
+      {
+        "ja": "祖父が亡くなりました",
+        "romaji": "",
+        "uz": "Bobom vafot etdi"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_83",
+    "level": "N4",
+    "word": "投げる",
+    "reading": "なげる",
+    "romaji": "nageru",
+    "meaningUz": "Otmoq, Uloqtirmoq",
+    "partOfSpeech": "Fe'l",
+    "examples": [
+      {
+        "ja": "ボールを投げる",
+        "romaji": "",
+        "uz": "To'pni otmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_84",
+    "level": "N4",
+    "word": "慣れる",
+    "reading": "なれる",
+    "romaji": "nareru",
+    "meaningUz": "O'rganib qolmoq, Ko'nikmoq",
+    "partOfSpeech": "Fe'l",
+    "examples": [
+      {
+        "ja": "日本の生活に慣れました",
+        "romaji": "",
+        "uz": "Yaponiya hayotiga ko'nikdim"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_85",
+    "level": "N4",
+    "word": "逃げる",
+    "reading": "にげる",
+    "romaji": "nigeru",
+    "meaningUz": "Qochmoq",
+    "partOfSpeech": "Fe'l",
+    "examples": [
+      {
+        "ja": "犯人が逃げた",
+        "romaji": "",
+        "uz": "Jinoyatchi qochib ketdi"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_86",
+    "level": "N4",
+    "word": "似ている",
+    "reading": "にている",
+    "romaji": "niteiru",
+    "meaningUz": "O'xshamoq",
+    "partOfSpeech": "Fe'l",
+    "examples": [
+      {
+        "ja": "兄に似ています",
+        "romaji": "",
+        "uz": "Akamga o'xshayman"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_87",
+    "level": "N4",
+    "word": "盗む",
+    "reading": "ぬすむ",
+    "romaji": "nusumu",
+    "meaningUz": "O'g'irlamoq",
+    "partOfSpeech": "Fe'l",
+    "examples": [
+      {
+        "ja": "財布を盗まれた",
+        "romaji": "",
+        "uz": "Hamyonim o'g'irlandi"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_88",
+    "level": "N4",
+    "word": "残る",
+    "reading": "のこる",
+    "romaji": "nokoru",
+    "meaningUz": "Qolmoq, Saqlanib qolmoq",
+    "partOfSpeech": "Fe'l",
+    "examples": [
+      {
+        "ja": "まだ仕事が残っています",
+        "romaji": "",
+        "uz": "Hali ishlar qolgan"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_89",
+    "level": "N4",
+    "word": "乗り換える",
+    "reading": "のりかえる",
+    "romaji": "norikaeru",
+    "meaningUz": "Transportni almashtirmoq",
+    "partOfSpeech": "Fe'l",
+    "examples": [
+      {
+        "ja": "新宿で電車を乗り換える",
+        "romaji": "",
+        "uz": "Shinjukuda poyezdni almashtirmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_90",
+    "level": "N4",
+    "word": "運ぶ",
+    "reading": "はこぶ",
+    "romaji": "hakobu",
+    "meaningUz": "Tashimoq, Ko'chirmoq",
+    "partOfSpeech": "Fe'l",
+    "examples": [
+      {
+        "ja": "荷物を二階へ運ぶ",
+        "romaji": "",
+        "uz": "Yuklarni ikkinchi qavatga tashimoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_91",
+    "level": "N4",
+    "word": "払う",
+    "reading": "はらう",
+    "romaji": "harau",
+    "meaningUz": "To'lamoq",
+    "partOfSpeech": "Fe'l",
+    "examples": [
+      {
+        "ja": "クレジットカードで払います",
+        "romaji": "",
+        "uz": "Kredit karta orqali to'layman"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_92",
+    "level": "N4",
+    "word": "増える",
+    "reading": "ふえる",
+    "romaji": "fueru",
+    "meaningUz": "Ko'paymoq, Oshmoq",
+    "partOfSpeech": "Fe'l",
+    "examples": [
+      {
+        "ja": "留学生が増えました",
+        "romaji": "",
+        "uz": "Chet ellik talabalar ko'paydi"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_93",
+    "level": "N4",
+    "word": "複雑",
+    "reading": "ふくざつ",
+    "romaji": "fukuzatsu",
+    "meaningUz": "Murakkab, Chigal",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "複雑な問題ですね",
+        "romaji": "",
+        "uz": "Murakkab masala"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_94",
+    "level": "N4",
+    "word": "復習",
+    "reading": "ふくしゅう",
+    "romaji": "fukushuu",
+    "meaningUz": "Takrorlash",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "習った漢字を復習する",
+        "romaji": "",
+        "uz": "O'rganilgan iyerogliflarni takrorlamoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_95",
+    "level": "N4",
+    "word": "普通",
+    "reading": "ふつう",
+    "romaji": "futsuu",
+    "meaningUz": "Odatdagi, Oddiy",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "普通の生活を送る",
+        "romaji": "",
+        "uz": "Oddiy hayot kechirmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_96",
+    "level": "N4",
+    "word": "法律",
+    "reading": "ほうりつ",
+    "romaji": "houritsu",
+    "meaningUz": "Qonun",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "法律を守らなければならない",
+        "romaji": "",
+        "uz": "Qonunga rioya qilish shart"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_97",
+    "level": "N4",
+    "word": "翻訳",
+    "reading": "ほんやく",
+    "romaji": "honyaku",
+    "meaningUz": "Tarjima",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "本を日本語に翻訳する",
+        "romaji": "",
+        "uz": "Kitobni yapon tiliga tarjima qilmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_98",
+    "level": "N4",
+    "word": "間に合う",
+    "reading": "まにあう",
+    "romaji": "maniau",
+    "meaningUz": "Vaqtida ulgurmoq",
+    "partOfSpeech": "Fe'l",
+    "examples": [
+      {
+        "ja": "電車に間に合いました",
+        "romaji": "",
+        "uz": "Poyezdga ulgurdim"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_99",
+    "level": "N4",
+    "word": "見つかる",
+    "reading": "みつかる",
+    "romaji": "mitsukaru",
+    "meaningUz": "Topilmoq",
+    "partOfSpeech": "Fe'l",
+    "examples": [
+      {
+        "ja": "失くした鍵が見つかりました",
+        "romaji": "",
+        "uz": "Yo'qolgan kalit topildi"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_100",
+    "level": "N4",
+    "word": "迎える",
+    "reading": "むかえる",
+    "romaji": "mukaeru",
+    "meaningUz": "Kutib olmoq",
+    "partOfSpeech": "Fe'l",
+    "examples": [
+      {
+        "ja": "お客様を笑顔で迎える",
+        "romaji": "",
+        "uz": "Mehmonlarni tabassum bilan kutib olmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_101",
+    "level": "N4",
+    "word": "無理",
+    "reading": "むり",
+    "romaji": "muri",
+    "meaningUz": "Imkonsiz, Qiyin",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "無理をしないでください",
+        "romaji": "",
+        "uz": "O'zingizni haddan ortiq qiynamang"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_102",
+    "level": "N4",
+    "word": "約束",
+    "reading": "やくそく",
+    "romaji": "yakusoku",
+    "meaningUz": "Va'da, Kelishuv",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "友達と約束があります",
+        "romaji": "",
+        "uz": "Do'stim bilan uchrashuv rejam bor"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_103",
+    "level": "N4",
+    "word": "役に立つ",
+    "reading": "やくにたつ",
+    "romaji": "yaku ni tatsu",
+    "meaningUz": "Foydali bo'lmoq",
+    "partOfSpeech": "Fe'l",
+    "examples": [
+      {
+        "ja": "この辞書はとても役に立つ",
+        "romaji": "",
+        "uz": "Bu lug'at juda foydali"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_104",
+    "level": "N4",
+    "word": "止める",
+    "reading": "やめる",
+    "romaji": "yameru",
+    "meaningUz": "To'xtatmoq, Voz kechmoq",
+    "partOfSpeech": "Fe'l",
+    "examples": [
+      {
+        "ja": "タバコをやめました",
+        "romaji": "",
+        "uz": "Chekishni tashladim"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_105",
+    "level": "N4",
+    "word": "汚れる",
+    "reading": "よごれる",
+    "romaji": "yogoreru",
+    "meaningUz": "Ifloslanmoq",
+    "partOfSpeech": "Fe'l",
+    "examples": [
+      {
+        "ja": "服が泥で汚れた",
+        "romaji": "",
+        "uz": "Kiyim loyga belanib ifloslandi"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_106",
+    "level": "N4",
+    "word": "予習",
+    "reading": "よしゅう",
+    "romaji": "yoshuu",
+    "meaningUz": "Darsga oldindan tayyorgarlik",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "明日の授業を予習する",
+        "romaji": "",
+        "uz": "Ertangi darsni oldindan o'rganmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_107",
+    "level": "N4",
+    "word": "予定",
+    "reading": "よてい",
+    "romaji": "yotei",
+    "meaningUz": "Reja, Jadval",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "来週の予定を教えてください",
+        "romaji": "",
+        "uz": "Keyingi haftadagi rejangizni ayting"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_108",
+    "level": "N4",
+    "word": "予約",
+    "reading": "よやく",
+    "romaji": "yoyaku",
+    "meaningUz": "Buyurtma qilish, Bronlash",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "ホテルを予約しました",
+        "romaji": "",
+        "uz": "Mehmonxonani bron qildim"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_109",
+    "level": "N4",
+    "word": "利用",
+    "reading": "りよう",
+    "romaji": "riyou",
+    "meaningUz": "Foydalanish, Ishlatish",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "図書館を利用する",
+        "romaji": "",
+        "uz": "Kutubxonadan foydalanmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_110",
+    "level": "N4",
+    "word": "連絡",
+    "reading": "れんらく",
+    "romaji": "renraku",
+    "meaningUz": "Aloqa, Xabarlashish",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "後で連絡します",
+        "romaji": "",
+        "uz": "Keyinroq aloqaga chiqaman"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_111",
+    "level": "N4",
+    "word": "理由",
+    "reading": "りゆう",
+    "romaji": "riyuu",
+    "meaningUz": "Sabab, Vaj",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "遅れた理由を話す",
+        "romaji": "",
+        "uz": "Kech qolish sababini aytmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_112",
+    "level": "N4",
+    "word": "別れる",
+    "reading": "わかれる",
+    "romaji": "wakareru",
+    "meaningUz": "Ajralmoq, Xayrlashmoq",
+    "partOfSpeech": "Fe'l",
+    "examples": [
+      {
+        "ja": "駅の前で友達と別れた",
+        "romaji": "",
+        "uz": "Vokzal oldida do'stlarim bilan xayrlashdim"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_113",
+    "level": "N4",
+    "word": "沸かす",
+    "reading": "わかす",
+    "romaji": "wakasu",
+    "meaningUz": "Qaynatmoq",
+    "partOfSpeech": "Fe'l",
+    "examples": [
+      {
+        "ja": "お湯を沸かしてお茶を飲む",
+        "romaji": "",
+        "uz": "Suv qaynatib choy ichmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_n4_114",
+    "level": "N4",
+    "word": "割る",
+    "reading": "わる",
+    "romaji": "waru",
+    "meaningUz": "Sindirmoq, Bo'lmoq",
+    "partOfSpeech": "Fe'l",
+    "examples": [
+      {
+        "ja": "コップを割ってしまった",
+        "romaji": "",
+        "uz": "Stakanni sindirib qo'ydim"
+      }
+    ]
+  }
+]

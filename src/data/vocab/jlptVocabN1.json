@@ -1,0 +1,882 @@
+[
+  {
+    "id": "vocab_n1_n1_1",
+    "level": "N1",
+    "word": "圧倒",
+    "reading": "あっとう",
+    "romaji": "attou",
+    "meaningUz": "Ustun kelish, Bosib ketish",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "圧倒的な強さで勝利する",
+        "romaji": "",
+        "uz": "Yuksak ustunlik bilan g'alaba qozonmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n1_n1_2",
+    "level": "N1",
+    "word": "安易",
+    "reading": "あんい",
+    "romaji": "an'i",
+    "meaningUz": "Oson deb qarash, Yuzaki yondashish",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "安易な考えは禁物だ",
+        "romaji": "",
+        "uz": "Masalaga yuzaki yondashish yaramaydi"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n1_n1_3",
+    "level": "N1",
+    "word": "異色",
+    "reading": "いしょく",
+    "romaji": "ishoku",
+    "meaningUz": "O'zgacha, O'xshashi yo'q",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "異色の経歴を持つ作家",
+        "romaji": "",
+        "uz": "Noodatiy tarjimai holga ega yozuvchi"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n1_n1_4",
+    "level": "N1",
+    "word": "維持",
+    "reading": "いじ",
+    "romaji": "iji",
+    "meaningUz": "Saqlab turish, Qo'llab-quvvatlash",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "健康を維持するために運動する",
+        "romaji": "",
+        "uz": "Salomatlikni saqlash uchun mashq qilmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n1_n1_5",
+    "level": "N1",
+    "word": "委託",
+    "reading": "いたく",
+    "romaji": "itaku",
+    "meaningUz": "Ishonib topshirish, Buyurtma qilish",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "開発業務を外部に委託する",
+        "romaji": "",
+        "uz": "Ishlab chiqish ishlarini tashqi tomon topshirmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n1_n1_6",
+    "level": "N1",
+    "word": "隠蔽",
+    "reading": "いんぺい",
+    "romaji": "inpei",
+    "meaningUz": "Yashirish, Yopib ketish",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "事実を隠蔽することは許されない",
+        "romaji": "",
+        "uz": "Haqiqatni yashirishga yo'l qo'yilmaydi"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n1_n1_7",
+    "level": "N1",
+    "word": "意図",
+    "reading": "いと",
+    "romaji": "ito",
+    "meaningUz": "Maqsad, Niyat",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "発言の意図を正確に把握する",
+        "romaji": "",
+        "uz": "Gapning asl niyatini aniq tushunib olmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n1_n1_8",
+    "level": "N1",
+    "word": "遺憾",
+    "reading": "いかん",
+    "romaji": "ikan",
+    "meaningUz": "Afsuslanarli, Achinarli",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "今回の結果は極めて遺憾である",
+        "romaji": "",
+        "uz": "Bu galgi natija nihoyatda afsuslanarlidir"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n1_n1_9",
+    "level": "N1",
+    "word": "閲覧",
+    "reading": "えつらん",
+    "romaji": "etsuran",
+    "meaningUz": "Ko'rib chiqish, O'qib chiqish",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "資料をオンラインで閲覧する",
+        "romaji": "",
+        "uz": "Hujjatlarni onlayn ko'rib chiqmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n1_n1_10",
+    "level": "N1",
+    "word": "延滞",
+    "reading": "えんたい",
+    "romaji": "entai",
+    "meaningUz": "Kechiktirish, Kechikish",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "支払いの延滞を防ぐ",
+        "romaji": "",
+        "uz": "To'lov kechikishining oldini olmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n1_n1_11",
+    "level": "N1",
+    "word": "円滑",
+    "reading": "えんかつ",
+    "romaji": "enkatsu",
+    "meaningUz": "Bir maromda, Muammosiz ketish",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "会議を円滑に進める",
+        "romaji": "",
+        "uz": "Yig'ilishni muammosiz olib bormoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n1_n1_12",
+    "level": "N1",
+    "word": "概略",
+    "reading": "がいりゃく",
+    "romaji": "gairyaku",
+    "meaningUz": "Qisqacha bayon, Xulosa",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "計画の概略を説明する",
+        "romaji": "",
+        "uz": "Rejaning qisqacha mazmunini tushuntirmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n1_n1_13",
+    "level": "N1",
+    "word": "介入",
+    "reading": "かいにゅう",
+    "romaji": "kainyuu",
+    "meaningUz": "Aralashish, O'rtaga tushish",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "他国の問題に軍事介入する",
+        "romaji": "",
+        "uz": "Boshqa davlat ishlariga harbiy aralashmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n1_n1_14",
+    "level": "N1",
+    "word": "格差",
+    "reading": "かくさ",
+    "romaji": "kakusa",
+    "meaningUz": "Tafovut, Katta farq",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "経済的な格差が拡大している",
+        "romaji": "",
+        "uz": "Iqtisodiy tafovut kengayib bormoqda"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n1_n1_15",
+    "level": "N1",
+    "word": "核心",
+    "reading": "かくしん",
+    "romaji": "kakushin",
+    "meaningUz": "Asl mohiyat, Negiz",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "問題の核心に迫る",
+        "romaji": "",
+        "uz": "Muammoning asl negiziga yetib bormoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n1_n1_16",
+    "level": "N1",
+    "word": "緩和",
+    "reading": "かんわ",
+    "romaji": "kanwa",
+    "meaningUz": "Yengillashtirish, Yumshatish",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "規制を緩和して経済を活性化する",
+        "romaji": "",
+        "uz": "Cheklovlarni yumshatib iqtisodiyotni jonlantirmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n1_n1_17",
+    "level": "N1",
+    "word": "寄与",
+    "reading": "きよ",
+    "romaji": "kiyo",
+    "meaningUz": "Hissa qo'shish, Yordam berish",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "社会の発展に寄与する",
+        "romaji": "",
+        "uz": "Jamiyat rivojiga munosib hissa qo'shmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n1_n1_18",
+    "level": "N1",
+    "word": "究明",
+    "reading": "きゅうめい",
+    "romaji": "kyuumei",
+    "meaningUz": "Ilmiy tadqiq etib aniqlash",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "事故の原因を究明する",
+        "romaji": "",
+        "uz": "Falokat sababini chuqur o'rganib aniqlamoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n1_n1_19",
+    "level": "N1",
+    "word": "拒絶",
+    "reading": "きょぜつ",
+    "romaji": "kyozetsu",
+    "meaningUz": "Qat'iy rad etish",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "要求を断固として拒絶する",
+        "romaji": "",
+        "uz": "Talabni qat'iyat bilan rad etmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n1_n1_20",
+    "level": "N1",
+    "word": "享受",
+    "reading": "きょうじゅ",
+    "romaji": "kyouju",
+    "meaningUz": "Bahramand bo'lish, Foydalanish",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "自由と平和の恩恵を享受する",
+        "romaji": "",
+        "uz": "Ozodlik va tinchlik ne'matidan bahramand bo'lmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n1_n1_21",
+    "level": "N1",
+    "word": "協調",
+    "reading": "きょうちょう",
+    "romaji": "kyouchou",
+    "meaningUz": "Hamjihatlik, Hamkorlik",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "国際社会と協調して取り組む",
+        "romaji": "",
+        "uz": "Xalqaro hamjamiyat bilan hamjihatlikda yondashmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n1_n1_22",
+    "level": "N1",
+    "word": "均衡",
+    "reading": "きんこう",
+    "romaji": "kinkou",
+    "meaningUz": "Muvozanat, Tenglik",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "需要と供給の均衡を保つ",
+        "romaji": "",
+        "uz": "Talab va taklif muvozanatini saqlamoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n1_n1_23",
+    "level": "N1",
+    "word": "顕著",
+    "reading": "けんちょ",
+    "romaji": "kencho",
+    "meaningUz": "Ko'zga tashlanadigan, Yaqqol",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "景気回復の兆候が顕著に現れる",
+        "romaji": "",
+        "uz": "Iqtisodiy tiklanish alomatlari yaqqol namoyon bo'lmoqda"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n1_n1_24",
+    "level": "N1",
+    "word": "検証",
+    "reading": "けんしょう",
+    "romaji": "kenshou",
+    "meaningUz": "Tekshirish, Isbotlash",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "仮説の正しさを実験で検証する",
+        "romaji": "",
+        "uz": "Farazning to'g'riligini tajriba orqali isbotlamoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n1_n1_25",
+    "level": "N1",
+    "word": "巧み",
+    "reading": "たくみ",
+    "romaji": "takumi",
+    "meaningUz": "Mohirona, Ustasi farang",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "巧みな話術で聴衆を魅了する",
+        "romaji": "",
+        "uz": "Mohirona nutq bilan tinglovchilarni o'ziga rom etmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n1_n1_26",
+    "level": "N1",
+    "word": "削減",
+    "reading": "さくげん",
+    "romaji": "sakugen",
+    "meaningUz": "Qisqartirish, Kamaytirish",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "コストを大幅に削減する",
+        "romaji": "",
+        "uz": "Xarajatlarni sezilarli darajada qisqartirmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n1_n1_27",
+    "level": "N1",
+    "word": "示唆",
+    "reading": "しさ",
+    "romaji": "shisa",
+    "meaningUz": "Taqdim qilish, Sham'a qilish",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "データは今後の成長を示唆している",
+        "romaji": "",
+        "uz": "Ma'lumotlar kelgusi o'sishga ishora qilmoqda"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n1_n1_28",
+    "level": "N1",
+    "word": "自負",
+    "reading": "じふ",
+    "romaji": "jifu",
+    "meaningUz": "Mag'rurlik, Faxrlanish",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "最高の品質を提供していると自負している",
+        "romaji": "",
+        "uz": "Eng yuqori sifat taqdim etayotganimizdan faxrlanamiz"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n1_n1_29",
+    "level": "N1",
+    "word": "収拾",
+    "reading": "しゅうしゅう",
+    "romaji": "shuushuu",
+    "meaningUz": "Tartibga keltirish, Nazorat ostiga olish",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "混乱した事態を収拾する",
+        "romaji": "",
+        "uz": "Chigal vaziyatni nazorat ostiga olmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n1_n1_30",
+    "level": "N1",
+    "word": "譲歩",
+    "reading": "じょうほ",
+    "romaji": "jouho",
+    "meaningUz": "Yon berish, Murosaga borish",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "互いに譲歩して合意に達する",
+        "romaji": "",
+        "uz": "O'zaro yon berib kelishuvga erishmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n1_n1_31",
+    "level": "N1",
+    "word": "審議",
+    "reading": "しんぎ",
+    "romaji": "shingi",
+    "meaningUz": "Muhokama qilish, Ko'rib chiqish",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "国会で新しい法案を審議する",
+        "romaji": "",
+        "uz": "Parlamentda yangi qonun loyihasini muhokama qilmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n1_n1_32",
+    "level": "N1",
+    "word": "推測",
+    "reading": "すいそく",
+    "romaji": "suisoku",
+    "meaningUz": "Taxmin qilish, Faraz",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "状況から原因を推測する",
+        "romaji": "",
+        "uz": "Vaziyatga qarab sababni taxmin qilmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n1_n1_33",
+    "level": "N1",
+    "word": "是正",
+    "reading": "ぜせい",
+    "romaji": "zesei",
+    "meaningUz": "Tuzatish, To'g'rilash",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "不公平な格差を是正する",
+        "romaji": "",
+        "uz": "Adolatsiz tafovutni to'g'rilamoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n1_n1_34",
+    "level": "N1",
+    "word": "切実",
+    "reading": "せつじつ",
+    "romaji": "setsujitsu",
+    "meaningUz": "O'ta muhim, Jon kuydiradigan",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "切実な願いを訴える",
+        "romaji": "",
+        "uz": "Jon kuydirib qilingan iltimosni yetkazmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n1_n1_35",
+    "level": "N1",
+    "word": "折衷",
+    "reading": "せっちゅう",
+    "romaji": "setchuu",
+    "meaningUz": "O'rtacha yo'lni topish, Murosa",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "和洋折衷の建築デザイン",
+        "romaji": "",
+        "uz": "Yapon va g'arb uslubi uyg'unlashgan arxitektura"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n1_n1_36",
+    "level": "N1",
+    "word": "潜入",
+    "reading": "せんにゅう",
+    "romaji": "sennyuu",
+    "meaningUz": "Yashirincha kirish, Singib ketish",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "秘密裏に敵地に潜入する",
+        "romaji": "",
+        "uz": "Maxfiy ravishda dushman hududiga kirib bormoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n1_n1_37",
+    "level": "N1",
+    "word": "妥協",
+    "reading": "だきょう",
+    "romaji": "dakyou",
+    "meaningUz": "Murosa, Yon berish",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "安易に妥協しない",
+        "romaji": "",
+        "uz": "Osonlikcha murosaga bormaslik"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n1_n1_38",
+    "level": "N1",
+    "word": "蓄積",
+    "reading": "ちくせき",
+    "romaji": "chikuseki",
+    "meaningUz": "To'plash, Jamg'arish",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "長年の知識と経験を蓄積する",
+        "romaji": "",
+        "uz": "Ko'p yillik bilim va tajribani jamg'armoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n1_n1_39",
+    "level": "N1",
+    "word": "挑発",
+    "reading": "ちょうはつ",
+    "romaji": "chouhatsu",
+    "meaningUz": "Provokatsiya, Gijgijlash",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "相手の挑発に乗らない",
+        "romaji": "",
+        "uz": "Raqibning ig'vosiga uchmaslik"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n1_n1_40",
+    "level": "N1",
+    "word": "直面",
+    "reading": "ちょくめん",
+    "romaji": "chokumen",
+    "meaningUz": "To'qnash kelish, Yuzma-yuz bo'lish",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "深刻な危機に直面している",
+        "romaji": "",
+        "uz": "Jiddiy inqirozga yuzma-yuz kelib qolmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n1_n1_41",
+    "level": "N1",
+    "word": "適応",
+    "reading": "てきおう",
+    "romaji": "tekiou",
+    "meaningUz": "Moslashish, Ko'nikish",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "新しい環境に素早く適応する",
+        "romaji": "",
+        "uz": "Yangi muhitga tez moslashmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n1_n1_42",
+    "level": "N1",
+    "word": "撤回",
+    "reading": "てっかい",
+    "romaji": "tekkai",
+    "meaningUz": "Qaytarib olish, Bekor qilish",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "不適切な発言を撤回する",
+        "romaji": "",
+        "uz": "Noo'rin gaplarni qaytarib olmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n1_n1_43",
+    "level": "N1",
+    "word": "徹底",
+    "reading": "てってい",
+    "romaji": "tettei",
+    "meaningUz": "To'liq, Oxirigacha qilish",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "安全管理を徹底する",
+        "romaji": "",
+        "uz": "Xavfsizlik nazoratini qat'iy ta'minlamoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n1_n1_44",
+    "level": "N1",
+    "word": "統括",
+    "reading": "とうかつ",
+    "romaji": "toukatsu",
+    "meaningUz": "Umumiy boshqaruv, Birlashtirish",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "プロジェクト全体を統括する",
+        "romaji": "",
+        "uz": "Loyiha umumiy jarayonini boshqarmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n1_n1_45",
+    "level": "N1",
+    "word": "把握",
+    "reading": "はあく",
+    "romaji": "haaku",
+    "meaningUz": "Tushunib yetish, Qamrab olish",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "現状を正確に把握する",
+        "romaji": "",
+        "uz": "Hozirgi holatni aniq tushunib yetmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n1_n1_46",
+    "level": "N1",
+    "word": "排他",
+    "reading": "はいた",
+    "romaji": "haita",
+    "meaningUz": "Chetlatish, O'zgalarni siqib chiqarish",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "排他的な態度を改める",
+        "romaji": "",
+        "uz": "O'zgalarni chetlatuvchi munosabatni o'zgartirmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n1_n1_47",
+    "level": "N1",
+    "word": "反映",
+    "reading": "はんえい",
+    "romaji": "han'ei",
+    "meaningUz": "Aks etish, Ta'siri ko'rinish",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "市民の意見を政策に反映する",
+        "romaji": "",
+        "uz": "Fuqarolar fikrini davlat siyosatida aks ettirmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n1_n1_48",
+    "level": "N1",
+    "word": "崩壊",
+    "reading": "ほうかい",
+    "romaji": "houkai",
+    "meaningUz": "Qulash, To'kilib ketish",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "バブル経済が崩壊した",
+        "romaji": "",
+        "uz": "Iqtisodiy pufak quladi"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n1_n1_49",
+    "level": "N1",
+    "word": "冒頭",
+    "reading": "ぼうとう",
+    "romaji": "boutou",
+    "meaningUz": "Boshlanish qismi, Kirish",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "スピーチの冒頭で感謝を述べる",
+        "romaji": "",
+        "uz": "Nutq avvalida minnatdorlik bildirmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n1_n1_50",
+    "level": "N1",
+    "word": "本質",
+    "reading": "ほんしつ",
+    "romaji": "honshitsu",
+    "meaningUz": "Asl mohiyat",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "物事の本質を見抜く",
+        "romaji": "",
+        "uz": "Hodisalarning tub mohiyatini anglab yetmoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n1_n1_51",
+    "level": "N1",
+    "word": "矛盾",
+    "reading": "むじゅん",
+    "romaji": "mujun",
+    "meaningUz": "Zidlik, Qarama-qarshilik",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "言動に矛盾がある",
+        "romaji": "",
+        "uz": "Gap bilan amalda ziddiyat bor"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n1_n1_52",
+    "level": "N1",
+    "word": "模索",
+    "reading": "もさく",
+    "romaji": "mosaku",
+    "meaningUz": "Yo'l izlash, Qidirish",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "新しい解決策を模索する",
+        "romaji": "",
+        "uz": "Yangi yechim yo'llarini izlamoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n1_n1_53",
+    "level": "N1",
+    "word": "有望",
+    "reading": "ゆうぼう",
+    "romaji": "yuubou",
+    "meaningUz": "Kelajagi porloq, Umidli",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "前途有望な若手研究者",
+        "romaji": "",
+        "uz": "Kelajagi porloq yosh tadqiqotchi"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n1_n1_54",
+    "level": "N1",
+    "word": "抑制",
+    "reading": "よくせい",
+    "romaji": "yokusei",
+    "meaningUz": "Bosish, Cheklash",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "インフレを抑制する",
+        "romaji": "",
+        "uz": "Inflyatsiyani jilovlamoq"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n1_n1_55",
+    "level": "N1",
+    "word": "冷静",
+    "reading": "れいせい",
+    "romaji": "reisei",
+    "meaningUz": "Sovuqqon, Vazmin",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "冷静に判断を下す",
+        "romaji": "",
+        "uz": "Vazminlik bilan to'g'ri qaror qabul qilmoq"
+      }
+    ]
+  }
+]

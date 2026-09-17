@@ -1,0 +1,1346 @@
+[
+  {
+    "id": "vocab_n5_1",
+    "level": "N5",
+    "word": "私",
+    "reading": "わたし",
+    "romaji": "watashi",
+    "meaningUz": "Men",
+    "partOfSpeech": "Olmosh",
+    "examples": [
+      {
+        "ja": "私はウズベキスタン人です。",
+        "romaji": "Watashi wa uzubekisutanjin desu.",
+        "uz": "Men o'zbekistonlikman."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_2",
+    "level": "N5",
+    "word": "あなた",
+    "reading": "あなた",
+    "romaji": "anata",
+    "meaningUz": "Siz",
+    "partOfSpeech": "Olmosh",
+    "examples": [
+      {
+        "ja": "あなたの名前は何ですか？",
+        "romaji": "Anata no namae wa nan desu ka?",
+        "uz": "Ismingiz nima?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_3",
+    "level": "N5",
+    "word": "彼",
+    "reading": "かれ",
+    "romaji": "kare",
+    "meaningUz": "U (erkak kishi)",
+    "partOfSpeech": "Olmosh",
+    "examples": [
+      {
+        "ja": "彼は日本語の先生です。",
+        "romaji": "Kare wa nihongo no sensei desu.",
+        "uz": "U yapon tili o'qituvchisi."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_4",
+    "level": "N5",
+    "word": "彼女",
+    "reading": "かのじょ",
+    "romaji": "kanojo",
+    "meaningUz": "U (ayol kishi) / Qalliq",
+    "partOfSpeech": "Olmosh",
+    "examples": [
+      {
+        "ja": "彼女は親切な人です。",
+        "romaji": "Kanojo wa shinsetsu na hito desu.",
+        "uz": "U juda mehribon inson."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_5",
+    "level": "N5",
+    "word": "誰",
+    "reading": "だれ",
+    "romaji": "dare",
+    "meaningUz": "Kim",
+    "partOfSpeech": "So'roq olmoshi",
+    "examples": [
+      {
+        "ja": "あの方は誰ですか？",
+        "romaji": "Ano kata wa dare desu ka?",
+        "uz": "Anavi kishi kim?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_6",
+    "level": "N5",
+    "word": "何",
+    "reading": "なに / なん",
+    "romaji": "nani / nan",
+    "meaningUz": "Nima",
+    "partOfSpeech": "So'roq olmoshi",
+    "examples": [
+      {
+        "ja": "これは何ですか？",
+        "romaji": "Kore wa nan desu ka?",
+        "uz": "Bu nima?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_7",
+    "level": "N5",
+    "word": "どこ",
+    "reading": "どこ",
+    "romaji": "doko",
+    "meaningUz": "Qayer",
+    "partOfSpeech": "So'roq olmoshi",
+    "examples": [
+      {
+        "ja": "トイレはどこですか？",
+        "romaji": "Toire wa doko desu ka?",
+        "uz": "Hojatxona qayerda?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_8",
+    "level": "N5",
+    "word": "いつ",
+    "reading": "いつ",
+    "romaji": "itsu",
+    "meaningUz": "Qachon",
+    "partOfSpeech": "So'roq olmoshi",
+    "examples": [
+      {
+        "ja": "日本へいつ行きますか？",
+        "romaji": "Nihon e itsu ikimasu ka?",
+        "uz": "Yaponiyaga qachon borasiz?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_9",
+    "level": "N5",
+    "word": "人",
+    "reading": "ひと",
+    "romaji": "hito",
+    "meaningUz": "Odam, inson, kishi",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "あの人は誰ですか？",
+        "romaji": "Ano hito wa dare desu ka?",
+        "uz": "Anavi odam kim?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_10",
+    "level": "N5",
+    "word": "男の人",
+    "reading": "おとこのひと",
+    "romaji": "otoko no hito",
+    "meaningUz": "Erkak kishi",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "親切な男の人に会いました。",
+        "romaji": "Shinsetsu na otoko no hito ni aimashita.",
+        "uz": "Mehribon bir erkak kishiga duch keldim."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_11",
+    "level": "N5",
+    "word": "女の人",
+    "reading": "おんなのひと",
+    "romaji": "onna no hito",
+    "meaningUz": "Ayol kishi",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "あの女の人は英語が上手です。",
+        "romaji": "Ano onna no hito wa eigo ga jouzu desu.",
+        "uz": "Anavi ayol ingliz tilida zo'r gapiradi."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_12",
+    "level": "N5",
+    "word": "子ども",
+    "reading": "こども",
+    "romaji": "kodomo",
+    "meaningUz": "Bola, farzand",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "公園で子どもたちが遊んでいます。",
+        "romaji": "Kouen de kodomotachi ga asonde imasu.",
+        "uz": "Bog'chada bolalar o'ynashmoqda."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_13",
+    "level": "N5",
+    "word": "先生",
+    "reading": "せんせい",
+    "romaji": "sensei",
+    "meaningUz": "O'qituvchi, ustoz, shifokor",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "田中先生に日本語を習います。",
+        "romaji": "Tanaka sensei ni nihongo o naraimasu.",
+        "uz": "Tanaka ustozdan yapon tilini o'rganyapman."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_14",
+    "level": "N5",
+    "word": "学生",
+    "reading": "がくせい",
+    "romaji": "gakusei",
+    "meaningUz": "Talaba, o'quvchi",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "私は大学の学生です。",
+        "romaji": "Watashi wa daigaku no gakusei desu.",
+        "uz": "Men universitet talabasiman."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_15",
+    "level": "N5",
+    "word": "友だち",
+    "reading": "ともだち",
+    "romaji": "tomodachi",
+    "meaningUz": "Do'st, oshna",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "友だちと一緒に映画を見ました。",
+        "romaji": "Tomodachi to issho ni eiga o mimashita.",
+        "uz": "Do'stim bilan birga kino ko'rdim."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_16",
+    "level": "N5",
+    "word": "家族",
+    "reading": "かぞく",
+    "romaji": "kazoku",
+    "meaningUz": "Oila",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "私の家族は五人です。",
+        "romaji": "Watashi no kazoku wa gonin desu.",
+        "uz": "Mening oilam besh kishidan iborat."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_17",
+    "level": "N5",
+    "word": "父",
+    "reading": "ちち",
+    "romaji": "chichi",
+    "meaningUz": "Otam (o'zimning otam)",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "父は会社員です。",
+        "romaji": "Chichi wa kaishain desu.",
+        "uz": "Otam firma xodimi."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_18",
+    "level": "N5",
+    "word": "母",
+    "reading": "はは",
+    "romaji": "haha",
+    "meaningUz": "Onam (o'zimning onam)",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "母の手料理はとても美味しい。",
+        "romaji": "Haha no teryouri wa totemo oishii.",
+        "uz": "Onam tayyorlagan ovqat juda mazali."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_19",
+    "level": "N5",
+    "word": "今",
+    "reading": "いま",
+    "romaji": "ima",
+    "meaningUz": "Hozir",
+    "partOfSpeech": "Ravish / Ot",
+    "examples": [
+      {
+        "ja": "今、何時ですか？",
+        "romaji": "Ima, nanji desu ka?",
+        "uz": "Hozir soat necha?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_20",
+    "level": "N5",
+    "word": "今日",
+    "reading": "きょう",
+    "romaji": "kyou",
+    "meaningUz": "Bugun",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "今日はいい天気ですね。",
+        "romaji": "Kyou wa ii tenki desu ne.",
+        "uz": "Bugun havo juda yaxshi-a."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_21",
+    "level": "N5",
+    "word": "明日",
+    "reading": "あした",
+    "romaji": "ashita",
+    "meaningUz": "Ertaga",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "明日、図書館へ行きます。",
+        "romaji": "Ashita, toshokan e ikimasu.",
+        "uz": "Ertaga kutubxonaga boraman."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_22",
+    "level": "N5",
+    "word": "昨日",
+    "reading": "きのう",
+    "romaji": "kinou",
+    "meaningUz": "Kecha",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "昨日は一日中勉強しました。",
+        "romaji": "Kinou wa ichinichijuu benkyou shimashita.",
+        "uz": "Kecha kun bo'yi dars qildim."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_23",
+    "level": "N5",
+    "word": "毎日",
+    "reading": "まいにち",
+    "romaji": "mainichi",
+    "meaningUz": "Har kuni",
+    "partOfSpeech": "Ravish / Ot",
+    "examples": [
+      {
+        "ja": "毎日漢字を練習します。",
+        "romaji": "Mainichi kanji o renshuu shimasu.",
+        "uz": "Har kuni kanji mashq qilaman."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_24",
+    "level": "N5",
+    "word": "朝",
+    "reading": "あさ",
+    "romaji": "asa",
+    "meaningUz": "Ertalab, tong",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "毎朝六時に起きます。",
+        "romaji": "Maiasa rokuji ni okimasu.",
+        "uz": "Har kuni ertalab soat oltida uyg'onaman."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_25",
+    "level": "N5",
+    "word": "昼",
+    "reading": "ひる",
+    "romaji": "hiru",
+    "meaningUz": "Kunduz, tush vaqti",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "お昼ご飯を食べましょう。",
+        "romaji": "Ohirugohan o tabemashou.",
+        "uz": "Tushlik qilaylik."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_26",
+    "level": "N5",
+    "word": "夜",
+    "reading": "よる",
+    "romaji": "yoru",
+    "meaningUz": "Tun, kechasi",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "夜は静かに読書をします。",
+        "romaji": "Yoru wa shizuka ni dokusho o shimasu.",
+        "uz": "Kechasi sokinlikda kitob o'qiyman."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_27",
+    "level": "N5",
+    "word": "週",
+    "reading": "しゅう",
+    "romaji": "shuu",
+    "meaningUz": "Hafta",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "今週はとても忙しいです。",
+        "romaji": "Konshuu wa totemo isogashii desu.",
+        "uz": "Bu hafta juda bandman."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_28",
+    "level": "N5",
+    "word": "年",
+    "reading": "とし / ねん",
+    "romaji": "toshi / nen",
+    "meaningUz": "Yil, yosh",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "来年日本へ留学します。",
+        "romaji": "Rainen Nihon e ryuugaku shimasu.",
+        "uz": "Kelgusi yili Yaponiyaga o'qishga boraman."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_29",
+    "level": "N5",
+    "word": "家",
+    "reading": "いえ / うち",
+    "romaji": "ie / uchi",
+    "meaningUz": "Uy, xonadon",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "早く家に帰りましょう。",
+        "romaji": "Hayaku ie ni kaerimashou.",
+        "uz": "Vaqtliroq uyga qaytaylik."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_30",
+    "level": "N5",
+    "word": "部屋",
+    "reading": "へや",
+    "romaji": "heya",
+    "meaningUz": "Xona",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "私の部屋は広くて明るいです。",
+        "romaji": "Watashi no heya wa hirokute akarui desu.",
+        "uz": "Mening xonam keng va yorug'."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_31",
+    "level": "N5",
+    "word": "学校",
+    "reading": "がっこう",
+    "romaji": "gakkou",
+    "meaningUz": "Maktab, o'quv yurti",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "学校まで歩いて行きます。",
+        "romaji": "Gakkou made aruite ikimasu.",
+        "uz": "Maktabgacha piyoda boraman."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_32",
+    "level": "N5",
+    "word": "会社",
+    "reading": "かいしゃ",
+    "romaji": "kaisha",
+    "meaningUz": "Kompaniya, firma, ishxona",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "日本の会社で働きたいです。",
+        "romaji": "Nihon no kaisha de hatarakitai desu.",
+        "uz": "Yaponiya kompaniyasida ishlashni xohlayman."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_33",
+    "level": "N5",
+    "word": "教室",
+    "reading": "きょうしつ",
+    "romaji": "kyoushitsu",
+    "meaningUz": "Sinfxona, auditoriya",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "教室に学生がたくさんいます。",
+        "romaji": "Kyoushitsu ni gakusei ga takusan imasu.",
+        "uz": "Sinfxonada juda ko'p talabalar bor."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_34",
+    "level": "N5",
+    "word": "図書館",
+    "reading": "としょかん",
+    "romaji": "toshokan",
+    "meaningUz": "Kutubxona",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "図書館で本を借りました。",
+        "romaji": "Toshokan de hon o karimashita.",
+        "uz": "Kutubxonadan kitob qarzga oldim."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_35",
+    "level": "N5",
+    "word": "病院",
+    "reading": "びょういん",
+    "romaji": "byouin",
+    "meaningUz": "Shifoxona, kasalxona",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "風邪を引いたので病院に行きました。",
+        "romaji": "Kaze o hiita node byouin ni ikimashita.",
+        "uz": "Shamollab qolganim uchun kasalxonaga bordim."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_36",
+    "level": "N5",
+    "word": "駅",
+    "reading": "えき",
+    "romaji": "eki",
+    "meaningUz": "Vokzal, bekat",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "駅の前で待ち合わせしましょう。",
+        "romaji": "Eki no mae de machiawase shimashou.",
+        "uz": "Vokzal oldida uchrashaylik."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_37",
+    "level": "N5",
+    "word": "店",
+    "reading": "みせ",
+    "romaji": "mise",
+    "meaningUz": "Do'kon, magazin",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "この店は安くて品物がいい。",
+        "romaji": "Kono mise wa yasukute shinamono ga ii.",
+        "uz": "Bu do'kon arzon va mollari sifatli."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_38",
+    "level": "N5",
+    "word": "本",
+    "reading": "ほん",
+    "romaji": "hon",
+    "meaningUz": "Kitob",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "面白い本を読みました。",
+        "romaji": "Omoshiroi hon o yomimashita.",
+        "uz": "Qiziqarli kitob o'qidim."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_39",
+    "level": "N5",
+    "word": "辞書",
+    "reading": "じしょ",
+    "romaji": "jisho",
+    "meaningUz": "Lug'at",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "電子辞書で言葉を調べます。",
+        "romaji": "Denshi jisho de kotoba o shirabemasu.",
+        "uz": "Elektron lug'atdan so'zlarni qidiraman."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_40",
+    "level": "N5",
+    "word": "車",
+    "reading": "くるま",
+    "romaji": "kuruma",
+    "meaningUz": "Mashina, avtomobil",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "新しい車が欲しいです。",
+        "romaji": "Atarashii kuruma ga hoshii desu.",
+        "uz": "Yangi mashina olishni xohlayman."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_41",
+    "level": "N5",
+    "word": "電車",
+    "reading": "でんしゃ",
+    "romaji": "densha",
+    "meaningUz": "Poyezd, elektropoyezd",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "電車で東京へ行きます。",
+        "romaji": "Densha de Toukyou e ikimasu.",
+        "uz": "Poyezd bilan Tokyoga boraman."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_42",
+    "level": "N5",
+    "word": "水",
+    "reading": "みず",
+    "romaji": "mizu",
+    "meaningUz": "Suv (sovuq suv)",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "冷たい水を一杯ください。",
+        "romaji": "Tsumetai mizu o ippai kudasai.",
+        "uz": "Bir stakan sovuq suv bering."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_43",
+    "level": "N5",
+    "word": "お茶",
+    "reading": "おちゃ",
+    "romaji": "ocha",
+    "meaningUz": "Choy, ko'k choy",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "温かいお茶を飲みます。",
+        "romaji": "Atatakai ocha o nomimasu.",
+        "uz": "Issiq choy ichaman."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_44",
+    "level": "N5",
+    "word": "ご飯",
+    "reading": "ごはん",
+    "romaji": "gohan",
+    "meaningUz": "Guruch, pishgan ovqat, taom",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "朝ご飯をしっかり食べました。",
+        "romaji": "Asagohan o shikkari tabemashita.",
+        "uz": "Nonushtani to'yib qildim."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_45",
+    "level": "N5",
+    "word": "魚",
+    "reading": "さかな",
+    "romaji": "sakana",
+    "meaningUz": "Baliq",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "日本の魚料理は美味しいです。",
+        "romaji": "Nihon no sakana ryouri wa oishii desu.",
+        "uz": "Yaponiyaning baliq taomlari mazali."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_46",
+    "level": "N5",
+    "word": "肉",
+    "reading": "にく",
+    "romaji": "niku",
+    "meaningUz": "Go'sht",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "今夜は牛肉を食べます。",
+        "romaji": "Konya wa gyuuniku o tabemasu.",
+        "uz": "Bugun kechqurun mol go'shti yeymiz."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_47",
+    "level": "N5",
+    "word": "野菜",
+    "reading": "やさい",
+    "romaji": "yasai",
+    "meaningUz": "Sabzavot",
+    "partOfSpeech": "Ot",
+    "examples": [
+      {
+        "ja": "毎日新鮮な野菜を食べましょう。",
+        "romaji": "Mainichi shinsen na yasai o tabemashou.",
+        "uz": "Har kuni barra sabzavotlar yeng."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_48",
+    "level": "N5",
+    "word": "行く",
+    "reading": "いく",
+    "romaji": "iku",
+    "meaningUz": "Bormoq",
+    "partOfSpeech": "Fe'l (1-guruh)",
+    "examples": [
+      {
+        "ja": "明日、友達と映画に行きます。",
+        "romaji": "Ashita, tomodachi to eiga ni ikimasu.",
+        "uz": "Ertaga do'stim bilan kinoga boraman."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_49",
+    "level": "N5",
+    "word": "来る",
+    "reading": "くる",
+    "romaji": "kuru",
+    "meaningUz": "Kelmoq",
+    "partOfSpeech": "Fe'l (3-guruh)",
+    "examples": [
+      {
+        "ja": "日本から友達が来ました。",
+        "romaji": "Nihon kara tomodachi ga kimashita.",
+        "uz": "Yaponiyadan do'stim keldi."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_50",
+    "level": "N5",
+    "word": "帰る",
+    "reading": "かえる",
+    "romaji": "kaeru",
+    "meaningUz": "Qaytmoq (uyga / vatinga)",
+    "partOfSpeech": "Fe'l (1-guruh)",
+    "examples": [
+      {
+        "ja": "午後六時に家に帰ります。",
+        "romaji": "Gogo rokuji ni ie ni kaerimasu.",
+        "uz": "Kechki oltida uyga qaytaman."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_51",
+    "level": "N5",
+    "word": "食べる",
+    "reading": "たべる",
+    "romaji": "taberu",
+    "meaningUz": "Yemoq, ovqatlanmoq",
+    "partOfSpeech": "Fe'l (2-guruh)",
+    "examples": [
+      {
+        "ja": "一緒にお昼ご飯を食べませんか？",
+        "romaji": "Issho ni ohirugohan o tabemasen ka?",
+        "uz": "Birga tushlik qilmaysizmi?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_52",
+    "level": "N5",
+    "word": "飲む",
+    "reading": "のむ",
+    "romaji": "nomu",
+    "meaningUz": "Ichmoq",
+    "partOfSpeech": "Fe'l (1-guruh)",
+    "examples": [
+      {
+        "ja": "朝はいつもコーヒーを飲みます。",
+        "romaji": "Asa wa itsumo koohii o nomimasu.",
+        "uz": "Ertalab doim kofe ichaman."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_53",
+    "level": "N5",
+    "word": "見る",
+    "reading": "みる",
+    "romaji": "miru",
+    "meaningUz": "Ko'rmoq, qaramoq, tomosha qilmoq",
+    "partOfSpeech": "Fe'l (2-guruh)",
+    "examples": [
+      {
+        "ja": "テレビのニュースを見ました。",
+        "romaji": "Terebi no nyuusu o mimashita.",
+        "uz": "Televizorda yangiliklarni ko'rdim."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_54",
+    "level": "N5",
+    "word": "聞く",
+    "reading": "きく",
+    "romaji": "kiku",
+    "meaningUz": "Eshitmoq, tinglamoq / so'ramoq",
+    "partOfSpeech": "Fe'l (1-guruh)",
+    "examples": [
+      {
+        "ja": "日本の音楽を聞くのが好きです。",
+        "romaji": "Nihon no ongaku o kiku no ga suki desu.",
+        "uz": "Yapon musiqasini tinglashni yoqtiraman."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_55",
+    "level": "N5",
+    "word": "読む",
+    "reading": "よむ",
+    "romaji": "yomu",
+    "meaningUz": "O'qimoq (matnni)",
+    "partOfSpeech": "Fe'l (1-guruh)",
+    "examples": [
+      {
+        "ja": "毎晩寝る前に本を読みます。",
+        "romaji": "Maiban neru mae ni hon o yomimasu.",
+        "uz": "Har oqshom uxlashdan oldin kitob o'qiyman."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_56",
+    "level": "N5",
+    "word": "書く",
+    "reading": "かく",
+    "romaji": "kaku",
+    "meaningUz": "Yozmoq",
+    "partOfSpeech": "Fe'l (1-guruh)",
+    "examples": [
+      {
+        "ja": "家族に手紙を書きました。",
+        "romaji": "Kazoku ni tegami o kakimashita.",
+        "uz": "Oilamga maktub yozdim."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_57",
+    "level": "N5",
+    "word": "話す",
+    "reading": "はなす",
+    "romaji": "hanasu",
+    "meaningUz": "Gapirmoq, suhbatlashmoq",
+    "partOfSpeech": "Fe'l (1-guruh)",
+    "examples": [
+      {
+        "ja": "先生と日本語で話しました。",
+        "romaji": "Sensei to nihongo de hanashimashita.",
+        "uz": "Ustoz bilan yapon tilida gaplashdim."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_58",
+    "level": "N5",
+    "word": "買う",
+    "reading": "かう",
+    "romaji": "kau",
+    "meaningUz": "Sotib olmoq",
+    "partOfSpeech": "Fe'l (1-guruh)",
+    "examples": [
+      {
+        "ja": "デパートで新しい服を買いました。",
+        "romaji": "Depaato de atarashii fuku o kaimashita.",
+        "uz": "Supermarketdan yangi kiyim sotib oldim."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_59",
+    "level": "N5",
+    "word": "会う",
+    "reading": "あう",
+    "romaji": "au",
+    "meaningUz": "Uchrashmoq, ko'rishmoq",
+    "partOfSpeech": "Fe'l (1-guruh)",
+    "examples": [
+      {
+        "ja": "日曜日に駅で友達に会います。",
+        "romaji": "Nichiyoubi ni eki de tomodachi ni aimasu.",
+        "uz": "Yakshanba kuni vokzalda do'stim bilan uchrashaman."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_60",
+    "level": "N5",
+    "word": "待つ",
+    "reading": "まつ",
+    "romaji": "matsu",
+    "meaningUz": "Kutmoq",
+    "partOfSpeech": "Fe'l (1-guruh)",
+    "examples": [
+      {
+        "ja": "ちょっと待ってください。",
+        "romaji": "Chotto matte kudasai.",
+        "uz": "Biroz kutib turing."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_61",
+    "level": "N5",
+    "word": "勉強する",
+    "reading": "べんきょうする",
+    "romaji": "benkyou suru",
+    "meaningUz": "O'rganmoq, dars qilmoq",
+    "partOfSpeech": "Fe'l (3-guruh)",
+    "examples": [
+      {
+        "ja": "毎日三時間日本語を勉強します。",
+        "romaji": "Mainichi sanjikan nihongo o benkyou shimasu.",
+        "uz": "Har kuni 3 soat yapon tilini o'rganaman."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_62",
+    "level": "N5",
+    "word": "働く",
+    "reading": "はたらく",
+    "romaji": "hataraku",
+    "meaningUz": "Ishlamoq, mehnat qilmoq",
+    "partOfSpeech": "Fe'l (1-guruh)",
+    "examples": [
+      {
+        "ja": "父は銀行で働いています。",
+        "romaji": "Chichi wa ginkou de hataraite imasu.",
+        "uz": "Otam bankda ishlaydi."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_63",
+    "level": "N5",
+    "word": "休む",
+    "reading": "やすむ",
+    "romaji": "yasumu",
+    "meaningUz": "Dam olmoq / dars qoldirmoq",
+    "partOfSpeech": "Fe'l (1-guruh)",
+    "examples": [
+      {
+        "ja": "今日は会社を休みます。",
+        "romaji": "Kyou wa kaisha o yasumimasu.",
+        "uz": "Bugun ishdan javob olaman (dam olaman)."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_64",
+    "level": "N5",
+    "word": "教える",
+    "reading": "おしえる",
+    "romaji": "oshieru",
+    "meaningUz": "O'rgatmoq, tushuntirmoq",
+    "partOfSpeech": "Fe'l (2-guruh)",
+    "examples": [
+      {
+        "ja": "電話番号を教えてください。",
+        "romaji": "Denwa bangou o oshiete kudasai.",
+        "uz": "Telefon raqamingizni aytib bering."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_65",
+    "level": "N5",
+    "word": "習う",
+    "reading": "ならう",
+    "romaji": "narau",
+    "meaningUz": "O'rganmoq (ustozdan)",
+    "partOfSpeech": "Fe'l (1-guruh)",
+    "examples": [
+      {
+        "ja": "ピアノを習っています。",
+        "romaji": "Piano o naratte imasu.",
+        "uz": "Pianino chalishni o'rganyapman."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_66",
+    "level": "N5",
+    "word": "起きる",
+    "reading": "おきる",
+    "romaji": "okiru",
+    "meaningUz": "Uyg'onmoq, o'rnidan turmoq",
+    "partOfSpeech": "Fe'l (2-guruh)",
+    "examples": [
+      {
+        "ja": "毎朝七時に起きます。",
+        "romaji": "Maiasa shichiji ni okimasu.",
+        "uz": "Har kuni ertalab yettida turaman."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_67",
+    "level": "N5",
+    "word": "寝る",
+    "reading": "ねる",
+    "romaji": "neru",
+    "meaningUz": "Uxlashga yotmoq",
+    "partOfSpeech": "Fe'l (2-guruh)",
+    "examples": [
+      {
+        "ja": "昨夜は十一時に寝ました。",
+        "romaji": "Sakuya wa juuichiji ni nemashita.",
+        "uz": "Kecha soat 11 da uxladim."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_68",
+    "level": "N5",
+    "word": "大きい",
+    "reading": "おおきい",
+    "romaji": "ookii",
+    "meaningUz": "Katta, yirik",
+    "partOfSpeech": "い-Sifat",
+    "examples": [
+      {
+        "ja": "象は体がとても大きいです。",
+        "romaji": "Zou wa karada ga totemo ookii desu.",
+        "uz": "Filning gavdasi juda katta."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_69",
+    "level": "N5",
+    "word": "小さい",
+    "reading": "ちいさい",
+    "romaji": "chiisai",
+    "meaningUz": "Kichkina, mayda",
+    "partOfSpeech": "い-Sifat",
+    "examples": [
+      {
+        "ja": "この部屋は少し小さいです。",
+        "romaji": "Kono heya wa sukoshi chiisai desu.",
+        "uz": "Bu xona biroz kichikroq."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_70",
+    "level": "N5",
+    "word": "新しい",
+    "reading": "あたらしい",
+    "romaji": "atarashii",
+    "meaningUz": "Yangi",
+    "partOfSpeech": "い-Sifat",
+    "examples": [
+      {
+        "ja": "新しいスマートフォンを買いました。",
+        "romaji": "Atarashii sumaatofon o kaimashita.",
+        "uz": "Yangi smartfon sotib oldim."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_71",
+    "level": "N5",
+    "word": "古い",
+    "reading": "ふるい",
+    "romaji": "furui",
+    "meaningUz": "Eski, qadimiy",
+    "partOfSpeech": "い-Sifat",
+    "examples": [
+      {
+        "ja": "京都には古い寺がたくさんあります。",
+        "romaji": "Kyouto ni wa furui tera ga takusan arimasu.",
+        "uz": "Kiotoda qadimiy ibodatxonalar ko'p."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_72",
+    "level": "N5",
+    "word": "いい / よい",
+    "reading": "いい / よい",
+    "romaji": "ii / yoi",
+    "meaningUz": "Yaxshi, soz",
+    "partOfSpeech": "い-Sifat",
+    "examples": [
+      {
+        "ja": "彼はとてもいい人です。",
+        "romaji": "Kare wa totemo ii hito desu.",
+        "uz": "U juda yaxshi inson."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_73",
+    "level": "N5",
+    "word": "悪い",
+    "reading": "わるい",
+    "romaji": "warui",
+    "meaningUz": "Yomon, buzuq",
+    "partOfSpeech": "い-Sifat",
+    "examples": [
+      {
+        "ja": "今日は気分が悪いです。",
+        "romaji": "Kyou wa kibun ga warui desu.",
+        "uz": "Bugun ahvolim yomonroq."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_74",
+    "level": "N5",
+    "word": "高い",
+    "reading": "たかい",
+    "romaji": "takai",
+    "meaningUz": "Baland / Qimmat",
+    "partOfSpeech": "い-Sifat",
+    "examples": [
+      {
+        "ja": "富士山は日本で一番高い山です。",
+        "romaji": "Fujisan wa Nihon de ichiban takai yama desu.",
+        "uz": "Fuji tog'i Yaponiyadagi eng baland tog'dir."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_75",
+    "level": "N5",
+    "word": "安い",
+    "reading": "やすい",
+    "romaji": "yasui",
+    "meaningUz": "Arzon",
+    "partOfSpeech": "い-Sifat",
+    "examples": [
+      {
+        "ja": "このレストランは安くて美味しい。",
+        "romaji": "Kono resutoran wa yasukute oishii.",
+        "uz": "Bu restoran arzon va mazali."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_76",
+    "level": "N5",
+    "word": "暑い",
+    "reading": "あつい",
+    "romaji": "atsui",
+    "meaningUz": "Issiq (havo)",
+    "partOfSpeech": "い-Sifat",
+    "examples": [
+      {
+        "ja": "日本の夏はとても暑いです。",
+        "romaji": "Nihon no natsu wa totemo atsui desu.",
+        "uz": "Yaponiyaning yozi juda issiq."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_77",
+    "level": "N5",
+    "word": "寒い",
+    "reading": "さむい",
+    "romaji": "samui",
+    "meaningUz": "Sovuq (havo)",
+    "partOfSpeech": "い-Sifat",
+    "examples": [
+      {
+        "ja": "冬は雪が降って寒いです。",
+        "romaji": "Fuyu wa yuki ga futte samui desu.",
+        "uz": "Qishda qor yog'ib sovuq bo'ladi."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_78",
+    "level": "N5",
+    "word": "美味しい",
+    "reading": "おいしい",
+    "romaji": "oishii",
+    "meaningUz": "Mazali, shirin",
+    "partOfSpeech": "い-Sifat",
+    "examples": [
+      {
+        "ja": "日本のお寿司はとても美味しい。",
+        "romaji": "Nihon no osushi wa totemo oishii.",
+        "uz": "Yaponiyaning sushisi juda mazali."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_79",
+    "level": "N5",
+    "word": "楽しい",
+    "reading": "たのしい",
+    "romaji": "tanoshii",
+    "meaningUz": "Maroqli, qiziq, quvnoq",
+    "partOfSpeech": "い-Sifat",
+    "examples": [
+      {
+        "ja": "昨日のパーティーはとても楽しかった。",
+        "romaji": "Kinou no paatii wa totemo tanoshikatta.",
+        "uz": "Kechagi ziyofat juda maroqli o'tdi."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_80",
+    "level": "N5",
+    "word": "静か",
+    "reading": "しずか",
+    "romaji": "shizuka",
+    "meaningUz": "Sokin, tinch",
+    "partOfSpeech": "な-Sifat",
+    "examples": [
+      {
+        "ja": "夜の図書館はとても静かです。",
+        "romaji": "Yoru no toshokan wa totemo shizuka desu.",
+        "uz": "Kechqurun kutubxona juda sokin bo'ladi."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_81",
+    "level": "N5",
+    "word": "元気",
+    "reading": "げんき",
+    "romaji": "genki",
+    "meaningUz": "Tetik, sog'lom, tetiklik",
+    "partOfSpeech": "な-Sifat",
+    "examples": [
+      {
+        "ja": "お元気ですか？はい、元気です。",
+        "romaji": "Ogenki desu ka? Hai, genki desu.",
+        "uz": "Yaxshimisiz? Ha, yaxshiman (tetikman)."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_82",
+    "level": "N5",
+    "word": "好き",
+    "reading": "すき",
+    "romaji": "suki",
+    "meaningUz": "Yoqtirgan, sevgan",
+    "partOfSpeech": "な-Sifat",
+    "examples": [
+      {
+        "ja": "私は日本のアニメが好きです。",
+        "romaji": "Watashi wa Nihon no anime ga suki desu.",
+        "uz": "Men Yaponiya animesini yoqtiraman."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_83",
+    "level": "N5",
+    "word": "上手",
+    "reading": "じょうず",
+    "romaji": "jouzu",
+    "meaningUz": "Usta, mohir, zo'r eplaydigan",
+    "partOfSpeech": "な-Sifat",
+    "examples": [
+      {
+        "ja": "彼は料理がとても上手です。",
+        "romaji": "Kare wa ryouri ga totemo jouzu desu.",
+        "uz": "U ovqat pishirishga juda mohir."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n5_84",
+    "level": "N5",
+    "word": "下手",
+    "reading": "へた",
+    "romaji": "heta",
+    "meaningUz": "No'qunoq, yaxshi eplay olmaydigan",
+    "partOfSpeech": "な-Sifat",
+    "examples": [
+      {
+        "ja": "私は歌が下手です。",
+        "romaji": "Watashi wa uta ga heta desu.",
+        "uz": "Men qo'shiq aytishni yaxshi eplay olmayman."
+      }
+    ]
+  }
+]
