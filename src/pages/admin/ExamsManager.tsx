@@ -14,6 +14,7 @@ import {
   CheckCircle2,
   Search,
   Shield,
+  Eye,
 } from 'lucide-react';
 import { useStudyData } from '../../context/StudyPlannerContext';
 import { isAdminEmail, isUserAdmin } from '../../utils/admin';
@@ -317,6 +318,18 @@ export const ExamsManager: React.FC = () => {
                 onClick={() => navigate(`/admin/exams/${exam.id}`)}
               >
                 <Edit2 className="h-3.5 w-3.5" /> Savollar va Bo'limlar
+              </Button>
+              <Button
+                variant="outline"
+                className="gap-1.5 border-rose-500/30 px-3 text-xs font-bold text-rose-600 transition hover:bg-rose-500 hover:text-white dark:text-rose-400"
+                onClick={() => {
+                  const lvlMatch = exam.type.match(/N[1-5]/i);
+                  const lvl = lvlMatch ? lvlMatch[0].toUpperCase() : 'N5';
+                  navigate(`/jlpt?tab=mock&level=${lvl}&examId=${exam.id}`);
+                }}
+                title="Talaba sifatida sinab ko'rish (Preview)"
+              >
+                <Eye className="h-3.5 w-3.5" /> Sinash
               </Button>
               <button
                 onClick={() => handleDeleteExam(exam.id, exam.title)}

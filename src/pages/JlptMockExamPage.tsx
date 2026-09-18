@@ -1,6 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { ArrowLeft, Clock, Award, Volume2, BookOpen, CheckCircle2, FileText } from 'lucide-react';
+import {
+  ArrowLeft,
+  Clock,
+  Award,
+  Volume2,
+  BookOpen,
+  CheckCircle2,
+  FileText,
+  Database,
+  Loader2,
+} from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { HistoryService } from '../services/HistoryService';
 import {
@@ -13,8 +23,8 @@ import { MasteryEngine } from '../services/MasteryEngine';
 import { calculateJlptScore } from '../utils/jlptScoring';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { useLanguage } from '../context/LanguageContext';
-
-import { JLPT_MOCK_EXAM_DATA } from '../data/jlptMockExamData';
+import { ExamService, ExamListItem, NormalizedExam } from '../services/ExamService';
+import { JLPT_MOCK_EXAM_DATA, ExamQuestion } from '../data/jlptMockExamData';
 
 export const JlptMockExamPage: React.FC = () => {
   const navigate = useNavigate();
@@ -28,11 +38,46 @@ export const JlptMockExamPage: React.FC = () => {
   const [level, setLevel] = useState<'N5' | 'N4' | 'N3' | 'N2' | 'N1'>(initialLevel);
   const [step, setStep] = useState<'intro' | 'exam' | 'report'>('intro');
 
+  // Available Exams from Supabase DB
+  const [availableExams, setAvailableExams] = useState<ExamListItem[]>([]);
+  const [selectedExamId, setSelectedExamId] = useState<string>('');
+  const [loadingExams, setLoadingExams] = useState<boolean>(true);
+  const [activeExam, setActiveExam] = useState<NormalizedExam | null>(null);
+  const [isStartingExam, setIsStartingExam] = useState<boolean>(false);
+
   useEffect(() => {
     if (urlLevel && ['N5', 'N4', 'N3', 'N2', 'N1'].includes(urlLevel)) {
       setLevel(urlLevel as any);
     }
   }, [urlLevel]);
+
+  // Fetch published exams for current level from Supabase
+  useEffect(() => {
+    let isMounted = true;
+    const fetchExams = async () => {
+      setLoadingExams(true);
+      try {
+        const list = await ExamService.getPublishedJlptExams(level);
+        if (isMounted) {
+          setAvailableExams(list);
+          const urlExamId = searchParams.get('examId');
+          if (urlExamId && list.some((e) => e.id === urlExamId)) {
+            setSelectedExamId(urlExamId);
+          } else if (list.length > 0) {
+            setSelectedExamId(list[0].id);
+          }
+        }
+      } catch (err) {
+        console.warn('JlptMockExamPage: Error fetching exams:', err);
+      } finally {
+        if (isMounted) setLoadingExams(false);
+      }
+    };
+    fetchExams();
+    return () => {
+      isMounted = false;
+    };
+  }, [level, searchParams]);
 
   // Active Section State
   const [activeSection, setActiveSection] = useState<'knowledge' | 'reading' | 'listening'>(
@@ -41,7 +86,7 @@ export const JlptMockExamPage: React.FC = () => {
   const [userAnswers, setUserAnswers] = useState<{ [qId: number]: number }>({});
 
   // Timer & Status
-  const [timeLeft, setTimeLeft] = useState(3600); // 1 hour
+  const [timeLeft, setTimeLeft] = useState(3000); // default 50 mins
   const [isTimerRunning, setIsTimerRunning] = useState(false);
 
   // Audio Playback
@@ -53,8 +98,9 @@ export const JlptMockExamPage: React.FC = () => {
   const [mistakes, setMistakes] = useState<ExamQuestionAnswer[]>([]);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
 
-  // Questions filtering
-  const levelQuestions = JLPT_MOCK_EXAM_DATA[level] || JLPT_MOCK_EXAM_DATA['N5'];
+  // Questions from active loaded exam (or fallback)
+  const levelQuestions: ExamQuestion[] =
+    activeExam?.questions || JLPT_MOCK_EXAM_DATA[level] || JLPT_MOCK_EXAM_DATA['N5'];
   const knowledgeQuestions = levelQuestions.filter((q) => q.section === 'knowledge');
   const readingQuestions = levelQuestions.filter((q) => q.section === 'reading');
   const listeningQuestions = levelQuestions.filter((q) => q.section === 'listening');
@@ -76,13 +122,25 @@ export const JlptMockExamPage: React.FC = () => {
     return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
   };
 
-  const handleStartExam = () => {
-    setUserAnswers({});
-    setMistakes([]);
-    setStep('exam');
-    setActiveSection('knowledge');
-    setIsTimerRunning(true);
-    setTimeLeft(3000); // 50 mins for mock exam
+  const handleStartExam = async () => {
+    setIsStartingExam(true);
+    try {
+      const examData = await ExamService.getExamWithQuestions(
+        selectedExamId || `builtin_${level.toLowerCase()}`,
+        level,
+      );
+      setActiveExam(examData);
+      setUserAnswers({});
+      setMistakes([]);
+      setStep('exam');
+      setActiveSection('knowledge');
+      setIsTimerRunning(true);
+      setTimeLeft(examData.timeLimitSeconds);
+    } catch (err) {
+      console.error('Failed to load exam:', err);
+    } finally {
+      setIsStartingExam(false);
+    }
   };
 
   const handleOptionSelect = (qId: number, optionIdx: number) => {
@@ -277,11 +335,89 @@ export const JlptMockExamPage: React.FC = () => {
             ))}
           </div>
 
+          {/* Available Mock Exams Selector */}
+          <div className="space-y-3 text-left">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-bold text-foreground">
+                {language === 'ja' ? 'もぎテストを えらぶ' : 'Mavjud Imtihonni Tanlang:'}
+              </span>
+              <span className="text-[11px] font-medium text-muted-foreground">
+                {availableExams.length} ta test mavjud
+              </span>
+            </div>
+
+            {loadingExams ? (
+              <div className="flex items-center justify-center gap-2 py-6 text-xs text-muted-foreground">
+                <Loader2 size={16} className="animate-spin text-rose-500" />
+                <span>Imtihonlar bazadan yuklanmoqda...</span>
+              </div>
+            ) : (
+              <div className="max-h-60 space-y-2 overflow-y-auto pr-1">
+                {availableExams.map((ex) => {
+                  const isSelected = selectedExamId === ex.id;
+                  return (
+                    <div
+                      key={ex.id}
+                      onClick={() => setSelectedExamId(ex.id)}
+                      className={`cursor-pointer rounded-2xl border p-4 transition-all ${
+                        isSelected
+                          ? 'border-rose-500 bg-rose-500/10 shadow-md ring-1 ring-rose-500/30'
+                          : 'border-border bg-muted/20 hover:border-border hover:bg-muted/40'
+                      }`}
+                    >
+                      <div className="flex items-start justify-between gap-2">
+                        <div className="space-y-1">
+                          <div className="flex items-center gap-2">
+                            <span className="text-sm font-bold text-foreground">{ex.title}</span>
+                            <span className="inline-flex items-center gap-1 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2 py-0.5 text-[10px] font-bold text-emerald-600 dark:text-emerald-400">
+                              <Database size={10} />{' '}
+                              {ex.id.startsWith('builtin_') ? 'Oflayn Baza' : 'Rasmiy DB'}
+                            </span>
+                          </div>
+                          {ex.description && (
+                            <p className="line-clamp-1 text-xs text-muted-foreground">
+                              {ex.description}
+                            </p>
+                          )}
+                        </div>
+                        <div
+                          className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border ${
+                            isSelected ? 'border-rose-500 bg-rose-500 text-white' : 'border-border'
+                          }`}
+                        >
+                          {isSelected && <CheckCircle2 size={13} />}
+                        </div>
+                      </div>
+                      <div className="mt-2.5 flex items-center gap-3 text-[11px] text-muted-foreground">
+                        <span className="flex items-center gap-1">
+                          <FileText size={12} className="text-rose-500" /> 3 bo'lim (Goi, Dokkai,
+                          Choukai)
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Clock size={12} className="text-rose-500" /> 180 ballik rasmiy format
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+
           <Button
+            disabled={isStartingExam}
             onClick={handleStartExam}
-            className="w-full rounded-2xl bg-rose-600 py-4 text-sm font-extrabold text-white shadow-lg shadow-rose-500/20 hover:bg-rose-700"
+            className="w-full rounded-2xl bg-rose-600 py-4 text-sm font-extrabold text-white shadow-lg shadow-rose-500/20 hover:bg-rose-700 disabled:opacity-50"
           >
-            {language === 'ja' ? 'もぎしけんを スタート 🚀' : 'Mock Imtihonni Boshlash 🚀'}
+            {isStartingExam ? (
+              <span className="flex items-center justify-center gap-2">
+                <Loader2 size={16} className="animate-spin" /> Imtihon tayyorlanmoqda...
+              </span>
+            ) : language === 'ja' ? (
+              'もぎしけんを スタート 🚀'
+            ) : (
+              'Mock Imtihonni Boshlash 🚀'
+            )}
           </Button>
         </div>
       )}
