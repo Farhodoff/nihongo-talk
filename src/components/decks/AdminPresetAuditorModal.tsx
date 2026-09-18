@@ -17,6 +17,7 @@ import {
 import { speakText } from '../../utils/audioTts';
 import { toast } from '../../hooks/use-toast';
 import { supabase } from '../../lib/supabase';
+import { GlobalFlashcardOverrideService } from '../../services/GlobalFlashcardOverrideService';
 
 interface AdminPresetAuditorModalProps {
   isOpen: boolean;
@@ -128,8 +129,6 @@ export const AdminPresetAuditorModal: React.FC<AdminPresetAuditorModalProps> = (
 
     // Immediately update global production database
     try {
-      const { GlobalFlashcardOverrideService } =
-        await import('../../services/GlobalFlashcardOverrideService');
       await GlobalFlashcardOverrideService.saveGlobalOverride({
         word: cardToSave.front,
         front: cardToSave.front,
@@ -180,8 +179,6 @@ export const AdminPresetAuditorModal: React.FC<AdminPresetAuditorModalProps> = (
 
       // Also persist all overrides to global database
       try {
-        const { GlobalFlashcardOverrideService } =
-          await import('../../services/GlobalFlashcardOverrideService');
         const batch = cards.map((c) => ({
           word: c.front,
           front: c.front,

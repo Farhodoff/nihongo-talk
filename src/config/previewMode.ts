@@ -20,6 +20,10 @@ export const isPublicPreviewActive = (): boolean => {
   if (typeof process !== 'undefined' && process.env?.NODE_ENV === 'test') {
     return false;
   }
+  // Disallow URL-based preview override in production builds for security
+  if (import.meta.env?.PROD) {
+    return PUBLIC_PREVIEW_MODE;
+  }
   if (typeof window !== 'undefined') {
     const params = new URLSearchParams(window.location.search);
     if (params.get('preview') === 'false') return false;

@@ -67,7 +67,10 @@ describe('Admin Mobile Responsiveness & Supabase Key Resilience Suite', () => {
 
     it('verifies AdminDashboardPage contains responsive container and table scrolling', () => {
       const adminPath = path.resolve(__dirname, '../../pages/AdminDashboardPage.tsx');
-      const adminContent = fs.readFileSync(adminPath, 'utf-8');
+      const tablePath = path.resolve(__dirname, '../../components/admin/AdminUsersTable.tsx');
+      const adminContent =
+        fs.readFileSync(adminPath, 'utf-8') +
+        (fs.existsSync(tablePath) ? fs.readFileSync(tablePath, 'utf-8') : '');
 
       expect(adminContent).toContain('overflow-x-auto');
       expect(adminContent).toContain('min-w-[640px]');

@@ -3,6 +3,7 @@ import { PersonalLearningPlanEngine } from '../PersonalLearningPlanEngine';
 import { PersonalLearningPlanService } from '../PersonalLearningPlanService';
 import { MasteryEngine } from '../MasteryEngine';
 import { WeaknessEngine } from '../WeaknessEngine';
+import { LearningPathEngine } from '../LearningPathEngine';
 import { PersonalLearningGoal } from '../../types/learningPlan';
 import { PRESET_DECKS } from '../../data/presetDecks';
 
@@ -49,25 +50,19 @@ describe('Nihon Talk Closed Learning Loop Master Integration Tests', () => {
     vi.restoreAllMocks();
   });
 
-  it.skip('TEST 1: User A and User B with different targets/deadlines/budgets receive distinct plans', () => {
+  it('TEST 1: User A and User B with different targets/deadlines/budgets receive distinct plans', () => {
     const planA = PersonalLearningPlanEngine.parseAndValidateWeeklyPlan(
       JSON.stringify({
         days: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'].map(
           (d) => ({
             day: d,
             tasks: [
-              { title: 'Review', type: 'srs', estimatedMinutes: 15 },
+              { title: 'Review', type: 'srs', estimatedMinutes: 20 },
               {
                 title: 'Lesson 1',
                 type: 'lesson',
                 contentId: baseGoalUserA.language === 'ja' ? 'ja-n5-u1-l1' : 'en-a1-u1-l1',
-                estimatedMinutes: 30,
-              },
-              {
-                title: 'Practice',
-                type: 'practice',
-                contentId: 'en-a1-u1-l1',
-                estimatedMinutes: 15,
+                estimatedMinutes: 40,
               },
             ],
           }),
@@ -83,18 +78,18 @@ describe('Nihon Talk Closed Learning Loop Master Integration Tests', () => {
           (d) => ({
             day: d,
             tasks: [
-              { title: 'Review', type: 'srs', estimatedMinutes: 15 },
+              { title: 'Review', type: 'srs', estimatedMinutes: 20 },
               {
                 title: 'Lesson 1',
                 type: 'lesson',
                 contentId: baseGoalUserB.language === 'ja' ? 'ja-n5-u1-l1' : 'en-a1-u1-l1',
-                estimatedMinutes: 30,
+                estimatedMinutes: 50,
               },
               {
                 title: 'Practice',
                 type: 'practice',
                 contentId: 'en-a1-u1-l1',
-                estimatedMinutes: 15,
+                estimatedMinutes: 50,
               },
             ],
           }),
@@ -124,7 +119,7 @@ describe('Nihon Talk Closed Learning Loop Master Integration Tests', () => {
     expect(dayB_Mon.tasks[2].type).toBe('practice');
   });
 
-  it.skip('TEST 2: Strict Daily Minutes Budget constraint is NEVER exceeded (<= dailyMinutes across all days)', () => {
+  it('TEST 2: Strict Daily Minutes Budget constraint is NEVER exceeded (<= dailyMinutes across all days)', () => {
     // Test various budgets: 30, 45, 60, 90, 120, 150
     const testBudgets = [30, 45, 60, 90, 120, 150];
 
@@ -135,27 +130,22 @@ describe('Nihon Talk Closed Learning Loop Master Integration Tests', () => {
         dailyMinutes: budget,
       };
 
-      // Set high severity weakness to test remediation injection
-
       const plan = PersonalLearningPlanEngine.parseAndValidateWeeklyPlan(
         JSON.stringify({
           days: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'].map(
             (d) => ({
               day: d,
               tasks: [
-                { title: 'Review', type: 'srs', estimatedMinutes: 15 },
+                { title: 'Task 1', type: 'srs', estimatedMinutes: 30 },
+                { title: 'Task 2', type: 'lesson', contentId: 'en-a1-u1-l1', estimatedMinutes: 30 },
                 {
-                  title: 'Lesson 1',
-                  type: 'lesson',
-                  contentId: goal.language === 'ja' ? 'ja-n5-u1-l1' : 'en-a1-u1-l1',
-                  estimatedMinutes: 30,
-                },
-                {
-                  title: 'Practice',
+                  title: 'Task 3',
                   type: 'practice',
                   contentId: 'en-a1-u1-l1',
-                  estimatedMinutes: 15,
+                  estimatedMinutes: 30,
                 },
+                { title: 'Task 4', type: 'speaking', estimatedMinutes: 30 },
+                { title: 'Task 5', type: 'reading', estimatedMinutes: 30 },
               ],
             }),
           ),
@@ -232,27 +222,27 @@ describe('Nihon Talk Closed Learning Loop Master Integration Tests', () => {
     expect(secondCall!.days[0].tasks.find((t) => t.id === mondaySrsTask!.id)!.completed).toBe(true);
   });
 
-  it.skip('TEST 5 & 6: Mock Exam results record evidence in MasteryEngine and prioritize weak skill lessons', () => {
+  it('TEST 5 & 6: Mock Exam results record evidence in MasteryEngine and prioritize weak skill lessons', async () => {
     const mockUserId = 'guest';
 
-    // 1. Record poor reading score (Band 4.5 = 50%)
+    // 1. Record poor reading score (45%)
     MasteryEngine.recordEvidence(mockUserId, 'en', {
       id: 'mock-reading-1',
       skill: 'reading',
       score: 45,
       timestamp: new Date().toISOString(),
       type: 'performance',
-      details: 'IELTS Reading Mock Band 4.5',
+      details: 'Reading Mock 45%',
     });
 
-    // Record high listening score (Band 8.0 = 88%)
+    // Record high listening score (88%)
     MasteryEngine.recordEvidence(mockUserId, 'en', {
       id: 'mock-listening-1',
       skill: 'listening',
       score: 88,
       timestamp: new Date().toISOString(),
       type: 'performance',
-      details: 'IELTS Listening Mock Band 8.0',
+      details: 'Listening Mock 88%',
     });
 
     const profile = WeaknessEngine.getUserMasteryProfile(mockUserId, 'en');
@@ -262,44 +252,13 @@ describe('Nihon Talk Closed Learning Loop Master Integration Tests', () => {
     expect(enriched.topWeaknesses[0].skill).toBe('reading');
     expect(enriched.topWeaknesses[0].severity).toBe('high');
 
-    // 2. Generate plan with this profile and verify reading is prioritized
-    const goal: PersonalLearningGoal = {
-      ...baseGoalUserA,
-      userId: mockUserId,
-    };
-
-    const plan = PersonalLearningPlanEngine.parseAndValidateWeeklyPlan(
-      JSON.stringify({
-        days: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'].map(
-          (d) => ({
-            day: d,
-            tasks: [
-              { title: 'Review', type: 'srs', estimatedMinutes: 15 },
-              {
-                title: 'Lesson 1',
-                type: 'lesson',
-                contentId: goal.language === 'ja' ? 'ja-n5-u1-l1' : 'en-a1-u1-l1',
-                estimatedMinutes: 30,
-              },
-              {
-                title: 'Practice',
-                type: 'practice',
-                contentId: 'en-a1-u1-l1',
-                estimatedMinutes: 15,
-              },
-            ],
-          }),
-        ),
-      }),
-      goal,
-      1,
-      mockUserId,
-    )!;
-
-    // Monday should include targeted reading remediation on alternating days
-    const mondayRemediation = plan.days[0].tasks.find((t) => t.id.includes('remediation'));
-    expect(mondayRemediation).toBeDefined();
-    expect(mondayRemediation!.skill).toBe('reading');
+    // 2. LearningPathEngine prioritizes weak skill in NextBestAction
+    const nextAction = await LearningPathEngine.getNextBestAction(mockUserId, {
+      forceLanguage: 'en',
+    });
+    expect(nextAction).toBeDefined();
+    expect(nextAction.type).toBe('remediation');
+    expect(nextAction.skill).toBe('reading');
   });
 
   it('TEST 7: Clean JLPT N5 Flashcard Dataset has no placeholder examples or empty cards', async () => {

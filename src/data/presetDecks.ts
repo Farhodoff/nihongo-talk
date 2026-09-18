@@ -1,3 +1,5 @@
+import { GlobalFlashcardOverrideService } from '../services/GlobalFlashcardOverrideService';
+
 export interface PresetCard {
   front: string;
   back: string;
@@ -38,8 +40,6 @@ async function loadAndApplyOverrides(
 ): Promise<PresetCard[]> {
   const data = await importPromise;
   try {
-    const { GlobalFlashcardOverrideService } =
-      await import('../services/GlobalFlashcardOverrideService');
     return GlobalFlashcardOverrideService.applyOverridesToCards(data.default as PresetCard[]);
   } catch {
     return data.default as PresetCard[];

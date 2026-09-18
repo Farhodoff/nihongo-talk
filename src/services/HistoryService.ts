@@ -4,15 +4,16 @@ import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
 
 export interface WritingHistoryItem {
   id: string;
-  taskType: 'task1' | 'task2';
+  taskType: 'task1' | 'task2' | string;
   prompt: string;
   essay: string;
   score: number;
-  criteriaBreakdown: {
-    tr: number; // Task Achievement
-    cc: number; // Coherence & Cohesion
-    lr: number; // Lexical Resource
-    gra: number; // Grammatical Range
+  criteriaBreakdown?: {
+    tr?: number; // Task Achievement
+    cc?: number; // Coherence & Cohesion
+    lr?: number; // Lexical Resource
+    gra?: number; // Grammatical Range
+    [key: string]: any;
   };
   feedback: string;
   createdAt: string;
@@ -67,7 +68,13 @@ export class HistoryService {
   static clearMissingTablesCache() {
     missingTables.clear();
   }
-  // === IELTS Writing History ===
+  // === Writing History ===
+  static async saveWritingHistory(
+    item: Omit<WritingHistoryItem, 'id' | 'createdAt'>,
+  ): Promise<WritingHistoryItem> {
+    return this.saveWritingAttempt(item);
+  }
+
   static async saveWritingAttempt(
     item: Omit<WritingHistoryItem, 'id' | 'createdAt'>,
   ): Promise<WritingHistoryItem> {

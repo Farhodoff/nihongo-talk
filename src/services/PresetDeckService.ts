@@ -1,6 +1,7 @@
 import { PresetDeck, PresetCard, PresetSubDeck } from '../data/presetDecks';
 import { supabase } from '../lib/supabase';
 import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
+import { GlobalFlashcardOverrideService } from './GlobalFlashcardOverrideService';
 
 export interface DeckPart {
   id: string;
@@ -44,7 +45,6 @@ export const PresetDeckService = {
       }
 
       // Apply global word/translation/structure overrides
-      const { GlobalFlashcardOverrideService } = await import('./GlobalFlashcardOverrideService');
       allCards = GlobalFlashcardOverrideService.applyOverridesToCards(allCards);
 
       if (allCards && allCards.length > 0) {

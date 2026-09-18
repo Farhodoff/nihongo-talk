@@ -1,30 +1,72 @@
-import React, { useState } from 'react';
-import { ArrowLeft, Sparkles, Send, Award } from 'lucide-react';
+import React, { useState, useEffect, useCallback } from 'react';
+import {
+  ArrowLeft,
+  Sparkles,
+  Send,
+  Award,
+  History,
+  Clock,
+  ChevronDown,
+  ChevronUp,
+} from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { generateAIResponse, extractJsonFromAiResponse } from '../utils/ai/aiCore';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { toast } from '../hooks/use-toast';
+import { HistoryService } from '../services/HistoryService';
+
+interface SakubunHistoryItem {
+  id: string;
+  taskType: string;
+  prompt: string;
+  essay: string;
+  score: number;
+  criteriaBreakdown?: {
+    kanjiRating?: string;
+    suggestions?: string[];
+    correctedText?: string;
+  };
+  feedback?: string;
+  createdAt: string;
+}
+
 export const JlptWritingPage: React.FC = () => {
-    const navigate = useNavigate();
-    const { awardXP } = useStudyData();
+  const navigate = useNavigate();
+  const { awardXP, user } = useStudyData();
 
-    const [essayText, setEssayText] = useState('');
-    const [targetLevel, setTargetLevel] = useState('N3');
-    const [isEvaluating, setIsEvaluating] = useState(false);
-    const [result, setResult] = useState<{
-        score: number;
-        kanjiRating: string;
-        grammarFeedback: string;
-        correctedText: string;
-        suggestions: string[];
-    } | null>(null);
+  const [essayText, setEssayText] = useState('');
+  const [targetLevel, setTargetLevel] = useState('N3');
+  const [isEvaluating, setIsEvaluating] = useState(false);
+  const [historyList, setHistoryList] = useState<SakubunHistoryItem[]>([]);
+  const [showHistory, setShowHistory] = useState(false);
+  const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [result, setResult] = useState<{
+    score: number;
+    kanjiRating: string;
+    grammarFeedback: string;
+    correctedText: string;
+    suggestions: string[];
+  } | null>(null);
 
-    const handleEvaluate = async () => {
-        if (!essayText.trim()) return;
-        setIsEvaluating(true);
+  const loadHistory = useCallback(async () => {
+    try {
+      const records = await HistoryService.getWritingHistory(20);
+      setHistoryList((records || []) as SakubunHistoryItem[]);
+    } catch {
+      // Non-blocking fallback
+    }
+  }, []);
 
-        try {
-            const prompt = `
+  useEffect(() => {
+    loadHistory();
+  }, [loadHistory, user]);
+
+  const handleEvaluate = async () => {
+    if (!essayText.trim()) return;
+    setIsEvaluating(true);
+
+    try {
+      const prompt = `
             Act as an expert JLPT Japanese Essay (Sakubun 作文) Examiner.
             Evaluate this Japanese text written for target level ${targetLevel}:
             "${essayText}"
@@ -39,123 +81,241 @@ export const JlptWritingPage: React.FC = () => {
             }
             `;
 
-            const rawRes = await generateAIResponse([{ role: 'user', content: prompt }], { isJson: true });
-            const parsed = extractJsonFromAiResponse<{
-                score?: number;
-                kanjiRating?: string;
-                grammarFeedback?: string;
-                correctedText?: string;
-                suggestions?: string[];
-            }>(rawRes);
+      const rawRes = await generateAIResponse([{ role: 'user', content: prompt }], {
+        isJson: true,
+      });
+      const parsed = extractJsonFromAiResponse<{
+        score?: number;
+        kanjiRating?: string;
+        grammarFeedback?: string;
+        correctedText?: string;
+        suggestions?: string[];
+      }>(rawRes);
 
-            setResult({
-                score: parsed.score || 85,
-                kanjiRating: parsed.kanjiRating || "Qoniqarli Kanji qo'llangan",
-                grammarFeedback: parsed.grammarFeedback || "Grammatik konstruksiyalar to'g'ri tanlangan.",
-                correctedText: parsed.correctedText || essayText,
-                suggestions: parsed.suggestions || ["Desu/Masu shakllarini bir maromda saqlang."]
-            });
+      const evalData = {
+        score: parsed.score || 85,
+        kanjiRating: parsed.kanjiRating || "Qoniqarli Kanji qo'llangan",
+        grammarFeedback: parsed.grammarFeedback || "Grammatik konstruksiyalar to'g'ri tanlangan.",
+        correctedText: parsed.correctedText || essayText,
+        suggestions: parsed.suggestions || ['Desu/Masu shakllarini bir maromda saqlang.'],
+      };
 
-            await awardXP(100);
-        } catch (e: any) {
-            toast({
-                variant: 'destructive',
-                title: '❌ Xatolik yuz berdi',
-                description: e?.message || 'Inshoni baholashda xatolik yuz berdi. Iltimos, keyinroq qayta urinib ko\'ring.'
-            });
-        } finally {
-            setIsEvaluating(false);
-        }
-    };
+      setResult(evalData);
 
-    return (
-        <div className="p-4 md:p-8 max-w-4xl mx-auto space-y-6 pb-16">
-            <div className="flex items-center justify-between">
+      // Persist to database & local safe storage
+      await HistoryService.saveWritingHistory({
+        taskType: `jlpt_${targetLevel.toLowerCase()}`,
+        prompt: `JLPT ${targetLevel} Sakubun (作文)`,
+        essay: essayText,
+        score: evalData.score,
+        criteriaBreakdown: {
+          kanjiRating: evalData.kanjiRating,
+          suggestions: evalData.suggestions,
+          correctedText: evalData.correctedText,
+        },
+        feedback: evalData.grammarFeedback,
+      });
+
+      await awardXP(100);
+      await loadHistory();
+      toast({ title: '✅ Sakubun baholandi va tarixingizga saqlandi! (+100 XP)' });
+    } catch (e: any) {
+      toast({
+        variant: 'destructive',
+        title: '❌ Xatolik yuz berdi',
+        description:
+          e?.message ||
+          "Inshoni baholashda xatolik yuz berdi. Iltimos, keyinroq qayta urinib ko'ring.",
+      });
+    } finally {
+      setIsEvaluating(false);
+    }
+  };
+
+  return (
+    <div className="mx-auto max-w-4xl space-y-6 p-4 pb-16 md:p-8">
+      <div className="flex items-center justify-between">
+        <button
+          onClick={() => navigate('/jlpt')}
+          className="flex items-center gap-2 text-xs font-bold text-muted-foreground hover:text-foreground"
+        >
+          <ArrowLeft size={16} /> JLPT Hub'ga qaytish
+        </button>
+        <span className="rounded-full border border-amber-500/20 bg-amber-500/10 px-3 py-1 text-xs font-extrabold text-amber-500">
+          📝 Sakubun (作文) Evaluator
+        </span>
+      </div>
+
+      <div className="space-y-5 rounded-3xl border border-border bg-card p-6 shadow-xl">
+        <div className="flex flex-col justify-between gap-4 border-b border-border pb-4 md:flex-row md:items-center">
+          <div>
+            <h2 className="text-xl font-black text-foreground">
+              Sakubun (作文) Insho va Grammatika Tahlili
+            </h2>
+            <p className="text-xs text-muted-foreground">
+              Yaponcha insho yoki matningizni kiriting va AI bahosini oling
+            </p>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-bold text-muted-foreground">Target:</span>
+            <div className="flex gap-1">
+              {['N5', 'N4', 'N3', 'N2', 'N1'].map((lvl) => (
                 <button
-                    onClick={() => navigate('/jlpt')}
-                    className="flex items-center gap-2 text-muted-foreground hover:text-foreground font-bold text-xs"
+                  key={lvl}
+                  onClick={() => setTargetLevel(lvl)}
+                  className={`rounded-xl px-3 py-1 text-xs font-extrabold transition-all ${
+                    targetLevel === lvl
+                      ? 'bg-amber-500 text-white shadow'
+                      : 'bg-muted text-muted-foreground hover:text-foreground'
+                  }`}
                 >
-                    <ArrowLeft size={16} /> JLPT Hub'ga qaytish
+                  {lvl}
                 </button>
-                <span className="px-3 py-1 bg-amber-500/10 text-amber-500 font-extrabold text-xs rounded-full border border-amber-500/20">
-                    📝 Sakubun (作文) Evaluator
-                </span>
+              ))}
             </div>
-
-            <div className="bg-card border border-border rounded-3xl p-6 shadow-xl space-y-5">
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-border pb-4">
-                    <div>
-                        <h2 className="text-xl font-black text-foreground">Sakubun (作文) Insho va Grammatika Tahlili</h2>
-                        <p className="text-xs text-muted-foreground">Yaponcha insho yoki matningizni kiriting va AI bahosini oling</p>
-                    </div>
-
-                    <div className="flex items-center gap-2">
-                        <span className="text-xs font-bold text-muted-foreground">Target:</span>
-                        <div className="flex gap-1">
-                            {['N5', 'N4', 'N3', 'N2', 'N1'].map((lvl) => (
-                                <button
-                                    key={lvl}
-                                    onClick={() => setTargetLevel(lvl)}
-                                    className={`px-3 py-1 rounded-xl text-xs font-extrabold transition-all ${
-                                        targetLevel === lvl
-                                            ? 'bg-amber-500 text-white shadow'
-                                            : 'bg-muted text-muted-foreground hover:text-foreground'
-                                    }`}
-                                >
-                                    {lvl}
-                                </button>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-
-                <textarea
-                    rows={8}
-                    value={essayText}
-                    onChange={(e) => setEssayText(e.target.value)}
-                    placeholder="Yaponcha insho yoki matningizni shu yerga kiritasiz... (Masalan: わたしの名前は... 日本語の勉強が好きです。)"
-                    className="w-full p-4 rounded-2xl border border-input bg-background text-sm text-foreground focus:ring-2 focus:ring-amber-500 outline-none leading-relaxed"
-                />
-
-                <button
-                    onClick={handleEvaluate}
-                    disabled={isEvaluating || !essayText.trim()}
-                    className="w-full py-4 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-extrabold text-sm rounded-2xl shadow-lg transition-all flex items-center justify-center gap-2 disabled:opacity-50"
-                >
-                    {isEvaluating ? <Sparkles size={18} className="animate-spin" /> : <Send size={18} />}
-                    <span>{isEvaluating ? "Sakubun AI Tahlil Qilmoqda..." : "Inshoni Tekshirish 📝"}</span>
-                </button>
-            </div>
-
-            {/* Result Display */}
-            {result && (
-                <div className="bg-card border border-border rounded-3xl p-6 shadow-2xl space-y-5 animate-in fade-in">
-                    <div className="flex items-center justify-between border-b border-border pb-4">
-                        <div className="flex items-center gap-2 font-black text-lg text-foreground">
-                            <Award className="text-amber-500" size={24} /> Sakubun Natijasi: <span className="text-amber-500">{result.score} / 100</span>
-                        </div>
-                        <span className="px-3 py-1 bg-amber-500/10 text-amber-500 font-bold text-xs rounded-full">
-                            Kanji: {result.kanjiRating}
-                        </span>
-                    </div>
-
-                    <div className="space-y-2">
-                        <h4 className="text-xs font-bold text-muted-foreground uppercase">Grammatika va Stilistika Tahlili:</h4>
-                        <p className="text-sm text-foreground bg-muted/40 p-4 rounded-2xl border border-border/60 leading-relaxed">
-                            {result.grammarFeedback}
-                        </p>
-                    </div>
-
-                    <div className="space-y-2">
-                        <h4 className="text-xs font-bold text-muted-foreground uppercase">Tavsiya etilgan Mukammal Varianti:</h4>
-                        <div className="p-4 bg-amber-500/10 border border-amber-500/20 rounded-2xl text-sm font-medium text-amber-700 dark:text-amber-300 leading-relaxed whitespace-pre-wrap">
-                            {result.correctedText}
-                        </div>
-                    </div>
-                </div>
-            )}
+          </div>
         </div>
-    );
+
+        <textarea
+          rows={8}
+          value={essayText}
+          onChange={(e) => setEssayText(e.target.value)}
+          placeholder="Yaponcha insho yoki matningizni shu yerga kiritasiz... (Masalan: わたしの名前は... 日本語の勉強が好きです。)"
+          className="w-full rounded-2xl border border-input bg-background p-4 text-sm leading-relaxed text-foreground outline-none focus:ring-2 focus:ring-amber-500"
+        />
+
+        <button
+          onClick={handleEvaluate}
+          disabled={isEvaluating || !essayText.trim()}
+          className="flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-amber-500 to-orange-500 py-4 text-sm font-extrabold text-white shadow-lg transition-all hover:from-amber-600 hover:to-orange-600 disabled:opacity-50"
+        >
+          {isEvaluating ? <Sparkles size={18} className="animate-spin" /> : <Send size={18} />}
+          <span>{isEvaluating ? 'Sakubun AI Tahlil Qilmoqda...' : 'Inshoni Tekshirish 📝'}</span>
+        </button>
+      </div>
+
+      {/* Result Display */}
+      {result && (
+        <div className="space-y-5 rounded-3xl border border-border bg-card p-6 shadow-2xl animate-in fade-in">
+          <div className="flex items-center justify-between border-b border-border pb-4">
+            <div className="flex items-center gap-2 text-lg font-black text-foreground">
+              <Award className="text-amber-500" size={24} /> Sakubun Natijasi:{' '}
+              <span className="text-amber-500">{result.score} / 100</span>
+            </div>
+            <span className="rounded-full bg-amber-500/10 px-3 py-1 text-xs font-bold text-amber-500">
+              Kanji: {result.kanjiRating}
+            </span>
+          </div>
+
+          <div className="space-y-2">
+            <h4 className="text-xs font-bold uppercase text-muted-foreground">
+              Grammatika va Stilistika Tahlili:
+            </h4>
+            <p className="rounded-2xl border border-border/60 bg-muted/40 p-4 text-sm leading-relaxed text-foreground">
+              {result.grammarFeedback}
+            </p>
+          </div>
+
+          <div className="space-y-2">
+            <h4 className="text-xs font-bold uppercase text-muted-foreground">
+              Tavsiya etilgan Mukammal Varianti:
+            </h4>
+            <div className="whitespace-pre-wrap rounded-2xl border border-amber-500/20 bg-amber-500/10 p-4 text-sm font-medium leading-relaxed text-amber-700 dark:text-amber-300">
+              {result.correctedText}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Submission History Section */}
+      <div className="space-y-4 rounded-3xl border border-border bg-card p-6 shadow-md">
+        <button
+          onClick={() => setShowHistory((prev) => !prev)}
+          className="flex w-full items-center justify-between text-left text-sm font-black text-foreground"
+        >
+          <div className="flex items-center gap-2">
+            <History size={18} className="text-amber-500" />
+            <span>Mening Sakubun Tarixim ({historyList.length})</span>
+          </div>
+          {showHistory ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
+        </button>
+
+        {showHistory && (
+          <div className="space-y-3 pt-2">
+            {historyList.length === 0 ? (
+              <p className="py-4 text-center text-xs text-muted-foreground">
+                Hozircha saqlangan insholar yo'q. Yuqorida yangi insho yozib sinab ko'ring!
+              </p>
+            ) : (
+              historyList.map((item) => {
+                const isExpanded = expandedId === item.id;
+                return (
+                  <div
+                    key={item.id}
+                    className="overflow-hidden rounded-2xl border border-border bg-muted/20 transition-all"
+                  >
+                    <div
+                      onClick={() => setExpandedId(isExpanded ? null : item.id)}
+                      className="flex cursor-pointer items-center justify-between p-4 hover:bg-muted/40"
+                    >
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          <span className="rounded-md bg-amber-500/10 px-2 py-0.5 text-[10px] font-bold text-amber-500">
+                            {item.prompt || 'JLPT Insho'}
+                          </span>
+                          <span className="text-xs font-bold text-foreground">
+                            Ball: {item.score}/100
+                          </span>
+                        </div>
+                        <p className="line-clamp-1 text-xs text-muted-foreground">{item.essay}</p>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <span className="flex items-center gap-1 text-[10px] text-muted-foreground">
+                          <Clock size={12} />
+                          {new Date(item.createdAt).toLocaleDateString()}
+                        </span>
+                        {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                      </div>
+                    </div>
+
+                    {isExpanded && (
+                      <div className="space-y-3 border-t border-border/60 bg-card p-4 text-xs">
+                        <div>
+                          <span className="font-bold text-muted-foreground">Yozilgan matn:</span>
+                          <p className="mt-1 rounded-xl bg-muted/40 p-3 leading-relaxed text-foreground">
+                            {item.essay}
+                          </p>
+                        </div>
+                        {item.feedback && (
+                          <div>
+                            <span className="font-bold text-muted-foreground">AI Tahlili:</span>
+                            <p className="mt-1 rounded-xl bg-amber-500/10 p-3 text-amber-800 dark:text-amber-200">
+                              {item.feedback}
+                            </p>
+                          </div>
+                        )}
+                        {item.criteriaBreakdown?.correctedText && (
+                          <div>
+                            <span className="font-bold text-muted-foreground">
+                              Mukammal varianti:
+                            </span>
+                            <p className="mt-1 rounded-xl border border-amber-500/20 bg-amber-500/5 p-3 text-amber-700 dark:text-amber-300">
+                              {item.criteriaBreakdown.correctedText}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                );
+              })
+            )}
+          </div>
+        )}
+      </div>
+    </div>
+  );
 };
 
 export default JlptWritingPage;

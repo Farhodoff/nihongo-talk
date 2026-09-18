@@ -5,13 +5,10 @@ import { supabase, supabaseUrl, supabaseAnonKey } from '../lib/supabase';
 import {
   Users,
   Loader2,
-  CheckCircle2,
   RefreshCw,
   Home,
-  Activity,
   BookOpen,
   Wand2,
-  Search,
   Mic,
   MessageSquareText,
   Clock,
@@ -19,11 +16,7 @@ import {
   ShieldCheck,
   Download,
   Radio,
-  Eye,
-  ArrowUpDown,
-  ChevronRight,
   X,
-  Database,
 } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { useNavigate } from 'react-router-dom';
@@ -38,8 +31,8 @@ import {
   AdminAuditLogEntry,
 } from '../utils/admin';
 import { UserNotificationService } from '../services/UserNotificationService';
-import { RoleBadge } from '../components/admin/RoleBadge';
-import { SvgLineChart } from '../components/ui/SvgCharts';
+import { AdminMetricsOverview } from '../components/admin/AdminMetricsOverview';
+import { AdminUsersTable } from '../components/admin/AdminUsersTable';
 import { toast } from '../hooks/use-toast';
 import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
 
@@ -1618,638 +1611,50 @@ export default function AdminDashboardPage() {
 
       {activeSection === 'users' && (
         <div className="space-y-6 duration-200 animate-in fade-in">
-          {/* Database Resources & Live Metric Registry (All 10 Tables) */}
-          <div className="space-y-4 rounded-2xl border border-border/80 bg-card/50 p-4 sm:p-5">
-            <div className="flex flex-col justify-between gap-2 sm:flex-row sm:items-center">
-              <div className="flex items-center gap-2">
-                <span className="rounded-lg bg-primary/10 p-1.5 text-primary">
-                  <Database size={16} />
-                </span>
-                <div>
-                  <h3 className="text-sm font-bold text-foreground">
-                    {isJa
-                      ? 'プラットフォーム データベース (Live DB)'
-                      : "Platforma Ma'lumotlar Bazasi (Live DB Registry)"}
-                  </h3>
-                  <p className="text-[11px] text-muted-foreground">
-                    {isJa
-                      ? '主要テーブルのリアルタイム稼働状況およびレコード総数'
-                      : "Barcha asosiy jadvallardagi haqiqiy ma'lumotlar soni va holati"}
-                  </p>
-                </div>
-              </div>
-              <div className="flex w-fit items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-1 text-[11px] font-bold text-emerald-400">
-                <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400" />
-                {isJa ? '同期完了' : 'Sinxronlashgan'}
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
-              <div className="space-y-1 rounded-xl border border-border bg-background/80 p-3">
-                <div className="flex items-center justify-between text-[11px] text-muted-foreground">
-                  <span>{isJa ? '🎴 単語カード' : '🎴 Fleshkartalar'}</span>
-                  <span className="text-[10px] font-bold text-emerald-400">DB Active</span>
-                </div>
-                <div className="text-xl font-black text-foreground">
-                  {dbMetrics.flashcards.toLocaleString()} {isJa ? '件' : 'ta'}
-                </div>
-                <div className="text-[10px] text-muted-foreground">
-                  {isJa ? 'Anki & JLPT公式単語' : "Anki & JLPT so'zlar"}
-                </div>
-              </div>
-
-              <div className="space-y-1 rounded-xl border border-border bg-background/80 p-3">
-                <div className="flex items-center justify-between text-[11px] text-muted-foreground">
-                  <span>{isJa ? '📖 学習セッション' : '📖 Dars Sessiyalari'}</span>
-                  <span className="text-[10px] font-bold text-emerald-400">DB Active</span>
-                </div>
-                <div className="text-xl font-black text-foreground">
-                  {dbMetrics.studySessions.toLocaleString()} {isJa ? '件' : 'ta'}
-                </div>
-                <div className="text-[10px] text-muted-foreground">
-                  {isJa ? '完了レッスン履歴' : "O'tilgan darslar tarixi"}
-                </div>
-              </div>
-
-              <div className="space-y-1 rounded-xl border border-border bg-background/80 p-3">
-                <div className="flex items-center justify-between text-[11px] text-muted-foreground">
-                  <span>{isJa ? '🎙️ 発話セッション' : '🎙️ Speaking Muloqot'}</span>
-                  <span className="text-[10px] font-bold text-emerald-400">DB Active</span>
-                </div>
-                <div className="text-xl font-black text-foreground">
-                  {dbMetrics.speakingSessions.toLocaleString()} {isJa ? '件' : 'ta'}
-                </div>
-                <div className="text-[10px] text-muted-foreground">
-                  {isJa ? '音声対話レコード' : 'Jonli audio sessiyalar'}
-                </div>
-              </div>
-
-              <div className="space-y-1 rounded-xl border border-border bg-background/80 p-3">
-                <div className="flex items-center justify-between text-[11px] text-muted-foreground">
-                  <span>{isJa ? '🤖 AIコーチ指導' : '🤖 Speaking Coach'}</span>
-                  <span className="text-[10px] font-bold text-emerald-400">DB Active</span>
-                </div>
-                <div className="text-xl font-black text-foreground">
-                  {dbMetrics.speakingCoachSessions.toLocaleString()} {isJa ? '件' : 'ta'}
-                </div>
-                <div className="text-[10px] text-muted-foreground">
-                  {isJa ? '面接・会話対話ログ' : 'Sensei muloqotlari'}
-                </div>
-              </div>
-
-              <div className="space-y-1 rounded-xl border border-border bg-background/80 p-3">
-                <div className="flex items-center justify-between text-[11px] text-muted-foreground">
-                  <span>{isJa ? '🧠 AI文法・演習' : '🧠 AI Coach Mashqlar'}</span>
-                  <span className="text-[10px] font-bold text-emerald-400">DB Active</span>
-                </div>
-                <div className="text-xl font-black text-foreground">
-                  {dbMetrics.aiCoachSessions.toLocaleString()} {isJa ? '件' : 'ta'}
-                </div>
-                <div className="text-[10px] text-muted-foreground">
-                  {isJa ? '文法解析 & 添削' : 'Grammatika & AI tahlillar'}
-                </div>
-              </div>
-
-              <div className="space-y-1 rounded-xl border border-border bg-background/80 p-3">
-                <div className="flex items-center justify-between text-[11px] text-muted-foreground">
-                  <span>{isJa ? '⚠️ 弱点克服ログ' : '⚠️ Xatolar Bazasi'}</span>
-                  <span className="text-[10px] font-bold text-amber-400">ErrorVault</span>
-                </div>
-                <div className="text-xl font-black text-foreground">
-                  {dbMetrics.speakingErrors.toLocaleString()} {isJa ? '件' : 'ta'}
-                </div>
-                <div className="text-[10px] text-muted-foreground">
-                  {isJa ? '添削・修正済み項目' : "To'g'rilangan xatolar"}
-                </div>
-              </div>
-
-              <div className="space-y-1 rounded-xl border border-border bg-background/80 p-3">
-                <div className="flex items-center justify-between text-[11px] text-muted-foreground">
-                  <span>{isJa ? '📝 登録語彙' : "📝 Lug'at So'zlari"}</span>
-                  <span className="text-[10px] font-bold text-emerald-400">Saved Vocab</span>
-                </div>
-                <div className="text-xl font-black text-foreground">
-                  {dbMetrics.speakingVocabularies.toLocaleString()} {isJa ? '件' : 'ta'}
-                </div>
-                <div className="text-[10px] text-muted-foreground">
-                  {isJa ? '保存された新規単語' : "Saqlangan yangi so'zlar"}
-                </div>
-              </div>
-
-              <div className="space-y-1 rounded-xl border border-border bg-background/80 p-3">
-                <div className="flex items-center justify-between text-[11px] text-muted-foreground">
-                  <span>{isJa ? '🎯 実力診断テスト' : '🎯 Diagnostik Test'}</span>
-                  <span className="text-[10px] font-medium text-muted-foreground">
-                    {isJa ? '待機中' : 'Kutilmoqda'}
-                  </span>
-                </div>
-                <div className="text-xl font-black text-foreground">
-                  {dbMetrics.diagnosticResults.toLocaleString()} {isJa ? '件' : 'ta'}
-                </div>
-                <div className="text-[10px] text-muted-foreground">
-                  {isJa ? 'レベル判定受験ログ' : 'Kirish imtihonlari'}
-                </div>
-              </div>
-
-              <div className="space-y-1 rounded-xl border border-border bg-background/80 p-3">
-                <div className="flex items-center justify-between text-[11px] text-muted-foreground">
-                  <span>{isJa ? '🏆 個人学習目標' : "🏆 O'quv Maqsadlari"}</span>
-                  <span className="text-[10px] font-medium text-muted-foreground">
-                    {isJa ? '待機中' : 'Kutilmoqda'}
-                  </span>
-                </div>
-                <div className="text-xl font-black text-foreground">
-                  {dbMetrics.learningGoals.toLocaleString()} {isJa ? '件' : 'ta'}
-                </div>
-                <div className="text-[10px] text-muted-foreground">
-                  {isJa ? '個別学習ロードマップ' : 'Shaxsiy rejalar'}
-                </div>
-              </div>
-
-              <div className="space-y-1 rounded-xl border border-border bg-background/80 p-3">
-                <div className="flex items-center justify-between text-[11px] text-muted-foreground">
-                  <span>{isJa ? '👥 登録ユーザー' : '👥 Foydalanuvchilar'}</span>
-                  <span className="text-[10px] font-bold text-primary">Profiles</span>
-                </div>
-                <div className="text-xl font-black text-foreground">
-                  {dbMetrics.profiles.toLocaleString()} {isJa ? '名' : 'ta'}
-                </div>
-                <div className="text-[10px] text-muted-foreground">
-                  {isJa ? '登録済みプロフィール' : "Ro'yxatdan o'tganlar"}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Key Real DB Stats Cards */}
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-            <div className="flex items-center gap-3 rounded-2xl border border-border bg-card p-4 shadow-xs">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 font-bold text-primary">
-                <Users size={18} />
-              </div>
-              <div>
-                <div className="text-xl font-black text-foreground">
-                  {totalStudentsCount} {isJa ? '名' : 'nafar'}
-                </div>
-                <div className="text-[11px] font-semibold text-muted-foreground">
-                  {isJa
-                    ? `総受講生数 (計${totalAllUsers}アカウント、管理者${totalAdminsCount}名)`
-                    : `Jami O'quvchilar (${totalAllUsers} akkount, ${totalAdminsCount} admin)`}
-                </div>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3 rounded-2xl border border-border bg-card p-4 shadow-xs">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-500/10 font-bold text-emerald-500">
-                <Activity size={18} />
-              </div>
-              <div>
-                <div className="text-xl font-black text-foreground">
-                  {activeTodayCount} {isJa ? '名' : 'nafar'}
-                </div>
-                <div className="text-[11px] font-semibold text-muted-foreground">
-                  {isJa ? '本日のアクティブ学習者 (DAU)' : "Bugun Faol O'quvchilar"}
-                </div>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3 rounded-2xl border border-border bg-card p-4 shadow-xs">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-500/10 font-bold text-amber-500">
-                <CheckCircle2 size={18} />
-              </div>
-              <div>
-                <div className="text-xl font-black text-foreground">
-                  {totalSessionsCount} {isJa ? '件' : 'ta'}
-                </div>
-                <div className="text-[11px] font-semibold text-muted-foreground">
-                  {isJa ? '累計学習・演習完了数' : "Bajarilgan Mashg'ulotlar"}
-                </div>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3 rounded-2xl border border-border bg-card p-4 shadow-xs">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#C9A961]/15 font-bold text-[#C9A961]">
-                <Clock size={18} />
-              </div>
-              <div>
-                <div className="text-xl font-black text-foreground">
-                  {isJa
-                    ? totalDurationHours > 0
-                      ? `${totalDurationHours}時間 ${remainingMinutes}分`
-                      : `${totalDurationMinutes}分`
-                    : totalDurationHours > 0
-                      ? `${totalDurationHours} soat ${remainingMinutes} daqiqa`
-                      : `${totalDurationMinutes} daqiqa`}
-                </div>
-                <div className="text-[11px] font-semibold text-muted-foreground">
-                  {isJa ? '総学習時間' : "Jami O'rganish Vaqti"}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Secondary Real DB Analytics Cards */}
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-            <div className="space-y-1 rounded-2xl border border-border bg-card p-3.5 shadow-xs">
-              <span className="text-[11px] font-medium text-muted-foreground">
-                {isJa ? '本日の対話セッション' : 'Bugungi Suhbatlar'}
-              </span>
-              <div className="text-lg font-black text-primary">
-                {todaySessionsCount} {isJa ? '回' : 'seans'}
-              </div>
-            </div>
-            <div className="space-y-1 rounded-2xl border border-border bg-card p-3.5 shadow-xs">
-              <span className="text-[11px] font-medium text-muted-foreground">
-                {isJa ? '日次平均達成率' : "Kunlik O'rtacha Foiz"}
-              </span>
-              <div className="text-lg font-black text-emerald-400">
-                {dailyAvgPercent > 0 ? `${dailyAvgPercent}%` : '0%'}
-              </div>
-            </div>
-            <div className="space-y-1 rounded-2xl border border-border bg-card p-3.5 shadow-xs">
-              <span className="text-[11px] font-medium text-muted-foreground">
-                {isJa ? '週次平均達成率' : "Haftalik O'rtacha Foiz"}
-              </span>
-              <div className="text-lg font-black text-[#C9A961]">
-                {weeklyAvgPercent > 0 ? `${weeklyAvgPercent}%` : '0%'}
-              </div>
-            </div>
-            <div className="space-y-1 rounded-2xl border border-border bg-card p-3.5 shadow-xs">
-              <span className="text-[11px] font-medium text-muted-foreground">
-                {isJa ? '総発話時間' : 'Jami Gapirilgan Vaqt'}
-              </span>
-              <div className="text-lg font-black text-amber-400">
-                {totalSpeakingMinutes} {isJa ? '分' : 'min'}
-              </div>
-            </div>
-          </div>
-
-          {/* User Activity Chart */}
-          <div className="space-y-3 rounded-2xl border border-border bg-card p-4 shadow-xs">
-            <div className="flex items-center justify-between gap-3">
-              <div className="flex items-center gap-2">
-                <Activity size={16} className="text-primary" />
-                <h2 className="text-sm font-bold text-foreground">
-                  {isJa
-                    ? 'ユーザーアクティビティ推移 (Live DB)'
-                    : 'Foydalanuvchilar Faolligi Graph (Real DB Records)'}
-                </h2>
-              </div>
-              <div className="flex items-center gap-1 rounded-xl border border-border bg-muted p-1 text-[11px] font-semibold">
-                <button
-                  onClick={() => setChartMode('dau')}
-                  className={`cursor-pointer rounded-lg px-2.5 py-1 transition-colors ${chartMode === 'dau' ? 'bg-primary font-bold text-primary-foreground shadow-xs' : 'text-muted-foreground hover:text-foreground'}`}
-                >
-                  {isJa ? 'アクティブユーザー' : "Faol O'quvchilar"}
-                </button>
-                <button
-                  onClick={() => setChartMode('duration')}
-                  className={`cursor-pointer rounded-lg px-2.5 py-1 transition-colors ${chartMode === 'duration' ? 'bg-primary font-bold text-primary-foreground shadow-xs' : 'text-muted-foreground hover:text-foreground'}`}
-                >
-                  {isJa ? '学習時間 (分)' : 'Vaqt (Daqiqa)'}
-                </button>
-              </div>
-            </div>
-
-            {dailyStats.length > 0 ? (
-              <div className="h-44 w-full pt-2">
-                <SvgLineChart
-                  data={dailyStats.map((d) => ({
-                    xLabel: (d.activity_date || d.date || '').substring(5),
-                    value:
-                      chartMode === 'dau'
-                        ? d.active_users || d.dau || 0
-                        : d.total_duration_minutes || d.duration || 0,
-                    fullDate: d.activity_date || d.date || '',
-                    sessions: d.total_sessions || d.sessions || 0,
-                  }))}
-                  xKey="xLabel"
-                  series={[
-                    {
-                      dataKey: 'value',
-                      stroke: chartMode === 'dau' ? '#E8483A' : '#C9A961',
-                      label:
-                        chartMode === 'dau'
-                          ? isJa
-                            ? 'アクティブユーザー'
-                            : "Faol O'quvchilar"
-                          : isJa
-                            ? '分'
-                            : 'Daqiqa',
-                    },
-                  ]}
-                  height={160}
-                  showArea={true}
-                />
-              </div>
-            ) : (
-              <div className="flex h-32 flex-col items-center justify-center rounded-xl border border-dashed border-border text-xs text-muted-foreground">
-                <span>
-                  {isJa
-                    ? 'アクティビティ履歴はありません'
-                    : 'Real faollik statistikasi mavjud emas'}
-                </span>
-              </div>
-            )}
-          </div>
-
-          {/* All Registered Users Table */}
-          <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-xs">
-            <div className="flex flex-col justify-between gap-3 border-b border-border p-4 lg:flex-row lg:items-center">
-              <div>
-                <h2 className="flex items-center gap-2 text-sm font-bold text-foreground">
-                  <Users size={16} className="text-primary" />
-                  {isJa
-                    ? `登録ユーザー一覧 (${sortedUsers.length})`
-                    : `Barcha Ro'yxatdan O'tgan Foydalanuvchilar (${sortedUsers.length})`}
-                </h2>
-                <p className="mt-0.5 text-[11px] text-muted-foreground">
-                  {isJa
-                    ? `データベースから取得した ${totalAllUsers} 件のアカウント`
-                    : `Supabase Real DB (\`get_admin_all_users\`) dan yuklangan ${totalAllUsers} ta akkount`}
-                </p>
-              </div>
-              <div className="flex flex-wrap items-center gap-2">
-                {/* Role Filters */}
-                <div className="flex items-center gap-1 rounded-lg border border-border bg-muted p-0.5 text-[11px] font-semibold">
-                  <button
-                    onClick={() => {
-                      setRoleFilter('all');
-                      setUsersPage(0);
-                    }}
-                    className={`cursor-pointer rounded-md px-2.5 py-1 transition-colors ${roleFilter === 'all' ? 'bg-primary font-bold text-primary-foreground shadow-xs' : 'text-muted-foreground hover:text-foreground'}`}
-                  >
-                    {isJa ? `全件 (${totalAllUsers})` : `Barchasi (${totalAllUsers})`}
-                  </button>
-                  <button
-                    onClick={() => {
-                      setRoleFilter('student');
-                      setUsersPage(0);
-                    }}
-                    className={`cursor-pointer rounded-md px-2.5 py-1 transition-colors ${roleFilter === 'student' ? 'bg-primary font-bold text-primary-foreground shadow-xs' : 'text-muted-foreground hover:text-foreground'}`}
-                  >
-                    {isJa
-                      ? `受講生 (${totalStudentsCount})`
-                      : `O'quvchilar (${totalStudentsCount})`}
-                  </button>
-                  <button
-                    onClick={() => {
-                      setRoleFilter('admin');
-                      setUsersPage(0);
-                    }}
-                    className={`cursor-pointer rounded-md px-2.5 py-1 transition-colors ${roleFilter === 'admin' ? 'bg-primary font-bold text-primary-foreground shadow-xs' : 'text-muted-foreground hover:text-foreground'}`}
-                  >
-                    {isJa ? `管理者 (${totalAdminsCount})` : `Adminlar (${totalAdminsCount})`}
-                  </button>
-                </div>
-
-                {/* Sort Dropdown */}
-                <div className="flex items-center gap-1 rounded-lg border border-border bg-muted px-2 py-1 text-[11px] font-semibold">
-                  <ArrowUpDown size={12} className="text-muted-foreground" />
-                  <select
-                    value={sortBy}
-                    onChange={(e) => {
-                      setSortBy(e.target.value as any);
-                      setUsersPage(0);
-                    }}
-                    className="cursor-pointer bg-transparent text-[11px] text-foreground outline-none"
-                  >
-                    <option value="newest" className="bg-card text-foreground">
-                      {isJa ? '登録が新しい順' : "Yangi qo'shilganlar"}
-                    </option>
-                    <option value="oldest" className="bg-card text-foreground">
-                      {isJa ? '登録が古い順' : 'Eski foydalanuvchilar'}
-                    </option>
-                    <option value="sessions" className="bg-card text-foreground">
-                      {isJa ? '学習実績順' : "Mashg'ulotlar soni"}
-                    </option>
-                    <option value="duration" className="bg-card text-foreground">
-                      {isJa ? '学習時間順' : "O'rganish vaqti"}
-                    </option>
-                    <option value="name" className="bg-card text-foreground">
-                      {isJa ? '名前・メール (A-Z)' : 'Ism / Email (A-Z)'}
-                    </option>
-                  </select>
-                </div>
-
-                {/* Search Input */}
-                <div className="relative">
-                  <Search
-                    size={14}
-                    className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
-                  />
-                  <input
-                    type="text"
-                    value={userSearchQuery}
-                    onChange={(e) => {
-                      setUserSearchQuery(e.target.value);
-                      setUsersPage(0);
-                    }}
-                    placeholder={
-                      isJa ? 'ユーザー検索 (名前、メール)...' : 'Qidiruv (email, ism)...'
-                    }
-                    className="w-full rounded-xl border border-border bg-muted py-1.5 pl-8 pr-3 text-xs text-foreground outline-none focus:border-primary sm:w-52"
-                  />
-                </div>
-              </div>
-            </div>
-
-            {tableStatus.rpcUsers.error && sortedUsers.length === 0 && (
-              <div className="m-4 flex items-center gap-2 rounded-xl border border-rose-500/20 bg-rose-500/10 p-3 text-xs text-rose-400">
-                <AlertTriangle size={16} />
-                <span>
-                  {isJa
-                    ? `データベース接続警告: ${tableStatus.rpcUsers.error}`
-                    : `RPC DB Xatosi: ${tableStatus.rpcUsers.error}`}
-                </span>
-              </div>
-            )}
-
-            <div className="-mx-3 overflow-x-auto px-3 sm:mx-0 sm:px-0">
-              <table className="w-full min-w-[640px] text-left text-xs">
-                <thead className="border-b border-border bg-muted/50 font-semibold text-muted-foreground">
-                  <tr>
-                    <th className="p-3">#</th>
-                    <th className="p-3">{isJa ? 'ユーザー / 所属' : 'Foydalanuvchi'}</th>
-                    <th className="p-3">{isJa ? '権限' : 'Rol'}</th>
-                    <th className="p-3">{isJa ? '学習実績' : "Mashg'ulotlar"}</th>
-                    <th className="p-3">{isJa ? '登録日' : "Ro'yxatdan O'tgan"}</th>
-                    <th className="p-3">{isJa ? '最終アクセス' : 'Oxirgi Faollik'}</th>
-                    <th className="p-3 text-right">{isJa ? '操作' : 'Amallar'}</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-border/60">
-                  {paginatedUsers.length > 0 ? (
-                    paginatedUsers.map((u, idx) => {
-                      const stat = userStatsMap[u.id];
-                      return (
-                        <tr key={u.id} className="transition-colors hover:bg-muted/30">
-                          <td className="p-3 font-mono text-muted-foreground">
-                            {usersPage * USERS_PER_PAGE + idx + 1}
-                          </td>
-                          <td
-                            className="cursor-pointer p-3"
-                            onClick={() => setSelectedDetailUser(u)}
-                          >
-                            <div className="flex items-center gap-1.5 font-bold text-foreground transition-colors hover:text-primary">
-                              {u.full_name || u.email.split('@')[0]}
-                              <ChevronRight
-                                size={12}
-                                className="text-muted-foreground opacity-50"
-                              />
-                            </div>
-                            <div className="font-mono text-[11px] text-muted-foreground">
-                              {u.email}
-                            </div>
-                          </td>
-                          <td className="p-3">
-                            <RoleBadge
-                              role={u.role}
-                              email={u.email}
-                              assignedBy={u.admin_assigned_by}
-                              assignedAt={u.admin_assigned_at}
-                            />
-                          </td>
-                          <td className="p-3">
-                            {stat && stat.totalSessions > 0 ? (
-                              <div>
-                                <span className="font-bold text-foreground">
-                                  {stat.totalSessions} {isJa ? '回' : 'ta'}
-                                </span>
-                                <div className="text-[10px] text-muted-foreground">
-                                  {stat.totalDurationMinutes} {isJa ? '分' : 'daqiqa'}{' '}
-                                  {stat.avgScore ? `• ${stat.avgScore}%` : ''}
-                                </div>
-                              </div>
-                            ) : (
-                              <span className="text-muted-foreground">—</span>
-                            )}
-                          </td>
-                          <td className="p-3 text-muted-foreground">
-                            {u.created_at
-                              ? new Date(u.created_at).toLocaleDateString(
-                                  isJa ? 'ja-JP' : undefined,
-                                )
-                              : '—'}
-                          </td>
-                          <td className="p-3 text-muted-foreground">
-                            {stat?.lastActiveDate ? (
-                              <div>
-                                <span className="font-semibold text-emerald-400">
-                                  {new Date(stat.lastActiveDate).toLocaleDateString(
-                                    isJa ? 'ja-JP' : undefined,
-                                  )}
-                                </span>
-                                <div className="text-[10px] text-muted-foreground">
-                                  {new Date(stat.lastActiveDate).toLocaleTimeString([], {
-                                    hour: '2-digit',
-                                    minute: '2-digit',
-                                  })}
-                                </div>
-                              </div>
-                            ) : u.last_sign_in_at ? (
-                              <div>
-                                <span>
-                                  {new Date(u.last_sign_in_at).toLocaleDateString(
-                                    isJa ? 'ja-JP' : undefined,
-                                  )}
-                                </span>
-                                <div className="text-[10px] text-muted-foreground">
-                                  {new Date(u.last_sign_in_at).toLocaleTimeString([], {
-                                    hour: '2-digit',
-                                    minute: '2-digit',
-                                  })}
-                                </div>
-                              </div>
-                            ) : (
-                              '—'
-                            )}
-                          </td>
-                          <td className="p-3 text-right">
-                            <div className="flex items-center justify-end gap-1.5">
-                              <Button
-                                size="sm"
-                                variant="ghost"
-                                onClick={() => setSelectedDetailUser(u)}
-                                className="h-7 px-2 text-[11px] text-primary hover:bg-primary/10"
-                                title={isJa ? '詳細を見る' : "Batafsil ko'rish"}
-                              >
-                                <Eye size={13} />
-                              </Button>
-                              <Button
-                                size="sm"
-                                variant="outline"
-                                onClick={() => setMessageModalUser({ id: u.id, email: u.email })}
-                                className="h-7 px-2 text-[11px]"
-                              >
-                                {isJa ? 'メッセージ' : 'Xabar'}
-                              </Button>
-                              {!isSuperAdmin(u.email, u.role) && (
-                                <Button
-                                  size="sm"
-                                  variant="ghost"
-                                  onClick={() => handleToggleAdmin(u.email, u.role, u.id)}
-                                  className={`h-7 px-2 text-[11px] font-semibold transition-colors ${
-                                    isAdminEmail(u.email, u.role)
-                                      ? 'text-red-400 hover:bg-red-500/15 hover:text-red-300'
-                                      : 'text-primary hover:bg-primary/10'
-                                  }`}
-                                >
-                                  {isJa
-                                    ? isAdminEmail(u.email, u.role)
-                                      ? '管理者権限解除'
-                                      : '管理者付与'
-                                    : isAdminEmail(u.email, u.role)
-                                      ? 'Adminlikni olish'
-                                      : 'Admin qilish'}
-                                </Button>
-                              )}
-                            </div>
-                          </td>
-                        </tr>
-                      );
-                    })
-                  ) : (
-                    <tr>
-                      <td colSpan={7} className="p-8 text-center text-muted-foreground">
-                        {isJa ? 'ユーザーが見つかりませんでした' : 'Foydalanuvchilar topilmadi'}
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-            </div>
-
-            {/* Pagination Controls */}
-            {totalPages > 1 && (
-              <div className="flex items-center justify-between border-t border-border p-3 text-xs">
-                <span className="text-muted-foreground">
-                  {usersPage * USERS_PER_PAGE + 1}–
-                  {Math.min((usersPage + 1) * USERS_PER_PAGE, sortedUsers.length)} /{' '}
-                  {sortedUsers.length}
-                </span>
-                <div className="flex items-center gap-1">
-                  <button
-                    onClick={() => setUsersPage((p) => Math.max(0, p - 1))}
-                    disabled={usersPage === 0}
-                    className="rounded-lg border border-border bg-muted px-3 py-1.5 font-semibold text-foreground transition-colors hover:bg-muted/80 disabled:cursor-not-allowed disabled:opacity-40"
-                  >
-                    ← Oldingi
-                  </button>
-                  <span className="px-2 font-bold text-foreground">
-                    {usersPage + 1} / {totalPages}
-                  </span>
-                  <button
-                    onClick={() => setUsersPage((p) => Math.min(totalPages - 1, p + 1))}
-                    disabled={usersPage >= totalPages - 1}
-                    className="rounded-lg border border-border bg-muted px-3 py-1.5 font-semibold text-foreground transition-colors hover:bg-muted/80 disabled:cursor-not-allowed disabled:opacity-40"
-                  >
-                    Keyingi →
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
+          <AdminMetricsOverview
+            dbMetrics={dbMetrics}
+            isJa={isJa}
+            totalStudentsCount={totalStudentsCount}
+            totalAllUsers={totalAllUsers}
+            totalAdminsCount={totalAdminsCount}
+            activeTodayCount={activeTodayCount}
+            totalSessionsCount={totalSessionsCount}
+            totalDurationHours={totalDurationHours}
+            remainingMinutes={remainingMinutes}
+            totalDurationMinutes={totalDurationMinutes}
+            todaySessionsCount={todaySessionsCount}
+            dailyAvgPercent={dailyAvgPercent}
+            weeklyAvgPercent={weeklyAvgPercent}
+            totalSpeakingMinutes={totalSpeakingMinutes}
+            chartMode={chartMode}
+            setChartMode={setChartMode}
+            dailyStats={dailyStats}
+          />
+          <AdminUsersTable
+            sortedUsers={sortedUsers}
+            paginatedUsers={paginatedUsers}
+            totalAllUsers={totalAllUsers}
+            totalStudentsCount={totalStudentsCount}
+            totalAdminsCount={totalAdminsCount}
+            roleFilter={roleFilter}
+            setRoleFilter={setRoleFilter}
+            sortBy={sortBy}
+            setSortBy={setSortBy}
+            userSearchQuery={userSearchQuery}
+            setUserSearchQuery={setUserSearchQuery}
+            usersPage={usersPage}
+            setUsersPage={setUsersPage}
+            totalPages={totalPages}
+            tableStatus={tableStatus}
+            userStatsMap={userStatsMap}
+            isJa={isJa}
+            onSelectDetailUser={setSelectedDetailUser}
+            onMessageModalUser={setMessageModalUser}
+            onToggleAdmin={handleToggleAdmin}
+            isSuperAdmin={isSuperAdmin}
+            isAdminEmail={isAdminEmail}
+            usersPerPage={USERS_PER_PAGE}
+          />
         </div>
       )}
 
