@@ -22,7 +22,7 @@ function check(desc, fn) {
 // 1. Robots.txt
 check('robots.txt exists and contains Sitemap and AI Bots', () => {
   const content = fs.readFileSync(path.join(rootDir, 'public', 'robots.txt'), 'utf8');
-  if (!content.includes('Sitemap: https://nihon-talk.vercel.app/sitemap.xml')) {
+  if (!content.includes('Sitemap: https://kaiwa.live/sitemap.xml')) {
     throw new Error('Missing Sitemap declaration');
   }
   if (!content.includes('User-agent: GPTBot') || !content.includes('User-agent: PerplexityBot')) {
@@ -35,7 +35,7 @@ check('sitemap.xml exists and has valid multilingual tags', () => {
   const content = fs.readFileSync(path.join(rootDir, 'public', 'sitemap.xml'), 'utf8');
   const requiredUrls = ['/', '/jlpt', '/speaking', '/pricing', '/twa'];
   for (const u of requiredUrls) {
-    if (!content.includes(`<loc>https://nihon-talk.vercel.app${u === '/' ? '/' : u}</loc>`)) {
+    if (!content.includes(`<loc>https://kaiwa.live${u === '/' ? '/' : u}</loc>`)) {
       throw new Error(`Missing route in sitemap: ${u}`);
     }
   }

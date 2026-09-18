@@ -381,7 +381,7 @@ async function generateOgImage() {
 
   <div class="footer">
     <span>© 2026 Nihongo Talk. Barcha huquqlar himoyalangan.</span>
-    <span class="url-chip">nihon-talk.vercel.app</span>
+    <span class="url-chip">kaiwa.live</span>
   </div>
 </body>
 </html>

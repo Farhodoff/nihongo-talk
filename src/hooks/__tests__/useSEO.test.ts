@@ -25,7 +25,7 @@ describe('useSEO & Dynamic Google Rich Results Schema', () => {
     expect(document.title).toBe('JLPT N2 Grammatika — Nihongo Talk');
     const canonicalLink = document.querySelector('link[rel="canonical"]') as HTMLLinkElement;
     expect(canonicalLink).toBeTruthy();
-    expect(canonicalLink?.href).toBe('https://nihon-talk.vercel.app/jlpt');
+    expect(canonicalLink?.href).toBe('https://kaiwa.live/jlpt');
   });
 
   it('applies aggregateRating to existing WebApplication in JSON-LD script', () => {

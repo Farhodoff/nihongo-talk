@@ -3,51 +3,51 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <!-- Homepage / Landing -->
   <url>
-    <loc>https://nihon-talk.vercel.app/</loc>
+    <loc>https://kaiwa.live/</loc>
     <lastmod>2026-09-04</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="uz" href="https://nihon-talk.vercel.app/?lang=uz" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://nihon-talk.vercel.app/?lang=ja" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://nihon-talk.vercel.app/" />
+    <xhtml:link rel="alternate" hreflang="uz" href="https://kaiwa.live/?lang=uz" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://kaiwa.live/?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kaiwa.live/" />
   </url>
 
   <!-- JLPT Preparation Hub (Kanji, Grammar, Mock Exams) -->
   <url>
-    <loc>https://nihon-talk.vercel.app/jlpt</loc>
+    <loc>https://kaiwa.live/jlpt</loc>
     <lastmod>2026-09-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
-    <xhtml:link rel="alternate" hreflang="uz" href="https://nihon-talk.vercel.app/jlpt?lang=uz" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://nihon-talk.vercel.app/jlpt?lang=ja" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://nihon-talk.vercel.app/jlpt" />
+    <xhtml:link rel="alternate" hreflang="uz" href="https://kaiwa.live/jlpt?lang=uz" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://kaiwa.live/jlpt?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kaiwa.live/jlpt" />
   </url>
 
   <!-- AI Japanese Speaking Coach -->
   <url>
-    <loc>https://nihon-talk.vercel.app/speaking</loc>
+    <loc>https://kaiwa.live/speaking</loc>
     <lastmod>2026-09-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
-    <xhtml:link rel="alternate" hreflang="uz" href="https://nihon-talk.vercel.app/speaking?lang=uz" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://nihon-talk.vercel.app/speaking?lang=ja" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://nihon-talk.vercel.app/speaking" />
+    <xhtml:link rel="alternate" hreflang="uz" href="https://kaiwa.live/speaking?lang=uz" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://kaiwa.live/speaking?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kaiwa.live/speaking" />
   </url>
 
   <!-- 100% Free Open Model / Pricing -->
   <url>
-    <loc>https://nihon-talk.vercel.app/pricing</loc>
+    <loc>https://kaiwa.live/pricing</loc>
     <lastmod>2026-09-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="uz" href="https://nihon-talk.vercel.app/pricing?lang=uz" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://nihon-talk.vercel.app/pricing?lang=ja" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://nihon-talk.vercel.app/pricing" />
+    <xhtml:link rel="alternate" hreflang="uz" href="https://kaiwa.live/pricing?lang=uz" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://kaiwa.live/pricing?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kaiwa.live/pricing" />
   </url>
 
   <!-- Telegram Mini App (TWA) -->
   <url>
-    <loc>https://nihon-talk.vercel.app/twa</loc>
+    <loc>https://kaiwa.live/twa</loc>
     <lastmod>2026-09-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
@@ -55,7 +55,7 @@
 
   <!-- Developer API Docs -->
   <url>
-    <loc>https://nihon-talk.vercel.app/developers</loc>
+    <loc>https://kaiwa.live/developers</loc>
     <lastmod>2026-09-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>

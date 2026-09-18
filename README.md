@@ -1,6 +1,6 @@
 # 🇯🇵 Nihongo Talk (日本語トーク) — AI Japanese Mastery & JLPT Prep Platform
 
-[![Live App](https://img.shields.io/badge/Live_Demo-nihon--talk.vercel.app-rose?style=for-the-badge&logo=vercel)](https://nihon-talk.vercel.app/)
+[![Live App](https://img.shields.io/badge/Live_Demo-kaiwa.live-rose?style=for-the-badge&logo=vercel)](https://kaiwa.live/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-emerald.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![React](https://img.shields.io/badge/React-18.0+-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)

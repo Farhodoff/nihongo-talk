@@ -1,6 +1,6 @@
 # ==============================================================================
 # Nihongo Talk Robots Configuration
-# Production URL: https://nihon-talk.vercel.app
+# Production URL: https://kaiwa.live
 # ==============================================================================
 
 # Default Crawlers (Googlebot, Bingbot, Yandex, DuckDuckBot, Baiduspider)
@@ -69,5 +69,5 @@ Allow: /developers
 Allow: /llms.txt
 
 # Host and Sitemap Declarations
-Host: https://nihon-talk.vercel.app
-Sitemap: https://nihon-talk.vercel.app/sitemap.xml
+Host: https://kaiwa.live
+Sitemap: https://kaiwa.live/sitemap.xml

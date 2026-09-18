@@ -25,8 +25,7 @@ const DeveloperApiPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [apiResponse, setApiResponse] = useState<any>(null);
 
-  const baseUrl =
-    typeof window !== 'undefined' ? window.location.origin : 'https://nihon-talk.vercel.app';
+  const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://kaiwa.live';
 
   const handleCopy = (text: string, id: string) => {
     navigator.clipboard.writeText(text);

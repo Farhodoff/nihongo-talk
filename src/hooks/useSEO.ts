@@ -17,7 +17,7 @@ const DEFAULT_DESC =
   'JLPT N5-N1 darajalariga tizimli tayyorlaning. AI Speaking Sensei, Kanji, Grammatika va Anki SM-2 Fleshkartalar.';
 const DEFAULT_KEYWORDS =
   "Nihongo Talk, yapon tili, JLPT tayyorgarlik, Anki SM-2, fleshkartalar, AI Speaking Sensei, JLPT Mock Exam, Pomodoro timer, o'quv rejalashtiruvchi";
-const BASE_URL = 'https://nihon-talk.vercel.app';
+const BASE_URL = 'https://kaiwa.live';
 const DEFAULT_OG_IMAGE = `${BASE_URL}/og-image.jpg?v=4`;
 
 export const useSEO = ({

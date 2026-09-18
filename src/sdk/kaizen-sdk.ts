@@ -5,117 +5,119 @@
  */
 
 export interface KaizenConfig {
-    baseUrl?: string;
-    apiKey?: string;
+  baseUrl?: string;
+  apiKey?: string;
 }
 
 export interface IeltsEvaluateParams {
-    essay: string;
-    topic?: string;
-    taskType?: 'task1' | 'task2';
+  essay: string;
+  topic?: string;
+  taskType?: 'task1' | 'task2';
 }
 
 export interface IeltsEvaluateResult {
-    overallBand: number;
-    scores: {
-        taskAchievement: number;
-        coherenceAndCohesion: number;
-        lexicalResource: number;
-        grammaticalRange: number;
-    };
-    summary: string;
-    strengths: string[];
-    improvements: string[];
-    correctedEssay: string;
+  overallBand: number;
+  scores: {
+    taskAchievement: number;
+    coherenceAndCohesion: number;
+    lexicalResource: number;
+    grammaticalRange: number;
+  };
+  summary: string;
+  strengths: string[];
+  improvements: string[];
+  correctedEssay: string;
 }
 
 export interface FlashcardGenerateParams {
-    topic: string;
-    language?: string;
-    count?: number;
+  topic: string;
+  language?: string;
+  count?: number;
 }
 
 export interface GeneratedFlashcard {
-    front: string;
-    back: string;
-    example?: string;
+  front: string;
+  back: string;
+  example?: string;
 }
 
 export interface SrsCalculateParams {
-    quality: number; // 0-5
-    repetitions?: number;
-    interval?: number;
-    easeFactor?: number;
+  quality: number; // 0-5
+  repetitions?: number;
+  interval?: number;
+  easeFactor?: number;
 }
 
 export interface SrsCalculateResult {
-    repetitions: number;
-    interval: number;
-    easeFactor: number;
-    nextReviewDate: string;
-    dueInDays: number;
+  repetitions: number;
+  interval: number;
+  easeFactor: number;
+  nextReviewDate: string;
+  dueInDays: number;
 }
 
 export class KaizenAI {
-    private baseUrl: string;
-    private apiKey?: string;
+  private baseUrl: string;
+  private apiKey?: string;
 
-    constructor(config?: KaizenConfig) {
-        this.baseUrl = config?.baseUrl || (typeof window !== 'undefined' ? window.location.origin : 'https://nihon-talk.vercel.app');
-        this.apiKey = config?.apiKey;
+  constructor(config?: KaizenConfig) {
+    this.baseUrl =
+      config?.baseUrl ||
+      (typeof window !== 'undefined' ? window.location.origin : 'https://kaiwa.live');
+    this.apiKey = config?.apiKey;
+  }
+
+  private async request<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json',
+      ...((options.headers as Record<string, string>) || {}),
+    };
+
+    if (this.apiKey) {
+      headers['X-Kaizen-Key'] = this.apiKey;
+      headers['Authorization'] = `Bearer ${this.apiKey}`;
     }
 
-    private async request<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
-        const headers: Record<string, string> = {
-            'Content-Type': 'application/json',
-            ...(options.headers as Record<string, string> || {}),
-        };
+    const response = await fetch(`${this.baseUrl}${endpoint}`, {
+      ...options,
+      headers,
+    });
 
-        if (this.apiKey) {
-            headers['X-Kaizen-Key'] = this.apiKey;
-            headers['Authorization'] = `Bearer ${this.apiKey}`;
-        }
-
-        const response = await fetch(`${this.baseUrl}${endpoint}`, {
-            ...options,
-            headers,
-        });
-
-        if (!response.ok) {
-            const err = await response.json().catch(() => ({ error: response.statusText }));
-            throw new Error(err.error || `HTTP ${response.status}: API request failed`);
-        }
-
-        const resJson = await response.json();
-        return resJson.data ?? resJson;
+    if (!response.ok) {
+      const err = await response.json().catch(() => ({ error: response.statusText }));
+      throw new Error(err.error || `HTTP ${response.status}: API request failed`);
     }
 
-    public ielts = {
-        evaluateEssay: async (params: IeltsEvaluateParams): Promise<IeltsEvaluateResult> => {
-            return this.request<IeltsEvaluateResult>('/api/v1/ielts-evaluate', {
-                method: 'POST',
-                body: JSON.stringify(params),
-            });
-        },
-    };
+    const resJson = await response.json();
+    return resJson.data ?? resJson;
+  }
 
-    public flashcards = {
-        generate: async (params: FlashcardGenerateParams): Promise<GeneratedFlashcard[]> => {
-            return this.request<GeneratedFlashcard[]>('/api/v1/flashcards-generate', {
-                method: 'POST',
-                body: JSON.stringify(params),
-            });
-        },
-    };
+  public ielts = {
+    evaluateEssay: async (params: IeltsEvaluateParams): Promise<IeltsEvaluateResult> => {
+      return this.request<IeltsEvaluateResult>('/api/v1/ielts-evaluate', {
+        method: 'POST',
+        body: JSON.stringify(params),
+      });
+    },
+  };
 
-    public srs = {
-        calculateNextReview: async (params: SrsCalculateParams): Promise<SrsCalculateResult> => {
-            return this.request<SrsCalculateResult>('/api/v1/srs', {
-                method: 'POST',
-                body: JSON.stringify(params),
-            });
-        },
-    };
+  public flashcards = {
+    generate: async (params: FlashcardGenerateParams): Promise<GeneratedFlashcard[]> => {
+      return this.request<GeneratedFlashcard[]>('/api/v1/flashcards-generate', {
+        method: 'POST',
+        body: JSON.stringify(params),
+      });
+    },
+  };
+
+  public srs = {
+    calculateNextReview: async (params: SrsCalculateParams): Promise<SrsCalculateResult> => {
+      return this.request<SrsCalculateResult>('/api/v1/srs', {
+        method: 'POST',
+        body: JSON.stringify(params),
+      });
+    },
+  };
 }
 
 export const createKaizenClient = (config?: KaizenConfig) => new KaizenAI(config);

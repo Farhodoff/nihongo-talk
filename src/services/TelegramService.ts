@@ -283,7 +283,7 @@ class TelegramService {
     pendingCount: number,
     streakDays: number,
   ): Promise<boolean> {
-    const text = `☀️ <b>Kunlik O'quv Eslatmasi!</b>\n\n📌 Sizda bugun <b>${pendingCount} ta</b> bajarilishi kerak bo'lgan vazifa mavjud.\n🔥 Joriy o'quv seriyangiz (streak): <b>${streakDays} kun</b>!\n\n🚀 <a href="https://nihon-talk.vercel.app/jlpt">Darsni davom ettirish</a>`;
+    const text = `☀️ <b>Kunlik O'quv Eslatmasi!</b>\n\n📌 Sizda bugun <b>${pendingCount} ta</b> bajarilishi kerak bo'lgan vazifa mavjud.\n🔥 Joriy o'quv seriyangiz (streak): <b>${streakDays} kun</b>!\n\n🚀 <a href="https://kaiwa.live/jlpt">Darsni davom ettirish</a>`;
     return this.sendNotification(rawUserId, text);
   }
 
@@ -291,7 +291,7 @@ class TelegramService {
    * Send a subscription expiry or upgrade alert via Telegram
    */
   async sendSubscriptionAlert(rawUserId: string, tier: string, daysLeft: number): Promise<boolean> {
-    const text = `👑 <b>Nihon Talk Obuna Bildirishnomasi</b>\n\nSizning <b>${tier.toUpperCase()}</b> tarifingiz tugashiga <b>${daysLeft} kun</b> qoldi.\nAI speaking va barcha premium imkoniyatlardan uzluksiz foydalanish uchun obunani yangilang:\n👉 <a href="https://nihon-talk.vercel.app/pricing">Obunani uzaytirish</a>`;
+    const text = `👑 <b>Nihon Talk Obuna Bildirishnomasi</b>\n\nSizning <b>${tier.toUpperCase()}</b> tarifingiz tugashiga <b>${daysLeft} kun</b> qoldi.\nAI speaking va barcha premium imkoniyatlardan uzluksiz foydalanish uchun obunani yangilang:\n👉 <a href="https://kaiwa.live/pricing">Obunani uzaytirish</a>`;
     return this.sendNotification(rawUserId, text);
   }
 }

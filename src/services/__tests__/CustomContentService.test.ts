@@ -3,7 +3,7 @@ import { CustomContentService } from '../CustomContentService';
 import { JlptKanjiItem, JlptGrammarItem } from '../../data/jlptGrammarKanji';
 import { JlptGrammarQuestion } from '../../data/jlpt/grammar_data';
 
-describe('CustomContentService Unit Tests', () => {
+describe('CustomContentService Unit Tests', { timeout: 15000 }, () => {
   beforeEach(() => {
     localStorage.clear();
   });

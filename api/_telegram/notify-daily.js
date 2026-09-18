@@ -141,7 +141,7 @@ export default async function handler(req, res) {
         taskSummary = '\n📌 <b>Kutilayotgan vazifalar:</b>\n' + tasks.map((t, i) => `${i + 1}. ⏳ ${escapeHTML(t.title)}`).join('\n');
       }
 
-      const messageText = `🌙 <b>Xayrli oqshom, ${escapeHTML(u.telegram_first_name || 'talaba')}!</b>\n\n${habitStatus}${flashcardStatus}${taskSummary}\n\n🚀 <b>Darslarni bajarish:</b>\n👉 <a href="https://nihon-talk.vercel.app/speaking-coach">Speaking Coach</a> | <a href="https://nihon-talk.vercel.app/decks">Fleshkartalar</a>`;
+      const messageText = `🌙 <b>Xayrli oqshom, ${escapeHTML(u.telegram_first_name || 'talaba')}!</b>\n\n${habitStatus}${flashcardStatus}${taskSummary}\n\n🚀 <b>Darslarni bajarish:</b>\n👉 <a href="https://kaiwa.live/speaking-coach">Speaking Coach</a> | <a href="https://kaiwa.live/decks">Fleshkartalar</a>`;
 
       await sendTelegramMessage(u.chat_id, messageText);
       sentCount++;

@@ -14,7 +14,7 @@ function escapeHTML(str) {
 
 const defaultKeyboard = {
   keyboard: [
-    [{ text: '🚀 Nihon Talk-ni Ochish', web_app: { url: 'https://nihon-talk.vercel.app/' } }],
+    [{ text: '🚀 Nihon Talk-ni Ochish', web_app: { url: 'https://kaiwa.live/' } }],
     [{ text: '📅 Bugungi reja' }, { text: '🎌 Yaponcha Quiz' }],
     [{ text: '📚 Fleshkartalar' }, { text: '🎯 Speaking Mashqi' }],
     [{ text: 'ℹ️ Yordam' }]
@@ -35,7 +35,7 @@ async function setTelegramMenuButton(chatId) {
         menu_button: {
           type: 'web_app',
           text: 'Nihon Talk',
-          web_app: { url: 'https://nihon-talk.vercel.app/' }
+          web_app: { url: 'https://kaiwa.live/' }
         }
       })
     });
@@ -314,7 +314,7 @@ export default async function handler(req, res) {
           const nextMarkup = {
             inline_keyboard: [
               [{ text: "🎲 Keyingi savol ➡️", callback_data: "quiz_next" }],
-              [{ text: "🌐 Nihon Talk Webda o'rganish", url: "https://nihon-talk.vercel.app/jlpt" }]
+              [{ text: "🌐 Nihon Talk Webda o'rganish", url: "https://kaiwa.live/jlpt" }]
             ]
           };
           await sendTelegramMessage(chatId, replyText, nextMarkup);
@@ -452,7 +452,7 @@ export default async function handler(req, res) {
         `• /start_battle — Har 2 soatda avtomatik savol yuborishni yoqish\n` +
         `• /stop_battle — Avtomatik savollarni to'xtatish\n` +
         `• /battle_help — Ushbu yordam xabari\n\n` +
-        `🚀 <b>Nihon Talk:</b> https://nihon-talk.vercel.app/`;
+        `🚀 <b>Nihon Talk:</b> https://kaiwa.live/`;
       await sendTelegramMessage(chatId, battleHelpText, null);
       return res.status(200).json({ ok: true });
     }
@@ -478,7 +478,7 @@ export default async function handler(req, res) {
           .maybeSingle();
 
         if (codeErr || !linkRecord) {
-          await sendTelegramMessage(chatId, `❌ <b>Noto'g'ri yoki muddati o'tgan kod!</b>\n\nIltimos, Nihon Talk saytidagi Sozlamalar sahifasidan yangi kod oling:\n<a href="https://nihon-talk.vercel.app/settings">Sozlamalar sahifasiga o'tish</a>`);
+          await sendTelegramMessage(chatId, `❌ <b>Noto'g'ri yoki muddati o'tgan kod!</b>\n\nIltimos, Nihon Talk saytidagi Sozlamalar sahifasidan yangi kod oling:\n<a href="https://kaiwa.live/settings">Sozlamalar sahifasiga o'tish</a>`);
           return res.status(200).json({ ok: true });
         }
 
@@ -511,7 +511,7 @@ export default async function handler(req, res) {
       await setTelegramMenuButton(chatId);
       const appInlineMarkup = {
         inline_keyboard: [
-          [{ text: '🚀 Nihon Talk-ni Ochish', web_app: { url: 'https://nihon-talk.vercel.app/' } }]
+          [{ text: '🚀 Nihon Talk-ni Ochish', web_app: { url: 'https://kaiwa.live/' } }]
         ]
       };
 
@@ -528,7 +528,7 @@ export default async function handler(req, res) {
       await setTelegramMenuButton(chatId);
       const appMarkup = {
         inline_keyboard: [
-          [{ text: '🚀 Nihon Talk-ni Ochish', web_app: { url: 'https://nihon-talk.vercel.app/' } }]
+          [{ text: '🚀 Nihon Talk-ni Ochish', web_app: { url: 'https://kaiwa.live/' } }]
         ]
       };
       await sendTelegramMessage(
@@ -571,7 +571,7 @@ export default async function handler(req, res) {
 
       const flashcardMarkup = {
         inline_keyboard: [
-          [{ text: "🎴 Fleshkartalarni Takrorlash", url: "https://nihon-talk.vercel.app/decks" }]
+          [{ text: "🎴 Fleshkartalarni Takrorlash", url: "https://kaiwa.live/decks" }]
         ]
       };
       await sendTelegramMessage(
@@ -586,7 +586,7 @@ export default async function handler(req, res) {
     if (text === '/speaking' || text.includes('Speaking Mashqi')) {
       const speakingMarkup = {
         inline_keyboard: [
-          [{ text: "🎙️ Speaking Coach-ga o'tish", url: "https://nihon-talk.vercel.app/speaking" }]
+          [{ text: "🎙️ Speaking Coach-ga o'tish", url: "https://kaiwa.live/speaking" }]
         ]
       };
       await sendTelegramMessage(
@@ -618,27 +618,27 @@ export default async function handler(req, res) {
         .limit(5);
 
       if (!tasks || tasks.length === 0) {
-        await sendTelegramMessage(chatId, `📅 <b>Bugungi rejangiz:</b>\n\nHozircha yangi vazifalar belgilanmagan. Platformaga kirib yangi maqsad qo'shishingiz mumkin:\n<a href="https://nihon-talk.vercel.app/dashboard">Dashboardga o'tish</a>`);
+        await sendTelegramMessage(chatId, `📅 <b>Bugungi rejangiz:</b>\n\nHozircha yangi vazifalar belgilanmagan. Platformaga kirib yangi maqsad qo'shishingiz mumkin:\n<a href="https://kaiwa.live/dashboard">Dashboardga o'tish</a>`);
       } else {
         const taskLines = tasks.map((t, idx) => {
           const statusIcon = t.completed ? '✅' : '⏳';
           return `${idx + 1}. ${statusIcon} <b>${escapeHTML(t.title)}</b>`;
         }).join('\n');
 
-        await sendTelegramMessage(chatId, `📋 <b>Sizning vazifalaringiz:</b>\n\n${taskLines}\n\n👉 <a href="https://nihon-talk.vercel.app/tasks">Barcha vazifalarni boshqarish</a>`);
+        await sendTelegramMessage(chatId, `📋 <b>Sizning vazifalaringiz:</b>\n\n${taskLines}\n\n👉 <a href="https://kaiwa.live/tasks">Barcha vazifalarni boshqarish</a>`);
       }
       return res.status(200).json({ ok: true });
     }
 
     // F. Legacy fallback: /subscription
     if (text === '/subscription' || text.includes('Obuna holati')) {
-      await sendTelegramMessage(chatId, `🎁 <b>Nihon Talk 100% Bepul va Ochiq!</b>\n\nPlatformadagi barcha imkoniyatlar (AI Speaking Coach, JLPT Mock Exam, Anki Fleshkartalar, Audio talaffuz) barcha foydalanuvchilar uchun mutlaqo bepul taqdim etiladi! 🚀\n\n🔗 Web sayt: <a href="https://nihon-talk.vercel.app">Nihon Talk Bosh Sahifa</a>`);
+      await sendTelegramMessage(chatId, `🎁 <b>Nihon Talk 100% Bepul va Ochiq!</b>\n\nPlatformadagi barcha imkoniyatlar (AI Speaking Coach, JLPT Mock Exam, Anki Fleshkartalar, Audio talaffuz) barcha foydalanuvchilar uchun mutlaqo bepul taqdim etiladi! 🚀\n\n🔗 Web sayt: <a href="https://kaiwa.live">Nihon Talk Bosh Sahifa</a>`);
       return res.status(200).json({ ok: true });
     }
 
     // G. Handle /help or 'ℹ️ Yordam'
     if (text === '/help' || text.includes('Yordam')) {
-      await sendTelegramMessage(chatId, `ℹ️ <b>Nihon Talk Bot Yordam Qo'llanmasi:</b>\n\n/start - Akkauntni ulash yoki bosh menyu\n/app - Telegram Mini App ilovasini ochish 🚀\n/quiz - Yapon tili bo'yicha interaktiv mini-quiz\n/plan - Bugungi o'quv rejalari va vazifalar\n/flashcards - Fleshkartalar holati va takrorlash\n/speaking - Speaking Coach mashqlari\n/help - Yordam menyusi\n\n🌐 Asosiy veb-sayt: <a href="https://nihon-talk.vercel.app">Nihon Talk Platformasi</a>`);
+      await sendTelegramMessage(chatId, `ℹ️ <b>Nihon Talk Bot Yordam Qo'llanmasi:</b>\n\n/start - Akkauntni ulash yoki bosh menyu\n/app - Telegram Mini App ilovasini ochish 🚀\n/quiz - Yapon tili bo'yicha interaktiv mini-quiz\n/plan - Bugungi o'quv rejalari va vazifalar\n/flashcards - Fleshkartalar holati va takrorlash\n/speaking - Speaking Coach mashqlari\n/help - Yordam menyusi\n\n🌐 Asosiy veb-sayt: <a href="https://kaiwa.live">Nihon Talk Platformasi</a>`);
       return res.status(200).json({ ok: true });
     }
 

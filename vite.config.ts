@@ -333,7 +333,7 @@ export default defineConfig(({ mode }) => {
           rewrite: (path) => path.replace(/^\/api\/deepseek/, ''),
         },
         '/api/tts': {
-          target: 'https://nihon-talk.vercel.app',
+          target: 'https://kaiwa.live',
           changeOrigin: true,
         },
       },
