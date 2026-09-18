@@ -5,7 +5,21 @@
 
 import { logger } from '../logger';
 
-export const safeLocalStorage = {
+export interface SafeLocalStorage {
+  getItem(key: string, defaultValue?: string | null): string | null;
+  setItem(key: string, value: string): boolean;
+  removeItem(key: string): void;
+  clear(): void;
+  key(index: number): string | null;
+  readonly length: number;
+  getAllKeys(): string[];
+  getJSON<T = any>(key: string): T | null;
+  getJSON<T = any>(key: string, defaultValue: null): T | null;
+  getJSON<T>(key: string, defaultValue: T): T;
+  setJSON<T>(key: string, value: T): boolean;
+}
+
+export const safeLocalStorage: SafeLocalStorage = {
   getItem(key: string, defaultValue: string | null = null): string | null {
     try {
       if (typeof window === 'undefined' || !window.localStorage) return defaultValue;
@@ -117,13 +131,13 @@ export const safeLocalStorage = {
     }
   },
 
-  getJSON<T>(key: string, defaultValue: T): T {
+  getJSON<T>(key: string, defaultValue?: T | null): any {
     const raw = this.getItem(key);
-    if (!raw) return defaultValue;
+    if (!raw) return defaultValue !== undefined ? defaultValue : null;
     try {
       return JSON.parse(raw) as T;
     } catch {
-      return defaultValue;
+      return defaultValue !== undefined ? defaultValue : null;
     }
   },
 
