@@ -19,6 +19,7 @@ import { AppLogo } from '../components/AppLogo';
 import { UzbekistanFlag, JapanFlag } from '../components/common/FlagIcons';
 import { useSEO } from '../hooks/useSEO';
 import { useLanguage } from '../context/LanguageContext';
+import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
 
 /* ------------------------------------------------------------------ */
 /*  Animated Section Wrapper                                          */
@@ -480,7 +481,7 @@ const LandingPage: React.FC = () => {
 
   const [isDark, setIsDark] = useState(() => {
     if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('study_planner_theme');
+      const saved = safeLocalStorage.getItem('study_planner_theme');
       if (saved) return saved === 'dark';
       return document.documentElement.classList.contains('dark');
     }
@@ -499,9 +500,7 @@ const LandingPage: React.FC = () => {
   const toggleTheme = () => {
     setIsDark((prev) => {
       const next = !prev;
-      if (typeof localStorage !== 'undefined') {
-        localStorage.setItem('study_planner_theme', next ? 'dark' : 'light');
-      }
+      safeLocalStorage.setItem('study_planner_theme', next ? 'dark' : 'light');
       if (typeof document !== 'undefined') {
         if (next) {
           document.documentElement.classList.add('dark');

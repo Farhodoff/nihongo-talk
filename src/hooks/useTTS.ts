@@ -2,6 +2,7 @@ import { useRef, useCallback, useEffect, useState } from 'react';
 import { trackTTSTelemetry } from '../lib/errorTracking';
 import { cleanJapaneseTTS } from '../utils/ai';
 import { supabase, supabaseAnonKey } from '../lib/supabase';
+import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
 
 // Cached access token to avoid calling getSession() repeatedly on every sentence chunk
 let cachedAuthToken: string | null = null;
@@ -360,7 +361,7 @@ export const useTTS = ({
   const [isPreparingAudio, setIsPreparingAudio] = useState(false);
   const [speechSpeed, setSpeechSpeedState] = useState<number>(() => {
     if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('speaking_coach_speech_speed');
+      const saved = safeLocalStorage.getItem('speaking_coach_speech_speed');
       if (saved) {
         const parsed = parseFloat(saved);
         if (!isNaN(parsed) && parsed >= 0.5 && parsed <= 2.0) return parsed;
@@ -379,7 +380,7 @@ export const useTTS = ({
     setSpeechSpeedState(validSpeed);
     speechSpeedRef.current = validSpeed;
     if (typeof window !== 'undefined') {
-      localStorage.setItem('speaking_coach_speech_speed', validSpeed.toString());
+      safeLocalStorage.setItem('speaking_coach_speech_speed', validSpeed.toString());
     }
     if (audioPlayerRef.current) {
       audioPlayerRef.current.playbackRate = validSpeed;

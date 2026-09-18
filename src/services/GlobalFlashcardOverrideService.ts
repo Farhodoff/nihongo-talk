@@ -1,4 +1,5 @@
 import { supabase } from '../lib/supabase';
+import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
 
 export interface GlobalFlashcardOverride {
   id?: string;
@@ -65,7 +66,7 @@ export class GlobalFlashcardOverrideService {
 
     const map = new Map<string, GlobalFlashcardOverride>();
     try {
-      const raw = localStorage.getItem(STORAGE_KEY);
+      const raw = safeLocalStorage.getItem(STORAGE_KEY);
       if (raw) {
         const list: GlobalFlashcardOverride[] = JSON.parse(raw);
         list.forEach((item) => {
@@ -128,7 +129,7 @@ export class GlobalFlashcardOverrideService {
         try {
           // Save unique entries list to localStorage
           const uniqueList = Array.from(new Set(Array.from(newMap.values())));
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(uniqueList));
+          safeLocalStorage.setItem(STORAGE_KEY, JSON.stringify(uniqueList));
         } catch {}
 
         this.notifyListeners();
@@ -185,7 +186,7 @@ export class GlobalFlashcardOverrideService {
 
     try {
       const uniqueList = Array.from(new Set(Array.from(map.values())));
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(uniqueList));
+      safeLocalStorage.setItem(STORAGE_KEY, JSON.stringify(uniqueList));
     } catch {}
 
     this.notifyListeners();
@@ -247,7 +248,7 @@ export class GlobalFlashcardOverrideService {
 
     try {
       const uniqueList = Array.from(new Set(Array.from(map.values())));
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(uniqueList));
+      safeLocalStorage.setItem(STORAGE_KEY, JSON.stringify(uniqueList));
     } catch {}
 
     this.notifyListeners();
@@ -281,7 +282,7 @@ export class GlobalFlashcardOverrideService {
 
     try {
       const uniqueList = Array.from(new Set(Array.from(map.values())));
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(uniqueList));
+      safeLocalStorage.setItem(STORAGE_KEY, JSON.stringify(uniqueList));
     } catch {}
 
     this.notifyListeners();

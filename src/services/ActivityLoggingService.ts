@@ -1,4 +1,5 @@
 import { supabase } from '../lib/supabase';
+import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
 import { useGamificationStore } from '../stores/useGamificationStore';
 import { generateUUID } from '../utils/uuid';
 import { format } from 'date-fns';
@@ -240,7 +241,7 @@ export class ActivityLoggingService {
         // Update local cache
         try {
           if (typeof window !== 'undefined') {
-            localStorage.setItem(getStorageKey(userId), JSON.stringify(merged.slice(0, 500)));
+            safeLocalStorage.setItem(getStorageKey(userId), JSON.stringify(merged.slice(0, 500)));
           }
         } catch {}
 
@@ -315,7 +316,7 @@ export class ActivityLoggingService {
   private static getLocalCache(userId?: string | null): UserLearningActivity[] {
     if (typeof window === 'undefined') return [];
     try {
-      const raw = localStorage.getItem(getStorageKey(userId));
+      const raw = safeLocalStorage.getItem(getStorageKey(userId));
       if (raw) {
         const parsed = JSON.parse(raw);
         if (Array.isArray(parsed)) return parsed;
@@ -334,7 +335,7 @@ export class ActivityLoggingService {
       } else {
         current.unshift(activity);
       }
-      localStorage.setItem(getStorageKey(userId), JSON.stringify(current.slice(0, 500)));
+      safeLocalStorage.setItem(getStorageKey(userId), JSON.stringify(current.slice(0, 500)));
     } catch {}
   }
 }

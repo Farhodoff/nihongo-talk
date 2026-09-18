@@ -23,6 +23,7 @@ import {
   calculateReview,
   sortCardsBySRSPriority,
 } from '../utils/srs';
+import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
 import { speakText } from '../utils/audioTts';
 import { toast } from '../hooks/use-toast';
 import { PersonalLearningPlanService } from '../services/PersonalLearningPlanService';
@@ -50,13 +51,13 @@ const StudyModePage: React.FC = () => {
   const [accent, setAccent] = useState<'en-GB' | 'en-US' | 'ja-JP'>('en-US');
   const [isQueueInitialized, setIsQueueInitialized] = useState(false);
   const [autoAudio, setAutoAudio] = useState<boolean>(() => {
-    return localStorage.getItem('study_planner_flashcard_auto_audio') === 'true';
+    return safeLocalStorage.getItem('study_planner_flashcard_auto_audio') === 'true';
   });
 
   const toggleAutoAudio = () => {
     setAutoAudio((prev) => {
       const next = !prev;
-      localStorage.setItem('study_planner_flashcard_auto_audio', String(next));
+      safeLocalStorage.setItem('study_planner_flashcard_auto_audio', String(next));
       return next;
     });
   };

@@ -2,6 +2,7 @@ import { ConversationScenario, ScenarioSessionResult } from '../components/speak
 import { DEFAULT_SCENARIOS } from '../data/defaultScenarios';
 import { MINNA_SCENARIOS } from '../data/minnaScenarios';
 import { supabase } from '../lib/supabase';
+import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
 
 const CUSTOM_SCENARIOS_KEY = 'nihon_talk_custom_scenarios';
 const DELETED_SCENARIOS_KEY = 'nihon_talk_deleted_scenarios';
@@ -15,7 +16,7 @@ const getHistoryKey = (userId?: string | null): string => {
 const getDeletedIds = (): string[] => {
   try {
     const local =
-      typeof window !== 'undefined' ? localStorage.getItem(DELETED_SCENARIOS_KEY) : null;
+      typeof window !== 'undefined' ? safeLocalStorage.getItem(DELETED_SCENARIOS_KEY) : null;
     return local ? JSON.parse(local) : [];
   } catch {
     return [];
@@ -31,7 +32,7 @@ export class ScenarioService {
     let customScenarios: ConversationScenario[] = [];
     try {
       const local =
-        typeof window !== 'undefined' ? localStorage.getItem(CUSTOM_SCENARIOS_KEY) : null;
+        typeof window !== 'undefined' ? safeLocalStorage.getItem(CUSTOM_SCENARIOS_KEY) : null;
       if (local) {
         customScenarios = JSON.parse(local);
       }
@@ -50,8 +51,8 @@ export class ScenarioService {
       if (typeof window === 'undefined') return [];
       const key = getHistoryKey(userId);
       const local =
-        localStorage.getItem(key) ||
-        (userId ? localStorage.getItem('nihon_talk_scenario_history') : null);
+        safeLocalStorage.getItem(key) ||
+        (userId ? safeLocalStorage.getItem('nihon_talk_scenario_history') : null);
       if (local) {
         return JSON.parse(local);
       }
@@ -66,7 +67,7 @@ export class ScenarioService {
     let customScenarios: ConversationScenario[] = [];
     try {
       const local =
-        typeof window !== 'undefined' ? localStorage.getItem(CUSTOM_SCENARIOS_KEY) : null;
+        typeof window !== 'undefined' ? safeLocalStorage.getItem(CUSTOM_SCENARIOS_KEY) : null;
       if (local) {
         customScenarios = JSON.parse(local);
       }
@@ -104,7 +105,7 @@ export class ScenarioService {
           }
         }
         customScenarios = merged;
-        localStorage.setItem(CUSTOM_SCENARIOS_KEY, JSON.stringify(customScenarios));
+        safeLocalStorage.setItem(CUSTOM_SCENARIOS_KEY, JSON.stringify(customScenarios));
       }
     } catch (e) {
       // Table might not exist yet; gracefully fallback
@@ -123,14 +124,14 @@ export class ScenarioService {
     // Also remove from deleted set if re-saving
     try {
       const deleted = getDeletedIds().filter((id) => id !== scenario.id);
-      localStorage.setItem(DELETED_SCENARIOS_KEY, JSON.stringify(deleted));
+      safeLocalStorage.setItem(DELETED_SCENARIOS_KEY, JSON.stringify(deleted));
     } catch {
       // ignore
     }
 
     let customScenarios: ConversationScenario[] = [];
     try {
-      const local = localStorage.getItem(CUSTOM_SCENARIOS_KEY);
+      const local = safeLocalStorage.getItem(CUSTOM_SCENARIOS_KEY);
       if (local) {
         customScenarios = JSON.parse(local);
       }
@@ -145,7 +146,7 @@ export class ScenarioService {
       customScenarios.push(scenario);
     }
 
-    localStorage.setItem(CUSTOM_SCENARIOS_KEY, JSON.stringify(customScenarios));
+    safeLocalStorage.setItem(CUSTOM_SCENARIOS_KEY, JSON.stringify(customScenarios));
 
     // Sync to Supabase table asynchronously
     try {
@@ -178,7 +179,7 @@ export class ScenarioService {
       const deleted = getDeletedIds();
       if (!deleted.includes(id)) {
         deleted.push(id);
-        localStorage.setItem(DELETED_SCENARIOS_KEY, JSON.stringify(deleted));
+        safeLocalStorage.setItem(DELETED_SCENARIOS_KEY, JSON.stringify(deleted));
       }
     } catch {
       // ignore
@@ -186,7 +187,7 @@ export class ScenarioService {
 
     let customScenarios: ConversationScenario[] = [];
     try {
-      const local = localStorage.getItem(CUSTOM_SCENARIOS_KEY);
+      const local = safeLocalStorage.getItem(CUSTOM_SCENARIOS_KEY);
       if (local) {
         customScenarios = JSON.parse(local);
       }
@@ -195,7 +196,7 @@ export class ScenarioService {
     }
 
     customScenarios = customScenarios.filter((s) => s.id !== id);
-    localStorage.setItem(CUSTOM_SCENARIOS_KEY, JSON.stringify(customScenarios));
+    safeLocalStorage.setItem(CUSTOM_SCENARIOS_KEY, JSON.stringify(customScenarios));
 
     try {
       await supabase.from('scenarios').delete().eq('id', id);
@@ -227,7 +228,7 @@ export class ScenarioService {
     let history: ScenarioSessionResult[] = [];
     try {
       if (typeof window !== 'undefined') {
-        const local = localStorage.getItem(key);
+        const local = safeLocalStorage.getItem(key);
         if (local) {
           history = JSON.parse(local);
         }
@@ -238,7 +239,7 @@ export class ScenarioService {
 
     history.unshift(result);
     if (typeof window !== 'undefined') {
-      localStorage.setItem(key, JSON.stringify(history.slice(0, 50)));
+      safeLocalStorage.setItem(key, JSON.stringify(history.slice(0, 50)));
     }
 
     if (userId && userId !== 'guest' && userId !== 'anonymous') {
@@ -360,7 +361,7 @@ export class ScenarioService {
             50,
           );
           if (typeof window !== 'undefined') {
-            localStorage.setItem(getHistoryKey(userId), JSON.stringify(merged));
+            safeLocalStorage.setItem(getHistoryKey(userId), JSON.stringify(merged));
           }
           return merged;
         }
