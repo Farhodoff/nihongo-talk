@@ -109,15 +109,21 @@ export class HistoryService {
       }
     }
 
-    const scopedKey = getStorageKey('study_planner_ielts_writing_history', userId);
+    const scopedKey = getStorageKey('study_planner_jlpt_writing_history', userId);
+    const legacyScopedKey = getStorageKey('study_planner_ielts_writing_history', userId);
     const rawLocal =
+      safeLocalStorage.getItem('study_planner_jlpt_writing_history') ||
       safeLocalStorage.getItem('study_planner_ielts_writing_history') ||
-      (userId ? safeLocalStorage.getItem(scopedKey) : null);
+      (userId
+        ? safeLocalStorage.getItem(scopedKey) || safeLocalStorage.getItem(legacyScopedKey)
+        : null);
     const list: WritingHistoryItem[] = rawLocal ? JSON.parse(rawLocal) : [];
     list.unshift(newItem);
+    safeLocalStorage.setJSON('study_planner_jlpt_writing_history', list.slice(0, 50));
     safeLocalStorage.setJSON('study_planner_ielts_writing_history', list.slice(0, 50));
     if (userId) {
       safeLocalStorage.setJSON(scopedKey, list.slice(0, 50));
+      safeLocalStorage.setJSON(legacyScopedKey, list.slice(0, 50));
     }
 
     return newItem;
@@ -134,13 +140,17 @@ export class HistoryService {
       logger.debug('HistoryService', 'No authenticated user for writing history', e);
     }
 
-    const scopedKey = getStorageKey('study_planner_ielts_writing_history', userId);
+    const scopedKey = getStorageKey('study_planner_jlpt_writing_history', userId);
+    const legacyScopedKey = getStorageKey('study_planner_ielts_writing_history', userId);
 
     if (typeof navigator !== 'undefined' && !navigator.onLine) {
       const local = userId
         ? safeLocalStorage.getItem(scopedKey) ||
+          safeLocalStorage.getItem(legacyScopedKey) ||
+          safeLocalStorage.getItem('study_planner_jlpt_writing_history') ||
           safeLocalStorage.getItem('study_planner_ielts_writing_history')
-        : safeLocalStorage.getItem('study_planner_ielts_writing_history');
+        : safeLocalStorage.getItem('study_planner_jlpt_writing_history') ||
+          safeLocalStorage.getItem('study_planner_ielts_writing_history');
       return local ? JSON.parse(local) : [];
     }
 
@@ -164,6 +174,7 @@ export class HistoryService {
             createdAt: item.created_at,
           }));
           safeLocalStorage.setJSON(scopedKey, mapped.slice(0, 50));
+          safeLocalStorage.setJSON(legacyScopedKey, mapped.slice(0, 50));
           return mapped;
         } else if (error) {
           handleTableError('ielts_writing_history', error);
@@ -175,8 +186,11 @@ export class HistoryService {
 
     const local = userId
       ? safeLocalStorage.getItem(scopedKey) ||
+        safeLocalStorage.getItem(legacyScopedKey) ||
+        safeLocalStorage.getItem('study_planner_jlpt_writing_history') ||
         safeLocalStorage.getItem('study_planner_ielts_writing_history')
-      : safeLocalStorage.getItem('study_planner_ielts_writing_history');
+      : safeLocalStorage.getItem('study_planner_jlpt_writing_history') ||
+        safeLocalStorage.getItem('study_planner_ielts_writing_history');
     return local ? JSON.parse(local) : [];
   }
 

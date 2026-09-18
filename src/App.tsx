@@ -411,20 +411,6 @@ const App: React.FC = () => {
                         }
                       />
                       <Route path="exams/:id" element={<ExamTake />} />
-                      <Route
-                        path="auth/reset-password"
-                        element={<Navigate to="/auth/reset-password" replace />}
-                      />
-                      <Route
-                        path="reset-password"
-                        element={<Navigate to="/reset-password" replace />}
-                      />
-                      <Route path="auth" element={<Navigate to="/jlpt" replace />} />
-                      <Route path="admin/login" element={<Navigate to="/auth" replace />} />
-                      <Route path="login" element={<Navigate to="/jlpt" replace />} />
-                      <Route path="register" element={<Navigate to="/jlpt" replace />} />
-                      <Route path="signup" element={<Navigate to="/jlpt" replace />} />
-                      <Route path="*" element={<Navigate to="/jlpt" replace />} />
                     </Route>
                     <Route path="/auth/reset-password" element={<AuthPage />} />
                     <Route path="/reset-password" element={<AuthPage />} />
