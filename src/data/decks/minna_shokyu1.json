@@ -73,16 +73,16 @@
   },
   {
     "front": "～人",
-    "back": "millat qo'shimchasi",
-    "phonetic": "～じん - jin",
-    "example": "サントスさんは ブラジル人 です。 (Janob Santos braziliyalik.)",
+    "back": "~ kishi (odamlar sanoq suffiksi)",
+    "phonetic": "～にん - nin",
+    "example": "教室に 学生が 5人 います。 (Sinfxonada 5 nafar talaba bor.)",
     "category": "Minna no Nihongo 1-dars",
     "level": "N5"
   },
   {
     "front": "アメリカ人",
     "back": "Amerikalik",
-    "phonetic": "アメリカ人 - amerika",
+    "phonetic": "あめりかじん - amerikajin",
     "example": "ミラーさんは アメリカ人 です。 (Janob Miller amerikalik.)",
     "category": "Minna no Nihongo 1-dars",
     "level": "N5"
@@ -762,7 +762,7 @@
   {
     "front": "これからお世話になります",
     "back": "Bundan buyon yordamingizga muhtojman",
-    "phonetic": "これからお世話せわになります。 - korekaraosewaninarimasu",
+    "phonetic": "これからおせわになります - korekara osewa ni narimasu",
     "example": "新入社員の ミラーです。これから お世話に なります。 (Yangi xodim Millerman. Bundan buyon mehr va yordamingizga muhtojman.)",
     "category": "Minna no Nihongo 2-dars",
     "level": "N5"
@@ -928,10 +928,10 @@
     "level": "N5"
   },
   {
-    "front": "お国",
-    "back": "vatan, mamlakat",
-    "phonetic": "おくに - okuni",
-    "example": "あそこは 国くに] です。 (Anavi yer vatan, mamlakat.)",
+    "front": "お国 (国)",
+    "back": "mamlakat, vatan (hurmat shakli)",
+    "phonetic": "おくに (くに) - okuni (kuni)",
+    "example": "お国は どちらですか。 (Vataningiz qayerda?)",
     "category": "Minna no Nihongo 3-dars",
     "level": "N5"
   },
@@ -995,7 +995,7 @@
     "front": "売り場",
     "back": "sotuv rastasi, savdo bo'limi",
     "phonetic": "うりば - uriba",
-    "example": "あそこは 売り場 です。 (Anavi yer sotuv rastasi, savdo bo'limi.)",
+    "example": "ネクタイ売り場は 2階に あります。 (Galstuk bo'limi 2-qavatda.)",
     "category": "Minna no Nihongo 3-dars",
     "level": "N5"
   },
@@ -1011,7 +1011,7 @@
     "front": "～階",
     "back": "~-qavat",
     "phonetic": "～かい - kai",
-    "example": "この 部屋は 階です。 (Bu xona ~-qavat.)",
+    "example": "会議室は 3階に あります。 (Majlislar xonasi 3-qavatda.)",
     "category": "Minna no Nihongo 3-dars",
     "level": "N5"
   },
@@ -1019,7 +1019,7 @@
     "front": "何階",
     "back": "nechanchi qavat",
     "phonetic": "なんがい - nangai",
-    "example": "この 部屋は 何階です。 (Bu xona nechanchi qavat.)",
+    "example": "事務所は 何階ですか。 (Ofis nechanchi qavatda?)",
     "category": "Minna no Nihongo 3-dars",
     "level": "N5"
   },
@@ -1082,7 +1082,7 @@
   {
     "front": "～を見せてください",
     "back": "~ni ko'rsating, iltimos",
-    "phonetic": "～を見みせてください。 - omisetekudasai",
+    "phonetic": "～をみせてください - ~ o misete kudasai",
     "example": "その 黒い 靴を 見せて ください。 (U qora poyafzalni ko'rsating, iltimos.)",
     "category": "Minna no Nihongo 3-dars",
     "level": "N5"
@@ -1315,7 +1315,7 @@
     "front": "おととい",
     "back": "o'tgan kuni, kechadan oldingi kun",
     "phonetic": "おととい - ototoi",
-    "example": "この 部屋は おとといです。 (Bu xona o'tgan kuni, kechadan oldingi kun.)",
+    "example": "おととい 友達と 映画を 見ました。 (Kechadan oldingi kuni do'stim bilan kino ko'rdim.)",
     "category": "Minna no Nihongo 4-dars",
     "level": "N5"
   },
@@ -1562,7 +1562,7 @@
   {
     "front": "お問い合わせの番号",
     "back": "so'ralgan telefon raqami",
-    "phonetic": "お問とい合あわせの番号ばんごう - otoiawasenobangou",
+    "phonetic": "おといあわせのばんごう - otoiawase no bangou",
     "example": "お問い合わせの番号は 03-1234-5678です。 (So'ralgan raqam 03-1234-5678.)",
     "category": "Minna no Nihongo 4-dars",
     "level": "N5"
@@ -1618,7 +1618,7 @@
   {
     "front": "やまと美術館",
     "back": "Yamato muzeyi (to'qima)",
-    "phonetic": "やまと美び術じゅつ館かん - yamatobijutsukan",
+    "phonetic": "やまとびじゅつかん - yamato bijutsukan",
     "example": "あした やまと美術館へ 行きます。 (Ertaga Yamato san'at muzeyiga boraman.)",
     "category": "Minna no Nihongo 4-dars",
     "level": "N5"
@@ -1626,7 +1626,7 @@
   {
     "front": "大阪デパート",
     "back": "Osaka universami",
-    "phonetic": "大阪おおさかデパート - oosakadepa-to",
+    "phonetic": "おおさかデパート - oosaka depaato",
     "example": "大阪デパートで お土産を 買いました。 (Osaka universamida sovg'a sotib oldim.)",
     "category": "Minna no Nihongo 4-dars",
     "level": "N5"
@@ -1634,7 +1634,7 @@
   {
     "front": "みどり図書館",
     "back": "Midori kutubxonasi (to'qima)",
-    "phonetic": "みどり図と書しょ館かん - midoritoshokan",
+    "phonetic": "みどりとしょかん - midori toshokan",
     "example": "みどり図書館は 月曜日が 休みです。 (Midori kutubxonasi dushanba kuni dam oladi.)",
     "category": "Minna no Nihongo 4-dars",
     "level": "N5"
@@ -1642,7 +1642,7 @@
   {
     "front": "アップル銀行",
     "back": "Apple banki (to'qima)",
-    "phonetic": "アップル銀行ぎんこう - apuruginkou",
+    "phonetic": "アップルぎんこう - appuru ginkou",
     "example": "アップル銀行で お金を 下ろします。 (Apple bankidan pul yechaman.)",
     "category": "Minna no Nihongo 4-dars",
     "level": "N5"
@@ -2082,7 +2082,7 @@
   {
     "front": "～番線",
     "back": "~yo'l, ~platforma",
-    "phonetic": "～番線ばんせん - bansen",
+    "phonetic": "～ばんせん - ~ bansen",
     "example": "東京行きは 3番線から 出ます。 (Tokioga boradigan poyezd 3-yo'ldan jo'naydi.)",
     "category": "Minna no Nihongo 5-dars",
     "level": "N5"
@@ -2200,10 +2200,10 @@
     "level": "N5"
   },
   {
-    "front": "しゃしんを～写真を～",
-    "back": "] (fotosuratga olmoq)",
-    "phonetic": "しゃしんを～写真を～ - shashino o",
-    "example": "山田な 人です。 (Yamada ] (fotosuratga olmoq) samimiy inson.)",
+    "front": "写真を撮ります",
+    "back": "fotosuratga olmoq, rasmga tushmoq",
+    "phonetic": "しゃしんをとります - shashin o torimasu",
+    "example": "京都で たくさん 写真を 撮りました。 (Kiotoda ko'p rasmga tushdim.)",
     "category": "Minna no Nihongo 6-dars",
     "level": "N5"
   },
@@ -2554,7 +2554,7 @@
   {
     "front": "何ですか",
     "back": "Nima deysiz? / Labbay?",
-    "phonetic": "何なんですか。 - nandesuka",
+    "phonetic": "なんですか - nan desu ka",
     "example": "ミラーさん。― 何ですか。 (Janob Miller. - Labbay, nima deysiz?)",
     "category": "Minna no Nihongo 6-dars",
     "level": "N5"
@@ -2667,7 +2667,7 @@
     "front": "手",
     "back": "qo'l",
     "phonetic": "て - te",
-    "example": "田中さんは 手 です。 (Tanaka janoblari qo'l.)",
+    "example": "食事の 前に 手を 洗います。 (Ovqatlanishdan oldin qo'limni yuvaman.)",
     "category": "Minna no Nihongo 7-dars",
     "level": "N5"
   },
@@ -2914,7 +2914,7 @@
   {
     "front": "どうぞお上がりください",
     "back": "Marhamat, ichkariga marhamat qiling",
-    "phonetic": "どうぞお上あがりください。 - douzooagarikudasai",
+    "phonetic": "どうぞおあがりください - douzo oagari kudasai",
     "example": "どうぞ お上がり ください。スリッパを どうぞ。 (Ichkariga marhamat qiling. Shippakni kiying.)",
     "category": "Minna no Nihongo 7-dars",
     "level": "N5"
@@ -2922,7 +2922,7 @@
   {
     "front": "失礼します",
     "back": "Ruxsatingiz bilan / Xayr (xushmuomala)",
-    "phonetic": "失礼しつれいします。 - shitsureishimasu",
+    "phonetic": "しつれいします - shitsurei shimasu",
     "example": "お先に 失礼します。― お疲れ様でした。 (Ruxsatingiz bilan ketdim. - Charchamang.)",
     "category": "Minna no Nihongo 7-dars",
     "level": "N5"
@@ -2946,7 +2946,7 @@
   {
     "front": "旅行",
     "back": "sayohat",
-    "phonetic": "旅行りょこう - ryokou",
+    "phonetic": "りょこう - ryokou",
     "example": "夏休みに 北海道へ 旅行に 行きます。 (Yozgi ta'tilda Xokkaydoga sayohatga boraman.)",
     "category": "Minna no Nihongo 7-dars",
     "level": "N5"
@@ -2954,7 +2954,7 @@
   {
     "front": "お土産",
     "back": "esdalik sovg'a",
-    "phonetic": "お土産みやげ - omiyage",
+    "phonetic": "おみやげ - omiyage",
     "example": "京都の お土産を 買いました。 (Kiotodan esdalik sovg'a sotib oldim.)",
     "category": "Minna no Nihongo 7-dars",
     "level": "N5"
@@ -3059,7 +3059,7 @@
     "front": "大きい",
     "back": "katta",
     "phonetic": "おおきい - ookii",
-    "example": "この 部屋は 大きいです。 (Bu xona katta.)",
+    "example": "象は 体が 大きいです。 (Filning tanasi katta.)",
     "category": "Minna no Nihongo 8-dars",
     "level": "N5"
   },
@@ -3067,7 +3067,7 @@
     "front": "小さい",
     "back": "kichik",
     "phonetic": "ちいさい - chiisai",
-    "example": "この 部屋は 小さいです。 (Bu xona kichik.)",
+    "example": "この かばんは 小さくて 軽いです。 (Bu sumka kichik va yengil.)",
     "category": "Minna no Nihongo 8-dars",
     "level": "N5"
   },
@@ -3075,23 +3075,23 @@
     "front": "新しい",
     "back": "yangi",
     "phonetic": "あたらしい - atarashii",
-    "example": "この 部屋は 新しいです。 (Bu xona yangi.)",
+    "example": "新しい 携帯電話を 買いました。 (Yangi mobil telefon sotib oldim.)",
     "category": "Minna no Nihongo 8-dars",
     "level": "N5"
   },
   {
     "front": "古い",
-    "back": "eski",
+    "back": "eski, qadimiy",
     "phonetic": "ふるい - furui",
-    "example": "この 部屋は 古いです。 (Bu xona eski.)",
+    "example": "この お寺は とても 古いです。 (Bu ibodatxona juda qadimiy/eski.)",
     "category": "Minna no Nihongo 8-dars",
     "level": "N5"
   },
   {
-    "front": "いいよい",
+    "front": "いい (よい)",
     "back": "yaxshi",
-    "phonetic": "いいよい - iiyoi",
-    "example": "この 部屋は いいよいです。 (Bu xona yaxshi.)",
+    "phonetic": "いい (よい) - ii (yoi)",
+    "example": "あの 先生は とても いい 先生です。 (U ustoz juda yaxshi o'qituvchi.)",
     "category": "Minna no Nihongo 8-dars",
     "level": "N5"
   },
@@ -3099,31 +3099,31 @@
     "front": "悪い",
     "back": "yomon",
     "phonetic": "わるい - warui",
-    "example": "この 部屋は 悪いです。 (Bu xona yomon.)",
+    "example": "きのうは 天気が 悪かったです。 (Kecha ob-havo yomon edi.)",
     "category": "Minna no Nihongo 8-dars",
     "level": "N5"
   },
   {
-    "front": "暑い、熱い",
-    "back": "issiq",
+    "front": "暑い / 熱い",
+    "back": "issiq (ob-havo / narsa, taom)",
     "phonetic": "あつい - atsui",
-    "example": "この 部屋は 暑い、熱いです。 (Bu xona issiq.)",
+    "example": "日本の 夏は とても 暑いです。 (Yaponiyaning yozi juda issiq.)",
     "category": "Minna no Nihongo 8-dars",
     "level": "N5"
   },
   {
     "front": "寒い",
-    "back": "sovuq",
+    "back": "sovuq (ob-havo)",
     "phonetic": "さむい - samui",
-    "example": "この 部屋は 寒いです。 (Bu xona sovuq.)",
+    "example": "北海道の 冬は とても 寒いです。 (Xokkaydoning qishi juda sovuq.)",
     "category": "Minna no Nihongo 8-dars",
     "level": "N5"
   },
   {
     "front": "冷たい",
-    "back": "sovuq, yaxtak",
+    "back": "sovuq, muzdek (narsa, ichimlik)",
     "phonetic": "つめたい - tsumetai",
-    "example": "この 部屋は 冷たいです。 (Bu xona sovuq, yaxtak.)",
+    "example": "冷たい お茶を 飲みました。 (Muzdek choy ichdim.)",
     "category": "Minna no Nihongo 8-dars",
     "level": "N5"
   },
@@ -3131,7 +3131,7 @@
     "front": "難しい",
     "back": "qiyin",
     "phonetic": "むずかしい - muzukashii",
-    "example": "この 部屋は 難しいです。 (Bu xona qiyin.)",
+    "example": "日本語の 漢字は 難しいです。 (Yapon tilining iyerogliflari qiyin.)",
     "category": "Minna no Nihongo 8-dars",
     "level": "N5"
   },
@@ -3139,7 +3139,7 @@
     "front": "易しい",
     "back": "oson",
     "phonetic": "やさしい - yasashii",
-    "example": "この 部屋は 易しいです。 (Bu xona oson.)",
+    "example": "この テストは とても 易しかったです。 (Bu test juda oson edi.)",
     "category": "Minna no Nihongo 8-dars",
     "level": "N5"
   },
@@ -3147,7 +3147,7 @@
     "front": "高い",
     "back": "qimmat; baland",
     "phonetic": "たかい - takai",
-    "example": "この 部屋は 高いです。 (Bu xona qimmat; baland.)",
+    "example": "富士山は 高い 山です。 (Fuji tog'i baland tog'dir.)",
     "category": "Minna no Nihongo 8-dars",
     "level": "N5"
   },
@@ -3155,7 +3155,7 @@
     "front": "安い",
     "back": "arzon",
     "phonetic": "やすい - yasui",
-    "example": "この 部屋は 安いです。 (Bu xona arzon.)",
+    "example": "あの スーパーの 野菜は 安いです。 (Anavi supermarketning sabzavotlari arzon.)",
     "category": "Minna no Nihongo 8-dars",
     "level": "N5"
   },
@@ -3163,7 +3163,7 @@
     "front": "低い",
     "back": "past",
     "phonetic": "ひくい - hikui",
-    "example": "この 部屋は 低いです。 (Bu xona past.)",
+    "example": "あの 建物は 低いです。 (Anavi bino past.)",
     "category": "Minna no Nihongo 8-dars",
     "level": "N5"
   },
@@ -3171,7 +3171,7 @@
     "front": "おもしろい",
     "back": "qiziqarli",
     "phonetic": "おもしろい - omoshiroi",
-    "example": "この 部屋は おもしろいです。 (Bu xona qiziqarli.)",
+    "example": "この 本は とても おもしろいです。 (Bu kitob juda qiziqarli.)",
     "category": "Minna no Nihongo 8-dars",
     "level": "N5"
   },
@@ -3179,23 +3179,23 @@
     "front": "おいしい",
     "back": "mazali",
     "phonetic": "おいしい - oishii",
-    "example": "この 部屋は おいしいです。 (Bu xona mazali.)",
+    "example": "日本の ラーメンは とても おいしいです。 (Yapon rameni juda mazali.)",
     "category": "Minna no Nihongo 8-dars",
     "level": "N5"
   },
   {
     "front": "忙しい",
-    "back": "band",
+    "back": "band, mashg'ul",
     "phonetic": "いそがしい - isogashii",
-    "example": "この 部屋は 忙しいです。 (Bu xona band.)",
+    "example": "今週は 仕事が 忙しいです。 (Bu hafta ishim juda band.)",
     "category": "Minna no Nihongo 8-dars",
     "level": "N5"
   },
   {
     "front": "楽しい",
-    "back": "qiziqarli, mazmunli (vaqtga nisbatan)",
+    "back": "maroqli, quvonchli",
     "phonetic": "たのしい - tanoshii",
-    "example": "この 部屋は 楽しいです。 (Bu xona qiziqarli, mazmunli (vaqtga nisbatan).)",
+    "example": "旅行は とても 楽しかったです。 (Sayohat juda maroqli o'tdi.)",
     "category": "Minna no Nihongo 8-dars",
     "level": "N5"
   },
@@ -3203,7 +3203,7 @@
     "front": "白い",
     "back": "oq",
     "phonetic": "しろい - shiroi",
-    "example": "この 部屋は 白いです。 (Bu xona oq.)",
+    "example": "白い シャツを 着ています。 (Oq ko'ylak kiyib olgan.)",
     "category": "Minna no Nihongo 8-dars",
     "level": "N5"
   },
@@ -3211,7 +3211,7 @@
     "front": "黒い",
     "back": "qora",
     "phonetic": "くろい - kuroi",
-    "example": "この 部屋は 黒いです。 (Bu xona qora.)",
+    "example": "黒い 靴を 買いました。 (Qora tufli sotib oldim.)",
     "category": "Minna no Nihongo 8-dars",
     "level": "N5"
   },
@@ -3219,15 +3219,15 @@
     "front": "赤い",
     "back": "qizil",
     "phonetic": "あかい - akai",
-    "example": "この 部屋は 赤いです。 (Bu xona qizil.)",
+    "example": "赤い りんごを 食べました。 (Qizil olma yedim.)",
     "category": "Minna no Nihongo 8-dars",
     "level": "N5"
   },
   {
     "front": "青い",
-    "back": "ko'k",
+    "back": "ko'k, moviy",
     "phonetic": "あおい - aoi",
-    "example": "この 部屋は 青いです。 (Bu xona ko'k.)",
+    "example": "青い 空が とても きれいです。 (Moviy osmon juda chiroyli.)",
     "category": "Minna no Nihongo 8-dars",
     "level": "N5"
   },
@@ -3273,9 +3273,9 @@
   },
   {
     "front": "所",
-    "back": "joy, yer",
+    "back": "joy, makon",
     "phonetic": "ところ - tokoro",
-    "example": "あそこは 所 です。 (Anavi yer joy, yer.)",
+    "example": "京都は 静かで きれいな 所です。 (Kioto tinch va chiroyli joy.)",
     "category": "Minna no Nihongo 8-dars",
     "level": "N5"
   },
@@ -3386,7 +3386,7 @@
   {
     "front": "日本の生活に慣れましたか",
     "back": "Yaponiya hayotiga o'rgandingizmi?",
-    "phonetic": "日に本ほんの生活せいかつに慣なれましたか。 - nihonnoseikatsuninaremashitaka",
+    "phonetic": "にほんのせいかつになれましたか - nihon no seikatsu ni naremashita ka",
     "example": "日本の 生活に 慣れましたか。― はい、慣れました。 (Yaponiya hayotiga o'rgandingizmi? - Ha, ko'nikdim.)",
     "category": "Minna no Nihongo 8-dars",
     "level": "N5"
@@ -3394,7 +3394,7 @@
   {
     "front": "もう一杯いかがですか",
     "back": "Yana bir piyola olmaysizmi?",
-    "phonetic": "～、もう一杯いっぱいいかがですか。 - mouipaiikagadesuka",
+    "phonetic": "もういっぱいいかがですか - mou ippai ikaga desu ka",
     "example": "お茶、もう一杯 いかがですか。 (Yana bir piyola choy olmaysizmi?)",
     "category": "Minna no Nihongo 8-dars",
     "level": "N5"
@@ -3418,7 +3418,7 @@
   {
     "front": "そろそろ失礼します",
     "back": "Sekin qaytay / Ruxsatingiz bilan ketsam",
-    "phonetic": "そろそろ失礼しつれいします。 - sorosoroshitsureishimasu",
+    "phonetic": "そろそろしつれいします - sorosoro shitsurei shimasu",
     "example": "もう 遅いですから、そろそろ 失礼します。 (Allaqachon kech bo'ldi, ruxsatingiz bilan sekin qaytay.)",
     "category": "Minna no Nihongo 8-dars",
     "level": "N5"
@@ -3705,17 +3705,17 @@
   },
   {
     "front": "ご主人",
-    "back": "xo'jayin(ingiz), er(ingiz)",
+    "back": "xo'jayiningiz, eringiz (boshqalarning turmush o'rtog'i)",
     "phonetic": "ごしゅじん - goshujin",
-    "example": "ミラーさんは ご主人 です。 (Janob Miller xo'jayin(ingiz), er(ingiz).)",
+    "example": "山田さんの ご主人は 銀行員です。 (Yamada xonimning turmush o'rtog'i bank xodimi.)",
     "category": "Minna no Nihongo 9-dars",
     "level": "N5"
   },
   {
-    "front": "夫／主人",
-    "back": "xo'jayin(im), er(im)",
-    "phonetic": "おっと／しゅじん - oto shujin",
-    "example": "ミラーさんは 夫／主人 です。 (Janob Miller xo'jayin(im), er(im).)",
+    "front": "夫 (主人)",
+    "back": "erim, turmush o'rtog'im (o'zimniki)",
+    "phonetic": "おっと (しゅじん) - otto (shujin)",
+    "example": "夫は 会社員です。 (Erim kompaniya xodimi.)",
     "category": "Minna no Nihongo 9-dars",
     "level": "N5"
   },
@@ -3728,10 +3728,10 @@
     "level": "N5"
   },
   {
-    "front": "妻／家内",
-    "back": "ayol(im), xotin(im)",
-    "phonetic": "つま／かない - tsuma kanai",
-    "example": "この 部屋は 妻／家内です。 (Bu xona ayol(im), xotin(im).)",
+    "front": "妻 (家内)",
+    "back": "ayolim, rafiqam (o'zimniki)",
+    "phonetic": "つま (かない) - tsuma (kanai)",
+    "example": "妻は 料理が とても 上手です。 (Rafiqam ovqat pishirishga juda usta.)",
     "category": "Minna no Nihongo 9-dars",
     "level": "N5"
   },
@@ -3753,9 +3753,9 @@
   },
   {
     "front": "だいたい",
-    "back": "deyarli",
+    "back": "deyarli, taxminan, asosan",
     "phonetic": "だいたい - daitai",
-    "example": "この 部屋は だいたいです。 (Bu xona deyarli.)",
+    "example": "日本語が だいたい 分かります。 (Yapon tilini deyarli / asosan tushunaman.)",
     "category": "Minna no Nihongo 9-dars",
     "level": "N5"
   },
@@ -3866,7 +3866,7 @@
   {
     "front": "また今度お願いします",
     "back": "Keyingi safarga qolsin / Boshqa safar",
-    "phonetic": "また今こん度どお願ねがいします。 - matakondoonegaishimasu",
+    "phonetic": "またこんどおねがいします - mata kondo onegai shimasu",
     "example": "あしたの 飲み会は、また 今度 お願いします。 (Ertangi o'tirish boshqa safarga qolsin, iltimos.)",
     "category": "Minna no Nihongo 9-dars",
     "level": "N5"
@@ -3907,7 +3907,7 @@
     "front": "男の人",
     "back": "erkak kishi",
     "phonetic": "おとこのひと - otokonohito",
-    "example": "ミラーさんは 男の人 です。 (Janob Miller erkak kishi.)",
+    "example": "あそこに 男の人が います。 (U yerda erkak kishi turibdi.)",
     "category": "Minna no Nihongo 10-dars",
     "level": "N5"
   },
@@ -3915,7 +3915,7 @@
     "front": "女の人",
     "back": "ayol kishi",
     "phonetic": "おんなのひと - onnanohito",
-    "example": "ミラーさんは 女の人 です。 (Janob Miller ayol kishi.)",
+    "example": "あの 女の人は ミラーさんの 奥さんです。 (Anavi ayol kishi janob Millerning rafiqasi.)",
     "category": "Minna no Nihongo 10-dars",
     "level": "N5"
   },
@@ -4065,17 +4065,17 @@
   },
   {
     "front": "公園",
-    "back": "xiyobon (park, bog')",
+    "back": "xiyobon, bog', park",
     "phonetic": "こうえん - kouen",
-    "example": "あそこは 公園 です。 (Anavi yer xiyobon (park, bog').)",
+    "example": "日曜日に 公園を 散歩しました。 (Yakshanba kuni bog'da sayr qildim.)",
     "category": "Minna no Nihongo 10-dars",
     "level": "N5"
   },
   {
     "front": "喫茶店",
     "back": "qahvaxona",
-    "phonetic": "きっさてん - kisaten",
-    "example": "あそこは 喫茶店 です。 (Anavi yer qahvaxona.)",
+    "phonetic": "きっさてん - kissaten",
+    "example": "駅前の 喫茶店で コーヒーを 飲みました。 (Bekat oldidagi qahvaxonada kofe ichdim.)",
     "category": "Minna no Nihongo 10-dars",
     "level": "N5"
   },
@@ -4083,23 +4083,23 @@
     "front": "本屋",
     "back": "kitob do'koni",
     "phonetic": "ほんや - honya",
-    "example": "あそこは 本屋 です。 (Anavi yer kitob do'koni.)",
+    "example": "本屋で 日本語の 辞書を 買いました。 (Kitob do'konidan yapon tili lug'atini sotib oldim.)",
     "category": "Minna no Nihongo 10-dars",
     "level": "N5"
   },
   {
     "front": "～屋",
-    "back": "~do'koni",
+    "back": "~ do'koni, ~xona",
     "phonetic": "～や - ya",
-    "example": "あそこは 屋 です。 (Anavi yer ~do'koni.)",
+    "example": "パン屋で サンドイッチを 買いました。 (Novvoyxonadan sendvich sotib oldim.)",
     "category": "Minna no Nihongo 10-dars",
     "level": "N5"
   },
   {
     "front": "乗り場",
-    "back": "bekat",
+    "back": "bekat, chiqish/minish joyi",
     "phonetic": "のりば - noriba",
-    "example": "あそこは 乗り場 です。 (Anavi yer bekat.)",
+    "example": "タクシー乗り場は あそこです。 (Taksi to'xtash joyi ana u yerda.)",
     "category": "Minna no Nihongo 10-dars",
     "level": "N5"
   },
@@ -4242,7 +4242,7 @@
   {
     "front": "奥",
     "back": "ichkari, to'r",
-    "phonetic": "奥おく - oku",
+    "phonetic": "おく - oku",
     "example": "店の 奥に トイレが ございます。 (Do'konning to'rida hojatxona bor.)",
     "category": "Minna no Nihongo 10-dars",
     "level": "N5"
@@ -4408,50 +4408,50 @@
     "level": "N5"
   },
   {
-    "front": "１人",
-    "back": "bitta, bir kishi",
+    "front": "1人",
+    "back": "bir kishi, yakka o'zi",
     "phonetic": "ひとり - hitori",
-    "example": "ミラーさんは １人 です。 (Janob Miller bitta, bir kishi.)",
+    "example": "1人で 日本へ 行きました。 (Yaponiyaga yakka o'zim bordim.)",
     "category": "Minna no Nihongo 11-dars",
     "level": "N5"
   },
   {
-    "front": "２人",
-    "back": "ikkita, ikki kishi",
+    "front": "2人",
+    "back": "ikki kishi, ikkovlon",
     "phonetic": "ふたり - futari",
-    "example": "ミラーさんは ２人 です。 (Janob Miller ikkita, ikki kishi.)",
+    "example": "2人で 映画を 見に 行きました。 (Ikkovlon kino ko'rgani bordik.)",
     "category": "Minna no Nihongo 11-dars",
     "level": "N5"
   },
   {
     "front": "～人",
-    "back": "~kishi, ~odam (sanoq suffiksi)",
+    "back": "~ kishi (odamlar sanoq suffiksi)",
     "phonetic": "～にん - nin",
-    "example": "ミラーさんは 人 です。 (Janob Miller ~kishi, ~odam (sanoq suffiksi).)",
+    "example": "教室に 学生が 5人 います。 (Sinfxonada 5 nafar talaba bor.)",
     "category": "Minna no Nihongo 11-dars",
     "level": "N5"
   },
   {
     "front": "～台",
-    "back": "~ta (texnika sanoq suffiksi)",
+    "back": "~ ta (mashina, texnika sanoq suffiksi)",
     "phonetic": "～だい - dai",
-    "example": "この 部屋は 台です。 (Bu xona ~ta (texnika sanoq suffiksi).)",
+    "example": "車が 2台 あります。 (2 ta mashina bor.)",
     "category": "Minna no Nihongo 11-dars",
     "level": "N5"
   },
   {
     "front": "～枚",
-    "back": "~ta (yupqa narsalar sanoq suffiksi)",
+    "back": "~ ta, ~ varaq (yupqa narsalar sanoq suffiksi)",
     "phonetic": "～まい - mai",
-    "example": "この 部屋は 枚です。 (Bu xona ~ta (yupqa narsalar sanoq suffiksi).)",
+    "example": "切手を 5枚 買いました。 (5 ta pochta markasi sotib oldim.)",
     "category": "Minna no Nihongo 11-dars",
     "level": "N5"
   },
   {
     "front": "～回",
-    "back": "~marta, ~bor",
+    "back": "~ marta, ~ bor",
     "phonetic": "～かい - kai",
-    "example": "この 部屋は 回です。 (Bu xona ~marta, ~bor.)",
+    "example": "1週間に 2回 テニスを します。 (Haftada 2 marta tennis o'ynayman.)",
     "category": "Minna no Nihongo 11-dars",
     "level": "N5"
   },
@@ -4498,8 +4498,8 @@
   {
     "front": "切手",
     "back": "pochta markasi",
-    "phonetic": "きって - kite",
-    "example": "田中さんは 切手 です。 (Tanaka janoblari pochta markasi.)",
+    "phonetic": "きって - kitte",
+    "example": "手紙に 切手を 貼りました。 (Xatga pochta markasini yopishtirdim.)",
     "category": "Minna no Nihongo 11-dars",
     "level": "N5"
   },
@@ -4569,9 +4569,9 @@
   },
   {
     "front": "兄弟",
-    "back": "farzandlar, aka-ukalar",
+    "back": "aka-uka, opa-singil, farzandlar",
     "phonetic": "きょうだい - kyoudai",
-    "example": "この 部屋は 兄弟です。 (Bu xona farzandlar, aka-ukalar.)",
+    "example": "兄弟が 何人 いますか。 (Nechta aka-uka/opa-singlingiz bor?)",
     "category": "Minna no Nihongo 11-dars",
     "level": "N5"
   },
@@ -4643,7 +4643,7 @@
     "front": "外国",
     "back": "chet el, xorij",
     "phonetic": "がいこく - gaikoku",
-    "example": "あそこは 外国 です。 (Anavi yer chet el, xorij.)",
+    "example": "外国へ 旅行に 行きたいです。 (Xorijga sayohatga borgim kelyapti.)",
     "category": "Minna no Nihongo 11-dars",
     "level": "N5"
   },
@@ -4681,17 +4681,17 @@
   },
   {
     "front": "～ぐらい",
-    "back": "~lar, ~cha, taxminan~",
+    "back": "~lar, ~cha, taxminan ~",
     "phonetic": "～ぐらい - gurai",
-    "example": "この 部屋は ぐらいです。 (Bu xona ~lar, ~cha, taxminan~.)",
+    "example": "駅まで 15分ぐらい 歩きます。 (Bekatgacha 15 daqiqacha yuriladi.)",
     "category": "Minna no Nihongo 11-dars",
     "level": "N5"
   },
   {
     "front": "どのぐらい",
-    "back": "qancha (vaqt)",
+    "back": "qancha vaqt / qanchalik",
     "phonetic": "どのぐらい - donogurai",
-    "example": "この 部屋は どのぐらいです。 (Bu xona qancha (vaqt).)",
+    "example": "東京から 京都まで どのぐらい かかりますか。 (Tokiodan Kiotogacha qancha vaqt ketadi?)",
     "category": "Minna no Nihongo 11-dars",
     "level": "N5"
   },
@@ -4730,7 +4730,7 @@
   {
     "front": "いいお天気ですね",
     "back": "Havo juda yaxshi-ya",
-    "phonetic": "いいお天てん気きですね。 - iiotenkidesune",
+    "phonetic": "いいおてんきですね - ii otenki desu ne",
     "example": "いいお天気ですね。お出かけですか。 (Havo ajoyib-a. Biror joyga ketyapsizmi?)",
     "category": "Minna no Nihongo 11-dars",
     "level": "N5"
@@ -4738,7 +4738,7 @@
   {
     "front": "お出かけですか",
     "back": "Biror joyga boryapsizmi?",
-    "phonetic": "お出でかけですか。 - odekakedesuka",
+    "phonetic": "おでかけですか - odekake desu ka",
     "example": "お出かけですか。― ええ、ちょっと 郵便局まで。 (Ko'chagami? - Ha, pochtagacha boryapman.)",
     "category": "Minna no Nihongo 11-dars",
     "level": "N5"
@@ -4754,7 +4754,7 @@
   {
     "front": "行ってらっしゃい",
     "back": "Yaxshi borib keling",
-    "phonetic": "行いっていらっしゃい。 - iteirashai",
+    "phonetic": "いってらっしゃい - itterasshai",
     "example": "行ってきます。― 行ってらっしゃい。 (Borib kelaman. - Yaxshi borib keling.)",
     "category": "Minna no Nihongo 11-dars",
     "level": "N5"
@@ -4762,7 +4762,7 @@
   {
     "front": "行ってまいります",
     "back": "Borib kelaman (xushmuomala)",
-    "phonetic": "行いってまいります。 - itemairimasu",
+    "phonetic": "いってまいります - itte mairimasu",
     "example": "会社へ 行ってまいります。 (Ishxonaga borib kelaman.)",
     "category": "Minna no Nihongo 11-dars",
     "level": "N5"
@@ -4795,7 +4795,7 @@
     "front": "近い",
     "back": "yaqin",
     "phonetic": "ちかい - chikai",
-    "example": "この 部屋は 近いです。 (Bu xona yaqin.)",
+    "example": "駅は うちから 近いです。 (Bekat uyimdan yaqin.)",
     "category": "Minna no Nihongo 12-dars",
     "level": "N5"
   },
@@ -4803,23 +4803,23 @@
     "front": "遠い",
     "back": "uzoq, olis",
     "phonetic": "とおい - tooi",
-    "example": "この 部屋は 遠いです。 (Bu xona uzoq, olis.)",
+    "example": "会社は うちから 遠いです。 (Firma uyimdan uzoq.)",
     "category": "Minna no Nihongo 12-dars",
     "level": "N5"
   },
   {
-    "front": "速い,早い",
-    "back": "tez, barvaqt",
+    "front": "速い / 早い",
+    "back": "tez (速い) / barvaqt (早い)",
     "phonetic": "はやい - hayai",
-    "example": "この 部屋は 速い,早いです。 (Bu xona tez, barvaqt.)",
+    "example": "新幹線は とても 速いです。 (Sinkansen tezyurar poyezdi juda tez.)",
     "category": "Minna no Nihongo 12-dars",
     "level": "N5"
   },
   {
     "front": "遅い",
-    "back": "sekin",
+    "back": "sekin, kech",
     "phonetic": "おそい - osoi",
-    "example": "この 部屋は 遅いです。 (Bu xona sekin.)",
+    "example": "雨で バスが 遅くなりました。 (Yomg'ir tufayli avtobus kechikdi.)",
     "category": "Minna no Nihongo 12-dars",
     "level": "N5"
   },
@@ -4827,7 +4827,7 @@
     "front": "多い",
     "back": "ko'p",
     "phonetic": "おおい - ooi",
-    "example": "この 部屋は 多いです。 (Bu xona ko'p.)",
+    "example": "東京は 人が とても 多いです。 (Tokioda odam juda ko'p.)",
     "category": "Minna no Nihongo 12-dars",
     "level": "N5"
   },
@@ -4843,15 +4843,15 @@
     "front": "少ない",
     "back": "kam",
     "phonetic": "すくない - sukunai",
-    "example": "この 部屋は 少ないです。 (Bu xona kam.)",
+    "example": "この 町は 車が 少ないです。 (Bu shaharchada mashina kam.)",
     "category": "Minna no Nihongo 12-dars",
     "level": "N5"
   },
   {
-    "front": "暖かい、温かい",
-    "back": "iliq",
+    "front": "暖かい / 温かい",
+    "back": "iliq (ob-havo / narsa, choy)",
     "phonetic": "あたたかい - atatakai",
-    "example": "この 部屋は 暖かい、温かいです。 (Bu xona iliq.)",
+    "example": "春は 暖かくて 気持ちがいいです。 (Bahor iliq va rohatbaxsh.)",
     "category": "Minna no Nihongo 12-dars",
     "level": "N5"
   },
@@ -4859,7 +4859,7 @@
     "front": "涼しい",
     "back": "salqin",
     "phonetic": "すずしい - suzushii",
-    "example": "この 部屋は 涼しいです。 (Bu xona salqin.)",
+    "example": "秋は 涼しくて 過ごしやすいです。 (Kuz salqin va qulay.)",
     "category": "Minna no Nihongo 12-dars",
     "level": "N5"
   },
@@ -4867,15 +4867,15 @@
     "front": "甘い",
     "back": "shirin",
     "phonetic": "あまい - amai",
-    "example": "この 部屋は 甘いです。 (Bu xona shirin.)",
+    "example": "この ケーキは 甘くて おいしいです。 (Bu tort shirin va mazali.)",
     "category": "Minna no Nihongo 12-dars",
     "level": "N5"
   },
   {
     "front": "辛い",
-    "back": "achchiq",
+    "back": "achchiq (taom)",
     "phonetic": "からい - karai",
-    "example": "この 部屋は 辛いです。 (Bu xona achchiq.)",
+    "example": "この カレーは とても 辛いです。 (Bu karri taomi juda achchiq.)",
     "category": "Minna no Nihongo 12-dars",
     "level": "N5"
   },
@@ -4883,7 +4883,7 @@
     "front": "重い",
     "back": "og'ir",
     "phonetic": "おもい - omoi",
-    "example": "この 部屋は 重いです。 (Bu xona og'ir.)",
+    "example": "この 荷物は とても 重いです。 (Bu yuk juda og'ir.)",
     "category": "Minna no Nihongo 12-dars",
     "level": "N5"
   },
@@ -4891,15 +4891,15 @@
     "front": "軽い",
     "back": "yengil",
     "phonetic": "かるい - karui",
-    "example": "この 部屋は 軽いです。 (Bu xona yengil.)",
+    "example": "この ノートパソコンは 軽くて 便利です。 (Bu noutbuk yengil va qulay.)",
     "category": "Minna no Nihongo 12-dars",
     "level": "N5"
   },
   {
-    "front": "いい",
-    "back": "yaxshi, zo'r",
+    "front": "いい (よい)",
+    "back": "yaxshi, soz",
     "phonetic": "いい - ii",
-    "example": "この 部屋は いいです。 (Bu xona yaxshi, zo'r.)",
+    "example": "あしたは 天気が いいでしょう。 (Ertaga havo yaxshi bo'lsa kerak.)",
     "category": "Minna no Nihongo 12-dars",
     "level": "N5"
   },
@@ -5009,9 +5009,9 @@
   },
   {
     "front": "世界",
-    "back": "jahon, dunyo",
+    "back": "dunyo, olam",
     "phonetic": "せかい - sekai",
-    "example": "この 部屋は 世界です。 (Bu xona jahon, dunyo.)",
+    "example": "世界中を 旅行したいです。 (Dunyo bo'ylab sayohat qilishni xohlayman.)",
     "category": "Minna no Nihongo 12-dars",
     "level": "N5"
   },
@@ -5130,7 +5130,7 @@
   {
     "front": "お帰りなさい",
     "back": "Yaxshi keldingizmi? (uyga kutib olganda)",
-    "phonetic": "お帰かえりなさい。 - okaerinasai",
+    "phonetic": "おかえりなさい - okaerinasai",
     "example": "お帰りなさい。きょうは 疲れたでしょう。 (Yaxshi keldingizmi? Bugun charchadingiz-a.)",
     "category": "Minna no Nihongo 12-dars",
     "level": "N5"
@@ -5154,7 +5154,7 @@
   {
     "front": "疲れました",
     "back": "Charchadim",
-    "phonetic": "疲つかれました。 - tsukaremashita",
+    "phonetic": "つかれました - tsukaremashita",
     "example": "一日中 歩いたので、とても 疲れました。 (Kun bo'yi yurganim uchun juda charchadim.)",
     "category": "Minna no Nihongo 12-dars",
     "level": "N5"
@@ -5337,17 +5337,17 @@
   },
   {
     "front": "欲しい",
-    "back": "xohlagan, xohlamoq",
+    "back": "xohlamoq, ega bo'lishni istamoq",
     "phonetic": "ほしい - hoshii",
-    "example": "この 部屋は 欲しいです。 (Bu xona xohlagan, xohlamoq.)",
+    "example": "新しい パソコンが 欲しいです。 (Yangi kompyuter xohlayapman.)",
     "category": "Minna no Nihongo 13-dars",
     "level": "N5"
   },
   {
     "front": "寂しい",
-    "back": "ma'yus, xafa",
+    "back": "yolg'iz, ma'yus, xafa",
     "phonetic": "さびしい - sabishii",
-    "example": "この 部屋は 寂しいです。 (Bu xona ma'yus, xafa.)",
+    "example": "友達が 国へ 帰って 寂しいです。 (Do'stim vataniga qaytib, yolg'izlanib qoldim.)",
     "category": "Minna no Nihongo 13-dars",
     "level": "N5"
   },
@@ -5355,7 +5355,7 @@
     "front": "広い",
     "back": "keng",
     "phonetic": "ひろい - hiroi",
-    "example": "この 部屋は 広いです。 (Bu xona keng.)",
+    "example": "わたしの 部屋は 広くて 明るいです。 (Mening xonam keng va yorug'.)",
     "category": "Minna no Nihongo 13-dars",
     "level": "N5"
   },
@@ -5363,15 +5363,15 @@
     "front": "狭い",
     "back": "tor",
     "phonetic": "せまい - semai",
-    "example": "この 部屋は 狭いです。 (Bu xona tor.)",
+    "example": "この 部屋は 少し 狭いです。 (Bu xona biroz tor.)",
     "category": "Minna no Nihongo 13-dars",
     "level": "N5"
   },
   {
     "front": "市役所",
-    "back": "shahar hokimiyati",
+    "back": "shahar hokimiyati / boshqarmasi",
     "phonetic": "しやくしょ - shiyakusho",
-    "example": "あそこは 市役所 です。 (Anavi yer shahar hokimiyati.)",
+    "example": "市役所へ 登録に 行きました。 (Shahar boshqarmasiga ro'yxatdan o'tishga bordim.)",
     "category": "Minna no Nihongo 13-dars",
     "level": "N5"
   },
@@ -5393,9 +5393,9 @@
   },
   {
     "front": "経済",
-    "back": "iqtisod",
+    "back": "iqtisod, iqtisodiyot",
     "phonetic": "けいざい - keizai",
-    "example": "この 部屋は 経済です。 (Bu xona iqtisod.)",
+    "example": "大学で 日本の 経済を 勉強しています。 (Universitetda Yaponiya iqtisodiyotini o'rganyapman.)",
     "category": "Minna no Nihongo 13-dars",
     "level": "N5"
   },
@@ -5514,7 +5514,7 @@
   {
     "front": "ご注文は？",
     "back": "Buyurtmangiz nima? / Nima buyurasiz?",
-    "phonetic": "ご注ちゅう文もんは？ - gochuumonha",
+    "phonetic": "ごちゅうもんは？ - gochuumon wa?",
     "example": "いらっしゃいませ。ご注文は？ (Xush kelibsiz. Nima buyurtma qilasiz?)",
     "category": "Minna no Nihongo 13-dars",
     "level": "N5"
@@ -5538,7 +5538,7 @@
   {
     "front": "少々お待ちください",
     "back": "Biroz kutib turing (xushmuomala)",
-    "phonetic": "少々しょうしょうお待まちください。 - shoushouomachikudasai",
+    "phonetic": "しょうしょうおまちください - shoushou omachi kudasai",
     "example": "席を ご案内しますので、少々 お待ちください。 (Joyingizni ko'rsataman, bir oz kutib turing.)",
     "category": "Minna no Nihongo 13-dars",
     "level": "N5"
@@ -5546,7 +5546,7 @@
   {
     "front": "別々に",
     "back": "Alohida-alohida (hisob-kitob)",
-    "phonetic": "別々べつべつに - betsubetsuni",
+    "phonetic": "べつべつに - betsubetsu ni",
     "example": "お会計は 別々に お願いします。 (Hisobni alohida-alohida qilib bersangiz.)",
     "category": "Minna no Nihongo 13-dars",
     "level": "N5"
@@ -5769,9 +5769,9 @@
   },
   {
     "front": "住所",
-    "back": "manzil",
+    "back": "manzil, turar joy",
     "phonetic": "じゅうしょ - juusho",
-    "example": "あそこは 住所 です。 (Anavi yer manzil.)",
+    "example": "ここに 住所と 名前を 書いてください。 (Bu yerga manzil va ismingizni yozing.)",
     "category": "Minna no Nihongo 14-dars",
     "level": "N5"
   },
@@ -5890,7 +5890,7 @@
   {
     "front": "信号を右へ曲がってください",
     "back": "Svetofordan o'ngga buriling",
-    "phonetic": "信号しんごうを右みぎへ曲まがってください。 - shingouomigihemagatekudasai",
+    "phonetic": "しんごうをみぎへまがってください - shingou o migi e magatte kudasai",
     "example": "あの 信号を 右へ 曲がって ください。 (Anavi svetofordan o'ngga buriling.)",
     "category": "Minna no Nihongo 14-dars",
     "level": "N5"
@@ -5904,17 +5904,17 @@
     "level": "N5"
   },
   {
-    "front": "これでお願ねがいします",
-    "back": "Shu bilan to'layman / Buni oling",
-    "phonetic": "これでお願ねがいします。 - koredeonegaishimasu",
-    "example": "1万円札で お願いします。 (10 ming iyenlik bilan to'layman.)",
+    "front": "これでお願いします",
+    "back": "buni bering / shuni olaman (to'lov qilganda)",
+    "phonetic": "これでおねがいします - kore de onegai shimasu",
+    "example": "1000円 出します。これで お願いします。 (1000 iyena beraman. Shu bilan hisob-kitob qiling.)",
     "category": "Minna no Nihongo 14-dars",
     "level": "N5"
   },
   {
     "front": "お釣り",
     "back": "qaytim (pul)",
-    "phonetic": "お釣つり - otsuri",
+    "phonetic": "おつり - otsuri",
     "example": "お釣りと レシートを お受け取りください。 (Qaytim va chekni qabul qiling.)",
     "category": "Minna no Nihongo 14-dars",
     "level": "N5"
@@ -6081,17 +6081,17 @@
   },
   {
     "front": "歯医者",
-    "back": "tish doktori, stomatolog",
+    "back": "tish shifokori, stomatolog",
     "phonetic": "はいしゃ - haisha",
-    "example": "田中さんは 歯医者 です。 (Tanaka janoblari tish doktori, stomatolog.)",
+    "example": "歯が 痛いので、歯医者へ 行きます。 (Tishim og'riyotgani sababli stomatologga boraman.)",
     "category": "Minna no Nihongo 15-dars",
     "level": "N5"
   },
   {
     "front": "床屋",
-    "back": "erkaklar sartaroshxonasi",
+    "back": "sartaroshxona (erkaklar)",
     "phonetic": "とこや - tokoya",
-    "example": "あそこは 床屋 です。 (Anavi yer erkaklar sartaroshxonasi.)",
+    "example": "駅前の 床屋で 髪を 切りました。 (Bekat oldidagi sartaroshxonada sochimni oldirdim.)",
     "category": "Minna no Nihongo 15-dars",
     "level": "N5"
   },
@@ -6114,7 +6114,7 @@
   {
     "front": "特に",
     "back": "ayniqsa",
-    "phonetic": "特とくに - tokuni",
+    "phonetic": "とくに - tokuni",
     "example": "日本料理、特に おすしが 大好きです。 (Yapon taomlari, ayniqsa sushini juda yaxshi ko'raman.)",
     "category": "Minna no Nihongo 15-dars",
     "level": "N5"
@@ -6122,7 +6122,7 @@
   {
     "front": "思い出します",
     "back": "eslamoq, yodga olmoq",
-    "phonetic": "思おもい出だします - omoidashimasu",
+    "phonetic": "おもいだします - omoidashimasu",
     "example": "写真の アルバムを 見ると、家族を 思い出します。 (Rasm albomini ko'rsam oilamni yodga olaman.)",
     "category": "Minna no Nihongo 15-dars",
     "level": "N5"
@@ -6130,7 +6130,7 @@
   {
     "front": "ご家族",
     "back": "oilangiz (hurmat shakli)",
-    "phonetic": "ご家か族ぞく - gokazoku",
+    "phonetic": "ごかぞく - gokazoku",
     "example": "ご家族は みなさん お元気ですか。 (Oilangizdagilar hammasi salomatmilar?)",
     "category": "Minna no Nihongo 15-dars",
     "level": "N5"
@@ -6291,7 +6291,7 @@
     "front": "若い",
     "back": "yosh",
     "phonetic": "わかい - wakai",
-    "example": "この 部屋は 若いです。 (Bu xona yosh.)",
+    "example": "あの 先生は 若くて 熱心です。 (Anavi o'qituvchi yosh va g'ayratli.)",
     "category": "Minna no Nihongo 16-dars",
     "level": "N5"
   },
@@ -6299,7 +6299,7 @@
     "front": "長い",
     "back": "uzun",
     "phonetic": "ながい - nagai",
-    "example": "この 部屋は 長いです。 (Bu xona uzun.)",
+    "example": "マリアさんは 髪が 長いです。 (Mariyaning sochi uzun.)",
     "category": "Minna no Nihongo 16-dars",
     "level": "N5"
   },
@@ -6307,15 +6307,15 @@
     "front": "短い",
     "back": "qisqa",
     "phonetic": "みじかい - mijikai",
-    "example": "この 部屋は 短いです。 (Bu xona qisqa.)",
+    "example": "夏休みは 短かったです。 (Yozgi ta'til qisqa bo'ldi.)",
     "category": "Minna no Nihongo 16-dars",
     "level": "N5"
   },
   {
     "front": "明るい",
-    "back": "yorug",
+    "back": "yorug'; quvnoq",
     "phonetic": "あかるい - akarui",
-    "example": "この 部屋は 明るいです。 (Bu xona yorug.)",
+    "example": "窓が 大きくて、部屋が 明るいです。 (Deraza katta bo'lib, xona yorug'.)",
     "category": "Minna no Nihongo 16-dars",
     "level": "N5"
   },
@@ -6323,7 +6323,7 @@
     "front": "暗い",
     "back": "qorong'u",
     "phonetic": "くらい - kurai",
-    "example": "この 部屋は 暗いです。 (Bu xona qorong'u.)",
+    "example": "夜道は 暗いので 気をつけてください。 (Kechasi yo'l qorong'u, ehtiyot bo'ling.)",
     "category": "Minna no Nihongo 16-dars",
     "level": "N5"
   },
@@ -6331,15 +6331,15 @@
     "front": "背が高い",
     "back": "bo'yi baland, novcha",
     "phonetic": "せがたかい - segatakai",
-    "example": "この 部屋は 背が高いです。 (Bu xona bo'yi baland, novcha.)",
+    "example": "ミラーさんは 背が高いです。 (Janob Miller novcha / bo'yi baland.)",
     "category": "Minna no Nihongo 16-dars",
     "level": "N5"
   },
   {
     "front": "頭がいい",
-    "back": "aqlli, kallasi o'tkir",
+    "back": "aqlli, zehnli",
     "phonetic": "あたまがいい - atamagaii",
-    "example": "この 部屋は 頭がいいです。 (Bu xona aqlli, kallasi o'tkir.)",
+    "example": "山田さんは 頭がよくて 親切です。 (Janob Yamada aqlli va ochiqko'ngil.)",
     "category": "Minna no Nihongo 16-dars",
     "level": "N5"
   },
@@ -6514,7 +6514,7 @@
   {
     "front": "お引き出しですか",
     "back": "Pul yechmoqchimisiz? (bankda)",
-    "phonetic": "お引ひき出だしですか。 - ohikidashidesuka",
+    "phonetic": "おひきだしですか - ohikidashi desu ka",
     "example": "お引き出しですか。こちらの ATMを ご利用ください。 (Pul yechmoqchimisiz? Bu yerdagi bankomatdan foydalaning.)",
     "category": "Minna no Nihongo 16-dars",
     "level": "N5"
@@ -6546,7 +6546,7 @@
   {
     "front": "次に",
     "back": "so'ngra, keyin",
-    "phonetic": "次つぎに - tsugini",
+    "phonetic": "つぎに - tsugi ni",
     "example": "次に お引き出しの 金額を 押して ください。 (Keyin yechiladigan pul summasini bosing.)",
     "category": "Minna no Nihongo 16-dars",
     "level": "N5"
@@ -6803,15 +6803,15 @@
     "front": "危ない",
     "back": "xavfli",
     "phonetic": "あぶない - abunai",
-    "example": "この 部屋は 危ないです。 (Bu xona xavfli.)",
+    "example": "道で 遊ぶのは 危ないです。 (Yo'lda o'ynash xavfli.)",
     "category": "Minna no Nihongo 17-dars",
     "level": "N5"
   },
   {
     "front": "問題",
-    "back": "masala; muammo",
+    "back": "savol, masala; muammo",
     "phonetic": "もんだい - mondai",
-    "example": "この 部屋は 問題です。 (Bu xona masala; muammo.)",
+    "example": "テストの 問題が 全部 できました。 (Test savollarining barchasini ishladim.)",
     "category": "Minna no Nihongo 17-dars",
     "level": "N5"
   },
@@ -6946,7 +6946,7 @@
   {
     "front": "～が痛いです",
     "back": "~im og'riyapti",
-    "phonetic": "～が痛いたいです。 - gaitaidesu",
+    "phonetic": "～がいたいです - ~ ga itai desu",
     "example": "きのうから のどが 痛いです。 (Kechadan beri tomog'im og'riyapti.)",
     "category": "Minna no Nihongo 17-dars",
     "level": "N5"
@@ -6962,7 +6962,7 @@
   {
     "front": "お大事に",
     "back": "Tezroq sog'ayib keting (bemorga)",
-    "phonetic": "お大だい事じに。 - odaijini",
+    "phonetic": "おだいじに - odaiji ni",
     "example": "無理を しないで、どうぞ お大事に。 (O'zingizni zo'riqtirmang, tezroq sog'ayib keting.)",
     "category": "Minna no Nihongo 17-dars",
     "level": "N5"
@@ -7067,7 +7067,7 @@
     "front": "国際～",
     "back": "xalqaro ~",
     "phonetic": "こくさい～ - kokusai",
-    "example": "この 部屋は 国際です。 (Bu xona xalqaro ~.)",
+    "example": "国際会議に 参加しました。 (Xalqaro konferensiyada qatnashdim.)",
     "category": "Minna no Nihongo 18-dars",
     "level": "N5"
   },
@@ -7265,25 +7265,25 @@
   },
   {
     "front": "眠い",
-    "back": "uyqisiramoq",
+    "back": "uyqisiramoq, uyqu kelgan",
     "phonetic": "ねむい - nemui",
-    "example": "この 部屋は 眠いです。 (Bu xona uyqisiramoq.)",
+    "example": "きのう 夜遅くまで 起きていたので、眠いです。 (Kecha kechgacha o'tirganim sababli uyqum kelyapti.)",
     "category": "Minna no Nihongo 19-dars",
     "level": "N5"
   },
   {
     "front": "強い",
-    "back": "kuchli",
+    "back": "kuchli, baquvvat",
     "phonetic": "つよい - tsuyoi",
-    "example": "この 部屋は 強いです。 (Bu xona kuchli.)",
+    "example": "あの 相撲選手は とても 強いです。 (Anavi sumo kurashchisi juda kuchli.)",
     "category": "Minna no Nihongo 19-dars",
     "level": "N5"
   },
   {
     "front": "弱い",
-    "back": "kuchsiz",
+    "back": "kuchsiz, nimjon",
     "phonetic": "よわい - yowai",
-    "example": "この 部屋は 弱いです。 (Bu xona kuchsiz.)",
+    "example": "わたしは お酒に 弱いです。 (Men spirtli ichimlikka nozikman / icholmayman.)",
     "category": "Minna no Nihongo 19-dars",
     "level": "N5"
   },
@@ -7402,7 +7402,7 @@
   {
     "front": "実は",
     "back": "Ochig'i, aslida",
-    "phonetic": "実じつは - jitsuha",
+    "phonetic": "じつは - jitsu wa",
     "example": "実は 来月 国へ 帰ることになりました。 (Ochig'i, kelasi oy yurtimga qaytadigan bo'ldim.)",
     "category": "Minna no Nihongo 19-dars",
     "level": "N5"
@@ -7418,7 +7418,7 @@
   {
     "front": "何回も",
     "back": "bir necha marta, qayta-qayta",
-    "phonetic": "何回なんかいも - nankaimo",
+    "phonetic": "なんかいも - nankai mo",
     "example": "この 映画を 何回も 見ました。 (Bu filmni bir necha bor ko'rganman.)",
     "category": "Minna no Nihongo 19-dars",
     "level": "N5"
@@ -7434,7 +7434,7 @@
   {
     "front": "無理な",
     "back": "imkonsiz, o'ta qiyin",
-    "phonetic": "無理むり［な］ - murina",
+    "phonetic": "むり［な］ - muri [na]",
     "example": "無理な スケジュールは 体に よくありません。 (O'ta tig'iz reja sog'liqqa yaxshi emas.)",
     "category": "Minna no Nihongo 19-dars",
     "level": "N5"
@@ -7442,7 +7442,7 @@
   {
     "front": "体にいい",
     "back": "sog'liqqa foydali",
-    "phonetic": "体からだにいい - karadaniii",
+    "phonetic": "からだにいい - karada ni ii",
     "example": "毎朝の ジョギングは 体に いいです。 (Har ertalabki yugurish sog'liqqa foydali.)",
     "category": "Minna no Nihongo 19-dars",
     "level": "N5"
@@ -7458,7 +7458,7 @@
   {
     "front": "葛飾北斎",
     "back": "Katsushika Hokusay (mashhur yapon rassomi)",
-    "phonetic": "葛かつ飾しか北ほく斎さい - katsushikahokusai",
+    "phonetic": "かつしかほくさい - katsushika hokusai",
     "example": "葛飾北斎は 「富嶽三十六景」で 有名な 浮世絵師です。 (Katsushika Hokusay mashhur yapon musavviridir.)",
     "category": "Minna no Nihongo 19-dars",
     "level": "N5"
@@ -7666,7 +7666,7 @@
   {
     "front": "国へ帰るの？",
     "back": "Yurtingga qaytasanmi? (og'zaki)",
-    "phonetic": "国くにへ帰かえるの？ - kunihekaeruno",
+    "phonetic": "くにへかえるの？ - kuni e kaeru no?",
     "example": "夏休みに 国へ 帰るの？ (Yozgi ta'tilda yurtingga qaytasanmi?)",
     "category": "Minna no Nihongo 20-dars",
     "level": "N5"
@@ -7793,9 +7793,9 @@
   },
   {
     "front": "すごい",
-    "back": "zo'r, ajoyib",
+    "back": "ajoyib, zo'r, qoyilmaqom",
     "phonetic": "すごい - sugoi",
-    "example": "この 部屋は すごいです。 (Bu xona zo'r, ajoyib.)",
+    "example": "日本語が とても 上手ですね。すごいです！ (Yapon tilida ajoyib gapirar ekansiz. Zo'r!)",
     "category": "Minna no Nihongo 21-dars",
     "level": "N5"
   },
@@ -7841,9 +7841,9 @@
   },
   {
     "front": "試合",
-    "back": "musobaqa",
+    "back": "musobaqa, o'yin, match",
     "phonetic": "しあい - shiai",
-    "example": "この 部屋は 試合です。 (Bu xona musobaqa.)",
+    "example": "きのう サッカーの 試合を 見ました。 (Kecha futbol musobaqasini tomosha qildim.)",
     "category": "Minna no Nihongo 21-dars",
     "level": "N5"
   },
@@ -7978,7 +7978,7 @@
   {
     "front": "～でも飲みませんか",
     "back": "~mi ichmaymizmi?",
-    "phonetic": "～でも飲のみませんか。 - demonomimasenka",
+    "phonetic": "～でものみませんか - ~ demo nomimasen ka",
     "example": "仕事の 帰りに ビールでも 飲みませんか。 (Ishdan qaytishda pivo ichmaymizmi?)",
     "category": "Minna no Nihongo 21-dars",
     "level": "N5"
@@ -7986,7 +7986,7 @@
   {
     "front": "見ないと……",
     "back": "Ko'rmasam bo'lmaydi...",
-    "phonetic": "見みないと･････。 - minaito",
+    "phonetic": "みないと…… - minai to...",
     "example": "あしたの サッカーの 試合、見ないと･････。 (Ertangi futbol o'yinini ko'rmasam bo'lmaydi...)",
     "category": "Minna no Nihongo 21-dars",
     "level": "N5"
@@ -8168,10 +8168,10 @@
     "level": "N5"
   },
   {
-    "front": "ダイニングキチン",
-    "back": "oshxona (uyning ~si)",
-    "phonetic": "ダイニングキチン - dainingukichin",
-    "example": "この 部屋は ダイニングキッチンが 広くて 便利です。 (Bu xonadonning oshxonasi keng va qulay.)",
+    "front": "ダイニングキッチン",
+    "back": "oshxona (dining kitchen)",
+    "phonetic": "ダイニングキッチン - dainingukicchin",
+    "example": "この アパートは ダイニングキッチンが 広いです。 (Bu xonadonning oshxonasi keng.)",
     "category": "Minna no Nihongo 22-dars",
     "level": "N5"
   },
@@ -8385,17 +8385,17 @@
   },
   {
     "front": "電気屋",
-    "back": "elektr buyumlar do'koni; elektr buyumlar do'koni sotuvchisi",
+    "back": "elektr jihozlari do'koni",
     "phonetic": "でんきや - denkiya",
-    "example": "あそこは 電気屋 です。 (Anavi yer elektr buyumlar do'koni; elektr buyumlar do'koni sotuvchisi.)",
+    "example": "電気屋で 新しい 電池を 買いました。 (Elektr do'konidan yangi batareyka sotib oldim.)",
     "category": "Minna no Nihongo 23-dars",
     "level": "N5"
   },
   {
     "front": "～屋",
-    "back": "~ do'koni; ~do'koni sotuvchisi",
+    "back": "~ do'koni",
     "phonetic": "～や - ya",
-    "example": "あそこは 屋 です。 (Anavi yer ~ do'koni; ~do'koni sotuvchisi.)",
+    "example": "八百屋で 新鮮な 野菜を 買いました。 (Sabzavot do'konidan yangi sabzavot oldim.)",
     "category": "Minna no Nihongo 23-dars",
     "level": "N5"
   },
@@ -8417,9 +8417,9 @@
   },
   {
     "front": "機械",
-    "back": "texnika, mashina",
+    "back": "mashina, apparat, texnika",
     "phonetic": "きかい - kikai",
-    "example": "この 部屋は 機械です。 (Bu xona texnika, mashina.)",
+    "example": "この 機械の 使い方を 教えてください。 (Bu mashina/texnikaning ishlatilishini o'rgating.)",
     "category": "Minna no Nihongo 23-dars",
     "level": "N5"
   },
@@ -8795,7 +8795,7 @@
     "front": "大使館",
     "back": "elchixona",
     "phonetic": "たいしかん - taishikan",
-    "example": "あそこは 大使館 です。 (Anavi yer elchixona.)",
+    "example": "ビザの 手続きで 大使館へ 行きます。 (Viza ishlari bilan elchixonaga boraman.)",
     "category": "Minna no Nihongo 25-dars",
     "level": "N5"
   },
@@ -8866,7 +8866,7 @@
   {
     "front": "いろいろお世話になりました",
     "back": "Ko'rsatgan mehribonchiligingiz va yordamingiz uchun katta rahmat",
-    "phonetic": "いろいろお世話せわになりました。 - iroiroosewaninarimashita",
+    "phonetic": "いろいろおせわになりました - iroiro osewa ni narimashita",
     "example": "日本での 1年間、いろいろ お世話に なりました。 (Yaponiyadagi bir yil davomida ko'rsatgan g'amxo'rligingiz uchun katta rahmat.)",
     "category": "Minna no Nihongo 25-dars",
     "level": "N5"
