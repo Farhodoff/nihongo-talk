@@ -20,6 +20,8 @@ import { MasteryEngine } from '../services/MasteryEngine';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { useLanguage } from '../context/LanguageContext';
 import { toast } from '../hooks/use-toast';
+import { cleanJapaneseTTS } from '../utils/ai';
+import { fetchTTSAudioBlob } from '../hooks/useTTS';
 
 export const JlptListeningMockPage: React.FC = () => {
   const navigate = useNavigate();
@@ -64,6 +66,7 @@ export const JlptListeningMockPage: React.FC = () => {
   const [audioProgress, setAudioProgress] = useState(0);
   const [playbackSpeed, setPlaybackSpeed] = useState(1.0);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const objectUrlRef = useRef<string | null>(null);
 
   // TTS Fallback
   const [isUsingTts, setIsUsingTts] = useState(false);
@@ -122,21 +125,40 @@ export const JlptListeningMockPage: React.FC = () => {
     }
   };
 
-  const playAudio = (q: JlptListeningQuestion) => {
+  const stopAudio = () => {
+    setIsPlaying(false);
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+      audioRef.current = null;
+    }
+    if (objectUrlRef.current) {
+      URL.revokeObjectURL(objectUrlRef.current);
+      objectUrlRef.current = null;
+    }
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+    }
+  };
+
+  const playAudio = async (q: JlptListeningQuestion) => {
     stopAudio();
     setIsPlaying(true);
 
-    if (q.audioUrl) {
-      const audio = new Audio(q.audioUrl);
+    const playWithAudioInstance = (src: string, isObjectUrl: boolean = false) => {
+      if (isObjectUrl) {
+        objectUrlRef.current = src;
+      }
+      const audio = new Audio(src);
       audio.playbackRate = playbackSpeed;
       audioRef.current = audio;
 
       audio.onloadedmetadata = () => {
-        setAudioDuration(audio.duration);
+        setAudioDuration(audio.duration || 0);
       };
 
       audio.ontimeupdate = () => {
-        setAudioProgress(audio.currentTime);
+        setAudioProgress(audio.currentTime || 0);
       };
 
       audio.onended = () => {
@@ -145,7 +167,7 @@ export const JlptListeningMockPage: React.FC = () => {
       };
 
       audio.onerror = () => {
-        console.warn('Audio file failed to load, falling back to Web Speech TTS');
+        console.warn('Audio element error, falling back to Web Speech TTS');
         setIsUsingTts(true);
         playTtsFallback(q.script);
       };
@@ -155,10 +177,31 @@ export const JlptListeningMockPage: React.FC = () => {
         setIsUsingTts(true);
         playTtsFallback(q.script);
       });
-    } else {
-      setIsUsingTts(true);
-      playTtsFallback(q.script);
+    };
+
+    if (q.audioUrl) {
+      setIsUsingTts(false);
+      playWithAudioInstance(q.audioUrl, false);
+      return;
     }
+
+    // High quality Japanese audio synthesis via serverless /api/tts
+    try {
+      const cleaned = cleanJapaneseTTS(q.script).slice(0, 200);
+      const blob = await fetchTTSAudioBlob(cleaned, 'ja');
+      if (blob && blob.size > 0) {
+        setIsUsingTts(false);
+        const blobUrl = URL.createObjectURL(blob);
+        playWithAudioInstance(blobUrl, true);
+        return;
+      }
+    } catch (err) {
+      console.warn('fetchTTSAudioBlob error, falling back to Web Speech API:', err);
+    }
+
+    // Ultimate fallback to browser speechSynthesis
+    setIsUsingTts(true);
+    playTtsFallback(q.script);
   };
 
   const playTtsFallback = (text: string) => {
@@ -171,16 +214,6 @@ export const JlptListeningMockPage: React.FC = () => {
       utterance.onerror = () => setIsPlaying(false);
       window.speechSynthesis.speak(utterance);
     }
-  };
-
-  const stopAudio = () => {
-    setIsPlaying(false);
-    if (audioRef.current) {
-      audioRef.current.pause();
-      audioRef.current.currentTime = 0;
-      audioRef.current = null;
-    }
-    window.speechSynthesis.cancel();
   };
 
   const handleSpeedChange = (speed: number) => {
