@@ -1,5 +1,6 @@
 import { PresetDeck, PresetCard, PresetSubDeck } from '../data/presetDecks';
 import { supabase } from '../lib/supabase';
+import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
 
 export interface DeckPart {
   id: string;
@@ -98,33 +99,31 @@ export const PresetDeckService = {
         });
       }
 
-      // 3. Also check localStorage cache for offline/backup custom parts
-      const savedLocal = localStorage.getItem('study_planner_admin_albums');
-      if (savedLocal) {
-        try {
-          const localAlbums: PresetSubDeck[] = JSON.parse(savedLocal);
-          const matchingLocal = localAlbums.filter((a) => a.level === deck.level);
+      // 3. Also check safeLocalStorage cache for offline/backup custom parts
+      const localAlbums = safeLocalStorage.getJSON<PresetSubDeck[]>(
+        'study_planner_admin_albums',
+        [],
+      );
+      const matchingLocal = localAlbums.filter((a) => a.level === deck.level);
 
-          matchingLocal.forEach((alb) => {
-            if (alb.id && !seenIds.has(alb.id)) {
-              currentHighestPartNumber++;
-              const allocatedPartNumber = currentHighestPartNumber;
-              seenIds.add(alb.id);
+      matchingLocal.forEach((alb) => {
+        if (alb.id && !seenIds.has(alb.id)) {
+          currentHighestPartNumber++;
+          const allocatedPartNumber = currentHighestPartNumber;
+          seenIds.add(alb.id);
 
-              parts.push({
-                id: alb.id,
-                deckId: deck.id,
-                level: deck.level,
-                partNumber: allocatedPartNumber,
-                title: `${deck.level} — ${allocatedPartNumber}-Qism (${alb.cardCount} ta card)`,
-                cardCount: alb.cardCount,
-                cards: GlobalFlashcardOverrideService.applyOverridesToCards(alb.cards || []),
-                isCustomAdminPart: true,
-              });
-            }
+          parts.push({
+            id: alb.id,
+            deckId: deck.id,
+            level: deck.level,
+            partNumber: allocatedPartNumber,
+            title: `${deck.level} — ${allocatedPartNumber}-Qism (${alb.cardCount} ta card)`,
+            cardCount: alb.cardCount,
+            cards: GlobalFlashcardOverrideService.applyOverridesToCards(alb.cards || []),
+            isCustomAdminPart: true,
           });
-        } catch (e) {}
-      }
+        }
+      });
     } catch (err) {
       console.error('Error building deck parts:', err);
     }
@@ -141,20 +140,20 @@ export const PresetDeckService = {
 
     // 1. Check local storage cache first for instant UI response
     try {
-      const savedLocal = localStorage.getItem('study_planner_admin_albums');
-      if (savedLocal) {
-        const localAlbums: PresetSubDeck[] = JSON.parse(savedLocal);
-        localAlbums
-          .filter(
-            (a) =>
-              a.deckId === 'deck_custom_standalone' ||
-              a.id.startsWith('standalone_') ||
-              a.level === 'MUSTAQIL' ||
-              a.level === 'SPECIAL' ||
-              a.level === 'BIZNES',
-          )
-          .forEach((a) => albumsMap.set(a.id, a));
-      }
+      const localAlbums = safeLocalStorage.getJSON<PresetSubDeck[]>(
+        'study_planner_admin_albums',
+        [],
+      );
+      localAlbums
+        .filter(
+          (a) =>
+            a.deckId === 'deck_custom_standalone' ||
+            a.id.startsWith('standalone_') ||
+            a.level === 'MUSTAQIL' ||
+            a.level === 'SPECIAL' ||
+            a.level === 'BIZNES',
+        )
+        .forEach((a) => albumsMap.set(a.id, a));
     } catch (e) {}
 
     // 2. Fetch from Supabase DB table `admin_preset_albums`
@@ -193,15 +192,11 @@ export const PresetDeckService = {
 
     // Update local cache with merged standalone albums
     try {
-      const savedLocal = localStorage.getItem('study_planner_admin_albums');
-      const localList: PresetSubDeck[] = savedLocal ? JSON.parse(savedLocal) : [];
+      const localList = safeLocalStorage.getJSON<PresetSubDeck[]>('study_planner_admin_albums', []);
       const nonStandalone = localList.filter(
         (a) => a.deckId !== 'deck_custom_standalone' && !a.id.startsWith('standalone_'),
       );
-      localStorage.setItem(
-        'study_planner_admin_albums',
-        JSON.stringify([...nonStandalone, ...allStandalone]),
-      );
+      safeLocalStorage.setJSON('study_planner_admin_albums', [...nonStandalone, ...allStandalone]);
     } catch (e) {}
 
     return allStandalone.sort(
@@ -220,12 +215,9 @@ export const PresetDeckService = {
     }
 
     try {
-      const savedLocal = localStorage.getItem('study_planner_admin_albums');
-      if (savedLocal) {
-        const localList: PresetSubDeck[] = JSON.parse(savedLocal);
-        const updated = localList.filter((a) => a.id !== id);
-        localStorage.setItem('study_planner_admin_albums', JSON.stringify(updated));
-      }
+      const localList = safeLocalStorage.getJSON<PresetSubDeck[]>('study_planner_admin_albums', []);
+      const updated = localList.filter((a) => a.id !== id);
+      safeLocalStorage.setJSON('study_planner_admin_albums', updated);
     } catch (e) {}
 
     return true;

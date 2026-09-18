@@ -1,10 +1,11 @@
 // @ts-expect-error: Deno imports
-import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
 // @ts-expect-error: Deno imports
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.39.0';
 import { getSupabaseSecretKey } from '../_shared/secretKey.ts';
 
-const BOT_TOKEN = Deno.env.get('TELEGRAM_BOT_TOKEN')!;
+const BOT_TOKEN =
+  Deno.env.get('TELEGRAM_BOT_TOKEN') || Deno.env.get('TELEGRAM_DATASET_BOT_TOKEN') || '';
 const SUPABASE_URL = Deno.env.get('SUPABASE_URL')!;
 // Supabase Secret key (sb_secret_...) — legacy SUPABASE_SERVICE_ROLE_KEY emas.
 // Admin JWT yo'li bilan birga trusted server-to-server bearer solishtirishda ham ishlatiladi.
@@ -20,7 +21,10 @@ async function isAuthorizedAdmin(supabase: any, token: string): Promise<boolean>
   // Server-to-server (cron) calls pass the service role key as the bearer.
   if (token === SUPABASE_KEY) return true;
 
-  const { data: { user }, error } = await supabase.auth.getUser(token);
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser(token);
   if (error || !user) return false;
 
   const { data: profile } = await supabase
@@ -30,7 +34,11 @@ async function isAuthorizedAdmin(supabase: any, token: string): Promise<boolean>
     .maybeSingle();
 
   if (!profile) return false;
-  return profile.role === 'admin' || profile.role === 'superadmin' || profile.email === 'fsoyilov@gmail.com';
+  return (
+    profile.role === 'admin' ||
+    profile.role === 'superadmin' ||
+    profile.email === 'fsoyilov@gmail.com'
+  );
 }
 
 serve(async (req: Request) => {
@@ -60,35 +68,64 @@ serve(async (req: Request) => {
       });
     }
 
-    const { userId, message } = await req.json();
+    const body = await req.json();
+    const { userId, message, text, chatId, parse_mode } = body;
+    const effectiveMessage = message || text;
 
-    if (!userId || !message) {
-      return new Response(JSON.stringify({ error: 'userId and message are required' }), {
+    if (!effectiveMessage) {
+      return new Response(JSON.stringify({ error: 'message or text is required' }), {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
         status: 400,
       });
     }
 
-    // 1. Get user's chat_id and verify notifications are enabled
-    const { data: userLink, error: userError } = await supabase
-      .from('telegram_users')
-      .select('chat_id, notifications_enabled, is_active')
-      .eq('user_id', userId)
-      .single();
-
-    if (userError || !userLink) {
-      console.warn(`No linked Telegram user found for user: ${userId}`);
-      return new Response(JSON.stringify({ success: false, error: 'User not linked to Telegram' }), {
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-        status: 200,
-      });
+    if (!BOT_TOKEN) {
+      return new Response(
+        JSON.stringify({ error: 'TELEGRAM_BOT_TOKEN is not configured on server' }),
+        {
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+          status: 500,
+        },
+      );
     }
 
-    if (!userLink.notifications_enabled || !userLink.is_active) {
-      console.info(`User ${userId} has disabled notifications or is inactive`);
-      return new Response(JSON.stringify({ success: false, error: 'Notifications disabled' }), {
+    let targetChatId: string | number | null = null;
+
+    if (chatId) {
+      // Authorized admin direct dispatch to a specific channel/group
+      targetChatId = chatId;
+    } else if (userId) {
+      // 1. Get user's chat_id and verify notifications are enabled
+      const { data: userLink, error: userError } = await supabase
+        .from('telegram_users')
+        .select('chat_id, notifications_enabled, is_active')
+        .eq('user_id', userId)
+        .single();
+
+      if (userError || !userLink) {
+        console.warn(`No linked Telegram user found for user: ${userId}`);
+        return new Response(
+          JSON.stringify({ success: false, error: 'User not linked to Telegram' }),
+          {
+            headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+            status: 200,
+          },
+        );
+      }
+
+      if (!userLink.notifications_enabled || !userLink.is_active) {
+        console.info(`User ${userId} has disabled notifications or is inactive`);
+        return new Response(JSON.stringify({ success: false, error: 'Notifications disabled' }), {
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+          status: 200,
+        });
+      }
+
+      targetChatId = userLink.chat_id;
+    } else {
+      return new Response(JSON.stringify({ error: 'Either userId or chatId is required' }), {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-        status: 200,
+        status: 400,
       });
     }
 
@@ -98,9 +135,9 @@ serve(async (req: Request) => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        chat_id: userLink.chat_id,
-        text: message,
-        parse_mode: 'HTML',
+        chat_id: targetChatId,
+        text: effectiveMessage,
+        parse_mode: parse_mode || 'HTML',
       }),
     });
 
@@ -113,11 +150,10 @@ serve(async (req: Request) => {
       });
     }
 
-    return new Response(JSON.stringify({ success: true }), {
+    return new Response(JSON.stringify({ success: true, result: data }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       status: 200,
     });
-
   } catch (error: unknown) {
     console.error('Unexpected error in send-telegram-notification:', error);
     const err = error as { message?: string };

@@ -15,6 +15,7 @@ import { LearningPathEngine } from './LearningPathEngine';
 import { PersonalLearningPlanService } from './PersonalLearningPlanService';
 
 import { generateUUID, toDeterministicUUID } from '../utils/uuid';
+import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
 
 const LOCK_KEY_PREFIX = 'study_planner_pending_generation_';
 
@@ -153,7 +154,7 @@ export const PersonalLearningPlanEngine = {
    */
   acquireLock(userId: string, goalId: string, weekNumber: number): boolean {
     const key = this.getLockKey(userId, goalId, weekNumber);
-    const existing = localStorage.getItem(key);
+    const existing = safeLocalStorage.getItem(key);
     if (existing) {
       const time = Number(existing);
       // 5 minute timeout for locks
@@ -161,7 +162,7 @@ export const PersonalLearningPlanEngine = {
         return false;
       }
     }
-    localStorage.setItem(key, String(Date.now()));
+    safeLocalStorage.setItem(key, String(Date.now()));
     return true;
   },
 
@@ -170,7 +171,7 @@ export const PersonalLearningPlanEngine = {
    */
   releaseLock(userId: string, goalId: string, weekNumber: number): void {
     const key = this.getLockKey(userId, goalId, weekNumber);
-    localStorage.removeItem(key);
+    safeLocalStorage.removeItem(key);
   },
 
   /**

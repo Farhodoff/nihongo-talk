@@ -36,35 +36,40 @@ export default async function handler(req, res) {
         }
     }
 
-    const botToken = process.env.TELEGRAM_BOT_TOKEN || process.env.TELEGRAM_VAULT_BOT_TOKEN;
-    const chatId = process.env.TELEGRAM_VAULT_CHAT_ID || process.env.TELEGRAM_CHAT_ID;
+    const body = req.body || {};
+    const botToken = process.env.TELEGRAM_BOT_TOKEN || process.env.TELEGRAM_VAULT_BOT_TOKEN || process.env.TELEGRAM_DATASET_BOT_TOKEN;
+    const targetChatId = body.chatId || process.env.TELEGRAM_VAULT_CHAT_ID || process.env.TELEGRAM_CHAT_ID || process.env.TELEGRAM_DATASET_CHAT_ID;
 
-    if (!botToken || !chatId) {
+    if (!botToken || !targetChatId) {
         return res.status(500).json({ 
             success: false, 
-            error: 'Telegram Bot Token or Vault Chat ID is not configured in environment variables.' 
+            error: 'Telegram Bot Token or Vault Chat ID is not configured in environment variables or request.' 
         });
     }
 
     try {
         const supabase = createClient(SUPABASE_URL, SERVICE_ROLE);
         // Explicitly format target date for Asia/Tashkent timezone (UTC+5)
-        const todayStr = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Tashkent' }).format(new Date());
+        const todayStr = body.date || new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Tashkent' }).format(new Date());
 
-        // 1. Fetch speaking sessions for today (covering full 24h cycle)
-        const { data: rawSessions, error: sessionErr } = await supabase
-            .from('speaking_sessions')
-            .select('*')
-            .gte('created_at', `${todayStr}T00:00:00`)
-            .lte('created_at', `${todayStr}T23:59:59.999Z`)
-            .order('created_at', { ascending: false });
+        let messageText = body.message || '';
+        let formattedSessions = [];
 
-        if (sessionErr) {
-            console.error('[Daily Speech Cron] Error fetching sessions:', sessionErr.message);
-            return res.status(500).json({ success: false, error: sessionErr.message });
-        }
+        if (!messageText) {
+            // 1. Fetch speaking sessions for today (covering full 24h cycle)
+            const { data: rawSessions, error: sessionErr } = await supabase
+                .from('speaking_sessions')
+                .select('*')
+                .gte('created_at', `${todayStr}T00:00:00`)
+                .lte('created_at', `${todayStr}T23:59:59.999Z`)
+                .order('created_at', { ascending: false });
 
-        const sessions = rawSessions || [];
+            if (sessionErr) {
+                console.error('[Daily Speech Cron] Error fetching sessions:', sessionErr.message);
+                return res.status(500).json({ success: false, error: sessionErr.message });
+            }
+
+            const sessions = rawSessions || [];
         let totalDurationSec = 0;
         const userSet = new Set();
         const topicCounts = new Map();
@@ -126,13 +131,14 @@ export default async function handler(req, res) {
         }
 
         messageText += `\n🤖 <i>Nihon Talk Automated Vault Engine (22:00 Auto-Purge)</i>`;
+        }
 
         // 3. Dispatch to Telegram Bot API
         const telegramResp = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                chat_id: chatId,
+                chat_id: targetChatId,
                 text: messageText,
                 parse_mode: 'HTML'
             })

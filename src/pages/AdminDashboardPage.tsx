@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState, lazy, Suspense } from 'react';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { useLanguage } from '../context/LanguageContext';
 import { supabase, supabaseUrl, supabaseAnonKey } from '../lib/supabase';
@@ -38,17 +38,58 @@ import {
   AdminAuditLogEntry,
 } from '../utils/admin';
 import { UserNotificationService } from '../services/UserNotificationService';
-import { AdminAiCardCleanerModal } from '../components/decks/AdminAiCardCleanerModal';
-import { AdminScenarioManager } from '../components/admin/AdminScenarioManager';
-import { AdminSpeechAnalytics } from '../components/admin/AdminSpeechAnalytics';
-import { AdminDatasetVaultModal } from '../components/admin/AdminDatasetVaultModal';
-import { AdminContentStudio } from '../components/admin/AdminContentStudio';
-import { AdminAuditLogsModal } from '../components/admin/AdminAuditLogsModal';
-import { AdminBroadcastModal } from '../components/admin/AdminBroadcastModal';
-import { AdminUserDetailModal } from '../components/admin/AdminUserDetailModal';
 import { RoleBadge } from '../components/admin/RoleBadge';
 import { SvgLineChart } from '../components/ui/SvgCharts';
 import { toast } from '../hooks/use-toast';
+import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
+
+const AdminScenarioManager = lazy(() =>
+  import('../components/admin/AdminScenarioManager').then((m) => ({
+    default: m.AdminScenarioManager,
+  })),
+);
+const AdminSpeechAnalytics = lazy(() =>
+  import('../components/admin/AdminSpeechAnalytics').then((m) => ({
+    default: m.AdminSpeechAnalytics,
+  })),
+);
+const AdminContentStudio = lazy(() =>
+  import('../components/admin/AdminContentStudio').then((m) => ({ default: m.AdminContentStudio })),
+);
+const AdminDatasetVaultModal = lazy(() =>
+  import('../components/admin/AdminDatasetVaultModal').then((m) => ({
+    default: m.AdminDatasetVaultModal,
+  })),
+);
+const AdminAiCardCleanerModal = lazy(() =>
+  import('../components/decks/AdminAiCardCleanerModal').then((m) => ({
+    default: m.AdminAiCardCleanerModal,
+  })),
+);
+const AdminAuditLogsModal = lazy(() =>
+  import('../components/admin/AdminAuditLogsModal').then((m) => ({
+    default: m.AdminAuditLogsModal,
+  })),
+);
+const AdminBroadcastModal = lazy(() =>
+  import('../components/admin/AdminBroadcastModal').then((m) => ({
+    default: m.AdminBroadcastModal,
+  })),
+);
+const AdminUserDetailModal = lazy(() =>
+  import('../components/admin/AdminUserDetailModal').then((m) => ({
+    default: m.AdminUserDetailModal,
+  })),
+);
+
+const AdminTabFallback: React.FC = () => (
+  <div className="flex min-h-[300px] items-center justify-center rounded-2xl border border-border bg-card p-12 text-center">
+    <div className="flex flex-col items-center gap-3">
+      <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      <span className="text-xs font-medium text-muted-foreground">Modul yuklanmoqda...</span>
+    </div>
+  </div>
+);
 
 interface UserRecord {
   id: string;
@@ -105,46 +146,38 @@ export default function AdminDashboardPage() {
   const isJa = language === 'ja';
 
   const [usersList, setUsersList] = useState<UserRecord[]>(() => {
-    if (typeof window !== 'undefined') {
-      try {
-        const cached = localStorage.getItem('study_planner_admin_users_cache');
-        if (cached) {
-          const parsed = JSON.parse(cached);
-          // Purge any legacy demo/mock data
-          if (
-            Array.isArray(parsed) &&
-            parsed.length > 0 &&
-            !parsed.some(
-              (u: any) => u.id?.startsWith('usr-') || u.email?.includes('@tokyo-tech.jp'),
-            )
-          ) {
-            return parsed;
-          }
-          localStorage.removeItem('study_planner_admin_users_cache');
-        }
-      } catch {}
-    }
+    try {
+      const parsed = safeLocalStorage.getJSON<UserRecord[] | null>(
+        'study_planner_admin_users_cache',
+        null,
+      );
+      if (
+        Array.isArray(parsed) &&
+        parsed.length > 0 &&
+        !parsed.some((u: any) => u.id?.startsWith('usr-') || u.email?.includes('@tokyo-tech.jp'))
+      ) {
+        return parsed;
+      }
+      safeLocalStorage.removeItem('study_planner_admin_users_cache');
+    } catch {}
     return [];
   });
 
   const [dailyStats, setDailyStats] = useState<any[]>(() => {
-    if (typeof window !== 'undefined') {
-      try {
-        const cached = localStorage.getItem('study_planner_admin_stats_cache');
-        if (cached) {
-          const parsed = JSON.parse(cached);
-          // Purge legacy mock data if present
-          if (
-            Array.isArray(parsed) &&
-            parsed.length > 0 &&
-            !parsed.some((s: any) => s.activity_date === '2026-08-25' && s.active_users === 18)
-          ) {
-            return parsed;
-          }
-          localStorage.removeItem('study_planner_admin_stats_cache');
-        }
-      } catch {}
-    }
+    try {
+      const parsed = safeLocalStorage.getJSON<any[] | null>(
+        'study_planner_admin_stats_cache',
+        null,
+      );
+      if (
+        Array.isArray(parsed) &&
+        parsed.length > 0 &&
+        !parsed.some((s: any) => s.activity_date === '2026-08-25' && s.active_users === 18)
+      ) {
+        return parsed;
+      }
+      safeLocalStorage.removeItem('study_planner_admin_stats_cache');
+    } catch {}
     return [];
   });
 
@@ -527,13 +560,9 @@ export default function AdminDashboardPage() {
 
     setUsersList(loadedUsers);
     if (loadedUsers.length > 0) {
-      try {
-        localStorage.setItem('study_planner_admin_users_cache', JSON.stringify(loadedUsers));
-      } catch {}
+      safeLocalStorage.setJSON('study_planner_admin_users_cache', loadedUsers);
     } else {
-      try {
-        localStorage.removeItem('study_planner_admin_users_cache');
-      } catch {}
+      safeLocalStorage.removeItem('study_planner_admin_users_cache');
     }
 
     // 3. INDEPENDENT SESSION TABLES FETCH WITH RPC AND DIRECT FALLBACK
@@ -724,9 +753,7 @@ export default function AdminDashboardPage() {
 
     setDailyStats(allDailyStats);
     if (allDailyStats.length > 0) {
-      try {
-        localStorage.setItem('study_planner_admin_stats_cache', JSON.stringify(allDailyStats));
-      } catch {}
+      safeLocalStorage.setJSON('study_planner_admin_stats_cache', allDailyStats);
     }
 
     // 4. AGGREGATE PER-USER STATISTICS FROM REAL SESSIONS
@@ -2226,11 +2253,23 @@ export default function AdminDashboardPage() {
         </div>
       )}
 
-      {activeSection === 'speech' && <AdminSpeechAnalytics records={speechRecords} />}
+      {activeSection === 'speech' && (
+        <Suspense fallback={<AdminTabFallback />}>
+          <AdminSpeechAnalytics records={speechRecords} />
+        </Suspense>
+      )}
 
-      {activeSection === 'scenarios' && <AdminScenarioManager />}
+      {activeSection === 'scenarios' && (
+        <Suspense fallback={<AdminTabFallback />}>
+          <AdminScenarioManager />
+        </Suspense>
+      )}
 
-      {activeSection === 'content' && <AdminContentStudio />}
+      {activeSection === 'content' && (
+        <Suspense fallback={<AdminTabFallback />}>
+          <AdminContentStudio />
+        </Suspense>
+      )}
 
       {/* REAL DB FORENSIC DEBUG INDICATOR BAR */}
       <div className="mt-8 flex flex-wrap items-center justify-between gap-2 rounded-xl border border-slate-800 bg-slate-900 p-3 font-mono text-[11px] text-slate-300">
@@ -2287,24 +2326,32 @@ export default function AdminDashboardPage() {
       </div>
 
       {/* User Profile Detail View Modal */}
-      <AdminUserDetailModal
-        user={selectedDetailUser}
-        userStats={selectedDetailUser ? userStatsMap[selectedDetailUser.id] : undefined}
-        speechRecords={userDetailSpeechRecords}
-        onClose={() => setSelectedDetailUser(null)}
-        onOpenMessageModal={(targetUser) => {
-          setMessageModalUser(targetUser);
-          setSelectedDetailUser(null);
-        }}
-        isJa={isJa}
-      />
+      {selectedDetailUser && (
+        <Suspense fallback={null}>
+          <AdminUserDetailModal
+            user={selectedDetailUser}
+            userStats={selectedDetailUser ? userStatsMap[selectedDetailUser.id] : undefined}
+            speechRecords={userDetailSpeechRecords}
+            onClose={() => setSelectedDetailUser(null)}
+            onOpenMessageModal={(targetUser) => {
+              setMessageModalUser(targetUser);
+              setSelectedDetailUser(null);
+            }}
+            isJa={isJa}
+          />
+        </Suspense>
+      )}
 
       {/* Global Broadcast Announcement Modal */}
-      <AdminBroadcastModal
-        isOpen={isBroadcastOpen}
-        onClose={() => setIsBroadcastOpen(false)}
-        isJa={isJa}
-      />
+      {isBroadcastOpen && (
+        <Suspense fallback={null}>
+          <AdminBroadcastModal
+            isOpen={isBroadcastOpen}
+            onClose={() => setIsBroadcastOpen(false)}
+            isJa={isJa}
+          />
+        </Suspense>
+      )}
 
       {/* Direct User Message Modal */}
       {messageModalUser && (
@@ -2575,18 +2622,30 @@ export default function AdminDashboardPage() {
       )}
 
       {/* Admin Audit History Logs Modal */}
-      <AdminAuditLogsModal
-        isOpen={auditModalOpen}
-        onClose={() => setAuditModalOpen(false)}
-        auditLogs={auditLogs}
-        loading={loadingAuditLogs}
-        isJa={isJa}
-      />
+      {auditModalOpen && (
+        <Suspense fallback={null}>
+          <AdminAuditLogsModal
+            isOpen={auditModalOpen}
+            onClose={() => setAuditModalOpen(false)}
+            auditLogs={auditLogs}
+            loading={loadingAuditLogs}
+            isJa={isJa}
+          />
+        </Suspense>
+      )}
 
       {/* SECRET DEVELOPER DATASET & VOICE VAULT MODAL */}
-      <AdminDatasetVaultModal isOpen={isVaultOpen} onClose={() => setIsVaultOpen(false)} />
+      {isVaultOpen && (
+        <Suspense fallback={null}>
+          <AdminDatasetVaultModal isOpen={isVaultOpen} onClose={() => setIsVaultOpen(false)} />
+        </Suspense>
+      )}
 
-      <AdminAiCardCleanerModal isOpen={isCleanerOpen} onClose={() => setIsCleanerOpen(false)} />
+      {isCleanerOpen && (
+        <Suspense fallback={null}>
+          <AdminAiCardCleanerModal isOpen={isCleanerOpen} onClose={() => setIsCleanerOpen(false)} />
+        </Suspense>
+      )}
     </div>
   );
 }

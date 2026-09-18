@@ -450,6 +450,21 @@ export function telegramApiPlugin() {
             return await handler({ ...req, body }, mockRes);
           }
 
+          // POST /api/telegram/dispatch-daily-dataset (Dataset & telemetry dispatch)
+          if (pathname.includes('dispatch-daily-dataset')) {
+            const handler = (await import('../api/_telegram/dispatch-daily-dataset.js')).default;
+            const mockRes = {
+              setHeader: (k, v) => res.setHeader(k, v),
+              status: (s) => {
+                res.statusCode = s;
+                return mockRes;
+              },
+              json: (d) => sendJson(res.statusCode || 200, d),
+              end: () => res.end(),
+            };
+            return await handler({ ...req, body }, mockRes);
+          }
+
           if (!isValidUuid(userId)) {
             return sendJson(400, { error: 'Invalid or missing user ID / authentication token' });
           }

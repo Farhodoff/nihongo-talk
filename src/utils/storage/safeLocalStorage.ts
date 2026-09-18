@@ -85,6 +85,38 @@ export const safeLocalStorage = {
     }
   },
 
+  key(index: number): string | null {
+    try {
+      if (typeof window === 'undefined' || !window.localStorage) return null;
+      return window.localStorage.key(index);
+    } catch {
+      return null;
+    }
+  },
+
+  get length(): number {
+    try {
+      if (typeof window === 'undefined' || !window.localStorage) return 0;
+      return window.localStorage.length;
+    } catch {
+      return 0;
+    }
+  },
+
+  getAllKeys(): string[] {
+    try {
+      if (typeof window === 'undefined' || !window.localStorage) return [];
+      const keys: string[] = [];
+      for (let i = 0; i < window.localStorage.length; i++) {
+        const k = window.localStorage.key(i);
+        if (k) keys.push(k);
+      }
+      return keys;
+    } catch {
+      return [];
+    }
+  },
+
   getJSON<T>(key: string, defaultValue: T): T {
     const raw = this.getItem(key);
     if (!raw) return defaultValue;

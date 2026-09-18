@@ -424,16 +424,8 @@ export const PersonalLearningPlanService = {
    * Retrieve all weekly evaluations from cache
    */
   getWeeklyEvaluations(userId: string = 'guest'): WeeklyEvaluation[] {
-    try {
-      const raw = localStorage.getItem(EVALS_STORAGE_KEY);
-      if (raw) {
-        const parsed = JSON.parse(raw);
-        if (Array.isArray(parsed)) {
-          return parsed.filter((e: WeeklyEvaluation) => e.userId === userId);
-        }
-      }
-    } catch {}
-    return [];
+    const evals = safeLocalStorage.getJSON<WeeklyEvaluation[]>(EVALS_STORAGE_KEY, []);
+    return Array.isArray(evals) ? evals.filter((e) => e.userId === userId) : [];
   },
 
   /**

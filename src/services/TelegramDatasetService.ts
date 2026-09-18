@@ -7,7 +7,6 @@
 import { supabase } from '../lib/supabase';
 import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
 
-const TELEGRAM_VAULT_TOKEN_KEY = 'nihon_talk_telegram_dataset_bot_token';
 const TELEGRAM_VAULT_CHAT_ID_KEY = 'nihon_talk_telegram_dataset_chat_id';
 
 export interface DailySpeechSummary {
@@ -47,15 +46,12 @@ export class TelegramDatasetService {
   static getStoredConfig(): { botToken: string; chatId: string } {
     if (typeof window === 'undefined') {
       return {
-        botToken: import.meta.env.VITE_TELEGRAM_DATASET_BOT_TOKEN || '',
+        botToken: '',
         chatId: import.meta.env.VITE_TELEGRAM_DATASET_CHAT_ID || '',
       };
     }
     return {
-      botToken:
-        safeLocalStorage.getItem(TELEGRAM_VAULT_TOKEN_KEY) ||
-        import.meta.env.VITE_TELEGRAM_DATASET_BOT_TOKEN ||
-        '',
+      botToken: '',
       chatId:
         safeLocalStorage.getItem(TELEGRAM_VAULT_CHAT_ID_KEY) ||
         import.meta.env.VITE_TELEGRAM_DATASET_CHAT_ID ||
@@ -63,10 +59,12 @@ export class TelegramDatasetService {
     };
   }
 
-  static saveConfig(botToken: string, chatId: string): void {
+  static saveConfig(chatIdOrBotToken: string, maybeChatId?: string): void {
     if (typeof window === 'undefined') return;
-    safeLocalStorage.setItem(TELEGRAM_VAULT_TOKEN_KEY, botToken.trim());
-    safeLocalStorage.setItem(TELEGRAM_VAULT_CHAT_ID_KEY, chatId.trim());
+    const effectiveChatId = (maybeChatId !== undefined ? maybeChatId : chatIdOrBotToken) || '';
+    safeLocalStorage.setItem(TELEGRAM_VAULT_CHAT_ID_KEY, effectiveChatId.trim());
+    // Proactively clean up any legacy bot token from localStorage
+    safeLocalStorage.removeItem('nihon_talk_telegram_dataset_bot_token');
   }
 
   /**
@@ -242,16 +240,20 @@ export class TelegramDatasetService {
 
   /**
    * Send daily summary & transcripts report to private Telegram chat/channel
+   * SECURITY: Never connects directly to api.telegram.org with bot tokens from browser.
+   * Dispatches securely via Supabase Edge Function with serverless API route fallback.
    */
   static async sendDailyReportToTelegram(
     customSummary?: DailySpeechSummary,
+    customChatId?: string,
   ): Promise<{ success: boolean; message: string }> {
-    const { botToken, chatId } = this.getStoredConfig();
-    if (!botToken || !chatId) {
+    const { chatId: storedChatId } = this.getStoredConfig();
+    const chatId = customChatId || storedChatId;
+    if (!chatId) {
       return {
         success: false,
         message:
-          "Telegram Bot Token yoki Chat ID kiritilmagan. Iltimos, maxfiy paneldan sozlamalarni to'ldiring.",
+          "Telegram Chat ID kiritilmagan. Iltimos, maxfiy paneldan guruh yoki kanal Chat ID sini to'ldiring.",
       };
     }
 
@@ -301,20 +303,66 @@ export class TelegramDatasetService {
     messageText += `\n🤖 <i>Nihon Talk Speech Dataset Engine</i>`;
 
     try {
-      const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
-      const resp = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          chat_id: chatId,
-          text: messageText,
-          parse_mode: 'HTML',
-        }),
-      });
+      let sentSuccessfully = false;
 
-      const result = await resp.json();
-      if (!result.ok) {
-        throw new Error(result.description || 'Telegram API xatoligi');
+      // Tier 1: Supabase Edge Function (Primary secure path)
+      try {
+        const { data, error } = await supabase.functions.invoke('send-telegram-notification', {
+          body: {
+            chatId,
+            message: messageText,
+            parse_mode: 'HTML',
+          },
+        });
+
+        if (!error && (data?.success || data?.ok || data?.result?.ok)) {
+          sentSuccessfully = true;
+        } else if (error) {
+          console.warn('[TelegramDatasetService] Edge Function notice:', error);
+        }
+      } catch (edgeErr) {
+        console.warn(
+          '[TelegramDatasetService] Edge Function invoke failed, falling back to server route:',
+          edgeErr,
+        );
+      }
+
+      // Tier 2: Server API Route Fallback (/api/telegram/dispatch-daily-dataset)
+      if (!sentSuccessfully) {
+        try {
+          const {
+            data: { session },
+          } = await supabase.auth.getSession();
+          const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+          if (session?.access_token) {
+            headers['Authorization'] = `Bearer ${session.access_token}`;
+          }
+
+          const fallbackResp = await fetch('/api/telegram/dispatch-daily-dataset', {
+            method: 'POST',
+            headers,
+            body: JSON.stringify({
+              chatId,
+              message: messageText,
+              date: summary.date,
+            }),
+          });
+
+          if (fallbackResp.ok) {
+            const fallbackResult = await fallbackResp.json();
+            if (fallbackResult?.success || fallbackResult?.ok) {
+              sentSuccessfully = true;
+            }
+          }
+        } catch (serverErr) {
+          console.warn('[TelegramDatasetService] Server route fallback failed:', serverErr);
+        }
+      }
+
+      if (!sentSuccessfully) {
+        throw new Error(
+          "Telegramga yuborish amalga oshmadi. Iltimos serverda TELEGRAM_BOT_TOKEN sozlanganini va Chat ID to'g'riligini tekshiring.",
+        );
       }
 
       // CRITICAL: Safe Audio Purge ONLY IF Telegram dispatch succeeded
@@ -355,36 +403,45 @@ export class TelegramDatasetService {
   }
 
   /**
-   * Optional: Send ZIP file directly to Telegram channel as a document
+   * Optional: Send ZIP file directly to Telegram channel as a document via server proxy
    */
   static async sendZipDocumentToTelegram(
     zipBlob: Blob,
     filename: string,
     caption?: string,
+    customChatId?: string,
   ): Promise<{ success: boolean; message: string }> {
-    const { botToken, chatId } = this.getStoredConfig();
-    if (!botToken || !chatId) {
-      return { success: false, message: 'Telegram sozlamalari topilmadi.' };
+    const { chatId: storedChatId } = this.getStoredConfig();
+    const chatId = customChatId || storedChatId;
+    if (!chatId) {
+      return { success: false, message: 'Telegram Chat ID topilmadi.' };
     }
 
     try {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
       const formData = new FormData();
-      formData.append('chat_id', chatId);
+      formData.append('chatId', chatId);
       formData.append('document', zipBlob, filename);
       if (caption) {
         formData.append('caption', caption);
-        formData.append('parse_mode', 'HTML');
       }
 
-      const url = `https://api.telegram.org/bot${botToken}/sendDocument`;
-      const resp = await fetch(url, {
+      const headers: Record<string, string> = {};
+      if (session?.access_token) {
+        headers['Authorization'] = `Bearer ${session.access_token}`;
+      }
+
+      const resp = await fetch('/api/telegram/dispatch-daily-dataset', {
         method: 'POST',
+        headers,
         body: formData,
       });
 
-      const result = await resp.json();
-      if (!result.ok) {
-        throw new Error(result.description || 'Telegram Document yuborishda xatolik');
+      const result = await resp.json().catch(() => ({}));
+      if (!resp.ok || !result.success) {
+        throw new Error(result.error || 'Telegram Document yuborishda xatolik');
       }
 
       return { success: true, message: 'Dataset ZIP fayli Telegram guruhiga yuborildi!' };

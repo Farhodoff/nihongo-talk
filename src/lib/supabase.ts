@@ -131,24 +131,34 @@ const customFetch = async (input: RequestInfo | URL, init?: RequestInit): Promis
     });
   }
 
-  // Already-aborted signals go straight to the fallback path — fetching with a
-  // dead signal only produces an immediate AbortError rejection.
+  const method = (init?.method || 'GET').toUpperCase();
+  const isGet = method === 'GET' || method === 'HEAD';
+  const isMutation =
+    method === 'POST' || method === 'PATCH' || method === 'PUT' || method === 'DELETE';
   const isAuth = urlStr.includes('/auth/v1');
   const isRpc = urlStr.includes('/rpc/');
+
+  // Already-aborted signals go straight to the fallback path — fetching with a
+  // dead signal only produces an immediate AbortError rejection.
   if (init?.signal?.aborted) {
-    return isAuth || isRpc
-      ? new Response(JSON.stringify({ error: 'Request aborted' }), {
-          status: 503,
-          headers: { 'Content-Type': 'application/json' },
-        })
+    return isAuth || isRpc || isMutation
+      ? new Response(
+          JSON.stringify({
+            message: 'Request aborted',
+            code: 'PGRST_ABORTED',
+            details: 'The operation was aborted by the client.',
+          }),
+          {
+            status: 499,
+            statusText: 'Client Closed Request',
+            headers: { 'Content-Type': 'application/json' },
+          },
+        )
       : new Response(JSON.stringify([]), {
           status: 200,
           headers: { 'Content-Type': 'application/json' },
         });
   }
-
-  const method = (init?.method || 'GET').toUpperCase();
-  const isGet = method === 'GET' || method === 'HEAD';
 
   // Helper to safely extract header value from Headers instance, object, or array
   const getHeaderVal = (hdrs: any, name: string): string => {
@@ -221,15 +231,29 @@ const customFetch = async (input: RequestInfo | URL, init?: RequestInit): Promis
         throw err;
       }
 
-      // Return a clean empty array or ok object for REST queries to avoid throwing unhandled rejections
-      const isRpc = urlStr.includes('/rpc/');
-      const isPostOrPatch =
-        !isRpc && (init?.method === 'POST' || init?.method === 'PATCH' || init?.method === 'PUT');
-      const fallbackBody = isPostOrPatch
-        ? JSON.stringify({ success: true, id: 1 })
-        : JSON.stringify([]);
+      // For mutations (POST, PATCH, PUT, DELETE) and RPCs, NEVER return fake 200 OK — that causes
+      // silent data loss and pollutes state with corrupt mock IDs (e.g. { id: 1 }).
+      // Returning a 503 PostgREST-compatible error allows callers (TaskService, FlashcardService, etc.)
+      // to detect the failure and trigger offline caching / local UUID fallbacks.
+      if (isMutation || isRpc) {
+        return new Response(
+          JSON.stringify({
+            message:
+              err instanceof Error ? err.message : 'Network connection failed or device is offline',
+            code: 'PGRST_NETWORK_ERROR',
+            details: 'The network request could not reach the Supabase server.',
+            hint: 'Check network connectivity or retry the operation.',
+          }),
+          {
+            status: 503,
+            statusText: 'Service Unavailable',
+            headers: { 'Content-Type': 'application/json' },
+          },
+        );
+      }
 
-      return new Response(fallbackBody, {
+      // For idempotent read queries (GET/HEAD), return a safe empty array to prevent UI hard crashes
+      return new Response(JSON.stringify([]), {
         status: 200,
         statusText: 'OK',
         headers: { 'Content-Type': 'application/json' },

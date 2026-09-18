@@ -6,6 +6,7 @@ import {
 } from '../data/curriculum/curriculumLessons';
 import { supabase } from '../lib/supabase';
 import { toDeterministicUUID } from '../utils/uuid';
+import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
 
 const PROGRESS_STORAGE_PREFIX = 'study_planner_lesson_progress_';
 
@@ -80,16 +81,7 @@ export const LessonService = {
    */
   getLessonProgress(userId: string, lessonId: string): UserLessonProgress | null {
     const storageKey = `${PROGRESS_STORAGE_PREFIX}${userId || 'guest'}_${lessonId}`;
-    try {
-      const cached = localStorage.getItem(storageKey);
-      if (cached) {
-        return JSON.parse(cached);
-      }
-    } catch (e) {
-      console.warn('[LessonService] Failed to read cached progress:', e);
-    }
-
-    return null;
+    return safeLocalStorage.getJSON<UserLessonProgress | null>(storageKey, null);
   },
 
   /**
@@ -98,11 +90,7 @@ export const LessonService = {
   async saveLessonProgress(userId: string, progress: UserLessonProgress): Promise<void> {
     const activeUserId = userId || 'guest';
     const storageKey = `${PROGRESS_STORAGE_PREFIX}${activeUserId}_${progress.lessonId}`;
-    try {
-      localStorage.setItem(storageKey, JSON.stringify(progress));
-    } catch (e) {
-      console.error('[LessonService] Failed to save progress to localStorage:', e);
-    }
+    safeLocalStorage.setJSON(storageKey, progress);
 
     if (!activeUserId || activeUserId === 'guest') return;
 
@@ -215,7 +203,7 @@ export const LessonService = {
             completedAt: row.completed_at || undefined,
             lastAttemptedAt: row.updated_at || undefined,
           };
-          localStorage.setItem(storageKey, JSON.stringify(mappedProgress));
+          safeLocalStorage.setJSON(storageKey, mappedProgress);
         }
       }
     } catch (e) {

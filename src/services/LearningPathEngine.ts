@@ -21,6 +21,7 @@ import { LessonService } from './LessonService';
 import { RoadmapService } from './RoadmapService';
 import { resolveNextLesson } from './NextLessonResolver';
 import { PersonalLearningPlanService } from './PersonalLearningPlanService';
+import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
 
 export const PROGRESSION_CONFIG = {
   ZERO_LEVEL_LESSON_REQUIREMENT: 1,
@@ -405,13 +406,12 @@ export const LearningPathEngine = {
     // 1. Check if diagnostic is completed and has good confidence (Phase 8.9: both tracks)
     const diagLangCode = isJa ? 'ja' : 'en';
     const hasDiagnostic = state.diagnosticBaseline || state.completedLessonsCount > 0;
-    // Retrieve latest diagnostic from localStorage via mock-safe check
+    // Retrieve latest diagnostic from safeLocalStorage via mock-safe check
     const diagResultKey = `study_planner_diag_result_${state.userId || 'guest'}_${diagLangCode}`;
-    let latestDiag: { overallConfidence?: number } | null = null;
-    try {
-      const rawDiag = localStorage.getItem(diagResultKey);
-      if (rawDiag) latestDiag = JSON.parse(rawDiag) as { overallConfidence?: number };
-    } catch (e) {}
+    const latestDiag = safeLocalStorage.getJSON<{ overallConfidence?: number } | null>(
+      diagResultKey,
+      null,
+    );
 
     if (currentLevel !== 'ZERO' && !hasDiagnostic && !latestDiag) {
       blockers.push(

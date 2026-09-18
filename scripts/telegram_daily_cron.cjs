@@ -6,8 +6,8 @@ const https = require('https');
 const fs = require('fs');
 const path = require('path');
 
-const BOT_TOKEN = process.env.TELEGRAM_DATASET_BOT_TOKEN || process.env.VITE_TELEGRAM_DATASET_BOT_TOKEN || '';
-const CHAT_ID = process.env.TELEGRAM_DATASET_CHAT_ID || process.env.VITE_TELEGRAM_DATASET_CHAT_ID || '';
+const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN || process.env.TELEGRAM_DATASET_BOT_TOKEN || process.env.TELEGRAM_VAULT_BOT_TOKEN || '';
+const CHAT_ID = process.env.TELEGRAM_DATASET_CHAT_ID || process.env.TELEGRAM_VAULT_CHAT_ID || process.env.VITE_TELEGRAM_DATASET_CHAT_ID || '';
 const SUPABASE_URL = process.env.VITE_SUPABASE_URL || '';
 const SUPABASE_KEY = process.env.VITE_SUPABASE_ANON_KEY || '';
 
