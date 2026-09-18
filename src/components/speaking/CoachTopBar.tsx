@@ -13,8 +13,10 @@ interface CoachTopBarProps {
   setShowPersonaSelector: (show: boolean) => void;
   handleLanguageChange: (lang: 'en' | 'ja') => void;
   setPersona: (p: CoachPersona) => void;
-  targetBand: string;
-  setTargetBand: (band: any) => void;
+  targetBand?: string;
+  setTargetBand?: (band: any) => void;
+  targetLevel?: string;
+  setTargetLevel?: (level: any) => void;
   isPaidUser?: boolean;
   isAdmin: boolean;
   isSuperAdmin?: boolean;

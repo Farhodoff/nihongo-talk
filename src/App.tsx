@@ -354,11 +354,19 @@ const App: React.FC = () => {
                       />
                       <Route
                         path="jlpt/grammar"
-                        element={<Navigate to="/jlpt?tab=kanji" replace />}
+                        element={<Navigate to="/jlpt?tab=grammar" replace />}
                       />
                       <Route
                         path="jlpt/grammar-quiz"
-                        element={<Navigate to="/jlpt?tab=kanji" replace />}
+                        element={<Navigate to="/jlpt?tab=grammar" replace />}
+                      />
+                      <Route
+                        path="jlpt/writing"
+                        element={<Navigate to="/jlpt?tab=writing" replace />}
+                      />
+                      <Route
+                        path="jlpt/sakubun"
+                        element={<Navigate to="/jlpt?tab=writing" replace />}
                       />
                       <Route
                         path="jlpt/reading"

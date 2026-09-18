@@ -28,6 +28,9 @@ const JlptReadingPage = lazyWithRetry(() =>
 const JlptListeningMockPage = lazyWithRetry(() =>
   import('./JlptListeningMockPage').then((m) => ({ default: m.JlptListeningMockPage })),
 );
+const JlptWritingPage = lazyWithRetry(() =>
+  import('./JlptWritingPage').then((m) => ({ default: m.JlptWritingPage })),
+);
 const JlptMockExamPage = lazyWithRetry(() =>
   import('./JlptMockExamPage').then((m) => ({ default: m.JlptMockExamPage })),
 );
@@ -99,17 +102,17 @@ export const JlptHubPage: React.FC = () => {
             {/* Shaxsiy Reja */}
             <button
               onClick={() => navigate('/personal-plan')}
-              className="flex cursor-pointer items-center gap-2 rounded-xl bg-primary px-5 py-2.5 text-xs font-bold text-primary-foreground shadow-xs transition-all hover:bg-primary/90 active:scale-95"
+              className="flex items-center gap-1.5 rounded-xl border border-border bg-muted/60 px-3.5 py-2 text-xs font-bold text-foreground transition-all hover:bg-muted active:scale-95"
             >
-              <Target size={15} />
-              <span>{language === 'ja' ? '学習プラン' : 'Shaxsiy Rejam'}</span>
+              <Target size={14} className="text-primary" />
+              <span>{language === 'ja' ? '個人学習プラン' : "Shaxsiy O'quv Rejam"}</span>
             </button>
           </div>
         </div>
       </div>
 
-      {/* Unified JLPT Skill Navigation Tabs */}
-      <div className="scrollbar-none sticky top-0 z-20 flex max-w-full touch-pan-x items-center gap-1.5 overflow-x-auto rounded-2xl border border-border bg-card/90 p-1.5 shadow-xs backdrop-blur-md">
+      {/* Tabs Strip with Horizontal Smooth Scroll */}
+      <div className="no-scrollbar flex items-center gap-2 overflow-x-auto border-b border-border/80 px-1 pb-3">
         <button
           onClick={() => handleTabChange('lessons')}
           className={`flex shrink-0 cursor-pointer touch-manipulation select-none items-center gap-2 whitespace-nowrap rounded-xl px-3.5 py-2.5 text-xs font-bold transition-all active:scale-95 ${
@@ -120,6 +123,17 @@ export const JlptHubPage: React.FC = () => {
         >
           <Sparkles size={15} />{' '}
           {language === 'ja' ? '📚 体系的レッスン (N5–N1)' : '📚 Darsliklar (N5–N1)'}
+        </button>
+
+        <button
+          onClick={() => handleTabChange('grammar')}
+          className={`flex shrink-0 cursor-pointer touch-manipulation select-none items-center gap-2 whitespace-nowrap rounded-xl px-3.5 py-2.5 text-xs font-bold transition-all active:scale-95 ${
+            activeTab === 'grammar'
+              ? 'scale-[1.02] bg-primary text-primary-foreground shadow-xs'
+              : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
+          }`}
+        >
+          <BookOpen size={15} /> {language === 'ja' ? '✍️ 文法' : '✍️ Bunpou (Grammatika)'}
         </button>
 
         <button
@@ -141,7 +155,7 @@ export const JlptHubPage: React.FC = () => {
               : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
           }`}
         >
-          <BookOpen size={15} /> {language === 'ja' ? '📚 語彙' : '📚 Goi'}
+          <Languages size={15} /> {language === 'ja' ? '📚 語彙' : '📚 Goi (Lug‘at)'}
         </button>
 
         <button
@@ -152,7 +166,7 @@ export const JlptHubPage: React.FC = () => {
               : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
           }`}
         >
-          <FileText size={15} /> {language === 'ja' ? '📖 読解' : '📖 Dokkai'}
+          <FileText size={15} /> {language === 'ja' ? '📖 読解' : '📖 Dokkai (O‘qish)'}
         </button>
 
         <button
@@ -163,7 +177,18 @@ export const JlptHubPage: React.FC = () => {
               : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
           }`}
         >
-          <Headphones size={15} /> {language === 'ja' ? '🎧 聴解' : '🎧 Choukai'}
+          <Headphones size={15} /> {language === 'ja' ? '🎧 聴解' : '🎧 Choukai (Tinglash)'}
+        </button>
+
+        <button
+          onClick={() => handleTabChange('writing')}
+          className={`flex shrink-0 cursor-pointer touch-manipulation select-none items-center gap-2 whitespace-nowrap rounded-xl px-3.5 py-2.5 text-xs font-bold transition-all active:scale-95 ${
+            activeTab === 'writing'
+              ? 'scale-[1.02] bg-primary text-primary-foreground shadow-xs'
+              : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
+          }`}
+        >
+          <FileText size={15} /> {language === 'ja' ? '📝 作文' : '📝 Sakubun (Insho)'}
         </button>
 
         <button
@@ -192,7 +217,15 @@ export const JlptHubPage: React.FC = () => {
             <MinnaLessonsExplorer />
           </div>
         )}
-        {/* Tab 1: Kanji Canvas & Bunpou Grammar Master */}
+
+        {/* Tab 1: Bunpou (Grammar) Master */}
+        {activeTab === 'grammar' && (
+          <div className="space-y-6 animate-in fade-in">
+            <JlptGrammarKanjiMaster initialTab="grammar" />
+          </div>
+        )}
+
+        {/* Tab 2: Kanji Canvas & Master */}
         {activeTab === 'kanji' && (
           <div className="space-y-6 animate-in fade-in">
             {/* Collapsible Kanji Canvas Banner */}
@@ -239,33 +272,40 @@ export const JlptHubPage: React.FC = () => {
             </div>
 
             <div>
-              <JlptGrammarKanjiMaster />
+              <JlptGrammarKanjiMaster initialTab="kanji" />
             </div>
           </div>
         )}
 
-        {/* Tab 2: Goi (Vocabulary) Master */}
+        {/* Tab 3: Goi (Vocabulary) Master */}
         {activeTab === 'goi' && (
           <div className="space-y-6 animate-in fade-in">
             <JlptGrammarKanjiMaster initialTab="goi" />
           </div>
         )}
 
-        {/* Tab 3: Dokkai (Reading) */}
+        {/* Tab 4: Dokkai (Reading) */}
         {activeTab === 'reading' && (
           <div className="animate-in fade-in">
             <JlptReadingPage />
           </div>
         )}
 
-        {/* Tab 4: Choukai (Listening) */}
+        {/* Tab 5: Choukai (Listening) */}
         {activeTab === 'listening' && (
           <div className="animate-in fade-in">
             <JlptListeningMockPage />
           </div>
         )}
 
-        {/* Tab 5: Full Mock Exam */}
+        {/* Tab 6: Sakubun (Writing) */}
+        {activeTab === 'writing' && (
+          <div className="animate-in fade-in">
+            <JlptWritingPage />
+          </div>
+        )}
+
+        {/* Tab 7: Full Mock Exam */}
         {activeTab === 'mock' && (
           <div className="animate-in fade-in">
             <JlptMockExamPage />

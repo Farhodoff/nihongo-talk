@@ -40,8 +40,15 @@ const SpeakingCoachPage: React.FC = () => {
   });
 
   const [searchParams, setSearchParams] = useSearchParams();
-  const { user, subjects, addSubject, flashcards, updateFlashcard, addFlashcardsBatch } =
-    useStudyData();
+  const {
+    user,
+    subjects,
+    addSubject,
+    flashcards,
+    updateFlashcard,
+    addFlashcardsBatch,
+    targetLevel,
+  } = useStudyData();
   const isAdmin = isUserAdmin(user);
   const isSuper = isSuperAdmin(user?.email, (user as any)?.role);
 
@@ -75,9 +82,13 @@ const SpeakingCoachPage: React.FC = () => {
   });
 
   const [persona, setPersona] = useState<CoachPersona>('roast');
-  const [targetBand, setTargetBand] = useState<'5.0' | '6.0' | '7.0' | '7.5' | '8.0' | '9.0'>(
-    '7.5',
-  );
+  const [targetJlptLevel, setTargetJlptLevel] = useState<'N5' | 'N4' | 'N3' | 'N2' | 'N1'>(() => {
+    const raw = (targetLevel || '').toUpperCase();
+    if (['N5', 'N4', 'N3', 'N2', 'N1'].includes(raw)) {
+      return raw as any;
+    }
+    return 'N3';
+  });
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
   const [showPersonaSelector, setShowPersonaSelector] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -300,8 +311,10 @@ const SpeakingCoachPage: React.FC = () => {
         setShowPersonaSelector={setShowPersonaSelector}
         handleLanguageChange={() => {}}
         setPersona={setPersona}
-        targetBand={targetBand}
-        setTargetBand={setTargetBand}
+        targetLevel={targetJlptLevel}
+        setTargetLevel={setTargetJlptLevel}
+        targetBand={targetJlptLevel}
+        setTargetBand={setTargetJlptLevel}
         isPaidUser={true}
         isAdmin={isAdmin}
         isSuperAdmin={isSuper}
