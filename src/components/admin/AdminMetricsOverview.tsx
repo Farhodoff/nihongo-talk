@@ -13,6 +13,12 @@ export interface DatabaseResourceMetrics {
   diagnosticResults: number;
   learningGoals: number;
   profiles: number;
+  globalOverrides?: number;
+  writingHistory?: number;
+  mockExams?: number;
+  customKanji?: number;
+  customGrammar?: number;
+  customQuiz?: number;
 }
 
 export interface AdminMetricsOverviewProps {
@@ -214,6 +220,71 @@ export const AdminMetricsOverview: React.FC<AdminMetricsOverviewProps> = ({
             </div>
             <div className="text-[10px] text-muted-foreground">
               {isJa ? '登録済みプロフィール' : "Ro'yxatdan o'tganlar"}
+            </div>
+          </div>
+
+          <div className="space-y-1 rounded-xl border border-border bg-background/80 p-3">
+            <div className="flex items-center justify-between text-[11px] text-muted-foreground">
+              <span>{isJa ? '🌐 グローバル修正' : '🌐 Global Tuzatishlar'}</span>
+              <span className="text-[10px] font-bold text-indigo-400">Overrides</span>
+            </div>
+            <div className="text-xl font-black text-foreground">
+              {(dbMetrics.globalOverrides ?? 0).toLocaleString()} {isJa ? '件' : 'ta'}
+            </div>
+            <div className="text-[10px] text-muted-foreground">
+              {isJa ? '一括適用辞書データ' : "Barcha uchun tuzatilgan so'zlar"}
+            </div>
+          </div>
+
+          <div className="space-y-1 rounded-xl border border-border bg-background/80 p-3">
+            <div className="flex items-center justify-between text-[11px] text-muted-foreground">
+              <span>{isJa ? '✍️ 作文・エッセイ' : '✍️ Sakubun / Insholar'}</span>
+              <span className="text-[10px] font-bold text-purple-400">Writing</span>
+            </div>
+            <div className="text-xl font-black text-foreground">
+              {(dbMetrics.writingHistory ?? 0).toLocaleString()} {isJa ? '件' : 'ta'}
+            </div>
+            <div className="text-[10px] text-muted-foreground">
+              {isJa ? 'AI採点提出ログ' : 'AI tahrir va insho tarixi'}
+            </div>
+          </div>
+
+          <div className="space-y-1 rounded-xl border border-border bg-background/80 p-3">
+            <div className="flex items-center justify-between text-[11px] text-muted-foreground">
+              <span>{isJa ? '📝 模擬試験' : '📝 Mock Imtihonlar'}</span>
+              <span className="text-[10px] font-bold text-amber-400">Exams</span>
+            </div>
+            <div className="text-xl font-black text-foreground">
+              {(dbMetrics.mockExams ?? 0).toLocaleString()} {isJa ? '件' : 'ta'}
+            </div>
+            <div className="text-[10px] text-muted-foreground">
+              {isJa ? 'JLPT・IELTS受験記録' : 'Topshirilgan test natijalari'}
+            </div>
+          </div>
+
+          <div className="space-y-1 rounded-xl border border-border bg-background/80 p-3">
+            <div className="flex items-center justify-between text-[11px] text-muted-foreground">
+              <span>{isJa ? '🈁 カスタム漢字' : '🈁 Maxsus Kanji'}</span>
+              <span className="text-[10px] font-bold text-teal-400">Content</span>
+            </div>
+            <div className="text-xl font-black text-foreground">
+              {(dbMetrics.customKanji ?? 0).toLocaleString()} {isJa ? '字' : 'ta'}
+            </div>
+            <div className="text-[10px] text-muted-foreground">
+              {isJa ? '追加された独自漢字' : "Qo'shilgan maxsus kanjilar"}
+            </div>
+          </div>
+
+          <div className="space-y-1 rounded-xl border border-border bg-background/80 p-3">
+            <div className="flex items-center justify-between text-[11px] text-muted-foreground">
+              <span>{isJa ? '📑 カスタム文法' : '📑 Maxsus Grammatika'}</span>
+              <span className="text-[10px] font-bold text-teal-400">Content</span>
+            </div>
+            <div className="text-xl font-black text-foreground">
+              {(dbMetrics.customGrammar ?? 0).toLocaleString()} {isJa ? '項目' : 'ta'}
+            </div>
+            <div className="text-[10px] text-muted-foreground">
+              {isJa ? '追加された文法規則' : "Qo'shimcha dars qoidalari"}
             </div>
           </div>
         </div>

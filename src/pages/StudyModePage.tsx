@@ -31,6 +31,7 @@ import { isFlashcardAnswerCorrect } from '../utils/flashcardMatching';
 import { useTelegramWebApp } from '../hooks/useTelegramWebApp';
 import { useFlashcardSwipe } from '../hooks/useFlashcardSwipe';
 import { GlobalFlashcardOverrideService } from '../services/GlobalFlashcardOverrideService';
+import { cleanCardFront } from '../components/decks/FlashcardStudySession';
 
 const StudyModePage: React.FC = () => {
   const { subjectId } = useParams<{ subjectId?: string }>();
@@ -307,21 +308,32 @@ const StudyModePage: React.FC = () => {
       }
 
       if (isAdmin && editGlobal) {
-        await GlobalFlashcardOverrideService.saveGlobalOverride(
+        const saved = await GlobalFlashcardOverrideService.saveGlobalOverride(
           {
             word: currentCard.front,
             front: cleanF,
             phonetic: cleanP,
             back: cleanB,
             example: cleanE,
-            deck_id: (currentCard as any).deckId,
+            deck_id:
+              (currentCard as any).deckId || (currentCard as any).subjectId || subjectId || null,
           },
           user?.email || 'admin',
         );
-        toast({
-          title: '🌐 Global Baza Yangilandi',
-          description: "Fleshkarta barcha foydalanuvchilar va production uchun to'liq saqlandi!",
-        });
+        if (saved) {
+          toast({
+            title: '🌐 Global Baza va JSON Yangilandi',
+            description:
+              'Fleshkarta barcha foydalanuvchilar, baza va fayllarda muvaffaqiyatli saqlandi!',
+          });
+        } else {
+          toast({
+            variant: 'destructive',
+            title: '⚠️ Ogohlantirish',
+            description:
+              "O'zgarish mahalliy keshga saqlandi, ammo serverga ulanishda xatolik bo'ldi.",
+          });
+        }
       } else {
         toast({ title: "✅ Kartochka to'g'rilandi va saqlandi" });
       }
@@ -940,7 +952,7 @@ const StudyModePage: React.FC = () => {
               </div>
               <div className="my-auto text-center">
                 <p className="text-2xl font-extrabold tracking-tight text-foreground sm:text-4xl">
-                  {currentCard?.front}
+                  {cleanCardFront(currentCard?.front)}
                 </p>
               </div>
               <p className="text-center text-xs font-medium text-muted-foreground">
@@ -958,15 +970,30 @@ const StudyModePage: React.FC = () => {
                   <Volume2 size={24} />
                 </button>
               </div>
-              <div className="custom-scrollbar my-auto max-h-[220px] space-y-3 overflow-y-auto px-2 text-center">
+              <div className="custom-scrollbar my-auto max-h-[240px] space-y-3 overflow-y-auto px-2 text-center">
                 <div className="whitespace-pre-line text-xl font-black leading-relaxed tracking-wide text-primary md:text-2xl">
                   {currentCard?.back}
                 </div>
-                <div className="border-t border-border pt-3">
-                  <p className="text-xs font-semibold text-muted-foreground">
-                    {currentCard?.front}
+                {currentCard?.phonetic ? (
+                  <p className="text-xs font-semibold text-muted-foreground/90">
+                    {currentCard.phonetic}
                   </p>
-                </div>
+                ) : (
+                  <p className="text-xs font-semibold text-muted-foreground">
+                    {cleanCardFront(currentCard?.front)}
+                  </p>
+                )}
+                {currentCard?.example && (
+                  <div className="mx-auto mt-2 max-w-md rounded-2xl border border-primary/20 bg-primary/10 p-3 text-left shadow-xs">
+                    <div className="mb-1 flex items-center gap-1.5 text-[11px] font-extrabold text-primary">
+                      <span>💬</span>
+                      <span>Misol jumla:</span>
+                    </div>
+                    <p className="whitespace-pre-line text-xs font-semibold leading-relaxed text-foreground sm:text-sm">
+                      {currentCard.example}
+                    </p>
+                  </div>
+                )}
               </div>
               <div className="flex items-center justify-between text-xs font-medium text-muted-foreground">
                 <span className="font-extrabold text-primary sm:hidden">👈 Qayta | Yaxshi 👉</span>

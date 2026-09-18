@@ -18,7 +18,8 @@
     "prepare": "husky",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
-    "test:seo": "node scripts/validate-seo.mjs"
+    "test:seo": "node scripts/validate-seo.mjs",
+    "sync:flashcards": "node scripts/sync_flashcard_overrides.mjs"
   },
   "lint-staged": {
     "*.{ts,tsx}": [

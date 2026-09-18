@@ -1,0 +1,1546 @@
+[
+  {
+    "idx": 33,
+    "front": "お願いします",
+    "category": "Minna no Nihongo 1-dars",
+    "back": "iltimos, so'rayman",
+    "phonetic": "おねがいします - onegaishimasu",
+    "example": "毎日 ]。 (Har kuni iltimos, so'rayman.)"
+  },
+  {
+    "idx": 87,
+    "front": "そう",
+    "category": "Minna no Nihongo 2-dars",
+    "back": "shunday",
+    "phonetic": "そう - sou",
+    "example": "毎日 そう。 (Har kuni shunday.)"
+  },
+  {
+    "idx": 88,
+    "front": "違います。",
+    "category": "Minna no Nihongo 2-dars",
+    "back": "Unaqa emas. / Noto'g'ri.",
+    "phonetic": "ちがいます。 - chigaimasu",
+    "example": "毎日 違います。。 (Har kuni unaqa emas. / noto'g'ri..)"
+  },
+  {
+    "idx": 90,
+    "front": "あのう",
+    "category": "Minna no Nihongo 2-dars",
+    "back": "Haligi… . (Gap boshlash)",
+    "phonetic": "あのう - anou",
+    "example": "毎日 あのう。 (Har kuni haligi… . (gap boshlash).)"
+  },
+  {
+    "idx": 94,
+    "front": "どうもありがとうございます",
+    "category": "Minna no Nihongo 2-dars",
+    "back": "Katta rahmat",
+    "phonetic": "どうもありがとうございます - doumoarigatougozaimasu",
+    "example": "毎日 ありがとう[ございます。 (Har kuni katta rahmat.)"
+  },
+  {
+    "idx": 95,
+    "front": "これからお世話せわになります。",
+    "category": "Minna no Nihongo 2-dars",
+    "back": "Bundan buyon mehr va yordamingizga muhtojman.",
+    "phonetic": "これからお世話せわになります。 - korekaraosewaninarimasu",
+    "example": "毎日 これからお世話になります。。 (Har kuni bundan buyon mehr va yordamingizga muhtojman..)"
+  },
+  {
+    "idx": 134,
+    "front": "～でございます。",
+    "category": "Minna no Nihongo 3-dars",
+    "back": "u kishi (hurmat shakli)",
+    "phonetic": "～でございます。 - degozaimasu",
+    "example": "毎日 でございます。。 (Har kuni u kishi (hurmat shakli).)"
+  },
+  {
+    "idx": 162,
+    "front": "昼",
+    "category": "Minna no Nihongo 4-dars",
+    "back": "tush, kunduzi",
+    "phonetic": "ひる - hiru",
+    "example": "毎日 昼tush,kunduzi。 (Har kuni tush, kunduzi.)"
+  },
+  {
+    "idx": 163,
+    "front": "晩",
+    "category": "Minna no Nihongo 4-dars",
+    "back": "（夜） kech, kechqurun",
+    "phonetic": "ばんよる - banyoru",
+    "example": "毎日 晩夜kech,kechqurun。 (Har kuni （夜） kech, kechqurun.)"
+  },
+  {
+    "idx": 165,
+    "front": "きのう",
+    "category": "Minna no Nihongo 4-dars",
+    "back": "kecha",
+    "phonetic": "きのう - kinou",
+    "example": "毎日 きのう。 (Har kuni kecha.)"
+  },
+  {
+    "idx": 166,
+    "front": "きょう",
+    "category": "Minna no Nihongo 4-dars",
+    "back": "bugun",
+    "phonetic": "きょう - kyou",
+    "example": "毎日 きょう。 (Har kuni bugun.)"
+  },
+  {
+    "idx": 184,
+    "front": "番号",
+    "category": "Minna no Nihongo 4-dars",
+    "back": "raqam",
+    "phonetic": "ばんごう - bangou",
+    "example": "毎日 番号raqam。 (Har kuni raqam.)"
+  },
+  {
+    "idx": 193,
+    "front": "お願ねがいします。",
+    "category": "Minna no Nihongo 4-dars",
+    "back": "Iltimos.",
+    "phonetic": "お願ねがいします。 - onegaishimasu",
+    "example": "毎日 お願いします。。 (Har kuni iltimos..)"
+  },
+  {
+    "idx": 227,
+    "front": "先週",
+    "category": "Minna no Nihongo 5-dars",
+    "back": "o'tgan hafta",
+    "phonetic": "せんしゅう - senshuu",
+    "example": "毎日 先週。 (Har kuni o'tgan hafta.)"
+  },
+  {
+    "idx": 228,
+    "front": "今週",
+    "category": "Minna no Nihongo 5-dars",
+    "back": "bu hafta",
+    "phonetic": "こんしゅう - konshuu",
+    "example": "毎日 今週。 (Har kuni bu hafta.)"
+  },
+  {
+    "idx": 229,
+    "front": "来週",
+    "category": "Minna no Nihongo 5-dars",
+    "back": "kelasi hafta",
+    "phonetic": "らいしゅう - raishuu",
+    "example": "毎日 来週。 (Har kuni kelasi hafta.)"
+  },
+  {
+    "idx": 255,
+    "front": "普通",
+    "category": "Minna no Nihongo 5-dars",
+    "back": "oddiy poyezd",
+    "phonetic": "ふつう - futsuu",
+    "example": "毎日 普通。 (Har kuni oddiy poyezd.)"
+  },
+  {
+    "idx": 256,
+    "front": "急行",
+    "category": "Minna no Nihongo 5-dars",
+    "back": "tez yurar poyezd",
+    "phonetic": "きゅうこう - kyuukou",
+    "example": "毎日 急行。 (Har kuni tez yurar poyezd.)"
+  },
+  {
+    "idx": 257,
+    "front": "特急",
+    "category": "Minna no Nihongo 5-dars",
+    "back": "ekspress (tez yurar) poyezd",
+    "phonetic": "とっきゅう - tokyuu",
+    "example": "毎日 特急。 (Har kuni ekspress (tez yurar) poyezd.)"
+  },
+  {
+    "idx": 265,
+    "front": "食べます",
+    "category": "Minna no Nihongo 6-dars",
+    "back": "yemoq",
+    "phonetic": "たべます - tabemasu",
+    "example": "毎日 食べます。 (Har kuni yemoq.)"
+  },
+  {
+    "idx": 266,
+    "front": "飲みます",
+    "category": "Minna no Nihongo 6-dars",
+    "back": "ichmoq",
+    "phonetic": "のみます - nomimasu",
+    "example": "毎日 飲みます。 (Har kuni ichmoq.)"
+  },
+  {
+    "idx": 267,
+    "front": "吸います",
+    "category": "Minna no Nihongo 6-dars",
+    "back": "chekmoq",
+    "phonetic": "すいます - suimasu",
+    "example": "毎日 吸います。 (Har kuni chekmoq.)"
+  },
+  {
+    "idx": 269,
+    "front": "見ます",
+    "category": "Minna no Nihongo 6-dars",
+    "back": "ko'rmoq",
+    "phonetic": "みます - mimasu",
+    "example": "毎日 見ます。 (Har kuni ko'rmoq.)"
+  },
+  {
+    "idx": 270,
+    "front": "聞きます",
+    "category": "Minna no Nihongo 6-dars",
+    "back": "eshitmoq",
+    "phonetic": "ききます - kikimasu",
+    "example": "毎日 聞きます。 (Har kuni eshitmoq.)"
+  },
+  {
+    "idx": 271,
+    "front": "読みます",
+    "category": "Minna no Nihongo 6-dars",
+    "back": "o'qimoq",
+    "phonetic": "よみます - yomimasu",
+    "example": "毎日 読みます。 (Har kuni o'qimoq.)"
+  },
+  {
+    "idx": 272,
+    "front": "書きます",
+    "category": "Minna no Nihongo 6-dars",
+    "back": "yozmoq",
+    "phonetic": "かきます - kakimasu",
+    "example": "毎日 書きます。 (Har kuni yozmoq.)"
+  },
+  {
+    "idx": 273,
+    "front": "買います",
+    "category": "Minna no Nihongo 6-dars",
+    "back": "sotib olmoq",
+    "phonetic": "かいます - kaimasu",
+    "example": "毎日 買います。 (Har kuni sotib olmoq.)"
+  },
+  {
+    "idx": 274,
+    "front": "撮ります",
+    "category": "Minna no Nihongo 6-dars",
+    "back": "olmoq",
+    "phonetic": "とります - torimasu",
+    "example": "毎日 撮ります。 (Har kuni olmoq.)"
+  },
+  {
+    "idx": 277,
+    "front": "会います",
+    "category": "Minna no Nihongo 6-dars",
+    "back": "uchratmoq",
+    "phonetic": "あいます - aimasu",
+    "example": "毎日 会います。 (Har kuni uchratmoq.)"
+  },
+  {
+    "idx": 323,
+    "front": "切ります",
+    "category": "Minna no Nihongo 7-dars",
+    "back": "kesmoq (pichoqda), qirqmoq (qaychida)",
+    "phonetic": "きります - kirimasu",
+    "example": "毎日 切ります。 (Har kuni kesmoq (pichoqda), qirqmoq (qaychida).)"
+  },
+  {
+    "idx": 324,
+    "front": "送ります",
+    "category": "Minna no Nihongo 7-dars",
+    "back": "jo'natmoq",
+    "phonetic": "おくります - okurimasu",
+    "example": "毎日 送ります。 (Har kuni jo'natmoq.)"
+  },
+  {
+    "idx": 325,
+    "front": "あげます",
+    "category": "Minna no Nihongo 7-dars",
+    "back": "bermoq, sovg'a qilmoq",
+    "phonetic": "あげます - agemasu",
+    "example": "毎日 あげます。 (Har kuni bermoq, sovg'a qilmoq.)"
+  },
+  {
+    "idx": 326,
+    "front": "もらいます",
+    "category": "Minna no Nihongo 7-dars",
+    "back": "olmoq",
+    "phonetic": "もらいます - moraimasu",
+    "example": "毎日 もらいます。 (Har kuni olmoq.)"
+  },
+  {
+    "idx": 327,
+    "front": "貸します",
+    "category": "Minna no Nihongo 7-dars",
+    "back": "qarzga bermoq, berib turmoq",
+    "phonetic": "かします - kashimasu",
+    "example": "毎日 貸します。 (Har kuni qarzga bermoq, berib turmoq.)"
+  },
+  {
+    "idx": 328,
+    "front": "借ります",
+    "category": "Minna no Nihongo 7-dars",
+    "back": "qarzga olmoq, olib turmoq",
+    "phonetic": "かります - karimasu",
+    "example": "毎日 借ります。 (Har kuni qarzga olmoq, olib turmoq.)"
+  },
+  {
+    "idx": 329,
+    "front": "教えます",
+    "category": "Minna no Nihongo 7-dars",
+    "back": "o'rgatmoq, saboq bermoq",
+    "phonetic": "おしえます - oshiemasu",
+    "example": "毎日 教えます。 (Har kuni o'rgatmoq, saboq bermoq.)"
+  },
+  {
+    "idx": 330,
+    "front": "習います",
+    "category": "Minna no Nihongo 7-dars",
+    "back": "o'rganmoq, saboq olmoq",
+    "phonetic": "ならいます - naraimasu",
+    "example": "毎日 習います。 (Har kuni o'rganmoq, saboq olmoq.)"
+  },
+  {
+    "idx": 331,
+    "front": "かけます",
+    "category": "Minna no Nihongo 7-dars",
+    "back": "(qo'ng'iroq) qilmoq",
+    "phonetic": "かけます - kakemasu",
+    "example": "毎日 かけます。 (Har kuni (qo'ng'iroq) qilmoq.)"
+  },
+  {
+    "idx": 358,
+    "front": "もう",
+    "category": "Minna no Nihongo 7-dars",
+    "back": "allaqachon, ~ib bo'ldi(~m,~ ing); endi",
+    "phonetic": "もう - mou",
+    "example": "毎日 もう。 (Har kuni allaqachon, ~ib bo'ldi(~m,~ ing); endi.)"
+  },
+  {
+    "idx": 365,
+    "front": "失礼しつれいします。",
+    "category": "Minna no Nihongo 7-dars",
+    "back": "Rahmat. / Sizni ham bezovta qilib qo'ydim.",
+    "phonetic": "失礼しつれいします。 - shitsureishimasu",
+    "example": "毎日 失礼します。。 (Har kuni rahmat. / sizni ham bezovta qilib qo'ydim..)"
+  },
+  {
+    "idx": 367,
+    "front": "いただきます。",
+    "category": "Minna no Nihongo 7-dars",
+    "back": "(Yeyish, ichishdan oldin qo'llaniladigan ibora )",
+    "phonetic": "いただきます。 - itadakimasu",
+    "example": "毎日 いただきます。。 (Har kuni (yeyish, ichishdan oldin qo'llaniladigan ibora ).)"
+  },
+  {
+    "idx": 410,
+    "front": "寮",
+    "category": "Minna no Nihongo 8-dars",
+    "back": "yotoqxona",
+    "phonetic": "りょう - ryou",
+    "example": "毎日 寮。 (Har kuni yotoqxona.)"
+  },
+  {
+    "idx": 411,
+    "front": "勉強",
+    "category": "Minna no Nihongo 8-dars",
+    "back": "dars, mashg'ulot",
+    "phonetic": "べんきょう - benkyou",
+    "example": "毎日 勉強。 (Har kuni dars, mashg'ulot.)"
+  },
+  {
+    "idx": 414,
+    "front": "どう",
+    "category": "Minna no Nihongo 8-dars",
+    "back": "qanday, qanaqa",
+    "phonetic": "どう - dou",
+    "example": "毎日 どう。 (Har kuni qanday, qanaqa.)"
+  },
+  {
+    "idx": 427,
+    "front": "そろそろ失礼しつれいします。",
+    "category": "Minna no Nihongo 8-dars",
+    "back": "Endi bizga ruxsat.",
+    "phonetic": "そろそろ失礼しつれいします。 - sorosoroshitsureishimasu",
+    "example": "毎日 そろそろ失礼します。。 (Har kuni endi bizga ruxsat..)"
+  },
+  {
+    "idx": 434,
+    "front": "わかります",
+    "category": "Minna no Nihongo 9-dars",
+    "back": "tushunmoq",
+    "phonetic": "わかります - wakarimasu",
+    "example": "毎日 わかります。 (Har kuni tushunmoq.)"
+  },
+  {
+    "idx": 435,
+    "front": "あります",
+    "category": "Minna no Nihongo 9-dars",
+    "back": "bor (bo'lmoq)",
+    "phonetic": "あります - arimasu",
+    "example": "毎日 あります。 (Har kuni bor (bo'lmoq).)"
+  },
+  {
+    "idx": 443,
+    "front": "野球",
+    "category": "Minna no Nihongo 9-dars",
+    "back": "beysbol",
+    "phonetic": "やきゅう - yakyuu",
+    "example": "毎日 野球。 (Har kuni beysbol.)"
+  },
+  {
+    "idx": 483,
+    "front": "また今こん度どお願ねがいします。",
+    "category": "Minna no Nihongo 9-dars",
+    "back": "Yanagi safar. / Boshqa safar",
+    "phonetic": "また今こん度どお願ねがいします。 - matakondoonegaishimasu",
+    "example": "毎日 また今度お願いします。。 (Har kuni yanagi safar. / boshqa safar.)"
+  },
+  {
+    "idx": 485,
+    "front": "います",
+    "category": "Minna no Nihongo 10-dars",
+    "back": "bor (bo'lmoq) (jonli narsalarga)",
+    "phonetic": "います - imasu",
+    "example": "毎日 います。 (Har kuni bor (bo'lmoq) (jonli narsalarga).)"
+  },
+  {
+    "idx": 486,
+    "front": "あります",
+    "category": "Minna no Nihongo 10-dars",
+    "back": "bor (bo'lmoq) (jonsiz narsalarga)",
+    "phonetic": "あります - arimasu",
+    "example": "毎日 あります。 (Har kuni bor (bo'lmoq) (jonsiz narsalarga).)"
+  },
+  {
+    "idx": 534,
+    "front": "います",
+    "category": "Minna no Nihongo 11-dars",
+    "back": "bor (bo'lmoq)",
+    "phonetic": "います - imasu",
+    "example": "毎日 います。 (Har kuni bor (bo'lmoq).)"
+  },
+  {
+    "idx": 537,
+    "front": "かかります",
+    "category": "Minna no Nihongo 11-dars",
+    "back": "sarf bo'lmoq, ketmoq (pul yoki vaqt)",
+    "phonetic": "かかります - kakarimasu",
+    "example": "毎日 かかります。 (Har kuni sarf bo'lmoq, ketmoq (pul yoki vaqt).)"
+  },
+  {
+    "idx": 564,
+    "front": "封筒",
+    "category": "Minna no Nihongo 11-dars",
+    "back": "konvert",
+    "phonetic": "ふうとう - fuutou",
+    "example": "毎日 封筒。 (Har kuni konvert.)"
+  },
+  {
+    "idx": 595,
+    "front": "行いってまいります。",
+    "category": "Minna no Nihongo 11-dars",
+    "back": "Yaxshi qoling(lar).",
+    "phonetic": "行いってまいります。 - itemairimasu",
+    "example": "毎日 行ってまいります。。 (Har kuni yaxshi qoling(lar)..)"
+  },
+  {
+    "idx": 615,
+    "front": "春",
+    "category": "Minna no Nihongo 12-dars",
+    "back": "bahor",
+    "phonetic": "はる - haru",
+    "example": "毎日 春。 (Har kuni bahor.)"
+  },
+  {
+    "idx": 624,
+    "front": "空港",
+    "category": "Minna no Nihongo 12-dars",
+    "back": "aeroport",
+    "phonetic": "くうこう - kuukou",
+    "example": "毎日 空港。 (Har kuni aeroport.)"
+  },
+  {
+    "idx": 651,
+    "front": "遊びます",
+    "category": "Minna no Nihongo 13-dars",
+    "back": "o'ynamoq, ko'ngil ochmoq",
+    "phonetic": "あそびます - asobimasu",
+    "example": "毎日 遊びます。 (Har kuni o'ynamoq, ko'ngil ochmoq.)"
+  },
+  {
+    "idx": 652,
+    "front": "泳ぎます",
+    "category": "Minna no Nihongo 13-dars",
+    "back": "cho'milmoq, suzmoq",
+    "phonetic": "およぎます - oyogimasu",
+    "example": "毎日 泳ぎます。 (Har kuni cho'milmoq, suzmoq.)"
+  },
+  {
+    "idx": 653,
+    "front": "迎えます",
+    "category": "Minna no Nihongo 13-dars",
+    "back": "kutib olmoq",
+    "phonetic": "むかえます - mukaemasu",
+    "example": "毎日 迎えます。 (Har kuni kutib olmoq.)"
+  },
+  {
+    "idx": 654,
+    "front": "疲れます",
+    "category": "Minna no Nihongo 13-dars",
+    "back": "charchamoq",
+    "phonetic": "つかれます - tsukaremasu",
+    "example": "毎日 疲れます。 (Har kuni charchamoq.)"
+  },
+  {
+    "idx": 655,
+    "front": "出します",
+    "category": "Minna no Nihongo 13-dars",
+    "back": "jo'natmoq",
+    "phonetic": "だします - dashimasu",
+    "example": "毎日 出します。 (Har kuni jo'natmoq.)"
+  },
+  {
+    "idx": 657,
+    "front": "入ります",
+    "category": "Minna no Nihongo 13-dars",
+    "back": "kirmoq",
+    "phonetic": "はいります - hairimasu",
+    "example": "毎日 入ります。 (Har kuni kirmoq.)"
+  },
+  {
+    "idx": 659,
+    "front": "出ます",
+    "category": "Minna no Nihongo 13-dars",
+    "back": "chiqmoq",
+    "phonetic": "でます - demasu",
+    "example": "毎日 出ます。 (Har kuni chiqmoq.)"
+  },
+  {
+    "idx": 661,
+    "front": "結婚します",
+    "category": "Minna no Nihongo 13-dars",
+    "back": "turmush qurmoq",
+    "phonetic": "けっこんします - kekonshimasu",
+    "example": "毎日 結婚します。 (Har kuni turmush qurmoq.)"
+  },
+  {
+    "idx": 662,
+    "front": "買い物します",
+    "category": "Minna no Nihongo 13-dars",
+    "back": "xarid qilmoq",
+    "phonetic": "かいものします - kaimonoshimasu",
+    "example": "毎日 買い物します。 (Har kuni xarid qilmoq.)"
+  },
+  {
+    "idx": 663,
+    "front": "食事します",
+    "category": "Minna no Nihongo 13-dars",
+    "back": "ovqatlanmoq",
+    "phonetic": "しょくじします - shokujishimasu",
+    "example": "毎日 食事します。 (Har kuni ovqatlanmoq.)"
+  },
+  {
+    "idx": 664,
+    "front": "散歩します",
+    "category": "Minna no Nihongo 13-dars",
+    "back": "sayr qilmoq",
+    "phonetic": "さんぽします - sanposhimasu",
+    "example": "毎日 散歩します。 (Har kuni sayr qilmoq.)"
+  },
+  {
+    "idx": 697,
+    "front": "つけます",
+    "category": "Minna no Nihongo 14-dars",
+    "back": "yo'qmoq",
+    "phonetic": "つけます - tsukemasu",
+    "example": "毎日 つけます。 (Har kuni yo'qmoq.)"
+  },
+  {
+    "idx": 698,
+    "front": "消します",
+    "category": "Minna no Nihongo 14-dars",
+    "back": "o'chirmoq",
+    "phonetic": "けします - keshimasu",
+    "example": "毎日 消します。 (Har kuni o'chirmoq.)"
+  },
+  {
+    "idx": 699,
+    "front": "開けます",
+    "category": "Minna no Nihongo 14-dars",
+    "back": "ochmoq",
+    "phonetic": "あけます - akemasu",
+    "example": "毎日 開けます。 (Har kuni ochmoq.)"
+  },
+  {
+    "idx": 700,
+    "front": "閉めます",
+    "category": "Minna no Nihongo 14-dars",
+    "back": "yopmoq",
+    "phonetic": "しめます - shimemasu",
+    "example": "毎日 閉めます。 (Har kuni yopmoq.)"
+  },
+  {
+    "idx": 701,
+    "front": "急ぎます",
+    "category": "Minna no Nihongo 14-dars",
+    "back": "shoshmoq",
+    "phonetic": "いそぎます - isogimasu",
+    "example": "毎日 急ぎます。 (Har kuni shoshmoq.)"
+  },
+  {
+    "idx": 702,
+    "front": "待ちます",
+    "category": "Minna no Nihongo 14-dars",
+    "back": "kutmoq",
+    "phonetic": "まちます - machimasu",
+    "example": "毎日 待ちます。 (Har kuni kutmoq.)"
+  },
+  {
+    "idx": 703,
+    "front": "止めます",
+    "category": "Minna no Nihongo 14-dars",
+    "back": "to'xtatmoq",
+    "phonetic": "とめます - tomemasu",
+    "example": "毎日 止めます。 (Har kuni to'xtatmoq.)"
+  },
+  {
+    "idx": 704,
+    "front": "曲がります",
+    "category": "Minna no Nihongo 14-dars",
+    "back": "burilmoq, qayrilmoq",
+    "phonetic": "まがります - magarimasu",
+    "example": "毎日 曲がります。 (Har kuni burilmoq, qayrilmoq.)"
+  },
+  {
+    "idx": 706,
+    "front": "持ちます",
+    "category": "Minna no Nihongo 14-dars",
+    "back": "ushlab turmoq",
+    "phonetic": "もちます - mochimasu",
+    "example": "毎日 持ちます。 (Har kuni ushlab turmoq.)"
+  },
+  {
+    "idx": 708,
+    "front": "手伝います",
+    "category": "Minna no Nihongo 14-dars",
+    "back": "yordam bermoq, ko'maklashmoq",
+    "phonetic": "てつだいます - tetsudaimasu",
+    "example": "毎日 手伝います。 (Har kuni yordam bermoq, ko'maklashmoq.)"
+  },
+  {
+    "idx": 709,
+    "front": "呼びます",
+    "category": "Minna no Nihongo 14-dars",
+    "back": "chaqirmoq",
+    "phonetic": "よびます - yobimasu",
+    "example": "毎日 呼びます。 (Har kuni chaqirmoq.)"
+  },
+  {
+    "idx": 710,
+    "front": "話します",
+    "category": "Minna no Nihongo 14-dars",
+    "back": "suhbatlashmoq",
+    "phonetic": "はなします - hanashimasu",
+    "example": "毎日 話します。 (Har kuni suhbatlashmoq.)"
+  },
+  {
+    "idx": 711,
+    "front": "見せます",
+    "category": "Minna no Nihongo 14-dars",
+    "back": "ko'rsatmoq",
+    "phonetic": "みせます - misemasu",
+    "example": "毎日 見せます。 (Har kuni ko'rsatmoq.)"
+  },
+  {
+    "idx": 712,
+    "front": "教えます",
+    "category": "Minna no Nihongo 14-dars",
+    "back": "o'rgatmoq, aytmoq, tushuntirmoq",
+    "phonetic": "おしえます - oshiemasu",
+    "example": "毎日 教えます。 (Har kuni o'rgatmoq, aytmoq, tushuntirmoq.)"
+  },
+  {
+    "idx": 714,
+    "front": "始めます",
+    "category": "Minna no Nihongo 14-dars",
+    "back": "boshlamoq",
+    "phonetic": "はじめます - hajimemasu",
+    "example": "毎日 始めます。 (Har kuni boshlamoq.)"
+  },
+  {
+    "idx": 715,
+    "front": "降ります",
+    "category": "Minna no Nihongo 14-dars",
+    "back": "yog'moq",
+    "phonetic": "ふります - furimasu",
+    "example": "毎日 降ります。 (Har kuni yog'moq.)"
+  },
+  {
+    "idx": 717,
+    "front": "コピーします",
+    "category": "Minna no Nihongo 14-dars",
+    "back": "nusxa ko'chirmoq",
+    "phonetic": "コピーします - kopi-shimasu",
+    "example": "毎日 コピーします。 (Har kuni nusxa ko'chirmoq.)"
+  },
+  {
+    "idx": 724,
+    "front": "砂糖",
+    "category": "Minna no Nihongo 14-dars",
+    "back": "shakar, qand",
+    "phonetic": "さとう - satou",
+    "example": "毎日 砂糖。 (Har kuni shakar, qand.)"
+  },
+  {
+    "idx": 732,
+    "front": "もう～",
+    "category": "Minna no Nihongo 14-dars",
+    "back": "yana~",
+    "phonetic": "もう～ - mou",
+    "example": "毎日 もう。 (Har kuni yana~.)"
+  },
+  {
+    "idx": 738,
+    "front": "これでお願ねがいします。",
+    "category": "Minna no Nihongo 14-dars",
+    "back": "Buni oling, marhamat.",
+    "phonetic": "これでお願ねがいします。 - koredeonegaishimasu",
+    "example": "毎日 これでお願いします。。 (Har kuni buni oling, marhamat..)"
+  },
+  {
+    "idx": 741,
+    "front": "立ちます",
+    "category": "Minna no Nihongo 15-dars",
+    "back": "turmoq",
+    "phonetic": "たちます - tachimasu",
+    "example": "毎日 立ちます。 (Har kuni turmoq.)"
+  },
+  {
+    "idx": 742,
+    "front": "座ります",
+    "category": "Minna no Nihongo 15-dars",
+    "back": "o'tirmoq",
+    "phonetic": "すわります - suwarimasu",
+    "example": "毎日 座ります。 (Har kuni o'tirmoq.)"
+  },
+  {
+    "idx": 743,
+    "front": "使います",
+    "category": "Minna no Nihongo 15-dars",
+    "back": "foydalanmoq, qo'llamoq, ishlatmoq",
+    "phonetic": "つかいます - tsukaimasu",
+    "example": "毎日 使います。 (Har kuni foydalanmoq, qo'llamoq, ishlatmoq.)"
+  },
+  {
+    "idx": 745,
+    "front": "作ります、",
+    "category": "Minna no Nihongo 15-dars",
+    "back": "yasamoq; tayyorlamoq, pishirmoq 造ります",
+    "phonetic": "つくります - tsukurimasu",
+    "example": "毎日 作ります、。 (Har kuni yasamoq; tayyorlamoq, pishirmoq 造ります.)"
+  },
+  {
+    "idx": 746,
+    "front": "売ります",
+    "category": "Minna no Nihongo 15-dars",
+    "back": "sotmoq",
+    "phonetic": "うります - urimasu",
+    "example": "毎日 売ります。 (Har kuni sotmoq.)"
+  },
+  {
+    "idx": 747,
+    "front": "知ります",
+    "category": "Minna no Nihongo 15-dars",
+    "back": "bilmoq",
+    "phonetic": "しります - shirimasu",
+    "example": "毎日 知ります。 (Har kuni bilmoq.)"
+  },
+  {
+    "idx": 748,
+    "front": "住みます",
+    "category": "Minna no Nihongo 15-dars",
+    "back": "yashamoq",
+    "phonetic": "すみます - sumimasu",
+    "example": "毎日 住みます。 (Har kuni yashamoq.)"
+  },
+  {
+    "idx": 749,
+    "front": "研究します",
+    "category": "Minna no Nihongo 15-dars",
+    "back": "ilmiy tadqiqot olib bormoq",
+    "phonetic": "けんきゅうします - kenkyuushimasu",
+    "example": "毎日 研究します。 (Har kuni ilmiy tadqiqot olib bormoq.)"
+  },
+  {
+    "idx": 750,
+    "front": "知っています",
+    "category": "Minna no Nihongo 15-dars",
+    "back": "bila(~man, ~san, ~di)",
+    "phonetic": "しっています - shiteimasu",
+    "example": "毎日 知っています。 (Har kuni bila(~man, ~san, ~di).)"
+  },
+  {
+    "idx": 751,
+    "front": "住んでいます",
+    "category": "Minna no Nihongo 15-dars",
+    "back": "yashayap(~man, san, ~ti)",
+    "phonetic": "すんでいます - sundeimasu",
+    "example": "毎日 住んでいます。 (Har kuni yashayap(~man, san, ~ti).)"
+  },
+  {
+    "idx": 753,
+    "front": "資料",
+    "category": "Minna no Nihongo 15-dars",
+    "back": "material, ma'lumot",
+    "phonetic": "しりょう - shiryou",
+    "example": "毎日 資料。 (Har kuni material, ma'lumot.)"
+  },
+  {
+    "idx": 755,
+    "front": "時刻表",
+    "category": "Minna no Nihongo 15-dars",
+    "back": "vaqt jadval",
+    "phonetic": "じこくひょう - jikokuhyou",
+    "example": "毎日 時刻表。 (Har kuni vaqt jadval.)"
+  },
+  {
+    "idx": 765,
+    "front": "思おもい出だします",
+    "category": "Minna no Nihongo 15-dars",
+    "back": "yodga olmoq, xotirlamoq",
+    "phonetic": "思おもい出だします - omoidashimasu",
+    "example": "毎日 思い出します。 (Har kuni yodga olmoq, xotirlamoq.)"
+  },
+  {
+    "idx": 767,
+    "front": "いらっしゃいます",
+    "category": "Minna no Nihongo 15-dars",
+    "back": "u kishi (hurmat shakli)",
+    "phonetic": "いらっしゃいます - irashaimasu",
+    "example": "毎日 いらっしゃいます。 (Har kuni u kishi (hurmat shakli).)"
+  },
+  {
+    "idx": 770,
+    "front": "乗ります",
+    "category": "Minna no Nihongo 16-dars",
+    "back": "minmoq, chiqmoq",
+    "phonetic": "のります - norimasu",
+    "example": "毎日 乗ります。 (Har kuni minmoq, chiqmoq.)"
+  },
+  {
+    "idx": 772,
+    "front": "降ります",
+    "category": "Minna no Nihongo 16-dars",
+    "back": "tushmoq",
+    "phonetic": "おります - orimasu",
+    "example": "毎日 降ります。 (Har kuni tushmoq.)"
+  },
+  {
+    "idx": 774,
+    "front": "乗り換えます",
+    "category": "Minna no Nihongo 16-dars",
+    "back": "boshqa transportga almashmoq",
+    "phonetic": "のりかえます - norikaemasu",
+    "example": "毎日 乗り換えます。 (Har kuni boshqa transportga almashmoq.)"
+  },
+  {
+    "idx": 775,
+    "front": "浴びます",
+    "category": "Minna no Nihongo 16-dars",
+    "back": "qabul qilmoq",
+    "phonetic": "あびます - abimasu",
+    "example": "毎日 浴びます。 (Har kuni qabul qilmoq.)"
+  },
+  {
+    "idx": 777,
+    "front": "入れます",
+    "category": "Minna no Nihongo 16-dars",
+    "back": "solmoq, joylamoq",
+    "phonetic": "いれます - iremasu",
+    "example": "毎日 入れます。 (Har kuni solmoq, joylamoq.)"
+  },
+  {
+    "idx": 778,
+    "front": "出します",
+    "category": "Minna no Nihongo 16-dars",
+    "back": "chiqarmoq, olmoq (biror narasa ichidan)",
+    "phonetic": "だします - dashimasu",
+    "example": "毎日 出します。 (Har kuni chiqarmoq, olmoq (biror narasa ichidan).)"
+  },
+  {
+    "idx": 779,
+    "front": "入ります",
+    "category": "Minna no Nihongo 16-dars",
+    "back": "kirmoq",
+    "phonetic": "はいります - hairimasu",
+    "example": "毎日 入ります。 (Har kuni kirmoq.)"
+  },
+  {
+    "idx": 781,
+    "front": "出ます",
+    "category": "Minna no Nihongo 16-dars",
+    "back": "bitirmoq, tugatmoq",
+    "phonetic": "でます - demasu",
+    "example": "毎日 出ます。 (Har kuni bitirmoq, tugatmoq.)"
+  },
+  {
+    "idx": 783,
+    "front": "やめます",
+    "category": "Minna no Nihongo 16-dars",
+    "back": "ketmoq, tashlamoq; bas qilmoq",
+    "phonetic": "やめます - yamemasu",
+    "example": "毎日 やめます。 (Har kuni ketmoq, tashlamoq; bas qilmoq.)"
+  },
+  {
+    "idx": 785,
+    "front": "押します",
+    "category": "Minna no Nihongo 16-dars",
+    "back": "bosmoq; itarmoq",
+    "phonetic": "おします - oshimasu",
+    "example": "毎日 押します。 (Har kuni bosmoq; itarmoq.)"
+  },
+  {
+    "idx": 830,
+    "front": "覚えます",
+    "category": "Minna no Nihongo 17-dars",
+    "back": "yod olmoq",
+    "phonetic": "おぼえます - oboemasu",
+    "example": "毎日 覚えます。 (Har kuni yod olmoq.)"
+  },
+  {
+    "idx": 831,
+    "front": "忘れます",
+    "category": "Minna no Nihongo 17-dars",
+    "back": "unutmoq, esdan chiqarmoq",
+    "phonetic": "わすれます - wasuremasu",
+    "example": "毎日 忘れます。 (Har kuni unutmoq, esdan chiqarmoq.)"
+  },
+  {
+    "idx": 832,
+    "front": "なくします",
+    "category": "Minna no Nihongo 17-dars",
+    "back": "yo'qotmoq",
+    "phonetic": "なくします - nakushimasu",
+    "example": "毎日 なくします。 (Har kuni yo'qotmoq.)"
+  },
+  {
+    "idx": 833,
+    "front": "出します",
+    "category": "Minna no Nihongo 17-dars",
+    "back": "topshirmoq",
+    "phonetic": "だします - dashimasu",
+    "example": "毎日 出します。 (Har kuni topshirmoq.)"
+  },
+  {
+    "idx": 835,
+    "front": "払います",
+    "category": "Minna no Nihongo 17-dars",
+    "back": "to'lamoq",
+    "phonetic": "はらいます - haraimasu",
+    "example": "毎日 払います。 (Har kuni to'lamoq.)"
+  },
+  {
+    "idx": 836,
+    "front": "返します",
+    "category": "Minna no Nihongo 17-dars",
+    "back": "qaytarib bermoq",
+    "phonetic": "かえします - kaeshimasu",
+    "example": "毎日 返します。 (Har kuni qaytarib bermoq.)"
+  },
+  {
+    "idx": 837,
+    "front": "出かけます",
+    "category": "Minna no Nihongo 17-dars",
+    "back": "chiqib ketmoq",
+    "phonetic": "でかけます - dekakemasu",
+    "example": "毎日 出かけます。 (Har kuni chiqib ketmoq.)"
+  },
+  {
+    "idx": 838,
+    "front": "脱ぎます",
+    "category": "Minna no Nihongo 17-dars",
+    "back": "yechmoq (kiyimni ~)",
+    "phonetic": "ぬぎます - nugimasu",
+    "example": "毎日 脱ぎます。 (Har kuni yechmoq (kiyimni ~).)"
+  },
+  {
+    "idx": 839,
+    "front": "持って行きます",
+    "category": "Minna no Nihongo 17-dars",
+    "back": "olib bormoq",
+    "phonetic": "もっていきます - moteikimasu",
+    "example": "毎日 持って行きます。 (Har kuni olib bormoq.)"
+  },
+  {
+    "idx": 840,
+    "front": "持って来ます",
+    "category": "Minna no Nihongo 17-dars",
+    "back": "olib kelmoq",
+    "phonetic": "もってきます - motekimasu",
+    "example": "毎日 持って来ます。 (Har kuni olib kelmoq.)"
+  },
+  {
+    "idx": 841,
+    "front": "心配します",
+    "category": "Minna no Nihongo 17-dars",
+    "back": "xavotir olmoq",
+    "phonetic": "しんぱいします - shinpaishimasu",
+    "example": "毎日 心配します。 (Har kuni xavotir olmoq.)"
+  },
+  {
+    "idx": 842,
+    "front": "残業します",
+    "category": "Minna no Nihongo 17-dars",
+    "back": "belgilangan ish vaqti tugagandan keyin qolib ishlamoq",
+    "phonetic": "ざんぎょうします - zangyoushimasu",
+    "example": "毎日 残業します。 (Har kuni belgilangan ish vaqti tugagandan keyin qolib ishlamoq.)"
+  },
+  {
+    "idx": 843,
+    "front": "出張します",
+    "category": "Minna no Nihongo 17-dars",
+    "back": "xizmat safariga ketmoq",
+    "phonetic": "しゅっちょうします - shuchoushimasu",
+    "example": "毎日 出張します。 (Har kuni xizmat safariga ketmoq.)"
+  },
+  {
+    "idx": 844,
+    "front": "飲みます",
+    "category": "Minna no Nihongo 17-dars",
+    "back": "ichmoq",
+    "phonetic": "のみます - nomimasu",
+    "example": "毎日 水を 2リットル 飲みます。 (Har kuni 2 litr suv ichaman.)"
+  },
+  {
+    "idx": 846,
+    "front": "入ります",
+    "category": "Minna no Nihongo 17-dars",
+    "back": "kirmoq",
+    "phonetic": "はいります - hairimasu",
+    "example": "毎日 入ります。 (Har kuni kirmoq.)"
+  },
+  {
+    "idx": 854,
+    "front": "健康保険証",
+    "category": "Minna no Nihongo 17-dars",
+    "back": "tibbiy sug'urta guvohnomasi",
+    "phonetic": "けんこうほけんしょう - kenkouhokenshou",
+    "example": "毎日 保険証ほけんしょう]。 (Har kuni tibbiy sug'urta guvohnomasi.)"
+  },
+  {
+    "idx": 871,
+    "front": "できます",
+    "category": "Minna no Nihongo 18-dars",
+    "back": "qila olmoq, bajara olmoq",
+    "phonetic": "できます - dekimasu",
+    "example": "毎日 できます。 (Har kuni qila olmoq, bajara olmoq.)"
+  },
+  {
+    "idx": 872,
+    "front": "洗います",
+    "category": "Minna no Nihongo 18-dars",
+    "back": "yuvmoq",
+    "phonetic": "あらいます - araimasu",
+    "example": "毎日 洗います。 (Har kuni yuvmoq.)"
+  },
+  {
+    "idx": 873,
+    "front": "弾きます",
+    "category": "Minna no Nihongo 18-dars",
+    "back": "chalmoq (musiqa asbobini~)",
+    "phonetic": "ひきます - hikimasu",
+    "example": "毎日 弾きます。 (Har kuni chalmoq (musiqa asbobini~).)"
+  },
+  {
+    "idx": 874,
+    "front": "歌います",
+    "category": "Minna no Nihongo 18-dars",
+    "back": "kuylamoq, qo'shiq aytmoq",
+    "phonetic": "うたいます - utaimasu",
+    "example": "毎日 歌います。 (Har kuni kuylamoq, qo'shiq aytmoq.)"
+  },
+  {
+    "idx": 875,
+    "front": "集めます",
+    "category": "Minna no Nihongo 18-dars",
+    "back": "yig'moq, to'plamoq",
+    "phonetic": "あつめます - atsumemasu",
+    "example": "毎日 集めます。 (Har kuni yig'moq, to'plamoq.)"
+  },
+  {
+    "idx": 876,
+    "front": "捨てます",
+    "category": "Minna no Nihongo 18-dars",
+    "back": "tashlamoq",
+    "phonetic": "すてます - sutemasu",
+    "example": "毎日 捨てます。 (Har kuni tashlamoq.)"
+  },
+  {
+    "idx": 877,
+    "front": "換えます",
+    "category": "Minna no Nihongo 18-dars",
+    "back": "almashtirmoq, o'zgartirmoq",
+    "phonetic": "かえます - kaemasu",
+    "example": "毎日 換えます。 (Har kuni almashtirmoq, o'zgartirmoq.)"
+  },
+  {
+    "idx": 878,
+    "front": "運転します",
+    "category": "Minna no Nihongo 18-dars",
+    "back": "haydamoq (transport ~)",
+    "phonetic": "うんてんします - untenshimasu",
+    "example": "毎日 運転します。 (Har kuni haydamoq (transport ~).)"
+  },
+  {
+    "idx": 879,
+    "front": "予約します",
+    "category": "Minna no Nihongo 18-dars",
+    "back": "buyurtma bermoq",
+    "phonetic": "よやくします - yoyakushimasu",
+    "example": "毎日 予約します。 (Har kuni buyurtma bermoq.)"
+  },
+  {
+    "idx": 880,
+    "front": "見学します",
+    "category": "Minna no Nihongo 18-dars",
+    "back": "kuzatmoq, ko'rmoq (o'rganish maqsadida)",
+    "phonetic": "けんがくします - kengakushimasu",
+    "example": "毎日 見学します。 (Har kuni kuzatmoq, ko'rmoq (o'rganish maqsadida).)"
+  },
+  {
+    "idx": 888,
+    "front": "課長",
+    "category": "Minna no Nihongo 18-dars",
+    "back": "bo'lim boshlig'i",
+    "phonetic": "かちょう - kachou",
+    "example": "毎日 課長。 (Har kuni bo'lim boshlig'i.)"
+  },
+  {
+    "idx": 889,
+    "front": "部長",
+    "category": "Minna no Nihongo 18-dars",
+    "back": "departament boshlig'i",
+    "phonetic": "ぶちょう - buchou",
+    "example": "毎日 部長。 (Har kuni departament boshlig'i.)"
+  },
+  {
+    "idx": 890,
+    "front": "社長",
+    "category": "Minna no Nihongo 18-dars",
+    "back": "korxona boshlig'i",
+    "phonetic": "しゃちょう - shachou",
+    "example": "毎日 社長。 (Har kuni korxona boshlig'i.)"
+  },
+  {
+    "idx": 900,
+    "front": "登ります",
+    "category": "Minna no Nihongo 19-dars",
+    "back": "chiqmoq, ko'tarilmoq",
+    "phonetic": "のぼります - noborimasu",
+    "example": "毎日 登ります。 (Har kuni chiqmoq, ko'tarilmoq.)"
+  },
+  {
+    "idx": 902,
+    "front": "泊まります",
+    "category": "Minna no Nihongo 19-dars",
+    "back": "tunamoq",
+    "phonetic": "とまります - tomarimasu",
+    "example": "毎日 泊まります。 (Har kuni tunamoq.)"
+  },
+  {
+    "idx": 904,
+    "front": "掃除します",
+    "category": "Minna no Nihongo 19-dars",
+    "back": "tozalamoq",
+    "phonetic": "そうじします - soujishimasu",
+    "example": "毎日 掃除します。 (Har kuni tozalamoq.)"
+  },
+  {
+    "idx": 905,
+    "front": "洗濯します",
+    "category": "Minna no Nihongo 19-dars",
+    "back": "kir yuvmoq",
+    "phonetic": "せんたくします - sentakushimasu",
+    "example": "毎日 洗濯します。 (Har kuni kir yuvmoq.)"
+  },
+  {
+    "idx": 906,
+    "front": "練習します",
+    "category": "Minna no Nihongo 19-dars",
+    "back": "mashq qilmoq",
+    "phonetic": "れんしゅうします - renshuushimasu",
+    "example": "毎日 練習します。 (Har kuni mashq qilmoq.)"
+  },
+  {
+    "idx": 907,
+    "front": "なります",
+    "category": "Minna no Nihongo 19-dars",
+    "back": "bo'lmoq",
+    "phonetic": "なります - narimasu",
+    "example": "毎日 なります。 (Har kuni bo'lmoq.)"
+  },
+  {
+    "idx": 915,
+    "front": "相撲",
+    "category": "Minna no Nihongo 19-dars",
+    "back": "sumo kurashi",
+    "phonetic": "すもう - sumou",
+    "example": "毎日 相撲。 (Har kuni sumo kurashi.)"
+  },
+  {
+    "idx": 933,
+    "front": "要ります",
+    "category": "Minna no Nihongo 20-dars",
+    "back": "kerak bo'lmoq, zarur bo'lmoq",
+    "phonetic": "いります - irimasu",
+    "example": "毎日 要ります。 (Har kuni kerak bo'lmoq, zarur bo'lmoq.)"
+  },
+  {
+    "idx": 935,
+    "front": "調べます",
+    "category": "Minna no Nihongo 20-dars",
+    "back": "tekshirmoq, qarab ko'rmoq",
+    "phonetic": "しらべます - shirabemasu",
+    "example": "毎日 調べます。 (Har kuni tekshirmoq, qarab ko'rmoq.)"
+  },
+  {
+    "idx": 936,
+    "front": "直します",
+    "category": "Minna no Nihongo 20-dars",
+    "back": "to'g'rilamoq, tuzatmoq",
+    "phonetic": "なおします - naoshimasu",
+    "example": "毎日 直します。 (Har kuni to'g'rilamoq, tuzatmoq.)"
+  },
+  {
+    "idx": 937,
+    "front": "修理します",
+    "category": "Minna no Nihongo 20-dars",
+    "back": "tuzatmoq, ta'mirlamoq",
+    "phonetic": "しゅうりします - shuurishimasu",
+    "example": "毎日 修理します。 (Har kuni tuzatmoq, ta'mirlamoq.)"
+  },
+  {
+    "idx": 938,
+    "front": "電話します",
+    "category": "Minna no Nihongo 20-dars",
+    "back": "qo'ng'iroq qilmoq, telefon qilmoq",
+    "phonetic": "でんわします - denwashimasu",
+    "example": "毎日 電話します。 (Har kuni qo'ng'iroq qilmoq, telefon qilmoq.)"
+  },
+  {
+    "idx": 963,
+    "front": "思います",
+    "category": "Minna no Nihongo 21-dars",
+    "back": "o'ylamoq, fikrlamoq",
+    "phonetic": "おもいます - omoimasu",
+    "example": "毎日 思います。 (Har kuni o'ylamoq, fikrlamoq.)"
+  },
+  {
+    "idx": 964,
+    "front": "言います",
+    "category": "Minna no Nihongo 21-dars",
+    "back": "demoq, aytmoq",
+    "phonetic": "いいます - iimasu",
+    "example": "毎日 言います。 (Har kuni demoq, aytmoq.)"
+  },
+  {
+    "idx": 965,
+    "front": "足ります",
+    "category": "Minna no Nihongo 21-dars",
+    "back": "yetmoq, yetarli bo'lmoq (ulush)",
+    "phonetic": "たります - tarimasu",
+    "example": "毎日 足ります。 (Har kuni yetmoq, yetarli bo'lmoq (ulush).)"
+  },
+  {
+    "idx": 966,
+    "front": "勝ちます",
+    "category": "Minna no Nihongo 21-dars",
+    "back": "g'olib bo'lmoq, yutmoq",
+    "phonetic": "かちます - kachimasu",
+    "example": "毎日 勝ちます。 (Har kuni g'olib bo'lmoq, yutmoq.)"
+  },
+  {
+    "idx": 967,
+    "front": "負けます",
+    "category": "Minna no Nihongo 21-dars",
+    "back": "mag'lub bo'lmoq, yutqazmoq",
+    "phonetic": "まけます - makemasu",
+    "example": "毎日 負けます。 (Har kuni mag'lub bo'lmoq, yutqazmoq.)"
+  },
+  {
+    "idx": 968,
+    "front": "あります",
+    "category": "Minna no Nihongo 21-dars",
+    "back": "bor bo'lmoq",
+    "phonetic": "あります - arimasu",
+    "example": "毎日 あります。 (Har kuni bor bo'lmoq.)"
+  },
+  {
+    "idx": 970,
+    "front": "役に立ちます",
+    "category": "Minna no Nihongo 21-dars",
+    "back": "nafi tegmoq, foydasi bo'lmoq",
+    "phonetic": "やくにたちます - yakunitachimasu",
+    "example": "毎日 役に立ちます。 (Har kuni nafi tegmoq, foydasi bo'lmoq.)"
+  },
+  {
+    "idx": 975,
+    "front": "首相",
+    "category": "Minna no Nihongo 21-dars",
+    "back": "bosh vazir",
+    "phonetic": "しゅしょう - shushou",
+    "example": "毎日 首相。 (Har kuni bosh vazir.)"
+  },
+  {
+    "idx": 976,
+    "front": "大統領",
+    "category": "Minna no Nihongo 21-dars",
+    "back": "prezident",
+    "phonetic": "だいとうりょう - daitouryou",
+    "example": "毎日 大統領。 (Har kuni prezident.)"
+  },
+  {
+    "idx": 987,
+    "front": "交通",
+    "category": "Minna no Nihongo 21-dars",
+    "back": "transport qatnovi",
+    "phonetic": "こうつう - koutsuu",
+    "example": "毎日 交通。 (Har kuni transport qatnovi.)"
+  },
+  {
+    "idx": 1004,
+    "front": "はきます",
+    "category": "Minna no Nihongo 22-dars",
+    "back": "kiymoq (beldan pastda qo'llaniladi)",
+    "phonetic": "はきます - hakimasu",
+    "example": "毎日 はきます。 (Har kuni kiymoq (beldan pastda qo'llaniladi).)"
+  },
+  {
+    "idx": 1006,
+    "front": "かぶります",
+    "category": "Minna no Nihongo 22-dars",
+    "back": "kiymoq (boshga qo'llaniladi)",
+    "phonetic": "かぶります - kaburimasu",
+    "example": "毎日 かぶります。 (Har kuni kiymoq (boshga qo'llaniladi).)"
+  },
+  {
+    "idx": 1008,
+    "front": "かけます",
+    "category": "Minna no Nihongo 22-dars",
+    "back": "Taqmoq",
+    "phonetic": "かけます - kakemasu",
+    "example": "毎日 かけます。 (Har kuni taqmoq.)"
+  },
+  {
+    "idx": 1010,
+    "front": "生まれます",
+    "category": "Minna no Nihongo 22-dars",
+    "back": "tug'ilmoq, dunyoga kelmoq",
+    "phonetic": "うまれます - umaremasu",
+    "example": "毎日 生まれます。 (Har kuni tug'ilmoq, dunyoga kelmoq.)"
+  },
+  {
+    "idx": 1017,
+    "front": "おめでとうございます。",
+    "category": "Minna no Nihongo 22-dars",
+    "back": "Tabriklayman.",
+    "phonetic": "おめでとうございます。 - omedetougozaimasu",
+    "example": "毎日 おめでとうございます。。 (Har kuni tabriklayman..)"
+  },
+  {
+    "idx": 1032,
+    "front": "回します",
+    "category": "Minna no Nihongo 23-dars",
+    "back": "aylantirmoq",
+    "phonetic": "まわします - mawashimasu",
+    "example": "毎日 回します。 (Har kuni aylantirmoq.)"
+  },
+  {
+    "idx": 1033,
+    "front": "引きます",
+    "category": "Minna no Nihongo 23-dars",
+    "back": "tortmoq",
+    "phonetic": "ひきます - hikimasu",
+    "example": "毎日 引きます。 (Har kuni tortmoq.)"
+  },
+  {
+    "idx": 1034,
+    "front": "変えます",
+    "category": "Minna no Nihongo 23-dars",
+    "back": "o'zgartirmoq",
+    "phonetic": "かえます - kaemasu",
+    "example": "毎日 変えます。 (Har kuni o'zgartirmoq.)"
+  },
+  {
+    "idx": 1035,
+    "front": "触ります",
+    "category": "Minna no Nihongo 23-dars",
+    "back": "tegmoq",
+    "phonetic": "さわります - sawarimasu",
+    "example": "毎日 触ります。 (Har kuni tegmoq.)"
+  },
+  {
+    "idx": 1037,
+    "front": "出ます",
+    "category": "Minna no Nihongo 23-dars",
+    "back": "qaytmoq, chiqmoq",
+    "phonetic": "でます - demasu",
+    "example": "毎日 出ます。 (Har kuni qaytmoq, chiqmoq.)"
+  },
+  {
+    "idx": 1039,
+    "front": "動きます",
+    "category": "Minna no Nihongo 23-dars",
+    "back": "harakatlanmoq, yurmoq",
+    "phonetic": "うごきます - ugokimasu",
+    "example": "毎日 動きます。 (Har kuni harakatlanmoq, yurmoq.)"
+  },
+  {
+    "idx": 1041,
+    "front": "歩きます",
+    "category": "Minna no Nihongo 23-dars",
+    "back": "piyoda yurmoq",
+    "phonetic": "あるきます - arukimasu",
+    "example": "毎日 歩きます。 (Har kuni piyoda yurmoq.)"
+  },
+  {
+    "idx": 1043,
+    "front": "渡ります",
+    "category": "Minna no Nihongo 23-dars",
+    "back": "o'tmoq; kesib o'tmoq",
+    "phonetic": "わたります - watarimasu",
+    "example": "毎日 渡ります。 (Har kuni o'tmoq; kesib o'tmoq.)"
+  },
+  {
+    "idx": 1045,
+    "front": "気をつけます",
+    "category": "Minna no Nihongo 23-dars",
+    "back": "ehtiyot bo'lmoq",
+    "phonetic": "きをつけます - kiotsukemasu",
+    "example": "毎日 気をつけます。 (Har kuni ehtiyot bo'lmoq.)"
+  },
+  {
+    "idx": 1047,
+    "front": "引っ越しします",
+    "category": "Minna no Nihongo 23-dars",
+    "back": "ko'chib o'tmoq",
+    "phonetic": "ひっこしします - hikoshishimasu",
+    "example": "毎日 引っ越しします。 (Har kuni ko'chib o'tmoq.)"
+  },
+  {
+    "idx": 1054,
+    "front": "故障",
+    "category": "Minna no Nihongo 23-dars",
+    "back": "buzulish, nosozlik ( ～します : buzilmoq)",
+    "phonetic": "こしょう - koshou",
+    "example": "毎日 故障。 (Har kuni buzulish, nosozlik ( ～します : buzilmoq).)"
+  },
+  {
+    "idx": 1057,
+    "front": "信号",
+    "category": "Minna no Nihongo 23-dars",
+    "back": "svetofor",
+    "phonetic": "しんごう - shingou",
+    "example": "毎日 信号。 (Har kuni svetofor.)"
+  },
+  {
+    "idx": 1060,
+    "front": "駐車場",
+    "category": "Minna no Nihongo 23-dars",
+    "back": "avto ulovlar to'xtash joyi",
+    "phonetic": "ちゅうしゃじょう - chuushajou",
+    "example": "毎日 駐車場。 (Har kuni avto ulovlar to'xtash joyi.)"
+  },
+  {
+    "idx": 1071,
+    "front": "くれます",
+    "category": "Minna no Nihongo 24-dars",
+    "back": "bermoq (menga bermoq)",
+    "phonetic": "くれます - kuremasu",
+    "example": "毎日 くれます。 (Har kuni bermoq (menga bermoq).)"
+  },
+  {
+    "idx": 1072,
+    "front": "連れて行きます",
+    "category": "Minna no Nihongo 24-dars",
+    "back": "olib bormoq, ergashtirib bormoq",
+    "phonetic": "つれていきます - tsureteikimasu",
+    "example": "毎日 連れて行きます。 (Har kuni olib bormoq, ergashtirib bormoq.)"
+  },
+  {
+    "idx": 1073,
+    "front": "連れて来ます",
+    "category": "Minna no Nihongo 24-dars",
+    "back": "olib kelmoq, ergashtirib kelmoq",
+    "phonetic": "つれてきます - tsuretekimasu",
+    "example": "毎日 連れて来ます。 (Har kuni olib kelmoq, ergashtirib kelmoq.)"
+  },
+  {
+    "idx": 1074,
+    "front": "送ります",
+    "category": "Minna no Nihongo 24-dars",
+    "back": "jo'natmoq; olib borib qo'ymoq",
+    "phonetic": "おくります - okurimasu",
+    "example": "毎日 送ります。 (Har kuni jo'natmoq; olib borib qo'ymoq.)"
+  },
+  {
+    "idx": 1076,
+    "front": "紹介します",
+    "category": "Minna no Nihongo 24-dars",
+    "back": "tanishtirmoq",
+    "phonetic": "しょうかいします - shoukaishimasu",
+    "example": "毎日 紹介します。 (Har kuni tanishtirmoq.)"
+  },
+  {
+    "idx": 1077,
+    "front": "案内します",
+    "category": "Minna no Nihongo 24-dars",
+    "back": "yo'l ko'rsatmoq; tanishtirmoq, ko'rsatmoq",
+    "phonetic": "あんないします - annaishimasu",
+    "example": "毎日 案内します。 (Har kuni yo'l ko'rsatmoq; tanishtirmoq, ko'rsatmoq.)"
+  },
+  {
+    "idx": 1078,
+    "front": "説明します",
+    "category": "Minna no Nihongo 24-dars",
+    "back": "tushuntirmoq, izoh bermoq",
+    "phonetic": "せつめいします - setsumeishimasu",
+    "example": "毎日 説明します。 (Har kuni tushuntirmoq, izoh bermoq.)"
+  },
+  {
+    "idx": 1079,
+    "front": "いれます",
+    "category": "Minna no Nihongo 24-dars",
+    "back": "damlamoq; solmoq",
+    "phonetic": "いれます - iremasu",
+    "example": "毎日 いれます。 (Har kuni damlamoq; solmoq.)"
+  },
+  {
+    "idx": 1092,
+    "front": "考えます",
+    "category": "Minna no Nihongo 25-dars",
+    "back": "fikrlamoq",
+    "phonetic": "かんがえます - kangaemasu",
+    "example": "毎日 考えます。 (Har kuni fikrlamoq.)"
+  },
+  {
+    "idx": 1093,
+    "front": "着きます",
+    "category": "Minna no Nihongo 25-dars",
+    "back": "yetib bormoq / kelmoq, qo'nmoq",
+    "phonetic": "つきます - tsukimasu",
+    "example": "毎日 着きます。 (Har kuni yetib bormoq / kelmoq, qo'nmoq.)"
+  },
+  {
+    "idx": 1095,
+    "front": "留学します",
+    "category": "Minna no Nihongo 25-dars",
+    "back": "chet elda ta'lim olmoq",
+    "phonetic": "りゅうがくします - ryuugakushimasu",
+    "example": "毎日 留学します。 (Har kuni chet elda ta'lim olmoq.)"
+  },
+  {
+    "idx": 1109,
+    "front": "頑張ります",
+    "category": "Minna no Nihongo 25-dars",
+    "back": "harakat qilmoq, tirishmoq",
+    "phonetic": "がんばります - ganbarimasu",
+    "example": "毎日 頑張ります。 (Har kuni harakat qilmoq, tirishmoq.)"
+  }
+]

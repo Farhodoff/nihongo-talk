@@ -15,12 +15,14 @@ import {
   Edit3,
   BookOpen,
   Save,
+  RefreshCw,
 } from 'lucide-react';
 import { toast } from '../../hooks/use-toast';
 import {
   GlobalFlashcardOverrideService,
   GlobalFlashcardOverride,
 } from '../../services/GlobalFlashcardOverrideService';
+import { supabase } from '../../lib/supabase';
 
 interface AdminFlashcardManagerProps {
   isOpen: boolean;
@@ -54,6 +56,43 @@ export const AdminFlashcardManager: React.FC<AdminFlashcardManagerProps> = ({
   const [formBack, setFormBack] = useState('');
   const [formExample, setFormExample] = useState('');
   const [isSavingOverride, setIsSavingOverride] = useState(false);
+  const [isSyncingJson, setIsSyncingJson] = useState(false);
+
+  const handleSyncJsonFiles = async () => {
+    setIsSyncingJson(true);
+    try {
+      const session = (await supabase.auth.getSession()).data?.session;
+      const res = await fetch('/api/admin/update-deck-card', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          ...(session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {}),
+        },
+        body: JSON.stringify({ batch: overridesList }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        toast({
+          title: '✅ JSON Fayllar Yangilandi',
+          description: 'Barcha global tuzatishlar mahalliy JSON fayllariga muhrlandi.',
+        });
+      } else {
+        toast({
+          variant: 'destructive',
+          title: 'Xatolik',
+          description: data.error || 'JSON fayllarni yangilashda xatolik yuz berdi.',
+        });
+      }
+    } catch (err: any) {
+      toast({
+        variant: 'destructive',
+        title: 'Xatolik',
+        description: err?.message || 'Tarmoq xatosi yuz berdi.',
+      });
+    } finally {
+      setIsSyncingJson(false);
+    }
+  };
 
   const loadOverrides = () => {
     const map = GlobalFlashcardOverrideService.getLocalOverridesMap();
@@ -217,7 +256,7 @@ export const AdminFlashcardManager: React.FC<AdminFlashcardManagerProps> = ({
     setIsSavingOverride(true);
     try {
       const wordKey = editingOverride ? editingOverride.word : formFront.trim();
-      await GlobalFlashcardOverrideService.saveGlobalOverride(
+      const saved = await GlobalFlashcardOverrideService.saveGlobalOverride(
         {
           word: wordKey,
           front: formFront.trim(),
@@ -228,10 +267,20 @@ export const AdminFlashcardManager: React.FC<AdminFlashcardManagerProps> = ({
         user?.email || 'admin',
       );
 
-      toast({
-        title: '✅ Global Karta Saqlandi',
-        description: "O'zgarish Supabase bazasida saqlandi va barcha talabalar uchun amal qiladi.",
-      });
+      if (saved) {
+        toast({
+          title: '✅ Global Karta va JSON Saqlandi',
+          description:
+            "O'zgarish Supabase bazasida va fayllarda saqlandi hamda barcha foydalanuvchilar uchun amal qiladi.",
+        });
+      } else {
+        toast({
+          variant: 'destructive',
+          title: '⚠️ Ogohlantirish',
+          description:
+            "O'zgarish mahalliy keshga saqlandi, ammo serverga yozishda xatolik yuz berdi.",
+        });
+      }
 
       setEditingOverride(null);
       setIsCreatingNew(false);
@@ -320,12 +369,23 @@ export const AdminFlashcardManager: React.FC<AdminFlashcardManagerProps> = ({
           </div>
 
           {activeTab === 'overrides' && (
-            <Button
-              onClick={handleOpenCreateOverride}
-              className="mb-2 flex items-center gap-1.5 rounded-xl bg-emerald-600 py-1.5 text-xs font-bold text-white hover:bg-emerald-700"
-            >
-              <Plus size={15} /> Yangi So'z / Tuzatish Qo'shish
-            </Button>
+            <div className="mb-2 flex items-center gap-2">
+              <Button
+                variant="outline"
+                onClick={handleSyncJsonFiles}
+                disabled={isSyncingJson || overridesList.length === 0}
+                className="flex items-center gap-1.5 rounded-xl border-border bg-background/80 py-1.5 text-xs font-bold hover:bg-accent"
+              >
+                <RefreshCw size={14} className={isSyncingJson ? 'animate-spin' : ''} />
+                JSON Fayllarni Yangilash
+              </Button>
+              <Button
+                onClick={handleOpenCreateOverride}
+                className="flex items-center gap-1.5 rounded-xl bg-emerald-600 py-1.5 text-xs font-bold text-white hover:bg-emerald-700"
+              >
+                <Plus size={15} /> Yangi So'z / Tuzatish Qo'shish
+              </Button>
+            </div>
           )}
         </div>
 

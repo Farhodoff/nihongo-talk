@@ -127,9 +127,9 @@ export const AdminPresetAuditorModal: React.FC<AdminPresetAuditorModalProps> = (
     setCards(updated);
     setEditingCardIndex(null);
 
-    // Immediately update global production database
+    // Immediately update global production database and JSON files
     try {
-      await GlobalFlashcardOverrideService.saveGlobalOverride({
+      const saved = await GlobalFlashcardOverrideService.saveGlobalOverride({
         word: cardToSave.front,
         front: cardToSave.front,
         phonetic: cardToSave.phonetic,
@@ -137,13 +137,21 @@ export const AdminPresetAuditorModal: React.FC<AdminPresetAuditorModalProps> = (
         example: cardToSave.example,
         deck_id: deck?.id,
       });
-      toast({
-        title: "✅ O'zgarish global bazada saqlandi",
-        description: 'Barcha foydalanuvchilar uchun yangilandi.',
-      });
+      if (saved) {
+        toast({
+          title: "✅ O'zgarish global bazada va JSON faylda saqlandi",
+          description: 'Barcha foydalanuvchilar uchun yangilandi.',
+        });
+      } else {
+        toast({
+          variant: 'destructive',
+          title: '⚠️ Ogohlantirish',
+          description: "O'zgarish keshga saqlandi, ammo serverga yozishda xatolik bo'ldi.",
+        });
+      }
     } catch (err) {
       console.warn('Global override save error:', err);
-      toast({ title: "✅ O'zgarish saqlandi" });
+      toast({ title: "✅ O'zgarish mahalliy saqlandi" });
     }
   };
 

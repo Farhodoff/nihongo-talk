@@ -448,21 +448,31 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
 
       // 2. If Admin selected Global production database update
       if (isAdmin && editGlobal) {
-        await GlobalFlashcardOverrideService.saveGlobalOverride(
+        const saved = await GlobalFlashcardOverrideService.saveGlobalOverride(
           {
             word: currentCard.front,
             front: cleanF,
             phonetic: cleanP,
             back: cleanB,
             example: cleanE,
-            deck_id: (currentCard as any).deckId,
+            deck_id: (currentCard as any).deckId || currentSubject?.id || null,
           },
           user?.email || 'admin',
         );
-        toast({
-          title: '🌐 Global Baza Yangilandi',
-          description: "Fleshkarta barcha foydalanuvchilar va production uchun to'liq saqlandi!",
-        });
+        if (saved) {
+          toast({
+            title: '🌐 Global Baza va JSON Yangilandi',
+            description:
+              'Fleshkarta barcha foydalanuvchilar, baza va fayllarda muvaffaqiyatli saqlandi!',
+          });
+        } else {
+          toast({
+            variant: 'destructive',
+            title: '⚠️ Ogohlantirish',
+            description:
+              "O'zgarish mahalliy keshga saqlandi, ammo serverga ulanishda xatolik bo'ldi.",
+          });
+        }
       } else {
         toast({ title: '✅ Kartochka yangilandi' });
       }
@@ -968,13 +978,30 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
                 </div>
 
                 {/* Card Back Content */}
-                <div className="my-auto space-y-2 py-3 text-center sm:space-y-3 sm:py-4">
-                  <p className="break-words text-lg font-bold leading-relaxed text-primary sm:text-xl md:text-2xl">
+                <div className="my-auto space-y-2.5 py-3 text-center sm:space-y-3 sm:py-4">
+                  <p className="break-words text-lg font-black leading-relaxed text-primary sm:text-xl md:text-2xl">
                     {currentCard?.back}
                   </p>
-                  <p className="break-words text-xs font-semibold text-muted-foreground/80">
-                    {cleanCardFront(currentCard?.front)}
-                  </p>
+                  {currentCard?.phonetic ? (
+                    <p className="break-words text-xs font-semibold text-muted-foreground/90">
+                      {currentCard.phonetic}
+                    </p>
+                  ) : (
+                    <p className="break-words text-xs font-semibold text-muted-foreground/80">
+                      {cleanCardFront(currentCard?.front)}
+                    </p>
+                  )}
+                  {currentCard?.example && (
+                    <div className="mx-auto mt-2 max-w-lg rounded-2xl border border-primary/20 bg-primary/5 p-3 text-left shadow-xs">
+                      <div className="mb-1 flex items-center gap-1.5 text-[11px] font-extrabold text-primary">
+                        <span>💬</span>
+                        <span>{isJa ? '例文' : 'Misol jumla:'}</span>
+                      </div>
+                      <p className="whitespace-pre-line text-xs font-semibold leading-relaxed text-foreground sm:text-sm">
+                        {currentCard.example}
+                      </p>
+                    </div>
+                  )}
                 </div>
 
                 {/* Footer Status */}

@@ -90,6 +90,8 @@ export interface Flashcard {
   easeFactor: number;
   repetitions: number;
   deletedAt?: string;
+  phonetic?: string;
+  example?: string;
 }
 
 export const PRIORITY_COLORS = {

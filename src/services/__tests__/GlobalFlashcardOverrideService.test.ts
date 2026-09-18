@@ -23,11 +23,17 @@ describe('GlobalFlashcardOverrideService', () => {
     localStorage.clear();
   });
 
-  it('normalizes word keys correctly by stripping punctuation and whitespace', () => {
+  it('normalizes word keys correctly by stripping punctuation, full-width spaces and brackets', () => {
     expect(GlobalFlashcardOverrideService.normalizeWordKey(' 私 (わたし) ')).toBe('私');
     expect(GlobalFlashcardOverrideService.normalizeWordKey('学校（がっこう）')).toBe('学校');
     expect(GlobalFlashcardOverrideService.normalizeWordKey('食べる [たべる]')).toBe('食べる');
+    expect(GlobalFlashcardOverrideService.normalizeWordKey('　私【わたし】　')).toBe('私');
     expect(GlobalFlashcardOverrideService.normalizeWordKey('  Cat  ')).toBe('cat');
+  });
+
+  it('initializes global overrides on app startup for all users', async () => {
+    await GlobalFlashcardOverrideService.initGlobalOverrides();
+    expect(GlobalFlashcardOverrideService.getLocalOverridesMap()).toBeDefined();
   });
 
   it('saves an override locally and applies it to PresetCard', async () => {
@@ -107,5 +113,47 @@ describe('GlobalFlashcardOverrideService', () => {
 
     await GlobalFlashcardOverrideService.deleteOverride('先生');
     expect(GlobalFlashcardOverrideService.hasOverride('先生')).toBe(false);
+  });
+
+  describe('Offline Queue & Reconnection Synchronization', () => {
+    beforeEach(() => {
+      GlobalFlashcardOverrideService.clearPendingQueue();
+    });
+
+    it('enqueues pending override and tracks pending count', () => {
+      expect(GlobalFlashcardOverrideService.getPendingCount()).toBe(0);
+
+      GlobalFlashcardOverrideService.enqueuePendingOverride({
+        word: '猫',
+        front: '猫',
+        back: 'Mushuk',
+      });
+
+      expect(GlobalFlashcardOverrideService.getPendingCount()).toBe(1);
+
+      // Updating same word updates entry without duplicating
+      GlobalFlashcardOverrideService.enqueuePendingOverride({
+        word: '猫',
+        front: '猫',
+        back: 'Mushukcha',
+      });
+
+      expect(GlobalFlashcardOverrideService.getPendingCount()).toBe(1);
+    });
+
+    it('syncPendingOverrides drains queued items upon network connectivity', async () => {
+      GlobalFlashcardOverrideService.enqueuePendingOverride({
+        word: '犬',
+        front: '犬',
+        back: 'It',
+      });
+
+      expect(GlobalFlashcardOverrideService.getPendingCount()).toBe(1);
+
+      const res = await GlobalFlashcardOverrideService.syncPendingOverrides();
+      expect(res.synced).toBe(1);
+      expect(res.failed).toBe(0);
+      expect(GlobalFlashcardOverrideService.getPendingCount()).toBe(0);
+    });
   });
 });

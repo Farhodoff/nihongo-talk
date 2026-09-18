@@ -1,0 +1,3194 @@
+{
+  "だれどなた": {
+    "front": "だれ (どなた)",
+    "back": "kim? (どなた - hurmat shakli)",
+    "phonetic": "だれ (どなた) - dare (donata)",
+    "example": "あの方は どなたですか。 (U kishi kimlar?)"
+  },
+  "おいくつ": {
+    "front": "何歳 (おいくつ)",
+    "back": "necha yosh? (おいくつ - hurmat shakli)",
+    "phonetic": "なんさい (おいくつ) - nansai (oikutsu)",
+    "example": "失礼ですが、おいくつですか。 (Kechirasiz, yoshingiz nechada?)"
+  },
+  "失礼ですが": {
+    "front": "失礼ですが",
+    "back": "Kechirasiz, ~ (murojaat oldidan)",
+    "phonetic": "しつれいですが - shitsureidesuga",
+    "example": "失礼ですが、お名前は？ (Kechirasiz, ismingiz nima?)"
+  },
+  "お名前は？": {
+    "front": "お名前は？",
+    "back": "Ismingiz nima?",
+    "phonetic": "おなまえは？ - onamaewa",
+    "example": "お名前は 何ですか。 (Ismingiz nima?)"
+  },
+  "初めまして。": {
+    "front": "初めまして",
+    "back": "Tanishganimdan xursandman / O'zimni tanishtirishga ruxsat bergaysiz",
+    "phonetic": "はじめまして - hajimemashite",
+    "example": "初めまして、マイク・ミラーです。 (Tanishganimdan xursandman, men Mayk Miller.)"
+  },
+  "どうぞよろしく": {
+    "front": "どうぞよろしく",
+    "back": "Tanishganimdan mamnunman / Marhamat, yaxshi munosabatda bo'ling",
+    "phonetic": "どうぞよろしく - douzo yoroshiku",
+    "example": "どうぞ よろしく お願いします。 (Marhamat, yaxshi munosabatda bo'ling / Tanishganimdan xursandman.)"
+  },
+  "お願いします": {
+    "front": "お願いします",
+    "back": "iltimos, so'rayman",
+    "phonetic": "おねがいします - onegaishimasu",
+    "example": "これを お願いします。 (Buni iltimos qilaman.)"
+  },
+  "こちらは～さんです。": {
+    "front": "こちらは～さんです",
+    "back": "Bu kishi janob / xonim ~",
+    "phonetic": "こちらは～さんです - kochira wa ~ san desu",
+    "example": "こちらは ミラーさんです。 (Bu kishi janob Miller.)"
+  },
+  "～から来ました。": {
+    "front": "～から来ました",
+    "back": "~dan keldim",
+    "phonetic": "～からきました - ~ kara kimashita",
+    "example": "わたしは アメリカから 来ました。 (Men Amerikadan keldim.)"
+  },
+  "アメリカ": {
+    "example": "ミラーさんは アメリカ人です。 (Janob Miller amerikalik.)"
+  },
+  "イギリス": {
+    "example": "ワットさんは イギリスから 来ました。 (Janob Watt Angliyadan kelgan.)"
+  },
+  "インド": {
+    "example": "グプタさんは インドの 会社員です。 (Janob Gupta hindistonlik firma xodimi.)"
+  },
+  "インドネシア": {
+    "example": "インドネシアへ 旅行に 行きます。 (Indoneziyaga sayohatga boraman.)"
+  },
+  "韓国かんこく": {
+    "front": "韓国",
+    "back": "Janubiy Koreya",
+    "phonetic": "かんこく - kankoku",
+    "example": "韓国の 料理は からいです。 (Koreys taomlari achchiq.)"
+  },
+  "タイ": {
+    "example": "タワポンさんは タイから 来ました。 (Janob Tawapon Tailanddan kelgan.)"
+  },
+  "中国ちゅうごく": {
+    "front": "中国",
+    "back": "Xitoy",
+    "phonetic": "ちゅうごく - chuugoku",
+    "example": "ワンさんは 中国の 医者です。 (Janob Vang Xitoy shifokori.)"
+  },
+  "ドイツ": {
+    "example": "これは ドイツの 車です。 (Bu Germaniya mashinasi.)"
+  },
+  "日本": {
+    "example": "日本の 生活は 楽しいです。 (Yaponiya hayoti maroqli.)"
+  },
+  "フランス": {
+    "example": "フランスの ワインを 飲みました。 (Fransiya vinosini ichdim.)"
+  },
+  "ブラジル": {
+    "example": "サントスさんは ブラジル人です。 (Janob Santos braziliyalik.)"
+  },
+  "さくら大学だいがく／富士ふじ大学だいがく": {
+    "front": "さくら大学 / 富士大学",
+    "back": "universitet nomlari (to'qima)",
+    "phonetic": "さくらだいがく / ふじだいがく - sakura daigaku / fuji daigaku",
+    "example": "妹は さくら大学の 学生です。 (Singlim Sakura universiteti talabasi.)"
+  },
+  "パワー電気": {
+    "front": "パワー電気",
+    "back": "Power Denki (elektr kompaniyasi nomi)",
+    "phonetic": "パワーでんき - pawaa denki",
+    "example": "シュミットさんは パワー電気の 社員です。 (Janob Shmidt Power Denki xodimi.)"
+  },
+  "神戸病院": {
+    "front": "神戸病院",
+    "back": "Kobe shifoxonasi",
+    "phonetic": "こうべびょういん - koube byouin",
+    "example": "あの人は 神戸病院の 医者です。 (Anavi kishi Kobe shifoxonasi shifokori.)"
+  },
+  "ノート": {
+    "example": "新しい ノートに メモを 書きます。 (Yangi daftarga eslatma yozaman.)"
+  },
+  "カード": {
+    "example": "これは わたしの 学生カードです。 (Bu mening talabalik guvohnomam/kartochkam.)"
+  },
+  "テレホンカード": {
+    "example": "公衆電話で テレホンカードを 使います。 (Ko'cha telefonida telefon kartochkasi ishlatiladi.)"
+  },
+  "鉛筆": {
+    "example": "鉛筆で 名前を 書いて ください。 (Qalam bilan ismingizni yozing, iltimos.)"
+  },
+  "ボールペン": {
+    "example": "黒い ボールペンで サインします。 (Qora sharikli ruchka bilan imzo chekaman.)"
+  },
+  "シャープペンシル": {
+    "example": "この シャープペンシルは 使いやすいです。 (Bu avtomat qalamdan foydalanish qulay.)"
+  },
+  "かぎ": {
+    "example": "部屋の かぎを かばんから 出します。 (Xonaning kalitini sumkamdan olaman.)"
+  },
+  "カセットテープ": {
+    "example": "カセットテープで 日本語を 聞きました。 (Kasseta tasmasida yapon tilini eshitdim.)"
+  },
+  "テープレコーダー": {
+    "example": "テープレコーダーで 発音を 録音します。 (Magnitafonda talaffuzni yozib olaman.)"
+  },
+  "チョコレート": {
+    "example": "友達に チョコレートを もらいました。 (Do'stimdan shokolad oldim.)"
+  },
+  "コーヒー": {
+    "example": "毎朝 熱い コーヒーを 飲みます。 (Har ertalab qaynoq kofe ichaman.)"
+  },
+  "英語": {
+    "example": "スミスさんは 英語の 先生です。 (Janob Smit ingliz tili o'qituvchisi.)"
+  },
+  "日本語": {
+    "example": "毎日 日本語を 一生懸命 勉強します。 (Har kuni yapon tilini astoydil o'rganaman.)"
+  },
+  "～語": {
+    "example": "ウズベク語を 話すことが できます。 (O'zbek tilida gaplasha olaman.)"
+  },
+  "何": {
+    "example": "それは 何ですか。 (U nima?)"
+  },
+  "そうですか。": {
+    "front": "そうですか",
+    "back": "Shundaymi? / Tushunarli",
+    "example": "そうですか。よく わかりました。 (Shundaymi? Yaxshi tushundim.)"
+  },
+  "ほんの気持ちです。": {
+    "front": "ほんの気持ちです",
+    "back": "Arzimagan sovg'am / Ko'nglimdan chiqqani",
+    "example": "これは ほんの 気持ちです。どうぞ。 (Bu arzimagan sovg'am. Marhamat.)"
+  },
+  "どうぞ。": {
+    "front": "どうぞ",
+    "back": "Marhamat",
+    "example": "どうぞ お入り ください。 (Marhamat, kiring.)"
+  },
+  "どうも。": {
+    "front": "どうも",
+    "back": "Rahmat / Salom",
+    "example": "どうも ありがとうございました。 (Katta rahmat.)"
+  },
+  "こちらこそよろしく。": {
+    "front": "こちらこそよろしく",
+    "back": "Men ham tanishganimdan mamnunman",
+    "example": "こちらこそ、どうぞ よろしく お願いします。 (Men ham siz bilan tanishganimdan bag'oyat mamnunman.)"
+  },
+  "こちら": {
+    "front": "こちら",
+    "back": "bu kishi / bu tomon (biz taraf)",
+    "phonetic": "こちら - kochira",
+    "example": "こちらは わたしの 親友の サントスさんです。 (Bu kishi mening qadrdon do'stim janob Santos.)"
+  },
+  "そちら": {
+    "front": "そちら",
+    "back": "u yer, u taraf (そこ ning xushmuomala shakli)",
+    "phonetic": "そちら - sochira",
+    "example": "エレベーターは そちらで ございます。 (Lift u tomonda.)"
+  },
+  "あちら": {
+    "front": "あちら",
+    "back": "ana u yer, anavi taraf (あそこ ning xushmuomala shakli)",
+    "phonetic": "あちら - achira",
+    "example": "電話は あちらに ございます。 (Telefon ana u tarafda.)"
+  },
+  "どちら": {
+    "front": "どちら",
+    "back": "qayer, qaysi tomon (どこ ning xushmuomala shakli)",
+    "phonetic": "どちら - dochira",
+    "example": "お手洗いは どちらで ございますか。 (Hojatxona qaysi tomonda?)"
+  },
+  "受付": {
+    "example": "受付で 部屋の かぎを もらいます。 (Qabulxonadan xona kalitini olaman.)"
+  },
+  "ロビー": {
+    "example": "1階の ロビーで 待ち合わせましょう。 (1-qavat kutilish zalida uchrashaylik.)"
+  },
+  "お手洗い": {
+    "example": "すみません、お手洗いは どこですか。 (Kechirasiz, hojatxona qayerda?)"
+  },
+  "エスカレーター": {
+    "example": "エスカレーターで 2階へ 上がります。 (Eskalatorda 2-qavatga ko'tarilaman.)"
+  },
+  "電話": {
+    "example": "あそこに 公衆電話が あります。 (Ana u yerda umumiy telefon bor.)"
+  },
+  "靴": {
+    "example": "デパートで 新しい 靴を 買いました。 (Universamda yangi poyafzal sotib oldim.)"
+  },
+  "ネクタイ": {
+    "example": "すてきな ネクタイを しめて います。 (Ajoyib bo'yinbog' taqib olgan.)"
+  },
+  "ワイン": {
+    "example": "イタリアの おいしい ワインを 飲みました。 (Italiyaning mazali vinosini ichdim.)"
+  },
+  "たばこ": {
+    "example": "ここで たばこを 吸わないで ください。 (Bu yerda tamaki chekmang, iltimos.)"
+  },
+  "地下": {
+    "example": "地下に 食料品売り場が あります。 (Yerto'la qavatida oziq-ovqat bo'limi bor.)"
+  },
+  "～円": {
+    "example": "この 本は 1,500円です。 (Bu kitob 1500 iyen.)"
+  },
+  "百": {
+    "example": "百円の パンを 買いました。 (100 iyenlik non sotib oldim.)"
+  },
+  "千": {
+    "example": "千円札を 出しました。 (Ming iyenlik qog'oz pul berdim.)"
+  },
+  "万": {
+    "example": "この カメラは 三万円でした。 (Bu fotoapparat 30 000 iyen edi.)"
+  },
+  "すみません。": {
+    "front": "すみません",
+    "back": "Kechirasiz",
+    "example": "すみません、駅は どちらですか。 (Kechirasiz, bekat qaysi tomonda?)"
+  },
+  "～を見みせてください。": {
+    "front": "～を見せてください",
+    "back": "~ni ko'rsating, iltimos",
+    "example": "その 黒い 靴を 見せて ください。 (U qora poyafzalni ko'rsating, iltimos.)"
+  },
+  "じゃ": {
+    "front": "じゃ",
+    "back": "U holda / Unda",
+    "example": "じゃ、その ワインを ください。 (U holda ana u vinoni bering.)"
+  },
+  "～をください。": {
+    "front": "～をください",
+    "back": "~ni bering",
+    "example": "この りんごを ください。 (Bu olmani bering.)"
+  },
+  "新大阪": {
+    "example": "新幹線で 新大阪へ 行きます。 (Shinkansen bilan Shin-Osakaga boraman.)"
+  },
+  "イタリア": {
+    "example": "イタリアの 料理が 大好きです。 (Italiya taomlarini juda yoqtiraman.)"
+  },
+  "スイス": {
+    "example": "これは スイスの 有名な 時計です。 (Bu Shveytsariyaning mashhur soati.)"
+  },
+  "ＭＴ／ヨーネン／アキックス": {
+    "front": "MT / ヨーネン / アキックス",
+    "back": "to'qima kompaniya nomlari",
+    "phonetic": "MT / yoonen / akikksu",
+    "example": "アキックスは 靴の ブランドです。 (Akiksu poyafzal brendidir.)"
+  },
+  "デパート": {
+    "example": "デパートは 朝 10時から 開きます。 (Universam ertalab soat 10 dan ochiladi.)"
+  },
+  "～時": {
+    "example": "今 午前 9時です。 (Hozir ertalab soat 9.)"
+  },
+  "～分": {
+    "example": "会議は 15分で 終わります。 (Yig'ilish 15 daqiqada tugaydi.)"
+  },
+  "半": {
+    "example": "毎朝 6時半に 起きます。 (Har kuni ertalab 6 yarimda uyg'onaman.)"
+  },
+  "何時": {
+    "example": "今 何時ですか。 (Hozir soat necha?)"
+  },
+  "何分": {
+    "example": "電車は 何分に 出ますか。 (Poyezd necha daqiqada jo'naydi?)"
+  },
+  "午前": {
+    "example": "午前の 授業は 9時から 12時までです。 (Ertalabki dars 9 dan 12 gacha.)"
+  },
+  "午後": {
+    "example": "午後は 図書館で 本を 読みます。 (Tushdan keyin kutubxonada kitob o'qiyman.)"
+  },
+  "朝": {
+    "example": "朝 公園を 散歩します。 (Ertalab xiyobonni sayr qilaman.)"
+  },
+  "あした": {
+    "example": "あした 東京へ 出張します。 (Ertaga Tokioga xizmat safariga boraman.)"
+  },
+  "あさって": {
+    "example": "あさって 日本語の 試験が あります。 (Indinga yapon tili imtihoni bor.)"
+  },
+  "けさ": {
+    "example": "けさ パンと 果物を 食べました。 (Bugun ertalab non va meva yedim.)"
+  },
+  "今晩": {
+    "example": "今晩 テレビで サッカーを 見ます。 (Bugun oqshom televizorda futbol ko'raman.)"
+  },
+  "休み": {
+    "example": "会社の 休みは 土曜日と 日曜日です。 (Kompaniyaning dam olish kunlari shanba va yakshanba.)"
+  },
+  "昼休み": {
+    "example": "昼休みに 友達と 食堂へ 行きます。 (Tushlik tanaffusida do'stim bilan oshxonaga boraman.)"
+  },
+  "毎朝": {
+    "example": "毎朝 新聞を 読んでから 会社へ 行きます。 (Har ertalab gazeta o'qib, keyin ishga boraman.)"
+  },
+  "毎晩": {
+    "example": "毎晩 11時に 布団に 入ります。 (Har kecha soat 11 da o'ringa yotaman.)"
+  },
+  "毎日": {
+    "example": "毎日 漢字の 練習を します。 (Har kuni kanji mashqini qilaman.)"
+  },
+  "月曜日": {
+    "example": "月曜日から 金曜日まで 働きます。 (Dushanbadan jumagacha ishlayman.)"
+  },
+  "火曜日": {
+    "example": "火曜日は 日本語の 授業が あります。 (Seshanba kuni yapon tili darsi bor.)"
+  },
+  "水曜日": {
+    "example": "水曜日の 午後は 休みです。 (Chorshanba tushdan keyin dam olish.)"
+  },
+  "木曜日": {
+    "example": "木曜日に 病院へ 行きます。 (Payshanba kuni shifoxonaga boraman.)"
+  },
+  "金曜日": {
+    "example": "金曜日の 夜 友達と 会います。 (Juma oqshomi do'stim bilan ko'rishaman.)"
+  },
+  "土曜日": {
+    "example": "土曜日に 部屋を 掃除します。 (Shanba kuni xonani tozalayman.)"
+  },
+  "日曜日": {
+    "example": "日曜日は 家族と 過ごします。 (Yakshanba kuni oilam bilan vaqt o'tkazaman.)"
+  },
+  "何曜日": {
+    "example": "きょうは 何曜日ですか。 (Bugun haftaning qaysi kuni?)"
+  },
+  "何番": {
+    "example": "あなたの 電話番号は 何番ですか。 (Telefon raqamingiz necha?)"
+  },
+  "～から": {
+    "example": "時間が ありませんから、タクシーで 行きましょう。 (Vaqt yo'q, shuning uchun taksida boraylik.)"
+  },
+  "～まで": {
+    "example": "郵便局は 5時までです。 (Pochta soat 5 gacha ishlaydi.)"
+  },
+  "～と～": {
+    "example": "机の 上に 本と ペンが あります。 (Stol ustida kitob va ruchka bor.)"
+  },
+  "大変ですね。": {
+    "front": "大変ですね",
+    "back": "Qiyin bo'libdi / Og'ir ish ekan",
+    "example": "残業ですか。大変ですね。 (Qo'shimcha ishmi? Qiyin bo'libdi-ya.)"
+  },
+  "えーと": {
+    "front": "えーと",
+    "back": "Xo'sh... / Haligi...",
+    "example": "えーと、何時に 会いましょうか。 (Xo'sh, soat nechada ko'rishaylik?)"
+  },
+  "１０４": {
+    "front": "104 (ma'lumotlar xizmati)",
+    "back": "104 raqami (ma'lumot xizmati)",
+    "example": "電話番号を 104で 調べます。 (Telefon raqamini 104 xizmatidan bilib olaman.)"
+  },
+  "かしこまりました。": {
+    "front": "かしこまりました",
+    "back": "Tushundim, xo'p bo'ladi (xushmuomala)",
+    "example": "かしこまりました。少々 お待ちください。 (Xo'p bo'ladi, bir oz kutib turing.)"
+  },
+  "お問とい合あわせの番号ばんごう": {
+    "front": "お問い合わせの番号",
+    "back": "so'ralgan telefon raqami",
+    "example": "お問い合わせの番号は 03-1234-5678です。 (So'ralgan raqam 03-1234-5678.)"
+  },
+  "どうもありがとうございました。": {
+    "front": "どうもありがとうございました",
+    "back": "Katta rahmat (minnatdorchilik)",
+    "example": "親切に 教えてくれて、どうも ありがとうございました。 (Mehribonlik bilan tushuntirganingiz uchun katta rahmat.)"
+  },
+  "ニューヨーク": {
+    "example": "ニューヨークは 今 午前 4時です。 (Nyu-Yorkda hozir ertalab soat 4.)"
+  },
+  "ペキン": {
+    "example": "ペキンは 中国の 首都です。 (Pekin Xitoyning poytaxti.)"
+  },
+  "ロンドン": {
+    "example": "ロンドンは 雨が 多いです。 (Londonda yomg'ir ko'p yog'adi.)"
+  },
+  "バンコク": {
+    "example": "バンコクは とても 暑いです。 (Bangkok juda issiq.)"
+  },
+  "ロサンゼルス": {
+    "example": "ロサンゼルスへ 飛行機で 行きます。 (Los-Anjelesga samolyotda boraman.)"
+  },
+  "やまと美び術じゅつ館かん": {
+    "front": "やまと美術館",
+    "back": "Yamato muzeyi (to'qima)",
+    "example": "あした やまと美術館へ 行きます。 (Ertaga Yamato san'at muzeyiga boraman.)"
+  },
+  "大阪おおさかデパート": {
+    "front": "大阪デパート",
+    "back": "Osaka universami",
+    "example": "大阪デパートで お土産を 買いました。 (Osaka universamida sovg'a sotib oldim.)"
+  },
+  "みどり図と書しょ館かん": {
+    "front": "みどり図書館",
+    "back": "Midori kutubxonasi (to'qima)",
+    "example": "みどり図書館は 月曜日が 休みです。 (Midori kutubxonasi dushanba kuni dam oladi.)"
+  },
+  "アップル銀行ぎんこう": {
+    "front": "アップル銀行",
+    "back": "Apple banki (to'qima)",
+    "example": "アップル銀行で お金を 下ろします。 (Apple bankidan pul yechaman.)"
+  },
+  "先月": {
+    "example": "先月 日本へ 来ました。 (O'tgan oy Yaponiyaga keldim.)"
+  },
+  "今月": {
+    "example": "今月は 休みが 少ないです。 (Bu oy dam olish kunlari kam.)"
+  },
+  "来月": {
+    "example": "来月 大阪へ 出張します。 (Kelasi oy Osakaga xizmat safariga boraman.)"
+  },
+  "去年": {
+    "example": "去年 大学を 卒業しました。 (O'tgan yili universitetni bitirdim.)"
+  },
+  "今年": {
+    "example": "今年は 日本語の 試験に 合格したいです。 (Bu yil yapon tili imtihonidan o'tmoqchiman.)"
+  },
+  "来年": {
+    "example": "来年 日本の 会社で 働きます。 (Kelasi yili Yaponiya korxonasida ishlayman.)"
+  },
+  "～月": {
+    "example": "4月に 新しい 学期が 始まります。 (Aprel oyida yangi o'quv davri boshlanadi.)"
+  },
+  "何月": {
+    "example": "あなたの 誕生日は 何月ですか。 (Tug'ilgan kuningiz qaysi oyda?)"
+  },
+  "1日": {
+    "front": "1日 (ついたち)",
+    "back": "oyning 1-sanasi",
+    "phonetic": "ついたち - tsuitachi",
+    "example": "毎月 一日は 掃除の 日です。 (Har oyning 1-sanasi tozalik kuni.)"
+  },
+  "2日": {
+    "front": "2日 (ふつか)",
+    "back": "oyning 2-sanasi, ikki kun",
+    "phonetic": "ふつか - futsuka",
+    "example": "二日に 友達と 会います。 (2-sanada do'stim bilan ko'rishaman.)"
+  },
+  "3日": {
+    "front": "3日 (みっか)",
+    "back": "oyning 3-sanasi, uch kun",
+    "phonetic": "みっか - mikka",
+    "example": "三日間 京都を 旅行しました。 (Uch kun Kioto bo'ylab sayohat qildim.)"
+  },
+  "4日": {
+    "front": "4日 (よっか)",
+    "back": "oyning 4-sanasi, to'rt kun",
+    "phonetic": "よっか - yokka",
+    "example": "5月四日は 祝日です。 (4-may bayram kuni.)"
+  },
+  "5日": {
+    "front": "5日 (いつか)",
+    "back": "oyning 5-sanasi, besh kun",
+    "phonetic": "いつか - itsuka",
+    "example": "こどもの日は 5月五日です。 (Bolalar kuni 5-mayda.)"
+  },
+  "6日": {
+    "front": "6日 (むいか)",
+    "back": "oyning 6-sanasi, olti kun",
+    "phonetic": "むいか - muika",
+    "example": "六日に 手紙が 届きました。 (6-sanada xat yetib keldi.)"
+  },
+  "7日": {
+    "front": "7日 (なのか)",
+    "back": "oyning 7-sanasi, yetti kun",
+    "phonetic": "なのか - nanoka",
+    "example": "七夕の お祭りは 7月七日です。 (Tanabata bayrami 7-iyulda.)"
+  },
+  "8日": {
+    "front": "8日 (ようか)",
+    "back": "oyning 8-sanasi, sakkiz kun",
+    "phonetic": "ようか - youka",
+    "example": "八日に 会議が あります。 (8-sanada majlis bor.)"
+  },
+  "9日": {
+    "front": "9日 (ここのか)",
+    "back": "oyning 9-sanasi, to'qqiz kun",
+    "phonetic": "ここのか - kokonoka",
+    "example": "九日に 国へ 荷物を 送ります。 (9-sanada yurtimga posilka jo'nataman.)"
+  },
+  "10日": {
+    "front": "10日 (とおか)",
+    "back": "oyning 10-sanasi, o'n kun",
+    "phonetic": "とおか - tooka",
+    "example": "十日後に また 会いましょう。 (O'n kundan so'ng yana uchrashaylik.)"
+  },
+  "14日": {
+    "front": "14日 (じゅうよっか)",
+    "back": "oyning 14-sanasi, 14 kun",
+    "phonetic": "じゅうよっか - juuyokka",
+    "example": "2月十四日は バレンタインデーです。 (14-fevral Sevishganlar kuni.)"
+  },
+  "20日": {
+    "front": "20日 (はつか)",
+    "back": "oyning 20-sanasi, 20 kun",
+    "phonetic": "はつか - hatsuka",
+    "example": "二十日に 給料を もらいます。 (20-sanada oylik maosh olaman.)"
+  },
+  "24日": {
+    "front": "24日 (にじゅうよっか)",
+    "back": "oyning 24-sanasi, 24 kun",
+    "phonetic": "にじゅうよっか - nijuuyokka",
+    "example": "十二月二十四日は クリスマスイブです。 (24-dekabr Rojdestvo arafasi.)"
+  },
+  "～日": {
+    "example": "きょうは 何日ですか。 (Bugun nechanchi sana?)"
+  },
+  "何日": {
+    "example": "国へ 帰るのは 何日ですか。 (Yurtingizga qaytish qaysi sanada?)"
+  },
+  "いつ": {
+    "example": "いつ 日本へ 行きますか。 (Qachon Yaponiyaga borasiz?)"
+  },
+  "誕生日": {
+    "example": "誕生日 おめでとうございます。 (Tug'ilgan kuningiz muborak bo'lsin!)"
+  },
+  "次の": {
+    "example": "次の 角を 左へ 曲がります。 (Keyingi burilishdan chapga qayrilaman.)"
+  },
+  "どういたしまして。": {
+    "front": "どういたしまして",
+    "back": "Arzimaydi",
+    "example": "ありがとう。― いいえ、どういたしまして。 (Rahmat. - Yo'g'-e, arzimaydi.)"
+  },
+  "～番線ばんせん": {
+    "front": "～番線",
+    "back": "~yo'l, ~platforma",
+    "example": "東京行きは 3番線から 出ます。 (Tokioga boradigan poyezd 3-yo'ldan jo'naydi.)"
+  },
+  "博多": {
+    "example": "新幹線で 博多まで 行きました。 (Shinkansen bilan Hakatagacha bordim.)"
+  },
+  "伏見": {
+    "example": "京都の 伏見稲荷へ 行きました。 (Kiotoning Fushimi Inari ibodatxonasiga bordim.)"
+  },
+  "甲子園": {
+    "example": "甲子園で 高校野球を 見ました。 (Koshiyenda yuqori maktab beysbol o'yinini ko'rdim.)"
+  },
+  "大阪城": {
+    "example": "大阪城は とても 有名な お城です。 (Osaka qal'asi juda mashhur qal'a.)"
+  },
+  "たばこを～": {
+    "front": "たばこを吸います",
+    "back": "tamaki chekmoq",
+    "phonetic": "たばこをすいます - tabako o suimasu",
+    "example": "ここで たばこを 吸わないで ください。 (Bu yerda tamaki chekmang, iltimos.)"
+  },
+  "友達に～": {
+    "front": "友達に会います",
+    "back": "do'st bilan uchrashmoq",
+    "phonetic": "ともだちにあいます - tomodachi ni aimasu",
+    "example": "土曜日に 駅で 友達に 会います。 (Shanba kuni bekatda do'stim bilan ko'rishaman.)"
+  },
+  "ごはん": {
+    "example": "毎朝 温かい ごはんを 食べます。 (Har ertalab issiq oq guruch/ovqat yeyman.)"
+  },
+  "朝ごはん": {
+    "example": "朝ごはんは いつも パンと コーヒーです。 (Nonushta har doim non va kofe.)"
+  },
+  "昼ごはん": {
+    "example": "12時半に 会社の 食堂で 昼ごはんを 食べます。 (12 yarimda kompaniya oshxonasida tushlik qilaman.)"
+  },
+  "晩ごはん": {
+    "example": "家族と いっしょに 晩ごはんを 食べました。 (Oilam bilan birga kechki ovqat yedim.)"
+  },
+  "パン": {
+    "example": "パン屋で おいしい パンを 買いました。 (Novvoyxonadan mazali non sotib oldim.)"
+  },
+  "卵": {
+    "example": "毎朝 卵を 1個 食べます。 (Har ertalab bitta tuxum yeyman.)"
+  },
+  "肉": {
+    "example": "牛肉と 豚肉を 買いました。 (Mol go'shti va cho'chqa go'shti sotib oldim.)"
+  },
+  "魚": {
+    "example": "日本の 魚は とても 新鮮です。 (Yaponiyaning balig'i juda yangi/toza.)"
+  },
+  "野菜": {
+    "example": "健康のために 野菜を たくさん 食べます。 (Salomatlik uchun ko'p sabzavot yeyman.)"
+  },
+  "果物": {
+    "example": "デザートに 甘い 果物を 食べました。 (Shirinlikka shirin meva yedim.)"
+  },
+  "水": {
+    "example": "冷たい 水を 1杯 ください。 (Bir piyola sovuq suv bering.)"
+  },
+  "お茶": {
+    "example": "日本の 伝統的な お茶（茶道）を 体験しました。 (Yapon an'anaviy choy marosimini sinab ko'rdim.)"
+  },
+  "紅茶": {
+    "example": "午後に レモンティー（紅茶）を 飲みました。 (Tushdan keyin qora choy ichdim.)"
+  },
+  "牛乳": {
+    "example": "毎朝 牛乳を コップ1杯 飲みます。 (Har ertalab bir stakan sut ichaman.)"
+  },
+  "ミルク": {
+    "example": "コーヒーに ミラー（牛乳）を 入れます。 (Kofega sut qo'shaman.)"
+  },
+  "ジュース": {
+    "example": "オレンジジュースを 注文しました。 (Apelsin sharbati buyurtma qildim.)"
+  },
+  "ビール": {
+    "example": "仕事の 後で 冷たい ビールを 飲みました。 (Ishdan keyin sovuq pivo ichdim.)"
+  },
+  "酒": {
+    "example": "お正月には 日本酒（酒）を 飲みます。 (Yangi yilda yapon sakesini ichamiz.)"
+  },
+  "ビデオ": {
+    "example": "休みの 日に 部屋で ビデオを 見ます。 (Dam olish kuni xonamda video ko'raman.)"
+  },
+  "映画": {
+    "example": "きのう 映画館へ 映画を 見に 行きました。 (Kecha kinoteatrga film ko'rishga bordim.)"
+  },
+  "ＣＤ": {
+    "front": "CD",
+    "example": "日本の 歌手の CDを 買いました。 (Yapon qo'shiqchisining diskini sotib oldim.)"
+  },
+  "手紙": {
+    "example": "国に いる 母親に 手紙を 書きました。 (Yurtimdagi onamga xat yozdim.)"
+  },
+  "レポート": {
+    "example": "パソコンで 日本語の レポートを 作成しました。 (Kompyuterda yapon tili hisobotini tayyorladim.)"
+  },
+  "写真": {
+    "example": "京都で たくさん 写真を 撮りました。 (Kiotoda ko'p rasmga tushdim.)"
+  },
+  "店": {
+    "example": "あの 店の 料理は とても おいしいです。 (Anavi do'konning taomlari juda mazali.)"
+  },
+  "レストラン": {
+    "example": "誕生日に 高級な レストランへ 行きました。 (Tug'ilgan kunimda qimmat restoranga bordim.)"
+  },
+  "庭": {
+    "example": "うちの 庭に きれいな 花が 咲いています。 (Uyimiz hovlisida chiroyli gullar ochilib yotibdi.)"
+  },
+  "宿題": {
+    "example": "寝る 前に 日本語の 宿題を します。 (Uxlamasdan oldin yapon tili vazifasini bajaraman.)"
+  },
+  "テニス": {
+    "example": "毎週 日曜日に 友達と テニスを します。 (Har yakshanba do'stim bilan tennis o'ynayman.)"
+  },
+  "サッカー": {
+    "example": "放課後に 公園で サッカーを しました。 (Darsdan so'ng bog'da futbol o'ynadim.)"
+  },
+  "お花見": {
+    "example": "春に 桜の 木の 下で お花見を します。 (Bahorda sakura daraxti tagida sayil qilamiz.)"
+  },
+  "いっしょに": {
+    "example": "いっしょに 京都へ 旅行に 行きませんか。 (Birga Kiotoga sayohatga bormaymizmi?)"
+  },
+  "ちょっと": {
+    "example": "ちょっと 待って ください。 (Biroz kutib turing.)"
+  },
+  "いつも": {
+    "example": "わたしは いつも 7時に 起きます。 (Men har doim soat 7 da turaman.)"
+  },
+  "時々": {
+    "example": "休みの 日には 時々 映画を 見ます。 (Dam olish kunlari vaqti-vaqti bilan kino ko'raman.)"
+  },
+  "それから": {
+    "example": "スーパーで パンを 買いました。それから 映画を 見ました。 (Supermarketdan non sotib oldim. So'ngra kino ko'rdim.)"
+  },
+  "ええ": {
+    "front": "ええ",
+    "back": "ha (og'zaki)",
+    "example": "いっしょに 行きませんか。― ええ、行きましょう。 (Birga bormaymizmi? - Ha, ketdik.)"
+  },
+  "いいですね。": {
+    "front": "いいですね",
+    "back": "Juda yaxshi / Ma'qul",
+    "example": "あした 映画を 見ませんか。― いいですね。 (Ertaga kino ko'rmaymizmi? - Juda zo'r fikr.)"
+  },
+  "わかりました。": {
+    "front": "わかりました",
+    "back": "Tushundim",
+    "example": "駅で 待って いてください。― はい、わかりました。 (Bekatda kutib turing. - Xo'p, tushundim.)"
+  },
+  "何なんですか。": {
+    "front": "何ですか",
+    "back": "Nima deysiz? / Labbay?",
+    "example": "ミラーさん。― 何ですか。 (Janob Miller. - Labbay, nima deysiz?)"
+  },
+  "。": {
+    "front": "じゃ、また",
+    "back": "Xayr, ko'rishguncha",
+    "example": "じゃ、また あした。 (Mayli, ertagacha.)"
+  },
+  "メキシコ": {
+    "example": "サントスさんは メキシコへ 出張しました。 (Janob Santos Meksikaga xizmat safariga bordi.)"
+  },
+  "大阪城公園": {
+    "example": "大阪城公園で ジョギングを しました。 (Osaka qal'asi xiyobonida yugurdim.)"
+  },
+  "電話を～": {
+    "front": "電話をかけます",
+    "back": "telefon qilmoq",
+    "phonetic": "でんわをかけます - denwa o kakemasu",
+    "example": "家族に 電話を かけます。 (Oilamga telefon qilaman.)"
+  },
+  "はし": {
+    "example": "箸（はし）で 日本料理を 食べます。 (Chopchoqda yapon taomini yeyman.)"
+  },
+  "スプーン": {
+    "example": "スプーンで カレーライスを 食べます。 (Qoshiq bilan karerays yeyman.)"
+  },
+  "ナイフ": {
+    "example": "ナイフと フォークで ステーキを 切ります。 (Pichoq va vilka bilan go'shtni kesaman.)"
+  },
+  "フォーク": {
+    "example": "フォークを 落としましたから、替えてください。 (Vilkam tushib ketdi, almashtirib bering.)"
+  },
+  "はさみ": {
+    "example": "はさみで 紙を 切ります。 (Qaychi bilan qog'ozni kesaman.)"
+  },
+  "ファクス": {
+    "example": "ファクスで 書類を 送信しました。 (Faks orqali hujjatlarni jo'natdim.)"
+  },
+  "ワープロ": {
+    "example": "昔は ワープロで 文書を 作りました。 (Ilgari matn protsessorida hujjat tayyorlangan.)"
+  },
+  "パソコン": {
+    "example": "パソコンで インターネットを 使います。 (Shaxsiy kompyuterda internetdan foydalanaman.)"
+  },
+  "パンチ": {
+    "example": "パンチで 書類に 穴を あけます。 (Dirokol bilan qog'ozga teshik ochaman.)"
+  },
+  "ホッチキス": {
+    "example": "ホッチキスで レポートを とめます。 (Stepler bilan hisobotni qadab qo'yaman.)"
+  },
+  "セロテープ": {
+    "example": "セロテープで ポスターを 壁に 貼ります。 (Skotch bilan devorga afishani yopishtiraman.)"
+  },
+  "消しゴム": {
+    "example": "消しゴムで 間違えた 字を 消します。 (O'chirg'ich bilan xato yozuvni o'chiraman.)"
+  },
+  "紙": {
+    "example": "白い 紙に 住所と 名前を 書いてください。 (Oq qog'ozga manzilingiz va ismingizni yozing.)"
+  },
+  "花": {
+    "example": "母の 誕生日に 赤い 花を あげました。 (Onamning tug'ilgan kuniga qizil gul berdim.)"
+  },
+  "シャツ": {
+    "example": "新しい 白い シャツを 着て 行きます。 (Yangi oq ko'ylak kiyib boraman.)"
+  },
+  "プレゼント": {
+    "example": "友達から すてきな プレゼントを もらいました。 (Do'stimdan ajoyib sovg'a oldim.)"
+  },
+  "荷物": {
+    "example": "郵便局から 重い 荷物を 送ります。 (Pochtadan og'ir posilkani jo'nataman.)"
+  },
+  "お金": {
+    "example": "財布に お金が 少ししか ありません。 (Hamyonimda ozgina pul bor xolos.)"
+  },
+  "切符": {
+    "example": "駅の 券売機で 電車の 切符を 買います。 (Bekat apparatida poyezd chiptasini sotib olaman.)"
+  },
+  "クリスマス": {
+    "example": "クリスマスに 家族と ごちそうを 食べます。 (Rojdestvoda oilam bilan bayramona taom yeymiz.)"
+  },
+  "父": {
+    "example": "父は 毎朝 早く 散歩に 出かけます。 (Otam har kuni ertalab barvaqt sayrga chiqadi.)"
+  },
+  "母": {
+    "example": "母は 料理が とても 上手です。 (Onam ovqat pishirishga juda usta.)"
+  },
+  "お父さん": {
+    "example": "あなたのお父さんは どんな 仕事を していますか。 (Otangiz qanday ish bilan shug'ullanadilar?)"
+  },
+  "お母さん": {
+    "example": "お母さんは 元気ですか。 (Onangiz salomatmilar?)"
+  },
+  "まだ": {
+    "example": "もう 昼ご飯を 食べましたか。― いいえ、まだです。 (Allaqachon tushlik qildingizmi? - Yo'q, hali yo'q.)"
+  },
+  "これから": {
+    "example": "これから 日本語の 勉強を 始めます。 (Hozir yapon tili darsini boshlayman.)"
+  },
+  "～、すてきですね。": {
+    "front": "すてきですね",
+    "back": "Ajoyib ekan-a",
+    "example": "その ネクタイ、すてきですね。 (U bo'yinbog'ingiz ajoyib ekan-a.)"
+  },
+  "ごめんください。": {
+    "front": "ごめんください",
+    "back": "Kechirasiz, kimdir bormi? (uyga kirishda)",
+    "example": "ごめんください。どなたか いらっしゃいますか。 (Kechirasiz, biror kim bormi?)"
+  },
+  "いらっしゃい。": {
+    "front": "いらっしゃい",
+    "back": "Xush kelibsiz",
+    "example": "いらっしゃい。どうぞ 入って ください。 (Xush kelibsiz. Marhamat, kiring.)"
+  },
+  "どうぞお上あがりください。": {
+    "front": "どうぞお上がりください",
+    "back": "Marhamat, ichkariga marhamat qiling",
+    "example": "どうぞ お上がり ください。スリッパを どうぞ。 (Ichkariga marhamat qiling. Shippakni kiying.)"
+  },
+  "～はいかがですか。": {
+    "front": "～はいかがですか",
+    "back": "~dan olmaysizmi? / ~ ma'qulmi?",
+    "example": "温かい お茶は いかがですか。 (Iliq choydan olmaysizmi?)"
+  },
+  "旅行りょこう": {
+    "front": "旅行",
+    "back": "sayohat",
+    "example": "夏休みに 北海道へ 旅行に 行きます。 (Yozgi ta'tilda Xokkaydoga sayohatga boraman.)"
+  },
+  "お土産みやげ": {
+    "front": "お土産",
+    "back": "esdalik sovg'a",
+    "example": "京都の お土産を 買いました。 (Kiotodan esdalik sovg'a sotib oldim.)"
+  },
+  "ヨーロッパ": {
+    "example": "ヨーロッパの 歴史を 勉強しています。 (Yevropa tarixini o'rganyapman.)"
+  },
+  "スペイン": {
+    "example": "スペインへ サッカーを 見に 行きたいです。 (Ispaniyaga futbol ko'rgani bormoqchiman.)"
+  },
+  "ハンサムな": {
+    "example": "あの 俳優は とても ハンサムです。 (Anavi aktyor juda kelishgan.)"
+  },
+  "きれいな": {
+    "example": "公園に きれいな 花が 咲いています。 (Bog'da chiroyli gullar ochilib yotibdi.)"
+  },
+  "静かな": {
+    "example": "この 図書館は 静かで 勉強しやすいです。 (Bu kutubxona tinch, dars qilish qulay.)"
+  },
+  "にぎやかな": {
+    "example": "新宿の 夜は とても にぎやかです。 (Shinjukuning oqshomi juda gavjum.)"
+  },
+  "有名な": {
+    "example": "京都には 有名な お寺が たくさん あります。 (Kiotoda mashhur ibodatxonalar ko'p.)"
+  },
+  "親切な": {
+    "example": "山田さんは 親切な 人ですから、みんなに 好かれています。 (Yamada mehribon inson, shuning uchun hamma uni yaxshi ko'radi.)"
+  },
+  "元気な": {
+    "example": "ミラーさんは いつも 元気ですね。 (Janob Miller doimo tetik-a.)"
+  },
+  "暇な": {
+    "example": "あしたの 午後は 暇ですか。 (Ertaga tushdan keyin bo'shmisiz?)"
+  },
+  "便利な": {
+    "example": "地下鉄は 安くて 便利です。 (Metro arzon va qulay.)"
+  },
+  "すてきな": {
+    "example": "すてきな プレゼントを ありがとうございました。 (Ajoyib sovg'a uchun tashakkur.)"
+  },
+  "桜": {
+    "example": "春に 桜が 満開に なります。 (Bahorda sakura qiyg'os gullaydi.)"
+  },
+  "山": {
+    "example": "天気が いいから、山へ 登りましょう。 (Havo yaxshi, tog'ga chiqaylik.)"
+  },
+  "町": {
+    "example": "わたしの 故郷は 静かで きれいな 町です。 (Mening tug'ilib o'sgan joyim tinch va chiroyli shahar.)"
+  },
+  "食べ物": {
+    "example": "日本の 食べ物で 何が いちばん 好きですか。 (Yapon taomlaridan qaysi birini eng yaxshi ko'rasiz?)"
+  },
+  "車": {
+    "example": "父は ドイツの 白い 車に 乗っています。 (Otam Germaniyaning oq mashinasini haydaydi.)"
+  },
+  "生活": {
+    "example": "一人暮らしの 生活は どうですか。 (Yolg'iz yashash hayoti qanday kechyapti?)"
+  },
+  "お仕事": {
+    "example": "お仕事は 何を されていますか。 (Kasbingiz nima?)"
+  },
+  "どんな～": {
+    "example": "どんな 音楽が 好きですか。 (Qanday musiqani yoqtirasiz?)"
+  },
+  "どれ": {
+    "example": "あなたの かばんは どれですか。 (Sizning sumkangiz qaysi biri?)"
+  },
+  "とても": {
+    "example": "富士山は とても 高くて きれいです。 (Fuji tog'i juda baland va chiroyli.)"
+  },
+  "あまり": {
+    "example": "きょうは あまり 寒くないです。 (Bugun unchalik sovuq emas.)"
+  },
+  "そして": {
+    "example": "日本の 料理は おいしいです。そして 体に いいです。 (Yapon taomlari mazali. Va sog'liq uchun foydali.)"
+  },
+  "～が、～": {
+    "example": "日本の 生活は 楽しいですが、物価が 高いです。 (Yaponiyadagi hayot maroqli, lekin narx-navo qimmat.)"
+  },
+  "お元気ですか。": {
+    "front": "お元気ですか",
+    "back": "Yaxshimisiz? / Sog'-omonmisiz?",
+    "example": "お久しぶりです。お元気ですか。 (Ko'rishmaganimizga ancha bo'ldi. Yaxshimisiz?)"
+  },
+  "そうですね。": {
+    "front": "そうですね",
+    "back": "Shunday-a / Rostdan ham",
+    "example": "きょうは いい 天気ですね。― そうですね。 (Bugun havo yaxshi-ya. - Shunday-a.)"
+  },
+  "日に本ほんの生活せいかつに慣なれましたか。": {
+    "front": "日本の生活に慣れましたか",
+    "back": "Yaponiya hayotiga o'rgandingizmi?",
+    "example": "日本の 生活に 慣れましたか。― はい、慣れました。 (Yaponiya hayotiga o'rgandingizmi? - Ha, ko'nikdim.)"
+  },
+  "～、もう一杯いっぱいいかがですか。": {
+    "front": "もう一杯いかがですか",
+    "back": "Yana bir piyola olmaysizmi?",
+    "example": "お茶、もう一杯 いかがですか。 (Yana bir piyola choy olmaysizmi?)"
+  },
+  "いいえ、けっこうです。": {
+    "front": "いいえ、けっこうです",
+    "back": "Yo'q, rahmat / Yetarli",
+    "example": "もう一杯 いかがですか。― いいえ、けっこうです。 (Yana bir piyola olasizmi? - Yo'q, rahmat, yetarli.)"
+  },
+  "もう～ですね。": {
+    "front": "もう～ですね",
+    "back": "Allaqachon ~ bo'libdi-ya",
+    "example": "もう 12時ですね。そろそろ 失礼します。 (Allaqachon 12 bo'libdi-ya. Ruxsatingiz bilan qaytay.)"
+  },
+  "ください。": {
+    "front": "また来てください",
+    "back": "Yana keling",
+    "example": "楽しかったです。また 来て ください。 (Maroqli bo'ldi. Yana kelib turing.)"
+  },
+  "富士山": {
+    "example": "富士山は 日本で いちばん 高い 山です。 (Fuji tog'i Yaponiyadagi eng baland tog'.)"
+  },
+  "琵琶湖": {
+    "example": "琵琶湖は 日本で いちばん 大きい 湖です。 (Biva ko'li Yaponiyadagi eng katta ko'l.)"
+  },
+  "シャンハイ": {
+    "example": "シャンハイは 中国の にぎやかな 大都市です。 (Shanxay Xitoyning gavjum yirik shahr.)"
+  },
+  "「七人の侍」": {
+    "example": "「七人の侍」は 黒澤明監督の 有名な 映画です。 (\"Yetti samuray\" Akira Kurosavaning mashhur filmi.)"
+  },
+  "金閣寺": {
+    "example": "京都の 金閣寺へ 行きました。 (Kiotodagi Oltin ibodatxonaga bordim.)"
+  },
+  "好きな": {
+    "example": "わたしは 日本の アニメが 好きです。 (Men yapon animesini yoqtiraman.)"
+  },
+  "嫌いな": {
+    "example": "子どもの 頃、野菜が 嫌いでした。 (Bolaligimda sabzavotlarni yoqtirmasdim.)"
+  },
+  "上手な": {
+    "example": "サントスさんは サッカーが 上手です。 (Janob Santos futbolni zo'r o'ynaydi.)"
+  },
+  "下手な": {
+    "example": "歌が 下手ですから、カラオケへ 行きません。 (Qo'shiq aytishga no'noqman, shuning uchun karaokega bormayman.)"
+  },
+  "料理": {
+    "example": "母と いっしょに 日本料理を 作りました。 (Onam bilan birga yapon taomini tayyorladim.)"
+  },
+  "飲み物": {
+    "example": "冷蔵庫に 冷たい 飲み物が あります。 (Muzlatgichda salqin ichimliklar bor.)"
+  },
+  "スポーツ": {
+    "example": "どんな スポーツを しますか。 (Qanday sport bilan shug'ullanasiz?)"
+  },
+  "ダンス": {
+    "example": "週末に クラブで ダンスを しました。 (Dam olish kunida klubda raqsga tushdim.)"
+  },
+  "音楽": {
+    "example": "静かな 部屋で 音楽を 聞くのが 好きです。 (Tinch xonada musiqa tinglashni yoqtiraman.)"
+  },
+  "歌": {
+    "example": "日本の 懐かしい 歌を 歌いました。 (Yaponiyaning qadrdon qo'shig'ini kuyladim.)"
+  },
+  "クラシック": {
+    "example": "ベートーベンの クラシック音楽を 聞きます。 (Betxovenning klassik musiqasini eshitaman.)"
+  },
+  "ジャズ": {
+    "example": "バーで ジャズを 聞きながら お酒を 飲みました。 (Barda jaz tinglab ichimlik ichdim.)"
+  },
+  "コンサート": {
+    "example": "来週の 土曜日に ロックの コンサートが あります。 (Kelasi shanba kuni rok konserti bor.)"
+  },
+  "カラオケ": {
+    "example": "仕事の 帰りに 同僚と カラオケへ 行きました。 (Ishdan qaytishda hamkasblar bilan karaokega bordim.)"
+  },
+  "歌舞伎": {
+    "example": "銀座の 歌舞伎座で 歌舞伎を 見ました。 (Ginzadagi Kabukizada teatrida kabuki ko'rdim.)"
+  },
+  "絵": {
+    "example": "美術館で 美しい 絵を 鑑賞しました。 (Muzeyda go'zal san'at asarini tomosha qildim.)"
+  },
+  "字": {
+    "example": "田中さんは 字が とても きれいです。 (Janob Tanakaning husnixati juda chiroyli.)"
+  },
+  "漢字": {
+    "example": "漢字の 読み方を 毎日 覚えます。 (Har kuni kanji o'qilishlarini yodlayman.)"
+  },
+  "ひらがな": {
+    "example": "初めに ひらがなと カタカナを 勉強しました。 (Avvaliga hiragana va katakanani o'rgandim.)"
+  },
+  "かたかな": {
+    "example": "外来語は カタカナで 書きます。 (Chet tilidan kirib kelgan so'zlar katakanada yoziladi.)"
+  },
+  "ローマ字": {
+    "example": "駅の 看板には ローマ字も 書いて あります。 (Bekat peshlavhasida lotin yozuvi ham yozilgan.)"
+  },
+  "細かいお金": {
+    "example": "バスに 乗る 前に 細かいお金を 用意します。 (Avtobusga chiqishdan oldin mayda pul tayyorlayman.)"
+  },
+  "チケット": {
+    "example": "インターネットで 新幹線の チケットを 予約しました。 (Internetda Shinkansen poyezdi chiptasini band qildim.)"
+  },
+  "時間": {
+    "example": "きょうは 宿題が 多くて 時間が ありません。 (Bugun vazifa ko'p, vaqtim yo'q.)"
+  },
+  "用事": {
+    "example": "午後は 銀行に 用事が あります。 (Tushdan keyin bankda yumushim bor.)"
+  },
+  "約束": {
+    "example": "日曜日 友達と 銀座で 会う 約束が あります。 (Yakshanba do'stim bilan Ginzada uchrashuvim/kelishuvim bor.)"
+  },
+  "奥さん": {
+    "example": "木村さんの 奥さんは 料理研究家です。 (Janob Kimuraning rafiqasi pazandachilik mutaxassisi.)"
+  },
+  "子ども": {
+    "example": "公園で 子どもたちが 元気に 遊んでいます。 (Bog'da bolalar quvnoq o'ynayapti.)"
+  },
+  "よく": {
+    "example": "この 喫茶店には よく 来ます。 (Bu qahvaxonaga tez-tez kelib turaman.)"
+  },
+  "たくさん": {
+    "example": "スーパーで 果物を たくさん 買いました。 (Supermarketdan ko'p meva sotib oldim.)"
+  },
+  "少し": {
+    "example": "日本語が 少し 話せます。 (Yaponcha ozroq gaplasha olaman.)"
+  },
+  "全然": {
+    "example": "ロシア語が 全然 わかりません。 (Rus tilini umuman tushunmayman.)"
+  },
+  "早く、速く": {
+    "front": "早く、速く",
+    "example": "早く 起きて、速く 走ります。 (Barvaqt turib, tez yuguraman.)"
+  },
+  "どうして": {
+    "example": "どうして きのう 会社を 休みましたか。 (Nima uchun kecha ishga kelmadingiz?)"
+  },
+  "残念ですね。": {
+    "front": "残念ですね",
+    "back": "Afsus / Attang",
+    "example": "いっしょに 行けなくて、残念ですね。 (Birga bora olmasligingiz afsus-a.)"
+  },
+  "もしもし": {
+    "example": "もしもし、ミラーさんのお宅ですか。 (Allo, janob Millerning xonadonimi?)"
+  },
+  "ああ": {
+    "example": "ああ、佐藤さん、こんにちは。 (Aha, xonim Sato, assalomu alaykum.)"
+  },
+  "いっしょにいかがですか。": {
+    "front": "いっしょにいかがですか",
+    "back": "Birga bormaymizmi? / Birga qilmaysizmi?",
+    "example": "お昼ご飯、いっしょに いかがですか。 (Tushlikni birga qilmaysizmi?)"
+  },
+  "～はちょっと・・・・。": {
+    "front": "～はちょっと…",
+    "back": "~ biroz noqulay... (muloyim rad etish)",
+    "example": "日曜日は ちょっと 都合が 悪いです。 (Yakshanba kuni biroz noqulay edi.)"
+  },
+  "だめですか。": {
+    "front": "だめですか",
+    "back": "Bo'lmaydimi? / Iloji yo'qmi?",
+    "example": "今週は だめですか。 (Bu hafta bo'lmaydimi?)"
+  },
+  "小沢征爾": {
+    "example": "小沢征爾は 世界的に 有名な 指揮者です。 (Seyji Ozava jahonga mashhur dirijyordir.)"
+  },
+  "いろいろな": {
+    "example": "日本で いろいろな 経験を しました。 (Yaponiyada turli-tuman tajribalarni orttirdim.)"
+  },
+  "男の子": {
+    "example": "あそこで 男の子が ボールで 遊んでいます。 (Anavi yerda o'g'il bola to'p o'ynayapti.)"
+  },
+  "女の子": {
+    "example": "かわいい 女の子が 人形を 持っています。 (Yoqimtoy qizcha qo'g'irchoq ko'tarib olgan.)"
+  },
+  "犬": {
+    "example": "庭に 白い 犬が います。 (Hovlida oq kuchuk bor.)"
+  },
+  "猫": {
+    "example": "机の 下で 猫が 寝ています。 (Stol tagida mushuk uxlayapti.)"
+  },
+  "木": {
+    "example": "公園に 大きな 桜の 木が あります。 (Bog'da katta sakura daraxti bor.)"
+  },
+  "物": {
+    "example": "かばんの 中に 大切な 物が あります。 (Sumka ichida qimmatbaho/muhim buyum bor.)"
+  },
+  "フイルム": {
+    "example": "カメラの フイルムを 買いました。 (Fotoapparat plyonkasini sotib oldim.)"
+  },
+  "電池": {
+    "example": "リモコンの 電池を 交換しました。 (Pultning batareyasini almashtirdim.)"
+  },
+  "箱": {
+    "example": "箱を 開けると、プレゼントが 入っていました。 (Qutini ochsam, ichida sovg'a bor ekan.)"
+  },
+  "スイッチ": {
+    "example": "部屋の 明かりの スイッチを つけます。 (Xona chirog'ining tugmachasini yoqaman.)"
+  },
+  "冷蔵庫": {
+    "example": "冷蔵庫に 牛乳と 卵が 入っています。 (Muzlatgichda sut va tuxum bor.)"
+  },
+  "テーブル": {
+    "example": "テーブルの 上に 花瓶を 置きました。 (Stol ustiga guldasta qo'ydim.)"
+  },
+  "ベッド": {
+    "example": "疲れたので、ベッドに 横に なりました。 (Charchaganim sababli krovatga cho'zildim.)"
+  },
+  "棚": {
+    "example": "本棚の 棚に 辞書が 並んでいます。 (Kitob javonining tokchasida lug'atlar tizilib turibdi.)"
+  },
+  "ドア": {
+    "example": "寒いから ドアを 閉めて ください。 (Sovuq, eshikni yopib qo'ying, iltimos.)"
+  },
+  "窓": {
+    "example": "窓から 富士山が きれいに 見えます。 (Derazadan Fuji tog'i chiroyli ko'rinib turibdi.)"
+  },
+  "ポスト": {
+    "example": "駅前の 赤い ポストに 手紙を 入れました。 (Bekat oldidagi qizil pochta qutisiga xat tashladim.)"
+  },
+  "ビル": {
+    "example": "駅の 近くに 新しい 高層ビルが 立ちました。 (Bekat yaqinida yangi baland bino qad ko'tardi.)"
+  },
+  "県": {
+    "example": "神戸は 兵庫県に あります。 (Kobe Hyogo viloyatida joylashgan.)"
+  },
+  "上": {
+    "example": "机の 上に 辞書が 置いて あります。 (Stol ustida lug'at turibdi.)"
+  },
+  "下": {
+    "example": "椅子の 下に 財布が 落ちています。 (Stul tagida hamyon tushib yotibdi.)"
+  },
+  "前": {
+    "example": "駅の 前で 友達と 待ち合わせます。 (Bekat oldida do'stim bilan uchrashaman.)"
+  },
+  "後ろ": {
+    "example": "わたしの 後ろに だれかが 立っています。 (Mening orqamda kimdir turibdi.)"
+  },
+  "右": {
+    "example": "交差点を 右へ 曲がると 銀行が あります。 (Chorrahadan o'ngga burilsangiz bank chiqadi.)"
+  },
+  "左": {
+    "example": "郵便局は 病院の 左側に あります。 (Pochta shifoxonaning chap tomonida.)"
+  },
+  "中": {
+    "example": "箱の 中に 何が 入っていますか。 (Quti ichida nima bor?)"
+  },
+  "外": {
+    "example": "雨が 降っていますから、外へ 出ません。 (Yomg'ir yog'yapti, tashqariga chiqmayman.)"
+  },
+  "隣": {
+    "example": "パン屋の 隣に 花屋が あります。 (Novvoyxonaning yonida gul do'koni bor.)"
+  },
+  "近く": {
+    "example": "学校の 近くに おいしい ラーメン屋が あります。 (Maktab yaqinida mazali ramenxona bor.)"
+  },
+  "間": {
+    "example": "銀行と 郵便局の 間に 薬局が あります。 (Bank va pochta o'rtasida dorixona bor.)"
+  },
+  "～や～など": {
+    "example": "かばんの 中に 本や ノートなどが あります。 (Sumka ichida kitob, daftar kabi narsalar bor.)"
+  },
+  "いちばん～": {
+    "example": "果物で いちばん りんごが 好きです。 (Mevalar ichida eng ko'p olmani yoqtiraman.)"
+  },
+  "～段目": {
+    "example": "本棚の 上から 2段目に 辞書が あります。 (Kitob javonining tepadan 2-tokchasida lug'at bor.)"
+  },
+  "どうもすみません。": {
+    "front": "どうもすみません",
+    "back": "Katta rahmat / Uzr",
+    "example": "手伝ってくれて、どうも すみません。 (Yordamingiz uchun katta rahmat.)"
+  },
+  "チリソース": {
+    "example": "辛い チリソースを 料理に かけます。 (Achchiq chili sousini ovqatga solaman.)"
+  },
+  "奥おく": {
+    "front": "奥",
+    "back": "ichkari, to'r",
+    "example": "店の 奥に トイレが ございます。 (Do'konning to'rida hojatxona bor.)"
+  },
+  "スパイス・コーナー": {
+    "example": "スーパーの スパイス・コーナーで コショウを 買いました。 (Supermarketning ziravorlar bo'limidan murch sotib oldim.)"
+  },
+  "東京ディズニーランド": {
+    "example": "週末に 東京ディズニーランドへ 遊びに 行きました。 (Dam olish kunida Tokio Disneylendiga aylangani bordim.)"
+  },
+  "ユニューヤ・ストア": {
+    "example": "ユニューヤ・ストアで 新鮮な 野菜を 買いました。 (Yunyua do'konidan yangi sabzavotlar sotib oldim.)"
+  },
+  "子供が～": {
+    "front": "子供がいます",
+    "back": "bolasi bor",
+    "phonetic": "こどもがいます - kodomo ga imasu",
+    "example": "わたしには 子供が 2人 います。 (Mening 2 ta bolam bor.)"
+  },
+  "日本に～": {
+    "front": "日本にいます",
+    "back": "Yaponiyada bo'lmoq / yashamoq",
+    "phonetic": "にほんにいます - nihon ni imasu",
+    "example": "日本に 1年間 います。 (Yaponiyada 1 yil bo'laman.)"
+  },
+  "会社を": {
+    "front": "会社を休みます",
+    "back": "ishga chiqmaslik / dam olmoq",
+    "phonetic": "かいしゃをやすみます - kaisha o yasumimasu",
+    "example": "風邪を 引いたので、会社を 休みました。 (Shamollab qolganim uchun ishga chiqmadim.)"
+  },
+  "１つ": {
+    "front": "1つ (ひとつ)",
+    "back": "bitta",
+    "phonetic": "ひとつ - hitotsu",
+    "example": "りんごを 1つ ください。 (Bitta olma bering.)"
+  },
+  "２つ": {
+    "front": "2つ (ふたつ)",
+    "back": "ikkita",
+    "phonetic": "ふたつ - futatsu",
+    "example": "みかんを 2つ 食べました。 (Ikkita mandarin yedim.)"
+  },
+  "３つ": {
+    "front": "3つ (みっつ)",
+    "back": "uchta",
+    "phonetic": "みっつ - mittsu",
+    "example": "パンを 3つ 買いました。 (Uchta non sotib oldim.)"
+  },
+  "４つ": {
+    "front": "4つ (よっつ)",
+    "back": "to'rtta",
+    "phonetic": "よっつ - yottsu",
+    "example": "机の 上に 卵が 4つ あります。 (Stol ustida 4 ta tuxum bor.)"
+  },
+  "５つ": {
+    "front": "5つ (いつつ)",
+    "back": "beshta",
+    "phonetic": "いつつ - itsutsu",
+    "example": "椅子が 5つ あります。 (5 ta stul bor.)"
+  },
+  "６つ": {
+    "front": "6つ (むっつ)",
+    "back": "oltita",
+    "phonetic": "むっつ - muttsu",
+    "example": "ケーキを 6つ 買いました。 (Oltita pirojniy sotib oldim.)"
+  },
+  "７つ": {
+    "front": "7つ (ななつ)",
+    "back": "yettita",
+    "phonetic": "ななつ - nanatsu",
+    "example": "箱が 7つ 届きました。 (Yettita quti yetib keldi.)"
+  },
+  "８つ": {
+    "front": "8つ (やっつ)",
+    "back": "sakkizta",
+    "phonetic": "やっつ - yattsu",
+    "example": "トマトが 8つ あります。 (Sakkizta pomidor bor.)"
+  },
+  "９つ": {
+    "front": "9つ (ここのつ)",
+    "back": "to'qqizta",
+    "phonetic": "ここのつ - kokonotsu",
+    "example": "みかんが 9つ あります。 (To'qqizta mandarin bor.)"
+  },
+  "１０": {
+    "front": "10 (とお)",
+    "back": "o'nta",
+    "phonetic": "とお - too",
+    "example": "切手を 10枚 買いました。 (O'nta pochta markasi sotib oldim.)"
+  },
+  "いくつ": {
+    "example": "りんごを いくつ 買いましたか。 (Nechta olma sotib oldingiz?)"
+  },
+  "りんご": {
+    "example": "甘くて おいしい りんごを 食べました。 (Shirin va mazali olma yedim.)"
+  },
+  "みかん": {
+    "example": "冬には こたつで みかんを 食べます。 (Qishda kotatsuda o'tirib mandarin yeymiz.)"
+  },
+  "サンドイッチ": {
+    "example": "コンビニで サンドイッチを 買いました。 (Do'kondan sendvich sotib oldim.)"
+  },
+  "カレーライス": {
+    "example": "日本の カレーライスは とても 人気があります。 (Yaponiyaning karerays taomi juda mashhur.)"
+  },
+  "アイスクリーム": {
+    "example": "夏は 冷たい アイスクリームが 食べたくなります。 (Yozda muzdek muzqaymoq yeging keladi.)"
+  },
+  "はがき": {
+    "example": "旅先から 友達に 絵はがきを 送りました。 (Safar joyidan do'stimga otkritka jo'natdim.)"
+  },
+  "速達": {
+    "example": "急ぎの 書類ですから、速達で 送ります。 (Shoshilinch hujjat, shuning uchun tezkor pochtada yuboraman.)"
+  },
+  "書留": {
+    "example": "大事な 手紙を 書留で 出しました。 (Muhim xatni buyurtmali xat orqali jo'natdim.)"
+  },
+  "エアメール": {
+    "example": "アメリカへ エアメールで 手紙を 出しました。 (Amerikaga aviapochta orqali xat jo'natdim.)"
+  },
+  "航空便": {
+    "example": "航空便で 1週間ぐらい かかります。 (Aviapochta bilan 1 hafta atrofida ketadi.)"
+  },
+  "船便": {
+    "example": "重い 荷物は 船便で 送ると 安いです。 (Og'ir yukni kema pochtasida jo'natsa arzon bo'ladi.)"
+  },
+  "両親": {
+    "example": "両親は 田舎で 元気に 暮らしています。 (Ota-onam qishloqda sog'-omon yashayaptilar.)"
+  },
+  "兄": {
+    "example": "兄は 東京の IT企業で 働いています。 (Akam Tokioning IT kompaniyasida ishlaydi.)"
+  },
+  "お兄さん": {
+    "example": "田中さんのお兄さんは 背が 高いですね。 (Janob Tanakaning akasi novcha ekan-a.)"
+  },
+  "姉": {
+    "example": "姉は 銀行で 働いています。 (Opam bankda ishlaydi.)"
+  },
+  "お姉さん": {
+    "example": "お姉さんは ピアノの 先生です。 (Opangiz fortepiano o'qituvchisi.)"
+  },
+  "弟": {
+    "example": "弟は 高校で サッカーを しています。 (Ukam maktabda futbol o'ynaydi.)"
+  },
+  "弟さん": {
+    "example": "弟さんは おいくつですか。 (Ukangiz necha yoshda?)"
+  },
+  "妹": {
+    "example": "妹は 大学で 英語を 勉強しています。 (Singlim universitetda ingliz tilini o'rganyapti.)"
+  },
+  "妹さん": {
+    "example": "妹さんは とても かわいいですね。 (Singlingiz juda yoqimtoy ekan.)"
+  },
+  "～時間": {
+    "example": "毎日 8時間 働きます。 (Har kuni 8 soat ishlayman.)"
+  },
+  "～週間": {
+    "example": "京都に 2週間 滞在しました。 (Kiotoda 2 hafta turdim.)"
+  },
+  "～か月": {
+    "example": "日本に 来てから 3か月が 経ちました。 (Yaponiyaga kelganimga 3 oy bo'ldi.)"
+  },
+  "～年": {
+    "example": "日本で 2年間 勉強する 予定です。 (Yaponiyada 2 yil o'qish rejam bor.)"
+  },
+  "全部で": {
+    "example": "全部で 5,000円に なります。 (Hammasi bo'lib 5 000 iyen bo'ladi.)"
+  },
+  "みんな": {
+    "example": "クラスの みんなで 富士山に 登りました。 (Sinfdagilar hammasi birgalikda Fuji tog'iga chiqdik.)"
+  },
+  "～だけ": {
+    "example": "休みは 日曜日だけです。 (Dam olish kuni faqat yakshanba xolos.)"
+  },
+  "いらっしゃいませ。": {
+    "front": "いらっしゃいませ",
+    "back": "Xush kelibsiz (do'konga kirganda)",
+    "example": "いらっしゃいませ！何名様ですか。 (Xush kelibsiz! Necha kishisiz?)"
+  },
+  "いいお天てん気きですね。": {
+    "front": "いいお天気ですね",
+    "back": "Havo juda yaxshi-ya",
+    "example": "いいお天気ですね。お出かけですか。 (Havo ajoyib-a. Biror joyga ketyapsizmi?)"
+  },
+  "お出でかけですか。": {
+    "front": "お出かけですか",
+    "back": "Biror joyga boryapsizmi?",
+    "example": "お出かけですか。― ええ、ちょっと 郵便局まで。 (Ko'chagami? - Ha, pochtagacha boryapman.)"
+  },
+  "ちょっと～まで。": {
+    "front": "ちょっと～まで",
+    "back": "Birpasga ~gacha borib kelaman",
+    "example": "ちょっと 駅まで 行ってきます。 (Birpasga bekatgacha borib kelaman.)"
+  },
+  "行いっていらっしゃい。": {
+    "front": "行ってらっしゃい",
+    "back": "Yaxshi borib keling",
+    "example": "行ってきます。― 行ってらっしゃい。 (Borib kelaman. - Yaxshi borib keling.)"
+  },
+  "オーストラリア": {
+    "example": "オーストラリアへ 留学したいです。 (Avstraliyaga o'qishga bormoqchiman.)"
+  },
+  "簡単な": {
+    "example": "この 日本語の 本は 簡単ですから、読めます。 (Bu yaponcha kitob oson, o'qiy olaman.)"
+  },
+  "人が～": {
+    "front": "人が多い",
+    "back": "odam ko'p",
+    "phonetic": "ひとがおおい - hito ga ooi",
+    "example": "東京は 大阪より 人が 多いです。 (Tokioda Osakaga qaraganda odam ko'p.)"
+  },
+  "コーヒーが～": {
+    "front": "コーヒーがいい",
+    "back": "kofe ma'qul",
+    "phonetic": "コーヒーがいい - koohii ga ii",
+    "example": "お茶と コーヒーと どちらが いいですか。 (Choy ma'qulmi yoki kofe?)"
+  },
+  "季節": {
+    "example": "日本の 季節の 中で 秋が いちばん 好きです。 (Yapon fasllari orasida kuzni eng yaxshi ko'raman.)"
+  },
+  "夏": {
+    "example": "日本の 夏は 湿気が 多くて 暑いです。 (Yaponiyaning yozi nam va issiq.)"
+  },
+  "秋": {
+    "example": "秋には 紅葉が とても きれいです。 (Kuzda xazonrezgi juda go'zal bo'ladi.)"
+  },
+  "冬": {
+    "example": "冬の 北海道は 雪が たくさん 降ります。 (Qishda Xokkaydoga ko'p qor yog'adi.)"
+  },
+  "天気": {
+    "example": "あしたの 天気予報は 晴れです。 (Ertangi ob-havo ma'lumoti ochiq havo.)"
+  },
+  "雨": {
+    "example": "外は 雨が 激しく 降っています。 (Tashqarida yomg'ir shiddat bilan yog'yapti.)"
+  },
+  "雪": {
+    "example": "朝 起きたら、庭に 雪が 積もっていました。 (Ertalab tursam, hovliga qor tushibdi.)"
+  },
+  "曇り": {
+    "example": "きょうは 一日中 曇りでした。 (Bugun kun bo'yi bulutli bo'ldi.)"
+  },
+  "ホテル": {
+    "example": "駅の 近くの ホテルを 予約しました。 (Bekat yaqinidagi mehmonxonani band qildim.)"
+  },
+  "海": {
+    "example": "夏休みに 友達と 海で 泳ぎました。 (Yozgi ta'tilda do'stlarim bilan dengizda suzdim.)"
+  },
+  "パーティー": {
+    "example": "友人の 誕生日パーティーに 招待されました。 (Do'stimning tug'ilgan kun bazmiga taklif qilindim.)"
+  },
+  "お祭り": {
+    "example": "町で 夏の お祭りが 開催されています。 (Shaharda yozgi festival o'tkazilyapti.)"
+  },
+  "試験": {
+    "example": "あしたの 試験のために 一生懸命 復習します。 (Ertangi imtihon uchun astoydil takrorlayman.)"
+  },
+  "すき焼き": {
+    "example": "すき焼きは 牛肉と 野菜の 鍋料理です。 (Sukiyaki mol go'shti va sabzavotli taomdir.)"
+  },
+  "刺身": {
+    "example": "新鮮な マグロの 刺身を 食べました。 (Yangi tunets balig'i sashimisini yedim.)"
+  },
+  "おすし": {
+    "example": "回転寿司で おすしを 10皿 食べました。 (Konveyer sushixonada 10 likopcha sushi yedim.)"
+  },
+  "てんぷら": {
+    "example": "揚げたての エビの てんぷらは おいしいです。 (Yangi qovurilgan krevetka tempurasi mazali.)"
+  },
+  "生け花": {
+    "example": "週末に 日本の 生け花を 習っています。 (Dam olish kunida yapon gul bezash san'atini o'rganyapman.)"
+  },
+  "紅葉": {
+    "example": "京都の 嵐山へ 紅葉を 見に 行きました。 (Kiotoning Arashiyama qismiga kuz yaproqlarini ko'rgani bordim.)"
+  },
+  "どちらも": {
+    "example": "どちらも おいしいですから、選べません。 (Ikkalasi ham mazali, tanlay olmayman.)"
+  },
+  "ずっと": {
+    "example": "新幹線は バスより ずっと 速いです。 (Tezyurar poyezd avtobusdan ancha tez.)"
+  },
+  "初めて": {
+    "example": "初めて 納豆を 食べました。 (Birinchi bor natto yedim.)"
+  },
+  "ただいま。": {
+    "front": "ただいま",
+    "back": "Men keldim (uyga qaytganda)",
+    "example": "ただいま。― お帰りなさい。 (Men keldim. - Xush kelibsiz.)"
+  },
+  "お帰かえりなさい。": {
+    "front": "お帰りなさい",
+    "back": "Yaxshi keldingizmi? (uyga kutib olganda)",
+    "example": "お帰りなさい。きょうは 疲れたでしょう。 (Yaxshi keldingizmi? Bugun charchadingiz-a.)"
+  },
+  "すごいですね。": {
+    "front": "すごいですね",
+    "back": "Ajoyib-a / Qoyil",
+    "example": "日本語の スピーチコンテストで 優勝したんですか。すごいですね！ (Nutq tanlovida yutdingizmi? Qoyil!)"
+  },
+  "でも": {
+    "example": "日本料理は おいしいです。でも、少し 高いです。 (Yapon taomlari mazali. Ammo biroz qimmat.)"
+  },
+  "疲つかれました。": {
+    "front": "疲れました",
+    "back": "Charchadim",
+    "example": "一日中 歩いたので、とても 疲れました。 (Kun bo'yi yurganim uchun juda charchadim.)"
+  },
+  "祇園祭": {
+    "example": "7月に 京都で 祇園祭が 行われます。 (Iyul oyida Kiotoda Gion bayrami o'tkaziladi.)"
+  },
+  "ホンコン": {
+    "example": "ホンコンの 夜景は とても 有名です。 (Gonkongning tungi manzarasi juda mashhur.)"
+  },
+  "シンガポール": {
+    "example": "シンガポールへ 家族旅行に 行きました。 (Singapurga oilaviy sayohatga bordim.)"
+  },
+  "毎日屋": {
+    "example": "毎日屋で 安い 食料品を 買いました。 (Mainichiya do'konidan arzon oziq-ovqat sotib oldim.)"
+  },
+  "ストア": {
+    "example": "近くの ストアで 牛乳を 買いました。 (Yaqindagi do'kondan sut sotib oldim.)"
+  },
+  "ジャパン": {
+    "example": "ジャパンデパートで セールが あります。 (Yaponiya universamida chegirma bor.)"
+  },
+  "手紙を～": {
+    "front": "手紙を出します",
+    "back": "xat jo'natmoq",
+    "phonetic": "てがみをだします - tegami o dashimasu",
+    "example": "郵便局で 国へ 手紙を 出しました。 (Pochtadan yurtimga xat jo'natdim.)"
+  },
+  "喫茶店に～": {
+    "front": "喫茶店に入ります",
+    "back": "qahvaxonaga kirmoq",
+    "phonetic": "きっさてんにはいります - kissaten ni hairimasu",
+    "example": "雨が 降ってきたので、喫茶店に 入りました。 (Yomg'ir boshlangani sababli qahvaxonaga kirdim.)"
+  },
+  "喫茶店を～": {
+    "front": "喫茶店を出ます",
+    "back": "qahvaxonadan chiqmoq",
+    "phonetic": "きっさてんをでます - kissaten o demasu",
+    "example": "コーヒーを 飲んでから、喫茶店を 出ました。 (Kofe ichib bo'lib qahvaxonadan chiqdim.)"
+  },
+  "公園を～": {
+    "front": "公園を散歩します",
+    "back": "bog'da sayr qilmoq",
+    "phonetic": "こうえんをさんぽします - kouen o sanpo shimasu",
+    "example": "毎朝 近くの 公園を 散歩します。 (Har ertalab yaqin atrofdagi bog'da sayr qilaman.)"
+  },
+  "大変な": {
+    "example": "一人での 引っ越しは 大変でした。 (Yolg'iz ko'chib o'tish ancha og'ir bo'ldi.)"
+  },
+  "プール": {
+    "example": "市民プールで 1時間 泳ぎました。 (Shahar basseynida 1 soat suzdim.)"
+  },
+  "川": {
+    "example": "川の 近くで バーベキューを しました。 (Daryo bo'yida barbekyu qildik.)"
+  },
+  "美術": {
+    "example": "大学で 日本の 古代美術を 研究しています。 (Universitetda qadimiy yapon san'atini tadqiq qilyapman.)"
+  },
+  "釣り": {
+    "example": "週末に 父親と 川へ 釣りに 行きます。 (Dam olish kunida otam bilan daryoga baliq oviga boraman.)"
+  },
+  "スキー": {
+    "example": "冬休みに 長野へ スキーに 行きました。 (Qishki ta'tilda Naganoga chang'i uchgani bordim.)"
+  },
+  "会議": {
+    "example": "午後の 会議の 資料を 準備します。 (Tushdan keyingi yig'ilish materiallarini tayyorlayman.)"
+  },
+  "登録": {
+    "example": "市役所で 外国人登録を 行いました。 (Shahar hokimiyatida chet ellik sifatida ro'yxatdan o'tdim.)"
+  },
+  "週末": {
+    "example": "週末は 家で ゆっくり 休みます。 (Hafta oxirida uyda bemalol dam olaman.)"
+  },
+  "～ごろ": {
+    "example": "あしたの 昼 12時ごろ 会いましょう。 (Ertaga tushlik soat 12 lar atrofida ko'rishaylik.)"
+  },
+  "何か": {
+    "example": "のどが かわいたので、何か 飲みたいです。 (Chanqadim, biror narsa ichgim kelyapti.)"
+  },
+  "どこか": {
+    "example": "休みの 日に どこか 静かな 所へ 行きたいです。 (Dam olish kunida qayergadir tinch joyga borgim kelyapti.)"
+  },
+  "おなかがすきました。": {
+    "front": "おなかがすきました",
+    "back": "Qornim ochdi",
+    "example": "おなかが すきましたから、何か 食べに行きましょう。 (Qornim ochdi, biror narsa yeyishga boraylik.)"
+  },
+  "おなかがいっぱいです。": {
+    "front": "おなかがいっぱいです",
+    "back": "Qornim to'ydi",
+    "example": "たくさん 食べたので、おなかが いっぱいです。 (Ko'p yeganim sababli qornim to'q.)"
+  },
+  "のどがかわきました。": {
+    "front": "のどがかわきました",
+    "back": "Chanqadim",
+    "example": "のどが かわきましたから、冷たい 水を ください。 (Chanqadim, muzdek suv bering.)"
+  },
+  "そうしましょう。": {
+    "front": "そうしましょう",
+    "back": "Shunday qilaylik",
+    "example": "あした 映画を 見に 行きませんか。― ええ、そうしましょう。 (Ertaga kino ko'rgani bormaymizmi? - Mayli, shunday qilaylik.)"
+  },
+  "ご注ちゅう文もんは？": {
+    "front": "ご注文は？",
+    "back": "Buyurtmangiz nima? / Nima buyurasiz?",
+    "example": "いらっしゃいませ。ご注文は？ (Xush kelibsiz. Nima buyurtma qilasiz?)"
+  },
+  "定食": {
+    "example": "お昼に 魚の 定食を 食べました。 (Tushlikda baliqli taomlar to'plamini yedim.)"
+  },
+  "牛丼": {
+    "example": "安くて おいしい 牛丼を 注文しました。 (Arzon va mazali mol go'shtli gyudon buyurtma qildim.)"
+  },
+  "少々しょうしょうお待まちください。": {
+    "front": "少々お待ちください",
+    "back": "Biroz kutib turing (xushmuomala)",
+    "example": "席を ご案内しますので、少々 お待ちください。 (Joyingizni ko'rsataman, bir oz kutib turing.)"
+  },
+  "別々べつべつに": {
+    "front": "別々に",
+    "back": "Alohida-alohida (hisob-kitob)",
+    "example": "お会計は 別々に お願いします。 (Hisobni alohida-alohida qilib bersangiz.)"
+  },
+  "ロシア": {
+    "example": "ロシアの 冬は とても 厳しい 寒さです。 (Rossiyaning qishi juda qahraton sovuq.)"
+  },
+  "つるや": {
+    "example": "つるやで おいしい うどんを 食べました。 (Tsuruya oshxonasida mazali udon yedim.)"
+  },
+  "おはようテレビ": {
+    "example": "毎朝 「おはようテレビ」の ニュースを 見ます。 (Har ertalab \"Ohayou TV\" yangiliklarini ko'raman.)"
+  },
+  "右へ～": {
+    "front": "右へ曲がります",
+    "back": "o'ngga burilmoq",
+    "phonetic": "みぎへまがります - migi e magarimasu",
+    "example": "次の 信号を 右へ 曲がって ください。 (Keyingi svetofordan o'ngga buriling.)"
+  },
+  "住所を～": {
+    "front": "住所を聞きます",
+    "back": "manzilni so'ramoq",
+    "phonetic": "じゅうしょをききます - juusho o kikimasu",
+    "example": "友達に 新しい 住所を 聞きました。 (Do'stimdan yangi manzilini so'radim.)"
+  },
+  "雨が～": {
+    "front": "雨が降ります",
+    "back": "yomg'ir yog'moq",
+    "phonetic": "あめがふります - ame ga furimasu",
+    "example": "午後から 雨が 降るでしょう。 (Tushdan keyin yomg'ir yog'sa kerak.)"
+  },
+  "エアコン": {
+    "example": "部屋が 暑いので、エアコンを つけました。 (Xona issiq, konditsionerni yoqdim.)"
+  },
+  "パスポート": {
+    "example": "空港で パスポートを 見せます。 (Aeroportda pasportimni ko'rsataman.)"
+  },
+  "名前": {
+    "example": "ここに お名前を ひらがなで 書いてください。 (Bu yerga ismingizni hiraganada yozing.)"
+  },
+  "地図": {
+    "example": "スマートフォンの 地図アプリを 見ながら 歩きます。 (Smartfon xaritasi ilovasiga qarab yuraman.)"
+  },
+  "塩": {
+    "example": "すみません、そこの 塩を 取って ください。 (Kechirasiz, ana u yerdagi tuzni uzatib yuboring.)"
+  },
+  "読み方": {
+    "example": "この 漢字の 読み方を 教えて ください。 (Bu kanjining o'qilishini o'rgating, iltimos.)"
+  },
+  "～方": {
+    "example": "日本語の 勉強の 仕方（～方）を 教わりました。 (Yapon tilini o'rganish usulini bilib oldim.)"
+  },
+  "ゆっくり": {
+    "example": "もう少し ゆっくり 話して ください。 (Yana biroz sekinroq gapiring, iltimos.)"
+  },
+  "すぐ": {
+    "example": "危ないですから、すぐに 避難してください。 (Xavfli, zudlik bilan xavfsiz joyga o'ting.)"
+  },
+  "また": {
+    "example": "また 今度 いっしょに 食事しましょう。 (Yana keyingi safar birga ovqatlanaylik.)"
+  },
+  "あとで": {
+    "example": "今は 忙しいので、あとで 電話します。 (Hozir bandman, keyinroq telefon qilaman.)"
+  },
+  "もう少し": {
+    "example": "もう少し 大きい サイズは ありますか。 (Yana biroz kattaroq o'lchami bormi?)"
+  },
+  "いいですよ。": {
+    "front": "いいですよ",
+    "back": "Mayli / Albatta (ruxsat)",
+    "example": "この 傘を 借りても いいですか。― はい、いいですよ。 (Bu soyabonni olsam maylimi? - Ha, albatta.)"
+  },
+  "さあ": {
+    "example": "さあ、時間ですから 出発しましょう。 (Qani, vaqt bo'ldi, jo'naylik.)"
+  },
+  "あれ？": {
+    "front": "あれ？",
+    "back": "Iye? / Voy? (ajablanish)",
+    "example": "あれ？財布が どこにも ありません。 (Iye? Hamyonim hech qayerda yo'q-ku.)"
+  },
+  "信号しんごうを右みぎへ曲まがってください。": {
+    "front": "信号を右へ曲がってください",
+    "back": "Svetofordan o'ngga buriling",
+    "example": "あの 信号を 右へ 曲がって ください。 (Anavi svetofordan o'ngga buriling.)"
+  },
+  "まっすぐ": {
+    "example": "この道を まっすぐ 行くと、駅が あります。 (Ushbu yo'ldan to'g'ri yursangiz, bekat chiqadi.)"
+  },
+  "お釣つり": {
+    "front": "お釣り",
+    "back": "qaytim (pul)",
+    "example": "お釣りと レシートを お受け取りください。 (Qaytim va chekni qabul qiling.)"
+  },
+  "梅田": {
+    "example": "大阪の 梅田で 友達と 待ち合わせました。 (Osakaning Umeda tumanida do'stim bilan ko'rishdim.)"
+  },
+  "大阪に～": {
+    "front": "大阪に住んでいます",
+    "back": "Osakada yashayapman",
+    "phonetic": "おおさかにすんでいます - oosaka ni sunde imasu",
+    "example": "わたしは 家族と 大阪に 住んでいます。 (Men oilam bilan Osakada yashayapman.)"
+  },
+  "カタログ": {
+    "example": "新商品の カタログを 見せて ください。 (Yangi mahsulotlar katalogini ko'rsating, iltimos.)"
+  },
+  "服": {
+    "example": "デパートで 冬の 暖かい 服を 買いました。 (Universamda qishki issiq kiyim sotib oldim.)"
+  },
+  "製品": {
+    "example": "日本の 電子製品は 世界中で 信頼されています。 (Yapon elektron mahsulotlari butun dunyoda ishonch qozongan.)"
+  },
+  "ソフト": {
+    "example": "パソコンに 新しい 翻訳ソフトを インストールしました。 (Kompyuterga yangi tarjima dasturini o'rnatdim.)"
+  },
+  "専門": {
+    "example": "大学での わたしの 専門は 経済学です。 (Universitetdagi mening mutaxassisligim iqtisodiyot.)"
+  },
+  "プレイガイド": {
+    "example": "駅前の プレイガイドで コンサートの 切符を 買いました。 (Bekat oldidagi chiptaxonadan konsert chiptasini oldim.)"
+  },
+  "独身": {
+    "example": "ミラーさんは まだ 独身です。 (Janob Miller hali bo'ydoq.)"
+  },
+  "特とくに": {
+    "front": "特に",
+    "back": "ayniqsa",
+    "example": "日本料理、特に おすしが 大好きです。 (Yapon taomlari, ayniqsa sushini juda yaxshi ko'raman.)"
+  },
+  "ご家か族ぞく": {
+    "front": "ご家族",
+    "back": "oilangiz (hurmat shakli)",
+    "example": "ご家族は みなさん お元気ですか。 (Oilangizdagilar hammasi salomatmilar?)"
+  },
+  "高校": {
+    "example": "弟は 来年 高校を 卒業します。 (Ukam kelasi yili yuqori maktabni bitiradi.)"
+  },
+  "日本橋": {
+    "example": "大阪の 日本橋で パソコンの 部品を 買いました。 (Osakaning Nihonbashisidan kompyuter detallarini sotib oldim.)"
+  },
+  "電車に～": {
+    "front": "電車に乗ります",
+    "back": "poyezdga chiqmoq",
+    "phonetic": "でんしゃにのります - densha ni norimasu",
+    "example": "新宿駅で 電車に 乗ります。 (Shinjuku bekatida poyezdga chiqaman.)"
+  },
+  "電車を～": {
+    "front": "電車を降ります",
+    "back": "poyezddan tushmoq",
+    "phonetic": "でんしゃをおります - densha o orimasu",
+    "example": "次の 駅で 電車を 降ります。 (Keyingi bekatda poyezddan tushaman.)"
+  },
+  "シャワーを～": {
+    "front": "シャワーを浴びます",
+    "back": "dush qabul qilmoq",
+    "phonetic": "シャワーをあびます - shawaa o abimasu",
+    "example": "朝 起きてから、シャワーを 浴びます。 (Ertalab turib dush qabul qilaman.)"
+  },
+  "大学に～": {
+    "front": "大学に入ります",
+    "back": "universitetga kirmoq",
+    "phonetic": "だいがくにはいります - daigaku ni hairimasu",
+    "example": "来年 東京の 大学に 入ります。 (Kelasi yili Tokiodagi universitetga kiraman.)"
+  },
+  "大学を～": {
+    "front": "大学を出ます",
+    "back": "universitetni bitirmoq",
+    "phonetic": "だいがくをでます - daigaku o demasu",
+    "example": "3年前に 大学を 出ました。 (3 yil oldin universitetni bitirganman.)"
+  },
+  "会社を～": {
+    "front": "会社を辞めます",
+    "back": "ishdan bo'shamoq / ketmoq",
+    "phonetic": "かいしゃをやめます - kaisha o yamemasu",
+    "example": "来月で 今の 会社を 辞めます。 (Kelasi oy hozirgi ishimdan bo'shayman.)"
+  },
+  "体": {
+    "example": "毎日 運動して、体を 鍛えています。 (Har kuni sport bilan shug'ullanib, tanamni chiniqtiryapman.)"
+  },
+  "頭": {
+    "example": "頭が 痛いので、少し 休みます。 (Boshim og'riyapti, biroz dam olaman.)"
+  },
+  "髪": {
+    "example": "彼女は 黒くて 長い 髪を しています。 (U qizning sochi qora va uzun.)"
+  },
+  "顔": {
+    "example": "朝 起きて すぐに 顔を 洗います。 (Ertalab uyg'oniboq yuzimni yuvaman.)"
+  },
+  "目": {
+    "example": "パソコンを 長時間 見て、目が 疲れました。 (Kompyuterga uzoq qarab ko'zim toliqdi.)"
+  },
+  "耳": {
+    "example": "寒さで 耳が 赤く なりました。 (Sovuqdan quloqlarim qizarib ketdi.)"
+  },
+  "口": {
+    "example": "大きく 口を 開けて ください。 (Og'zingizni katta oching, iltimos.)"
+  },
+  "歯": {
+    "example": "毎食後 必ず 歯を みがきます。 (Har ovqatdan so'ng albatta tishimni yuvaman.)"
+  },
+  "おなか": {
+    "example": "おなかが 痛いので、病院へ 行きます。 (Qornim og'riyapti, shifoxonaga boraman.)"
+  },
+  "足": {
+    "example": "たくさん 歩いたので、足が 疲れました。 (Ko'p yurganim sababli oyoqlarim charchadi.)"
+  },
+  "サービス": {
+    "example": "この ホテルの サービスは すばらしいです。 (Bu mehmonxonaning xizmat ko'rsatishi ajoyib.)"
+  },
+  "ジョギング": {
+    "example": "朝 早く 起きて ジョギングを します。 (Ertalab barvaqt turib yuguraman.)"
+  },
+  "シャワー": {
+    "example": "運動の 後で シャワーを 浴びました。 (Sportdan so'ng dush qabul qildim.)"
+  },
+  "緑": {
+    "example": "この 町は 公園が多くて、緑が 豊かです。 (Bu shaharda bog'lar ko'p, yashillikka boy.)"
+  },
+  "お寺": {
+    "example": "京都の 古い お寺を 見学しました。 (Kiotoning qadimiy ibodatxonasini ziyorat qildim.)"
+  },
+  "神社": {
+    "example": "お正月に 神社へ 初詣に 行きます。 (Yangi yilda sinto ibodatxonasiga ziyoratga boramiz.)"
+  },
+  "～番": {
+    "example": "わたしの 部屋は 305番です。 (Mening xonam 305-raqam.)"
+  },
+  "どうやって": {
+    "example": "大学まで どうやって 行きますか。 (Universitetgacha qanday yetib borasiz?)"
+  },
+  "どの～": {
+    "example": "ミラーさんの かばんは どの かばんですか。 (Janob Millerning sumkasi qaysi sumka?)"
+  },
+  "いいえ、まだまだです。": {
+    "front": "いいえ、まだまだです",
+    "back": "Yo'q, hali unchalik emas (kamsuqumlik)",
+    "example": "日本語が お上手ですね。― いいえ、まだまだです。 (Yaponchangiz zo'r-a. - Yo'g'-e, hali unchalik emas.)"
+  },
+  "お引ひき出だしですか。": {
+    "front": "お引き出しですか",
+    "back": "Pul yechmoqchimisiz? (bankda)",
+    "example": "お引き出しですか。こちらの ATMを ご利用ください。 (Pul yechmoqchimisiz? Bu yerdagi bankomatdan foydalaning.)"
+  },
+  "まず": {
+    "example": "まず カードを 入れて、暗証番号を 押します。 (Avval kartani kiritib, maxfiy kodni terasiz.)"
+  },
+  "キャッシュカード": {
+    "example": "キャッシュカードを 財布から 出します。 (Bank kartasini hamyondan chiqaraman.)"
+  },
+  "暗証番号": {
+    "example": "4桁の 暗証番号を 入力してください。 (To'rt xonali maxfiy pin-kodni kiriting.)"
+  },
+  "次つぎに": {
+    "front": "次に",
+    "back": "so'ngra, keyin",
+    "example": "次に お引き出しの 金額を 押して ください。 (Keyin yechiladigan pul summasini bosing.)"
+  },
+  "金額": {
+    "example": "画面の 金額を 確認して ください。 (Ekrandagi pul miqdorini tasdiqlang.)"
+  },
+  "確認": {
+    "example": "予約の 内容を もう一度 確認します。 (Buyurtma mazmunini yana bir bor tekshiraman.)"
+  },
+  "ボタン": {
+    "example": "確認の 緑の ボタンを 押して ください。 (Tasdiqlash uchun yashil tugmachani bosing.)"
+  },
+  "ＪＲ": {
+    "front": "JR",
+    "example": "JRの 山手線で 渋谷へ 行きます。 (JR Yamanote poyezdida Shibuyaga boraman.)"
+  },
+  "アジア": {
+    "example": "アジアの 経済は 急速に 発展しています。 (Osiyo iqtisodiyoti shiddat bilan rivojlanmoqda.)"
+  },
+  "バンドン": {
+    "example": "バンドンは インドネシアの 涼しい 都市です。 (Bandung Indoneziyaning salqin shahri.)"
+  },
+  "ベラクルス": {
+    "example": "ベラクルスは メキシコの 港町です。 (Verakruz Meksikaning port shahri.)"
+  },
+  "フランケン": {
+    "example": "フランケン地方の ワインを 飲みました。 (Franken mintaqasi vinosini ichdim.)"
+  },
+  "ベトナム": {
+    "example": "ベトナムの フォーは とても おいしいです。 (Vetnamning fo sho'rvasi juda mazali.)"
+  },
+  "フエ": {
+    "example": "フエは ベトナムの 古都です。 (Xve Vetnamning qadimiy poytaxti.)"
+  },
+  "大学前": {
+    "example": "大学前の バス停で 降ります。 (Universitet oldidagi bekatda tushaman.)"
+  },
+  "レポートを～": {
+    "front": "レポートを出します",
+    "back": "hisobot topshirmoq",
+    "phonetic": "レポートをだします - repooto o dashimasu",
+    "example": "金曜日までに レポートを 出さなければなりません。 (Jumagacha hisobot topshirishim shart.)"
+  },
+  "薬を～": {
+    "front": "薬を飲みます",
+    "back": "dori ichmoq",
+    "phonetic": "くすりをのみます - kusuri o nomimasu",
+    "example": "食後に この 薬を 飲んで ください。 (Ovqatdan keyin ushbu dorini iching.)"
+  },
+  "お風呂に～": {
+    "front": "お風呂に入ります",
+    "back": "vannaga / hammomga tushmoq",
+    "phonetic": "おふろにはいります - ofuro ni hairimasu",
+    "example": "熱が ありますから、きょうは お風呂に 入らないで ください。 (Isitma bor, bugun vannaga kirmang.)"
+  },
+  "大切な": {
+    "example": "これは 祖母から もらった 大切な 時計です。 (Bu buvimdan olgan qadrli soatim.)"
+  },
+  "大丈夫な": {
+    "example": "心配しないで ください。もう 大丈夫です。 (Xavotir olmang. Hammasi joyida.)"
+  },
+  "答え": {
+    "example": "問題の 答えを ノートに 書いて ください。 (Savolning javobini daftarga yozing.)"
+  },
+  "禁煙": {
+    "example": "この レストランは 全席 禁煙です。 (Bu restoranning barcha o'rinlarida chekish taqiqlangan.)"
+  },
+  "風邪": {
+    "example": "風邪を 引いて、声が 出ません。 (Shamollab qolib ovozim chiqmayapti.)"
+  },
+  "熱": {
+    "example": "38度の 熱が ありますから、寝ています。 (38 daraja isitma bor, yotibman.)"
+  },
+  "病気": {
+    "example": "病気に ならないように、手洗いを します。 (Kasal bo'lmaslik uchun qo'limni yuvaman.)"
+  },
+  "薬": {
+    "example": "薬局で 風邪薬を 買って 飲みました。 (Dorixonadan shamollash dorisini sotib ichdim.)"
+  },
+  "お風呂": {
+    "example": "日本の お風呂は 深くて 温まります。 (Yaponiyaning vannasi chuqur va yaxshi isitadi.)"
+  },
+  "上着": {
+    "example": "寒いので、暖かい 上着を 羽織りました。 (Sovuq bo'lgani uchun issiq kurtka/kamzul kiyib oldim.)"
+  },
+  "下着": {
+    "example": "汗を かいたので、下着を 着替えました。 (Terlaganim sababli ichki kiyimimni almashtirdim.)"
+  },
+  "２、３日": {
+    "front": "2、3日",
+    "back": "ikki-uch kun",
+    "example": "2、3日 ゆっくり 休めば 治りますよ。 (Ikki-uch kun yaxshilab dam olsangiz tuzalib ketasiz.)"
+  },
+  "２、３～": {
+    "front": "2、3～",
+    "back": "ikki-uchta ~",
+    "example": "2、3個 りんごを 買いました。 (Ikki-uchtacha olma sotib oldim.)"
+  },
+  "～までに": {
+    "example": "あしたの 夕方5時までに 提出してください。 (Ertaga kechki 5 gacha topshiring.)"
+  },
+  "ですから": {
+    "example": "あしたは 試験です。ですから 早く 寝ます。 (Ertaga imtihon. Shuning uchun erta uxlayman.)"
+  },
+  "どうしましたか。": {
+    "front": "どうしましたか",
+    "back": "Nima bo'ldi? / Tinchlikmi?",
+    "example": "元気が ありませんね。どうしましたか。 (Kayfiyatingiz yo'q-a. Nima bo'ldi?)"
+  },
+  "～が痛いたいです。": {
+    "front": "～が痛いです",
+    "back": "~im og'riyapti",
+    "example": "きのうから のどが 痛いです。 (Kechadan beri tomog'im og'riyapti.)"
+  },
+  "のど": {
+    "example": "のどが 痛いので、温かい お茶を 飲みます。 (Tomog'im og'riganligi uchun iliq choy ichaman.)"
+  },
+  "お大だい事じに。": {
+    "front": "お大事に",
+    "back": "Tezroq sog'ayib keting (bemorga)",
+    "example": "無理を しないで、どうぞ お大事に。 (O'zingizni zo'riqtirmang, tezroq sog'ayib keting.)"
+  },
+  "ピアノ": {
+    "example": "子どもの 頃から ピアノを 習っています。 (Bolaligimdan fortepiano chalishni o'rganaman.)"
+  },
+  "～メートル": {
+    "example": "あの 木の 高さは 10メートルぐらい あります。 (Anavi daraxtning balandligi 10 metrcha keladi.)"
+  },
+  "現金": {
+    "example": "クレジットカードが 使えませんから、現金で 払います。 (Karta ishlamaydi, naqd pul bilan to'layman.)"
+  },
+  "趣味": {
+    "example": "わたしの 趣味は 写真を 撮ることです。 (Mening qiziqishim rasmga olish.)"
+  },
+  "日記": {
+    "example": "毎晩 寝る 前に 日本語で 日記を 書きます。 (Har kecha uxlashdan oldin yaponcha kundalik yozaman.)"
+  },
+  "［お］祈り": {
+    "front": "お祈り",
+    "back": "ibodat, duo",
+    "example": "食事の 前に 家族で お祈りを します。 (Ovqatdan oldin oila bo'lib duo qilamiz.)"
+  },
+  "動物": {
+    "example": "上野動物園で かわいい 動物を たくさん 見ました。 (Ueno hayvonot bog'ida yoqimtoy hayvonlarni ko'rdim.)"
+  },
+  "馬": {
+    "front": "馬",
+    "back": "ot (hayvon)",
+    "phonetic": "うま - uma",
+    "example": "北海道の 牧場で 馬に 乗りました。 (Xokkaydo fermasida ot mindim.)"
+  },
+  "へえ": {
+    "front": "へえ",
+    "back": "Iye! / Qoyil-e! (hayrat)",
+    "example": "富士山に 3回 登りました。― へえ、すごいですね。 (Fuji tog'iga 3 marta chiqdim. - Iye, qoyil-e!)"
+  },
+  "それはおもしろいですね。": {
+    "front": "それはおもしろいですね",
+    "back": "Bu juda qiziq-a",
+    "example": "日本刀を 集めているんです。― それはおもしろいですね。 (Yapon qilichlarini to'playapman. - Juda qiziq ekan-a.)"
+  },
+  "なかなか": {
+    "example": "バスが なかなか 来ませんね。 (Avtobus sira kela qolmayapti-ya.)"
+  },
+  "牧場": {
+    "example": "広い 牧場で 牛や 羊を 飼っています。 (Katta fermada sig'ir va qo'ylar boqiladi.)"
+  },
+  "ほんとうですか。": {
+    "front": "ほんとうですか",
+    "back": "Rostdanmi? / Haqiqatdanmi?",
+    "example": "来月 結婚するんです。― え、ほんとうですか。 (Kelasi oy uylanyapman. - Iye, rostdanmi?)"
+  },
+  "ぜひ": {
+    "example": "日本へ 来たら、ぜひ 京都へ 行って ください。 (Yaponiyaga kelsangiz, albatta Kiotoga boring.)"
+  },
+  "ビートルズ": {
+    "example": "父は ビートルズの レコードを 大切に しています。 (Otam \"Bitlz\" plastinkasini asrab-avaylaydi.)"
+  },
+  "山に～": {
+    "front": "山に登ります",
+    "back": "toqqa chiqmoq",
+    "phonetic": "やまにのぼります - yama ni noborimasu",
+    "example": "去年の 夏に 友達と 富士山に 登りました。 (O'tgan yozda do'stlarim bilan Fuji tog'iga chiqdim.)"
+  },
+  "ホテルに～": {
+    "front": "ホテルに泊まります",
+    "back": "mehmonxonada tunamoq",
+    "phonetic": "ホテルにとまります - hoteru ni tomarimasu",
+    "example": "旅行で 温泉の ある ホテルに 泊まりました。 (Sayohatda issiq bulog'i bor mehmonxonada tunadim.)"
+  },
+  "調子がいい": {
+    "example": "最近 体の 調子が とても いいです。 (Yaqinda sog'lig'im/ahvolim juda yaxshi.)"
+  },
+  "調子が悪い": {
+    "example": "胃の 調子が 悪いので、お粥を 食べます。 (Oshqozonim nosoz, shuning uchun bo'tqa yeyman.)"
+  },
+  "調子": {
+    "example": "パソコンの 調子は どうですか。 (Kompyuteringiz qanday ishlayapti?)"
+  },
+  "ゴルフ": {
+    "example": "会社の 上司と ゴルフを しました。 (Kompaniya boshlig'i bilan golf o'ynadim.)"
+  },
+  "パチンコ": {
+    "example": "日本の 駅前には よく パチンコ屋が あります。 (Yaponiya bekatlari oldida pachinko zallari ko'p.)"
+  },
+  "日": {
+    "example": "天気が いい 日には 洗濯を します。 (Havo yaxshi bo'lgan kunda kir yuvaman.)"
+  },
+  "一度": {
+    "example": "もう 一度 ゆっくり 言って ください。 (Yana bir marta sekinroq ayting, iltimos.)"
+  },
+  "一度も": {
+    "example": "わたしは 一度も スキーを したことが ありません。 (Men bir marta ham chang'i uchmaganman.)"
+  },
+  "だんだん": {
+    "example": "春に なって、だんだん 暖かく なってきました。 (Bahor kelib, havo asta-sekin iliy boshladi.)"
+  },
+  "もうすぐ": {
+    "example": "もうすぐ 桜が 咲く 季節に なります。 (Tez orada sakura gullaydigan mavsum keladi.)"
+  },
+  "おかげさまで": {
+    "front": "おかげさまで",
+    "back": "Sharofatingiz bilan / Xudoga shukur",
+    "example": "お元気ですか。― はい、おかげさまで 元気です。 (Yaxshimisiz? - Ha, shukr, yaxshiman.)"
+  },
+  "乾杯": {
+    "front": "乾杯",
+    "back": "Qani oldik! / Qadahlar to'qnashuvi",
+    "example": "合格を 祝して、みんなで 乾杯しましょう！ (Imtihondan o'tganlikni nishonlab, qani oldik!)"
+  },
+  "実じつは": {
+    "front": "実は",
+    "back": "Ochig'i, aslida",
+    "example": "実は 来月 国へ 帰ることになりました。 (Ochig'i, kelasi oy yurtimga qaytadigan bo'ldim.)"
+  },
+  "ダイエット": {
+    "example": "健康のために ダイエットを 始めました。 (Salomatlik uchun parhez boshladim.)"
+  },
+  "何回なんかいも": {
+    "front": "何回も",
+    "back": "bir necha marta, qayta-qayta",
+    "example": "この 映画を 何回も 見ました。 (Bu filmni bir necha bor ko'rganman.)"
+  },
+  "しかし": {
+    "example": "一生懸命 勉強しました。しかし、試験に 落ちました。 (Astoydil o'qidim. Ammo imtihondan yiqildim.)"
+  },
+  "無理むり［な］": {
+    "front": "無理な",
+    "back": "imkonsiz, o'ta qiyin",
+    "example": "無理な スケジュールは 体に よくありません。 (O'ta tig'iz reja sog'liqqa yaxshi emas.)"
+  },
+  "体からだにいい": {
+    "front": "体にいい",
+    "back": "sog'liqqa foydali",
+    "example": "毎朝の ジョギングは 体に いいです。 (Har ertalabki yugurish sog'liqqa foydali.)"
+  },
+  "ケーキ": {
+    "example": "誕生日に 大きな チョコレートケーキを 食べました。 (Tug'ilgan kunda katta shokoladli tort yedim.)"
+  },
+  "葛かつ飾しか北ほく斎さい": {
+    "front": "葛飾北斎",
+    "back": "Katsushika Hokusay (mashhur yapon rassomi)",
+    "example": "葛飾北斎は 「富嶽三十六景」で 有名な 浮世絵師です。 (Katsushika Hokusay mashhur yapon musavviridir.)"
+  },
+  "ビザが～": {
+    "front": "ビザが要ります",
+    "back": "viza kerak bo'lmoq",
+    "phonetic": "ビザがいります - biza ga irimasu",
+    "example": "外国へ 旅行する とき、ビザが 要ります。 (Chet elga borganda viza kerak bo'ladi.)"
+  },
+  "僕": {
+    "front": "僕",
+    "back": "men (yigitlar erkin tilda)",
+    "example": "僕も いっしょに 行って いい？ (Men ham birga borsam maylimi?)"
+  },
+  "君": {
+    "front": "君",
+    "back": "sen (tengdoshlarga)",
+    "example": "君の 意見を 聞かせて ほしい。 (Sening fikringni eshitgim keladi.)"
+  },
+  "うん": {
+    "front": "うん",
+    "back": "ha (og'zaki / erkin)",
+    "example": "あした 暇？― うん、暇だよ。 (Ertaga bo'shmisan? - Ha, bo'shman.)"
+  },
+  "ううん": {
+    "front": "ううん",
+    "back": "yo'q (og'zaki / erkin)",
+    "example": "きのう 映画 見た？― ううん、見なかった。 (Kecha kino ko'rdingmi? - Yo'q, ko'rmadim.)"
+  },
+  "サラリーマン": {
+    "example": "日本の サラリーマンは 朝 満員電車で 通勤します。 (Yaponiyada oylik maoshga ishlovchi xodimlar ertalab gavjum poyezdda qatnaydi.)"
+  },
+  "ことば": {
+    "example": "日本語の ことばを たくさん 覚えたいです。 (Yapon tilidagi so'zlarni ko'p yodlamoqchiman.)"
+  },
+  "物価": {
+    "example": "東京は 家賃や 食料品の 物価が 高いです。 (Tokioda ijara haqi va oziq-ovqat narxlari qimmat.)"
+  },
+  "着物": {
+    "example": "お正月に 美しい 着物を 着ました。 (Yangi yilda go'zal kimono kiydim.)"
+  },
+  "ビザ": {
+    "example": "大使館で 学生ビザを 申請しました。 (Elchixonada talabalik vizasiga ariza topshirdim.)"
+  },
+  "初め": {
+    "example": "月の 初めに 家賃を 払います。 (Oyning boshida ijara haqini to'layman.)"
+  },
+  "終わり": {
+    "example": "映画の 終わりに 主人公が 故郷へ 帰りました。 (Kino oxirida bosh qahramon vataniga qaytdi.)"
+  },
+  "こっち": {
+    "front": "こっち",
+    "back": "bu taraf, bu yoq (og'zaki)",
+    "example": "こっちへ 来て、いっしょに 座ろう。 (Bu yoqqa kel, birga o'tiraylik.)"
+  },
+  "そっち": {
+    "front": "そっち",
+    "back": "u taraf, u yoq (og'zaki)",
+    "example": "そっちの 方が 静かで 勉強しやすいよ。 (U taraf tinchroq, dars qilish qulay.)"
+  },
+  "あっち": {
+    "front": "あっち",
+    "back": "ana u taraf (og'zaki)",
+    "example": "あっちに 新しい コンビニが できたよ。 (Ana u tomonda yangi do'kon ochildi.)"
+  },
+  "どっち": {
+    "front": "どっち",
+    "back": "qaysi biri? (og'zaki)",
+    "example": "リンゴと バナナ、どっちが 好き？ (Olma yoki banan, qaysi biri yoqadi?)"
+  },
+  "この間": {
+    "example": "この間、偶然 駅で 田中さんに 会ったよ。 (Yaqinda tasodifan bekatda Tanakani ko'rib qoldim.)"
+  },
+  "みんなで": {
+    "example": "週末は みんなで 海へ バーベキューに 行こう。 (Dam olish kuni hammamiz dengizga barbekyuga boraylik.)"
+  },
+  "～けど": {
+    "example": "日本語は 難しいけど、とても おもしろいよ。 (Yapon tili qiyin, lekin juda qiziqarli.)"
+  },
+  "国くにへ帰かえるの？": {
+    "front": "国へ帰るの？",
+    "back": "Yurtingga qaytasanmi? (og'zaki)",
+    "example": "夏休みに 国へ 帰るの？ (Yozgi ta'tilda yurtingga qaytasanmi?)"
+  },
+  "どうするの？": {
+    "front": "どうするの？",
+    "back": "Endi nima qilasan? (og'zaki)",
+    "example": "あした 雨が 降ったら、どうするの？ (Ertaga yomg'ir yog'sa nima qilasan?)"
+  },
+  "どうしようかな。": {
+    "front": "どうしようかな",
+    "back": "Nima qilsam ekan-a? (o'ylanib qolish)",
+    "example": "日曜日は 映画を 見ようか、どうしようかな。 (Yakshanba kuni kino ko'rsammikan, nima qilsam ekan-a.)"
+  },
+  "よかったら": {
+    "example": "よかったら、いっしょに お茶でも 飲まない？ (Malol kelmasa, birga choy ichmaymizmi?)"
+  },
+  "いろいろ": {
+    "example": "日本で いろいろ お世話に なりました。 (Yaponiyada ko'p yordam ko'rsatdingiz.)"
+  },
+  "お祭りが～": {
+    "front": "お祭りがあります",
+    "back": "bayram / festival bo'lmoq",
+    "phonetic": "おまつりがあります - omatsuri ga arimasu",
+    "example": "来週 私の 町で にぎやかな お祭りが あります。 (Kelasi hafta shahrimda gavjum bayram bo'ladi.)"
+  },
+  "むだ［な］": {
+    "front": "むだな",
+    "back": "bekorchi, foydasiz",
+    "example": "使わない 電気は 消して、むだな エネルギーを 減らします。 (Ishlatilmayotgan chiroqni o'chirib, ortiqcha sarfni kamaytiraman.)"
+  },
+  "不便［な］": {
+    "front": "不便な",
+    "back": "noqulay (sharoit)",
+    "example": "駅から 遠いので、少し 不便です。 (Bekatdan uzoq, shuning uchun biroz noqulay.)"
+  },
+  "同じ": {
+    "example": "わたしと 田中さんは 同じ 誕生日の 日です。 (Men va Tanaka bir xil kunda tug'ilganmiz.)"
+  },
+  "政治": {
+    "example": "大学で 国際政治の 歴史を 勉強しています。 (Universitetda xalqaro siyosat tarixini o'rganyapman.)"
+  },
+  "ニュース": {
+    "example": "毎晩 7時の ニュースを 見ます。 (Har oqshom soat 7 dagi yangiliklarni ko'raman.)"
+  },
+  "スピーチ": {
+    "example": "大勢の 前で 日本語の スピーチを しました。 (Ko'pchilik oldida yaponcha nutq so'zladim.)"
+  },
+  "アルバイト": {
+    "example": "コンビニで 週に 3日 アルバイトを しています。 (Do'konda haftasiga 3 kun qo'shimcha ishda ishlayman.)"
+  },
+  "意見": {
+    "example": "会議で 自分の 意見を はっきりと 言いました。 (Yig'ilishda o'z fikrimni aniq bayon qildim.)"
+  },
+  "［お］話": {
+    "front": "お話",
+    "back": "gap, suhbat, ertak",
+    "example": "先生の 面白い お話を 聞きました。 (Ustozning qiziqarli suhbatlarini tingladim.)"
+  },
+  "ユーモア": {
+    "example": "ミラー先生は ユーモアが あって、授業が 楽しいです。 (Janob Miller yumor hissiga ega, darslari qiziq.)"
+  },
+  "むだ": {
+    "example": "時間を むだに 使わないで ください。 (Vaqtni behuda sarflamang.)"
+  },
+  "デザイン": {
+    "example": "この 車は 新しい デザインで かっこいいです。 (Bu mashina yangi dizaynga ega, chiroyli.)"
+  },
+  "ラッシュ": {
+    "example": "朝の 通勤ラッシュは 電車が とても 混みます。 (Ertalabki tirbandlik payti poyezdlar juda to'la bo'ladi.)"
+  },
+  "最近": {
+    "example": "最近 日本語の 本を たくさん 読んでいます。 (Yaqinda yaponcha kitoblarni ko'p o'qiyapman.)"
+  },
+  "たぶん": {
+    "example": "あしたは たぶん 雨が 降るでしょう。 (Ertaga balki yomg'ir yog'sa kerak.)"
+  },
+  "きっと": {
+    "example": "一生懸命 勉強すれば、きっと 合格できますよ。 (Astoydil o'qisangiz, shubhasiz o'ta olasiz.)"
+  },
+  "ほんとうに": {
+    "example": "日本の 新幹線は ほんとうに 速くて 便利です。 (Yaponiyaning Shinkansen poyezdi haqiqatan ham tez va qulay.)"
+  },
+  "そんなに": {
+    "example": "きょうは そんなに 寒くありません。 (Bugun unchalik ham sovuq emas.)"
+  },
+  "～について": {
+    "example": "日本の 文化について レポートを 書きました。 (Yaponiya madaniyati haqida hisobot yozdim.)"
+  },
+  "しかたがありません。": {
+    "front": "しかたがありません",
+    "back": "Iloj qancha / Na iloj",
+    "example": "雨が 降ってきたから、ピクニックは 中止です。しかたがありません。 (Yomg'ir boshlandi, sayr bekor qilindi. Na iloj.)"
+  },
+  "しばらくですね。": {
+    "front": "しばらくですね",
+    "back": "Ko'rishmaganimizga ancha bo'ldi-ya",
+    "example": "あ、田中さん！しばらくですね。お元気でしたか。 (A, janob Tanaka! Ko'rishmaganimizga ancha bo'ldi-ya. Yaxshimisiz?)"
+  },
+  "～でも飲のみませんか。": {
+    "front": "～でも飲みませんか",
+    "back": "~mi ichmaymizmi?",
+    "example": "仕事の 帰りに ビールでも 飲みませんか。 (Ishdan qaytishda pivo ichmaymizmi?)"
+  },
+  "見みないと･････。": {
+    "front": "見ないと……",
+    "back": "Ko'rmasam bo'lmaydi...",
+    "example": "あしたの サッカーの 試合、見ないと･････。 (Ertangi futbol o'yinini ko'rmasam bo'lmaydi...)"
+  },
+  "もちろん": {
+    "example": "パーティーに 来てくれますか。― もちろん 行きます！ (Bazmga kelasizmi? - Albatta boraman!)"
+  },
+  "カンガルー": {
+    "example": "オーストラリアの 動物園で カンガルーを 見ました。 (Avstraliya hayvonot bog'ida kenguruni ko'rdim.)"
+  },
+  "キャプテン･クック": {
+    "front": "キャプテン・クック",
+    "example": "キャプテン・クックは 有名な イギリスの 探検家です。 (Kapitan Kuk mashhur ingliz sayyohi bo'lgan.)"
+  },
+  "シャツを～": {
+    "front": "シャツを着ます",
+    "back": "ko'ylak kiymoq",
+    "phonetic": "シャツをきます - shatsu o kimasu",
+    "example": "毎朝 白い シャツを 着て 会社へ 行きます。 (Har ertalab oq ko'ylak kiyib ishga boraman.)"
+  },
+  "靴を～": {
+    "front": "靴を履きます",
+    "back": "poyafzal kiymoq",
+    "phonetic": "くつをはきます - kutsu o hakimasu",
+    "example": "玄関で 靴を 履いて 外へ 出ます。 (Dahlizda poyafzal kiyib tashqariga chiqaman.)"
+  },
+  "帽子を～": {
+    "front": "帽子を被ります",
+    "back": "bosh kiyim kiymoq",
+    "phonetic": "ぼうしをかぶります - boushi o kaburimasu",
+    "example": "日差しが 強いので、帽子を 被ります。 (Quyosh nuri kuchli, bosh kiyim kiyib olaman.)"
+  },
+  "眼鏡を～": {
+    "front": "眼鏡をかけます",
+    "back": "ko'zoynak taqmoq",
+    "phonetic": "めがねをかけます - megane o kakemasu",
+    "example": "本を 読む とき、眼鏡を かけます。 (Kitob o'qiganda ko'zoynak taqaman.)"
+  },
+  "コート": {
+    "example": "冬は 寒いので、厚い コートが 必要です。 (Qish sovuq bo'lgani sababli qalin palto kerak.)"
+  },
+  "スーツ": {
+    "example": "就職活動のために 黒い スーツを 買いました。 (Ish qidirish uchun qora kostyum-shim sotib oldim.)"
+  },
+  "セーター": {
+    "example": "母が 編んでくれた セーターは とても 暖かいです。 (Onam to'qib bergan sviter juda issiq.)"
+  },
+  "帽子": {
+    "example": "夏休みに 海で麦わら帽子を かぶりました。 (Yozgi ta'tilda dengizda somon shlyapa kiydim.)"
+  },
+  "眼鏡": {
+    "example": "新しい おしゃれな 眼鏡を かけています。 (Yangi bejirim ko'zoynak taqib olgan.)"
+  },
+  "家賃": {
+    "example": "毎月 25日に アパートの 家賃を 銀行から 振り込みます。 (Har oyning 25-sanasida kvartira ijarasini bankdan o'tkazaman.)"
+  },
+  "うーん。": {
+    "front": "うーん",
+    "back": "Hm... / O'ylab ko'rish kerak",
+    "example": "うーん、少し 考えさせて ください。 (Hm, biroz o'ylab ko'rishimga izn bering.)"
+  },
+  "ダイニングキチン": {
+    "example": "この 部屋は ダイニングキッチンが 広くて 便利です。 (Bu xonadonning oshxonasi keng va qulay.)"
+  },
+  "和室": {
+    "example": "畳が 敷いてある 伝統的な 和室で 休みます。 (Tatami to'shalgan an'anaviy yapon xonasida dam olaman.)"
+  },
+  "押し入れ": {
+    "front": "押し入れ",
+    "back": "taxmon (yapon shkafi)",
+    "phonetic": "おしいれ - oshiire",
+    "example": "朝 起きたら、布団を 押し入れに しまいます。 (Ertalab uyg'ongach, ko'rpani taxmonga yig'ishtirib qo'yaman.)"
+  },
+  "布団": {
+    "front": "布団",
+    "back": "ko'rpa-to'shak",
+    "phonetic": "ふとん - futon",
+    "example": "畳の 上に 布団を 敷いて 寝ます。 (Tatamining ustiga ko'rpa-to'shak yozib uxlayman.)"
+  },
+  "アパート": {
+    "example": "大学の 近くの 静かな アパートに 住んでいます。 (Universitet yaqinidagi tinch kvartirada yashayman.)"
+  },
+  "パリ": {
+    "example": "フランスの パリへ 美術館巡りに 行きたいです。 (Fransiyaning Parij shahriga muzeylarni tomosha qilgani borgim keladi.)"
+  },
+  "万里の長城": {
+    "example": "万里の長城は 宇宙からも 見える 有名な 遺跡です。 (Buyuk Xitoy devori kosmosdan ham ko'rinadigan mashhur yodgorlikdir.)"
+  },
+  "余暇開発センター": {
+    "example": "余暇開発センターの 調査結果を 読みました。 (Bo'sh vaqtni rivojlantirish markazi hisobotini o'qidim.)"
+  },
+  "レジャー白書": {
+    "example": "レジャー白書に よると、国内旅行が 増えています。 (\"Hordiq oq kitobi\"ga ko'ra, ichki sayohat ko'paymoqda.)"
+  },
+  "先生に～": {
+    "front": "先生に聞きます",
+    "back": "o'qituvchidan so'ramoq",
+    "phonetic": "せんせいにききます - sensei ni kikimasu",
+    "example": "わからない 漢字を 先生に 聞きました。 (Tushunmagan kanjimni o'qituvchimdan so'radim.)"
+  },
+  "ドアに～": {
+    "front": "ドアに触ります",
+    "back": "eshikka tegmoq",
+    "phonetic": "ドアにさわります - doa ni sawarimasu",
+    "example": "ペンキを 塗ったばかりですから、ドアに 触らないで ください。 (Bo'yoq endi surtildi, eshikka tegmang.)"
+  },
+  "お釣りが～": {
+    "front": "お釣りが出ます",
+    "back": "qaytim qaytmoq",
+    "phonetic": "おつりがでます - otsuri ga demasu",
+    "example": "ボタンを 押すと、自動的にお釣りが 出ます。 (Tugmani bossangiz, avtomatik ravishda qaytim chiqadi.)"
+  },
+  "時計が～": {
+    "front": "時計が動きます",
+    "back": "soat yurmoq",
+    "phonetic": "とけいがうごきます - tokei ga ugokimasu",
+    "example": "電池を 入れると、止まっていた 時計が 動きました。 (Batareya solsam, to'xtab qolgan soat yura boshladi.)"
+  },
+  "道を～": {
+    "front": "道を歩きます",
+    "back": "ko'chada yurmoq",
+    "phonetic": "みちをあるきます - michi o arukimasu",
+    "example": "朝の 新鮮な 空気を 吸いながら、道を 歩きます。 (Ertalabki toza havodan nafas olib ko'chada yuraman.)"
+  },
+  "橋を～": {
+    "front": "橋を渡ります",
+    "back": "ko'prikdan o'tmoq",
+    "phonetic": "はしをわたります - hashi o watarimasu",
+    "example": "大きな 川に かかっている 橋を 渡ります。 (Katta daryo ustiga qurilgan ko'prikdan o'taman.)"
+  },
+  "車に": {
+    "front": "車に注意します",
+    "back": "mashinadan ehtiyot bo'lmoq",
+    "phonetic": "くるまにちゅういします - kuruma ni chuui shimasu",
+    "example": "道を 渡る ときは、車に 注意して ください。 (Yo'ldan o'tayotganda mashinalardan ehtiyot bo'ling.)"
+  },
+  "サイズ": {
+    "example": "この 靴は わたしの 足の サイズに ぴったりです。 (Bu poyafzal oyog'im o'lchamiga to'liq mos keladi.)"
+  },
+  "音": {
+    "example": "隣の 部屋から ピアノの 美しい 音が 聞こえます。 (Qo'shni xonadan pianinoning yoqimli sadosi eshitilyapti.)"
+  },
+  "つまみ": {
+    "example": "ラジオの つまみを 回して、音量を 上げます。 (Radioning murvatini burab, ovozini balandlataman.)"
+  },
+  "道": {
+    "example": "この道を まっすぐ 100メートル 行くと、駅が あります。 (Bu ko'chadan to'g'riga 100 metr yursangiz, bekat chiqadi.)"
+  },
+  "交差点": {
+    "example": "次の 交差点を 左へ 曲がると、銀行が あります。 (Keyingi chorrahadan chapga burilsangiz bank bor.)"
+  },
+  "角": {
+    "example": "角の たばこ屋の 前で 友達を 待っています。 (Burilishdagi tamaki do'koni oldida do'stimni kutyapman.)"
+  },
+  "橋": {
+    "example": "あの 赤い 橋を 渡って、向こうの 島へ 行きます。 (Anavi qizil ko'prikdan o'tib narigi orolga boramiz.)"
+  },
+  "～目": {
+    "example": "2つ目の 信号を 右へ 曲がって ください。 (Ikkinchi svetofordan o'ngga buriling.)"
+  },
+  "［お］正月": {
+    "front": "お正月",
+    "back": "Yangi yil bayrami",
+    "example": "日本では お正月に 家族みんなで おせち料理を 食べます。 (Yaponiyada Yangi yilda butun oila jam bo'lib Osechi taomini yeydi.)"
+  },
+  "ごちそうさまでした。": {
+    "front": "ごちそうさまでした",
+    "back": "Taom uchun rahmat (ovqatdan so'ng)",
+    "example": "とても おいしかったです。ごちそうさまでした！ (Juda mazali bo'libdi. Taom uchun tashakkur!)"
+  },
+  "建物": {
+    "example": "あの 歴史的な 建物は 100年前に 建てられました。 (Anavi tarixiy bino 100 yil oldin qurilgan.)"
+  },
+  "外国人登録証": {
+    "example": "市役所に 外国人登録証を 取りに 行きました。 (Shahar idorasiga chet ellik guvohnomasini olgani bordim.)"
+  },
+  "聖徳太子": {
+    "example": "聖徳太子は 日本の 歴史で 非常に 有名な 政治家です。 (Shahzoda Shotoku Yaponiya tarixida juda mashhur arbobdir.)"
+  },
+  "法隆寺": {
+    "example": "奈良の 法隆寺は 世界最古の 木造建築です。 (Naradagi Horyuji dunyodagi eng qadimiy yog'och binodir.)"
+  },
+  "元気茶": {
+    "example": "健康のために 毎日 元気茶を 飲んでいます。 (Salomatlik uchun har kuni Genkicha ichib yuraman.)"
+  },
+  "本田駅": {
+    "example": "本田駅の 前に 新しい カフェが できました。 (Honda bekati oldida yangi qahvaxona ochildi.)"
+  },
+  "図書館前": {
+    "example": "図書館前の バス停で 5番の バスに 乗ります。 (Kutubxona oldidagi bekatda 5-avtobusga chiqaman.)"
+  },
+  "人を～": {
+    "front": "人を送ります",
+    "back": "odamni kuzatib qo'ymoq / olib borib qo'ymoq",
+    "phonetic": "ひとをおくります - hito o okurimasu",
+    "example": "車で 友達を 駅まで 送って あげました。 (Mashinamda do'stimni bekatgacha kuzatib qo'ydim.)"
+  },
+  "コーヒーを～": {
+    "front": "コーヒーを淹れます",
+    "back": "kofe damlamoq",
+    "phonetic": "コーヒーをいれます - koohii o iremasu",
+    "example": "お客さんに 香りの いい コーヒーを 淹れました。 (Mehmonlarga xushbo'y kofe damlab berdim.)"
+  },
+  "おじいさん／おじいちゃん": {
+    "front": "おじいさん / おじいちゃん",
+    "back": "buva / buvajon",
+    "phonetic": "ojiisan / ojiichan",
+    "example": "おじいちゃんは 毎朝 庭の 盆栽に 水を やります。 (Buvajonim har ertalab hovlidagi bonzayga suv quyadilar.)"
+  },
+  "おばあさん／おばあちゃん": {
+    "front": "おばあさん / おばあちゃん",
+    "back": "buvi / buvijon",
+    "phonetic": "obaasan / obaachan",
+    "example": "おばあちゃんが おいしい 手作りお菓子を 作ってくれました。 (Buvijonim menga mazali qo'lda tayyorlangan shirinlik pishirib berdilar.)"
+  },
+  "準備": {
+    "example": "あしたの パーティーの 準備を みんなで 手伝いました。 (Ertangi bazm tayyorgarligiga hammamiz yordamlashdik.)"
+  },
+  "意味": {
+    "example": "この 難しい 言葉の 意味を 辞書で 調べました。 (Ushbu murakkab so'zning ma'nosini lug'atdan qidirdim.)"
+  },
+  "［お］菓子": {
+    "front": "お菓子",
+    "back": "shirinliklar, qandolat",
+    "example": "お茶と いっしょに 日本の 伝統的な お菓子を 食べました。 (Choy bilan birga Yaponiyaning an'anaviy shirinligini yedim.)"
+  },
+  "全部": {
+    "example": "宿題は もう 全部 終わりました。 (Vazifalarimning hammasi allaqachon tugadi.)"
+  },
+  "自分で": {
+    "example": "パソコンを 自分で 修理して みました。 (Kompyuterni o'zim mustaqil tuzatib ko'rdim.)"
+  },
+  "ほかに": {
+    "example": "ほかに 何か 質問は ありますか。 (Bundan tashqari yana biror savolingiz bormi?)"
+  },
+  "ワゴン車": {
+    "example": "大きな ワゴン車に 荷物を 積んで 旅行に 出かけました。 (Katta mikroavtobusga yuklarni ortib sayohatga jo'nadik.)"
+  },
+  "お弁当": {
+    "example": "母が 作ってくれた おいしい お弁当を 食べます。 (Onam tayyorlab bergan mazali bento tushligini yeyman.)"
+  },
+  "母の日": {
+    "example": "母の日に カーネーションの 花を プレゼントしました。 (Onalar kunida chinnigul sovg'a qildim.)"
+  },
+  "駅に～": {
+    "front": "駅に着きます",
+    "back": "bekatga yetib bormoq",
+    "phonetic": "えきにつきます - eki ni tsukimasu",
+    "example": "駅に 着いたら、すぐに 電話して ください。 (Bekatga yetib borgach darhol telefon qiling.)"
+  },
+  "年を～": {
+    "front": "年を取ります",
+    "back": "ulg'aymoq, keksaymoq",
+    "phonetic": "としをとります - toshi o torimasu",
+    "example": "年を 取っても、ずっと 学び続けたいです。 (Keksayganimda ham doimo o'rganishda davom etgim keladi.)"
+  },
+  "田舎": {
+    "example": "空気が きれいで 静かな 田舎に 住みたいです。 (Havosi toza va sokin qishloqda yashagim keladi.)"
+  },
+  "グループ": {
+    "example": "授業で 4人の グループに 分かれて 討論しました。 (Darsda 4 kishilik guruhlarga bo'linib bahslashdik.)"
+  },
+  "チャンス": {
+    "example": "日本で 働く 絶好の チャンスを つかみました。 (Yaponiyada ishlash uchun ajoyib imkoniyatni qo'lga kiritdim.)"
+  },
+  "億": {
+    "example": "宝くじで 1億円が 当たったら、世界一周旅行を したいです。 (Lotereyada 100 million iyen yutsam, dunyo bo'ylab sayohat qilardim.)"
+  },
+  "もし～たら": {
+    "example": "もし 時間が あったら、京都へ 行きたいです。 (Agar vaqtim bo'lsa, Kiotoga borgim keladi.)"
+  },
+  "いくら～ても": {
+    "example": "いくら 難しくても、あきらめずに 頑張ります。 (Qanchalik qiyin bo'lmasin, taslim bo'lmay harakat qilaman.)"
+  },
+  "転勤": {
+    "front": "転勤",
+    "back": "boshqa shaharga / filialga ishga o'tish",
+    "example": "来月から 大阪本社へ 転勤することに なりました。 (Kelasi oydan Osaka bosh ofisiga ishga o'tadigan bo'ldim.)"
+  },
+  "こと": {
+    "example": "健康の ことについて いつも 気を つけています。 (Salomatlik masalasiga doimo e'tibor berib yuraman.)"
+  },
+  "一杯飲みましょう。": {
+    "front": "一杯飲みましょう",
+    "back": "Keling, bir qadah ichaylik",
+    "example": "仕事が 終わったら、一杯 飲みましょう。 (Ish tugagach keling bir qadah ichamiz.)"
+  },
+  "いろいろお世話せわになりました。": {
+    "front": "いろいろお世話になりました",
+    "back": "Ko'rsatgan mehribonchiligingiz va yordamingiz uchun katta rahmat",
+    "example": "日本での 1年間、いろいろ お世話に なりました。 (Yaponiyadagi bir yil davomida ko'rsatgan g'amxo'rligingiz uchun katta rahmat.)"
+  },
+  "どうぞお元気で。": {
+    "front": "どうぞお元気で",
+    "back": "Doimo salomat bo'ling (uzoq xayrlashuv)",
+    "example": "国へ 帰られても、どうぞ お元気で。 (Yurtingizga qaytsangiz ham, doimo sog'-omon bo'ling.)"
+  },
+  "～でございます。": {
+    "front": "～でございます",
+    "back": "~dir (です ning xushmuomala / rasmiy shakli)",
+    "phonetic": "～でございます - de gozaimasu",
+    "example": "靴売り場は 2階で ございます。 (Poyafzal bo'limi 2-qavatda.)"
+  },
+  "いらっしゃいます": {
+    "front": "いらっしゃいます",
+    "back": "bo'lmoq, bor bo'lmoq (います ning hurmat shakli)",
+    "phonetic": "いらっしゃいます - irasshaimasu",
+    "example": "社長は 今 会議室に いらっしゃいます。 (Prezident / direktor hozir majlislar xonasidalar.)"
+  },
+  "そう": {
+    "example": "はい、その 通り そうです。 (Ha, xuddi shunday.)"
+  },
+  "違います。": {
+    "front": "違います",
+    "back": "Noto'g'ri / Unday emas",
+    "example": "いいえ、違います。それは 辞書です。 (Yo'q, unday emas. U lug'at.)"
+  },
+  "あのう": {
+    "front": "あのう",
+    "back": "Haligi... (murojaat boshida)",
+    "example": "あのう、すみません。駅は どちらですか。 (Haligi, kechirasiz. Bekat qaysi tomonda?)"
+  },
+  "どうもありがとうございます": {
+    "front": "どうもありがとうございます",
+    "back": "Katta rahmat",
+    "example": "親切に 教えてくれて、どうも ありがとうございます。 (Mehribonlik bilan o'rgatganingiz uchun katta rahmat.)"
+  },
+  "これからお世話せわになります。": {
+    "front": "これからお世話になります",
+    "back": "Bundan buyon yordamingizga muhtojman",
+    "example": "新入社員の ミラーです。これから お世話に なります。 (Yangi xodim Millerman. Bundan buyon mehr va yordamingizga muhtojman.)"
+  },
+  "昼": {
+    "example": "昼は 会社の 食堂で 同僚と 食べます。 (Kunduzi kompaniya oshxonasida hamkasblar bilan ovqatlanaman.)"
+  },
+  "晩": {
+    "example": "晩 8時に 家へ 帰って テレビを 見ます。 (Kechqurun soat 8 da uyga qaytib televizor ko'raman.)"
+  },
+  "きのう": {
+    "example": "きのう 図書館で 日本語を 3時間 勉強しました。 (Kecha kutubxonada yapon tilini 3 soat o'rgandim.)"
+  },
+  "きょう": {
+    "example": "きょうは 朝から とても いい 天気です。 (Bugun ertalabdan ob-havo juda yaxshi.)"
+  },
+  "番号": {
+    "example": "あなたの 携帯電話の 番号を 教えて ください。 (Mobil telefoningiz raqamini ayting, iltimos.)"
+  },
+  "お願ねがいします。": {
+    "front": "お願いします",
+    "back": "iltimos, so'rayman",
+    "example": "この 荷物を 国へ お願いします。 (Ushbu posilkani yurtimga jo'natishingizni so'rayman.)"
+  },
+  "先週": {
+    "example": "先週 京都の 有名な お寺へ 行きました。 (O'tgan hafta Kiotoning mashhur ibodatxonasiga bordim.)"
+  },
+  "今週": {
+    "example": "今週は レポートの 提出で とても 忙しいです。 (Bu hafta hisobot topshirish bilan juda bandman.)"
+  },
+  "来週": {
+    "example": "来週の 月曜日に 日本語の 試験が あります。 (Kelasi dushanba kuni yapon tili imtihoni bor.)"
+  },
+  "普通": {
+    "example": "各駅停車の 普通電車で のんびり 行きます。 (Har bekatda to'xtaydigan oddiy poyezdda ketaman.)"
+  },
+  "急行": {
+    "example": "急行電車に 乗ると、早く 着きます。 (Tez yurar poyezdga chiqsangiz tezroq yetib borasiz.)"
+  },
+  "特急": {
+    "example": "特急券を 買って、特急に 乗りました。 (Ekspress chiptasini sotib olib, ekspress poyezdga chiqdim.)"
+  },
+  "食べます": {
+    "example": "朝ごはんに パンと 卵を 食べます。 (Nonushtaga non va tuxum yeyman.)"
+  },
+  "飲みます": {
+    "example": "毎朝 冷たい 牛乳を 飲みます。 (Har ertalab sovuq sut ichaman.)"
+  },
+  "吸います": {
+    "example": "たばこを 吸いません。 (Tamaki chekmayman.)"
+  },
+  "見ます": {
+    "example": "昨夜 テレビで サッカーの 試合を 見ました。 (Kecha tunda televizorda futbol o'yinini ko'rdim.)"
+  },
+  "聞きます": {
+    "example": "毎朝 ラジオで ニュースを 聞きます。 (Har ertalab radioda yangiliklarni tinglayman.)"
+  },
+  "読みます": {
+    "example": "図書館で 日本語の 本を 読みます。 (Kutubxonada yaponcha kitob o'qiyman.)"
+  },
+  "書きます": {
+    "example": "友達に 手紙を 書きました。 (Do'stimga xat yozdim.)"
+  },
+  "買います": {
+    "example": "スーパーで 新鮮な 果物を 買いました。 (Supermarketdan yangi meva sotib oldim.)"
+  },
+  "撮ります": {
+    "example": "公園で きれいな 花の 写真を 撮りました。 (Bog'da chiroyli gul rasmini oldim.)"
+  },
+  "会います": {
+    "example": "駅前で 友達に 会いました。 (Bekat oldida do'stim bilan ko'rishdim.)"
+  },
+  "切ります": {
+    "example": "はさみで 紙を 切ります。 (Qaychi bilan qog'ozni kesaman.)"
+  },
+  "送ります": {
+    "example": "雨が 降っていますから、車で 駅まで 送りましょう。 (Yomg'ir yog'yapti, mashinada bekatgacha kuzatib qo'yay.)"
+  },
+  "あげます": {
+    "example": "誕生日に 母に 花を あげました。 (Tug'ilgan kunga onamga gul berdim.)"
+  },
+  "もらいます": {
+    "example": "先生から 本を もらいました。 (Ustozdan kitob oldim.)"
+  },
+  "貸します": {
+    "example": "友達に 傘を 貸しました。 (Do'stimga soyabon qarzga berdim.)"
+  },
+  "借ります": {
+    "example": "図書館で 本を 借りました。 (Kutubxonadan kitob qarzga oldim.)"
+  },
+  "教えます": {
+    "example": "駅までの 道を 親切に 教えてくれました。 (Bekatgacha bo'lgan yo'lni yaxshilab tushuntirib berdi.)"
+  },
+  "習います": {
+    "example": "先生から 生け花を 習いました。 (Ustozdan ikebana san'atini o'rgandim.)"
+  },
+  "かけます": {
+    "example": "暗い ところで 本を 読む とき、眼鏡を かけます。 (Qorong'i joyda kitob o'qiganda ko'zoynak taqaman.)"
+  },
+  "もう": {
+    "example": "もう 宿題を 全部 終わりましたか。 (Allaqachon barcha vazifalarni tugatdingizmi?)"
+  },
+  "失礼しつれいします。": {
+    "front": "失礼します",
+    "back": "Ruxsatingiz bilan / Xayr (xushmuomala)",
+    "example": "お先に 失礼します。― お疲れ様でした。 (Ruxsatingiz bilan ketdim. - Charchamang.)"
+  },
+  "いただきます。": {
+    "front": "いただきます",
+    "back": "Yoqimli ishtaha / Kamina taomga qo'l uzatmoqda",
+    "example": "おいしそうですね。いただきます！ (Juda mazali ko'rinyapti. Qani, boshladik!)"
+  },
+  "寮": {
+    "example": "大学の 学生寮に 住んでいます。 (Universitet talabalar yotoqxonasida yashayman.)"
+  },
+  "勉強": {
+    "example": "毎日 2時間 日本語の 勉強を します。 (Har kuni 2 soat yapon tili darsini qilaman.)"
+  },
+  "どう": {
+    "example": "日本の 新しい 生活は どうですか。 (Yaponiyadagi yangi hayotingiz qanday?)"
+  },
+  "そろそろ失礼しつれいします。": {
+    "front": "そろそろ失礼します",
+    "back": "Sekin qaytay / Ruxsatingiz bilan ketsam",
+    "example": "もう 遅いですから、そろそろ 失礼します。 (Allaqachon kech bo'ldi, ruxsatingiz bilan sekin qaytay.)"
+  },
+  "わかります": {
+    "example": "日本語の 意味が よく わかります。 (Yaponcha so'zning ma'nosini yaxshi tushunaman.)"
+  },
+  "あります": {
+    "example": "机の 上に 辞書が あります。 (Stol ustida lug'at bor.)"
+  },
+  "野球": {
+    "example": "週末に 友達と 野球を 観戦しました。 (Dam olish kunida do'stlar bilan beysbol tomosha qildik.)"
+  },
+  "また今こん度どお願ねがいします。": {
+    "front": "また今度お願いします",
+    "back": "Keyingi safarga qolsin / Boshqa safar",
+    "example": "あしたの 飲み会は、また 今度 お願いします。 (Ertangi o'tirish boshqa safarga qolsin, iltimos.)"
+  },
+  "います": {
+    "example": "庭に かわいい 子犬が います。 (Hovlida yoqimtoy kuchukcha bor.)"
+  },
+  "かかります": {
+    "example": "ここから 東京まで 電車で 1時間 かかります。 (Bu yerdan Tokiogacha poyezdda 1 soat ketadi.)"
+  },
+  "封筒": {
+    "example": "手紙を 封筒に 入れて 切手を 貼りました。 (Xatni konvertga solib pochta markasi yopishtirdim.)"
+  },
+  "行いってまいります。": {
+    "front": "行ってまいります",
+    "back": "Borib kelaman (xushmuomala)",
+    "example": "会社へ 行ってまいります。 (Ishxonaga borib kelaman.)"
+  },
+  "春": {
+    "example": "春に なると、桜の 花が 咲きます。 (Bahor kelgach sakura gullari ochiladi.)"
+  },
+  "空港": {
+    "example": "成田空港から 飛行機に 乗ります。 (Narita aeroportidan samolyotga chiqaman.)"
+  },
+  "遊びます": {
+    "example": "週末に 友達と ディズニーランドで 遊びました。 (Dam olish kunida do'stim bilan Disneylendda aylandik.)"
+  },
+  "泳ぎます": {
+    "example": "夏休みに 海で 気持ちよく 泳ぎました。 (Yozgi ta'tilda dengizda miriqib suzdim.)"
+  },
+  "迎えます": {
+    "example": "駅まで 友達を 迎えに 行きました。 (Bekatgacha do'stimni kutib olgani bordim.)"
+  },
+  "疲れます": {
+    "example": "一日中 歩いて、とても 疲れました。 (Kun bo'yi yurib juda charchadim.)"
+  },
+  "出します": {
+    "example": "郵便局で 手紙を 出しました。 (Pochtadan xat jo'natdim.)"
+  },
+  "入ります": {
+    "example": "寒いので、温かい お風呂に 入りました。 (Sovuq bo'lgani sababli issiq vannaga tushdim.)"
+  },
+  "出ます": {
+    "example": "切符を 買うと、お釣りが 出ます。 (Chipta sotib olsangiz qaytim chiqadi.)"
+  },
+  "結婚します": {
+    "example": "来年 幼なじみと 結婚します。 (Kelasi yili bolalikdagi tanishim bilan turmush quryapman.)"
+  },
+  "買い物します": {
+    "example": "日曜日に デパートで 買い物しました。 (Yakshanba kuni universamda xarid qildim.)"
+  },
+  "食事します": {
+    "example": "家族と いっしょに レストランで 食事しました。 (Oilam bilan birgalikda restoranda ovqatlandim.)"
+  },
+  "散歩します": {
+    "example": "夕方 涼しい 風を 感じながら 散歩します。 (Kechqurun salqin shabadani his qilib sayr qilaman.)"
+  },
+  "つけます": {
+    "example": "暗く なったので、電気を つけました。 (Qorong'i tushgach chiroqni yoqdim.)"
+  },
+  "消します": {
+    "example": "寝る 前に 部屋の 電気を 消します。 (Uxlamasdan oldin xona chirog'ini o'chiraman.)"
+  },
+  "開けます": {
+    "example": "窓を 開けて、涼しい 風を 入れます。 (Derazani ochib salqin havoni kiritaman.)"
+  },
+  "閉めます": {
+    "example": "雨が 入るので、窓を 閉めて ください。 (Yomg'ir kiryapti, derazani yopib qo'ying, iltimos.)"
+  },
+  "急ぎます": {
+    "example": "電車に 遅れそうなので、急ぎます。 (Poyezddan kechikayotganim uchun shoshaman.)"
+  },
+  "待ちます": {
+    "example": "ロビーで 友達を 待っています。 (Kutish zalida do'stimni kutyapman.)"
+  },
+  "止めます": {
+    "example": "あそこに 車を 止めて ください。 (Anavi yerga mashinani to'xtating, iltimos.)"
+  },
+  "曲がります": {
+    "example": "次の 信号を 左へ 曲がります。 (Keyingi svetofordan chapga burilaman.)"
+  },
+  "持ちます": {
+    "example": "その 重い 荷物を お持ちしましょうか。 (U og'ir yukingizni ko'tarishib yuboraymi?)"
+  },
+  "手伝います": {
+    "example": "母の 料理を 手伝いました。 (Onamning ovqat qilishiga ko'maklashdim.)"
+  },
+  "呼びます": {
+    "example": "タクシーを 1台 呼んで ください。 (Bitta taksi chaqirib bering, iltimos.)"
+  },
+  "話します": {
+    "example": "先生と 日本語で ゆっくり 話しました。 (Ustoz bilan yapon tilida bosiqlik bilan gaplashdim.)"
+  },
+  "見せます": {
+    "example": "旅行の 写真を 見せて ください。 (Sayohat rasmlarini ko'rsating, iltimos.)"
+  },
+  "始めます": {
+    "example": "9時から 試験を 始めます。 (Soat 9 da imtihonni boshlaymiz.)"
+  },
+  "降ります": {
+    "example": "次の バス停で 降ります。 (Keyingi avtobus bekatida tushaman.)"
+  },
+  "コピーします": {
+    "example": "この 資料を 10部 コピーして ください。 (Bu hujjatdan 10 nusxa ko'chirib bering.)"
+  },
+  "砂糖": {
+    "example": "コーヒーに 砂糖を 少し 入れます。 (Kofega biroz shakar solaman.)"
+  },
+  "もう～": {
+    "example": "もう 一度 言って ください。 (Yana bir bor qaytarib yuboring.)"
+  },
+  "これでお願ねがいします。": {
+    "front": "これでお願ねがいします",
+    "back": "Shu bilan to'layman / Buni oling",
+    "example": "1万円札で お願いします。 (10 ming iyenlik bilan to'layman.)"
+  },
+  "立ちます": {
+    "example": "電車の中で お年寄りに 席を 譲って 立ちました。 (Poyezdda qariyaga joy berib o'rnimdan turdim.)"
+  },
+  "座ります": {
+    "example": "どうぞ この 椅子に 座って ください。 (Marhamat, bu stulga o'tiring.)"
+  },
+  "使います": {
+    "example": "辞書を 使って 作文を 書きました。 (Lug'atdan foydalanib insho yozdim.)"
+  },
+  "作ります、": {
+    "front": "作ります",
+    "back": "tayyorlamoq, yasamoq",
+    "example": "晩ご飯に カレーライスを 作りました。 (Kechki ovqatga karerays tayyorladim.)"
+  },
+  "売ります": {
+    "example": "あの 店では 新鮮な 魚介類を 売っています。 (Anavi do'konda yangi dengiz mahsulotlari sotiladi.)"
+  },
+  "知ります": {
+    "example": "田中さんの 電話番号を 知りません。 (Janob Tanakaning telefon raqamini bilmayman.)"
+  },
+  "住みます": {
+    "example": "将来 静かで 便利な 町に 住みたいです。 (Kelajakda tinch va qulay shaharda yashagim keladi.)"
+  },
+  "研究します": {
+    "example": "大学院で 日本の 文学を 研究しています。 (Magistraturada yapon adabiyotini tadqiq qilyapman.)"
+  },
+  "知っています": {
+    "example": "あの 先生の お名前を 知っていますか。 (Anavi ustozning ismlarini bilasizmi?)"
+  },
+  "住んでいます": {
+    "example": "わたしは 今 東京の 新宿に 住んでいます。 (Men hozir Tokioning Shinjukusida yashayapman.)"
+  },
+  "資料": {
+    "example": "会議の 資料を 机の 上に 準備しました。 (Yig'ilish materiallarini stol ustiga tayyorlab qo'ydim.)"
+  },
+  "時刻表": {
+    "example": "駅の 時刻表を 見て 次の 電車を 調べます。 (Bekatdagi poyezdlar jadvaliga qarab keyingi poyezdni bilib olaman.)"
+  },
+  "思おもい出だします": {
+    "front": "思い出します",
+    "back": "eslamoq, yodga olmoq",
+    "example": "写真の アルバムを 見ると、家族を 思い出します。 (Rasm albomini ko'rsam oilamni yodga olaman.)"
+  },
+  "乗ります": {
+    "example": "毎朝 8時の 地下鉄に 乗ります。 (Har ertalab soat 8 dagi metroga chiqaman.)"
+  },
+  "乗り換えます": {
+    "example": "新宿駅で JR線に 乗り換えます。 (Shinjuku bekatida JR liniyasiga o'tirib olaman.)"
+  },
+  "浴びます": {
+    "example": "運動の 後で シャワーを 浴びました。 (Sportdan so'ng dush qabul qildim.)"
+  },
+  "入れます": {
+    "example": "温かい コーヒーに 砂糖を 入れます。 (Issiq kofega shakar solaman.)"
+  },
+  "やめます": {
+    "example": "健康のために たばこを やめました。 (Salomatlik uchun chekishni tashladim.)"
+  },
+  "押します": {
+    "example": "非常ボタンを 押すと、警告音が 鳴ります。 (Favqulodda tugmani bossangiz signal chalinadi.)"
+  },
+  "覚えます": {
+    "example": "毎日 新しい 漢字を 5つ 覚えます。 (Har kuni 5 ta yangi kanji yodlayman.)"
+  },
+  "忘れます": {
+    "example": "宿題を 家に 忘れて しまいました。 (Vazifamni uyda unutib qoldiribman.)"
+  },
+  "なくします": {
+    "example": "駅で 大切な パスポートを なくしました。 (Bekatda qimmatli pasportimni yo'qotib qo'ydim.)"
+  },
+  "払います": {
+    "example": "レジで 現金で 払いました。 (Kassada naqd pul bilan to'ladim.)"
+  },
+  "返します": {
+    "example": "図書館へ 借りた 本を 返しに 行きます。 (Kutubxonaga olgan kitobimni qaytargani boraman.)"
+  },
+  "出かけます": {
+    "example": "休みの 日には 友達と 買い物に 出かけます。 (Dam olish kunida do'stim bilan xaridga chiqaman.)"
+  },
+  "脱ぎます": {
+    "example": "家へ 入る 前に、玄関で 靴を 脱ぎます。 (Uyga kirishdan oldin dahlizda poyafzalni yechamiz.)"
+  },
+  "心配します": {
+    "example": "あまり 心配しないで ください。大丈夫ですよ。 (Unchalik xavotir olmang. Hammasi joyida bo'ladi.)"
+  },
+  "残業します": {
+    "example": "きょうは 仕事が たくさん あるので、残業します。 (Bugun ish ko'p, qo'shimcha ishda qolaman.)"
+  },
+  "出張します": {
+    "example": "来週 大阪の 支社へ 出張します。 (Kelasi hafta Osakadagi filialga xizmat safariga boraman.)"
+  },
+  "健康保険証": {
+    "example": "病院へ 行く とき、健康保険証を 忘れずに 持って 行きます。 (Shifoxonaga borganimda sug'urta kartasini unutmay olib boraman.)"
+  },
+  "できます": {
+    "example": "わたしは ピアノを 弾くことが できます。 (Men fortepiano chala olaman.)"
+  },
+  "洗います": {
+    "example": "食事の 前に 手を きれいに 洗いましょう。 (Ovqatdan oldin qo'llarni toza qilib yuvaylik.)"
+  },
+  "弾きます": {
+    "example": "休みの 日に 部屋で ギターを 弾きます。 (Dam olish kunida xonamda gitara chalama.)"
+  },
+  "歌います": {
+    "example": "みんなで いっしょに 日本の 歌を 歌いました。 (Hammamiz birgalikda yaponcha qo'shiq kuyladik.)"
+  },
+  "集めます": {
+    "example": "子どもの 頃から 世界の 切手を 集めています。 (Bolaligimdan dunyo pochta markalarini to'playman.)"
+  },
+  "捨てます": {
+    "example": "燃える ごみを 決められた 日に 捨てます。 (Yonuvchan chiqindini belgilangan kunda tashlayman.)"
+  },
+  "換えます": {
+    "example": "銀行で ドルを 日本円に 換えます。 (Bankda dollarni yapon iyeniga almashtiraman.)"
+  },
+  "運転します": {
+    "example": "週末に ドライブで 車を 運転しました。 (Dam olish kunida mashina haydab sayr qildim.)"
+  },
+  "予約します": {
+    "example": "インターネットで 新幹線の 座席を 予約しました。 (Internetda Shinkansen o'rnini band qildim.)"
+  },
+  "見学します": {
+    "example": "自動車の 工場を 見学しました。 (Avtomobil zavodini borib ko'rdim.)"
+  },
+  "課長": {
+    "example": "木村さんは 営業部の 課長です。 (Janob Kimura savdo bo'limi boshlig'i.)"
+  },
+  "部長": {
+    "example": "部長に 新しい 企画書を 提出しました。 (Departament boshlig'iga yangi loyiha hisobotini topshirdim.)"
+  },
+  "社長": {
+    "example": "社長が 全社員の 前で 挨拶を しました。 (Kompaniya rahbari barcha xodimlar oldida nutq so'zladi.)"
+  },
+  "登ります": {
+    "example": "去年の 夏休みに 富士山に 登りました。 (O'tgan yozgi ta'tilda Fuji tog'iga chiqdim.)"
+  },
+  "泊まります": {
+    "example": "京都の 伝統的な 旅館に 泊まりました。 (Kiotoning an'anaviy yapon mehmonxonasida tunadim.)"
+  },
+  "掃除します": {
+    "example": "土曜日の 朝 部屋を きれいに 掃除します。 (Shanba kuni ertalab xonani toza qilib yig'ishtiraman.)"
+  },
+  "洗濯します": {
+    "example": "天気が いい 日に シーツを 洗濯します。 (Havo yaxshi kunda choyshablarni kir yuvaman.)"
+  },
+  "練習します": {
+    "example": "毎日 発音の 練習を しています。 (Har kuni talaffuz mashqini qilyapman.)"
+  },
+  "なります": {
+    "example": "将来 日本語の 先生に なりたいです。 (Kelajakda yapon tili o'qituvchisi bo'lmoqchiman.)"
+  },
+  "相撲": {
+    "example": "両国国技館で 大相撲を 見ました。 (Ryogoku Kokugikanda sumo kurashini tomosha qildim.)"
+  },
+  "要ります": {
+    "example": "旅行の 準備に 何が 要りますか。 (Sayohat tayyorgarligiga nima kerak bo'ladi?)"
+  },
+  "調べます": {
+    "example": "インターネットで 電車の 時刻を 調べます。 (Internetda poyezd vaqtlarini tekshiraman.)"
+  },
+  "直します": {
+    "example": "先生に 作文の 間違いを 直して もらいました。 (Ustozga inshodagi xatolarni to'g'rilattirib oldim.)"
+  },
+  "修理します": {
+    "example": "壊れた 時計を 時計屋で 修理しました。 (Buzilgan soatni ustaxonada tuzatdim.)"
+  },
+  "電話します": {
+    "example": "夜 家族に 電話します。 (Kechasi oilamga telefon qilaman.)"
+  },
+  "思います": {
+    "example": "あしたは いい 天気に なると 思います。 (Ertaga ob-havo yaxshi bo'lsa kerak deb o'ylayman.)"
+  },
+  "言います": {
+    "example": "田中さんは 「おめでとう」と 言いました。 (Janob Tanaka \"tabriklayman\" deb aytdi.)"
+  },
+  "足ります": {
+    "example": "準備した お金で 十分 足りました。 (Tayyorlangan pul to'liq yetdi.)"
+  },
+  "勝ちます": {
+    "example": "きのうの サッカーの 試合で 日本が 勝ちました。 (Kechagi futbol o'yinida Yaponiya g'olib bo'ldi.)"
+  },
+  "負けます": {
+    "example": "決勝戦で 負けて、とても 悔しかったです。 (Finalda yutqazib juda afsuslandim.)"
+  },
+  "首相": {
+    "example": "日本の 首相が 新しい 政策を 発表しました。 (Yaponiya bosh vaziri yangi siyosatni e'lon qildi.)"
+  },
+  "大統領": {
+    "example": "アメリカの 大統領が 日本を 訪問しました。 (AQSH prezidenti Yaponiyaga tashrif buyurdi.)"
+  },
+  "交通": {
+    "example": "東京は 電車や 地下鉄の 交通が とても 発達しています。 (Tokioda poyezd va metro transport tizimi juda rivojlangan.)"
+  },
+  "はきます": {
+    "example": "新しい スニーカーを はいて 散歩に 出かけます。 (Yangi krossovka kiyib sayrga chiqaman.)"
+  },
+  "かぶります": {
+    "example": "日差しが 強いので、白い 帽子を かぶります。 (Quyosh nuri o'tkir, oq kepka kiyib olaman.)"
+  },
+  "生まれます": {
+    "example": "わたしは 1998年に ウズベキスタンで 生まれました。 (Men 1998-yilda O'zbekistonda tug'ilganman.)"
+  },
+  "おめでとうございます。": {
+    "front": "おめでとうございます",
+    "back": "Tabriklayman! / Qutlayman!",
+    "example": "ご結婚 おめでとうございます！ (Turmush qurganingiz muborak bo'lsin!)"
+  },
+  "回します": {
+    "example": "この つまみを 右へ 回すと、音が 大きく なります。 (Bu murvatni o'ngga bursangiz ovozi balandlashadi.)"
+  },
+  "引きます": {
+    "example": "ドアの 取っ手を 手前に 引いて ください。 (Eshik tutqichini o'zingizga torting.)"
+  },
+  "変えます": {
+    "example": "来週の 会議の 時間を 変えたいです。 (Kelasi haftadagi yig'ilish vaqtini o'zgartirmoqchiman.)"
+  },
+  "触ります": {
+    "example": "展示品に 手を 触らないで ください。 (Eksponatlarga qo'l tekkizmang.)"
+  },
+  "動きます": {
+    "example": "この 時計は 電池が なくなったので、動きません。 (Bu soatning batareyasi tugagani sababli yurmayapti.)"
+  },
+  "歩きます": {
+    "example": "健康のために 毎日 1万歩 歩きます。 (Salomatlik uchun har kuni 10 000 qadam piyoda yuraman.)"
+  },
+  "渡ります": {
+    "example": "青信号に なったら、横断歩道を 渡りましょう。 (Yashil chiroq yongach yo'lakdan o'taylik.)"
+  },
+  "気をつけます": {
+    "example": "道を 渡る とき、車に 気を つけて ください。 (Yo'ldan o'tayotganda mashinalardan ehtiyot bo'ling.)"
+  },
+  "引っ越しします": {
+    "example": "会社の 近くの 静かな アパートへ 引っ越しします。 (Kompaniya yaqinidagi tinch xonadonga ko'chib o'taman.)"
+  },
+  "故障": {
+    "example": "洗濯機が 故障したので、修理を 頼みました。 (Kir yuvish mashinasi buzilgani uchun usta chaqirdim.)"
+  },
+  "信号": {
+    "example": "あの 信号を 渡った ところに 郵便局が あります。 (Anavi svetofordan o'tgan joyda pochta bor.)"
+  },
+  "駐車場": {
+    "example": "スーパーの 駐車場は 無料で 利用できます。 (Supermarket avtoturargohidan bepul foydalanish mumkin.)"
+  },
+  "くれます": {
+    "example": "誕生日に 友達が すてきな 本を くれました。 (Tug'ilgan kunimga do'stim ajoyib kitob sovg'a qildi.)"
+  },
+  "連れて行きます": {
+    "example": "週末に 子どもを 遊園地へ 連れて 行きました。 (Dam olish kunida bolamni istirohat bog'iga olib bordim.)"
+  },
+  "連れて来ます": {
+    "example": "あしたの パーティーに 友達を 連れて 来て ください。 (Ertangi bazmga do'stingizni ergashtirib keling.)"
+  },
+  "紹介します": {
+    "example": "新しく 来た 留学生を クラスのみんなに 紹介しました。 (Yangi kelgan xorijiy talabani butun sinfga tanishtirdim.)"
+  },
+  "案内します": {
+    "example": "東京の 有名な 観光地を 案内して あげました。 (Tokioning mashhur diqqatga sazovor joylarini ko'rsatib aylantirdim.)"
+  },
+  "説明します": {
+    "example": "新しい ソフトの 使い方を わかりやすく 説明しました。 (Yangi dasturning ishlatilishini tushunarli qilib izohlab berdim.)"
+  },
+  "いれます": {
+    "example": "お客様に 香り高い 日本茶を いれました。 (Mehmonlarga xushbo'y yapon choyini damladim.)"
+  },
+  "考えます": {
+    "example": "将来の 夢について よく 考えます。 (Kelajakdagi orzularim haqida chuqur o'ylab ko'raman.)"
+  },
+  "着きます": {
+    "example": "新幹線は 定刻に 京都駅に 着きました。 (Shinkansen poyezdi o'z vaqtida Kioto bekatiga yetib bordi.)"
+  },
+  "留学します": {
+    "example": "来年 日本の 大学に 留学する 予定です。 (Kelasi yili Yaponiya universitetiga o'qishga borishni rejalashtiryapman.)"
+  },
+  "頑張ります": {
+    "example": "日本語能力試験 N5 合格のために 頑張ります！ (JLPT N5 imtihonidan o'tish uchun astoydil harakat qilaman!)"
+  }
+}

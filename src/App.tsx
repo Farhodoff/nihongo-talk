@@ -12,6 +12,7 @@ import { supabase } from './lib/supabase';
 import OfflineIndicator from './components/OfflineIndicator';
 import { PushNotificationPrompt } from './components/pwa/PushNotificationPrompt';
 import { Toaster } from './components/ui/toaster';
+import { GlobalFlashcardOverrideService } from './services/GlobalFlashcardOverrideService';
 import { lazyWithRetry } from './utils/lazyRetry';
 
 const CalendarPage = lazyWithRetry(() => import('./pages/CalendarPage'));
@@ -205,6 +206,9 @@ const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(() => !session && !isPublicPreviewActive());
 
   useEffect(() => {
+    // Initialize global flashcard dictionary overrides for all users (online/offline)
+    GlobalFlashcardOverrideService.initGlobalOverrides().catch(() => {});
+
     // Safety timeout: Never leave the UI stuck on "Yuklanmoqda..."
     const safetyTimer = setTimeout(() => {
       setIsLoading(false);

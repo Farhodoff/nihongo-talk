@@ -130,6 +130,12 @@ export interface DatabaseResourceMetrics {
   diagnosticResults: number;
   learningGoals: number;
   profiles: number;
+  globalOverrides?: number;
+  writingHistory?: number;
+  mockExams?: number;
+  customKanji?: number;
+  customGrammar?: number;
+  customQuiz?: number;
 }
 
 export default function AdminDashboardPage() {
@@ -365,22 +371,58 @@ export default function AdminDashboardPage() {
         if (typeof mObj.learning_goals_count === 'number')
           metrics.learningGoals = mObj.learning_goals_count;
         if (typeof mObj.profiles_count === 'number') metrics.profiles = mObj.profiles_count;
+        if (typeof mObj.global_flashcard_overrides_count === 'number')
+          metrics.globalOverrides = mObj.global_flashcard_overrides_count;
+        if (typeof mObj.writing_history_count === 'number')
+          metrics.writingHistory = mObj.writing_history_count;
+        if (typeof mObj.mock_exams_history_count === 'number')
+          metrics.mockExams = mObj.mock_exams_history_count;
+        if (typeof mObj.custom_kanji_count === 'number')
+          metrics.customKanji = mObj.custom_kanji_count;
+        if (typeof mObj.custom_grammar_count === 'number')
+          metrics.customGrammar = mObj.custom_grammar_count;
+        if (typeof mObj.custom_quiz_questions_count === 'number')
+          metrics.customQuiz = mObj.custom_quiz_questions_count;
       } else {
         // Direct table head-count fallback if RPC is unavailable
         try {
-          const [fcRes, profRes, ssRes, spRes, scRes, aiRes, errRes, vocRes, diagRes, goalRes] =
-            await Promise.allSettled([
-              supabase.from('flashcards').select('id', { count: 'exact', head: true }),
-              supabase.from('profiles').select('id', { count: 'exact', head: true }),
-              supabase.from('study_sessions').select('id', { count: 'exact', head: true }),
-              supabase.from('speaking_sessions').select('id', { count: 'exact', head: true }),
-              supabase.from('speaking_coach_sessions').select('id', { count: 'exact', head: true }),
-              supabase.from('ai_coach_sessions').select('id', { count: 'exact', head: true }),
-              supabase.from('speaking_errors').select('id', { count: 'exact', head: true }),
-              supabase.from('speaking_vocabularies').select('id', { count: 'exact', head: true }),
-              supabase.from('diagnostic_results').select('id', { count: 'exact', head: true }),
-              supabase.from('learning_goals').select('id', { count: 'exact', head: true }),
-            ]);
+          const [
+            fcRes,
+            profRes,
+            ssRes,
+            spRes,
+            scRes,
+            aiRes,
+            errRes,
+            vocRes,
+            diagRes,
+            goalRes,
+            goRes,
+            wrRes,
+            meRes,
+            ckRes,
+            cgRes,
+            cqRes,
+          ] = await Promise.allSettled([
+            supabase.from('flashcards').select('id', { count: 'exact', head: true }),
+            supabase.from('profiles').select('id', { count: 'exact', head: true }),
+            supabase.from('study_sessions').select('id', { count: 'exact', head: true }),
+            supabase.from('speaking_sessions').select('id', { count: 'exact', head: true }),
+            supabase.from('speaking_coach_sessions').select('id', { count: 'exact', head: true }),
+            supabase.from('ai_coach_sessions').select('id', { count: 'exact', head: true }),
+            supabase.from('speaking_errors').select('id', { count: 'exact', head: true }),
+            supabase.from('speaking_vocabularies').select('id', { count: 'exact', head: true }),
+            supabase.from('diagnostic_results').select('id', { count: 'exact', head: true }),
+            supabase.from('learning_goals').select('id', { count: 'exact', head: true }),
+            supabase
+              .from('global_flashcard_overrides')
+              .select('id', { count: 'exact', head: true }),
+            supabase.from('ielts_writing_history').select('id', { count: 'exact', head: true }),
+            supabase.from('mock_exams_history').select('id', { count: 'exact', head: true }),
+            supabase.from('custom_kanji').select('id', { count: 'exact', head: true }),
+            supabase.from('custom_grammar').select('id', { count: 'exact', head: true }),
+            supabase.from('custom_quiz_questions').select('id', { count: 'exact', head: true }),
+          ]);
 
           if (fcRes.status === 'fulfilled' && typeof fcRes.value.count === 'number') {
             metrics.flashcards = fcRes.value.count;
@@ -411,6 +453,24 @@ export default function AdminDashboardPage() {
           }
           if (goalRes.status === 'fulfilled' && typeof goalRes.value.count === 'number') {
             metrics.learningGoals = goalRes.value.count;
+          }
+          if (goRes.status === 'fulfilled' && typeof goRes.value.count === 'number') {
+            metrics.globalOverrides = goRes.value.count;
+          }
+          if (wrRes.status === 'fulfilled' && typeof wrRes.value.count === 'number') {
+            metrics.writingHistory = wrRes.value.count;
+          }
+          if (meRes.status === 'fulfilled' && typeof meRes.value.count === 'number') {
+            metrics.mockExams = meRes.value.count;
+          }
+          if (ckRes.status === 'fulfilled' && typeof ckRes.value.count === 'number') {
+            metrics.customKanji = ckRes.value.count;
+          }
+          if (cgRes.status === 'fulfilled' && typeof cgRes.value.count === 'number') {
+            metrics.customGrammar = cgRes.value.count;
+          }
+          if (cqRes.status === 'fulfilled' && typeof cqRes.value.count === 'number') {
+            metrics.customQuiz = cqRes.value.count;
           }
         } catch {}
       }

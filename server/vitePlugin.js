@@ -370,6 +370,38 @@ export function telegramApiPlugin() {
           }
         }
 
+        // Handle /api/admin/update-deck-card
+        if (pathname === '/api/admin/update-deck-card') {
+          try {
+            const handler = (await import('../api/admin/update-deck-card.js')).default;
+            const chunks = [];
+            for await (const chunk of req) chunks.push(chunk);
+            const raw = Buffer.concat(chunks).toString();
+            let parsedBody = {};
+            if (raw) {
+              try { parsedBody = JSON.parse(raw); } catch {}
+            }
+            const mockRes = {
+              setHeader: (k, v) => res.setHeader(k, v),
+              status: (s) => {
+                res.statusCode = s;
+                return mockRes;
+              },
+              json: (d) => {
+                res.setHeader('Content-Type', 'application/json');
+                res.end(JSON.stringify(d));
+              },
+              end: () => res.end(),
+            };
+            return await handler({ ...req, body: parsedBody, method: req.method }, mockRes);
+          } catch (e) {
+            res.statusCode = 500;
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify({ error: 'Internal Server Error', message: e.message }));
+            return;
+          }
+        }
+
         if (!url.pathname.startsWith('/api/telegram')) {
           return next();
         }

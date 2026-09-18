@@ -1,0 +1,5762 @@
+[
+  {
+    "idx": 23,
+    "front": "だれどなた",
+    "back": "u kishi (hurmat shakli)",
+    "phonetic": "だれどなた - daredonata",
+    "example": "これは わたしが 買った だれどなた です。 (Bu men sotib olgan u kishi (hurmat shakli).)",
+    "category": "Minna no Nihongo 1-dars"
+  },
+  {
+    "idx": 26,
+    "front": "おいくつ",
+    "back": "u kishi (hurmat shakli)",
+    "phonetic": "おいくつ - oikutsu",
+    "example": "これは わたしが 買った おいくつ です。 (Bu men sotib olgan u kishi (hurmat shakli).)",
+    "category": "Minna no Nihongo 1-dars"
+  },
+  {
+    "idx": 29,
+    "front": "失礼ですが",
+    "back": "Kechirasiz, ~",
+    "phonetic": "しつれいですが - shitsureidesuga",
+    "example": "これは わたしが 買った 失礼ですが です。 (Bu men sotib olgan kechirasiz, ~.)",
+    "category": "Minna no Nihongo 1-dars"
+  },
+  {
+    "idx": 30,
+    "front": "お名前は？",
+    "back": "Ismingiz nima?",
+    "phonetic": "おなまえは？ - onamaeha",
+    "example": "これは わたしが 買った お名前は？ です。 (Bu men sotib olgan ismingiz nima?.)",
+    "category": "Minna no Nihongo 1-dars"
+  },
+  {
+    "idx": 31,
+    "front": "初めまして。",
+    "back": "O'zimni tanishtirishga ruxsat bersangiz.",
+    "phonetic": "はじめまして。 - hajimemashite",
+    "example": "これは わたしが 買った 初めまして。 です。 (Bu men sotib olgan o'zimni tanishtirishga ruxsat bersangiz..)",
+    "category": "Minna no Nihongo 1-dars"
+  },
+  {
+    "idx": 32,
+    "front": "どうぞよろしく",
+    "back": "Tanishganimdan xursandman",
+    "phonetic": "どうぞよろしく - douzoyoroshiku",
+    "example": "これは わたしが 買った どうぞよろしく です。 (Bu men sotib olgan tanishganimdan xursandman.)",
+    "category": "Minna no Nihongo 1-dars"
+  },
+  {
+    "idx": 33,
+    "front": "お願いします",
+    "back": "iltimos, so'rayman",
+    "phonetic": "おねがいします - onegaishimasu",
+    "example": "毎日 ]。 (Har kuni iltimos, so'rayman.)",
+    "category": "Minna no Nihongo 1-dars"
+  },
+  {
+    "idx": 34,
+    "front": "こちらは～さんです。",
+    "back": "Bu kishi janob / xonim ~.",
+    "phonetic": "こちらは～さんです。 - kochiraha sandesu",
+    "example": "山田こちらはさんです。は 親切な 人です。 (Yamada bu kishi janob / xonim ~. samimiy inson.)",
+    "category": "Minna no Nihongo 1-dars"
+  },
+  {
+    "idx": 35,
+    "front": "～から来ました。",
+    "back": "Men ~(davlat nomi)dan kelganman",
+    "phonetic": "～からきました。 - karakimashita",
+    "example": "山田からきました。は 親切な 人です。 (Yamada men ~(davlat nomi)dan kelganman samimiy inson.)",
+    "category": "Minna no Nihongo 1-dars"
+  },
+  {
+    "idx": 36,
+    "front": "アメリカ",
+    "back": "Amerika, AQSH",
+    "phonetic": "アメリカ - amerika",
+    "example": "これは わたしが 買った アメリカ です。 (Bu men sotib olgan amerika, aqsh.)",
+    "category": "Minna no Nihongo 1-dars"
+  },
+  {
+    "idx": 37,
+    "front": "イギリス",
+    "back": "Angliya, Buyuk Britaniya",
+    "phonetic": "イギリス - igirisu",
+    "example": "これは わたしが 買った イギリス です。 (Bu men sotib olgan angliya, buyuk britaniya.)",
+    "category": "Minna no Nihongo 1-dars"
+  },
+  {
+    "idx": 38,
+    "front": "インド",
+    "back": "Hindiston",
+    "phonetic": "インド - indo",
+    "example": "これは わたしが 買った インド です。 (Bu men sotib olgan hindiston.)",
+    "category": "Minna no Nihongo 1-dars"
+  },
+  {
+    "idx": 39,
+    "front": "インドネシア",
+    "back": "Indoneziya",
+    "phonetic": "インドネシア - indoneshia",
+    "example": "これは わたしが 買った インドネシア です。 (Bu men sotib olgan indoneziya.)",
+    "category": "Minna no Nihongo 1-dars"
+  },
+  {
+    "idx": 40,
+    "front": "韓国かんこく",
+    "back": "Janubiy Koreya",
+    "phonetic": "韓国かんこく - kankoku",
+    "example": "これは わたしが 買った 韓国 です。 (Bu men sotib olgan janubiy koreya.)",
+    "category": "Minna no Nihongo 1-dars"
+  },
+  {
+    "idx": 41,
+    "front": "タイ",
+    "back": "Tailand",
+    "phonetic": "タイ - tai",
+    "example": "これは わたしが 買った タイ です。 (Bu men sotib olgan tailand.)",
+    "category": "Minna no Nihongo 1-dars"
+  },
+  {
+    "idx": 42,
+    "front": "中国ちゅうごく",
+    "back": "Xitoy",
+    "phonetic": "中国ちゅうごく - chuugoku",
+    "example": "これは わたしが 買った 中国 です。 (Bu men sotib olgan xitoy.)",
+    "category": "Minna no Nihongo 1-dars"
+  },
+  {
+    "idx": 43,
+    "front": "ドイツ",
+    "back": "Olmoniya",
+    "phonetic": "ドイツ - doitsu",
+    "example": "これは わたしが 買った ドイツ です。 (Bu men sotib olgan olmoniya.)",
+    "category": "Minna no Nihongo 1-dars"
+  },
+  {
+    "idx": 44,
+    "front": "日本",
+    "back": "Yaponiya",
+    "phonetic": "にほん - nihon",
+    "example": "これは わたしが 買った 日本 です。 (Bu men sotib olgan yaponiya.)",
+    "category": "Minna no Nihongo 1-dars"
+  },
+  {
+    "idx": 45,
+    "front": "フランス",
+    "back": "Fransiya",
+    "phonetic": "フランス - furansu",
+    "example": "これは わたしが 買った フランス です。 (Bu men sotib olgan fransiya.)",
+    "category": "Minna no Nihongo 1-dars"
+  },
+  {
+    "idx": 46,
+    "front": "ブラジル",
+    "back": "Braziliya",
+    "phonetic": "ブラジル - burajiru",
+    "example": "これは わたしが 買った ブラジル です。 (Bu men sotib olgan braziliya.)",
+    "category": "Minna no Nihongo 1-dars"
+  },
+  {
+    "idx": 47,
+    "front": "さくら大学だいがく／富士ふじ大学だいがく",
+    "back": "universitet nomlari (o'ylab topilgan)",
+    "phonetic": "さくら大学だいがく／富士ふじ大学だいがく - sakuradaigaku fujidaigaku",
+    "example": "これは わたしが 買った さくら大学／富士大学 です。 (Bu men sotib olgan universitet nomlari (o'ylab topilgan).)",
+    "category": "Minna no Nihongo 1-dars"
+  },
+  {
+    "idx": 48,
+    "front": "パワー電気",
+    "back": "kompaniyalar nomlari",
+    "phonetic": "IMC／パワー電でん気き／ブラジルエアー - pawa-denki burajiruea-",
+    "example": "これは わたしが 買った IMC／パワー電気／ブラジルエアー です。 (Bu men sotib olgan kompaniyalar nomlari.)",
+    "category": "Minna no Nihongo 1-dars"
+  },
+  {
+    "idx": 49,
+    "front": "神戸病院",
+    "back": "Kobe shifoxonasi",
+    "phonetic": "こうべびょういん - koubebyouin",
+    "example": "これは わたしが 買った 神戸病院 です。 (Bu men sotib olgan kobe shifoxonasi.)",
+    "category": "Minna no Nihongo 1-dars"
+  },
+  {
+    "idx": 60,
+    "front": "ノート",
+    "back": "daftar",
+    "phonetic": "ノート - no-to",
+    "example": "これは わたしが 買った ノート です。 (Bu men sotib olgan daftar.)",
+    "category": "Minna no Nihongo 2-dars"
+  },
+  {
+    "idx": 63,
+    "front": "カード",
+    "back": "kartochka",
+    "phonetic": "カード - ka-do",
+    "example": "これは わたしが 買った カード です。 (Bu men sotib olgan kartochka.)",
+    "category": "Minna no Nihongo 2-dars"
+  },
+  {
+    "idx": 64,
+    "front": "テレホンカード",
+    "back": "telefon kartochkasi",
+    "phonetic": "テレホンカード - terehonka-do",
+    "example": "これは わたしが 買った テレホンカード です。 (Bu men sotib olgan telefon kartochkasi.)",
+    "category": "Minna no Nihongo 2-dars"
+  },
+  {
+    "idx": 65,
+    "front": "鉛筆",
+    "back": "qalam",
+    "phonetic": "えんぴつ - enpitsu",
+    "example": "これは わたしが 買った 鉛筆qalam です。 (Bu men sotib olgan qalam.)",
+    "category": "Minna no Nihongo 2-dars"
+  },
+  {
+    "idx": 66,
+    "front": "ボールペン",
+    "back": "sharikli ruchka",
+    "phonetic": "ボールペン - bo-rupen",
+    "example": "これは わたしが 買った ボールペン です。 (Bu men sotib olgan sharikli ruchka.)",
+    "category": "Minna no Nihongo 2-dars"
+  },
+  {
+    "idx": 67,
+    "front": "シャープペンシル",
+    "back": "avtoqalam",
+    "phonetic": "シャープペンシル - sha-pupenshiru",
+    "example": "これは わたしが 買った シャープペンシル です。 (Bu men sotib olgan avtoqalam.)",
+    "category": "Minna no Nihongo 2-dars"
+  },
+  {
+    "idx": 68,
+    "front": "かぎ",
+    "back": "qulf-kalit",
+    "phonetic": "かぎ - kagi",
+    "example": "これは わたしが 買った かぎ です。 (Bu men sotib olgan qulf-kalit.)",
+    "category": "Minna no Nihongo 2-dars"
+  },
+  {
+    "idx": 72,
+    "front": "カセットテープ",
+    "back": "audio tasma",
+    "phonetic": "カセットテープ - kasetote-pu",
+    "example": "これは わたしが 買った テープ です。 (Bu men sotib olgan audio tasma.)",
+    "category": "Minna no Nihongo 2-dars"
+  },
+  {
+    "idx": 73,
+    "front": "テープレコーダー",
+    "back": "magnitofon",
+    "phonetic": "テープレコーダー - te-pureko-da-",
+    "example": "これは わたしが 買った テープレコーダー です。 (Bu men sotib olgan magnitofon.)",
+    "category": "Minna no Nihongo 2-dars"
+  },
+  {
+    "idx": 81,
+    "front": "チョコレート",
+    "back": "shokolad",
+    "phonetic": "チョコレート - chokore-to",
+    "example": "これは わたしが 買った チョコレート です。 (Bu men sotib olgan shokolad.)",
+    "category": "Minna no Nihongo 2-dars"
+  },
+  {
+    "idx": 82,
+    "front": "コーヒー",
+    "back": "qahva (kofe)",
+    "phonetic": "コーヒー - ko-hi-",
+    "example": "これは わたしが 買った コーヒー です。 (Bu men sotib olgan qahva (kofe).)",
+    "category": "Minna no Nihongo 2-dars"
+  },
+  {
+    "idx": 83,
+    "front": "英語",
+    "back": "ingliz tili",
+    "phonetic": "えいご - eigo",
+    "example": "これは わたしが 買った 英語 です。 (Bu men sotib olgan ingliz tili.)",
+    "category": "Minna no Nihongo 2-dars"
+  },
+  {
+    "idx": 84,
+    "front": "日本語",
+    "back": "yapon tili",
+    "phonetic": "にほんご - nihongo",
+    "example": "これは わたしが 買った 日本語 です。 (Bu men sotib olgan yapon tili.)",
+    "category": "Minna no Nihongo 2-dars"
+  },
+  {
+    "idx": 85,
+    "front": "～語",
+    "back": "~tili",
+    "phonetic": "～ご - go",
+    "example": "山田ごは 親切な 人です。 (Yamada ~tili samimiy inson.)",
+    "category": "Minna no Nihongo 2-dars"
+  },
+  {
+    "idx": 86,
+    "front": "何",
+    "back": "nima",
+    "phonetic": "なん - nan",
+    "example": "これは わたしが 買った 何 です。 (Bu men sotib olgan nima.)",
+    "category": "Minna no Nihongo 2-dars"
+  },
+  {
+    "idx": 89,
+    "front": "そうですか。",
+    "back": "Shundaymi? Rostdanmi?",
+    "phonetic": "そうですか。 - soudesuka",
+    "example": "これは わたしが 買った そうですか。 です。 (Bu men sotib olgan shundaymi? rostdanmi?.)",
+    "category": "Minna no Nihongo 2-dars"
+  },
+  {
+    "idx": 91,
+    "front": "ほんの気持ちです。",
+    "back": "Chin ko'ngildan",
+    "phonetic": "ほんのきもちです。 - honnokimochidesu",
+    "example": "これは わたしが 買った ほんの気持ちです。 です。 (Bu men sotib olgan chin ko'ngildan.)",
+    "category": "Minna no Nihongo 2-dars"
+  },
+  {
+    "idx": 92,
+    "front": "どうぞ。",
+    "back": "Marhamat.",
+    "phonetic": "どうぞ。 - douzo",
+    "example": "これは わたしが 買った どうぞ。 です。 (Bu men sotib olgan marhamat..)",
+    "category": "Minna no Nihongo 2-dars"
+  },
+  {
+    "idx": 93,
+    "front": "どうも。",
+    "back": "Rahmat.",
+    "phonetic": "どうも。 - doumo",
+    "example": "これは わたしが 買った どうも。 です。 (Bu men sotib olgan rahmat..)",
+    "category": "Minna no Nihongo 2-dars"
+  },
+  {
+    "idx": 96,
+    "front": "こちらこそよろしく。",
+    "back": "Men ham yordamingizni ayamaysiz degan umiddaman. / Men ham tanishganimdan xursandman.",
+    "phonetic": "こちらこそよろしく。 - kochirakosoyoroshiku",
+    "example": "これは わたしが 買った こちらこそよろしく。 です。 (Bu men sotib olgan men ham yordamingizni ayamaysiz degan umiddaman. / men ham tanishganimdan xursandman..)",
+    "category": "Minna no Nihongo 2-dars"
+  },
+  {
+    "idx": 101,
+    "front": "こちら",
+    "back": "u kishi (hurmat shakli)",
+    "phonetic": "こちら - kochira",
+    "example": "これは わたしが 買った こちら です。 (Bu men sotib olgan u kishi (hurmat shakli).)",
+    "category": "Minna no Nihongo 3-dars"
+  },
+  {
+    "idx": 102,
+    "front": "そちら",
+    "back": "u kishi (hurmat shakli)",
+    "phonetic": "そちら - sochira",
+    "example": "これは わたしが 買った そちら です。 (Bu men sotib olgan u kishi (hurmat shakli).)",
+    "category": "Minna no Nihongo 3-dars"
+  },
+  {
+    "idx": 103,
+    "front": "あちら",
+    "back": "u kishi (hurmat shakli)",
+    "phonetic": "あちら - achira",
+    "example": "これは わたしが 買った あちら です。 (Bu men sotib olgan u kishi (hurmat shakli).)",
+    "category": "Minna no Nihongo 3-dars"
+  },
+  {
+    "idx": 104,
+    "front": "どちら",
+    "back": "u kishi (hurmat shakli)",
+    "phonetic": "どちら - dochira",
+    "example": "これは わたしが 買った どちら です。 (Bu men sotib olgan u kishi (hurmat shakli).)",
+    "category": "Minna no Nihongo 3-dars"
+  },
+  {
+    "idx": 109,
+    "front": "受付",
+    "back": "qabulxona",
+    "phonetic": "うけつけ - uketsuke",
+    "example": "これは わたしが 買った 受付 です。 (Bu men sotib olgan qabulxona.)",
+    "category": "Minna no Nihongo 3-dars"
+  },
+  {
+    "idx": 110,
+    "front": "ロビー",
+    "back": "dahliz",
+    "phonetic": "ロビー - robi-",
+    "example": "これは わたしが 買った ロビー です。 (Bu men sotib olgan dahliz.)",
+    "category": "Minna no Nihongo 3-dars"
+  },
+  {
+    "idx": 112,
+    "front": "お手洗い",
+    "back": "hojatxona",
+    "phonetic": "トイレおてあらい - toireotearai",
+    "example": "これは わたしが 買った お手洗い です。 (Bu men sotib olgan hojatxona.)",
+    "category": "Minna no Nihongo 3-dars"
+  },
+  {
+    "idx": 115,
+    "front": "エスカレーター",
+    "back": "eskalator",
+    "phonetic": "エスカレーター - esukare-ta-",
+    "example": "これは わたしが 買った エスカレーター です。 (Bu men sotib olgan eskalator.)",
+    "category": "Minna no Nihongo 3-dars"
+  },
+  {
+    "idx": 119,
+    "front": "電話",
+    "back": "telefon",
+    "phonetic": "でんわ - denwa",
+    "example": "これは わたしが 買った 電話 です。 (Bu men sotib olgan telefon.)",
+    "category": "Minna no Nihongo 3-dars"
+  },
+  {
+    "idx": 120,
+    "front": "靴",
+    "back": "poyafzal",
+    "phonetic": "くつ - kutsu",
+    "example": "これは わたしが 買った 靴 です。 (Bu men sotib olgan poyafzal.)",
+    "category": "Minna no Nihongo 3-dars"
+  },
+  {
+    "idx": 121,
+    "front": "ネクタイ",
+    "back": "bo'yinbog",
+    "phonetic": "ネクタイ - nekutai",
+    "example": "これは わたしが 買った ネクタイ です。 (Bu men sotib olgan bo'yinbog.)",
+    "category": "Minna no Nihongo 3-dars"
+  },
+  {
+    "idx": 122,
+    "front": "ワイン",
+    "back": "musallas, sharob (vino)",
+    "phonetic": "ワイン - wain",
+    "example": "これは わたしが 買った ワイン です。 (Bu men sotib olgan musallas, sharob (vino).)",
+    "category": "Minna no Nihongo 3-dars"
+  },
+  {
+    "idx": 123,
+    "front": "たばこ",
+    "back": "tamaki",
+    "phonetic": "たばこ - tabako",
+    "example": "これは わたしが 買った たばこ です。 (Bu men sotib olgan tamaki.)",
+    "category": "Minna no Nihongo 3-dars"
+  },
+  {
+    "idx": 125,
+    "front": "地下",
+    "back": "yer osti, yerto'la",
+    "phonetic": "ちか - chika",
+    "example": "これは わたしが 買った 地下 です。 (Bu men sotib olgan yer osti, yerto'la.)",
+    "category": "Minna no Nihongo 3-dars"
+  },
+  {
+    "idx": 128,
+    "front": "～円",
+    "back": "~iyena",
+    "phonetic": "～えん - en",
+    "example": "山田えんは 親切な 人です。 (Yamada ~iyena samimiy inson.)",
+    "category": "Minna no Nihongo 3-dars"
+  },
+  {
+    "idx": 130,
+    "front": "百",
+    "back": "yuz",
+    "phonetic": "ひゃく - hyaku",
+    "example": "これは わたしが 買った 百 です。 (Bu men sotib olgan yuz.)",
+    "category": "Minna no Nihongo 3-dars"
+  },
+  {
+    "idx": 131,
+    "front": "千",
+    "back": "ming",
+    "phonetic": "せん - sen",
+    "example": "これは わたしが 買った 千 です。 (Bu men sotib olgan ming.)",
+    "category": "Minna no Nihongo 3-dars"
+  },
+  {
+    "idx": 132,
+    "front": "万",
+    "back": "o'n ming",
+    "phonetic": "まん - man",
+    "example": "これは わたしが 買った 万 です。 (Bu men sotib olgan o'n ming.)",
+    "category": "Minna no Nihongo 3-dars"
+  },
+  {
+    "idx": 133,
+    "front": "すみません。",
+    "back": "Kechirasiz. / Meni ma'zur tutasiz.",
+    "phonetic": "すみません。 - sumimasen",
+    "example": "これは わたしが 買った すみません。 です。 (Bu men sotib olgan kechirasiz. / meni ma'zur tutasiz..)",
+    "category": "Minna no Nihongo 3-dars"
+  },
+  {
+    "idx": 135,
+    "front": "～を見みせてください。",
+    "back": "Iltimos, ~ni ko'rsating.",
+    "phonetic": "～を見みせてください。 - omisetekudasai",
+    "example": "山田見せてください。は 親切な 人です。 (Yamada iltimos, ~ni ko'rsating. samimiy inson.)",
+    "category": "Minna no Nihongo 3-dars"
+  },
+  {
+    "idx": 136,
+    "front": "じゃ",
+    "back": "U holda. / Xo'sh. / Demak.",
+    "phonetic": "じゃ - ja",
+    "example": "これは わたしが 買った じゃ です。 (Bu men sotib olgan u holda. / xo'sh. / demak..)",
+    "category": "Minna no Nihongo 3-dars"
+  },
+  {
+    "idx": 137,
+    "front": "～をください。",
+    "back": "Iltimos, ~ni bering.",
+    "phonetic": "～をください。 - okudasai",
+    "example": "山田ください。は 親切な 人です。 (Yamada iltimos, ~ni bering. samimiy inson.)",
+    "category": "Minna no Nihongo 3-dars"
+  },
+  {
+    "idx": 138,
+    "front": "新大阪",
+    "back": "Shin-Osaka (Osakadagi bekat nomi)",
+    "phonetic": "しんおおさか - shinoosaka",
+    "example": "これは わたしが 買った 新大阪 です。 (Bu men sotib olgan shin-osaka (osakadagi bekat nomi).)",
+    "category": "Minna no Nihongo 3-dars"
+  },
+  {
+    "idx": 139,
+    "front": "イタリア",
+    "back": "Italiya",
+    "phonetic": "イタリア - itaria",
+    "example": "これは わたしが 買った イタリア です。 (Bu men sotib olgan italiya.)",
+    "category": "Minna no Nihongo 3-dars"
+  },
+  {
+    "idx": 140,
+    "front": "スイス",
+    "back": "Shveysariya",
+    "phonetic": "スイス - suisu",
+    "example": "これは わたしが 買った スイス です。 (Bu men sotib olgan shveysariya.)",
+    "category": "Minna no Nihongo 3-dars"
+  },
+  {
+    "idx": 141,
+    "front": "ＭＴ／ヨーネン／アキックス",
+    "back": "kompaniyalar nomi (o'ylab topilgan)",
+    "phonetic": "ＭＴ／ヨーネン／アキックス - yo-nen akikusu",
+    "example": "これは わたしが 買った ＭＴ／ヨーネン／アキックス です。 (Bu men sotib olgan kompaniyalar nomi (o'ylab topilgan).)",
+    "category": "Minna no Nihongo 3-dars"
+  },
+  {
+    "idx": 148,
+    "front": "デパート",
+    "back": "univermag",
+    "phonetic": "デパート - depa-to",
+    "example": "これは わたしが 買った デパート です。 (Bu men sotib olgan univermag.)",
+    "category": "Minna no Nihongo 4-dars"
+  },
+  {
+    "idx": 154,
+    "front": "～時",
+    "back": "soat~",
+    "phonetic": "～じ - ji",
+    "example": "山田じは 親切な 人です。 (Yamada soat~ samimiy inson.)",
+    "category": "Minna no Nihongo 4-dars"
+  },
+  {
+    "idx": 155,
+    "front": "～分",
+    "back": "~daqiqa",
+    "phonetic": "～ふん～ぷん - fun pun",
+    "example": "山田ふんぷんは 親切な 人です。 (Yamada ~daqiqa samimiy inson.)",
+    "category": "Minna no Nihongo 4-dars"
+  },
+  {
+    "idx": 156,
+    "front": "半",
+    "back": "yarim",
+    "phonetic": "はん - han",
+    "example": "これは わたしが 買った 半yarim です。 (Bu men sotib olgan yarim.)",
+    "category": "Minna no Nihongo 4-dars"
+  },
+  {
+    "idx": 157,
+    "front": "何時",
+    "back": "soat necha",
+    "phonetic": "なんじ - nanji",
+    "example": "これは わたしが 買った 何時soatnecha です。 (Bu men sotib olgan soat necha.)",
+    "category": "Minna no Nihongo 4-dars"
+  },
+  {
+    "idx": 158,
+    "front": "何分",
+    "back": "necha daqiqa",
+    "phonetic": "なんぷん - nanpun",
+    "example": "これは わたしが 買った 何分nechadaqiqa です。 (Bu men sotib olgan necha daqiqa.)",
+    "category": "Minna no Nihongo 4-dars"
+  },
+  {
+    "idx": 159,
+    "front": "午前",
+    "back": "tushgacha bo'lgan vaqt (AM / ertalab)",
+    "phonetic": "ごぜん - gozen",
+    "example": "これは わたしが 買った 午前tungisoat12dantushki12gacha です。 (Bu men sotib olgan bo'lgan vaqt) masalan: 午前１時 – tungi soat1;.)",
+    "category": "Minna no Nihongo 4-dars"
+  },
+  {
+    "idx": 160,
+    "front": "午後",
+    "back": "tushdan keyingi vaqt (PM / kechki payt)",
+    "phonetic": "ごご - gogo",
+    "example": "これは わたしが 買った 午後tushkisoat12dantungisoat12 です。 (Bu men sotib olgan gacha bo'lgan vaqt) masalan: 午後３時 kunduzgi soat 3; 午後９時 kechki soat 9.)",
+    "category": "Minna no Nihongo 4-dars"
+  },
+  {
+    "idx": 161,
+    "front": "朝",
+    "back": "tong, ertalab",
+    "phonetic": "あさ - asa",
+    "example": "これは わたしが 買った 朝tong,ertalab です。 (Bu men sotib olgan tong, ertalab.)",
+    "category": "Minna no Nihongo 4-dars"
+  },
+  {
+    "idx": 167,
+    "front": "あした",
+    "back": "ertaga",
+    "phonetic": "あした - ashita",
+    "example": "これは わたしが 買った あした です。 (Bu men sotib olgan ertaga.)",
+    "category": "Minna no Nihongo 4-dars"
+  },
+  {
+    "idx": 168,
+    "front": "あさって",
+    "back": "indinga, ertadan keyin",
+    "phonetic": "あさって - asate",
+    "example": "これは わたしが 買った あさって です。 (Bu men sotib olgan indinga, ertadan keyin.)",
+    "category": "Minna no Nihongo 4-dars"
+  },
+  {
+    "idx": 169,
+    "front": "けさ",
+    "back": "bugun ertalab, bugun tongda",
+    "phonetic": "けさ - kesa",
+    "example": "これは わたしが 買った けさ です。 (Bu men sotib olgan bugun ertalab, bugun tongda.)",
+    "category": "Minna no Nihongo 4-dars"
+  },
+  {
+    "idx": 170,
+    "front": "今晩",
+    "back": "bugun kechqurun",
+    "phonetic": "こんばん - konban",
+    "example": "これは わたしが 買った 今晩bugunkechqurun です。 (Bu men sotib olgan bugun kechqurun.)",
+    "category": "Minna no Nihongo 4-dars"
+  },
+  {
+    "idx": 171,
+    "front": "休み",
+    "back": "dam olish, ta’til",
+    "phonetic": "やすみ - yasumi",
+    "example": "これは わたしが 買った 休みdamolish,ta’til です。 (Bu men sotib olgan dam olish, ta’til.)",
+    "category": "Minna no Nihongo 4-dars"
+  },
+  {
+    "idx": 172,
+    "front": "昼休み",
+    "back": "tushlik / tushki tanaffus",
+    "phonetic": "ひるやすみ - hiruyasumi",
+    "example": "これは わたしが 買った 昼休みtushlik/tushkitanaffus です。 (Bu men sotib olgan tushlik / tushki tanaffus.)",
+    "category": "Minna no Nihongo 4-dars"
+  },
+  {
+    "idx": 173,
+    "front": "毎朝",
+    "back": "har kuni ertalab, har tong",
+    "phonetic": "まいあさ - maiasa",
+    "example": "これは わたしが 買った 毎朝harkuniertalab,hartong です。 (Bu men sotib olgan har kuni ertalab, har tong.)",
+    "category": "Minna no Nihongo 4-dars"
+  },
+  {
+    "idx": 174,
+    "front": "毎晩",
+    "back": "har kuni kechqurun",
+    "phonetic": "まいばん - maiban",
+    "example": "これは わたしが 買った 毎晩harkunikechqurun です。 (Bu men sotib olgan har kuni kechqurun.)",
+    "category": "Minna no Nihongo 4-dars"
+  },
+  {
+    "idx": 175,
+    "front": "毎日",
+    "back": "har kuni",
+    "phonetic": "まいにち - mainichi",
+    "example": "これは わたしが 買った 毎日harkuni です。 (Bu men sotib olgan har kuni.)",
+    "category": "Minna no Nihongo 4-dars"
+  },
+  {
+    "idx": 176,
+    "front": "月曜日",
+    "back": "dushanba",
+    "phonetic": "げつようび - getsuyoubi",
+    "example": "これは わたしが 買った 月曜日dushanba です。 (Bu men sotib olgan dushanba.)",
+    "category": "Minna no Nihongo 4-dars"
+  },
+  {
+    "idx": 177,
+    "front": "火曜日",
+    "back": "seshanba",
+    "phonetic": "かようび - kayoubi",
+    "example": "これは わたしが 買った 火曜日seshanba です。 (Bu men sotib olgan seshanba.)",
+    "category": "Minna no Nihongo 4-dars"
+  },
+  {
+    "idx": 178,
+    "front": "水曜日",
+    "back": "chorshanba",
+    "phonetic": "すいようび - suiyoubi",
+    "example": "これは わたしが 買った 水曜日chorshanba です。 (Bu men sotib olgan chorshanba.)",
+    "category": "Minna no Nihongo 4-dars"
+  },
+  {
+    "idx": 179,
+    "front": "木曜日",
+    "back": "payshanba",
+    "phonetic": "もくようび - mokuyoubi",
+    "example": "これは わたしが 買った 木曜日payshanba です。 (Bu men sotib olgan payshanba.)",
+    "category": "Minna no Nihongo 4-dars"
+  },
+  {
+    "idx": 180,
+    "front": "金曜日",
+    "back": "juma",
+    "phonetic": "きんようび - kinyoubi",
+    "example": "これは わたしが 買った 金曜日juma です。 (Bu men sotib olgan juma.)",
+    "category": "Minna no Nihongo 4-dars"
+  },
+  {
+    "idx": 181,
+    "front": "土曜日",
+    "back": "shanba",
+    "phonetic": "どようび - doyoubi",
+    "example": "これは わたしが 買った 土曜日shanba です。 (Bu men sotib olgan shanba.)",
+    "category": "Minna no Nihongo 4-dars"
+  },
+  {
+    "idx": 182,
+    "front": "日曜日",
+    "back": "yakshanba",
+    "phonetic": "にちようび - nichiyoubi",
+    "example": "これは わたしが 買った 日曜日yakshanba です。 (Bu men sotib olgan yakshanba.)",
+    "category": "Minna no Nihongo 4-dars"
+  },
+  {
+    "idx": 183,
+    "front": "何曜日",
+    "back": "haftaning qaysi kuni",
+    "phonetic": "なんようび - nanyoubi",
+    "example": "これは わたしが 買った 何曜日haftaningqaysikuni です。 (Bu men sotib olgan haftaning qaysi kuni.)",
+    "category": "Minna no Nihongo 4-dars"
+  },
+  {
+    "idx": 185,
+    "front": "何番",
+    "back": "nechanchi raqam",
+    "phonetic": "なんばん - nanban",
+    "example": "これは わたしが 買った 何番nechanchiraqam です。 (Bu men sotib olgan nechanchi raqam.)",
+    "category": "Minna no Nihongo 4-dars"
+  },
+  {
+    "idx": 186,
+    "front": "～から",
+    "back": "~dan",
+    "phonetic": "～から - kara",
+    "example": "山田からは 親切な 人です。 (Yamada ~dan samimiy inson.)",
+    "category": "Minna no Nihongo 4-dars"
+  },
+  {
+    "idx": 187,
+    "front": "～まで",
+    "back": "~gacha, ~ ga qadar",
+    "phonetic": "～まで - made",
+    "example": "山田までは 親切な 人です。 (Yamada ~gacha, ~ ga qadar samimiy inson.)",
+    "category": "Minna no Nihongo 4-dars"
+  },
+  {
+    "idx": 188,
+    "front": "～と～",
+    "back": "~ bilan ~",
+    "phonetic": "～と～ - to",
+    "example": "山田とは 親切な 人です。 (Yamada ~ bilan ~ samimiy inson.)",
+    "category": "Minna no Nihongo 4-dars"
+  },
+  {
+    "idx": 189,
+    "front": "そちら",
+    "back": "sizda",
+    "phonetic": "そちら - sochira",
+    "example": "これは わたしが 買った そちら です。 (Bu men sotib olgan sizda.)",
+    "category": "Minna no Nihongo 4-dars"
+  },
+  {
+    "idx": 190,
+    "front": "大変ですね。",
+    "back": "Qiyin bo`libdi.",
+    "phonetic": "たいへんですね。 - taihendesune",
+    "example": "これは わたしが 買った 大変ですね。Qiyinbo`libdi. です。 (Bu men sotib olgan qiyin bo`libdi..)",
+    "category": "Minna no Nihongo 4-dars"
+  },
+  {
+    "idx": 191,
+    "front": "えーと",
+    "back": "Xo'sh… . (fikrni jamlash payti iborasi)",
+    "phonetic": "えーと - e-to",
+    "example": "これは わたしが 買った えーと です。 (Bu men sotib olgan xo'sh… . (fikrni jamlash payti iborasi).)",
+    "category": "Minna no Nihongo 4-dars"
+  },
+  {
+    "idx": 192,
+    "front": "１０４",
+    "back": "104 (ma'lumotlar bo'limi raqami)",
+    "phonetic": "１０４ - ",
+    "example": "これは わたしが 買った １０４ です。 (Bu men sotib olgan 104 (ma'lumotlar bo'limi raqami).)",
+    "category": "Minna no Nihongo 4-dars"
+  },
+  {
+    "idx": 194,
+    "front": "かしこまりました。",
+    "back": "Tushundim. / Uqdim.",
+    "phonetic": "かしこまりました。 - kashikomarimashita",
+    "example": "これは わたしが 買った かしこまりました。 です。 (Bu men sotib olgan tushundim. / uqdim..)",
+    "category": "Minna no Nihongo 4-dars"
+  },
+  {
+    "idx": 195,
+    "front": "お問とい合あわせの番号ばんごう",
+    "back": "Ma'lumot uchun telefonlar",
+    "phonetic": "お問とい合あわせの番号ばんごう - otoiawasenobangou",
+    "example": "これは わたしが 買った お問い合わせの番号 です。 (Bu men sotib olgan ma'lumot uchun telefonlar.)",
+    "category": "Minna no Nihongo 4-dars"
+  },
+  {
+    "idx": 196,
+    "front": "どうもありがとうございました。",
+    "back": "Katta rahmat.",
+    "phonetic": "どうもありがとうございました。 - doumoarigatougozaimashita",
+    "example": "これは わたしが 買った ありがとうございました。 です。 (Bu men sotib olgan katta rahmat..)",
+    "category": "Minna no Nihongo 4-dars"
+  },
+  {
+    "idx": 197,
+    "front": "ニューヨーク",
+    "back": "Nyu-York",
+    "phonetic": "ニューヨーク - ni-yo-ku",
+    "example": "これは わたしが 買った ニューヨーク です。 (Bu men sotib olgan nyu-york.)",
+    "category": "Minna no Nihongo 4-dars"
+  },
+  {
+    "idx": 198,
+    "front": "ペキン",
+    "back": "Pekin",
+    "phonetic": "ペキン - pekin",
+    "example": "これは わたしが 買った ペキン です。 (Bu men sotib olgan pekin.)",
+    "category": "Minna no Nihongo 4-dars"
+  },
+  {
+    "idx": 199,
+    "front": "ロンドン",
+    "back": "London",
+    "phonetic": "ロンドン - rondon",
+    "example": "これは わたしが 買った ロンドン です。 (Bu men sotib olgan london.)",
+    "category": "Minna no Nihongo 4-dars"
+  },
+  {
+    "idx": 200,
+    "front": "バンコク",
+    "back": "Bangkok",
+    "phonetic": "バンコク - bankoku",
+    "example": "これは わたしが 買った バンコク です。 (Bu men sotib olgan bangkok.)",
+    "category": "Minna no Nihongo 4-dars"
+  },
+  {
+    "idx": 201,
+    "front": "ロサンゼルス",
+    "back": "Los-Anjeles",
+    "phonetic": "ロサンゼルス - rosanzerusu",
+    "example": "これは わたしが 買った ロサンゼルス です。 (Bu men sotib olgan los-anjeles.)",
+    "category": "Minna no Nihongo 4-dars"
+  },
+  {
+    "idx": 202,
+    "front": "やまと美び術じゅつ館かん",
+    "back": "muzey nomi (o'ylab topilgan)",
+    "phonetic": "やまと美び術じゅつ館かん - yamatobijutsukan",
+    "example": "これは わたしが 買った やまと美術館 です。 (Bu men sotib olgan muzey nomi (o'ylab topilgan).)",
+    "category": "Minna no Nihongo 4-dars"
+  },
+  {
+    "idx": 203,
+    "front": "大阪おおさかデパート",
+    "back": "univermag nomi (o'ylab topilgan)",
+    "phonetic": "大阪おおさかデパート - oosakadepa-to",
+    "example": "これは わたしが 買った 大阪デパート です。 (Bu men sotib olgan univermag nomi (o'ylab topilgan).)",
+    "category": "Minna no Nihongo 4-dars"
+  },
+  {
+    "idx": 204,
+    "front": "みどり図と書しょ館かん",
+    "back": "kutubxona nomi (o'ylab topilgan)",
+    "phonetic": "みどり図と書しょ館かん - midoritoshokan",
+    "example": "これは わたしが 買った みどり図書館 です。 (Bu men sotib olgan kutubxona nomi (o'ylab topilgan).)",
+    "category": "Minna no Nihongo 4-dars"
+  },
+  {
+    "idx": 205,
+    "front": "アップル銀行ぎんこう",
+    "back": "bank nomi (o'ylab topilgan)",
+    "phonetic": "アップル銀行ぎんこう - apuruginkou",
+    "example": "これは わたしが 買った アップル銀行 です。 (Bu men sotib olgan bank nomi (o'ylab topilgan).)",
+    "category": "Minna no Nihongo 4-dars"
+  },
+  {
+    "idx": 230,
+    "front": "先月",
+    "back": "o'tgan oy",
+    "phonetic": "せんげつ - sengetsu",
+    "example": "これは わたしが 買った 先月 です。 (Bu men sotib olgan o'tgan oy.)",
+    "category": "Minna no Nihongo 5-dars"
+  },
+  {
+    "idx": 231,
+    "front": "今月",
+    "back": "bu oy",
+    "phonetic": "こんげつ - kongetsu",
+    "example": "これは わたしが 買った 今月 です。 (Bu men sotib olgan bu oy.)",
+    "category": "Minna no Nihongo 5-dars"
+  },
+  {
+    "idx": 232,
+    "front": "来月",
+    "back": "kelasi oy",
+    "phonetic": "らいげつ - raigetsu",
+    "example": "これは わたしが 買った 来月 です。 (Bu men sotib olgan kelasi oy.)",
+    "category": "Minna no Nihongo 5-dars"
+  },
+  {
+    "idx": 233,
+    "front": "去年",
+    "back": "o'tgan yili",
+    "phonetic": "きょねん - kyonen",
+    "example": "これは わたしが 買った 去年 です。 (Bu men sotib olgan o'tgan yili.)",
+    "category": "Minna no Nihongo 5-dars"
+  },
+  {
+    "idx": 234,
+    "front": "今年",
+    "back": "bu yil",
+    "phonetic": "ことし - kotoshi",
+    "example": "これは わたしが 買った 今年 です。 (Bu men sotib olgan bu yil.)",
+    "category": "Minna no Nihongo 5-dars"
+  },
+  {
+    "idx": 235,
+    "front": "来年",
+    "back": "kelasi yil",
+    "phonetic": "らいねん - rainen",
+    "example": "これは わたしが 買った 来年 です。 (Bu men sotib olgan kelasi yil.)",
+    "category": "Minna no Nihongo 5-dars"
+  },
+  {
+    "idx": 236,
+    "front": "～月",
+    "back": "~chi oy, ~oyi",
+    "phonetic": "～がつ - gatsu",
+    "example": "山田がつは 親切な 人です。 (Yamada ~chi oy, ~oyi samimiy inson.)",
+    "category": "Minna no Nihongo 5-dars"
+  },
+  {
+    "idx": 237,
+    "front": "何月",
+    "back": "qaysi oy",
+    "phonetic": "なんがつ - nangatsu",
+    "example": "これは わたしが 買った 何月 です。 (Bu men sotib olgan qaysi oy.)",
+    "category": "Minna no Nihongo 5-dars"
+  },
+  {
+    "idx": 238,
+    "front": "1日",
+    "back": "oyning birinchi sanasi",
+    "phonetic": "ついたち - tsuitachi",
+    "example": "これは わたしが 買った 1日 です。 (Bu men sotib olgan oyning birinchi sanasi.)",
+    "category": "Minna no Nihongo 5-dars"
+  },
+  {
+    "idx": 239,
+    "front": "2日",
+    "back": "oyning ikkinchi sanasi; ikki kun",
+    "phonetic": "ふつか - futsuka",
+    "example": "これは わたしが 買った 2日 です。 (Bu men sotib olgan oyning ikkinchi sanasi; ikki kun.)",
+    "category": "Minna no Nihongo 5-dars"
+  },
+  {
+    "idx": 240,
+    "front": "3日",
+    "back": "oyning uchinchi sanasi; uch kun",
+    "phonetic": "みっか - mika",
+    "example": "これは わたしが 買った 3日 です。 (Bu men sotib olgan oyning uchinchi sanasi; uch kun.)",
+    "category": "Minna no Nihongo 5-dars"
+  },
+  {
+    "idx": 241,
+    "front": "4日",
+    "back": "oyning to'rtinchi sanasi; to'rt kun",
+    "phonetic": "よっか - yoka",
+    "example": "これは わたしが 買った 4日 です。 (Bu men sotib olgan oyning to'rtinchi sanasi; to'rt kun.)",
+    "category": "Minna no Nihongo 5-dars"
+  },
+  {
+    "idx": 242,
+    "front": "5日",
+    "back": "oyning beshinchi sanasi; besh kun",
+    "phonetic": "いつか - itsuka",
+    "example": "これは わたしが 買った 5日 です。 (Bu men sotib olgan oyning beshinchi sanasi; besh kun.)",
+    "category": "Minna no Nihongo 5-dars"
+  },
+  {
+    "idx": 243,
+    "front": "6日",
+    "back": "oyning oltinchi sanasi; olti kun",
+    "phonetic": "むいか - muika",
+    "example": "これは わたしが 買った 6日 です。 (Bu men sotib olgan oyning oltinchi sanasi; olti kun.)",
+    "category": "Minna no Nihongo 5-dars"
+  },
+  {
+    "idx": 244,
+    "front": "7日",
+    "back": "oyning yettinchi sanasi; yetti kun",
+    "phonetic": "なのか - nanoka",
+    "example": "これは わたしが 買った 7日 です。 (Bu men sotib olgan oyning yettinchi sanasi; yetti kun.)",
+    "category": "Minna no Nihongo 5-dars"
+  },
+  {
+    "idx": 245,
+    "front": "8日",
+    "back": "oyning sakkizinchi sanasi; sakkiz kun",
+    "phonetic": "ようか - youka",
+    "example": "これは わたしが 買った 8日 です。 (Bu men sotib olgan oyning sakkizinchi sanasi; sakkiz kun.)",
+    "category": "Minna no Nihongo 5-dars"
+  },
+  {
+    "idx": 246,
+    "front": "9日",
+    "back": "oyning to'qqizinchi sanasi; to'qqiz kun",
+    "phonetic": "ここのか - kokonoka",
+    "example": "これは わたしが 買った 9日 です。 (Bu men sotib olgan oyning to'qqizinchi sanasi; to'qqiz kun.)",
+    "category": "Minna no Nihongo 5-dars"
+  },
+  {
+    "idx": 247,
+    "front": "10日",
+    "back": "oyning oninchi sanasi; o'n kun",
+    "phonetic": "とおか - tooka",
+    "example": "これは わたしが 買った 10日 です。 (Bu men sotib olgan oyning oninchi sanasi; o'n kun.)",
+    "category": "Minna no Nihongo 5-dars"
+  },
+  {
+    "idx": 248,
+    "front": "14日",
+    "back": "oyning o'n to'rtinchi sanasi; o'n to'rt kun",
+    "phonetic": "じゅうよっか - juuyoka",
+    "example": "これは わたしが 買った 14日 です。 (Bu men sotib olgan oyning o'n to'rtinchi sanasi; o'n to'rt kun.)",
+    "category": "Minna no Nihongo 5-dars"
+  },
+  {
+    "idx": 249,
+    "front": "20日",
+    "back": "oyning yigirmanchi sanasi; yigirma kun",
+    "phonetic": "はつか - hatsuka",
+    "example": "これは わたしが 買った 20日 です。 (Bu men sotib olgan oyning yigirmanchi sanasi; yigirma kun.)",
+    "category": "Minna no Nihongo 5-dars"
+  },
+  {
+    "idx": 250,
+    "front": "24日",
+    "back": "oyning yigirma to'rtinchi sanasi; yigirma to'rt kun",
+    "phonetic": "にじゅうよっか - nijuuyoka",
+    "example": "これは わたしが 買った 24日 です。 (Bu men sotib olgan oyning yigirma to'rtinchi sanasi; yigirma to'rt kun.)",
+    "category": "Minna no Nihongo 5-dars"
+  },
+  {
+    "idx": 251,
+    "front": "～日",
+    "back": "~chi sana, ~chi kun; ~kun",
+    "phonetic": "～にち - nichi",
+    "example": "山田にちは 親切な 人です。 (Yamada ~chi sana, ~chi kun; ~kun samimiy inson.)",
+    "category": "Minna no Nihongo 5-dars"
+  },
+  {
+    "idx": 252,
+    "front": "何日",
+    "back": "oyning nechanchi sanasi; necha kun",
+    "phonetic": "なんにち - nannichi",
+    "example": "これは わたしが 買った 何日 です。 (Bu men sotib olgan oyning nechanchi sanasi; necha kun.)",
+    "category": "Minna no Nihongo 5-dars"
+  },
+  {
+    "idx": 253,
+    "front": "いつ",
+    "back": "qachon",
+    "phonetic": "いつ - itsu",
+    "example": "これは わたしが 買った いつ です。 (Bu men sotib olgan qachon.)",
+    "category": "Minna no Nihongo 5-dars"
+  },
+  {
+    "idx": 254,
+    "front": "誕生日",
+    "back": "tug'ilgan kun",
+    "phonetic": "たんじょうび - tanjoubi",
+    "example": "これは わたしが 買った 誕生日 です。 (Bu men sotib olgan tug'ilgan kun.)",
+    "category": "Minna no Nihongo 5-dars"
+  },
+  {
+    "idx": 258,
+    "front": "次の",
+    "back": "kelasi, keyingi, navbatdagi",
+    "phonetic": "つぎの - tsugino",
+    "example": "これは わたしが 買った 次の です。 (Bu men sotib olgan kelasi, keyingi, navbatdagi.)",
+    "category": "Minna no Nihongo 5-dars"
+  },
+  {
+    "idx": 259,
+    "front": "どういたしまして。",
+    "back": "Arzimaydi., Hechqisi yoq.",
+    "phonetic": "どういたしまして。 - douitashimashite",
+    "example": "これは わたしが 買った どういたしまして。 です。 (Bu men sotib olgan arzimaydi., hechqisi yoq..)",
+    "category": "Minna no Nihongo 5-dars"
+  },
+  {
+    "idx": 260,
+    "front": "～番線ばんせん",
+    "back": "~chi yo'l (temir yo'l)",
+    "phonetic": "～番線ばんせん - bansen",
+    "example": "山田番線は 親切な 人です。 (Yamada ~chi yo'l (temir yo'l) samimiy inson.)",
+    "category": "Minna no Nihongo 5-dars"
+  },
+  {
+    "idx": 261,
+    "front": "博多",
+    "back": "Hakata (Kyushyudagi shahar)",
+    "phonetic": "はかた - hakata",
+    "example": "これは わたしが 買った 博多 です。 (Bu men sotib olgan hakata (kyushyudagi shahar).)",
+    "category": "Minna no Nihongo 5-dars"
+  },
+  {
+    "idx": 262,
+    "front": "伏見",
+    "back": "Fushimi (Kiotodagi tuman)",
+    "phonetic": "ふしみ - fushimi",
+    "example": "これは わたしが 買った 伏見 です。 (Bu men sotib olgan fushimi (kiotodagi tuman).)",
+    "category": "Minna no Nihongo 5-dars"
+  },
+  {
+    "idx": 263,
+    "front": "甲子園",
+    "back": "Koshien (Osaka yaqinidagi shahar)",
+    "phonetic": "こうしえん - koushien",
+    "example": "これは わたしが 買った 甲子園 です。 (Bu men sotib olgan koshien (osaka yaqinidagi shahar).)",
+    "category": "Minna no Nihongo 5-dars"
+  },
+  {
+    "idx": 264,
+    "front": "大阪城",
+    "back": "Osaka qal'asi",
+    "phonetic": "おおさかじょう - oosakajou",
+    "example": "これは わたしが 買った 大阪城 です。 (Bu men sotib olgan osaka qal'asi.)",
+    "category": "Minna no Nihongo 5-dars"
+  },
+  {
+    "idx": 268,
+    "front": "たばこを～",
+    "back": "(tamaki chekmoq)",
+    "phonetic": "たばこを～ - tabakoo",
+    "example": "山田は 親切な 人です。 (Yamada (tamaki chekmoq) samimiy inson.)",
+    "category": "Minna no Nihongo 6-dars"
+  },
+  {
+    "idx": 278,
+    "front": "友達に～",
+    "back": "(do'stini uchratmoq)",
+    "phonetic": "ともだちに～ - tomodachini",
+    "example": "山田は 親切な 人です。 (Yamada (do'stini uchratmoq) samimiy inson.)",
+    "category": "Minna no Nihongo 6-dars"
+  },
+  {
+    "idx": 279,
+    "front": "ごはん",
+    "back": "ovqat; qaynatilgan guruch",
+    "phonetic": "ごはん - gohan",
+    "example": "これは わたしが 買った ごはん です。 (Bu men sotib olgan ovqat; qaynatilgan guruch.)",
+    "category": "Minna no Nihongo 6-dars"
+  },
+  {
+    "idx": 280,
+    "front": "朝ごはん",
+    "back": "ertalabki nonushta",
+    "phonetic": "あさごはん - asagohan",
+    "example": "これは わたしが 買った 朝ごはん です。 (Bu men sotib olgan ertalabki nonushta.)",
+    "category": "Minna no Nihongo 6-dars"
+  },
+  {
+    "idx": 281,
+    "front": "昼ごはん",
+    "back": "tushlik",
+    "phonetic": "ひるごはん - hirugohan",
+    "example": "これは わたしが 買った 昼ごはん です。 (Bu men sotib olgan tushlik.)",
+    "category": "Minna no Nihongo 6-dars"
+  },
+  {
+    "idx": 282,
+    "front": "晩ごはん",
+    "back": "kechki ovqat",
+    "phonetic": "ばんごはん - bangohan",
+    "example": "これは わたしが 買った 晩ごはん です。 (Bu men sotib olgan kechki ovqat.)",
+    "category": "Minna no Nihongo 6-dars"
+  },
+  {
+    "idx": 283,
+    "front": "パン",
+    "back": "non",
+    "phonetic": "パン - pan",
+    "example": "これは わたしが 買った パン です。 (Bu men sotib olgan non.)",
+    "category": "Minna no Nihongo 6-dars"
+  },
+  {
+    "idx": 284,
+    "front": "卵",
+    "back": "tuxum",
+    "phonetic": "たまご - tamago",
+    "example": "これは わたしが 買った 卵 です。 (Bu men sotib olgan tuxum.)",
+    "category": "Minna no Nihongo 6-dars"
+  },
+  {
+    "idx": 285,
+    "front": "肉",
+    "back": "go'sht",
+    "phonetic": "にく - niku",
+    "example": "これは わたしが 買った 肉 です。 (Bu men sotib olgan go'sht.)",
+    "category": "Minna no Nihongo 6-dars"
+  },
+  {
+    "idx": 286,
+    "front": "魚",
+    "back": "baliq",
+    "phonetic": "さかな - sakana",
+    "example": "これは わたしが 買った 魚 です。 (Bu men sotib olgan baliq.)",
+    "category": "Minna no Nihongo 6-dars"
+  },
+  {
+    "idx": 287,
+    "front": "野菜",
+    "back": "sabzavot, poliz ekinlari",
+    "phonetic": "やさい - yasai",
+    "example": "これは わたしが 買った 野菜 です。 (Bu men sotib olgan sabzavot, poliz ekinlari.)",
+    "category": "Minna no Nihongo 6-dars"
+  },
+  {
+    "idx": 288,
+    "front": "果物",
+    "back": "meva",
+    "phonetic": "くだもの - kudamono",
+    "example": "これは わたしが 買った 果物 です。 (Bu men sotib olgan meva.)",
+    "category": "Minna no Nihongo 6-dars"
+  },
+  {
+    "idx": 289,
+    "front": "水",
+    "back": "suv",
+    "phonetic": "みず - mizu",
+    "example": "これは わたしが 買った 水 です。 (Bu men sotib olgan suv.)",
+    "category": "Minna no Nihongo 6-dars"
+  },
+  {
+    "idx": 290,
+    "front": "お茶",
+    "back": "choy",
+    "phonetic": "おちゃ - ocha",
+    "example": "これは わたしが 買った お茶 です。 (Bu men sotib olgan choy.)",
+    "category": "Minna no Nihongo 6-dars"
+  },
+  {
+    "idx": 291,
+    "front": "紅茶",
+    "back": "qora choy",
+    "phonetic": "こうちゃ - koucha",
+    "example": "これは わたしが 買った 紅茶 です。 (Bu men sotib olgan qora choy.)",
+    "category": "Minna no Nihongo 6-dars"
+  },
+  {
+    "idx": 292,
+    "front": "牛乳",
+    "back": "sut",
+    "phonetic": "ぎゅうにゅう - gyuunyuu",
+    "example": "これは わたしが 買った 牛乳 です。 (Bu men sotib olgan sut.)",
+    "category": "Minna no Nihongo 6-dars"
+  },
+  {
+    "idx": 293,
+    "front": "ミルク",
+    "back": "sut",
+    "phonetic": "ミルク - miruku",
+    "example": "これは わたしが 買った ミルク です。 (Bu men sotib olgan sut.)",
+    "category": "Minna no Nihongo 6-dars"
+  },
+  {
+    "idx": 294,
+    "front": "ジュース",
+    "back": "sharbat",
+    "phonetic": "ジュース - ji-su",
+    "example": "これは わたしが 買った ジュース です。 (Bu men sotib olgan sharbat.)",
+    "category": "Minna no Nihongo 6-dars"
+  },
+  {
+    "idx": 295,
+    "front": "ビール",
+    "back": "pivo",
+    "phonetic": "ビール - bi-ru",
+    "example": "これは わたしが 買った ビール です。 (Bu men sotib olgan pivo.)",
+    "category": "Minna no Nihongo 6-dars"
+  },
+  {
+    "idx": 296,
+    "front": "酒",
+    "back": "guruchdan tayyorlangan yapon arog'i",
+    "phonetic": "おさけお - osakeo",
+    "example": "これは わたしが 買った ]酒さけ です。 (Bu men sotib olgan guruchdan tayyorlangan yapon arog'i.)",
+    "category": "Minna no Nihongo 6-dars"
+  },
+  {
+    "idx": 297,
+    "front": "ビデオ",
+    "back": "video",
+    "phonetic": "ビデオ - bideo",
+    "example": "これは わたしが 買った ビデオ です。 (Bu men sotib olgan video.)",
+    "category": "Minna no Nihongo 6-dars"
+  },
+  {
+    "idx": 298,
+    "front": "映画",
+    "back": "kino",
+    "phonetic": "えいが - eiga",
+    "example": "これは わたしが 買った 映画 です。 (Bu men sotib olgan kino.)",
+    "category": "Minna no Nihongo 6-dars"
+  },
+  {
+    "idx": 299,
+    "front": "ＣＤ",
+    "back": "kompakt-disk",
+    "phonetic": "ＣＤ - ",
+    "example": "これは わたしが 買った ＣＤ です。 (Bu men sotib olgan kompakt-disk.)",
+    "category": "Minna no Nihongo 6-dars"
+  },
+  {
+    "idx": 300,
+    "front": "手紙",
+    "back": "xat, maktub",
+    "phonetic": "てがみ - tegami",
+    "example": "これは わたしが 買った 手紙 です。 (Bu men sotib olgan xat, maktub.)",
+    "category": "Minna no Nihongo 6-dars"
+  },
+  {
+    "idx": 301,
+    "front": "レポート",
+    "back": "hisobot; ma'ruza",
+    "phonetic": "レポート - repo-to",
+    "example": "これは わたしが 買った レポート です。 (Bu men sotib olgan hisobot; ma'ruza.)",
+    "category": "Minna no Nihongo 6-dars"
+  },
+  {
+    "idx": 302,
+    "front": "写真",
+    "back": "fotosurat",
+    "phonetic": "しゃしん - shashin",
+    "example": "これは わたしが 買った 写真 です。 (Bu men sotib olgan fotosurat.)",
+    "category": "Minna no Nihongo 6-dars"
+  },
+  {
+    "idx": 303,
+    "front": "店",
+    "back": "do'kon",
+    "phonetic": "みせ - mise",
+    "example": "これは わたしが 買った 店 です。 (Bu men sotib olgan do'kon.)",
+    "category": "Minna no Nihongo 6-dars"
+  },
+  {
+    "idx": 304,
+    "front": "レストラン",
+    "back": "restoran",
+    "phonetic": "レストラン - resutoran",
+    "example": "これは わたしが 買った レストラン です。 (Bu men sotib olgan restoran.)",
+    "category": "Minna no Nihongo 6-dars"
+  },
+  {
+    "idx": 305,
+    "front": "庭",
+    "back": "hovli, bog",
+    "phonetic": "にわ - niwa",
+    "example": "これは わたしが 買った 庭 です。 (Bu men sotib olgan hovli, bog.)",
+    "category": "Minna no Nihongo 6-dars"
+  },
+  {
+    "idx": 306,
+    "front": "宿題",
+    "back": "uyga vazifa",
+    "phonetic": "しゅくだい - shukudai",
+    "example": "これは わたしが 買った 宿題 です。 (Bu men sotib olgan uyga vazifa.)",
+    "category": "Minna no Nihongo 6-dars"
+  },
+  {
+    "idx": 307,
+    "front": "テニス",
+    "back": "tennis ( ～します tennis o'ynamoq)",
+    "phonetic": "テニス - tenisu",
+    "example": "これは わたしが 買った テニス です。 (Bu men sotib olgan tennis ( ～します tennis o'ynamoq).)",
+    "category": "Minna no Nihongo 6-dars"
+  },
+  {
+    "idx": 308,
+    "front": "サッカー",
+    "back": "futbol ( ～します futbol o'ynamoq)",
+    "phonetic": "サッカー - saka-",
+    "example": "これは わたしが 買った サッカー です。 (Bu men sotib olgan futbol ( ～します futbol o'ynamoq).)",
+    "category": "Minna no Nihongo 6-dars"
+  },
+  {
+    "idx": 309,
+    "front": "お花見",
+    "back": "gullagan sakura daraxtini tomosha qilish",
+    "phonetic": "おはなみ - ohanami",
+    "example": "これは わたしが 買った お]花見はなみ です。 (Bu men sotib olgan gullagan sakura daraxtini tomosha qilish.)",
+    "category": "Minna no Nihongo 6-dars"
+  },
+  {
+    "idx": 310,
+    "front": "何",
+    "back": "nima",
+    "phonetic": "なに - nani",
+    "example": "これは わたしが 買った 何 です。 (Bu men sotib olgan nima.)",
+    "category": "Minna no Nihongo 6-dars"
+  },
+  {
+    "idx": 311,
+    "front": "いっしょに",
+    "back": "birga",
+    "phonetic": "いっしょに - ishoni",
+    "example": "これは わたしが 買った いっしょに です。 (Bu men sotib olgan birga.)",
+    "category": "Minna no Nihongo 6-dars"
+  },
+  {
+    "idx": 312,
+    "front": "ちょっと",
+    "back": "bir oz, ozgina, ozroq",
+    "phonetic": "ちょっと - choto",
+    "example": "これは わたしが 買った ちょっと です。 (Bu men sotib olgan bir oz, ozgina, ozroq.)",
+    "category": "Minna no Nihongo 6-dars"
+  },
+  {
+    "idx": 313,
+    "front": "いつも",
+    "back": "har doim, doimo",
+    "phonetic": "いつも - itsumo",
+    "example": "これは わたしが 買った いつも です。 (Bu men sotib olgan har doim, doimo.)",
+    "category": "Minna no Nihongo 6-dars"
+  },
+  {
+    "idx": 314,
+    "front": "時々",
+    "back": "ba'zan",
+    "phonetic": "ときどき - tokidoki",
+    "example": "これは わたしが 買った 時々 です。 (Bu men sotib olgan ba'zan.)",
+    "category": "Minna no Nihongo 6-dars"
+  },
+  {
+    "idx": 315,
+    "front": "それから",
+    "back": "undan so'ng, undan keyin; shundan so'ng, shundan keyin",
+    "phonetic": "それから - sorekara",
+    "example": "これは わたしが 買った それから です。 (Bu men sotib olgan undan so'ng, undan keyin; shundan so'ng, shundan keyin.)",
+    "category": "Minna no Nihongo 6-dars"
+  },
+  {
+    "idx": 316,
+    "front": "ええ",
+    "back": "ha",
+    "phonetic": "ええ - ee",
+    "example": "これは わたしが 買った ええ です。 (Bu men sotib olgan ha.)",
+    "category": "Minna no Nihongo 6-dars"
+  },
+  {
+    "idx": 317,
+    "front": "いいですね。",
+    "back": "Qanday yaxshi.",
+    "phonetic": "いいですね。 - iidesune",
+    "example": "これは わたしが 買った いいですね。 です。 (Bu men sotib olgan qanday yaxshi..)",
+    "category": "Minna no Nihongo 6-dars"
+  },
+  {
+    "idx": 318,
+    "front": "わかりました。",
+    "back": "Tushundim.",
+    "phonetic": "わかりました。 - wakarimashita",
+    "example": "これは わたしが 買った わかりました。 です。 (Bu men sotib olgan tushundim..)",
+    "category": "Minna no Nihongo 6-dars"
+  },
+  {
+    "idx": 319,
+    "front": "何なんですか。",
+    "back": "Nima?",
+    "phonetic": "何なんですか。 - nandesuka",
+    "example": "これは わたしが 買った 何ですか。 です。 (Bu men sotib olgan nima?.)",
+    "category": "Minna no Nihongo 6-dars"
+  },
+  {
+    "idx": 320,
+    "front": "。",
+    "back": "Ko'rishguncha.",
+    "phonetic": "じゃ、またあした - jamataashita",
+    "example": "これは わたしが 買った ]。 です。 (Bu men sotib olgan ko'rishguncha..)",
+    "category": "Minna no Nihongo 6-dars"
+  },
+  {
+    "idx": 321,
+    "front": "メキシコ",
+    "back": "Meksika",
+    "phonetic": "メキシコ - mekishiko",
+    "example": "これは わたしが 買った メキシコ です。 (Bu men sotib olgan meksika.)",
+    "category": "Minna no Nihongo 6-dars"
+  },
+  {
+    "idx": 322,
+    "front": "大阪城公園",
+    "back": "Osaka qal'asi bog'i",
+    "phonetic": "おおさかじょうこうえん - oosakajoukouen",
+    "example": "これは わたしが 買った 大阪城公園 です。 (Bu men sotib olgan osaka qal'asi bog'i.)",
+    "category": "Minna no Nihongo 6-dars"
+  },
+  {
+    "idx": 332,
+    "front": "電話を～",
+    "back": "(telefon qilmoq, qo'ng'iroq qilmoq)",
+    "phonetic": "でんわを～ - denwao",
+    "example": "山田は 親切な 人です。 (Yamada (telefon qilmoq, qo'ng'iroq qilmoq) samimiy inson.)",
+    "category": "Minna no Nihongo 7-dars"
+  },
+  {
+    "idx": 334,
+    "front": "はし",
+    "back": "hashi",
+    "phonetic": "はし - hashi",
+    "example": "これは わたしが 買った はし です。 (Bu men sotib olgan hashi.)",
+    "category": "Minna no Nihongo 7-dars"
+  },
+  {
+    "idx": 335,
+    "front": "スプーン",
+    "back": "qoshiq",
+    "phonetic": "スプーン - supu-n",
+    "example": "これは わたしが 買った スプーン です。 (Bu men sotib olgan qoshiq.)",
+    "category": "Minna no Nihongo 7-dars"
+  },
+  {
+    "idx": 336,
+    "front": "ナイフ",
+    "back": "pichoq",
+    "phonetic": "ナイフ - naifu",
+    "example": "これは わたしが 買った ナイフ です。 (Bu men sotib olgan pichoq.)",
+    "category": "Minna no Nihongo 7-dars"
+  },
+  {
+    "idx": 337,
+    "front": "フォーク",
+    "back": "sanchqi (vilka)",
+    "phonetic": "フォーク - fu-ku",
+    "example": "これは わたしが 買った フォーク です。 (Bu men sotib olgan sanchqi (vilka).)",
+    "category": "Minna no Nihongo 7-dars"
+  },
+  {
+    "idx": 338,
+    "front": "はさみ",
+    "back": "qaychi",
+    "phonetic": "はさみ - hasami",
+    "example": "これは わたしが 買った はさみ です。 (Bu men sotib olgan qaychi.)",
+    "category": "Minna no Nihongo 7-dars"
+  },
+  {
+    "idx": 339,
+    "front": "ファクス",
+    "back": "faks",
+    "phonetic": "ファクス - fukusu",
+    "example": "これは わたしが 買った ファクス です。 (Bu men sotib olgan faks.)",
+    "category": "Minna no Nihongo 7-dars"
+  },
+  {
+    "idx": 340,
+    "front": "ワープロ",
+    "back": "matnli protsessor",
+    "phonetic": "ワープロ - wa-puro",
+    "example": "これは わたしが 買った ワープロ です。 (Bu men sotib olgan matnli protsessor.)",
+    "category": "Minna no Nihongo 7-dars"
+  },
+  {
+    "idx": 341,
+    "front": "パソコン",
+    "back": "shaxsiy kompyuter",
+    "phonetic": "パソコン - pasokon",
+    "example": "これは わたしが 買った パソコン です。 (Bu men sotib olgan shaxsiy kompyuter.)",
+    "category": "Minna no Nihongo 7-dars"
+  },
+  {
+    "idx": 342,
+    "front": "パンチ",
+    "back": "perforator, teshik ochqich",
+    "phonetic": "パンチ - panchi",
+    "example": "これは わたしが 買った パンチ です。 (Bu men sotib olgan perforator, teshik ochqich.)",
+    "category": "Minna no Nihongo 7-dars"
+  },
+  {
+    "idx": 343,
+    "front": "ホッチキス",
+    "back": "stepler",
+    "phonetic": "ホッチキス - hochikisu",
+    "example": "これは わたしが 買った ホッチキス です。 (Bu men sotib olgan stepler.)",
+    "category": "Minna no Nihongo 7-dars"
+  },
+  {
+    "idx": 344,
+    "front": "セロテープ",
+    "back": "skoch",
+    "phonetic": "セロテープ - serote-pu",
+    "example": "これは わたしが 買った セロテープ です。 (Bu men sotib olgan skoch.)",
+    "category": "Minna no Nihongo 7-dars"
+  },
+  {
+    "idx": 345,
+    "front": "消しゴム",
+    "back": "o'chirg'ich",
+    "phonetic": "けしゴム - keshigomu",
+    "example": "これは わたしが 買った 消しゴム です。 (Bu men sotib olgan o'chirg'ich.)",
+    "category": "Minna no Nihongo 7-dars"
+  },
+  {
+    "idx": 346,
+    "front": "紙",
+    "back": "qog'oz",
+    "phonetic": "かみ - kami",
+    "example": "これは わたしが 買った 紙 です。 (Bu men sotib olgan qog'oz.)",
+    "category": "Minna no Nihongo 7-dars"
+  },
+  {
+    "idx": 347,
+    "front": "花",
+    "back": "gul",
+    "phonetic": "はな - hana",
+    "example": "これは わたしが 買った 花 です。 (Bu men sotib olgan gul.)",
+    "category": "Minna no Nihongo 7-dars"
+  },
+  {
+    "idx": 348,
+    "front": "シャツ",
+    "back": "ko'ylak",
+    "phonetic": "シャツ - shatsu",
+    "example": "これは わたしが 買った シャツ です。 (Bu men sotib olgan ko'ylak.)",
+    "category": "Minna no Nihongo 7-dars"
+  },
+  {
+    "idx": 349,
+    "front": "プレゼント",
+    "back": "sovg'a, tuhva, hadya",
+    "phonetic": "プレゼント - purezento",
+    "example": "これは わたしが 買った プレゼント です。 (Bu men sotib olgan sovg'a, tuhva, hadya.)",
+    "category": "Minna no Nihongo 7-dars"
+  },
+  {
+    "idx": 350,
+    "front": "荷物",
+    "back": "buyum, yuk",
+    "phonetic": "にもつ - nimotsu",
+    "example": "これは わたしが 買った 荷物 です。 (Bu men sotib olgan buyum, yuk.)",
+    "category": "Minna no Nihongo 7-dars"
+  },
+  {
+    "idx": 351,
+    "front": "お金",
+    "back": "pul",
+    "phonetic": "おかね - okane",
+    "example": "これは わたしが 買った お金 です。 (Bu men sotib olgan pul.)",
+    "category": "Minna no Nihongo 7-dars"
+  },
+  {
+    "idx": 352,
+    "front": "切符",
+    "back": "chipta",
+    "phonetic": "きっぷ - kipu",
+    "example": "これは わたしが 買った 切符 です。 (Bu men sotib olgan chipta.)",
+    "category": "Minna no Nihongo 7-dars"
+  },
+  {
+    "idx": 353,
+    "front": "クリスマス",
+    "back": "Krismas bayrami (rojdestvo)",
+    "phonetic": "クリスマス - kurisumasu",
+    "example": "これは わたしが 買った クリスマス です。 (Bu men sotib olgan krismas bayrami (rojdestvo).)",
+    "category": "Minna no Nihongo 7-dars"
+  },
+  {
+    "idx": 354,
+    "front": "父",
+    "back": "otam, dadam",
+    "phonetic": "ちち - chichi",
+    "example": "これは わたしが 買った 父 です。 (Bu men sotib olgan otam, dadam.)",
+    "category": "Minna no Nihongo 7-dars"
+  },
+  {
+    "idx": 355,
+    "front": "母",
+    "back": "onam, oyim",
+    "phonetic": "はは - haha",
+    "example": "これは わたしが 買った 母 です。 (Bu men sotib olgan onam, oyim.)",
+    "category": "Minna no Nihongo 7-dars"
+  },
+  {
+    "idx": 356,
+    "front": "お父さん",
+    "back": "ota, dada / ~ning otasi",
+    "phonetic": "おとうさん - otousan",
+    "example": "これは わたしが 買った お父さん です。 (Bu men sotib olgan ota, dada / ~ning otasi.)",
+    "category": "Minna no Nihongo 7-dars"
+  },
+  {
+    "idx": 357,
+    "front": "お母さん",
+    "back": "ona, oyi / ~ning onasi",
+    "phonetic": "おかあさん - okaasan",
+    "example": "これは わたしが 買った お母さん です。 (Bu men sotib olgan ona, oyi / ~ning onasi.)",
+    "category": "Minna no Nihongo 7-dars"
+  },
+  {
+    "idx": 359,
+    "front": "まだ",
+    "back": "hali ham",
+    "phonetic": "まだ - mada",
+    "example": "これは わたしが 買った まだ です。 (Bu men sotib olgan hali ham.)",
+    "category": "Minna no Nihongo 7-dars"
+  },
+  {
+    "idx": 360,
+    "front": "これから",
+    "back": "endi; bundan buyon",
+    "phonetic": "これから - korekara",
+    "example": "これは わたしが 買った これから です。 (Bu men sotib olgan endi; bundan buyon.)",
+    "category": "Minna no Nihongo 7-dars"
+  },
+  {
+    "idx": 361,
+    "front": "～、すてきですね。",
+    "back": "Bu~ buncha chiroyli!",
+    "phonetic": "～、すてきですね。 - sutekidesune",
+    "example": "山田すてきですね。は 親切な 人です。 (Yamada bu~ buncha chiroyli! samimiy inson.)",
+    "category": "Minna no Nihongo 7-dars"
+  },
+  {
+    "idx": 362,
+    "front": "ごめんください。",
+    "back": "Hoy kim bor?",
+    "phonetic": "ごめんください。 - gomenkudasai",
+    "example": "これは わたしが 買った ごめんください。 です。 (Bu men sotib olgan hoy kim bor?.)",
+    "category": "Minna no Nihongo 7-dars"
+  },
+  {
+    "idx": 363,
+    "front": "いらっしゃい。",
+    "back": "Xush kelibsiz.",
+    "phonetic": "いらっしゃい。 - irashai",
+    "example": "これは わたしが 買った いらっしゃい。 です。 (Bu men sotib olgan xush kelibsiz..)",
+    "category": "Minna no Nihongo 7-dars"
+  },
+  {
+    "idx": 364,
+    "front": "どうぞお上あがりください。",
+    "back": "Ichkariga marhamat.",
+    "phonetic": "どうぞお上あがりください。 - douzooagarikudasai",
+    "example": "これは わたしが 買った どうぞお上がりください。 です。 (Bu men sotib olgan ichkariga marhamat..)",
+    "category": "Minna no Nihongo 7-dars"
+  },
+  {
+    "idx": 366,
+    "front": "～はいかがですか。",
+    "back": "~ga xushingiz qalay?",
+    "phonetic": "～はいかがですか。 - haikagadesuka",
+    "example": "山田いかがですか。は 親切な 人です。 (Yamada ~ga xushingiz qalay? samimiy inson.)",
+    "category": "Minna no Nihongo 7-dars"
+  },
+  {
+    "idx": 368,
+    "front": "旅行りょこう",
+    "back": "sayohat, safar ( ～する sayohat qilmoq)",
+    "phonetic": "旅行りょこう - ryokou",
+    "example": "これは わたしが 買った 旅行 です。 (Bu men sotib olgan sayohat, safar ( ～する sayohat qilmoq).)",
+    "category": "Minna no Nihongo 7-dars"
+  },
+  {
+    "idx": 369,
+    "front": "お土産みやげ",
+    "back": "Odatda safardan qaytayotganda yoki biror joyga borayotganda olib boriladigan sovg'a",
+    "phonetic": "お土産みやげ - omiyage",
+    "example": "これは わたしが 買った お土産 です。 (Bu men sotib olgan odatda safardan qaytayotganda yoki biror joyga borayotganda olib boriladigan sovg'a.)",
+    "category": "Minna no Nihongo 7-dars"
+  },
+  {
+    "idx": 370,
+    "front": "ヨーロッパ",
+    "back": "Ovro'pa",
+    "phonetic": "ヨーロッパ - yo-ropa",
+    "example": "これは わたしが 買った ヨーロッパ です。 (Bu men sotib olgan ovro'pa.)",
+    "category": "Minna no Nihongo 7-dars"
+  },
+  {
+    "idx": 371,
+    "front": "スペイン",
+    "back": "Ispaniya",
+    "phonetic": "スペイン - supein",
+    "example": "これは わたしが 買った スペイン です。 (Bu men sotib olgan ispaniya.)",
+    "category": "Minna no Nihongo 7-dars"
+  },
+  {
+    "idx": 372,
+    "front": "ハンサムな",
+    "back": "xushro'y, chiroyli",
+    "phonetic": "ハンサムな - hansamuna",
+    "example": "これは わたしが 買った ハンサム です。 (Bu men sotib olgan xushro'y, chiroyli.)",
+    "category": "Minna no Nihongo 8-dars"
+  },
+  {
+    "idx": 373,
+    "front": "きれいな",
+    "back": "xushro'y, chiroyli, go'zal; toza",
+    "phonetic": "きれいな - kireina",
+    "example": "これは わたしが 買った きれい です。 (Bu men sotib olgan xushro'y, chiroyli, go'zal; toza.)",
+    "category": "Minna no Nihongo 8-dars"
+  },
+  {
+    "idx": 374,
+    "front": "静かな",
+    "back": "tinch, osoyishta, osuda",
+    "phonetic": "しずかな - shizukana",
+    "example": "これは わたしが 買った 静か] です。 (Bu men sotib olgan tinch, osoyishta, osuda.)",
+    "category": "Minna no Nihongo 8-dars"
+  },
+  {
+    "idx": 375,
+    "front": "にぎやかな",
+    "back": "gavjum, sershovqin",
+    "phonetic": "にぎやかな - nigiyakana",
+    "example": "これは わたしが 買った にぎやか です。 (Bu men sotib olgan gavjum, sershovqin.)",
+    "category": "Minna no Nihongo 8-dars"
+  },
+  {
+    "idx": 376,
+    "front": "有名な",
+    "back": "mashhur",
+    "phonetic": "ゆうめいな - yuumeina",
+    "example": "これは わたしが 買った 有名] です。 (Bu men sotib olgan mashhur.)",
+    "category": "Minna no Nihongo 8-dars"
+  },
+  {
+    "idx": 377,
+    "front": "親切な",
+    "back": "mehribon",
+    "phonetic": "しんせつな - shinsetsuna",
+    "example": "これは わたしが 買った 親切] です。 (Bu men sotib olgan mehribon.)",
+    "category": "Minna no Nihongo 8-dars"
+  },
+  {
+    "idx": 378,
+    "front": "元気な",
+    "back": "sog'lom, baquvvat",
+    "phonetic": "げんきな - genkina",
+    "example": "これは わたしが 買った 元気] です。 (Bu men sotib olgan sog'lom, baquvvat.)",
+    "category": "Minna no Nihongo 8-dars"
+  },
+  {
+    "idx": 379,
+    "front": "暇な",
+    "back": "bo'sh (vaqt),",
+    "phonetic": "ひまな - himana",
+    "example": "これは わたしが 買った 暇] です。 (Bu men sotib olgan bo'sh (vaqt),.)",
+    "category": "Minna no Nihongo 8-dars"
+  },
+  {
+    "idx": 380,
+    "front": "便利な",
+    "back": "qulay",
+    "phonetic": "べんりな - benrina",
+    "example": "これは わたしが 買った 便利] です。 (Bu men sotib olgan qulay.)",
+    "category": "Minna no Nihongo 8-dars"
+  },
+  {
+    "idx": 381,
+    "front": "すてきな",
+    "back": "chiroyli, ajoyib",
+    "phonetic": "すてきな - sutekina",
+    "example": "これは わたしが 買った すてき です。 (Bu men sotib olgan chiroyli, ajoyib.)",
+    "category": "Minna no Nihongo 8-dars"
+  },
+  {
+    "idx": 404,
+    "front": "桜",
+    "back": "olcha (sakura)",
+    "phonetic": "さくら - sakura",
+    "example": "これは わたしが 買った 桜 です。 (Bu men sotib olgan olcha (sakura).)",
+    "category": "Minna no Nihongo 8-dars"
+  },
+  {
+    "idx": 405,
+    "front": "山",
+    "back": "tog",
+    "phonetic": "やま - yama",
+    "example": "これは わたしが 買った 山 です。 (Bu men sotib olgan tog.)",
+    "category": "Minna no Nihongo 8-dars"
+  },
+  {
+    "idx": 406,
+    "front": "町",
+    "back": "(kichik) shahar",
+    "phonetic": "まち - machi",
+    "example": "これは わたしが 買った 町 です。 (Bu men sotib olgan (kichik) shahar.)",
+    "category": "Minna no Nihongo 8-dars"
+  },
+  {
+    "idx": 407,
+    "front": "食べ物",
+    "back": "yegulik",
+    "phonetic": "たべもの - tabemono",
+    "example": "これは わたしが 買った 食べ物 です。 (Bu men sotib olgan yegulik.)",
+    "category": "Minna no Nihongo 8-dars"
+  },
+  {
+    "idx": 408,
+    "front": "車",
+    "back": "mashina",
+    "phonetic": "くるま - kuruma",
+    "example": "これは わたしが 買った 車 です。 (Bu men sotib olgan mashina.)",
+    "category": "Minna no Nihongo 8-dars"
+  },
+  {
+    "idx": 412,
+    "front": "生活",
+    "back": "turmush, hayot",
+    "phonetic": "せいかつ - seikatsu",
+    "example": "これは わたしが 買った 生活 です。 (Bu men sotib olgan turmush, hayot.)",
+    "category": "Minna no Nihongo 8-dars"
+  },
+  {
+    "idx": 413,
+    "front": "お仕事",
+    "back": "ish ( ～をします ishlamoq)",
+    "phonetic": "おしごと - oshigoto",
+    "example": "これは わたしが 買った 仕事しごと] です。 (Bu men sotib olgan ish ( ～をします ishlamoq).)",
+    "category": "Minna no Nihongo 8-dars"
+  },
+  {
+    "idx": 415,
+    "front": "どんな～",
+    "back": "qanday ~, qanaqa ~",
+    "phonetic": "どんな～ - donna",
+    "example": "山田どんなは 親切な 人です。 (Yamada qanday ~, qanaqa ~ samimiy inson.)",
+    "category": "Minna no Nihongo 8-dars"
+  },
+  {
+    "idx": 416,
+    "front": "どれ",
+    "back": "qaysi",
+    "phonetic": "どれ - dore",
+    "example": "これは わたしが 買った どれ です。 (Bu men sotib olgan qaysi.)",
+    "category": "Minna no Nihongo 8-dars"
+  },
+  {
+    "idx": 417,
+    "front": "とても",
+    "back": "juda",
+    "phonetic": "とても - totemo",
+    "example": "これは わたしが 買った とても です。 (Bu men sotib olgan juda.)",
+    "category": "Minna no Nihongo 8-dars"
+  },
+  {
+    "idx": 418,
+    "front": "あまり",
+    "back": "uncha ~ emas, unchalik ~ emas",
+    "phonetic": "あまり - amari",
+    "example": "これは わたしが 買った あまり です。 (Bu men sotib olgan uncha ~ emas, unchalik ~ emas.)",
+    "category": "Minna no Nihongo 8-dars"
+  },
+  {
+    "idx": 419,
+    "front": "そして",
+    "back": "keyin",
+    "phonetic": "そして - soshite",
+    "example": "これは わたしが 買った そして です。 (Bu men sotib olgan keyin.)",
+    "category": "Minna no Nihongo 8-dars"
+  },
+  {
+    "idx": 420,
+    "front": "～が、～",
+    "back": "~-yu,~ . ; ~. Lekin, ~.",
+    "phonetic": "～が、～ - ga",
+    "example": "山田が、は 親切な 人です。 (Yamada ~-yu,~ . ; ~. lekin, ~. samimiy inson.)",
+    "category": "Minna no Nihongo 8-dars"
+  },
+  {
+    "idx": 421,
+    "front": "お元気ですか。",
+    "back": "Yaxshimisiz? / Salomatmisiz?",
+    "phonetic": "おげんきですか。 - ogenkidesuka",
+    "example": "これは わたしが 買った お元気ですか。 です。 (Bu men sotib olgan yaxshimisiz? / salomatmisiz?.)",
+    "category": "Minna no Nihongo 8-dars"
+  },
+  {
+    "idx": 422,
+    "front": "そうですね。",
+    "back": "Nimasini aytsam sizga… .; Rost aytasiz.; Ha-ya",
+    "phonetic": "そうですね。 - soudesune",
+    "example": "これは わたしが 買った そうですね。 です。 (Bu men sotib olgan nimasini aytsam sizga… .; rost aytasiz.; ha-ya.)",
+    "category": "Minna no Nihongo 8-dars"
+  },
+  {
+    "idx": 423,
+    "front": "日に本ほんの生活せいかつに慣なれましたか。",
+    "back": "Siz Yaponiya turmush tarziga ko'nikdingizmi?",
+    "phonetic": "日に本ほんの生活せいかつに慣なれましたか。 - nihonnoseikatsuninaremashitaka",
+    "example": "これは わたしが 買った 日本の生活に慣れましたか。 です。 (Bu men sotib olgan siz yaponiya turmush tarziga ko'nikdingizmi?.)",
+    "category": "Minna no Nihongo 8-dars"
+  },
+  {
+    "idx": 424,
+    "front": "～、もう一杯いっぱいいかがですか。",
+    "back": "Yana bir piyola",
+    "phonetic": "～、もう一杯いっぱいいかがですか。 - mouipaiikagadesuka",
+    "example": "山田もう一杯いかがですか。は 親切な 人です。 (Yamada yana bir piyola samimiy inson.)",
+    "category": "Minna no Nihongo 8-dars"
+  },
+  {
+    "idx": 425,
+    "front": "いいえ、けっこうです。",
+    "back": "Yo'q, rahmat.",
+    "phonetic": "いいえ、けっこうです。 - iiekekoudesu",
+    "example": "これは わたしが 買った いいえ、けっこうです。 です。 (Bu men sotib olgan yo'q, rahmat..)",
+    "category": "Minna no Nihongo 8-dars"
+  },
+  {
+    "idx": 426,
+    "front": "もう～ですね。",
+    "back": "Endi ~-a?",
+    "phonetic": "もう～ですね。 - mou desune",
+    "example": "山田もうです。は 親切な 人です。 (Yamada endi ~-a? samimiy inson.)",
+    "category": "Minna no Nihongo 8-dars"
+  },
+  {
+    "idx": 428,
+    "front": "ください。",
+    "back": "Yana keling.",
+    "phonetic": "またいらっしゃって - matairashate",
+    "example": "これは わたしが 買った ください。 です。 (Bu men sotib olgan yana keling..)",
+    "category": "Minna no Nihongo 8-dars"
+  },
+  {
+    "idx": 429,
+    "front": "富士山",
+    "back": "Fuji togi",
+    "phonetic": "ふじさん - fujisan",
+    "example": "これは わたしが 買った 富士山 です。 (Bu men sotib olgan fuji togi.)",
+    "category": "Minna no Nihongo 8-dars"
+  },
+  {
+    "idx": 430,
+    "front": "琵琶湖",
+    "back": "Biva ko'li",
+    "phonetic": "びわこ - biwako",
+    "example": "これは わたしが 買った 琵琶湖 です。 (Bu men sotib olgan biva ko'li.)",
+    "category": "Minna no Nihongo 8-dars"
+  },
+  {
+    "idx": 431,
+    "front": "シャンハイ",
+    "back": "Shanxay ( 上海 )",
+    "phonetic": "シャンハイ - shanhai",
+    "example": "これは わたしが 買った シャンハイ です。 (Bu men sotib olgan shanxay ( 上海 ).)",
+    "category": "Minna no Nihongo 8-dars"
+  },
+  {
+    "idx": 432,
+    "front": "「七人の侍」",
+    "back": "“Yetti samuray”",
+    "phonetic": "しちにんのさむらい - shichininnosamurai",
+    "example": "これは わたしが 買った 「七人の侍」 です。 (Bu men sotib olgan “yetti samuray”.)",
+    "category": "Minna no Nihongo 8-dars"
+  },
+  {
+    "idx": 433,
+    "front": "金閣寺",
+    "back": "Kinkaji ibodatxonasi",
+    "phonetic": "きんかくじ - kinkakuji",
+    "example": "これは わたしが 買った 金閣寺 です。 (Bu men sotib olgan kinkaji ibodatxonasi.)",
+    "category": "Minna no Nihongo 8-dars"
+  },
+  {
+    "idx": 436,
+    "front": "好きな",
+    "back": "yoqimli, yoqtirgan, suygan",
+    "phonetic": "すきな - sukina",
+    "example": "これは わたしが 買った 好き] です。 (Bu men sotib olgan yoqimli, yoqtirgan, suygan.)",
+    "category": "Minna no Nihongo 9-dars"
+  },
+  {
+    "idx": 437,
+    "front": "嫌いな",
+    "back": "yoqimsiz, yoqtirmagan, suymagan",
+    "phonetic": "きらいな - kiraina",
+    "example": "これは わたしが 買った 嫌い] です。 (Bu men sotib olgan yoqimsiz, yoqtirmagan, suymagan.)",
+    "category": "Minna no Nihongo 9-dars"
+  },
+  {
+    "idx": 438,
+    "front": "上手な",
+    "back": "mohir, usta, epli, zo'r",
+    "phonetic": "じょうずな - jouzuna",
+    "example": "これは わたしが 買った 上手] です。 (Bu men sotib olgan mohir, usta, epli, zo'r.)",
+    "category": "Minna no Nihongo 9-dars"
+  },
+  {
+    "idx": 439,
+    "front": "下手な",
+    "back": "epsiz, no'noq, mahoratsiz",
+    "phonetic": "へたな - hetana",
+    "example": "これは わたしが 買った 下手] です。 (Bu men sotib olgan epsiz, no'noq, mahoratsiz.)",
+    "category": "Minna no Nihongo 9-dars"
+  },
+  {
+    "idx": 440,
+    "front": "料理",
+    "back": "ovqat, taom",
+    "phonetic": "りょうり - ryouri",
+    "example": "これは わたしが 買った 料理 です。 (Bu men sotib olgan ovqat, taom.)",
+    "category": "Minna no Nihongo 9-dars"
+  },
+  {
+    "idx": 441,
+    "front": "飲み物",
+    "back": "ichimlik",
+    "phonetic": "のみもの - nomimono",
+    "example": "これは わたしが 買った 飲み物 です。 (Bu men sotib olgan ichimlik.)",
+    "category": "Minna no Nihongo 9-dars"
+  },
+  {
+    "idx": 442,
+    "front": "スポーツ",
+    "back": "sport",
+    "phonetic": "スポーツ - supo-tsu",
+    "example": "これは わたしが 買った スポーツ です。 (Bu men sotib olgan sport.)",
+    "category": "Minna no Nihongo 9-dars"
+  },
+  {
+    "idx": 444,
+    "front": "ダンス",
+    "back": "raqs",
+    "phonetic": "ダンス - dansu",
+    "example": "これは わたしが 買った ダンス です。 (Bu men sotib olgan raqs.)",
+    "category": "Minna no Nihongo 9-dars"
+  },
+  {
+    "idx": 445,
+    "front": "音楽",
+    "back": "musiqa",
+    "phonetic": "おんがく - ongaku",
+    "example": "これは わたしが 買った 音楽 です。 (Bu men sotib olgan musiqa.)",
+    "category": "Minna no Nihongo 9-dars"
+  },
+  {
+    "idx": 446,
+    "front": "歌",
+    "back": "qo'shiq",
+    "phonetic": "うた - uta",
+    "example": "これは わたしが 買った 歌 です。 (Bu men sotib olgan qo'shiq.)",
+    "category": "Minna no Nihongo 9-dars"
+  },
+  {
+    "idx": 447,
+    "front": "クラシック",
+    "back": "klassik, mumtoz",
+    "phonetic": "クラシック - kurashiku",
+    "example": "これは わたしが 買った クラシック です。 (Bu men sotib olgan klassik, mumtoz.)",
+    "category": "Minna no Nihongo 9-dars"
+  },
+  {
+    "idx": 448,
+    "front": "ジャズ",
+    "back": "jaz",
+    "phonetic": "ジャズ - jizu",
+    "example": "これは わたしが 買った ジャズ です。 (Bu men sotib olgan jaz.)",
+    "category": "Minna no Nihongo 9-dars"
+  },
+  {
+    "idx": 449,
+    "front": "コンサート",
+    "back": "konsert",
+    "phonetic": "コンサート - konsa-to",
+    "example": "これは わたしが 買った コンサート です。 (Bu men sotib olgan konsert.)",
+    "category": "Minna no Nihongo 9-dars"
+  },
+  {
+    "idx": 450,
+    "front": "カラオケ",
+    "back": "karaoke",
+    "phonetic": "カラオケ - karaoke",
+    "example": "これは わたしが 買った カラオケ です。 (Bu men sotib olgan karaoke.)",
+    "category": "Minna no Nihongo 9-dars"
+  },
+  {
+    "idx": 451,
+    "front": "歌舞伎",
+    "back": "kabuki",
+    "phonetic": "かぶき - kabuki",
+    "example": "これは わたしが 買った 歌舞伎 です。 (Bu men sotib olgan kabuki.)",
+    "category": "Minna no Nihongo 9-dars"
+  },
+  {
+    "idx": 452,
+    "front": "絵",
+    "back": "rasm",
+    "phonetic": "え - e",
+    "example": "これは わたしが 買った 絵 です。 (Bu men sotib olgan rasm.)",
+    "category": "Minna no Nihongo 9-dars"
+  },
+  {
+    "idx": 453,
+    "front": "字",
+    "back": "harf",
+    "phonetic": "じ - ji",
+    "example": "これは わたしが 買った 字 です。 (Bu men sotib olgan harf.)",
+    "category": "Minna no Nihongo 9-dars"
+  },
+  {
+    "idx": 454,
+    "front": "漢字",
+    "back": "belgi, iyeroglif",
+    "phonetic": "かんじ - kanji",
+    "example": "これは わたしが 買った 漢字 です。 (Bu men sotib olgan belgi, iyeroglif.)",
+    "category": "Minna no Nihongo 9-dars"
+  },
+  {
+    "idx": 455,
+    "front": "ひらがな",
+    "back": "hiragana (yapon alifbosi)",
+    "phonetic": "ひらがな - hiragana",
+    "example": "これは わたしが 買った ひらがな です。 (Bu men sotib olgan hiragana (yapon alifbosi).)",
+    "category": "Minna no Nihongo 9-dars"
+  },
+  {
+    "idx": 456,
+    "front": "かたかな",
+    "back": "katakana (yapon alifbosi)",
+    "phonetic": "かたかな - katakana",
+    "example": "これは わたしが 買った かたかな です。 (Bu men sotib olgan katakana (yapon alifbosi).)",
+    "category": "Minna no Nihongo 9-dars"
+  },
+  {
+    "idx": 457,
+    "front": "ローマ字",
+    "back": "rim yozuvi (lotin yozuvi)",
+    "phonetic": "ローマじ - ro-maji",
+    "example": "これは わたしが 買った ローマ字 です。 (Bu men sotib olgan rim yozuvi (lotin yozuvi).)",
+    "category": "Minna no Nihongo 9-dars"
+  },
+  {
+    "idx": 458,
+    "front": "細かいお金",
+    "back": "mayda pul",
+    "phonetic": "こまかいおかね - komakaiokane",
+    "example": "これは わたしが 買った 細かいお金 です。 (Bu men sotib olgan mayda pul.)",
+    "category": "Minna no Nihongo 9-dars"
+  },
+  {
+    "idx": 459,
+    "front": "チケット",
+    "back": "chipta",
+    "phonetic": "チケット - chiketo",
+    "example": "これは わたしが 買った チケット です。 (Bu men sotib olgan chipta.)",
+    "category": "Minna no Nihongo 9-dars"
+  },
+  {
+    "idx": 460,
+    "front": "時間",
+    "back": "vaqt",
+    "phonetic": "じかん - jikan",
+    "example": "これは わたしが 買った 時間 です。 (Bu men sotib olgan vaqt.)",
+    "category": "Minna no Nihongo 9-dars"
+  },
+  {
+    "idx": 461,
+    "front": "用事",
+    "back": "ish, yumush",
+    "phonetic": "ようじ - youji",
+    "example": "これは わたしが 買った 用事 です。 (Bu men sotib olgan ish, yumush.)",
+    "category": "Minna no Nihongo 9-dars"
+  },
+  {
+    "idx": 462,
+    "front": "約束",
+    "back": "va'da",
+    "phonetic": "やくそく - yakusoku",
+    "example": "これは わたしが 買った 約束 です。 (Bu men sotib olgan va'da.)",
+    "category": "Minna no Nihongo 9-dars"
+  },
+  {
+    "idx": 465,
+    "front": "奥さん",
+    "back": "ayol(ingiz), xotin(ingiz)",
+    "phonetic": "おくさん - okusan",
+    "example": "これは わたしが 買った 奥さん です。 (Bu men sotib olgan ayol(ingiz), xotin(ingiz).)",
+    "category": "Minna no Nihongo 9-dars"
+  },
+  {
+    "idx": 467,
+    "front": "子ども",
+    "back": "bola, farzand",
+    "phonetic": "こども - kodomo",
+    "example": "これは わたしが 買った 子ども です。 (Bu men sotib olgan bola, farzand.)",
+    "category": "Minna no Nihongo 9-dars"
+  },
+  {
+    "idx": 468,
+    "front": "よく",
+    "back": "tez-tez; yaxshi; rosa",
+    "phonetic": "よく - yoku",
+    "example": "これは わたしが 買った よく です。 (Bu men sotib olgan tez-tez; yaxshi; rosa.)",
+    "category": "Minna no Nihongo 9-dars"
+  },
+  {
+    "idx": 470,
+    "front": "たくさん",
+    "back": "ko'p",
+    "phonetic": "たくさん - takusan",
+    "example": "これは わたしが 買った たくさん です。 (Bu men sotib olgan ko'p.)",
+    "category": "Minna no Nihongo 9-dars"
+  },
+  {
+    "idx": 471,
+    "front": "少し",
+    "back": "ozgina, ozroq, biroz, kam",
+    "phonetic": "すこし - sukoshi",
+    "example": "これは わたしが 買った 少し です。 (Bu men sotib olgan ozgina, ozroq, biroz, kam.)",
+    "category": "Minna no Nihongo 9-dars"
+  },
+  {
+    "idx": 472,
+    "front": "全然",
+    "back": "umuman, hech",
+    "phonetic": "ぜんぜん - zenzen",
+    "example": "これは わたしが 買った 全然 です。 (Bu men sotib olgan umuman, hech.)",
+    "category": "Minna no Nihongo 9-dars"
+  },
+  {
+    "idx": 473,
+    "front": "早く、速く",
+    "back": "erta, barvaqt; tez",
+    "phonetic": "はやく - hayaku",
+    "example": "これは わたしが 買った 早く、速く です。 (Bu men sotib olgan erta, barvaqt; tez.)",
+    "category": "Minna no Nihongo 9-dars"
+  },
+  {
+    "idx": 474,
+    "front": "～から",
+    "back": "~dan",
+    "phonetic": "～から - kara",
+    "example": "山田からは 親切な 人です。 (Yamada ~dan samimiy inson.)",
+    "category": "Minna no Nihongo 9-dars"
+  },
+  {
+    "idx": 475,
+    "front": "どうして",
+    "back": "nima uchun",
+    "phonetic": "どうして - doushite",
+    "example": "これは わたしが 買った どうして です。 (Bu men sotib olgan nima uchun.)",
+    "category": "Minna no Nihongo 9-dars"
+  },
+  {
+    "idx": 476,
+    "front": "残念ですね。",
+    "back": "Afsus.",
+    "phonetic": "ざんねんですね。 - zannendesune",
+    "example": "これは わたしが 買った 残念です。。] です。 (Bu men sotib olgan afsus..)",
+    "category": "Minna no Nihongo 9-dars"
+  },
+  {
+    "idx": 477,
+    "front": "すみません。",
+    "back": "Kechirasiz",
+    "phonetic": "すみません。 - sumimasen",
+    "example": "これは わたしが 買った すみません。 です。 (Bu men sotib olgan kechirasiz.)",
+    "category": "Minna no Nihongo 9-dars"
+  },
+  {
+    "idx": 478,
+    "front": "もしもし",
+    "back": "allo, eshitaman",
+    "phonetic": "もしもし - moshimoshi",
+    "example": "これは わたしが 買った もしもし です。 (Bu men sotib olgan allo, eshitaman.)",
+    "category": "Minna no Nihongo 9-dars"
+  },
+  {
+    "idx": 479,
+    "front": "ああ",
+    "back": "A",
+    "phonetic": "ああ - aa",
+    "example": "これは わたしが 買った ああ です。 (Bu men sotib olgan a.)",
+    "category": "Minna no Nihongo 9-dars"
+  },
+  {
+    "idx": 480,
+    "front": "いっしょにいかがですか。",
+    "back": "Birga (fe'l~)maysizmi?",
+    "phonetic": "いっしょにいかがですか。 - ishoniikagadesuka",
+    "example": "これは わたしが 買った いっしょにいかがですか。 です。 (Bu men sotib olgan birga (fe'l~)maysizmi?.)",
+    "category": "Minna no Nihongo 9-dars"
+  },
+  {
+    "idx": 481,
+    "front": "～はちょっと・・・・。",
+    "back": "~ biroz… . (rad etish iborasi)",
+    "phonetic": "～はちょっと・・・・。 - hachoto",
+    "example": "山田ちょっと・・・・。は 親切な 人です。 (Yamada ~ biroz… . (rad etish iborasi) samimiy inson.)",
+    "category": "Minna no Nihongo 9-dars"
+  },
+  {
+    "idx": 482,
+    "front": "だめですか。",
+    "back": "Bo'lmaydimi?",
+    "phonetic": "だめですか。 - damedesuka",
+    "example": "これは わたしが 買った だめですか。 です。 (Bu men sotib olgan bo'lmaydimi?.)",
+    "category": "Minna no Nihongo 9-dars"
+  },
+  {
+    "idx": 484,
+    "front": "小沢征爾",
+    "back": "Ozava Seiji",
+    "phonetic": "おざわせいじ - ozawaseiji",
+    "example": "これは わたしが 買った 小沢征爾 です。 (Bu men sotib olgan ozava seiji.)",
+    "category": "Minna no Nihongo 9-dars"
+  },
+  {
+    "idx": 487,
+    "front": "いろいろな",
+    "back": "har xil, turli xil",
+    "phonetic": "いろいろな - iroirona",
+    "example": "これは わたしが 買った いろいろ です。 (Bu men sotib olgan har xil, turli xil.)",
+    "category": "Minna no Nihongo 10-dars"
+  },
+  {
+    "idx": 490,
+    "front": "男の子",
+    "back": "o'g'il bola",
+    "phonetic": "おとこのこ - otokonoko",
+    "example": "これは わたしが 買った 男の子 です。 (Bu men sotib olgan o'g'il bola.)",
+    "category": "Minna no Nihongo 10-dars"
+  },
+  {
+    "idx": 491,
+    "front": "女の子",
+    "back": "qiz bola",
+    "phonetic": "おんなのこ - onnanoko",
+    "example": "これは わたしが 買った 女の子 です。 (Bu men sotib olgan qiz bola.)",
+    "category": "Minna no Nihongo 10-dars"
+  },
+  {
+    "idx": 492,
+    "front": "犬",
+    "back": "kuchuk, it",
+    "phonetic": "いぬ - inu",
+    "example": "これは わたしが 買った 犬 です。 (Bu men sotib olgan kuchuk, it.)",
+    "category": "Minna no Nihongo 10-dars"
+  },
+  {
+    "idx": 493,
+    "front": "猫",
+    "back": "mushuk",
+    "phonetic": "ねこ - neko",
+    "example": "これは わたしが 買った 猫 です。 (Bu men sotib olgan mushuk.)",
+    "category": "Minna no Nihongo 10-dars"
+  },
+  {
+    "idx": 494,
+    "front": "木",
+    "back": "daraxt",
+    "phonetic": "き - ki",
+    "example": "これは わたしが 買った 木 です。 (Bu men sotib olgan daraxt.)",
+    "category": "Minna no Nihongo 10-dars"
+  },
+  {
+    "idx": 495,
+    "front": "物",
+    "back": "narsa, buyum",
+    "phonetic": "もの - mono",
+    "example": "これは わたしが 買った 物 です。 (Bu men sotib olgan narsa, buyum.)",
+    "category": "Minna no Nihongo 10-dars"
+  },
+  {
+    "idx": 496,
+    "front": "フイルム",
+    "back": "fototasma",
+    "phonetic": "フイルム - fuirumu",
+    "example": "これは わたしが 買った フイルム です。 (Bu men sotib olgan fototasma.)",
+    "category": "Minna no Nihongo 10-dars"
+  },
+  {
+    "idx": 497,
+    "front": "電池",
+    "back": "batareya",
+    "phonetic": "でんち - denchi",
+    "example": "これは わたしが 買った 電池 です。 (Bu men sotib olgan batareya.)",
+    "category": "Minna no Nihongo 10-dars"
+  },
+  {
+    "idx": 498,
+    "front": "箱",
+    "back": "quti",
+    "phonetic": "はこ - hako",
+    "example": "これは わたしが 買った 箱 です。 (Bu men sotib olgan quti.)",
+    "category": "Minna no Nihongo 10-dars"
+  },
+  {
+    "idx": 499,
+    "front": "スイッチ",
+    "back": "viklyuchatel",
+    "phonetic": "スイッチ - suichi",
+    "example": "これは わたしが 買った スイッチ です。 (Bu men sotib olgan viklyuchatel.)",
+    "category": "Minna no Nihongo 10-dars"
+  },
+  {
+    "idx": 500,
+    "front": "冷蔵庫",
+    "back": "muzlatgich",
+    "phonetic": "れいぞうこ - reizouko",
+    "example": "これは わたしが 買った 冷蔵庫 です。 (Bu men sotib olgan muzlatgich.)",
+    "category": "Minna no Nihongo 10-dars"
+  },
+  {
+    "idx": 501,
+    "front": "テーブル",
+    "back": "stol",
+    "phonetic": "テーブル - te-buru",
+    "example": "これは わたしが 買った テーブル です。 (Bu men sotib olgan stol.)",
+    "category": "Minna no Nihongo 10-dars"
+  },
+  {
+    "idx": 502,
+    "front": "ベッド",
+    "back": "krovat",
+    "phonetic": "ベッド - bedo",
+    "example": "これは わたしが 買った ベッド です。 (Bu men sotib olgan krovat.)",
+    "category": "Minna no Nihongo 10-dars"
+  },
+  {
+    "idx": 503,
+    "front": "棚",
+    "back": "tokcha",
+    "phonetic": "たな - tana",
+    "example": "これは わたしが 買った 棚 です。 (Bu men sotib olgan tokcha.)",
+    "category": "Minna no Nihongo 10-dars"
+  },
+  {
+    "idx": 504,
+    "front": "ドア",
+    "back": "eshik",
+    "phonetic": "ドア - doa",
+    "example": "これは わたしが 買った ドア です。 (Bu men sotib olgan eshik.)",
+    "category": "Minna no Nihongo 10-dars"
+  },
+  {
+    "idx": 505,
+    "front": "窓",
+    "back": "deraza",
+    "phonetic": "まど - mado",
+    "example": "これは わたしが 買った 窓 です。 (Bu men sotib olgan deraza.)",
+    "category": "Minna no Nihongo 10-dars"
+  },
+  {
+    "idx": 506,
+    "front": "ポスト",
+    "back": "pochta qutisi",
+    "phonetic": "ポスト - posuto",
+    "example": "これは わたしが 買った ポスト です。 (Bu men sotib olgan pochta qutisi.)",
+    "category": "Minna no Nihongo 10-dars"
+  },
+  {
+    "idx": 507,
+    "front": "ビル",
+    "back": "(baland) bino",
+    "phonetic": "ビル - biru",
+    "example": "これは わたしが 買った ビル です。 (Bu men sotib olgan (baland) bino.)",
+    "category": "Minna no Nihongo 10-dars"
+  },
+  {
+    "idx": 513,
+    "front": "県",
+    "back": "viloyat",
+    "phonetic": "けん - ken",
+    "example": "これは わたしが 買った 県 です。 (Bu men sotib olgan viloyat.)",
+    "category": "Minna no Nihongo 10-dars"
+  },
+  {
+    "idx": 514,
+    "front": "上",
+    "back": "ust, tepa, yuqori",
+    "phonetic": "うえ - ue",
+    "example": "これは わたしが 買った 上 です。 (Bu men sotib olgan ust, tepa, yuqori.)",
+    "category": "Minna no Nihongo 10-dars"
+  },
+  {
+    "idx": 515,
+    "front": "下",
+    "back": "ost, past",
+    "phonetic": "した - shita",
+    "example": "これは わたしが 買った 下 です。 (Bu men sotib olgan ost, past.)",
+    "category": "Minna no Nihongo 10-dars"
+  },
+  {
+    "idx": 516,
+    "front": "前",
+    "back": "old",
+    "phonetic": "まえ - mae",
+    "example": "これは わたしが 買った 前 です。 (Bu men sotib olgan old.)",
+    "category": "Minna no Nihongo 10-dars"
+  },
+  {
+    "idx": 517,
+    "front": "後ろ",
+    "back": "orqa",
+    "phonetic": "うしろ - ushiro",
+    "example": "これは わたしが 買った 後ろ です。 (Bu men sotib olgan orqa.)",
+    "category": "Minna no Nihongo 10-dars"
+  },
+  {
+    "idx": 518,
+    "front": "右",
+    "back": "o'ng Yapon tilida",
+    "phonetic": "みぎ - migi",
+    "example": "これは わたしが 買った 右 です。 (Bu men sotib olgan o'ng yapon tilida.)",
+    "category": "Minna no Nihongo 10-dars"
+  },
+  {
+    "idx": 519,
+    "front": "左",
+    "back": "chap bu so'zlar ot",
+    "phonetic": "ひだり - hidari",
+    "example": "これは わたしが 買った 左 です。 (Bu men sotib olgan chap bu so'zlar ot.)",
+    "category": "Minna no Nihongo 10-dars"
+  },
+  {
+    "idx": 520,
+    "front": "中",
+    "back": "ich, ichkari hisoblanadi",
+    "phonetic": "なか - naka",
+    "example": "これは わたしが 買った 中 です。 (Bu men sotib olgan ich, ichkari hisoblanadi.)",
+    "category": "Minna no Nihongo 10-dars"
+  },
+  {
+    "idx": 521,
+    "front": "外",
+    "back": "tashqari",
+    "phonetic": "そと - soto",
+    "example": "これは わたしが 買った 外 です。 (Bu men sotib olgan tashqari.)",
+    "category": "Minna no Nihongo 10-dars"
+  },
+  {
+    "idx": 522,
+    "front": "隣",
+    "back": "yon, qo'shni",
+    "phonetic": "となり - tonari",
+    "example": "これは わたしが 買った 隣 です。 (Bu men sotib olgan yon, qo'shni.)",
+    "category": "Minna no Nihongo 10-dars"
+  },
+  {
+    "idx": 523,
+    "front": "近く",
+    "back": "yaqin",
+    "phonetic": "ちかく - chikaku",
+    "example": "これは わたしが 買った 近く です。 (Bu men sotib olgan yaqin.)",
+    "category": "Minna no Nihongo 10-dars"
+  },
+  {
+    "idx": 524,
+    "front": "間",
+    "back": "ora, o'rta",
+    "phonetic": "あいだ - aida",
+    "example": "これは わたしが 買った 間 です。 (Bu men sotib olgan ora, o'rta.)",
+    "category": "Minna no Nihongo 10-dars"
+  },
+  {
+    "idx": 525,
+    "front": "～や～など",
+    "back": "~ va ~ ［ kabilar ］",
+    "phonetic": "～や～など - ya nado",
+    "example": "山田やは 親切な 人です。 (Yamada ~ va ~ ［ kabilar ］ samimiy inson.)",
+    "category": "Minna no Nihongo 10-dars"
+  },
+  {
+    "idx": 526,
+    "front": "いちばん～",
+    "back": "eng~ ( いちばん うえ eng yuqori)",
+    "phonetic": "いちばん～ - ichiban",
+    "example": "山田いちばんは 親切な 人です。 (Yamada eng~ ( いちばん うえ eng yuqori) samimiy inson.)",
+    "category": "Minna no Nihongo 10-dars"
+  },
+  {
+    "idx": 527,
+    "front": "～段目",
+    "back": "~(i)nchi tokcha, ~(i)nchi qator",
+    "phonetic": "～だんめ - danme",
+    "example": "山田だんめは 親切な 人です。 (Yamada ~(i)nchi tokcha, ~(i)nchi qator samimiy inson.)",
+    "category": "Minna no Nihongo 10-dars"
+  },
+  {
+    "idx": 528,
+    "front": "どうもすみません。",
+    "back": "Katta rahmat",
+    "phonetic": "どうもすみません。 - doumosumimasen",
+    "example": "これは わたしが 買った すみません。 です。 (Bu men sotib olgan katta rahmat.)",
+    "category": "Minna no Nihongo 10-dars"
+  },
+  {
+    "idx": 529,
+    "front": "チリソース",
+    "back": "chili sousi",
+    "phonetic": "チリソース - chiriso-su",
+    "example": "これは わたしが 買った チリソース です。 (Bu men sotib olgan chili sousi.)",
+    "category": "Minna no Nihongo 10-dars"
+  },
+  {
+    "idx": 530,
+    "front": "奥おく",
+    "back": "ichkari, qari",
+    "phonetic": "奥おく - oku",
+    "example": "これは わたしが 買った 奥 です。 (Bu men sotib olgan ichkari, qari.)",
+    "category": "Minna no Nihongo 10-dars"
+  },
+  {
+    "idx": 531,
+    "front": "スパイス・コーナー",
+    "back": "ziravorlar bo'limi",
+    "phonetic": "スパイス・コーナー - supaisu ko-na-",
+    "example": "これは わたしが 買った スパイス・コーナー です。 (Bu men sotib olgan ziravorlar bo'limi.)",
+    "category": "Minna no Nihongo 10-dars"
+  },
+  {
+    "idx": 532,
+    "front": "東京ディズニーランド",
+    "back": "Tokio Disneylendi",
+    "phonetic": "とうきょうディズニーランド - toukyoudezuni-rando",
+    "example": "これは わたしが 買った 東京ディズニーランド です。 (Bu men sotib olgan tokio disneylendi.)",
+    "category": "Minna no Nihongo 10-dars"
+  },
+  {
+    "idx": 533,
+    "front": "ユニューヤ・ストア",
+    "back": "supermarket nomi (o'ylab topilgan)",
+    "phonetic": "ユニューヤ・ストア - yuni-ya sutoa",
+    "example": "これは わたしが 買った ユニューヤ・ストア です。 (Bu men sotib olgan supermarket nomi (o'ylab topilgan).)",
+    "category": "Minna no Nihongo 10-dars"
+  },
+  {
+    "idx": 535,
+    "front": "子供が～",
+    "back": "(bolasi bor)",
+    "phonetic": "こどもが～ - kodomoga",
+    "example": "山田は 親切な 人です。 (Yamada (bolasi bor) samimiy inson.)",
+    "category": "Minna no Nihongo 11-dars"
+  },
+  {
+    "idx": 536,
+    "front": "日本に～",
+    "back": "(Yaponiyada bo'lmoq)",
+    "phonetic": "にほんに～ - nihonni",
+    "example": "山田は 親切な 人です。 (Yamada (yaponiyada bo'lmoq) samimiy inson.)",
+    "category": "Minna no Nihongo 11-dars"
+  },
+  {
+    "idx": 539,
+    "front": "会社を",
+    "back": "(ishga chiqmaslik)",
+    "phonetic": "かいしゃを～ - kaishao",
+    "example": "山田は 親切な 人です。 (Yamada (ishga chiqmaslik) samimiy inson.)",
+    "category": "Minna no Nihongo 11-dars"
+  },
+  {
+    "idx": 540,
+    "front": "１つ",
+    "back": "bitta",
+    "phonetic": "ひとつ - hitotsu",
+    "example": "これは わたしが 買った １つ です。 (Bu men sotib olgan bitta.)",
+    "category": "Minna no Nihongo 11-dars"
+  },
+  {
+    "idx": 541,
+    "front": "２つ",
+    "back": "ikkita",
+    "phonetic": "ふたつ - futatsu",
+    "example": "これは わたしが 買った ２つ です。 (Bu men sotib olgan ikkita.)",
+    "category": "Minna no Nihongo 11-dars"
+  },
+  {
+    "idx": 542,
+    "front": "３つ",
+    "back": "uchta",
+    "phonetic": "みっつ - mitsu",
+    "example": "これは わたしが 買った ３つ です。 (Bu men sotib olgan uchta.)",
+    "category": "Minna no Nihongo 11-dars"
+  },
+  {
+    "idx": 543,
+    "front": "４つ",
+    "back": "to'rtta Jonsiz",
+    "phonetic": "よっつ - yotsu",
+    "example": "これは わたしが 買った ４つ です。 (Bu men sotib olgan to'rtta jonsiz.)",
+    "category": "Minna no Nihongo 11-dars"
+  },
+  {
+    "idx": 544,
+    "front": "５つ",
+    "back": "beshta predmetlarni",
+    "phonetic": "いつつ - itsutsu",
+    "example": "これは わたしが 買った ５つ です。 (Bu men sotib olgan beshta predmetlarni.)",
+    "category": "Minna no Nihongo 11-dars"
+  },
+  {
+    "idx": 545,
+    "front": "６つ",
+    "back": "oltita sanashda",
+    "phonetic": "むっつ - mutsu",
+    "example": "これは わたしが 買った ６つ です。 (Bu men sotib olgan oltita sanashda.)",
+    "category": "Minna no Nihongo 11-dars"
+  },
+  {
+    "idx": 546,
+    "front": "７つ",
+    "back": "yettita qo'llaniladi",
+    "phonetic": "ななつ - nanatsu",
+    "example": "これは わたしが 買った ７つ です。 (Bu men sotib olgan yettita qo'llaniladi.)",
+    "category": "Minna no Nihongo 11-dars"
+  },
+  {
+    "idx": 547,
+    "front": "８つ",
+    "back": "sakkizta",
+    "phonetic": "やっつ - yatsu",
+    "example": "これは わたしが 買った ８つ です。 (Bu men sotib olgan sakkizta.)",
+    "category": "Minna no Nihongo 11-dars"
+  },
+  {
+    "idx": 548,
+    "front": "９つ",
+    "back": "to'qqizta",
+    "phonetic": "ここのつ - kokonotsu",
+    "example": "これは わたしが 買った ９つ です。 (Bu men sotib olgan to'qqizta.)",
+    "category": "Minna no Nihongo 11-dars"
+  },
+  {
+    "idx": 549,
+    "front": "１０",
+    "back": "o'nta",
+    "phonetic": "とお - too",
+    "example": "これは わたしが 買った １０ です。 (Bu men sotib olgan o'nta.)",
+    "category": "Minna no Nihongo 11-dars"
+  },
+  {
+    "idx": 550,
+    "front": "いくつ",
+    "back": "qancha, nechta",
+    "phonetic": "いくつ - ikutsu",
+    "example": "これは わたしが 買った いくつ です。 (Bu men sotib olgan qancha, nechta.)",
+    "category": "Minna no Nihongo 11-dars"
+  },
+  {
+    "idx": 557,
+    "front": "りんご",
+    "back": "olma",
+    "phonetic": "りんご - ringo",
+    "example": "これは わたしが 買った りんご です。 (Bu men sotib olgan olma.)",
+    "category": "Minna no Nihongo 11-dars"
+  },
+  {
+    "idx": 558,
+    "front": "みかん",
+    "back": "mandarin",
+    "phonetic": "みかん - mikan",
+    "example": "これは わたしが 買った みかん です。 (Bu men sotib olgan mandarin.)",
+    "category": "Minna no Nihongo 11-dars"
+  },
+  {
+    "idx": 559,
+    "front": "サンドイッチ",
+    "back": "sendvich",
+    "phonetic": "サンドイッチ - sandoichi",
+    "example": "これは わたしが 買った サンドイッチ です。 (Bu men sotib olgan sendvich.)",
+    "category": "Minna no Nihongo 11-dars"
+  },
+  {
+    "idx": 560,
+    "front": "カレーライス",
+    "back": "karerays",
+    "phonetic": "カレーライス - kare-raisu",
+    "example": "これは わたしが 買った カレー です。 (Bu men sotib olgan karerays.)",
+    "category": "Minna no Nihongo 11-dars"
+  },
+  {
+    "idx": 561,
+    "front": "アイスクリーム",
+    "back": "muzqaymoq",
+    "phonetic": "アイスクリーム - aisukuri-mu",
+    "example": "これは わたしが 買った アイスクリーム です。 (Bu men sotib olgan muzqaymoq.)",
+    "category": "Minna no Nihongo 11-dars"
+  },
+  {
+    "idx": 563,
+    "front": "はがき",
+    "back": "otkritka",
+    "phonetic": "はがき - hagaki",
+    "example": "これは わたしが 買った はがき です。 (Bu men sotib olgan otkritka.)",
+    "category": "Minna no Nihongo 11-dars"
+  },
+  {
+    "idx": 565,
+    "front": "速達",
+    "back": "tezkor pochta, ekspress pochta",
+    "phonetic": "そくたつ - sokutatsu",
+    "example": "これは わたしが 買った 速達 です。 (Bu men sotib olgan tezkor pochta, ekspress pochta.)",
+    "category": "Minna no Nihongo 11-dars"
+  },
+  {
+    "idx": 566,
+    "front": "書留",
+    "back": "buyurtmali pochta",
+    "phonetic": "かきとめ - kakitome",
+    "example": "これは わたしが 買った 書留 です。 (Bu men sotib olgan buyurtmali pochta.)",
+    "category": "Minna no Nihongo 11-dars"
+  },
+  {
+    "idx": 567,
+    "front": "エアメール",
+    "back": "avia pochta",
+    "phonetic": "エアメール - eame-ru",
+    "example": "これは わたしが 買った エアメール です。 (Bu men sotib olgan avia pochta.)",
+    "category": "Minna no Nihongo 11-dars"
+  },
+  {
+    "idx": 568,
+    "front": "航空便",
+    "back": "avia pochta",
+    "phonetic": "こうくうびん - koukuubin",
+    "example": "これは わたしが 買った 航空便 です。 (Bu men sotib olgan avia pochta.)",
+    "category": "Minna no Nihongo 11-dars"
+  },
+  {
+    "idx": 569,
+    "front": "船便",
+    "back": "dengiz pochtasi",
+    "phonetic": "ふなびん - funabin",
+    "example": "これは わたしが 買った 船便 です。 (Bu men sotib olgan dengiz pochtasi.)",
+    "category": "Minna no Nihongo 11-dars"
+  },
+  {
+    "idx": 570,
+    "front": "両親",
+    "back": "ota-ona",
+    "phonetic": "りょうしん - ryoushin",
+    "example": "これは わたしが 買った 両親 です。 (Bu men sotib olgan ota-ona.)",
+    "category": "Minna no Nihongo 11-dars"
+  },
+  {
+    "idx": 572,
+    "front": "兄",
+    "back": "akam",
+    "phonetic": "あに - ani",
+    "example": "これは わたしが 買った 兄 です。 (Bu men sotib olgan akam.)",
+    "category": "Minna no Nihongo 11-dars"
+  },
+  {
+    "idx": 573,
+    "front": "お兄さん",
+    "back": "akangiz,akasi",
+    "phonetic": "おにいさん - oniisan",
+    "example": "これは わたしが 買った お兄さん です。 (Bu men sotib olgan akangiz,akasi.)",
+    "category": "Minna no Nihongo 11-dars"
+  },
+  {
+    "idx": 574,
+    "front": "姉",
+    "back": "opam",
+    "phonetic": "あね - ane",
+    "example": "これは わたしが 買った 姉 です。 (Bu men sotib olgan opam.)",
+    "category": "Minna no Nihongo 11-dars"
+  },
+  {
+    "idx": 575,
+    "front": "お姉さん",
+    "back": "opangiz, opasi",
+    "phonetic": "おねえさん - oneesan",
+    "example": "これは わたしが 買った お姉さん です。 (Bu men sotib olgan opangiz, opasi.)",
+    "category": "Minna no Nihongo 11-dars"
+  },
+  {
+    "idx": 576,
+    "front": "弟",
+    "back": "ukam",
+    "phonetic": "おとうと - otouto",
+    "example": "これは わたしが 買った 弟 です。 (Bu men sotib olgan ukam.)",
+    "category": "Minna no Nihongo 11-dars"
+  },
+  {
+    "idx": 577,
+    "front": "弟さん",
+    "back": "ukangiz, ukasi",
+    "phonetic": "おとうとさん - otoutosan",
+    "example": "これは わたしが 買った 弟さん です。 (Bu men sotib olgan ukangiz, ukasi.)",
+    "category": "Minna no Nihongo 11-dars"
+  },
+  {
+    "idx": 578,
+    "front": "妹",
+    "back": "singlim",
+    "phonetic": "いもうと - imouto",
+    "example": "これは わたしが 買った 妹 です。 (Bu men sotib olgan singlim.)",
+    "category": "Minna no Nihongo 11-dars"
+  },
+  {
+    "idx": 579,
+    "front": "妹さん",
+    "back": "singlingiz, singlisi",
+    "phonetic": "いもうとさん - imoutosan",
+    "example": "これは わたしが 買った 妹さん です。 (Bu men sotib olgan singlingiz, singlisi.)",
+    "category": "Minna no Nihongo 11-dars"
+  },
+  {
+    "idx": 581,
+    "front": "～時間",
+    "back": "~ soat",
+    "phonetic": "～じかん - jikan",
+    "example": "山田じかんは 親切な 人です。 (Yamada ~ soat samimiy inson.)",
+    "category": "Minna no Nihongo 11-dars"
+  },
+  {
+    "idx": 582,
+    "front": "～週間",
+    "back": "~ hafta",
+    "phonetic": "～しゅうかん - shuukan",
+    "example": "山田しゅうかんは 親切な 人です。 (Yamada ~ hafta samimiy inson.)",
+    "category": "Minna no Nihongo 11-dars"
+  },
+  {
+    "idx": 583,
+    "front": "～か月",
+    "back": "~ oy",
+    "phonetic": "～かげつ - kagetsu",
+    "example": "山田かげつは 親切な 人です。 (Yamada ~ oy samimiy inson.)",
+    "category": "Minna no Nihongo 11-dars"
+  },
+  {
+    "idx": 584,
+    "front": "～年",
+    "back": "~ yil",
+    "phonetic": "～ねん - nen",
+    "example": "山田ねんは 親切な 人です。 (Yamada ~ yil samimiy inson.)",
+    "category": "Minna no Nihongo 11-dars"
+  },
+  {
+    "idx": 587,
+    "front": "全部で",
+    "back": "hammasi bo'lib",
+    "phonetic": "ぜんぶで - zenbude",
+    "example": "これは わたしが 買った 全部で です。 (Bu men sotib olgan hammasi bo'lib.)",
+    "category": "Minna no Nihongo 11-dars"
+  },
+  {
+    "idx": 588,
+    "front": "みんな",
+    "back": "hamma, barcha",
+    "phonetic": "みんな - minna",
+    "example": "これは わたしが 買った みんな です。 (Bu men sotib olgan hamma, barcha.)",
+    "category": "Minna no Nihongo 11-dars"
+  },
+  {
+    "idx": 589,
+    "front": "～だけ",
+    "back": "faqat",
+    "phonetic": "～だけ - dake",
+    "example": "山田だけは 親切な 人です。 (Yamada faqat samimiy inson.)",
+    "category": "Minna no Nihongo 11-dars"
+  },
+  {
+    "idx": 590,
+    "front": "いらっしゃいませ。",
+    "back": "Xush kelibsiz.",
+    "phonetic": "いらっしゃいませ。 - irashaimase",
+    "example": "これは わたしが 買った いらっしゃいませ。 です。 (Bu men sotib olgan xush kelibsiz..)",
+    "category": "Minna no Nihongo 11-dars"
+  },
+  {
+    "idx": 591,
+    "front": "いいお天てん気きですね。",
+    "back": "Yaxshi ob-havo-ya?",
+    "phonetic": "いいお天てん気きですね。 - iiotenkidesune",
+    "example": "これは わたしが 買った いい天気ですね。 です。 (Bu men sotib olgan yaxshi ob-havo-ya?.)",
+    "category": "Minna no Nihongo 11-dars"
+  },
+  {
+    "idx": 592,
+    "front": "お出でかけですか。",
+    "back": "Ko'chagami?",
+    "phonetic": "お出でかけですか。 - odekakedesuka",
+    "example": "これは わたしが 買った お出かけですか。 です。 (Bu men sotib olgan ko'chagami?.)",
+    "category": "Minna no Nihongo 11-dars"
+  },
+  {
+    "idx": 593,
+    "front": "ちょっと～まで。",
+    "back": "~ga borib kelaman.",
+    "phonetic": "ちょっと～まで。 - choto made",
+    "example": "山田ちょっとまで。は 親切な 人です。 (Yamada ~ga borib kelaman. samimiy inson.)",
+    "category": "Minna no Nihongo 11-dars"
+  },
+  {
+    "idx": 594,
+    "front": "行いっていらっしゃい。",
+    "back": "Yaxshi borib keling(lar).",
+    "phonetic": "行いっていらっしゃい。 - iteirashai",
+    "example": "これは わたしが 買った 行っていらっしゃい。 です。 (Bu men sotib olgan yaxshi borib keling(lar)..)",
+    "category": "Minna no Nihongo 11-dars"
+  },
+  {
+    "idx": 596,
+    "front": "それから",
+    "back": "yana",
+    "phonetic": "それから - sorekara",
+    "example": "これは わたしが 買った それから です。 (Bu men sotib olgan yana.)",
+    "category": "Minna no Nihongo 11-dars"
+  },
+  {
+    "idx": 597,
+    "front": "オーストラリア",
+    "back": "Avstraliya",
+    "phonetic": "オーストラリア - o-sutoraria",
+    "example": "これは わたしが 買った オーストラリア です。 (Bu men sotib olgan avstraliya.)",
+    "category": "Minna no Nihongo 11-dars"
+  },
+  {
+    "idx": 598,
+    "front": "簡単な",
+    "back": "oson",
+    "phonetic": "かんたんな - kantanna",
+    "example": "これは わたしが 買った 簡単] です。 (Bu men sotib olgan oson.)",
+    "category": "Minna no Nihongo 12-dars"
+  },
+  {
+    "idx": 604,
+    "front": "人が～",
+    "back": "(odam ko'p)",
+    "phonetic": "ひとが～ - hitoga",
+    "example": "山田は 親切な 人です。 (Yamada (odam ko'p) samimiy inson.)",
+    "category": "Minna no Nihongo 12-dars"
+  },
+  {
+    "idx": 613,
+    "front": "コーヒーが～",
+    "back": "(yaxshi kofe)",
+    "phonetic": "コーヒーが～ - ko-hi-ga",
+    "example": "山田は 親切な 人です。 (Yamada (yaxshi kofe) samimiy inson.)",
+    "category": "Minna no Nihongo 12-dars"
+  },
+  {
+    "idx": 614,
+    "front": "季節",
+    "back": "fasl",
+    "phonetic": "きせつ - kisetsu",
+    "example": "これは わたしが 買った 季節 です。 (Bu men sotib olgan fasl.)",
+    "category": "Minna no Nihongo 12-dars"
+  },
+  {
+    "idx": 616,
+    "front": "夏",
+    "back": "yoz",
+    "phonetic": "なつ - natsu",
+    "example": "これは わたしが 買った 夏 です。 (Bu men sotib olgan yoz.)",
+    "category": "Minna no Nihongo 12-dars"
+  },
+  {
+    "idx": 617,
+    "front": "秋",
+    "back": "kuz",
+    "phonetic": "あき - aki",
+    "example": "これは わたしが 買った 秋 です。 (Bu men sotib olgan kuz.)",
+    "category": "Minna no Nihongo 12-dars"
+  },
+  {
+    "idx": 618,
+    "front": "冬",
+    "back": "qish",
+    "phonetic": "ふゆ - fuyu",
+    "example": "これは わたしが 買った 冬 です。 (Bu men sotib olgan qish.)",
+    "category": "Minna no Nihongo 12-dars"
+  },
+  {
+    "idx": 619,
+    "front": "天気",
+    "back": "ob-havo",
+    "phonetic": "てんき - tenki",
+    "example": "これは わたしが 買った 天気 です。 (Bu men sotib olgan ob-havo.)",
+    "category": "Minna no Nihongo 12-dars"
+  },
+  {
+    "idx": 620,
+    "front": "雨",
+    "back": "yomg'ir",
+    "phonetic": "あめ - ame",
+    "example": "これは わたしが 買った 雨 です。 (Bu men sotib olgan yomg'ir.)",
+    "category": "Minna no Nihongo 12-dars"
+  },
+  {
+    "idx": 621,
+    "front": "雪",
+    "back": "qor",
+    "phonetic": "ゆき - yuki",
+    "example": "これは わたしが 買った 雪 です。 (Bu men sotib olgan qor.)",
+    "category": "Minna no Nihongo 12-dars"
+  },
+  {
+    "idx": 622,
+    "front": "曇り",
+    "back": "bulutli (havo)",
+    "phonetic": "くもり - kumori",
+    "example": "これは わたしが 買った 曇り です。 (Bu men sotib olgan bulutli (havo).)",
+    "category": "Minna no Nihongo 12-dars"
+  },
+  {
+    "idx": 623,
+    "front": "ホテル",
+    "back": "mehmonxona",
+    "phonetic": "ホテル - hoteru",
+    "example": "これは わたしが 買った ホテル です。 (Bu men sotib olgan mehmonxona.)",
+    "category": "Minna no Nihongo 12-dars"
+  },
+  {
+    "idx": 625,
+    "front": "海",
+    "back": "dengiz",
+    "phonetic": "うみ - umi",
+    "example": "これは わたしが 買った 海 です。 (Bu men sotib olgan dengiz.)",
+    "category": "Minna no Nihongo 12-dars"
+  },
+  {
+    "idx": 627,
+    "front": "パーティー",
+    "back": "kecha, ziyofat, bazm",
+    "phonetic": "パーティー - pa-te-",
+    "example": "これは わたしが 買った パーティー です。 (Bu men sotib olgan kecha, ziyofat, bazm.)",
+    "category": "Minna no Nihongo 12-dars"
+  },
+  {
+    "idx": 628,
+    "front": "お祭り",
+    "back": "bayram",
+    "phonetic": "おまつり - omatsuri",
+    "example": "これは わたしが 買った 祭りまつり] です。 (Bu men sotib olgan bayram.)",
+    "category": "Minna no Nihongo 12-dars"
+  },
+  {
+    "idx": 629,
+    "front": "試験",
+    "back": "imtihon, sinov",
+    "phonetic": "しけん - shiken",
+    "example": "これは わたしが 買った 試験 です。 (Bu men sotib olgan imtihon, sinov.)",
+    "category": "Minna no Nihongo 12-dars"
+  },
+  {
+    "idx": 630,
+    "front": "すき焼き",
+    "back": "sukiyaki",
+    "phonetic": "すきやき - sukiyaki",
+    "example": "これは わたしが 買った すき焼き です。 (Bu men sotib olgan sukiyaki.)",
+    "category": "Minna no Nihongo 12-dars"
+  },
+  {
+    "idx": 631,
+    "front": "刺身",
+    "back": "sashimi",
+    "phonetic": "さしみ - sashimi",
+    "example": "これは わたしが 買った 刺身 です。 (Bu men sotib olgan sashimi.)",
+    "category": "Minna no Nihongo 12-dars"
+  },
+  {
+    "idx": 632,
+    "front": "おすし",
+    "back": "sushi- sirka arashalgan qaynatilgan guruch ustida xom baliq",
+    "phonetic": "おすし - osushi",
+    "example": "これは わたしが 買った すし です。 (Bu men sotib olgan sushi- sirka arashalgan qaynatilgan guruch ustida xom baliq.)",
+    "category": "Minna no Nihongo 12-dars"
+  },
+  {
+    "idx": 633,
+    "front": "てんぷら",
+    "back": "tempura- sabzavot va baliq qovurmasi",
+    "phonetic": "てんぷら - tenpura",
+    "example": "これは わたしが 買った てんぷら です。 (Bu men sotib olgan tempura- sabzavot va baliq qovurmasi.)",
+    "category": "Minna no Nihongo 12-dars"
+  },
+  {
+    "idx": 634,
+    "front": "生け花",
+    "back": "ikebana, gullar aranjirovkasi",
+    "phonetic": "いけばな - ikebana",
+    "example": "これは わたしが 買った 生け花 です。 (Bu men sotib olgan ikebana, gullar aranjirovkasi.)",
+    "category": "Minna no Nihongo 12-dars"
+  },
+  {
+    "idx": 635,
+    "front": "紅葉",
+    "back": "xazon, qizil barg",
+    "phonetic": "もみじ - momiji",
+    "example": "これは わたしが 買った 紅葉 です。 (Bu men sotib olgan xazon, qizil barg.)",
+    "category": "Minna no Nihongo 12-dars"
+  },
+  {
+    "idx": 636,
+    "front": "どちら",
+    "back": "qaysi biri, qay biri",
+    "phonetic": "どちら - dochira",
+    "example": "これは わたしが 買った どちら です。 (Bu men sotib olgan qaysi biri, qay biri.)",
+    "category": "Minna no Nihongo 12-dars"
+  },
+  {
+    "idx": 637,
+    "front": "どちらも",
+    "back": "ikkalasi ham",
+    "phonetic": "どちらも - dochiramo",
+    "example": "これは わたしが 買った どちらも です。 (Bu men sotib olgan ikkalasi ham.)",
+    "category": "Minna no Nihongo 12-dars"
+  },
+  {
+    "idx": 638,
+    "front": "ずっと",
+    "back": "ancha; ancha vaqt oldin; ancha vaqt",
+    "phonetic": "ずっと - zuto",
+    "example": "これは わたしが 買った ずっと です。 (Bu men sotib olgan ancha; ancha vaqt oldin; ancha vaqt.)",
+    "category": "Minna no Nihongo 12-dars"
+  },
+  {
+    "idx": 639,
+    "front": "初めて",
+    "back": "birinchi bor, ilk bor",
+    "phonetic": "はじめて - hajimete",
+    "example": "これは わたしが 買った 初めて です。 (Bu men sotib olgan birinchi bor, ilk bor.)",
+    "category": "Minna no Nihongo 12-dars"
+  },
+  {
+    "idx": 640,
+    "front": "ただいま。",
+    "back": "Men keldim (uyiga qaytib kelganda)",
+    "phonetic": "ただいま。 - tadaima",
+    "example": "これは わたしが 買った ただいま。 です。 (Bu men sotib olgan men keldim (uyiga qaytib kelganda).)",
+    "category": "Minna no Nihongo 12-dars"
+  },
+  {
+    "idx": 641,
+    "front": "お帰かえりなさい。",
+    "back": "Yaxshi keldingizmi?",
+    "phonetic": "お帰かえりなさい。 - okaerinasai",
+    "example": "これは わたしが 買った お帰りなさい。 です。 (Bu men sotib olgan yaxshi keldingizmi?.)",
+    "category": "Minna no Nihongo 12-dars"
+  },
+  {
+    "idx": 642,
+    "front": "すごいですね。",
+    "back": "Qoyil.",
+    "phonetic": "すごいですね。 - sugoidesune",
+    "example": "これは わたしが 買った すごいですね。 です。 (Bu men sotib olgan qoyil..)",
+    "category": "Minna no Nihongo 12-dars"
+  },
+  {
+    "idx": 643,
+    "front": "でも",
+    "back": "lekin, biroq, ammo",
+    "phonetic": "でも - demo",
+    "example": "これは わたしが 買った でも です。 (Bu men sotib olgan lekin, biroq, ammo.)",
+    "category": "Minna no Nihongo 12-dars"
+  },
+  {
+    "idx": 644,
+    "front": "疲つかれました。",
+    "back": "Charchadim. Gion bayrami",
+    "phonetic": "疲つかれました。 - tsukaremashita",
+    "example": "これは わたしが 買った 疲れました。 です。 (Bu men sotib olgan charchadim. gion bayrami.)",
+    "category": "Minna no Nihongo 12-dars"
+  },
+  {
+    "idx": 645,
+    "front": "祇園祭",
+    "back": "(Kiotodagi eng katta bayram)",
+    "phonetic": "ぎおんまつり - gionmatsuri",
+    "example": "これは わたしが 買った 祗園祭 です。 (Bu men sotib olgan (kiotodagi eng katta bayram).)",
+    "category": "Minna no Nihongo 12-dars"
+  },
+  {
+    "idx": 646,
+    "front": "ホンコン",
+    "back": "Gonkong",
+    "phonetic": "ホンコン - honkon",
+    "example": "これは わたしが 買った ホンコン です。 (Bu men sotib olgan gonkong.)",
+    "category": "Minna no Nihongo 12-dars"
+  },
+  {
+    "idx": 647,
+    "front": "シンガポール",
+    "back": "Singapur",
+    "phonetic": "シンガポール - shingapo-ru",
+    "example": "これは わたしが 買った シンガポール です。 (Bu men sotib olgan singapur.)",
+    "category": "Minna no Nihongo 12-dars"
+  },
+  {
+    "idx": 648,
+    "front": "毎日屋",
+    "back": "supermarket nomi (o'ylab topilgan)",
+    "phonetic": "まいにちや - mainichiya",
+    "example": "これは わたしが 買った 毎日屋 です。 (Bu men sotib olgan supermarket nomi (o'ylab topilgan).)",
+    "category": "Minna no Nihongo 12-dars"
+  },
+  {
+    "idx": 649,
+    "front": "ストア",
+    "back": "supermarket nomi (o'ylab topilgan)",
+    "phonetic": "ABCストア - sutoa",
+    "example": "これは わたしが 買った ABCストア です。 (Bu men sotib olgan supermarket nomi (o'ylab topilgan).)",
+    "category": "Minna no Nihongo 12-dars"
+  },
+  {
+    "idx": 650,
+    "front": "ジャパン",
+    "back": "supermarket nomi",
+    "phonetic": "ジャパン - jipan",
+    "example": "これは わたしが 買った ジャパン です。 (Bu men sotib olgan supermarket nomi.)",
+    "category": "Minna no Nihongo 12-dars"
+  },
+  {
+    "idx": 656,
+    "front": "手紙を～",
+    "back": "xat jo'natmoq",
+    "phonetic": "てがみを～ - tegamio",
+    "example": "山田は 親切な 人です。 (Yamada xat jo'natmoq samimiy inson.)",
+    "category": "Minna no Nihongo 13-dars"
+  },
+  {
+    "idx": 658,
+    "front": "喫茶店に～",
+    "back": "(qahvaxonaga kirmoq)",
+    "phonetic": "きっさてんに～ - kisatenni",
+    "example": "山田は 親切な 人です。 (Yamada (qahvaxonaga kirmoq) samimiy inson.)",
+    "category": "Minna no Nihongo 13-dars"
+  },
+  {
+    "idx": 660,
+    "front": "喫茶店を～",
+    "back": "(qahvaxonadan chiqmoq)",
+    "phonetic": "きっさてんを～ - kisateno",
+    "example": "山田は 親切な 人です。 (Yamada (qahvaxonadan chiqmoq) samimiy inson.)",
+    "category": "Minna no Nihongo 13-dars"
+  },
+  {
+    "idx": 665,
+    "front": "公園を～",
+    "back": "(xiyobonda sayr qilmoq)",
+    "phonetic": "こうえんを～ - koueno",
+    "example": "山田は 親切な 人です。 (Yamada (xiyobonda sayr qilmoq) samimiy inson.)",
+    "category": "Minna no Nihongo 13-dars"
+  },
+  {
+    "idx": 666,
+    "front": "大変な",
+    "back": "qiyin, og'ir",
+    "phonetic": "たいへんな - taihenna",
+    "example": "これは わたしが 買った 大変] です。 (Bu men sotib olgan qiyin, og'ir.)",
+    "category": "Minna no Nihongo 13-dars"
+  },
+  {
+    "idx": 672,
+    "front": "プール",
+    "back": "basseyn, hovuz",
+    "phonetic": "プール - pu-ru",
+    "example": "これは わたしが 買った プール です。 (Bu men sotib olgan basseyn, hovuz.)",
+    "category": "Minna no Nihongo 13-dars"
+  },
+  {
+    "idx": 673,
+    "front": "川",
+    "back": "daryo",
+    "phonetic": "かわ - kawa",
+    "example": "これは わたしが 買った 川 です。 (Bu men sotib olgan daryo.)",
+    "category": "Minna no Nihongo 13-dars"
+  },
+  {
+    "idx": 675,
+    "front": "美術",
+    "back": "san'at",
+    "phonetic": "びじゅつ - bijutsu",
+    "example": "これは わたしが 買った 美術 です。 (Bu men sotib olgan san'at.)",
+    "category": "Minna no Nihongo 13-dars"
+  },
+  {
+    "idx": 676,
+    "front": "釣り",
+    "back": "baliq tutish （～をします： baliq tutmoq ）",
+    "phonetic": "つり - tsuri",
+    "example": "これは わたしが 買った 釣り です。 (Bu men sotib olgan baliq tutish （～をします： baliq tutmoq ）.)",
+    "category": "Minna no Nihongo 13-dars"
+  },
+  {
+    "idx": 677,
+    "front": "スキー",
+    "back": "chang'i; chang'i uchish （～をします： chang'i uchmoq ）",
+    "phonetic": "スキー - suki-",
+    "example": "これは わたしが 買った スキー です。 (Bu men sotib olgan chang'i; chang'i uchish （～をします： chang'i uchmoq ）.)",
+    "category": "Minna no Nihongo 13-dars"
+  },
+  {
+    "idx": 678,
+    "front": "会議",
+    "back": "majlis, yig'in ( ～をします： majlis qilmoq)",
+    "phonetic": "かいぎ - kaigi",
+    "example": "これは わたしが 買った 会議 です。 (Bu men sotib olgan majlis, yig'in ( ～をします： majlis qilmoq).)",
+    "category": "Minna no Nihongo 13-dars"
+  },
+  {
+    "idx": 679,
+    "front": "登録",
+    "back": "ro'yxatga olish （～をします： ro'yxatga olmoq ）",
+    "phonetic": "とうろく - touroku",
+    "example": "これは わたしが 買った 登録 です。 (Bu men sotib olgan ro'yxatga olish （～をします： ro'yxatga olmoq ）.)",
+    "category": "Minna no Nihongo 13-dars"
+  },
+  {
+    "idx": 680,
+    "front": "週末",
+    "back": "hafta oxiri, dam olish kuni",
+    "phonetic": "しゅうまつ - shuumatsu",
+    "example": "これは わたしが 買った 週末 です。 (Bu men sotib olgan hafta oxiri, dam olish kuni.)",
+    "category": "Minna no Nihongo 13-dars"
+  },
+  {
+    "idx": 681,
+    "front": "～ごろ",
+    "back": "~larda (vaqt bilan qo'llaniladi.)",
+    "phonetic": "～ごろ - goro",
+    "example": "山田ごろは 親切な 人です。 (Yamada ~larda (vaqt bilan qo'llaniladi.) samimiy inson.)",
+    "category": "Minna no Nihongo 13-dars"
+  },
+  {
+    "idx": 682,
+    "front": "何か",
+    "back": "nimadir, biror narsa",
+    "phonetic": "なにか - nanika",
+    "example": "これは わたしが 買った 何か です。 (Bu men sotib olgan nimadir, biror narsa.)",
+    "category": "Minna no Nihongo 13-dars"
+  },
+  {
+    "idx": 683,
+    "front": "どこか",
+    "back": "qayerdir, biror joy",
+    "phonetic": "どこか - dokoka",
+    "example": "これは わたしが 買った どこか です。 (Bu men sotib olgan qayerdir, biror joy.)",
+    "category": "Minna no Nihongo 13-dars"
+  },
+  {
+    "idx": 684,
+    "front": "おなかがすきました。",
+    "back": "Qorin ochdi.",
+    "phonetic": "おなかがすきました。 - onakagasukimashita",
+    "example": "これは わたしが 買った おなかがすきました。 です。 (Bu men sotib olgan qorin ochdi..)",
+    "category": "Minna no Nihongo 13-dars"
+  },
+  {
+    "idx": 685,
+    "front": "おなかがいっぱいです。",
+    "back": "Qorin to'ydi. Qorin to'q.",
+    "phonetic": "おなかがいっぱいです。 - onakagaipaidesu",
+    "example": "これは わたしが 買った おなかがいっぱいです。 です。 (Bu men sotib olgan qorin to'ydi. qorin to'q..)",
+    "category": "Minna no Nihongo 13-dars"
+  },
+  {
+    "idx": 686,
+    "front": "のどがかわきました。",
+    "back": "Chanqadim.",
+    "phonetic": "のどがかわきました。 - nodogakawakimashita",
+    "example": "これは わたしが 買った のどがかわきました。 です。 (Bu men sotib olgan chanqadim..)",
+    "category": "Minna no Nihongo 13-dars"
+  },
+  {
+    "idx": 687,
+    "front": "そうですね。",
+    "back": "Nimasini aytsam sizga… .; Rost aytasiz. Ha-ya",
+    "phonetic": "そうですね。 - soudesune",
+    "example": "これは わたしが 買った そうですね。 です。 (Bu men sotib olgan nimasini aytsam sizga… .; rost aytasiz. ha-ya.)",
+    "category": "Minna no Nihongo 13-dars"
+  },
+  {
+    "idx": 688,
+    "front": "そうしましょう。",
+    "back": "Shunday qilaylik.",
+    "phonetic": "そうしましょう。 - soushimashou",
+    "example": "これは わたしが 買った そうしましょう。 です。 (Bu men sotib olgan shunday qilaylik..)",
+    "category": "Minna no Nihongo 13-dars"
+  },
+  {
+    "idx": 689,
+    "front": "ご注ちゅう文もんは？",
+    "back": "Nimani buyurasiz?",
+    "phonetic": "ご注ちゅう文もんは？ - gochuumonha",
+    "example": "これは わたしが 買った ご注文は？ です。 (Bu men sotib olgan nimani buyurasiz?.)",
+    "category": "Minna no Nihongo 13-dars"
+  },
+  {
+    "idx": 690,
+    "front": "定食",
+    "back": "ovqatlar to'plami",
+    "phonetic": "ていしょく - teishoku",
+    "example": "これは わたしが 買った 定職 です。 (Bu men sotib olgan ovqatlar to'plami.)",
+    "category": "Minna no Nihongo 13-dars"
+  },
+  {
+    "idx": 691,
+    "front": "牛丼",
+    "back": "gyudon- qaynatilgan guruch ustida mol go'shti",
+    "phonetic": "ぎゅうどん - gyuudon",
+    "example": "これは わたしが 買った 牛どん です。 (Bu men sotib olgan gyudon- qaynatilgan guruch ustida mol go'shti.)",
+    "category": "Minna no Nihongo 13-dars"
+  },
+  {
+    "idx": 692,
+    "front": "少々しょうしょうお待まちください。",
+    "back": "Bir oz kutib turing.",
+    "phonetic": "少々しょうしょうお待まちください。 - shoushouomachikudasai",
+    "example": "これは わたしが 買った ]お待ちください。 です。 (Bu men sotib olgan bir oz kutib turing..)",
+    "category": "Minna no Nihongo 13-dars"
+  },
+  {
+    "idx": 693,
+    "front": "別々べつべつに",
+    "back": "alohida",
+    "phonetic": "別々べつべつに - betsubetsuni",
+    "example": "これは わたしが 買った 別々に です。 (Bu men sotib olgan alohida.)",
+    "category": "Minna no Nihongo 13-dars"
+  },
+  {
+    "idx": 694,
+    "front": "ロシア",
+    "back": "Rossiya",
+    "phonetic": "ロシア - roshia",
+    "example": "これは わたしが 買った ロシア です。 (Bu men sotib olgan rossiya.)",
+    "category": "Minna no Nihongo 13-dars"
+  },
+  {
+    "idx": 695,
+    "front": "つるや",
+    "back": "yapon restorani nomi (o'ylab topilgan)",
+    "phonetic": "つるや - tsuruya",
+    "example": "これは わたしが 買った つるや です。 (Bu men sotib olgan yapon restorani nomi (o'ylab topilgan).)",
+    "category": "Minna no Nihongo 13-dars"
+  },
+  {
+    "idx": 696,
+    "front": "おはようテレビ",
+    "back": "teledastur nomi (o'ylab topilgan)",
+    "phonetic": "おはようテレビ - ohayouterebi",
+    "example": "これは わたしが 買った おはようテレビ です。 (Bu men sotib olgan teledastur nomi (o'ylab topilgan).)",
+    "category": "Minna no Nihongo 13-dars"
+  },
+  {
+    "idx": 705,
+    "front": "右へ～",
+    "back": "(o'ngga qayrilmoq)",
+    "phonetic": "みぎへ～ - migihe",
+    "example": "山田は 親切な 人です。 (Yamada (o'ngga qayrilmoq) samimiy inson.)",
+    "category": "Minna no Nihongo 14-dars"
+  },
+  {
+    "idx": 713,
+    "front": "住所を～",
+    "back": "(manzilni aytmoq)",
+    "phonetic": "じゅうしょを～ - juushoo",
+    "example": "山田は 親切な 人です。 (Yamada (manzilni aytmoq) samimiy inson.)",
+    "category": "Minna no Nihongo 14-dars"
+  },
+  {
+    "idx": 716,
+    "front": "雨が～",
+    "back": "(yomg'ir yog'moq)",
+    "phonetic": "あめが～ - amega",
+    "example": "山田は 親切な 人です。 (Yamada (yomg'ir yog'moq) samimiy inson.)",
+    "category": "Minna no Nihongo 14-dars"
+  },
+  {
+    "idx": 718,
+    "front": "エアコン",
+    "back": "havo sovutgich",
+    "phonetic": "エアコン - eakon",
+    "example": "これは わたしが 買った エアコン です。 (Bu men sotib olgan havo sovutgich.)",
+    "category": "Minna no Nihongo 14-dars"
+  },
+  {
+    "idx": 719,
+    "front": "パスポート",
+    "back": "pasport",
+    "phonetic": "パスポート - pasupo-to",
+    "example": "これは わたしが 買った パスポート です。 (Bu men sotib olgan pasport.)",
+    "category": "Minna no Nihongo 14-dars"
+  },
+  {
+    "idx": 720,
+    "front": "名前",
+    "back": "ism, nom",
+    "phonetic": "なまえ - namae",
+    "example": "これは わたしが 買った 名前 です。 (Bu men sotib olgan ism, nom.)",
+    "category": "Minna no Nihongo 14-dars"
+  },
+  {
+    "idx": 722,
+    "front": "地図",
+    "back": "xarita",
+    "phonetic": "ちず - chizu",
+    "example": "これは わたしが 買った 地図 です。 (Bu men sotib olgan xarita.)",
+    "category": "Minna no Nihongo 14-dars"
+  },
+  {
+    "idx": 723,
+    "front": "塩",
+    "back": "tuz",
+    "phonetic": "しお - shio",
+    "example": "これは わたしが 買った 塩 です。 (Bu men sotib olgan tuz.)",
+    "category": "Minna no Nihongo 14-dars"
+  },
+  {
+    "idx": 725,
+    "front": "読み方",
+    "back": "o'qilish (o'qilish uslubi)",
+    "phonetic": "よみかた - yomikata",
+    "example": "これは わたしが 買った 読み方 です。 (Bu men sotib olgan o'qilish (o'qilish uslubi).)",
+    "category": "Minna no Nihongo 14-dars"
+  },
+  {
+    "idx": 726,
+    "front": "～方",
+    "back": "~ish uslubi, ~ish odobi",
+    "phonetic": "～かた - kata",
+    "example": "山田かたは 親切な 人です。 (Yamada ~ish uslubi, ~ish odobi samimiy inson.)",
+    "category": "Minna no Nihongo 14-dars"
+  },
+  {
+    "idx": 727,
+    "front": "ゆっくり",
+    "back": "sekin, bemalol",
+    "phonetic": "ゆっくり - yukuri",
+    "example": "これは わたしが 買った ゆっくり です。 (Bu men sotib olgan sekin, bemalol.)",
+    "category": "Minna no Nihongo 14-dars"
+  },
+  {
+    "idx": 728,
+    "front": "すぐ",
+    "back": "darhol",
+    "phonetic": "すぐ - sugu",
+    "example": "これは わたしが 買った すぐ です。 (Bu men sotib olgan darhol.)",
+    "category": "Minna no Nihongo 14-dars"
+  },
+  {
+    "idx": 729,
+    "front": "また",
+    "back": "yana",
+    "phonetic": "また - mata",
+    "example": "これは わたしが 買った また です。 (Bu men sotib olgan yana.)",
+    "category": "Minna no Nihongo 14-dars"
+  },
+  {
+    "idx": 730,
+    "front": "あとで",
+    "back": "keyin",
+    "phonetic": "あとで - atode",
+    "example": "これは わたしが 買った あとで です。 (Bu men sotib olgan keyin.)",
+    "category": "Minna no Nihongo 14-dars"
+  },
+  {
+    "idx": 731,
+    "front": "もう少し",
+    "back": "yana ozgina",
+    "phonetic": "もうすこし - mousukoshi",
+    "example": "これは わたしが 買った もう少し です。 (Bu men sotib olgan yana ozgina.)",
+    "category": "Minna no Nihongo 14-dars"
+  },
+  {
+    "idx": 733,
+    "front": "いいですよ。",
+    "back": "Mayli.",
+    "phonetic": "いいですよ。 - iidesuyo",
+    "example": "これは わたしが 買った いいですよ。 です。 (Bu men sotib olgan mayli..)",
+    "category": "Minna no Nihongo 14-dars"
+  },
+  {
+    "idx": 734,
+    "front": "さあ",
+    "back": "demak, xo'sh",
+    "phonetic": "さあ - saa",
+    "example": "これは わたしが 買った さあ です。 (Bu men sotib olgan demak, xo'sh.)",
+    "category": "Minna no Nihongo 14-dars"
+  },
+  {
+    "idx": 735,
+    "front": "あれ？",
+    "back": "Voy! (hayron bo'lish iborasi)",
+    "phonetic": "あれ？ - are",
+    "example": "これは わたしが 買った あれ？ です。 (Bu men sotib olgan voy! (hayron bo'lish iborasi).)",
+    "category": "Minna no Nihongo 14-dars"
+  },
+  {
+    "idx": 736,
+    "front": "信号しんごうを右みぎへ曲まがってください。",
+    "back": "Svetofordan o'ngga qayriling.",
+    "phonetic": "信号しんごうを右みぎへ曲まがってください。 - shingouomigihemagatekudasai",
+    "example": "これは わたしが 買った 信号を右へ曲がってください。 です。 (Bu men sotib olgan svetofordan o'ngga qayriling..)",
+    "category": "Minna no Nihongo 14-dars"
+  },
+  {
+    "idx": 737,
+    "front": "まっすぐ",
+    "back": "to'g'ri",
+    "phonetic": "まっすぐ - masugu",
+    "example": "これは わたしが 買った まっすぐ です。 (Bu men sotib olgan to'g'ri.)",
+    "category": "Minna no Nihongo 14-dars"
+  },
+  {
+    "idx": 739,
+    "front": "お釣つり",
+    "back": "qaytim",
+    "phonetic": "お釣つり - otsuri",
+    "example": "これは わたしが 買った お釣り です。 (Bu men sotib olgan qaytim.)",
+    "category": "Minna no Nihongo 14-dars"
+  },
+  {
+    "idx": 740,
+    "front": "梅田",
+    "back": "Osakadagi tuman nomi",
+    "phonetic": "うめだ - umeda",
+    "example": "これは わたしが 買った 梅田 です。 (Bu men sotib olgan osakadagi tuman nomi.)",
+    "category": "Minna no Nihongo 14-dars"
+  },
+  {
+    "idx": 752,
+    "front": "大阪に～",
+    "back": "(Osakada yashayap(~man, ~san,~ti))",
+    "phonetic": "おおさかに～ - oosakani",
+    "example": "山田は 親切な 人です。 (Yamada (osakada yashayap(~man, ~san,~ti)) samimiy inson.)",
+    "category": "Minna no Nihongo 15-dars"
+  },
+  {
+    "idx": 754,
+    "front": "カタログ",
+    "back": "katalog",
+    "phonetic": "カタログ - katarogu",
+    "example": "これは わたしが 買った カタログ です。 (Bu men sotib olgan katalog.)",
+    "category": "Minna no Nihongo 15-dars"
+  },
+  {
+    "idx": 756,
+    "front": "服",
+    "back": "kiyim",
+    "phonetic": "ふく - fuku",
+    "example": "これは わたしが 買った 服 です。 (Bu men sotib olgan kiyim.)",
+    "category": "Minna no Nihongo 15-dars"
+  },
+  {
+    "idx": 757,
+    "front": "製品",
+    "back": "mahsulot",
+    "phonetic": "せいひん - seihin",
+    "example": "これは わたしが 買った 製品 です。 (Bu men sotib olgan mahsulot.)",
+    "category": "Minna no Nihongo 15-dars"
+  },
+  {
+    "idx": 758,
+    "front": "ソフト",
+    "back": "dastur ta'minoti (kompyuter)",
+    "phonetic": "ソフト - sofuto",
+    "example": "これは わたしが 買った ソフト です。 (Bu men sotib olgan dastur ta'minoti (kompyuter).)",
+    "category": "Minna no Nihongo 15-dars"
+  },
+  {
+    "idx": 759,
+    "front": "専門",
+    "back": "mutaxassislik, yo'nalish",
+    "phonetic": "せんもん - senmon",
+    "example": "これは わたしが 買った 専門 です。 (Bu men sotib olgan mutaxassislik, yo'nalish.)",
+    "category": "Minna no Nihongo 15-dars"
+  },
+  {
+    "idx": 762,
+    "front": "プレイガイド",
+    "back": "teatr kassasi",
+    "phonetic": "プレイガイド - pureigaido",
+    "example": "これは わたしが 買った プレイガイド です。 (Bu men sotib olgan teatr kassasi.)",
+    "category": "Minna no Nihongo 15-dars"
+  },
+  {
+    "idx": 763,
+    "front": "独身",
+    "back": "bo'ydoq",
+    "phonetic": "どくしん - dokushin",
+    "example": "これは わたしが 買った 独身 です。 (Bu men sotib olgan bo'ydoq.)",
+    "category": "Minna no Nihongo 15-dars"
+  },
+  {
+    "idx": 764,
+    "front": "特とくに",
+    "back": "ayniqsa",
+    "phonetic": "特とくに - tokuni",
+    "example": "これは わたしが 買った 特に です。 (Bu men sotib olgan ayniqsa.)",
+    "category": "Minna no Nihongo 15-dars"
+  },
+  {
+    "idx": 766,
+    "front": "ご家か族ぞく",
+    "back": "oilangiz, oilasi",
+    "phonetic": "ご家か族ぞく - gokazoku",
+    "example": "これは わたしが 買った ご家族 です。 (Bu men sotib olgan oilangiz, oilasi.)",
+    "category": "Minna no Nihongo 15-dars"
+  },
+  {
+    "idx": 768,
+    "front": "高校",
+    "back": "yuqori maktab",
+    "phonetic": "こうこう - koukou",
+    "example": "これは わたしが 買った 高校 です。 (Bu men sotib olgan yuqori maktab.)",
+    "category": "Minna no Nihongo 15-dars"
+  },
+  {
+    "idx": 769,
+    "front": "日本橋",
+    "back": "Osakadagi savdo hududi nomi",
+    "phonetic": "にっぽんばし - nipponbashi",
+    "example": "これは わたしが 買った 日本橋 です。 (Bu men sotib olgan osakadagi savdo hududi nomi.)",
+    "category": "Minna no Nihongo 15-dars"
+  },
+  {
+    "idx": 771,
+    "front": "電車に～",
+    "back": "(poyezdga chiqmoq)",
+    "phonetic": "でんしゃに～ - denshani",
+    "example": "山田は 親切な 人です。 (Yamada (poyezdga chiqmoq) samimiy inson.)",
+    "category": "Minna no Nihongo 16-dars"
+  },
+  {
+    "idx": 773,
+    "front": "電車を～",
+    "back": "(poyezddan tushmoq)",
+    "phonetic": "でんしゃを～ - denshao",
+    "example": "山田は 親切な 人です。 (Yamada (poyezddan tushmoq) samimiy inson.)",
+    "category": "Minna no Nihongo 16-dars"
+  },
+  {
+    "idx": 776,
+    "front": "シャワーを～",
+    "back": "(dush qabul qilmoq)",
+    "phonetic": "シャワーを～ - shawa-o",
+    "example": "山田は 親切な 人です。 (Yamada (dush qabul qilmoq) samimiy inson.)",
+    "category": "Minna no Nihongo 16-dars"
+  },
+  {
+    "idx": 780,
+    "front": "大学に～",
+    "back": "(universitetga kirmoq)",
+    "phonetic": "だいがくに～ - daigakuni",
+    "example": "山田は 親切な 人です。 (Yamada (universitetga kirmoq) samimiy inson.)",
+    "category": "Minna no Nihongo 16-dars"
+  },
+  {
+    "idx": 782,
+    "front": "大学を～",
+    "back": "(universitetni bitirmoq)",
+    "phonetic": "だいがくを～ - daigakuo",
+    "example": "山田は 親切な 人です。 (Yamada (universitetni bitirmoq) samimiy inson.)",
+    "category": "Minna no Nihongo 16-dars"
+  },
+  {
+    "idx": 784,
+    "front": "会社を～",
+    "back": "(korxonadan ketmoq)",
+    "phonetic": "かいしゃを～ - kaishao",
+    "example": "山田は 親切な 人です。 (Yamada (korxonadan ketmoq) samimiy inson.)",
+    "category": "Minna no Nihongo 16-dars"
+  },
+  {
+    "idx": 793,
+    "front": "体",
+    "back": "tana, jussa",
+    "phonetic": "からだ - karada",
+    "example": "これは わたしが 買った 体 です。 (Bu men sotib olgan tana, jussa.)",
+    "category": "Minna no Nihongo 16-dars"
+  },
+  {
+    "idx": 794,
+    "front": "頭",
+    "back": "bosh",
+    "phonetic": "あたま - atama",
+    "example": "これは わたしが 買った 頭 です。 (Bu men sotib olgan bosh.)",
+    "category": "Minna no Nihongo 16-dars"
+  },
+  {
+    "idx": 795,
+    "front": "髪",
+    "back": "soch",
+    "phonetic": "かみ - kami",
+    "example": "これは わたしが 買った 髪 です。 (Bu men sotib olgan soch.)",
+    "category": "Minna no Nihongo 16-dars"
+  },
+  {
+    "idx": 796,
+    "front": "顔",
+    "back": "yuz",
+    "phonetic": "かお - kao",
+    "example": "これは わたしが 買った 顔 です。 (Bu men sotib olgan yuz.)",
+    "category": "Minna no Nihongo 16-dars"
+  },
+  {
+    "idx": 797,
+    "front": "目",
+    "back": "ko'z",
+    "phonetic": "め - me",
+    "example": "これは わたしが 買った 目 です。 (Bu men sotib olgan ko'z.)",
+    "category": "Minna no Nihongo 16-dars"
+  },
+  {
+    "idx": 798,
+    "front": "耳",
+    "back": "quloq",
+    "phonetic": "みみ - mimi",
+    "example": "これは わたしが 買った 耳 です。 (Bu men sotib olgan quloq.)",
+    "category": "Minna no Nihongo 16-dars"
+  },
+  {
+    "idx": 799,
+    "front": "口",
+    "back": "og'iz",
+    "phonetic": "くち - kuchi",
+    "example": "これは わたしが 買った 口 です。 (Bu men sotib olgan og'iz.)",
+    "category": "Minna no Nihongo 16-dars"
+  },
+  {
+    "idx": 800,
+    "front": "歯",
+    "back": "tish",
+    "phonetic": "は - ha",
+    "example": "これは わたしが 買った 歯 です。 (Bu men sotib olgan tish.)",
+    "category": "Minna no Nihongo 16-dars"
+  },
+  {
+    "idx": 801,
+    "front": "おなか",
+    "back": "qorin",
+    "phonetic": "おなか - onaka",
+    "example": "これは わたしが 買った おなか です。 (Bu men sotib olgan qorin.)",
+    "category": "Minna no Nihongo 16-dars"
+  },
+  {
+    "idx": 802,
+    "front": "足",
+    "back": "oyoq",
+    "phonetic": "あし - ashi",
+    "example": "これは わたしが 買った 足 です。 (Bu men sotib olgan oyoq.)",
+    "category": "Minna no Nihongo 16-dars"
+  },
+  {
+    "idx": 803,
+    "front": "サービス",
+    "back": "xizmat korsatish , servis",
+    "phonetic": "サービス - sa-bisu",
+    "example": "これは わたしが 買った サービス です。 (Bu men sotib olgan xizmat korsatish , servis.)",
+    "category": "Minna no Nihongo 16-dars"
+  },
+  {
+    "idx": 804,
+    "front": "ジョギング",
+    "back": "yugurish ( ～を します： yugurmoq)",
+    "phonetic": "ジョギング - jigingu",
+    "example": "これは わたしが 買った ジョギング です。 (Bu men sotib olgan yugurish ( ～を します： yugurmoq).)",
+    "category": "Minna no Nihongo 16-dars"
+  },
+  {
+    "idx": 805,
+    "front": "シャワー",
+    "back": "dush",
+    "phonetic": "シャワー - shawa-",
+    "example": "これは わたしが 買った シャワー です。 (Bu men sotib olgan dush.)",
+    "category": "Minna no Nihongo 16-dars"
+  },
+  {
+    "idx": 806,
+    "front": "緑",
+    "back": "yashil; yashilliklar",
+    "phonetic": "みどり - midori",
+    "example": "これは わたしが 買った 緑 です。 (Bu men sotib olgan yashil; yashilliklar.)",
+    "category": "Minna no Nihongo 16-dars"
+  },
+  {
+    "idx": 807,
+    "front": "お寺",
+    "back": "budda ibodatxonasi",
+    "phonetic": "おてら - otera",
+    "example": "これは わたしが 買った 寺てら] です。 (Bu men sotib olgan budda ibodatxonasi.)",
+    "category": "Minna no Nihongo 16-dars"
+  },
+  {
+    "idx": 808,
+    "front": "神社",
+    "back": "jinjya",
+    "phonetic": "じんじゃ - jinja",
+    "example": "これは わたしが 買った 神社 です。 (Bu men sotib olgan jinjya.)",
+    "category": "Minna no Nihongo 16-dars"
+  },
+  {
+    "idx": 810,
+    "front": "～番",
+    "back": "~ raqam",
+    "phonetic": "～ばん - ban",
+    "example": "山田ばんは 親切な 人です。 (Yamada ~ raqam samimiy inson.)",
+    "category": "Minna no Nihongo 16-dars"
+  },
+  {
+    "idx": 811,
+    "front": "どうやって",
+    "back": "qanday qilib",
+    "phonetic": "どうやって - douyate",
+    "example": "これは わたしが 買った どうやって です。 (Bu men sotib olgan qanday qilib.)",
+    "category": "Minna no Nihongo 16-dars"
+  },
+  {
+    "idx": 812,
+    "front": "どの～",
+    "back": "qaysi~",
+    "phonetic": "どの～ - dono",
+    "example": "山田どのは 親切な 人です。 (Yamada qaysi~ samimiy inson.)",
+    "category": "Minna no Nihongo 16-dars"
+  },
+  {
+    "idx": 813,
+    "front": "いいえ、まだまだです。",
+    "back": "Halicha yo'q. / Hali ~ bo'lgani",
+    "phonetic": "いいえ、まだまだです。 - iiemadamadadesu",
+    "example": "これは わたしが 買った まだまだです。 です。 (Bu men sotib olgan halicha yo'q. / hali ~ bo'lgani.)",
+    "category": "Minna no Nihongo 16-dars"
+  },
+  {
+    "idx": 814,
+    "front": "お引ひき出だしですか。",
+    "back": "Hisob raqamingizdan pul olmoqchimisiz?",
+    "phonetic": "お引ひき出だしですか。 - ohikidashidesuka",
+    "example": "これは わたしが 買った お引き出しですか。 です。 (Bu men sotib olgan hisob raqamingizdan pul olmoqchimisiz?.)",
+    "category": "Minna no Nihongo 16-dars"
+  },
+  {
+    "idx": 815,
+    "front": "まず",
+    "back": "oldin, avvalambor",
+    "phonetic": "まず - mazu",
+    "example": "これは わたしが 買った まず です。 (Bu men sotib olgan oldin, avvalambor.)",
+    "category": "Minna no Nihongo 16-dars"
+  },
+  {
+    "idx": 816,
+    "front": "キャッシュカード",
+    "back": "bank kartasi",
+    "phonetic": "キャッシュカード - kyashuka-do",
+    "example": "これは わたしが 買った キャッシュカード です。 (Bu men sotib olgan bank kartasi.)",
+    "category": "Minna no Nihongo 16-dars"
+  },
+  {
+    "idx": 817,
+    "front": "暗証番号",
+    "back": "shaxsiy maxfiy kod",
+    "phonetic": "あんしょうばんごう - anshoubangou",
+    "example": "これは わたしが 買った 暗証番号 です。 (Bu men sotib olgan shaxsiy maxfiy kod.)",
+    "category": "Minna no Nihongo 16-dars"
+  },
+  {
+    "idx": 818,
+    "front": "次つぎに",
+    "back": "so'ng, keyin",
+    "phonetic": "次つぎに - tsugini",
+    "example": "これは わたしが 買った 次に です。 (Bu men sotib olgan so'ng, keyin.)",
+    "category": "Minna no Nihongo 16-dars"
+  },
+  {
+    "idx": 819,
+    "front": "金額",
+    "back": "pul summasi",
+    "phonetic": "きんがく - kingaku",
+    "example": "これは わたしが 買った 金額 です。 (Bu men sotib olgan pul summasi.)",
+    "category": "Minna no Nihongo 16-dars"
+  },
+  {
+    "idx": 820,
+    "front": "確認",
+    "back": "tasdiq ( ～します tasdiqlamoq)",
+    "phonetic": "かくにん - kakunin",
+    "example": "これは わたしが 買った 確認 です。 (Bu men sotib olgan tasdiq ( ～します tasdiqlamoq).)",
+    "category": "Minna no Nihongo 16-dars"
+  },
+  {
+    "idx": 821,
+    "front": "ボタン",
+    "back": "tugmacha",
+    "phonetic": "ボタン - botan",
+    "example": "これは わたしが 買った ボタン です。 (Bu men sotib olgan tugmacha.)",
+    "category": "Minna no Nihongo 16-dars"
+  },
+  {
+    "idx": 822,
+    "front": "ＪＲ",
+    "back": "Yaponiya Temir yo'llari kompaniyasi",
+    "phonetic": "ＪＲ - ",
+    "example": "これは わたしが 買った ＪＲ です。 (Bu men sotib olgan yaponiya temir yo'llari kompaniyasi.)",
+    "category": "Minna no Nihongo 16-dars"
+  },
+  {
+    "idx": 823,
+    "front": "アジア",
+    "back": "Osiyo",
+    "phonetic": "アジア - ajia",
+    "example": "これは わたしが 買った アジア です。 (Bu men sotib olgan osiyo.)",
+    "category": "Minna no Nihongo 16-dars"
+  },
+  {
+    "idx": 824,
+    "front": "バンドン",
+    "back": "Bandung (Indoneziyadagi shahar)",
+    "phonetic": "バンドン - bandon",
+    "example": "これは わたしが 買った バンドン です。 (Bu men sotib olgan bandung (indoneziyadagi shahar).)",
+    "category": "Minna no Nihongo 16-dars"
+  },
+  {
+    "idx": 825,
+    "front": "ベラクルス",
+    "back": "Verakruz (Meksikadagi shahar)",
+    "phonetic": "ベラクルス - berakurusu",
+    "example": "これは わたしが 買った ベラクルス です。 (Bu men sotib olgan verakruz (meksikadagi shahar).)",
+    "category": "Minna no Nihongo 16-dars"
+  },
+  {
+    "idx": 826,
+    "front": "フランケン",
+    "back": "Franken (Olmoniyadagi shahar)",
+    "phonetic": "フランケン - furanken",
+    "example": "これは わたしが 買った フランケン です。 (Bu men sotib olgan franken (olmoniyadagi shahar).)",
+    "category": "Minna no Nihongo 16-dars"
+  },
+  {
+    "idx": 827,
+    "front": "ベトナム",
+    "back": "Vetnam",
+    "phonetic": "ベトナム - betonamu",
+    "example": "これは わたしが 買った ベトナム です。 (Bu men sotib olgan vetnam.)",
+    "category": "Minna no Nihongo 16-dars"
+  },
+  {
+    "idx": 828,
+    "front": "フエ",
+    "back": "Xve (Vetnamdagi shahar)",
+    "phonetic": "フエ - fue",
+    "example": "これは わたしが 買った フエ です。 (Bu men sotib olgan xve (vetnamdagi shahar).)",
+    "category": "Minna no Nihongo 16-dars"
+  },
+  {
+    "idx": 829,
+    "front": "大学前",
+    "back": "“Daigakumae”",
+    "phonetic": "だいがくまえ - daigakumae",
+    "example": "これは わたしが 買った 大学前 です。 (Bu men sotib olgan “daigakumae”.)",
+    "category": "Minna no Nihongo 16-dars"
+  },
+  {
+    "idx": 834,
+    "front": "レポートを～",
+    "back": "(hisobot topshirmoq)",
+    "phonetic": "レポートを～ - repo-too",
+    "example": "山田は 親切な 人です。 (Yamada (hisobot topshirmoq) samimiy inson.)",
+    "category": "Minna no Nihongo 17-dars"
+  },
+  {
+    "idx": 845,
+    "front": "薬を～",
+    "back": "(dori ichmoq)",
+    "phonetic": "くすりを～ - kusurio",
+    "example": "山田は 親切な 人です。 (Yamada (dori ichmoq) samimiy inson.)",
+    "category": "Minna no Nihongo 17-dars"
+  },
+  {
+    "idx": 847,
+    "front": "お風呂に～",
+    "back": "(hammomga kirmoq)",
+    "phonetic": "おふろに～ - ofuroni",
+    "example": "山田は 親切な 人です。 (Yamada (hammomga kirmoq) samimiy inson.)",
+    "category": "Minna no Nihongo 17-dars"
+  },
+  {
+    "idx": 848,
+    "front": "大切な",
+    "back": "muhim",
+    "phonetic": "たいせつな - taisetsuna",
+    "example": "これは わたしが 買った 大切] です。 (Bu men sotib olgan muhim.)",
+    "category": "Minna no Nihongo 17-dars"
+  },
+  {
+    "idx": 849,
+    "front": "大丈夫な",
+    "back": "hammasi joyida, xavotirga o'rin yo'q",
+    "phonetic": "だいじょうぶな - daijoubuna",
+    "example": "これは わたしが 買った 大丈夫] です。 (Bu men sotib olgan hammasi joyida, xavotirga o'rin yo'q.)",
+    "category": "Minna no Nihongo 17-dars"
+  },
+  {
+    "idx": 852,
+    "front": "答え",
+    "back": "javob",
+    "phonetic": "こたえ - kotae",
+    "example": "これは わたしが 買った 答え です。 (Bu men sotib olgan javob.)",
+    "category": "Minna no Nihongo 17-dars"
+  },
+  {
+    "idx": 853,
+    "front": "禁煙",
+    "back": "chekish taqiqlanadi",
+    "phonetic": "きんえん - kinen",
+    "example": "これは わたしが 買った 禁煙 です。 (Bu men sotib olgan chekish taqiqlanadi.)",
+    "category": "Minna no Nihongo 17-dars"
+  },
+  {
+    "idx": 855,
+    "front": "風邪",
+    "back": "shamollash",
+    "phonetic": "かぜ - kaze",
+    "example": "これは わたしが 買った 風邪 です。 (Bu men sotib olgan shamollash.)",
+    "category": "Minna no Nihongo 17-dars"
+  },
+  {
+    "idx": 856,
+    "front": "熱",
+    "back": "isitma",
+    "phonetic": "ねつ - netsu",
+    "example": "これは わたしが 買った 熱 です。 (Bu men sotib olgan isitma.)",
+    "category": "Minna no Nihongo 17-dars"
+  },
+  {
+    "idx": 857,
+    "front": "病気",
+    "back": "kasal, betob; kasallik",
+    "phonetic": "びょうき - byouki",
+    "example": "これは わたしが 買った 病気 です。 (Bu men sotib olgan kasal, betob; kasallik.)",
+    "category": "Minna no Nihongo 17-dars"
+  },
+  {
+    "idx": 858,
+    "front": "薬",
+    "back": "dori",
+    "phonetic": "くすり - kusuri",
+    "example": "これは わたしが 買った 薬 です。 (Bu men sotib olgan dori.)",
+    "category": "Minna no Nihongo 17-dars"
+  },
+  {
+    "idx": 859,
+    "front": "お風呂",
+    "back": "hammom",
+    "phonetic": "おふろ - ofuro",
+    "example": "これは わたしが 買った 風呂ふろ] です。 (Bu men sotib olgan hammom.)",
+    "category": "Minna no Nihongo 17-dars"
+  },
+  {
+    "idx": 860,
+    "front": "上着",
+    "back": "korjoma, kostyum",
+    "phonetic": "うわぎ - uwagi",
+    "example": "これは わたしが 買った 上着 です。 (Bu men sotib olgan korjoma, kostyum.)",
+    "category": "Minna no Nihongo 17-dars"
+  },
+  {
+    "idx": 861,
+    "front": "下着",
+    "back": "ichki kiyim",
+    "phonetic": "したぎ - shitagi",
+    "example": "これは わたしが 買った 下着 です。 (Bu men sotib olgan ichki kiyim.)",
+    "category": "Minna no Nihongo 17-dars"
+  },
+  {
+    "idx": 863,
+    "front": "２、３日",
+    "back": "ikki-uch kun",
+    "phonetic": "２、３にち - nichi",
+    "example": "これは わたしが 買った ２、３日 です。 (Bu men sotib olgan ikki-uch kun.)",
+    "category": "Minna no Nihongo 17-dars"
+  },
+  {
+    "idx": 864,
+    "front": "２、３～",
+    "back": "ikki-uch (narsa, buyum)",
+    "phonetic": "２、３～ - ",
+    "example": "山田２、３は 親切な 人です。 (Yamada ikki-uch (narsa, buyum) samimiy inson.)",
+    "category": "Minna no Nihongo 17-dars"
+  },
+  {
+    "idx": 865,
+    "front": "～までに",
+    "back": "~gacha",
+    "phonetic": "～までに - madeni",
+    "example": "山田までには 親切な 人です。 (Yamada ~gacha samimiy inson.)",
+    "category": "Minna no Nihongo 17-dars"
+  },
+  {
+    "idx": 866,
+    "front": "ですから",
+    "back": "shu sababli",
+    "phonetic": "ですから - desukara",
+    "example": "これは わたしが 買った ですから です。 (Bu men sotib olgan shu sababli.)",
+    "category": "Minna no Nihongo 17-dars"
+  },
+  {
+    "idx": 867,
+    "front": "どうしましたか。",
+    "back": "Nima bo'ldi.",
+    "phonetic": "どうしましたか。 - doushimashitaka",
+    "example": "これは わたしが 買った どうしましたか。 です。 (Bu men sotib olgan nima bo'ldi..)",
+    "category": "Minna no Nihongo 17-dars"
+  },
+  {
+    "idx": 868,
+    "front": "～が痛いたいです。",
+    "back": "~im og'riyapti",
+    "phonetic": "～が痛いたいです。 - gaitaidesu",
+    "example": "山田痛いです。は 親切な 人です。 (Yamada ~im og'riyapti samimiy inson.)",
+    "category": "Minna no Nihongo 17-dars"
+  },
+  {
+    "idx": 869,
+    "front": "のど",
+    "back": "tomoq",
+    "phonetic": "のど - nodo",
+    "example": "これは わたしが 買った のど です。 (Bu men sotib olgan tomoq.)",
+    "category": "Minna no Nihongo 17-dars"
+  },
+  {
+    "idx": 870,
+    "front": "お大だい事じに。",
+    "back": "Sog'ayib keting.",
+    "phonetic": "お大だい事じに。 - odaijini",
+    "example": "これは わたしが 買った お大事に。 です。 (Bu men sotib olgan sog'ayib keting..)",
+    "category": "Minna no Nihongo 17-dars"
+  },
+  {
+    "idx": 881,
+    "front": "ピアノ",
+    "back": "pianino",
+    "phonetic": "ピアノ - piano",
+    "example": "これは わたしが 買った ピアノ です。 (Bu men sotib olgan pianino.)",
+    "category": "Minna no Nihongo 18-dars"
+  },
+  {
+    "idx": 882,
+    "front": "～メートル",
+    "back": "~ metr",
+    "phonetic": "～メートル - me-toru",
+    "example": "山田メートルは 親切な 人です。 (Yamada ~ metr samimiy inson.)",
+    "category": "Minna no Nihongo 18-dars"
+  },
+  {
+    "idx": 884,
+    "front": "現金",
+    "back": "naqd pul",
+    "phonetic": "げんきん - genkin",
+    "example": "これは わたしが 買った 現金 です。 (Bu men sotib olgan naqd pul.)",
+    "category": "Minna no Nihongo 18-dars"
+  },
+  {
+    "idx": 885,
+    "front": "趣味",
+    "back": "qiziqish",
+    "phonetic": "しゅみ - shumi",
+    "example": "これは わたしが 買った 趣味 です。 (Bu men sotib olgan qiziqish.)",
+    "category": "Minna no Nihongo 18-dars"
+  },
+  {
+    "idx": 886,
+    "front": "日記",
+    "back": "kundalik daftar",
+    "phonetic": "にっき - niki",
+    "example": "これは わたしが 買った 日記 です。 (Bu men sotib olgan kundalik daftar.)",
+    "category": "Minna no Nihongo 18-dars"
+  },
+  {
+    "idx": 887,
+    "front": "［お］祈り",
+    "back": "ibodat ( ～を します ibodat qilmoq)",
+    "phonetic": "［お］いのり - oinori",
+    "example": "これは わたしが 買った ［お］祈り です。 (Bu men sotib olgan ibodat ( ～を します ibodat qilmoq).)",
+    "category": "Minna no Nihongo 18-dars"
+  },
+  {
+    "idx": 891,
+    "front": "動物",
+    "back": "jonivor, hayvon",
+    "phonetic": "どうぶつ - doubutsu",
+    "example": "これは わたしが 買った 動物 です。 (Bu men sotib olgan jonivor, hayvon.)",
+    "category": "Minna no Nihongo 18-dars"
+  },
+  {
+    "idx": 892,
+    "front": "馬",
+    "back": "ot",
+    "phonetic": "うま - uma",
+    "example": "これは わたしが 買った 馬 です。 (Bu men sotib olgan ot.)",
+    "category": "Minna no Nihongo 18-dars"
+  },
+  {
+    "idx": 893,
+    "front": "へえ",
+    "back": "A?!",
+    "phonetic": "へえ - hee",
+    "example": "これは わたしが 買った へえ です。 (Bu men sotib olgan a?!.)",
+    "category": "Minna no Nihongo 18-dars"
+  },
+  {
+    "idx": 894,
+    "front": "それはおもしろいですね。",
+    "back": "Qiziq-a?",
+    "phonetic": "それはおもしろいですね。 - sorehaomoshiroidesune",
+    "example": "これは わたしが 買った それはおもしろいですね。 です。 (Bu men sotib olgan qiziq-a?.)",
+    "category": "Minna no Nihongo 18-dars"
+  },
+  {
+    "idx": 895,
+    "front": "なかなか",
+    "back": "sira, hech (inkor gapda qo'llaniladi)",
+    "phonetic": "なかなか - nakanaka",
+    "example": "これは わたしが 買った なかなか です。 (Bu men sotib olgan sira, hech (inkor gapda qo'llaniladi).)",
+    "category": "Minna no Nihongo 18-dars"
+  },
+  {
+    "idx": 896,
+    "front": "牧場",
+    "back": "ferma",
+    "phonetic": "ぼくじょう - bokujou",
+    "example": "これは わたしが 買った 牧場 です。 (Bu men sotib olgan ferma.)",
+    "category": "Minna no Nihongo 18-dars"
+  },
+  {
+    "idx": 897,
+    "front": "ほんとうですか。",
+    "back": "Rostdanmi?",
+    "phonetic": "ほんとうですか。 - hontoudesuka",
+    "example": "これは わたしが 買った ほんとうですか。 です。 (Bu men sotib olgan rostdanmi?.)",
+    "category": "Minna no Nihongo 18-dars"
+  },
+  {
+    "idx": 898,
+    "front": "ぜひ",
+    "back": "albatta",
+    "phonetic": "ぜひ - zehi",
+    "example": "これは わたしが 買った ぜひ です。 (Bu men sotib olgan albatta.)",
+    "category": "Minna no Nihongo 18-dars"
+  },
+  {
+    "idx": 899,
+    "front": "ビートルズ",
+    "back": "“Bitlz” – mashhur ingliz musiqa guruhi",
+    "phonetic": "ビートルズ - bi-toruzu",
+    "example": "これは わたしが 買った ビートルズ です。 (Bu men sotib olgan “bitlz” – mashhur ingliz musiqa guruhi.)",
+    "category": "Minna no Nihongo 18-dars"
+  },
+  {
+    "idx": 901,
+    "front": "山に～",
+    "back": "(toqqa chiqmoq)",
+    "phonetic": "やまに～ - yamani",
+    "example": "山田は 親切な 人です。 (Yamada (toqqa chiqmoq) samimiy inson.)",
+    "category": "Minna no Nihongo 19-dars"
+  },
+  {
+    "idx": 903,
+    "front": "ホテルに～",
+    "back": "(mehmonxonada tunamoq)",
+    "phonetic": "ホテルに～ - hoteruni",
+    "example": "山田は 親切な 人です。 (Yamada (mehmonxonada tunamoq) samimiy inson.)",
+    "category": "Minna no Nihongo 19-dars"
+  },
+  {
+    "idx": 911,
+    "front": "調子がいい",
+    "back": "o'zini yaxshi his qilmoq; soz",
+    "phonetic": "ちょうしがいい - choushigaii",
+    "example": "これは わたしが 買った 調子がいい です。 (Bu men sotib olgan o'zini yaxshi his qilmoq; soz.)",
+    "category": "Minna no Nihongo 19-dars"
+  },
+  {
+    "idx": 912,
+    "front": "調子が悪い",
+    "back": "o'zini yomon his qilmoq; nosoz",
+    "phonetic": "ちょうしがわるい - choushigawarui",
+    "example": "これは わたしが 買った 調子が悪い です。 (Bu men sotib olgan o'zini yomon his qilmoq; nosoz.)",
+    "category": "Minna no Nihongo 19-dars"
+  },
+  {
+    "idx": 913,
+    "front": "調子",
+    "back": "kayfiyat, holat",
+    "phonetic": "ちょうし - choushi",
+    "example": "これは わたしが 買った 調子 です。 (Bu men sotib olgan kayfiyat, holat.)",
+    "category": "Minna no Nihongo 19-dars"
+  },
+  {
+    "idx": 914,
+    "front": "ゴルフ",
+    "back": "golf ( ～を します : golf o'ynamoq)",
+    "phonetic": "ゴルフ - gorufu",
+    "example": "これは わたしが 買った ゴルフ です。 (Bu men sotib olgan golf ( ～を します : golf o'ynamoq).)",
+    "category": "Minna no Nihongo 19-dars"
+  },
+  {
+    "idx": 916,
+    "front": "パチンコ",
+    "back": "o'yin avtomati, pachinko",
+    "phonetic": "パチンコ - pachinko",
+    "example": "これは わたしが 買った パチンコ です。 (Bu men sotib olgan o'yin avtomati, pachinko.)",
+    "category": "Minna no Nihongo 19-dars"
+  },
+  {
+    "idx": 917,
+    "front": "お茶",
+    "back": "choy",
+    "phonetic": "おちゃ - ocha",
+    "example": "これは わたしが 買った お茶 です。 (Bu men sotib olgan choy.)",
+    "category": "Minna no Nihongo 19-dars"
+  },
+  {
+    "idx": 918,
+    "front": "日",
+    "back": "kun",
+    "phonetic": "ひ - hi",
+    "example": "これは わたしが 買った 日 です。 (Bu men sotib olgan kun.)",
+    "category": "Minna no Nihongo 19-dars"
+  },
+  {
+    "idx": 919,
+    "front": "一度",
+    "back": "bir marta",
+    "phonetic": "いちど - ichido",
+    "example": "これは わたしが 買った 一度 です。 (Bu men sotib olgan bir marta.)",
+    "category": "Minna no Nihongo 19-dars"
+  },
+  {
+    "idx": 920,
+    "front": "一度も",
+    "back": "bir marta ham, hech, sira",
+    "phonetic": "いちども - ichidomo",
+    "example": "これは わたしが 買った 一度も です。 (Bu men sotib olgan bir marta ham, hech, sira.)",
+    "category": "Minna no Nihongo 19-dars"
+  },
+  {
+    "idx": 921,
+    "front": "だんだん",
+    "back": "asta-sekin, tobora",
+    "phonetic": "だんだん - dandan",
+    "example": "これは わたしが 買った だんだん です。 (Bu men sotib olgan asta-sekin, tobora.)",
+    "category": "Minna no Nihongo 19-dars"
+  },
+  {
+    "idx": 922,
+    "front": "もうすぐ",
+    "back": "tez orada",
+    "phonetic": "もうすぐ - mousugu",
+    "example": "これは わたしが 買った もうすぐ です。 (Bu men sotib olgan tez orada.)",
+    "category": "Minna no Nihongo 19-dars"
+  },
+  {
+    "idx": 923,
+    "front": "おかげさまで",
+    "back": "sharofatingiz bilan",
+    "phonetic": "おかげさまで - okagesamade",
+    "example": "これは わたしが 買った おかげさまで です。 (Bu men sotib olgan sharofatingiz bilan.)",
+    "category": "Minna no Nihongo 19-dars"
+  },
+  {
+    "idx": 924,
+    "front": "乾杯",
+    "back": "Qani, oldik (qadah)",
+    "phonetic": "かんぱい - kanpai",
+    "example": "これは わたしが 買った 乾杯 です。 (Bu men sotib olgan qani, oldik (qadah).)",
+    "category": "Minna no Nihongo 19-dars"
+  },
+  {
+    "idx": 925,
+    "front": "実じつは",
+    "back": "ochig'i, rostini aytsam",
+    "phonetic": "実じつは - jitsuha",
+    "example": "これは わたしが 買った 実は です。 (Bu men sotib olgan ochig'i, rostini aytsam.)",
+    "category": "Minna no Nihongo 19-dars"
+  },
+  {
+    "idx": 926,
+    "front": "ダイエット",
+    "back": "parhez ( ～を します : parhez qilmoq)",
+    "phonetic": "ダイエット - daieto",
+    "example": "これは わたしが 買った ダイエット です。 (Bu men sotib olgan parhez ( ～を します : parhez qilmoq).)",
+    "category": "Minna no Nihongo 19-dars"
+  },
+  {
+    "idx": 927,
+    "front": "何回なんかいも",
+    "back": "bir necha marotaba",
+    "phonetic": "何回なんかいも - nankaimo",
+    "example": "これは わたしが 買った 何回も です。 (Bu men sotib olgan bir necha marotaba.)",
+    "category": "Minna no Nihongo 19-dars"
+  },
+  {
+    "idx": 928,
+    "front": "しかし",
+    "back": "lekin",
+    "phonetic": "しかし - shikashi",
+    "example": "これは わたしが 買った しかし です。 (Bu men sotib olgan lekin.)",
+    "category": "Minna no Nihongo 19-dars"
+  },
+  {
+    "idx": 929,
+    "front": "無理むり［な］",
+    "back": "imkoni yo'q (narsa), ilojsiz (narsa)",
+    "phonetic": "無理むり［な］ - murina",
+    "example": "これは わたしが 買った 無理［な］ です。 (Bu men sotib olgan imkoni yo'q (narsa), ilojsiz (narsa).)",
+    "category": "Minna no Nihongo 19-dars"
+  },
+  {
+    "idx": 930,
+    "front": "体からだにいい",
+    "back": "sog'liqqa foyda",
+    "phonetic": "体からだにいい - karadaniii",
+    "example": "これは わたしが 買った 体にいい です。 (Bu men sotib olgan sog'liqqa foyda.)",
+    "category": "Minna no Nihongo 19-dars"
+  },
+  {
+    "idx": 931,
+    "front": "ケーキ",
+    "back": "tort, pirojniy",
+    "phonetic": "ケーキ - ke-ki",
+    "example": "これは わたしが 買った ケーキ です。 (Bu men sotib olgan tort, pirojniy.)",
+    "category": "Minna no Nihongo 19-dars"
+  },
+  {
+    "idx": 932,
+    "front": "葛かつ飾しか北ほく斎さい",
+    "back": "Katsushika Hokusay",
+    "phonetic": "葛かつ飾しか北ほく斎さい - katsushikahokusai",
+    "example": "これは わたしが 買った 葛飾北斎 です。 (Bu men sotib olgan katsushika hokusay.)",
+    "category": "Minna no Nihongo 19-dars"
+  },
+  {
+    "idx": 934,
+    "front": "ビザが～",
+    "back": "(viza kerak)",
+    "phonetic": "ビザが～ - bizaga",
+    "example": "山田は 親切な 人です。 (Yamada (viza kerak) samimiy inson.)",
+    "category": "Minna no Nihongo 20-dars"
+  },
+  {
+    "idx": 939,
+    "front": "僕",
+    "back": "men",
+    "phonetic": "ぼく - boku",
+    "example": "これは わたしが 買った 僕 です。 (Bu men sotib olgan men.)",
+    "category": "Minna no Nihongo 20-dars"
+  },
+  {
+    "idx": 940,
+    "front": "君",
+    "back": "sen",
+    "phonetic": "きみ - kimi",
+    "example": "これは わたしが 買った 君 です。 (Bu men sotib olgan sen.)",
+    "category": "Minna no Nihongo 20-dars"
+  },
+  {
+    "idx": 942,
+    "front": "うん",
+    "back": "ha, mayli, xo'p",
+    "phonetic": "うん - un",
+    "example": "これは わたしが 買った うん です。 (Bu men sotib olgan ha, mayli, xo'p.)",
+    "category": "Minna no Nihongo 20-dars"
+  },
+  {
+    "idx": 943,
+    "front": "ううん",
+    "back": "yo'q ( いいえ ning og'zaki shakli)",
+    "phonetic": "ううん - uun",
+    "example": "これは わたしが 買った ううん です。 (Bu men sotib olgan yo'q ( いいえ ning og'zaki shakli).)",
+    "category": "Minna no Nihongo 20-dars"
+  },
+  {
+    "idx": 944,
+    "front": "サラリーマン",
+    "back": "korxona xodimi",
+    "phonetic": "サラリーマン - sarari-man",
+    "example": "これは わたしが 買った サラリーマン です。 (Bu men sotib olgan korxona xodimi.)",
+    "category": "Minna no Nihongo 20-dars"
+  },
+  {
+    "idx": 945,
+    "front": "ことば",
+    "back": "so'z, til",
+    "phonetic": "ことば - kotoba",
+    "example": "これは わたしが 買った ことば です。 (Bu men sotib olgan so'z, til.)",
+    "category": "Minna no Nihongo 20-dars"
+  },
+  {
+    "idx": 946,
+    "front": "物価",
+    "back": "narx-navo",
+    "phonetic": "ぶっか - buka",
+    "example": "これは わたしが 買った 物価 です。 (Bu men sotib olgan narx-navo.)",
+    "category": "Minna no Nihongo 20-dars"
+  },
+  {
+    "idx": 947,
+    "front": "着物",
+    "back": "kimono (yapon milliy kiyimi)",
+    "phonetic": "きもの - kimono",
+    "example": "これは わたしが 買った 着物 です。 (Bu men sotib olgan kimono (yapon milliy kiyimi).)",
+    "category": "Minna no Nihongo 20-dars"
+  },
+  {
+    "idx": 948,
+    "front": "ビザ",
+    "back": "viza",
+    "phonetic": "ビザ - biza",
+    "example": "これは わたしが 買った ビザ です。 (Bu men sotib olgan viza.)",
+    "category": "Minna no Nihongo 20-dars"
+  },
+  {
+    "idx": 949,
+    "front": "初め",
+    "back": "boshi(da)",
+    "phonetic": "はじめ - hajime",
+    "example": "これは わたしが 買った 初め です。 (Bu men sotib olgan boshi(da).)",
+    "category": "Minna no Nihongo 20-dars"
+  },
+  {
+    "idx": 950,
+    "front": "終わり",
+    "back": "oxiri(da)",
+    "phonetic": "おわり - owari",
+    "example": "これは わたしが 買った 終わり です。 (Bu men sotib olgan oxiri(da).)",
+    "category": "Minna no Nihongo 20-dars"
+  },
+  {
+    "idx": 951,
+    "front": "こっち",
+    "back": "bu yer, bu yoqqa",
+    "phonetic": "こっち - kochi",
+    "example": "これは わたしが 買った こっち です。 (Bu men sotib olgan bu yer, bu yoqqa.)",
+    "category": "Minna no Nihongo 20-dars"
+  },
+  {
+    "idx": 952,
+    "front": "そっち",
+    "back": "o'sha yer, o'sha yoqqa",
+    "phonetic": "そっち - sochi",
+    "example": "これは わたしが 買った そっち です。 (Bu men sotib olgan o'sha yer, o'sha yoqqa.)",
+    "category": "Minna no Nihongo 20-dars"
+  },
+  {
+    "idx": 953,
+    "front": "あっち",
+    "back": "u yer, u yoqqa",
+    "phonetic": "あっち - achi",
+    "example": "これは わたしが 買った あっち です。 (Bu men sotib olgan u yer, u yoqqa.)",
+    "category": "Minna no Nihongo 20-dars"
+  },
+  {
+    "idx": 954,
+    "front": "どっち",
+    "back": "qayer, qayoqqa",
+    "phonetic": "どっち - dochi",
+    "example": "これは わたしが 買った どっち です。 (Bu men sotib olgan qayer, qayoqqa.)",
+    "category": "Minna no Nihongo 20-dars"
+  },
+  {
+    "idx": 955,
+    "front": "この間",
+    "back": "yaqinda (vaqtga nisbatan), o'tgan safar",
+    "phonetic": "このあいだ - konoaida",
+    "example": "これは わたしが 買った この間 です。 (Bu men sotib olgan yaqinda (vaqtga nisbatan), o'tgan safar.)",
+    "category": "Minna no Nihongo 20-dars"
+  },
+  {
+    "idx": 956,
+    "front": "みんなで",
+    "back": "hammamiz birga",
+    "phonetic": "みんなで - minnade",
+    "example": "これは わたしが 買った みんなで です。 (Bu men sotib olgan hammamiz birga.)",
+    "category": "Minna no Nihongo 20-dars"
+  },
+  {
+    "idx": 957,
+    "front": "～けど",
+    "back": "~u / yu, ~. ; ~, lekin, ~.",
+    "phonetic": "～けど - kedo",
+    "example": "山田けどは 親切な 人です。 (Yamada ~u / yu, ~. ; ~, lekin, ~. samimiy inson.)",
+    "category": "Minna no Nihongo 20-dars"
+  },
+  {
+    "idx": 958,
+    "front": "国くにへ帰かえるの？",
+    "back": "Vataningizga qaytasizmi?",
+    "phonetic": "国くにへ帰かえるの？ - kunihekaeruno",
+    "example": "これは わたしが 買った 国へ帰るの？ です。 (Bu men sotib olgan vataningizga qaytasizmi?.)",
+    "category": "Minna no Nihongo 20-dars"
+  },
+  {
+    "idx": 959,
+    "front": "どうするの？",
+    "back": "Endi nima qilasiz?",
+    "phonetic": "どうするの？ - dousuruno",
+    "example": "これは わたしが 買った どうするの？ です。 (Bu men sotib olgan endi nima qilasiz?.)",
+    "category": "Minna no Nihongo 20-dars"
+  },
+  {
+    "idx": 960,
+    "front": "どうしようかな。",
+    "back": "Nima qilsak ekan-a?",
+    "phonetic": "どうしようかな。 - doushiyoukana",
+    "example": "これは わたしが 買った どうしようかな。 です。 (Bu men sotib olgan nima qilsak ekan-a?.)",
+    "category": "Minna no Nihongo 20-dars"
+  },
+  {
+    "idx": 961,
+    "front": "よかったら",
+    "back": "Mumkin bo'lsa~. Lozim topsangiz~.",
+    "phonetic": "よかったら - yokatara",
+    "example": "これは わたしが 買った よかったら です。 (Bu men sotib olgan mumkin bo'lsa~. lozim topsangiz~..)",
+    "category": "Minna no Nihongo 20-dars"
+  },
+  {
+    "idx": 962,
+    "front": "いろいろ",
+    "back": "turli, har xil",
+    "phonetic": "いろいろ - iroiro",
+    "example": "これは わたしが 買った いろいろ です。 (Bu men sotib olgan turli, har xil.)",
+    "category": "Minna no Nihongo 20-dars"
+  },
+  {
+    "idx": 969,
+    "front": "お祭りが～",
+    "back": "(bayram bor, bayram bo'lmoq)",
+    "phonetic": "おまつりが～ - omatsuriga",
+    "example": "山田は 親切な 人です。 (Yamada (bayram bor, bayram bo'lmoq) samimiy inson.)",
+    "category": "Minna no Nihongo 21-dars"
+  },
+  {
+    "idx": 971,
+    "front": "むだ［な］",
+    "back": "befoyda, bekorchi (narsa, buyum)",
+    "phonetic": "むだ［な］ - mudana",
+    "example": "これは わたしが 買った むだ［な］ です。 (Bu men sotib olgan befoyda, bekorchi (narsa, buyum).)",
+    "category": "Minna no Nihongo 21-dars"
+  },
+  {
+    "idx": 972,
+    "front": "不便［な］",
+    "back": "noqulay (sharoit)",
+    "phonetic": "ふべん［な］ - fubenna",
+    "example": "これは わたしが 買った 不便［な］ です。 (Bu men sotib olgan noqulay (sharoit).)",
+    "category": "Minna no Nihongo 21-dars"
+  },
+  {
+    "idx": 973,
+    "front": "同じ",
+    "back": "bir xil",
+    "phonetic": "おなじ - onaji",
+    "example": "これは わたしが 買った 同じ です。 (Bu men sotib olgan bir xil.)",
+    "category": "Minna no Nihongo 21-dars"
+  },
+  {
+    "idx": 977,
+    "front": "政治",
+    "back": "siyosat",
+    "phonetic": "せいじ - seiji",
+    "example": "これは わたしが 買った 政治 です。 (Bu men sotib olgan siyosat.)",
+    "category": "Minna no Nihongo 21-dars"
+  },
+  {
+    "idx": 978,
+    "front": "ニュース",
+    "back": "yangilik",
+    "phonetic": "ニュース - ni-su",
+    "example": "これは わたしが 買った ニュース です。 (Bu men sotib olgan yangilik.)",
+    "category": "Minna no Nihongo 21-dars"
+  },
+  {
+    "idx": 979,
+    "front": "スピーチ",
+    "back": "nutq （～をします： nutq so'zlamoq ）",
+    "phonetic": "スピーチ - supi-chi",
+    "example": "これは わたしが 買った スピーチ です。 (Bu men sotib olgan nutq （～をします： nutq so'zlamoq ）.)",
+    "category": "Minna no Nihongo 21-dars"
+  },
+  {
+    "idx": 981,
+    "front": "アルバイト",
+    "back": "qo'shimcha ish （～をします： qo'shimcha ish qilmoq ）",
+    "phonetic": "アルバイト - arubaito",
+    "example": "これは わたしが 買った アルバイト です。 (Bu men sotib olgan qo'shimcha ish （～をします： qo'shimcha ish qilmoq ）.)",
+    "category": "Minna no Nihongo 21-dars"
+  },
+  {
+    "idx": 982,
+    "front": "意見",
+    "back": "fikr",
+    "phonetic": "いけん - iken",
+    "example": "これは わたしが 買った 意見 です。 (Bu men sotib olgan fikr.)",
+    "category": "Minna no Nihongo 21-dars"
+  },
+  {
+    "idx": 983,
+    "front": "［お］話",
+    "back": "gap, suhbat （～をします： suhbatlashmoq ）",
+    "phonetic": "［お］はなし - ohanashi",
+    "example": "これは わたしが 買った ［お］話 です。 (Bu men sotib olgan gap, suhbat （～をします： suhbatlashmoq ）.)",
+    "category": "Minna no Nihongo 21-dars"
+  },
+  {
+    "idx": 984,
+    "front": "ユーモア",
+    "back": "hajv, yumor",
+    "phonetic": "ユーモア - yu-moa",
+    "example": "これは わたしが 買った ユーモア です。 (Bu men sotib olgan hajv, yumor.)",
+    "category": "Minna no Nihongo 21-dars"
+  },
+  {
+    "idx": 985,
+    "front": "むだ",
+    "back": "befoyda (narsa), bekorchi (narsa)",
+    "phonetic": "むだ - muda",
+    "example": "これは わたしが 買った むだ です。 (Bu men sotib olgan befoyda (narsa), bekorchi (narsa).)",
+    "category": "Minna no Nihongo 21-dars"
+  },
+  {
+    "idx": 986,
+    "front": "デザイン",
+    "back": "dizayn",
+    "phonetic": "デザイン - dezain",
+    "example": "これは わたしが 買った デザイン です。 (Bu men sotib olgan dizayn.)",
+    "category": "Minna no Nihongo 21-dars"
+  },
+  {
+    "idx": 988,
+    "front": "ラッシュ",
+    "back": "tiqilinch transport qatnovi",
+    "phonetic": "ラッシュ - rashu",
+    "example": "これは わたしが 買った ラッシュ です。 (Bu men sotib olgan tiqilinch transport qatnovi.)",
+    "category": "Minna no Nihongo 21-dars"
+  },
+  {
+    "idx": 989,
+    "front": "最近",
+    "back": "shu kunlarda",
+    "phonetic": "さいきん - saikin",
+    "example": "これは わたしが 買った 最近 です。 (Bu men sotib olgan shu kunlarda.)",
+    "category": "Minna no Nihongo 21-dars"
+  },
+  {
+    "idx": 990,
+    "front": "たぶん",
+    "back": "balki",
+    "phonetic": "たぶん - tabun",
+    "example": "これは わたしが 買った たぶん です。 (Bu men sotib olgan balki.)",
+    "category": "Minna no Nihongo 21-dars"
+  },
+  {
+    "idx": 991,
+    "front": "きっと",
+    "back": "shubhasiz",
+    "phonetic": "きっと - kito",
+    "example": "これは わたしが 買った きっと です。 (Bu men sotib olgan shubhasiz.)",
+    "category": "Minna no Nihongo 21-dars"
+  },
+  {
+    "idx": 992,
+    "front": "ほんとうに",
+    "back": "haqiqatan",
+    "phonetic": "ほんとうに - hontouni",
+    "example": "これは わたしが 買った ほんとうに です。 (Bu men sotib olgan haqiqatan.)",
+    "category": "Minna no Nihongo 21-dars"
+  },
+  {
+    "idx": 993,
+    "front": "そんなに",
+    "back": "unchalik",
+    "phonetic": "そんなに - sonnani",
+    "example": "これは わたしが 買った そんなに です。 (Bu men sotib olgan unchalik.)",
+    "category": "Minna no Nihongo 21-dars"
+  },
+  {
+    "idx": 994,
+    "front": "～について",
+    "back": "~ haqida",
+    "phonetic": "～について - nitsuite",
+    "example": "山田については 親切な 人です。 (Yamada ~ haqida samimiy inson.)",
+    "category": "Minna no Nihongo 21-dars"
+  },
+  {
+    "idx": 995,
+    "front": "しかたがありません。",
+    "back": "Na iloj.",
+    "phonetic": "しかたがありません。 - shikatagaarimasen",
+    "example": "これは わたしが 買った しかたがありません。 です。 (Bu men sotib olgan na iloj..)",
+    "category": "Minna no Nihongo 21-dars"
+  },
+  {
+    "idx": 996,
+    "front": "しばらくですね。",
+    "back": "Ko'rishmaganimizga ancha bo'ldi-ya? / Ko'rinmaysiz?",
+    "phonetic": "しばらくですね。 - shibarakudesune",
+    "example": "これは わたしが 買った しばらくですね。 です。 (Bu men sotib olgan ko'rishmaganimizga ancha bo'ldi-ya? / ko'rinmaysiz?.)",
+    "category": "Minna no Nihongo 21-dars"
+  },
+  {
+    "idx": 997,
+    "front": "～でも飲のみませんか。",
+    "back": "~mi ichmaymizmi?",
+    "phonetic": "～でも飲のみませんか。 - demonomimasenka",
+    "example": "山田でも飲みませんか。は 親切な 人です。 (Yamada ~mi ichmaymizmi? samimiy inson.)",
+    "category": "Minna no Nihongo 21-dars"
+  },
+  {
+    "idx": 998,
+    "front": "見みないと･････。",
+    "back": "Qaramasak bo'lmaydi.",
+    "phonetic": "見みないと･････。 - minaito",
+    "example": "これは わたしが 買った 見ないと･････。 です。 (Bu men sotib olgan qaramasak bo'lmaydi..)",
+    "category": "Minna no Nihongo 21-dars"
+  },
+  {
+    "idx": 999,
+    "front": "もちろん",
+    "back": "albatta",
+    "phonetic": "もちろん - mochiron",
+    "example": "これは わたしが 買った もちろん です。 (Bu men sotib olgan albatta.)",
+    "category": "Minna no Nihongo 21-dars"
+  },
+  {
+    "idx": 1000,
+    "front": "カンガルー",
+    "back": "kenguru",
+    "phonetic": "カンガルー - kangaru-",
+    "example": "これは わたしが 買った カンガルー です。 (Bu men sotib olgan kenguru.)",
+    "category": "Minna no Nihongo 21-dars"
+  },
+  {
+    "idx": 1001,
+    "front": "キャプテン･クック",
+    "back": "Kapitan Djeyms Kuk (1728-1779)",
+    "phonetic": "キャプテン･クック - kyaputenkuku",
+    "example": "これは わたしが 買った キャプテン･クック です。 (Bu men sotib olgan kapitan djeyms kuk (1728-1779).)",
+    "category": "Minna no Nihongo 21-dars"
+  },
+  {
+    "idx": 1003,
+    "front": "シャツを～",
+    "back": "ko'ylak kiymoq",
+    "phonetic": "シャツを～ - shatsuo",
+    "example": "山田は 親切な 人です。 (Yamada ko'ylak kiymoq samimiy inson.)",
+    "category": "Minna no Nihongo 22-dars"
+  },
+  {
+    "idx": 1005,
+    "front": "靴を～",
+    "back": "poyafzal kiymoq",
+    "phonetic": "くつを～ - kutsuo",
+    "example": "山田は 親切な 人です。 (Yamada poyafzal kiymoq samimiy inson.)",
+    "category": "Minna no Nihongo 22-dars"
+  },
+  {
+    "idx": 1007,
+    "front": "帽子を～",
+    "back": "bosh kiyim kiymoq",
+    "phonetic": "ぼうし～ - boushi",
+    "example": "山田は 親切な 人です。 (Yamada bosh kiyim kiymoq samimiy inson.)",
+    "category": "Minna no Nihongo 22-dars"
+  },
+  {
+    "idx": 1009,
+    "front": "眼鏡を～",
+    "back": "ko'zoynak taqmoq",
+    "phonetic": "めがねを～ - meganeo",
+    "example": "山田は 親切な 人です。 (Yamada ko'zoynak taqmoq samimiy inson.)",
+    "category": "Minna no Nihongo 22-dars"
+  },
+  {
+    "idx": 1011,
+    "front": "コート",
+    "back": "palto",
+    "phonetic": "コート - ko-to",
+    "example": "これは わたしが 買った コート です。 (Bu men sotib olgan palto.)",
+    "category": "Minna no Nihongo 22-dars"
+  },
+  {
+    "idx": 1012,
+    "front": "スーツ",
+    "back": "kostum-shim",
+    "phonetic": "スーツ - su-tsu",
+    "example": "これは わたしが 買った スーツ です。 (Bu men sotib olgan kostum-shim.)",
+    "category": "Minna no Nihongo 22-dars"
+  },
+  {
+    "idx": 1013,
+    "front": "セーター",
+    "back": "sviter",
+    "phonetic": "セーター - se-ta-",
+    "example": "これは わたしが 買った セーター です。 (Bu men sotib olgan sviter.)",
+    "category": "Minna no Nihongo 22-dars"
+  },
+  {
+    "idx": 1014,
+    "front": "帽子",
+    "back": "bosh kiyim",
+    "phonetic": "ぼうし - boushi",
+    "example": "これは わたしが 買った 帽子 です。 (Bu men sotib olgan bosh kiyim.)",
+    "category": "Minna no Nihongo 22-dars"
+  },
+  {
+    "idx": 1015,
+    "front": "眼鏡",
+    "back": "ko'zoynak",
+    "phonetic": "めがね - megane",
+    "example": "これは わたしが 買った 眼鏡 です。 (Bu men sotib olgan ko'zoynak.)",
+    "category": "Minna no Nihongo 22-dars"
+  },
+  {
+    "idx": 1016,
+    "front": "よく",
+    "back": "tez-tez, rosa",
+    "phonetic": "よく - yoku",
+    "example": "これは わたしが 買った よく です。 (Bu men sotib olgan tez-tez, rosa.)",
+    "category": "Minna no Nihongo 22-dars"
+  },
+  {
+    "idx": 1018,
+    "front": "こちら",
+    "back": "u kishi (hurmat shakli)",
+    "phonetic": "こちら - kochira",
+    "example": "これは わたしが 買った こちら です。 (Bu men sotib olgan u kishi (hurmat shakli).)",
+    "category": "Minna no Nihongo 22-dars"
+  },
+  {
+    "idx": 1019,
+    "front": "家賃",
+    "back": "uyning ijara haqi",
+    "phonetic": "やちん - yachin",
+    "example": "これは わたしが 買った 家賃 です。 (Bu men sotib olgan uyning ijara haqi.)",
+    "category": "Minna no Nihongo 22-dars"
+  },
+  {
+    "idx": 1020,
+    "front": "うーん。",
+    "back": "Ha. / Xo'p.",
+    "phonetic": "うーん。 - u-n",
+    "example": "これは わたしが 買った うーん。 です。 (Bu men sotib olgan ha. / xo'p..)",
+    "category": "Minna no Nihongo 22-dars"
+  },
+  {
+    "idx": 1021,
+    "front": "ダイニングキチン",
+    "back": "oshxona (uyning ~si)",
+    "phonetic": "ダイニングキチン - dainingukichin",
+    "example": "これは わたしが 買った ダイニングキチン です。 (Bu men sotib olgan oshxona (uyning ~si).)",
+    "category": "Minna no Nihongo 22-dars"
+  },
+  {
+    "idx": 1022,
+    "front": "和室",
+    "back": "yaponcha xona",
+    "phonetic": "わしつ - washitsu",
+    "example": "これは わたしが 買った 和室 です。 (Bu men sotib olgan yaponcha xona.)",
+    "category": "Minna no Nihongo 22-dars"
+  },
+  {
+    "idx": 1023,
+    "front": "押し入れ",
+    "back": "taxmon",
+    "phonetic": "おしいれ - oshiire",
+    "example": "これは わたしが 買った 押し入れ です。 (Bu men sotib olgan taxmon.)",
+    "category": "Minna no Nihongo 22-dars"
+  },
+  {
+    "idx": 1024,
+    "front": "布団",
+    "back": "ko'rpa",
+    "phonetic": "ふとん - futon",
+    "example": "これは わたしが 買った 布団 です。 (Bu men sotib olgan ko'rpa.)",
+    "category": "Minna no Nihongo 22-dars"
+  },
+  {
+    "idx": 1025,
+    "front": "アパート",
+    "back": "xonadon (ko'p qavatli uyda)",
+    "phonetic": "アパート - apa-to",
+    "example": "これは わたしが 買った アパート です。 (Bu men sotib olgan xonadon (ko'p qavatli uyda).)",
+    "category": "Minna no Nihongo 22-dars"
+  },
+  {
+    "idx": 1026,
+    "front": "パリ",
+    "back": "Parij",
+    "phonetic": "パリ - pari",
+    "example": "これは わたしが 買った パリ です。 (Bu men sotib olgan parij.)",
+    "category": "Minna no Nihongo 22-dars"
+  },
+  {
+    "idx": 1027,
+    "front": "万里の長城",
+    "back": "Buyuk Xitoy devori",
+    "phonetic": "ばんりのちょうじょう - banrinochoujou",
+    "example": "これは わたしが 買った 万里の長城 です。 (Bu men sotib olgan buyuk xitoy devori.)",
+    "category": "Minna no Nihongo 22-dars"
+  },
+  {
+    "idx": 1028,
+    "front": "余暇開発センター",
+    "back": "insonlarning bo'sh vatqlari bo'yicha tadqiqot olib boruvchi markaz",
+    "phonetic": "よかかいはつセンター - yokakaihatsusenta-",
+    "example": "これは わたしが 買った 余暇開発センター です。 (Bu men sotib olgan insonlarning bo'sh vatqlari bo'yicha tadqiqot olib boruvchi markaz.)",
+    "category": "Minna no Nihongo 22-dars"
+  },
+  {
+    "idx": 1029,
+    "front": "レジャー白書",
+    "back": "insonlarning bo'sh vaqtlarini qanday o'tkazishi haqidagi “oq kitob”",
+    "phonetic": "レジャーはくしょ - reji-hakusho",
+    "example": "これは わたしが 買った レジャー白書 です。 (Bu men sotib olgan insonlarning bo'sh vaqtlarini qanday o'tkazishi haqidagi “oq kitob”.)",
+    "category": "Minna no Nihongo 22-dars"
+  },
+  {
+    "idx": 1031,
+    "front": "先生に～",
+    "back": "(o'qituvchidan so'ramoq)",
+    "phonetic": "せんせいに～ - senseini",
+    "example": "山田は 親切な 人です。 (Yamada (o'qituvchidan so'ramoq) samimiy inson.)",
+    "category": "Minna no Nihongo 23-dars"
+  },
+  {
+    "idx": 1036,
+    "front": "ドアに～",
+    "back": "(eshikka tegmoq)",
+    "phonetic": "ドアに～ - doani",
+    "example": "山田は 親切な 人です。 (Yamada (eshikka tegmoq) samimiy inson.)",
+    "category": "Minna no Nihongo 23-dars"
+  },
+  {
+    "idx": 1038,
+    "front": "お釣りが～",
+    "back": "(qaytim qaytmoq)",
+    "phonetic": "おつりが～ - otsuriga",
+    "example": "山田は 親切な 人です。 (Yamada (qaytim qaytmoq) samimiy inson.)",
+    "category": "Minna no Nihongo 23-dars"
+  },
+  {
+    "idx": 1040,
+    "front": "時計が～",
+    "back": "(soat yurmoq)",
+    "phonetic": "とけいが～ - tokeiga",
+    "example": "山田は 親切な 人です。 (Yamada (soat yurmoq) samimiy inson.)",
+    "category": "Minna no Nihongo 23-dars"
+  },
+  {
+    "idx": 1042,
+    "front": "道を～",
+    "back": "(ko'chada piyoda yurmoq)",
+    "phonetic": "みちを～ - michio",
+    "example": "山田は 親切な 人です。 (Yamada (ko'chada piyoda yurmoq) samimiy inson.)",
+    "category": "Minna no Nihongo 23-dars"
+  },
+  {
+    "idx": 1044,
+    "front": "橋を～",
+    "back": "(ko'prikdan o'tmoq)",
+    "phonetic": "はしを～ - hashio",
+    "example": "山田は 親切な 人です。 (Yamada (ko'prikdan o'tmoq) samimiy inson.)",
+    "category": "Minna no Nihongo 23-dars"
+  },
+  {
+    "idx": 1046,
+    "front": "車に",
+    "back": "(mashinaga ehtiyot bo'lmoq)",
+    "phonetic": "くるまに～ - kurumani",
+    "example": "山田は 親切な 人です。 (Yamada (mashinaga ehtiyot bo'lmoq) samimiy inson.)",
+    "category": "Minna no Nihongo 23-dars"
+  },
+  {
+    "idx": 1050,
+    "front": "サイズ",
+    "back": "o'lcham, hajm",
+    "phonetic": "サイズ - saizu",
+    "example": "これは わたしが 買った サイズ です。 (Bu men sotib olgan o'lcham, hajm.)",
+    "category": "Minna no Nihongo 23-dars"
+  },
+  {
+    "idx": 1051,
+    "front": "音",
+    "back": "tovush",
+    "phonetic": "おと - oto",
+    "example": "これは わたしが 買った 音 です。 (Bu men sotib olgan tovush.)",
+    "category": "Minna no Nihongo 23-dars"
+  },
+  {
+    "idx": 1053,
+    "front": "つまみ",
+    "back": "murvat",
+    "phonetic": "つまみ - tsumami",
+    "example": "これは わたしが 買った つまみ です。 (Bu men sotib olgan murvat.)",
+    "category": "Minna no Nihongo 23-dars"
+  },
+  {
+    "idx": 1055,
+    "front": "道",
+    "back": "ko'cha, yo'l",
+    "phonetic": "みち - michi",
+    "example": "これは わたしが 買った 道 です。 (Bu men sotib olgan ko'cha, yo'l.)",
+    "category": "Minna no Nihongo 23-dars"
+  },
+  {
+    "idx": 1056,
+    "front": "交差点",
+    "back": "chorraha",
+    "phonetic": "こうさてん - kousaten",
+    "example": "これは わたしが 買った 交差点 です。 (Bu men sotib olgan chorraha.)",
+    "category": "Minna no Nihongo 23-dars"
+  },
+  {
+    "idx": 1058,
+    "front": "角",
+    "back": "muyulish, burulish",
+    "phonetic": "かど - kado",
+    "example": "これは わたしが 買った 角 です。 (Bu men sotib olgan muyulish, burulish.)",
+    "category": "Minna no Nihongo 23-dars"
+  },
+  {
+    "idx": 1059,
+    "front": "橋",
+    "back": "ko'prik",
+    "phonetic": "はし - hashi",
+    "example": "これは わたしが 買った 橋 です。 (Bu men sotib olgan ko'prik.)",
+    "category": "Minna no Nihongo 23-dars"
+  },
+  {
+    "idx": 1061,
+    "front": "～目",
+    "back": "~(i)nchi",
+    "phonetic": "～め - me",
+    "example": "山田めは 親切な 人です。 (Yamada ~(i)nchi samimiy inson.)",
+    "category": "Minna no Nihongo 23-dars"
+  },
+  {
+    "idx": 1062,
+    "front": "［お］正月",
+    "back": "yangi yil",
+    "phonetic": "［お］しょうがつ - oshougatsu",
+    "example": "これは わたしが 買った ［お］正月 です。 (Bu men sotib olgan yangi yil.)",
+    "category": "Minna no Nihongo 23-dars"
+  },
+  {
+    "idx": 1063,
+    "front": "ごちそうさまでした。",
+    "back": "Rahmat. (ovqat uchun)",
+    "phonetic": "ごちそうさまでした。 - gochisousamadeshita",
+    "example": "これは わたしが 買った ごちそうさま。 です。 (Bu men sotib olgan rahmat. (ovqat uchun).)",
+    "category": "Minna no Nihongo 23-dars"
+  },
+  {
+    "idx": 1064,
+    "front": "建物",
+    "back": "bino",
+    "phonetic": "たてもの - tatemono",
+    "example": "これは わたしが 買った 建物 です。 (Bu men sotib olgan bino.)",
+    "category": "Minna no Nihongo 23-dars"
+  },
+  {
+    "idx": 1065,
+    "front": "外国人登録証",
+    "back": "chet ellik fuqaroning ro'yxatga olinganlik to'g'risidagi hujjati",
+    "phonetic": "がいこくじんとうろくしょう - gaikokujintourokushou",
+    "example": "これは わたしが 買った 外国人登録証 です。 (Bu men sotib olgan chet ellik fuqaroning ro'yxatga olinganlik to'g'risidagi hujjati.)",
+    "category": "Minna no Nihongo 23-dars"
+  },
+  {
+    "idx": 1066,
+    "front": "聖徳太子",
+    "back": "Shahzoda Shotoku (574-622)",
+    "phonetic": "しょうとくたいし - shoutokutaishi",
+    "example": "これは わたしが 買った 聖徳太子 です。 (Bu men sotib olgan shahzoda shotoku (574-622).)",
+    "category": "Minna no Nihongo 23-dars"
+  },
+  {
+    "idx": 1067,
+    "front": "法隆寺",
+    "back": "Horyuji- Nara viloyatidagi ibodatxona. U Ⅶ asr boshida shahzoda Shotoku tomonidan qurdirilgan.",
+    "phonetic": "ほうりゅうじ - houryuuji",
+    "example": "これは わたしが 買った 法隆寺 です。 (Bu men sotib olgan horyuji- nara viloyatidagi ibodatxona. u ⅶ asr boshida shahzoda shotoku tomonidan qurdirilgan..)",
+    "category": "Minna no Nihongo 23-dars"
+  },
+  {
+    "idx": 1068,
+    "front": "元気茶",
+    "back": "“Genkichya” choy navi (o'ylab topilgan )",
+    "phonetic": "げんきちゃ - genkicha",
+    "example": "これは わたしが 買った 元気茶 です。 (Bu men sotib olgan “genkichya” choy navi (o'ylab topilgan ).)",
+    "category": "Minna no Nihongo 23-dars"
+  },
+  {
+    "idx": 1069,
+    "front": "本田駅",
+    "back": "“Honda” bekati (o'ylab topilgan )",
+    "phonetic": "ほんだえき - hondaeki",
+    "example": "これは わたしが 買った 本田駅 です。 (Bu men sotib olgan “honda” bekati (o'ylab topilgan ).)",
+    "category": "Minna no Nihongo 23-dars"
+  },
+  {
+    "idx": 1070,
+    "front": "図書館前",
+    "back": "“Toshokanmae” avtobus bekati",
+    "phonetic": "としょかんまえ - toshokanmae",
+    "example": "これは わたしが 買った 図書館前 です。 (Bu men sotib olgan “toshokanmae” avtobus bekati.)",
+    "category": "Minna no Nihongo 23-dars"
+  },
+  {
+    "idx": 1075,
+    "front": "人を～",
+    "back": "(odamni olib borib qo'ymoq)",
+    "phonetic": "ひとを～ - hitoo",
+    "example": "山田は 親切な 人です。 (Yamada (odamni olib borib qo'ymoq) samimiy inson.)",
+    "category": "Minna no Nihongo 24-dars"
+  },
+  {
+    "idx": 1080,
+    "front": "コーヒーを～",
+    "back": "(kofe damlamoq)",
+    "phonetic": "コーヒーを～ - ko-hi-o",
+    "example": "山田は 親切な 人です。 (Yamada (kofe damlamoq) samimiy inson.)",
+    "category": "Minna no Nihongo 24-dars"
+  },
+  {
+    "idx": 1081,
+    "front": "おじいさん／おじいちゃん",
+    "back": "buva / buvajon",
+    "phonetic": "おじいさん／おじいちゃん - ojiisan ojiichan",
+    "example": "これは わたしが 買った おじいさん／おじいちゃん です。 (Bu men sotib olgan buva / buvajon.)",
+    "category": "Minna no Nihongo 24-dars"
+  },
+  {
+    "idx": 1082,
+    "front": "おばあさん／おばあちゃん",
+    "back": "buvi / buvijon",
+    "phonetic": "おばあさん／おばあちゃん - obaasan obaachan",
+    "example": "これは わたしが 買った おばあさん／おばあちゃん です。 (Bu men sotib olgan buvi / buvijon.)",
+    "category": "Minna no Nihongo 24-dars"
+  },
+  {
+    "idx": 1083,
+    "front": "準備",
+    "back": "tayyorgarlik （～をします： tayyorgarlik qilmoq ）",
+    "phonetic": "じゅんび - junbi",
+    "example": "これは わたしが 買った 準備 です。 (Bu men sotib olgan tayyorgarlik （～をします： tayyorgarlik qilmoq ）.)",
+    "category": "Minna no Nihongo 24-dars"
+  },
+  {
+    "idx": 1084,
+    "front": "意味",
+    "back": "ma'no",
+    "phonetic": "いみ - imi",
+    "example": "これは わたしが 買った 意味 です。 (Bu men sotib olgan ma'no.)",
+    "category": "Minna no Nihongo 24-dars"
+  },
+  {
+    "idx": 1085,
+    "front": "［お］菓子",
+    "back": "shirinlik",
+    "phonetic": "［お］かし - okashi",
+    "example": "これは わたしが 買った ［お］菓子 です。 (Bu men sotib olgan shirinlik.)",
+    "category": "Minna no Nihongo 24-dars"
+  },
+  {
+    "idx": 1086,
+    "front": "全部",
+    "back": "hammasi",
+    "phonetic": "ぜんぶ - zenbu",
+    "example": "これは わたしが 買った 全部 です。 (Bu men sotib olgan hammasi.)",
+    "category": "Minna no Nihongo 24-dars"
+  },
+  {
+    "idx": 1087,
+    "front": "自分で",
+    "back": "o'zi(~m, ~ng)",
+    "phonetic": "じぶんで - jibunde",
+    "example": "これは わたしが 買った 自分で です。 (Bu men sotib olgan o'zi(~m, ~ng).)",
+    "category": "Minna no Nihongo 24-dars"
+  },
+  {
+    "idx": 1088,
+    "front": "ほかに",
+    "back": "undan boshqa, boshqa",
+    "phonetic": "ほかに - hokani",
+    "example": "これは わたしが 買った ほかに です。 (Bu men sotib olgan undan boshqa, boshqa.)",
+    "category": "Minna no Nihongo 24-dars"
+  },
+  {
+    "idx": 1089,
+    "front": "ワゴン車",
+    "back": "mikroavtobus, orqa tomonida ham eshik o'rnatilgan yengil mashina",
+    "phonetic": "ワゴンしゃ - wagonsha",
+    "example": "これは わたしが 買った ワゴン車 です。 (Bu men sotib olgan mikroavtobus, orqa tomonida ham eshik o'rnatilgan yengil mashina.)",
+    "category": "Minna no Nihongo 24-dars"
+  },
+  {
+    "idx": 1090,
+    "front": "お弁当",
+    "back": "“Obento”- o'zi bilan olib keladigan ovqat",
+    "phonetic": "おべんとう - obentou",
+    "example": "これは わたしが 買った ［お］弁当 です。 (Bu men sotib olgan “obento”- o'zi bilan olib keladigan ovqat.)",
+    "category": "Minna no Nihongo 24-dars"
+  },
+  {
+    "idx": 1091,
+    "front": "母の日",
+    "back": "Onalar kuni",
+    "phonetic": "ははのひ - hahanohi",
+    "example": "これは わたしが 買った 母の日 です。 (Bu men sotib olgan onalar kuni.)",
+    "category": "Minna no Nihongo 24-dars"
+  },
+  {
+    "idx": 1094,
+    "front": "駅に～",
+    "back": "(vokzalga borib tushmoq)",
+    "phonetic": "えきに～ - ekini",
+    "example": "山田は 親切な 人です。 (Yamada (vokzalga borib tushmoq) samimiy inson.)",
+    "category": "Minna no Nihongo 25-dars"
+  },
+  {
+    "idx": 1097,
+    "front": "年を～",
+    "back": "(ulg'aymoq; qarimoq)",
+    "phonetic": "としを～ - toshio",
+    "example": "山田は 親切な 人です。 (Yamada (ulg'aymoq; qarimoq) samimiy inson.)",
+    "category": "Minna no Nihongo 25-dars"
+  },
+  {
+    "idx": 1098,
+    "front": "田舎",
+    "back": "qishloq",
+    "phonetic": "いなか - inaka",
+    "example": "これは わたしが 買った 田舎 です。 (Bu men sotib olgan qishloq.)",
+    "category": "Minna no Nihongo 25-dars"
+  },
+  {
+    "idx": 1100,
+    "front": "グループ",
+    "back": "guruh",
+    "phonetic": "グループ - guru-pu",
+    "example": "これは わたしが 買った グループ です。 (Bu men sotib olgan guruh.)",
+    "category": "Minna no Nihongo 25-dars"
+  },
+  {
+    "idx": 1101,
+    "front": "チャンス",
+    "back": "imkoniyat",
+    "phonetic": "チャンス - chansu",
+    "example": "これは わたしが 買った チャンス です。 (Bu men sotib olgan imkoniyat.)",
+    "category": "Minna no Nihongo 25-dars"
+  },
+  {
+    "idx": 1102,
+    "front": "億",
+    "back": "( いち～ ) yuz million",
+    "phonetic": "おく - oku",
+    "example": "これは わたしが 買った 億 です。 (Bu men sotib olgan ( いち～ ) yuz million.)",
+    "category": "Minna no Nihongo 25-dars"
+  },
+  {
+    "idx": 1103,
+    "front": "もし～たら",
+    "back": "agar (~sam, ~sang,~sa)",
+    "phonetic": "もし～たら - moshi tara",
+    "example": "山田もしは 親切な 人です。 (Yamada agar (~sam, ~sang,~sa) samimiy inson.)",
+    "category": "Minna no Nihongo 25-dars"
+  },
+  {
+    "idx": 1104,
+    "front": "いくら～ても",
+    "back": "qancha",
+    "phonetic": "いくら～ても - ikura temo",
+    "example": "山田いくらは 親切な 人です。 (Yamada qancha samimiy inson.)",
+    "category": "Minna no Nihongo 25-dars"
+  },
+  {
+    "idx": 1105,
+    "front": "転勤",
+    "back": "ish yuzasidan boshqa ishga o'tish",
+    "phonetic": "てんきん - tenkin",
+    "example": "これは わたしが 買った 転勤 です。 (Bu men sotib olgan ish yuzasidan boshqa ishga o'tish.)",
+    "category": "Minna no Nihongo 25-dars"
+  },
+  {
+    "idx": 1106,
+    "front": "こと",
+    "back": "ish, masala ( ～の こと ~ning masalasi)",
+    "phonetic": "こと - koto",
+    "example": "これは わたしが 買った こと です。 (Bu men sotib olgan ish, masala ( ～の こと ~ning masalasi).)",
+    "category": "Minna no Nihongo 25-dars"
+  },
+  {
+    "idx": 1107,
+    "front": "一杯飲みましょう。",
+    "back": "Keling ichamiz.",
+    "phonetic": "いっぱいのみましょう - ippainomimashou",
+    "example": "これは わたしが 買った 一杯飲みましょう。 です。 (Bu men sotib olgan keling ichamiz..)",
+    "category": "Minna no Nihongo 25-dars"
+  },
+  {
+    "idx": 1108,
+    "front": "いろいろお世話せわになりました。",
+    "back": "Ko'rsatgan mehribonchiligingiz uchun rahmat. / Bergan tuzingizga rozi bo'ling.",
+    "phonetic": "いろいろお世話せわになりました。 - iroiroosewaninarimashita",
+    "example": "これは わたしが 買った お世話になりました。 です。 (Bu men sotib olgan ko'rsatgan mehribonchiligingiz uchun rahmat. / bergan tuzingizga rozi bo'ling..)",
+    "category": "Minna no Nihongo 25-dars"
+  },
+  {
+    "idx": 1110,
+    "front": "どうぞお元気で。",
+    "back": "Salomat bo'ling.",
+    "phonetic": "どうぞおげんきで - douzoogenkide",
+    "example": "これは わたしが 買った どうぞお元気で。 です。 (Bu men sotib olgan salomat bo'ling..)",
+    "category": "Minna no Nihongo 25-dars"
+  }
+]

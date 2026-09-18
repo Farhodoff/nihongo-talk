@@ -33,6 +33,7 @@ import { useWhiteboards } from '../hooks/useWhiteboards';
 import { useEvents } from '../hooks/useEvents';
 import { TaskService } from '../services/TaskService';
 import { FlashcardService } from '../services/FlashcardService';
+import { GlobalFlashcardOverrideService } from '../services/GlobalFlashcardOverrideService';
 import { GoogleCalendarEvent } from '../services/GoogleCalendarService';
 import {
   DatabaseSubject,
@@ -477,6 +478,9 @@ export const StudyPlannerProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
       // Staggered fetch in 2 smooth batches to prevent HTTP/2 connection resets
       try {
+        // Pre-fetch global flashcard dictionary overrides from DB so all users get corrected cards
+        GlobalFlashcardOverrideService.initGlobalOverrides().catch(() => {});
+
         // Batch 1: Core learning data
         const [tasksSettled, flashcardsSettled, subjectsSettled] = await Promise.allSettled([
           TaskService.fetchTasks(currentUser.id),
