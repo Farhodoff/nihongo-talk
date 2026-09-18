@@ -308,4 +308,22 @@ describe('JlptExamResultCard', () => {
     expect(screen.getByText(/Dialog matni \(Script\):/i)).toBeInTheDocument();
     expect(screen.getByText(/お皿の右側にスプーンを置いてください。/i)).toBeInTheDocument();
   });
+
+  it('renders certificate buttons and calls onViewCertificate when clicked', () => {
+    const handleViewCert = vi.fn();
+    render(
+      <JlptExamResultCard
+        report={sampleReport}
+        level="N5"
+        onRetry={vi.fn()}
+        onBackToHub={vi.fn()}
+        onViewCertificate={handleViewCert}
+      />,
+    );
+
+    const certBtn = screen.getByTestId('view-certificate-btn');
+    expect(certBtn).toBeInTheDocument();
+    fireEvent.click(certBtn);
+    expect(handleViewCert).toHaveBeenCalledTimes(1);
+  });
 });

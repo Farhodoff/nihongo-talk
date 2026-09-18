@@ -14,6 +14,7 @@ import {
   ShieldAlert,
   Headphones,
   CheckCircle2,
+  Award,
 } from 'lucide-react';
 import { ExamDiagnosticReport, ExamQuestionAnswer } from '../../utils/ai/examEvaluator';
 import { JlptScoreReport } from '../../utils/jlptScoring';
@@ -28,6 +29,7 @@ interface JlptExamResultCardProps {
   onRetry: () => void;
   onBackToHub: () => void;
   onNavigateToPlan?: () => void;
+  onViewCertificate?: () => void;
 }
 
 export const JlptExamResultCard: React.FC<JlptExamResultCardProps> = ({
@@ -38,6 +40,7 @@ export const JlptExamResultCard: React.FC<JlptExamResultCardProps> = ({
   onRetry,
   onBackToHub,
   onNavigateToPlan,
+  onViewCertificate,
 }) => {
   const { addFlashcardsBatch } = useStudyData();
   const [isExporting, setIsExporting] = useState(false);
@@ -161,6 +164,19 @@ export const JlptExamResultCard: React.FC<JlptExamResultCardProps> = ({
         <div className="mt-3 inline-block rounded-full border border-border bg-background px-3 py-1 text-xs font-extrabold tracking-wide shadow-xs">
           {report.overall_score_text}
         </div>
+
+        {onViewCertificate && (
+          <div className="mt-4 flex justify-center">
+            <button
+              onClick={onViewCertificate}
+              data-testid="view-certificate-btn"
+              className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-amber-500 to-amber-600 px-5 py-2.5 text-xs font-black text-white shadow-lg shadow-amber-500/25 transition-all hover:scale-105 active:scale-95"
+            >
+              <Award className="h-4 w-4" />
+              <span>🏆 Rasmiy Sertifikatni Ko'rish / Yuklab Olish</span>
+            </button>
+          </div>
+        )}
 
         {/* Section Cutoff Alert (Crucial Pedagogical Notice) */}
         {jlptReport && jlptReport.statusReason === 'FAILED_SECTION_CUTOFF' && (
@@ -437,7 +453,7 @@ export const JlptExamResultCard: React.FC<JlptExamResultCardProps> = ({
       </div>
 
       {/* Action Buttons */}
-      <div className="flex items-center justify-between gap-4 pt-2">
+      <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
         <button
           onClick={onBackToHub}
           className="flex items-center gap-2 rounded-2xl border border-border bg-muted px-4 py-2.5 text-xs font-bold text-foreground transition-all hover:bg-muted/80"
@@ -446,13 +462,25 @@ export const JlptExamResultCard: React.FC<JlptExamResultCardProps> = ({
           <span>JLPT Hub-ga qaytish</span>
         </button>
 
-        <button
-          onClick={onRetry}
-          className="flex items-center gap-2 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 px-5 py-2.5 text-xs font-bold text-white shadow-lg shadow-indigo-500/20 transition-all hover:from-indigo-500 hover:to-purple-500"
-        >
-          <RefreshCw size={14} />
-          <span>Qayta topshirish</span>
-        </button>
+        <div className="flex items-center gap-3">
+          {onViewCertificate && (
+            <button
+              onClick={onViewCertificate}
+              className="flex items-center gap-2 rounded-2xl border border-amber-500/30 bg-amber-500/10 px-4 py-2.5 text-xs font-bold text-amber-600 transition-all hover:bg-amber-500/20 dark:text-amber-400"
+            >
+              <Award size={14} />
+              <span>Sertifikat</span>
+            </button>
+          )}
+
+          <button
+            onClick={onRetry}
+            className="flex items-center gap-2 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 px-5 py-2.5 text-xs font-bold text-white shadow-lg shadow-indigo-500/20 transition-all hover:from-indigo-500 hover:to-purple-500"
+          >
+            <RefreshCw size={14} />
+            <span>Qayta topshirish</span>
+          </button>
+        </div>
       </div>
     </div>
   );

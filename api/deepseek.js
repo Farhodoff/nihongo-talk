@@ -87,21 +87,43 @@ export default async function handler(req, res) {
     }
   }
 
-  // Forward directly to authoritative Supabase Edge Function
+  // 1. Direct upstream to DeepSeek API if server key is configured in Vercel
+  if (rawServerKey && rawServerKey.trim().length > 10) {
+    try {
+      const cleanKey = rawServerKey.trim().replace(/^["']|["']$/g, '').replace(/^Bearer\s+/i, '');
+      const upstreamRes = await fetch('https://api.deepseek.com/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${cleanKey}`,
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const upstreamData = await upstreamRes.json();
+      return res.status(upstreamRes.status).json(upstreamData);
+    } catch (upstreamErr) {
+      console.warn('Direct DeepSeek upstream failed, trying Supabase Edge fallback:', upstreamErr);
+    }
+  }
+
+  // 2. Authoritative Supabase Edge Function fallback
   try {
     const edgeUrl = process.env.VITE_SUPABASE_URL
       ? `${process.env.VITE_SUPABASE_URL.replace(/\/$/, '')}/functions/v1/deepseek`
       : 'https://qmuimxnknxwarvnkpnlo.supabase.co/functions/v1/deepseek';
-    const anonKey = process.env.VITE_SUPABASE_ANON_KEY || 'sb_publishable_6g0Ei_1Cw46e1mJLKj_1Ug_sOmhlgoI';
+    const anonKey =
+      process.env.VITE_SUPABASE_ANON_KEY ||
+      'sb_publishable_6g0Ei_1Cw46e1mJLKj_1Ug_sOmhlgoI';
 
     const edgeRes = await fetch(edgeUrl, {
       method: 'POST',
       headers: {
-        'apikey': anonKey,
-        'Authorization': `Bearer ${anonKey}`,
-        'Content-Type': 'application/json'
+        apikey: anonKey,
+        Authorization: `Bearer ${anonKey}`,
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(payload),
     });
 
     const edgeData = await edgeRes.json();

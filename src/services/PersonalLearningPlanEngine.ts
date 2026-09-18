@@ -329,6 +329,7 @@ export const PersonalLearningPlanEngine = {
             `/jlpt?tab=reading&level=${targetLevelCode}`,
             `/jlpt?tab=listening&level=${targetLevelCode}`,
             `/jlpt?tab=mock&level=${targetLevelCode}`,
+            `/jlpt-writing?level=${targetLevelCode}`,
             '/speaking-coach?lang=ja',
             '/scenarios',
             '/study-mode?lang=ja',
@@ -731,6 +732,11 @@ ${prompt}`;
             ) {
               resolvedRoute = '/speaking-coach?lang=ja';
             } else if (
+              (effectiveSkill === 'writing' || effectiveSkill === 'sakubun') &&
+              !resolvedRoute.includes('jlpt-writing')
+            ) {
+              resolvedRoute = `/jlpt-writing?level=${targetLvl}`;
+            } else if (
               (actualType === 'srs' || effectiveSkill === 'vocabulary') &&
               resolvedRoute.startsWith('/study-mode') &&
               !resolvedRoute.includes('lang=')
@@ -869,7 +875,7 @@ ${prompt}`;
               status: 'pending',
               sourceType: 'lesson',
               contentId: debt.contentId,
-              route: debt.route || (goal.language === 'ja' ? '/jlpt' : '/ielts'),
+              route: debt.route || '/jlpt',
               skill: debt.skill,
               metadata: {
                 carryOverFromWeek: weekNumber - 1,

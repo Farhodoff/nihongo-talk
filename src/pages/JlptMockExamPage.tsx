@@ -19,6 +19,7 @@ import {
   ExamQuestionAnswer,
 } from '../utils/ai/examEvaluator';
 import { JlptExamResultCard } from '../components/jlpt/JlptExamResultCard';
+import { ExamCertificateModal } from '../components/exams/ExamCertificateModal';
 import { MasteryEngine } from '../services/MasteryEngine';
 import { calculateJlptScore } from '../utils/jlptScoring';
 import { useStudyData } from '../context/StudyPlannerContext';
@@ -37,6 +38,7 @@ export const JlptMockExamPage: React.FC = () => {
   const { language } = useLanguage();
   const [level, setLevel] = useState<'N5' | 'N4' | 'N3' | 'N2' | 'N1'>(initialLevel);
   const [step, setStep] = useState<'intro' | 'exam' | 'report'>('intro');
+  const [showCertificate, setShowCertificate] = useState<boolean>(false);
 
   // Available Exams from Supabase DB
   const [availableExams, setAvailableExams] = useState<ExamListItem[]>([]);
@@ -613,13 +615,48 @@ export const JlptMockExamPage: React.FC = () => {
             </p>
           </div>
         ) : diagnosticReport ? (
-          <JlptExamResultCard
-            report={diagnosticReport}
-            level={level}
-            mistakes={mistakes}
-            onRetry={() => setStep('intro')}
-            onBackToHub={() => navigate('/jlpt')}
-          />
+          <>
+            <JlptExamResultCard
+              report={diagnosticReport}
+              level={level}
+              mistakes={mistakes}
+              onRetry={() => setStep('intro')}
+              onBackToHub={() => navigate('/jlpt')}
+              onViewCertificate={() => setShowCertificate(true)}
+            />
+
+            <ExamCertificateModal
+              isOpen={showCertificate}
+              onClose={() => setShowCertificate(false)}
+              examTitle={activeExam?.title || `JLPT ${level} Rasmiy Mock Imtihon`}
+              examType={`JLPT ${level}`}
+              overallScore={
+                diagnosticReport.jlptScoreReport
+                  ? `${diagnosticReport.jlptScoreReport.totalScore} / 180 (${diagnosticReport.jlptScoreReport.passed ? "O'TDI" : "O'TMADI"})`
+                  : `${diagnosticReport.percentage}% (${diagnosticReport.passed ? "O'TDI" : "O'TMADI"})`
+              }
+              sectionScores={{
+                reading:
+                  diagnosticReport.jlptScoreReport?.sections?.reading?.score !== undefined
+                    ? `${diagnosticReport.jlptScoreReport.sections.reading.score} / 60`
+                    : undefined,
+                listening:
+                  diagnosticReport.jlptScoreReport?.sections?.listening?.score !== undefined
+                    ? `${diagnosticReport.jlptScoreReport.sections.listening.score} / 60`
+                    : undefined,
+                writing:
+                  diagnosticReport.jlptScoreReport?.sections?.knowledge?.score !== undefined
+                    ? `${diagnosticReport.jlptScoreReport.sections.knowledge.score} / 60`
+                    : undefined,
+              }}
+              userName={
+                (user as any)?.user_metadata?.full_name ||
+                (user as any)?.user_metadata?.name ||
+                (user?.email ? user.email.split('@')[0] : "O'quvchi")
+              }
+              aiFeedback={diagnosticReport.actionable_recommendation}
+            />
+          </>
         ) : null)}
     </div>
   );
