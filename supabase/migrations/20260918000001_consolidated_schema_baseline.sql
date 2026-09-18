@@ -56,22 +56,28 @@ DROP POLICY IF EXISTS "Users and admins read speaking sessions" ON public.speaki
 DROP POLICY IF EXISTS "Users create own speaking sessions" ON public.speaking_sessions;
 DROP POLICY IF EXISTS "Users update own speaking sessions" ON public.speaking_sessions;
 DROP POLICY IF EXISTS "Users delete own speaking sessions" ON public.speaking_sessions;
+DROP POLICY IF EXISTS "Admin sees all speaking" ON public.speaking_sessions;
+DROP POLICY IF EXISTS "Allow public insert for speaking_sessions" ON public.speaking_sessions;
+DROP POLICY IF EXISTS "Allow public update for speaking_sessions" ON public.speaking_sessions;
+DROP POLICY IF EXISTS "Users can insert own speaking sessions" ON public.speaking_sessions;
+DROP POLICY IF EXISTS "Users can read own speaking sessions or admin reads all" ON public.speaking_sessions;
 
 CREATE POLICY "Users and admins read speaking sessions" 
     ON public.speaking_sessions FOR SELECT TO authenticated 
-    USING (auth.uid() = user_id OR public.is_admin());
+    USING ((select auth.uid()) = user_id OR public.is_admin());
 
 CREATE POLICY "Users create own speaking sessions" 
     ON public.speaking_sessions FOR INSERT TO authenticated 
-    WITH CHECK (auth.uid() = user_id);
+    WITH CHECK ((select auth.uid()) = user_id);
 
 CREATE POLICY "Users update own speaking sessions" 
     ON public.speaking_sessions FOR UPDATE TO authenticated 
-    USING (auth.uid() = user_id OR public.is_admin());
+    USING ((select auth.uid()) = user_id OR public.is_admin())
+    WITH CHECK ((select auth.uid()) = user_id OR public.is_admin());
 
 CREATE POLICY "Users delete own speaking sessions" 
     ON public.speaking_sessions FOR DELETE TO authenticated 
-    USING (auth.uid() = user_id OR public.is_admin());
+    USING ((select auth.uid()) = user_id OR public.is_admin());
 
 CREATE INDEX IF NOT EXISTS idx_speaking_sessions_user_created ON public.speaking_sessions(user_id, created_at DESC);
 
@@ -92,11 +98,13 @@ ALTER TABLE public.ielts_writing_history ENABLE ROW LEVEL SECURITY;
 
 DROP POLICY IF EXISTS "Users can view own writing history" ON public.ielts_writing_history;
 CREATE POLICY "Users can view own writing history" ON public.ielts_writing_history
-    FOR SELECT USING (auth.uid() = user_id OR public.is_admin());
+    FOR SELECT TO authenticated
+    USING ((select auth.uid()) = user_id OR public.is_admin());
 
 DROP POLICY IF EXISTS "Users can insert own writing history" ON public.ielts_writing_history;
 CREATE POLICY "Users can insert own writing history" ON public.ielts_writing_history
-    FOR INSERT WITH CHECK (auth.uid() = user_id);
+    FOR INSERT TO authenticated
+    WITH CHECK ((select auth.uid()) = user_id);
 
 CREATE INDEX IF NOT EXISTS idx_ielts_writing_history_user_created ON public.ielts_writing_history(user_id, created_at DESC);
 
@@ -116,11 +124,13 @@ ALTER TABLE public.mock_exams_history ENABLE ROW LEVEL SECURITY;
 
 DROP POLICY IF EXISTS "Users can view own mock exams history" ON public.mock_exams_history;
 CREATE POLICY "Users can view own mock exams history" ON public.mock_exams_history
-    FOR SELECT USING (auth.uid() = user_id OR public.is_admin());
+    FOR SELECT TO authenticated
+    USING ((select auth.uid()) = user_id OR public.is_admin());
 
 DROP POLICY IF EXISTS "Users can insert own mock exams history" ON public.mock_exams_history;
 CREATE POLICY "Users can insert own mock exams history" ON public.mock_exams_history
-    FOR INSERT WITH CHECK (auth.uid() = user_id);
+    FOR INSERT TO authenticated
+    WITH CHECK ((select auth.uid()) = user_id);
 
 CREATE INDEX IF NOT EXISTS idx_mock_exams_history_user_created ON public.mock_exams_history(user_id, created_at DESC);
 
@@ -134,12 +144,20 @@ BEGIN
         INSERT INTO public.speaking_sessions (
             id, user_id, language, topic, persona_title,
             duration_seconds, fluency_score, pronunciation_score,
-            overall_score, feedback, ai_feedback, created_at
+            grammar_score, vocabulary_score, overall_score,
+            feedback, ai_feedback, audio_path, created_at
         )
         SELECT 
-            sc.id, sc.user_id, sc.language, sc.persona, sc.persona,
-            sc.duration_seconds, sc.fluency_score, sc.pronunciation_score,
-            sc.fluency_score, sc.feedback, sc.feedback, sc.created_at
+            sc.id, sc.user_id, sc.language,
+            COALESCE(sc.topic, sc.persona, 'General Japanese'),
+            COALESCE(sc.persona_title, sc.persona, 'AI Tutor'),
+            COALESCE(sc.duration_seconds, 0),
+            COALESCE(sc.fluency_score, 0),
+            COALESCE(sc.pronunciation_score, 0),
+            COALESCE(sc.grammar_score, 0),
+            COALESCE(sc.vocabulary_score, 0),
+            COALESCE(sc.overall_score, sc.fluency_score, 0),
+            sc.feedback, sc.feedback, sc.audio_path, sc.created_at
         FROM public.speaking_coach_sessions sc
         ON CONFLICT (id) DO NOTHING;
     END IF;
