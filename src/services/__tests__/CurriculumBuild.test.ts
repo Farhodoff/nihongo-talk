@@ -158,7 +158,10 @@ describe('Phase 17 — Curriculum Quality & Progression Verification', () => {
         for (const unit of level.units) {
           for (const lesson of unit.lessons) {
             expect(lesson.level).toBe(level.code);
-            expect(lesson.id.includes(`-${level.code.toLowerCase()}-`)).toBe(true);
+            expect(
+              lesson.id.includes(`-${level.code.toLowerCase()}-`) ||
+                (lesson.id.startsWith('ja-minna-') && ['N5', 'N4'].includes(level.code)),
+            ).toBe(true);
           }
         }
       }

@@ -589,7 +589,7 @@ export const DiagnosticService = {
         firstLessonId = 'ja-n3-u1-l1';
       } else if (overallScore >= 55) {
         recommendedLevel = 'N4';
-        firstLessonId = 'ja-n4-u1-l1';
+        firstLessonId = 'ja-minna-l26';
       } else {
         recommendedLevel = 'N5';
         firstLessonId = 'ja-n5-u1-l1';
