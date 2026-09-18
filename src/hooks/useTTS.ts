@@ -230,7 +230,30 @@ export function selectBestVoice(
   }
 }
 
-const TTS_CACHE_NAME = 'tts-audio-v1';
+export const TTS_CACHE_NAME = 'tts-audio-v1';
+export const MAX_TTS_DISK_ENTRIES = 120;
+
+export async function prunePersistentAudioCache(
+  maxEntries: number = MAX_TTS_DISK_ENTRIES,
+): Promise<void> {
+  if (typeof window === 'undefined' || !('caches' in window)) return;
+  try {
+    const cache = await caches.open(TTS_CACHE_NAME);
+    const requests = await cache.keys();
+    if (requests.length > maxEntries) {
+      const excessCount = requests.length - maxEntries;
+      const toDelete = requests.slice(0, excessCount);
+      await Promise.all(toDelete.map((req) => cache.delete(req)));
+    }
+  } catch {}
+}
+
+export async function clearPersistentAudioCache(): Promise<void> {
+  if (typeof window === 'undefined' || !('caches' in window)) return;
+  try {
+    await caches.delete(TTS_CACHE_NAME);
+  } catch {}
+}
 
 async function getPersistentAudioBlob(cacheKey: string): Promise<Blob | null> {
   if (typeof window === 'undefined' || !('caches' in window)) return null;
@@ -252,6 +275,14 @@ async function setPersistentAudioBlob(cacheKey: string, blob: Blob): Promise<voi
       headers: { 'Content-Type': 'audio/mpeg' },
     });
     await cache.put(`https://tts.local/${encodeURIComponent(cacheKey)}`, res);
+
+    // Evict oldest entries if cache exceeds disk threshold
+    const requests = await cache.keys();
+    if (requests.length > MAX_TTS_DISK_ENTRIES) {
+      const excessCount = requests.length - MAX_TTS_DISK_ENTRIES;
+      const toDelete = requests.slice(0, excessCount);
+      await Promise.all(toDelete.map((req) => cache.delete(req)));
+    }
   } catch {}
 }
 

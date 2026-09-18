@@ -5,6 +5,9 @@ import {
   selectBestVoice,
   fetchTTSAudioBlob,
   clearTTSAudioCache,
+  prunePersistentAudioCache,
+  clearPersistentAudioCache,
+  TTS_CACHE_NAME,
   useTTS,
 } from '../useTTS';
 
@@ -262,6 +265,53 @@ describe('useTTS & Audio Chunking Resiliency Tests', () => {
           result.current.stopSpeaking();
         });
       }).not.toThrow();
+    });
+  });
+
+  describe('Persistent Audio Disk Cache & Eviction', () => {
+    it('19. prunePersistentAudioCache removes oldest excess entries when exceeding max limit', async () => {
+      const mockKeys = [
+        new Request('https://tts.local/1'),
+        new Request('https://tts.local/2'),
+        new Request('https://tts.local/3'),
+        new Request('https://tts.local/4'),
+        new Request('https://tts.local/5'),
+      ];
+      const deletedKeys: Request[] = [];
+      const mockCache = {
+        keys: vi.fn().mockResolvedValue(mockKeys),
+        delete: vi.fn().mockImplementation((req) => {
+          deletedKeys.push(req);
+          return Promise.resolve(true);
+        }),
+      };
+      const mockCaches = {
+        open: vi.fn().mockResolvedValue(mockCache),
+        delete: vi.fn().mockResolvedValue(true),
+      };
+      vi.stubGlobal('caches', mockCaches);
+
+      // Prune down to 3 entries max (5 present, 2 must be evicted)
+      await prunePersistentAudioCache(3);
+
+      expect(mockCaches.open).toHaveBeenCalledWith(TTS_CACHE_NAME);
+      expect(mockCache.delete).toHaveBeenCalledTimes(2);
+      expect(deletedKeys).toEqual([mockKeys[0], mockKeys[1]]);
+
+      vi.unstubAllGlobals();
+    });
+
+    it('20. clearPersistentAudioCache deletes the persistent audio cache storage', async () => {
+      const mockCaches = {
+        delete: vi.fn().mockResolvedValue(true),
+      };
+      vi.stubGlobal('caches', mockCaches);
+
+      await clearPersistentAudioCache();
+
+      expect(mockCaches.delete).toHaveBeenCalledWith(TTS_CACHE_NAME);
+
+      vi.unstubAllGlobals();
     });
   });
 });

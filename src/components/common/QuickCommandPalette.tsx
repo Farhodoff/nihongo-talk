@@ -16,6 +16,8 @@ import {
   Languages,
   Code2,
   BarChart3,
+  Users,
+  PenTool,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -116,6 +118,15 @@ const COMMANDS: CommandItem[] = [
     icon: Compass,
     keywords: ['dialog', 'suhbat', 'restoran', 'aeroport'],
   },
+  {
+    id: 'sakubun',
+    title: 'JLPT Sakubun (Yaponcha Insho) 📝',
+    description: 'Yapon tilida insho yozish va AI baholash',
+    category: 'Til & Imtihonlar',
+    path: '/jlpt-writing',
+    icon: PenTool,
+    keywords: ['sakubun', 'insho', 'writing', 'essay', 'yozish', 'mojisuu'],
+  },
 
   // Fokus
   {
@@ -126,6 +137,15 @@ const COMMANDS: CommandItem[] = [
     path: '/focus',
     icon: Clock,
     keywords: ['pomodoro', 'timer', 'vaqt', 'diqqat'],
+  },
+  {
+    id: 'study-room',
+    title: "Jonli O'quv Xonasi (Study Room) 📚",
+    description: "Do'stlar bilan birga video/audio o'rganish va oq doska",
+    category: 'Fokus',
+    path: '/room/library',
+    icon: Users,
+    keywords: ['room', 'xona', 'study', 'webrtc', 'doska', 'whiteboard', 'video', 'kutubxona'],
   },
   {
     id: 'developers',

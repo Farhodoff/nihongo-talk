@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Users, ArrowRight } from 'lucide-react';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { useFocusTimerContext } from '../context/FocusTimerContext';
 import { useLanguage } from '../context/LanguageContext';
@@ -9,6 +11,7 @@ import { PersonalLearningPlanService } from '../services/PersonalLearningPlanSer
 import { LearningSignalService } from '../services/LearningSignalService';
 
 const FocusPage: React.FC = () => {
+  const navigate = useNavigate();
   const {
     addSession,
     awardXP,
@@ -211,6 +214,36 @@ const FocusPage: React.FC = () => {
         onToggle={handleStartClick}
         onReset={resetTimer}
       />
+
+      {/* Live Study Room Card */}
+      <div className="mt-8 w-full max-w-md rounded-3xl border border-border bg-card/80 p-4 shadow-sm backdrop-blur-sm sm:p-5">
+        <div className="flex items-center justify-between gap-3">
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-indigo-500/15 text-indigo-600 dark:text-indigo-400">
+              <Users size={20} />
+            </div>
+            <div className="text-left">
+              <h4 className="text-xs font-bold text-foreground sm:text-sm">
+                {language === 'ja'
+                  ? 'オンライン自習室 (Live Room)'
+                  : "Jonli O'quv Xonasi (Study Room)"}
+              </h4>
+              <p className="text-[11px] text-muted-foreground">
+                {language === 'ja'
+                  ? '仲間と一緒に勉強・ホワイトボード共有'
+                  : "Boshqalar bilan birga o'qish va oq doska"}
+              </p>
+            </div>
+          </div>
+          <button
+            onClick={() => navigate('/room/library')}
+            className="flex shrink-0 items-center gap-1.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 px-3.5 py-2 text-xs font-bold text-white shadow-md shadow-indigo-500/20 transition-all hover:scale-105 active:scale-95"
+          >
+            <span>{language === 'ja' ? '入室' : 'Kirish'}</span>
+            <ArrowRight size={13} />
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
