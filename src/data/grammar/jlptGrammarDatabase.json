@@ -2820,7 +2820,7 @@
     "title": "〜あげく (ageku)",
     "romaji": "ageku",
     "meaningUz": "oxir-oqibat ... bilan tugamoq (odatda salbiy natija)",
-    "structure": "Verb (た form) あげく（に） Noun + の 2時間も待たされたあげく、結局に試合は延期になった。 2じかんもまたされたあげく、けっきょくにしあいはえんきになった。 After waiting for 2 hours, the match ended up being postponed.",
+    "structure": "Verb (た form) あげく（に） Noun + の",
     "examples": [
       {
         "ja": "2時間も待たされたあげく、結局に試合は延期になった。",
@@ -2840,7 +2840,7 @@
     "title": "〜あるいは (aruiwa)",
     "romaji": "aruiwa",
     "meaningUz": "yoki / yoxud / balki",
-    "structure": "あるいは other option 今⽇中にファックス、あるいは、メールで送ってください。 きょうじゅうにファックス、あるいは、メールおくってください。 Please send it today via fax or mail.",
+    "structure": "あるいは other option 今⽇中にファックス、あるいは、メールで送ってください",
     "examples": [
       {
         "ja": "今日中にファックス、あるいは、メールで送ってください。",
@@ -2860,7 +2860,7 @@
     "title": "〜ばかり (bakari)",
     "romaji": "bakari",
     "meaningUz": "taxminan / chamasi (vaqt yoki miqdor)",
-    "structure": "Noun (indicates time or distance) ばかり 彼⼥は30分ばかりベッドに横になった。 かのじょは30ぷんばかりベッドによこになった。 She lay in bed for about a half-hour.",
+    "structure": "Noun (indicates time or distance) ばかり 彼⼥は30分ばかりベッドに横になった",
     "examples": [
       {
         "ja": "彼女は30分ばかりベッドに横になった。",
@@ -2880,7 +2880,7 @@
     "title": "〜ばかりだ (bakari da)",
     "romaji": "bakari da",
     "meaningUz": "faqatgina ... bo'lib bormoqda (salbiy tomonga o'sish)",
-    "structure": "Verb (dictionary) ばかりだ ばかりです あの⼆⼈の関係は悪くなるばかりだ。 あのふたりのかんけいはわるくなるばかりだ。 Their relationship just keeps getting worse.",
+    "structure": "Verb (dictionary) ばかりだ ばかりです あの⼆⼈の関係は悪くなるばかりだ",
     "examples": [
       {
         "ja": "あの二人の関係は悪くなるばかりだ。",
@@ -2900,7 +2900,7 @@
     "title": "〜ばかりか (bakari ka / bakarika)",
     "romaji": "bakari ka / bakarika",
     "meaningUz": "nafaqat ... balki ... ham",
-    "structure": "Verb (casual) ばかりか Noun な-adjective + な い-adjective + い このマンションは狭いばかりか、暗いです。 このマンションはせまいばかりか、くらいです。 This apartment is not only very small, it's also quite dark.",
+    "structure": "Verb (casual) ばかりか Noun な-adjective + な い-adjective + い このマンションは狭いばかりか、暗いです",
     "examples": [
       {
         "ja": "このマンションは狭いばかりか、暗いです。",
@@ -2920,7 +2920,7 @@
     "title": "〜ばかりに (bakari ni)",
     "romaji": "bakari ni",
     "meaningUz": "faqatgina ... bo'lgani sababli (kutilmagan yomon oqibat)",
-    "structure": "Verb (casual) ばかりに Noun (+ である) な-adjective + な/である い-adjective お⾦がないばかりに、今度の旅⾏に⾏けなかった。 おかねがないばかりに、こんどのりょこうにいけなかった。 I wasn't able to go on this trip since I don't have any money.",
+    "structure": "Verb (casual) ばかりに Noun (+ である) な-adjective + な/である い-adjective",
     "examples": [
       {
         "ja": "お金がないばかりに、今度の旅行に行けなかった。",
@@ -2940,7 +2940,7 @@
     "title": "〜因みに 【ちなみに】 (chinamini)",
     "romaji": "chinamini",
     "meaningUz": "aytgancha / darvoqe / shu o'rinda",
-    "structure": "ちなみに phrase これ、お⼟産だよ。ちなみにベトナムで買ったんだよ。 これ、おみやげだよ。ちなみにベトナムでかったんだよ。 Here is a souvenir. I bought it in Vietnam by the way.",
+    "structure": "ちなみに phrase これ、お⼟産だよ",
     "examples": [
       {
         "ja": "これ、お土産だよ。ちなみにベトナムで買ったんだよ。",
@@ -2960,7 +2960,7 @@
     "title": "〜ちっとも〜ない (chitto mo~nai)",
     "romaji": "chitto mo~nai",
     "meaningUz": "zarra ham / mutlaqo ... emas",
-    "structure": "ちっとも Verb (ない form) 彼は酒はちっとも飲まない。 かれはさけはちっとものまない。 He doesn't drink any alcohol at all.",
+    "structure": "ちっとも Verb (ない form) 彼は酒はちっとも飲まない",
     "examples": [
       {
         "ja": "彼は酒はちっとも飲まない。",
@@ -2980,7 +2980,7 @@
     "title": "〜だけあって (dake atte)",
     "romaji": "dake atte",
     "meaningUz": "... bo'lganiga yarasha / mos ravishda (ijobiy e'tirof)",
-    "structure": "Verb (casual) だけあって だけのことはあって Noun な-adjective + な い-adjective このアパートは駅に近いだけあって、やっぱり家賃も⾼い。 このアパートはえきにちかいだけあって、やっぱりやちんもたかい。 This apartment is close to the station, so as expected the rent is expensive.",
+    "structure": "Verb (casual) だけあって だけのことはあって Noun な-adjective + な い-adjective このアパートは駅に近いだけあって、やっぱり家賃も⾼い",
     "examples": [
       {
         "ja": "このアパートは駅に近いだけあって、やっぱり家賃も高い。",
@@ -3000,7 +3000,7 @@
     "title": "〜だけましだ (dake mashi da)",
     "romaji": "dake mashi da",
     "meaningUz": "... bo'lgani ham katta gap / shukr qilsa arziydi",
-    "structure": "Verb (casual) だけましだ Noun + である な-adjective + な い-adjective 今⽇は暑いが、湿度が⾼くないだけましだ。 きょうはあついが、しつどがたかくないだけましだ。 It's hot today, but I'm glad the humidity is low.",
+    "structure": "Verb (casual) だけましだ Noun + である な-adjective + な い-adjective 今⽇は暑いが、湿度が⾼くないだけましだ",
     "examples": [
       {
         "ja": "今日は暑いが、湿度が高くないだけましだ。",
@@ -3020,7 +3020,7 @@
     "title": "〜だけに (dake ni)",
     "romaji": "dake ni",
     "meaningUz": "aynan ... bo'lgani sababli ham yana-da ko'proq",
-    "structure": "Verb (casual) だけに Noun な-adjective + な い-adjective 駅が近いだけに家賃も⾼い。 えきがちかいだけにやちんもたかい。 The station is nearby, which is also why the rent is so high.",
+    "structure": "Verb (casual) だけに Noun な-adjective + な い-adjective",
     "examples": [
       {
         "ja": "駅が近いだけに家賃も高い。",
@@ -3055,7 +3055,7 @@
     "title": "〜だけは (dake wa)",
     "romaji": "dake wa",
     "meaningUz": "qo'ldan kelgancha / imkon qadar hamma narsani",
-    "structure": "Verb  (dictionary form) だけは Same verb  (past form) ⾛れるだけは速く⾛った。 はしれるだけははやくはしった。 I ran as fast as my legs could carry me.",
+    "structure": "Verb (dictionary form) だけは Same verb (past form) ⾛れるだけは速く⾛った",
     "examples": [
       {
         "ja": "走れるだけは速く走った。",
@@ -3075,7 +3075,7 @@
     "title": "〜だって (datte)",
     "romaji": "datte",
     "meaningUz": "hatto ... ham / axir ... ham",
-    "structure": "Noun + だって even, too だって + phrase because, but 彼だって⼈間だ。 かれだってにんげんだ。 He is only human.",
+    "structure": "Noun + だって",
     "examples": [
       {
         "ja": "彼だって人間だ。",
@@ -3095,7 +3095,7 @@
     "title": "〜でしかない (de shika nai)",
     "romaji": "de shika nai",
     "meaningUz": "faqatgina ... xolos / boshqa narsa emas",
-    "structure": "Noun でしかない これらの考えは推測でしかない。 これらのかんがえはすいそくでしかない。 This idea is nothing more than a guess.",
+    "structure": "Noun でしかない これらの考えは推測でしかない",
     "examples": [
       {
         "ja": "これらの考えは推測でしかない。",
@@ -3115,7 +3115,7 @@
     "title": "〜どころではない (dokoro dewa nai)",
     "romaji": "dokoro dewa nai",
     "meaningUz": "... qilishning ayni payti emas / mutlaqo iloji yo'q",
-    "structure": "Verb (casual) どころではない どころじゃない Noun 彼はよく間違いをするが、バカどころではない。 かれはよくまちがいをするが、バカどころではない。 He often makes mistakes, but he is no fool.",
+    "structure": "Verb (casual) どころではない どころじゃない Noun 彼はよく間違いをするが、バカどころではない",
     "examples": [
       {
         "ja": "彼はよく間違いをするが、バカどころではない。",
@@ -3135,7 +3135,7 @@
     "title": "〜どころか (dokoro ka)",
     "romaji": "dokoro ka",
     "meaningUz": "... u yoqda tursin / aksincha",
-    "structure": "Verb (casual, non-past) どころか Noun な-adjective + (な) い-adjective もっと勉強しないと、N2どころかN3も無理だ。 もっとべんきょうしないと、N2どころかN3もむりだ。 If you do not study more, you will not be able to pass N2, let alone N",
+    "structure": "Verb (casual, non-past) どころか Noun な-adjective + (な) い-adjective もっと勉強しないと、N2どころかN3も無理だ",
     "examples": [
       {
         "ja": "もっと勉強しないと、N2どころかN3も無理だ。",
@@ -3155,7 +3155,7 @@
     "title": "〜どうやら (dou yara)",
     "romaji": "dou yara",
     "meaningUz": "aftidan / ko'rinishidan / ehtimol",
-    "structure": "どうやら phrase どうやら明⽇は⾬になりそうだ。 どうやらあしたはあめになりそうだ。 Apparently, it's going to rain tomorrow.",
+    "structure": "どうやら phrase どうやら",
     "examples": [
       {
         "ja": "どうやら明日は雨になりそうだ。",
@@ -3175,7 +3175,7 @@
     "title": "〜どうせ (douse)",
     "romaji": "douse",
     "meaningUz": "baribir / qanday bo'lmasin",
-    "structure": "どうせ phrase どうせやるなら上⼿にやれ。 どうせやるならじょうずにやれ。 If you're going to do it no matter what, do it well!",
+    "structure": "どうせ phrase どうせやるなら上⼿にやれ",
     "examples": [
       {
         "ja": "どうせやるなら上手にやれ。",
@@ -3210,7 +3210,7 @@
     "title": "〜得る 【える/うる】 (eru/uru)",
     "romaji": "eru/uru",
     "meaningUz": "... bo'lishi mumkin / ehtimoldan xoli emas",
-    "structure": "Verb ます (stem form) 得る  (える/うる) 君の話を信じるよ。だってこの世界ではどんなことでも起こり得るから。 君の話を信じるよ。だってこの世界ではどんなことでも起こり得るから。 I believe in your story. I mean, anything is possible in this world.",
+    "structure": "Verb ます (stem form) 得る (える/うる) 君の話を信じるよ",
     "examples": [
       {
         "ja": "君の話を信じるよ。だってこの世界ではどんなことでも起こり得るから。",
@@ -3240,7 +3240,7 @@
     "title": "〜⾵に 【 ふうに 】 (fuu ni)",
     "romaji": "fuu ni",
     "meaningUz": "... tarzda / shunday yo'sinda",
-    "structure": "どんな あんな こんな どういう ふうに + Verb Verb (casual) こんなふうにやりなさい。 こんなふうにやりなさい。 Please do it like this.",
+    "structure": "どんな あんな こんな どういう ふうに + Verb Verb (casual)",
     "examples": [
       {
         "ja": "私もあんなふうになりたいです。",
@@ -3260,7 +3260,7 @@
     "title": "〜をきっかけに (o kikkake ni)",
     "romaji": "o kikkake ni",
     "meaningUz": "... sabab bo'lib / ... turtkisi bilan",
-    "structure": "Verb (た form) + の/こと がきっかけで をきっかけに Noun 彼⼥は病気をきっかけにそのつまらない仕事を辞めた。 かのじょはびょうきをきっかけにそのつまらないしごとをやめた。 She used her illness to quit that boring job.",
+    "structure": "Verb (た form) + の/こと がきっかけで をきっかけに Noun 彼⼥",
     "examples": [
       {
         "ja": "彼女は病気をきっかけにそのつまらない仕事を辞めた。",
@@ -3280,7 +3280,7 @@
     "title": "〜逆に 【ぎゃくに】 (gyaku ni)",
     "romaji": "gyaku ni",
     "meaningUz": "aksincha / aks holda / teskarisiga",
-    "structure": "逆に phrase 娘はスポーツが好きだが、逆に息⼦はスポーツが嫌いだ。 娘はスポーツが好きだが、逆に息⼦はスポーツが嫌いだ。 My daughter likes sports, but on the other hand my son hates them.",
+    "structure": "逆に phrase 娘はスポーツが好きだが、逆に息⼦はスポーツが嫌いだ",
     "examples": [
       {
         "ja": "娘はスポーツが好きだが、逆に息子はスポーツが嫌いだ。",
@@ -3295,7 +3295,7 @@
     "title": "〜反⾯ 【はんめん】 (hanmen)",
     "romaji": "hanmen",
     "meaningUz": "boshqa tomondan esa / ... bo'lishiga qaramay",
-    "structure": "Verb (casual, non-past) 反⾯ Noun + である な-adjective + な/である い-adjective Phrase 1 + その反⾯ + Phrase 2 この部屋は⽇当たりがいい反⾯、夏はかなり暑いです。 このへやはひあたりがいいはんめん、なつはかなりあついです。 This room has great light exposure, but on the other hand it is very hot in the summer.",
+    "structure": "Verb (casual, non-past) 反⾯ Noun + である な-adjective + な/である い-adjective Phrase 1 + その反⾯ + Phrase 2 この部屋は⽇当たりがいい反⾯、夏はかなり暑いです",
     "examples": [
       {
         "ja": "この部屋は日当たりがいい反面、夏はかなり暑いです。",
@@ -3310,7 +3310,7 @@
     "title": "〜果たして 【はたして】 (hatashite)",
     "romaji": "hatashite",
     "meaningUz": "haqiqatan ham / rostdan ham (savol ohangida)",
-    "structure": "果たして phrase 果たしてそうだろうか。 はたしてそうだろうか。 Can it really be so?",
+    "structure": "果たして phrase 果たしてそうだろうか",
     "examples": [
       {
         "ja": "果たしてそうだろうか。",
@@ -3325,7 +3325,7 @@
     "title": "〜⼀応 【いちおう】 (ichiou)",
     "romaji": "ichiou",
     "meaningUz": "har holda / har ehtimolga qarshi / qisman bo'lsa ham",
-    "structure": "⼀応 phrase ⼀応やりました。 いちおうやりました。 I did it (but it may still need some work).",
+    "structure": "⼀応 phrase ⼀応やりました",
     "examples": [
       {
         "ja": "一応やりました。",
@@ -3355,7 +3355,7 @@
     "title": "〜以上に 【いじょうに】 (ijou ni)",
     "romaji": "ijou ni",
     "meaningUz": "...dan ham ortiqroq / ...dan ziyoda",
-    "structure": "Verb (casual) 以上に Noun な-adjective 以上の Noun 今まで以上に仕事を頑張ります。 いままでいじょうにしごとをがんばります。 I will work even harder at work than I have until now.",
+    "structure": "Verb (casual) 以上に Noun な-adjective 以上の Noun",
     "examples": [
       {
         "ja": "今まで以上に仕事を頑張ります。",
@@ -3370,7 +3370,7 @@
     "title": "〜以上は 【いじょうは】 (ijou wa)",
     "romaji": "ijou wa",
     "meaningUz": "modomiki ... ekan / ... bo'lgach esa",
-    "structure": "Verb (casual) 以上（は） Noun + である な-adjective + である 約束した以上、きちんと守ってくださいね。 やくそくしたいじょう、きちんとまもってくださいね。 You've made a promise, so be sure to keep it!",
+    "structure": "Verb (casual) 以上（は） Noun + である な-adjective + である",
     "examples": [
       {
         "ja": "日本で生活する以上は、日本の法律を守らなければならない。",
@@ -3385,7 +3385,7 @@
     "title": "〜⾏き成り 【いきなり】 (ikinari)",
     "romaji": "ikinari",
     "meaningUz": "to'satdan / kutilmaganda / birdaniga",
-    "structure": "いきなり action いきなり男の⼈に道を聞かれた。 いきなりおとこのひとにみちをきかれた。 A man suddenly asked me for directions.",
+    "structure": "いきなり action いきなり男の⼈に道を聞かれた",
     "examples": [
       {
         "ja": "いきなり男の人に道を聞かれた。",
@@ -3400,7 +3400,7 @@
     "title": "〜⼀気に 【いっきに】 (ikki ni)",
     "romaji": "ikki ni",
     "meaningUz": "bir zumda / bir nafasda / to'xtamasdan",
-    "structure": "⼀気に phrase お茶を⼀気に飲みました。 おちゃをいっきにのみました。 I drank all of the tea at once.",
+    "structure": "⼀気に phrase お茶を⼀気に飲みました",
     "examples": [
       {
         "ja": "お茶を一気に飲みました。",
@@ -3415,7 +3415,7 @@
     "title": "〜⼀⽅で 【いっぽうで】 (ippou de)",
     "romaji": "ippou de",
     "meaningUz": "bir tomondan ... ikkinchi tomondan esa",
-    "structure": "Verb (casual) ⼀⽅（で） Noun + である な-adjective + である い-adjective お⺟さんは優しい⼀⽅で、お⽗さんはこわい。 おかあさんはやさしいいっぽうで、おとうさんはこわい。 My mother is kind, but on the other hand my father is scary.",
+    "structure": "Verb (casual) ⼀⽅（で） Noun + である な-adjective + である い-adjective お⺟さんは優しい⼀⽅で、お⽗さんはこわい",
     "examples": [
       {
         "ja": "お母さんは優しい一方で、お父さんはこわい。",
@@ -3435,7 +3435,7 @@
     "title": "〜いわゆる (iwayuru)",
     "romaji": "iwayuru",
     "meaningUz": "xalq tilida aytganda / deb ataladigan",
-    "structure": "いわゆる Noun 彼はいわゆる語学の天才だ。 かれはいわゆるごがくのてんさいだ。 He is what is called a genius in language.",
+    "structure": "いわゆる Noun 彼はいわゆる語学の天才だ",
     "examples": [
       {
         "ja": "彼はいわゆる語学の天才だ。",
@@ -3455,7 +3455,7 @@
     "title": "〜いよいよ (iyoiyo)",
     "romaji": "iyoiyo",
     "meaningUz": "nihoyat / oxir-oqibat (kutilgan dam)",
-    "structure": "いよいよ phrase いよいよ⼤学の⽣活が始まります。初めて親に離れるからちょっと⼼配する。 いよいよだいがくのせいかつがはじまります。はじめておやにはなれるからちょっと しんぱいする。 My university life has finally begun. Though it is my first time to be away from my parents so I am a little nervous.",
+    "structure": "いよいよ phrase いよいよ⼤学の⽣活が始まります",
     "examples": [
       {
         "ja": "いよいよ大学の生活が始まります。初めて親に離れるからちょっと心配する。",
@@ -3475,7 +3475,7 @@
     "title": "〜上 【じょう】 (jou)",
     "romaji": "jou",
     "meaningUz": "... nuqtai nazaridan / jihatidan",
-    "structure": "Noun 上 健康上ではポテトフライや揚げ物などは⾷べない⽅がいいと思います。 けんこうじょうではポテトフライやあげものなどはたべないほうがいいとおもいま す。 For the sake of one's health, I think it's best to not eat french fries or other fried foods.",
+    "structure": "Noun 上 健康上ではポテトフライや揚げ物などは⾷べない⽅がいいと思います",
     "examples": [
       {
         "ja": "健康上ではポテトフライや揚げ物などは食べない方がいいと思います。",
@@ -3490,7 +3490,7 @@
     "title": "〜かと思ったら 【かとおもったら】 (ka to omottara)",
     "romaji": "ka to omottara",
     "meaningUz": "... deb o'ylagan edimki / ... bilanoq kutilmaganda",
-    "structure": "Verb (た form) かと思ったら かと思うと かと思えば 空が急に暗くなってきたかと思うと、⾬が降ってきた。 そらがきゅうにくらくなってきたかとおもうと、あめがふってきた。 It started raining no sooner than when the sky suddenly turned dark.",
+    "structure": "Verb (た form) かと思ったら かと思うと かと思えば 空が急に暗くなってきたかと思うと、⾬が降ってきた",
     "examples": [
       {
         "ja": "空が急に暗くなってきたかと思うと、雨が降ってきた。",
@@ -3505,7 +3505,7 @@
     "title": "〜かえって (kaette)",
     "romaji": "kaette",
     "meaningUz": "aksincha / kutilganga zid ravishda battarroq",
-    "structure": "Phrase 1 かえって phrase 2 彼は⼿助けどころかかえって邪魔になった。 かれはてだすけどころかかえってじゃまになった。 He was in no position to help, on the contrary he got in the way.",
+    "structure": "Phrase 1 かえって phrase 2 彼は⼿",
     "examples": [
       {
         "ja": "彼は手助けどころかかえって邪魔になった。",
@@ -3525,7 +3525,7 @@
     "title": "〜限り 【かぎり】 (kagiri)",
     "romaji": "kagiri",
     "meaningUz": "modomiki ... ekan / ... ekanligicha",
-    "structure": "Verb (casual, non-past) 限り Noun + である 明⽇は、⾬が降らない限り、10時に学校で会いましょう。 あしたは、あめがふらないかぎり、10じゅうじにがっこうであいましょう。 As long as it doesn't rain tomorrow, let's meet at the school at 10 am.",
+    "structure": "Verb (casual, non-past) 限り Noun + である",
     "examples": [
       {
         "ja": "明日は、雨が降らない限り、10時に学校で会いましょう。",
@@ -3540,7 +3540,7 @@
     "title": "〜甲斐がある 【かいがある】 (kai ga aru)",
     "romaji": "kai ga aru",
     "meaningUz": "harakat zoye ketmadi / samarasini berdi",
-    "structure": "Verb (casual, past) Verb (ます stem) 甲斐がある かいがある /  がいがある Noun + の 努⼒の甲斐があって、希望の⼤学に合格した。 どりょくのかいがあって、きぼうのだいがくにごうかくした。 It was worth working so hard. I got into my target university.",
+    "structure": "Verb (casual, past) Verb (ます stem) 甲斐がある かいがある / がいがある Noun + の 努⼒の甲斐があって、希望の⼤学に合格した",
     "examples": [
       {
         "ja": "一生懸命努力した甲斐があって、試験に合格できた。",
@@ -3555,7 +3555,7 @@
     "title": "〜かねる / かねます (kaneru / kanemasu)",
     "romaji": "kaneru / kanemasu",
     "meaningUz": "... qila olmayman / imkonsiz (xushmuomala rad etish)",
-    "structure": "Verb ます (stem form) かねる かねます すぐにお返事はできかねます。 すぐにおへんじはできかねます。 I can not give you an immediate answer.",
+    "structure": "Verb ます (stem form) かねる かねます すぐにお返事はできかねます",
     "examples": [
       {
         "ja": "すぐにお返事はできかねます。",
@@ -3575,7 +3575,7 @@
     "title": "〜から⾔うと 【からいうと】 (kara iu to)",
     "romaji": "kara iu to",
     "meaningUz": "... nuqtai nazaridan olib qaraganda",
-    "structure": "Noun から⾔うと から⾔えば から⾔って 僕の成績から⾔えば、国⽴⼤学は無理だと思う。 ぼくのせいせきからいえば、こくりつだいがくはむりだとおもう。 With these grades, I don’t think I'm going to be able to get into a national university",
+    "structure": "Noun から⾔うと から⾔えば から⾔って 僕の成績から⾔えば、国⽴",
     "examples": [
       {
         "ja": "僕の成績から言えば、国立大学は無理だと思う。",
@@ -3595,7 +3595,7 @@
     "title": "〜からこそ (kara koso)",
     "romaji": "kara koso",
     "meaningUz": "aynan ... bo'lgani uchungina",
-    "structure": "Verb (casual) からこそ Noun + だ だからこそ + phrase 早く起きたからこそ私は始発電⾞に間に合った。 はやくおきたからこそわたしはしはつでんしゃにまにあった 。 I was able to catch the first train because I woke up early.",
+    "structure": "Verb (casual) からこそ Noun + だ だからこそ + phrase",
     "examples": [
       {
         "ja": "早く起きたからこそ私は始発電車に間に合った。",
@@ -3615,7 +3615,7 @@
     "title": "〜から⾒ると 【からみると】 (kara miru to)",
     "romaji": "kara miru to",
     "meaningUz": "... nuqtai nazaridan / qaralganda",
-    "structure": "Noun から⾒ると から⾒れば から⾒て ⾍嫌いな私から⾒ると、ゴキブリを⼿でつかむなんてありえない。 むしきらいなわたしからみると、ゴキブリをてでつかむなんてありえない。 For someone who hates bugs like me, catching cockroaches by hand is unthinkable.",
+    "structure": "Noun から⾒ると から⾒れば から⾒て ⾍嫌いな私から⾒ると、ゴキブリを⼿でつかむなんてありえない",
     "examples": [
       {
         "ja": "虫嫌いな私から見ると、ゴキブリを手でつかむなんてありえない。",
@@ -3635,7 +3635,7 @@
     "title": "〜からには (kara niwa)",
     "romaji": "kara niwa",
     "meaningUz": "modomiki ... ekan / ... bo'lgandan keyin",
-    "structure": "Verb (dictionary form) からには Verb (casual, past) 約束したからにはその約束を守らなければならない。 やくそくしたからにはそのやくそくをまもらなければならない。 Since you’ve made a promise, you must keep it.",
+    "structure": "Verb (dictionary form) からには Verb (casual, past)",
     "examples": [
       {
         "ja": "約束したからにはその約束を守らなければならない。",
@@ -3655,7 +3655,7 @@
     "title": "〜からして (kara shite)",
     "romaji": "kara shite",
     "meaningUz": "hatto ...ning o'zidan ham ko'rinib turibdiki",
-    "structure": "Noun からして タイトルからして、⾯⽩そうな本ですね。 タイトルからして、おもしろそうなほんですね。 Judging from the title, this book sounds interesting.",
+    "structure": "Noun からして タイトルからして、⾯⽩そうな本ですね",
     "examples": [
       {
         "ja": "タイトルからして、面白そうな本ですね。",
@@ -3675,7 +3675,7 @@
     "title": "〜からすると / からすれば (kara suru to / kara sureba)",
     "romaji": "kara suru to / kara sureba",
     "meaningUz": "...dan xulosa qilganda / ...ga qaraganda",
-    "structure": "Noun からすると からすれば 彼の症状からすると、⼼臓の病気かもしれません。 かれのしょうじょうからすると、しんぞうのびょうきかもしれません。 Judging from his condition, it might be a heart illness.",
+    "structure": "Noun からすると からすれば 彼の症状からすると、⼼臓の病気かもしれません",
     "examples": [
       {
         "ja": "彼の症状からすると、心臓の病気かもしれません。",
@@ -3695,7 +3695,7 @@
     "title": "〜からと⾔って 【からといって】 (kara to itte)",
     "romaji": "kara to itte",
     "meaningUz": "faqat ... deb / ... bo'lgani bilan (har doim ham shunday emas)",
-    "structure": "Verb (casual) からといって Noun + だ な-adjective + だ い-adjective お⾦がたくさんあるからといって使いすぎるのはよくない。 おかねがたくさんあるからといってつかいすぎるのはよくない。 It’s not good to spend too much just because you have a lot of money.",
+    "structure": "Verb (casual) からといって Noun + だ な-adjective + だ い-adjective",
     "examples": [
       {
         "ja": "お金がたくさんあるからといって使いすぎるのはよくない。",
@@ -3715,7 +3715,7 @@
     "title": "〜ことだ (koto da)",
     "romaji": "koto da",
     "meaningUz": "... qilish kerak / ma'qul (do'stona maslahat)",
-    "structure": "Verb (dictionary form) ことだ Verb (ない form) ⾵邪ぎみなら、早く寝ることですよ。 かぜぎみなら、はやくねることですよ。 If you feel like you're catching a cold, you should go to bed early.",
+    "structure": "Verb (dictionary form) ことだ Verb (ない form) ⾵邪ぎみなら、早く寝ることですよ",
     "examples": [
       {
         "ja": "風邪ぎみなら、早く寝ることですよ。",
@@ -3770,7 +3770,7 @@
     "title": "〜ことなく (koto naku)",
     "romaji": "koto naku",
     "meaningUz": "... qilmasdan / to'xtovsiz ravishda",
-    "structure": "Verb (dictionary form) ことなく お⽗さんは10年間休むことなく会社に通った。 おとうさんは10ねんかんやすむことなくかいしゃにかよった。 My father worked for 10 years without taking a break.",
+    "structure": "Verb (dictionary form) ことなく お⽗さんは10",
     "examples": [
       {
         "ja": "お父さんは10年間休むことなく会社に通った。",
@@ -3790,7 +3790,7 @@
     "title": "〜ことに (koto ni)",
     "romaji": "koto ni",
     "meaningUz": "...si shundaki / hayratlanarlisi shundaki",
-    "structure": "Verb (た form) ことに な-adjective + な い-adjective 嬉しいことに、明⽇退院できるんです。 うれしいことに、あしたたいいんできるんです。 I'm happy that tomorrow I will be able to leave the hospital.",
+    "structure": "Verb (た form) ことに な-adjective + な い-adjective",
     "examples": [
       {
         "ja": "嬉しいことに、希望していた大学に合格できた。",
@@ -3805,7 +3805,7 @@
     "title": "〜ことにはならない (koto niwa naranai)",
     "romaji": "koto niwa naranai",
     "meaningUz": "... degani emas / mutlaqo shunday xulosa chiqmaydi",
-    "structure": "Verb (casual, past) + (とい う) ことにはならな い な-adjective + だという い-adjective + という でも、どうやらそんなことにはならないようです。 でも、どうやらそんなことにはならないようです。 But this did not seem likely to happen.",
+    "structure": "Verb (casual, past) + (とい う) ことにはならな い な-adjective + だという い-adjective + という でも、",
     "examples": [
       {
         "ja": "彼が絵が好きだからといって絵がうまいということにはならない。",
@@ -3825,7 +3825,7 @@
     "title": "〜くせして (kuse shite)",
     "romaji": "kuse shite",
     "meaningUz": "... bo'la turib / shunga qaramay (norozilik yoki tanqid)",
-    "structure": "Verb (dictionary form) くせして Noun + の な-adjective + な い-adjective ⼤学⽣のくせして、そんなことも知らないの。 だいがくのくせして、そんなこともしらないの。 Even though you are a university student, you don't know that?",
+    "structure": "Verb (dictionary form) くせして Noun + の な-adjective + な い-adjective",
     "examples": [
       {
         "ja": "大学生のくせして、そんなことも知らないの。",
@@ -3845,7 +3845,7 @@
     "title": "〜未だしも 【ならまだしも】 (nara madashimo)",
     "romaji": "nara madashimo",
     "meaningUz": "... bo'lsa mayli edi, biroq",
-    "structure": "Noun + なら まだしも Noun + は ⼀度だけならまだしも、⼆度も失敗してしまった。 いちどだけならまだしも、にどもしっぱいしてしまった。 It would be alright if I only messed up once, but I failed twice..",
+    "structure": "Noun + なら まだしも Noun + は ⼀度だけならまだしも、⼆度も失敗してしまった",
     "examples": [
       {
         "ja": "一度だけならまだしも、二度も失敗してしまった。",
@@ -3860,7 +3860,7 @@
     "title": "〜ままに (mama ni)",
     "romaji": "mama ni",
     "meaningUz": "... holaticha / ko'ngildagidek",
-    "structure": "Verb (dictionary form) +（が） まま（に） Verb (られる form) +（が） Noun + の 今のままにしておこう。 いまのままにしておこう。 Let's leave this as is.",
+    "structure": "Verb (dictionary form) +（が） まま（に） Verb (られる form) +（が） Noun + の",
     "examples": [
       {
         "ja": "今のままにしておこう。",
@@ -3880,7 +3880,7 @@
     "title": "〜全く〜ない 【まったく〜ない】 (mattaku~nai)",
     "romaji": "mattaku~nai",
     "meaningUz": "mutlaqo ... emas / zarra ham",
-    "structure": "まったく Verb (ない form) 全く漢字が書けない。 まったくかんじがかけない。 I cannot write kanji at all.",
+    "structure": "まったく Verb (ない form) 全く漢字が書けない",
     "examples": [
       {
         "ja": "全く漢字が書けない。",
@@ -3895,7 +3895,7 @@
     "title": "〜も構わず【もかまわず】 (mo kamawazu)",
     "romaji": "mo kamawazu",
     "meaningUz": "...ga ham e'tibor bermasdan / parvo qilmay",
-    "structure": "Verb (casual) + (の) も構わず もかまわず Noun 彼⼥は服が汚れるのもかまわず、公園で⽝と遊んでいる。 かのじょはふくがよごれるのもかまらず、こうえんでいぬとあそんでいる。 She played in the park with her dog without worrying about her clothes getting dirty.",
+    "structure": "Verb (casual) + (の) も構わず もかまわず Noun 彼⼥は服が汚れるのもかまわず、公園で⽝と遊んでいる",
     "examples": [
       {
         "ja": "彼女は服が汚れるのもかまわず、公園で犬と遊んでいる。",
@@ -3910,7 +3910,7 @@
     "title": "〜も当然だ 【もとうぜんだ】 (mo touzen da)",
     "romaji": "mo touzen da",
     "meaningUz": "... bo'lishi tabiiy hol / ajablanarli emas",
-    "structure": "Verb (casual) + の も当然だ Verb (て form) 彼⼥は美⼈で優しい⼈だから、みんなが好きになるのも当然だ。 かのじょはびじんでやさしいひとだから、みんながすきになるのもとうぜんだ。 She is beautiful and kind, so it's only natural that everyone likes her.",
+    "structure": "Verb (casual) + の も当然だ Verb (て form) 彼⼥は美⼈で優しい⼈だから、",
     "examples": [
       {
         "ja": "彼女は美人で優しい人だから、みんなが好きになるのも当然だ。",
@@ -3940,7 +3940,7 @@
     "title": "〜ものだから (mono dakara)",
     "romaji": "mono dakara",
     "meaningUz": "... bo'lgani sababli (sabab / bahona)",
-    "structure": "Verb (casual) ものだから ものですから もんだから (spoken) Noun + な な-Adjective + な い-Adjective ⽬覚まし時計が壊れたものだから、遅刻してしまった。 めざましどけいがこわれたものだから、ちこくしてしまった。 My alarm clock broke, so I was late.",
+    "structure": "Verb (casual) ものだから ものですから もんだから (spoken) Noun + な な-Adjective + な い-Adjective ⽬覚まし時計が壊れたものだから、遅刻してしまった",
     "examples": [
       {
         "ja": "目覚まし時計が壊れたものだから、遅刻してしまった。",
@@ -3960,7 +3960,7 @@
     "title": "〜ものではない (mono dewa nai)",
     "romaji": "mono dewa nai",
     "meaningUz": "... qilish mutlaqo to'g'ri emas / yaramaydi",
-    "structure": "Verb (casual, past) ものではない 何が起こるかわかったものではない。 なにがおこるかわかったものではない。 There is no knowing what will happen.",
+    "structure": "Verb (casual, past) ものではない 何が起こるかわかったものではない",
     "examples": [
       {
         "ja": "何が起こるかわかったものではない。",
@@ -3980,7 +3980,7 @@
     "title": "〜ものがある (mono ga aru)",
     "romaji": "mono ga aru",
     "meaningUz": "...dek tuyuladigan jihati bor",
-    "structure": "Verb (dictionary form) ものがある な-adjective い-adjective 彼の話にはどこか納得できないものがある。 かれのはなしにはどこかなっとくできないものがある。 There’s something unconvincing about his story.",
+    "structure": "Verb (dictionary form) ものがある な-adjective い-adjective 彼の話にはどこか納得できないものがある",
     "examples": [
       {
         "ja": "彼の話にはどこか納得できないものがある。",
@@ -4000,7 +4000,7 @@
     "title": "〜ものか / もんか (mono ka / mon ka)",
     "romaji": "mono ka / mon ka",
     "meaningUz": "aslo ... qilmayman / qayoqda! (qat'iy rad etish)",
-    "structure": "Verb (dictionary form) ものか もんか ものですか もんですか Noun + な な-adjective + な い-adjective あんな所へ誰が⾏くものか。 あんなところへだれがいくものか。 Who would think of going there?",
+    "structure": "Verb (dictionary form) ものか もんか ものですか もんですか Noun + な な-adjective + な い-adjective あんな所へ誰が⾏くものか",
     "examples": [
       {
         "ja": "あんな所へ誰が行くものか。",
@@ -4020,7 +4020,7 @@
     "title": "〜ものなら (mono nara)",
     "romaji": "mono nara",
     "meaningUz": "agar iloji bo'lsa / qo'ldan kelsa",
-    "structure": "Verb (potential form れる) ものなら もんなら (spoken) やれるもんなら、やってみろ。 やれるもんなら、やってみろ。 If you can do it, let's see you try.",
+    "structure": "Verb (potential form れる) ものなら もんなら (spoken) やれるもんなら、やってみろ",
     "examples": [
       {
         "ja": "やれるもんなら、やってみろ。",
@@ -4035,7 +4035,7 @@
     "title": "〜ものの (monono)",
     "romaji": "monono",
     "meaningUz": "... bo'lsa-da / ammo shunga qaramay",
-    "structure": "Verb (casual) ものの Noun + である な-adjective + な い-adjective 秋であるものの、まだ暑い。 あきであるものの、まだあつい。 Although it's fall, it is still hot.",
+    "structure": "Verb (casual) ものの Noun + である な-adjective + な い-adjective 秋であるものの、まだ暑い",
     "examples": [
       {
         "ja": "秋であるものの、まだ暑い。",
@@ -4055,7 +4055,7 @@
     "title": "〜尤も 【もっとも】 (motto mo)",
     "romaji": "motto mo",
     "meaningUz": "to'g'ri, albatta / lekin shuni ham aytish joizki",
-    "structure": "もっとも phrase 全員が参加しなければなりません。もっとも病気の場合は別です。 ぜんいんがさんかしなければなりません。もっともびょうきのばあいはべつです。 Everyone must participate, unless you are sick.",
+    "structure": "もっとも phrase 全員が参加しなければなりません",
     "examples": [
       {
         "ja": "全員が参加しなければなりません。もっとも病気の場合は別です。",
@@ -4070,7 +4070,7 @@
     "title": "〜もう少しで 【もうすこしで】 (mou sukoshi de)",
     "romaji": "mou sukoshi de",
     "meaningUz": "sal qolsa / ozgina qolganda",
-    "structure": "もう少しで Verb (ます stem) +  そうだった/そうになった Verb (dictionary form) +  ところだった\" もう少しであの川でおぼれるところでした. もうすこしであのかわでおぼれるところでした. I almost drowned in that river.",
+    "structure": "もう少しで Verb (ます stem) + そうだった/そうになった Verb (dictionary form) + ところだった\" もう少しであの川でおぼれるところでした. もうすこしであのかわでおぼれるところでした. I almost drowned in that river.",
     "examples": [
       {
         "ja": "もう少しで電車に乗り遅れるところだった。",
@@ -4085,7 +4085,7 @@
     "title": "〜ないではいられない (nai dewa irarenai)",
     "romaji": "nai dewa irarenai",
     "meaningUz": "... qilmasdan tura olmayman / ilojsizman",
-    "structure": "Verb (ない form) ではいられない 試験の前だから、勉強しないではいられない。 しけんのまえだから、べんきょうしないではいられない。 Because it's before the test, I can't help but to study.",
+    "structure": "Verb (ない form) ではいられない 試験の前だから、勉強しないではいられない",
     "examples": [
       {
         "ja": "試験の前だから、勉強しないではいられない。",
@@ -4105,7 +4105,7 @@
     "title": "〜ないことには〜ない (nai koto niwa~nai)",
     "romaji": "nai koto niwa~nai",
     "meaningUz": "... qilmasdan turib ... qilib bo'lmaydi",
-    "structure": "Verb (ない form) ことには + Verb  (ない form) Noun + でない な-adjective + でない い-adjective + いくない 彼が来ないことには、会議を始めることができない。 かれがこないことには、かいぎをはじめることができない。 Unless he comes, we cannot start the meeting.",
+    "structure": "Verb (ない form) ことには + Verb (ない form) Noun + でない な-adjective + でない い-adjective + いくない",
     "examples": [
       {
         "ja": "彼が来ないことには、会議を始めることができない。",
@@ -4125,7 +4125,7 @@
     "title": "〜中を/中では 【なかを/なかでは】 (naka o/naka dewa)",
     "romaji": "naka o/naka dewa",
     "meaningUz": "... ichida / ... sharoitida",
-    "structure": "Verb (casual form) 中を 中では Noun + の Adjective 私はお店の中をうろうろしていた。 わたしはおみせのなかをうろうろしていた。 I wandered around in the store.",
+    "structure": "Verb (casual form) 中を 中では Noun + の Adjective 私はお店の中をうろうろしていた",
     "examples": [
       {
         "ja": "私はお店の中をうろうろしていた。",
@@ -4140,7 +4140,7 @@
     "title": "〜なくはない (naku wa nai)",
     "romaji": "naku wa nai",
     "meaningUz": "... emas deb ayta olmayman / qisman shunday",
-    "structure": "Verb ない くはない くもない Noun + がな な-adjective + じゃな い-adjective + いくな ⾃信がなくはないが、ただちょっと緊張している。 じしんがなくはないが、ただちょっときんちょうしている。 It’s not that I have no confidence, I’m just a little nervous.",
+    "structure": "Verb ない くはない くもない Noun + がな な-adjective + じゃな い-adjective + いくな",
     "examples": [
       {
         "ja": "自信がなくはないが、ただちょっと緊張している。",
@@ -4160,7 +4160,7 @@
     "title": "〜何も〜ない 【なにも〜ない】 (nani mo~nai)",
     "romaji": "nani mo~nai",
     "meaningUz": "hech narsa ... emas / mutlaqo",
-    "structure": "なにも Verb/Noun/Adj (ない form) 私達はなにもいらない。 わたしたちはなにもいらない。 We don't need anything.",
+    "structure": "なにも Verb/Noun/Adj (ない form)",
     "examples": [
       {
         "ja": "私達はなにもいらない。",
@@ -4175,7 +4175,7 @@
     "title": "〜なお (nao)",
     "romaji": "nao",
     "meaningUz": "bundan tashqari / hamon / shuningdek",
-    "structure": "なお phrase かなり多くの⼈々が今なおそれを信じている。 かなりおおくのひとびとがいまなおそれをしんじている。 Many people still believe that.",
+    "structure": "なお phrase かなり多くの⼈々が今なおそれを信じている",
     "examples": [
       {
         "ja": "彼はなお走り続けている。",
@@ -4190,7 +4190,7 @@
     "title": "〜ねばならない (neba naranai)",
     "romaji": "neba naranai",
     "meaningUz": "... qilish shart / lozim (adabiy uslub)",
-    "structure": "Verb ない ねばならない ⻭医者に⾏かねばならない。 はいしゃにいかねばならない。 I must go to the dentist.",
+    "structure": "Verb ない ねばならない ⻭医者に⾏かねばならない",
     "examples": [
       {
         "ja": "真実を明らかにせねばならない。",
@@ -4205,7 +4205,7 @@
     "title": "〜にほかならない (ni hoka naranai)",
     "romaji": "ni hoka naranai",
     "meaningUz": "aynan ...dan boshqa narsa emas",
-    "structure": "Noun にほかならない 合格したのは、彼の努⼒の結果にほかならない。 ごうかくしたのは、かれのどりょくのけっかにほかならない。 Him being able to pass is nothing else but the result of his hard effort.",
+    "structure": "Noun にほかならない 合格したのは、彼の努⼒の結果にほかならない",
     "examples": [
       {
         "ja": "今回の成功は、皆さんの努力の結果にほかならない。",
@@ -4220,7 +4220,7 @@
     "title": "〜に限らず 【にかぎらず】 (ni kagirazu)",
     "romaji": "ni kagirazu",
     "meaningUz": "nafaqat ... balki barcha...",
-    "structure": "Noun に限らず 最近は、⼥性に限らず男性も化粧をする。 さいきんは、じょせいにかぎらずだんせいもけしょうをする。 Lately, not only women but also men have been wearing makeup.",
+    "structure": "Noun に限らず 最近は、⼥性に限らず男性も化粧をする",
     "examples": [
       {
         "ja": "若者に限らず、高齢者もスマートフォンを使っている。",
@@ -4235,7 +4235,7 @@
     "title": "〜に限って 【にかぎって】 (ni kagitte)",
     "romaji": "ni kagitte",
     "meaningUz": "aynan ...ga kelganda / faqatgina ...da",
-    "structure": "Noun に限って うちの娘に限って、⼈をいじめるようなことはしません。 うちのむすめにかぎって、ひとをいじめるようなことはしません。 Our daughter would be the last person to do something like bully another person.",
+    "structure": "Noun に限って",
     "examples": [
       {
         "ja": "傘を持っていない日に限って、雨が降る。",
@@ -4250,7 +4250,7 @@
     "title": "〜に関わらず 【にかかわらず】 (ni kakawarazu)",
     "romaji": "ni kakawarazu",
     "meaningUz": "...ga qaramasdan / qat'i nazar",
-    "structure": "Verb (dictionary form) に関わらず にかかわらず Noun Adjective このバスは距離にかかわらず、どこまで⾏っても200円だ。 このバスはきょりにかかわらず、どこまでいっても200えんだ。 This bus costs 200 yen regardless of the distance you go.",
+    "structure": "Verb (dictionary form) に関わらず にかかわらず Noun Adjective このバスは距離にかかわらず、どこまで⾏っても200円だ",
     "examples": [
       {
         "ja": "天候に関わらず、試合は行われます。",
@@ -4265,7 +4265,7 @@
     "title": "〜に関わる 【にかかわる】 (ni kakawaru)",
     "romaji": "ni kakawaru",
     "meaningUz": "...ga daxldor / taqdiriga ta'sir qiluvchi",
-    "structure": "Noun 関わる にかかわる にかかわって にかかわり 息⼦はマスコミに関わる仕事をしている。 むすこはマスコミにかかわるしごとをしている。 My son works in a job related to mass communications.",
+    "structure": "Noun 関わる にかかわる にかかわって にかかわり 息⼦はマスコミに関わる仕事をしている",
     "examples": [
       {
         "ja": "これは命に関わる重大な問題だ。",
@@ -4280,7 +4280,7 @@
     "title": "〜に決まっている 【にきまっている】 (ni kimatte iru)",
     "romaji": "ni kimatte iru",
     "meaningUz": "shubhasiz ... bo'ladi / albatta",
-    "structure": "Verb (casual) に決まっている Noun な-adjective い-adjective 毎⽇、⼀⽣懸命勉強したから、絶対合格するに決まっている。 まいにち、いっしょうけんめいべんきょうしたから、ぜったいごうかくするにきまっ ている。 I've studied very hard every day so I am certain that I will pass the exam.",
+    "structure": "Verb (casual) に決まっている Noun な-adjective い-adjective 毎⽇、⼀⽣懸命勉強したから、",
     "examples": [
       {
         "ja": "そんな嘘、すぐにばれるに決まっている。",
@@ -4295,7 +4295,7 @@
     "title": "〜に越したことはない 【にこしたことはない】 (ni koshita koto wa nai)",
     "romaji": "ni koshita koto wa nai",
     "meaningUz": "... bo'lgani ma'qul / ...dan yaxshisi yo'q",
-    "structure": "Verb (casual, non-past) に越したことはない Noun な-adjective い-adjective そうするに越したことはない。 そうするにこしたことはない。 That is the best thing to do.",
+    "structure": "Verb (casual, non-past) に越したことはない Noun な-adjective い-adjective",
     "examples": [
       {
         "ja": "健康であるに越したことはない。",
@@ -4310,7 +4310,7 @@
     "title": "〜に応えて 【にこたえて】 (ni kotaete)",
     "romaji": "ni kotaete",
     "meaningUz": "...ga javoban / umidlarini oqlab",
-    "structure": "Noun に応えて に応える に応え ⼤学は、学⽣たちの要望にこたえて、図書館の利⽤時間を延ばした。 だいがくは、がくせいたちのようぼうにこたえて、としょかんのりようじかんをのば した。 The university extended the library hours in response to student requests.",
+    "structure": "Noun に応えて に応える に応え",
     "examples": [
       {
         "ja": "ファンの期待に応えて、彼は素晴らしいホームランを打った。",
@@ -4325,7 +4325,7 @@
     "title": "〜に加えて 【にくわえて】 (ni kuwaete)",
     "romaji": "ni kuwaete",
     "meaningUz": "...ga qo'shimcha tarzda / ustiga-ustak",
-    "structure": "Noun に加えて のどの痛みに加えて、熱も出てきたので学校を休むしかない。 のどのいたみにくわえて、ねつもでてきたのでがっこうをやすむしかない。 In addition to throat pain, I've started getting a fever and have no choice but to miss school.",
+    "structure": "Noun に加えて",
     "examples": [
       {
         "ja": "風雨に加えて、激しい雷まで鳴り始めた。",
@@ -4340,7 +4340,7 @@
     "title": "〜に基づいて 【にもとづいて】 (ni motozuite)",
     "romaji": "ni motozuite",
     "meaningUz": "...ga asoslanib / binoan",
-    "structure": "Noun に基づいて に基づき この⼩説は実際にあったことに基づいて書かれたそうです。 このしょうせつはじっさいにあったことにもとづいてかかれたそうです。 This novel is apparently written based on things that actually happened.",
+    "structure": "Noun に基づいて に基づき この⼩",
     "examples": [
       {
         "ja": "この小説は実際にあったことに基づいて書かれたそうです。",
@@ -4355,7 +4355,7 @@
     "title": "〜に応じて 【におうじて】 (ni oujite)",
     "romaji": "ni oujite",
     "meaningUz": "...ga mos ravishda / qarab",
-    "structure": "Noun に応じて に応じた この学校は⽣徒の⽇本語のレベルに応じて、クラスを分けます。 このがっこうはせいとのにほんごのレベルにおうじて、クラスをわけます。 At this school students are divided up based on their Japanese ability level.",
+    "structure": "Noun に応じて に応じた この学校は⽣徒の⽇本語のレベルに応じて、クラスを分けます",
     "examples": [
       {
         "ja": "能力や経験に応じて、給料が決められます。",
@@ -4370,7 +4370,7 @@
     "title": "〜に際して 【にさいして】 (ni saishite)",
     "romaji": "ni saishite",
     "meaningUz": "... munosabati bilan / arafasida",
-    "structure": "Verb (dictionary form) に際して（は） Noun ⾞を買うに際しては、保険に⼊らなければならない。 くるまをかうにさいしては、ほけんにはいらなければならない。 When you buy a new car, you must buy insurance.",
+    "structure": "Verb (dictionary form) に際して（は） Noun",
     "examples": [
       {
         "ja": "新年の出発に際して、一言ご挨拶を申し上げます。",
@@ -4385,7 +4385,7 @@
     "title": "〜に先⽴ち 【にさきだち】 (ni sakidachi)",
     "romaji": "ni sakidachi",
     "meaningUz": "...dan oldin / avval",
-    "structure": "Verb (dictionary form) に先⽴ち に先⽴って に先⽴つ Noun 会議に先⽴って、資料を集めておかなければならない。 かいぎにさきだって、しりょうをあつめておかなければならない Before the meeting, we must gather the resources.",
+    "structure": "Verb (dictionary form) に先⽴ち に先⽴って に先⽴つ Noun 会議に先⽴って、資料を集めておかなければならない",
     "examples": [
       {
         "ja": "試合の開始に先立ち、両チームの選手が紹介された。",
@@ -4400,7 +4400,7 @@
     "title": "〜にしろ〜にしろ (ni shiro~ni shiro)",
     "romaji": "ni shiro~ni shiro",
     "meaningUz": "... bo'ladimi yoki ... bo'ladimi, baribir",
-    "structure": "Verb  (dict. form) にしろ にせよ Verb  ない form にしろ にせよ Noun Noun な-adj な-adj い-adj い-adj 明⽇のパーティーに⾏くにしろ⾏かないにしろ、連絡してくださいね。 あしたのパーティーにいくにしろいかないにしろ、れんらくしてくださいね。 Whether you go to the party tomorrow or not, please contact me.",
+    "structure": "Verb (dict. form) にしろ にせよ Verb ない form にしろ にせよ Noun Noun な-adj な-adj い-adj い-adj 明⽇のパーティーに⾏くにしろ⾏かないにしろ、連絡してくださいね",
     "examples": [
       {
         "ja": "行くにしろ行かないにしろ、早く決めてください。",
@@ -4415,7 +4415,7 @@
     "title": "〜にしても〜にしても (ni shitemo~ni shitemo)",
     "romaji": "ni shitemo~ni shitemo",
     "meaningUz": "... bo'lgan taqdirda ham / qanday bo'lmasin",
-    "structure": "Verb (dict. form) にしても にしろ Verb (dict. form) にしても にしろ Noun Noun な-adj な-adj い-adj い-adj ⾏くにしても⾏かないにしても、早く決めてください。 いくにしてもいかないにしても、はやくきめてください。 Hurry up and decide whether you will go or not.",
+    "structure": "Verb (dict. form) にしても にしろ Verb (dict. form) にしても にしろ Noun Noun な-adj な-adj い-adj い-adj ⾏くにしても⾏かないにしても、早く決めてください",
     "examples": [
       {
         "ja": "賛成するにしても反対するにしても、理由を説明してください。",
@@ -4430,7 +4430,7 @@
     "title": "〜に沿って 【にそって】 (ni sotte)",
     "romaji": "ni sotte",
     "meaningUz": "... yoqasidan / ...ga mos ravishda (yo'riqnoma, qoida)",
-    "structure": "Noun に沿って に沿い に沿う に沿った この坂道に沿って⾃転⾞で⾏けば、1時間半ぐらいで頂上に着きます。 このさかみちにそってじてんしゃでいけば、1じかんはんぐらいでちょうじょうにつき ます。 If you go along this mountain road by bicycle, you will reach the peak in about an hour and a half.",
+    "structure": "Noun に沿って に沿い に沿う に沿った",
     "examples": [
       {
         "ja": "マニュアルに沿って、機械を操作してください。",
@@ -4445,7 +4445,7 @@
     "title": "〜に相違ない 【にそういない】 (ni soui nai)",
     "romaji": "ni soui nai",
     "meaningUz": "shubhasiz ... bo'lsa kerak / aniq",
-    "structure": "Verb (casual) に相違ない Noun + （である） な-adjective + （である） い-adjective 冷蔵庫に⼊れていたアイスクリームを⾷べたのは、娘に相違ない。 れいぞうこにいれていたアイスクリームをたべたのは、むすめにそういない。 I'm certain it was my daughter who ate the ice cream I put in the freezer.",
+    "structure": "Verb (casual) に相違ない Noun + （である） な-adjective + （である） い-adjective",
     "examples": [
       {
         "ja": "犯人はあの男に相違ない。",
@@ -4460,7 +4460,7 @@
     "title": "〜に過ぎない 【にすぎない】 (ni suginai)",
     "romaji": "ni suginai",
     "meaningUz": "shunchaki ... xolos / ...dan ortiq emas",
-    "structure": "Verb (casual) に過ぎない に過ぎません Noun + (である) な-adjective + (である) い-adjective 単に幸運だったにすぎない。 たんにこううんだったにすぎない。 That was just pure luck.",
+    "structure": "Verb (casual) に過ぎない に過ぎません Noun + (である) な-adjective + (である) い-adjective",
     "examples": [
       {
         "ja": "私はただ自分の義務を果たしたにすぎない。",
@@ -4475,7 +4475,7 @@
     "title": "〜に伴って 【にともなって】 (ni tomonatte)",
     "romaji": "ni tomonatte",
     "meaningUz": "... bilan parallel ravishda / ... oqibatida",
-    "structure": "Verb (dictionary form) に伴って に伴い に伴う Noun それに伴って私たちの予定は再度変わるかもしれません。 それにともなってわたしたちのよていはさいどかわるかもしれません。 Accordingly, our plans may change again.",
+    "structure": "Verb (dictionary form) に伴って に伴い に伴う Noun それに伴って私たちの予定は再度変わるかもしれません",
     "examples": [
       {
         "ja": "人口の増加に伴って、様々な問題が生じている。",
@@ -4490,7 +4490,7 @@
     "title": "〜につけ (ni tsuke)",
     "romaji": "ni tsuke",
     "meaningUz": "har safar ...ganda / ... bo'ladimi yo ... bo'ladimi",
-    "structure": "Verb (dictionary form) につけ につけて Noun その写真を⾒るにつけ、⼩学校のころを思い出す。 そのしゃしんをみるにつけ、しょうがっこうのころをおもいだす。 Whenever I see that photo, I think back to my elementary school days.",
+    "structure": "Verb (dictionary form) につけ につけて Noun",
     "examples": [
       {
         "ja": "この写真を見るにつけ、故郷を思い出す。",
@@ -4505,7 +4505,7 @@
     "title": "〜につき (ni tsuki)",
     "romaji": "ni tsuki",
     "meaningUz": "... sababli / har bir ...ga (e'lonlarda)",
-    "structure": "Noun + につき 昼休みにつき、事務所は2時まで休みです。 ひるやすみにつき、じむしょはじまでやすみです。 The office will be closed until 2 o’clock due to the lunch break.",
+    "structure": "Noun + につき",
     "examples": [
       {
         "ja": "工事中につき、立ち入り禁止。",
@@ -4520,7 +4520,7 @@
     "title": "〜に渡って 【にわたって】 (ni watatte)",
     "romaji": "ni watatte",
     "meaningUz": "... mobaynida / ... bo'ylab (butun hudud yoki davr)",
-    "structure": "Noun にわたって 道路は数マイルにわたってまっすぐ続いていた。 どうろはすうまいるにわたってまっすぐつづいていた。 The road ran straight for several miles.",
+    "structure": "Noun にわたって 道路は数マイルにわたってまっすぐ続いていた",
     "examples": [
       {
         "ja": "3日間にわたって、お祭りが開催された。",
@@ -4535,7 +4535,7 @@
     "title": "〜にも関わらず 【にもかかわらず】 (nimo kakawarazu)",
     "romaji": "nimo kakawarazu",
     "meaningUz": "...ga qaramasdan / shunday bo'lsa ham",
-    "structure": "Verb (casual) にも関わらず にもかかわらず Noun + （である） な-adjective + （である） い-adjective ⼤学⽣にも関わらず、基本的な漢字が書けない⼈もいる。 だいがくせいにもかかわらず、きほんてきなかんじがかけないひともいる。 Despite being university students, there are some people who cannot write basic kanji.",
+    "structure": "Verb (casual) にも関わらず にもかかわらず Noun + （である） な-adjective + （である） い-adjective",
     "examples": [
       {
         "ja": "大雨にもかかわらず、多くの人が集まった。",
@@ -4550,7 +4550,7 @@
     "title": "〜にて (nite)",
     "romaji": "nite",
     "meaningUz": "...da / ... orqali (rasmiy uslubdagi de yuklamasi)",
-    "structure": "Noun にて 今回のイベントは駅前にて⾏います。 こんかいのイベントはえきまえにておこないます。 This event will be held in front of the station.",
+    "structure": "Noun にて 今回のイベントは駅前にて⾏います",
     "examples": [
       {
         "ja": "東京ドームにてコンサートが開催されます。",
@@ -4565,7 +4565,7 @@
     "title": "〜のももっともだ (no mo motto mo da)",
     "romaji": "no mo motto mo da",
     "meaningUz": "... qilishi mutlaqo tabiiy / ajablanmasa ham bo'ladi",
-    "structure": "Verb (casual) + のも （は）もっともだ Noun + も 彼が仕事を辞めるのももっともだ。 かれがしごとをやめるのももっともだ。 He has every reason to quit his job.",
+    "structure": "Verb (casual) + のも （は）もっともだ Noun + も",
     "examples": [
       {
         "ja": "彼があんなに怒るのももっともだ。",
@@ -4580,7 +4580,7 @@
     "title": "〜の下で 【のもとで】 (no moto de)",
     "romaji": "no moto de",
     "meaningUz": "... qo'l ostida / rahnamoligida",
-    "structure": "Noun + の 下で 下に 下 もと ⽇本語を勉強するなら英語が話せる先⽣の下で勉強したいです。 にほんごをべんきょうするならえいごがはなせるせんせいのもとでべんきょうしたい です。 If I am going to study Japanese, I want to study under a teacher who can speak English.",
+    "structure": "Noun + の 下で 下に 下 もと",
     "examples": [
       {
         "ja": "日本語を勉強するなら英語が話せる先生の下で勉強したいです。",
@@ -4595,7 +4595,7 @@
     "title": "〜の上では 【のうえでは】 (no ue de wa)",
     "romaji": "no ue de wa",
     "meaningUz": "...ga binoan / qoida jihatidan",
-    "structure": "Noun の上で（は） 上の 規則の上では彼はまだ学⽣だ。 きそくのうえではかれはまだがくせいだ。 According to the rules, he is still a student.",
+    "structure": "Noun の上で（は） 上の 規則の上では彼はまだ学⽣だ",
     "examples": [
       {
         "ja": "規則の上では彼はまだ学生だ。",
@@ -4610,7 +4610,7 @@
     "title": "〜のみならず (nominarazu)",
     "romaji": "nominarazu",
     "meaningUz": "nafaqat ... balki ... ham (kitobiy uslub)",
-    "structure": "Verb (dictionary form) のみならず Noun な-adjective + である い-adjective 彼は英語のみならず、スペイン語も話せる。 かれはえいごのみならず、スペインごもはなせる。 Not only does he speak English, he speaks Spanish as well.",
+    "structure": "Verb (dictionary form) のみならず Noun な-adjective + である い-adjective 彼は英語のみならず、スペイン語も話せる",
     "examples": [
       {
         "ja": "彼は日本のみならず、世界中で知られている。",
@@ -4625,7 +4625,7 @@
     "title": "〜ぬ (nu)",
     "romaji": "nu",
     "meaningUz": "...mas / inkor shakli (ない fe'lining adabiy varianti)",
-    "structure": "Verb ない ぬ 知らぬが仏。 しらぬがほとけ。 Ignorance is bliss.",
+    "structure": "Verb ない ぬ 知らぬが仏",
     "examples": [
       {
         "ja": "知らぬ顔をする。",
@@ -4655,7 +4655,7 @@
     "title": "〜抜く 【ぬく】 (nuku)",
     "romaji": "nuku",
     "meaningUz": "oxirigacha yetkazmoq / sabot bilan yengmoq",
-    "structure": "Verb ます (stem form) 抜く 彼は、何においても頑張り抜く。 かれは、なににおいてもがんばりぬく。 He tries to do his best in everything.",
+    "structure": "Verb ます (stem form) 抜く 彼は、何においても頑張り抜く",
     "examples": [
       {
         "ja": "困難を乗り越えて、最後まで走り抜いた。",
@@ -4670,7 +4670,7 @@
     "title": "〜元にして 【をもとに】 (o moto ni)",
     "romaji": "o moto ni",
     "meaningUz": "... asosida / negizida",
-    "structure": "Noun をもとに をもとにして 試験の結果をもとにしてクラス分けを⾏います。 しけんのけっかをもとにしてクラスわけをおこないます。 We’ll divide the class based on the test results.",
+    "structure": "Noun をもとに をもとにして",
     "examples": [
       {
         "ja": "実話をもとにして映画が作られた。",
@@ -4685,7 +4685,7 @@
     "title": "〜を除いて 【をのぞいて】 (o nozoite)",
     "romaji": "o nozoite",
     "meaningUz": "...dan tashqari / ...ni hisobga olmaganda",
-    "structure": "Noun を除いて(は) を除けば 彼は⽇曜⽇を除いて毎⽇働いている。 かれはにちようびをのぞいてまいにちはたらいている。 He works every day except Sundays.",
+    "structure": "Noun を除いて(は) を除けば 彼は⽇曜⽇を除いて毎⽇働いている",
     "examples": [
       {
         "ja": "日曜日を除いて、毎日図書館で勉強している。",
@@ -4700,7 +4700,7 @@
     "title": "〜を問わず 【をとわず】 (o towazu)",
     "romaji": "o towazu",
     "meaningUz": "...dan qat'i nazar / farqsiz",
-    "structure": "Noun を問わず この公園では季節を問わず美しい花が⾒られます。 このこうえんではきせつをとわずうつくしいはながみられます。 You can see beautiful flowers in this park regardless of the season.",
+    "structure": "Noun を問わず この公園では季節を問わず美しい花が⾒られます",
     "examples": [
       {
         "ja": "年齢を問わず、誰でも参加できます。",
@@ -4715,7 +4715,7 @@
     "title": "〜お〜願う 【お〜ねがう】 (o~negau)",
     "romaji": "o~negau",
     "meaningUz": "iltimos, ... qilishingizni so'rayman (hurmat shakli)",
-    "structure": "お + Verb ます (stem form) 願います 願えますか お/ご + Noun (action) しばらくお待ち願います。 しばらくおまちねがいます。 Please wait a moment.",
+    "structure": "お + Verb ます (stem form) 願います 願えますか お/ご + Noun (action) しばらくお待ち願います",
     "examples": [
       {
         "ja": "こちらにご記入願います。",
@@ -4730,7 +4730,7 @@
     "title": "〜お負けに 【おまけに】 (omake ni)",
     "romaji": "omake ni",
     "meaningUz": "ustiga-ustak / qolaversa",
-    "structure": "Phrase おまけに 寒くておまけに⾵も強かった。 さむくておまけにかぜもつよかった。 It was cold, and to make matters worse, the wind was strong.",
+    "structure": "Phrase おまけに",
     "examples": [
       {
         "ja": "雨が降り出し、おまけに風まで強くなってきた。",
@@ -4745,7 +4745,7 @@
     "title": "〜恐らく 【おそらく】 (osoraku)",
     "romaji": "osoraku",
     "meaningUz": "ehtimol / katta ehtimol bilan",
-    "structure": "おそらく phrase これは恐らく間違いです。 これはおそらくまちがいです。 This is likely a mistake.",
+    "structure": "おそらく phrase これは恐らく間違いです",
     "examples": [
       {
         "ja": "恐らく明日は晴れるだろう。",
@@ -4760,7 +4760,7 @@
     "title": "〜恐れがある 【おそれがある】 (osore ga aru)",
     "romaji": "osore ga aru",
     "meaningUz": "... xavfi mavjud / ehtimoli bor (xatarli oqibat)",
-    "structure": "Verb (casual) 恐れがある おそれがある Noun + の 梅⾬に⼊ってからほとんど⾬が降っていない。このまま降らないと、⽔不⾜に なる恐れがある。 つゆにはいってからほとんどあめがふっていない。このままふらないと、みずふそく になるおそれがある。 It has barely rained since entering the rainy season. If things continue like this, there is worry of a water shortage.",
+    "structure": "Verb (casual) 恐れがある おそれがある Noun + の",
     "examples": [
       {
         "ja": "この病気は命を落とす恐れがある。",
@@ -4775,7 +4775,7 @@
     "title": "〜及び 【および】 (oyobi)",
     "romaji": "oyobi",
     "meaningUz": "va / hamda (rasmiy uslub)",
-    "structure": "Noun および Noun 鉛筆及び紙を持ってきてください。 えんぴつおよびかみをもってきてください。 Please bring a Pencil and a Paper.",
+    "structure": "Noun および Noun 鉛筆及び紙を持ってきてください",
     "examples": [
       {
         "ja": "筆記用具及び身分証明書をご持参ください。",
@@ -4790,7 +4790,7 @@
     "title": "〜碌に〜無い 【ろくに〜ない】 (roku ni~nai)",
     "romaji": "roku ni~nai",
     "meaningUz": "tuzuk-quruq ... emas / arzigulik emas",
-    "structure": "ろくに Verb (ない form) 昨夜はろくに寝なかった。 きのうはろくにねなかった。 I did not sleep well last night.",
+    "structure": "ろくに Verb (ない form)",
     "examples": [
       {
         "ja": "忙しくて、最近ろくに寝ていない。",
@@ -4805,7 +4805,7 @@
     "title": "〜せいか (sei ka)",
     "romaji": "sei ka",
     "meaningUz": "... sabablimikan / tufaylimikan (salbiy gumon)",
-    "structure": "Verb (casual) せいか Noun + の な-adjective + な/だった い-adjective たくさん仕事をしたせいか、病気になってしまった。 たくさんしごとをしたせいか、びょうきになってしまった。 I got sick perhaps because I worked too much",
+    "structure": "Verb (casual) せいか Noun + の な-adjective + な/だった い-adjective",
     "examples": [
       {
         "ja": "寝不足のせいか、頭が痛い。",
@@ -4820,7 +4820,7 @@
     "title": "〜折⾓ 【せっかく】 (sekkaku)",
     "romaji": "sekkaku",
     "meaningUz": "shuncha harakat qilib / fursat kelganda",
-    "structure": "せっかく clause (+ conjunction) せっかく勉強したのに合格できなかった。 せっかくべんきょうしたのにごうかくできなかった。 Even though I went through the effort of studying, I couldn't pass (the test).",
+    "structure": "せっかく clause (+ conjunction)",
     "examples": [
       {
         "ja": "せっかく日本に来たのだから、富士山に登りたい。",
@@ -4835,7 +4835,7 @@
     "title": "〜せめて (semete)",
     "romaji": "semete",
     "meaningUz": "hech bo'lmaganda / loaqal",
-    "structure": "せめて phrase せめてあと⼗分待ってくれませんか。 せめてあとじゅうぷんまってくれませんか。 Can't you wait just ten more minutes?",
+    "structure": "せめて phrase せめてあと⼗分待ってくれませんか",
     "examples": [
       {
         "ja": "せめて日曜日くらいはゆっくり休みたい。",
@@ -4850,7 +4850,7 @@
     "title": "〜次第 【しだい】 (shidai)",
     "romaji": "shidai",
     "meaningUz": "... bilanoq / darhol",
-    "structure": "Verb ます (stem form) 次第 部屋の準備ができ次第、会議を始めます。 へやのじゅんびができしだい、かいぎをはじめます。 Once the room preparations are complete, we will begin the meeting.",
+    "structure": "Verb ます (stem form) 次第 部屋の準備ができ次第、会議を始めます",
     "examples": [
       {
         "ja": "部屋の準備ができ次第、会議を始めます。",
@@ -4865,7 +4865,7 @@
     "title": "〜次第で 【しだいで】 (shidai de)",
     "romaji": "shidai de",
     "meaningUz": "...ga bog'liq / ...ga qarab",
-    "structure": "Noun 次第で（は） 次第だ 我々が成功できるかどうかは君次第だ。 われわれがせいこうできるかどうかはきみしだいだ。 It is up to you whether we can succeed or not.",
+    "structure": "Noun 次第で（は） 次第だ 我々が成功できるかどうかは君次第だ",
     "examples": [
       {
         "ja": "我々が成功できるかどうかは君次第だ。",
@@ -4880,7 +4880,7 @@
     "title": "〜次第に 【しだいに】 (shidai ni)",
     "romaji": "shidai ni",
     "meaningUz": "asta-sekin / borgan sari",
-    "structure": "次第に phrase ⾵は次第におさまった。 かぜはしだいにおさまった。 The wind gradually died down.",
+    "structure": "次第に phrase ⾵は次第におさまった",
     "examples": [
       {
         "ja": "天候は次第に回復する見込みです。",
@@ -4895,7 +4895,7 @@
     "title": "〜しかも (shikamo)",
     "romaji": "shikamo",
     "meaningUz": "ustiga-ustak / bundan tashqari",
-    "structure": "しかも phrase この教科書の説明はわかりやすくて、しかも詳しい 。 このきょうかしょのせつめいはわかりやすくて、しかもくわしい。 This textbook’s explanations are easy to understand and what’s more, they’re very detailed.",
+    "structure": "しかも phrase この教科書の説明はわかりやすくて、しかも詳しい",
     "examples": [
       {
         "ja": "このレストランの料理は安くて、しかも美味しい。",
@@ -4910,7 +4910,7 @@
     "title": "〜その上 【そのうえ】 (sono ue)",
     "romaji": "sono ue",
     "meaningUz": "uning ustiga / qo'shimchasiga",
-    "structure": "その上 phrase その上、そのレストランは私たちのホテルからとても近い。 そのうえ、そのレストランはわたしたちのホテルからとてもちかい。 In addition, the restaurant is very near to our hotel.",
+    "structure": "その上 phrase その上、そのレストランは私たちのホテルからとても近い",
     "examples": [
       {
         "ja": "彼は頭が良く、その上スポーツも万能だ。",
@@ -4925,7 +4925,7 @@
     "title": "〜それなのに (sore na noni)",
     "romaji": "sore na noni",
     "meaningUz": "shunday bo'lsa ham / shunga qaramasdan",
-    "structure": "それなのに phrase 毎⽇残業しているし、休⽇も出勤した。それなのに給料がまだ少ない。 まいにちざんぎょうしているし、きゅうじつもしゅっきんした。それなのにきゅうり ょうがまだすくない。 I work overtime everyday and even work on holidays. Despite that, my salary is still low.",
+    "structure": "それなのに phrase 毎⽇残業しているし、休⽇も出勤した",
     "examples": [
       {
         "ja": "雨が降っている。それなのに、彼は傘を持たずに出かけた。",
@@ -4940,7 +4940,7 @@
     "title": "〜それなら (sore nara)",
     "romaji": "sore nara",
     "meaningUz": "agar shunday bo'lsa / u holda",
-    "structure": "それなら phrase 「朝から、調⼦が悪いです。」 「それなら、早く帰って病院へ⾏ったほうがいいですよ。」 「あさから、ちょうしがわるいです。」  「それなら、はやくかえってびょういんへいったほうがいいですよ。」 \"I've not been feeling well since this morning.\" \"If that's the case, then you should head home early and go to the hospital.\"",
+    "structure": "それなら phrase 「朝から、調⼦が悪いです",
     "examples": [
       {
         "ja": "「時間がありません」「それなら急ぎましょう」",
@@ -4955,7 +4955,7 @@
     "title": "〜それにしても (sore ni shitemo)",
     "romaji": "sore ni shitemo",
     "meaningUz": "shunda ham / har holda / nima bo'lganda ham",
-    "structure": "それにしても phrase それにしてもあなたは絵が上⼿ですね。 それにしてもあなたはえがじょうずですね。 At any rate, I think you are great at drawing.",
+    "structure": "それにしても phrase それにしてもあなたは絵が上⼿ですね",
     "examples": [
       {
         "ja": "それにしても、今日は特別に寒いですね。",
@@ -4970,7 +4970,7 @@
     "title": "〜そう⾔えば 【そういえば】 (sou ieba)",
     "romaji": "sou ieba",
     "meaningUz": "aytmoqchi / shuni aytganda yodimga tushdi",
-    "structure": "そういえば phrase そういえば、⼦供のころ、両親と⼀緒にここに来たことを覚えている。 そういえば、こどものころ、りょうしんといっしょにここにきたことをおぼえてい る。 Come to think of it, I remember coming here together with my parents during my childhood.",
+    "structure": "そういえば phrase そういえば、⼦供のころ、両親と⼀",
     "examples": [
       {
         "ja": "そういえば、昨日の約束はどうなりましたか？",
@@ -4985,7 +4985,7 @@
     "title": "〜そうすると (sou suru to)",
     "romaji": "sou suru to",
     "meaningUz": "shunday qilinsa / shundan so'ng",
-    "structure": "そうすると phrase まだ出発しないの︖そうすると、約束の時間に間に合わないよ。 まだしゅっぱつしないの︖そうすると、やくそくのじかんにまにあわないよ。 You haven't left yet? You're not going to make it on time now.",
+    "structure": "そうすると phrase",
     "examples": [
       {
         "ja": "このボタンを押します。そうすると、ドアが開きます。",
@@ -5000,7 +5000,7 @@
     "title": "〜末に 【すえに】 (sue ni)",
     "romaji": "sue ni",
     "meaningUz": "uzoq ...dan so'ng / oxirida",
-    "structure": "Verb (た form) 末（に） Noun + の いろいろ迷った末に、留学することにした。 いろいろまよったすえに、りゅうがくすることにした。 After worrying about various things, I decided to study abroad.",
+    "structure": "Verb (た form) 末（に） Noun + の",
     "examples": [
       {
         "ja": "悩んだ末に、仕事を辞めることにした。",
@@ -5015,7 +5015,7 @@
     "title": "〜少しも〜ない 【すこしも〜ない】 (sukoshi mo~nai)",
     "romaji": "sukoshi mo~nai",
     "meaningUz": "zarra ham ... emas / mutlaqo",
-    "structure": "少しも Verb (ない form) Noun + ではない な-adjective + ではない い-adjective + いくない こんな暑い天気でピクニックするなんて、少しも楽しくないよ。 こんなあついてんきでピクニックするなんて、すこしもたのしくないよ。 Having a picnic in such hot weather isn't fun at all.",
+    "structure": "少しも Verb (ない form) Noun + ではない な-adjective + ではない い-adjective + いくない",
     "examples": [
       {
         "ja": "彼の言っていることは少しも理解できない。",
@@ -5030,7 +5030,7 @@
     "title": "〜少なくとも 【すくなくとも】 (sukunaku tomo)",
     "romaji": "sukunaku tomo",
     "meaningUz": "kamida / kam deganda",
-    "structure": "少なくとも phrase 彼⼥は少なくとも３０歳だ。 かのじょはすくなくとも３０さいだ。 She is not less than thirty.",
+    "structure": "少なくとも phrase 彼⼥は少なくとも３０歳だ",
     "examples": [
       {
         "ja": "合格するには少なくとも300時間は勉強が必要だ。",
@@ -5045,7 +5045,7 @@
     "title": "〜直ちに 【ただちに】 (tadachi ni)",
     "romaji": "tadachi ni",
     "meaningUz": "zudlik bilan / darhol",
-    "structure": "直ちに phrase 彼らは直ちに彼⼥に⼿術をしなければならないだろう。 かれらはただちにかのじょにしゅじゅつをしなければならないだろう。 They will have to operate on the woman immediately.",
+    "structure": "直ちに phrase",
     "examples": [
       {
         "ja": "危険ですから、直ちに避難してください。",
@@ -5060,7 +5060,7 @@
     "title": "〜たまえ (tamae)",
     "romaji": "tamae",
     "meaningUz": "...gin / ...gin-chi (erkaklar buyruq shakli)",
-    "structure": "Verb ます (stem form) たまえ ⼊りたまえ。 はいりたまえ。 Come in.",
+    "structure": "Verb ます (stem form) たまえ ⼊りたまえ",
     "examples": [
       {
         "ja": "もっと自信を持ちたまえ。",
@@ -5075,7 +5075,7 @@
     "title": "〜てばかりはいられない (te bakari wa irarenai)",
     "romaji": "te bakari wa irarenai",
     "meaningUz": "tinimsiz ... qilib o'tira olmayman / chek qo'yish kerak",
-    "structure": "Verb (て form) ばかりは ばかりも いられない どんなに⾟くても、泣いてばかりもいられない。 いつも泣くのはできない No matter how tough it gets, I can't keep crying like this.",
+    "structure": "Verb (て form) ばかりは ばかりも いられない どんなに⾟くても、泣いてばかりもいられない",
     "examples": [
       {
         "ja": "いつまでも泣いてばかりはいられない。",
@@ -5090,7 +5090,7 @@
     "title": "〜てでも (te demo)",
     "romaji": "te demo",
     "meaningUz": "hatto ... qilishga to'g'ri kelsa ham (har qanday yo'l bilan)",
-    "structure": "Verb (て form) でも 何としてでも痩せたい。 たんとしてでもやせたい。 I'll do whatever it takes to lose weight.",
+    "structure": "Verb (て form) でも 何としてでも痩せたい",
     "examples": [
       {
         "ja": "借金をしてでも、この家を買いたい。",
@@ -5105,7 +5105,7 @@
     "title": "〜て以来 【ていらい】 (te irai)",
     "romaji": "te irai",
     "meaningUz": "... qilgandan buyon / beri (o'zgarmas holat)",
-    "structure": "Verb (てform) 以来 Noun ⽇本に来て以来、⺟の料理を⾷べていない。 にほんにきていらい、ははのりょうりをたべていない。 I haven't eaten my mother's cooking since coming to Japan.",
+    "structure": "Verb (てform) 以来 Noun ⽇本に来て以来、⺟の料理を⾷べていない",
     "examples": [
       {
         "ja": "日本に来て以来、毎日日本語で日記を書いている。",
@@ -5120,7 +5120,7 @@
     "title": "〜ていては (te ite wa)",
     "romaji": "te ite wa",
     "meaningUz": "agar doim shunday qilinsa (yomon oqibat muqarrar)",
-    "structure": "Verb (て form) いては そんなに⽢いものばかり⾷べていては、太りますよ。 そんなにあまいものばかりたべていては、ふりますよ。 If you only eat sweets, you will gain weight.",
+    "structure": "Verb (て form) いては そんなに⽢いものばかり⾷べていては、太りますよ",
     "examples": [
       {
         "ja": "そんなに遊んでいては、試験に落ちてしまうよ。",
@@ -5135,7 +5135,7 @@
     "title": "〜てこそ (te koso)",
     "romaji": "te koso",
     "meaningUz": "aynan ... qilgandagina / ... ortidangina",
-    "structure": "Verb (て form) こそ 親になってこそ、親の苦労や気持ちがわかるものだ。 おやになってこそ、おやのくろうやきもちがわかるものだ。 Only after you become a parent can you understand the struggles and feelings of raising children.",
+    "structure": "Verb (て form) こそ 親になってこそ、親の苦労や気持ちがわかるものだ",
     "examples": [
       {
         "ja": "自分でやってみてこそ、その難しさがわかる。",
@@ -5150,7 +5150,7 @@
     "title": "〜て当然だ 【てとうぜんだ】 (te touzen da)",
     "romaji": "te touzen da",
     "meaningUz": "... bo'lishi tabiiy hol / kutilganidek",
-    "structure": "Verb (て form) 当然だ 当たり前だ な-adjective + で い-adjective + いくて 毎⽇遅くまで残業しているから、疲れて当然だ。 まいにちおそくまでざんぎょうしているから、つかれてとうぜんだ。 You're working overtime late everyday, so it's only natural to be tired.",
+    "structure": "Verb (て form) 当然だ 当たり前だ な-adjective + で い-adjective + いくて 毎⽇遅くまで残業しているから、疲れて当然だ",
     "examples": [
       {
         "ja": "毎日遅くまで残業しているから、疲れて当然だ。",
@@ -5180,7 +5180,7 @@
     "title": "〜てはいられない (tewa irarenai)",
     "romaji": "tewa irarenai",
     "meaningUz": "... qilib tura olmayman / vaqtni boy berib bo'lmaydi",
-    "structure": "Verb (て form) はいられない Noun + で な-adjective + で ぐずぐずしてはいられない。 ぐずぐずしてはいられない。 We have no time to lose.",
+    "structure": "Verb (て form) はいられない Noun + で な-adjective + で",
     "examples": [
       {
         "ja": "もう時間がないから、のんびりしてはいられない。",
@@ -5195,7 +5195,7 @@
     "title": "〜てはならない (tewa naranai)",
     "romaji": "tewa naranai",
     "meaningUz": "... qilish mutlaqo mumkin emas / taqiqlanadi",
-    "structure": "Verb (て form) はならない 過去を忘れてはならない。 かこをわすれてはならない。 We must never forget the past.",
+    "structure": "Verb (て form) はならない 過去を忘れてはならない",
     "examples": [
       {
         "ja": "この秘密を誰にも話してはならない。",
@@ -5210,7 +5210,7 @@
     "title": "〜ては〜ては (tewa~tewa)",
     "romaji": "tewa~tewa",
     "meaningUz": "bir ... qilib, bir ... qilib (takroriy harakat)",
-    "structure": "V ては V て V ては V て V ます V ます 1 2 1 2 2 2 ⽴っては座り、座っては⽴ち、気分が落ち着かない。 たってはすわり、すわってはたち、きぶんがおちつかない。 I keep standing and sitting down again, and can't seem to settle down.",
+    "structure": "V ては V て V ては V て V ます V ます 1 2 1 2 2 2 ⽴っては座り、座っては⽴ち、気分が落ち着かない",
     "examples": [
       {
         "ja": "書いては消し、書いては消して、手紙をやっと書き上げた。",
@@ -5225,7 +5225,7 @@
     "title": "〜と同時に 【とどうじに】 (to douji ni)",
     "romaji": "to douji ni",
     "meaningUz": "... bilan bir vaqtning o'zida",
-    "structure": "Verb (casual, non-past) と同時に Noun な-adj + である 彼らは笑うと同時に泣いた。 かれらはわらうとどうじにないた。 They laughed and cried at the same time.",
+    "structure": "Verb (casual, non-past) と同時に Noun な-adj + である",
     "examples": [
       {
         "ja": "ベルが鳴ると同時に、生徒たちは教室から飛び出した。",
@@ -5240,7 +5240,7 @@
     "title": "〜と⾔った 【といった】 (to itta)",
     "romaji": "to itta",
     "meaningUz": "... kabi / ... singari",
-    "structure": "Noun といった バスケットボール、サッカーといったスポーツは⼤学⽣に⼈気がある。 バスケットボール、サッカーといったスポーツはだいがくせいににんきがある。 Sports such as basketball and soccer are popular with college students.",
+    "structure": "Noun といった バスケットボール、サッカーといったスポーツは",
     "examples": [
       {
         "ja": "京都や奈良といった古い町を訪れたい。",
@@ -5255,7 +5255,7 @@
     "title": "〜という⾵に 【というふうに】 (to iu fuu ni)",
     "romaji": "to iu fuu ni",
     "meaningUz": "... tarzda / ... degan fikrda",
-    "structure": "Phrase という⾵に というふうに 彼⼥は信じられないというふうに頭を振った。 かのじょはしんじられないというふうにあたまをふった。 She shook her head in disbelief.",
+    "structure": "Phrase という⾵に というふうに 彼⼥",
     "examples": [
       {
         "ja": "私はいつも早起きをするというふうに習慣づけている。",
@@ -5270,7 +5270,7 @@
     "title": "〜と⾔うことは 【ということは】 (to iu koto wa)",
     "romaji": "to iu koto wa",
     "meaningUz": "bu degani shuki / demak",
-    "structure": "Clause 1 ということは clause 2 あなたが会社を辞めるということは本当ですか。 あなたがかいしゃをやめるということはほんとうですか。 Is it true that you are quitting the company?",
+    "structure": "Clause 1 ということは clause 2 あなたが会社を辞めるということは本当ですか",
     "examples": [
       {
         "ja": "彼が来ないということは、何か事故があったのかもしれない。",
@@ -5285,7 +5285,7 @@
     "title": "〜と⾔うものではない 【というものではない】 (to iu mono dewa nai)",
     "romaji": "to iu mono dewa nai",
     "meaningUz": "doim ham ... degani emas / shart emas",
-    "structure": "Verb (casual form) というものではない というものでもない Noun + だ な-adjective + だ い-adjective + い お⾦があれば幸せだというものでもない。 おかねがあればしあわせだというものでもない。 Just by having no money is no guarantee that you will be happy.",
+    "structure": "Verb (casual form) というものではない というものでもない Noun + だ な-adjective + だ い-adjective + い",
     "examples": [
       {
         "ja": "お金があれば幸せになれるというものではない。",
@@ -5300,7 +5300,7 @@
     "title": "〜と考えられる 【とかんがえられる】 (to kangaerareru)",
     "romaji": "to kangaerareru",
     "meaningUz": "... deb hisoblanadi / o'ylash mumkin",
-    "structure": "Phrase と考えられる これは今年最⾼の映画だと考えられている。 これはことしさいこうのえいがだとかんがえられている。 This is thought of to be this year's best movie.",
+    "structure": "Phrase と考えられる これは今年最⾼の映画だと考えられている",
     "examples": [
       {
         "ja": "この現象は温暖化の影響によるものと考えられている。",
@@ -5315,7 +5315,7 @@
     "title": "〜とか（で) (toka de)",
     "romaji": "toka de",
     "meaningUz": "... sababli emish / deb eshitdim",
-    "structure": "Verb (casual form) とか（で） Noun + だ な-adjective + だ い-adjective アメリカで育ったとかで。 あめりかでそだったとかで。 I heard they were raised in America.",
+    "structure": "Verb (casual form) とか（で） Noun + だ な-adjective + だ い-adjective",
     "examples": [
       {
         "ja": "風邪を引いたとかで、彼は今日休みだ。",
@@ -5330,7 +5330,7 @@
     "title": "〜とっくに (tokku ni)",
     "romaji": "tokku ni",
     "meaningUz": "allaqachon / ancha burun",
-    "structure": "とっくに Verb 彼はとっくに帰りました。 かれはとっくにかえりました。 He came home a long while ago.",
+    "structure": "とっくに Verb",
     "examples": [
       {
         "ja": "そんなことはとっくに知っているよ。",
@@ -5345,7 +5345,7 @@
     "title": "〜ところだった (tokoro datta)",
     "romaji": "tokoro datta",
     "meaningUz": "sal qolsa ... bo'layozdi",
-    "structure": "Verb (dictionary form) ところだった 危ないところだった。 あぶないところだった。 That was a close call.",
+    "structure": "Verb (dictionary form) ところだった 危ないところだった",
     "examples": [
       {
         "ja": "もう少しで階段から落ちるところだった。",
@@ -5360,7 +5360,7 @@
     "title": "〜ところに (tokoro ni)",
     "romaji": "tokoro ni",
     "meaningUz": "ayni ... qilayotgan paytda kutilmaganda",
-    "structure": "Verb (た / ている / ていた) ところに ところへ ところを Noun + の Adjective 私はちょうど家を出ようと思っているところに、⼩⾬が降り始めた。 わたしはちょうどいえをでようとおもっているところに、こさめがふりはじめた。 I was just about to leave home when a light rain started to fall.",
+    "structure": "Verb (た / ている / ていた) ところに ところへ ところを Noun + の Adjective",
     "examples": [
       {
         "ja": "出かけようとしたところに、電話がかかってきた。",
@@ -5375,7 +5375,7 @@
     "title": "〜ところを⾒ると 【ところをみると】 (tokoro o miru to)",
     "romaji": "tokoro o miru to",
     "meaningUz": "...ga qarab xulosa qilsak / qaraganda",
-    "structure": "Verb (casual) ところを⾒ると 彼⼥はラーメンを⾷べているところを⾒ると、ダイエットはやめたんだね。 かのじょはラーメンをたべているところをみると、ダイエットはやめたんだね。 Judjing from the fact that she's eating ramen, she must have quit her diet.",
+    "structure": "Verb (casual) ところを⾒ると 彼⼥はラーメンを⾷べているところを⾒ると、ダイエットはやめたんだね",
     "examples": [
       {
         "ja": "電気がついているところを見ると、彼は家にいるようだ。",
@@ -5390,7 +5390,7 @@
     "title": "〜とも (tomo)",
     "romaji": "tomo",
     "meaningUz": "ha, albatta / so'zsiz shunday",
-    "structure": "Verb ないく とも い-adjective + いく phrase え、そうですとも。 え、そうですとも。 Yes, that is most certainly so.",
+    "structure": "Verb ないく とも い-adjective + いく phrase え、そうですとも",
     "examples": [
       {
         "ja": "え、そうですとも。",
@@ -5405,7 +5405,7 @@
     "title": "〜としても (toshitemo)",
     "romaji": "toshitemo",
     "meaningUz": "hatto ... bo'lgan taqdirda ham",
-    "structure": "Verb (casual form) としても Noun + だ な-adjective + だ い-adjective 今回の試験で不合格になったとしても、諦めずに次回も受験するつもりです。 こんかいのしけんでふごうかくになったとしても、あきらめずにじかいもじゅけんす るつもりです。 Even if I were to fail the exam this time, I plan to not give up and take the exam again.",
+    "structure": "Verb (casual form) としても Noun + だ な-adjective + だ い-adjective",
     "examples": [
       {
         "ja": "たとえ失敗したとしても、後悔はしない。",
@@ -5420,7 +5420,7 @@
     "title": "〜上は 【うえは】 (ue wa)",
     "romaji": "ue wa",
     "meaningUz": "modomiki ... ekan / ... bo'lgach esa",
-    "structure": "Verb (dictionary form) 上は Verb (た form) 約束した上は、どんなことがあっても守ります。 やくそくしたうえは、どんなことがあってもまもります。 Since I’ve made a promise, I will keep it no matter what happens.",
+    "structure": "Verb (dictionary form) 上は Verb (た form) 約束した上は、どんなことがあっても守ります",
     "examples": [
       {
         "ja": "引き受けた上は、最後まで責任を持ってやり遂げます。",
@@ -5450,7 +5450,7 @@
     "title": "〜はともかく (wa tomokaku)",
     "romaji": "wa tomokaku",
     "meaningUz": "...ni bir chetga surib turganda ham",
-    "structure": "Noun はともかく（として） ⾏くか⾏かないかはともかく、レストランの予約だけはしておこう。 いくかいかないかはともかく、レストランのよやくだけはしておこう。 Whether or not we are going, let's at least make the restaurant reservation.",
+    "structure": "Noun はともかく（として） ⾏くか⾏かないかはともかく、レストランの予約だけはしておこう",
     "examples": [
       {
         "ja": "値段はともかく、デザインがとても気に入った。",
@@ -5465,7 +5465,7 @@
     "title": "〜わずかに (wazuka ni)",
     "romaji": "wazuka ni",
     "meaningUz": "arang / salgina / bor-yo'g'i",
-    "structure": "わずかに Phrase 電⾞がわずかに遅れている。 でんしゃがわずかにおくれている。 The train is running slightly late.",
+    "structure": "わずかに Phrase 電⾞",
     "examples": [
       {
         "ja": "わずか数票の差で選挙に勝利した。",
@@ -5480,7 +5480,7 @@
     "title": "〜やがて (yagate)",
     "romaji": "yagate",
     "meaningUz": "tez orada / bora-bora / oxir-oqibat",
-    "structure": "やがて phrase やがて真っ暗になった。 やがてまっくらになった。 It soon became completely dark.",
+    "structure": "やがて phrase",
     "examples": [
       {
         "ja": "雨はやがて雪へと変わった。",
@@ -5495,7 +5495,7 @@
     "title": "〜やら〜やら (yara~yara)",
     "romaji": "yara~yara",
     "meaningUz": "goh ... goh ... (tartibsiz sanash)",
-    "structure": "Verb (dictionary) やら + [B]やら Noun い-adjective ⼤学⽣は宿題やらアルバイトやらで忙しい。 だいがくせいはしゅくだいやらアルバイトやらでいそがしい。 University students are quite busy with things like homework and part time jobs.",
+    "structure": "Verb (dictionary) やら + [B]やら Noun い-adjective",
     "examples": [
       {
         "ja": "宿題やら部屋の掃除やらで、週末は大忙しだった。",
@@ -5510,7 +5510,7 @@
     "title": "〜よほど / よっぽど (yohodo / yoppodo)",
     "romaji": "yohodo / yoppodo",
     "meaningUz": "ancha / g'oyat / favqulodda",
-    "structure": "よほど よっぽど explanation よほど前にあった事です。 よほどまえにあったことです。 It happened a long time ago.",
+    "structure": "よほど よっぽど explanation",
     "examples": [
       {
         "ja": "彼はよほど疲れていたのか、座ったまま眠ってしまった。",
@@ -5525,7 +5525,7 @@
     "title": "〜より [Rasmiy 'Dan'] (yori - from)",
     "romaji": "yori",
     "meaningUz": "...dan (rasmiy uslubdagi 'dan' qo'shimchasi)",
-    "structure": "time, place or person より 今⽇より、毎⽇⽇本語を勉強します。 きょうより、まいにちにほんごをべんきょうします。 From today, I will study Japanese everyday.",
+    "structure": "time, place or person より 今⽇より、毎⽇",
     "examples": [
       {
         "ja": "午後1時より開会式を行います。",
@@ -5540,7 +5540,7 @@
     "title": "〜よりほかない (yori hoka nai)",
     "romaji": "yori hoka nai",
     "meaningUz": "...dan boshqa chora yo'q / majburmiz",
-    "structure": "Verb (dictionary) （より）ほか（は）ない （より）ほか（しかたが）な い この仕事は君に信頼するよりほかはない。 このしごとはきみにしんらいするよりほかはない。 I have no choice but to trust you with this job.",
+    "structure": "Verb (dictionary) （より）ほか（は）ない （より）ほか（しかたが）な い",
     "examples": [
       {
         "ja": "電車が止まったので、歩いて行くよりほかない。",
@@ -5555,7 +5555,7 @@
     "title": "〜ようでは (you dewa)",
     "romaji": "you dewa",
     "meaningUz": "agar shunday bo'lsa (yomon oqibat kelib chiqadi)",
-    "structure": "Verb (casual form) ようでは bad result この問題が分からないようではN２には合格できないよ。 このもんだいがわからないようではN２にはごうかくできないよ。 If you don't understand this problem, then you won't be able to pass the N",
+    "structure": "Verb (casual form) ようでは bad result この問題が分からないようではN２には合格できないよ",
     "examples": [
       {
         "ja": "この問題が分からないようではN2には合格できないよ。",
@@ -5575,7 +5575,7 @@
     "title": "〜ようか〜まいか (you ka~mai ka)",
     "romaji": "you ka~mai ka",
     "meaningUz": "... qilsammikin yoki qilmasammikin (ikkilanish)",
-    "structure": "V (volational) + か V + まいか Special rules for 2nd verb Ru-verb: dictionary form OR ます + まい U-verb: dictionary form + まい くる: こまい / くるまい する: しまい / すまい / するまい ⾬だ。買い物をしに⾏こうか、⾏くまいか。 あめだ。かいものをしにいこうか、いくまいか。 It's raining.. Should I go to buy groceries or not?",
+    "structure": "V (volational) + か V + まいか Special rules for 2nd verb Ru-verb: dictionary form OR ます + まい U-verb: dictionary form + まい くる: こまい / くるまい する: しまい / すまい / するまい ⾬だ",
     "examples": [
       {
         "ja": "雨だ。買い物をしに行こうか、行くまいか。",
@@ -5590,7 +5590,7 @@
     "title": "〜要するに 【ようするに】 (you suru ni)",
     "romaji": "you suru ni",
     "meaningUz": "qisqasi / xulosa qilib aytganda",
-    "structure": "要するに phrase 要するに時と⾦の問題だ。 ようするにときとかねのもんだいだ。 In short, it is a question of time and money.",
+    "structure": "要するに phrase 要するに時と⾦の問題だ",
     "examples": [
       {
         "ja": "要するに時と金の問題だ。",
@@ -5605,7 +5605,7 @@
     "title": "〜ざるを得ない 【ざるをえない】 (zaru o enai)",
     "romaji": "zaru o enai",
     "meaningUz": "... qilishga majbur bo'lmoq / boshqa yo'l yo'q",
-    "structure": "Verb (ない root) ざるを得ない Exception: しない -> せ 私はそうせざるを得ない。 わたしはそうせざるをえない。 I have no choice but to do that.",
+    "structure": "Verb (ない root) ざるを得ない Exception: しない -> せ 私はそうせざるを得ない",
     "examples": [
       {
         "ja": "私はそうせざるを得ない。",
@@ -5620,7 +5620,7 @@
     "title": "〜ずに済む 【ずにすむ】 (zu ni sumu)",
     "romaji": "zu ni sumu",
     "meaningUz": "... qilmasdan ham o'tkazib yubormoq / amallamoq",
-    "structure": "Verb ない ずに済む Exception: する => せずに済む 今年は涼しかったので、エアコンを使わずに済みました。 ことしはすずしかったので、エアコンをつかわずにすみました。 This year was cool and I got by without using my air conditioner.",
+    "structure": "Verb ない ずに済む Exception: する => せずに済む 今年は涼しかったので、エアコン",
     "examples": [
       {
         "ja": "今年は涼しかったので、エアコンを使わずに済みました。",
@@ -6220,7 +6220,7 @@
     "title": "〜いかんにかかわらず (ikan ni kakawarazu)",
     "romaji": "ikan ni kakawarazu",
     "meaningUz": "natijasi yoki sababi qanday bo'lishidan qat'i nazar",
-    "structure": "Ot + のいかんにかかわらず",
+    "structure": "Ot +",
     "examples": [
       {
         "ja": "理由[りゆう]のいかんにかかわらず、遅刻[ちこく]は認めない。",
@@ -6766,6 +6766,1686 @@
         "ja": "町[まち]ぐるみでリサイクル運動[うんどう]に取り組[く]む。",
         "romaji": "Machi gurumi de risaikuru undou ni torikumu.",
         "uz": "Butun shahar bo'lib qayta ishlash harakatiga qo'shildik."
+      }
+    ]
+  },
+  {
+    "id": "n5_koto_ga_dekimasu",
+    "level": "N5",
+    "title": "〜ことができます (koto ga dekimasu)",
+    "romaji": "koto ga dekimasu",
+    "meaningUz": "...-sh qo'limdan keladi / bajara olaman (Qobiliyat va imkoniyat)",
+    "structure": "Fe'l (Lug'at shakli / Jishokei) + ことができます",
+    "examples": [
+      {
+        "ja": "私は日本語を少し話すことができます。",
+        "romaji": "Watashi wa nihongo wo sukoshi hanasu koto ga dekimasu.",
+        "uz": "Men yapon tilida biroz gaplasha olaman."
+      },
+      {
+        "ja": "このホテルではカードを使うことができます。",
+        "romaji": "Kono hoteru dewa kaado wo tsukau koto ga dekimasu.",
+        "uz": "Bu mehmonxonada bank kartasidan foydalanish mumkin."
+      }
+    ]
+  },
+  {
+    "id": "n5_shumi_wa_koto_desu",
+    "level": "N5",
+    "title": "〜趣味は〜ことです (shumi wa ... koto desu)",
+    "romaji": "shumi wa ... koto desu",
+    "meaningUz": "Qiziqishim / xobbiyim ...-dir (Fe'lni otlashtirish)",
+    "structure": "趣味は + Fe'l (Lug'at shakli) + ことです",
+    "examples": [
+      {
+        "ja": "私の趣味は音楽を聴くことです。",
+        "romaji": "Watashi no shumi wa ongaku wo kiku koto desu.",
+        "uz": "Mening qiziqishim musiqa tinglashdir."
+      },
+      {
+        "ja": "趣味は写真[しゃしん]を撮[と]ることです。",
+        "romaji": "Shumi wa shashin wo toru koto desu.",
+        "uz": "Xobbiyim fotosuratga olishdir."
+      }
+    ]
+  },
+  {
+    "id": "n5_mae_ni",
+    "level": "N5",
+    "title": "〜前に (mae ni)",
+    "romaji": "mae ni",
+    "meaningUz": "...-dan oldin / ... qilishdan avval",
+    "structure": "Fe'l (Lug'at shakli) + 前に / Ot + の + 前に",
+    "examples": [
+      {
+        "ja": "寝[ね]る前[まえ]に、本[ほん]を読[よ]みます。",
+        "romaji": "Neru mae ni, hon wo yomimasu.",
+        "uz": "Uxlasdan oldin kitob o'qiyman."
+      },
+      {
+        "ja": "食事[しょくじ]の前[まえ]に、手[て]を洗[あら]ってください。",
+        "romaji": "Shokuji no mae ni, te wo aratte kudasai.",
+        "uz": "Ovqatlanishdan oldin qo'lingizni yuving."
+      }
+    ]
+  },
+  {
+    "id": "n5_te_kara",
+    "level": "N5",
+    "title": "〜てから (te kara)",
+    "romaji": "te kara",
+    "meaningUz": "...-gandan so'ng / ...-qilib bo'lib (Ketma-ketlik)",
+    "structure": "Fe'l (て shakli) + から",
+    "examples": [
+      {
+        "ja": "手[て]を洗[あら]ってから、ご飯[はん]を食[た]べます。",
+        "romaji": "Te wo aratte kara, gohan wo tabemasu.",
+        "uz": "Qo'limni yuvib bo'lgach, ovqat yeyman."
+      },
+      {
+        "ja": "仕事[しごと]が終[お]わってから、泳[およ]ぎに行[い]きました。",
+        "romaji": "Shigoto ga owatte kara, oyogi ni ikimashita.",
+        "uz": "Ish tugagandan so'ng, suzishga bordim."
+      }
+    ]
+  },
+  {
+    "id": "n5_kunarimasu_ninarimasu",
+    "level": "N5",
+    "title": "〜くなります / 〜になります (kunarimasu / ninarimasu)",
+    "romaji": "kunarimasu / ninarimasu",
+    "meaningUz": "...-bo'lmoq / o'zgarmoq (Tabiiy yoki holat o'zgarishi)",
+    "structure": "い-Sifat (い➔く) + なります / な-Sifat, Ot + になります",
+    "examples": [
+      {
+        "ja": "だんだん寒[さむ]くなりましたね。",
+        "romaji": "Dandan samuku narimashita ne.",
+        "uz": "Sekin-asta sovuq bo'lib qoldi-a."
+      },
+      {
+        "ja": "田中[たなか]さんは来年[らいねん]、医者[いしゃ]になります。",
+        "romaji": "Tanaka-san wa rainen, isha ni narimasu.",
+        "uz": "Janob Tanaka kelasi yili shifokor bo'ladi."
+      }
+    ]
+  },
+  {
+    "id": "n5_to_omoimasu",
+    "level": "N5",
+    "title": "〜と思います (to omoimasu)",
+    "romaji": "to omoimasu",
+    "meaningUz": "... deb o'ylayman (Shaxsiy fikr yoki mulohaza)",
+    "structure": "Oddiy shakl (Futsuukei) + と思います",
+    "examples": [
+      {
+        "ja": "明日[あした]は雨[あめ]が降[ふ]ると思[おも]います。",
+        "romaji": "Ashita wa ame ga furu to omoimasu.",
+        "uz": "Ertaga yomg'ir yog'sa kerak deb o'ylayman."
+      },
+      {
+        "ja": "日本[にほん]の物価[ぶっか]は高[たか]いと思[おも]います。",
+        "romaji": "Nihon no bukka wa takai to omoimasu.",
+        "uz": "Yaponiyada narx-navo qimmat deb hisoblayman."
+      }
+    ]
+  },
+  {
+    "id": "n5_to_iimashita",
+    "level": "N5",
+    "title": "〜と言いました (to iimashita)",
+    "romaji": "to iimashita",
+    "meaningUz": "... deb aytdi (Iqtibos keltirish)",
+    "structure": "Gap / Oddiy shakl + と言いました",
+    "examples": [
+      {
+        "ja": "ミラーさんは「来週[らいしゅう]京都[きょうと]へ行[い]きます」と言[い]いました。",
+        "romaji": "Miraa-san wa 'raishuu Kyouto e ikimasu' to iimashita.",
+        "uz": "Janob Miller: 'Kelasi hafta Kiotoga boraman', deb aytdi."
+      },
+      {
+        "ja": "田中[たなか]さんは明日[あした]休[やす]むと言[い]っていました。",
+        "romaji": "Tanaka-san wa ashita yasumu to itte imashita.",
+        "uz": "Janob Tanaka ertaga dam olmoqchi ekanini aytdi."
+      }
+    ]
+  },
+  {
+    "id": "n5_deshou",
+    "level": "N5",
+    "title": "〜でしょう (deshou)",
+    "romaji": "deshou",
+    "meaningUz": "... bo'lsa kerak / ... to'g'rimi? (Taxmin va suhbatdoshdan tasdiq so'rash)",
+    "structure": "Oddiy shakl (da tushib qoladi) + でしょう",
+    "examples": [
+      {
+        "ja": "明日[あした]はいい天気[てんき]でしょう。",
+        "romaji": "Ashita wa ii tenki deshou.",
+        "uz": "Ertaga havo yaxshi bo'lsa kerak."
+      },
+      {
+        "ja": "北海道[ほっかいどう]は寒[さむ]かったでしょう。",
+        "romaji": "Hokkaidou wa samukatta deshou.",
+        "uz": "Xokkaydoda sovuq bo'lgandir-a?"
+      }
+    ]
+  },
+  {
+    "id": "n5_modifying_clauses",
+    "level": "N5",
+    "title": "Aniqlovchi gaplar (連体修飾 / Modifying Clauses)",
+    "romaji": "Rentai shuushoku",
+    "meaningUz": "Otni izohlovchi fe'lli gap (Men sotib olgan kitob / U yashaydigan uy)",
+    "structure": "Fe'l (Oddiy shakl / Futsuukei) + Ot (Noun)",
+    "examples": [
+      {
+        "ja": "これは昨日[きのう]買[か]った本[ほん]です。",
+        "romaji": "Kore wa kinou katta hon desu.",
+        "uz": "Bu kecha sotib olgan kitobimdir."
+      },
+      {
+        "ja": "彼[かれ]が住[す]んでいるアパートはとても広[ひろ]いです。",
+        "romaji": "Kare ga sunde iru apaato wa totemo hiroi desu.",
+        "uz": "U yashayotgan xonadon juda keng."
+      }
+    ]
+  },
+  {
+    "id": "n5_toki",
+    "level": "N5",
+    "title": "〜とき (toki)",
+    "romaji": "toki",
+    "meaningUz": "...-gan vaqtda / ...-ganda",
+    "structure": "Fe'l (Lug'at / た shakli) + とき / い-Sifat + とき / な-Sifat + な + とき / Ot + の + とき",
+    "examples": [
+      {
+        "ja": "図書館[としょかん]で本[ほん]を借[か]りるとき、カードが必要[ひつよう]です。",
+        "romaji": "Toshokan de hon wo kariru toki, kaado ga hitsuyou desu.",
+        "uz": "Kutubxonadan kitob olayotganda karta kerak bo'ladi."
+      },
+      {
+        "ja": "暇[ひま]なとき、映画[えいが]を見[み]ます。",
+        "romaji": "Hima na toki, eiga wo mimasu.",
+        "uz": "Bo'sh vaqtimda film tomosha qilaman."
+      }
+    ]
+  },
+  {
+    "id": "n5_to_conditional",
+    "level": "N5",
+    "title": "〜と (to - tabiiy shart)",
+    "romaji": "to (shart)",
+    "meaningUz": "...-sa, darhol ... bo'ladi (Tabiiy qonuniyat, qurilmalar va yo'l ko'rsatish)",
+    "structure": "Fe'l (Lug'at shakli / ない shakli) + と",
+    "examples": [
+      {
+        "ja": "このボタンを押[お]すと、切符[きっぷ]が出[で]ます。",
+        "romaji": "Kono botan wo osu to, kippu ga demasu.",
+        "uz": "Ushbu tugmani bossangiz, chipta chiqadi."
+      },
+      {
+        "ja": "右[みぎ]へ曲[ま]がると、郵便局[ゆうびんきょく]があります。",
+        "romaji": "Migi e magaru to, yuubinkyoku ga arimasu.",
+        "uz": "O'ng tomonga burilsangiz, pochta bo'limi bor."
+      }
+    ]
+  },
+  {
+    "id": "n5_tara_conditional",
+    "level": "N5",
+    "title": "〜たら (tara)",
+    "romaji": "tara",
+    "meaningUz": "agar ...-sa / ...-gach, keyin (Shart va kutilgan voqea)",
+    "structure": "Fe'l (た shakli) + ら / い-Sifat (かった) + ら / な-Sifat, Ot + だった + ら",
+    "examples": [
+      {
+        "ja": "雨[あめ]が降[ふ]ったら、出[で]かけません。",
+        "romaji": "Ame ga futtara, dekakemasen.",
+        "uz": "Agar yomg'ir yog'sa, ko'chaga chiqmayman."
+      },
+      {
+        "ja": "駅[えき]に着[つ]いたら、電話[でんわ]をしてください。",
+        "romaji": "Eki ni tsuitara, denwa wo shite kudasai.",
+        "uz": "Bekatga yetib borgach, qo'ng'iroq qiling."
+      }
+    ]
+  },
+  {
+    "id": "n5_temo_concession",
+    "level": "N5",
+    "title": "〜ても (temo)",
+    "romaji": "temo",
+    "meaningUz": "hatto ...-sa ham / qaramasdan (To'siqsiz shart)",
+    "structure": "Fe'l (て shakli) + も / い-Sifat (くても) / な-Sifat, Ot + でも",
+    "examples": [
+      {
+        "ja": "雨[あめ]が降[ふ]っても、サッカーをします。",
+        "romaji": "Ame ga futtemo, sakkaa wo shimasu.",
+        "uz": "Yomg'ir yog'sa ham futbol o'ynaymiz."
+      },
+      {
+        "ja": "高[たか]くても、このパソコンを買[か]いたいです。",
+        "romaji": "Takakutemo, kono pasokon wo kaitai desu.",
+        "uz": "Qimmat bo'lsa ham, bu kompyuterni sotib olmoqchiman."
+      }
+    ]
+  },
+  {
+    "id": "n5_dake",
+    "level": "N5",
+    "title": "〜だけ (dake)",
+    "romaji": "dake",
+    "meaningUz": "faqat ... xolos (Chegaralanish)",
+    "structure": "Ot + だけ / Fe'l + だけ",
+    "examples": [
+      {
+        "ja": "休[やす]みは日曜日[にちようび]だけです。",
+        "romaji": "Yasumi wa nichiyoubi dake desu.",
+        "uz": "Dam olish kuni faqat yakshanba xolos."
+      },
+      {
+        "ja": "名前[なまえ]を書[か]くだけでいいです。",
+        "romaji": "Namae wo kaku dake de ii desu.",
+        "uz": "Faqat ismingizni yozsangiz kifoya."
+      }
+    ]
+  },
+  {
+    "id": "n5_shika_nai",
+    "level": "N5",
+    "title": "〜しか〜ない (shika ... nai)",
+    "romaji": "shika ... nai",
+    "meaningUz": "...-dan boshqa hech narsa yo'q / faqatgina ... bor (Yetishmovchilik hissi)",
+    "structure": "Ot + しか + Inkor fe'l (Negative Verb)",
+    "examples": [
+      {
+        "ja": "財布[さいふ]の中に100円[えん]しかありません。",
+        "romaji": "Saifu no naka ni hyaku-en shika arimasen.",
+        "uz": "Hamyonimda atigi 100 iyenagina bor (boshqa pulim yo'q)."
+      },
+      {
+        "ja": "ひらがなしか書[か]けません。",
+        "romaji": "Hiragana shika kakemasen.",
+        "uz": "Faqatgina hiraganada yoza olaman xolos."
+      }
+    ]
+  },
+  {
+    "id": "n5_mada_teimasen",
+    "level": "N5",
+    "title": "まだ〜ていません (mada ... te imasen)",
+    "romaji": "mada ... te imasen",
+    "meaningUz": "hali ...-maganman / hali harakat amalga oshmadi",
+    "structure": "まだ + Fe'l (て shakli) + いません",
+    "examples": [
+      {
+        "ja": "昼[ひる]ご飯[はん]はもう食[た]べましたか。― いいえ、まだ食[た]べていません。",
+        "romaji": "Hiru-gohan wa mou tabemashita ka. - Iie, mada tabete imasen.",
+        "uz": "Tushlik qilib bo'ldingizmi? - Yo'q, hali yeganim yo'q."
+      },
+      {
+        "ja": "宿題[しゅくだい]はまだ終[お]わっていません。",
+        "romaji": "Shukudai wa mada owatte imasen.",
+        "uz": "Uy vazifasi hali tugamadi."
+      }
+    ]
+  },
+  {
+    "id": "n3_okage_de",
+    "level": "N3",
+    "title": "〜おかげで (okage de)",
+    "romaji": "okage de",
+    "meaningUz": "... tufayli / sharofati bilan (Ijobiy natija va minnatdorlik)",
+    "structure": "Fe'l/Sifat (Oddiy shakl) + おかげで / Ot + の + おかげで",
+    "examples": [
+      {
+        "ja": "先生[せんせい]のおかげで、JLPT N3に合格[ごうかく]できました。",
+        "romaji": "Sensei no okage de, JLPT N3 ni goukaku dekimashita.",
+        "uz": "Ustozim sharofati bilan JLPT N3 imtihonidan o'ta oldim."
+      },
+      {
+        "ja": "薬[くすり]を飲[の]んだおかげで、熱[ねつ]が下[さ]がりました。",
+        "romaji": "Kusuri wo nonda okage de, netsu ga sagarimashita.",
+        "uz": "Dori ichganim tufayli isitma tushdi."
+      }
+    ]
+  },
+  {
+    "id": "n3_sei_de",
+    "level": "N3",
+    "title": "〜せいで (sei de)",
+    "romaji": "sei de",
+    "meaningUz": "... sababli / orqasidan (Salbiy oqibat va ayblash)",
+    "structure": "Fe'l/Sifat (Oddiy shakl) + せいで / Ot + の + せいで",
+    "examples": [
+      {
+        "ja": "台風[たいふう]のせいで、電車[でんしゃ]が止[と]まってしまいました。",
+        "romaji": "Taifuu no sei de, densha ga tomatte shimaimashita.",
+        "uz": "To'fon kasofatiga poyezd to'xtab qoldi."
+      },
+      {
+        "ja": "寝坊[ねぼう]したせいで、会議[かいぎ]に遅[おく]れました。",
+        "romaji": "Nebou shita sei de, kaigi ni okuremashita.",
+        "uz": "Uxlab qolganim sababli yig'ilishga kechikdim."
+      }
+    ]
+  },
+  {
+    "id": "n3_wari_ni",
+    "level": "N3",
+    "title": "〜わりに（は） (wari ni wa)",
+    "romaji": "wari ni (wa)",
+    "meaningUz": "...-ga nisbatan kutilmaganda / qaramasdan",
+    "structure": "Fe'l/Sifat (Oddiy) + わりに / Ot + の + わりに",
+    "examples": [
+      {
+        "ja": "このレストランは、値段[ねだん]が安[やす]いわりにとても美味しいです。",
+        "romaji": "Kono resutoran wa, nedan ga yasui wari ni totemo oishii desu.",
+        "uz": "Bu restoran narxi arzonligiga nisbatan juda mazali."
+      },
+      {
+        "ja": "彼[かれ]は勉強[べんきょう]しなかったわりに、テストの点[てん]が良かった。",
+        "romaji": "Kare wa benkyou shinakatta wari ni, tesuto no ten ga yokatta.",
+        "uz": "U dars qilmaganiga qaramay, test balli yaxshi chiqdi."
+      }
+    ]
+  },
+  {
+    "id": "n3_kuse_ni",
+    "level": "N3",
+    "title": "〜くせに (kuse ni)",
+    "romaji": "kuse ni",
+    "meaningUz": "... bo'la turib / mensimaslik yoki tanqid",
+    "structure": "Fe'l/Sifat (Oddiy) + くせに / な-Sifat + な + くせに / Ot + の + くせに",
+    "examples": [
+      {
+        "ja": "何[なに]も知[し]らないくせに、偉[えら]そうに話[はな]さないでください。",
+        "romaji": "Nani mo shiranai kuse ni, erasou ni hanasanaide kudasai.",
+        "uz": "Hech narsani bilmay turib, o'zingizcha katta gapirmang."
+      },
+      {
+        "ja": "お金[かね]がないくせに、高[たか]い車[くるま]を買[か]いました。",
+        "romaji": "Okane ga nai kuse ni, takai kuruma wo kaimashita.",
+        "uz": "Puli yo'q bo'la turib, qimmat mashina sotib oldi."
+      }
+    ]
+  },
+  {
+    "id": "n3_ni_taishite",
+    "level": "N3",
+    "title": "〜に対して (ni taishite)",
+    "romaji": "ni taishite",
+    "meaningUz": "...-ga nisbatan / qarama-qarshi o'laroq",
+    "structure": "Ot + に対して / Fe'l (Oddiy) + のに対して",
+    "examples": [
+      {
+        "ja": "お客様[きゃくさま]に対[たい]して、丁寧[ていねい]な言葉[ことば]を使[つか]います。",
+        "romaji": "Okyaku-sama ni taishite, teinei na kotoba wo tsukaimasu.",
+        "uz": "Mijozlarga nisbatan xushmuomala so'zlarni ishlatamiz."
+      },
+      {
+        "ja": "兄[あに]が活発[かっぱつ]なのに対[たい]して、弟[おとうと]はおとなしい。",
+        "romaji": "Ani ga kappatsu na no ni taishite, otouto wa otonashii.",
+        "uz": "Akasi chaqqon bo'lsa, ukasi esa yuvosh va bosiq."
+      }
+    ]
+  },
+  {
+    "id": "n3_ni_kurabete",
+    "level": "N3",
+    "title": "〜に比べて (ni kurabete)",
+    "romaji": "ni kurabete",
+    "meaningUz": "...-ga taqqoslaganda / solishtirganda",
+    "structure": "Ot + に比べて",
+    "examples": [
+      {
+        "ja": "東京[とうきょう]は、田舎[いなか]に比[くら]べて物価[ぶっか]が高[たか]いです。",
+        "romaji": "Toukyou wa, inaka ni kurabete bukka ga takai desu.",
+        "uz": "Tokio qishloqqa nisbatan solishtirganda narxlari qimmat."
+      },
+      {
+        "ja": "今年[ことし]は去年[きょねん]に比[くら]べて雨[あめ]が多[おお]い。",
+        "romaji": "Kotoshi wa kyonen ni kurabete ame ga ooi.",
+        "uz": "Bu yil o'tgan yilga taqqoslaganda yomg'ir ko'p bo'ldi."
+      }
+    ]
+  },
+  {
+    "id": "n3_hanmen",
+    "level": "N3",
+    "title": "〜反面 (hanmen)",
+    "romaji": "hanmen",
+    "meaningUz": "boshqa tomondan qaraganda / biroq ayni paytda",
+    "structure": "Fe'l/Sifat (Oddiy) + 反面 / な-Sifat + な/である + 反面",
+    "examples": [
+      {
+        "ja": "都会[とかい]の生活[せいかつ]は便利[べんり]な反面[はんめん]、ストレスも多[おお]い。",
+        "romaji": "Tokai no seikatsu wa benri na hanmen, sutoresu mo ooi.",
+        "uz": "Katta shahar hayoti qulay bo'lishi bilan birga, stress ham ko'p."
+      },
+      {
+        "ja": "一人[ひとり]暮[ぐ]らしは自由[じゆう]な反面[はんめん]、寂[さび]しいこともある。",
+        "romaji": "Hitori gurashi wa jiyuu na hanmen, sabishii koto mo aru.",
+        "uz": "Yolg'iz yashash erkin bo'lsa-da, ba'zan zerikarli va ma'yus hamdir."
+      }
+    ]
+  },
+  {
+    "id": "n3_ippou_de",
+    "level": "N3",
+    "title": "〜一方で (ippou de)",
+    "romaji": "ippou de",
+    "meaningUz": "bir tomondan ... bo'lsa, boshqa tomondan esa ...",
+    "structure": "Fe'l/Sifat (Oddiy) + 一方で / Ot + である + 一方で",
+    "examples": [
+      {
+        "ja": "仕事[しごと]が忙[いそが]しい一方[いっぽう]で、勉強[べんきょう]の時間[じかん]も作[つく]っています。",
+        "romaji": "Shigoto ga isogashii ippou de, benkyou no jikan mo tsukutte imasu.",
+        "uz": "Ish band bo'lishiga qaramay, bir vaqtning o'zida o'qishga ham vaqt ajratyapman."
+      },
+      {
+        "ja": "日本[にほん]の文化[ぶんか]は伝統[でんとう]を守[まも]る一方[いっぽう]で、新[あたら]しい技術[ぎじゅつ]も取[と]り入[い]れている。",
+        "romaji": "Nihon no bunka wa dentou wo mamoru ippou de, atarashii gijutsu mo toriirete iru.",
+        "uz": "Yaponiya madaniyati an'analarni asragan holda, yangi texnologiyalarni ham o'zlashtirmoqda."
+      }
+    ]
+  },
+  {
+    "id": "n3_chuushin_ni",
+    "level": "N3",
+    "title": "〜を中心に (wo chuushin ni)",
+    "romaji": "wo chuushin ni",
+    "meaningUz": "...-ni markazga qo'ygan holda / asosan ... atrofida",
+    "structure": "Ot + を中心に / を中心として",
+    "examples": [
+      {
+        "ja": "文法[ぶんぽう]を中心[ちゅうしん]に、日本語[にほんご]の勉強[べんきょう]を進[すす]めています。",
+        "romaji": "Bunpou wo chuushin ni, nihongo no benkyou wo susumete imasu.",
+        "uz": "Grammatikani asosiy markazga qo'yib, yapon tilini o'rganmoqdaman."
+      },
+      {
+        "ja": "駅[えき]を中心[ちゅうしん]に、新[あたら]しい街[まち]が開発[かいはつ]されている。",
+        "romaji": "Eki wo chuushin ni, atarashii machi ga kaihatsu sarete iru.",
+        "uz": "Bekat atrofida yangi shahar qismi bunyod etilmoqda."
+      }
+    ]
+  },
+  {
+    "id": "n3_wo_komete",
+    "level": "N3",
+    "title": "〜を込めて (wo komete)",
+    "romaji": "wo komete",
+    "meaningUz": "...-ni singdirib / mehr yoki samimiyat bilan to'ldirib",
+    "structure": "Ot (Hissiyot) + を込めて",
+    "examples": [
+      {
+        "ja": "感謝[かんしゃ]の気持[きも]ちを込[こ]めて、手紙[てがみ]を書[か]きました。",
+        "romaji": "Kansha no kimochi wo komete, tegami wo kakimashita.",
+        "uz": "Minnatdorchilik tuyg'usini singdirib xat yozdim."
+      },
+      {
+        "ja": "心[こころ]を込[こ]めて作[つく]った料理[りょうり]です。",
+        "romaji": "Kokoro wo komete tsukutta ryouri desu.",
+        "uz": "Chin dildan mehr bilan pishirilgan taom."
+      }
+    ]
+  },
+  {
+    "id": "n3_wo_moto_ni",
+    "level": "N3",
+    "title": "〜をもとに（して） (wo moto ni shite)",
+    "romaji": "wo moto ni (shite)",
+    "meaningUz": "... asosida / ...-dan andoza yoki xomashyo qilib",
+    "structure": "Ot + をもとに / をもとにして",
+    "examples": [
+      {
+        "ja": "この映画[えいが]は、実話[じつわ]をもとにして作[つく]られました。",
+        "romaji": "Kono eiga wa, jitsuwa wo moto ni shite tsukuraremashita.",
+        "uz": "Ushbu film hayotiy real voqea asosida suratga olingan."
+      },
+      {
+        "ja": "試験[しけん]の結果[けっか]をもとに、クラス分[わ]けを行[おこな]います。",
+        "romaji": "Shiken no kekka wo moto ni, kurasu-wake wo okonaimasu.",
+        "uz": "Imtihon natijalariga asoslanib, guruhlarga taqsimlash o'tkaziladi."
+      }
+    ]
+  },
+  {
+    "id": "n3_muke_muki",
+    "level": "N3",
+    "title": "〜向け / 〜向き (muke / muki)",
+    "romaji": "muke / muki",
+    "meaningUz": "...-ga mo'ljallangan (muke) / ...-ga juda mos (muki)",
+    "structure": "Ot + 向け / 向き",
+    "examples": [
+      {
+        "ja": "これは、子供[こども]向[む]けに書[か]かれた日本語[にほんご]の本[ほん]です。",
+        "romaji": "Kore wa, kodomo muke ni kakareta nihongo no hon desu.",
+        "uz": "Bu bolalarga mo'ljallab yozilgan yapon tili kitobi."
+      },
+      {
+        "ja": "この部屋[へや]は一人[ひとり]暮[ぐ]らし向[む]きです。",
+        "romaji": "Kono heya wa hitori gurashi muki desu.",
+        "uz": "Bu xona yakka o'zi yashaydiganlar uchun juda mos."
+      }
+    ]
+  },
+  {
+    "id": "n3_wo_towazu",
+    "level": "N3",
+    "title": "〜を問わず (wo towazu)",
+    "romaji": "wo towazu",
+    "meaningUz": "...-dan qat'iy nazar / farqsiz (yosh, jins, millat)",
+    "structure": "Ot + を問わず",
+    "examples": [
+      {
+        "ja": "年齢[ねんれい]や経験[けいけん]を問[と]わず、誰[だれ]でも応募[おうぼ]できます。",
+        "romaji": "Nenrei ya keiken wo towazu, dare demo oubo dekimasu.",
+        "uz": "Yoshi va tajribasidan qat'iy nazar, har kim ariza topshira oladi."
+      },
+      {
+        "ja": "この公園[こうえん]は、昼夜[ちゅうや]を問[と]わず人[ひと]が集[あつ]まる。",
+        "romaji": "Kono kouen wa, chuuya wo towazu hito ga atsumaru.",
+        "uz": "Ushbu xiyobonga tun-u kun odamlar to'planadi."
+      }
+    ]
+  },
+  {
+    "id": "n3_ni_kakawarazu",
+    "level": "N3",
+    "title": "〜にかかわらず (ni kakawarazu)",
+    "romaji": "ni kakawarazu",
+    "meaningUz": "...-ga qaramasdan / bog'liq bo'lmagan holda",
+    "structure": "Ot + にかかわらず / Fe'l (Lug'at + ない) + にかかわらず",
+    "examples": [
+      {
+        "ja": "天気[てんき]にかかわらず、明日[あした]は試合[しあい]を行[おこな]います。",
+        "romaji": "Tenki ni kakawarazu, ashita wa shiai wo okonaimasu.",
+        "uz": "Ob-havoga qaramasdan, ertaga musobaqa o'tkaziladi."
+      },
+      {
+        "ja": "参加[さんか]するしないにかかわらず、返事[へんじ]をください。",
+        "romaji": "Sanka suru shinai ni kakawarazu, henji wo kudasai.",
+        "uz": "Qatnashish yoki qatnashmasligingizdan qat'iy nazar, javob bering."
+      }
+    ]
+  },
+  {
+    "id": "n3_darake",
+    "level": "N3",
+    "title": "〜だらけ (darake)",
+    "romaji": "darake",
+    "meaningUz": "...-ga to'la (Salbiy narsalar: xato, loy, qarz)",
+    "structure": "Ot + だらけ",
+    "examples": [
+      {
+        "ja": "この作文[さくぶん]は、間違[まちが]いだらけです。",
+        "romaji": "Kono sakubun wa, machigai darake desu.",
+        "uz": "Bu insho xatolarga to'lib ketgan."
+      },
+      {
+        "ja": "雨[あめ]の中[なか]を走[はし]って、靴[くつ]が泥[どろ]だらけになった。",
+        "romaji": "Ame no naka wo hashitte, kutsu ga doro darake ni natta.",
+        "uz": "Yomg'irda yugurib, oyoq kiyimim loyga botdi."
+      }
+    ]
+  },
+  {
+    "id": "n3_gimi",
+    "level": "N3",
+    "title": "〜気味 (gimi)",
+    "romaji": "gimi",
+    "meaningUz": "biroz ... alomati bor / moyillik (shamollash, charchoq)",
+    "structure": "Fe'l (ます o'zagi) + 気味 / Ot + 気味",
+    "examples": [
+      {
+        "ja": "昨日[きのう]から風邪[かぜ]気味[ぎみ]で、喉[のど]が痛[いた]いです。",
+        "romaji": "Kinou kara kaze gimi de, nodo ga itai desu.",
+        "uz": "Kechadan beri biroz shamollash alomati sezilib, tomog'im og'riyapti."
+      },
+      {
+        "ja": "最近[さいきん]残業[ざんぎょう]が多[おお]くて、少[すこ]し疲[つか]れ気味[ぎみ]です。",
+        "romaji": "Saikin zangyou ga ookute, sukoshi tsukare gimi desu.",
+        "uz": "So'nggi paytlarda ish ko'pligidan biroz charchoq sezilyapti."
+      }
+    ]
+  },
+  {
+    "id": "n3_ppoi",
+    "level": "N3",
+    "title": "〜っぽい (ppoi)",
+    "romaji": "ppoi",
+    "meaningUz": "...-ga o'xshash / ...-dek sifatga ega / moyil (bolalarcha, tez achchiqlanuvchi)",
+    "structure": "Fe'l (ます o'zagi) / Ot / い-Sifat (い tushadi) + っぽい",
+    "examples": [
+      {
+        "ja": "彼[かれ]はもう大人[おとな]なのに、子供[こども]っぽい行動[こうどう]をする。",
+        "romaji": "Kare wa mou otona na no ni, kodomoppoi koudou wo suru.",
+        "uz": "U katta odam bo'lishiga qaramay, bolalarcha harakat qiladi."
+      },
+      {
+        "ja": "このお茶[ちゃ]は、水[みず]っぽくてあまり美味[おい]しくない。",
+        "romaji": "Kono ocha wa, mizuppokute amari oishikunai.",
+        "uz": "Bu choy suvga o'xshab ta'msiz, unchalik mazali emas."
+      }
+    ]
+  },
+  {
+    "id": "n3_gachi",
+    "level": "N3",
+    "title": "〜がち (gachi)",
+    "romaji": "gachi",
+    "meaningUz": "tez-tez shunday bo'lib turadi / odatlanmoq (Salbiy tendensiya)",
+    "structure": "Fe'l (ます o'zagi) + がち / Ot + がち",
+    "examples": [
+      {
+        "ja": "一人[ひとり]暮[ぐ]らしの時[とき]は、野菜[やさい]が不足[ふそく]しがちです。",
+        "romaji": "Hitori gurashi no toki wa, yasai ga fusoku shigachi desu.",
+        "uz": "Yakka yashaganda ko'pincha sabzavotlar yetishmovchiligi ro'y beradi."
+      },
+      {
+        "ja": "冬[ふゆ]は風邪[かぜ]を引[ひ]きがちなので、気[き]をつけてください。",
+        "romaji": "Fuyu wa kaze wo hikigachi na no de, ki wo tsukete kudasai.",
+        "uz": "Qishda ko'pincha shamollash bo'lib turadi, shuning uchun ehtiyot bo'ling."
+      }
+    ]
+  },
+  {
+    "id": "n3_kakeru",
+    "level": "N3",
+    "title": "〜かける / 〜かけの (kakeru / kake no)",
+    "romaji": "kakeru / kake no",
+    "meaningUz": "... qilishni boshlab, chala qoldirmoq",
+    "structure": "Fe'l (ます o'zagi) + かける / かけの + Ot",
+    "examples": [
+      {
+        "ja": "テーブルの上[うえ]に、食[た]べかけのパンが置[お]いてある。",
+        "romaji": "Teeburu no ue ni, tabekake no pan ga oite aru.",
+        "uz": "Stol ustida yeb chala qoldirilgan non turibdi."
+      },
+      {
+        "ja": "言[い]いかけて、やめました。",
+        "romaji": "Iikakete, yamemashita.",
+        "uz": "Aytishga og'iz juftladim-u, to'xtab qoldim."
+      }
+    ]
+  },
+  {
+    "id": "n3_tate",
+    "level": "N3",
+    "title": "〜たて (tate)",
+    "romaji": "tate",
+    "meaningUz": "yangi ... qilingan / pishgan (Yangi tayyorlangan sifat)",
+    "structure": "Fe'l (ます o'zagi) + たて / たての + Ot",
+    "examples": [
+      {
+        "ja": "焼[や]きたてのパンは、とても香[かお]りがいいです。",
+        "romaji": "Yakitate no pan wa, totemo kaori ga ii desu.",
+        "uz": "Yangi tandirdan chiqqan issiq nonning hidi juda xushbo'y."
+      },
+      {
+        "ja": "日本[にほん]に来[き]たての頃[ころ]は、右[みぎ]も左[ひだり]も分[わ]からなかった。",
+        "romaji": "Nihon ni kitate no koro wa, migi mo hidari mo wakaranakatta.",
+        "uz": "Yaponiyaga yangi kelgan davrlarimda hech narsani tushunmas edim."
+      }
+    ]
+  },
+  {
+    "id": "n3_sae_ba",
+    "level": "N3",
+    "title": "〜さえ〜ば (sae ... ba)",
+    "romaji": "sae ... ba",
+    "meaningUz": "faqat ... bo'lsa kifoya / bas (Yagona yetarli shart)",
+    "structure": "Ot + さえ + Fe'l (Shart shakli / ば)",
+    "examples": [
+      {
+        "ja": "薬[くすり]を飲[の]みさえすれば、すぐに治[なお]ります。",
+        "romaji": "Kusuri wo nomi sae sureba, sugu ni naorimasu.",
+        "uz": "Dori ichsangiz bo'ldi, darhol tuzalib ketasiz."
+      },
+      {
+        "ja": "あなたさえいれば、何[なに]もいりません。",
+        "romaji": "Anata sae ireba, nani mo irimasen.",
+        "uz": "Yonimda siz bo'lsangiz kifoya, boshqa hech narsa kerak emas."
+      }
+    ]
+  },
+  {
+    "id": "n3_koso",
+    "level": "N3",
+    "title": "〜こそ (koso)",
+    "romaji": "koso",
+    "meaningUz": "aynan / shubhasiz (Qat'iy ta'kidlash)",
+    "structure": "Ot + こそ / から + こそ",
+    "examples": [
+      {
+        "ja": "今年[ことし]こそ、JLPT N3に合格[ごうかく]してみせる！",
+        "romaji": "Kotoshi koso, JLPT N3 ni goukaku shite miseru!",
+        "uz": "Aynan shu yil albatta JLPT N3 dan o'taman!"
+      },
+      {
+        "ja": "こちらこそ、どうぞよろしくお願いします。",
+        "romaji": "Kochira koso, douzo yoroshiku onegaishimasu.",
+        "uz": "Aynan men sizdan yaxshi munosabatda bo'lishingizni iltimos qilaman."
+      }
+    ]
+  },
+  {
+    "id": "n3_kurai_nara",
+    "level": "N3",
+    "title": "〜くらいなら (kurai nara)",
+    "romaji": "kurai nara",
+    "meaningUz": "...-qilgandan ko'ra yaxshiroq (Undan ko'ra afzal)",
+    "structure": "Fe'l (Lug'at shakli) + くらいなら",
+    "examples": [
+      {
+        "ja": "途中で諦[あきら]めるくらいなら、最初[さいしょ]からやらない方[ほう]がいい。",
+        "romaji": "Tochuu de akirameru kurai nara, saisho kara yaranai hou ga ii.",
+        "uz": "Yarim yo'lda taslim bo'lgandan ko'ra, boshidan boshlamagan afzal."
+      },
+      {
+        "ja": "あんな人[ひと]に頭[あたま]を下[さ]げるくらいなら、会社[かいしゃ]を辞[や]めます。",
+        "romaji": "Anna hito ni atama wo sageru kurai nara, kaisha wo yamemasu.",
+        "uz": "Anavi odamga tiz cho'kkandan ko'ra, kompaniyadan ketaman."
+      }
+    ]
+  },
+  {
+    "id": "n3_ni_kagirazu",
+    "level": "N3",
+    "title": "〜に限らず (ni kagirazu)",
+    "romaji": "ni kagirazu",
+    "meaningUz": "nafaqat ... balki barcha / keng doirada",
+    "structure": "Ot + に限らず",
+    "examples": [
+      {
+        "ja": "若者[わかもの]に限[かぎ]らず、高齢者[こうれいしゃ]もスマホを使[つか]っている。",
+        "romaji": "Wakamono ni kagirazu, koureisha mo sumaho wo tsukatte iru.",
+        "uz": "Nafaqat yoshlar, balki keksalar ham smartfon ishlatmoqdalar."
+      },
+      {
+        "ja": "男性[だんせい]に限[かぎ]らず、女性[じょせい]も多く参加[さんか]しています。",
+        "romaji": "Dansei ni kagirazu, josei mo ooku sanka shite imasu.",
+        "uz": "Nafaqat erkaklar, balki ayollar ham ko'p qatnashyapti."
+      }
+    ]
+  },
+  {
+    "id": "n3_nomi_narazu",
+    "level": "N3",
+    "title": "〜のみならず (nomi narazu)",
+    "romaji": "nomi narazu",
+    "meaningUz": "nafaqat ... balki (Rasmiy / Yozma shakl)",
+    "structure": "Ot / Fe'l (Oddiy) + のみならず",
+    "examples": [
+      {
+        "ja": "彼[かれ]は英語[えいご]のみならず、日本語[にほんご]も流暢[りゅうちょう]に話[はな]す。",
+        "romaji": "Kare wa eigo nomi narazu, nihongo mo ryuuchou ni hanasu.",
+        "uz": "U nafaqat ingliz tilini, balki yapon tilini ham ravon gapiradi."
+      },
+      {
+        "ja": "国内[こくない]のみならず、海外[かいがい]でも高[たか]く評価[ひょうか]されている。",
+        "romaji": "Kokunai nomi narazu, kaigai demo takaku hyouka sarete iru.",
+        "uz": "Nafaqat mamlakat ichida, balki xorijda ham yuksak baholanmoqda."
+      }
+    ]
+  },
+  {
+    "id": "n3_bakari_ka",
+    "level": "N3",
+    "title": "〜ばかりか / 〜ばかりでなく (bakari ka / bakari denaku)",
+    "romaji": "bakari ka / bakari denaku",
+    "meaningUz": "faqatgina ... emas, uning ustiga yana boshqa narsa ham",
+    "structure": "Fe'l/Sifat (Oddiy) + ばかりか / Ot + ばかりか",
+    "examples": [
+      {
+        "ja": "彼[かれ]は漢字[かんじ]が書[か]けないばかりか、読[よ]むこともできない。",
+        "romaji": "Kare wa kanji ga kakenai bakari ka, yomu koto mo dekinai.",
+        "uz": "U kanjini yoza olmaslik u yoqda tursin, hatto o'qiy ham olmaydi."
+      },
+      {
+        "ja": "友達[ともだち]ばかりでなく、先生[せんせい]も応援[おうえん]してくれた。",
+        "romaji": "Tomodachi bakari denaku, sensei mo ouen shite kureta.",
+        "uz": "Nafaqat do'stlarim, balki ustozlarim ham qo'llab-quvvatlashdi."
+      }
+    ]
+  },
+  {
+    "id": "n3_ue_ni",
+    "level": "N3",
+    "title": "〜上に (ue ni)",
+    "romaji": "ue ni",
+    "meaningUz": "uning ustiga / qo'shimchasiga (Shunga qo'shimcha ravishda)",
+    "structure": "Fe'l/Sifat (Oddiy) + 上に / な-Sifat + な + 上に / Ot + の + 上に",
+    "examples": [
+      {
+        "ja": "このアパートは駅[えき]から近[ちか]い上[うえ]に、家賃[やちん]も安[やす]いです。",
+        "romaji": "Kono apaato wa eki kara chikai ue ni, yachin mo yasui desu.",
+        "uz": "Bu xonadon bekatga yaqin bo'lishi ustiga, ijara haqi ham arzon."
+      },
+      {
+        "ja": "道[みち]に迷[まよ]った上[うえ]に、雨[あめ]まで降[ふ]り出[だ]しました。",
+        "romaji": "Michi ni mayotta ue ni, ame made furidashimashita.",
+        "uz": "Yo'ldan adashganim ustiga, yomg'ir ham quyib yubordi."
+      }
+    ]
+  },
+  {
+    "id": "n3_ni_tsurete",
+    "level": "N3",
+    "title": "〜につれて / 〜にしたがって (ni tsurete / ni shitagatte)",
+    "romaji": "ni tsurete / ni shitagatte",
+    "meaningUz": "... sari / mutanosib ravishda o'zgarib bormoq",
+    "structure": "Fe'l (Lug'at shakli) / Ot + につれて",
+    "examples": [
+      {
+        "ja": "時間[じかん]が経[た]つにつれて、緊張[きんちょう]がほぐれてきた。",
+        "romaji": "Jikan ga tatsu ni tsurete, kinchou ga hogurete kita.",
+        "uz": "Vaqt o'tishi sari hayajon ham tarqala boshladi."
+      },
+      {
+        "ja": "山[やま]を登[のぼ]るにしたがって、気温[きおん]が下[さ]がっていきます。",
+        "romaji": "Yama wo noboru ni shitagatte, kion ga sagatte ikimasu.",
+        "uz": "Tog'ga ko'tarilgan sari harorat pasayib boradi."
+      }
+    ]
+  },
+  {
+    "id": "n3_to_tomo_ni",
+    "level": "N3",
+    "title": "〜とともに (to tomo ni)",
+    "romaji": "to tomo ni",
+    "meaningUz": "... bilan birgalikda / ... bilan bir vaqtda",
+    "structure": "Ot / Fe'l (Lug'at shakli) + とともに",
+    "examples": [
+      {
+        "ja": "家族[かぞく]とともに、新[あたら]しい年[とし]を迎[むか]えました。",
+        "romaji": "Kazoku to tomo ni, atarashii toshi wo mukaemashita.",
+        "uz": "Oila a'zolarim bilan birgalikda yangi yilni kutib oldim."
+      },
+      {
+        "ja": "時代[じだい]の変化[へんか]とともに、言葉[ことば]も変[か]わっていく。",
+        "romaji": "Jidai no henka to tomo ni, kotoba mo kawatte iku.",
+        "uz": "Davr o'zgarishi bilan birga, so'zlar ham o'zgarib boradi."
+      }
+    ]
+  },
+  {
+    "id": "n3_ni_oujite",
+    "level": "N3",
+    "title": "〜に応じて (ni oujite)",
+    "romaji": "ni oujite",
+    "meaningUz": "...-ga mos ravishda / qarab (daraja, xohish, byudjet)",
+    "structure": "Ot + に応じて / に応じた + Ot",
+    "examples": [
+      {
+        "ja": "レベルに応[おう]じて、クラスが分[わ]かれます。",
+        "romaji": "Reberu ni oujite, kurasu ga wakaremasu.",
+        "uz": "Bilim darajasiga mos ravishda guruhlarga bo'linadi."
+      },
+      {
+        "ja": "予算[よさん]に応[おう]じた旅行[りょこう]プランを選[えら]びましょう。",
+        "romaji": "Yosan ni oujita ryokou puran wo erabimashou.",
+        "uz": "Byudjetga mos sayohat rejasini tanlaylik."
+      }
+    ]
+  },
+  {
+    "id": "n3_sue_ni",
+    "level": "N3",
+    "title": "〜末に (sue ni)",
+    "romaji": "sue ni",
+    "meaningUz": "uzoq ...-dan so'ng (Natijada qaror qabul qilmoq)",
+    "structure": "Fe'l (た shakli) + 末に / Ot + の + 末に",
+    "examples": [
+      {
+        "ja": "悩[なや]んだ末[すえ]に、会社[かいしゃ]を辞[や]めて留学[りゅうがく]することを決[き]めました。",
+        "romaji": "Nayanda sue ni, kaisha wo yamete ryuugaku suru koto wo kimemashita.",
+        "uz": "Uzoq o'ylanishlar oxirida, ishdan ketib chet elda o'qishga qaror qildim."
+      },
+      {
+        "ja": "激[はげ]しい議論[ぎろん]の末[すえ]、新[あたら]しい計画[けいかく]が決[き]まった。",
+        "romaji": "Hageshii giron no sue, atarashii keikaku ga kimatta.",
+        "uz": "Qizg'in bahslar so'ngida yangi reja tasdiqlandi."
+      }
+    ]
+  },
+  {
+    "id": "n3_wo_kikkake_ni",
+    "level": "N3",
+    "title": "〜をきっかけに / 〜を契機に (wo kikkake ni / wo keiki ni)",
+    "romaji": "wo kikkake ni / wo keiki ni",
+    "meaningUz": "... sabab bo'lib / turtki bo'lib boshlanmoq",
+    "structure": "Ot + をきっかけに / を契機に",
+    "examples": [
+      {
+        "ja": "アニメを見[み]たのをきっかけに、日本語[にほんご]の勉強[べんきょう]を始[はじ]めました。",
+        "romaji": "Anime wo mita no wo kikkake ni, nihongo no benkyou wo hajimemashita.",
+        "uz": "Anime ko'rganim turtki bo'lib, yapon tilini o'rganishni boshladim."
+      },
+      {
+        "ja": "病気[びょうき]を契機[けいき]に、タバコをやめました。",
+        "romaji": "Byouki wo keiki ni, tabako wo yamemashita.",
+        "uz": "Betob bo'lib qolganim sabab bo'lib, chekishni tashladim."
+      }
+    ]
+  },
+  {
+    "id": "n3_ta_tokoro",
+    "level": "N3",
+    "title": "〜たところ (ta tokoro)",
+    "romaji": "ta tokoro",
+    "meaningUz": "... qilib ko'rgan edimki, natijada ... bo'lib chiqdi",
+    "structure": "Fe'l (た shakli) + ところ",
+    "examples": [
+      {
+        "ja": "ホテルに電話[でんわ]してみたところ、まだ空[あ]き部屋[べや]がありました。",
+        "romaji": "Hoteru ni denwa shite mita tokoro, mada akibeya ga arimashita.",
+        "uz": "Mehmonxonaga qo'ng'iroq qilib ko'rgan edimki, hali bo'sh xonalar bor ekan."
+      },
+      {
+        "ja": "病院[びょういん]で検査[けんさ]したところ、異常[いじょう]はありませんでした。",
+        "romaji": "Byouin de kensa shita tokoro, ijou wa arimasen deshita.",
+        "uz": "Shifoxonada tekshirtirgan edim, hech qanday kasallik chiqmadi."
+      }
+    ]
+  },
+  {
+    "id": "n3_dokoro_dewa_nai",
+    "level": "N3",
+    "title": "〜どころではない (dokoro dewa nai)",
+    "romaji": "dokoro dewa nai",
+    "meaningUz": "mavridi / vaqti emas / ilojsiz (Sharoit yo'l qo'ymaydi)",
+    "structure": "Fe'l (Lug'at shakli) / Ot + どころではない",
+    "examples": [
+      {
+        "ja": "仕事[しごと]が忙[いそが]しくて、旅行[りょこう]どころではありません。",
+        "romaji": "Shigoto ga isogashikute, ryokou dokoro dewa arimasen.",
+        "uz": "Ish ko'pligidan sayohatga chiqishning umuman mavridi emas."
+      },
+      {
+        "ja": "風邪[かぜ]で声[こえ]が出[で]ず、カラオケどころじゃない。",
+        "romaji": "Kaze de koe ga dezu, karaoke dokoro ja nai.",
+        "uz": "Shamollashdan ovozim chiqmay turibdi, karaoke aytish qayoqda deysiz."
+      }
+    ]
+  },
+  {
+    "id": "n3_osore_ga_aru",
+    "level": "N3",
+    "title": "〜恐れがある (osore ga aru)",
+    "romaji": "osore ga aru",
+    "meaningUz": "... kabi xavf / xavotir mavjud (Salbiy hodisa ehtimoli)",
+    "structure": "Fe'l (Lug'at shakli) + 恐れがある / Ot + の + 恐れがある",
+    "examples": [
+      {
+        "ja": "大雨[おおあめ]のため、川[かわ]が氾濫[はんらん]する恐[おそ]れがあります。",
+        "romaji": "Ooame no tame, kawa ga hanran suru osore ga arimasu.",
+        "uz": "Kuchli yomg'ir sababli daryo toshib ketish xavfi bor."
+      },
+      {
+        "ja": "このまま何[なに]もしないと、失敗[しっぱい]する恐[おそ]れがある。",
+        "romaji": "Kono mama nani mo shinai to, shippai suru osore ga aru.",
+        "uz": "Shunday hech narsa qilmay turaversak, muvaffaqiyatsizlikka uchrash xavfi bor."
+      }
+    ]
+  },
+  {
+    "id": "n3_ni_suginai",
+    "level": "N3",
+    "title": "〜にすぎない (ni suginai)",
+    "romaji": "ni suginai",
+    "meaningUz": "...-dan boshqa narsa emas / bor-yo'g'i",
+    "structure": "Fe'l (Oddiy) / Ot + にすぎない",
+    "examples": [
+      {
+        "ja": "私[わたし]は自分[じぶん]の意見[いけん]を言[い]ったにすぎません。",
+        "romaji": "Watashi wa jibun no iken wo itta ni sugimasen.",
+        "uz": "Men bor-yo'g'i o'z shaxsiy fikrimni aytdim xolos."
+      },
+      {
+        "ja": "それは単[たん]なる噂[うわさ]にすぎない。",
+        "romaji": "Sore wa tannaru uwasa ni suginai.",
+        "uz": "U bor-yo'g'i oddiy mish-mishdan boshqa narsa emas."
+      }
+    ]
+  },
+  {
+    "id": "n3_zaru_wo_enai",
+    "level": "N3",
+    "title": "〜ざるを得ない (zaru wo enai)",
+    "romaji": "zaru wo enai",
+    "meaningUz": "... qilishga majburman / boshqa ilojim yo'q",
+    "structure": "Fe'l (ない o'zagi: する➔せざる) + ざるを得ない",
+    "examples": [
+      {
+        "ja": "台風[たいふう]が近[ちか]づいているので、旅行[りょこう]を中止[ちゅうし]せざるを得[え]ない。",
+        "romaji": "Taifuu ga chikazuite iru no de, ryokou wo chuushi sezaru wo enai.",
+        "uz": "To'fon yaqinlashayotgani sababli sayohatni bekor qilishga majburmiz."
+      },
+      {
+        "ja": "証拠[しょうこ]がある以上[いじょう]、罪[つみ]を認[みと]めざるを得[え]ない。",
+        "romaji": "Shouko ga aru ijou, tsumi wo mitomezaru wo enai.",
+        "uz": "Dalillar bor ekan, aybni tan olishdan o'zga chora yo'q."
+      }
+    ]
+  },
+  {
+    "id": "n3_beki_da",
+    "level": "N3",
+    "title": "〜べきだ / 〜べきではない (beki da / beki dewa nai)",
+    "romaji": "beki da / beki dewa nai",
+    "meaningUz": "... qilish burch / lozim (Axloqiy qoida va maslahat)",
+    "structure": "Fe'l (Lug'at: する➔すべき) + べきだ",
+    "examples": [
+      {
+        "ja": "約束[やくそく]は必[かなら]ず守[まも]るべきです。",
+        "romaji": "Yakusoku wa kanarazu mamoru beki desu.",
+        "uz": "Va'dani albatta bajarish lozim."
+      },
+      {
+        "ja": "電車[でんしゃ]の中[なか]で大声[おおごえ]で話[はな]すべきではない。",
+        "romaji": "Densha no naka de oogoe de hanasu beki dewa nai.",
+        "uz": "Poyezd ichida baland ovozda gaplashmaslik kerak."
+      }
+    ]
+  },
+  {
+    "id": "n3_koto_da",
+    "level": "N3",
+    "title": "〜ことだ (koto da)",
+    "romaji": "koto da",
+    "meaningUz": "... qilish kerak (To'g'ridan-to'g'ri kuchli do'stona maslahat)",
+    "structure": "Fe'l (Lug'at / ない shakli) + ことだ",
+    "examples": [
+      {
+        "ja": "日本語[にほんご]が上手[じょうず]になりたければ、毎日[まいにち]話[はな]すことだ。",
+        "romaji": "Nihongo ga jouzu ni naritakereba, mainichi hanasu koto da.",
+        "uz": "Yapon tilini yaxshi o'rganmoqchi bo'lsangiz, har kuni gapirish kerak."
+      },
+      {
+        "ja": "健康[けんこう]のために、無理[むり]をしないことだ。",
+        "romaji": "Kenkou no tame ni, muri wo shinai koto da.",
+        "uz": "Salomatlik uchun o'zingizni ortiqcha zo'riqtirmasligingiz kerak."
+      }
+    ]
+  },
+  {
+    "id": "n3_mono_da",
+    "level": "N3",
+    "title": "〜ものだ / 〜ものではない (mono da / mono dewa nai)",
+    "romaji": "mono da / mono dewa nai",
+    "meaningUz": "... bo'lishi tabiiy / shunday qilish kerak emas (Hayotiy qonuniyat)",
+    "structure": "Fe'l (Lug'at shakli) + ものだ",
+    "examples": [
+      {
+        "ja": "人[ひと]の悪口[わるぐち]は言[い]うものではない。",
+        "romaji": "Hito no waruguchi wa iu mono dewa nai.",
+        "uz": "Birovning orqasidan g'iybat qilish to'g'ri emas."
+      },
+      {
+        "ja": "子供[こども]の頃[ころ]は、よく川[かわ]で泳[およ]いだものだ。",
+        "romaji": "Kodomo no koro wa, yoku kawa de oyoida mono da.",
+        "uz": "Bolaligimda tez-tez daryoda suzardim (xotiralar)."
+      }
+    ]
+  },
+  {
+    "id": "n3_you_ga_nai",
+    "level": "N3",
+    "title": "〜ようがない (you ga nai)",
+    "romaji": "you ga nai",
+    "meaningUz": "bajarishning hech qanday iloji / chorasi yo'q",
+    "structure": "Fe'l (ます o'zagi) + ようがない",
+    "examples": [
+      {
+        "ja": "連絡先[れんらくさき]を知[し]らないので、連絡[れんらく]のしようがない。",
+        "romaji": "Renrakusaki wo shiranai no de, renraku no shiyou ga nai.",
+        "uz": "Bog'lanish raqamini bilmaganim uchun, aloqaga chiqishning hech iloji yo'q."
+      },
+      {
+        "ja": "ここまで壊[こわ]れてしまったら、直[なお]しようがない。",
+        "romaji": "Koko made kowarete shimattara, naoshiyou ga nai.",
+        "uz": "Shu darajada sinib ketgan bo'lsa, tuzatishning iloji yo'q."
+      }
+    ]
+  },
+  {
+    "id": "n3_ka_no_you_da",
+    "level": "N3",
+    "title": "〜かのようだ (ka no you da)",
+    "romaji": "ka no you da",
+    "meaningUz": "xuddi ...-dek (O'xshatish)",
+    "structure": "Fe'l/Sifat (Oddiy) + かのようだ / Ot + である + かのようだ",
+    "examples": [
+      {
+        "ja": "今日[きょう]は暖[あたた]かくて、まるで春[はる]が来[き]たかのようだ。",
+        "romaji": "Kyou wa atatakakute, marude haru ga kita ka no you da.",
+        "uz": "Bugun shunday iliqki, xuddi bahor kelganga o'xshaydi."
+      },
+      {
+        "ja": "何[なに]も知[し]らないかのように、黙[だま]っている。",
+        "romaji": "Nani mo shiranai ka no you ni, damatte iru.",
+        "uz": "Xuddi hech narsani bilmaydigandek jim o'tiribdi."
+      }
+    ]
+  },
+  {
+    "id": "n3_to_shitara",
+    "level": "N3",
+    "title": "〜としたら / 〜とすれば (to shitara / to sureba)",
+    "romaji": "to shitara / to sureba",
+    "meaningUz": "agar ... deb faraz qilsak / tasavvur qilsak",
+    "structure": "Oddiy shakl (Futsuukei) + としたら / とすれば",
+    "examples": [
+      {
+        "ja": "もし1億円[おくえん]宝[たから]くじが当[あ]たったとしたら、何[なに]に使[つか]いますか。",
+        "romaji": "Moshi ichioku-en takarakuji ga atatta to shitara, nani ni tsukaimasu ka.",
+        "uz": "Agar lotereyada 100 million iyena yutib olsangiz, nimaga ishlatardingiz?"
+      },
+      {
+        "ja": "新[あたら]しい家[いえ]を買[か]うとすれば、静[しず]かな郊外[こうがい]がいい。",
+        "romaji": "Atarashii ie wo kau to sureba, shizuka na kougai ga ii.",
+        "uz": "Agar yangi uy sotib oladigan bo'lsam, tinch shahar cheti yaxshi."
+      }
+    ]
+  },
+  {
+    "id": "n3_ni_kanshite",
+    "level": "N3",
+    "title": "〜に関して (ni kanshite)",
+    "romaji": "ni kanshite",
+    "meaningUz": "... haqida / ... doirasida (Rasmiy tahlil va izoh)",
+    "structure": "Ot + に関して / に関する + Ot",
+    "examples": [
+      {
+        "ja": "環境[かんきょう]問題[もんだい]に関[かん]して、レポートを書[か]きました。",
+        "romaji": "Kankyou mondai ni kanshite, repooto wo kakimashita.",
+        "uz": "Atrof-muhit muammolari haqida hisobot yozdim."
+      },
+      {
+        "ja": "この件[けん]に関[かん]するご質問[しつもん]はありますか。",
+        "romaji": "Kono ken ni kansuru goshitsumon wa arimasu ka.",
+        "uz": "Ushbu masala yuzasidan savollaringiz bormi?"
+      }
+    ]
+  },
+  {
+    "id": "n3_ni_kotaete",
+    "level": "N3",
+    "title": "〜に応えて (ni kotaete)",
+    "romaji": "ni kotaete",
+    "meaningUz": "...-ning talab/orzu-istaklariga javoban",
+    "structure": "Ot (Talab / Umid) + に応えて",
+    "examples": [
+      {
+        "ja": "学生[がくせい]たちの要望[ようぼう]に応[こた]えて、自習室[じしゅうしつ]を開放[かいほう]しました。",
+        "romaji": "Gakusei-tachi no youbou ni kotaete, jishuushitsu wo kaihou shimashita.",
+        "uz": "Talabalarning talablariga javoban mustaqil o'qish xonasi ochildi."
+      },
+      {
+        "ja": "ファン[ふぁん]の期待[きたい]に応[こた]えて、新曲[しんきょく]を発表[はっぴょう]した。",
+        "romaji": "Fan no kitai ni kotaete, shinkyoku wo happyou shita.",
+        "uz": "Muxlislarning orzulariga javoban yangi qo'shiq taqdim etildi."
+      }
+    ]
+  },
+  {
+    "id": "n3_ni_sotte",
+    "level": "N3",
+    "title": "〜に沿って (ni sotte)",
+    "romaji": "ni sotte",
+    "meaningUz": "... yo'nalishi / qoidalari bo'ylab (Rejaga muvofiq)",
+    "structure": "Ot + に沿って / に沿った + Ot",
+    "examples": [
+      {
+        "ja": "計画[けいかく]に沿[そ]って、準備[じゅんび]を進[すす]めてください。",
+        "romaji": "Keikaku ni sotte, junbi wo susumete kudasai.",
+        "uz": "Rejaga muvofiq tayyorgarlikni olib boring."
+      },
+      {
+        "ja": "川[かわ]に沿[そ]って桜[さくら]の木[き]が並[なら]んでいます。",
+        "romaji": "Kawa ni sotte sakura no ki ga narande imasu.",
+        "uz": "Daryo bo'ylab sakura daraxtlari tizilib turibdi."
+      }
+    ]
+  },
+  {
+    "id": "n3_te_goran",
+    "level": "N3",
+    "title": "〜てごらん (te goran)",
+    "romaji": "te goran",
+    "meaningUz": "...-qilib ko'r-chi (Do'stona/kattalar kichiklarga taklifi)",
+    "structure": "Fe'l (て shakli) + ごらん",
+    "examples": [
+      {
+        "ja": "美味[おい]しいから、一口[ひとくち]食[た]べてごらん。",
+        "romaji": "Oishii kara, hitokuchi tabete goran.",
+        "uz": "Juda mazali, bir luqma tatib ko'r-chi."
+      },
+      {
+        "ja": "分[わ]からないことは、先生[せんせい]に聞[き]いてごらんなさい。",
+        "romaji": "Wakaranai koto wa, sensei ni kiite gorannasai.",
+        "uz": "Tushunmagan narsangni ustozingdan so'rab ko'r."
+      }
+    ]
+  },
+  {
+    "id": "n3_you_ni_iu",
+    "level": "N3",
+    "title": "〜ように言う / 頼む (you ni iu / tanomu)",
+    "romaji": "you ni iu / tanomu",
+    "meaningUz": "... qilishini aytmoq / iltimos qilish (Bilvosita buyruq)",
+    "structure": "Fe'l (Lug'at / ない shakli) + ように言う / 頼む / 伝える",
+    "examples": [
+      {
+        "ja": "先生[せんせい]に、宿題[しゅくだい]を明日[あした]出[だ]すように言[い]われました。",
+        "romaji": "Sensei ni, shukudai wo ashita dasu you ni iwaremashita.",
+        "uz": "Ustoz menga uy vazifasini ertaga topshirishimni aytdi."
+      },
+      {
+        "ja": "田中[たなか]さんに、会議[かいぎ]の部屋[へや]を予約[よやく]するように頼[たの]みました。",
+        "romaji": "Tanaka-san ni, kaigi no heya wo yoyaku suru you ni tanomimashita.",
+        "uz": "Janob Tanakadan majlislar xonasini band qilib qo'yishni iltimos qildim."
+      }
+    ]
+  },
+  {
+    "id": "n3_koto_ni_natte_iru",
+    "level": "N3",
+    "title": "〜ことになっている (koto ni natte iru)",
+    "romaji": "koto ni natte iru",
+    "meaningUz": "qoidaga ko'ra shunday belgilangan / kelishilgan",
+    "structure": "Fe'l (Lug'at / ない shakli) + ことになっている",
+    "examples": [
+      {
+        "ja": "この教室[きょうしつ]では、日本語[にほんご]だけで話[はな]すことになっています。",
+        "romaji": "Kono kyoushitsu dewa, nihongo dake de hanasu koto ni natte imasu.",
+        "uz": "Ushbu darsxonada faqat yapon tilida gaplashish qoida qilib belgilangan."
+      },
+      {
+        "ja": "明日[あした]、社長[しゃちょう]と面談[めんだん]することになっている。",
+        "romaji": "Ashita, shachou to mendan suru koto ni natte iru.",
+        "uz": "Ertaga kompaniya rahbari bilan suhbat o'tkazish rejalashtirilgan."
+      }
+    ]
+  },
+  {
+    "id": "n3_koto_ni_shite_iru",
+    "level": "N3",
+    "title": "〜ことにしている (koto ni shite iru)",
+    "romaji": "koto ni shite iru",
+    "meaningUz": "o'zim shunday qilishni qat'iy odat qilib olganman",
+    "structure": "Fe'l (Lug'at / ない shakli) + ことにしている",
+    "examples": [
+      {
+        "ja": "健康[けんこう]のために、毎朝[まいあさ]30分[ぷん]走[はし]ることにしています。",
+        "romaji": "Kenkou no tame ni, maiasa sanjuppun hashiru koto ni shite imasu.",
+        "uz": "Salomatlik uchun har tong 30 daqiqa yugurishni odat qilganman."
+      },
+      {
+        "ja": "夜[よる]9時[じ]以降[いこう]は、何[なに]も食[た]べないことにしている。",
+        "romaji": "Yoru kuji ikou wa, nani mo tabenai koto ni shite iru.",
+        "uz": "Kechki soat 9 dan keyin hech narsa yemaslikni qoidam qilib olganman."
+      }
+    ]
+  },
+  {
+    "id": "n3_you_ni_suru",
+    "level": "N3",
+    "title": "〜ようにする (you ni suru)",
+    "romaji": "you ni suru",
+    "meaningUz": "... qilishga harakat qilmoq / intilmoq",
+    "structure": "Fe'l (Lug'at / ない shakli) + ようにする / ようにしてください",
+    "examples": [
+      {
+        "ja": "毎晩[まいばん]早[はや]く寝[ね]るようにしています。",
+        "romaji": "Maiban hayaku neru you ni shite imasu.",
+        "uz": "Har kecha erta uxlashga harakat qilaman."
+      },
+      {
+        "ja": "忘[わす]れないように、メモを取[と]るようにしてください。",
+        "romaji": "Wasurenai you ni, memo wo toru you ni shite kudasai.",
+        "uz": "Esingizdan chiqib ketmasligi uchun qayd qilib borishga harakat qiling."
+      }
+    ]
+  },
+  {
+    "id": "n3_you_ni_naru",
+    "level": "N3",
+    "title": "〜ようになる (you ni naru)",
+    "romaji": "you ni naru",
+    "meaningUz": "... qila oladigan bo'lmoq / yangi qobiliyat orttirmoq",
+    "structure": "Fe'l (Qobiliyat / Lug'at shakli) + ようになる",
+    "examples": [
+      {
+        "ja": "毎日[まいにち]練習[れんしゅう]して、日本語[にほんご]の新聞[しんぶん]が読[よ]めるようになりました。",
+        "romaji": "Mainichi renshuu shite, nihongo no shinbun ga yomeru you ni narimashita.",
+        "uz": "Har kuni shug'ullanib, yaponcha gazetalarni o'qiy oladigan bo'ldim."
+      },
+      {
+        "ja": "日本[にほん]に来[き]てから、納豆[なっとう]が食[た]べられるようになった。",
+        "romaji": "Nihon ni kite kara, nattou ga taberareru you ni natta.",
+        "uz": "Yaponiyaga kelganimdan so'ng natto taomini yey oladigan bo'ldim."
+      }
+    ]
+  },
+  {
+    "id": "n3_garu",
+    "level": "N3",
+    "title": "〜がる / 〜がっている (garu / gatte iru)",
+    "romaji": "garu / gatte iru",
+    "meaningUz": "uchinchi shaxsning hissiyoti yoki xohishi (U bormoqchi / xursand)",
+    "structure": "Sifat (い tushadi) + がる / Fe'l (たい tushadi) + たがる",
+    "examples": [
+      {
+        "ja": "妹[いもうと]は新[あたら]しいゲームを欲[ほ]しがっています。",
+        "romaji": "Imouto wa atarashii geemu wo hoshigatte imasu.",
+        "uz": "Singlim yangi o'yinchoq olishni juda xohlayapti."
+      },
+      {
+        "ja": "怖[こわ]がらないで、勇気[ゆうき]を出[だ]してごらん。",
+        "romaji": "Kowagaranaide, yuuki wo dashite goran.",
+        "uz": "Qo'rqma, o'zingda jasorat top-chi."
+      }
+    ]
+  },
+  {
+    "id": "n3_tsumori_datta",
+    "level": "N3",
+    "title": "〜たつもり / 〜つもりだった (ta tsumori / tsumori datta)",
+    "romaji": "ta tsumori / tsumori datta",
+    "meaningUz": "... qilmoqchi edim, ammo o'xshamadi / qilgandek his qilmoq",
+    "structure": "Fe'l (た shakli) + つもり / Fe'l (Lug'at) + つもりだった",
+    "examples": [
+      {
+        "ja": "鍵[かぎ]を閉[し]めたつもりだったのに、開[あ]いていました。",
+        "romaji": "Kagi wo shimeta tsumori datta no ni, aite imashita.",
+        "uz": "Qulfni qulflagan edim deb o'ylagandim, lekin ochiq qolibdi."
+      },
+      {
+        "ja": "若[わか]い人[ひと]たちと一緒に走[はし]って、自分[じぶん]も若[わか]返[がえ]ったつもりになった。",
+        "romaji": "Wakai hito-tachi to issho ni hashitte, jibun mo wakagaetta tsumori ni natta.",
+        "uz": "Yoshlar bilan birga yugurib, o'zim ham yosharib qolgandek his qildim."
+      }
+    ]
+  },
+  {
+    "id": "n3_ppanashi",
+    "level": "N3",
+    "title": "〜っぱなし (ppanashi)",
+    "romaji": "ppanashi",
+    "meaningUz": "... holatda tashlab qo'yilgan (yoniq qolgan, qarovsiz qolgan)",
+    "structure": "Fe'l (ます o'zagi) + っぱなし",
+    "examples": [
+      {
+        "ja": "テレビをつけっぱなしで寝[ね]てしまいました。",
+        "romaji": "Terebi wo tsukeppanashi de nete shimaimashita.",
+        "uz": "Televizorni yoniq qoldirgancha uxlab qolibman."
+      },
+      {
+        "ja": "ドアを開[あ]けっぱなしにしないでください。",
+        "romaji": "Doa wo akeppanashi ni shinaide kudasai.",
+        "uz": "Eshikni ochilgancha qoldirmang, iltimos."
+      }
+    ]
+  },
+  {
+    "id": "n3_furi_wo_suru",
+    "level": "N3",
+    "title": "〜ふりをする (furi wo suru)",
+    "romaji": "furi wo suru",
+    "meaningUz": "o'zini ...dek ko'rsatmoq / qilib ko'rsatmoq",
+    "structure": "Fe'l/Sifat (Oddiy) + ふりをする / Ot + の + ふりをする",
+    "examples": [
+      {
+        "ja": "彼[かれ]は知[し]っているのに、知[し]らないふりをしました。",
+        "romaji": "Kare wa shitte iru no ni, shiranai furi wo shimashita.",
+        "uz": "U bilsa ham, o'zini go'yo bilmaydigandek ko'rsatdi."
+      },
+      {
+        "ja": "都合[つごう]が悪[わる]くなると、寝[ね]たふりをする子供[こども]です。",
+        "romaji": "Tsugou ga waruku naru to, neta furi wo suru kodomo desu.",
+        "uz": "Vaziyat noqulay bo'lib qolsa, o'zini uxlaganga soladigan bola."
+      }
+    ]
+  },
+  {
+    "id": "n3_kawari_ni",
+    "level": "N3",
+    "title": "〜かわりに (kawari ni)",
+    "romaji": "kawari ni",
+    "meaningUz": "... o'rniga / evaziga",
+    "structure": "Fe'l (Lug'at shakli) + かわりに / Ot + の + かわりに",
+    "examples": [
+      {
+        "ja": "映画[えいが]を見[み]に行くかわりに、家[いえ]でゆっくり本[ほん]を読[よ]みます。",
+        "romaji": "Eiga wo mi ni iku kawari ni, ie de yukkuri hon wo yomimasu.",
+        "uz": "Kinoga borish o'rniga, uyda xotirjam kitob o'qiyman."
+      },
+      {
+        "ja": "日本語[にほんご]を教[おし]えてもらうかわりに、英語[えいご]を教えてあげました。",
+        "romaji": "Nihongo wo oshiete morau kawari ni, eigo wo oshiete agemashita.",
+        "uz": "U menga yapon tilini o'rgatgani evaziga, men unga ingliz tilini o'rgatdim."
+      }
+    ]
+  },
+  {
+    "id": "n3_ni_kawatte",
+    "level": "N3",
+    "title": "〜に代わって / 〜に代わり (ni kawatte / ni kawari)",
+    "romaji": "ni kawatte / ni kawari",
+    "meaningUz": "... nomidan vakil bo'lib / o'rniga",
+    "structure": "Ot + に代わって",
+    "examples": [
+      {
+        "ja": "病気[びょうき]の父[ちち]に代[か]わって、私[わたし]が結婚式[けっこんしき]に出席[しゅっせき]しました。",
+        "romaji": "Byouki no chichi ni kawatte, watashi ga kekkonshiki ni shusseki shimashita.",
+        "uz": "Betob otamning nomidan to'yga men qatnashdim."
+      },
+      {
+        "ja": "社長[しゃちょう]に代[か]わり、ご挨拶[あいさつ]申[もう]し上[あ]げます。",
+        "romaji": "Shachou ni kawari, goaisatsu moushiagemasu.",
+        "uz": "Rahbarimiz nomidan sizlarga salom yo'llayman."
+      }
+    ]
+  },
+  {
+    "id": "n3_ni_totte",
+    "level": "N3",
+    "title": "〜にとって (ni totte)",
+    "romaji": "ni totte",
+    "meaningUz": "... uchun / ... nuqtai nazaridan qaraganda",
+    "structure": "Ot (Shaxs / Tashkilot) + にとって",
+    "examples": [
+      {
+        "ja": "外国人[がいこくじん]にとって、漢字[かんじ]を覚[おぼ]えるのは大変[たいへん]です。",
+        "romaji": "Gaikokujin ni totte, kanji wo oboeru no wa taihen desu.",
+        "uz": "Chet elliklar uchun kanjilarni yodlash oson emas."
+      },
+      {
+        "ja": "私[わたし]にとって、家族[かぞく]が一番[いちばん]大切[たいせつ]です。",
+        "romaji": "Watashi ni totte, kazoku ga ichiban taisetsu desu.",
+        "uz": "Men uchun oila eng qadrlidir."
+      }
+    ]
+  },
+  {
+    "id": "n3_to_shite",
+    "level": "N3",
+    "title": "〜として (to shite)",
+    "romaji": "to shite",
+    "meaningUz": "... sifatida / maqomida (Roli yoki sifati)",
+    "structure": "Ot + として / としての + Ot",
+    "examples": [
+      {
+        "ja": "留学生[りゅうがくせい]として、日本[にほん]にやって来[き]ました。",
+        "romaji": "Ryuugakusei to shite, Nihon ni yatte kimashita.",
+        "uz": "Chet ellik talaba sifatida Yaponiyaga keldim."
+      },
+      {
+        "ja": "富士山[ふじさん]は日本[にほん]のシンボルとして有名[ゆうめい]です。",
+        "romaji": "Fujisan wa Nihon no shinboru to shite yuumei desu.",
+        "uz": "Fuji tog'i Yaponiyaning timsoli sifatida mashhur."
+      }
+    ]
+  },
+  {
+    "id": "n3_ni_yoru_to",
+    "level": "N3",
+    "title": "〜によると (ni yoru to)",
+    "romaji": "ni yoru to",
+    "meaningUz": "...-ga ko'ra (Xabar manbasi: yangiliklar, ob-havo)",
+    "structure": "Ot + によると + 〜そうだ / 〜ということだ",
+    "examples": [
+      {
+        "ja": "天気[てんき]予報[よほう]によると、午後[ごご]から雨[あめ]が降[ふ]るそうです。",
+        "romaji": "Tenki yohou ni yoru to, gogo kara ame ga furu sou desu.",
+        "uz": "Ob-havo ma'lumotiga ko'ra, tushdan keyin yomg'ir yog'ar ekan."
+      },
+      {
+        "ja": "ニュースによると、来年[らいねん]新[あたら]しい空港[くうこう]ができるそうだ。",
+        "romaji": "Nyuusu ni yoru to, rainen atarashii kuukou ga dekiru sou da.",
+        "uz": "Yangiliklarga ko'ra, kelasi yili yangi aeroport qurilar ekan."
+      }
+    ]
+  },
+  {
+    "id": "n3_koto_wa_nai",
+    "level": "N3",
+    "title": "〜ことはない (koto wa nai)",
+    "romaji": "koto wa nai",
+    "meaningUz": "... qilishga hojat / zarurat yo'q",
+    "structure": "Fe'l (Lug'at shakli) + ことはない",
+    "examples": [
+      {
+        "ja": "時間[じかん]はまだたっぷりあるから、急[いそ]ぐことはありません。",
+        "romaji": "Jikan wa mada tappuri aru kara, isogu koto wa arimasen.",
+        "uz": "Vaqt hali yetarlicha bor, shoshilishga mutlaqo hojat yo'q."
+      },
+      {
+        "ja": "あなたが謝[あやま]ることはないよ。悪[わる]くないんだから。",
+        "romaji": "Anata ga ayamaru koto wa nai yo. Warukunai n da kara.",
+        "uz": "Sen uzr so'rashing shart emas, chunki aybdor emassan."
+      }
+    ]
+  },
+  {
+    "id": "n3_koto_ka",
+    "level": "N3",
+    "title": "〜ことか (koto ka)",
+    "romaji": "koto ka",
+    "meaningUz": "qanchalar ham ...-a! / qanday ham maroqli!",
+    "structure": "どんなに / どれほど + Fe'l/Sifat + ことか",
+    "examples": [
+      {
+        "ja": "合格[ごうかく]の知[し]らせを聞[き]いた時、どんなに嬉[うれ]しかったことか！",
+        "romaji": "Goukaku no shirase wo kiita toki, donna ni ureshikatta koto ka!",
+        "uz": "O'tganim haqidagi xabarni eshitganimda, qanchalik xursand bo'lgan edim-a!"
+      },
+      {
+        "ja": "外国[がいこく]での一人[ひとり]暮[ぐ]らしは、何度[なんど]寂[さび]しかったことか。",
+        "romaji": "Gaikoku de no hitori gurashi wa, nando sabishikatta koto ka.",
+        "uz": "Chet elda yakka yashash qanchalar ham ma'yus va yolg'iz bo'lgan edi."
+      }
+    ]
+  },
+  {
+    "id": "n3_tara_dou_desu_ka",
+    "level": "N3",
+    "title": "〜たらどうですか (tara dou desu ka)",
+    "romaji": "tara dou desu ka",
+    "meaningUz": "... qilsangiz qanday bo'lardi? (Muloyim maslahat)",
+    "structure": "Fe'l (た shakli) + らどうですか",
+    "examples": [
+      {
+        "ja": "体調[たいちょう]が悪[わる]いなら、早[はや]く帰[かえ]って休[やす]んだらどうですか。",
+        "romaji": "Taichou ga warui nara, hayaku kaette yasundara dou desu ka.",
+        "uz": "O'zingizni yomon his qilayotgan bo'lsangiz, uyga erta qaytib dam olsangiz qanday bo'lardi?"
+      },
+      {
+        "ja": "一度[いちど]、先生[せんせい]に相談[そうだん]してみたらどうですか。",
+        "romaji": "Ichido, sensei ni soudan shite mitara dou desu ka.",
+        "uz": "Bir bor ustoz bilan maslahatlashib ko'rsangiz bo'lmaydimi?"
+      }
+    ]
+  },
+  {
+    "id": "n3_nagara_mo",
+    "level": "N3",
+    "title": "〜ながら（も） (nagara mo)",
+    "romaji": "nagara (mo)",
+    "meaningUz": "... bo'lsa-da / qaramasdan (Qarama-qarshilik)",
+    "structure": "Fe'l (ます o'zagi) + ながら / い-Sifat, な-Sifat, Ot + ながら",
+    "examples": [
+      {
+        "ja": "狭[せま]いながらも、自分[じぶん]の城[しろ]のような落[お]ち着[つ]く部屋[へや]です。",
+        "romaji": "Semai nagara mo, jibun no shiro no you na ochitsuku heya desu.",
+        "uz": "Tor bo'lsa-da, xuddi o'z qasrimdek orombaxsh xona."
+      },
+      {
+        "ja": "残念[ざんねん]ながら、今回[こんかい]の提案[ていあん]はお受[う]けできません。",
+        "romaji": "Zannen nagara, konkai no teian wa ou ke dekimasen.",
+        "uz": "Afsus bo'lsa-da, bu galgi taklifingizni qabul qila olmaymiz."
+      }
+    ]
+  },
+  {
+    "id": "n3_tsuide_ni",
+    "level": "N3",
+    "title": "〜ついでに (tsuide ni)",
+    "romaji": "tsuide ni",
+    "meaningUz": "... qilayotgan fursatdan foydalanib / yo'l-yo'lakay",
+    "structure": "Fe'l (Lug'at / た shakli) + ついでに / Ot + の + ついでに",
+    "examples": [
+      {
+        "ja": "散歩[さんぽ]のついでに、ポストに手紙[てがみ]を出[だ]してきました。",
+        "romaji": "Sanpo no tsuide ni, posuto ni tegami wo dashite kimashita.",
+        "uz": "Sayr qilayotgan fursatdan foydalanib, pochtaga xat tashlab keldim."
+      },
+      {
+        "ja": "コンビニへ行[い]くついでに、牛乳[ぎゅうにゅう]を買[か]ってきてください。",
+        "romaji": "Konbini e iku tsuide ni, gyuunyuu wo katte kite kudasai.",
+        "uz": "Do'konga borayotganingizda, yo'l-yo'lakay sut ham olib keling."
+      }
+    ]
+  },
+  {
+    "id": "n3_chotto_mo_nai",
+    "level": "N3",
+    "title": "〜少しも〜ない (sukoshi mo ... nai)",
+    "romaji": "sukoshi mo ... nai",
+    "meaningUz": "zarra ham / umuman ... emas (Kuchli inkor)",
+    "structure": "少しも + Inkor Fe'l / Sifat",
+    "examples": [
+      {
+        "ja": "彼[かれ]の言[い]うことは、少[すこ]しも理解[りかい]できません。",
+        "romaji": "Kare no iu koto wa, sukoshi mo rikai dekimasen.",
+        "uz": "U aytayotgan gaplarni zarra ham tushuna olmayapman."
+      },
+      {
+        "ja": "こんな難[むずか]しい問題[もんだい]、少[すこ]しも分[わ]からないよ。",
+        "romaji": "Konna muzukashii mondai, sukoshi mo wakaranai yo.",
+        "uz": "Bunday qiyin masalani umuman tushunmayapman."
+      }
+    ]
+  },
+  {
+    "id": "n3_shika_nai_choice",
+    "level": "N3",
+    "title": "〜しかない (shika nai - boshqa chora yo'q)",
+    "romaji": "shika nai (chora)",
+    "meaningUz": "... qilishdan o'zga chora yo'q / faqat shuni qilish qoldi",
+    "structure": "Fe'l (Lug'at shakli) + しかない",
+    "examples": [
+      {
+        "ja": "電車[でんしゃ]が止[と]まったので、歩[ある]いて行[い]くしかありません。",
+        "romaji": "Densha ga tomatta no de, aruite iku shika arimasen.",
+        "uz": "Poyezd to'xtagani sababli piyoda borishdan boshqa chora yo'q."
+      },
+      {
+        "ja": "ここまで来[き]たら、最後[さいご]まで頑張[がんば]るしかない！",
+        "romaji": "Koko made kitara, saigo made ganbaru shika nai!",
+        "uz": "Shu yerga qadar keldikmi, oxirigacha matonat ko'rsatishdan o'zga yo'l yo'q!"
       }
     ]
   }
