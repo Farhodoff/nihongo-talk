@@ -24,6 +24,8 @@ import {
   JlptLevelFilter,
   KanjiStrokeData,
 } from '../../services/KanjiPracticeService';
+import { DailyQuestService } from '../../services/DailyQuestService';
+import { useGamificationStore } from '../../stores/useGamificationStore';
 import type { JlptKanjiItem } from '../../data/jlptGrammarKanji';
 
 interface DrawnStroke {
@@ -297,6 +299,10 @@ export const KanjiCanvasPractice: React.FC = () => {
     if (awardXP) {
       awardXP(15);
     }
+    try {
+      DailyQuestService.incrementMetaCounter(null, 'kanjiMastered', 1);
+      useGamificationStore.getState().recordQuestProgress('kanji', 1);
+    } catch {}
   };
 
   return (

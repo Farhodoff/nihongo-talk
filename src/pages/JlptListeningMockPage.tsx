@@ -29,6 +29,8 @@ import {
 import { ListeningAudioSyncService, SpeakerGender } from '../services/ListeningAudioSyncService';
 import { HistoryService } from '../services/HistoryService';
 import { MasteryEngine } from '../services/MasteryEngine';
+import { DailyQuestService } from '../services/DailyQuestService';
+import { useGamificationStore } from '../stores/useGamificationStore';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { useLanguage } from '../context/LanguageContext';
 import { toast } from '../hooks/use-toast';
@@ -291,6 +293,12 @@ export const JlptListeningMockPage: React.FC = () => {
       if (awardXP && correctCount > 0) {
         await awardXP(correctCount * 25);
       }
+      DailyQuestService.incrementMetaCounter(
+        user?.id,
+        'listeningQuestionsCompleted',
+        activeQuestions.length || 1,
+      );
+      useGamificationStore.getState().recordQuestProgress('listening', 1);
     } catch {
       // Ignore XP award failure
     }

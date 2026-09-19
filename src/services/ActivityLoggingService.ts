@@ -1,6 +1,7 @@
 import { supabase } from '../lib/supabase';
 import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
 import { useGamificationStore } from '../stores/useGamificationStore';
+import { DailyQuestService } from './DailyQuestService';
 import { generateUUID } from '../utils/uuid';
 import { format } from 'date-fns';
 
@@ -136,6 +137,25 @@ export class ActivityLoggingService {
       } catch (e) {
         console.warn('[ActivityLoggingService] awardXP store warning:', e);
       }
+    }
+
+    // 1b. Update Daily Quests & Gamification Meta
+    try {
+      if (activity.activityType === 'flashcards') {
+        DailyQuestService.incrementMetaCounter(
+          userId,
+          'flashcardsReviewed',
+          activity.itemsCount || 1,
+        );
+        useGamificationStore.getState().recordQuestProgress('flashcards', activity.itemsCount || 1);
+      } else if (activity.activityType === 'speaking') {
+        DailyQuestService.incrementMetaCounter(userId, 'speakingSessionsCompleted', 1);
+        useGamificationStore.getState().recordQuestProgress('speaking', 1);
+      } else if (activity.activityType === 'focus') {
+        useGamificationStore.getState().recordQuestProgress('focus', 1);
+      }
+    } catch (e) {
+      console.warn('[ActivityLoggingService] Quest recording warning:', e);
     }
 
     // 2. Save locally

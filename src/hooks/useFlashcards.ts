@@ -9,6 +9,8 @@ import {
 import { calculateReview, Grade } from '../utils/srs';
 import { MasteryEngine } from '../services/MasteryEngine';
 import { LearningSignalService } from '../services/LearningSignalService';
+import { DailyQuestService } from '../services/DailyQuestService';
+import { useGamificationStore } from '../stores/useGamificationStore';
 import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
 import { isUuid } from '../utils/uuid';
 
@@ -308,6 +310,11 @@ export const useFlashcards = (onCardReviewed?: (amount: number) => Promise<void>
       if (onCardReviewedRef.current) {
         onCardReviewedRef.current(rating * 2);
       }
+
+      try {
+        DailyQuestService.incrementMetaCounter(null, 'flashcardsReviewed', 1);
+        useGamificationStore.getState().recordQuestProgress('flashcards', 1);
+      } catch {}
 
       return updatedCards;
     });

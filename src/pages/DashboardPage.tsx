@@ -26,6 +26,8 @@ import {
   LevelPromotionCandidate,
 } from '../types/learningPath';
 import { RoadmapSummary } from '../types/curriculum';
+import { DailyQuestsWidget } from '../components/gamification/DailyQuestsWidget';
+import { LevelUpModal } from '../components/gamification/LevelUpModal';
 
 const DashboardPage: React.FC = () => {
   const {
@@ -420,6 +422,7 @@ const DashboardPage: React.FC = () => {
 
   return (
     <div className="mx-auto max-w-7xl space-y-8 p-4 duration-200 animate-in fade-in md:p-8">
+      <LevelUpModal />
       {/* Top Greeting & Quick Stats */}
       <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
         <div>
@@ -588,6 +591,9 @@ const DashboardPage: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Gamification Daily Quests & Streak Protection */}
+      <DailyQuestsWidget />
 
       {/* Today's Adaptive Daily Plan */}
       {dailyPlan && dailyPlan.activities && dailyPlan.activities.length > 0 && (

@@ -12,9 +12,11 @@ import JlptProgressAnalytics from '../components/analytics/JlptProgressAnalytics
 import { useStudyData } from '../context/StudyPlannerContext';
 import Skeleton from '../components/ui/Skeleton';
 import ShareCardModal from '../components/ShareCardModal';
-import { Share2, BarChart3, Globe2, BookOpen } from 'lucide-react';
+import { Share2, BarChart3, Globe2, BookOpen, Trophy } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { useGamificationInfo } from '../stores';
+import { DailyQuestsWidget } from '../components/gamification/DailyQuestsWidget';
+import { AchievementsGrid } from '../components/gamification/AchievementsGrid';
 
 const ProgressPage: React.FC = () => {
   const navigate = useNavigate();
@@ -22,7 +24,9 @@ const ProgressPage: React.FC = () => {
     useStudyData();
   const { totalXp, level } = useGamificationInfo();
   const { language } = useLanguage();
-  const [activeTab, setActiveTab] = useState<'overview' | 'language' | 'subjects'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'language' | 'subjects' | 'achievements'>(
+    'overview',
+  );
   const [isShareOpen, setIsShareOpen] = useState(false);
 
   const totalHours = (sessions.reduce((acc, s) => acc + s.duration, 0) / 60).toFixed(1);
@@ -116,6 +120,23 @@ const ProgressPage: React.FC = () => {
           <BookOpen size={15} />
           <span>{language === 'ja' ? '科目・フラッシュカード' : 'Fanlar & Fleshkartalar'}</span>
         </button>
+        <button
+          onClick={() => setActiveTab('achievements')}
+          className={`flex shrink-0 cursor-pointer items-center gap-2 rounded-xl px-4 py-2.5 text-xs font-extrabold transition-all active:scale-95 ${
+            activeTab === 'achievements'
+              ? 'bg-primary text-primary-foreground shadow-sm'
+              : 'bg-muted/40 text-muted-foreground hover:bg-muted'
+          }`}
+        >
+          <Trophy size={15} />
+          <span>
+            {language === 'ja'
+              ? '実績 & クエスト'
+              : language === 'en'
+                ? 'Badges & Quests'
+                : 'Yutuqlar & Missiyalar'}
+          </span>
+        </button>
       </div>
 
       {/* Tab 1: Overview & Time Activity */}
@@ -144,6 +165,14 @@ const ProgressPage: React.FC = () => {
         <div className="space-y-8 duration-300 animate-in fade-in">
           <SubjectAnalytics subjects={subjects} sessions={sessions} flashcards={flashcards} />
           <FlashcardAnalytics flashcards={flashcards} />
+        </div>
+      )}
+
+      {/* Tab 4: Achievements & Daily Quests */}
+      {activeTab === 'achievements' && (
+        <div className="space-y-8 duration-300 animate-in fade-in">
+          <DailyQuestsWidget />
+          <AchievementsGrid />
         </div>
       )}
 

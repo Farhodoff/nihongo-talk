@@ -22,6 +22,7 @@ import { JlptExamResultCard } from '../components/jlpt/JlptExamResultCard';
 import { ExamCertificateModal } from '../components/exams/ExamCertificateModal';
 import { MasteryEngine } from '../services/MasteryEngine';
 import { calculateJlptScore } from '../utils/jlptScoring';
+import { DailyQuestService } from '../services/DailyQuestService';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { useLanguage } from '../context/LanguageContext';
 import { ExamService, ExamListItem, NormalizedExam } from '../services/ExamService';
@@ -259,6 +260,12 @@ export const JlptMockExamPage: React.FC = () => {
       if (awardXP) {
         awardXP(100).catch(() => {});
       }
+      try {
+        DailyQuestService.recordMockScore(
+          user?.id,
+          Math.min(100, Math.round((jlptScoreReport.totalScore / 180) * 100)),
+        );
+      } catch {}
 
       // Register evidence for JLPT Level Progression
       const activeUserId = user?.id || 'guest';
