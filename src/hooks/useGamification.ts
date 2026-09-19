@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react';
 import { supabase } from '../lib/supabase';
 import { getLevelInfo, calculateStreak } from '../utils/gamification';
 import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
+import { OfflineSyncManager } from '../services/OfflineSyncManager';
 
 export interface GamificationState {
   totalXp: number;
@@ -51,23 +52,52 @@ export const useGamification = (initialState: GamificationState) => {
       );
 
       if (user) {
-        supabase
-          .from('profiles')
-          .upsert({
-            id: user.id,
-            total_xp: newXp,
+        if (typeof navigator !== 'undefined' && !navigator.onLine) {
+          OfflineSyncManager.enqueueGamificationSync({
+            userId: user.id,
+            totalXp: newXp,
             level: newLevel,
-            current_streak: newStreak,
-            last_activity_date: newLastActivityDate,
-            updated_at: new Date().toISOString(),
-          })
-          .then(
-            ({ error }) => {
-              if (error && navigator.onLine)
-                console.warn('XP and streak update notice:', error.message);
-            },
-            () => {},
-          );
+            currentStreak: newStreak,
+            lastActivityDate: newLastActivityDate,
+            timestamp: Date.now(),
+          }).catch(() => {});
+        } else {
+          supabase
+            .from('profiles')
+            .upsert({
+              id: user.id,
+              total_xp: newXp,
+              level: newLevel,
+              current_streak: newStreak,
+              last_activity_date: newLastActivityDate,
+              updated_at: new Date().toISOString(),
+            })
+            .then(
+              ({ error }) => {
+                if (error) {
+                  if (navigator.onLine) console.warn('XP and streak update notice:', error.message);
+                  OfflineSyncManager.enqueueGamificationSync({
+                    userId: user.id,
+                    totalXp: newXp,
+                    level: newLevel,
+                    currentStreak: newStreak,
+                    lastActivityDate: newLastActivityDate,
+                    timestamp: Date.now(),
+                  }).catch(() => {});
+                }
+              },
+              () => {
+                OfflineSyncManager.enqueueGamificationSync({
+                  userId: user.id,
+                  totalXp: newXp,
+                  level: newLevel,
+                  currentStreak: newStreak,
+                  lastActivityDate: newLastActivityDate,
+                  timestamp: Date.now(),
+                }).catch(() => {});
+              },
+            );
+        }
       } else {
         safeLocalStorage.setJSON('study_planner_guest_gamification', {
           totalXp: newXp,

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { WifiOff, Wifi, RefreshCw, CheckCircle2 } from 'lucide-react';
-import { FlashcardOfflineSync } from '../services/FlashcardOfflineSync';
+import { OfflineSyncManager } from '../services/OfflineSyncManager';
 import { toast } from '../hooks/use-toast';
 
 const OfflineIndicator: React.FC = () => {
@@ -9,39 +9,42 @@ const OfflineIndicator: React.FC = () => {
   const [isSyncing, setIsSyncing] = useState(false);
   const [justSynced, setJustSynced] = useState(false);
 
-  // Fetch pending count periodically
+  // Fetch total pending count across all domains periodically
   const refreshPendingCount = useCallback(async () => {
     try {
-      const count = await FlashcardOfflineSync.getPendingCount();
+      const count = await OfflineSyncManager.getOverallPendingCount();
       setPendingCount(count);
     } catch {}
   }, []);
+
+  const triggerSync = useCallback(async () => {
+    if (isSyncing || !navigator.onLine) return;
+    setIsSyncing(true);
+    try {
+      const result = await OfflineSyncManager.syncAllPending();
+      if (result.totalSynced > 0) {
+        setJustSynced(true);
+        toast({
+          title: '✅ Sinxronlash muvaffaqiyatli',
+          description: `${result.totalSynced} ta oflayn o'zgarish bazaga saqlandi.`,
+        });
+        setTimeout(() => setJustSynced(false), 4000);
+      }
+    } catch {
+    } finally {
+      setIsSyncing(false);
+      refreshPendingCount();
+    }
+  }, [isSyncing, refreshPendingCount]);
 
   useEffect(() => {
     refreshPendingCount();
 
     const handleOnline = async () => {
       setIsOffline(false);
-
-      // Auto-sync when coming back online
-      const count = await FlashcardOfflineSync.getPendingCount();
+      const count = await OfflineSyncManager.getOverallPendingCount();
       if (count > 0) {
-        setIsSyncing(true);
-        try {
-          const result = await FlashcardOfflineSync.syncPending();
-          if (result.synced > 0) {
-            setJustSynced(true);
-            toast({
-              title: '✅ Sinxronlash muvaffaqiyatli',
-              description: `${result.synced} ta oflayn o'zgarish bazaga saqlandi.`,
-            });
-            setTimeout(() => setJustSynced(false), 4000);
-          }
-        } catch {
-        } finally {
-          setIsSyncing(false);
-          refreshPendingCount();
-        }
+        await triggerSync();
       }
     };
 
@@ -53,15 +56,15 @@ const OfflineIndicator: React.FC = () => {
     window.addEventListener('online', handleOnline);
     window.addEventListener('offline', handleOffline);
 
-    // Refresh pending count every 30s while offline
-    const interval = setInterval(refreshPendingCount, 30000);
+    // Refresh pending count every 20s while offline
+    const interval = setInterval(refreshPendingCount, 20000);
 
     return () => {
       window.removeEventListener('online', handleOnline);
       window.removeEventListener('offline', handleOffline);
       clearInterval(interval);
     };
-  }, [refreshPendingCount]);
+  }, [refreshPendingCount, triggerSync]);
 
   // Success toast after reconnection sync
   if (justSynced && !isOffline) {
@@ -79,7 +82,7 @@ const OfflineIndicator: React.FC = () => {
   // Online but has pending sync items
   if (!isOffline && pendingCount > 0) {
     return (
-      <div className="fixed left-0 right-0 top-0 z-[100] flex items-center justify-center gap-2 bg-amber-500 px-4 py-1.5 text-sm font-semibold text-white shadow-md animate-in slide-in-from-top-2">
+      <div className="fixed left-0 right-0 top-0 z-[100] flex items-center justify-center gap-3 bg-amber-500 px-4 py-1.5 text-sm font-semibold text-white shadow-md animate-in slide-in-from-top-2">
         {isSyncing ? (
           <>
             <RefreshCw size={16} className="animate-spin" />
@@ -87,8 +90,16 @@ const OfflineIndicator: React.FC = () => {
           </>
         ) : (
           <>
-            <Wifi size={16} />
-            <span>{pendingCount} ta o'zgarish sinxronlanishni kutmoqda</span>
+            <div className="flex items-center gap-2">
+              <Wifi size={16} />
+              <span>{pendingCount} ta o'zgarish sinxronlanishni kutmoqda</span>
+            </div>
+            <button
+              onClick={triggerSync}
+              className="rounded-full bg-white/20 px-2.5 py-0.5 text-xs font-bold transition-all hover:bg-white/30"
+            >
+              Sinxronlash
+            </button>
           </>
         )}
       </div>
@@ -102,7 +113,7 @@ const OfflineIndicator: React.FC = () => {
       <span>
         Oflayn rejim
         {pendingCount > 0 && (
-          <span className="ml-1 rounded-full bg-white/20 px-2 py-0.5 text-xs font-bold">
+          <span className="ml-1.5 rounded-full bg-white/20 px-2 py-0.5 text-xs font-bold">
             {pendingCount} ta o'zgarish kutmoqda
           </span>
         )}

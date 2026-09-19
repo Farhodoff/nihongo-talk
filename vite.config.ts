@@ -157,7 +157,7 @@ export default defineConfig(({ mode }) => {
               options: {
                 cacheName: 'large-data-chunks-cache',
                 expiration: {
-                  maxEntries: 15,
+                  maxEntries: 40,
                   maxAgeSeconds: 30 * 24 * 60 * 60,
                 },
                 cacheableResponse: {

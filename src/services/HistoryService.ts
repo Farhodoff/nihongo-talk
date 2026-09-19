@@ -1,6 +1,7 @@
 import { supabase } from '../lib/supabase';
 import { logger } from '../utils/logger';
 import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
+import { OfflineSyncManager } from './OfflineSyncManager';
 
 export interface WritingHistoryItem {
   id: string;
@@ -205,6 +206,7 @@ export class HistoryService {
     };
 
     let userId: string | null = null;
+    let dbSuccess = false;
     try {
       const {
         data: { user },
@@ -213,7 +215,7 @@ export class HistoryService {
         userId = user.id;
 
         // 1. Primary insert into speaking_sessions
-        await supabase.from('speaking_sessions').insert({
+        const res1 = await supabase.from('speaking_sessions').insert({
           id: newItem.id,
           user_id: user.id,
           user_email: user.email,
@@ -234,7 +236,7 @@ export class HistoryService {
         });
 
         // 2. Fallback insert into speaking_coach_sessions
-        await supabase.from('speaking_coach_sessions').insert({
+        const res2 = await supabase.from('speaking_coach_sessions').insert({
           id: newItem.id,
           user_id: user.id,
           language: newItem.language,
@@ -246,9 +248,27 @@ export class HistoryService {
           feedback: newItem.feedback,
           created_at: newItem.createdAt,
         });
+
+        if (!res1?.error || !res2?.error) {
+          dbSuccess = true;
+        }
       }
     } catch (e) {
       console.warn('[HistoryService] DB speaking session insert notice:', e);
+    }
+
+    if (!dbSuccess && userId) {
+      OfflineSyncManager.enqueueSpeakingSession({
+        id: newItem.id,
+        userId,
+        topic: newItem.persona,
+        fluencyScore: newItem.fluencyScore,
+        grammarScore: 8.0,
+        pronunciationScore: newItem.pronunciationScore,
+        vocabularyScore: 8.0,
+        durationSeconds: newItem.durationSeconds,
+        createdAt: newItem.createdAt,
+      }).catch(() => {});
     }
 
     const scopedKey = getStorageKey('study_planner_speaking_coach_sessions', userId);
@@ -332,6 +352,7 @@ export class HistoryService {
     };
 
     let userId: string | null = null;
+    let dbSuccess = false;
     if (!isTableDisabled('mock_exams_history')) {
       try {
         const {
@@ -348,11 +369,28 @@ export class HistoryService {
             band_score: newItem.bandScore || null,
             created_at: newItem.createdAt,
           });
-          if (error) handleTableError('mock_exams_history', error);
+          if (error) {
+            handleTableError('mock_exams_history', error);
+          } else {
+            dbSuccess = true;
+          }
         }
       } catch (e) {
         handleTableError('mock_exams_history', e);
       }
+    }
+
+    if (!dbSuccess && userId) {
+      OfflineSyncManager.enqueueMockExam({
+        id: newItem.id,
+        userId,
+        examType: newItem.examType,
+        level: newItem.level,
+        score: newItem.score,
+        totalQuestions: newItem.totalQuestions,
+        bandScore: newItem.bandScore,
+        createdAt: newItem.createdAt,
+      }).catch(() => {});
     }
 
     const scopedKey = getStorageKey('study_planner_mock_exams_history', userId);

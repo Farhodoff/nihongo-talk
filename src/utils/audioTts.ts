@@ -47,11 +47,59 @@ export function speakText(text: string, accent: string = 'en-US'): void {
   const targetLang = hasJapaneseChars ? 'ja-JP' : accent;
   const isJa = hasJapaneseChars || accent.startsWith('ja');
 
-  // Helper to play network audio
+  const playWebSpeech = () => {
+    if (
+      typeof window === 'undefined' ||
+      !('speechSynthesis' in window) ||
+      (typeof (window as any).SpeechSynthesisUtterance === 'undefined' &&
+        typeof SpeechSynthesisUtterance === 'undefined')
+    )
+      return;
+    try {
+      const UtteranceClass = (window as any).SpeechSynthesisUtterance || SpeechSynthesisUtterance;
+      const voices = window.speechSynthesis.getVoices();
+      let matchedVoice = null;
+      if (voices && voices.length > 0) {
+        matchedVoice = voices.find(
+          (v) =>
+            (v.lang === targetLang || v.lang.startsWith(isJa ? 'ja' : 'en')) &&
+            (v.name.includes('Google') ||
+              v.name.includes('Kyoko') ||
+              v.name.includes('Otoya') ||
+              v.name.includes('Haruka') ||
+              v.name.includes('Hattori')),
+        );
+
+        if (!matchedVoice) {
+          matchedVoice = voices.find(
+            (v) => v.lang === targetLang || v.lang.startsWith(targetLang.split('-')[0]),
+          );
+        }
+      }
+
+      const utterance = new UtteranceClass(textToSpeak);
+      utterance.lang = targetLang;
+      utterance.rate = targetLang.startsWith('ja') ? 0.9 : 0.85;
+      utterance.pitch = 1.0;
+
+      if (matchedVoice) {
+        utterance.voice = matchedVoice;
+      }
+
+      window.speechSynthesis.speak(utterance);
+    } catch (err) {
+      console.warn('[audioTts] Web Speech error:', err);
+    }
+  };
+
+  // Helper to play network audio with offline Web Speech fallback
   const playNetworkFallback = async () => {
     try {
       const blob = await fetchTTSAudioBlob(textToSpeak.slice(0, 200), isJa ? 'ja' : 'en');
-      if (!blob) return;
+      if (!blob) {
+        playWebSpeech();
+        return;
+      }
 
       const url = URL.createObjectURL(blob);
       globalObjectUrl = url;
@@ -70,10 +118,14 @@ export function speakText(text: string, accent: string = 'en-US'): void {
           globalObjectUrl = null;
         }
         globalAudioPlayer = null;
+        playWebSpeech();
       };
-      audio.play().catch(() => {});
+      audio.play().catch(() => {
+        playWebSpeech();
+      });
     } catch (e) {
       console.warn('[audioTts] Network fallback error:', e);
+      playWebSpeech();
     }
   };
 
