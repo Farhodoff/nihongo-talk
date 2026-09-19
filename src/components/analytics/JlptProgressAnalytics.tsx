@@ -1,137 +1,201 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { HistoryService, MockExamItem, SpeakingSessionItem } from '../../services/HistoryService';
+import { DailyQuestService } from '../../services/DailyQuestService';
+import { useFlashcardStore } from '../../stores/useFlashcardStore';
+import { JlptReadinessService, UserSkillStats } from '../../services/JlptReadinessService';
+import { JlptReadinessCard } from './JlptReadinessCard';
+import { JlptSkillsBreakdown } from './JlptSkillsBreakdown';
 import { Sparkles, Trophy, Flame, BookOpen, Volume2, History, Award } from 'lucide-react';
 import { SvgLineChart } from '../ui/SvgCharts';
 
 export const JlptProgressAnalytics: React.FC = () => {
-    const [jlptExams, setJlptExams] = useState<MockExamItem[]>([]);
-    const [jlptSpeaking, setJlptSpeaking] = useState<SpeakingSessionItem[]>([]);
-    const [loading, setLoading] = useState(true);
+  const [jlptExams, setJlptExams] = useState<MockExamItem[]>([]);
+  const [jlptSpeaking, setJlptSpeaking] = useState<SpeakingSessionItem[]>([]);
+  const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const loadHistory = async () => {
-            try {
-                const [exams, speaking] = await Promise.all([
-                    HistoryService.getMockExamsHistory(),
-                    HistoryService.getSpeakingHistory()
-                ]);
+  const flashcards = useFlashcardStore((s) => s.flashcards);
 
-                setJlptExams(exams.filter(e => e.examType === 'jlpt'));
-                setJlptSpeaking(speaking.filter(s => s.language === 'ja'));
-            } catch (e) {
-                console.error('[JlptProgressAnalytics] Error loading history:', e);
-            } finally {
-                setLoading(false);
-            }
-        };
+  useEffect(() => {
+    const loadHistory = async () => {
+      try {
+        const [exams, speaking] = await Promise.all([
+          HistoryService.getMockExamsHistory(),
+          HistoryService.getSpeakingHistory(),
+        ]);
 
-        loadHistory();
-    }, []);
+        setJlptExams(exams.filter((e) => e.examType === 'jlpt'));
+        setJlptSpeaking(speaking.filter((s) => s.language === 'ja'));
+      } catch (e) {
+        console.error('[JlptProgressAnalytics] Error loading history:', e);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    // Stored target plan
-    const savedTarget = localStorage.getItem('study_planner_jlpt_user_target');
-    const targetPlan = savedTarget ? JSON.parse(savedTarget) : null;
+    loadHistory();
+  }, []);
 
-    const chartData = [...jlptExams]
-        .reverse()
-        .map(item => ({
-            date: new Date(item.createdAt).toLocaleDateString([], { month: 'short', day: 'numeric' }),
-            score: Math.round((item.score / item.totalQuestions) * 180),
-            level: item.level || 'JLPT'
-        }));
+  // Stored target plan
+  const savedTarget = localStorage.getItem('study_planner_jlpt_user_target');
+  const targetPlan = savedTarget ? JSON.parse(savedTarget) : null;
 
-    if (loading) return null;
+  const chartData = [...jlptExams].reverse().map((item) => ({
+    date: new Date(item.createdAt).toLocaleDateString([], { month: 'short', day: 'numeric' }),
+    score: Math.round((item.score / item.totalQuestions) * 180),
+    level: item.level || 'JLPT',
+  }));
 
-    return (
-        <div className="bg-card border border-border p-6 rounded-3xl shadow-sm mb-8 space-y-6">
-            {/* Header */}
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-border pb-4">
-                <div className="flex items-center gap-3">
-                    <div className="p-2.5 bg-rose-500/10 text-rose-600 dark:text-rose-400 rounded-2xl border border-rose-500/20">
-                        <Sparkles size={22} />
-                    </div>
-                    <div>
-                        <h3 className="text-lg font-extrabold text-foreground flex items-center gap-2">
-                            JLPT & Kaiwa Japanese Progress 🎌
-                        </h3>
-                        <p className="text-xs text-muted-foreground">
-                            Yapon tili darajangiz, imtihon sinovlari va so'zlashuv statistikasi
-                        </p>
-                    </div>
-                </div>
+  const highestScore =
+    jlptExams.length > 0
+      ? Math.max(...jlptExams.map((e) => Math.round((e.score / e.totalQuestions) * 180)))
+      : 0;
 
-                {targetPlan && (
-                    <div className="px-3.5 py-1.5 bg-rose-500/10 border border-rose-500/20 rounded-full text-xs font-bold text-rose-600 dark:text-rose-400 flex items-center gap-1.5">
-                        <Flame size={14} /> Target: {targetPlan.currentLevel || 'N5'} ➔ {targetPlan.targetLevel || 'N2'}
-                    </div>
-                )}
-            </div>
+  const avgFluency =
+    jlptSpeaking.length > 0
+      ? jlptSpeaking.reduce((a, s) => a + s.fluencyScore, 0) / jlptSpeaking.length
+      : null;
 
-            {/* KPI Summary Cards */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div className="p-4 bg-muted/30 border border-border rounded-2xl">
-                    <span className="text-[10px] text-muted-foreground font-bold uppercase tracking-wider block mb-1">Topshirilgan Imtihonlar</span>
-                    <div className="text-2xl font-black text-foreground flex items-center gap-1.5">
-                        <Trophy size={18} className="text-amber-500" />
-                        {jlptExams.length} <span className="text-xs font-normal text-muted-foreground">ta</span>
-                    </div>
-                </div>
+  const meta = DailyQuestService.getGamificationMeta(null);
 
-                <div className="p-4 bg-muted/30 border border-border rounded-2xl">
-                    <span className="text-[10px] text-muted-foreground font-bold uppercase tracking-wider block mb-1">Kaiwa Suhbatlar (JA)</span>
-                    <div className="text-2xl font-black text-foreground flex items-center gap-1.5">
-                        <Volume2 size={18} className="text-rose-500" />
-                        {jlptSpeaking.length} <span className="text-xs font-normal text-muted-foreground">seans</span>
-                    </div>
-                </div>
+  const userStats: UserSkillStats = useMemo(() => {
+    const cards = Array.isArray(flashcards) ? flashcards : [];
+    const kanjiFromCards = cards.filter((c) => /[\u4e00-\u9faf]/.test(c.front || '')).length;
+    const grammarFromCards = cards.filter(
+      (c) => c.subjectId?.includes('grammar') || (c as any).skill === 'grammar',
+    ).length;
 
-                <div className="p-4 bg-muted/30 border border-border rounded-2xl">
-                    <span className="text-[10px] text-muted-foreground font-bold uppercase tracking-wider block mb-1">Eng Yuqori Ball</span>
-                    <div className="text-2xl font-black text-foreground flex items-center gap-1.5">
-                        <Award size={18} className="text-emerald-500" />
-                        {jlptExams.length > 0 ? Math.max(...jlptExams.map(e => Math.round((e.score / e.totalQuestions) * 180))) : 0}
-                        <span className="text-xs font-normal text-muted-foreground">/ 180</span>
-                    </div>
-                </div>
+    return {
+      vocabCount: Math.max(cards.length, meta.flashcardsReviewed || 0),
+      vocabRetentionRate: 85,
+      kanjiCount: Math.max(kanjiFromCards, meta.kanjiMastered || 0),
+      grammarMasteredCount: Math.max(
+        grammarFromCards,
+        meta.listeningQuestionsCompleted > 0 ? 30 : 15,
+      ),
+      listeningCompletedCount: Math.max(
+        meta.listeningQuestionsCompleted || 0,
+        jlptExams.length * 4,
+      ),
+      listeningAccuracy: 80,
+      speakingSessionsCount: Math.max(jlptSpeaking.length, meta.speakingSessionsCompleted || 0),
+      speakingFluencyScore: avgFluency ?? 7.5,
+      mockExamHighestScore: highestScore > 0 ? highestScore : meta.highestMockScore,
+    };
+  }, [flashcards, meta, jlptExams.length, jlptSpeaking.length, avgFluency, highestScore]);
 
-                <div className="p-4 bg-muted/30 border border-border rounded-2xl">
-                    <span className="text-[10px] text-muted-foreground font-bold uppercase tracking-wider block mb-1">Suhbat Ravonligi Avg</span>
-                    <div className="text-2xl font-black text-foreground flex items-center gap-1.5">
-                        <BookOpen size={18} className="text-indigo-500" />
-                        {jlptSpeaking.length > 0
-                            ? (jlptSpeaking.reduce((a, s) => a + s.fluencyScore, 0) / jlptSpeaking.length).toFixed(1)
-                            : '-'}/10
-                    </div>
-                </div>
-            </div>
+  const activeLevel = (targetPlan?.currentLevel || 'N5') as any;
+  const readinessReport = useMemo(() => {
+    return JlptReadinessService.calculateReadiness(userStats, activeLevel);
+  }, [userStats, activeLevel]);
 
-            {/* Score History Progression Chart */}
-            {chartData.length > 0 ? (
-                <div className="space-y-2">
-                    <h4 className="text-xs font-extrabold text-foreground uppercase tracking-wider flex items-center gap-1.5">
-                        <History size={14} className="text-rose-500" />
-                        JLPT Imtihon Natijalari Dinamikasi (180 ballik shkala)
-                    </h4>
-                    <div className="h-44 w-full pt-2">
-                        <SvgLineChart
-                            data={chartData}
-                            xKey="date"
-                            series={[{ dataKey: 'score', stroke: '#f43f5e', fill: '#f43f5e' }]}
-                            height={160}
-                            showArea={true}
-                            unit="ball"
-                        />
-                    </div>
-                </div>
-            ) : (
-                <div className="p-6 text-center bg-muted/20 border border-dashed border-border rounded-2xl">
-                    <p className="text-xs text-muted-foreground font-medium">
-                        Hozircha JLPT imtihon sinovlari tarixi mavjud emas. JLPT Hub sahifasiga o'tib sinov topshiring! 🎌
-                    </p>
-                </div>
-            )}
+  if (loading) return null;
+
+  return (
+    <div className="mb-8 space-y-8 rounded-3xl border border-border bg-card p-6 shadow-sm">
+      {/* Header */}
+      <div className="flex flex-col items-start justify-between gap-4 border-b border-border pb-4 sm:flex-row sm:items-center">
+        <div className="flex items-center gap-3">
+          <div className="rounded-2xl border border-rose-500/20 bg-rose-500/10 p-2.5 text-rose-600 dark:text-rose-400">
+            <Sparkles size={22} />
+          </div>
+          <div>
+            <h3 className="flex items-center gap-2 text-lg font-extrabold text-foreground">
+              JLPT & Kaiwa Japanese Progress 🎌
+            </h3>
+            <p className="text-xs text-muted-foreground">
+              Yapon tili darajangiz, imtihon sinovlari va so'zlashuv statistikasi
+            </p>
+          </div>
         </div>
-    );
+
+        {targetPlan && (
+          <div className="flex items-center gap-1.5 rounded-full border border-rose-500/20 bg-rose-500/10 px-3.5 py-1.5 text-xs font-bold text-rose-600 dark:text-rose-400">
+            <Flame size={14} /> Target: {targetPlan.currentLevel || 'N5'} ➔{' '}
+            {targetPlan.targetLevel || 'N2'}
+          </div>
+        )}
+      </div>
+
+      {/* KPI Summary Cards */}
+      <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+        <div className="rounded-2xl border border-border bg-muted/30 p-4">
+          <span className="mb-1 block text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+            Topshirilgan Imtihonlar
+          </span>
+          <div className="flex items-center gap-1.5 text-2xl font-black text-foreground">
+            <Trophy size={18} className="text-amber-500" />
+            {jlptExams.length} <span className="text-xs font-normal text-muted-foreground">ta</span>
+          </div>
+        </div>
+
+        <div className="rounded-2xl border border-border bg-muted/30 p-4">
+          <span className="mb-1 block text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+            Kaiwa Suhbatlar (JA)
+          </span>
+          <div className="flex items-center gap-1.5 text-2xl font-black text-foreground">
+            <Volume2 size={18} className="text-rose-500" />
+            {jlptSpeaking.length}{' '}
+            <span className="text-xs font-normal text-muted-foreground">seans</span>
+          </div>
+        </div>
+
+        <div className="rounded-2xl border border-border bg-muted/30 p-4">
+          <span className="mb-1 block text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+            Eng Yuqori Ball
+          </span>
+          <div className="flex items-center gap-1.5 text-2xl font-black text-foreground">
+            <Award size={18} className="text-emerald-500" />
+            {highestScore}
+            <span className="text-xs font-normal text-muted-foreground">/ 180</span>
+          </div>
+        </div>
+
+        <div className="rounded-2xl border border-border bg-muted/30 p-4">
+          <span className="mb-1 block text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+            Suhbat Ravonligi Avg
+          </span>
+          <div className="flex items-center gap-1.5 text-2xl font-black text-foreground">
+            <BookOpen size={18} className="text-indigo-500" />
+            {avgFluency !== null ? avgFluency.toFixed(1) : '-'}/10
+          </div>
+        </div>
+      </div>
+
+      {/* 5-Pillar Radar & JLPT Readiness Assessment Card */}
+      <JlptReadinessCard stats={userStats} initialLevel={activeLevel} />
+
+      {/* 5 Skills Breakdown with Action Buttons */}
+      <JlptSkillsBreakdown pillars={readinessReport.pillars} />
+
+      {/* Score History Progression Chart */}
+      {chartData.length > 0 ? (
+        <div className="space-y-2 border-t border-border pt-6">
+          <h4 className="flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-wider text-foreground">
+            <History size={14} className="text-rose-500" />
+            JLPT Imtihon Natijalari Dinamikasi (180 ballik shkala)
+          </h4>
+          <div className="h-44 w-full pt-2">
+            <SvgLineChart
+              data={chartData}
+              xKey="date"
+              series={[{ dataKey: 'score', stroke: '#f43f5e', fill: '#f43f5e' }]}
+              height={160}
+              showArea={true}
+              unit="ball"
+              showGrid={true}
+            />
+          </div>
+        </div>
+      ) : (
+        <div className="rounded-2xl border border-dashed border-border bg-muted/20 p-6 text-center">
+          <p className="text-xs font-medium text-muted-foreground">
+            Hozircha JLPT imtihon sinovlari tarixi mavjud emas. JLPT Hub sahifasiga o'tib sinov
+            topshiring! 🎌
+          </p>
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default JlptProgressAnalytics;
