@@ -18,6 +18,7 @@ import { CoachProgressDashboard } from '../components/speaking/CoachProgressDash
 import { RealtimeVoiceOverlay } from '../components/speaking/RealtimeVoiceOverlay';
 import { PitchAccentService, PitchAccentInfo } from '../services/PitchAccentService';
 import { PitchAccentModal } from '../components/speaking/PitchAccentModal';
+import { PitchAccentTrainer } from '../components/speaking/PitchAccentTrainer';
 import { useSpeakingSessionOrchestrator } from '../hooks/useSpeakingSessionOrchestrator';
 import { SpeakingScenarioBanner } from '../components/speaking/SpeakingScenarioBanner';
 import {
@@ -48,6 +49,7 @@ const SpeakingCoachPage: React.FC = () => {
     updateFlashcard,
     addFlashcardsBatch,
     targetLevel,
+    awardXP,
   } = useStudyData();
   const isAdmin = isUserAdmin(user);
   const isSuper = isSuperAdmin(user?.email, (user as any)?.role);
@@ -103,6 +105,7 @@ const SpeakingCoachPage: React.FC = () => {
   const [scenarioEvalResult, setScenarioEvalResult] = useState<ScenarioSessionResult | null>(null);
 
   const [inspectingPitch, setInspectingPitch] = useState<PitchAccentInfo | null>(null);
+  const [isPitchTrainerOpen, setIsPitchTrainerOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -321,6 +324,7 @@ const SpeakingCoachPage: React.FC = () => {
         isFullscreen={isFullscreen}
         onToggleFullscreen={toggleFullscreen}
         onOpenSettings={() => setIsSettingsOpen(true)}
+        onOpenPitchTrainer={() => setIsPitchTrainerOpen(true)}
         formatTimer={formatTimer}
         activeScenario={activeScenario}
         speechSpeed={speechSpeed}
@@ -477,6 +481,12 @@ const SpeakingCoachPage: React.FC = () => {
         isOpen={!!inspectingPitch}
         onClose={() => setInspectingPitch(null)}
         accentInfo={inspectingPitch}
+      />
+
+      <PitchAccentTrainer
+        isOpen={isPitchTrainerOpen}
+        onClose={() => setIsPitchTrainerOpen(false)}
+        onAwardXP={awardXP}
       />
     </div>
   );

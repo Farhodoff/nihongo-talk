@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CoachPersona, PERSONAS_BY_LANG } from './speakingTypes';
-import { Check, Settings as SettingsIcon, ArrowLeft } from 'lucide-react';
+import { Check, Settings as SettingsIcon, ArrowLeft, TrendingUp } from 'lucide-react';
 
 interface CoachTopBarProps {
   language: 'en' | 'ja';
@@ -23,6 +23,7 @@ interface CoachTopBarProps {
   isFullscreen?: boolean;
   onToggleFullscreen?: () => void;
   onOpenSettings: () => void;
+  onOpenPitchTrainer?: () => void;
   formatTimer: (sec: number) => string;
   activeScenario?: any;
   speechSpeed?: number;
@@ -47,6 +48,7 @@ export const CoachTopBar: React.FC<CoachTopBarProps> = ({
   isFullscreen: _isFullscreen = false,
   onToggleFullscreen: _onToggleFullscreen,
   onOpenSettings,
+  onOpenPitchTrainer,
   formatTimer,
   activeScenario,
   speechSpeed = 1.0,
@@ -191,6 +193,19 @@ export const CoachTopBar: React.FC<CoachTopBarProps> = ({
             </button>
           ))}
         </div>
+
+        {/* Pitch Accent Trainer Button */}
+        {onOpenPitchTrainer && (
+          <button
+            type="button"
+            onClick={onOpenPitchTrainer}
+            className="flex cursor-pointer items-center gap-1.5 rounded-xl border border-primary/30 bg-primary/10 px-2.5 py-1.5 text-primary backdrop-blur-xl transition-all hover:bg-primary/20 hover:shadow-md sm:py-2"
+            title="Pitch Accent (アクセント) Trenajyori"
+          >
+            <TrendingUp size={15} />
+            <span className="hidden text-xs font-bold sm:inline">Pitch Accent</span>
+          </button>
+        )}
 
         {/* Settings */}
         <button
