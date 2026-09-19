@@ -2,9 +2,9 @@ import { describe, it, expect } from 'vitest';
 import { KanjiPracticeService } from '../KanjiPracticeService';
 
 describe('KanjiPracticeService Unit Tests', () => {
-  it('returns all 342 kanjis from database with 100% stroke data availability', () => {
+  it('returns all 713 kanjis from database with 100% stroke data availability', () => {
     const all = KanjiPracticeService.getAllKanjis();
-    expect(all.length).toBe(342);
+    expect(all.length).toBe(713);
 
     // Verify stroke coverage
     let missingStrokes = 0;
@@ -24,14 +24,15 @@ describe('KanjiPracticeService Unit Tests', () => {
     const n2 = KanjiPracticeService.getKanjisByLevel('N2');
     const n1 = KanjiPracticeService.getKanjisByLevel('N1');
 
-    expect(n5.length).toBe(41);
-    expect(n4.length).toBe(243);
-    expect(n3.length).toBe(18);
+    expect(n5.length).toBe(106);
+    expect(n4.length).toBe(230);
+    expect(n3.length).toBe(337);
     expect(n2.length).toBe(20);
     expect(n1.length).toBe(20);
 
     expect(n5.every((k) => k.level === 'N5')).toBe(true);
     expect(n4.every((k) => k.level === 'N4')).toBe(true);
+    expect(n3.every((k) => k.level === 'N3')).toBe(true);
   });
 
   it('searches kanjis by character, onyomi/kunyomi reading, and Uzbek meaning', () => {

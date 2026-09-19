@@ -17219,29 +17219,4425 @@
     ]
   },
   {
-    "id": "jlpt-n3-n2-kanji",
-    "title": "🗾 JLPT N3-N2 Intermediate Kanji & Idioms (四字熟語)",
-    "description": "O'rta va yuqori darajadagi yaponcha iyerogliflar va murakkab so'zlar",
+    "id": "jlpt-n3-kanji",
+    "title": "🗾 JLPT N3 Essential Kanji (漢字 337)",
+    "description": "JLPT N3 darajasidagi barcha 337 ta asosiy iyerogliflar, o'qilishi va ma'nolari",
     "level": "N3",
     "icon": "Award",
     "cards": [
       {
         "id": "n3-k1",
-        "front": "準備",
-        "back": "Tayyorgarlik, Hozirlik (Preparation)",
-        "romaji": "junbi",
+        "front": "経",
+        "back": "O'tmoq, Iqtisodiyot (Pass, Economy)\nOn: ケイ (kei), キョウ (kyou)\nKun: へ・る (he-ru)",
+        "romaji": "(kei),  (kyou),  (he-ru)",
+        "furigana": "ケイ",
         "level": "N3",
-        "type": "vocab",
-        "example": "試験の準備をする (Shiken no junbi wo suru): Imtihonga tayyorgarlik ko'rish"
+        "type": "kanji",
+        "example": "経済 (けいざい (Keizai)): Iqtisodiyot"
       },
       {
-        "id": "n2-k2",
-        "front": "一生懸命",
-        "back": "Bor kuch bilan shug'ullanish / Harakat qilish (With utmost effort)",
-        "romaji": "isshoukenmei",
-        "level": "N2",
-        "type": "vocab",
-        "example": "一生懸命日本語を勉強します。"
+        "id": "n3-k2",
+        "front": "済",
+        "back": "Tugamoq, Hal qilmoq (Finish, Settle)\nOn: サイ (sai), ザイ (zai)\nKun: す・む (su-mu)",
+        "romaji": "(sai),  (zai),  (su-mu)",
+        "furigana": "サイ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "済む (すむ (Sumu)): Tugallanmoq"
+      },
+      {
+        "id": "n3-k3",
+        "front": "論",
+        "back": "Bahs, Tezis, Nazariya (Theory, Logic)\nOn: ロン (ron)\nKun: -",
+        "romaji": "(ron), -",
+        "furigana": "ロン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "論文 (ろんぶん (Ronbun)): Ilmiy maqola"
+      },
+      {
+        "id": "n3-k4",
+        "front": "議",
+        "back": "Muhokama, Majlis (Discuss)\nOn: ギ (gi)\nKun: -",
+        "romaji": "(gi), -",
+        "furigana": "ギ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "会議 (かいぎ (Kaigi)): Majlis / Konferensiya"
+      },
+      {
+        "id": "n3-k5",
+        "front": "選",
+        "back": "Tanlamoq (Choose, select)\nOn: セン (sen)\nKun:  publicity",
+        "romaji": "(sen),  publicity",
+        "furigana": "セン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "選ぶ (えらぶ (Erabu)): Tanlamoq"
+      },
+      {
+        "id": "n3-k6",
+        "front": "挙",
+        "back": "Ko'tarmoq, Saylov (Raise, Cite)\nOn: キョ (kyo)\nKun: あ・げる (a-geru)",
+        "romaji": "(kyo),  (a-geru)",
+        "furigana": "キョ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "挙動 (きょどう (Kyodou)): Xulq-atvor"
+      },
+      {
+        "id": "n3-k7",
+        "front": "提",
+        "back": "Taklif qilmoq, Ko'tarib yurmoq (Propose)\nOn: テイ (tei)\nKun: さ・げる (sa-geru)",
+        "romaji": "(tei),  (sa-geru)",
+        "furigana": "テイ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "提案 (ていあん (Teian)): Taklif / Reja"
+      },
+      {
+        "id": "n3-k8",
+        "front": "案",
+        "back": "Reja, G'oya (Plan, Idea)\nOn: アン (an)\nKun: -",
+        "romaji": "(an), -",
+        "furigana": "アン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "案内 (あんない (Annai)): Yo'l ko'rsatish / Ekskursiya"
+      },
+      {
+        "id": "n3-k9",
+        "front": "関",
+        "back": "Aloqa, Bojxona (Relation, Gate)\nOn: カン (kan)\nKun: せき (seki)",
+        "romaji": "(kan),  (seki)",
+        "furigana": "カン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "関係 (かんけい (Kankei)): Aloqa / Munosabat"
+      },
+      {
+        "id": "n3-k10",
+        "front": "係",
+        "back": "Mas'ul shaxs, Aloqador (Duty, Person in charge)\nOn: ケイ (kei)\nKun: かか・る (kaka-ru)",
+        "romaji": "(kei),  (kaka-ru)",
+        "furigana": "ケイ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "係員 (かかりいん (Kakariin)): Mas'ul xodim"
+      },
+      {
+        "id": "n3-k11",
+        "front": "税",
+        "back": "Soliq (Tax)\nOn: ゼイ (zei)\nKun: -",
+        "romaji": "(zei), -",
+        "furigana": "ゼイ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "税金 (ぜいきん (Zeikin)): Soliq"
+      },
+      {
+        "id": "n3-k12",
+        "front": "権",
+        "back": "Huquq, Vakolat (Right, Power)\nOn: ケン (ken), ゴン (gon)\nKun: -",
+        "romaji": "(ken),  (gon), -",
+        "furigana": "ケン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "人権 (じんけん (Jinken)): Inson huquqlari"
+      },
+      {
+        "id": "n3-k13",
+        "front": "義",
+        "back": "Burch, Ma'no (Justice, Meaning)\nOn: ギ (gi)\nKun: -",
+        "romaji": "(gi), -",
+        "furigana": "ギ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "義務 (ぎむ (Gimu)): Burch / Majburiyat"
+      },
+      {
+        "id": "n3-k14",
+        "front": "務",
+        "back": "Bajarmoq, Vazifa (Duty, Work)\nOn: ム (mu)\nKun: つと・める (tsuto-meru)",
+        "romaji": "(mu),  (tsuto-meru)",
+        "furigana": "ム",
+        "level": "N3",
+        "type": "kanji",
+        "example": "公務員 (こうむいん (Koumuin)): Davlat xizmatchisi"
+      },
+      {
+        "id": "n3-k15",
+        "front": "総",
+        "back": "Umumiy, Barcha (Total, General)\nOn: ソウ (sou)\nKun: -",
+        "romaji": "(sou), -",
+        "furigana": "ソウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "総理大臣 (そうりだいじん (Souridaijin)): Bosh vazir"
+      },
+      {
+        "id": "n3-k16",
+        "front": "領",
+        "back": "Hudud, Boshqarmoq (Territory, Lead)\nOn: リョウ (ryou)\nKun: -",
+        "romaji": "(ryou), -",
+        "furigana": "リョウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "大統領 (だいとうりょう (Daitouryou)): Prezident"
+      },
+      {
+        "id": "n3-k17",
+        "front": "査",
+        "back": "Tekshiruv, Tergov (Check, Investigate)\nOn: サ (sa)\nKun: -",
+        "romaji": "(sa), -",
+        "furigana": "サ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "調査 (ちょうさ (Chousa)): Tadqiqot / So'rovnoma"
+      },
+      {
+        "id": "n3-k18",
+        "front": "政",
+        "back": "Siyosat (Politics)\nOn: セイ (sei), ショウ (shou)\nKun: まつりごと (matsurigoto)",
+        "romaji": "(sei),  (shou),  (matsurigoto)",
+        "furigana": "セイ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "政治 (せいじ (Seiji)): Siyosat"
+      },
+      {
+        "id": "n3-k19",
+        "front": "混",
+        "back": "Aralashmoq, gavjumlik (Mix, blend, crowded)\nOn: コン (kon)\nKun: ま-じる (ma-jiru), ま-ぜる (ma-zeru)",
+        "romaji": "(kon), - (ma-jiru), - (ma-zeru)",
+        "furigana": "コン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "混雑 (こんざつ (Konzatsu)): Tiqilinch, gavjumlik"
+      },
+      {
+        "id": "n3-k20",
+        "front": "浴",
+        "back": "Cho'milmoq, dush qabul qilmoq (Bathe, shower)\nOn: ヨク (yoku)\nKun: あ-びる (a-biru), あ-びせる (a-biseru)",
+        "romaji": "(yoku), - (a-biru), - (a-biseru)",
+        "furigana": "ヨク",
+        "level": "N3",
+        "type": "kanji",
+        "example": "浴びる (あびる (Abiru)): Dush qabul qilmoq"
+      },
+      {
+        "id": "n3-k21",
+        "front": "湯",
+        "back": "Qaynoq suv, issiq vanna (Hot water, bath)\nOn: トウ (tou)\nKun: ゆ (yu)",
+        "romaji": "(tou),  (yu)",
+        "furigana": "トウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "お湯 (おゆ (Oyu)): Qaynoq suv"
+      },
+      {
+        "id": "n3-k22",
+        "front": "濯",
+        "back": "Kiyim yuvish (Wash, laundry)\nOn: タク (taku)\nKun: -",
+        "romaji": "(taku), -",
+        "furigana": "タク",
+        "level": "N3",
+        "type": "kanji",
+        "example": "洗濯 (せんたく (Sentaku)): Kiyim yuvish"
+      },
+      {
+        "id": "n3-k23",
+        "front": "干",
+        "back": "Quritmoq, osib qo'ymoq (Dry, air out)\nOn: カン (kan)\nKun: ほ-す (ho-su), ひ-る (hi-ru)",
+        "romaji": "(kan), - (ho-su), - (hi-ru)",
+        "furigana": "カン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "干す (ほす (Hosu)): Quritishga ilmoq"
+      },
+      {
+        "id": "n3-k24",
+        "front": "燃",
+        "back": "Yonmoq, yoqmoq (Burn, blaze)\nOn: ネン (nen)\nKun: も-える (mo-eru), も-やす (mo-yasu)",
+        "romaji": "(nen), - (mo-eru), - (mo-yasu)",
+        "furigana": "ネン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "燃える (もえる (Moeru)): Yonmoq"
+      },
+      {
+        "id": "n3-k25",
+        "front": "袋",
+        "back": "Xalta, sumka, paket (Bag, sack)\nOn: タイ (tai)\nKun: ふくろ (fukuro)",
+        "romaji": "(tai),  (fukuro)",
+        "furigana": "タイ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "袋 (ふくろ (Fukuro)): Paket, xalta"
+      },
+      {
+        "id": "n3-k26",
+        "front": "末",
+        "back": "Oxir, yakun, soʻng (End, close, tip)\nOn: マツ (matsu)\nKun: すえ (sue)",
+        "romaji": "(matsu),  (sue)",
+        "furigana": "マツ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "週末 (しゅうまつ (Shuumatsu)): Dam olish kunlari"
+      },
+      {
+        "id": "n3-k27",
+        "front": "昨",
+        "back": "O'tgan, kechagi (Previous, yesterday)\nOn: サク (saku)\nKun: -",
+        "romaji": "(saku), -",
+        "furigana": "サク",
+        "level": "N3",
+        "type": "kanji",
+        "example": "昨日 (きのう (Kinou)): Kecha"
+      },
+      {
+        "id": "n3-k28",
+        "front": "翌",
+        "back": "Keyingi, ertasi (Next, following)\nOn: ヨク (yoku)\nKun: -",
+        "romaji": "(yoku), -",
+        "furigana": "ヨク",
+        "level": "N3",
+        "type": "kanji",
+        "example": "翌日 (よくじつ (Yokujitsu)): Ertasi kuni"
+      },
+      {
+        "id": "n3-k29",
+        "front": "予",
+        "back": "Oldindan, reja (In advance, previous)\nOn: ヨ (yo)\nKun: あらかじ-め (arakaji-me)",
+        "romaji": "(yo), - (arakaji-me)",
+        "furigana": "ヨ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "予定 (よてい (Yotei)): Reja"
+      },
+      {
+        "id": "n3-k30",
+        "front": "戸",
+        "back": "Eshik (Door)\nOn: コ (ko)\nKun: と (to)",
+        "romaji": "(ko),  (to)",
+        "furigana": "コ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "戸 (と (To)): Eshik"
+      },
+      {
+        "id": "n3-k31",
+        "front": "窓",
+        "back": "Deraza (Window)\nOn: ソウ (sou)\nKun: まど (mado)",
+        "romaji": "(sou),  (mado)",
+        "furigana": "ソウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "窓 (まど (Mado)): Deraza"
+      },
+      {
+        "id": "n3-k32",
+        "front": "階",
+        "back": "Qavat, pillapoya (Floor, stair)\nOn: カイ (kai)\nKun: -",
+        "romaji": "(kai), -",
+        "furigana": "カイ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "階段 (かいだん (Kaidan)): Zina"
+      },
+      {
+        "id": "n3-k33",
+        "front": "段",
+        "back": "Pogʻona, qadam, chora (Step, grade, rank)\nOn: ダン (dan)\nKun: -",
+        "romaji": "(dan), -",
+        "furigana": "ダン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "手段 (しゅだん (Shudan)): Chora, usul"
+      },
+      {
+        "id": "n3-k34",
+        "front": "植",
+        "back": "O'simlik ekmoq (Plant)\nOn: ショク (shoku)\nKun: う-える (u-eru)",
+        "romaji": "(shoku), - (u-eru)",
+        "furigana": "ショク",
+        "level": "N3",
+        "type": "kanji",
+        "example": "植物 (しょくぶつ (Shokubutsu)): O'simlik"
+      },
+      {
+        "id": "n3-k35",
+        "front": "葉",
+        "back": "Barg, soʻz (Leaf, word)\nOn: ヨウ (you)\nKun: は (ha)",
+        "romaji": "(you),  (ha)",
+        "furigana": "ヨウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "言葉 (ことば (Kotoba)): So'z"
+      },
+      {
+        "id": "n3-k36",
+        "front": "実",
+        "back": "Meva, haqiqat, amaliy (Fruit, truth, reality)\nOn: ジツ (jitsu)\nKun: み (mi), みの-る (mino-ru)",
+        "romaji": "(jitsu),  (mi), - (mino-ru)",
+        "furigana": "ジツ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "実現 (じつげん (Jitsugen)): Amalga oshish"
+      },
+      {
+        "id": "n3-k37",
+        "front": "根",
+        "back": "Ildiz, asos (Root, base)\nOn: コン (kon)\nKun: ね (ne)",
+        "romaji": "(kon),  (ne)",
+        "furigana": "コン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "根 (ね (Ne)): Ildiz"
+      },
+      {
+        "id": "n3-k38",
+        "front": "築",
+        "back": "Qurmoq, barpo etmoq (Build, construct)\nOn: チク (chiku)\nKun: きず-く (kizu-ku)",
+        "romaji": "(chiku), - (kizu-ku)",
+        "furigana": "チク",
+        "level": "N3",
+        "type": "kanji",
+        "example": "建築 (けんちく (Kenchiku)): Arxitektura"
+      },
+      {
+        "id": "n3-k39",
+        "front": "造",
+        "back": "Yasamoq, qurmoq (Create, make)\nOn: ゾウ (zou)\nKun: つく-る (tsuku-ru)",
+        "romaji": "(zou), - (tsuku-ru)",
+        "furigana": "ゾウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "造る (つくる (Tsukuru)): Yasamoq"
+      },
+      {
+        "id": "n3-k40",
+        "front": "設",
+        "back": "O'rnatmoq, tuzmoq (Establish, install)\nOn: セツ (setsu)\nKun: もう-ける (mou-keru)",
+        "romaji": "(setsu), - (mou-keru)",
+        "furigana": "セツ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "設定 (せってい (Settei)): Sozlamalar"
+      },
+      {
+        "id": "n3-k41",
+        "front": "柱",
+        "back": "Ustun (Pillar)\nOn: チュウ (chuu)\nKun: はしら (hashira)",
+        "romaji": "(chuu),  (hashira)",
+        "furigana": "チュウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "柱 (はしら (Hashira)): Ustun"
+      },
+      {
+        "id": "n3-k42",
+        "front": "庫",
+        "back": "Omborxona (Warehouse, storehouse)\nOn: コ (ko)\nKun: -",
+        "romaji": "(ko), -",
+        "furigana": "コ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "金庫 (きんこ (Kinko)): Seyf"
+      },
+      {
+        "id": "n3-k43",
+        "front": "向",
+        "back": "Qaramoq, yo'nalmoq (Towards, facing)\nOn: コウ (kou)\nKun: む-く (mu-ku), む-かう (mu-kau)",
+        "romaji": "(kou), - (mu-ku), - (mu-kau)",
+        "furigana": "コウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "向かう (むかう (Mukau)): Yo'l olmoq"
+      },
+      {
+        "id": "n3-k44",
+        "front": "熱",
+        "back": "Issiq, harorat, isitma (Heat, fever)\nOn: ネツ (netsu)\nKun: あつ-い (atsu-i)",
+        "romaji": "(netsu), - (atsu-i)",
+        "furigana": "ネツ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "熱い (あつい (Atsui)): Issiq"
+      },
+      {
+        "id": "n3-k45",
+        "front": "冷",
+        "back": "Sovuq, sovumoq (Cold, chill)\nOn: レイ (rei)\nKun: つめ-たい (tsume-tai), ひ-える (hi-eru)",
+        "romaji": "(rei), - (tsume-tai), - (hi-eru)",
+        "furigana": "レイ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "冷たい (つめたい (Tsumetai)): Sovuq"
+      },
+      {
+        "id": "n3-k46",
+        "front": "温",
+        "back": "Iliq, harorat (Warm)\nOn: オン (on)\nKun: あたた-かい (atata-kai)",
+        "romaji": "(on), - (atata-kai)",
+        "furigana": "オン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "温かい (あたたかい (Atatakai)): Iliq"
+      },
+      {
+        "id": "n3-k47",
+        "front": "材",
+        "back": "Material, xomashyo (Material)\nOn: ザイ (zai)\nKun: -",
+        "romaji": "(zai), -",
+        "furigana": "ザイ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "材料 (ざいりょう (Zairyou)): Masalliq"
+      },
+      {
+        "id": "n3-k48",
+        "front": "型",
+        "back": "Model, qolip (Model, type)\nOn: ケイ (kei)\nKun: かた (kata)",
+        "romaji": "(kei),  (kata)",
+        "furigana": "ケイ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "髪型 (かみがた (Kamigata)): Soch turmagi"
+      },
+      {
+        "id": "n3-k49",
+        "front": "焼",
+        "back": "Pishirmoq, qovurmoq (Bake, grill)\nOn: ショウ (shou)\nKun: や-く (ya-ku)",
+        "romaji": "(shou), - (ya-ku)",
+        "furigana": "ショウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "焼く (やく (Yaku)): Pishirmoq"
+      },
+      {
+        "id": "n3-k50",
+        "front": "器",
+        "back": "Idish, asbob (Container, utensil)\nOn: キ (ki)\nKun: うつわ (utsuwa)",
+        "romaji": "(ki),  (utsuwa)",
+        "furigana": "キ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "食器 (しょっき (Shokki)): Idish-tovoq"
+      },
+      {
+        "id": "n3-k51",
+        "front": "卵",
+        "back": "Tuxum (Egg)\nOn: ラン (ran)\nKun: たまご (tamago)",
+        "romaji": "(ran),  (tamago)",
+        "furigana": "ラン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "卵 (たまご (Tamago)): Tuxum"
+      },
+      {
+        "id": "n3-k52",
+        "front": "乳",
+        "back": "Sut (Milk)\nOn: ニュウ (nyuu)\nKun: ちち (chichi)",
+        "romaji": "(nyuu),  (chichi)",
+        "furigana": "ニュウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "牛乳 (ぎゅうにゅう (Gyuunyuu)): Sigir suti"
+      },
+      {
+        "id": "n3-k53",
+        "front": "粉",
+        "back": "Un, kukun (Flour, powder)\nOn: フン (fun)\nKun: こな (kona)",
+        "romaji": "(fun),  (kona)",
+        "furigana": "フン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "小麦粉 (こむぎこ (Komugiko)): Bugʻdoy uni"
+      },
+      {
+        "id": "n3-k54",
+        "front": "塩",
+        "back": "Tuz (Salt)\nOn: エン (en)\nKun: しお (shio)",
+        "romaji": "(en),  (shio)",
+        "furigana": "エン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "塩 (しお (Shio)): Tuz"
+      },
+      {
+        "id": "n3-k55",
+        "front": "果",
+        "back": "Meva, natija (Fruit, result)\nOn: カ (ka)\nKun: は-たす (ha-tasu)",
+        "romaji": "(ka), - (ha-tasu)",
+        "furigana": "カ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "果物 (くだもの (Kudamono)): Meva"
+      },
+      {
+        "id": "n3-k56",
+        "front": "豆",
+        "back": "Loviya, dukkak (Bean)\nOn: トウ (tou)\nKun: まめ (mame)",
+        "romaji": "(tou),  (mame)",
+        "furigana": "トウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "大豆 (だいず (Daizu)): Soya"
+      },
+      {
+        "id": "n3-k57",
+        "front": "缶",
+        "back": "Konserva bankasi (Can, tin)\nOn: カン (kan)\nKun: -",
+        "romaji": "(kan), -",
+        "furigana": "カン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "缶詰 (かんづめ (Kanzume)): Konserva"
+      },
+      {
+        "id": "n3-k58",
+        "front": "杯",
+        "back": "Qadah, piyola (Cup, glass)\nOn: ハイ (hai)\nKun: -",
+        "romaji": "(hai), -",
+        "furigana": "ハイ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "乾杯 (かんぱい (Kampai)): Qadah urishtirish"
+      },
+      {
+        "id": "n3-k59",
+        "front": "枚",
+        "back": "Varaq, kiyim hisoblagichi (Sheet counter)\nOn: マイ (mai)\nKun: -",
+        "romaji": "(mai), -",
+        "furigana": "マイ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "枚数 (まいすう (Maisuu)): Varaqlar soni"
+      },
+      {
+        "id": "n3-k60",
+        "front": "匹",
+        "back": "Jonivorlar hisoblagichi (Animal counter)\nOn: ヒツ (hitsu)\nKun: ひき (hiki)",
+        "romaji": "(hitsu),  (hiki)",
+        "furigana": "ヒツ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "一匹 (いっぴき (Ippiki)): Bitta jonivor"
+      },
+      {
+        "id": "n3-k61",
+        "front": "冊",
+        "back": "Kitoblar hisoblagichi (Book counter)\nOn: サツ (satsu)\nKun: -",
+        "romaji": "(satsu), -",
+        "furigana": "サツ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "一冊 (いっさつ (Issatsu)): Bitta kitob"
+      },
+      {
+        "id": "n3-k62",
+        "front": "鼻",
+        "back": "Burun (Nose)\nOn: ビ (bi)\nKun: はな (hana)",
+        "romaji": "(bi),  (hana)",
+        "furigana": "ビ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "鼻 (はな (Hana)): Burun"
+      },
+      {
+        "id": "n3-k63",
+        "front": "吸",
+        "back": "Nafas tortmoq (Inhale)\nOn: キュウ (kyuu)\nKun: す-う (su-u)",
+        "romaji": "(kyuu), - (su-u)",
+        "furigana": "キュウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "吸う (すう (Suu)): Tortmoq"
+      },
+      {
+        "id": "n3-k64",
+        "front": "息",
+        "back": "Nafas (Breath)\nOn: ソク (soku)\nKun: いき (iki)",
+        "romaji": "(soku),  (iki)",
+        "furigana": "ソク",
+        "level": "N3",
+        "type": "kanji",
+        "example": "息 (いき (Iki)): Nafas"
+      },
+      {
+        "id": "n3-k65",
+        "front": "汗",
+        "back": "Ter (Sweat)\nOn: カン (kan)\nKun: あせ (ase)",
+        "romaji": "(kan),  (ase)",
+        "furigana": "カン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "汗 (あせ (Ase)): Ter"
+      },
+      {
+        "id": "n3-k66",
+        "front": "歯",
+        "back": "Tish (Tooth)\nOn: シ (shi)\nKun: は (ha)",
+        "romaji": "(shi),  (ha)",
+        "furigana": "シ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "歯 (は (Ha)): Tish"
+      },
+      {
+        "id": "n3-k67",
+        "front": "痛",
+        "back": "Og'riq (Pain)\nOn: ツウ (tsuu)\nKun: いた-い (ita-i)",
+        "romaji": "(tsuu), - (ita-i)",
+        "furigana": "ツウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "痛い (いたい (Itai)): Og'riqli"
+      },
+      {
+        "id": "n3-k68",
+        "front": "血",
+        "back": "Qon (Blood)\nOn: ケツ (ketsu)\nKun: ち (chi)",
+        "romaji": "(ketsu),  (chi)",
+        "furigana": "ケツ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "血 (ち (Chi)): Qon"
+      },
+      {
+        "id": "n3-k69",
+        "front": "液",
+        "back": "Suyuqlik (Liquid)\nOn: エキ (eki)\nKun: -",
+        "romaji": "(eki), -",
+        "furigana": "エキ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "液体 (えきたい (Ekitai)): Suyuqlik"
+      },
+      {
+        "id": "n3-k70",
+        "front": "包",
+        "back": "O'ramoq (Wrap)\nOn: ホウ (hou)\nKun: つつ-む (tsutsu-mu)",
+        "romaji": "(hou), - (tsutsu-mu)",
+        "furigana": "ホウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "包む (つつむ (Tsutsumu)): O'ramoq"
+      },
+      {
+        "id": "n3-k71",
+        "front": "帯",
+        "back": "Kamar, mintaqa (Belt, zone)\nOn: タイ (tai)\nKun: おび (obi)",
+        "romaji": "(tai),  (obi)",
+        "furigana": "タイ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "帯 (おび (Obi)): Kamar"
+      },
+      {
+        "id": "n3-k72",
+        "front": "救",
+        "back": "Qutqarmoq (Rescue, save)\nOn: キュウ (kyuu)\nKun: すく-う (suku-u)",
+        "romaji": "(kyuu), - (suku-u)",
+        "furigana": "キュウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "救急車 (きゅうきゅうしゃ (Kyuukyuusha)): Tez yordam"
+      },
+      {
+        "id": "n3-k73",
+        "front": "助",
+        "back": "Yordam bermoq (Help)\nOn: ジョ (jo)\nKun: たす-ける (tasu-keru)",
+        "romaji": "(jo), - (tasu-keru)",
+        "furigana": "ジョ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "助ける (たすける (Tasukeru)): Yordam bermoq"
+      },
+      {
+        "id": "n3-k74",
+        "front": "亡",
+        "back": "Vafot etmoq (Die, decease)\nOn: ボウ (bou)\nKun: な-くなる (na-kunaru)",
+        "romaji": "(bou), - (na-kunaru)",
+        "furigana": "ボウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "亡くなる (なくなる (Nakunaru)): Vafot etmoq"
+      },
+      {
+        "id": "n3-k75",
+        "front": "戦",
+        "back": "Urush, kurashmoq (Fight, war)\nOn: セン (sen)\nKun: たたか-う (tataka-u)",
+        "romaji": "(sen), - (tataka-u)",
+        "furigana": "セン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "戦争 (せんそう (Sensou)): Urush"
+      },
+      {
+        "id": "n3-k76",
+        "front": "勝",
+        "back": "G'alaba qozonmoq (Win, victory)\nOn: ショウ (shou)\nKun: か-つ (ka-tsu)",
+        "romaji": "(shou), - (ka-tsu)",
+        "furigana": "ショウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "勝つ (かつ (Katsu)): G'alaba qozonmoq"
+      },
+      {
+        "id": "n3-k77",
+        "front": "負",
+        "back": "Yutqazmoq (Lose, defeat)\nOn: フ (fu)\nKun: ま-ける (ma-keru)",
+        "romaji": "(fu), - (ma-keru)",
+        "furigana": "フ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "負ける (まける (Makeru)): Yutqazmoq"
+      },
+      {
+        "id": "n3-k78",
+        "front": "表",
+        "back": "Yuz, ifodalamoq (Surface, express)\nOn: ヒョウ (hyou)\nKun: おもて (omote), あらわ-す (arawa-su)",
+        "romaji": "(hyou),  (omote), - (arawa-su)",
+        "furigana": "ヒョウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "発表 (はっぴょう (Happyou)): Taqdimot, e'lon"
+      },
+      {
+        "id": "n3-k79",
+        "front": "第",
+        "back": "-inchi (tartib son) (Ordinal prefix)\nOn: ダイ (dai)\nKun: -",
+        "romaji": "(dai), -",
+        "furigana": "ダイ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "第一 (だいいち (Daiichi)): Birinchi"
+      },
+      {
+        "id": "n3-k80",
+        "front": "記",
+        "back": "Yozib qo'ymoq (Record)\nOn: キ (ki)\nKun: しる-す (shiru-su)",
+        "romaji": "(ki), - (shiru-su)",
+        "furigana": "キ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "日記 (にっき (Nikki)): Kundalik"
+      },
+      {
+        "id": "n3-k81",
+        "front": "録",
+        "back": "Yozib olish (Record, transcript)\nOn: ロク (roku)\nKun: -",
+        "romaji": "(roku), -",
+        "furigana": "ロク",
+        "level": "N3",
+        "type": "kanji",
+        "example": "記録 (きろく (Kiroku)): Rekord, qayd"
+      },
+      {
+        "id": "n3-k82",
+        "front": "優",
+        "back": "Mehribon, ustun (Gentle, superior)\nOn: ユウ (yuu)\nKun: やさ-しい (yasa-shii), すぐ-れる (sugu-reru)",
+        "romaji": "(yuu), - (yasa-shii), - (sugu-reru)",
+        "furigana": "ユウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "優しい (やさしい (Yasashii)): Mehribon"
+      },
+      {
+        "id": "n3-k83",
+        "front": "賞",
+        "back": "Mukofot (Prize, award)\nOn: ショウ (shou)\nKun: -",
+        "romaji": "(shou), -",
+        "furigana": "ショウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "賞金 (しょうきん (Shoukin)): Pul mukofoti"
+      },
+      {
+        "id": "n3-k84",
+        "front": "秒",
+        "back": "Soniya (Second)\nOn: ビョウ (byou)\nKun: -",
+        "romaji": "(byou), -",
+        "furigana": "ビョウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "一秒 (いちびょう (Ichibyou)): Bir soniya"
+      },
+      {
+        "id": "n3-k85",
+        "front": "差",
+        "back": "Farq (Difference)\nOn: サ (sa)\nKun: さ-す (sa-su)",
+        "romaji": "(sa), - (sa-su)",
+        "furigana": "サ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "時差 (じさ (Jisa)): Vaqt farqi"
+      },
+      {
+        "id": "n3-k86",
+        "front": "測",
+        "back": "O'lchamoq (Measure)\nOn: ソク (soku)\nKun: はか-る (haka-ru)",
+        "romaji": "(soku), - (haka-ru)",
+        "furigana": "ソク",
+        "level": "N3",
+        "type": "kanji",
+        "example": "測る (はかる (Hakaru)): O'lchamoq"
+      },
+      {
+        "id": "n3-k87",
+        "front": "順",
+        "back": "Tartib, navbat (Order)\nOn: ジュン (jun)\nKun: -",
+        "romaji": "(jun), -",
+        "furigana": "ジュン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "順番 (じゅんばん (Jumban)): Navbat"
+      },
+      {
+        "id": "n3-k88",
+        "front": "球",
+        "back": "Shar, koptok (Ball, sphere)\nOn: キュウ (kyuu)\nKun: たま (tama)",
+        "romaji": "(kyuu),  (tama)",
+        "furigana": "キュウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "野球 (やきゅう (Yakyuu)): Beysbol"
+      },
+      {
+        "id": "n3-k89",
+        "front": "打",
+        "back": "Urmoq (Hit, strike)\nOn: ダ (da)\nKun: う-つ (u-tsu)",
+        "romaji": "(da), - (u-tsu)",
+        "furigana": "ダ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "打つ (うつ (Utsu)): Urmoq"
+      },
+      {
+        "id": "n3-k90",
+        "front": "投",
+        "back": "Otmoq, tashlamoq (Throw)\nOn: トウ (tou)\nKun: な-げる (na-geru)",
+        "romaji": "(tou), - (na-geru)",
+        "furigana": "トウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "投げる (なげる (Nageru)): Otmoq"
+      },
+      {
+        "id": "n3-k91",
+        "front": "点",
+        "back": "Ball, nuqta (Point, score)\nOn: テン (ten)\nKun: -",
+        "romaji": "(ten), -",
+        "furigana": "テン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "点数 (てんすう (Tensuu)): Ball"
+      },
+      {
+        "id": "n3-k92",
+        "front": "感",
+        "back": "His qilmoq (Feel)\nOn: カン (kan)\nKun: -",
+        "romaji": "(kan), -",
+        "furigana": "カン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "感じる (かんじる (Kanjiru)): His qilmoq"
+      },
+      {
+        "id": "n3-k93",
+        "front": "情",
+        "back": "Tuyg'u, axborot (Emotion, facts)\nOn: ジョウ (jou)\nKun: なさ-け (nasa-ke)",
+        "romaji": "(jou), - (nasa-ke)",
+        "furigana": "ジョウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "情報 (じょうほう (Jouhou)): Axborot"
+      },
+      {
+        "id": "n3-k94",
+        "front": "恋",
+        "back": "Sevgi (Love)\nOn: レン (ren)\nKun: こい (koi)",
+        "romaji": "(ren),  (koi)",
+        "furigana": "レン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "恋人 (こいびと (Koibito)): Sevgili"
+      },
+      {
+        "id": "n3-k95",
+        "front": "要",
+        "back": "Zarur, muhim (Need, vital)\nOn: ヨウ (you)\nKun: い-る (i-ru)",
+        "romaji": "(you), - (i-ru)",
+        "furigana": "ヨウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "重要 (じゅうよう (Juuyou)): Muhim"
+      },
+      {
+        "id": "n3-k96",
+        "front": "想",
+        "back": "Fikr, xayol (Thought)\nOn: ソウ (sou)\nKun: -",
+        "romaji": "(sou), -",
+        "furigana": "ソウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "想像 (そうぞう (Souzou)): Tasavvur"
+      },
+      {
+        "id": "n3-k97",
+        "front": "像",
+        "back": "Tasvir, obraz (Image, statue)\nOn: ゾウ (zou)\nKun: -",
+        "romaji": "(zou), -",
+        "furigana": "ゾウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "映像 (えいぞう (Eizou)): Video tasvir"
+      },
+      {
+        "id": "n3-k98",
+        "front": "欲",
+        "back": "Istak, xohlamoq (Want, desire)\nOn: ヨク (yoku)\nKun: ほ-しい (ho-shii)",
+        "romaji": "(yoku), - (ho-shii)",
+        "furigana": "ヨク",
+        "level": "N3",
+        "type": "kanji",
+        "example": "欲しい (ほしい (Hoshii)): Xohlamoq"
+      },
+      {
+        "id": "n3-k99",
+        "front": "苦",
+        "back": "Achchiq, qiyin (Painful, bitter)\nOn: ク (ku)\nKun: くる-しい (kuru-shii), にが-い (niga-i)",
+        "romaji": "(ku), - (kuru-shii), - (niga-i)",
+        "furigana": "ク",
+        "level": "N3",
+        "type": "kanji",
+        "example": "苦しい (くるしい (Kurushii)): Qiyin"
+      },
+      {
+        "id": "n3-k100",
+        "front": "悩",
+        "back": "Tashvishlanmoq (Worry)\nOn: ノウ (nou)\nKun: なや-む (naya-mu)",
+        "romaji": "(nou), - (naya-mu)",
+        "furigana": "ノウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "悩む (なやむ (Nayamu)): Tashvishlanmoq"
+      },
+      {
+        "id": "n3-k101",
+        "front": "怒",
+        "back": "Jahl, g'azab (Anger)\nOn: ド (do)\nKun: おこ-る (oko-ru)",
+        "romaji": "(do), - (oko-ru)",
+        "furigana": "ド",
+        "level": "N3",
+        "type": "kanji",
+        "example": "怒る (おこる (Okoru)): Jahli chiqmoq"
+      },
+      {
+        "id": "n3-k102",
+        "front": "悲",
+        "back": "G'amgin (Sad)\nOn: ヒ (hi)\nKun: かな-しい (kana-shii)",
+        "romaji": "(hi), - (kana-shii)",
+        "furigana": "ヒ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "悲しい (かなしい (Kanashii)): Xafa, g'amgin"
+      },
+      {
+        "id": "n3-k103",
+        "front": "笑",
+        "back": "Kulmoq (Laugh, smile)\nOn: ショウ (shou)\nKun: わら-う (wara-u)",
+        "romaji": "(shou), - (wara-u)",
+        "furigana": "ショウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "笑う (わらう (Warau)): Kulmoq"
+      },
+      {
+        "id": "n3-k104",
+        "front": "喜",
+        "back": "Quvonmoq (Rejoice, joy)\nOn: キ (ki)\nKun: よろこ-ぶ (yoroko-bu)",
+        "romaji": "(ki), - (yoroko-bu)",
+        "furigana": "キ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "喜ぶ (よろこぶ (Yorokobu)): Quvonmoq"
+      },
+      {
+        "id": "n3-k105",
+        "front": "泣",
+        "back": "Yig'lamoq (Cry)\nOn: キュウ (kyuu)\nKun: な-く (na-ku)",
+        "romaji": "(kyuu), - (na-ku)",
+        "furigana": "キュウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "泣く (なく (Naku)): Yig'lamoq"
+      },
+      {
+        "id": "n3-k106",
+        "front": "涙",
+        "back": "Ko'z yoshi (Tear)\nOn: ルイ (rui)\nKun: なみだ (namida)",
+        "romaji": "(rui),  (namida)",
+        "furigana": "ルイ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "涙 (なみだ (Namida)): Ko'z yoshi"
+      },
+      {
+        "id": "n3-k107",
+        "front": "結",
+        "back": "Bog'lamoq, natija (Tie, bind, conclude)\nOn: ケツ (ketsu)\nKun: むす-ぶ (musu-bu)",
+        "romaji": "(ketsu), - (musu-bu)",
+        "furigana": "ケツ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "結婚 (けっこん (Kekkon)): Turmush qurish"
+      },
+      {
+        "id": "n3-k108",
+        "front": "婚",
+        "back": "Nikoh (Marriage)\nOn: コン (kon)\nKun: -",
+        "romaji": "(kon), -",
+        "furigana": "コン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "結婚 (けっこん (Kekkon)): Nikoh"
+      },
+      {
+        "id": "n3-k109",
+        "front": "紹",
+        "back": "Tanishtirmoq (Introduce)\nOn: ショウ (shou)\nKun: -",
+        "romaji": "(shou), -",
+        "furigana": "ショウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "紹介 (しょうかい (Shoukai)): Tanishtirish"
+      },
+      {
+        "id": "n3-k110",
+        "front": "介",
+        "back": "Vositachi (Mediate)\nOn: カイ (kai)\nKun: -",
+        "romaji": "(kai), -",
+        "furigana": "カイ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "紹介 (しょうかい (Shoukai)): Tanishtirish"
+      },
+      {
+        "id": "n3-k111",
+        "front": "独",
+        "back": "Yolg'iz, yakka (Alone, single)\nOn: ドク (doku)\nKun: ひと-り (hito-ri)",
+        "romaji": "(doku), - (hito-ri)",
+        "furigana": "ドク",
+        "level": "N3",
+        "type": "kanji",
+        "example": "独身 (どくしん (Dokushin)): Bo'ydoq"
+      },
+      {
+        "id": "n3-k112",
+        "front": "身",
+        "back": "Tana, shaxs (Body, person)\nOn: シン (shin)\nKun: み (mi)",
+        "romaji": "(shin),  (mi)",
+        "furigana": "シン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "出身 (しゅっしん (Shusshin)): Kelib chiqish"
+      },
+      {
+        "id": "n3-k113",
+        "front": "貯",
+        "back": "Jamg'armoq (Save money)\nOn: チョ (cho)\nKun: -",
+        "romaji": "(cho), -",
+        "furigana": "チョ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "貯金 (ちょきん (Chokin)): Jamg'arma"
+      },
+      {
+        "id": "n3-k114",
+        "front": "期",
+        "back": "Davr, muddat (Period, term)\nOn: キ (ki)\nKun: -",
+        "romaji": "(ki), -",
+        "furigana": "キ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "期間 (きかん (Kikan)): Muddat"
+      },
+      {
+        "id": "n3-k115",
+        "front": "約",
+        "back": "Va'da, taxminan (Promise, approx)\nOn: ヤク (yaku)\nKun: -",
+        "romaji": "(yaku), -",
+        "furigana": "ヤク",
+        "level": "N3",
+        "type": "kanji",
+        "example": "約束 (やくそく (Yakusoku)): Va'da"
+      },
+      {
+        "id": "n3-k116",
+        "front": "束",
+        "back": "Bog'lam, dasta (Bundle)\nOn: ソク (soku)\nKun: たば (taba)",
+        "romaji": "(soku),  (taba)",
+        "furigana": "ソク",
+        "level": "N3",
+        "type": "kanji",
+        "example": "花束 (はなたば (Hanataba)): Guldasta"
+      },
+      {
+        "id": "n3-k117",
+        "front": "必",
+        "back": "Albatta (Certain, inevitable)\nOn: ヒツ (hitsu)\nKun: かなら-ず (kanara-zu)",
+        "romaji": "(hitsu), - (kanara-zu)",
+        "furigana": "ヒツ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "必ず (かならず (Kanarazu)): Albatta"
+      },
+      {
+        "id": "n3-k118",
+        "front": "守",
+        "back": "Himoya qilmoq, rioya qilmoq (Protect, obey)\nOn: シュ (shu)\nKun: まも-る (mamo-ru)",
+        "romaji": "(shu), - (mamo-ru)",
+        "furigana": "シュ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "守る (まもる (Mamoru)): Himoya qilmoq"
+      },
+      {
+        "id": "n3-k119",
+        "front": "式",
+        "back": "Marosim, uslub (Ceremony, style)\nOn: シキ (shiki)\nKun: -",
+        "romaji": "(shiki), -",
+        "furigana": "シキ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "結婚式 (けっこんしき (Kekkonshiki)): To'y"
+      },
+      {
+        "id": "n3-k120",
+        "front": "列",
+        "back": "Qator, saf (Row, line)\nOn: レツ (retsu)\nKun: -",
+        "romaji": "(retsu), -",
+        "furigana": "レツ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "列車 (れっしゃ (Ressha)): Poyezd"
+      },
+      {
+        "id": "n3-k121",
+        "front": "祝",
+        "back": "Tabriklamoq (Celebrate)\nOn: シュク (shuku)\nKun: いわ-う (iwa-u)",
+        "romaji": "(shuku), - (iwa-u)",
+        "furigana": "シュク",
+        "level": "N3",
+        "type": "kanji",
+        "example": "祝う (いわう (Iwau)): Tabriklamoq"
+      },
+      {
+        "id": "n3-k122",
+        "front": "酔",
+        "back": "Mast bo'lmoq (Drunk)\nOn: スイ (sui)\nKun: よ-う (yo-u)",
+        "romaji": "(sui), - (yo-u)",
+        "furigana": "スイ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "酔う (よう (You)): Mast bo'lmoq"
+      },
+      {
+        "id": "n3-k123",
+        "front": "永",
+        "back": "Abadiy (Eternal)\nOn: エイ (ei)\nKun: なが-い (naga-i)",
+        "romaji": "(ei), - (naga-i)",
+        "furigana": "エイ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "永久 (えいきゅう (Eikyuu)): Abadiy"
+      },
+      {
+        "id": "n3-k124",
+        "front": "願",
+        "back": "Tilamoq (Wish, request)\nOn: ガン (gan)\nKun: ねが-う (nega-u)",
+        "romaji": "(gan), - (nega-u)",
+        "furigana": "ガン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "願う (ねがう (Negau)): Tilamoq"
+      },
+      {
+        "id": "n3-k125",
+        "front": "幸",
+        "back": "Baxt (Happiness)\nOn: コウ (kou)\nKun: しあわ-せ (shiawa-se)",
+        "romaji": "(kou), - (shiawa-se)",
+        "furigana": "コウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "幸せ (しあわせ (Shiawase)): Baxtli"
+      },
+      {
+        "id": "n3-k126",
+        "front": "福",
+        "back": "Baraka, qut (Blessing, fortune)\nOn: フク (fuku)\nKun: -",
+        "romaji": "(fuku), -",
+        "furigana": "フク",
+        "level": "N3",
+        "type": "kanji",
+        "example": "幸福 (こうふく (Koufuku)): Baxt"
+      },
+      {
+        "id": "n3-k127",
+        "front": "和",
+        "back": "Tinchlik, yaponcha uslub (Peace, harmony, Japanese)\nOn: ワ (wa)\nKun: やわ-らぐ (yawa-ragu)",
+        "romaji": "(wa), - (yawa-ragu)",
+        "furigana": "ワ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "平和 (へいわ (Heiwa)): Tinchlik"
+      },
+      {
+        "id": "n3-k128",
+        "front": "付",
+        "back": "Qo'shilmoq, birikmoq (Attach, adhere)\nOn: フ (fu)\nKun: つ-く (tsu-ku), つ-ける (tsu-keru)",
+        "romaji": "(fu), - (tsu-ku), - (tsu-keru)",
+        "furigana": "フ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "付ける (つける (Tsukeru)): Taqmoq, ilmoq"
+      },
+      {
+        "id": "n3-k129",
+        "front": "娘",
+        "back": "Qiz farzand (Daughter)\nOn: ジョウ (jou)\nKun: むすめ (musume)",
+        "romaji": "(jou),  (musume)",
+        "furigana": "ジョウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "娘 (むすめ (Musume)): Qiz farzand"
+      },
+      {
+        "id": "n3-k130",
+        "front": "老",
+        "back": "Keksa, qari (Old, elderly)\nOn: ロウ (rou)\nKun: お-いる (o-iru)",
+        "romaji": "(rou), - (o-iru)",
+        "furigana": "ロウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "老人 (ろうじん (Roujin)): Keksa kishi"
+      },
+      {
+        "id": "n3-k131",
+        "front": "婦",
+        "back": "Ayol, xonim (Lady, woman)\nOn: フ (fu)\nKun: -",
+        "romaji": "(fu), -",
+        "furigana": "フ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "主婦 (しゅふ (Shufu)): Uy bekasi"
+      },
+      {
+        "id": "n3-k132",
+        "front": "姓",
+        "back": "Familiya (Surname)\nOn: セイ (sei), ショウ (shou)\nKun: -",
+        "romaji": "(sei),  (shou), -",
+        "furigana": "セイ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "姓名 (せいめい (Seimei)): Familiya va ism"
+      },
+      {
+        "id": "n3-k133",
+        "front": "仲",
+        "back": "Munisabat, do'stlik (Relationship)\nOn: チュウ (chuu)\nKun: なか (naka)",
+        "romaji": "(chuu),  (naka)",
+        "furigana": "チュウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "仲 (なか (Naka)): Munosabat"
+      },
+      {
+        "id": "n3-k134",
+        "front": "君",
+        "back": "Sen (You, suffix -kun)\nOn: クン (kun)\nKun: きみ (kimi)",
+        "romaji": "(kun),  (kimi)",
+        "furigana": "クン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "君 (きみ (Kimi)): Sen"
+      },
+      {
+        "id": "n3-k135",
+        "front": "彼",
+        "back": "U (erkak) (He, that)\nOn: ヒ (hi)\nKun: かれ (kare), かの (kano)",
+        "romaji": "(hi),  (kare),  (kano)",
+        "furigana": "ヒ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "彼 (かれ (Kare)): U (erkak)"
+      },
+      {
+        "id": "n3-k136",
+        "front": "他",
+        "back": "Boshqa (Other, another)\nOn: タ (ta)\nKun: ほか (hoka)",
+        "romaji": "(ta),  (hoka)",
+        "furigana": "タ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "他 (ほか (Hoka)): Boshqa"
+      },
+      {
+        "id": "n3-k137",
+        "front": "初",
+        "back": "Birinchi, ilk (First, beginning)\nOn: ショ (sho)\nKun: はじ-め (haji-me), はつ (hatsu)",
+        "romaji": "(sho), - (haji-me),  (hatsu)",
+        "furigana": "ショ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "初め (はじめ (Hajime)): Boshi"
+      },
+      {
+        "id": "n3-k138",
+        "front": "再",
+        "back": "Yana, qayta (Again, twice)\nOn: サイ (sai), サ (sa)\nKun: ふたた-び (futata-bi)",
+        "romaji": "(sai),  (sa), - (futata-bi)",
+        "furigana": "サイ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "再び (ふたたび (Futatabi)): Qayta, yana"
+      },
+      {
+        "id": "n3-k139",
+        "front": "久",
+        "back": "Uzoq vaqt (Long time)\nOn: キュウ (kyuu)\nKun: ひさ-しい (hisa-shii)",
+        "romaji": "(kyuu), - (hisa-shii)",
+        "furigana": "キュウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "久しぶり (ひさしぶり (Hisashiburi)): Ko'rishmaganimizga ancha bo'ldi"
+      },
+      {
+        "id": "n3-k140",
+        "front": "達",
+        "back": "Yetishmoq, ko'plik qo'shimchasi (Reach, plural suffix)\nOn: タツ (tatsu)\nKun: -",
+        "romaji": "(tatsu), -",
+        "furigana": "タツ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "友達 (ともだち (Tomodachi)): Do'stlar"
+      },
+      {
+        "id": "n3-k141",
+        "front": "個",
+        "back": "Yakka, dona hisoblagich (Individual, piece counter)\nOn: コ (ko)\nKun: -",
+        "romaji": "(ko), -",
+        "furigana": "コ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "個人 (こじん (Kojin)): Shaxs"
+      },
+      {
+        "id": "n3-k142",
+        "front": "性",
+        "back": "Xususiyat, jins (Nature, gender, quality)\nOn: セイ (sei), ショウ (shou)\nKun: -",
+        "romaji": "(sei),  (shou), -",
+        "furigana": "セイ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "男性 (だんせい (Dansei)): Erkak kishi"
+      },
+      {
+        "id": "n3-k143",
+        "front": "各",
+        "back": "Har bir, barcha (Each, every)\nOn: カク (kaku)\nKun: おのおの (onoono)",
+        "romaji": "(kaku),  (onoono)",
+        "furigana": "カク",
+        "level": "N3",
+        "type": "kanji",
+        "example": "各自 (かくじ (Kakuji)): Har kim o'zi"
+      },
+      {
+        "id": "n3-k144",
+        "front": "格",
+        "back": "Status, mezon, xarakter (Status, standard, case)\nOn: カク (kaku)\nKun: -",
+        "romaji": "(kaku), -",
+        "furigana": "カク",
+        "level": "N3",
+        "type": "kanji",
+        "example": "合格 (ごうかく (Goukaku)): Imtihondan o'tish"
+      },
+      {
+        "id": "n3-k145",
+        "front": "単",
+        "back": "Oddiy, yakka (Simple, single)\nOn: タン (tan)\nKun: -",
+        "romaji": "(tan), -",
+        "furigana": "タン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "簡単 (かんたん (Kantan)): Oddiy, oson"
+      },
+      {
+        "id": "n3-k146",
+        "front": "複",
+        "back": "Murakkab, ko'p qatlamli (Complex, multiple)\nOn: フク (fuku)\nKun: -",
+        "romaji": "(fuku), -",
+        "furigana": "フク",
+        "level": "N3",
+        "type": "kanji",
+        "example": "複雑 (ふくざつ (Fukuzatsu)): Murakkab"
+      },
+      {
+        "id": "n3-k147",
+        "front": "未",
+        "back": "Hali emas (inkor prefiksi) (Not yet)\nOn: ミ (mi)\nKun: いま-だ (ima-da)",
+        "romaji": "(mi), - (ima-da)",
+        "furigana": "ミ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "未来 (みらい (Mirai)): Kelajak"
+      },
+      {
+        "id": "n3-k148",
+        "front": "満",
+        "back": "To'la, qoniqish (Full, fulfill)\nOn: マン (man)\nKun: み-ちる (mi-chiru), み-たす (mi-tasu)",
+        "romaji": "(man), - (mi-chiru), - (mi-tasu)",
+        "furigana": "マン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "満足 (まんぞく (Manzoku)): Qoniqish"
+      },
+      {
+        "id": "n3-k149",
+        "front": "無",
+        "back": "Yo'q, pulsiz (None, without)\nOn: ム (mu), ブ (bu)\nKun: な-い (na-i)",
+        "romaji": "(mu),  (bu), - (na-i)",
+        "furigana": "ム",
+        "level": "N3",
+        "type": "kanji",
+        "example": "無料 (むりょう (Muryou)): Bepul"
+      },
+      {
+        "id": "n3-k150",
+        "front": "非",
+        "back": "No-, g'ayri (inkor) (Non-, negative)\nOn: ヒ (hi)\nKun: -",
+        "romaji": "(hi), -",
+        "furigana": "ヒ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "非常 (ひじょう (Hijou)): Favqulodda"
+      },
+      {
+        "id": "n3-k151",
+        "front": "幼",
+        "back": "Go'dak, yosh bola (Infant, young)\nOn: ヨウ (you)\nKun: おさな-い (osana-i)",
+        "romaji": "(you), - (osana-i)",
+        "furigana": "ヨウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "幼稚園 (ようちえん (Youchien)): Bolalar bog'chasi"
+      },
+      {
+        "id": "n3-k152",
+        "front": "児",
+        "back": "Bola (Child)\nOn: ジ (ji), ニ (ni)\nKun: -",
+        "romaji": "(ji),  (ni), -",
+        "furigana": "ジ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "児童 (じどう (Jidou)): Bolalar, o'quvchilar"
+      },
+      {
+        "id": "n3-k153",
+        "front": "童",
+        "back": "Bola, ertak (Child)\nOn: ドウ (dou)\nKun: わらべ (warabe)",
+        "romaji": "(dou),  (warabe)",
+        "furigana": "ドウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "児童 (じどう (Jidou)): Bolalar"
+      },
+      {
+        "id": "n3-k154",
+        "front": "徒",
+        "back": "Shogird, o'quvchi (Student, disciple)\nOn: ト (to)\nKun: -",
+        "romaji": "(to), -",
+        "furigana": "ト",
+        "level": "N3",
+        "type": "kanji",
+        "example": "生徒 (せいと (Seito)): O'quvchi"
+      },
+      {
+        "id": "n3-k155",
+        "front": "担",
+        "back": "Zimmaga olmoq (Carry, bear, charge)\nOn: タン (tan)\nKun: かつ-ぐ (katsu-gu), にな-う (nina-u)",
+        "romaji": "(tan), - (katsu-gu), - (nina-u)",
+        "furigana": "タン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "担任 (たんにん (Tannin)): Sinf rahbari"
+      },
+      {
+        "id": "n3-k156",
+        "front": "任",
+        "back": "Topshirmoq, vazifa (Responsibility, appoint)\nOn: ニン (nin)\nKun: まか-せる (maka-seru)",
+        "romaji": "(nin), - (maka-seru)",
+        "furigana": "ニン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "責任 (せきにん (Sekinin)): Mas'uliyat"
+      },
+      {
+        "id": "n3-k157",
+        "front": "師",
+        "back": "Ustoz, mutaxassis (Teacher, master, doctor)\nOn: シ (shi)\nKun: -",
+        "romaji": "(shi), -",
+        "furigana": "シ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "教師 (きょうし (Kyoushi)): O'qituvchi"
+      },
+      {
+        "id": "n3-k158",
+        "front": "組",
+        "back": "Guruh, birlashma, yig'moq (Group, assemble)\nOn: ソ (so)\nKun: く-む (ku-mu), くみ (kumi)",
+        "romaji": "(so), - (ku-mu),  (kumi)",
+        "furigana": "ソ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "番組 (ばんぐみ (Bangumi)): Ko'rsatuv"
+      },
+      {
+        "id": "n3-k159",
+        "front": "机",
+        "back": "Parta, stol (Desk)\nOn: キ (ki)\nKun: つくえ (tsukue)",
+        "romaji": "(ki),  (tsukue)",
+        "furigana": "キ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "机 (つくえ (Tsukue)): Parta, stol"
+      },
+      {
+        "id": "n3-k160",
+        "front": "板",
+        "back": "Doska, taxta (Board, plank)\nOn: ハン (han), バン (ban)\nKun: いた (ita)",
+        "romaji": "(han),  (ban),  (ita)",
+        "furigana": "ハン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "黒板 (こくばん (Kokuban)): Sinf doskasi"
+      },
+      {
+        "id": "n3-k161",
+        "front": "筆",
+        "back": "Mo'yqalam, yozuv (Brush, writing)\nOn: ヒツ (hitsu)\nKun: ふで (fude)",
+        "romaji": "(hitsu),  (fude)",
+        "furigana": "ヒツ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "筆記試験 (ひっきしけん (Hikki shiken)): Yozma imtihon"
+      },
+      {
+        "id": "n3-k162",
+        "front": "具",
+        "back": "Asbob, jihoz (Tool, utensil)\nOn: グ (gu)\nKun: -",
+        "romaji": "(gu), -",
+        "furigana": "グ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "道具 (どうぐ (Dougu)): Asbob-anjom"
+      },
+      {
+        "id": "n3-k163",
+        "front": "箱",
+        "back": "Quti (Box)\nOn: ソウ (sou)\nKun: はこ (hako)",
+        "romaji": "(sou),  (hako)",
+        "furigana": "ソウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "ゴミ箱 (ごみばこ (Gomibako)): Chiqindi qutisi"
+      },
+      {
+        "id": "n3-k164",
+        "front": "棒",
+        "back": "Tayoq, chiziq (Rod, stick)\nOn: ボウ (bou)\nKun: -",
+        "romaji": "(bou), -",
+        "furigana": "ボウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "棒 (ぼう (Bou)): Tayoq"
+      },
+      {
+        "id": "n3-k165",
+        "front": "伸",
+        "back": "Cho'zilmoq, o'smoq (Extend, stretch)\nOn: シン (shin)\nKun: の-びる (no-biru), の-ばす (no-basu)",
+        "romaji": "(shin), - (no-biru), - (no-basu)",
+        "furigana": "シン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "伸びる (のびる (Nobiru)): O'smoq, cho'zilmoq"
+      },
+      {
+        "id": "n3-k166",
+        "front": "希",
+        "back": "Umid, kamyob (Hope, rare)\nOn: キ (ki)\nKun: まれ (mare)",
+        "romaji": "(ki),  (mare)",
+        "furigana": "キ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "希望 (きぼう (Kibou)): Umid, istak"
+      },
+      {
+        "id": "n3-k167",
+        "front": "望",
+        "back": "Umid qilmoq, qaramoq (Expect, desire)\nOn: ボウ (bou)\nKun: のぞ-む (nozo-mu)",
+        "romaji": "(bou), - (nozo-mu)",
+        "furigana": "ボウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "希望 (きぼう (Kibou)): Umid"
+      },
+      {
+        "id": "n3-k168",
+        "front": "募",
+        "back": "Yig'moq, chaqirmoq (Recruit, raise)\nOn: ボ (bo)\nKun: つの-る (tsuno-ru)",
+        "romaji": "(bo), - (tsuno-ru)",
+        "furigana": "ボ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "募集 (ぼしゅう (Boshuu)): Qabul, yig'ish"
+      },
+      {
+        "id": "n3-k169",
+        "front": "的",
+        "back": "Nishon, qo'shimcha -dek (Target, -like)\nOn: テキ (teki)\nKun: まと (mato)",
+        "romaji": "(teki),  (mato)",
+        "furigana": "テキ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "目的 (もくてき (Mokuteki)): Maqsad"
+      },
+      {
+        "id": "n3-k170",
+        "front": "可",
+        "back": "Mumkin, ruxsat (Possible, can)\nOn: カ (ka)\nKun: -",
+        "romaji": "(ka), -",
+        "furigana": "カ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "可能 (かのう (Kanou)): Mumkin, iloji bor"
+      },
+      {
+        "id": "n3-k171",
+        "front": "能",
+        "back": "Qobiliyat, quvvat (Ability, talent)\nOn: ノウ (nou)\nKun: -",
+        "romaji": "(nou), -",
+        "furigana": "ノウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "能力 (のうりょく (Nouryoku)): Qobiliyat"
+      },
+      {
+        "id": "n3-k172",
+        "front": "面",
+        "back": "Yuz, tomon (Face, surface)\nOn: メン (men)\nKun: おもて (omote), つら (tsura)",
+        "romaji": "(men),  (omote),  (tsura)",
+        "furigana": "メン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "面接 (めんせつ (Mensetsu)): Suhbat (intervyu)"
+      },
+      {
+        "id": "n3-k173",
+        "front": "接",
+        "back": "Ulanmoq, aloqa (Connect, contact)\nOn: セツ (setsu)\nKun: つ-ぐ (tsu-gu)",
+        "romaji": "(setsu), - (tsu-gu)",
+        "furigana": "セツ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "面接 (めんせつ (Mensetsu)): Suhbat"
+      },
+      {
+        "id": "n3-k174",
+        "front": "倍",
+        "back": "Barobar, karra (Double, times)\nOn: バイ (bai)\nKun: -",
+        "romaji": "(bai), -",
+        "furigana": "バイ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "二倍 (にばい (Nibai)): Ikki barobar"
+      },
+      {
+        "id": "n3-k175",
+        "front": "率",
+        "back": "Foiz, nisbat (Rate, ratio)\nOn: リツ (ritsu), ソツ (sotsu)\nKun: ひき-いる (hiki-iru)",
+        "romaji": "(ritsu),  (sotsu), - (hiki-iru)",
+        "furigana": "リツ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "確率 (かくりつ (Kakuritsu)): Ehtimollik"
+      },
+      {
+        "id": "n3-k176",
+        "front": "平",
+        "back": "Tekis, tinch (Flat, peace)\nOn: ヘイ (hei), ビョウ (byou)\nKun: たい-ら (tai-ra), ひら (hira)",
+        "romaji": "(hei),  (byou), - (tai-ra),  (hira)",
+        "furigana": "ヘイ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "平和 (へいわ (Heiwa)): Tinchlik"
+      },
+      {
+        "id": "n3-k177",
+        "front": "均",
+        "back": "Teng, o'rtacha (Equal, average)\nOn: キン (kin)\nKun: -",
+        "romaji": "(kin), -",
+        "furigana": "キン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "平均 (へいきん (Heikin)): O'rtacha"
+      },
+      {
+        "id": "n3-k178",
+        "front": "成",
+        "back": "Shakllanmoq, muvaffaqiyat (Become, succeed)\nOn: セイ (sei)\nKun: な-る (na-ru)",
+        "romaji": "(sei), - (na-ru)",
+        "furigana": "セイ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "成功 (せいこう (Seikou)): Muvaffaqiyat"
+      },
+      {
+        "id": "n3-k179",
+        "front": "績",
+        "back": "Natija, ko'rsatkich (Achievement, score)\nOn: セキ (seki)\nKun: -",
+        "romaji": "(seki), -",
+        "furigana": "セキ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "成績 (せいせき (Seiseki)): Baholar, natijalar"
+      },
+      {
+        "id": "n3-k180",
+        "front": "授",
+        "back": "Topshirmoq, bermoq (Instruct, grant)\nOn: ジュ (ju)\nKun: さず-ける (sazu-keru)",
+        "romaji": "(ju), - (sazu-keru)",
+        "furigana": "ジュ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "授業 (じゅぎょう (Jugyou)): Dars"
+      },
+      {
+        "id": "n3-k181",
+        "front": "級",
+        "back": "Daraja, sinf (Class, rank, grade)\nOn: キュウ (kyuu)\nKun: -",
+        "romaji": "(kyuu), -",
+        "furigana": "キュウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "初級 (しょきゅう (Shokyuu)): Boshlang'ich"
+      },
+      {
+        "id": "n3-k182",
+        "front": "卒",
+        "back": "Bitirmoq (Graduate)\nOn: ソツ (sotsu)\nKun: -",
+        "romaji": "(sotsu), -",
+        "furigana": "ソツ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "卒業 (そつぎょう (Sotsugyou)): Bitirish"
+      },
+      {
+        "id": "n3-k183",
+        "front": "欠",
+        "back": "Yetishmaslik, qatnashmaslik (Lack, absent)\nOn: ケツ (ketsu)\nKun: か-ける (ka-keru)",
+        "romaji": "(ketsu), - (ka-keru)",
+        "furigana": "ケツ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "欠席 (けっせき (Kesseki)): Darsga kelmaslik"
+      },
+      {
+        "id": "n3-k184",
+        "front": "由",
+        "back": "Sabab, kelib chiqish (Reason, cause)\nOn: ユ (yu), ユウ (yuu)\nKun: よし (yoshi)",
+        "romaji": "(yu),  (yuu),  (yoshi)",
+        "furigana": "ユ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "理由 (りゆう (Riyuu)): Sabab"
+      },
+      {
+        "id": "n3-k185",
+        "front": "訳",
+        "back": "Ma'no, sabab, tarjima (Translation, reason)\nOn: ヤク (yaku)\nKun: わけ (wake)",
+        "romaji": "(yaku),  (wake)",
+        "furigana": "ヤク",
+        "level": "N3",
+        "type": "kanji",
+        "example": "通訳 (つうやく (Tsuuyaku)): Og'zaki tarjimon"
+      },
+      {
+        "id": "n3-k186",
+        "front": "例",
+        "back": "Misol (Example)\nOn: レイ (rei)\nKun: たと-える (tato-eru)",
+        "romaji": "(rei), - (tato-eru)",
+        "furigana": "レイ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "例文 (れいぶん (Reibun)): Misol gap"
+      },
+      {
+        "id": "n3-k187",
+        "front": "易",
+        "back": "Oson, almashtirish (Easy, exchange)\nOn: エキ (eki), イ (i)\nKun: やさ-しい (yasa-shii)",
+        "romaji": "(eki),  (i), - (yasa-shii)",
+        "furigana": "エキ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "容易 (ようい (Youi)): Oson"
+      },
+      {
+        "id": "n3-k188",
+        "front": "解",
+        "back": "Yechmoq, tushunmoq (Solve, untie, understand)\nOn: カイ (kai), ゲ (ge)\nKun: と-く (to-ku), と-ける (to-keru)",
+        "romaji": "(kai),  (ge), - (to-ku), - (to-keru)",
+        "furigana": "カイ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "解決 (かいけつ (Kaiketsu)): Muammoni yechish"
+      },
+      {
+        "id": "n3-k189",
+        "front": "覚",
+        "back": "Eslab qolmoq, uyg'onmoq (Remember, wake up)\nOn: カク (kaku)\nKun: おぼ-える (obo-eru), さ-ます (sa-masu)",
+        "romaji": "(kaku), - (obo-eru), - (sa-masu)",
+        "furigana": "カク",
+        "level": "N3",
+        "type": "kanji",
+        "example": "覚える (おぼえる (Oboeru)): Yodlamoq"
+      },
+      {
+        "id": "n3-k190",
+        "front": "異",
+        "back": "Farq qilmoq, g'alati (Different, unusual)\nOn: イ (i)\nKun: こと-なる (koto-naru)",
+        "romaji": "(i), - (koto-naru)",
+        "furigana": "イ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "異なる (ことなる (Kotonaru)): Farqlanmoq"
+      },
+      {
+        "id": "n3-k191",
+        "front": "復",
+        "back": "Qaytarmoq, takrorlash (Repeat, restore)\nOn: フク (fuku)\nKun: -",
+        "romaji": "(fuku), -",
+        "furigana": "フク",
+        "level": "N3",
+        "type": "kanji",
+        "example": "復習 (ふくしゅう (Fukushuu)): Takrorlash"
+      },
+      {
+        "id": "n3-k192",
+        "front": "補",
+        "back": "To'ldirmoq, kompensatsiya (Supplement, compensate)\nOn: ホ (ho)\nKun: おぎな-う (ogina-u)",
+        "romaji": "(ho), - (ogina-u)",
+        "furigana": "ホ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "補習 (ほしゅう (Hoshuu)): Qo'shimcha dars"
+      },
+      {
+        "id": "n3-k193",
+        "front": "効",
+        "back": "Samarali, ta'sirli (Effect, efficacy)\nOn: コウ (kou)\nKun: き-く (ki-ku)",
+        "romaji": "(kou), - (ki-ku)",
+        "furigana": "コウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "効果 (こうか (Kouka)): Effekt, samara"
+      },
+      {
+        "id": "n3-k194",
+        "front": "種",
+        "back": "Urug', tur, nav (Seed, species)\nOn: シュ (shu)\nKun: たね (tane)",
+        "romaji": "(shu),  (tane)",
+        "furigana": "シュ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "種類 (しゅるい (Shurui)): Tur, xil"
+      },
+      {
+        "id": "n3-k195",
+        "front": "類",
+        "back": "Xil, kategoriya (Kind, category)\nOn: ルイ (rui)\nKun: -",
+        "romaji": "(rui), -",
+        "furigana": "ルイ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "種類 (しゅるい (Shurui)): Kategoriya"
+      },
+      {
+        "id": "n3-k196",
+        "front": "存",
+        "back": "Mavjud bo'lmoq, bilmoq (Exist, know)\nOn: ソン (son), ゾン (zon)\nKun: -",
+        "romaji": "(son),  (zon), -",
+        "furigana": "ソン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "存在 (そんざい (Sonzai)): Mavjudlik"
+      },
+      {
+        "id": "n3-k197",
+        "front": "在",
+        "back": "Mavjud, yashamoq (Exist, reside)\nOn: ザイ (zai)\nKun: あ-る (a-ru)",
+        "romaji": "(zai), - (a-ru)",
+        "furigana": "ザイ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "現在 (げんざい (Genzai)): Hozirgi payt"
+      },
+      {
+        "id": "n3-k198",
+        "front": "陽",
+        "back": "Quyosh, nur, musbat (Sun, positive, Yang)\nOn: ヨウ (you)\nKun: -",
+        "romaji": "(you), -",
+        "furigana": "ヨウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "太陽 (たいよう (Taiyou)): Quyosh"
+      },
+      {
+        "id": "n3-k199",
+        "front": "巨",
+        "back": "Ulkan, bahaybat (Giant, huge)\nOn: キョ (kyo)\nKun: -",
+        "romaji": "(kyo), -",
+        "furigana": "キョ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "巨大 (きょだい (Kyodai)): Bahaybat, ulkan"
+      },
+      {
+        "id": "n3-k200",
+        "front": "氷",
+        "back": "Muz (Ice)\nOn: ヒョウ (hyou)\nKun: こおり (koori)",
+        "romaji": "(hyou),  (koori)",
+        "furigana": "ヒョウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "氷 (こおり (Koori)): Muz"
+      },
+      {
+        "id": "n3-k201",
+        "front": "河",
+        "back": "Daryo (River)\nOn: カ (ka)\nKun: かわ (kawa)",
+        "romaji": "(ka),  (kawa)",
+        "furigana": "カ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "河川 (かせん (Kasen)): Daryolar"
+      },
+      {
+        "id": "n3-k202",
+        "front": "流",
+        "back": "Oqmoq, oqim (Flow, stream)\nOn: リュウ (ryuu)\nKun: なが-れる (naga-reru), なが-す (naga-su)",
+        "romaji": "(ryuu), - (naga-reru), - (naga-su)",
+        "furigana": "リュウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "流れる (ながれる (Nagareru)): Oqmoq"
+      },
+      {
+        "id": "n3-k203",
+        "front": "底",
+        "back": "Tag, tub (Bottom, sole)\nOn: テイ (tei)\nKun: そこ (soko)",
+        "romaji": "(tei),  (soko)",
+        "furigana": "テイ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "底 (そこ (Soko)): Tub, tag"
+      },
+      {
+        "id": "n3-k204",
+        "front": "深",
+        "back": "Chuqur (Deep)\nOn: シン (shin)\nKun: ふか-い (fuka-i)",
+        "romaji": "(shin), - (fuka-i)",
+        "furigana": "シン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "深い (ふかい (Fukai)): Chuqur"
+      },
+      {
+        "id": "n3-k205",
+        "front": "浅",
+        "back": "Sayoz (Shallow)\nOn: セン (sen)\nKun: あさ-い (asa-i)",
+        "romaji": "(sen), - (asa-i)",
+        "furigana": "セン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "浅い (あさい (Asai)): Sayoz"
+      },
+      {
+        "id": "n3-k206",
+        "front": "島",
+        "back": "Orol (Island)\nOn: トウ (tou)\nKun: しま (shima)",
+        "romaji": "(tou),  (shima)",
+        "furigana": "トウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "島 (しま (Shima)): Orol"
+      },
+      {
+        "id": "n3-k207",
+        "front": "陸",
+        "back": "Quruqlik (Land, continent)\nOn: リク (riku)\nKun: -",
+        "romaji": "(riku), -",
+        "furigana": "リク",
+        "level": "N3",
+        "type": "kanji",
+        "example": "着陸 (ちゃくりく (Chakuriku)): Qo'nish (samolyot)"
+      },
+      {
+        "id": "n3-k208",
+        "front": "岸",
+        "back": "Sohil, qirg'oq (Shore, coast)\nOn: ガン (gan)\nKun: きし (kishi)",
+        "romaji": "(gan),  (kishi)",
+        "furigana": "ガン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "海岸 (かいがん (Kaigan)): Dengiz sohili"
+      },
+      {
+        "id": "n3-k209",
+        "front": "坂",
+        "back": "Qiyalik, tepalik (Slope, hill)\nOn: ハン (han)\nKun: さか (saka)",
+        "romaji": "(han),  (saka)",
+        "furigana": "ハン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "坂 (さか (Saka)): Qiyalik"
+      },
+      {
+        "id": "n3-k210",
+        "front": "準",
+        "back": "Standart, mezon (Semi-, standard)\nOn: ジュン (jun)\nKun: -",
+        "romaji": "(jun), -",
+        "furigana": "ジュン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "準備 (じゅんび (Junbi)): Tayyorgarlik"
+      },
+      {
+        "id": "n3-k211",
+        "front": "備",
+        "back": "Tayyorlamoq, jihozlamoq (Equip, prepare)\nOn: ビ (bi)\nKun: そな-える (sona-eru)",
+        "romaji": "(bi), - (sona-eru)",
+        "furigana": "ビ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "準備 (じゅんび (Junbi)): Tayyorgarlik"
+      },
+      {
+        "id": "n3-k212",
+        "front": "迎",
+        "back": "Kutib olmoq (Welcome, meet)\nOn: ゲイ (gei)\nKun: むか-える (muka-eru)",
+        "romaji": "(gei), - (muka-eru)",
+        "furigana": "ゲイ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "迎える (むかえる (Mukaeru)): Kutib olmoq"
+      },
+      {
+        "id": "n3-k213",
+        "front": "飛",
+        "back": "Uchmoq (Fly, jump)\nOn: ヒ (hi)\nKun: と-ぶ (to-bu)",
+        "romaji": "(hi), - (to-bu)",
+        "furigana": "ヒ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "飛行機 (ひこうき (Hikouki)): Samolyot"
+      },
+      {
+        "id": "n3-k214",
+        "front": "移",
+        "back": "Ko'chmoq, o'tmoq (Shift, move)\nOn: イ (i)\nKun: うつ-る (utsu-ru), うつ-す (utsu-su)",
+        "romaji": "(i), - (utsu-ru), - (utsu-su)",
+        "furigana": "イ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "移動 (いどう (Idou)): Ko'chish, harakatlanish"
+      },
+      {
+        "id": "n3-k215",
+        "front": "登",
+        "back": "Chiqmoq, ko'tarilmoq (Climb, mount)\nOn: トウ (tou), ト (to)\nKun: のぼ-る (nobo-ru)",
+        "romaji": "(tou),  (to), - (nobo-ru)",
+        "furigana": "トウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "登山 (とざん (Tozan)): Tog'ga chiqish"
+      },
+      {
+        "id": "n3-k216",
+        "front": "泊",
+        "back": "Tunamoq, mehmonxonada qolmoq (Stay overnight)\nOn: ハク (haku)\nKun: と-まる (to-maru)",
+        "romaji": "(haku), - (to-maru)",
+        "furigana": "ハク",
+        "level": "N3",
+        "type": "kanji",
+        "example": "宿泊 (しゅくはく (Shukuhaku)): Yotoqjoy, mehmonxona"
+      },
+      {
+        "id": "n3-k217",
+        "front": "団",
+        "back": "Guruh, jamoa (Group, association)\nOn: ダン (dan), トン (ton)\nKun: -",
+        "romaji": "(dan),  (ton), -",
+        "furigana": "ダン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "団体 (だんたい (Dantai)): Guruh, tashkilot"
+      },
+      {
+        "id": "n3-k218",
+        "front": "程",
+        "back": "Daraja, me'yor, reja (Degree, schedule)\nOn: テイ (tei)\nKun: ほど (hodo)",
+        "romaji": "(tei),  (hodo)",
+        "furigana": "テイ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "日程 (にってい (Nittei)): Kun tartibi, reja"
+      },
+      {
+        "id": "n3-k219",
+        "front": "欧",
+        "back": "Yevropa (Europe)\nOn: オウ (ou)\nKun: -",
+        "romaji": "(ou), -",
+        "furigana": "オウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "欧米 (おうべい (Oubei)): Yevropa va AQSH"
+      },
+      {
+        "id": "n3-k220",
+        "front": "州",
+        "back": "Shtat, viloyat (State, province)\nOn: シュウ (shuu)\nKun: す (su)",
+        "romaji": "(shuu),  (su)",
+        "furigana": "シュウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "本州 (ほんしゅう (Honshuu)): Xonsyu oroli"
+      },
+      {
+        "id": "n3-k221",
+        "front": "観",
+        "back": "Tomosha qilmoq, qarash (View, look, outlook)\nOn: カン (kan)\nKun: み-る (mi-ru)",
+        "romaji": "(kan), - (mi-ru)",
+        "furigana": "カン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "観光 (かんこう (Kankou)): Sayyohlik"
+      },
+      {
+        "id": "n3-k222",
+        "front": "芸",
+        "back": "San'at, mahorat (Art, craft, performance)\nOn: ゲイ (gei)\nKun: -",
+        "romaji": "(gei), -",
+        "furigana": "ゲイ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "芸術 (げいじゅつ (Geijutsu)): San'at"
+      },
+      {
+        "id": "n3-k223",
+        "front": "演",
+        "back": "Ijro etmoq, nutq (Perform, play, act)\nOn: エン (en)\nKun: -",
+        "romaji": "(en), -",
+        "furigana": "エン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "公演 (こうえん (Kouen)): Spektakl, konsert"
+      },
+      {
+        "id": "n3-k224",
+        "front": "仏",
+        "back": "Budda, Fransiya (Buddha, France)\nOn: ブツ (butsu), フツ (futsu)\nKun: ほとけ (hotoke)",
+        "romaji": "(butsu),  (futsu),  (hotoke)",
+        "furigana": "ブツ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "仏像 (ぶつぞう (Butsuzou)): Budda haykali"
+      },
+      {
+        "id": "n3-k225",
+        "front": "神",
+        "back": "Xudo, tangri (God, deity)\nOn: シン (shin), ジン (jin)\nKun: かみ (kami)",
+        "romaji": "(shin),  (jin),  (kami)",
+        "furigana": "シン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "神社 (じんじゃ (Jinja)): Sinto ibodatxonasi"
+      },
+      {
+        "id": "n3-k226",
+        "front": "祭",
+        "back": "Festival, bayram (Festival)\nOn: サイ (sai)\nKun: まつ-り (matsu-ri)",
+        "romaji": "(sai), - (matsu-ri)",
+        "furigana": "サイ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "祭り (まつり (Matsuri)): Bayram, festival"
+      },
+      {
+        "id": "n3-k227",
+        "front": "絵",
+        "back": "Rasm, surat (Picture, painting)\nOn: カイ (kai), エ (e)\nKun: -",
+        "romaji": "(kai),  (e), -",
+        "furigana": "カイ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "絵 (え (E)): Rasm"
+      },
+      {
+        "id": "n3-k228",
+        "front": "角",
+        "back": "Burchak, shox (Corner, angle, horn)\nOn: カク (kaku)\nKun: かど (kado), つの (tsuno)",
+        "romaji": "(kaku),  (kado),  (tsuno)",
+        "furigana": "カク",
+        "level": "N3",
+        "type": "kanji",
+        "example": "角 (かど (Kado)): Burchak"
+      },
+      {
+        "id": "n3-k229",
+        "front": "曲",
+        "back": "Burilmoq, musiqa (Bend, curve, tune)\nOn: キョク (kyoku)\nKun: ま-がる (ma-garu), ま-げる (ma-geru)",
+        "romaji": "(kyoku), - (ma-garu), - (ma-geru)",
+        "furigana": "キョク",
+        "level": "N3",
+        "type": "kanji",
+        "example": "曲がる (まがる (Magaru)): Burilmoq"
+      },
+      {
+        "id": "n3-k230",
+        "front": "折",
+        "back": "Buklamoq, sinmoq (Fold, break)\nOn: セツ (setsu)\nKun: お-る (o-ru), お-れる (o-reru)",
+        "romaji": "(setsu), - (o-ru), - (o-reru)",
+        "furigana": "セツ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "折る (おる (Oru)): Buklamoq, sindirmoq"
+      },
+      {
+        "id": "n3-k231",
+        "front": "路",
+        "back": "Yo'l (Road, route)\nOn: ロ (ro)\nKun: じ (ji)",
+        "romaji": "(ro),  (ji)",
+        "furigana": "ロ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "道路 (どうろ (Douro)): Yo'l, trassa"
+      },
+      {
+        "id": "n3-k232",
+        "front": "追",
+        "back": "Quvmoq, ortidan bormoq (Chase, pursue)\nOn: ツイ (tsui)\nKun: お-う (o-u)",
+        "romaji": "(tsui), - (o-u)",
+        "furigana": "ツイ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "追う (おう (Ou)): Quvmoq"
+      },
+      {
+        "id": "n3-k233",
+        "front": "突",
+        "back": "To'satdan, urilmoq (Thrust, sudden)\nOn: トツ (totsu)\nKun: つ-く (tsu-ku)",
+        "romaji": "(totsu), - (tsu-ku)",
+        "furigana": "トツ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "突然 (とつぜん (Totsuzen)): To'satdan"
+      },
+      {
+        "id": "n3-k234",
+        "front": "倒",
+        "back": "Yiqilmoq, ag'darilmoq (Fall down, collapse)\nOn: トウ (tou)\nKun: たお-れる (tao-reru), たお-す (tao-su)",
+        "romaji": "(tou), - (tao-reru), - (tao-su)",
+        "furigana": "トウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "倒れる (たおれる (Taoreru)): Yiqilmoq"
+      },
+      {
+        "id": "n3-k235",
+        "front": "位",
+        "back": "O'rin, mavqe (Rank, position)\nOn: イ (i)\nKun: くらい (kurai)",
+        "romaji": "(i),  (kurai)",
+        "furigana": "イ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "位置 (いち (Ichi)): Joylashuv"
+      },
+      {
+        "id": "n3-k236",
+        "front": "置",
+        "back": "Qo'ymoq (Put, place)\nOn: チ (chi)\nKun: お-く (o-ku)",
+        "romaji": "(chi), - (o-ku)",
+        "furigana": "チ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "置く (おく (Oku)): Qo'ymoq"
+      },
+      {
+        "id": "n3-k237",
+        "front": "横",
+        "back": "Yon tomon, gorizontal (Side, across)\nOn: オウ (ou)\nKun: よこ (yoko)",
+        "romaji": "(ou),  (yoko)",
+        "furigana": "オウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "横 (よこ (Yoko)): Yon tomon"
+      },
+      {
+        "id": "n3-k238",
+        "front": "央",
+        "back": "Markaz (Center, middle)\nOn: オウ (ou)\nKun: -",
+        "romaji": "(ou), -",
+        "furigana": "オウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "中央 (ちゅうおう (Chuuou)): Markaz"
+      },
+      {
+        "id": "n3-k239",
+        "front": "直",
+        "back": "To'g'ri, tuzatmoq (Straight, repair)\nOn: チョク (choku), ジキ (jiki)\nKun: ただ-ちに (tada-chini), なお-す (nao-su)",
+        "romaji": "(choku),  (jiki), - (tada-chini), - (nao-su)",
+        "furigana": "チョク",
+        "level": "N3",
+        "type": "kanji",
+        "example": "直接 (ちょくせつ (Chokusetsu)): To'g'ridan-to'g'ri"
+      },
+      {
+        "id": "n3-k240",
+        "front": "逆",
+        "back": "Teskari, qarama-qarshi (Reverse, inverse)\nOn: ギャク (gyaku)\nKun: さか-らう (saka-rau)",
+        "romaji": "(gyaku), - (saka-rau)",
+        "furigana": "ギャク",
+        "level": "N3",
+        "type": "kanji",
+        "example": "逆 (ぎゃく (Gyaku)): Teskari"
+      },
+      {
+        "id": "n3-k241",
+        "front": "側",
+        "back": "Yon tomon (Side)\nOn: ソク (soku)\nKun: かわ (kawa), そば (soba)",
+        "romaji": "(soku),  (kawa),  (soba)",
+        "furigana": "ソク",
+        "level": "N3",
+        "type": "kanji",
+        "example": "右側 (みぎがわ (Migigawa)): O'ng tomon"
+      },
+      {
+        "id": "n3-k242",
+        "front": "橋",
+        "back": "Ko'prik (Bridge)\nOn: キョウ (kyou)\nKun: はし (hashi)",
+        "romaji": "(kyou),  (hashi)",
+        "furigana": "キョウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "橋 (はし (Hashi)): Ko'prik"
+      },
+      {
+        "id": "n3-k243",
+        "front": "職",
+        "back": "Kasb, ish o'rni (Employment, job)\nOn: ショク (shoku)\nKun: -",
+        "romaji": "(shoku), -",
+        "furigana": "ショク",
+        "level": "N3",
+        "type": "kanji",
+        "example": "職業 (しょくぎょう (Shokugyou)): Kasb-hunar"
+      },
+      {
+        "id": "n3-k244",
+        "front": "求",
+        "back": "Talab qilmoq, qidirmoq (Seek, request)\nOn: キュウ (kyuu)\nKun: もと-める (moto-meru)",
+        "romaji": "(kyuu), - (moto-meru)",
+        "furigana": "キュウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "求める (もとめる (Motomeru)): Talab qilmoq"
+      },
+      {
+        "id": "n3-k245",
+        "front": "探",
+        "back": "Qidirmoq, izlamoq (Search, explore)\nOn: タン (tan)\nKun: さが-す (saga-su), さぐ-る (sagu-ru)",
+        "romaji": "(tan), - (saga-su), - (sagu-ru)",
+        "furigana": "タン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "探す (さがす (Sagasu)): Qidirmoq"
+      },
+      {
+        "id": "n3-k246",
+        "front": "常",
+        "back": "Har doim, odatiy (Always, normal)\nOn: ジョウ (jou)\nKun: つね (tsune)",
+        "romaji": "(jou),  (tsune)",
+        "furigana": "ジョウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "日常 (にちじょう (Nichijou)): Kundalik hayot"
+      },
+      {
+        "id": "n3-k247",
+        "front": "識",
+        "back": "Bilim, anglash (Discriminate, know)\nOn: シキ (shiki)\nKun: -",
+        "romaji": "(shiki), -",
+        "furigana": "シキ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "知識 (ちしき (Chishiki)): Bilim"
+      },
+      {
+        "id": "n3-k248",
+        "front": "失",
+        "back": "Yo'qotmoq, xato (Lose, error)\nOn: シツ (shitsu)\nKun: うしな-う (ushina-u)",
+        "romaji": "(shitsu), - (ushina-u)",
+        "furigana": "シツ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "失礼 (しつれい (Shitsurei)): Kechirasiz, odobsizlik"
+      },
+      {
+        "id": "n3-k249",
+        "front": "礼",
+        "back": "Odob, minnatdorchilik (Salute, bow, thanks)\nOn: レイ (rei), ライ (rai)\nKun: -",
+        "romaji": "(rei),  (rai), -",
+        "furigana": "レイ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "お礼 (おれい (Orei)): Minnatdorchilik"
+      },
+      {
+        "id": "n3-k250",
+        "front": "労",
+        "back": "Mehnat, mashaqqat (Labor, toil)\nOn: ロウ (rou)\nKun: -",
+        "romaji": "(rou), -",
+        "furigana": "ロウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "労働 (ろうどう (Roudou)): Mehnat"
+      },
+      {
+        "id": "n3-k251",
+        "front": "官",
+        "back": "Amaldor, davlat xizmatchisi (Official, government)\nOn: カン (kan)\nKun: -",
+        "romaji": "(kan), -",
+        "furigana": "カン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "警官 (けいかん (Keikan)): Militsiya, politsiyachi"
+      },
+      {
+        "id": "n3-k252",
+        "front": "局",
+        "back": "Idora, bo'lim (Bureau, office)\nOn: キョク (kyoku)\nKun: -",
+        "romaji": "(kyoku), -",
+        "furigana": "キョク",
+        "level": "N3",
+        "type": "kanji",
+        "example": "郵便局 (ゆうびんきょく (Yuubinkyoku)): Pochta"
+      },
+      {
+        "id": "n3-k253",
+        "front": "辞",
+        "back": "Iste'foga chiqmoq, lug'at (Resign, word)\nOn: ジ (ji)\nKun: や-める (ya-meru)",
+        "romaji": "(ji), - (ya-meru)",
+        "furigana": "ジ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "辞書 (じしょ (Jisho)): Lug'at"
+      },
+      {
+        "id": "n3-k254",
+        "front": "退",
+        "back": "Chetlanmoq, orqaga chekinmoq (Retire, retreat)\nOn: タイ (tai)\nKun: しりぞ-く (shirizo-ku)",
+        "romaji": "(tai), - (shirizo-ku)",
+        "furigana": "タイ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "退院 (たいいん (Taiin)): Kasalxonadan chiqish"
+      },
+      {
+        "id": "n3-k255",
+        "front": "積",
+        "back": "To'plamoq, uyulmoq (Accumulate, pile)\nOn: セキ (seki)\nKun: つ-む (tsu-mu), つ-もる (tsu-moru)",
+        "romaji": "(seki), - (tsu-mu), - (tsu-moru)",
+        "furigana": "セキ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "積もる (つもる (Tsumoru)): To'planmoq (qor)"
+      },
+      {
+        "id": "n3-k256",
+        "front": "給",
+        "back": "Maosh, ta'minlash (Salary, supply)\nOn: キュウ (kyuu)\nKun: -",
+        "romaji": "(kyuu), -",
+        "furigana": "キュウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "給料 (きゅうりょう (Kyuuryou)): Maosh"
+      },
+      {
+        "id": "n3-k257",
+        "front": "収",
+        "back": "Yig'moq, daromad (Income, obtain)\nOn: シュウ (shuu)\nKun: おさ-める (osa-meru)",
+        "romaji": "(shuu), - (osa-meru)",
+        "furigana": "シュウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "収入 (しゅうにゅう (Shuunyuu)): Daromad"
+      },
+      {
+        "id": "n3-k258",
+        "front": "支",
+        "back": "Qo'llab-quvvatlamoq, to'lov (Support, branch)\nOn: シ (shi)\nKun: ささ-える (sasa-eru)",
+        "romaji": "(shi), - (sasa-eru)",
+        "furigana": "シ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "支店 (してん (Shiten)): Filial"
+      },
+      {
+        "id": "n3-k259",
+        "front": "厚",
+        "back": "Qalin, samimiy (Thick, kind)\nOn: コウ (kou)\nKun: あつ-い (atsu-i)",
+        "romaji": "(kou), - (atsu-i)",
+        "furigana": "コウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "厚い (あつい (Atsui)): Qalin (kitob)"
+      },
+      {
+        "id": "n3-k260",
+        "front": "賛",
+        "back": "Maqullamoq, rozilik (Agree, praise)\nOn: サン (san)\nKun: -",
+        "romaji": "(san), -",
+        "furigana": "サン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "賛成 (さんせい (Sansei)): Rozilik"
+      },
+      {
+        "id": "n3-k261",
+        "front": "反",
+        "back": "Qarshi, teskari (Anti-, opposite)\nOn: ハン (han), ホン (hon)\nKun: そ-る (so-ru)",
+        "romaji": "(han),  (hon), - (so-ru)",
+        "furigana": "ハン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "反対 (はんたい (Hantai)): Qarshi"
+      },
+      {
+        "id": "n3-k262",
+        "front": "対",
+        "back": "Qarshi, juftlik (Versus, compare)\nOn: タイ (tai), ツイ (tsui)\nKun: -",
+        "romaji": "(tai),  (tsui), -",
+        "furigana": "タイ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "反対 (はんたい (Hantai)): Qarshilik"
+      },
+      {
+        "id": "n3-k263",
+        "front": "否",
+        "back": "Inkor, rad etish (Negate, decline)\nOn: ヒ (hi)\nKun: いな (ina)",
+        "romaji": "(hi),  (ina)",
+        "furigana": "ヒ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "否定 (ひてい (Hitei)): Inkor qilish"
+      },
+      {
+        "id": "n3-k264",
+        "front": "保",
+        "back": "Saqlamoq, kafolat (Keep, guarantee)\nOn: ホ (ho)\nKun: たも-つ (tamo-tsu)",
+        "romaji": "(ho), - (tamo-tsu)",
+        "furigana": "ホ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "保存 (ほぞん (Hozon)): Saqlash"
+      },
+      {
+        "id": "n3-k265",
+        "front": "留",
+        "back": "To'xtamoq, chetda o'qimoq (Detain, fasten)\nOn: リュウ (ryuu), ル (ru)\nKun: と-まる (to-maru)",
+        "romaji": "(ryuu),  (ru), - (to-maru)",
+        "furigana": "リュウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "留学 (りゅうがく (Ryuugaku)): Chet elda o'qish"
+      },
+      {
+        "id": "n3-k266",
+        "front": "判",
+        "back": "Hukm qilmoq, tamg'a (Judge, seal)\nOn: ハン (han), バン (ban)\nKun: -",
+        "romaji": "(han),  (ban), -",
+        "furigana": "ハン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "判断 (はんだん (Handan)): Hukm, qaror"
+      },
+      {
+        "id": "n3-k267",
+        "front": "断",
+        "back": "Rad etmoq, uzmoq, qaror (Refuse, sever)\nOn: ダン (dan)\nKun: ことわ-る (kotowa-ru), た-つ (ta-tsu)",
+        "romaji": "(dan), - (kotowa-ru), - (ta-tsu)",
+        "furigana": "ダン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "断る (ことわる (Kotowaru)): Rad qilmoq"
+      },
+      {
+        "id": "n3-k268",
+        "front": "確",
+        "back": "Aniq, ishonchli (Certain, sure)\nOn: カク (kaku)\nKun: たし-か (tashi-ka)",
+        "romaji": "(kaku), - (tashi-ka)",
+        "furigana": "カク",
+        "level": "N3",
+        "type": "kanji",
+        "example": "確認 (かくにん (Kakunin)): Tasdiqlash"
+      },
+      {
+        "id": "n3-k269",
+        "front": "認",
+        "back": "Tan olmoq, tasdiqlamoq (Recognize, approve)\nOn: ニン (nin)\nKun: みと-める (mito-meru)",
+        "romaji": "(nin), - (mito-meru)",
+        "furigana": "ニン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "認める (みとめる (Mitomeru)): Tan olmoq"
+      },
+      {
+        "id": "n3-k270",
+        "front": "報",
+        "back": "Xabar bermoq, hisobot (Report, inform)\nOn: ホウ (hou)\nKun: -",
+        "romaji": "(hou), -",
+        "furigana": "ホウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "報告 (ほうこく (Houkoku)): Hisobot"
+      },
+      {
+        "id": "n3-k271",
+        "front": "告",
+        "back": "Xabar qilmoq (Announce, tell)\nOn: コク (koku)\nKun: つ-げる (tsu-geru)",
+        "romaji": "(koku), - (tsu-geru)",
+        "furigana": "コク",
+        "level": "N3",
+        "type": "kanji",
+        "example": "報告 (ほうこく (Houkoku)): Hisobot"
+      },
+      {
+        "id": "n3-k272",
+        "front": "絡",
+        "back": "Aloqa qilmoq, bog'lanmoq (Entangle, connect)\nOn: ラク (raku)\nKun: から-む (kara-mu)",
+        "romaji": "(raku), - (kara-mu)",
+        "furigana": "ラク",
+        "level": "N3",
+        "type": "kanji",
+        "example": "連絡 (れんらく (Renraku)): Aloqa"
+      },
+      {
+        "id": "n3-k273",
+        "front": "相",
+        "back": "O'zaro, ko'rinish (Mutual, aspect)\nOn: ソウ (sou), ショウ (shou)\nKun: あい (ai)",
+        "romaji": "(sou),  (shou),  (ai)",
+        "furigana": "ソウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "相談 (そうだん (Soudan)): Maslahatlashish"
+      },
+      {
+        "id": "n3-k274",
+        "front": "談",
+        "back": "Suhbatlashmoq (Discuss, talk)\nOn: ダン (dan)\nKun: -",
+        "romaji": "(dan), -",
+        "furigana": "ダン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "相談 (そうだん (Soudan)): Maslahat"
+      },
+      {
+        "id": "n3-k275",
+        "front": "指",
+        "back": "Barmoq, ko'rsatmoq (Finger, point)\nOn: シ (shi)\nKun: ゆび (yubi), さ-す (sa-su)",
+        "romaji": "(shi),  (yubi), - (sa-su)",
+        "furigana": "シ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "指 (ゆび (Yubi)): Barmoq"
+      },
+      {
+        "id": "n3-k276",
+        "front": "示",
+        "back": "Ko'rsatmoq, namoyish (Show, display)\nOn: ジ (ji), シ (shi)\nKun: しめ-す (shime-su)",
+        "romaji": "(ji),  (shi), - (shime-su)",
+        "furigana": "ジ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "示す (しめす (Shimesu)): Ko'rsatmoq"
+      },
+      {
+        "id": "n3-k277",
+        "front": "最",
+        "back": "Eng, eng yuqori (Most, supreme)\nOn: サイ (sai)\nKun: もっと-も (motto-mo)",
+        "romaji": "(sai), - (motto-mo)",
+        "furigana": "サイ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "最近 (さいきん (Saikin)): Yaqinda"
+      },
+      {
+        "id": "n3-k278",
+        "front": "副",
+        "back": "O'rinbosar, qo'shimcha (Vice-, assistant)\nOn: フク (fuku)\nKun: -",
+        "romaji": "(fuku), -",
+        "furigana": "フク",
+        "level": "N3",
+        "type": "kanji",
+        "example": "副社長 (ふくしゃちょう (Fukushachou)): Vitse-prezident"
+      },
+      {
+        "id": "n3-k279",
+        "front": "管",
+        "back": "Quvur, boshqaruv (Pipe, manage)\nOn: カン (kan)\nKun: くだ (kuda)",
+        "romaji": "(kan),  (kuda)",
+        "furigana": "カン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "管理 (かんり (Kanri)): Boshqaruv, nazorat"
+      },
+      {
+        "id": "n3-k280",
+        "front": "現",
+        "back": "Hozirgi, paydo bo'lmoq (Present, appear)\nOn: ゲン (gen)\nKun: あらわ-れる (arawa-reru)",
+        "romaji": "(gen), - (arawa-reru)",
+        "furigana": "ゲン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "現在 (げんざい (Genzai)): Hozirgi payt"
+      },
+      {
+        "id": "n3-k281",
+        "front": "旧",
+        "back": "Eski, sobiq (Old, former)\nOn: キュウ (kyuu)\nKun: -",
+        "romaji": "(kyuu), -",
+        "furigana": "キュウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "旧姓 (きゅうせい (Kyuusei)): Qizlik familiyasi"
+      },
+      {
+        "id": "n3-k282",
+        "front": "昔",
+        "back": "Qadim zamon, o'tmish (Ancient times, past)\nOn: セキ (seki)\nKun: むかし (mukashi)",
+        "romaji": "(seki),  (mukashi)",
+        "furigana": "セキ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "昔 (むかし (Mukashi)): Qadimda"
+      },
+      {
+        "id": "n3-k283",
+        "front": "次",
+        "back": "Keyingi, navbatdagi (Next, order)\nOn: ジ (ji)\nKun: つぎ (tsugi)",
+        "romaji": "(ji),  (tsugi)",
+        "furigana": "ジ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "次 (つぎ (Tsugi)): Keyingi"
+      },
+      {
+        "id": "n3-k284",
+        "front": "億",
+        "back": "Yuz million (Hundred million)\nOn: オク (oku)\nKun: -",
+        "romaji": "(oku), -",
+        "furigana": "オク",
+        "level": "N3",
+        "type": "kanji",
+        "example": "一億 (いちおく (Ichioku)): 100 million"
+      },
+      {
+        "id": "n3-k285",
+        "front": "兆",
+        "back": "Trillion, alomat (Trillion, sign)\nOn: チョウ (chou)\nKun: きざ-し (kiza-shi)",
+        "romaji": "(chou), - (kiza-shi)",
+        "furigana": "チョウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "兆 (ちょう (Chou)): Trillion"
+      },
+      {
+        "id": "n3-k286",
+        "front": "費",
+        "back": "Xarajat qilmoq (Expense, cost)\nOn: ヒ (hi)\nKun: つい-やす (tsui-yasu)",
+        "romaji": "(hi), - (tsui-yasu)",
+        "furigana": "ヒ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "費用 (ひよう (Hiyou)): Xarajat"
+      },
+      {
+        "id": "n3-k287",
+        "front": "算",
+        "back": "Hisoblamoq (Calculate, count)\nOn: サン (san)\nKun: -",
+        "romaji": "(san), -",
+        "furigana": "サン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "計算 (けいさん (Keisan)): Hisoblash"
+      },
+      {
+        "id": "n3-k288",
+        "front": "供",
+        "back": "Taqdim etmoq, hamroh (Offer, companion)\nOn: キョウ (kyou)\nKun: そな-える (sona-eru), とも (tomo)",
+        "romaji": "(kyou), - (sona-eru),  (tomo)",
+        "furigana": "キョウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "子供 (こども (Kodomo)): Bola"
+      },
+      {
+        "id": "n3-k289",
+        "front": "農",
+        "back": "Qishloq xo'jaligi (Agriculture, farming)\nOn: ノウ (nou)\nKun: -",
+        "romaji": "(nou), -",
+        "furigana": "ノウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "農業 (のうぎょう (Nougyou)): Qishloq xo'jaligi"
+      },
+      {
+        "id": "n3-k290",
+        "front": "貿",
+        "back": "Tashqi savdo (Trade, exchange)\nOn: ボウ (bou)\nKun: -",
+        "romaji": "(bou), -",
+        "furigana": "ボウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "貿易 (ぼうえき (Boueki)): Tashqi savdo"
+      },
+      {
+        "id": "n3-k291",
+        "front": "商",
+        "back": "Tijorat, savdo (Commerce, merchant)\nOn: ショウ (shou)\nKun: あきな-う (akina-u)",
+        "romaji": "(shou), - (akina-u)",
+        "furigana": "ショウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "商業 (しょうぎょう (Shougyou)): Savdo sohasi"
+      },
+      {
+        "id": "n3-k292",
+        "front": "機",
+        "back": "Mashina, imkoniyat (Machine, opportunity)\nOn: キ (ki)\nKun: はた (hata)",
+        "romaji": "(ki),  (hata)",
+        "furigana": "キ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "機械 (きかい (Kikai)): Mashina, mexanizm"
+      },
+      {
+        "id": "n3-k293",
+        "front": "械",
+        "back": "Mexanizm, asbob (Apparatus, contraption)\nOn: カイ (kai)\nKun: -",
+        "romaji": "(kai), -",
+        "furigana": "カイ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "機械 (きかい (Kikai)): Mashina"
+      },
+      {
+        "id": "n3-k294",
+        "front": "危",
+        "back": "Xavfli (Dangerous)\nOn: キ (ki)\nKun: あぶ-ない (abu-nai), あや-うい (aya-ui)",
+        "romaji": "(ki), - (abu-nai), - (aya-ui)",
+        "furigana": "キ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "危険 (きけん (Kiken)): Xavfli"
+      },
+      {
+        "id": "n3-k295",
+        "front": "険",
+        "back": "Tik, xavfli (Precipitous, inaccessible)\nOn: ケン (ken)\nKun: けわ-しい (kewa-shii)",
+        "romaji": "(ken), - (kewa-shii)",
+        "furigana": "ケン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "危険 (きけん (Kiken)): Xavf"
+      },
+      {
+        "id": "n3-k296",
+        "front": "技",
+        "back": "Mahorat, texnika (Skill, art)\nOn: ギ (gi)\nKun: わざ (waza)",
+        "romaji": "(gi),  (waza)",
+        "furigana": "ギ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "技術 (ぎじゅつ (Gijutsu)): Texnologiya, mahorat"
+      },
+      {
+        "id": "n3-k297",
+        "front": "術",
+        "back": "San'at, usul (Art, technique)\nOn: ジュツ (jutsu)\nKun: -",
+        "romaji": "(jutsu), -",
+        "furigana": "ジュツ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "手術 (しゅじゅつ (Shujutsu)): Operatsiya"
+      },
+      {
+        "id": "n3-k298",
+        "front": "編",
+        "back": "To'qimoq, tahrir qilmoq (Knit, edit, compile)\nOn: ヘン (hen)\nKun: あ-む (a-mu)",
+        "romaji": "(hen), - (a-mu)",
+        "furigana": "ヘン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "編む (あむ (Amu)): To'qimoq"
+      },
+      {
+        "id": "n3-k299",
+        "front": "綿",
+        "back": "Paxta (Cotton)\nOn: メン (men)\nKun: わた (wata)",
+        "romaji": "(men),  (wata)",
+        "furigana": "メン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "木綿 (もめん (Momen)): Paxta mato"
+      },
+      {
+        "id": "n3-k300",
+        "front": "布",
+        "back": "Mato, yoymoq (Cloth, spread)\nOn: フ (fu)\nKun: ぬの (nuno)",
+        "romaji": "(fu),  (nuno)",
+        "furigana": "フ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "布 (ぬの (Nuno)): Mato"
+      },
+      {
+        "id": "n3-k301",
+        "front": "皮",
+        "back": "Teri, po'stloq (Skin, hide, leather)\nOn: ヒ (hi)\nKun: かわ (kawa)",
+        "romaji": "(hi),  (kawa)",
+        "furigana": "ヒ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "毛皮 (けがわ (Kegawa)): Mo'yna"
+      },
+      {
+        "id": "n3-k302",
+        "front": "貧",
+        "back": "Kambag'al (Poor, poverty)\nOn: ヒン (hin), ビン (bin)\nKun: まず-しい (mazu-shii)",
+        "romaji": "(hin),  (bin), - (mazu-shii)",
+        "furigana": "ヒン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "貧しい (まずしい (Mazushii)): Kambag'al"
+      },
+      {
+        "id": "n3-k303",
+        "front": "富",
+        "back": "Boylik, mo'l-ko'l (Rich, wealth)\nOn: フ (fu), フウ (fuu)\nKun: と-む (to-mu), とみ (tomi)",
+        "romaji": "(fu),  (fuu), - (to-mu),  (tomi)",
+        "furigana": "フ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "富士山 (ふじさん (Fujisan)): Fudzi tog'i"
+      },
+      {
+        "id": "n3-k304",
+        "front": "豊",
+        "back": "Mo'l, boy (Abundant, rich)\nOn: ホウ (hou)\nKun: ゆた-か (yuta-ka)",
+        "romaji": "(hou), - (yuta-ka)",
+        "furigana": "ホウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "豊かな (ゆたかな (Yutakana)): Boy, to'kin"
+      },
+      {
+        "id": "n3-k305",
+        "front": "等",
+        "back": "Teng, va hokazo (Equal, etc.)\nOn: トウ (tou)\nKun: ひと-しい (hito-shii)",
+        "romaji": "(tou), - (hito-shii)",
+        "furigana": "トウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "平等 (びょうどう (Byoudou)): Tenglik"
+      },
+      {
+        "id": "n3-k306",
+        "front": "法",
+        "back": "Qonun, usul (Law, method)\nOn: ホウ (hou)\nKun: -",
+        "romaji": "(hou), -",
+        "furigana": "ホウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "法律 (ほうりつ (Houritsu)): Qonun"
+      },
+      {
+        "id": "n3-k307",
+        "front": "律",
+        "back": "Tartib, qonun (Rhythm, law)\nOn: リツ (ritsu)\nKun: -",
+        "romaji": "(ritsu), -",
+        "furigana": "リツ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "法律 (ほうりつ (Houritsu)): Qonun"
+      },
+      {
+        "id": "n3-k308",
+        "front": "規",
+        "back": "Qoida, standart (Standard, measure)\nOn: キ (ki)\nKun: -",
+        "romaji": "(ki), -",
+        "furigana": "キ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "規則 (きそく (Kisoku)): Qoida"
+      },
+      {
+        "id": "n3-k309",
+        "front": "則",
+        "back": "Qoida, qonuniyat (Rule, follow)\nOn: ソク (soku)\nKun: -",
+        "romaji": "(soku), -",
+        "furigana": "ソク",
+        "level": "N3",
+        "type": "kanji",
+        "example": "規則 (きそく (Kisoku)): Qoida"
+      },
+      {
+        "id": "n3-k310",
+        "front": "禁",
+        "back": "Taqiq (Prohibition, ban)\nOn: キン (kin)\nKun: -",
+        "romaji": "(kin), -",
+        "furigana": "キン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "禁止 (きんし (Kinshi)): Taqiqlash"
+      },
+      {
+        "id": "n3-k311",
+        "front": "許",
+        "back": "Ruxsat bermoq, kechirmoq (Permit, forgive)\nOn: キョ (kyo)\nKun: ゆる-す (yuru-su)",
+        "romaji": "(kyo), - (yuru-su)",
+        "furigana": "キョ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "許可 (きょか (Kyoka)): Ruxsat"
+      },
+      {
+        "id": "n3-k312",
+        "front": "件",
+        "back": "Ish, masala, voqea (Case, matter)\nOn: ケン (ken)\nKun: -",
+        "romaji": "(ken), -",
+        "furigana": "ケン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "事件 (じけん (Jiken)): Hodisa, jinoyat"
+      },
+      {
+        "id": "n3-k313",
+        "front": "犯",
+        "back": "Jinoyat sodir etmoq (Crime, offend)\nOn: ハン (han)\nKun: おか-す (oka-su)",
+        "romaji": "(han), - (oka-su)",
+        "furigana": "ハン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "犯罪 (はんざい (Hanzai)): Jinoyat"
+      },
+      {
+        "id": "n3-k314",
+        "front": "罪",
+        "back": "Gunoh, ayb (Guilt, sin, offense)\nOn: ザイ (zai)\nKun: つみ (tsumi)",
+        "romaji": "(zai),  (tsumi)",
+        "furigana": "ザイ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "犯罪 (はんざい (Hanzai)): Jinoyat"
+      },
+      {
+        "id": "n3-k315",
+        "front": "容",
+        "back": "Ichidagilar, shakl (Contain, form)\nOn: ヨウ (you)\nKun: -",
+        "romaji": "(you), -",
+        "furigana": "ヨウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "内容 (ないよう (Naiyou)): Mazmun"
+      },
+      {
+        "id": "n3-k316",
+        "front": "疑",
+        "back": "Shubha qilmoq (Doubt, suspect)\nOn: ギ (gi)\nKun: うたが-う (utaga-u)",
+        "romaji": "(gi), - (utaga-u)",
+        "furigana": "ギ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "疑う (うたがう (Utagau)): Shubhalanmoq"
+      },
+      {
+        "id": "n3-k317",
+        "front": "争",
+        "back": "Kurashmoq, bahslashmoq (Conflict, dispute)\nOn: ソウ (sou)\nKun: あらそ-う (araso-u)",
+        "romaji": "(sou), - (araso-u)",
+        "furigana": "ソウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "戦争 (せんそう (Sensou)): Urush"
+      },
+      {
+        "id": "n3-k318",
+        "front": "敗",
+        "back": "Mag'lubiyat (Failure, defeat)\nOn: ハイ (hai)\nKun: やぶ-れる (yabu-reru)",
+        "romaji": "(hai), - (yabu-reru)",
+        "furigana": "ハイ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "失敗 (しっぱい (Shippai)): Omadsizlik"
+      },
+      {
+        "id": "n3-k319",
+        "front": "兵",
+        "back": "Askar (Soldier, army)\nOn: ヘイ (hei), ヒョウ (hyou)\nKun: -",
+        "romaji": "(hei),  (hyou), -",
+        "furigana": "ヘイ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "兵士 (へいし (Heishi)): Askar"
+      },
+      {
+        "id": "n3-k320",
+        "front": "軍",
+        "back": "Armiya, qo'shin (Army, military)\nOn: グン (gun)\nKun: -",
+        "romaji": "(gun), -",
+        "furigana": "グン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "軍隊 (ぐんたい (Guntai)): Armiya"
+      },
+      {
+        "id": "n3-k321",
+        "front": "役",
+        "back": "Rol, xizmat (Role, duty)\nOn: ヤク (yaku), エキ (eki)\nKun: -",
+        "romaji": "(yaku),  (eki), -",
+        "furigana": "ヤク",
+        "level": "N3",
+        "type": "kanji",
+        "example": "役所 (やくしょ (Yakusho)): Davlat idorasi"
+      },
+      {
+        "id": "n3-k322",
+        "front": "臣",
+        "back": "Vazir, xizmatkor (Minister, retainer)\nOn: シン (shin), ジン (jin)\nKun: -",
+        "romaji": "(shin),  (jin), -",
+        "furigana": "シン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "首相 (しゅしょう (Shushou)): Bosh vazir"
+      },
+      {
+        "id": "n3-k323",
+        "front": "郵",
+        "back": "Pochta (Mail, stage)\nOn: ユウ (yuu)\nKun: -",
+        "romaji": "(yuu), -",
+        "furigana": "ユウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "郵便局 (ゆうびんきょく (Yuubinkyoku)): Pochta bo'limi"
+      },
+      {
+        "id": "n3-k324",
+        "front": "越",
+        "back": "Oshib o'tmoq, ko'chmoq (Surpass, cross over)\nOn: エツ (etsu)\nKun: こ-す (ko-su), こ-える (ko-eru)",
+        "romaji": "(etsu), - (ko-su), - (ko-eru)",
+        "furigana": "エツ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "引っ越す (ひっこす (Hikkosu)): Ko'chib o'tmoq"
+      },
+      {
+        "id": "n3-k325",
+        "front": "違",
+        "back": "Farqlanmoq, xato (Differ, violate)\nOn: イ (i)\nKun: ちが-う (chiga-u), ちが-える (chiga-eru)",
+        "romaji": "(i), - (chiga-u), - (chiga-eru)",
+        "furigana": "イ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "違う (ちがう (Chigau)): Boshqacha, noto'g'ri"
+      },
+      {
+        "id": "n3-k326",
+        "front": "境",
+        "back": "Chegara, atrof (Boundary, border)\nOn: キョウ (kyou), ケイ (kei)\nKun: さかい (sakai)",
+        "romaji": "(kyou),  (kei),  (sakai)",
+        "furigana": "キョウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "環境 (かんきょう (Kankyou)): Atrof-muhit"
+      },
+      {
+        "id": "n3-k327",
+        "front": "責",
+        "back": "Mas'uliyat, ayblamoq (Blame, duty)\nOn: セキ (seki)\nKun: せ-める (se-meru)",
+        "romaji": "(seki), - (se-meru)",
+        "furigana": "セキ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "責任 (せきにん (Sekinin)): Mas'uliyat"
+      },
+      {
+        "id": "n3-k328",
+        "front": "含",
+        "back": "O'z ichiga olmoq (Include, contain)\nOn: ガン (gan)\nKun: ふく-む (fuku-mu), ふく-める (fuku-meru)",
+        "romaji": "(gan), - (fuku-mu), - (fuku-meru)",
+        "furigana": "ガン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "含む (ふくむ (Fukumu)): O'z ichiga olmoq"
+      },
+      {
+        "id": "n3-k329",
+        "front": "況",
+        "back": "Vaziyat, holat (Condition, situation)\nOn: キョウ (kyou)\nKun: -",
+        "romaji": "(kyou), -",
+        "furigana": "キョウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "状況 (じょうきょう (Joukyou)): Vaziyat, sharoit"
+      },
+      {
+        "id": "n3-k330",
+        "front": "武",
+        "back": "Jangovar, harbiy (Military, martial)\nOn: ブ (bu), ム (mu)\nKun: -",
+        "romaji": "(bu),  (mu), -",
+        "furigana": "ブ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "武器 (ぶき (Buki)): Qurol"
+      },
+      {
+        "id": "n3-k331",
+        "front": "資",
+        "back": "Mablag', resurs (Capital, funds, resources)\nOn: シ (shi)\nKun: -",
+        "romaji": "(shi), -",
+        "furigana": "シ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "資料 (しりょう (Shiryou)): Ma'lumotlar, materiallar"
+      },
+      {
+        "id": "n3-k332",
+        "front": "基",
+        "back": "Asos, poydevor (Foundation, basis)\nOn: キ (ki)\nKun: もと (moto), もとい (motoi)",
+        "romaji": "(ki),  (moto),  (motoi)",
+        "furigana": "キ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "基本 (きほん (Kihon)): Asos, baza"
+      },
+      {
+        "id": "n3-k333",
+        "front": "因",
+        "back": "Sabab, bog'liq bo'lmoq (Cause, depend on)\nOn: イン (in)\nKun: よ-る (yo-ru)",
+        "romaji": "(in), - (yo-ru)",
+        "furigana": "イン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "原因 (げんいん (Gen-in)): Sabab"
+      },
+      {
+        "id": "n3-k334",
+        "front": "訪",
+        "back": "Tashrif buyurmoq (Visit)\nOn: ホウ (hou)\nKun: おとず-れる (otozu-reru), たず-ねる (tazu-neru)",
+        "romaji": "(hou), - (otozu-reru), - (tazu-neru)",
+        "furigana": "ホウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "訪問 (ほうもん (Houmon)): Tashrif"
+      },
+      {
+        "id": "n3-k335",
+        "front": "防",
+        "back": "Oldini olmoq, mudofaa (Prevent, defend)\nOn: ボウ (bou)\nKun: ふせ-ぐ (fuse-gu)",
+        "romaji": "(bou), - (fuse-gu)",
+        "furigana": "ボウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "防ぐ (ふせぐ (Fusegu)): Oldini olmoq"
+      },
+      {
+        "id": "n3-k336",
+        "front": "限",
+        "back": "Chegara, cheklov (Limit, restrict)\nOn: ゲン (gen)\nKun: かぎ-る (kagi-ru)",
+        "romaji": "(gen), - (kagi-ru)",
+        "furigana": "ゲン",
+        "level": "N3",
+        "type": "kanji",
+        "example": "限界 (げんかい (Genkai)): Chegara, so'nggi nuqta"
+      },
+      {
+        "id": "n3-k337",
+        "front": "製",
+        "back": "Ishlab chiqarish (Manufacture, made in)\nOn: セイ (sei)\nKun: -",
+        "romaji": "(sei), -",
+        "furigana": "セイ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "製品 (せいひん (Seihin)): Tayyor mahsulot"
+      }
+    ]
+  },
+  {
+    "id": "jlpt-n3-grammar",
+    "title": "📜 JLPT N3 Master Grammar (文法 115)",
+    "description": "JLPT N3 darajasining 115 ta asosiy grammatik qoidalari va namunaviy jumlalari",
+    "level": "N3",
+    "icon": "Book",
+    "cards": [
+      {
+        "id": "n3-g1",
+        "front": "〜うちに (uchi ni)",
+        "back": "fursat borida / ... bo'layotganida sezmay\nTuzilishi: Fe'l (Lug'at/Nai) / Sifat / Ot + の + うちに",
+        "romaji": "uchi ni",
+        "level": "N3",
+        "type": "grammar",
+        "example": "若[わか]いうちにいろいろな経験[けいけん]をしなさい。 (Wakai uchi ni iroiro na keiken wo shinasai.) — Yoshlik fursati borida ko'p tajriba orttir."
+      },
+      {
+        "id": "n3-g2",
+        "front": "〜際（に） (sai ni)",
+        "back": "... paytida / ... bo'lganda (Rasmiy)\nTuzilishi: Fe'l (Lug'at/Ta) / Ot + の + 際（に）",
+        "romaji": "sai ni",
+        "level": "N3",
+        "type": "grammar",
+        "example": "お降[お]りの際[さい]は足元[あしもと]にご注意[ちゅうい]ください。 (Oori no sai wa ashimoto ni gochuui kudasai.) — Poyezddan tushayotganda oyog'ingiz ostiga ehtiyot bo'ling."
+      },
+      {
+        "id": "n3-g3",
+        "front": "〜たとたん（に） (ta totan ni)",
+        "back": "... qilgan zahotiyoq (Kutilmagan harakat)\nTuzilishi: Fe'l (Ta-form) + とたん（に）",
+        "romaji": "ta totan ni",
+        "level": "N3",
+        "type": "grammar",
+        "example": "窓[まど]を開[あ]けたとたん、強[つよ]い風[かぜ]が入[はい]ってきた。 (Mado wo aketa totan, tsuyoi kaze ga haitte kita.) — Oynani ochgan zahotim kuchli shamol kirib keldi."
+      },
+      {
+        "id": "n3-g4",
+        "front": "〜かと思うと (ka to omou to)",
+        "back": "...-di hamki, ketidanoq ...\nTuzilishi: Fe'l (Ta-form) + かと思うと / かと思ったら",
+        "romaji": "ka to omou to",
+        "level": "N3",
+        "type": "grammar",
+        "example": "空[そら]が暗[くら]くなったかと思うと、雨[あめ]が降[ふ]り出[だ]した。 (Sora ga kuraku natta ka to omou to, ame ga furidashita.) — Osmon qorong'ulashdi hamki, yomg'ir yog'a boshladi."
+      },
+      {
+        "id": "n3-g5",
+        "front": "〜か〜ないかのうちに (ka ... nai ka no uchi ni)",
+        "back": "... tugadimi-yo'qmi ketidanoq\nTuzilishi: Fe'l (Lug'at) + か + Fe'l (Nai) + かのうちに",
+        "romaji": "ka ... nai ka no uchi ni",
+        "level": "N3",
+        "type": "grammar",
+        "example": "授業[じゅぎょう]が終わ[お]わるか終わらないかのうちに教室[きょうしつ]を出[で]た。 (Jugyou ga owaru ka owaranai ka no uchi ni kyoushitsu wo deta.) — Dars tugadimi-yo'qmi xonadan chiqib ketdim."
+      },
+      {
+        "id": "n3-g6",
+        "front": "〜最中に (saichuu ni)",
+        "back": "... ayni qizg'in pallasida\nTuzilishi: Fe'l (Te-iru) / Ot + の + 最中に",
+        "romaji": "saichuu ni",
+        "level": "N3",
+        "type": "grammar",
+        "example": "会議[かいぎ]の最中[さいちゅう]に携帯[けいたい]が鳴[な]った。 (Kaigi no saichuu ni keitai ga natta.) — Majlisning ayni pallasida telefon jiringladi."
+      },
+      {
+        "id": "n3-g7",
+        "front": "〜ばかりだ・〜一方だ (bakari da / ippou da)",
+        "back": "faqat ... tomonga o'zgarib boryapti (Salbiy/Surunkali)\nTuzilishi: Fe'l (Lug'at shakli) + ばかりだ / 一方だ",
+        "romaji": "bakari da / ippou da",
+        "level": "N3",
+        "type": "grammar",
+        "example": "物価[ぶっか]は上[あ]がる一方[いっぽう]だ。 (Bukka wa agaru ippou da.) — Narx-navo faqat ko'tarilib boryapti."
+      },
+      {
+        "id": "n3-g8",
+        "front": "〜（よう）としている ((you) to shite iru)",
+        "back": "ayni ... qilish arafasida / ... qilmoqchi bo'lyapti\nTuzilishi: Fe'l (Iroda shakli) + としている",
+        "romaji": "(you) to shite iru",
+        "level": "N3",
+        "type": "grammar",
+        "example": "太陽[たいよう]が沈[しず]もうとしている。 (Taiyou ga shizumou to shite iru.) — Quyosh botay boryapti."
+      },
+      {
+        "id": "n3-g9",
+        "front": "〜つつある (tsutsu aru)",
+        "back": "... borgan sari rivojlanmoqda (Rasmiy jarayon)\nTuzilishi: Fe'l (Masu-ildiz) + つつある",
+        "romaji": "tsutsu aru",
+        "level": "N3",
+        "type": "grammar",
+        "example": "景気[けいき]は回復[かいふく]しつつある。 (Keiki wa kaifuku shitsutsu aru.) — Iqtisodiyot qayta tiklanib bormoqda."
+      },
+      {
+        "id": "n3-g10",
+        "front": "〜つつ (tsutsu)",
+        "back": "... qilgan holda / ... qila turib (Bir vaqtda)\nTuzilishi: Fe'l (Masu-ildiz) + つつ",
+        "romaji": "tsutsu",
+        "level": "N3",
+        "type": "grammar",
+        "example": "将来[しょうらい]の事[こと]を考[かんが]えつつ進路[しんろ]を決[き]める。 (Shourai no koto wo kangaetsutsu shinro wo kimeru.) — Kelajakni o'ylagan holda yo'nalishni tanlayman."
+      },
+      {
+        "id": "n3-g11",
+        "front": "〜てはじめて (te hajimete)",
+        "back": "... qilgandan keyingina (Tushunib yetmoq)\nTuzilishi: Fe'l (Te-form) + はじめて",
+        "romaji": "te hajimete",
+        "level": "N3",
+        "type": "grammar",
+        "example": "病気[びょうき]になってはじめて健康[けんこう]の有難[ありがた]さを知[し]った。 (Byouki ni natte hajimete kenkou no arigatasa wo shitta.) — Kasal bo'lgachgina sog'liqning qadrini bildim."
+      },
+      {
+        "id": "n3-g12",
+        "front": "〜上で (ue de)",
+        "back": "... qilgandan so'nggina / ... asosida\nTuzilishi: Fe'l (Ta-form) / Ot + の + 上で",
+        "romaji": "ue de",
+        "level": "N3",
+        "type": "grammar",
+        "example": "家族[かぞく]と相談[そうだん]した上で決[き]めます。 (Kazoku to soudan shita ue de kimemasu.) — Oila bilan maslahatlashgach qaror qilaman."
+      },
+      {
+        "id": "n3-g13",
+        "front": "〜次第 (shidai)",
+        "back": "... bo'lishi bilanoq (Kelasi zamonda)\nTuzilishi: Fe'l (Masu-ildiz) / Ot + 次第",
+        "romaji": "shidai",
+        "level": "N3",
+        "type": "grammar",
+        "example": "着[つ]き次第[しだい]、連絡[れんらく]します。 (Tsuki shidai, renraku shimasu.) — Etib borishim bilanoq bog'lanaman."
+      },
+      {
+        "id": "n3-g14",
+        "front": "〜以来 (irai)",
+        "back": "... berli / ... vaqtdan beri uzluksiz\nTuzilishi: Fe'l (Te-form) / Ot + 以来",
+        "romaji": "irai",
+        "level": "N3",
+        "type": "grammar",
+        "example": "日本[にほん]に来[き]て以来[いらい]、毎日[まいにち]日本語[にほんご]を勉強[べんきょう]している。 (Nihon ni kite irai, mainichi Nihongo wo benkyou shite iru.) — Yaponiyaga kelganimdan beri har kuni dars qilyapman."
+      },
+      {
+        "id": "n3-g15",
+        "front": "〜てからでないと (te kara de nai to)",
+        "back": "... qilmagunimcha ... qila olmayman\nTuzilishi: Fe'l (Te-form) + からでないと / からでなければ",
+        "romaji": "te kara de nai to",
+        "level": "N3",
+        "type": "grammar",
+        "example": "許可[きょか]をもらってからでないと入[はい]れない。 (Kyoka wo moratte kara de nai to hairenai.) — Ruxsat olmagunimcha kira olmayman."
+      },
+      {
+        "id": "n3-g16",
+        "front": "〜をはじめ（として） (wo hajime to shite)",
+        "back": "...-ni boshda tutgan holda / ... boshchiligida\nTuzilishi: Ot + をはじめ / をはじめとする + Ot",
+        "romaji": "wo hajime to shite",
+        "level": "N3",
+        "type": "grammar",
+        "example": "社長[しゃちょう]をはじめ、全社員[ぜんしゃいん]が参加[さんか]した。 (Shachou wo hajime, zenshaiin ga sanka shita.) — Prezident boshchiligida barcha xodimlar qatnashdi."
+      },
+      {
+        "id": "n3-g17",
+        "front": "〜から〜にかけて (kara ... ni kakete)",
+        "back": "...-dan ...-gacha (Taxminiy qamrov)\nTuzilishi: Ot1 + から + Ot2 + にかけて",
+        "romaji": "kara ... ni kakete",
+        "level": "N3",
+        "type": "grammar",
+        "example": "昨夜[さくや]から今朝[けさ]にかけて大雨[おおあめ]が降[ふ]った。 (Sakuya kara kesa ni kakete ookame ga futta.) — Kechadan ertalabgacha kuchli yomg'ir yog'di."
+      },
+      {
+        "id": "n3-g18",
+        "front": "〜にわたって (ni watatte)",
+        "back": "... bo'yi / ... davomida keng qamrovda\nTuzilishi: Ot + にわたって / にわたる + Ot",
+        "romaji": "ni watatte",
+        "level": "N3",
+        "type": "grammar",
+        "example": "3時間[さんじかん]にわたって議論[ぎろん]が続[つづ]いた。 (San-jikan ni watatte giron ga tsudukita.) — 3 soat davomida bahs-munozara davom etdi."
+      },
+      {
+        "id": "n3-g19",
+        "front": "〜を通じて・〜を通して (wo tsuujite / wo tooshite)",
+        "back": "... orqali / ... vositasida / ... bo'yi\nTuzilishi: Ot + を通じて / を通して",
+        "romaji": "wo tsuujite / wo tooshite",
+        "level": "N3",
+        "type": "grammar",
+        "example": "友人[ゆうじん]を通じて彼[かれ]と知[し]り合[あ]った。 (Yuujin wo tsuujite kare to shiriatta.) — Do'stim orqali u bilan tanishdim."
+      },
+      {
+        "id": "n3-g20",
+        "front": "〜に限る (ni kagiru)",
+        "back": "... eng yaxshisi! / ...-dan zori yo'q\nTuzilishi: Fe'l (Lug'at) / Ot + に限る",
+        "romaji": "ni kagiru",
+        "level": "N3",
+        "type": "grammar",
+        "example": "暑[あつ]い日[ひ]は冷[つめ]たいアイスを食[た]べるに限[かぎ]る。 (Atsui hi wa tsumetai aisu wo taberu ni kagiru.) — Issiq kunda muzqaymoq yeyishga tengi yo'q."
+      },
+      {
+        "id": "n3-g21",
+        "front": "〜に限って (ni kagitte)",
+        "back": "aynan ... kuni / aynan shu insonga kelganda\nTuzilishi: Ot + に限って",
+        "romaji": "ni kagitte",
+        "level": "N3",
+        "type": "grammar",
+        "example": "傘[かさ]を持[も]っていない日[ひ]に限[かぎ]って雨[あめ]が降[ふ]る。 (Kasa wo motte inai hi ni kagitte ame ga kuru.) — Aynan soyabonim yo'q kunda yomg'ir yog'adi."
+      },
+      {
+        "id": "n3-g22",
+        "front": "〜において・〜における (ni oite / ni okeru)",
+        "back": "...-da / ... joyida (Rasmiy voqea o'rni)\nTuzilishi: Ot + において / における + Ot",
+        "romaji": "ni oite",
+        "level": "N3",
+        "type": "grammar",
+        "example": "東京[とうきょう]においてオリンピックが開催[かいさい]された。 (Toukyou ni oite orinpikku ga kaisai sareta.) — Tokioda Olimpiada o'tkazildi."
+      },
+      {
+        "id": "n3-g23",
+        "front": "〜に基づいて (ni motodsuite)",
+        "back": "... asosida / ...-ga tayanib\nTuzilishi: Ot + に基づいて / に基づく + Ot",
+        "romaji": "ni motodsuite",
+        "level": "N3",
+        "type": "grammar",
+        "example": "調査[ちょうさ]結果[けっか]に基づいて報告[ほうこく]書[しょ]を作成[さくせい]する。 (Chousa kekka ni motodsuite houkokusho wo sakusei suru.) — Tadqiqot natijalari asosida hisobot tuziladi."
+      },
+      {
+        "id": "n3-g24",
+        "front": "〜のもとで・〜のもとに (no moto de)",
+        "back": "... rahbarligida / ... soyasida\nTuzilishi: Ot + のもとで / のもとに",
+        "romaji": "no moto de",
+        "level": "N3",
+        "type": "grammar",
+        "example": "素晴[すば]らしい先生[せんせい]のもとで勉強[べんきょう]できて幸[さいわ]いだ。 (Subarashii sensei no moto de benkyou dekite saiwai da.) — Ajoyib ustoz qo'lida tahsil olganimdan baxtiyorman."
+      },
+      {
+        "id": "n3-g25",
+        "front": "〜をめぐって (wo megutte)",
+        "back": "... atrofida / ... ustida bahslashish\nTuzilishi: Ot + をめぐって / をめぐる + Ot",
+        "romaji": "wo megutte",
+        "level": "N3",
+        "type": "grammar",
+        "example": "遺産[いさん]をめぐって親族[しんぞく]が争[あらそ]っている。 (Isan wo megutte shinzoku ga arasotte iru.) — Meros ustida qarindoshlar tortishmoqda."
+      },
+      {
+        "id": "n3-g26",
+        "front": "〜わけだ (wake da)",
+        "back": "demak ... bo'lganligi mantiqiy xulosa\nTuzilishi: Fe'l/Sifat/Ot (Plain) + わけだ",
+        "romaji": "wake da",
+        "level": "N3",
+        "type": "grammar",
+        "example": "寒[さむ]いわけだ。雪[ゆき]が降[ふ]っている。 (Samui wake da. Yuki ga futte iru.) — Demak shuning uchun sovuq ekan. Qor yog'yapti."
+      },
+      {
+        "id": "n3-g27",
+        "front": "〜わけがない (wake ga nai)",
+        "back": "bo'lishi umuman mumkin emas\nTuzilishi: Fe'l/Sifat/Ot + わけがない",
+        "romaji": "wake ga nai",
+        "level": "N3",
+        "type": "grammar",
+        "example": "彼[かれ]がそんな悪口[わるくち]を言[い]うわけがない。 (Kare ga sonna warukuchi wo iu wake ga nai.) — U kishi bunday yomon gapi berishi mumkin emas."
+      },
+      {
+        "id": "n3-g28",
+        "front": "〜わけではない (wake de wa nai)",
+        "back": "... degani emas (Qisman inkor)\nTuzilishi: Fe'l/Sifat/Ot + わけではない",
+        "romaji": "wake de wa nai",
+        "level": "N3",
+        "type": "grammar",
+        "example": "嫌[きら]いなわけではないが、食[た]べたくない。 (Kirai na wake de wa nai ga, tabetakunai.) — Yomon ko'raman degani emas, shunchaki yegim yo'q."
+      },
+      {
+        "id": "n3-g29",
+        "front": "〜わけにはいかない (wake ni wa ikanai)",
+        "back": "axloq / vijdon yo'l qo'ymaydi\nTuzilishi: Fe'l (Lug'at/Nai) + わけにはいかない",
+        "romaji": "wake ni wa ikanai",
+        "level": "N3",
+        "type": "grammar",
+        "example": "大切[たいせつ]な会議[かいぎ]だから休[やす]むわけにはいかない。 (Taisetsu na kaigi dakara yasumu wake ni wa ikanai.) — Muhim majlis bo'lgani uchun qolishimga haqqim yo'q."
+      },
+      {
+        "id": "n3-g30",
+        "front": "〜かいがあって (kai ga atte)",
+        "back": "harakat qilganimga arziydigan natija bo'ldi\nTuzilishi: Fe'l (Ta) / Ot + の + かいがあって",
+        "romaji": "kai ga atte",
+        "level": "N3",
+        "type": "grammar",
+        "example": "努力[どりょく]したかいがあって、試験[しけん]に合格[ごうかく]した。 (Doryoku shita kai ga atte, shiken ni goukaku shita.) — Harakat qilganimga arziydi, imtihondan o'tdim."
+      },
+      {
+        "id": "n3-g31",
+        "front": "〜かいもなく (kai mo naku)",
+        "back": "shuncha harakat qilganimga qaramay (Afsus)\nTuzilishi: Fe'l (Ta) / Ot + の + かいもなく",
+        "romaji": "kai mo naku",
+        "level": "N3",
+        "type": "grammar",
+        "example": "手術[しゅじゅつ]のかいもなく、愛犬[あいけん]が死[し]んでしまった。 (Shujutsu no kai mo naku, aiken ga shinde shimatta.) — Operatsiya qilinganiga qaramay, itim o'lib qoldi."
+      },
+      {
+        "id": "n3-g32",
+        "front": "〜がい (gai)",
+        "back": "... qilish maroqli / munosib\nTuzilishi: Fe'l (Masu-ildiz) + がい",
+        "romaji": "gai",
+        "level": "N3",
+        "type": "grammar",
+        "example": "やりがいのある仕事[しごと]を探[さが]している。 (Yarigai no aru shigoto wo sagashite iru.) — Bajarish maroqli bo'lgan ish izlayapman."
+      },
+      {
+        "id": "n3-g33",
+        "front": "〜てまで (te made)",
+        "back": "hatto ... darajagacha borib (Haddan tashqari)\nTuzilishi: Fe'l (Te-form) + まで / までして",
+        "romaji": "te made",
+        "level": "N3",
+        "type": "grammar",
+        "example": "借金[しゃっきん]をしてまで高[たか]い車[くるま]を買[か]いたくない。 (Shakkin wo shite made takai kuruma wo kaitakunai.) — Qarz olib bo'lsa ham qimmat mashina olgim yo'q."
+      },
+      {
+        "id": "n3-g34",
+        "front": "〜切る・〜切れる (kiru / kireru)",
+        "back": "to'liq va oxirigacha yetkazmoq\nTuzilishi: Fe'l (Masu-ildiz) + 切る",
+        "romaji": "kiru / kireru",
+        "level": "N3",
+        "type": "grammar",
+        "example": "長[なが]いマラソンを走[はし]り切[き]った。 (Nagai marason wo hashirikirtta.) — Uzun marafonni oxirigacha yugurib o'tdim."
+      },
+      {
+        "id": "n3-g35",
+        "front": "〜切れない (kirenai)",
+        "back": "oxirigacha yetkaza olmaslik / ko'pligidan ulgurmaslik\nTuzilishi: Fe'l (Masu-ildiz) + 切れない",
+        "romaji": "kirenai",
+        "level": "N3",
+        "type": "grammar",
+        "example": "ご飯[はん]が多[おお]すぎて食[た]べきれない。 (Gohan ga oosugite tabekirenai.) — Ovqat juda ko'pligidan oxirigacha yeyolmayman."
+      },
+      {
+        "id": "n3-g36",
+        "front": "〜抜く (nuku)",
+        "back": "barcha qiyinchiliklarga chidab oxirigacha yetkazmoq\nTuzilishi: Fe'l (Masu-ildiz) + 抜く",
+        "romaji": "nuku",
+        "level": "N3",
+        "type": "grammar",
+        "example": "最後[さいご]まで戦[たたか]い抜[ぬ]く。 (Saigo made tatakainuku.) — Oxirgi minutgacha qiyinchilikka chidab kurashaman."
+      },
+      {
+        "id": "n3-g37",
+        "front": "〜得る・〜得ない (eru / enai)",
+        "back": "... bo'lishi mantiqan mumkin / imkonsiz\nTuzilishi: Fe me'yoriy Masu-ildiz + 得る / 得ない",
+        "romaji": "eru / enai",
+        "level": "N3",
+        "type": "grammar",
+        "example": "事故[じこ]はいつでも起[お]こり得る。 (Jiko wa itsudemo okorieru.) — Avariya har qanday vaqtda sodir bo'lishi mumkin."
+      },
+      {
+        "id": "n3-g38",
+        "front": "〜かねる (kaneru)",
+        "back": "... qilishga ojizman / rad etish (Xushmuomala)\nTuzilishi: Fe'l (Masu-ildiz) + かねる",
+        "romaji": "kaneru",
+        "level": "N3",
+        "type": "grammar",
+        "example": "その質問[しつもん]にはお答[こた]えしかねます。 (Sono shitsumon ni wa okotaeshikanemasu.) — Ushbu savolga javob bera olmayman."
+      },
+      {
+        "id": "n3-g39",
+        "front": "〜かねない (kanenai)",
+        "back": "... kabi yomon xavf bo'lishi mumkin\nTuzilishi: Fe'l (Masu-ildiz) + かねない",
+        "romaji": "kanenai",
+        "level": "N3",
+        "type": "grammar",
+        "example": "このままでは事故[じこ]が起[お]こりかねない。 (Kono mama de wa jiko ga okorikanenai.) — Bunday ketaversa avariya sodir bo'lishi xavfi bor."
+      },
+      {
+        "id": "n3-g40",
+        "front": "〜に決まっている (ni kimatte iru)",
+        "back": "shubhasiz ... bo'ladi / aniq-ku!\nTuzilishi: Fe'l/Sifat/Ot + に決まっている",
+        "romaji": "ni kimatte iru",
+        "level": "N3",
+        "type": "grammar",
+        "example": "彼[かれ]が勝[か]つに決[き]まっている。 (Kare ga katsu ni kimatte iru.) — U g'olib bo'lishi aniq-ku!"
+      },
+      {
+        "id": "n3-g41",
+        "front": "〜に相違ない (ni souinai)",
+        "back": "hech qanday shubha yo'q (Rasmiy)\nTuzilishi: Fe'l/Sifat/Ot + に相違ない",
+        "romaji": "ni souinai",
+        "level": "N3",
+        "type": "grammar",
+        "example": "犯人[はんにん]は彼[かれ]に相違[そうい]ない。 (Hannin wa kare ni souinai.) — Jinoyatchi u ekanligiga shubha yo'q."
+      },
+      {
+        "id": "n3-g42",
+        "front": "〜に違いない (ni chigai nai)",
+        "back": "aniq ... bo'lsa kerak\nTuzilishi: Fe'l/Sifat/Ot + に違いない",
+        "romaji": "ni chigai nai",
+        "level": "N3",
+        "type": "grammar",
+        "example": "彼[かれ]が努力[どりょく]したから合格[ごうかく]したに違[ちが]いない。 (Kare ga doryoku shita kara goukaku shita ni chigai nai.) — U harakat qilgani uchun imtihondan o'tganiga shubha yo'q."
+      },
+      {
+        "id": "n3-g43",
+        "front": "〜はずだ (hazu da)",
+        "back": "... bo me'yoriy kutilma bo'yicha shunday bo'lishi kerak\nTuzilishi: Fe'l/Sifat/Ot + はずだ",
+        "romaji": "hazu da",
+        "level": "N3",
+        "type": "grammar",
+        "example": "彼[かれ]はもう着[つ]いたはずだ。 (Kare wa mou tsuita hazu da.) — U allaqachon yetib kelgan bo'lishi kerak."
+      },
+      {
+        "id": "n3-g44",
+        "front": "〜っこない (kkonai)",
+        "back": "umuman bajarib bo'lmaydi (Ogzaki inkor)\nTuzilishi: Fe'l (Masu-ildiz) + っこない",
+        "romaji": "kkonai",
+        "level": "N3",
+        "type": "grammar",
+        "example": "一日[いちにち]でこの本[ほん]を全部[ぜんぶ]読[よ]めっこない。 (Ichinichi de kono hon wo zenbu yomekkonai.) — Bir kunda bu kitobni o'qib tugatib bo'lmaydi."
+      },
+      {
+        "id": "n3-g45",
+        "front": "〜てたまらない (te tamaranai)",
+        "back": "...-likdan chidab bo'lmayapti (Jismoniy/Ruhiy)\nTuzilishi: Fe'l/Sifat (Te-form) + たまらない",
+        "romaji": "te tamaranai",
+        "level": "N3",
+        "type": "grammar",
+        "example": "国[くに]の家族[かぞく]に会[あ]いたくてたまらない。 (Kuni no kazoku ni aitakute tamaranai.) — Vatanimdagilarni ko'rgim kelib chiday olmayapman."
+      },
+      {
+        "id": "n3-g46",
+        "front": "〜てしょうがない (te shouganai)",
+        "back": "...-ligidan ilojim yo'q / juda ham\nTuzilishi: Fe'l/Sifat (Te-form) + しょうがない / 仕方がない",
+        "romaji": "te shouganai",
+        "level": "N3",
+        "type": "grammar",
+        "example": "寂[さび]しくてしょうがない。 (Sabishikute shouganai.) — Juda ham yolg'izlanib qoldim."
+      },
+      {
+        "id": "n3-g47",
+        "front": "〜てならない (te naranai)",
+        "back": "ich-ichimdan ... his qilyapman (Tabiiy his)\nTuzilishi: Fe'l/Sifat (Te-form) + ならない",
+        "romaji": "te naranai",
+        "level": "N3",
+        "type": "grammar",
+        "example": "合格[ごうかく]できるか心配[しんぱい]でならない。 (Goukaku dekiru ka shinpai de naranai.) — O'ta olamanmi-yo'qmi juda xavotirdaman."
+      },
+      {
+        "id": "n3-g48",
+        "front": "〜おかげで (okage de)",
+        "back": "... tufayli / sharofati bilan (Ijobiy natija va minnatdorlik)\nTuzilishi: Fe'l/Sifat (Oddiy shakl) + おかげで / Ot + の + おかげで",
+        "romaji": "okage de",
+        "level": "N3",
+        "type": "grammar",
+        "example": "先生[せんせい]のおかげで、JLPT N3に合格[ごうかく]できました。 (Sensei no okage de, JLPT N3 ni goukaku dekimashita.) — Ustozim sharofati bilan JLPT N3 imtihonidan o'ta oldim."
+      },
+      {
+        "id": "n3-g49",
+        "front": "〜せいで (sei de)",
+        "back": "... sababli / orqasidan (Salbiy oqibat va ayblash)\nTuzilishi: Fe'l/Sifat (Oddiy shakl) + せいで / Ot + の + せいで",
+        "romaji": "sei de",
+        "level": "N3",
+        "type": "grammar",
+        "example": "台風[たいふう]のせいで、電車[でんしゃ]が止[と]まってしまいました。 (Taifuu no sei de, densha ga tomatte shimaimashita.) — To'fon kasofatiga poyezd to'xtab qoldi."
+      },
+      {
+        "id": "n3-g50",
+        "front": "〜わりに（は） (wari ni wa)",
+        "back": "...-ga nisbatan kutilmaganda / qaramasdan\nTuzilishi: Fe'l/Sifat (Oddiy) + わりに / Ot + の + わりに",
+        "romaji": "wari ni (wa)",
+        "level": "N3",
+        "type": "grammar",
+        "example": "このレストランは、値段[ねだん]が安[やす]いわりにとても美味しいです。 (Kono resutoran wa, nedan ga yasui wari ni totemo oishii desu.) — Bu restoran narxi arzonligiga nisbatan juda mazali."
+      },
+      {
+        "id": "n3-g51",
+        "front": "〜くせに (kuse ni)",
+        "back": "... bo'la turib / mensimaslik yoki tanqid\nTuzilishi: Fe'l/Sifat (Oddiy) + くせに / な-Sifat + な + くせに / Ot + の + くせに",
+        "romaji": "kuse ni",
+        "level": "N3",
+        "type": "grammar",
+        "example": "何[なに]も知[し]らないくせに、偉[えら]そうに話[はな]さないでください。 (Nani mo shiranai kuse ni, erasou ni hanasanaide kudasai.) — Hech narsani bilmay turib, o'zingizcha katta gapirmang."
+      },
+      {
+        "id": "n3-g52",
+        "front": "〜に対して (ni taishite)",
+        "back": "...-ga nisbatan / qarama-qarshi o'laroq\nTuzilishi: Ot + に対して / Fe'l (Oddiy) + のに対して",
+        "romaji": "ni taishite",
+        "level": "N3",
+        "type": "grammar",
+        "example": "お客様[きゃくさま]に対[たい]して、丁寧[ていねい]な言葉[ことば]を使[つか]います。 (Okyaku-sama ni taishite, teinei na kotoba wo tsukaimasu.) — Mijozlarga nisbatan xushmuomala so'zlarni ishlatamiz."
+      },
+      {
+        "id": "n3-g53",
+        "front": "〜に比べて (ni kurabete)",
+        "back": "...-ga taqqoslaganda / solishtirganda\nTuzilishi: Ot + に比べて",
+        "romaji": "ni kurabete",
+        "level": "N3",
+        "type": "grammar",
+        "example": "東京[とうきょう]は、田舎[いなか]に比[くら]べて物価[ぶっか]が高[たか]いです。 (Toukyou wa, inaka ni kurabete bukka ga takai desu.) — Tokio qishloqqa nisbatan solishtirganda narxlari qimmat."
+      },
+      {
+        "id": "n3-g54",
+        "front": "〜反面 (hanmen)",
+        "back": "boshqa tomondan qaraganda / biroq ayni paytda\nTuzilishi: Fe'l/Sifat (Oddiy) + 反面 / な-Sifat + な/である + 反面",
+        "romaji": "hanmen",
+        "level": "N3",
+        "type": "grammar",
+        "example": "都会[とかい]の生活[せいかつ]は便利[べんり]な反面[はんめん]、ストレスも多[おお]い。 (Tokai no seikatsu wa benri na hanmen, sutoresu mo ooi.) — Katta shahar hayoti qulay bo'lishi bilan birga, stress ham ko'p."
+      },
+      {
+        "id": "n3-g55",
+        "front": "〜一方で (ippou de)",
+        "back": "bir tomondan ... bo'lsa, boshqa tomondan esa ...\nTuzilishi: Fe'l/Sifat (Oddiy) + 一方で / Ot + である + 一方で",
+        "romaji": "ippou de",
+        "level": "N3",
+        "type": "grammar",
+        "example": "仕事[しごと]が忙[いそが]しい一方[いっぽう]で、勉強[べんきょう]の時間[じかん]も作[つく]っています。 (Shigoto ga isogashii ippou de, benkyou no jikan mo tsukutte imasu.) — Ish band bo'lishiga qaramay, bir vaqtning o'zida o'qishga ham vaqt ajratyapman."
+      },
+      {
+        "id": "n3-g56",
+        "front": "〜を中心に (wo chuushin ni)",
+        "back": "...-ni markazga qo'ygan holda / asosan ... atrofida\nTuzilishi: Ot + を中心に / を中心として",
+        "romaji": "wo chuushin ni",
+        "level": "N3",
+        "type": "grammar",
+        "example": "文法[ぶんぽう]を中心[ちゅうしん]に、日本語[にほんご]の勉強[べんきょう]を進[すす]めています。 (Bunpou wo chuushin ni, nihongo no benkyou wo susumete imasu.) — Grammatikani asosiy markazga qo'yib, yapon tilini o'rganmoqdaman."
+      },
+      {
+        "id": "n3-g57",
+        "front": "〜を込めて (wo komete)",
+        "back": "...-ni singdirib / mehr yoki samimiyat bilan to'ldirib\nTuzilishi: Ot (Hissiyot) + を込めて",
+        "romaji": "wo komete",
+        "level": "N3",
+        "type": "grammar",
+        "example": "感謝[かんしゃ]の気持[きも]ちを込[こ]めて、手紙[てがみ]を書[か]きました。 (Kansha no kimochi wo komete, tegami wo kakimashita.) — Minnatdorchilik tuyg'usini singdirib xat yozdim."
+      },
+      {
+        "id": "n3-g58",
+        "front": "〜をもとに（して） (wo moto ni shite)",
+        "back": "... asosida / ...-dan andoza yoki xomashyo qilib\nTuzilishi: Ot + をもとに / をもとにして",
+        "romaji": "wo moto ni (shite)",
+        "level": "N3",
+        "type": "grammar",
+        "example": "この映画[えいが]は、実話[じつわ]をもとにして作[つく]られました。 (Kono eiga wa, jitsuwa wo moto ni shite tsukuraremashita.) — Ushbu film hayotiy real voqea asosida suratga olingan."
+      },
+      {
+        "id": "n3-g59",
+        "front": "〜向け / 〜向き (muke / muki)",
+        "back": "...-ga mo'ljallangan (muke) / ...-ga juda mos (muki)\nTuzilishi: Ot + 向け / 向き",
+        "romaji": "muke / muki",
+        "level": "N3",
+        "type": "grammar",
+        "example": "これは、子供[こども]向[む]けに書[か]かれた日本語[にほんご]の本[ほん]です。 (Kore wa, kodomo muke ni kakareta nihongo no hon desu.) — Bu bolalarga mo'ljallab yozilgan yapon tili kitobi."
+      },
+      {
+        "id": "n3-g60",
+        "front": "〜を問わず (wo towazu)",
+        "back": "...-dan qat'iy nazar / farqsiz (yosh, jins, millat)\nTuzilishi: Ot + を問わず",
+        "romaji": "wo towazu",
+        "level": "N3",
+        "type": "grammar",
+        "example": "年齢[ねんれい]や経験[けいけん]を問[と]わず、誰[だれ]でも応募[おうぼ]できます。 (Nenrei ya keiken wo towazu, dare demo oubo dekimasu.) — Yoshi va tajribasidan qat'iy nazar, har kim ariza topshira oladi."
+      },
+      {
+        "id": "n3-g61",
+        "front": "〜にかかわらず (ni kakawarazu)",
+        "back": "...-ga qaramasdan / bog'liq bo'lmagan holda\nTuzilishi: Ot + にかかわらず / Fe'l (Lug'at + ない) + にかかわらず",
+        "romaji": "ni kakawarazu",
+        "level": "N3",
+        "type": "grammar",
+        "example": "天気[てんき]にかかわらず、明日[あした]は試合[しあい]を行[おこな]います。 (Tenki ni kakawarazu, ashita wa shiai wo okonaimasu.) — Ob-havoga qaramasdan, ertaga musobaqa o'tkaziladi."
+      },
+      {
+        "id": "n3-g62",
+        "front": "〜だらけ (darake)",
+        "back": "...-ga to'la (Salbiy narsalar: xato, loy, qarz)\nTuzilishi: Ot + だらけ",
+        "romaji": "darake",
+        "level": "N3",
+        "type": "grammar",
+        "example": "この作文[さくぶん]は、間違[まちが]いだらけです。 (Kono sakubun wa, machigai darake desu.) — Bu insho xatolarga to'lib ketgan."
+      },
+      {
+        "id": "n3-g63",
+        "front": "〜気味 (gimi)",
+        "back": "biroz ... alomati bor / moyillik (shamollash, charchoq)\nTuzilishi: Fe'l (ます o'zagi) + 気味 / Ot + 気味",
+        "romaji": "gimi",
+        "level": "N3",
+        "type": "grammar",
+        "example": "昨日[きのう]から風邪[かぜ]気味[ぎみ]で、喉[のど]が痛[いた]いです。 (Kinou kara kaze gimi de, nodo ga itai desu.) — Kechadan beri biroz shamollash alomati sezilib, tomog'im og'riyapti."
+      },
+      {
+        "id": "n3-g64",
+        "front": "〜っぽい (ppoi)",
+        "back": "...-ga o'xshash / ...-dek sifatga ega / moyil (bolalarcha, tez achchiqlanuvchi)\nTuzilishi: Fe'l (ます o'zagi) / Ot / い-Sifat (い tushadi) + っぽい",
+        "romaji": "ppoi",
+        "level": "N3",
+        "type": "grammar",
+        "example": "彼[かれ]はもう大人[おとな]なのに、子供[こども]っぽい行動[こうどう]をする。 (Kare wa mou otona na no ni, kodomoppoi koudou wo suru.) — U katta odam bo'lishiga qaramay, bolalarcha harakat qiladi."
+      },
+      {
+        "id": "n3-g65",
+        "front": "〜がち (gachi)",
+        "back": "tez-tez shunday bo'lib turadi / odatlanmoq (Salbiy tendensiya)\nTuzilishi: Fe'l (ます o'zagi) + がち / Ot + がち",
+        "romaji": "gachi",
+        "level": "N3",
+        "type": "grammar",
+        "example": "一人[ひとり]暮[ぐ]らしの時[とき]は、野菜[やさい]が不足[ふそく]しがちです。 (Hitori gurashi no toki wa, yasai ga fusoku shigachi desu.) — Yakka yashaganda ko'pincha sabzavotlar yetishmovchiligi ro'y beradi."
+      },
+      {
+        "id": "n3-g66",
+        "front": "〜かける / 〜かけの (kakeru / kake no)",
+        "back": "... qilishni boshlab, chala qoldirmoq\nTuzilishi: Fe'l (ます o'zagi) + かける / かけの + Ot",
+        "romaji": "kakeru / kake no",
+        "level": "N3",
+        "type": "grammar",
+        "example": "テーブルの上[うえ]に、食[た]べかけのパンが置[お]いてある。 (Teeburu no ue ni, tabekake no pan ga oite aru.) — Stol ustida yeb chala qoldirilgan non turibdi."
+      },
+      {
+        "id": "n3-g67",
+        "front": "〜たて (tate)",
+        "back": "yangi ... qilingan / pishgan (Yangi tayyorlangan sifat)\nTuzilishi: Fe'l (ます o'zagi) + たて / たての + Ot",
+        "romaji": "tate",
+        "level": "N3",
+        "type": "grammar",
+        "example": "焼[や]きたてのパンは、とても香[かお]りがいいです。 (Yakitate no pan wa, totemo kaori ga ii desu.) — Yangi tandirdan chiqqan issiq nonning hidi juda xushbo'y."
+      },
+      {
+        "id": "n3-g68",
+        "front": "〜さえ〜ば (sae ... ba)",
+        "back": "faqat ... bo'lsa kifoya / bas (Yagona yetarli shart)\nTuzilishi: Ot + さえ + Fe'l (Shart shakli / ば)",
+        "romaji": "sae ... ba",
+        "level": "N3",
+        "type": "grammar",
+        "example": "薬[くすり]を飲[の]みさえすれば、すぐに治[なお]ります。 (Kusuri wo nomi sae sureba, sugu ni naorimasu.) — Dori ichsangiz bo'ldi, darhol tuzalib ketasiz."
+      },
+      {
+        "id": "n3-g69",
+        "front": "〜こそ (koso)",
+        "back": "aynan / shubhasiz (Qat'iy ta'kidlash)\nTuzilishi: Ot + こそ / から + こそ",
+        "romaji": "koso",
+        "level": "N3",
+        "type": "grammar",
+        "example": "今年[ことし]こそ、JLPT N3に合格[ごうかく]してみせる！ (Kotoshi koso, JLPT N3 ni goukaku shite miseru!) — Aynan shu yil albatta JLPT N3 dan o'taman!"
+      },
+      {
+        "id": "n3-g70",
+        "front": "〜くらいなら (kurai nara)",
+        "back": "...-qilgandan ko'ra yaxshiroq (Undan ko'ra afzal)\nTuzilishi: Fe'l (Lug'at shakli) + くらいなら",
+        "romaji": "kurai nara",
+        "level": "N3",
+        "type": "grammar",
+        "example": "途中で諦[あきら]めるくらいなら、最初[さいしょ]からやらない方[ほう]がいい。 (Tochuu de akirameru kurai nara, saisho kara yaranai hou ga ii.) — Yarim yo'lda taslim bo'lgandan ko'ra, boshidan boshlamagan afzal."
+      },
+      {
+        "id": "n3-g71",
+        "front": "〜に限らず (ni kagirazu)",
+        "back": "nafaqat ... balki barcha / keng doirada\nTuzilishi: Ot + に限らず",
+        "romaji": "ni kagirazu",
+        "level": "N3",
+        "type": "grammar",
+        "example": "若者[わかもの]に限[かぎ]らず、高齢者[こうれいしゃ]もスマホを使[つか]っている。 (Wakamono ni kagirazu, koureisha mo sumaho wo tsukatte iru.) — Nafaqat yoshlar, balki keksalar ham smartfon ishlatmoqdalar."
+      },
+      {
+        "id": "n3-g72",
+        "front": "〜のみならず (nomi narazu)",
+        "back": "nafaqat ... balki (Rasmiy / Yozma shakl)\nTuzilishi: Ot / Fe'l (Oddiy) + のみならず",
+        "romaji": "nomi narazu",
+        "level": "N3",
+        "type": "grammar",
+        "example": "彼[かれ]は英語[えいご]のみならず、日本語[にほんご]も流暢[りゅうちょう]に話[はな]す。 (Kare wa eigo nomi narazu, nihongo mo ryuuchou ni hanasu.) — U nafaqat ingliz tilini, balki yapon tilini ham ravon gapiradi."
+      },
+      {
+        "id": "n3-g73",
+        "front": "〜ばかりか / 〜ばかりでなく (bakari ka / bakari denaku)",
+        "back": "faqatgina ... emas, uning ustiga yana boshqa narsa ham\nTuzilishi: Fe'l/Sifat (Oddiy) + ばかりか / Ot + ばかりか",
+        "romaji": "bakari ka / bakari denaku",
+        "level": "N3",
+        "type": "grammar",
+        "example": "彼[かれ]は漢字[かんじ]が書[か]けないばかりか、読[よ]むこともできない。 (Kare wa kanji ga kakenai bakari ka, yomu koto mo dekinai.) — U kanjini yoza olmaslik u yoqda tursin, hatto o'qiy ham olmaydi."
+      },
+      {
+        "id": "n3-g74",
+        "front": "〜上に (ue ni)",
+        "back": "uning ustiga / qo'shimchasiga (Shunga qo'shimcha ravishda)\nTuzilishi: Fe'l/Sifat (Oddiy) + 上に / な-Sifat + な + 上に / Ot + の + 上に",
+        "romaji": "ue ni",
+        "level": "N3",
+        "type": "grammar",
+        "example": "このアパートは駅[えき]から近[ちか]い上[うえ]に、家賃[やちん]も安[やす]いです。 (Kono apaato wa eki kara chikai ue ni, yachin mo yasui desu.) — Bu xonadon bekatga yaqin bo'lishi ustiga, ijara haqi ham arzon."
+      },
+      {
+        "id": "n3-g75",
+        "front": "〜につれて / 〜にしたがって (ni tsurete / ni shitagatte)",
+        "back": "... sari / mutanosib ravishda o'zgarib bormoq\nTuzilishi: Fe'l (Lug'at shakli) / Ot + につれて",
+        "romaji": "ni tsurete / ni shitagatte",
+        "level": "N3",
+        "type": "grammar",
+        "example": "時間[じかん]が経[た]つにつれて、緊張[きんちょう]がほぐれてきた。 (Jikan ga tatsu ni tsurete, kinchou ga hogurete kita.) — Vaqt o'tishi sari hayajon ham tarqala boshladi."
+      },
+      {
+        "id": "n3-g76",
+        "front": "〜とともに (to tomo ni)",
+        "back": "... bilan birgalikda / ... bilan bir vaqtda\nTuzilishi: Ot / Fe'l (Lug'at shakli) + とともに",
+        "romaji": "to tomo ni",
+        "level": "N3",
+        "type": "grammar",
+        "example": "家族[かぞく]とともに、新[あたら]しい年[とし]を迎[むか]えました。 (Kazoku to tomo ni, atarashii toshi wo mukaemashita.) — Oila a'zolarim bilan birgalikda yangi yilni kutib oldim."
+      },
+      {
+        "id": "n3-g77",
+        "front": "〜に応じて (ni oujite)",
+        "back": "...-ga mos ravishda / qarab (daraja, xohish, byudjet)\nTuzilishi: Ot + に応じて / に応じた + Ot",
+        "romaji": "ni oujite",
+        "level": "N3",
+        "type": "grammar",
+        "example": "レベルに応[おう]じて、クラスが分[わ]かれます。 (Reberu ni oujite, kurasu ga wakaremasu.) — Bilim darajasiga mos ravishda guruhlarga bo'linadi."
+      },
+      {
+        "id": "n3-g78",
+        "front": "〜末に (sue ni)",
+        "back": "uzoq ...-dan so'ng (Natijada qaror qabul qilmoq)\nTuzilishi: Fe'l (た shakli) + 末に / Ot + の + 末に",
+        "romaji": "sue ni",
+        "level": "N3",
+        "type": "grammar",
+        "example": "悩[なや]んだ末[すえ]に、会社[かいしゃ]を辞[や]めて留学[りゅうがく]することを決[き]めました。 (Nayanda sue ni, kaisha wo yamete ryuugaku suru koto wo kimemashita.) — Uzoq o'ylanishlar oxirida, ishdan ketib chet elda o'qishga qaror qildim."
+      },
+      {
+        "id": "n3-g79",
+        "front": "〜をきっかけに / 〜を契機に (wo kikkake ni / wo keiki ni)",
+        "back": "... sabab bo'lib / turtki bo'lib boshlanmoq\nTuzilishi: Ot + をきっかけに / を契機に",
+        "romaji": "wo kikkake ni / wo keiki ni",
+        "level": "N3",
+        "type": "grammar",
+        "example": "アニメを見[み]たのをきっかけに、日本語[にほんご]の勉強[べんきょう]を始[はじ]めました。 (Anime wo mita no wo kikkake ni, nihongo no benkyou wo hajimemashita.) — Anime ko'rganim turtki bo'lib, yapon tilini o'rganishni boshladim."
+      },
+      {
+        "id": "n3-g80",
+        "front": "〜たところ (ta tokoro)",
+        "back": "... qilib ko'rgan edimki, natijada ... bo'lib chiqdi\nTuzilishi: Fe'l (た shakli) + ところ",
+        "romaji": "ta tokoro",
+        "level": "N3",
+        "type": "grammar",
+        "example": "ホテルに電話[でんわ]してみたところ、まだ空[あ]き部屋[べや]がありました。 (Hoteru ni denwa shite mita tokoro, mada akibeya ga arimashita.) — Mehmonxonaga qo'ng'iroq qilib ko'rgan edimki, hali bo'sh xonalar bor ekan."
+      },
+      {
+        "id": "n3-g81",
+        "front": "〜どころではない (dokoro dewa nai)",
+        "back": "mavridi / vaqti emas / ilojsiz (Sharoit yo'l qo'ymaydi)\nTuzilishi: Fe'l (Lug'at shakli) / Ot + どころではない",
+        "romaji": "dokoro dewa nai",
+        "level": "N3",
+        "type": "grammar",
+        "example": "仕事[しごと]が忙[いそが]しくて、旅行[りょこう]どころではありません。 (Shigoto ga isogashikute, ryokou dokoro dewa arimasen.) — Ish ko'pligidan sayohatga chiqishning umuman mavridi emas."
+      },
+      {
+        "id": "n3-g82",
+        "front": "〜恐れがある (osore ga aru)",
+        "back": "... kabi xavf / xavotir mavjud (Salbiy hodisa ehtimoli)\nTuzilishi: Fe'l (Lug'at shakli) + 恐れがある / Ot + の + 恐れがある",
+        "romaji": "osore ga aru",
+        "level": "N3",
+        "type": "grammar",
+        "example": "大雨[おおあめ]のため、川[かわ]が氾濫[はんらん]する恐[おそ]れがあります。 (Ooame no tame, kawa ga hanran suru osore ga arimasu.) — Kuchli yomg'ir sababli daryo toshib ketish xavfi bor."
+      },
+      {
+        "id": "n3-g83",
+        "front": "〜にすぎない (ni suginai)",
+        "back": "...-dan boshqa narsa emas / bor-yo'g'i\nTuzilishi: Fe'l (Oddiy) / Ot + にすぎない",
+        "romaji": "ni suginai",
+        "level": "N3",
+        "type": "grammar",
+        "example": "私[わたし]は自分[じぶん]の意見[いけん]を言[い]ったにすぎません。 (Watashi wa jibun no iken wo itta ni sugimasen.) — Men bor-yo'g'i o'z shaxsiy fikrimni aytdim xolos."
+      },
+      {
+        "id": "n3-g84",
+        "front": "〜ざるを得ない (zaru wo enai)",
+        "back": "... qilishga majburman / boshqa ilojim yo'q\nTuzilishi: Fe'l (ない o'zagi: する➔せざる) + ざるを得ない",
+        "romaji": "zaru wo enai",
+        "level": "N3",
+        "type": "grammar",
+        "example": "台風[たいふう]が近[ちか]づいているので、旅行[りょこう]を中止[ちゅうし]せざるを得[え]ない。 (Taifuu ga chikazuite iru no de, ryokou wo chuushi sezaru wo enai.) — To'fon yaqinlashayotgani sababli sayohatni bekor qilishga majburmiz."
+      },
+      {
+        "id": "n3-g85",
+        "front": "〜べきだ / 〜べきではない (beki da / beki dewa nai)",
+        "back": "... qilish burch / lozim (Axloqiy qoida va maslahat)\nTuzilishi: Fe'l (Lug'at: する➔すべき) + べきだ",
+        "romaji": "beki da / beki dewa nai",
+        "level": "N3",
+        "type": "grammar",
+        "example": "約束[やくそく]は必[かなら]ず守[まも]るべきです。 (Yakusoku wa kanarazu mamoru beki desu.) — Va'dani albatta bajarish lozim."
+      },
+      {
+        "id": "n3-g86",
+        "front": "〜ことだ (koto da)",
+        "back": "... qilish kerak (To'g'ridan-to'g'ri kuchli do'stona maslahat)\nTuzilishi: Fe'l (Lug'at / ない shakli) + ことだ",
+        "romaji": "koto da",
+        "level": "N3",
+        "type": "grammar",
+        "example": "日本語[にほんご]が上手[じょうず]になりたければ、毎日[まいにち]話[はな]すことだ。 (Nihongo ga jouzu ni naritakereba, mainichi hanasu koto da.) — Yapon tilini yaxshi o'rganmoqchi bo'lsangiz, har kuni gapirish kerak."
+      },
+      {
+        "id": "n3-g87",
+        "front": "〜ものだ / 〜ものではない (mono da / mono dewa nai)",
+        "back": "... bo'lishi tabiiy / shunday qilish kerak emas (Hayotiy qonuniyat)\nTuzilishi: Fe'l (Lug'at shakli) + ものだ",
+        "romaji": "mono da / mono dewa nai",
+        "level": "N3",
+        "type": "grammar",
+        "example": "人[ひと]の悪口[わるぐち]は言[い]うものではない。 (Hito no waruguchi wa iu mono dewa nai.) — Birovning orqasidan g'iybat qilish to'g'ri emas."
+      },
+      {
+        "id": "n3-g88",
+        "front": "〜ようがない (you ga nai)",
+        "back": "bajarishning hech qanday iloji / chorasi yo'q\nTuzilishi: Fe'l (ます o'zagi) + ようがない",
+        "romaji": "you ga nai",
+        "level": "N3",
+        "type": "grammar",
+        "example": "連絡先[れんらくさき]を知[し]らないので、連絡[れんらく]のしようがない。 (Renrakusaki wo shiranai no de, renraku no shiyou ga nai.) — Bog'lanish raqamini bilmaganim uchun, aloqaga chiqishning hech iloji yo'q."
+      },
+      {
+        "id": "n3-g89",
+        "front": "〜かのようだ (ka no you da)",
+        "back": "xuddi ...-dek (O'xshatish)\nTuzilishi: Fe'l/Sifat (Oddiy) + かのようだ / Ot + である + かのようだ",
+        "romaji": "ka no you da",
+        "level": "N3",
+        "type": "grammar",
+        "example": "今日[きょう]は暖[あたた]かくて、まるで春[はる]が来[き]たかのようだ。 (Kyou wa atatakakute, marude haru ga kita ka no you da.) — Bugun shunday iliqki, xuddi bahor kelganga o'xshaydi."
+      },
+      {
+        "id": "n3-g90",
+        "front": "〜としたら / 〜とすれば (to shitara / to sureba)",
+        "back": "agar ... deb faraz qilsak / tasavvur qilsak\nTuzilishi: Oddiy shakl (Futsuukei) + としたら / とすれば",
+        "romaji": "to shitara / to sureba",
+        "level": "N3",
+        "type": "grammar",
+        "example": "もし1億円[おくえん]宝[たから]くじが当[あ]たったとしたら、何[なに]に使[つか]いますか。 (Moshi ichioku-en takarakuji ga atatta to shitara, nani ni tsukaimasu ka.) — Agar lotereyada 100 million iyena yutib olsangiz, nimaga ishlatardingiz?"
+      },
+      {
+        "id": "n3-g91",
+        "front": "〜に関して (ni kanshite)",
+        "back": "... haqida / ... doirasida (Rasmiy tahlil va izoh)\nTuzilishi: Ot + に関して / に関する + Ot",
+        "romaji": "ni kanshite",
+        "level": "N3",
+        "type": "grammar",
+        "example": "環境[かんきょう]問題[もんだい]に関[かん]して、レポートを書[か]きました。 (Kankyou mondai ni kanshite, repooto wo kakimashita.) — Atrof-muhit muammolari haqida hisobot yozdim."
+      },
+      {
+        "id": "n3-g92",
+        "front": "〜に応えて (ni kotaete)",
+        "back": "...-ning talab/orzu-istaklariga javoban\nTuzilishi: Ot (Talab / Umid) + に応えて",
+        "romaji": "ni kotaete",
+        "level": "N3",
+        "type": "grammar",
+        "example": "学生[がくせい]たちの要望[ようぼう]に応[こた]えて、自習室[じしゅうしつ]を開放[かいほう]しました。 (Gakusei-tachi no youbou ni kotaete, jishuushitsu wo kaihou shimashita.) — Talabalarning talablariga javoban mustaqil o'qish xonasi ochildi."
+      },
+      {
+        "id": "n3-g93",
+        "front": "〜に沿って (ni sotte)",
+        "back": "... yo'nalishi / qoidalari bo'ylab (Rejaga muvofiq)\nTuzilishi: Ot + に沿って / に沿った + Ot",
+        "romaji": "ni sotte",
+        "level": "N3",
+        "type": "grammar",
+        "example": "計画[けいかく]に沿[そ]って、準備[じゅんび]を進[すす]めてください。 (Keikaku ni sotte, junbi wo susumete kudasai.) — Rejaga muvofiq tayyorgarlikni olib boring."
+      },
+      {
+        "id": "n3-g94",
+        "front": "〜てごらん (te goran)",
+        "back": "...-qilib ko'r-chi (Do'stona/kattalar kichiklarga taklifi)\nTuzilishi: Fe'l (て shakli) + ごらん",
+        "romaji": "te goran",
+        "level": "N3",
+        "type": "grammar",
+        "example": "美味[おい]しいから、一口[ひとくち]食[た]べてごらん。 (Oishii kara, hitokuchi tabete goran.) — Juda mazali, bir luqma tatib ko'r-chi."
+      },
+      {
+        "id": "n3-g95",
+        "front": "〜ように言う / 頼む (you ni iu / tanomu)",
+        "back": "... qilishini aytmoq / iltimos qilish (Bilvosita buyruq)\nTuzilishi: Fe'l (Lug'at / ない shakli) + ように言う / 頼む / 伝える",
+        "romaji": "you ni iu / tanomu",
+        "level": "N3",
+        "type": "grammar",
+        "example": "先生[せんせい]に、宿題[しゅくだい]を明日[あした]出[だ]すように言[い]われました。 (Sensei ni, shukudai wo ashita dasu you ni iwaremashita.) — Ustoz menga uy vazifasini ertaga topshirishimni aytdi."
+      },
+      {
+        "id": "n3-g96",
+        "front": "〜ことになっている (koto ni natte iru)",
+        "back": "qoidaga ko'ra shunday belgilangan / kelishilgan\nTuzilishi: Fe'l (Lug'at / ない shakli) + ことになっている",
+        "romaji": "koto ni natte iru",
+        "level": "N3",
+        "type": "grammar",
+        "example": "この教室[きょうしつ]では、日本語[にほんご]だけで話[はな]すことになっています。 (Kono kyoushitsu dewa, nihongo dake de hanasu koto ni natte imasu.) — Ushbu darsxonada faqat yapon tilida gaplashish qoida qilib belgilangan."
+      },
+      {
+        "id": "n3-g97",
+        "front": "〜ことにしている (koto ni shite iru)",
+        "back": "o'zim shunday qilishni qat'iy odat qilib olganman\nTuzilishi: Fe'l (Lug'at / ない shakli) + ことにしている",
+        "romaji": "koto ni shite iru",
+        "level": "N3",
+        "type": "grammar",
+        "example": "健康[けんこう]のために、毎朝[まいあさ]30分[ぷん]走[はし]ることにしています。 (Kenkou no tame ni, maiasa sanjuppun hashiru koto ni shite imasu.) — Salomatlik uchun har tong 30 daqiqa yugurishni odat qilganman."
+      },
+      {
+        "id": "n3-g98",
+        "front": "〜ようにする (you ni suru)",
+        "back": "... qilishga harakat qilmoq / intilmoq\nTuzilishi: Fe'l (Lug'at / ない shakli) + ようにする / ようにしてください",
+        "romaji": "you ni suru",
+        "level": "N3",
+        "type": "grammar",
+        "example": "毎晩[まいばん]早[はや]く寝[ね]るようにしています。 (Maiban hayaku neru you ni shite imasu.) — Har kecha erta uxlashga harakat qilaman."
+      },
+      {
+        "id": "n3-g99",
+        "front": "〜ようになる (you ni naru)",
+        "back": "... qila oladigan bo'lmoq / yangi qobiliyat orttirmoq\nTuzilishi: Fe'l (Qobiliyat / Lug'at shakli) + ようになる",
+        "romaji": "you ni naru",
+        "level": "N3",
+        "type": "grammar",
+        "example": "毎日[まいにち]練習[れんしゅう]して、日本語[にほんご]の新聞[しんぶん]が読[よ]めるようになりました。 (Mainichi renshuu shite, nihongo no shinbun ga yomeru you ni narimashita.) — Har kuni shug'ullanib, yaponcha gazetalarni o'qiy oladigan bo'ldim."
+      },
+      {
+        "id": "n3-g100",
+        "front": "〜がる / 〜がっている (garu / gatte iru)",
+        "back": "uchinchi shaxsning hissiyoti yoki xohishi (U bormoqchi / xursand)\nTuzilishi: Sifat (い tushadi) + がる / Fe'l (たい tushadi) + たがる",
+        "romaji": "garu / gatte iru",
+        "level": "N3",
+        "type": "grammar",
+        "example": "妹[いもうと]は新[あたら]しいゲームを欲[ほ]しがっています。 (Imouto wa atarashii geemu wo hoshigatte imasu.) — Singlim yangi o'yinchoq olishni juda xohlayapti."
+      },
+      {
+        "id": "n3-g101",
+        "front": "〜たつもり / 〜つもりだった (ta tsumori / tsumori datta)",
+        "back": "... qilmoqchi edim, ammo o'xshamadi / qilgandek his qilmoq\nTuzilishi: Fe'l (た shakli) + つもり / Fe'l (Lug'at) + つもりだった",
+        "romaji": "ta tsumori / tsumori datta",
+        "level": "N3",
+        "type": "grammar",
+        "example": "鍵[かぎ]を閉[し]めたつもりだったのに、開[あ]いていました。 (Kagi wo shimeta tsumori datta no ni, aite imashita.) — Qulfni qulflagan edim deb o'ylagandim, lekin ochiq qolibdi."
+      },
+      {
+        "id": "n3-g102",
+        "front": "〜っぱなし (ppanashi)",
+        "back": "... holatda tashlab qo'yilgan (yoniq qolgan, qarovsiz qolgan)\nTuzilishi: Fe'l (ます o'zagi) + っぱなし",
+        "romaji": "ppanashi",
+        "level": "N3",
+        "type": "grammar",
+        "example": "テレビをつけっぱなしで寝[ね]てしまいました。 (Terebi wo tsukeppanashi de nete shimaimashita.) — Televizorni yoniq qoldirgancha uxlab qolibman."
+      },
+      {
+        "id": "n3-g103",
+        "front": "〜ふりをする (furi wo suru)",
+        "back": "o'zini ...dek ko'rsatmoq / qilib ko'rsatmoq\nTuzilishi: Fe'l/Sifat (Oddiy) + ふりをする / Ot + の + ふりをする",
+        "romaji": "furi wo suru",
+        "level": "N3",
+        "type": "grammar",
+        "example": "彼[かれ]は知[し]っているのに、知[し]らないふりをしました。 (Kare wa shitte iru no ni, shiranai furi wo shimashita.) — U bilsa ham, o'zini go'yo bilmaydigandek ko'rsatdi."
+      },
+      {
+        "id": "n3-g104",
+        "front": "〜かわりに (kawari ni)",
+        "back": "... o'rniga / evaziga\nTuzilishi: Fe'l (Lug'at shakli) + かわりに / Ot + の + かわりに",
+        "romaji": "kawari ni",
+        "level": "N3",
+        "type": "grammar",
+        "example": "映画[えいが]を見[み]に行くかわりに、家[いえ]でゆっくり本[ほん]を読[よ]みます。 (Eiga wo mi ni iku kawari ni, ie de yukkuri hon wo yomimasu.) — Kinoga borish o'rniga, uyda xotirjam kitob o'qiyman."
+      },
+      {
+        "id": "n3-g105",
+        "front": "〜に代わって / 〜に代わり (ni kawatte / ni kawari)",
+        "back": "... nomidan vakil bo'lib / o'rniga\nTuzilishi: Ot + に代わって",
+        "romaji": "ni kawatte / ni kawari",
+        "level": "N3",
+        "type": "grammar",
+        "example": "病気[びょうき]の父[ちち]に代[か]わって、私[わたし]が結婚式[けっこんしき]に出席[しゅっせき]しました。 (Byouki no chichi ni kawatte, watashi ga kekkonshiki ni shusseki shimashita.) — Betob otamning nomidan to'yga men qatnashdim."
+      },
+      {
+        "id": "n3-g106",
+        "front": "〜にとって (ni totte)",
+        "back": "... uchun / ... nuqtai nazaridan qaraganda\nTuzilishi: Ot (Shaxs / Tashkilot) + にとって",
+        "romaji": "ni totte",
+        "level": "N3",
+        "type": "grammar",
+        "example": "外国人[がいこくじん]にとって、漢字[かんじ]を覚[おぼ]えるのは大変[たいへん]です。 (Gaikokujin ni totte, kanji wo oboeru no wa taihen desu.) — Chet elliklar uchun kanjilarni yodlash oson emas."
+      },
+      {
+        "id": "n3-g107",
+        "front": "〜として (to shite)",
+        "back": "... sifatida / maqomida (Roli yoki sifati)\nTuzilishi: Ot + として / としての + Ot",
+        "romaji": "to shite",
+        "level": "N3",
+        "type": "grammar",
+        "example": "留学生[りゅうがくせい]として、日本[にほん]にやって来[き]ました。 (Ryuugakusei to shite, Nihon ni yatte kimashita.) — Chet ellik talaba sifatida Yaponiyaga keldim."
+      },
+      {
+        "id": "n3-g108",
+        "front": "〜によると (ni yoru to)",
+        "back": "...-ga ko'ra (Xabar manbasi: yangiliklar, ob-havo)\nTuzilishi: Ot + によると + 〜そうだ / 〜ということだ",
+        "romaji": "ni yoru to",
+        "level": "N3",
+        "type": "grammar",
+        "example": "天気[てんき]予報[よほう]によると、午後[ごご]から雨[あめ]が降[ふ]るそうです。 (Tenki yohou ni yoru to, gogo kara ame ga furu sou desu.) — Ob-havo ma'lumotiga ko'ra, tushdan keyin yomg'ir yog'ar ekan."
+      },
+      {
+        "id": "n3-g109",
+        "front": "〜ことはない (koto wa nai)",
+        "back": "... qilishga hojat / zarurat yo'q\nTuzilishi: Fe'l (Lug'at shakli) + ことはない",
+        "romaji": "koto wa nai",
+        "level": "N3",
+        "type": "grammar",
+        "example": "時間[じかん]はまだたっぷりあるから、急[いそ]ぐことはありません。 (Jikan wa mada tappuri aru kara, isogu koto wa arimasen.) — Vaqt hali yetarlicha bor, shoshilishga mutlaqo hojat yo'q."
+      },
+      {
+        "id": "n3-g110",
+        "front": "〜ことか (koto ka)",
+        "back": "qanchalar ham ...-a! / qanday ham maroqli!\nTuzilishi: どんなに / どれほど + Fe'l/Sifat + ことか",
+        "romaji": "koto ka",
+        "level": "N3",
+        "type": "grammar",
+        "example": "合格[ごうかく]の知[し]らせを聞[き]いた時、どんなに嬉[うれ]しかったことか！ (Goukaku no shirase wo kiita toki, donna ni ureshikatta koto ka!) — O'tganim haqidagi xabarni eshitganimda, qanchalik xursand bo'lgan edim-a!"
+      },
+      {
+        "id": "n3-g111",
+        "front": "〜たらどうですか (tara dou desu ka)",
+        "back": "... qilsangiz qanday bo'lardi? (Muloyim maslahat)\nTuzilishi: Fe'l (た shakli) + らどうですか",
+        "romaji": "tara dou desu ka",
+        "level": "N3",
+        "type": "grammar",
+        "example": "体調[たいちょう]が悪[わる]いなら、早[はや]く帰[かえ]って休[やす]んだらどうですか。 (Taichou ga warui nara, hayaku kaette yasundara dou desu ka.) — O'zingizni yomon his qilayotgan bo'lsangiz, uyga erta qaytib dam olsangiz qanday bo'lardi?"
+      },
+      {
+        "id": "n3-g112",
+        "front": "〜ながら（も） (nagara mo)",
+        "back": "... bo'lsa-da / qaramasdan (Qarama-qarshilik)\nTuzilishi: Fe'l (ます o'zagi) + ながら / い-Sifat, な-Sifat, Ot + ながら",
+        "romaji": "nagara (mo)",
+        "level": "N3",
+        "type": "grammar",
+        "example": "狭[せま]いながらも、自分[じぶん]の城[しろ]のような落[お]ち着[つ]く部屋[へや]です。 (Semai nagara mo, jibun no shiro no you na ochitsuku heya desu.) — Tor bo'lsa-da, xuddi o'z qasrimdek orombaxsh xona."
+      },
+      {
+        "id": "n3-g113",
+        "front": "〜ついでに (tsuide ni)",
+        "back": "... qilayotgan fursatdan foydalanib / yo'l-yo'lakay\nTuzilishi: Fe'l (Lug'at / た shakli) + ついでに / Ot + の + ついでに",
+        "romaji": "tsuide ni",
+        "level": "N3",
+        "type": "grammar",
+        "example": "散歩[さんぽ]のついでに、ポストに手紙[てがみ]を出[だ]してきました。 (Sanpo no tsuide ni, posuto ni tegami wo dashite kimashita.) — Sayr qilayotgan fursatdan foydalanib, pochtaga xat tashlab keldim."
+      },
+      {
+        "id": "n3-g114",
+        "front": "〜少しも〜ない (sukoshi mo ... nai)",
+        "back": "zarra ham / umuman ... emas (Kuchli inkor)\nTuzilishi: 少しも + Inkor Fe'l / Sifat",
+        "romaji": "sukoshi mo ... nai",
+        "level": "N3",
+        "type": "grammar",
+        "example": "彼[かれ]の言[い]うことは、少[すこ]しも理解[りかい]できません。 (Kare no iu koto wa, sukoshi mo rikai dekimasen.) — U aytayotgan gaplarni zarra ham tushuna olmayapman."
+      },
+      {
+        "id": "n3-g115",
+        "front": "〜しかない (shika nai - boshqa chora yo'q)",
+        "back": "... qilishdan o'zga chora yo'q / faqat shuni qilish qoldi\nTuzilishi: Fe'l (Lug'at shakli) + しかない",
+        "romaji": "shika nai (chora)",
+        "level": "N3",
+        "type": "grammar",
+        "example": "電車[でんしゃ]が止[と]まったので、歩[ある]いて行[い]くしかありません。 (Densha ga tomatta no de, aruite iku shika arimasen.) — Poyezd to'xtagani sababli piyoda borishdan boshqa chora yo'q."
       }
     ]
   }

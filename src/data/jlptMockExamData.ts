@@ -1084,3 +1084,590 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     },
   ],
 };
+
+// ==========================================
+// === N4 MOCK EXAM SET 2 (Supplementary) ===
+// ==========================================
+export const JLPT_N4_MOCK_SET_2: ExamQuestion[] = [
+  {
+    id: 226,
+    section: 'knowledge',
+    questionText: 'この町の（人口）は どのぐらいですか。',
+    options: ['にんこう', 'ひとくち', 'じんこう', 'いりぐち'],
+    correctAnswer: 2,
+    explanationUzbek:
+      "「人口」（aholi, odam soni）so'zining to'g'ri o'qilishi — じんこう (jinkou). 「人」bu yerda on'yomi 'jin' deb o'qiladi.",
+  },
+  {
+    id: 227,
+    section: 'knowledge',
+    questionText: '部屋が 暑いですね。エアコンを（　）。',
+    options: ['つけましょう', 'あけましょう', 'おしましょう', 'ひらきましょう'],
+    correctAnswer: 0,
+    explanationUzbek:
+      'Konditsioner yoki elektr jihozlarini yoqish — 「つける」(tsukeru). Taklif shaklida: つけましょう (yoqaylik).',
+  },
+  {
+    id: 228,
+    section: 'knowledge',
+    questionText: '黒いペン（　）名前を 書いてください。',
+    options: ['で', 'を', 'に', 'が'],
+    correctAnswer: 0,
+    explanationUzbek:
+      "Harakatni bajarish vositasi yoki qurolini ifodalashda 'で' (de) yuklamasi qo'yiladi: 黒いペンで (qora ruchka bilan).",
+  },
+  {
+    id: 229,
+    section: 'knowledge',
+    questionText: 'この カメラの（使い方）を 教えてください。',
+    options: ['つかいかた', 'つかいほう', 'しよおかた', 'つかいがた'],
+    correctAnswer: 0,
+    explanationUzbek:
+      "Fe'l ます-asosi + 方 (かた) birikmasi qilish usulini bildiradi: 使い方 — つかいかた (ishlatish usuli).",
+  },
+  {
+    id: 230,
+    section: 'knowledge',
+    questionText: '道が 複雑ですから、（　）地図を 見てください。',
+    options: ['よく', 'ずっと', '急に', '大体'],
+    correctAnswer: 0,
+    explanationUzbek:
+      "Yo'l chigal bo'lgani sababli xaritani 'diqqat bilan, yaxshilab' qarash so'ralyapti: 「よく」(yaxshilab).",
+  },
+  {
+    id: 231,
+    section: 'knowledge',
+    questionText: '田中さんは 今、（会議中）です。',
+    options: ['かいぎちゅう', 'あいぎなか', 'かいぎじゅう', 'えいぎちゅう'],
+    correctAnswer: 0,
+    explanationUzbek:
+      'Biror harakat davom etayotgan paytda Ot + 中 (ちゅう) birikmasi keladi: 会議中 — かいぎちゅう (majlisda / majlis davomida).',
+  },
+  {
+    id: 232,
+    section: 'knowledge',
+    questionText: 'この お茶は 熱すぎて、（　）にくいです。',
+    options: ['飲み', '飲んで', '飲む', '飲ま'],
+    correctAnswer: 0,
+    explanationUzbek:
+      "Biror ishni bajarish qiyinligini ifodalovchi '~nikui' qo'shimchasi fe'lning ます-asosi bilan keladi: 飲み + にくい = 飲みにくい (ichish qiyin).",
+  },
+  {
+    id: 233,
+    section: 'knowledge',
+    questionText: 'レポートを 書いた（　）、先生に 見せます。',
+    options: ['あとで', 'まえに', 'ながら', 'あいだ'],
+    correctAnswer: 0,
+    explanationUzbek:
+      "Harakat sodir bo'lgandan keyingi ketma-ketlik: Fe'l た-shakli + あとで (...gandan keyin): 書いたあとで (yozgandan keyin).",
+  },
+  {
+    id: 234,
+    section: 'knowledge',
+    questionText: 'あしたは 雨が 降る（　）。傘を 持って行きましょう。',
+    options: ['かもしれません', 'つもりです', 'はずです', '予定です'],
+    correctAnswer: 0,
+    explanationUzbek:
+      "Ob-havo kabi ehtimoliy taxminlarda '~kamoshiremasen' (ehtimol, bo'lsa kerak) qo'llanadi. 'Tsumori' faqat insonning shaxsiy niyatiga ishlatiladi.",
+  },
+  {
+    id: 235,
+    section: 'knowledge',
+    questionText: '駅前の レストランは 安い（　）、とても おいしいです。',
+    options: ['し', 'が', 'のに', 'けど'],
+    correctAnswer: 0,
+    explanationUzbek:
+      "Bir necha ijobiy sifatlarni yoki sabablarni sanab o'tishda '~shi' (ham, ustiga-ustak) grammatikasi ishlatiladi: 安いし、おいしいです.",
+  },
+  {
+    id: 236,
+    section: 'knowledge',
+    questionText: '先生、この 書類を（　）いただけませんか。',
+    options: ['見て', '見せて', '見られて', '見させて'],
+    correctAnswer: 0,
+    explanationUzbek:
+      "Boshqalardan muloyim iltimos qilishda: Fe'l て-shakli + いただけませんか qo'llanadi: 見ていただけませんか (ko'rib bera olmaysizmi?).",
+  },
+  {
+    id: 237,
+    section: 'knowledge',
+    questionText: '壁に カレンダーが（　）あります。',
+    options: ['掛けて', '掛かって', '掛けた', '掛かる'],
+    correctAnswer: 0,
+    explanationUzbek:
+      "Bajarilgan ish natijasining saqlanishi: Ot + が + o'timli fe'l (tadoushi) て-shakli + あります. 掛ける (kakemasu - osmoq) -> 掛けてあります.",
+  },
+  {
+    id: 238,
+    section: 'knowledge',
+    questionText: '日本へ（　）なら、新幹線に 乗ったほうが いいですよ。',
+    options: ['行く', '行って', '行った', '行かない'],
+    correctAnswer: 0,
+    explanationUzbek:
+      "Hali sodir bo'lmagan voqea yuzasidan maslahat berganda: Lug'at shakli + なら ishlatiladi: 行くなら (agar boradigan bo'lsangiz).",
+  },
+  {
+    id: 239,
+    section: 'reading',
+    passageText:
+      '【図書館からのお知らせ】\n今週の土曜日は館内の整理のため、休館いたします。本を返却される方は、入口の「返却ポスト」をご利用ください。ただし、DVDやCDなどの壊れやすい物はポストに入れず、月曜日以降に直接カウンターまでお持ちください。',
+    questionText: '土曜日に DVDを 返したい人は どうしなければなりませんか。',
+    options: [
+      '返却ポストに入れます。',
+      '月曜日以降にカウンターへ直接持って行きます。',
+      '土曜日の朝、電話をします。',
+      '来週の土曜日まで待ちます。',
+    ],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Matnda aniq aytilgan: DVD va CD kabi sinuvchan buyumlarni qutiga solmasdan, dushanba kunidan boshlab to'g'ridan-to'g'ri qabulxona peshtaxtasiga (counter) olib kelish shart.",
+  },
+  {
+    id: 240,
+    section: 'reading',
+    passageText:
+      '【留学生交流会のご案内】\n日時：10月15日（日）14:00〜16:00\n場所：国際交流センター 3階 ホール\n参加費：無料（お菓子と飲み物が出ます）\n申し込み：10月10日（火）までに事務室の鈴木さんにメールで申し込んでください。定員は先着30名です。',
+    questionText: 'この 交流会に 参加したい人は いつまでに 何をしなければなりませんか。',
+    options: [
+      '10月15日までに参加費を払います。',
+      '10月10日までに鈴木さんにメールで申し込みます。',
+      '10月10日までに国際交流センターへ行きます。',
+      '10月15日の14時に直接ホールへ行きます。',
+    ],
+    correctAnswer: 1,
+    explanationUzbek:
+      "E'londa yozilgan: 10-oktabrgacha (seshanba) xizmatchi Suzuki xonimga elektron pochta (mail) orqali ariza topshirish kerak.",
+  },
+  {
+    id: 241,
+    section: 'reading',
+    passageText:
+      '私は 先週の 日曜日に 新しい アパートへ 引っ越しを しました。前の アパートは 駅から 歩いて 25分も かかりましたが、今度の アパートは 歩いて 5分ですから、とても 便利です。部屋も 広くて 日当たりも いいですが、近くに 電車が 通るため、少し 音が 気になります。',
+    questionText: '新しい アパートについて、正しくないものは どれですか。',
+    options: [
+      '駅から歩いて5分で便利です。',
+      '部屋が広くて日当たりがいいです。',
+      '電車の音が少し気になります。',
+      '家賃が前の部屋より安いです。',
+    ],
+    correctAnswer: 3,
+    explanationUzbek:
+      "Matnda ijara haqi (yachin / 家賃) haqida umuman gapirilmagan. Qolgan uchta ma'lumot (bekatga yaqinligi, yorug'ligi, poyezd shovqini) matnda keltirilgan.",
+  },
+  {
+    id: 242,
+    section: 'reading',
+    passageText:
+      'スミスさんは 日本へ 来てから、毎朝 ジョギングを しています。最初は 1キロ 走るのも 大変でしたが、最近は 5キロ 走れるように なりました。体を 動かすと 気分が すっきりして、勉強にも 集中できます。',
+    questionText: 'スミスさんの 最近の 様子について、合っているものは どれですか。',
+    options: [
+      '今は5キロ走れるようになりました。',
+      '毎朝ジョギングをするのが大変でやめました。',
+      '日本に来る前も毎日5キロ走っていました。',
+      '走ると疲れて勉強に集中できません。',
+    ],
+    correctAnswer: 0,
+    explanationUzbek:
+      "Matnda aytilgan: '最近は 5キロ 走れるように なりました' (so'nggi paytlarda 5 kilometr yugura oladigan bo'ldi).",
+  },
+  {
+    id: 243,
+    section: 'reading',
+    passageText:
+      '【ゴミの出し方の注意】\n・燃えるゴミ：火曜日と金曜日の朝8時までに出してください。\n・燃えないゴミ（ビン、缶）：水曜日の朝8時までに出してください。\n※透明の指定袋に入れて、ネットを必ず掛けてください。指定袋以外で出されたゴミは回収しません。',
+    questionText: '缶や ビンは 何曜日の 何時までに 出しますか。',
+    options: ['火曜日の朝8時まで', '水曜日の朝8時まで', '金曜日の朝8時まで', '水曜日の夜8時まで'],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Matndagi qoidaga ko'ra: Yonmaydigan chiqindi (shisha va bankalar - bin, kan) chorshanba kuni ertalab soat 8:00 gacha chiqariladi.",
+  },
+  {
+    id: 244,
+    section: 'reading',
+    passageText:
+      '日本人の 友達から 結婚式の 招待状を もらいました。出席する 場合は「出席」の 文字を 〇で 囲んで、返信ハガキを 送ります。その時、「御出席」の「御」の 字を 二本線で 消すのが 日本の マナーだと 友達に 教えてもらいました。',
+    questionText: '返信ハガキを 送る時、どうしますか。',
+    options: [
+      '「御出席」をそのまま丸で囲みます。',
+      '「御」を二本線で消して、「出席」を丸で囲みます。',
+      '新しいハガキを買って送ります。',
+      '何も書かずにそのまま送ります。',
+    ],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Yapon madaniyatida taklifnomaga javob yozganda hurmat prefiksi bo'lgan '御' (Go) belgisi ikkita chiziq bilan o'chirilib, '出席' (ishtirok etaman) aylanaga olinadi.",
+  },
+  {
+    id: 245,
+    section: 'listening',
+    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+    script:
+      '会社で 男の人と 女の人が 話しています。女の人は これから どこへ 行きますか？\n男：佐藤さん、さっきの会議の資料、部長に渡してくれた？\n女：あ、すみません。まだです。今から部長室へ持って行きます。\n男：あ、部長はさっきお客様と1階のロビーに行かれたよ。\n女：そうですか。じゃあ、ロビーへ行って渡してきます。',
+    questionText: '女の人は これから どこへ 行きますか？',
+    options: ['部長室', '1階のロビー', '会議室', '自分の席'],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Direktor hozir 1-qavat kutish zalida (lobby) mehmon bilan birga bo'lgani uchun ayol xodim o'sha yerga borishini aytadi: 'ロビーへ行って渡してきます'.",
+  },
+  {
+    id: 246,
+    section: 'listening',
+    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
+    script:
+      '大学で 先生が 学生に 話しています。学生は 明日 何時に どこに 集まりますか？\n先生：明日の見学旅行について連絡します。バスは朝9時に出発します。遅れないように、8時45分までに駅の東口に集まってください。西口ではありませんから、間違えないでくださいね。\n学生：はい、わかりました。',
+    questionText: '学生は 明日 何時に どこに 集まりますか？',
+    options: ['8時45分に駅の東口', '8時45分に駅の西口', '9時に駅の東口', '9時に駅の西口'],
+    correctAnswer: 0,
+    explanationUzbek:
+      "O'qituvchi aytadi: '8時45分までに駅の東口に集まってください' (soat 8:45 gacha vokzalning sharqiy chiqishida to'planish kerak).",
+  },
+  {
+    id: 247,
+    section: 'listening',
+    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
+    script:
+      '店で 男の人と 店員が 話しています。男の人は どのシャツを 買いますか？\n男：すみません。この青いシャツのMサイズはありますか？\n店員：申し訳ありません。青のMサイズは売り切れで、白と黒ならございますが。\n男：そうですか。仕事で使いたいので、白のMサイズをお願いします。',
+    questionText: '男の人は どの シャツを 買いますか？',
+    options: ['青のMサイズ', '白のMサイズ', '黒のMサイズ', '白のLサイズ'],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Moviy rang tugagan bo'lgani uchun xaridor ishda kiyish maqsadida oq rangdagi M o'lchamli ko'ylakni tanlaydi.",
+  },
+  {
+    id: 248,
+    section: 'listening',
+    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3',
+    script:
+      '病院で 医者と 男の人が 話しています。男の人は 薬を いつ 飲みますか？\n医者：この薬は1日3回、必ずご飯を食べたあとに飲んでください。食前に飲むと胃が痛くなりますからね。\n男：わかりました。毎食後ですね。',
+    questionText: '男の人は 薬を いつ 飲みますか？',
+    options: ['ご飯を食べる前', 'ご飯を食べたあと', '寝る前', '朝起きたとき'],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Shifokor ta'kidlaydi: '必ずご飯を食べたあとに飲んでください' (albatta ovqatdan keyin iching).",
+  },
+  {
+    id: 249,
+    section: 'listening',
+    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3',
+    script:
+      '留学生の 男の人と 女の人が 話しています。男の人は 日本の 生活で 何が 一番 困っていますか？\n女：日本に来て3か月だけど、生活には慣れた？\n男：うん、物価が高いのはちょっと大変だけど、一番困っているのはゴミの分別ルールなんだ。曜日によって出すものが違うから、まだよく覚えられないんだよ。\n女：あー、日本のゴミ出しは確かに複雑だよね。',
+    questionText: '男の人は 日本の 生活で 何が 一番 困っていますか？',
+    options: ['物価が高いこと', '日本語が通じないこと', 'ゴミの分別ルール', '電車の乗り方'],
+    correctAnswer: 2,
+    explanationUzbek:
+      "Erkak kishi aniq aytadi: '一番困っているのはゴミの分別ルールなんだ' (eng qiynayotgan narsa — chiqindilarni saralash qoidalari).",
+  },
+  {
+    id: 250,
+    section: 'listening',
+    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3',
+    script:
+      '駅で 女の人と 駅員が 話しています。女の人は 何番線の 電車に 乗りますか？\n女：すみません。空港へ行きたいんですが、どの電車に乗ればいいですか？\n駅員：空港行きですね。3番線の快速電車に乗ってください。4番線の普通電車でも行けますが、3番線のほうが20分早く着きますよ。\n女：わかりました。3番線ですね。ありがとうございます。',
+    questionText: '女の人は 何番線の 電車に 乗りますか？',
+    options: ['1番線', '2番線', '3番線', '4番線'],
+    correctAnswer: 2,
+    explanationUzbek:
+      "Bekat xodimi 20 daqiqa tezroq yetib borishi uchun 3-yo'ldagi tezkor poyezdga chiqishni tavsiya qiladi: '3番線の快速電車に乗ってください'.",
+  },
+];
+
+// ==========================================
+// === N3 MOCK EXAM SET 2 (Supplementary) ===
+// ==========================================
+export const JLPT_N3_MOCK_SET_2: ExamQuestion[] = [
+  {
+    id: 326,
+    section: 'knowledge',
+    questionText: '郵便局の 近くに （引っ越した）ので 便利です。',
+    options: ['ひっこした', 'うつった', 'とおった', 'わたった'],
+    correctAnswer: 0,
+    explanationUzbek:
+      "「引っ越す」（ko'chib o'tmoq）ning to'g'ri o'qilishi — ひっこす (hikkosu). O'tgan zamonda: 引っ越した (hikkoshita).",
+  },
+  {
+    id: 327,
+    section: 'knowledge',
+    questionText: '荷物が 届きましたが、それは 私が 頼んだのと（　）。',
+    options: ['ちがかったです', 'まちがったです', 'ちがっていました', 'まちがえていました'],
+    correctAnswer: 2,
+    explanationUzbek:
+      "Narsa kutilganidan yoki buyurtma qilinganidan 'boshqacha bo'lmoq' fe'li — 「違う」(chigau). To'g'ri davomiy o'tgan shakli: 違っていました (chigatte imashita).",
+  },
+  {
+    id: 328,
+    section: 'knowledge',
+    questionText: '子供の ころ、よく この 公園で 遊んだ（　）。',
+    options: ['ことか', 'ことだ', 'ものか', 'ものだ'],
+    correctAnswer: 3,
+    explanationUzbek:
+      "O'tmishdagi doimiy odat yoki xotiralarni eslashda fe'lning oddiy o'tgan zamoniga 「〜たものだ」 qo'shiladi (bolaligimda bu bog'da ko'p o'ynardim).",
+  },
+  {
+    id: 329,
+    section: 'knowledge',
+    questionText: '新しい 計画について （反対）する 意見が 出ました。',
+    options: ['さんせい', 'はんたい', 'きそく', 'しょうにん'],
+    correctAnswer: 1,
+    explanationUzbek:
+      "「反対」（qarshilik, qarshi bo'lish）so'zining to'g'ri o'qilishi — はんたい (hantai).",
+  },
+  {
+    id: 330,
+    section: 'knowledge',
+    questionText: '彼は いつも （真面目）に 仕事に 取り組んでいる。',
+    options: ['しんけん', 'まじめ', 'ねっしん', 'ていねい'],
+    correctAnswer: 1,
+    explanationUzbek:
+      "「真面目」（jiddiy, vijdonan ishlaydigan）so'zining to'g'ri o'qilishi — まじめ (majime).",
+  },
+  {
+    id: 331,
+    section: 'knowledge',
+    questionText: '明日の 試験が 心配で、昨夜は なかなか（　）。',
+    options: ['眠れなかった', '起きなかった', '休まなかった', '座れなかった'],
+    correctAnswer: 0,
+    explanationUzbek:
+      "Xavotir sababli uxlay olmaslik — 「眠れなかった」(nemurenakatta). 'Nakanaka' inkor fe'l bilan kelib 'hech uxlay olmadim' ma'nosini beradi.",
+  },
+  {
+    id: 332,
+    section: 'knowledge',
+    questionText: '会議の （準備）が すべて 整いました。',
+    options: ['じゅんび', 'せつび', 'よてい', 'けいかく'],
+    correctAnswer: 0,
+    explanationUzbek:
+      "「準備」（tayyorgarlik, hozirlik）so'zining to'g'ri o'qilishi — じゅんび (junbi).",
+  },
+  {
+    id: 333,
+    section: 'knowledge',
+    questionText: '雨が 降らない（　）、急いで 買い物に 行ってきましょう。',
+    options: ['あいだに', 'うちに', 'までに', 'とおりに'],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Holat o'zgarishidan oldin biror ishni bajarib olish grammatikasi: 「〜ないうちに」(yomg'ir yog'masdan turib / fursat borida).",
+  },
+  {
+    id: 334,
+    section: 'knowledge',
+    questionText: 'どんなに 失敗しても、最後まで 諦めない（　）。',
+    options: ['わけだ', 'はずだ', 'つもりだ', 'べきだ'],
+    correctAnswer: 2,
+    explanationUzbek:
+      "O'zining qat'iy niyatini ifodalashda fe'lning oddiy shakliga 「つもりだ」(taslim bo'lmaslik niyatidaman) qo'shiladi.",
+  },
+  {
+    id: 335,
+    section: 'knowledge',
+    questionText: 'この 部屋は 南向きで （日当たり）が とても いいです。',
+    options: ['ひあたり', 'ひざし', 'にっこう', 'ひるま'],
+    correctAnswer: 0,
+    explanationUzbek:
+      "「日当たり」（quyosh tushishi, yorug'lik tushishi）so'zining to'g'ri o'qilishi — ひあたり (hiatari).",
+  },
+  {
+    id: 336,
+    section: 'knowledge',
+    questionText: '先輩に アドバイスを （　）おかげで、問題が 解決しました。',
+    options: ['さしあげた', 'いただいた', 'くださった', 'やり直した'],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Katta yoshli yoki tajribali odamdan (senpaidan) maslahat qabul qilib olganda kamtarlik fe'li — 「いただく」(itadaku) ishlatiladi.",
+  },
+  {
+    id: 337,
+    section: 'knowledge',
+    questionText: 'あんなに 優しい 彼が、そんな ひどい 嘘を つく（　）。',
+    options: ['はずがない', 'わけではない', 'に違いない', 'にすぎない'],
+    correctAnswer: 0,
+    explanationUzbek:
+      "Mantiqan mutlaqo imkonsiz narsani inkor qilishda: 「〜はずがない」(bo'lishi aslo mumkin emas, yolg'on gapirishi mumkin emas).",
+  },
+  {
+    id: 338,
+    section: 'knowledge',
+    questionText: '日本での 留学生活は 毎日が とても（充実）しています。',
+    options: ['まんぞく', 'じゅうじつ', 'けんこう', 'たいへん'],
+    correctAnswer: 1,
+    explanationUzbek:
+      "「充実」（mazmunli, to'laqonli o'tish）so'zining to'g'ri o'qilishi — じゅうじつ (juujitsu).",
+  },
+  {
+    id: 339,
+    section: 'reading',
+    passageText:
+      '【企画会議 日程変更のお知らせ】\n来週火曜日（10月15日）14:00から予定しておりました「新商品企画会議」ですが、担当役員の出張日程変更に伴い、同日の16:00開始に変更いたします。場所は第2会議室から大会議室へと変更になりますのでご注意ください。配布資料は前日までにメールでお送りします。',
+    questionText: '変更後の 会議について、正しいものは どれですか。',
+    options: [
+      '火曜日の14:00から第2会議室で行われる。',
+      '火曜日の16:00から大会議室で行われる。',
+      '水曜日の16:00に延期された。',
+      '資料は会議の当日に紙で配布される。',
+    ],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Xabarnomada aniq yozilgan: Soat 16:00 ga ko'chirildi va xona '大会議室' (katta majlislar zali) ga o'zgardi.",
+  },
+  {
+    id: 340,
+    section: 'reading',
+    passageText:
+      '最近、電子書籍を利用する人が増えています。紙の本に比べて持ち運びが便利で、いつでもどこでも読めるという利点があります。しかし一方で、紙のページのめくる感覚や、手元に本として残る実感を好む読者も依然として多く存在します。用途や気分によって両方を使い分けるのが現代の賢い読書スタイルと言えるでしょう。',
+    questionText: '筆者が 述べている 現代の 読書スタイルとは どのようなものですか。',
+    options: [
+      '紙の本をすべて捨てて、電子書籍だけに統一すること。',
+      '電子書籍は読みにくいので、紙の本だけを読むこと。',
+      '状況や気分に合わせて、電子書籍と紙の本の両方を使い分けること。',
+      '読書をやめてオーディオブックだけを利用すること。',
+    ],
+    correctAnswer: 2,
+    explanationUzbek:
+      "Muallif oxirgi jumlada ta'kidlaydi: '用途や気分によって両方を使い分ける' (vaziyat va kayfiyatga qarab ikkalasidan ham unumli foydalanish).",
+  },
+  {
+    id: 341,
+    section: 'reading',
+    passageText:
+      '【留学生向け ゴミ分別ルールの確認】\nこの地域では、資源ゴミの回収日が品目ごとに異なります。ペットボトルはキャップとラベルをはがして水洗いし、火曜日に出してください。ビンと缶はつぶさずに水曜日に出します。ダンボールなどの古紙はひもで十字に縛って木曜日に出してください。ルールが守られていないゴミは回収されません。',
+    questionText: 'ペットボトルを ゴミに 出すときの 正しい 手順は どれですか。',
+    options: [
+      'そのまま火曜日に出す。',
+      'キャップとラベルをはがして水で洗い、火曜日に出す。',
+      '足で平らにつぶして水曜日に出す。',
+      'ひもで十字に縛って木曜日に出す。',
+    ],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Qoidada yozilgan: 'キャップとラベルをはがして水洗いし、火曜日に出してください' (qopqoq va etiketkasini yulib, chayqab, seshanba kuni chiqariladi).",
+  },
+  {
+    id: 342,
+    section: 'reading',
+    passageText:
+      '言葉というものは、時代とともに変化していきます。かつては若者言葉として使われていた表現が、数十年後には辞書に掲載され、一般的な言葉として定着することも珍しくありません。言葉の乱れを批判する声もありますが、言語が生きている限り、時代の要求に応じて変化し続けるのは自然な現象なのです。',
+    questionText: '言葉の 変化について、筆者は どのように 考えていますか。',
+    options: [
+      '若者言葉はすべて禁止すべきである。',
+      '昔の正しい日本語だけを守り続けるべきである。',
+      '言語が生きている限り、時代とともに変化するのは自然なことである。',
+      '辞書に載っていない言葉を使ってはならない。',
+    ],
+    correctAnswer: 2,
+    explanationUzbek:
+      "Muallif fikricha: '言語が生きている限り、時代の要求に応じて変化し続けるのは自然な現象なのです' (til tirik ekan, davr bilan birga o'zgarishi tabiiy hodisadir).",
+  },
+  {
+    id: 343,
+    section: 'reading',
+    passageText:
+      '【アパート水道管 定期点検のお知らせ】\n日時：11月20日（水）午前10:00〜午後12:00\n点検中は全館断水となりますので、トイレや台所の水はご使用になれません。また、作業終了直後は一時的に赤い水や濁った水が出ることがありますので、1分ほど水を流してからご使用ください。ご不便をおかけしますが、ご協力をお願い申し上げます。',
+    questionText: '点検が 終わったあと、水を 使うときは どうすれば いいですか。',
+    options: [
+      'すぐにそのまま飲んでも構わない。',
+      '1分ほど水を流してから使用する。',
+      'お湯だけを使うようにする。',
+      '翌日まで水を使ってはいけない。',
+    ],
+    correctAnswer: 1,
+    explanationUzbek:
+      "E'londa aytilgan: '1分ほど水を流してからご使用ください' (suv quvurlari tozalanishi uchun 1 daqiqacha oqizib yuborib keyin ishlatish kerak).",
+  },
+  {
+    id: 344,
+    section: 'reading',
+    passageText:
+      '私は毎晩、寝る前の10分間に日記を書いています。その日にあった出来事だけでなく、自分がどう感じたかを短い文章で記録するのです。嬉しいことも嫌だったことも文字にすることで頭の中が整理され、翌朝を前向きな気持ちで迎えることができます。忙しい現代人にとって、自分と静かに向き合う貴重な時間です。',
+    questionText: '日記を 書くことの 効果として、筆者が 挙げているものは どれですか。',
+    options: [
+      '日本語の漢字の書き順が上達すること。',
+      '気持ちや思考が整理されて、前向きに新しい一日を迎えられること。',
+      '過去の出来事を他人に自慢できるようになること。',
+      '睡眠時間が短くても疲れなくなること。',
+    ],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Muallif: '文字にすることで頭の中が整理され、翌朝を前向きな気持ちで迎えることができます' deb yozgan (fikrlar tartiblanib, yangi kunga ijobiy kayfiyatda kirishadi).",
+  },
+  {
+    id: 345,
+    section: 'listening',
+    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3',
+    script:
+      '会社で男性社員と女性上司が話しています。男性社員はまず何をしなければなりませんか？\n男：課長、明日のプレゼン資料の印刷と、取引先への確認メールの送信ですが、どちらを先に進めましょうか？\n女：あ、取引先の山田部長が今日午後から外出されるそうだから、先に確認メールを送っておいて。印刷は夕方で十分間に合うから。\n男：承知いたしました。すぐにメールを作成します。',
+    questionText: '男性社員は まず 何を しますか？',
+    options: [
+      'プレゼン資料を印刷する',
+      '取引先に確認メールを送る',
+      '会議室の予約をする',
+      '外出の準備をする',
+    ],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Boshliq xaridori tushdan keyin safarga ketishi sababli avval tasdiqlovchi xatni yuborishni buyuradi: '先に確認メールを送っておいて'.",
+  },
+  {
+    id: 346,
+    section: 'listening',
+    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3',
+    script:
+      '駅で外国人観光客と案内係が話しています。観光客は何番線の電車に乗りますか？\n観光客：すみません、成田空港へ行く特急に乗りたいのですが、どこへ行けばいいですか？\n案内係：成田空港行きの特急「成田エクスプレス」ですね。地下2階の5番線ホームへお進みください。4番線は普通電車ですのでお乗り間違えのないようにお願いします。\n観光客：地下2階の5番線ですね。ありがとうございます。',
+    questionText: '観光客は 何番線の 電車に 乗りますか？',
+    options: ['1番線', '3番線', '4番線', '5番線'],
+    correctAnswer: 3,
+    explanationUzbek:
+      "Yo'riqchi aniq tushuntiradi: Narita Express tezyurar poyezdi yerosti 2-qavatdagi 5-yo'ldan jo'naydi ('5番線ホームへお進みください').",
+  },
+  {
+    id: 347,
+    section: 'listening',
+    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3',
+    script:
+      '大学で学生二人が話しています。午後の日本文学の講義はどこで行われますか？\n男：佐藤さん、今日の3限の「日本文学」の授業、教室が変更になったの知ってる？\n女：え、本当？いつもの3号館の201教室じゃないの？\n男：プロジェクターの故障で、5号館の105教室に変更になったって掲示板に出てたよ。\n女：教えてくれてありがとう！危うく間違えるところだった。',
+    questionText: '午後の 日本文学の 講義は どこで 行われますか？',
+    options: ['3号館の201教室', '3号館の105教室', '5号館の201教室', '5号館の105教室'],
+    correctAnswer: 3,
+    explanationUzbek:
+      "Proyektor buzilganligi sababli dars 5-bino 105-auditoriyaga ko'chirilgan ('5号館の105教室に変更になった').",
+  },
+  {
+    id: 348,
+    section: 'listening',
+    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3',
+    script:
+      '靴屋で客と店員が話しています。客はどの靴を買うことにしましたか？\n客：すみません、この黒のウォーキングシューズ、26.5センチはありますか？\n店員：申し訳ございません。黒の26.5はちょうど在庫切れでして。同じデザインの紺色か茶色ならご用意できますが。\n客：うーん、仕事でも履きたいので茶色にしてみようかな。サイズを試してもいいですか？\n店員：かしこまりました。茶色の26.5をお持ちいたします。',
+    questionText: '客は どの靴を 買うことに しましたか？',
+    options: ['黒の26.5', '紺の26.0', '茶色の26.5', '茶色の27.0'],
+    correctAnswer: 2,
+    explanationUzbek:
+      "Qora rang tugagani sababli mijoz ishda kiyish uchun 26.5 o'lchamdagi jigarrang poyabzalni tanlaydi ('茶色にしてみようかな').",
+  },
+  {
+    id: 349,
+    section: 'listening',
+    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3',
+    script:
+      '天気予報を聞いています。午後はどのような天気になる予報ですか？\nアナウンサー：関東地方のお天気をお伝えします。午前中は広く晴れて穏やかな陽気となりますが、午後は西から雨雲が広がり、夕方以降は激しい雷雨となる所がある見込みです。お出かけの際は、折りたたみ傘を必ずお持ちください。',
+    questionText: '午後の 天気について、正しいものは どれですか？',
+    options: [
+      '一日中ずっと快晴が続く。',
+      '午後から雨雲が広がり、夕方以降は雷雨になる。',
+      '朝から雪が降る。',
+      '非常に強い台風が直撃する。',
+    ],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Sinoptik aytadi: Tushdan keyin yomg'ir bulutlari kelib, kechqurun kuchli momaqaldiroqli yomg'ir yog'ishi kutilmoqda.",
+  },
+  {
+    id: 350,
+    section: 'listening',
+    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+    script:
+      '病院で医師と患者が話しています。患者はどの薬を寝る前に飲みますか？\n医師：風邪の症状を抑えるお薬を出しておきますね。この赤いカプセルは朝と晩の食後に飲んでください。そしてこちらの白い錠剤は、咳を鎮める作用がありますので、毎晩おやすみになる30分前に1錠飲んでください。\n患者：わかりました。白い錠剤が寝る前ですね。',
+    questionText: '患者は どの薬を 寝る前に 飲みますか？',
+    options: ['赤いカプセル', '白い錠剤', '両方の薬', '食後の粉薬'],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Shifokor yo'talni qoldiruvchi oq tabletkani uxlashdan 30 daqiqa oldin ichishni buyuradi: '白い錠剤は...おやすみになる30分前に'.",
+  },
+];

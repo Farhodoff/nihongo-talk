@@ -8448,5 +8448,1165 @@
         "uz": "Shu yerga qadar keldikmi, oxirigacha matonat ko'rsatishdan o'zga yo'l yo'q!"
       }
     ]
+  },
+  {
+    "id": "n5_yasui_nikui",
+    "level": "N5",
+    "title": "〜やすい / 〜にくい (yasui / nikui)",
+    "romaji": "~yasui / ~nikui",
+    "meaningUz": "Qilish oson / qilish qiyin (Fe'l sifatga aylanadi)",
+    "structure": "Fe'l ます-asosi + やすい (oson) / にくい (qiyin)",
+    "examples": [
+      {
+        "ja": "このペンは書きやすいです。",
+        "romaji": "Kono pen wa kakiyasui desu.",
+        "uz": "Bu ruchka yozish uchun juda qulay (yozish oson)."
+      },
+      {
+        "ja": "魚の骨が多くて、食べにくいです。",
+        "romaji": "Sakana no hone ga ookute, tabenikui desu.",
+        "uz": "Baliqning suyagi ko'p bo'lib, yeyish qiyin."
+      }
+    ]
+  },
+  {
+    "id": "n5_sugiru",
+    "level": "N5",
+    "title": "〜すぎる (sugiru)",
+    "romaji": "~sugiru",
+    "meaningUz": "Haddan tashqari ko'p, ortiqcha me'yordan oshib ketgan",
+    "structure": "Fe'l ます-asosi / い-sifat (-い tushadi) / な-sifat + すぎる",
+    "examples": [
+      {
+        "ja": "きのう、お酒を飲みすぎました。",
+        "romaji": "Kinou, osake wo nomisugimashita.",
+        "uz": "Kecha spirtli ichimlikni haddan tashqari ko'p ichib yubordim."
+      },
+      {
+        "ja": "この問題は難しすぎます。",
+        "romaji": "Kono mondai wa muzukashisugimasu.",
+        "uz": "Bu masala haddan tashqari qiyin."
+      }
+    ]
+  },
+  {
+    "id": "n5_kata",
+    "level": "N5",
+    "title": "〜方 [かた] (kata)",
+    "romaji": "~kata",
+    "meaningUz": "Qilish usuli, bajarish yo'li",
+    "structure": "Fe'l ます-asosi + 方 (かた)",
+    "examples": [
+      {
+        "ja": "この漢字の読み方を教えてください。",
+        "romaji": "Kono kanji no yomikata wo oshiete kudasai.",
+        "uz": "Iltimos, bu kanjining o'qilish usulini o'rgating."
+      },
+      {
+        "ja": "寿司の作り方を知っていますか。",
+        "romaji": "Sushi no tsukurikata wo shitte imasu ka.",
+        "uz": "Sushini tayyorlash usulini bilasizmi?"
+      }
+    ]
+  },
+  {
+    "id": "n5_nagara",
+    "level": "N5",
+    "title": "〜ながら (nagara)",
+    "romaji": "~nagara",
+    "meaningUz": "Bir vaqtning o'zida ikkita harakatni bajarish (...qilib, ...qila turib)",
+    "structure": "Fe'l 1 ます-asosi + ながら + Fe'l 2 (asosiy harakat)",
+    "examples": [
+      {
+        "ja": "音楽を聞きながら勉強します。",
+        "romaji": "Ongaku wo kikinagara benkyou shimasu.",
+        "uz": "Musiqa tinglab dars qilaman."
+      },
+      {
+        "ja": "歩きながら電話をしないでください。",
+        "romaji": "Arukinagara denwa wo shinaide kudasai.",
+        "uz": "Piyoda ketayotib telefonda gaplashmang."
+      }
+    ]
+  },
+  {
+    "id": "n5_ato_de",
+    "level": "N5",
+    "title": "〜あとで (ato de)",
+    "romaji": "~ato de",
+    "meaningUz": "...qilgandan keyin, ...so'ng",
+    "structure": "Fe'l た-shakli + あとで / Ot + の + あとで",
+    "examples": [
+      {
+        "ja": "ご飯を食べたあとで、薬を飲みます。",
+        "romaji": "Gohan wo tabeta ato de, kusuri wo nomimasu.",
+        "uz": "Ovqat yeb bo'lgandan keyin dori ichaman."
+      },
+      {
+        "ja": "仕事のあとで、映画を見に行きませんか。",
+        "romaji": "Shigoto no ato de, eiga wo mi ni ikimasen ka.",
+        "uz": "Ishdan keyin kinoga bormaymizmi?"
+      }
+    ]
+  },
+  {
+    "id": "n5_n_desu",
+    "level": "N5",
+    "title": "〜んです / 〜のです (n desu)",
+    "romaji": "~n desu / ~no desu",
+    "meaningUz": "Sabab/izoh berish yoki qiziqib sababini so'rash",
+    "structure": "Oddiy shakl (Futsuukei) + んです (な-sifat va Ot da: な + んです)",
+    "examples": [
+      {
+        "ja": "どうして遅れたんですか。— バスが来なかったんです。",
+        "romaji": "Doushite okuretan desu ka. - Basu ga konakattan desu.",
+        "uz": "Nega kechikdingiz? — Avtobus kelmadi (shu sababli)."
+      },
+      {
+        "ja": "頭が痛いんです。",
+        "romaji": "Atama ga itain desu.",
+        "uz": "Boshim og'riyapti-da (vaziyatni izohlash)."
+      }
+    ]
+  },
+  {
+    "id": "n5_kamoshirenai",
+    "level": "N5",
+    "title": "〜かもしれない (kamoshirenai)",
+    "romaji": "~kamoshirenai",
+    "meaningUz": "Ehtimol, bo'lsa kerak (taxmin, ehtimollik darajasi 50%)",
+    "structure": "Fe'l/Sifat/Ot oddiy shakli + かもしれません",
+    "examples": [
+      {
+        "ja": "明日は雨が降るかもしれません。",
+        "romaji": "Ashita wa ame ga furu kamoshiremasen.",
+        "uz": "Ertaga balki yomg'ir yog'sa kerak."
+      },
+      {
+        "ja": "田中さんは忙しいかもしれません。",
+        "romaji": "Tanaka-san wa isogashii kamoshiremasen.",
+        "uz": "Tanaka janoblari ehtimol band bo'lsalar kerak."
+      }
+    ]
+  },
+  {
+    "id": "n5_tsumori",
+    "level": "N5",
+    "title": "〜つもりです (tsumori desu)",
+    "romaji": "~tsumori desu",
+    "meaningUz": "Niyatidaman, rejalashtirganman (qat'iy shaxsiy niyat)",
+    "structure": "Fe'l lug'at shakli / ない-shakli + つもりです",
+    "examples": [
+      {
+        "ja": "来年、日本へ行くつもりです。",
+        "romaji": "Rainen, Nihon e iku tsumori desu.",
+        "uz": "Kelasi yil Yaponiyaga borish niyatidaman."
+      },
+      {
+        "ja": "タバコを吸わないつもりです。",
+        "romaji": "Tabako wo suwanai tsumori desu.",
+        "uz": "Sigareta chekmaslikka qat'iy niyat qildim."
+      }
+    ]
+  },
+  {
+    "id": "n5_yotei",
+    "level": "N5",
+    "title": "〜予定です (yotei desu)",
+    "romaji": "~yotei desu",
+    "meaningUz": "Rejalashtirilgan, rasmiy jadval bo'yicha",
+    "structure": "Fe'l lug'at shakli + 予定です / Ot + の + 予定です",
+    "examples": [
+      {
+        "ja": "新幹線は10時に出発する予定です。",
+        "romaji": "Shinkansen wa juu-ji ni shuppatsu suru yotei desu.",
+        "uz": "Shinkansen soat 10 da jo'nab ketishi rejalashtirilgan."
+      },
+      {
+        "ja": "来週は出張の予定です。",
+        "romaji": "Raishuu wa shucchou no yotei desu.",
+        "uz": "Kelasi hafta xizmat safari rejamda bor."
+      }
+    ]
+  },
+  {
+    "id": "n5_te_miru",
+    "level": "N5",
+    "title": "〜てみる (te miru)",
+    "romaji": "~te miru",
+    "meaningUz": "Qilib ko'rmoq, sinab ko'rmoq",
+    "structure": "Fe'l て-shakli + みる / みます",
+    "examples": [
+      {
+        "ja": "日本の着物を着てみたいです。",
+        "romaji": "Nihon no kimono wo kite mitai desu.",
+        "uz": "Yapon kimonosini kiyib ko'rmoqchiman."
+      },
+      {
+        "ja": "この靴を履いてみてもいいですか。",
+        "romaji": "Kono kutsu wo haite mite mo ii desu ka.",
+        "uz": "Bu poyabzalni kiyib ko'rsam maylimi?"
+      }
+    ]
+  },
+  {
+    "id": "n5_te_shimau",
+    "level": "N5",
+    "title": "〜てしまう (te shimau)",
+    "romaji": "~te shimau",
+    "meaningUz": "Butunlay tugatib qo'ymoq / afsuslanarli ish yuz berishi",
+    "structure": "Fe'l て-shakli + しまいました",
+    "examples": [
+      {
+        "ja": "宿題を全部やってしまいました。",
+        "romaji": "Shukudai wo zenbu yatte shimaimashita.",
+        "uz": "Vazifalarning barchasini to'liq bajarib bo'ldim."
+      },
+      {
+        "ja": "電車の中に傘を忘れてしまいました。",
+        "romaji": "Densha no naka ni kasa wo wasurete shimaimashita.",
+        "uz": "Poezd ichida soyabonimni unutib qoldiribman (afsus)."
+      }
+    ]
+  },
+  {
+    "id": "n5_te_oku",
+    "level": "N5",
+    "title": "〜ておく (te oku)",
+    "romaji": "~te oku",
+    "meaningUz": "Oldindan tayyorlab qo'ymoq (kelgusidagi qulaylik uchun)",
+    "structure": "Fe'l て-shakli + おきます",
+    "examples": [
+      {
+        "ja": "旅行の前に、ホテルの予約をしておきます。",
+        "romaji": "Ryokou no mae ni, hoteru no yoyaku wo shite okimasu.",
+        "uz": "Sayohatdan oldin mehmonxonani band qilib qo'yaman."
+      },
+      {
+        "ja": "パーティーの前に部屋を掃除しておいてください。",
+        "romaji": "Paatii no mae ni heya wo souji shite oite kudasai.",
+        "uz": "Bazmdan oldin xonani tozalab qo'ying."
+      }
+    ]
+  },
+  {
+    "id": "n5_te_ageru_morau_kureru",
+    "level": "N5",
+    "title": "〜てあげる / 〜てもらう / 〜てくれる (te ageru / morau / kureru)",
+    "romaji": "~te ageru / ~te morau / ~te kureru",
+    "meaningUz": "Yordam / xizmat qilib bermoq yoki olmoq",
+    "structure": "Fe'l て-shakli + あげる (qilib bermoq) / もらう (qildirib olmoq) / くれる (menga qilib bermoq)",
+    "examples": [
+      {
+        "ja": "私は友達に日本語を教えてあげました。",
+        "romaji": "Watashi wa tomodachi ni nihongo wo oshiete agemashita.",
+        "uz": "Men do'stimga yapon tilini o'rgatib berdim."
+      },
+      {
+        "ja": "母がセーターを編んでくれました。",
+        "romaji": "Haha ga seetaa wo ande kuremashita.",
+        "uz": "Onam menga sviter to'qib berdilar."
+      }
+    ]
+  },
+  {
+    "id": "n5_ni_tsuite",
+    "level": "N5",
+    "title": "〜について (ni tsuite)",
+    "romaji": "~ni tsuite",
+    "meaningUz": "...haqida, ...to'g'risida",
+    "structure": "Ot + について",
+    "examples": [
+      {
+        "ja": "日本の文化について作文を書きました。",
+        "romaji": "Nihon no bunka ni tsuite sakubun wo kakimashita.",
+        "uz": "Yaponiya madaniyati haqida insho yozdim."
+      },
+      {
+        "ja": "この問題についてどう思いますか。",
+        "romaji": "Kono mondai ni tsuite dou omoimasu ka.",
+        "uz": "Ushbu masala haqida qanday fikrdasiz?"
+      }
+    ]
+  },
+  {
+    "id": "n5_ya_nado",
+    "level": "N5",
+    "title": "〜や〜など (ya ... nado)",
+    "romaji": "~ya ... nado",
+    "meaningUz": "...va... kabi narsalar (misol tariqasida sanab o'tish)",
+    "structure": "Ot 1 + や + Ot 2 + など",
+    "examples": [
+      {
+        "ja": "机の上に本やペンなどがあります。",
+        "romaji": "Tsukue no ue ni hon ya pen nado ga arimasu.",
+        "uz": "Stol ustida kitob va ruchka kabi narsalar bor."
+      },
+      {
+        "ja": "スーパーでりんごやバナナなどを買いました。",
+        "romaji": "Suupaa de ringo ya banana nado wo kaimashita.",
+        "uz": "Supermarketdan olma, banan kabi mevalarni sotib oldim."
+      }
+    ]
+  },
+  {
+    "id": "n5_goro",
+    "level": "N5",
+    "title": "〜ごろ (goro)",
+    "romaji": "~goro",
+    "meaningUz": "Taxminan soat/vaqt paytlarida",
+    "structure": "Vaqt/Soat + ごろ",
+    "examples": [
+      {
+        "ja": "毎晩11時ごろ寝ます。",
+        "romaji": "Maiban juuichi-ji goro nemasu.",
+        "uz": "Har oqshom soat 11 lar atrofida uxlayman."
+      },
+      {
+        "ja": "何時ごろ駅に着きますか。",
+        "romaji": "Nanji goro eki ni tsukimasu ka.",
+        "uz": "Soat necha atrofida bekatga yetib kelasiz?"
+      }
+    ]
+  },
+  {
+    "id": "n5_gurai",
+    "level": "N5",
+    "title": "〜ぐらい / 〜くらい (gurai / kurai)",
+    "romaji": "~gurai / ~kurai",
+    "meaningUz": "Taxminan miqdor yoki davomiylik",
+    "structure": "Miqdor/Son + ぐらい / くらい",
+    "examples": [
+      {
+        "ja": "家から学校まで歩いて15分ぐらいかかります。",
+        "romaji": "Ie kara gakkou made aruite juugo-fun gurai kakarimasu.",
+        "uz": "Uydan maktabgacha piyoda 15 daqiqacha vaqt ketadi."
+      },
+      {
+        "ja": "りんごを3つぐらい買いました。",
+        "romaji": "Ringo wo mittsu gurai kaimashita.",
+        "uz": "Taxminan 3 dona olma sotib oldim."
+      }
+    ]
+  },
+  {
+    "id": "n5_ne_yo",
+    "level": "N5",
+    "title": "〜ね / 〜よ (ne / yo)",
+    "romaji": "~ne / ~yo",
+    "meaningUz": "Fikrni ma'qullash (~ね: shunday-a?) va yangi xabar berish (~よ: bilib qo'ying!)",
+    "structure": "Gap oxiri + ね / よ",
+    "examples": [
+      {
+        "ja": "きょうはいい天気ですね。— ええ、そうですね。",
+        "romaji": "Kyou wa ii tenki desu ne. - Ee, sou desu ne.",
+        "uz": "Bugun ob-havo ajoyib-a? — Ha, haqiqatan ham shunday."
+      },
+      {
+        "ja": "このラーメンはおいしいですよ。",
+        "romaji": "Kono raamen wa oishii desu yo.",
+        "uz": "Bu ramen juda mazali (bilib qo'ying/aytmoqchiman)!"
+      }
+    ]
+  },
+  {
+    "id": "n5_interrogative_mo_negative",
+    "level": "N5",
+    "title": "So'roq so'zi + も + inkor (doko mo, dare mo, nani mo)",
+    "romaji": "Wh-word + mo + negative",
+    "meaningUz": "Hech qayerga, hech kim, hech narsa (butunlay inkor)",
+    "structure": "どこも / だれも / 何も + Fe'l inkor (ません / ない)",
+    "examples": [
+      {
+        "ja": "日曜日はどこも行きませんでした。",
+        "romaji": "Nichiyoubi wa doko mo ikimasen deshita.",
+        "uz": "Yakshanba kuni hech qayerga bormadim."
+      },
+      {
+        "ja": "朝ご飯は何も食べませんでした。",
+        "romaji": "Asagohan wa nani mo tabemasen deshita.",
+        "uz": "Nonushtaga hech narsa yeganim yo'q."
+      }
+    ]
+  },
+  {
+    "id": "n5_interrogative_ka",
+    "level": "N5",
+    "title": "So'roq so'zi + か (doko ka, dare ka, nani ka, itsu ka)",
+    "romaji": "Wh-word + ka",
+    "meaningUz": "Qayergadir, kimdir, nimadir, qachondir (noaniqlik)",
+    "structure": "どこか / だれか / 何か / いつか + Yuklama/Fe'l",
+    "examples": [
+      {
+        "ja": "のどが渇きましたから、何か飲みたいです。",
+        "romaji": "Nodo ga kawakimashita kara, nani ka nomitai desu.",
+        "uz": "Toshnaman, nimadir ichmoqchiman."
+      },
+      {
+        "ja": "夏休みにどこかへ行きましたか。",
+        "romaji": "Natsuyasumi ni doko ka e ikimashita ka.",
+        "uz": "Yozgi ta'tilda qayergadir bordingizmi?"
+      }
+    ]
+  },
+  {
+    "id": "n5_mashou_ka",
+    "level": "N5",
+    "title": "〜ましょうか (mashou ka)",
+    "romaji": "~mashou ka",
+    "meaningUz": "...qilib beraymi? (boshqalarga o'z yordamini taklif qilish)",
+    "structure": "Fe'l ます-asosi + ましょうか",
+    "examples": [
+      {
+        "ja": "荷物を持ちましょうか。— ありがとうございます、お願いします。",
+        "romaji": "Nimotsu wo mochimashou ka. - Arigatou gozaimasu, onegaishimasu.",
+        "uz": "Yuklaringizni ko'tarib beraymi? — Rahmat, iltimos."
+      },
+      {
+        "ja": "窓を開けましょうか。",
+        "romaji": "Mado wo akemashou ka.",
+        "uz": "Derazani ochib yuboraymi?"
+      }
+    ]
+  },
+  {
+    "id": "n5_adjective_te_form",
+    "level": "N5",
+    "title": "Sifatlarni bog'lash: 〜くて / 〜で (kute / de)",
+    "romaji": "Adjective te-form",
+    "meaningUz": "Sifatlarni bir-biriga bog'lash (...va...)",
+    "structure": "い-sifat (-い o'rniga くて) / な-sifat + で",
+    "examples": [
+      {
+        "ja": "この部屋は広くて、明るいです。",
+        "romaji": "Kono heya wa hirokute, akarui desu.",
+        "uz": "Bu xona keng va yorug'."
+      },
+      {
+        "ja": "田中さんは親切で、おもしろい人です。",
+        "romaji": "Tanaka-san wa shinsetsu de, omoshiroi hito desu.",
+        "uz": "Tanaka janoblari samimiy va qiziqarli insondir."
+      }
+    ]
+  },
+  {
+    "id": "n5_futsuukei_jisho",
+    "level": "N5",
+    "title": "Fe'l Lug'at Shakli (辞書形 - Jisho-kei / Futsuukei)",
+    "romaji": "Dictionary form (Jisho-kei)",
+    "meaningUz": "Fe'llarning hozirgi-kelasi zamon oddiy/so'zlashuv shakli",
+    "structure": "G1: -u qator tovushlar (kaku, nomu) / G2: -ru (taberu, miru) / G3: suru, kuru",
+    "examples": [
+      {
+        "ja": "あした、友達と映画を見る。",
+        "romaji": "Ashita, tomodachi to eiga wo miru.",
+        "uz": "Ertaga do'stim bilan kino ko'raman (oddiy do'stona nutq)."
+      },
+      {
+        "ja": "毎朝、コーヒーを飲む。",
+        "romaji": "Maiasa, koohii wo nomu.",
+        "uz": "Har tong kofe ichaman."
+      }
+    ]
+  },
+  {
+    "id": "n5_futsuukei_nai",
+    "level": "N5",
+    "title": "Fe'l ない-shakli (ない形 - Nai-kei / Futsuukei inkor)",
+    "romaji": "Nai-form (Negative plain)",
+    "meaningUz": "Fe'llarning hozirgi-kelasi zamon inkor oddiy/so'zlashuv shakli",
+    "structure": "G1: a-qator + ない (kakanai) / G2: -ru tushadi + ない (tabenai) / G3: shinai, konai",
+    "examples": [
+      {
+        "ja": "きょうは肉を食べない。",
+        "romaji": "Kyou wa niku wo tabenai.",
+        "uz": "Bugun go'sht yemayman (oddiy nutq)."
+      },
+      {
+        "ja": "あしたはどこへも行かない。",
+        "romaji": "Ashita wa doko e mo ikanai.",
+        "uz": "Ertaga hech qayerga bormayman."
+      }
+    ]
+  },
+  {
+    "id": "n5_futsuukei_ta",
+    "level": "N5",
+    "title": "Fe'l た-shakli (た形 - Ta-kei / Futsuukei o'tgan zamon)",
+    "romaji": "Ta-form (Past plain)",
+    "meaningUz": "Fe'llarning o'tgan zamon oddiy/so'zlashuv shakli",
+    "structure": "Fe'l て-shaklidagi て -> た / で -> だ (kaita, nonda, tabeta)",
+    "examples": [
+      {
+        "ja": "きのう、本を読んだ。",
+        "romaji": "Kinou, hon wo yonda.",
+        "uz": "Kecha kitob o'qidim."
+      },
+      {
+        "ja": "先週、京都へ行った。",
+        "romaji": "Senshuu, Kyouto e itta.",
+        "uz": "O'tgan hafta Kyotoga bordim."
+      }
+    ]
+  },
+  {
+    "id": "n5_doushite_naze",
+    "level": "N5",
+    "title": "〜どうして / 〜なぜ (doushite / naze)",
+    "romaji": "doushite / naze",
+    "meaningUz": "Nega? Nima uchun? Sabab so'rash so'zi",
+    "structure": "どうして / なぜ + Gap + か",
+    "examples": [
+      {
+        "ja": "どうして日本語を勉強していますか。",
+        "romaji": "Doushite nihongo wo benkyou shite imasu ka.",
+        "uz": "Nima uchun yapon tilini o'rganyapsiz?"
+      },
+      {
+        "ja": "なぜ昨日来ませんでしたか。",
+        "romaji": "Naze kinou kimasen deshita ka.",
+        "uz": "Nega kecha kelmadingiz?"
+      }
+    ]
+  },
+  {
+    "id": "n5_dou_desu_ka",
+    "level": "N5",
+    "title": "〜どうですか / 〜いかがですか (dou desu ka / ikaga desu ka)",
+    "romaji": "dou desu ka / ikaga desu ka",
+    "meaningUz": "Qanday ko'rasiz? Qanday ekan? (taklif yoki taassurot so'rash)",
+    "structure": "Ot + は / を + どうですか (ikaga desu ka - muloyim shakli)",
+    "examples": [
+      {
+        "ja": "お茶をもう一杯いかがですか。",
+        "romaji": "Ocha wo mou ippai ikaga desu ka.",
+        "uz": "Yana bir finjon choy qanday bo'lardi (ichmaysizmi)?"
+      },
+      {
+        "ja": "日本の生活はどうですか。— とても楽しいです。",
+        "romaji": "Nihon no seikatsu wa dou desu ka. - Totemo tanoshii desu.",
+        "uz": "Yaponiyadagi hayot qanday ekan? — Juda qiziqarli."
+      }
+    ]
+  },
+  {
+    "id": "n5_sou_desu_appearance",
+    "level": "N5",
+    "title": "〜そうです [Tashqi ko'rinish] (sou desu)",
+    "romaji": "~sou desu (conjecture)",
+    "meaningUz": "...ga o'xshaydi, ko'rinadi (tashqi ko'rinishdan xulosa qilish)",
+    "structure": "Fe'l ます-asosi / い-sifat (-い tushadi) / な-sifat + そうです",
+    "examples": [
+      {
+        "ja": "今にも雨が降りそうです。",
+        "romaji": "Ima ni mo ame ga furisou desu.",
+        "uz": "Hozirning o'zidayoq yomg'ir yog'adigandek ko'rinyapti."
+      },
+      {
+        "ja": "このケーキはおいしそうです。",
+        "romaji": "Kono keeki wa oishisou desu.",
+        "uz": "Bu tort juda mazaliga o'xshaydi."
+      }
+    ]
+  },
+  {
+    "id": "n5_nasai",
+    "level": "N5",
+    "title": "〜なさい (nasai)",
+    "romaji": "~nasai",
+    "meaningUz": "...qilgin, bajar (ota-ona bolaga yoki o'qituvchi o'quvchiga yumshoq buyrug'i)",
+    "structure": "Fe'l ます-asosi + なさい",
+    "examples": [
+      {
+        "ja": "早く寝なさい。",
+        "romaji": "Hayaku nenasai.",
+        "uz": "Vaqtliroq uxlagin."
+      },
+      {
+        "ja": "野菜もちゃんと食べなさい。",
+        "romaji": "Yasai mo chanto tabenasai.",
+        "uz": "Sabzavotlarni ham yaxshilab yegin."
+      }
+    ]
+  },
+  {
+    "id": "n5_hou_ga_ii",
+    "level": "N5",
+    "title": "〜ほうがいいです (hou ga ii desu)",
+    "romaji": "~hou ga ii desu",
+    "meaningUz": "Qilsangiz / qilmasangiz yaxshi bo'ladi (maslahat yoki tavsiya berish)",
+    "structure": "Fe'l た-shakli + ほうがいいです (ijobiy) / ない-shakli + ほうがいいです (salbiy)",
+    "examples": [
+      {
+        "ja": "病院へ行ったほうがいいですよ。",
+        "romaji": "Byouin e itta hou ga ii desu yo.",
+        "uz": "Shifoxonaga borganingiz ma'qul (tavsiya)."
+      },
+      {
+        "ja": "無理をしないほうがいいです。",
+        "romaji": "Muri wo shinai hou ga ii desu.",
+        "uz": "O'zingizni haddan ortiq zo'riqtirmaganingiz ma'qul."
+      }
+    ]
+  },
+  {
+    "id": "n5_nakereba_ikemasen",
+    "level": "N5",
+    "title": "〜なければいけません (nakereba ikemasen)",
+    "romaji": "~nakereba ikemasen",
+    "meaningUz": "...qilishi shart, bajarish majburiy (〜なければなりません bilan bir xil)",
+    "structure": "Fe'l ない-shakli (-い tushadi) + ければいけません",
+    "examples": [
+      {
+        "ja": "明日までに宿題を出さなければいけません。",
+        "romaji": "Ashita made ni shukudai wo dasanakereba ikemasen.",
+        "uz": "Ertagacha uyga vazifani topshirishim shart."
+      },
+      {
+        "ja": "パスポートを持っていかなければいけません。",
+        "romaji": "Pasupooto wo motte ikanakereba ikemasen.",
+        "uz": "Pasportni olib borishim shart."
+      }
+    ]
+  },
+  {
+    "id": "n5_made_ni",
+    "level": "N5",
+    "title": "〜までに (made ni)",
+    "romaji": "~made ni",
+    "meaningUz": "...gacha (oxirgi muddat / dedlayn)",
+    "structure": "Vaqt/Sana + までに + Fe'l",
+    "examples": [
+      {
+        "ja": "金曜日までにレポートを出してください。",
+        "romaji": "Kinyoubi made ni repooto wo dashite kudasai.",
+        "uz": "Juma kunigacha hisobotni topshiring."
+      },
+      {
+        "ja": "5時までに帰らなければなりません。",
+        "romaji": "Go-ji made ni kaeranakereba narimasen.",
+        "uz": "Soat 5 gacha uyga qaytishim kerak."
+      }
+    ]
+  },
+  {
+    "id": "n5_ka_choice",
+    "level": "N5",
+    "title": "A か B (ka - yoki)",
+    "romaji": "A ka B",
+    "meaningUz": "A yoki B (tanlov bog'lovchisi)",
+    "structure": "Ot 1 / Fe'l 1 + か + Ot 2 / Fe'l 2",
+    "examples": [
+      {
+        "ja": "お茶かコーヒーを飲みませんか。",
+        "romaji": "Ocha ka koohii wo nomimasen ka.",
+        "uz": "Choy yoki kofe ichmaysizmi?"
+      },
+      {
+        "ja": "行くか行かないか、決めてください。",
+        "romaji": "Iku ka ikanai ka, kimete kudasai.",
+        "uz": "Borish yoki bormaslikni hal qiling."
+      }
+    ]
+  },
+  {
+    "id": "n5_shi_shi",
+    "level": "N5",
+    "title": "〜し、〜し (shi ... shi)",
+    "romaji": "~shi, ~shi",
+    "meaningUz": "...ham, qolaversa... ham (bir nechta sabab va xususiyatlarni sanash)",
+    "structure": "Oddiy shakl (Futsuukei) + し、Oddiy shakl + し",
+    "examples": [
+      {
+        "ja": "この店は安いし、おいしいです。",
+        "romaji": "Kono mise wa yasui shi, oishii desu.",
+        "uz": "Bu do'kon arzon ham, ustiga-ustak taomlari mazali ham."
+      },
+      {
+        "ja": "雨も降っているし、今日は出かけません。",
+        "romaji": "Ame mo futte iru shi, kyou wa dekakemasen.",
+        "uz": "Yomg'ir ham yog'yapti, shuning uchun bugun ko'chaga chiqmayman."
+      }
+    ]
+  },
+  {
+    "id": "n4_te_itadakemasen_ka",
+    "level": "N4",
+    "title": "〜ていただけませんか (te itadakemasen ka)",
+    "romaji": "~te itadakemasen ka",
+    "meaningUz": "Iltimos, ...qilib bera olasizmi? (juda muloyim iltimos shakli)",
+    "structure": "Fe'l て-shakli + いただけませんか / くださいませんか",
+    "examples": [
+      {
+        "ja": "日本語でレポートを直していただけませんか。",
+        "romaji": "Nihongo de repooto wo naoshite itadakemasen ka.",
+        "uz": "Yaponcha hisobotimni to'g'rilab bera olmaysizmi, iltimos?"
+      },
+      {
+        "ja": "市役所への行き方を教えてくださいませんか。",
+        "romaji": "Shiyakusho e no ikikata wo oshiete kudasaimasen ka.",
+        "uz": "Shahar hokimiyatiga borish yo'lini ko'rsatib yubora olmaysizmi?"
+      }
+    ]
+  },
+  {
+    "id": "n4_tara_ii_desu_ka",
+    "level": "N4",
+    "title": "〜たらいいですか (tara ii desu ka)",
+    "romaji": "~tara ii desu ka",
+    "meaningUz": "...qilsam ma'qul bo'ladi? (maslahat so'rash)",
+    "structure": "So'roq so'zi + Fe'l たら-shakli + いいですか",
+    "examples": [
+      {
+        "ja": "どこでカメラを買ったらいいですか。",
+        "romaji": "Doko de kamera wo kattara ii desu ka.",
+        "uz": "Fotokamerani qayerdan sotib olganim ma'qul?"
+      },
+      {
+        "ja": "頭が痛いんですが、どうしたらいいですか。",
+        "romaji": "Atama ga itain desu ga, dou shitara ii desu ka.",
+        "uz": "Boshim og'riyapti, nima qilsam bo'ladi?"
+      }
+    ]
+  },
+  {
+    "id": "n4_to_ii_desu_ne",
+    "level": "N4",
+    "title": "〜といいですね / 〜といいですが (to ii desu ne)",
+    "romaji": "~to ii desu ne / ~to ii desu ga",
+    "meaningUz": "...bo'lsa qaniydi, shunday bo'lsa ajoyib bo'lardi (istak, tilak)",
+    "structure": "Oddiy shakl (Futsuukei) + といいですね (boshqalarga tilak) / といいですが (o'ziga istak)",
+    "examples": [
+      {
+        "ja": "明日はいい天気になるといいですね。",
+        "romaji": "Ashita wa ii tenki ni naru to ii desu ne.",
+        "uz": "Ertaga havo yaxshi bo'lsa zo'r bo'lardi-da."
+      },
+      {
+        "ja": "早く病気が治るといいですね。",
+        "romaji": "Hayaku byouki ga naoru to ii desu ne.",
+        "uz": "Tezroq tuzalib ketsangiz koshkiydi."
+      }
+    ]
+  },
+  {
+    "id": "n4_te_arimasu",
+    "level": "N4",
+    "title": "〜てあります (te arimasu)",
+    "romaji": "~te arimasu",
+    "meaningUz": "...qilib qo'yilgan (o'tgan harakat natijasi hozir saqlanib turibdi)",
+    "structure": "Ot + が + O'timli fe'l て-shakli + あります",
+    "examples": [
+      {
+        "ja": "壁にカレンダーが掛けてあります。",
+        "romaji": "Kabe ni karendaa ga kakete arimasu.",
+        "uz": "Devorga taqvim osib qo'yilgan."
+      },
+      {
+        "ja": "会議室の机の上に資料が並べてあります。",
+        "romaji": "Kaigishitsu no tsukue no ue ni shiryou ga narabete arimasu.",
+        "uz": "Majlis xonasi stoliga materiallar terib qo'yilgan."
+      }
+    ]
+  },
+  {
+    "id": "n4_ikoukei",
+    "level": "N4",
+    "title": "〜意向形 [いこうけい] (Ikoukei / Niyat-taklif shakli)",
+    "romaji": "Volitional form (Ikoukei)",
+    "meaningUz": "...qilaylik, ...qilmoqchiman (〜ましょう ning do'stona oddiy shakli)",
+    "structure": "G1: o-qator + う (ikou, nomou) / G2: -ru -> -you (tabeyou) / G3: shiyou, koyou",
+    "examples": [
+      {
+        "ja": "ちょっと休もう。",
+        "romaji": "Chotto yasumou.",
+        "uz": "Biroz dam olaylik (do'stona nutq)."
+      },
+      {
+        "ja": "今夜、一緒に映画を見よう。",
+        "romaji": "Konya, issho ni eiga wo miyou.",
+        "uz": "Bugun oqshom birga kino ko'raylik."
+      }
+    ]
+  },
+  {
+    "id": "n4_ikoukei_to_omou",
+    "level": "N4",
+    "title": "〜意向形 + と思っています (Ikoukei + to omotte imasu)",
+    "romaji": "Volitional + to omotte imasu",
+    "meaningUz": "...qilish niyatidaman, ...qilmoqchiman deb o'ylab yuribman",
+    "structure": "Fe'l意向形 + と思っています",
+    "examples": [
+      {
+        "ja": "週末、京都へ行こうと思っています。",
+        "romaji": "Shuumatsu, Kyouto e ikou to omotte imasu.",
+        "uz": "Dam olish kunlari Kyotoga bormoqchiman deb niyat qilib yuribman."
+      },
+      {
+        "ja": "新しいパソコンを買おうと思っています。",
+        "romaji": "Atarashii pasokon wo kaou to omotte imasu.",
+        "uz": "Yangi kompyuter sotib olmoqchiman."
+      }
+    ]
+  },
+  {
+    "id": "n4_meireikei_kinshikei",
+    "level": "N4",
+    "title": "〜命令形・禁止形 (Meireikei & Kinshikei)",
+    "romaji": "Imperative & Prohibitive forms",
+    "meaningUz": "Qil! (keskin buyruq) va Qilma! (qat'iy taqiq)",
+    "structure": "Buyruq: G1: e-qator (ike), G2: -ro (tabero), G3: shiro, koi / Taqiq: Jisho-kei + な",
+    "examples": [
+      {
+        "ja": "早く走れ！",
+        "romaji": "Hayaku hashire!",
+        "uz": "Tezroq yugur! (buyruq)"
+      },
+      {
+        "ja": "ここに車を止めるな！",
+        "romaji": "Koko ni kuruma wo tomeru na!",
+        "uz": "Bu yerga mashinani to'xtatma! (taqiq)"
+      }
+    ]
+  },
+  {
+    "id": "n4_toori_ni",
+    "level": "N4",
+    "title": "〜とおりに (toori ni)",
+    "romaji": "~toori ni",
+    "meaningUz": "Aynan aytilgandek, ko'rsatilgandek, ...ga muvofiq",
+    "structure": "Fe'l lug'at shakli / た-shakli + とおりに / Ot + の + とおりに",
+    "examples": [
+      {
+        "ja": "先生が言ったとおりに書いてください。",
+        "romaji": "Sensei ga itta toori ni kaite kudasai.",
+        "uz": "Ustoz aytganlaridek qilib yozing."
+      },
+      {
+        "ja": "説明書のとおりに組み立てました。",
+        "romaji": "Setsumeisho no toori ni kumitatemashita.",
+        "uz": "Qo'llanma bo'yicha (aynan ko'rsatilgandek) yig'dim."
+      }
+    ]
+  },
+  {
+    "id": "n4_ba_shart",
+    "level": "N4",
+    "title": "〜ば (ba - Shart mayli)",
+    "romaji": "~ba conditional",
+    "meaningUz": "Agar ...sa (shart bajarilsa natija kelib chiqishi)",
+    "structure": "Fe'l: e-qator + ば / い-sifat: -い -> ければ / な-sifat & Ot: なら(ば)",
+    "examples": [
+      {
+        "ja": "春になれば、桜が咲きます。",
+        "romaji": "Haru ni nareba, sakura ga sakimasu.",
+        "uz": "Bahor kelsa, sakura gullaydi."
+      },
+      {
+        "ja": "安ければ、買います。",
+        "romaji": "Yasukereba, kaimasu.",
+        "uz": "Arzon bo'lsa, sotib olaman."
+      }
+    ]
+  },
+  {
+    "id": "n4_nara_shart",
+    "level": "N4",
+    "title": "〜なら (nara - Mavzuviy shart)",
+    "romaji": "~nara conditional",
+    "meaningUz": "Agar ...haqida bo'lsa, modomiki ...ekan (tavsiya berish)",
+    "structure": "Ot / Fe'l oddiy shakli + なら",
+    "examples": [
+      {
+        "ja": "日本料理なら、寿司が一番おいしいです。",
+        "romaji": "Nihon ryouri nara, sushi ga ichiban oishii desu.",
+        "uz": "Yapon taomlari haqida gap ketsa, sushi eng mazalisidir."
+      },
+      {
+        "ja": "パソコンを買うなら、秋葉原がいいですよ。",
+        "romaji": "Pasokon wo kau nara, Akihabara ga ii desu yo.",
+        "uz": "Agar kompyuter olmoqchi bo'lsangiz, Akihabara ma'qul."
+      }
+    ]
+  },
+  {
+    "id": "n4_you_ni_tame_ni",
+    "level": "N4",
+    "title": "〜ように vs 〜ために (you ni vs tame ni)",
+    "romaji": "~you ni vs ~tame ni",
+    "meaningUz": "...bo'lishi uchun (you ni - imkoniyat/holat) vs ...qilish maqsadida (tame ni - harakat)",
+    "structure": "Fe'l potentsial/inkor + ように / Fe'l ixtiyoriy lug'at shakli + ために",
+    "examples": [
+      {
+        "ja": "日本語が上手に話せるように、毎日練習します。",
+        "romaji": "Nihongo ga jouzu ni hanaseru you ni, mainichi renshuu shimasu.",
+        "uz": "Yaponcha ravon gapira olish uchun har kuni mashq qilaman."
+      },
+      {
+        "ja": "家を買うために、貯金しています。",
+        "romaji": "Ie wo kau tame ni, chokin shite imasu.",
+        "uz": "Uy sotib olish maqsadida pul jamg'aryapman."
+      }
+    ]
+  },
+  {
+    "id": "n4_ukemi_passive",
+    "level": "N4",
+    "title": "〜受身形 [うけみけい] (Ukemi-kei / Majhul nisbat)",
+    "romaji": "Passive form (Ukemi-kei)",
+    "meaningUz": "...tomonidan bajarildi, ...ga uchradi (boshqa shaxs ta'sirida bo'lish)",
+    "structure": "G1: a-qator + れる (kakareru) / G2: -rareru (homerareru) / G3: sareru, korareru",
+    "examples": [
+      {
+        "ja": "私は先生に褒められました。",
+        "romaji": "Watashi wa sensei ni homeraremashita.",
+        "uz": "Men ustozim tomonidan maqtaldim."
+      },
+      {
+        "ja": "電車の中で足を踏まれました。",
+        "romaji": "Densha no naka de ashi wo fumaremashita.",
+        "uz": "Poezdda oyog'imni bosib olishdi (nohush vaziyat)."
+      }
+    ]
+  },
+  {
+    "id": "n4_shieki_causative",
+    "level": "N4",
+    "title": "〜使役形 [しえきけい] (Shieki-kei / Orttirma nisbat)",
+    "romaji": "Causative form (Shieki-kei)",
+    "meaningUz": "...qildirmoq, ...bajarishga ruxsat bermoq",
+    "structure": "G1: a-qator + せる (ikaseru) / G2: -saseru (tabesaseru) / G3: saseru, kosaseru",
+    "examples": [
+      {
+        "ja": "部長は私に出張に行かせました。",
+        "romaji": "Buchou wa watashi ni shucchou ni ikasemashita.",
+        "uz": "Bo'lim boshlig'i meni xizmat safariga yubordi (borishga buyurdi)."
+      },
+      {
+        "ja": "子供に野菜を食べさせます。",
+        "romaji": "Kodomo ni yasai wo tabesasemasu.",
+        "uz": "Bolamga sabzavot yediraman."
+      }
+    ]
+  },
+  {
+    "id": "n4_sonkeigo_o_ni_naru",
+    "level": "N4",
+    "title": "〜お/ご〜になります (Sonkeigo / Hurmat shakli)",
+    "romaji": "o/go ... ni narimasu (Honorific)",
+    "meaningUz": "...qiladilar (suhbatdosh yoki hurmatli shaxs harakatini ulug'lash)",
+    "structure": "お + Fe'l ます-asosi + になります / ご + Ot + になります",
+    "examples": [
+      {
+        "ja": "社長は新聞をお読みになります。",
+        "romaji": "Shachou wa shinbun wo oyomi ni narimasu.",
+        "uz": "Prezident (direktor) gazeta o'qiyaptilar."
+      },
+      {
+        "ja": "何時にお帰りになりますか。",
+        "romaji": "Nanji ni okaeri ni narimasu ka.",
+        "uz": "Soat nechada qaytadilar?"
+      }
+    ]
+  },
+  {
+    "id": "n4_kenjougo_o_suru",
+    "level": "N4",
+    "title": "〜お/ご〜します (Kenjougo / Kamtarlik shakli)",
+    "romaji": "o/go ... shimasu (Humble)",
+    "meaningUz": "...qilib beraman (o'z harakatini kamtar qilib, boshqalarga xizmat ko'rsatish)",
+    "structure": "お + Fe'l ます-asosi + します / ご + Ot + します",
+    "examples": [
+      {
+        "ja": "重いお荷物をお持ちします。",
+        "romaji": "Omoi onimotsu wo omochi shimasu.",
+        "uz": "Og'ir yukingizni ko'tarib beraman."
+      },
+      {
+        "ja": "明日、スケジュールをご案内します。",
+        "romaji": "Ashita, sukejuuru wo goannai shimasu.",
+        "uz": "Ertaga jadval bilan tanishtirib chiqaman."
+      }
+    ]
+  },
+  {
+    "id": "n4_hazu_desu",
+    "level": "N4",
+    "title": "〜はずです (hazu desu)",
+    "romaji": "~hazu desu",
+    "meaningUz": "...ishi aniq, shubhasiz shunday bo'lishi kerak (mantiqiy ishonch)",
+    "structure": "Fe'l/Sifat oddiy shakli + はずです / Ot + の + はずです",
+    "examples": [
+      {
+        "ja": "田中さんは今日来るはずです。",
+        "romaji": "Tanaka-san wa kyou kuru hazu desu.",
+        "uz": "Tanaka janoblari bugun kelishlari aniq (kelishi kerak)."
+      },
+      {
+        "ja": "鍵はカバンの中にあるはずです。",
+        "romaji": "Kagi wa kaban no naka ni aru hazu desu.",
+        "uz": "Kalit sumkaning ichida bo'lishi shubhasiz."
+      }
+    ]
+  },
+  {
+    "id": "n4_you_desu_conjecture",
+    "level": "N4",
+    "title": "〜ようです (you desu)",
+    "romaji": "~you desu (Sensory conjecture)",
+    "meaningUz": "...ga o'xshaydi, shekilli (shaxsiy his-tuyg'u va sezgilarga asoslangan xulosa)",
+    "structure": "Oddiy shakl + ようです (な-sifat: な + ようです, Ot: の + ようです)",
+    "examples": [
+      {
+        "ja": "外は雨が降っているようです。",
+        "romaji": "Soto wa ame ga futte iru you desu.",
+        "uz": "Tashqarida yomg'ir yog'ayotganga o'xshaydi (tovushidan)."
+      },
+      {
+        "ja": "彼は疲れているようです。",
+        "romaji": "Kare wa tsukarete iru you desu.",
+        "uz": "U charchaganga o'xshaydi."
+      }
+    ]
+  },
+  {
+    "id": "n4_rashii",
+    "level": "N4",
+    "title": "〜らしい (rashii)",
+    "romaji": "~rashii",
+    "meaningUz": "Eshitishimcha ...mish / Haqiqiy ...ga xos",
+    "structure": "Oddiy shakl (Futsuukei) + らしい (Ot va な-sifat bevosita ulanadi)",
+    "examples": [
+      {
+        "ja": "明日は雪が降るらしいです。",
+        "romaji": "Ashita wa yuki ga furu rashii desu.",
+        "uz": "Eshitishimcha, ertaga qor yog'armish."
+      },
+      {
+        "ja": "今日は春らしい暖かい日です。",
+        "romaji": "Kyou wa harurashii atatakai hi desu.",
+        "uz": "Bugun haqiqiy bahorga xos iliq kun."
+      }
+    ]
+  },
+  {
+    "id": "n4_okage_de_sei_de",
+    "level": "N4",
+    "title": "〜おかげで / 〜せいで (okage de / sei de)",
+    "romaji": "~okage de / ~sei de",
+    "meaningUz": "...sharofati tufayli (ijobiy) vs ...kasofati sababli (salbiy)",
+    "structure": "Oddiy shakl + おかげで / せいで (Ot: の + おかげで/せいで)",
+    "examples": [
+      {
+        "ja": "先生のおかげで、試験に合格しました。",
+        "romaji": "Sensei no okage de, shiken ni goukaku shimashita.",
+        "uz": "Ustozimning sharofati tufayli imtihondan o'tdim."
+      },
+      {
+        "ja": "台風のせいで、電車が止まりました。",
+        "romaji": "Taifuu no sei de, densha ga tomarimashita.",
+        "uz": "Tayfun kasofati tufayli poyezd to'xtab qoldi."
+      }
+    ]
+  },
+  {
+    "id": "n4_noni_contrast",
+    "level": "N4",
+    "title": "〜のに (no ni - Zidlik / Norozilik)",
+    "romaji": "~no ni (Contrast / Regret)",
+    "meaningUz": "...bo'lishiga qaramay, ...bo'lsa ham (kutilmagan natija va norozilik)",
+    "structure": "Oddiy shakl + のに (な-sifat va Ot: な + のに)",
+    "examples": [
+      {
+        "ja": "一生懸命勉強したのに、試験に落ちました。",
+        "romaji": "Isshoukenmei benkyou shita no ni, shiken ni ochimashita.",
+        "uz": "Jon-jahdim bilan tayyorlangan bo'lsam-da, imtihondan yiqildim."
+      },
+      {
+        "ja": "薬を飲んだのに、熱が下がりません。",
+        "romaji": "Kusuri wo nonda no ni, netsu ga sagarimasen.",
+        "uz": "Dori ichgan bo'lsam ham, isitmam tushmayapti."
+      }
+    ]
+  },
+  {
+    "id": "n4_ba_hodo",
+    "level": "N4",
+    "title": "〜ば〜ほど (ba ... hodo)",
+    "romaji": "~ba ~hodo",
+    "meaningUz": "Qanchalik ...sa, shunchalik ... (mutanosib o'sish)",
+    "structure": "Fe'l/Sifat ば-shakli + Fe'l/Sifat lug'at shakli + ほど",
+    "examples": [
+      {
+        "ja": "日本語は勉強すればするほど、おもしろくなります。",
+        "romaji": "Nihongo wa benkyou sureba suru hodo, omoshiroku narimasu.",
+        "uz": "Yapon tilini qanchalik ko'p o'rgansangiz, shunchalik qiziqarli bo'ladi."
+      },
+      {
+        "ja": "荷物は少なければ少ないほどいいです。",
+        "romaji": "Nimotsu wa sukunakereba sukunai hodo ii desu.",
+        "uz": "Yuk qanchalik kam bo'lsa, shunchalik yaxshi."
+      }
+    ]
+  },
+  {
+    "id": "n4_naosu",
+    "level": "N4",
+    "title": "〜直す [なおす] (naosu)",
+    "romaji": "~naosu",
+    "meaningUz": "Qaytadan, qayta boshdan tuzatib qilmoq",
+    "structure": "Fe'l ます-asosi + 直す (なおす)",
+    "examples": [
+      {
+        "ja": "もう一度作文を書き直してください。",
+        "romaji": "Mou ichido sakubun wo kakinaoshite kudasai.",
+        "uz": "Inshoni yana bir bor boshqatdan qayta yozing."
+      },
+      {
+        "ja": "よく考えて直します。",
+        "romaji": "Yoku kangaenaoshimasu.",
+        "uz": "Yaxshilab qayta o'ylab ko'raman."
+      }
+    ]
+  },
+  {
+    "id": "n4_hajimeru_owaru",
+    "level": "N4",
+    "title": "〜始める / 〜終わる (hajimeru / owaru)",
+    "romaji": "~hajimeru / ~owaru",
+    "meaningUz": "...qila boshlamoq / ...qilib bo'lmoq",
+    "structure": "Fe'l ます-asosi + 始める (hajimeru) / 終わる (owaru)",
+    "examples": [
+      {
+        "ja": "雨が降り始めました。",
+        "romaji": "Ame ga furihajimemashita.",
+        "uz": "Yomg'ir yog'a boshladi."
+      },
+      {
+        "ja": "本を読み終わりました。",
+        "romaji": "Hon wo yomiowarimashita.",
+        "uz": "Kitobni o'qib tugatdim."
+      }
+    ]
+  },
+  {
+    "id": "n4_tsuzukeru",
+    "level": "N4",
+    "title": "〜続ける (tsuzukeru)",
+    "romaji": "~tsuzukeru",
+    "meaningUz": "To'xtovsiz davom ettirmoq",
+    "structure": "Fe'l ます-asosi + 続ける (つづける)",
+    "examples": [
+      {
+        "ja": "朝まで勉強し続けました。",
+        "romaji": "Asa made benkyou shitsuzukemashita.",
+        "uz": "Ertalabgacha tinimsiz dars qildim."
+      },
+      {
+        "ja": "諦めないで走り続けてください。",
+        "romaji": "Akiramenaide hashiritsudukete kudasai.",
+        "uz": "Taslim bo'lmasdan yugurishda davom eting."
+      }
+    ]
   }
 ]

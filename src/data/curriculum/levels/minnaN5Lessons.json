@@ -568,7 +568,7 @@
             {
               "id": "ja-minna-l1-ex6",
               "type": "multiple-choice",
-              "prompt": "「も (ham)」 zarrachasini to'g'ri qo'llang:\n「ミラーさんは 会社員です。サントスさん（　）会社員です。」",
+              "prompt": " qo'shimchani to'g'ri qo'llang:\n「ミラーさんは 会社員です。サントスさん（　）会社員です。」",
               "options": ["の", "は", "も", "に"],
               "correctAnswer": 2,
               "explanation": "Oldingi gapdagi holat takrorlanganda 'ham' ma'nosida 「も」 qo'llaniladi."
@@ -576,10 +576,10 @@
             {
               "id": "ja-minna-l1-ex7",
               "type": "multiple-choice",
-              "prompt": "Tegishlilik zarrachasini tanlang:\n「わたしは IMC（　）社員です。」",
+              "prompt": "Tegishlilik qo'shimchasini  tanlang:\n「わたしは IMC（　）社員です。」",
               "options": ["と", "は", "も", "の"],
               "correctAnswer": 3,
-              "explanation": "Kompaniya va uning xodimi o'rtasidagi tegishlilikni 「の」 zarrachasi bog'laydi."
+              "explanation": "Kompaniya va uning xodimi o'rtasidagi tegishlilikni 「の」 qo'shimchasi bog'laydi."
             },
             {
               "id": "ja-minna-l1-ex8",
