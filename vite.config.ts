@@ -138,7 +138,9 @@ export default defineConfig(({ mode }) => {
           cleanupOutdatedCaches: true,
           globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
           globIgnores: [
-            '**/jlpt-vocab-data-*.js',
+            '**/kanji-strokes-*.js',
+            '**/jlpt-vocab-*.js',
+            '**/jlpt-deck-*.js',
             '**/curriculum-core-*.js',
             '**/jlpt_n2-*.js',
             '**/jlpt_n3-*.js',
@@ -152,12 +154,12 @@ export default defineConfig(({ mode }) => {
           runtimeCaching: [
             {
               urlPattern:
-                /assets\/(?:jlpt-vocab-data|curriculum-core|jlpt_n[1-5]|jlpt-grammar-kanji-data|AdminDashboardPage|JlptGrammarKanjiMaster|minna_shokyu).*\.js$/i,
+                /assets\/(?:kanji-strokes|jlpt-vocab|jlpt-deck|curriculum-core|jlpt_n[1-5]|jlpt-grammar-kanji-data|AdminDashboardPage|JlptGrammarKanjiMaster|minna_shokyu).*\.js$/i,
               handler: 'StaleWhileRevalidate',
               options: {
                 cacheName: 'large-data-chunks-cache',
                 expiration: {
-                  maxEntries: 40,
+                  maxEntries: 60,
                   maxAgeSeconds: 30 * 24 * 60 * 60,
                 },
                 cacheableResponse: {
@@ -300,11 +302,44 @@ export default defineConfig(({ mode }) => {
             if (id.includes('curriculumLessons')) {
               return 'curriculum-core';
             }
+            if (id.includes('kanjiStrokes.json')) {
+              return 'kanji-strokes';
+            }
+            if (id.includes('/vocab/jlptVocabN1.json')) {
+              return 'jlpt-vocab-n1';
+            }
+            if (id.includes('/vocab/jlptVocabN2.json')) {
+              return 'jlpt-vocab-n2';
+            }
+            if (id.includes('/vocab/jlptVocabN3.json')) {
+              return 'jlpt-vocab-n3';
+            }
+            if (id.includes('/vocab/jlptVocabN4.json')) {
+              return 'jlpt-vocab-n4';
+            }
+            if (id.includes('/vocab/jlptVocabN5.json')) {
+              return 'jlpt-vocab-n5';
+            }
+            if (id.includes('n1PresetDecks.json')) {
+              return 'jlpt-deck-n1';
+            }
+            if (id.includes('n2PresetDecks.json')) {
+              return 'jlpt-deck-n2';
+            }
+            if (id.includes('n3PresetDecks.json')) {
+              return 'jlpt-deck-n3';
+            }
+            if (id.includes('n4PresetDecks.json')) {
+              return 'jlpt-deck-n4';
+            }
+            if (id.includes('n5PresetDecks.json')) {
+              return 'jlpt-deck-n5';
+            }
             if (id.includes('/data/jlptGrammarKanji')) {
               return 'jlpt-grammar-kanji-data';
             }
             if (id.includes('/data/jlptVocabData') || id.includes('/data/jlptVocabDatabase')) {
-              return 'jlpt-vocab-data';
+              return 'jlpt-vocab-core';
             }
           },
         },

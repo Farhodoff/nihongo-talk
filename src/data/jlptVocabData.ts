@@ -1,8 +1,4 @@
-import n5Data from './vocab/jlptVocabN5.json';
-import n4Data from './vocab/jlptVocabN4.json';
-import n3Data from './vocab/jlptVocabN3.json';
-import n2Data from './vocab/jlptVocabN2.json';
-import n1Data from './vocab/jlptVocabN1.json';
+export type JlptVocabLevel = 'N5' | 'N4' | 'N3' | 'N2' | 'N1';
 
 export interface JlptVocabItem {
   id: string;
@@ -19,24 +15,49 @@ export interface JlptVocabItem {
   }[];
 }
 
-export const JLPT_VOCAB_DATA: JlptVocabItem[] = [
-  ...(n5Data as JlptVocabItem[]),
-  ...(n4Data as JlptVocabItem[]),
-  ...(n3Data as JlptVocabItem[]),
-  ...(n2Data as JlptVocabItem[]),
-  ...(n1Data as JlptVocabItem[]),
-];
+const vocabCache: Partial<Record<JlptVocabLevel, JlptVocabItem[]>> = {};
 
-const LEVEL_VOCAB_MAP: Record<string, JlptVocabItem[]> = {
-  N5: n5Data as JlptVocabItem[],
-  N4: n4Data as JlptVocabItem[],
-  N3: n3Data as JlptVocabItem[],
-  N2: n2Data as JlptVocabItem[],
-  N1: n1Data as JlptVocabItem[],
-};
+/**
+ * Asynchronously loads vocabulary dataset for a specific JLPT level on-demand.
+ * Enables granular code-splitting so users download only the level they are actively studying.
+ */
+export async function loadVocabByLevel(level: JlptVocabLevel): Promise<JlptVocabItem[]> {
+  if (vocabCache[level]) return vocabCache[level]!;
 
-export async function loadVocabByLevel(
-  level: 'N5' | 'N4' | 'N3' | 'N2' | 'N1',
-): Promise<JlptVocabItem[]> {
-  return LEVEL_VOCAB_MAP[level] || [];
+  let items: JlptVocabItem[] = [];
+  switch (level) {
+    case 'N5':
+      items = ((await import('./vocab/jlptVocabN5.json')).default || []) as JlptVocabItem[];
+      break;
+    case 'N4':
+      items = ((await import('./vocab/jlptVocabN4.json')).default || []) as JlptVocabItem[];
+      break;
+    case 'N3':
+      items = ((await import('./vocab/jlptVocabN3.json')).default || []) as JlptVocabItem[];
+      break;
+    case 'N2':
+      items = ((await import('./vocab/jlptVocabN2.json')).default || []) as JlptVocabItem[];
+      break;
+    case 'N1':
+      items = ((await import('./vocab/jlptVocabN1.json')).default || []) as JlptVocabItem[];
+      break;
+    default:
+      items = [];
+  }
+  vocabCache[level] = items;
+  return items;
 }
+
+/**
+ * Loads vocabulary for all JLPT levels concurrently.
+ */
+export async function loadAllVocab(): Promise<JlptVocabItem[]> {
+  const levels: JlptVocabLevel[] = ['N5', 'N4', 'N3', 'N2', 'N1'];
+  const results = await Promise.all(levels.map((lvl) => loadVocabByLevel(lvl)));
+  return results.flat();
+}
+
+/**
+ * Backward-compatible stub
+ */
+export const JLPT_VOCAB_DATA: JlptVocabItem[] = [];

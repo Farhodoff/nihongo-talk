@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, Suspense } from 'react';
 import {
   BookOpen,
   Sparkles,
@@ -17,7 +17,11 @@ import type { JlptGrammarQuestion } from '../../data/jlpt/grammar_data';
 import { speakText } from '../../utils/audioTts';
 import { useStudyData } from '../../context/StudyPlannerContext';
 import { FuriganaText } from './FuriganaText';
-import { KanjiStrokeOrderModal } from './KanjiStrokeOrderModal';
+import { lazyWithRetry } from '../../utils/lazyRetry';
+
+const KanjiStrokeOrderModal = lazyWithRetry(() =>
+  import('./KanjiStrokeOrderModal').then((m) => ({ default: m.KanjiStrokeOrderModal })),
+);
 import { useJlptMastery, MasteryStatus } from '../../hooks/useJlptMastery';
 import { HistoryService } from '../../services/HistoryService';
 import { useLanguage } from '../../context/LanguageContext';
@@ -80,10 +84,14 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
           setTabLoading(true);
           const kanjiDbModule = await import('../../data/jlptKanjiDatabase');
           if (isMounted) setKanjiData(kanjiDbModule.JLPT_KANJI_DATABASE);
-        } else if (activeTab === 'goi' && vocabData.length === 0) {
+        } else if (activeTab === 'goi') {
           setTabLoading(true);
           const vocabModule = await import('../../data/jlptVocabData');
-          if (isMounted) setVocabData(vocabModule.JLPT_VOCAB_DATA);
+          const data =
+            selectedLevel === 'ALL'
+              ? await vocabModule.loadAllVocab()
+              : await vocabModule.loadVocabByLevel(selectedLevel);
+          if (isMounted) setVocabData(data);
         } else if (activeTab === 'quiz' && grammarQuestions.length === 0) {
           setTabLoading(true);
           const questionsModule = await import('../../data/jlpt/grammar_data');
@@ -103,6 +111,31 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
       isMounted = false;
     };
   }, [activeTab]);
+
+  // Dynamic on-demand vocab loader when selectedLevel changes in Goi tab
+  useEffect(() => {
+    if (activeTab !== 'goi') return;
+    let isMounted = true;
+    const fetchVocabForLevel = async () => {
+      try {
+        setTabLoading(true);
+        const vocabModule = await import('../../data/jlptVocabData');
+        const data =
+          selectedLevel === 'ALL'
+            ? await vocabModule.loadAllVocab()
+            : await vocabModule.loadVocabByLevel(selectedLevel);
+        if (isMounted) setVocabData(data);
+      } catch (err) {
+        console.error('Failed to load vocab for level', err);
+      } finally {
+        if (isMounted) setTabLoading(false);
+      }
+    };
+    fetchVocabForLevel();
+    return () => {
+      isMounted = false;
+    };
+  }, [activeTab, selectedLevel]);
 
   // Background prefetch for instant tab switching when idle
   useEffect(() => {
@@ -1117,16 +1150,18 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
 
       {/* Kanji Stroke Order Modal */}
       {strokeModalKanji && (
-        <KanjiStrokeOrderModal
-          kanji={strokeModalKanji.kanji}
-          meaningUz={strokeModalKanji.meaningUz}
-          onyomi={strokeModalKanji.onyomi}
-          kunyomi={strokeModalKanji.kunyomi}
-          strokeCount={strokeModalKanji.strokeCount}
-          level={strokeModalKanji.level}
-          isOpen={!!strokeModalKanji}
-          onClose={() => setStrokeModalKanji(null)}
-        />
+        <Suspense fallback={null}>
+          <KanjiStrokeOrderModal
+            kanji={strokeModalKanji.kanji}
+            meaningUz={strokeModalKanji.meaningUz}
+            onyomi={strokeModalKanji.onyomi}
+            kunyomi={strokeModalKanji.kunyomi}
+            strokeCount={strokeModalKanji.strokeCount}
+            level={strokeModalKanji.level}
+            isOpen={!!strokeModalKanji}
+            onClose={() => setStrokeModalKanji(null)}
+          />
+        </Suspense>
       )}
     </div>
   );
