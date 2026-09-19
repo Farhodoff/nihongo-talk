@@ -871,7 +871,6 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
   // === N2 & N1 MOCK EXAMS ===================
   // ==========================================
   N2: [
-    // Language Knowledge
     {
       id: 401,
       section: 'knowledge',
@@ -879,7 +878,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
       options: ['ともなって', '関わらず', '限らず', 'おいて'],
       correctAnswer: 0,
       explanationUzbek:
-        "'~ni tomonatte' (biror narsa sodir bo'lishi bilan birga, mutanosib ravishda) ma'nosini beradi.",
+        "'~ni tomonatte' (biror narsa sodir bo'lishi bilan birga, unga mutanosib ravishda) ma'nosini beradi.",
     },
     {
       id: 402,
@@ -908,9 +907,95 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
       explanationUzbek:
         "'kitai o uragiranai' (kutilmalarni puchga chiqarmagan, ishonchni oqlagan) iborasi qo'llaniladi.",
     },
-    // Reading Comprehension
     {
       id: 405,
+      section: 'knowledge',
+      questionText: 'この プロジェクトの 成功は、チーム全員の 協力（　）あり得ない。',
+      options: ['なしには', 'ばかりに', 'わりに', 'からして'],
+      correctAnswer: 0,
+      explanationUzbek:
+        "'~nashi ni wa (ari-enai)' (...siz aslo bo'lishi mumkin emas / ...siz tasavvur qilib bo'lmaydi) ma'nosini bildiradi.",
+    },
+    {
+      id: 406,
+      section: 'knowledge',
+      questionText: '地震の 揺れを 感知した（　）、エレベーターは 最寄り階に 自動停止した。',
+      options: ['が早いか', 'なり', 'とたん', 'や否や'],
+      correctAnswer: 2,
+      explanationUzbek: "'~to tan' (shu zahoti, bilanoq) kutilmagan ketma-ket hodisani ifodalaydi.",
+    },
+    {
+      id: 407,
+      section: 'knowledge',
+      questionText:
+        '次の 下線部の 言葉の 読み方として 最も よいものを 選びなさい。\n「政府は 新たな 経済政策を <u>提唱</u>した。」',
+      options: ['ていしょう', 'だいしょう', 'ていじょう', 'ちょうしょう'],
+      correctAnswer: 0,
+      explanationUzbek:
+        "提唱 iyeroglifining to'g'ri o'qilishi 'ていしょう' (Teishou - ilgari surish, taklif qilish).",
+    },
+    {
+      id: 408,
+      section: 'knowledge',
+      questionText:
+        '次の 下線部の 言葉の 漢字として 最も よいものを 選びなさい。\n「彼は 困難な 状況でも <u>れいせい</u>に 判断した。」',
+      options: ['冷清', '冷静', '冷精', '冷整'],
+      correctAnswer: 1,
+      explanationUzbek:
+        "'Reisei' (sovuqqon, bosiq) so'zining to'g'ri iyeroglifi '冷静' hisoblanadi.",
+    },
+    {
+      id: 409,
+      section: 'knowledge',
+      questionText: '会議で 出た 意見を（　）、最終的な 報告書を 作成した。',
+      options: ['ふまえて', 'かぎって', 'かけて', 'めぐって'],
+      correctAnswer: 0,
+      explanationUzbek:
+        "'~o fumaete' (biror narsani asos/tayanch qilib olgan holda) ma'nosidagi N2 grammatik vositasi.",
+    },
+    {
+      id: 410,
+      section: 'knowledge',
+      questionText: '留学を（　）に、彼の 視野は 大きく 広がった。',
+      options: ['最中', '契機', '極み', '拍子'],
+      correctAnswer: 1,
+      explanationUzbek:
+        "'~o keiki ni' (biror muhim voqeani turtki/imkoniyat deb bilib) qolipi to'g'ri keladi.",
+    },
+    {
+      id: 411,
+      section: 'knowledge',
+      questionText: '親の 反対を（　）、彼は 自分の 夢を 追い続けた。',
+      options: ['よそに', 'かねて', 'もとより', 'こめて'],
+      correctAnswer: 0,
+      explanationUzbek:
+        "'~o yoso ni' (boshqalarning e'tirozi yoki xavotiriga qaramasdan, pisand qilmay) degan ma'noni beradi.",
+    },
+    {
+      id: 412,
+      section: 'knowledge',
+      questionText: '次の 言葉の 使い方として 最も 適切なものを 選びなさい。\n「<u>愛着</u>」',
+      options: [
+        '長年 使ってきた 時計に 深い 愛着を 感じている。',
+        '新しい パソコンを 愛着して 仕事を 始めた。',
+        '彼の 愛着な 態度は 周囲を 怒らせた。',
+        '今回の 旅行は とても 愛着な 思い出に なった。',
+      ],
+      correctAnswer: 0,
+      explanationUzbek:
+        "'Aichaku' (biror qadrdon buyum yoki joyga mehr qo'yish) hissini ifodalaydi: '愛着を感じる / 愛着が湧く'.",
+    },
+    {
+      id: 413,
+      section: 'knowledge',
+      questionText: 'あの レストランは、料理の 味は（　）、接客サービスが 素晴らしい。',
+      options: ['ともかく', 'からこそ', 'あまり', 'いっぽうで'],
+      correctAnswer: 0,
+      explanationUzbek:
+        "'~wa tomokaku' (...ni chetga surib turganda / bir chetga qo'yib aytganda) qolipi qo'llaniladi.",
+    },
+    {
+      id: 414,
       section: 'reading',
       passageText:
         'テレワークの普及により、労働者は通勤ストレスから解放された一方で、業務と私生活の境界が曖昧になるという弊害が指摘されている。常時接続された環境下では、終業後も連絡への対応を迫られ、慢性的な疲労蓄積を招く恐れがある。この問題に対処すべく、諸外国では「つながらない権利」を法制化する動きが加速している。日本においても、単なる柔軟な働き方の推進にとどまらず、労働者の心身の健康を守る明確なルール作りが喫緊の課題といえよう。',
@@ -926,7 +1011,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
         "Muallif ish vaqtidan keyin aloqaga chiqmaslik huquqi kabi aniq himoya qoidalari zarurligini ta'kidlaydi.",
     },
     {
-      id: 406,
+      id: 415,
       section: 'reading',
       passageText:
         '人工知能（AI）の急速な進化は、定型的な業務のみならず、創造性を要する分野にまで影響を及ぼし始めている。しかし、AIが生成する作品は過去の厖大なデータの再構成に過ぎず、人間特有の「個人的な体験や葛藤から生じる独自性」を代替することは原理的に不可能である。したがって、人間はAIを競合相手とみなすのではなく、自らの創造性を拡張するための道具として共生を図るべきである。',
@@ -941,9 +1026,72 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
       explanationUzbek:
         "Matnda odamning o'z shaxsiy kechinmalari va ziddiyatlaridan kelib chiquvchi o'ziga xoslikni (独自性) sun'iy intellekt o'rnini bosa olmasligi yozilgan.",
     },
-    // Listening Comprehension
     {
-      id: 407,
+      id: 416,
+      section: 'reading',
+      passageText:
+        '近年、消費者の意識は「モノの所有」から「コトの体験」へと大きく移行している。かつては高級車や貴金属を所有することが社会的地位の象徴とされていたが、現代の若年層はシェアリングサービスを賢く利用し、旅先での特別な体験や他者との共感に価値を見出している。この変化は、企業に対して従来の製品重視の販売モデルから、体験と関係性を重視するサービスモデルへの転換を強く促している。',
+      questionText: '現代の若年層の消費傾向として最も合致するものはどれですか？',
+      options: [
+        '高級な品物をできるだけ多く買い集めること',
+        'モノを所有することよりも、体験や人との共感に価値を置くこと',
+        'シェアリングサービスを避け、すべて自分で購入すること',
+        '旅行やイベントなどの出費を極力控えること',
+      ],
+      correctAnswer: 1,
+      explanationUzbek:
+        "Yoshlar buyumni sotib olib mulk qilishdan ko'ra (モノの所有), noyob tajriba va boshqalar bilan hamfikrlikka (体験・共感) ko'proq ahamiyat bermoqda.",
+    },
+    {
+      id: 417,
+      section: 'reading',
+      passageText:
+        '失敗を恐れる文化が根強い組織では、新規事業の立ち上げや業務改善が停滞しやすい。真のイノベーションは、数多くの試行錯誤と想定内の失敗を前提として初めて生まれるものである。経営層が失敗した社員を減点方式で評価するのではなく、果敢に挑戦したプロセスそのものを正当に評価する姿勢を示してこそ、社員の自発的な創意工夫が引き出されるのである。',
+      questionText: '組織でイノベーションを起こすために経営層に必要な姿勢は何ですか？',
+      options: [
+        '絶対に失敗が起きない完璧な計画のみを承認すること',
+        '失敗した社員に対して厳しい減点処分を科すこと',
+        '失敗を恐れず挑戦したプロセスそのものを正当に評価すること',
+        '新規事業への投資を控え、既存事業のみに注力すること',
+      ],
+      correctAnswer: 2,
+      explanationUzbek:
+        'Muallif xodimlarning xatosiga jazo bermasdan, botirlik bilan yangilikka intilgan jarayonini (挑戦したプロセス) yuqori baholash zarurligini uqtiradi.',
+    },
+    {
+      id: 418,
+      section: 'reading',
+      passageText:
+        '読書の意義は単なる情報収集にとどまらない。著者の論理展開を追い、自分自身の経験と照らし合わせながら批判的に吟味するプロセスを通じて、読者は深い「思考力」を養うことができる。インターネットの要約情報だけで満足してしまうと、結論だけを効率的に得ることはできても、自ら深く問いを立てて思索する力はむしろ衰退してしまう危険性がある。',
+      questionText: '筆者がインターネットの要約情報に対して懸念している点は何ですか？',
+      options: [
+        '情報が手に入るまでに時間がかかりすぎること',
+        '自ら深く問いを立てて思索する力が衰えてしまうこと',
+        'インターネットの利用料金が高騰していること',
+        '要約された文章が難解で理解できないこと',
+      ],
+      correctAnswer: 1,
+      explanationUzbek:
+        "Faqat tayyor qisqartirilgan konspektlar bilan cheklanish o'z mustaqil mushohada yuritish qobiliyatini zaiflashtiradi (思索する力が衰退する).",
+    },
+    {
+      id: 419,
+      section: 'reading',
+      passageText:
+        '【市立図書館 システム移行に伴う休館のお知らせ】\n新図書管理システムの導入工事に伴い、以下の期間、全館休館いたします。\n・休館期間：11月10日（月）〜 11月17日（月）\n・図書の返却：休館中も正面玄関横の「返却ポスト」をご利用いただけます（CD・DVD等の視聴覚資料は破損防止のため投函不可）。\n・予約サービス：11月9日午後6時以降、ウェブサイトからの予約受付を一時停止します。\n利用者の皆様にはご不便をおかけしますが、ご理解とご協力をお願い申し上げます。',
+      questionText: '休館期間中の対応について、正しいものはどれですか？',
+      options: [
+        'すべての資料は返却ポストに投函して返却できる',
+        'CDやDVDは返却ポストに投函せず、開館後にカウンターへ返却する',
+        '休館期間中もウェブサイトからいつでも本の予約ができる',
+        '休館中は正面玄関から入館して自習室のみ利用できる',
+      ],
+      correctAnswer: 1,
+      explanationUzbek:
+        "E'londa CD va DVD disklari sinish xavfi bo'lgani sababli qutiga tashlanmasligi (投函不可) va ochilgandan so'ng topshirilishi ko'rsatilgan.",
+    },
+    {
+      id: 420,
       section: 'listening',
       audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3',
       script:
@@ -960,7 +1108,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
         "Iste'molchilar ro'zg'or mahsulotlarida tejab, sayohat va konsert kabi tajriba (taiken) sohalariga pul sarflamoqda (qutblanish).",
     },
     {
-      id: 408,
+      id: 421,
       section: 'listening',
       audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3',
       script:
@@ -971,8 +1119,75 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
       explanationUzbek:
         'Spiker jamoada psixologik xavfsizlik (shinriteki anzensei) eng asosiy omil ekanligini aytadi.',
     },
+    {
+      id: 422,
+      section: 'listening',
+      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3',
+      script:
+        '会社で課長と女性社員が話しています。女性社員はまず何をしなければなりませんか？\n課長：佐藤さん、明日のプレゼン資料の修正、どうなってる？\n社員：はい、市場調査のグラフは差し替え完了しました。\n課長：ありがとう。じゃあ、印刷する前に、部長に最終確認のメールを送ってくれるかな。承認が下りたら部数を刷ろう。\n社員：承知いたしました。すぐにメールをお送りします。',
+      questionText: '女性社員は まず 何を しますか？',
+      options: [
+        '資料を全員分印刷する',
+        '市場調査のグラフを修正する',
+        '部長に確認のメールを送る',
+        '明日のプレゼンの練習をする',
+      ],
+      correctAnswer: 2,
+      explanationUzbek:
+        "Bo'lim boshlig'i chop etishdan oldin boshliqqa (buchou) tasdiq so'rab xat yozishni buyuradi ('部長に最終確認のメールを送って').",
+    },
+    {
+      id: 423,
+      section: 'listening',
+      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3',
+      script:
+        'ラジオで専門家が睡眠について話しています。朝すっきりと目覚めるために効果的な方法は何ですか？\n専門家：目覚めを良くするためには、起きた直後にカーテンを開けて太陽の光を浴びることが極めて効果的です。これにより体内時計がリセットされ、夜の自然な眠気にもつながります。',
+      questionText: '朝 すっきりと 目覚めるために 最も 効果的な 方法は何ですか？',
+      options: [
+        '起きてすぐに太陽の光を浴びること',
+        '夜遅くに激しい運動をすること',
+        'アラームを何度も鳴らすこと',
+        '朝一番に熱いシャワーを浴びること',
+      ],
+      correctAnswer: 0,
+      explanationUzbek:
+        "Mutaxassis uyg'ongan zahoti pardani ochib quyosh nurini qabul qilishni eng samarali vosita deb ta'kidlaydi ('太陽の光を浴びること').",
+    },
+    {
+      id: 424,
+      section: 'listening',
+      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-12.mp3',
+      script:
+        '男の人と女の人が話しています。男の人はなぜ新しいスマートフォンを買わないことにしましたか？\n女：新しいモデル出たけど、買い替えないの？\n男：うーん、カメラの性能は魅力的だったんだけどね。今使っている機種でもバッテリー持ちは悪くないし、何より本体の価格が高すぎて手が出ないよ。\n女：確かに最近のは15万円超えるもんね。',
+      questionText: '男の人が 新しいスマートフォンを 買わない 理由は 何ですか？',
+      options: [
+        'カメラの性能が気に入らないから',
+        '今使っている機種のバッテリーが切れたから',
+        '本体の価格が高すぎるから',
+        'デザインが古く見えるから',
+      ],
+      correctAnswer: 2,
+      explanationUzbek:
+        'Yigit yangi telefon narxi haddan tashqari qimmatligi (価格が高すぎて手が出ない) sababli uni xarid qilmaslikka qaror qiladi.',
+    },
+    {
+      id: 425,
+      section: 'listening',
+      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-13.mp3',
+      script:
+        '取引先のオフィスで、受付の人が来客に対応しています。\n客：恐れ入ります。本日14時に営業部の田中様とお約束をいただいております、ABC商事の木村と申します。\n受付：木村様ですね。お待ちしておりました。恐れ入りますが、あちらのソファーにお掛けになって少々お待ちいただけますでしょうか。担当の田中に内線で連絡いたします。\n客：わかりました。ありがとうございます。',
+      questionText: '木村さんは この後 まず どうしますか？',
+      options: [
+        '自分で営業部の部屋へ向かう',
+        'ソファーに座って待つ',
+        '田中に直接電話をかける',
+        '建物の外へ出て待つ',
+      ],
+      correctAnswer: 1,
+      explanationUzbek:
+        "Qabulxona xodimi divanda o'tirib ozgina kutib turishni iltimos qiladi ('ソファーにお掛けになって少々お待ちいただけますでしょうか').",
+    },
   ],
-
   // ==========================================
   // === N1 MOCK EXAM =========================
   // ==========================================
@@ -1669,5 +1884,325 @@ export const JLPT_N3_MOCK_SET_2: ExamQuestion[] = [
     correctAnswer: 1,
     explanationUzbek:
       "Shifokor yo'talni qoldiruvchi oq tabletkani uxlashdan 30 daqiqa oldin ichishni buyuradi: '白い錠剤は...おやすみになる30分前に'.",
+  },
+];
+
+export const JLPT_N2_MOCK_SET_2: ExamQuestion[] = [
+  {
+    id: 426,
+    section: 'knowledge',
+    questionText: 'どんなに 困難な 道（　）、自分で 選んだからには 最後まで やり抜く。',
+    options: ['であろうと', 'にすぎず', 'ばかりか', 'につけ'],
+    correctAnswer: 0,
+    explanationUzbek: "'~de arou to' (qanchalik ... bo'lgan taqdirda ham) ma'nosini ifodalaydi.",
+  },
+  {
+    id: 427,
+    section: 'knowledge',
+    questionText: '彼の 普段の 努力を（　）いればこそ、今回の 合格を 心から 祝福できる。',
+    options: ['知って', '知れば', '知ろうと', '知るまいと'],
+    correctAnswer: 0,
+    explanationUzbek:
+      "'~ba koso / V-te ireba koso' (aynan ... bo'lgani uchungina / sababli) grammatik qolipidir.",
+  },
+  {
+    id: 428,
+    section: 'knowledge',
+    questionText:
+      '次の 下線部の 言葉の 読み方として 最も よいものを 選びなさい。\n「両国の 間で <u>平和条約</u>が 締結された。」',
+    options: ['へいわじょうやく', 'へいわていやく', 'へいわじょうき', 'へいわちょうやく'],
+    correctAnswer: 0,
+    explanationUzbek:
+      "平和条約 ning to'g'ri o'qilishi 'へいわじょうやく' (Heiwa jouyaku - tinchlik shartnomasi).",
+  },
+  {
+    id: 429,
+    section: 'knowledge',
+    questionText:
+      '次の 下線部の 言葉の 漢字として 最も よいものを 選びなさい。\n「事件の <u>しんそう</u>を 明らかにする。」',
+    options: ['真想', '真相', '深相', '真爽'],
+    correctAnswer: 1,
+    explanationUzbek: "'Shinsou' (haqiqiy holat, voqea asl haqiqati) '真相' deb yoziladi.",
+  },
+  {
+    id: 430,
+    section: 'knowledge',
+    questionText: '先輩の アドバイスに（　）、履歴書の 志望動機を 書き直した。',
+    options: ['沿って', '向かって', '際して', '通して'],
+    correctAnswer: 0,
+    explanationUzbek:
+      "'~ni sotte' (biror qoida, reja yoki yo'l-yo'riqqa rioya qilgan holda, muvofiq ravishda) qolipi qo'llaniladi.",
+  },
+  {
+    id: 431,
+    section: 'knowledge',
+    questionText: '健康管理は、食事（　）、適度な 運動も 不可欠である。',
+    options: ['はもとより', 'にしては', 'とあれば', 'にしたら'],
+    correctAnswer: 0,
+    explanationUzbek:
+      "'~wa motoyori' (A o'z-o'zidan ma'lumki, lekin B ham zarur) degan ma'noni ifodalaydi.",
+  },
+  {
+    id: 432,
+    section: 'knowledge',
+    questionText: 'この 計画には 莫大な 予算が 必要であり、実行は（　）困難だ。',
+    options: ['極めて', 'ろくに', 'たいして', 'いっそ'],
+    correctAnswer: 0,
+    explanationUzbek:
+      "'Kiwamete' (g'oyatda, haddan tashqari darajada) ravishi N2 darajasidagi rasmiy uslubga xosdir.",
+  },
+  {
+    id: 433,
+    section: 'knowledge',
+    questionText: '天候の 悪化に（　）、山頂への 登山は 中止と 決定された。',
+    options: ['かんがみ', 'ともない', 'めぐり', 'おいて'],
+    correctAnswer: 0,
+    explanationUzbek:
+      "'~ni kangami' (vaziyat yoki holatni chuqur inobatga olgan holda) ma'nosidagi rasmiy ifoda.",
+  },
+  {
+    id: 434,
+    section: 'knowledge',
+    questionText:
+      '次の 下線部の 言葉と 意味が 最も 近いものを 選びなさい。\n「彼は <u>おおむね</u> 賛成の 意を 表した。」',
+    options: ['だいたい', 'まったく', 'めったに', 'けっして'],
+    correctAnswer: 0,
+    explanationUzbek:
+      "'Oomune' so'zi 'umumiy hisobda, deyarli / asosiy qismi' ya'ni 'だいたい (daitai)' bilan sinonimdir.",
+  },
+  {
+    id: 435,
+    section: 'knowledge',
+    questionText: '人気 アイドルの コンサート（　）、会場周辺は 早朝から ファンで 埋め尽くされた。',
+    options: ['とあって', 'にすぎず', 'から見れば', 'を限りに'],
+    correctAnswer: 0,
+    explanationUzbek:
+      "'~to atte' (...dek alohida/favqulodda vaziyat bo'lgani sababli) ma'nosini bildiradi.",
+  },
+  {
+    id: 436,
+    section: 'knowledge',
+    questionText: '子ども（　）、親の 表情の 変化には 敏感に 気づくものだ。',
+    options: ['ながらも', 'っこない', 'っぽい', 'がちで'],
+    correctAnswer: 0,
+    explanationUzbek:
+      "'~nagara mo' (garchi ... bo'lsa ham / yosh bo'lishiga qaramay) zid ma'noli N2 qolipidir.",
+  },
+  {
+    id: 437,
+    section: 'knowledge',
+    questionText: '長年の 研究成果が ついに 実を結び、新薬の 開発に 成功（　）。',
+    options: ['した次第だ', 'するわけがない', 'しないとも限らない', 'するはずがない'],
+    correctAnswer: 0,
+    explanationUzbek:
+      "'~shidaida' (mana shunday sabablar va voqealar zanjiri natijasida shunga yetib keldik) deb xulosa qilishda ishlatiladi.",
+  },
+  {
+    id: 438,
+    section: 'knowledge',
+    questionText: '次の 言葉の 使い方として 最も 適切なものを 選びなさい。\n「<u>手際</u>」',
+    options: [
+      'シェフは 鮮やかな 手際で 魚を さばいた。',
+      '彼の 手際が 悪くて バスに 乗り遅れた。',
+      '手際を よく 磨いて 部屋を 掃除した。',
+      'この パソコンは 手際が 軽くて 持ち運びに 便利だ。',
+    ],
+    correctAnswer: 0,
+    explanationUzbek:
+      "'Tegiwa' ishni chaqqon, mohirona va epchillik bilan bajarish mahoratini bildiradi: '手際が良い / 鮮やかな手際'.",
+  },
+  {
+    id: 439,
+    section: 'reading',
+    passageText:
+      '人は誰しも、他者からの承認を求める欲求を抱えている。しかし、SNSの普及によって「他者からの評価」が数値として可視化された結果、他人の目を過剰に気にするあまり、本来の自分を見失ってしまう人が増えている。真の自己肯定感とは、他者との比較や一時的な称賛によって得られるものではなく、自らの価値観に基づいて誠実に生きる過程で培われるものである。',
+    questionText: '筆者の主張として最も適切なものはどれですか？',
+    options: [
+      'SNSで多くの評価を得ることが自己肯定感を高める最善策である',
+      '他者からの評価に依存せず、自らの価値観に従って生きることが大切である',
+      '他人の目をまったく気にせずに生きることは不可能である',
+      '自己肯定感を高めるためにはSNSの利用を完全に禁止すべきである',
+    ],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Muallif boshqalarning sonli bahosiga qaram bo'lmasdan, o'z qadriyatlariga tayanib yashash haqiqiy o'ziga ishonchni berishini ta'kidlaydi.",
+  },
+  {
+    id: 440,
+    section: 'reading',
+    passageText:
+      '都市部における緑地の減少は、単なる景観の悪化にとどまらず、ヒートアイランド現象の深刻化や生態系の破壊といった環境問題を引き起こしている。これに対し、ビルの屋上や壁面を緑化する取り組みが注目を集めている。建築空間の立体的な緑化は、都市の気温上昇を抑えるだけでなく、人々に潤いと安らぎをもたらす心理的効果も実証されている。',
+    questionText: 'ビルの屋上や壁面の緑化がもたらす効果として述べられていないものはどれですか？',
+    options: [
+      '都市の気温上昇（ヒートアイランド現象）を緩和すること',
+      '人々に精神的な安らぎや潤いを与えること',
+      '建築物の建設コストを大幅に削減すること',
+      '都市の景観を向上させること',
+    ],
+    correctAnswer: 2,
+    explanationUzbek:
+      "Matnda qurilish xarajatlarini kamaytirishi haqida hech narsa aytilmagan (qolgan barcha bandlar matnda sanab o'tilgan).",
+  },
+  {
+    id: 441,
+    section: 'reading',
+    passageText:
+      '異文化理解において最も陥りやすい罠は、自らの文化基準を普遍的な「当たり前」とみなしてしまう自文化中心主義である。異なる習慣や価値観に出会ったとき、安易に「非常識」と断定するのではなく、その背景にある歴史や社会的文脈を理解しようと努める姿勢こそが、真の相互尊重への第一歩となる。',
+    questionText: '異文化と接する際に筆者が重要だと考えている姿勢は何ですか？',
+    options: [
+      '自分の文化の優位性を相手に納得させること',
+      '相手の文化をすぐに自文化の基準で判断すること',
+      '背景にある歴史や社会的文脈を理解しようと努めること',
+      '自文化の習慣をすべて捨てて相手に同化すること',
+    ],
+    correctAnswer: 2,
+    explanationUzbek:
+      "Boshqa madaniyatni o'rganishda uning zamiridagi tarixiy va ijtimoiy omillarni (歴史や社会的文脈) tushunishga intilish eng muhimdir.",
+  },
+  {
+    id: 442,
+    section: 'reading',
+    passageText:
+      '優れたリーダーシップとは、強力な権力で部下を従わせることではない。メンバー各自の強みを見極め、それを最大限に発揮できる環境を整える「支援型リーダーシップ」が、激動の現代において強く求められている。トップが指示を出すだけでなく、現場の自律的な意思決定を後押しすることが、組織の持続的な成長につながる。',
+    questionText:
+      '現代において求められている「支援型リーダーシップ」の説明として正しいものはどれですか？',
+    options: [
+      'すべての決定をリーダーが一人で行い、厳格に従わせること',
+      'メンバーの強みを活かし、自律的な決定を支援する環境を整えること',
+      '業務の指示を出さず、部下の行動を完全に放任すること',
+      '短期的な成果のみを重視して厳しいノルマを課すこと',
+    ],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Qo'llab-quvvatlovchi lider xodimlarning kuchli tomonlarini yuzaga chiqarib, erkin qaror qabul qilishiga ko'maklashadi.",
+  },
+  {
+    id: 443,
+    section: 'reading',
+    passageText:
+      '睡眠時間を削って勉強や仕事に充てることは、一見効率的に思えるが、科学的には逆効果であることが明らかになっている。睡眠不足は脳の集中力や判断力を著しく低下させ、結果としてミスが増えたり学習効率が落ちたりする。十分な睡眠を確保することこそが、長期的なパフォーマンスを維持するための最も確実な投資である。',
+    questionText: '筆者が睡眠について述べていることと合致するものはどれですか？',
+    options: [
+      '睡眠時間を削ることで短期的には大きな成果が得られる',
+      '十分な睡眠をとることが長期的な高い成果を維持する投資となる',
+      '勉強時間を増やすためには睡眠時間を4時間以下に抑えるべきである',
+      '睡眠不足でも集中力や判断力には何の影響もない',
+    ],
+    correctAnswer: 1,
+    explanationUzbek:
+      'Etarli uyqu uzoq muddatli aqliy samaradorlik va salomatlikka kiritilgan eng ishonchli sarmoyadir (最も確実な投資).',
+  },
+  {
+    id: 444,
+    section: 'reading',
+    passageText:
+      '【オフィスのセキュリティカード再発行手続きについて】\n紛失または破損により入館用セキュリティカードの再発行を希望される社員は、以下の手順に従ってください。\n1. 直属の上長に速やかに報告し、「紛失・破損報告書」の承認を得てください。\n2. 総務部窓口に承認済みの報告書と身分証明書を持参してください。\n3. 再発行手数料（2,000円）は翌月の給与から天引きされます。\n※カードの悪用を防ぐため、紛失が判明した時点で直ちに総務部へ電話連絡し、旧カードの利用停止手続きを行ってください。',
+    questionText: 'カードを紛失した際、最初に行うべき緊急の対応は何ですか？',
+    options: [
+      '翌月の給与明細を確認すること',
+      '直ちに総務部へ電話連絡し、旧カードの利用を停止すること',
+      '警察署に行って遺失物届を出すこと',
+      'すぐに再発行手数料2,000円を現金で支払うこと',
+    ],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Karta yo'qolganda xavfsizlik uchun eng avval darhol telefon orqali eski kartani bloklash (利用停止手続き) kerak.",
+  },
+  {
+    id: 445,
+    section: 'listening',
+    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-14.mp3',
+    script:
+      'オフィスで上司と部下が新プロジェクトのスケジュールについて話しています。\n上司：山田君、来月の新システム導入の件だけど、テスト期間が少し短すぎないかい？\n部下：はい、開発が1週間遅れた影響で、テスト期間を圧縮せざるを得ませんでした。\n上司：バグが見落とされたままリリースされたら大問題になる。クライアントと交渉して、全体の納期を1週間後ろにずらそう。\n部下：わかりました。すぐにクライアントの担当者に連絡して日程調整をいたします。',
+    questionText: '二人は 最終的に どうすることに しましたか？',
+    options: [
+      'テスト期間をさらに短縮して予定通りリリースする',
+      'クライアントと交渉して納期を1週間延ばす',
+      '新システムの導入そのものを中止する',
+      'テストを省略してそのまま運用を開始する',
+    ],
+    correctAnswer: 1,
+    explanationUzbek:
+      'Boshliq xatoliklar qolib ketmasligi uchun mijoz bilan kelishib topshirish muddatini 1 haftaga uzaytirishga (納期を1週間後ろにずらそう) qaror qiladi.',
+  },
+  {
+    id: 446,
+    section: 'listening',
+    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3',
+    script:
+      '大学の就職課で相談員が学生に面接のアドバイスをしています。\n相談員：面接では、志望動機を暗記した通りにスラスラ話すことよりも、面接官の質問の意図を正確に捉えて対話することが重要です。一方的にアピールするのではなく、聞かれたことに対して結論から簡潔に答えるキャッチボールを心がけましょう。',
+    questionText: '相談員が 面接で 最も 大切だと 言っていることは 何ですか？',
+    options: [
+      '用意した志望動機を完璧に暗記して話すこと',
+      '質問の意図を捉えて結論から簡潔に答える対話をすること',
+      '自分の実績をできるだけ長く詳しくアピールすること',
+      '面接官の目を見ずに下を向いて話すこと',
+    ],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Maslahatchi yodlab olingan matnni to'xtovsiz aytish emas, savol mohiyatini anglab qisqa xulosa bilan muloqot qilish muhimligini uqtiradi.",
+  },
+  {
+    id: 447,
+    section: 'listening',
+    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3',
+    script:
+      '電話で旅行会社の社員と客が話しています。\n社員：お電話ありがとうございます、サンシャインツアーでございます。\n客：すみません、来週の北海道ツアーに申し込んでいる田中ですが、人数の変更をお願いできますか？ 2名から3名に増やしたいのですが。\n社員：かしこまりました。お調べしますので、予約番号をお教えいただけますでしょうか。\n客：はい、Tの4589です。\n社員：ありがとうございます。確認いたしましたところ、1名様分の飛行機の座席とホテルの追加が可能です。差額のお手続きについてメールをお送りしますね。',
+    questionText: '客の 要望について、どうなりましたか？',
+    options: [
+      '満席のため人数を増やすことはできなかった',
+      '飛行機もホテルも手配でき、1名の追加が可能になった',
+      'ツアー自体が中止になっていた',
+      'ホテルは空いているが飛行機が取れなかった',
+    ],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Sayyohlik agentligi samolyot va mehmonxonadan joy topib, 1 nafar kishini qo'shish imkoni borligini tasdiqladi.",
+  },
+  {
+    id: 448,
+    section: 'listening',
+    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+    script:
+      '会社で男性と女性が新入社員の研修について話しています。\n男：今年の新入社員、ビジネスマナー研修の進み具合はどう？\n女：名刺交換や電話応対のロールプレイングは順調です。ただ、ビジネスメールの敬語の使い方で戸惑っている人が目立ちますね。\n男：そうか。じゃあ来週は敬語メールの添削指導に時間を多めに割こう。\n女：賛成です。実際の業務メールを想定した演習を用意しますね。',
+    questionText: '来週の 研修で 重点的に 行うことは 何ですか？',
+    options: [
+      '名刺交換のロールプレイング',
+      '電話応対の基本練習',
+      'ビジネスメールの敬語指導と添削',
+      '社内システムの操作説明',
+    ],
+    correctAnswer: 2,
+    explanationUzbek:
+      "Xodimlar yangi ishchilar qiynalayotgan rasmiy xat yozishdagi hurmat tili (keigo email) ustida ko'proq mashq o'tkazishga kelishib oldilar.",
+  },
+  {
+    id: 449,
+    section: 'listening',
+    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
+    script:
+      '美術館の案内放送を聞いています。\nアナウンス：ご来館の皆様にご案内いたします。本展覧会の展示室内での写真撮影は、フラッシュおよび三脚を使用しない場合に限り、一部の指定作品のみ可能となっております。動画撮影および録音は一切ご遠慮いただいております。他のお客様の鑑賞の妨げとならないよう、マナーを守ってご鑑賞ください。',
+    questionText: '美術館での 写真撮影について、正しいものは どれですか？',
+    options: [
+      'すべての作品をフラッシュを使って撮影できる',
+      '指定された作品のみ、フラッシュと三脚なしで撮影できる',
+      '動画であれば全館で自由に撮影できる',
+      'いかなる撮影も完全に禁止されている',
+    ],
+    correctAnswer: 1,
+    explanationUzbek:
+      "E'londa faqat belgilangan asarlarnigina chiroq (flash) va shtativsiz suratga olishga ruxsat berilgani aytiladi.",
+  },
+  {
+    id: 450,
+    section: 'listening',
+    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
+    script:
+      '洋服店で店員と男性客が話しています。\n店員：いかがですか、こちらのジャケット？\n客：うん、軽くて着心地はすごくいいね。ただ、このグレーだと手持ちのズボンと合わせにくいかな。紺か黒のものはありますか？\n店員：はい、同じサイズで紺色がございます。すぐにお持ちしますね。\n客：ありがとう。紺を着てみて決めるよ。',
+    questionText: '男性客は 次に 何を 試着しますか？',
+    options: ['グレーのズボン', '紺色のジャケット', '黒色のズボン', '別のサイズのジャケット'],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Mijoz kulrang o'rniga to'q ko'k (紺 - kon) rangli nimchani (jaket) kiyib ko'rmoqchi bo'ladi: '紺を着てみて決めるよ'.",
   },
 ];
