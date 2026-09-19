@@ -20,6 +20,22 @@ export interface GrammarRule {
   }[];
 }
 
+export interface DialogueLineItem {
+  id?: string;
+  speaker: string;
+  speakerRoleUz?: string;
+  japanese: string;
+  romaji?: string;
+  uzbek: string;
+}
+
+export interface LessonDialogue {
+  title: string;
+  titleJa?: string;
+  situationUz?: string;
+  lines: DialogueLineItem[];
+}
+
 export interface LearnContent {
   title: string;
   subtitle?: string;
@@ -28,6 +44,7 @@ export interface LearnContent {
   vocabulary?: VocabItem[];
   grammarRules?: GrammarRule[];
   culturalNotes?: string;
+  dialogue?: LessonDialogue;
 }
 
 export interface PracticeExercise {

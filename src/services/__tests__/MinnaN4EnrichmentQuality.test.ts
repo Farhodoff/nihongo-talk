@@ -165,4 +165,22 @@ describe('Minna no Nihongo N4 Curriculum Quality & Enrichment Verification', () 
       }
     }
   });
+
+  it('should have authentic canonical Kaiwa dialogues in all 25 lessons (L26-L50) with complete lines and speakers', () => {
+    for (const lesson of MINNA_N4_LESSONS) {
+      const learnStep = lesson.steps.find((s) => s.type === 'learn');
+      const dialogue = learnStep?.learnData?.dialogue;
+      expect(dialogue, `Lesson ${lesson.id} must have a dialogue object`).toBeDefined();
+      expect(dialogue?.title).toBeTruthy();
+      expect(dialogue?.situationUz).toBeTruthy();
+      expect(dialogue?.lines.length).toBeGreaterThanOrEqual(4);
+
+      for (const line of dialogue?.lines || []) {
+        expect(line.speaker).toBeTruthy();
+        expect(line.japanese).toBeTruthy();
+        expect(line.uzbek).toBeTruthy();
+        expect(line.romaji).toBeTruthy();
+      }
+    }
+  });
 });

@@ -1,5 +1,14 @@
-import React, { useState } from 'react';
-import { Volume2, BookOpen, CheckCircle2, Info, Lightbulb } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import {
+  Volume2,
+  BookOpen,
+  CheckCircle2,
+  Info,
+  Lightbulb,
+  MessageSquare,
+  Play,
+  Pause,
+} from 'lucide-react';
 import { LearnContent, SupportedLanguage } from '../../types/lesson';
 import { speakText, speakJapaneseText } from '../../utils/audioTts';
 import { FuriganaText } from '../jlpt/FuriganaText';
@@ -10,7 +19,19 @@ interface LearnStepViewProps {
 }
 
 export const LearnStepView: React.FC<LearnStepViewProps> = ({ content, language }) => {
-  const [activeTab, setActiveTab] = useState<'all' | 'vocab' | 'grammar'>('all');
+  const [activeTab, setActiveTab] = useState<'all' | 'vocab' | 'grammar' | 'dialogue'>('all');
+  const [playingLineIdx, setPlayingLineIdx] = useState<number | null>(null);
+  const [isAutoPlayingDialogue, setIsAutoPlayingDialogue] = useState(false);
+  const autoPlayTimeoutRef = useRef<any>(null);
+
+  useEffect(() => {
+    return () => {
+      if (autoPlayTimeoutRef.current) clearTimeout(autoPlayTimeoutRef.current);
+      if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+    };
+  }, []);
 
   const handleSpeak = (text: string) => {
     if (language === 'ja') {
@@ -18,6 +39,56 @@ export const LearnStepView: React.FC<LearnStepViewProps> = ({ content, language 
     } else {
       speakText(text, 'en-US');
     }
+  };
+
+  const handlePlaySingleLine = (idx: number, text: string) => {
+    if (isAutoPlayingDialogue) {
+      setIsAutoPlayingDialogue(false);
+      if (autoPlayTimeoutRef.current) clearTimeout(autoPlayTimeoutRef.current);
+    }
+    setPlayingLineIdx(idx);
+    speakJapaneseText(text);
+    setTimeout(
+      () => {
+        setPlayingLineIdx((curr) => (curr === idx ? null : curr));
+      },
+      Math.max(2000, text.length * 180),
+    );
+  };
+
+  const handleTogglePlayAllDialogue = () => {
+    if (isAutoPlayingDialogue) {
+      setIsAutoPlayingDialogue(false);
+      setPlayingLineIdx(null);
+      if (autoPlayTimeoutRef.current) clearTimeout(autoPlayTimeoutRef.current);
+      if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+      return;
+    }
+
+    if (!content.dialogue || content.dialogue.lines.length === 0) return;
+
+    setIsAutoPlayingDialogue(true);
+    let currentIdx = 0;
+
+    const playNext = () => {
+      if (!content.dialogue || currentIdx >= content.dialogue.lines.length) {
+        setIsAutoPlayingDialogue(false);
+        setPlayingLineIdx(null);
+        return;
+      }
+
+      const line = content.dialogue.lines[currentIdx];
+      setPlayingLineIdx(currentIdx);
+      speakJapaneseText(line.japanese);
+
+      const durationMs = Math.max(2200, line.japanese.length * 180 + 1000);
+      currentIdx++;
+      autoPlayTimeoutRef.current = setTimeout(playNext, durationMs);
+    };
+
+    playNext();
   };
 
   return (
@@ -56,8 +127,8 @@ export const LearnStepView: React.FC<LearnStepViewProps> = ({ content, language 
         )}
       </div>
 
-      {/* Filter Tabs if both vocab & grammar exist */}
-      {content.vocabulary && content.grammarRules && (
+      {/* Filter Tabs if multiple sections exist */}
+      {((content.vocabulary && content.grammarRules) || content.dialogue) && (
         <div className="scrollbar-none flex touch-pan-x items-center gap-1.5 overflow-x-auto border-b border-border pb-2 sm:gap-2">
           <button
             onClick={() => setActiveTab('all')}
@@ -69,26 +140,43 @@ export const LearnStepView: React.FC<LearnStepViewProps> = ({ content, language 
           >
             Barchasi
           </button>
-          <button
-            onClick={() => setActiveTab('vocab')}
-            className={`shrink-0 cursor-pointer touch-manipulation select-none rounded-xl px-3 py-1.5 text-xs font-bold transition-all sm:px-3.5 ${
-              activeTab === 'vocab'
-                ? 'bg-primary text-primary-foreground shadow-sm'
-                : 'text-muted-foreground hover:bg-secondary hover:text-foreground'
-            }`}
-          >
-            Lug'at ({content.vocabulary.length})
-          </button>
-          <button
-            onClick={() => setActiveTab('grammar')}
-            className={`shrink-0 cursor-pointer touch-manipulation select-none rounded-xl px-3 py-1.5 text-xs font-bold transition-all sm:px-3.5 ${
-              activeTab === 'grammar'
-                ? 'bg-primary text-primary-foreground shadow-sm'
-                : 'text-muted-foreground hover:bg-secondary hover:text-foreground'
-            }`}
-          >
-            Grammatika ({content.grammarRules.length})
-          </button>
+          {content.vocabulary && content.vocabulary.length > 0 && (
+            <button
+              onClick={() => setActiveTab('vocab')}
+              className={`shrink-0 cursor-pointer touch-manipulation select-none rounded-xl px-3 py-1.5 text-xs font-bold transition-all sm:px-3.5 ${
+                activeTab === 'vocab'
+                  ? 'bg-primary text-primary-foreground shadow-sm'
+                  : 'text-muted-foreground hover:bg-secondary hover:text-foreground'
+              }`}
+            >
+              Lug'at ({content.vocabulary.length})
+            </button>
+          )}
+          {content.grammarRules && content.grammarRules.length > 0 && (
+            <button
+              onClick={() => setActiveTab('grammar')}
+              className={`shrink-0 cursor-pointer touch-manipulation select-none rounded-xl px-3 py-1.5 text-xs font-bold transition-all sm:px-3.5 ${
+                activeTab === 'grammar'
+                  ? 'bg-primary text-primary-foreground shadow-sm'
+                  : 'text-muted-foreground hover:bg-secondary hover:text-foreground'
+              }`}
+            >
+              Grammatika ({content.grammarRules.length})
+            </button>
+          )}
+          {content.dialogue && (
+            <button
+              onClick={() => setActiveTab('dialogue')}
+              className={`flex shrink-0 cursor-pointer touch-manipulation select-none items-center gap-1.5 rounded-xl px-3 py-1.5 text-xs font-bold transition-all sm:px-3.5 ${
+                activeTab === 'dialogue'
+                  ? 'bg-primary text-primary-foreground shadow-sm'
+                  : 'text-muted-foreground hover:bg-secondary hover:text-foreground'
+              }`}
+            >
+              <MessageSquare size={13} />
+              <span>Dialog ({content.dialogue.lines.length})</span>
+            </button>
+          )}
         </div>
       )}
 
@@ -224,6 +312,119 @@ export const LearnStepView: React.FC<LearnStepViewProps> = ({ content, language 
                   )}
                 </div>
               ))}
+            </div>
+          </div>
+        )}
+
+      {/* Dialogue / Kaiwa Section */}
+      {(activeTab === 'all' || activeTab === 'dialogue') &&
+        content.dialogue &&
+        content.dialogue.lines &&
+        content.dialogue.lines.length > 0 && (
+          <div className="space-y-4">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <h3 className="flex items-center gap-2 text-sm font-black uppercase tracking-wider text-foreground">
+                <MessageSquare size={16} className="text-primary" />
+                <span>💬 Amaliy Dialog (Kaiwa)</span>
+                {content.dialogue.title && (
+                  <span className="text-xs font-semibold text-muted-foreground">
+                    — {content.dialogue.title}
+                  </span>
+                )}
+              </h3>
+
+              <button
+                onClick={handleTogglePlayAllDialogue}
+                className={`inline-flex items-center gap-2 rounded-xl px-3.5 py-1.5 text-xs font-bold shadow-sm transition-all ${
+                  isAutoPlayingDialogue
+                    ? 'bg-rose-500 text-white hover:bg-rose-600'
+                    : 'bg-primary text-primary-foreground hover:bg-primary/90'
+                }`}
+                title={isAutoPlayingDialogue ? "To'xtatish" : 'Ketma-ket tinglash'}
+              >
+                {isAutoPlayingDialogue ? (
+                  <>
+                    <Pause size={14} />
+                    <span>To'xtatish</span>
+                  </>
+                ) : (
+                  <>
+                    <Play size={14} />
+                    <span>Barchasini tinglash</span>
+                  </>
+                )}
+              </button>
+            </div>
+
+            {content.dialogue.situationUz && (
+              <div className="rounded-xl border border-primary/20 bg-primary/5 p-3 text-xs text-foreground/90">
+                <span className="font-bold text-primary">Vaziyat (Situatsiya): </span>
+                <span>{content.dialogue.situationUz}</span>
+              </div>
+            )}
+
+            <div className="space-y-2.5">
+              {content.dialogue.lines.map((line, idx) => {
+                const isPlaying = playingLineIdx === idx;
+                return (
+                  <div
+                    key={idx}
+                    className={`group relative flex flex-col justify-between rounded-2xl border p-4 transition-all duration-300 ${
+                      isPlaying
+                        ? 'border-primary bg-primary/10 shadow-md ring-1 ring-primary/40'
+                        : 'border-border bg-card hover:border-primary/40'
+                    }`}
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="space-y-1.5">
+                        <div className="flex items-center gap-2">
+                          <span className="inline-flex items-center rounded-lg bg-secondary px-2.5 py-0.5 text-xs font-black text-foreground">
+                            {line.speaker}
+                          </span>
+                          {line.speakerRoleUz && (
+                            <span className="text-[11px] font-medium text-muted-foreground">
+                              ({line.speakerRoleUz})
+                            </span>
+                          )}
+                          {isPlaying && (
+                            <span className="inline-flex animate-pulse items-center gap-1 text-[11px] font-semibold text-primary">
+                              <Volume2 size={12} />
+                              Ijroda...
+                            </span>
+                          )}
+                        </div>
+
+                        <div className="text-base font-bold text-foreground">
+                          <FuriganaText text={line.japanese} />
+                        </div>
+
+                        {line.romaji && (
+                          <div className="font-mono text-xs text-muted-foreground">
+                            {line.romaji}
+                          </div>
+                        )}
+
+                        <div className="pt-1 text-xs font-medium text-foreground/85">
+                          {line.uzbek}
+                        </div>
+                      </div>
+
+                      <button
+                        onClick={() => handlePlaySingleLine(idx, line.japanese)}
+                        className={`shrink-0 rounded-xl p-2 transition-all ${
+                          isPlaying
+                            ? 'bg-primary text-primary-foreground shadow-sm'
+                            : 'bg-secondary/80 text-muted-foreground hover:bg-primary/15 hover:text-primary'
+                        }`}
+                        title="Ushbu gapni tinglash"
+                        aria-label={`Tinglash: ${line.speaker}`}
+                      >
+                        <Volume2 size={16} />
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         )}

@@ -514,7 +514,46 @@
               ]
             }
           ],
-          "culturalNotes": "Yaponiyada yangi tanishganda ta'zim qilinadi (ojigi). Boshqalarga doimo '～san' (yoki yoshiga qarab '～chan', '～くん') qo'shiladi, lekin o'z ismiga HECH QACHON 'san' qo'shilmaydi. Tanishuv 'Hajimemashite' bilan boshlanib, 'Douzo yoroshiku onegaishimasu' bilan yakunlanadi."
+          "culturalNotes": "Yaponiyada yangi tanishganda ta'zim qilinadi (ojigi). Boshqalarga doimo '～san' (yoki yoshiga qarab '～chan', '～くん') qo'shiladi, lekin o'z ismiga HECH QACHON 'san' qo'shilmaydi. Tanishuv 'Hajimemashite' bilan boshlanib, 'Douzo yoroshiku onegaishimasu' bilan yakunlanadi.",
+          "dialogue": {
+            "title": "初めまして (Tanishuv va O'zini tanishtirish)",
+            "titleJa": "初めまして",
+            "situationUz": "IMC firmasining yangi xodimi Mayk Miller Sato xonim va Yamada janoblari bilan ilk bor tanishmoqda.",
+            "lines": [
+              {
+                "id": "m1-l1-1",
+                "speaker": "佐藤",
+                "speakerRoleUz": "Sato xonim (IMC xodimi)",
+                "japanese": "おはようございます。",
+                "romaji": "Ohayou gozaimasu.",
+                "uzbek": "Xayrli tong!"
+              },
+              {
+                "id": "m1-l1-2",
+                "speaker": "山田",
+                "speakerRoleUz": "Yamada (Bo'lim xodimi)",
+                "japanese": "おはようございます。佐藤さん、こちらは マイク・ミラーさんです。",
+                "romaji": "Ohayou gozaimasu. Satou-san, kochira wa Maiku Miraa-san desu.",
+                "uzbek": "Xayrli tong! Sato xonim, bu kishi janob Mayk Miller."
+              },
+              {
+                "id": "m1-l1-3",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller (Yangi xodim)",
+                "japanese": "初めまして。マイク・ミラーです。アメリカから 来ました。どうぞ よろしく お願いします。",
+                "romaji": "Hajimemashite. Maiku Miraa desu. Amerika kara kimashita. Douzo yoroshiku onegaishimasu.",
+                "uzbek": "Tanishganimdan xursandman. Men Mayk Miller bo'laman. Amerikadan keldim. Tanishganimdan juda mamnunman."
+              },
+              {
+                "id": "m1-l1-4",
+                "speaker": "佐藤",
+                "speakerRoleUz": "Sato xonim",
+                "japanese": "佐藤けい子です。どうぞ よろしく お願いします。",
+                "romaji": "Satou Keiko desu. Douzo yoroshiku onegaishimasu.",
+                "uzbek": "Men Sato Keikoman. Tanishganimdan juda mamnunman."
+              }
+            ]
+          }
         }
       },
       {
@@ -1301,7 +1340,86 @@
               ]
             }
           ],
-          "culturalNotes": "Yaponiyada tashrif qog'ozi (meishi) ikki qo'llab beriladi va ikki qo'llab qabul qilinadi. Sovg'a berganda kamsuqumlik bilan 'ほんの気持ちです' (arzimagan sovg'a) deyiladi."
+          "culturalNotes": "Yaponiyada tashrif qog'ozi (meishi) ikki qo'llab beriladi va ikki qo'llab qabul qilinadi. Sovg'a berganda kamsuqumlik bilan 'ほんの気持ちです' (arzimagan sovg'a) deyiladi.",
+          "dialogue": {
+            "title": "ほんの気持ちです (Chin ko'ngildan)",
+            "titleJa": "ほんの気持ちです",
+            "situationUz": "Santos janob yangi kvartiraga ko'chib kelib, qo'shnisi Yamadaning xonadoniga salomlashgani va sovg'a bergani kiradi.",
+            "lines": [
+              {
+                "id": "m1-l2-1",
+                "speaker": "山田",
+                "speakerRoleUz": "Yamada (Qo'shni)",
+                "japanese": "はい。どなたですか。",
+                "romaji": "Hai. Donata desu ka.",
+                "uzbek": "Eshitaman, kim u?"
+              },
+              {
+                "id": "m1-l2-2",
+                "speaker": "サントス",
+                "speakerRoleUz": "Santos (Yangi ko'chib kelgan qo'shni)",
+                "japanese": "４０８の サントスです。",
+                "romaji": "Yon-maru-hachi no Santosu desu.",
+                "uzbek": "408-xonadagi Santosman."
+              },
+              {
+                "id": "m1-l2-3",
+                "speaker": "山田",
+                "speakerRoleUz": "Yamada",
+                "japanese": "あ、どうぞ お入りください。",
+                "romaji": "A, douzo ohairikudasai.",
+                "uzbek": "Ha, marhamat, kiring."
+              },
+              {
+                "id": "m1-l2-4",
+                "speaker": "サントス",
+                "speakerRoleUz": "Santos",
+                "japanese": "こんにちは。サントスです。これから お世話になります。どうぞ よろしく お願いします。",
+                "romaji": "Konnichiwa. Santosu desu. Kore kara osewa ni narimasu. Douzo yoroshiku onegaishimasu.",
+                "uzbek": "Assalomu alaykum. Men Santosman. Bundan buyon qo'shnichilikda birga bo'lamiz, yordamingizni ayamaysiz degan umiddaman."
+              },
+              {
+                "id": "m1-l2-5",
+                "speaker": "山田",
+                "speakerRoleUz": "Yamada",
+                "japanese": "こちらこそ よろしく お願いします。",
+                "romaji": "Kochira koso yoroshiku onegaishimasu.",
+                "uzbek": "Men ham tanishganimdan juda mamnunman."
+              },
+              {
+                "id": "m1-l2-6",
+                "speaker": "サントス",
+                "speakerRoleUz": "Santos",
+                "japanese": "あのう、これ、ほんの 気持ちです。",
+                "romaji": "Anou, kore, hon no kimochi desu.",
+                "uzbek": "Haligi... bu sizga chin ko'ngildan kichik bir sovg'a."
+              },
+              {
+                "id": "m1-l2-7",
+                "speaker": "山田",
+                "speakerRoleUz": "Yamada",
+                "japanese": "あ、どうも……。何ですか。",
+                "romaji": "A, doumo... Nan desu ka.",
+                "uzbek": "O, tashakkur... Bu nima ekan?"
+              },
+              {
+                "id": "m1-l2-8",
+                "speaker": "サントス",
+                "speakerRoleUz": "Santos",
+                "japanese": "コーヒーです。どうぞ。",
+                "romaji": "Koohii desu. Douzo.",
+                "uzbek": "Qahva. Marhamat, oling."
+              },
+              {
+                "id": "m1-l2-9",
+                "speaker": "山田",
+                "speakerRoleUz": "Yamada",
+                "japanese": "どうも ありがとうございます。",
+                "romaji": "Doumo arigatou gozaimasu.",
+                "uzbek": "Katta rahmat, minnatdorman."
+              }
+            ]
+          }
         }
       },
       {
@@ -2032,7 +2150,94 @@
               ]
             }
           ],
-          "culturalNotes": "Yapon savdo markazlarida va do'konlarda xaridor kirganda 'いらっしゃいませ' deb kutib olinadi. Pul to'lashda pul patnisga (tsuritray) qo'yiladi, to'g'ridan-to'g'ri qo'lga berilmaydi."
+          "culturalNotes": "Yapon savdo markazlarida va do'konlarda xaridor kirganda 'いらっしゃいませ' deb kutib olinadi. Pul to'lashda pul patnisga (tsuritray) qo'yiladi, to'g'ridan-to'g'ri qo'lga berilmaydi.",
+          "dialogue": {
+            "title": "これをください (Buni bering)",
+            "titleJa": "これをください",
+            "situationUz": "Mariya xonim supermarketda sotuvchidan vino bo'limini so'rab, yoqqan sharobni xarid qiladi.",
+            "lines": [
+              {
+                "id": "m1-l3-1",
+                "speaker": "マリア",
+                "speakerRoleUz": "Maria (Xaridor)",
+                "japanese": "すみません。ワイン売り場は どこですか。",
+                "romaji": "Sumimasen. Wain-uriba wa doko desu ka.",
+                "uzbek": "Kechirasiz, sharob (vino) bo'limi qayerda?"
+              },
+              {
+                "id": "m1-l3-2",
+                "speaker": "店員A",
+                "speakerRoleUz": "Sotuvchi A",
+                "japanese": "地下１階で ございます。",
+                "romaji": "Chika ikkai de gozaimasu.",
+                "uzbek": "Yer osti 1-qavatida, marhamat."
+              },
+              {
+                "id": "m1-l3-3",
+                "speaker": "マリア",
+                "speakerRoleUz": "Maria",
+                "japanese": "どうも。",
+                "romaji": "Doumo.",
+                "uzbek": "Rahmat."
+              },
+              {
+                "id": "m1-l3-4",
+                "speaker": "マリア",
+                "speakerRoleUz": "Maria",
+                "japanese": "すみません。その ワインを 見せて ください。",
+                "romaji": "Sumimasen. Sono wain o misete kudasai.",
+                "uzbek": "Kechirasiz, ana u sharobni ko'rsatib yuboring."
+              },
+              {
+                "id": "m1-l3-5",
+                "speaker": "店員B",
+                "speakerRoleUz": "Sotuvchi B",
+                "japanese": "はい、どうぞ。",
+                "romaji": "Hai, douzo.",
+                "uzbek": "Xo'p bo'ladi, marhamat."
+              },
+              {
+                "id": "m1-l3-6",
+                "speaker": "マリア",
+                "speakerRoleUz": "Maria",
+                "japanese": "これは フランスの ワインですか。",
+                "romaji": "Kore wa Furansu no wain desu ka.",
+                "uzbek": "Bu Fransiya vinosimi?"
+              },
+              {
+                "id": "m1-l3-7",
+                "speaker": "店員B",
+                "speakerRoleUz": "Sotuvchi B",
+                "japanese": "いいえ、イタリアのです。",
+                "romaji": "Iie, Itaria no desu.",
+                "uzbek": "Yo'q, Italiyaniki."
+              },
+              {
+                "id": "m1-l3-8",
+                "speaker": "マリア",
+                "speakerRoleUz": "Maria",
+                "japanese": "いくらですか。",
+                "romaji": "Ikura desu ka.",
+                "uzbek": "Narxi qancha?"
+              },
+              {
+                "id": "m1-l3-9",
+                "speaker": "店員B",
+                "speakerRoleUz": "Sotuvchi B",
+                "japanese": "２,５００円です。",
+                "romaji": "Nisen gohyaku-en desu.",
+                "uzbek": "2,500 iyena."
+              },
+              {
+                "id": "m1-l3-10",
+                "speaker": "マリア",
+                "speakerRoleUz": "Maria",
+                "japanese": "じゃ、これを ください。",
+                "romaji": "Ja, kore o kudasai.",
+                "uzbek": "Unday bo'lsa, buni bering."
+              }
+            ]
+          }
         }
       },
       {
@@ -2857,7 +3062,62 @@
               ]
             }
           ],
-          "culturalNotes": "Yaponiyada poyezdlar va avtobuslar daqiqasigacha aniq ishlaydi. Banklar va pochtalar qat'iy jadval asosida ishlaydi (odatda 9:00 dan 15:00 yoki 17:00 gacha). Kech qolish (chikoku) yapon jamiyatida o'ta salbiy baholanadi."
+          "culturalNotes": "Yaponiyada poyezdlar va avtobuslar daqiqasigacha aniq ishlaydi. Banklar va pochtalar qat'iy jadval asosida ishlaydi (odatda 9:00 dan 15:00 yoki 17:00 gacha). Kech qolish (chikoku) yapon jamiyatida o'ta salbiy baholanadi.",
+          "dialogue": {
+            "title": "そちらは何時から何時までですか (U yer soat nechadan nechagacha?)",
+            "titleJa": "そちらは何時から何時までですか",
+            "situationUz": "Miller kutubxonaga qo'ng'iroq qilib, ish vaqti va dam olish kunlarini aniqlaydi.",
+            "lines": [
+              {
+                "id": "m1-l4-1",
+                "speaker": "受付",
+                "speakerRoleUz": "Kutubxona xodimi",
+                "japanese": "はい、あすか図書館です。",
+                "romaji": "Hai, Asuka toshokan desu.",
+                "uzbek": "Assalomu alaykum, Asuka kutubxonasi."
+              },
+              {
+                "id": "m1-l4-2",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "すみません、そちらは 何時から 何時までですか。",
+                "romaji": "Sumimasen, sochira wa nanji kara nanji made desu ka.",
+                "uzbek": "Kechirasiz, sizlarda soat nechadan nechagacha ish vaqti?"
+              },
+              {
+                "id": "m1-l4-3",
+                "speaker": "受付",
+                "speakerRoleUz": "Kutubxona xodimi",
+                "japanese": "朝９時から 夕方５時までです。",
+                "romaji": "Asa kuji kara yuugata goji made desu.",
+                "uzbek": "Ertalab soat 9:00 dan kechki 17:00 gacha."
+              },
+              {
+                "id": "m1-l4-4",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "休みは 何曜日ですか。",
+                "romaji": "Yasumi wa nanyoubi desu ka.",
+                "uzbek": "Dam olish qaysi kun?"
+              },
+              {
+                "id": "m1-l4-5",
+                "speaker": "受付",
+                "speakerRoleUz": "Kutubxona xodimi",
+                "japanese": "月曜日です。",
+                "romaji": "Getsuyoubi desu.",
+                "uzbek": "Dushanba kuni."
+              },
+              {
+                "id": "m1-l4-6",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "わかりました。どうも ありがとうございます。",
+                "romaji": "Wakarimashita. Doumo arigatou gozaimasu.",
+                "uzbek": "Tushundim. Katta rahmat."
+              }
+            ]
+          }
         }
       },
       {
@@ -3685,7 +3945,70 @@
               ]
             }
           ],
-          "culturalNotes": "Yaponiyada poyezdlar tarmog'i juda taraqqiy etgan (Shinkansen, Tokkyu, Kyuko, Futsu). Bekatlarda adashmaslik uchun platforma raqami (〜番線) va qaysi poyezd tezroq borishini ko'rsatuvchi elektron tablolarga qaraladi."
+          "culturalNotes": "Yaponiyada poyezdlar tarmog'i juda taraqqiy etgan (Shinkansen, Tokkyu, Kyuko, Futsu). Bekatlarda adashmaslik uchun platforma raqami (〜番線) va qaysi poyezd tezroq borishini ko'rsatuvchi elektron tablolarga qaraladi.",
+          "dialogue": {
+            "title": "甲子園へ行きますか (Koushien'ga boradimi?)",
+            "titleJa": "甲子園へ行きますか",
+            "situationUz": "Miller stantsiya xodimidan Koushien bekatiga boruvchi poyezdni so'raydi.",
+            "lines": [
+              {
+                "id": "m1-l5-1",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "すみません。甲子園まで いくらですか。",
+                "romaji": "Sumimasen. Koushien made ikura desu ka.",
+                "uzbek": "Kechirasiz, Koushien'gacha yo'l haqi qancha?"
+              },
+              {
+                "id": "m1-l5-2",
+                "speaker": "駅員",
+                "speakerRoleUz": "Stantsiya navbatchisi",
+                "japanese": "３５０円です。",
+                "romaji": "Sanbyaku gojuu-en desu.",
+                "uzbek": "350 iyena."
+              },
+              {
+                "id": "m1-l5-3",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "３５０円ですね。何番線ですか。",
+                "romaji": "Sanbyaku gojuu-en desu ne. Nanbansen desu ka.",
+                "uzbek": "350 iyena-a. Nechanchi platforma (yo'l)?"
+              },
+              {
+                "id": "m1-l5-4",
+                "speaker": "駅員",
+                "speakerRoleUz": "Stantsiya navbatchisi",
+                "japanese": "５番線です。",
+                "romaji": "Gobansen desu.",
+                "uzbek": "5-platforma."
+              },
+              {
+                "id": "m1-l5-5",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "あの 電車は 甲子園へ 行きますか。",
+                "romaji": "Ano densha wa Koushien e ikimasu ka.",
+                "uzbek": "Ana u poyezd Koushien'ga boradimi?"
+              },
+              {
+                "id": "m1-l5-6",
+                "speaker": "駅員",
+                "speakerRoleUz": "Stantsiya navbatchisi",
+                "japanese": "いいえ。次の 普通ですよ。",
+                "romaji": "Iie. Tsugi no futsuu desu yo.",
+                "uzbek": "Yo'q, keyingi oddiy poyezd boradi."
+              },
+              {
+                "id": "m1-l5-7",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "そうですか。どうも。",
+                "romaji": "Sou desu ka. Doumo.",
+                "uzbek": "Shundaymi? Rahmat."
+              }
+            ]
+          }
         }
       },
       {
@@ -4524,7 +4847,54 @@
               ]
             }
           ],
-          "culturalNotes": "Tushlikka yoki choyga taklif qilganda to'g'ridan-to'g'ri 'birga boraylik' deyish o'rniga, muloyimlik bilan '~ませんか' (bormaysizmi?) deb so'raladi."
+          "culturalNotes": "Tushlikka yoki choyga taklif qilganda to'g'ridan-to'g'ri 'birga boraylik' deyish o'rniga, muloyimlik bilan '~ませんか' (bormaysizmi?) deb so'raladi.",
+          "dialogue": {
+            "title": "いっしょに行きませんか (Birga bormaymizmi?)",
+            "titleJa": "いっしょに行きませんか",
+            "situationUz": "Sato Millerga ertaga birga kinoga borishni taklif qiladi.",
+            "lines": [
+              {
+                "id": "m1-l6-1",
+                "speaker": "佐藤",
+                "speakerRoleUz": "Sato xonim",
+                "japanese": "ミラーさん、あした いっしょに 映画を 見に行きませんか。",
+                "romaji": "Miraa-san, ashita isshoni eiga o mini ikimasenka.",
+                "uzbek": "Miller janob, ertaga birga kino ko'rishga bormaymizmi?"
+              },
+              {
+                "id": "m1-l6-2",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "いいですね。ぜひ 行きましょう。",
+                "romaji": "Ii desu ne. Zehi ikimashou.",
+                "uzbek": "Ajoyib taklif! Albatta boramiz."
+              },
+              {
+                "id": "m1-l6-3",
+                "speaker": "佐藤",
+                "speakerRoleUz": "Sato xonim",
+                "japanese": "じゃ、何時に 会いましょうか。",
+                "romaji": "Ja, nanji ni aimashou ka.",
+                "uzbek": "Unday bo'lsa, soat nechada uchrashamiz?"
+              },
+              {
+                "id": "m1-l6-4",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "１０時は どうですか。",
+                "romaji": "Juuji wa dou desu ka.",
+                "uzbek": "Soat 10:00 ma'qulmi?"
+              },
+              {
+                "id": "m1-l6-5",
+                "speaker": "佐藤",
+                "speakerRoleUz": "Sato xonim",
+                "japanese": "ええ、１０時に 大阪駅で 会いましょう。",
+                "romaji": "Ee, juuji ni Oosaka-eki de aimashou.",
+                "uzbek": "Ha, soat 10:00 da Osaka vokzalida uchrashaylik."
+              }
+            ]
+          }
         }
       },
       {
@@ -5179,7 +5549,70 @@
               ]
             }
           ],
-          "culturalNotes": "Ovqatlanishdan oldin 'いただきます' (itadakimasu) va ovqatlangandan keyin 'ごちそうさまでした' (gochisousama deshita) deb taomni tayyorlaganlarga minnatdorchilik bildiriladi."
+          "culturalNotes": "Ovqatlanishdan oldin 'いただきます' (itadakimasu) va ovqatlangandan keyin 'ごちそうさまでした' (gochisousama deshita) deb taomni tayyorlaganlarga minnatdorchilik bildiriladi.",
+          "dialogue": {
+            "title": "ごめんください (Mumkinmi / Mehmonga kelish)",
+            "titleJa": "ごめんください",
+            "situationUz": "Miller Yamada xonadoniga mehmon bo'lib boradi.",
+            "lines": [
+              {
+                "id": "m1-l7-1",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "ごめんください。",
+                "romaji": "Gomen kudasai.",
+                "uzbek": "Mumkinmi? Uyda kimdir bormi?"
+              },
+              {
+                "id": "m1-l7-2",
+                "speaker": "山田",
+                "speakerRoleUz": "Yamada (Mezbon)",
+                "japanese": "いらっしゃい。どうぞ お上がりください。",
+                "romaji": "Irasshai. Douzo oagarikudasai.",
+                "uzbek": "Xush kelibsiz! Marhamat, ichkariga kiring."
+              },
+              {
+                "id": "m1-l7-3",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "失礼します。",
+                "romaji": "Shitsurei shimasu.",
+                "uzbek": "Ruxsatingiz bilan, bezovta qildim."
+              },
+              {
+                "id": "m1-l7-4",
+                "speaker": "山田の妻",
+                "speakerRoleUz": "Yamada xonim",
+                "japanese": "お茶を どうぞ。",
+                "romaji": "Ocha o douzo.",
+                "uzbek": "Marhamat, issiq choydan iching."
+              },
+              {
+                "id": "m1-l7-5",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "いただきます。おいしいですね。",
+                "romaji": "Itadakimasu. Oishii desu ne.",
+                "uzbek": "Bismillah (yoqimli ishtaha). Juda mazali choy ekan."
+              },
+              {
+                "id": "m1-l7-6",
+                "speaker": "山田",
+                "speakerRoleUz": "Yamada",
+                "japanese": "この スプーン、きれいですね。",
+                "romaji": "Kono supuun, kirei desu ne.",
+                "uzbek": "Bu qoshiq juda chiroyli ekan-a."
+              },
+              {
+                "id": "m1-l7-7",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "ええ、会社の人に もらいました。",
+                "romaji": "Ee, kaisha no hito ni moraimashita.",
+                "uzbek": "Ha, kompaniyadagi do'stim menga sovg'a qilgan edi."
+              }
+            ]
+          }
         }
       },
       {
@@ -5954,7 +6387,54 @@
               ]
             }
           ],
-          "culturalNotes": "Yaponiyada to'rt fasl (shiki) juda qadrlanadi. Bahorda sakura gullashi (hanami), kuzda esa qizil yaproqlar (momiji) tomosha qilinadi. Har faslning o'z an'anaviy taomlari bor."
+          "culturalNotes": "Yaponiyada to'rt fasl (shiki) juda qadrlanadi. Bahorda sakura gullashi (hanami), kuzda esa qizil yaproqlar (momiji) tomosha qilinadi. Har faslning o'z an'anaviy taomlari bor.",
+          "dialogue": {
+            "title": "そろそろ失礼します (Sekin-asta ruxsat bersangiz)",
+            "titleJa": "そろそろ失礼します",
+            "situationUz": "Mehmondorchilik yakunida Miller mezbonlarga minnatdorchilik bildirib xayrlashadi.",
+            "lines": [
+              {
+                "id": "m1-l8-1",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "もう ８時ですね。そろそろ 失礼します。",
+                "romaji": "Mou hachiji desu ne. Sorosoro shitsurei shimasu.",
+                "uzbek": "Soat 8 bo'lib qolibdi-ya. Sekin-asta ruxsat bersangiz."
+              },
+              {
+                "id": "m1-l8-2",
+                "speaker": "山田",
+                "speakerRoleUz": "Yamada (Mezbon)",
+                "japanese": "そうですか。もう ちょっと いかがですか。",
+                "romaji": "Sou desu ka. Mou chotto ikaga desu ka.",
+                "uzbek": "Shundaymi? Yana biroz o'tirsangiz bo'lardi."
+              },
+              {
+                "id": "m1-l8-3",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "いいえ、きょうは どうも ありがとうございました。",
+                "romaji": "Iie, kyou wa doumo arigatou gozaimashita.",
+                "uzbek": "Yo'q, bugun mehmondo'stligingiz uchun katta rahmat."
+              },
+              {
+                "id": "m1-l8-4",
+                "speaker": "山田",
+                "speakerRoleUz": "Yamada",
+                "japanese": "いいえ、また いらしてください。",
+                "romaji": "Iie, mata irashite kudasai.",
+                "uzbek": "Arzimaydi, yana kelib turing."
+              },
+              {
+                "id": "m1-l8-5",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "はい、失礼します。",
+                "romaji": "Hai, shitsurei shimasu.",
+                "uzbek": "Xo'p, xayr, salomat bo'ling."
+              }
+            ]
+          }
         }
       },
       {
@@ -6632,7 +7112,62 @@
               ]
             }
           ],
-          "culturalNotes": "Yapon madaniyatida to'g'ridan-to'g'ri 'yo'q' yoki 'yoqtirmayman' deyish noqulay sanaladi. Uning o'rniga 'ちょっと...' (biroz noqulay...) iborasi qo'llaniladi."
+          "culturalNotes": "Yapon madaniyatida to'g'ridan-to'g'ri 'yo'q' yoki 'yoqtirmayman' deyish noqulay sanaladi. Uning o'rniga 'ちょっと...' (biroz noqulay...) iborasi qo'llaniladi.",
+          "dialogue": {
+            "title": "残念ですが (Afsuski...)",
+            "titleJa": "残念ですが",
+            "situationUz": "Takahashi Millerga konsertga borishni taklif qiladi, lekin Millerning bandligi sababli bormaydi.",
+            "lines": [
+              {
+                "id": "m1-l9-1",
+                "speaker": "高橋",
+                "speakerRoleUz": "Takahashi",
+                "japanese": "ミラーさん、クラシック音楽の チケットが ２枚あるんですが、いっしょに 行きませんか。",
+                "romaji": "Miraa-san, kurashikku ongaku no chiketto ga nimai arun desu ga, isshoni ikimasenka.",
+                "uzbek": "Miller janob, menda mumtoz musiqa konsertiga ikkita chipta bor edi, birga bormaymizmi?"
+              },
+              {
+                "id": "m1-l9-2",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "いつですか。",
+                "romaji": "Itsu desu ka.",
+                "uzbek": "Qachon bo'ladi?"
+              },
+              {
+                "id": "m1-l9-3",
+                "speaker": "高橋",
+                "speakerRoleUz": "Takahashi",
+                "japanese": "今週の 日曜日です。",
+                "romaji": "Konshuu no nichiyoubi desu.",
+                "uzbek": "Shu yakshanba kuni."
+              },
+              {
+                "id": "m1-l9-4",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "日曜日ですか……。日曜日は 友達と 約束が ありますから、ちょっと……。",
+                "romaji": "Nichiyoubi desu ka... Nichiyoubi wa tomodachi to yakusoku ga arimasu kara, chotto...",
+                "uzbek": "Yakshanbami... Yakshanba kuni do'stim bilan uchrashuvim bor edi, shuning uchun biroz noqulayroq edi..."
+              },
+              {
+                "id": "m1-l9-5",
+                "speaker": "高橋",
+                "speakerRoleUz": "Takahashi",
+                "japanese": "残念ですね。",
+                "romaji": "Zannen desu ne.",
+                "uzbek": "Essiz, afsus."
+              },
+              {
+                "id": "m1-l9-6",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "ええ。また 今度 誘ってください。",
+                "romaji": "Ee. Mata kondo sasotte kudasai.",
+                "uzbek": "Ha. Iltimos, boshqa safar yana taklif qiling."
+              }
+            ]
+          }
         }
       },
       {
@@ -7318,7 +7853,54 @@
               ]
             }
           ],
-          "culturalNotes": "Yapon xonadonlariga kirganda poyafzal tashqarida yechiladi va shippak kiyiladi. Tatami qoplangan an'anaviy xonalarda esa shippak ham yechilib, paypoqda yuriladi."
+          "culturalNotes": "Yapon xonadonlariga kirganda poyafzal tashqarida yechiladi va shippak kiyiladi. Tatami qoplangan an'anaviy xonalarda esa shippak ham yechilib, paypoqda yuriladi.",
+          "dialogue": {
+            "title": "チリソースはありますか (Chili sousi bormi?)",
+            "titleJa": "チリソースはありますか",
+            "situationUz": "Miller supermarketda sotuvchidan achchiq sous qayerdaligini so'raydi.",
+            "lines": [
+              {
+                "id": "m1-l10-1",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "すみません。チリソースは ありますか。",
+                "romaji": "Sumimasen. Chiri-soosu wa arimasu ka.",
+                "uzbek": "Kechirasiz. Chili sousi bormi?"
+              },
+              {
+                "id": "m1-l10-2",
+                "speaker": "店員",
+                "speakerRoleUz": "Sotuvchi",
+                "japanese": "はい、あちらの スパイス売り場に ございます。",
+                "romaji": "Hai, achira no supaisu-uriba ni gozaimasu.",
+                "uzbek": "Ha, ana u yerdagi ziravorlar bo'limida bor."
+              },
+              {
+                "id": "m1-l10-3",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "どのあたりですか。",
+                "romaji": "Dono atari desu ka.",
+                "uzbek": "Qaysi tomonida ekan?"
+              },
+              {
+                "id": "m1-l10-4",
+                "speaker": "店員",
+                "speakerRoleUz": "Sotuvchi",
+                "japanese": "奥の 棚の 下から ２段目に あります。",
+                "romaji": "Oku no tana no shita kara nidanme ni arimasu.",
+                "uzbek": "Ichkaridagi javonning pastdan ikkinchi qavatida joylashgan."
+              },
+              {
+                "id": "m1-l10-5",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "あ、ありました。どうも ありがとうございます。",
+                "romaji": "A, arimashita. Doumo arigatou gozaimasu.",
+                "uzbek": "O, topdim. Katta rahmat sizga."
+              }
+            ]
+          }
         }
       },
       {
@@ -8063,7 +8645,70 @@
               ]
             }
           ],
-          "culturalNotes": "Yapon tilida narsalarni sanash uchun shakliga qarab maxsus sanoq so'zlari ishlatiladi: kitoblar uchun '～satsu', qog'ozlar uchun '～mai', qalamlar uchun '～hon', mashinalar uchun '～dai'."
+          "culturalNotes": "Yapon tilida narsalarni sanash uchun shakliga qarab maxsus sanoq so'zlari ishlatiladi: kitoblar uchun '～satsu', qog'ozlar uchun '～mai', qalamlar uchun '～hon', mashinalar uchun '～dai'.",
+          "dialogue": {
+            "title": "これをお願いします (Buni jo'natib bersangiz)",
+            "titleJa": "これをお願いします",
+            "situationUz": "Miller pochtada posilkani Avstraliyaga havo pochtasi orqali jo'natadi.",
+            "lines": [
+              {
+                "id": "m1-l11-1",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "これをお願いします。オーストラリアまでです。",
+                "romaji": "Kore o onegaishimasu. Oosutoraria made desu.",
+                "uzbek": "Buni qabul qilsangiz. Avstraliyagacha jo'natmoqchiman."
+              },
+              {
+                "id": "m1-l11-2",
+                "speaker": "郵便局員",
+                "speakerRoleUz": "Pochta xodimi",
+                "japanese": "はい。航空便ですか、船便ですか。",
+                "romaji": "Hai. Koukuubin desu ka, funabin desu ka.",
+                "uzbek": "Xo'p. Havo pochtasidami yoki kema pochtasidami?"
+              },
+              {
+                "id": "m1-l11-3",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "航空便は いくらですか。",
+                "romaji": "Koukuubin wa ikura desu ka.",
+                "uzbek": "Havo pochtasi qancha bo'ladi?"
+              },
+              {
+                "id": "m1-l11-4",
+                "speaker": "郵便局員",
+                "speakerRoleUz": "Pochta xodimi",
+                "japanese": "１,２００円です。",
+                "romaji": "Sen nihyaku-en desu.",
+                "uzbek": "1,200 iyena."
+              },
+              {
+                "id": "m1-l11-5",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "船便は？",
+                "romaji": "Funabin wa?",
+                "uzbek": "Kema pochtasi-chi?"
+              },
+              {
+                "id": "m1-l11-6",
+                "speaker": "郵便局員",
+                "speakerRoleUz": "Pochta xodimi",
+                "japanese": "６００円です。でも、１か月くらい かかりますよ。",
+                "romaji": "Roppyaku-en desu. Demo, ikkagetsu kurai kakarimasu yo.",
+                "uzbek": "600 iyena. Biroq 1 oy atrofida vaqt ketadi."
+              },
+              {
+                "id": "m1-l11-7",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "じゃ、航空便で お願いします。",
+                "romaji": "Ja, koukuubin de onegaishimasu.",
+                "uzbek": "Unday bo'lsa, havo pochtasi bilan jo'natib bering."
+              }
+            ]
+          }
         }
       },
       {
@@ -8742,7 +9387,54 @@
               ]
             }
           ],
-          "culturalNotes": "Yaponiyada fasllar va mahalliy festivallar (matsuri) juda mashhur. Shaharlar taqqoslanganda 'A to B to dochira ga...' iborasi orqali tanlov so'raladi."
+          "culturalNotes": "Yaponiyada fasllar va mahalliy festivallar (matsuri) juda mashhur. Shaharlar taqqoslanganda 'A to B to dochira ga...' iborasi orqali tanlov so'raladi.",
+          "dialogue": {
+            "title": "お祭りはどうでしたか (Festival qanday o'tdi?)",
+            "titleJa": "お祭りはどうでしたか",
+            "situationUz": "Miller Gion festivalidan qaytgan Santoshdan taassurotlarini so'raydi.",
+            "lines": [
+              {
+                "id": "m1-l12-1",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "サントスさん、祇園祭は どうでしたか。",
+                "romaji": "Santosu-san, Gion-matsuri wa dou deshita ka.",
+                "uzbek": "Santos janob, Gion festivali qanday o'tdi?"
+              },
+              {
+                "id": "m1-l12-2",
+                "speaker": "サントス",
+                "speakerRoleUz": "Santos",
+                "japanese": "とても おもしろかったです。人が 多かったですが。",
+                "romaji": "Totemo omoshirokatta desu. Hito ga ookatta desu ga.",
+                "uzbek": "Juda qiziqarli o'tdi. Garchi odam juda ko'p bo'lsa ham."
+              },
+              {
+                "id": "m1-l12-3",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "京都の 天気は どうでしたか。",
+                "romaji": "Kyouto no tenki wa dou deshita ka.",
+                "uzbek": "Kyotoda ob-havo qanday bo'ldi?"
+              },
+              {
+                "id": "m1-l12-4",
+                "speaker": "サントス",
+                "speakerRoleUz": "Santos",
+                "japanese": "あまり 暑くなかったです。大阪より 涼しかったです。",
+                "romaji": "Amari atsukunakatta desu. Oosaka yori suzushikatta desu.",
+                "uzbek": "Unchalik issiq bo'lmadi. Osakaga qaraganda salqinroq edi."
+              },
+              {
+                "id": "m1-l12-5",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "そうですか。よかったですね。",
+                "romaji": "Sou desu ka. Yokatta desu ne.",
+                "uzbek": "Shundaymi? Juda yaxshi bo'libdi."
+              }
+            ]
+          }
         }
       },
       {
@@ -9397,7 +10089,70 @@
               ]
             }
           ],
-          "culturalNotes": "Restoranlarda hisob-kitob qilinganda ko'pincha hamma o'zi uchun to'laydi ('別々にお願いします' - betsubetsu ni onegaishimasu deb aytiladi)."
+          "culturalNotes": "Restoranlarda hisob-kitob qilinganda ko'pincha hamma o'zi uchun to'laydi ('別々にお願いします' - betsubetsu ni onegaishimasu deb aytiladi).",
+          "dialogue": {
+            "title": "別々にお願いします (Alohida-alohida hisoblang)",
+            "titleJa": "別々にお願いします",
+            "situationUz": "Miller va Karina restoranda tushlikdan keyin alohida hisob-kitob qilishni so'rashadi.",
+            "lines": [
+              {
+                "id": "m1-l13-1",
+                "speaker": "カリナ",
+                "speakerRoleUz": "Karina",
+                "japanese": "もう １２時ですね。おなかが すきました。",
+                "romaji": "Mou juuniji desu ne. Onaka ga sukimashita.",
+                "uzbek": "Soat 12 bo'libdi-ya. Qornim ochdi."
+              },
+              {
+                "id": "m1-l13-2",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "じゃ、あそこの レストランへ 行きましょう。",
+                "romaji": "Ja, asoko no resutoran e ikimashou.",
+                "uzbek": "Unday bo'lsa, ana u yerdagi restoranga boraylik."
+              },
+              {
+                "id": "m1-l13-3",
+                "speaker": "店員",
+                "speakerRoleUz": "Ofitsiant",
+                "japanese": "ご注文は？",
+                "romaji": "Gochuumon wa?",
+                "uzbek": "Buyurtmangiz nima edi?"
+              },
+              {
+                "id": "m1-l13-4",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "わたしは カレー定食、彼女は 天ぷらうどんで。",
+                "romaji": "Watashi wa karee-teishoku, kanojo wa tenpura-udon de.",
+                "uzbek": "Menga karrili tushlik to'plami, bu xonimga esa tempura-udon."
+              },
+              {
+                "id": "m1-l13-5",
+                "speaker": "店員",
+                "speakerRoleUz": "Ofitsiant",
+                "japanese": "かしこまりました。",
+                "romaji": "Kashikomarimashita.",
+                "uzbek": "Xo'p bo'ladi."
+              },
+              {
+                "id": "m1-l13-6",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "すみません、お勘定を 別々に お願いします。",
+                "romaji": "Sumimasen, okanjou o betsubetsu ni onegaishimasu.",
+                "uzbek": "Kechirasiz, hisobni har birimizga alohida qilib bersangiz."
+              },
+              {
+                "id": "m1-l13-7",
+                "speaker": "店員",
+                "speakerRoleUz": "Ofitsiant",
+                "japanese": "はい、かしこまりました。",
+                "romaji": "Hai, kashikomarimashita.",
+                "uzbek": "Bosh ustiga."
+              }
+            ]
+          }
         }
       },
       {
@@ -10049,7 +10804,70 @@
               ]
             }
           ],
-          "culturalNotes": "Birovdan yordam so'rashda yoki taksi haydovchisiga manzilni aytishda fe'lning Te-shakli + 'ください' qo'llaniladi (masalan: '駅まで 行ってください')."
+          "culturalNotes": "Birovdan yordam so'rashda yoki taksi haydovchisiga manzilni aytishda fe'lning Te-shakli + 'ください' qo'llaniladi (masalan: '駅まで 行ってください').",
+          "dialogue": {
+            "title": "梅田まで行ってください (Umedagacha olib boring)",
+            "titleJa": "梅田まで行ってください",
+            "situationUz": "Miller taksiga chiqib haydovchiga manzilni aytadi va yo'nalish ko'rsatadi.",
+            "lines": [
+              {
+                "id": "m1-l14-1",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "梅田まで 行ってください。",
+                "romaji": "Umeda made itte kudasai.",
+                "uzbek": "Umedagacha olib boring."
+              },
+              {
+                "id": "m1-l14-2",
+                "speaker": "運転手",
+                "speakerRoleUz": "Haydovchi",
+                "japanese": "はい、わかりました。",
+                "romaji": "Hai, wakarimashita.",
+                "uzbek": "Xo'p bo'ladi, tushundim."
+              },
+              {
+                "id": "m1-l14-3",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "あの 信号を 右へ 曲がってください。",
+                "romaji": "Ano shingou o migi e magatte kudasai.",
+                "uzbek": "Ana u svetofordan o'ngga buriling."
+              },
+              {
+                "id": "m1-l14-4",
+                "speaker": "運転手",
+                "speakerRoleUz": "Haydovchi",
+                "japanese": "右ですね。",
+                "romaji": "Migi desu ne.",
+                "uzbek": "O'ngga, tushunarli."
+              },
+              {
+                "id": "m1-l14-5",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "まっすぐ 行って、駅の前で 止めてください。",
+                "romaji": "Massugu itte, eki no mae de tomete kudasai.",
+                "uzbek": "To'g'riga haydab, vokzal oldida to'xtating."
+              },
+              {
+                "id": "m1-l14-6",
+                "speaker": "運転手",
+                "speakerRoleUz": "Haydovchi",
+                "japanese": "はい、到着しました。１,８００円になります。",
+                "romaji": "Hai, touchaku shimashita. Sen happyaku-en ni narimasu.",
+                "uzbek": "Yetib keldik. 1,800 iyena bo'ladi."
+              },
+              {
+                "id": "m1-l14-7",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "これで お願いします。どうも。",
+                "romaji": "Kore de onegaishimasu. Doumo.",
+                "uzbek": "Mana oling, rahmat."
+              }
+            ]
+          }
         }
       },
       {
@@ -10573,7 +11391,62 @@
               ]
             }
           ],
-          "culturalNotes": "Yaponiyada qoidalar va tartibga qat'iy rioya qilinadi. Biron narsa qilishdan oldin ruxsat so'rash uchun '~てもいいですか' ishlatiladi. Taqiq uchun '~てはいけません' qo'llaniladi."
+          "culturalNotes": "Yaponiyada qoidalar va tartibga qat'iy rioya qilinadi. Biron narsa qilishdan oldin ruxsat so'rash uchun '~てもいいですか' ishlatiladi. Taqiq uchun '~てはいけません' qo'llaniladi.",
+          "dialogue": {
+            "title": "ご家族は？ (Oilangiz haqida...)",
+            "titleJa": "ご家族は？",
+            "situationUz": "Miller hamkasbi bilan oilasi va Yaponiyadagi hayoti to'g'risida suhbatlashadi.",
+            "lines": [
+              {
+                "id": "m1-l15-1",
+                "speaker": "木村",
+                "speakerRoleUz": "Kimura",
+                "japanese": "ミラーさんの ご家族は アメリカに いらっしゃるんですか。",
+                "romaji": "Miraa-san no gokazoku wa Amerika ni irassharun desu ka.",
+                "uzbek": "Miller janob, oilangiz Amerikadami?"
+              },
+              {
+                "id": "m1-l15-2",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "ええ、両親と 姉が ニューヨークに 住んでいます。",
+                "romaji": "Ee, ryoushin to ane ga Nyuuyooku ni sunde imasu.",
+                "uzbek": "Ha, ota-onam va opam Nyu-Yorkda yashashadi."
+              },
+              {
+                "id": "m1-l15-3",
+                "speaker": "木村",
+                "speakerRoleUz": "Kimura",
+                "japanese": "お仕事は 何を されているんですか。",
+                "romaji": "Oshigoto wa nani o sarete irun desu ka.",
+                "uzbek": "Ishingiz nimadan iborat?"
+              },
+              {
+                "id": "m1-l15-4",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "コンピューターの ソフトウェアを 作って います。",
+                "romaji": "Konpyuutaa no sofutowea o tsukutte imasu.",
+                "uzbek": "Kompyuter dasturiy ta'minotini ishlab chiqyapan."
+              },
+              {
+                "id": "m1-l15-5",
+                "speaker": "木村",
+                "speakerRoleUz": "Kimura",
+                "japanese": "日本の 生活は もう 慣れましたか。",
+                "romaji": "Nihon no seikatsu wa mou naremashita ka.",
+                "uzbek": "Yaponiyadagi hayotga ko'nikib qoldingizmi?"
+              },
+              {
+                "id": "m1-l15-6",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "はい、とても 楽しく 暮らして います。",
+                "romaji": "Hai, totemo tanoshiku kurashite imasu.",
+                "uzbek": "Ha, juda maroqli yashayapman."
+              }
+            ]
+          }
         }
       },
       {
@@ -11339,7 +12212,70 @@
               ]
             }
           ],
-          "culturalNotes": "Bir nechta harakatni ketma-ket bajarganda fe'llar Te-shaklida bog'lanadi. Masalan: ertalab yugurib, dush qabul qilib, nonushta qilish."
+          "culturalNotes": "Bir nechta harakatni ketma-ket bajarganda fe'llar Te-shaklida bog'lanadi. Masalan: ertalab yugurib, dush qabul qilib, nonushta qilish.",
+          "dialogue": {
+            "title": "使い方を教えてください (Qanday ishlatilishini o'rgatib yuboring)",
+            "titleJa": "使い方を教えてください",
+            "situationUz": "Santos bankda ATM apparatidan naqd pul yechishni Yamadadan so'raydi.",
+            "lines": [
+              {
+                "id": "m1-l16-1",
+                "speaker": "サントス",
+                "speakerRoleUz": "Santos",
+                "japanese": "山田さん、この キャッシュカードの 使い方を 教えてください。",
+                "romaji": "Santosu-san, kono kyasshu kaado no tsukaikata o oshiete kudasai.",
+                "uzbek": "Yamada janob, bu bank kartasidan qanday foydalanishni o'rgatib yuboring."
+              },
+              {
+                "id": "m1-l16-2",
+                "speaker": "山田",
+                "speakerRoleUz": "Yamada",
+                "japanese": "まず、ここに カードを 入れて、暗証番号を 押します。",
+                "romaji": "Mazu, koko ni kaado o irete, anshou bangou o oshimasu.",
+                "uzbek": "Avval bu yerga kartani kiritasiz, so'ng maxfiy kodni terasiz."
+              },
+              {
+                "id": "m1-l16-3",
+                "speaker": "サントス",
+                "speakerRoleUz": "Santos",
+                "japanese": "はい、押しました。",
+                "romaji": "Hai, oshimashita.",
+                "uzbek": "Ha, terdim."
+              },
+              {
+                "id": "m1-l16-4",
+                "speaker": "山田",
+                "speakerRoleUz": "Yamada",
+                "japanese": "次に、金額を 入れて、「確認」ボタンを 押してください。",
+                "romaji": "Tsugi ni, kingaku o irete, 'kakunin' botan o oshite kudasai.",
+                "uzbek": "Keyin summani kiritib, 'Tasdiqlash' tugmasini bosing."
+              },
+              {
+                "id": "m1-l16-5",
+                "speaker": "サントス",
+                "speakerRoleUz": "Santos",
+                "japanese": "あ、お金が 出てきました！",
+                "romaji": "A, okane ga dete kimashita!",
+                "uzbek": "O, pul chiqib keldi!"
+              },
+              {
+                "id": "m1-l16-6",
+                "speaker": "山田",
+                "speakerRoleUz": "Yamada",
+                "japanese": "簡単でしょう？",
+                "romaji": "Kantan deshou?",
+                "uzbek": "Oson ekan-a?"
+              },
+              {
+                "id": "m1-l16-7",
+                "speaker": "サントス",
+                "speakerRoleUz": "Santos",
+                "japanese": "はい、どうも ありがとうございました。",
+                "romaji": "Hai, doumo arigatou gozaimashita.",
+                "uzbek": "Ha, katta rahmat sizga."
+              }
+            ]
+          }
         }
       },
       {
@@ -11931,7 +12867,62 @@
               ]
             }
           ],
-          "culturalNotes": "Kasal bo'lganda yoki shifokor qabulida alomatlarni aytib, dorilarni o'z vaqtida ichish lozim. 'Ichish shart' deganda '~なければなりません' ishlatiladi."
+          "culturalNotes": "Kasal bo'lganda yoki shifokor qabulida alomatlarni aytib, dorilarni o'z vaqtida ichish lozim. 'Ichish shart' deganda '~なければなりません' ishlatiladi.",
+          "dialogue": {
+            "title": "どうしましたか (Nima bo'ldi? / Tinchlikmi?)",
+            "titleJa": "どうしましたか",
+            "situationUz": "Shamollab qolgan Miller shifokor qabuliga boradi.",
+            "lines": [
+              {
+                "id": "m1-l17-1",
+                "speaker": "医者",
+                "speakerRoleUz": "Shifokor",
+                "japanese": "どうしましたか。",
+                "romaji": "Dou shimashita ka.",
+                "uzbek": "Qayeringiz bezovta qilyapti?"
+              },
+              {
+                "id": "m1-l17-2",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "きのうから 熱が あって、のども 痛いんです。",
+                "romaji": "Kinou kara netsu ga atte, nodo mo itain desu.",
+                "uzbek": "Kechadan beri isitmayapman, tomog'im ham og'riyapti."
+              },
+              {
+                "id": "m1-l17-3",
+                "speaker": "医者",
+                "speakerRoleUz": "Shifokor",
+                "japanese": "ちょっと 口を 開けて みてください。……かぜですね。",
+                "romaji": "Chotto kuchi o akete mite kudasai. ...Kaze desu ne.",
+                "uzbek": "Og'zingizni oching-chi... Ha, shamollabsiz."
+              },
+              {
+                "id": "m1-l17-4",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "今日はお風呂に入ってもいいですか。",
+                "romaji": "Kyou wa ofuro ni haitte mo ii desu ka.",
+                "uzbek": "Bugun issiq vannaga tushsam bo'ladimi?"
+              },
+              {
+                "id": "m1-l17-5",
+                "speaker": "医者",
+                "speakerRoleUz": "Shifokor",
+                "japanese": "いいえ、入らないで ください。薬を 飲んで、ゆっくり 休んでください。",
+                "romaji": "Iie, hairanaide kudasai. Kusuri o nonde, yukkuri yasunde kudasai.",
+                "uzbek": "Yo'q, vannaga tushmang. Dorilarni ichib, yaxshilab dam oling."
+              },
+              {
+                "id": "m1-l17-6",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "はい、わかりました。ありがとうございます。",
+                "romaji": "Hai, wakarimashita. Arigatou gozaimasu.",
+                "uzbek": "Xo'p, tushundim. Rahmat."
+              }
+            ]
+          }
         }
       },
       {
@@ -12468,7 +13459,62 @@
               ]
             }
           ],
-          "culturalNotes": "Yaponiyada xobbi (shumi) va qobiliyat haqida suhbatlashish do'st orttirishning eng qulay yo'lidir ('〜が できます' - qila olaman)."
+          "culturalNotes": "Yaponiyada xobbi (shumi) va qobiliyat haqida suhbatlashish do'st orttirishning eng qulay yo'lidir ('〜が できます' - qila olaman).",
+          "dialogue": {
+            "title": "趣味は何ですか (Qiziqishingiz nima?)",
+            "titleJa": "趣味は何ですか",
+            "situationUz": "Miller va Kimura sevimli mashg'ulotlari haqida gaplashishadi.",
+            "lines": [
+              {
+                "id": "m1-l18-1",
+                "speaker": "木村",
+                "speakerRoleUz": "Kimura",
+                "japanese": "ミラーさんの 趣味は 何ですか。",
+                "romaji": "Miraa-san no shuumi wa nan desu ka.",
+                "uzbek": "Miller janob, qiziqishingiz nima?"
+              },
+              {
+                "id": "m1-l18-2",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "写真を 撮る ことです。特に 古い 建物が 好きです。",
+                "romaji": "Shashin o toru koto desu. Tokuni furui tatemono ga suki desu.",
+                "uzbek": "Rasmga tushirish. Ayniqsa qadimiy binolarni suratga olishni yoqtiraman."
+              },
+              {
+                "id": "m1-l18-3",
+                "speaker": "木村",
+                "speakerRoleUz": "Kimura",
+                "japanese": "日本で 写真を たくさん 撮りましたか。",
+                "romaji": "Nihon de shashin o takusan torimashita ka.",
+                "uzbek": "Yaponiyada ko'p rasmga tushirdingizmi?"
+              },
+              {
+                "id": "m1-l18-4",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "ええ。京都や 奈良へ 行って、お寺を 撮ることが できました。",
+                "romaji": "Ee. Kyouto ya Nara e itte, otera o toru koto ga dekimashita.",
+                "uzbek": "Ha. Kyoto va Naraga borib, ibodatxonalarni rasmga tushira oldim."
+              },
+              {
+                "id": "m1-l18-5",
+                "speaker": "木村",
+                "speakerRoleUz": "Kimura",
+                "japanese": "いつか 見せて くださいね。",
+                "romaji": "Itsuka misete kudasai ne.",
+                "uzbek": "Bir kun menga ham ko'rsating-a."
+              },
+              {
+                "id": "m1-l18-6",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "はい、ぜひ。",
+                "romaji": "Hai, zehi.",
+                "uzbek": "Albatta, bajonidil."
+              }
+            ]
+          }
         }
       },
       {
@@ -13004,7 +14050,46 @@
               ]
             }
           ],
-          "culturalNotes": "Fuji tog'iga chiqish yoki issiq buloqqa (onsen) borish yaponlar hayotidagi mashhur tajribalardandir. Buni ifodalashda '〜たことがあります' qo'llaniladi."
+          "culturalNotes": "Fuji tog'iga chiqish yoki issiq buloqqa (onsen) borish yaponlar hayotidagi mashhur tajribalardandir. Buni ifodalashda '〜たことがあります' qo'llaniladi.",
+          "dialogue": {
+            "title": "ダイエットは明日からします (Parhezni ertadan boshlayman)",
+            "titleJa": "ダイエットは明日からします",
+            "situationUz": "Maria mazali shirinliklarni ko'rib, parhezni ertaga qoldiradi.",
+            "lines": [
+              {
+                "id": "m1-l19-1",
+                "speaker": "松本",
+                "speakerRoleUz": "Matsumoto",
+                "japanese": "マリアさん、ケーキを もう ひとつ いかがですか。",
+                "romaji": "Maria-san, keeki o mou hitotsu ikaga desu ka.",
+                "uzbek": "Mariya xonim, yana bitta tort bo'lagi olmaysizmi?"
+              },
+              {
+                "id": "m1-l19-2",
+                "speaker": "マリア",
+                "speakerRoleUz": "Maria",
+                "japanese": "うーん、おいしそうですね。でも、最近 太りましたから……。",
+                "romaji": "Uun, oishisou desu ne. Demo, saikin futorimashita kara...",
+                "uzbek": "Hmm, juda mazali ko'rinadi. Lekin oxirgi paytlarda semirib ketdim-da..."
+              },
+              {
+                "id": "m1-l19-3",
+                "speaker": "松本",
+                "speakerRoleUz": "Matsumoto",
+                "japanese": "１個くらい 大丈夫ですよ。",
+                "romaji": "Ikko kurai daijoubu desu yo.",
+                "uzbek": "Bitta donadan hech narsa qilmaydi."
+              },
+              {
+                "id": "m1-l19-4",
+                "speaker": "マリア",
+                "speakerRoleUz": "Maria",
+                "japanese": "そうですね。いただきます！ダイエットは あしたから します。",
+                "romaji": "Sou desu ne. Itadakimasu! Daietto wa ashita kara shimasu.",
+                "uzbek": "To'g'ri aytdingiz. Yoqimli ishtaha! Parhezni esa ertadan boshlayman."
+              }
+            ]
+          }
         }
       },
       {
@@ -13503,7 +14588,62 @@
               ]
             }
           ],
-          "culturalNotes": "Tengdoshlar, oila a'zolari va yaqin do'stlar bilan suhbatlashganda rasmiy 'Desu/Masu' o'rniga oddiy uslub (Futsuugo / 普通形) ishlatiladi."
+          "culturalNotes": "Tengdoshlar, oila a'zolari va yaqin do'stlar bilan suhbatlashganda rasmiy 'Desu/Masu' o'rniga oddiy uslub (Futsuugo / 普通形) ishlatiladi.",
+          "dialogue": {
+            "title": "夏休みはどうするの？ (Yozgi ta'tilda nima qilasan?)",
+            "titleJa": "夏休みはどうするの？",
+            "situationUz": "Do'stona norasmiy uslubda (oddiy shakl - futsukei) yozgi ta'til rejalari haqida suhbat.",
+            "lines": [
+              {
+                "id": "m1-l20-1",
+                "speaker": "小林",
+                "speakerRoleUz": "Kobayashi",
+                "japanese": "ミラー君、夏休みは どうするの？",
+                "romaji": "Miraa-kun, natsuyasumi wa dou suru no?",
+                "uzbek": "Miller, yozgi ta'tilda nima qilasan?"
+              },
+              {
+                "id": "m1-l20-2",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "沖縄へ 行こうと 思ってるんだ。",
+                "romaji": "Okinawa e ikou to omotterun da.",
+                "uzbek": "Okinavaga borsammikin deb o'ylayapman."
+              },
+              {
+                "id": "m1-l20-3",
+                "speaker": "小林",
+                "speakerRoleUz": "Kobayashi",
+                "japanese": "いいなあ！誰と 行くの？",
+                "romaji": "Ii naa! Dare to iku no?",
+                "uzbek": "Qoyil-e! Kim bilan borasan?"
+              },
+              {
+                "id": "m1-l20-4",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "会社の 友達と ２人で。",
+                "romaji": "Kaisha no tomodachi to futari de.",
+                "uzbek": "Kompaniyadagi do'stim bilan ikkovimiz."
+              },
+              {
+                "id": "m1-l20-5",
+                "speaker": "小林",
+                "speakerRoleUz": "Kobayashi",
+                "japanese": "海で 泳いだり、おいしいものを 食べたり するの？",
+                "romaji": "Umi de oyoidari, oishii mono o tabetari suru no?",
+                "uzbek": "Dengizda cho'milib, mazali taomlar yeysizlarmi?"
+              },
+              {
+                "id": "m1-l20-6",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "うん、そうする つもり。",
+                "romaji": "Un, sou suru tsumori.",
+                "uzbek": "Ha, niyatim shunday."
+              }
+            ]
+          }
         }
       },
       {
@@ -14112,7 +15252,54 @@
               ]
             }
           ],
-          "culturalNotes": "O'z fikrini bildirayotganda yaponlar muloyimlik bilan '〜と思います' (deb o'ylayman) qo'shimchasini qo'shib, o'z fikrini qat'iy hukm qilmasdan aytadilar."
+          "culturalNotes": "O'z fikrini bildirayotganda yaponlar muloyimlik bilan '〜と思います' (deb o'ylayman) qo'shimchasini qo'shib, o'z fikrini qat'iy hukm qilmasdan aytadilar.",
+          "dialogue": {
+            "title": "わたしもそう思います (Men ham shunday deb o'ylayman)",
+            "titleJa": "わたしもそう思います",
+            "situationUz": "Miller, Karina va Yamada yapon siyosati va jamiyat haqida fikr almashishadi.",
+            "lines": [
+              {
+                "id": "m1-l21-1",
+                "speaker": "山田",
+                "speakerRoleUz": "Yamada",
+                "japanese": "日本の 首相について どう 思いますか。",
+                "romaji": "Nihon no shushou ni tsuite dou omoimasu ka.",
+                "uzbek": "Yaponiyaning bosh vaziri haqida nima deb o'ylaysiz?"
+              },
+              {
+                "id": "m1-l21-2",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "演説が 上手だと 思います。",
+                "romaji": "Enzetsu ga jouzu da to omoimasu.",
+                "uzbek": "Nutqi juda ta'sirchan va yaxshi deb o'ylayman."
+              },
+              {
+                "id": "m1-l21-3",
+                "speaker": "カリナ",
+                "speakerRoleUz": "Karina",
+                "japanese": "わたしも そう 思います。若い 人の 意見も 聞いていますね。",
+                "romaji": "Watashi mo sou omoimasu. Wakai hito no iken mo kiite imasu ne.",
+                "uzbek": "Men ham shunday deb o'ylayman. Yoshlarning fikriga ham quloq tutyapti."
+              },
+              {
+                "id": "m1-l21-4",
+                "speaker": "山田",
+                "speakerRoleUz": "Yamada",
+                "japanese": "日本の 自動車は 世界中で 便利だと 言われていますよ。",
+                "romaji": "Nihon no jidousha wa sekaijuu de benri da to iwarete imasu yo.",
+                "uzbek": "Yaponiya avtomobillari butun dunyoda qulay deb aytiladi."
+              },
+              {
+                "id": "m1-l21-5",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "本当に その通りですね。",
+                "romaji": "Hontou ni sono toori desu ne.",
+                "uzbek": "Haqiqatan ham shunday."
+              }
+            ]
+          }
         }
       },
       {
@@ -14625,7 +15812,62 @@
               ]
             }
           ],
-          "culturalNotes": "Yaponiyada kvartira ijaraga olish (apāto sagashi) madaniyati o'ziga xos bo'lib, xonalar hajmi tatami to'shamlari soni bilan o'lchanadi."
+          "culturalNotes": "Yaponiyada kvartira ijaraga olish (apāto sagashi) madaniyati o'ziga xos bo'lib, xonalar hajmi tatami to'shamlari soni bilan o'lchanadi.",
+          "dialogue": {
+            "title": "どんなアパートがいいですか (Qanday xonadon ma'qul?)",
+            "titleJa": "どんなアパートがいいですか",
+            "situationUz": "Miller ko'chmas mulk agentligida o'ziga ma'qul ijara kvartirani qidirmoqda.",
+            "lines": [
+              {
+                "id": "m1-l22-1",
+                "speaker": "不動産屋",
+                "speakerRoleUz": "Ko'chmas mulk agenti",
+                "japanese": "ミラーさん、どんな アパートが いいですか。",
+                "romaji": "Miraa-san, donna apaato ga ii desu ka.",
+                "uzbek": "Miller janob, sizga qanday xonadon ma'qul?"
+              },
+              {
+                "id": "m1-l22-2",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "駅から 近くて、家賃が 安い ところが いいです。",
+                "romaji": "Eki kara chikakute, yachin ga yasui tokoro ga ii desu.",
+                "uzbek": "Vokzalga yaqin va ijara haqi arzonroq joy bo'lsa yaxshi edi."
+              },
+              {
+                "id": "m1-l22-3",
+                "speaker": "不動産屋",
+                "speakerRoleUz": "Ko'chmas mulk agenti",
+                "japanese": "こちらは いかがですか。駅から 徒歩５分で、５万円です。",
+                "romaji": "Kochira wa ikaga desu ka. Eki kara toho gofun de, goman-en desu.",
+                "uzbek": "Mana buni qanday ko'rasiz? Bekatdan piyoda 5 daqiqa, narxi 50,000 iyena."
+              },
+              {
+                "id": "m1-l22-4",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "部屋は 広いですか。",
+                "romaji": "Heya wa hiroi desu ka.",
+                "uzbek": "Xonasi kengmi?"
+              },
+              {
+                "id": "m1-l22-5",
+                "speaker": "不動産屋",
+                "speakerRoleUz": "Ko'chmas mulk agenti",
+                "japanese": "ちょっと 狭いですが、新しくて きれいですよ。",
+                "romaji": "Chotto semai desu ga, atarashikute kirei desu yo.",
+                "uzbek": "Sal kichikroq, lekin yangi va juda ozoda."
+              },
+              {
+                "id": "m1-l22-6",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "じゃ、見せて いただけますか。",
+                "romaji": "Ja, misete itadakemasu ka.",
+                "uzbek": "Bo'lmasa, uni ko'rsata olasizmi?"
+              }
+            ]
+          }
         }
       },
       {
@@ -15245,7 +16487,54 @@
               ]
             }
           ],
-          "culturalNotes": "Yaponiyada ko'chada adashib qolsangiz, mahalliy militsiya maskani — 'Koban' xodimlari doimo xaritadan yo'lni mehribonlik bilan tushuntirib berishadi."
+          "culturalNotes": "Yaponiyada ko'chada adashib qolsangiz, mahalliy militsiya maskani — 'Koban' xodimlari doimo xaritadan yo'lni mehribonlik bilan tushuntirib berishadi.",
+          "dialogue": {
+            "title": "どうやって行きますか (Qanday boriladi?)",
+            "titleJa": "どうやって行きますか",
+            "situationUz": "Miller yo'lovchidan shahar hokimiyatiga borish yo'lini so'raydi.",
+            "lines": [
+              {
+                "id": "m1-l23-1",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "すみません。市役所へは どうやって 行きますか。",
+                "romaji": "Sumimasen. Shiyakusho e wa dou yatte ikimasu ka.",
+                "uzbek": "Kechirasiz. Shahar hokimiyatiga qanday borsa bo'ladi?"
+              },
+              {
+                "id": "m1-l23-2",
+                "speaker": "通行人",
+                "speakerRoleUz": "Yo'lovchi",
+                "japanese": "この道を まっすぐ 行くと、右側に 郵便局が あります。",
+                "romaji": "Kono michi o massugu iku to, migigawa ni yuubinkyoku ga arimasu.",
+                "uzbek": "Ushbu ko'chadan to'g'riga yursangiz, o'ng tomonda pochta chiqadi."
+              },
+              {
+                "id": "m1-l23-3",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "はい。",
+                "romaji": "Hai.",
+                "uzbek": "Tushunarli."
+              },
+              {
+                "id": "m1-l23-4",
+                "speaker": "通行人",
+                "speakerRoleUz": "Yo'lovchi",
+                "japanese": "そこを 左へ 曲がると、高い 建物が 見えます。それが 市役所です。",
+                "romaji": "Soko o hidari e magaru to, takai tatemono ga miemasu. Sore ga shiyakusho desu.",
+                "uzbek": "O'sha yerdan chapga burilsangiz, baland bino ko'rinadi. Shu shahar hokimiyati."
+              },
+              {
+                "id": "m1-l23-5",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "わかりました。ありがとうございました。",
+                "romaji": "Wakarimashita. Arigatou gozaimashita.",
+                "uzbek": "Tushundim. Katta rahmat sizga!"
+              }
+            ]
+          }
         }
       },
       {
@@ -15680,7 +16969,54 @@
               ]
             }
           ],
-          "culturalNotes": "Yaponlar birovdan yordam olganda doimo '〜てもらいました' yoki '〜てくれました' deb alohida ehtirom va minnatdorchilik bildiradilar."
+          "culturalNotes": "Yaponlar birovdan yordam olganda doimo '〜てもらいました' yoki '〜てくれました' deb alohida ehtirom va minnatdorchilik bildiradilar.",
+          "dialogue": {
+            "title": "手伝ってくれませんか (Yordam berib yubora olmaysizmi?)",
+            "titleJa": "手伝ってくれませんか",
+            "situationUz": "Karina Millerdan kvartira ko'chirishda yordam so'raydi.",
+            "lines": [
+              {
+                "id": "m1-l24-1",
+                "speaker": "カリナ",
+                "speakerRoleUz": "Karina",
+                "japanese": "ミラーさん、あした 引っ越しを するんですが、手伝って くれませんか。",
+                "romaji": "Miraa-san, ashita hikkoshi o surun desu ga, tetsudatte kuremasen ka.",
+                "uzbek": "Miller janob, ertaga yangi uyga ko'chayotgan edim, yordam berib yubora olmaysizmi?"
+              },
+              {
+                "id": "m1-l24-2",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "いいですよ。何時ごろ 行きましょうか。",
+                "romaji": "Ii desu yo. Nanji goro ikimashou ka.",
+                "uzbek": "Albatta yordam beraman. Soat nechalar atrofida boray?"
+              },
+              {
+                "id": "m1-l24-3",
+                "speaker": "カリナ",
+                "speakerRoleUz": "Karina",
+                "japanese": "朝９時ごろ お願いできますか。",
+                "romaji": "Asa kuji goro onegai dekimasu ka.",
+                "uzbek": "Ertalab soat 9:00 larda kela olasizmi?"
+              },
+              {
+                "id": "m1-l24-4",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "わかりました。車で 行きますね。",
+                "romaji": "Wakarimashita. Kuruma de ikimasu ne.",
+                "uzbek": "Tushundim. Mashinamda boraman."
+              },
+              {
+                "id": "m1-l24-5",
+                "speaker": "カリナ",
+                "speakerRoleUz": "Karina",
+                "japanese": "本当に 助かります。ありがとう。",
+                "romaji": "Hontou ni tasukarimasu. Arigatou.",
+                "uzbek": "Haqiqatan ham katta yordam bo'ldi. Rahmat sizga!"
+              }
+            ]
+          }
         }
       },
       {
@@ -16149,7 +17485,46 @@
               ]
             }
           ],
-          "culturalNotes": "Xayrlashuv va yangi bosqichga o'tishda '今まで本当にお世話になりました' (Shu paytgacha ko'rsatgan yordamingiz uchun rahmat) deb ta'zim qilinadi."
+          "culturalNotes": "Xayrlashuv va yangi bosqichga o'tishda '今まで本当にお世話になりました' (Shu paytgacha ko'rsatgan yordamingiz uchun rahmat) deb ta'zim qilinadi.",
+          "dialogue": {
+            "title": "いろいろお世話になりました (Ko'p yordamingiz tegdi, minnatdorman)",
+            "titleJa": "いろいろお世話になりました",
+            "situationUz": "Miller Tokioga ko'chib o'tish arafasida hamkasblariga minnatdorchilik bildirib xayrlashmoqda.",
+            "lines": [
+              {
+                "id": "m1-l25-1",
+                "speaker": "部長",
+                "speakerRoleUz": "Bo'lim boshlig'i",
+                "japanese": "ミラーさん、東京へ 転勤しても、元気で 頑張ってください。",
+                "romaji": "Miraa-san, Toukyou e tenkin shitemo, genki de ganbatte kudasai.",
+                "uzbek": "Miller janob, Tokioga xizmat yuzasidan o'tsangiz ham, doimo sog'-omon bo'lib, g'ayrat bilan ishlang."
+              },
+              {
+                "id": "m1-l25-2",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "はい、大阪では いろいろ お世話に なりました。",
+                "romaji": "Hai, Oosaka de wa iroiro osewa ni narimashita.",
+                "uzbek": "Rahmat, Osakada men uchun ko'p yaxshiliklar qildingiz, cheksiz minnatdorman."
+              },
+              {
+                "id": "m1-l25-3",
+                "speaker": "社員たち",
+                "speakerRoleUz": "Hamkasblar",
+                "japanese": "寂しくなりますね。大阪へ 来たら、また 寄ってください。",
+                "romaji": "Sabishiku narimasu ne. Oosaka e kitara, mata yotte kudasai.",
+                "uzbek": "Siz ketgach ko'nglimiz bo'shab qoladi. Osakaga kelsangiz, albatta biznikiga kiring."
+              },
+              {
+                "id": "m1-l25-4",
+                "speaker": "ミラー",
+                "speakerRoleUz": "Mayk Miller",
+                "japanese": "ええ、ぜひ。みなさんも どうぞ お元気で。",
+                "romaji": "Ee, zehi. Minasan mo douzo ogenki de.",
+                "uzbek": "Albatta! Hammangiz doimo sog'-omon bo'ling."
+              }
+            ]
+          }
         }
       },
       {
