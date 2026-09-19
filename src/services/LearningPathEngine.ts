@@ -718,7 +718,7 @@ export const LearningPathEngine = {
 
       candidates.push({
         type: 'srs_review',
-        route: '/study-mode',
+        route: state.primaryLanguage === 'ja' ? '/study-mode?lang=ja' : '/study-mode',
         language: state.primaryLanguage,
         title: isJa ? `${srs.dueCount} ta kartani takrorlash` : `Review ${srs.dueCount} Flashcards`,
         description: isJa ? `Interval takrorlash mashqi.` : `Spaced repetition review session.`,
@@ -823,7 +823,7 @@ export const LearningPathEngine = {
 
       candidates.push({
         type: 'srs_review',
-        route: '/study-mode',
+        route: state.primaryLanguage === 'ja' ? '/study-mode?lang=ja' : '/study-mode',
         language: state.primaryLanguage,
         title: isJa ? `${srs.dueCount} ta kartani takrorlash` : `Review ${srs.dueCount} Flashcards`,
         description: isJa ? `Interval takrorlash.` : `Regular SRS session.`,
@@ -851,7 +851,7 @@ export const LearningPathEngine = {
 
       candidates.push({
         type: 'srs_review',
-        route: '/study-mode',
+        route: state.primaryLanguage === 'ja' ? '/study-mode?lang=ja' : '/study-mode',
         language: state.primaryLanguage,
         title: isJa
           ? `${srs.newCount} ta yangi so'zni o'rganish`
@@ -1136,7 +1136,7 @@ export const LearningPathEngine = {
             : `Review ${cardsToReview} Flashcards`,
         estimatedMinutes: srsTime,
         minutes: srsTime,
-        route: '/study-mode',
+        route: state.primaryLanguage === 'ja' ? '/study-mode?lang=ja' : '/study-mode',
         priority: srsSummary.overdueCount > 0 ? 92 : 78,
         isCompleted: isSrsCompleted,
         status: srsStatus,

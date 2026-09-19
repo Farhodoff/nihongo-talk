@@ -10,7 +10,7 @@ import {
   Globe,
   ShieldCheck,
 } from 'lucide-react';
-import React, { useEffect, useState, useMemo, useCallback } from 'react';
+import React, { useEffect, useState, useMemo, useCallback, useRef } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Button } from '../components/ui/Button';
 import { useStudyData } from '../context/StudyPlannerContext';
@@ -49,7 +49,22 @@ const StudyModePage: React.FC = () => {
   const [isFinished, setIsFinished] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [totalXpEarned, setTotalXpEarned] = useState(0);
-  const [accent, setAccent] = useState<'en-GB' | 'en-US' | 'ja-JP'>('en-US');
+
+  const searchParams = useMemo(() => new URLSearchParams(location.search), [location.search]);
+  const langFilter = searchParams.get('lang'); // 'ja' | 'en' | null
+
+  const [accent, setAccent] = useState<'en-GB' | 'en-US' | 'ja-JP'>(() => {
+    return langFilter === 'ja' ? 'ja-JP' : 'en-US';
+  });
+
+  useEffect(() => {
+    if (langFilter === 'ja') {
+      setAccent('ja-JP');
+    } else if (langFilter === 'en' && accent === 'ja-JP') {
+      setAccent('en-US');
+    }
+  }, [langFilter, accent]);
+
   const [isQueueInitialized, setIsQueueInitialized] = useState(false);
   const [autoAudio, setAutoAudio] = useState<boolean>(() => {
     return safeLocalStorage.getItem('study_planner_flashcard_auto_audio') === 'true';
@@ -85,35 +100,46 @@ const StudyModePage: React.FC = () => {
   const [batchLimit, setBatchLimit] = useState<'10' | '25' | '50' | 'all'>('25');
 
   const currentSubject = subjects.find((s) => s.id === subjectId);
-  const searchParams = useMemo(() => new URLSearchParams(location.search), [location.search]);
-  const langFilter = searchParams.get('lang'); // 'ja' | 'en' | null
+
+  const isCardJapanese = useCallback(
+    (c: Flashcard): boolean => {
+      const sub = subjects.find((s) => s.id === c.subjectId);
+      const hasJaChars = /[\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff00-\uffef\u4e00-\u9faf]/.test(
+        (c.front || '') + (c.back || '') + (sub?.name || '') + (c.phonetic || ''),
+      );
+      const isJlptSubject =
+        sub?.name?.toLowerCase().includes('jlpt') ||
+        sub?.name?.toLowerCase().includes('kanji') ||
+        sub?.name?.toLowerCase().includes('yapon') ||
+        sub?.name?.toLowerCase().includes('japanese') ||
+        (sub as any)?.category?.toLowerCase()?.includes('jlpt');
+      return Boolean(hasJaChars || isJlptSubject);
+    },
+    [subjects],
+  );
+
+  const isCardEnglish = useCallback(
+    (c: Flashcard): boolean => {
+      return !isCardJapanese(c);
+    },
+    [isCardJapanese],
+  );
+
+  const filterKey = `${subjectId || 'all'}-${langFilter || 'all'}`;
+  const lastFilterKeyRef = useRef<string>('');
 
   useEffect(() => {
-    if (flashcards.length > 0 && !isQueueInitialized) {
+    if (flashcards.length > 0) {
+      if (filterKey === lastFilterKeyRef.current && isQueueInitialized) {
+        return;
+      }
       let pool = flashcards;
 
       // Filter by language if specified in URL query params
       if (langFilter === 'ja') {
-        pool = pool.filter((c: Flashcard) => {
-          const sub = subjects.find((s) => s.id === c.subjectId);
-          const hasJaChars =
-            /[\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff00-\uffef\u4e00-\u9faf]/.test(
-              (c.front || '') + (c.back || '') + (sub?.name || ''),
-            );
-          const isJlptSubject =
-            sub?.name?.toLowerCase().includes('jlpt') ||
-            sub?.name?.toLowerCase().includes('kanji') ||
-            sub?.name?.toLowerCase().includes('yapon');
-          return hasJaChars || isJlptSubject;
-        });
+        pool = pool.filter(isCardJapanese);
       } else if (langFilter === 'en') {
-        pool = pool.filter((c: Flashcard) => {
-          const hasJaChars =
-            /[\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff00-\uffef\u4e00-\u9faf]/.test(
-              (c.front || '') + (c.back || ''),
-            );
-          return !hasJaChars;
-        });
+        pool = pool.filter(isCardEnglish);
       }
 
       let targetSet: Flashcard[] = [];
@@ -130,11 +156,28 @@ const StudyModePage: React.FC = () => {
       const limitNum = batchLimit === 'all' ? targetSet.length : parseInt(batchLimit, 10);
       const initialQueue = sortCardsBySRSPriority(targetSet).slice(0, limitNum);
       setQueue(initialQueue);
+      setCurrentCardIndex(0);
+      setIsFlipped(false);
+      setIsFinished(false);
+      setTypeResult(null);
+      setTypedAnswer('');
       setIsQueueInitialized(true);
+      lastFilterKeyRef.current = filterKey;
     } else if (flashcards.length === 0 && !loading && !isQueueInitialized) {
       setIsQueueInitialized(true);
+      lastFilterKeyRef.current = filterKey;
     }
-  }, [subjectId, flashcards, isQueueInitialized, loading, batchLimit, langFilter, subjects]);
+  }, [
+    subjectId,
+    flashcards,
+    isQueueInitialized,
+    loading,
+    batchLimit,
+    langFilter,
+    isCardJapanese,
+    isCardEnglish,
+    filterKey,
+  ]);
 
   const handleBatchLimitChange = (newLimit: '10' | '25' | '50' | 'all') => {
     setBatchLimit(newLimit);
@@ -142,26 +185,9 @@ const StudyModePage: React.FC = () => {
       ? flashcards.filter((c) => c.subjectId === subjectId)
       : flashcards;
     if (langFilter === 'ja') {
-      fallbackCards = fallbackCards.filter((c) => {
-        const sub = subjects.find((s) => s.id === c.subjectId);
-        const hasJaChars =
-          /[\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff00-\uffef\u4e00-\u9faf]/.test(
-            (c.front || '') + (c.back || '') + (sub?.name || ''),
-          );
-        const isJlptSubject =
-          sub?.name?.toLowerCase().includes('jlpt') ||
-          sub?.name?.toLowerCase().includes('kanji') ||
-          sub?.name?.toLowerCase().includes('yapon');
-        return hasJaChars || isJlptSubject;
-      });
+      fallbackCards = fallbackCards.filter(isCardJapanese);
     } else if (langFilter === 'en') {
-      fallbackCards = fallbackCards.filter((c) => {
-        const hasJaChars =
-          /[\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff00-\uffef\u4e00-\u9faf]/.test(
-            (c.front || '') + (c.back || ''),
-          );
-        return !hasJaChars;
-      });
+      fallbackCards = fallbackCards.filter(isCardEnglish);
     }
     const pool = allAvailableCards.length > 0 ? allAvailableCards : fallbackCards;
     const limitNum = newLimit === 'all' ? pool.length : parseInt(newLimit, 10);
@@ -177,6 +203,23 @@ const StudyModePage: React.FC = () => {
       title: '🎯 Sessiya hajmi yangilandi',
       description: `Mashg'ulot uchun ${newLimit === 'all' ? `barcha (${actualCount} ta)` : `${actualCount} ta`} karta belgilandi.`,
     });
+  };
+
+  const handleLanguageFilterChange = (newLang: 'ja' | 'en' | null) => {
+    const params = new URLSearchParams(location.search);
+    if (newLang) {
+      params.set('lang', newLang);
+    } else {
+      params.delete('lang');
+    }
+    const queryString = params.toString();
+    navigate(
+      {
+        pathname: location.pathname,
+        search: queryString ? `?${queryString}` : '',
+      },
+      { replace: true },
+    );
   };
 
   const currentCard = queue[currentCardIndex];
@@ -225,26 +268,32 @@ const StudyModePage: React.FC = () => {
   };
 
   const isJapanese = useMemo(() => {
+    if (langFilter === 'ja') return true;
+    if (langFilter === 'en') return false;
     if (!currentCard && !currentSubject) return false;
+    const cardSubject =
+      subjects.find((s) => s.id === (currentCard?.subjectId || subjectId)) || currentSubject;
     const frontText = currentCard?.front || '';
     const backText = currentCard?.back || '';
-    const subjectTitle = currentSubject?.name || '';
-    const subjectType = (currentSubject as any)?.type || '';
-    const subjectCategory = (currentSubject as any)?.category || '';
+    const phoneticText = currentCard?.phonetic || '';
+    const subjectTitle = cardSubject?.name || '';
+    const subjectType = (cardSubject as any)?.type || '';
+    const subjectCategory = (cardSubject as any)?.category || '';
 
     const hasJapaneseChars =
       /[\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff00-\uffef\u4e00-\u9faf]/.test(
-        frontText + backText + subjectTitle,
+        frontText + backText + phoneticText + subjectTitle,
       );
     const isJlptMeta =
       subjectType.toLowerCase().includes('jlpt') ||
       subjectCategory.toLowerCase().includes('jlpt') ||
       subjectTitle.toLowerCase().includes('jlpt') ||
       subjectTitle.toLowerCase().includes('kanji') ||
-      subjectTitle.toLowerCase().includes('yapon');
+      subjectTitle.toLowerCase().includes('yapon') ||
+      subjectTitle.toLowerCase().includes('japanese');
 
-    return hasJapaneseChars || isJlptMeta;
-  }, [currentCard, currentSubject]);
+    return Boolean(hasJapaneseChars || isJlptMeta);
+  }, [currentCard, currentSubject, subjectId, subjects, langFilter]);
 
   const handleSpeak = (e?: React.MouseEvent) => {
     e?.stopPropagation();
@@ -720,6 +769,48 @@ const StudyModePage: React.FC = () => {
               </button>
             ))}
           </div>
+
+          {/* Language filter pills (shown in global study mode) */}
+          {!subjectId && (
+            <div className="flex items-center gap-1 rounded-xl border border-border bg-muted/70 p-1">
+              <button
+                onClick={() => handleLanguageFilterChange(null)}
+                aria-label="Filter: Barchasi"
+                className={`rounded-lg px-2 py-0.5 text-xs font-bold transition-all ${
+                  !langFilter
+                    ? 'bg-primary text-primary-foreground shadow-sm'
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+                title="Barcha kartalar"
+              >
+                🌐 <span className="hidden sm:inline">Barchasi</span>
+              </button>
+              <button
+                onClick={() => handleLanguageFilterChange('ja')}
+                aria-label="Filter: Yaponcha"
+                className={`rounded-lg px-2 py-0.5 text-xs font-bold transition-all ${
+                  langFilter === 'ja'
+                    ? 'bg-rose-600 text-white shadow-sm'
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+                title="Faqat yapon tili va JLPT kartalari"
+              >
+                🇯🇵 <span className="hidden sm:inline">Yaponcha</span>
+              </button>
+              <button
+                onClick={() => handleLanguageFilterChange('en')}
+                aria-label="Filter: Inglizcha"
+                className={`rounded-lg px-2 py-0.5 text-xs font-bold transition-all ${
+                  langFilter === 'en'
+                    ? 'bg-blue-600 text-white shadow-sm'
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+                title="Faqat ingliz tili kartalari"
+              >
+                🇬🇧 <span className="hidden sm:inline">Inglizcha</span>
+              </button>
+            </div>
+          )}
         </div>
 
         <div className="flex items-center gap-2">

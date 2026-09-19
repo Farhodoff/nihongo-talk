@@ -73,6 +73,18 @@ const DashboardPage: React.FC = () => {
   // Sanalarni ajratib olish
   const todayStr = new Date().toISOString().split('T')[0];
 
+  const resolveDashboardRoute = (route?: string) => {
+    if (!route) return '/jlpt';
+    if (
+      (isJaTrack || primaryLanguage === 'ja') &&
+      route.startsWith('/study-mode') &&
+      !route.includes('lang=')
+    ) {
+      return `${route}${route.includes('?') ? '&' : '?'}lang=ja`;
+    }
+    return route;
+  };
+
   const todayTasks = tasks
     .filter((t) => {
       const taskDate = (t.dueDate || t.deadline || '').split('T')[0];
@@ -540,7 +552,7 @@ const DashboardPage: React.FC = () => {
           <div className="flex shrink-0 flex-col items-start gap-3 lg:items-end">
             {nextAction && (
               <Link
-                to={nextAction.route || '/jlpt'}
+                to={resolveDashboardRoute(nextAction.route)}
                 className="flex w-full items-center justify-center gap-2 rounded-2xl bg-rose-600 px-6 py-3.5 text-sm font-black text-white shadow-lg shadow-rose-600/30 transition-all hover:scale-[1.02] hover:bg-rose-500 active:scale-[0.98] sm:w-auto"
               >
                 <span>{nextAction.badgeIcon || '🚀'}</span>
@@ -652,7 +664,7 @@ const DashboardPage: React.FC = () => {
               {dailyPlan.activities.map((item, idx) => (
                 <Link
                   key={item.id || idx}
-                  to={item.route || '/jlpt'}
+                  to={resolveDashboardRoute(item.route)}
                   className={`group relative flex flex-col justify-between gap-3 overflow-hidden rounded-2xl border p-4 transition-all ${
                     item.isCompleted || item.status === 'completed'
                       ? 'border-green-500/20 bg-green-500/5 opacity-70 hover:opacity-90'
@@ -779,7 +791,7 @@ const DashboardPage: React.FC = () => {
           {/* Phase 15: Next lesson is shown in hero CTA above — only show weakness focus card here */}
           {roadmapSummary.topWeakLesson && (
             <Link
-              to={roadmapSummary.topWeakLesson.route}
+              to={resolveDashboardRoute(roadmapSummary.topWeakLesson.route)}
               className="group flex flex-col justify-between gap-3 rounded-2xl border border-rose-500/30 bg-rose-500/5 p-4 transition-all hover:bg-rose-500/10"
             >
               <div className="space-y-1.5">
