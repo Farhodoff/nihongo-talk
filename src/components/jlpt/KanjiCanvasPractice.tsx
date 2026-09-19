@@ -1,248 +1,478 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { Trash2, HelpCircle, Eye, Sparkles } from 'lucide-react';
+import React, { useRef, useState, useEffect, useCallback, useMemo } from 'react';
+import {
+  Trash2,
+  Eye,
+  EyeOff,
+  Play,
+  Pause,
+  RotateCcw,
+  ChevronLeft,
+  ChevronRight,
+  Volume2,
+  Undo2,
+  CheckCircle2,
+  Search,
+  Award,
+  PenTool,
+} from 'lucide-react';
 import { Button } from '../ui/Button';
 import { useLanguage } from '../../context/LanguageContext';
+import { useStudyData } from '../../context/StudyPlannerContext';
+import { speakText } from '../../utils/audioTts';
+import {
+  KanjiPracticeService,
+  JlptLevelFilter,
+  KanjiStrokeData,
+} from '../../services/KanjiPracticeService';
+import type { JlptKanjiItem } from '../../data/jlptGrammarKanji';
 
-interface KanjiPracticeItem {
-  kanji: string;
-  meaning: string;
-  meaningJa?: string;
-  strokesCount: number;
-  strokePaths: string[]; // Mock relative coordinates for stroke simulation
+interface DrawnStroke {
+  points: { x: number; y: number }[];
+  color: string;
+  size: number;
 }
-
-const KANJI_PRACTICE_LIST: KanjiPracticeItem[] = [
-  {
-    kanji: '日',
-    meaning: 'Kun, Quyosh (Sun/Day)',
-    meaningJa: '太陽・日・日付・毎日 (ひ / にち)',
-    strokesCount: 4,
-    strokePaths: [
-      'M 30,20 L 30,80', // 1st stroke: left vertical
-      'M 30,20 L 70,20 L 70,80', // 2nd stroke: top & right
-      'M 30,50 L 70,50', // 3rd stroke: middle horizontal
-      'M 30,80 L 70,80', // 4th stroke: bottom horizontal
-    ],
-  },
-  {
-    kanji: '本',
-    meaning: 'Kitob, Asos (Book/Origin)',
-    meaningJa: 'もと・書籍・基本・日本 (ほん / もと)',
-    strokesCount: 5,
-    strokePaths: [
-      'M 20,40 L 80,40', // 1st stroke: main horizontal
-      'M 50,15 L 50,80', // 2nd stroke: main vertical
-      'M 50,40 L 25,75', // 3rd stroke: left slant
-      'M 50,40 L 75,75', // 4th stroke: right slant
-      'M 35,58 L 65,58', // 5th stroke: cross horizontal line
-    ],
-  },
-  {
-    kanji: '人',
-    meaning: 'Odam (Person)',
-    meaningJa: 'ひと・人間・人類 (ひと / じん / にん)',
-    strokesCount: 2,
-    strokePaths: [
-      'M 50,20 L 25,80', // 1st stroke: left slant
-      'M 45,45 L 75,80', // 2nd stroke: right slant
-    ],
-  },
-];
 
 export const KanjiCanvasPractice: React.FC = () => {
   const { language } = useLanguage();
   const isJa = language === 'ja';
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [showGuides, setShowGuides] = useState(true);
-  const [animationActive, setAnimationActive] = useState(false);
-  const [currentStrokeAnim, setCurrentStrokeAnim] = useState<number | null>(null);
+  const { awardXP } = useStudyData();
 
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const contextRef = useRef<CanvasRenderingContext2D | null>(null);
+  // Filters & Selection
+  const [level, setLevel] = useState<JlptLevelFilter>('N5');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedKanjiChar, setSelectedKanjiChar] = useState('日');
+
+  // Resolved Kanji & Stroke Data
+  const activeKanji: JlptKanjiItem = useMemo(() => {
+    return (
+      KanjiPracticeService.getKanjiByChar(selectedKanjiChar) ||
+      KanjiPracticeService.getKanjisByLevel('N5')[0]
+    );
+  }, [selectedKanjiChar]);
+
+  const strokeData: KanjiStrokeData | null = useMemo(() => {
+    return KanjiPracticeService.getStrokeData(activeKanji.kanji);
+  }, [activeKanji.kanji]);
+
+  const totalStrokes = strokeData?.paths.length || activeKanji.strokeCount || 1;
+
+  // Animation State
+  const [isAnimPlaying, setIsAnimPlaying] = useState(false);
+  const [animStep, setAnimStep] = useState(0); // 0 means show all or controlled step
+  const [animSpeed, setAnimSpeed] = useState<number>(700); // ms
+  const [showNumbers, setShowNumbers] = useState(true);
+
+  // Canvas Practice State
+  const [practiceMode, setPracticeMode] = useState<'ghost' | 'blind' | 'step'>('ghost');
+  const [brushColor, setBrushColor] = useState<string>('#E8483A'); // Hanko vermillion by default
+  const [brushSize, setBrushSize] = useState<number>(8);
+  const [userStrokes, setUserStrokes] = useState<DrawnStroke[]>([]);
   const [isDrawing, setIsDrawing] = useState(false);
+  const [completedSuccess, setCompletedSuccess] = useState(false);
 
-  const activeKanji = KANJI_PRACTICE_LIST[currentIndex];
+  // Canvas Refs
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const currentStrokePoints = useRef<{ x: number; y: number }[]>([]);
 
-  // Initialize Canvas
+  // Filtered Kanjis for selector
+  const availableKanjis = useMemo(() => {
+    if (searchQuery.trim()) {
+      return KanjiPracticeService.searchKanjis(searchQuery, level);
+    }
+    return KanjiPracticeService.getKanjisByLevel(level);
+  }, [level, searchQuery]);
+
+  const quickPills = useMemo(() => {
+    return KanjiPracticeService.getQuickKanjis(level);
+  }, [level]);
+
+  // Redraw canvas with grid and all recorded user strokes
+  const redrawCanvas = useCallback(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const width = 300;
+    const height = 300;
+
+    ctx.clearRect(0, 0, width, height);
+
+    // 1. Draw Japanese Practice Grid (田-grid / 十字格)
+    ctx.save();
+    ctx.strokeStyle = '#e2e8f0'; // light border
+    ctx.lineWidth = 1.5;
+    ctx.strokeRect(0, 0, width, height);
+
+    // Dashed center grid lines
+    ctx.strokeStyle = '#cbd5e1';
+    ctx.lineWidth = 1;
+    ctx.setLineDash([5, 5]);
+
+    // Horizontal center line
+    ctx.beginPath();
+    ctx.moveTo(0, height / 2);
+    ctx.lineTo(width, height / 2);
+    ctx.stroke();
+
+    // Vertical center line
+    ctx.beginPath();
+    ctx.moveTo(width / 2, 0);
+    ctx.lineTo(width / 2, height);
+    ctx.stroke();
+
+    // Faint diagonal guides
+    ctx.strokeStyle = '#f1f5f9';
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.lineTo(width, height);
+    ctx.moveTo(width, 0);
+    ctx.lineTo(0, height);
+    ctx.stroke();
+
+    ctx.restore();
+
+    // 2. Draw user strokes
+    userStrokes.forEach((stroke) => {
+      if (stroke.points.length < 2) return;
+      ctx.save();
+      ctx.strokeStyle = stroke.color;
+      ctx.lineWidth = stroke.size;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+
+      ctx.beginPath();
+      ctx.moveTo(stroke.points[0].x, stroke.points[0].y);
+      for (let i = 1; i < stroke.points.length; i++) {
+        ctx.lineTo(stroke.points[i].x, stroke.points[i].y);
+      }
+      ctx.stroke();
+      ctx.restore();
+    });
+  }, [userStrokes]);
+
+  // Handle canvas sizing for Retina displays
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    // Size configuration
-    canvas.width = 300;
-    canvas.height = 300;
-    canvas.style.width = '300px';
-    canvas.style.height = '300px';
-    canvas.style.maxWidth = '100%';
-    canvas.style.touchAction = 'none';
+    const dpr = window.devicePixelRatio || 1;
+    const displaySize = 300;
 
-    const context = canvas.getContext('2d');
-    if (!context) return;
+    canvas.width = displaySize * dpr;
+    canvas.height = displaySize * dpr;
+    canvas.style.width = `${displaySize}px`;
+    canvas.style.height = `${displaySize}px`;
 
-    context.lineCap = 'round';
-    context.lineJoin = 'round';
-    context.strokeStyle = 'var(--foreground)'; // adaptive dark/light stroke
-    context.lineWidth = 6;
-    contextRef.current = context;
+    const ctx = canvas.getContext('2d');
+    if (ctx) {
+      ctx.scale(dpr, dpr);
+    }
+    redrawCanvas();
+  }, [redrawCanvas]);
 
-    clearCanvas();
-  }, [currentIndex]);
+  // Reset drawing and animation state when kanji changes
+  useEffect(() => {
+    setUserStrokes([]);
+    currentStrokePoints.current = [];
+    setIsAnimPlaying(false);
+    setAnimStep(0);
+    setCompletedSuccess(false);
+  }, [activeKanji.kanji]);
+
+  // Animation timer
+  useEffect(() => {
+    let interval: any = null;
+    if (isAnimPlaying && strokeData && strokeData.paths.length > 0) {
+      interval = setInterval(() => {
+        setAnimStep((prev) => {
+          if (prev >= strokeData.paths.length) {
+            setIsAnimPlaying(false);
+            return strokeData.paths.length;
+          }
+          return prev + 1;
+        });
+      }, animSpeed);
+    }
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [isAnimPlaying, strokeData, animSpeed]);
+
+  // Touch & Mouse Drawing Handlers
+  const getCoordinates = (
+    e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>,
+  ): { x: number; y: number } | null => {
+    const canvas = canvasRef.current;
+    if (!canvas) return null;
+    const rect = canvas.getBoundingClientRect();
+    const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
+    const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
+    return {
+      x: clientX - rect.left,
+      y: clientY - rect.top,
+    };
+  };
 
   const startDrawing = (
     e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>,
   ) => {
-    if (!contextRef.current || !canvasRef.current) return;
-
-    let clientX, clientY;
-    if ('touches' in e) {
-      clientX = e.touches[0].clientX;
-      clientY = e.touches[0].clientY;
-    } else {
-      clientX = e.clientX;
-      clientY = e.clientY;
-    }
-
-    const rect = canvasRef.current.getBoundingClientRect();
-    const x = clientX - rect.left;
-    const y = clientY - rect.top;
-
-    contextRef.current.beginPath();
-    contextRef.current.moveTo(x, y);
+    const coords = getCoordinates(e);
+    if (!coords) return;
     setIsDrawing(true);
+    currentStrokePoints.current = [coords];
+
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    ctx.save();
+    ctx.strokeStyle = brushColor;
+    ctx.lineWidth = brushSize;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.beginPath();
+    ctx.moveTo(coords.x, coords.y);
   };
 
   const draw = (e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>) => {
-    if (!isDrawing || !contextRef.current || !canvasRef.current) return;
-
-    let clientX, clientY;
+    if (!isDrawing) return;
     if ('touches' in e) {
-      // Prevent scrolling on mobile while writing
-      e.preventDefault();
-      clientX = e.touches[0].clientX;
-      clientY = e.touches[0].clientY;
-    } else {
-      clientX = e.clientX;
-      clientY = e.clientY;
+      e.preventDefault(); // Prevent scrolling on touch
     }
+    const coords = getCoordinates(e);
+    if (!coords) return;
 
-    const rect = canvasRef.current.getBoundingClientRect();
-    const x = clientX - rect.left;
-    const y = clientY - rect.top;
+    currentStrokePoints.current.push(coords);
 
-    contextRef.current.lineTo(x, y);
-    contextRef.current.stroke();
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    ctx.lineTo(coords.x, coords.y);
+    ctx.stroke();
   };
 
   const stopDrawing = () => {
+    if (!isDrawing) return;
     setIsDrawing(false);
-  };
 
-  const clearCanvas = () => {
+    if (currentStrokePoints.current.length > 0) {
+      setUserStrokes((prev) => [
+        ...prev,
+        {
+          points: [...currentStrokePoints.current],
+          color: brushColor,
+          size: brushSize,
+        },
+      ]);
+      currentStrokePoints.current = [];
+    }
+
     const canvas = canvasRef.current;
-    const context = contextRef.current;
-    if (!canvas || !context) return;
-
-    context.clearRect(0, 0, canvas.width, canvas.height);
-
-    // Draw crosshair grid lines for writing guidance
-    context.strokeStyle = '#e2e8f0'; // light gray for grid lines
-    context.lineWidth = 1;
-    context.setLineDash([5, 5]);
-
-    // Horizontal center
-    context.beginPath();
-    context.moveTo(0, canvas.height / 2);
-    context.lineTo(canvas.width, canvas.height / 2);
-    context.stroke();
-
-    // Vertical center
-    context.beginPath();
-    context.moveTo(canvas.width / 2, 0);
-    context.lineTo(canvas.width / 2, canvas.height);
-    context.stroke();
-
-    // Reset brush settings
-    context.setLineDash([]);
-    context.strokeStyle = '#E8483A'; // Hanko Vermillion signature brush
-    context.lineWidth = 6;
+    if (canvas) {
+      const ctx = canvas.getContext('2d');
+      if (ctx) ctx.restore();
+    }
   };
 
-  // Playback Stroke-by-Stroke order animation
-  const animateStrokes = () => {
-    if (animationActive) return;
-    setAnimationActive(true);
-    clearCanvas();
+  const handleUndo = () => {
+    setUserStrokes((prev) => {
+      const updated = prev.slice(0, -1);
+      return updated;
+    });
+  };
 
-    let currentStroke = 0;
-    const total = activeKanji.strokePaths.length;
+  const handleClear = () => {
+    setUserStrokes([]);
+    currentStrokePoints.current = [];
+    redrawCanvas();
+  };
 
-    const drawNext = () => {
-      if (currentStroke >= total) {
-        setAnimationActive(false);
-        setCurrentStrokeAnim(null);
-        return;
-      }
-      setCurrentStrokeAnim(currentStroke + 1);
-
-      const canvas = canvasRef.current;
-      const context = contextRef.current;
-      if (!canvas || !context) return;
-
-      // Draw current stroke with vermillion guidelines
-      context.strokeStyle = '#E8483A'; // Hanko brush for active simulation stroke
-      context.lineWidth = 5;
-
-      const pathData = activeKanji.strokePaths[currentStroke];
-      // Basic parsing of absolute coordinates (e.g. M 30,20 L 30,80)
-      const commands = pathData.split(' ');
-
-      context.beginPath();
-      let cIdx = 0;
-      while (cIdx < commands.length) {
-        const cmd = commands[cIdx];
-        if (cmd === 'M') {
-          const [x, y] = commands[cIdx + 1].split(',').map(Number);
-          context.moveTo(x * 3, y * 3); // Scale up to 300px (data is in 100px base)
-          cIdx += 2;
-        } else if (cmd === 'L') {
-          const [x, y] = commands[cIdx + 1].split(',').map(Number);
-          context.lineTo(x * 3, y * 3);
-          cIdx += 2;
-        } else {
-          cIdx++;
-        }
-      }
-      context.stroke();
-
-      currentStroke++;
-      setTimeout(drawNext, 1000); // 1s interval per stroke
-    };
-
-    drawNext();
+  // Completion Award
+  const handleFinishPractice = () => {
+    setCompletedSuccess(true);
+    if (awardXP) {
+      awardXP(15);
+    }
   };
 
   return (
     <div className="max-w-full space-y-6 overflow-hidden rounded-3xl border border-border bg-card p-4 shadow-xs sm:p-6">
-      <div className="flex items-center gap-2.5 border-b border-border pb-3">
-        <div className="rounded-xl border border-border bg-muted p-2 text-[#C9A961]">
-          <Sparkles size={18} />
+      {/* Header Banner */}
+      <div className="flex flex-col gap-3 border-b border-border pb-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex items-center gap-3">
+          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-border bg-primary/10 text-xl text-primary">
+            ✍️
+          </div>
+          <div>
+            <h3 className="font-display text-base font-black text-foreground sm:text-lg">
+              {isJa
+                ? 'インタラクティブ漢字書き順トレーナー'
+                : 'Interaktiv Kanji Canvas & Yozish Tartibi'}
+            </h3>
+            <p className="text-xs text-muted-foreground">
+              {isJa
+                ? '340字以上のJLPT漢字に対応。正確な筆順アニメーションと書き順ガイド付き。'
+                : "340+ JLPT kanjilari bo'yicha haqiqiy chiziqlar animatsiyasi va qo'lda yozish mashqlari."}
+            </p>
+          </div>
         </div>
-        <div>
-          <h3 className="font-display text-sm font-black text-foreground">
-            {isJa ? 'インタラクティブ漢字書き順トレーナー' : 'Interactive Kanji Stroke Writer'}
-          </h3>
-          <p className="mt-0.5 text-[10px] text-muted-foreground">
-            {isJa
-              ? '筆順アニメーションとガイド付きで漢字の書き順を正確に習得できます。'
-              : "Yaponcha iyerogliflarni to'g'ri chizish ketma-ketligi (Canvas yordamida)."}
-          </p>
+
+        {/* Audio Pronunciation Button */}
+        <div className="flex items-center gap-2">
+          <Button
+            onClick={() => speakText(activeKanji.kanji, 'ja-JP')}
+            className="flex items-center gap-2 rounded-xl border border-border bg-muted/70 px-3.5 py-2 text-xs font-bold text-foreground transition-all hover:bg-muted active:scale-95"
+          >
+            <Volume2 size={16} className="text-primary" />
+            <span>{isJa ? '発音' : 'Talaffuz'}</span>
+          </Button>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 items-center gap-6 md:grid-cols-2">
-        {/* Canvas Area */}
-        <div className="flex max-w-full flex-col items-center space-y-3">
-          <div className="relative max-w-full overflow-hidden rounded-2xl border border-border bg-muted/20 shadow-inner">
+      {/* Level Filters & Search Bar */}
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-wrap items-center gap-1.5">
+          {(['ALL', 'N5', 'N4', 'N3', 'N2', 'N1'] as JlptLevelFilter[]).map((lvl) => (
+            <button
+              key={lvl}
+              onClick={() => {
+                setLevel(lvl);
+                const quicks = KanjiPracticeService.getQuickKanjis(lvl);
+                if (quicks.length > 0 && !quicks.includes(selectedKanjiChar)) {
+                  setSelectedKanjiChar(quicks[0]);
+                }
+              }}
+              className={`rounded-xl px-3 py-1.5 text-xs font-black transition-all ${
+                level === lvl
+                  ? 'bg-primary text-primary-foreground shadow-xs'
+                  : 'border border-border bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground'
+              }`}
+            >
+              {lvl}
+            </button>
+          ))}
+        </div>
+
+        <div className="relative min-w-[200px]">
+          <Search
+            size={14}
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+          />
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder={isJa ? '漢字・読み・意味で検索...' : "Kanji, o'qilishi yoki ma'nosi..."}
+            className="focus:outline-hidden w-full rounded-xl border border-border bg-background py-1.5 pl-8 pr-3 text-xs text-foreground placeholder:text-muted-foreground focus:border-primary"
+          />
+        </div>
+      </div>
+
+      {/* Quick Curated Kanji Chips Tray */}
+      <div className="no-scrollbar flex items-center gap-2 overflow-x-auto pb-1">
+        {(searchQuery.trim() ? availableKanjis.map((k) => k.kanji) : quickPills).map((char) => (
+          <button
+            key={char}
+            onClick={() => setSelectedKanjiChar(char)}
+            className={`font-japanese flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border text-base font-black transition-all ${
+              selectedKanjiChar === char
+                ? 'scale-105 border-primary bg-primary text-primary-foreground shadow-xs'
+                : 'border-border bg-muted/40 text-muted-foreground hover:bg-muted hover:text-foreground'
+            }`}
+          >
+            {char}
+          </button>
+        ))}
+      </div>
+
+      {/* Main Grid: Left Canvas & Controls | Right Info & Guides */}
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
+        {/* Left Column: Canvas Practice & Stroke Order (7 cols) */}
+        <div className="flex flex-col items-center space-y-4 lg:col-span-7">
+          {/* Canvas Box with Grid & Guide Overlay */}
+          <div className="relative h-[300px] w-[300px] select-none overflow-hidden rounded-3xl border-2 border-border bg-card shadow-inner">
+            {/* Background Ghost / Tracing Template */}
+            {practiceMode === 'ghost' && (
+              <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-15">
+                <span className="font-japanese text-[190px] font-light text-foreground">
+                  {activeKanji.kanji}
+                </span>
+              </div>
+            )}
+
+            {/* SVG Stroke Order Overlay (when animating or step mode) */}
+            {strokeData && (animStep > 0 || practiceMode === 'step') && (
+              <svg
+                viewBox="0 0 109 109"
+                className="pointer-events-none absolute inset-0 h-full w-full"
+              >
+                {strokeData.paths.map((pathD, idx) => {
+                  const strokeNum = idx + 1;
+                  const isCurrent = strokeNum === animStep;
+                  const isPast = animStep === 0 || strokeNum < animStep;
+
+                  if (practiceMode === 'step' && animStep === 0) {
+                    // In step mode with no animation active, highlight first stroke
+                    return (
+                      <path
+                        key={idx}
+                        d={pathD}
+                        fill="none"
+                        stroke={idx === 0 ? '#E8483A' : '#e2e8f0'}
+                        strokeWidth={idx === 0 ? '4' : '2'}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        opacity={idx === 0 ? 0.8 : 0.25}
+                      />
+                    );
+                  }
+
+                  if (!isPast && !isCurrent) return null;
+
+                  return (
+                    <path
+                      key={idx}
+                      d={pathD}
+                      fill="none"
+                      stroke={isCurrent ? '#E8483A' : '#1c1917'}
+                      strokeWidth={isCurrent ? '5' : '3.5'}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className={isCurrent ? 'animate-pulse' : ''}
+                      opacity={isCurrent ? 1 : 0.65}
+                    />
+                  );
+                })}
+
+                {/* Stroke Numbers */}
+                {showNumbers &&
+                  strokeData.numbers.map((pt, idx) => {
+                    const strokeNum = idx + 1;
+                    if (animStep > 0 && strokeNum > animStep) return null;
+                    return (
+                      <g key={idx}>
+                        <circle cx={pt.x} cy={pt.y} r="4.5" fill="#E8483A" opacity="0.9" />
+                        <text
+                          x={pt.x}
+                          y={pt.y + 2.5}
+                          textAnchor="middle"
+                          fontSize="6"
+                          fill="#ffffff"
+                          fontWeight="bold"
+                        >
+                          {pt.num}
+                        </text>
+                      </g>
+                    );
+                  })}
+              </svg>
+            )}
+
+            {/* Drawing HTML5 Canvas */}
             <canvas
               ref={canvasRef}
               onMouseDown={startDrawing}
@@ -252,96 +482,296 @@ export const KanjiCanvasPractice: React.FC = () => {
               onTouchStart={startDrawing}
               onTouchMove={draw}
               onTouchEnd={stopDrawing}
-              className="block max-w-full cursor-crosshair bg-transparent"
+              className="absolute inset-0 block h-[300px] w-[300px] cursor-crosshair touch-none"
             />
-
-            {/* Background guide template */}
-            {showGuides && !animationActive && (
-              <div className="pointer-events-none absolute inset-0 flex select-none items-center justify-center opacity-10">
-                <span className="font-japanese text-[180px] font-light text-muted-foreground">
-                  {activeKanji.kanji}
-                </span>
-              </div>
-            )}
           </div>
 
-          {/* Canvas Controls */}
-          <div className="flex max-w-full flex-wrap justify-center gap-2">
-            <Button
-              onClick={clearCanvas}
-              className="flex shrink-0 items-center gap-1.5 rounded-xl border border-border bg-muted/60 px-3 py-2 text-xs text-foreground hover:bg-muted"
-            >
-              <Trash2 size={14} />
-              {isJa ? 'クリア' : 'Tozalash'}
-            </Button>
-            <Button
-              onClick={() => setShowGuides((prev) => !prev)}
-              className={`flex shrink-0 items-center gap-1.5 rounded-xl border px-3 py-2 text-xs ${
-                showGuides
-                  ? 'border-amber-500/30 bg-amber-500/10 text-[#C9A961]'
-                  : 'border-border bg-muted/60 text-muted-foreground'
-              }`}
-            >
-              <Eye size={14} />
-              {isJa ? 'ガイド線' : 'Qoliplar'}
-            </Button>
-            <Button
-              onClick={animateStrokes}
-              disabled={animationActive}
-              className="flex shrink-0 items-center gap-1.5 rounded-xl bg-primary px-3 py-2 text-xs font-bold text-primary-foreground shadow-xs hover:bg-primary/90"
-            >
-              <HelpCircle size={14} />
-              {isJa ? '書き順再生' : "Tartibni Ko'rish"}
-            </Button>
+          {/* Stroke Order Animation Toolbar */}
+          <div className="shadow-2xs flex w-full max-w-[340px] items-center justify-between rounded-2xl border border-border bg-muted/40 p-2.5">
+            <div className="flex items-center gap-1.5">
+              <button
+                onClick={() => {
+                  setIsAnimPlaying(false);
+                  setAnimStep((prev) => Math.max(0, prev - 1));
+                }}
+                disabled={animStep <= 0}
+                className="rounded-lg p-1.5 text-muted-foreground transition hover:bg-muted hover:text-foreground disabled:opacity-30"
+                title={isJa ? '前の画' : 'Oldingi chiziq'}
+              >
+                <ChevronLeft size={16} />
+              </button>
+
+              <button
+                onClick={() => {
+                  if (animStep >= totalStrokes) {
+                    setAnimStep(1);
+                    setIsAnimPlaying(true);
+                  } else {
+                    setIsAnimPlaying((prev) => !prev);
+                  }
+                }}
+                className="flex items-center gap-1 rounded-xl bg-primary px-3 py-1.5 text-xs font-black text-primary-foreground shadow-xs transition hover:bg-primary/90"
+              >
+                {isAnimPlaying ? <Pause size={14} /> : <Play size={14} />}
+                <span>
+                  {isAnimPlaying ? (isJa ? '一時停止' : 'Pauza') : isJa ? '再生' : 'Tartib'}
+                </span>
+              </button>
+
+              <button
+                onClick={() => {
+                  setIsAnimPlaying(false);
+                  setAnimStep((prev) => Math.min(totalStrokes, prev + 1));
+                }}
+                disabled={animStep >= totalStrokes}
+                className="rounded-lg p-1.5 text-muted-foreground transition hover:bg-muted hover:text-foreground disabled:opacity-30"
+                title={isJa ? '次の画' : 'Keyingi chiziq'}
+              >
+                <ChevronRight size={16} />
+              </button>
+
+              <button
+                onClick={() => {
+                  setIsAnimPlaying(false);
+                  setAnimStep(0);
+                }}
+                className="rounded-lg p-1.5 text-muted-foreground transition hover:bg-muted hover:text-foreground"
+                title={isJa ? 'リセット' : 'Qayta boshlash'}
+              >
+                <RotateCcw size={15} />
+              </button>
+            </div>
+
+            {/* Step Counter & Speed */}
+            <div className="flex items-center gap-2 text-[11px] font-bold text-muted-foreground">
+              <span>{animStep > 0 ? `${animStep} / ${totalStrokes}` : `${totalStrokes} 画`}</span>
+              <button
+                onClick={() =>
+                  setAnimSpeed((prev) => (prev === 1200 ? 700 : prev === 700 ? 400 : 1200))
+                }
+                className="rounded-md border border-border bg-background px-1.5 py-0.5 text-[10px] font-black text-foreground"
+                title="Tezlikni o'zgartirish"
+              >
+                {animSpeed === 1200 ? '0.5x' : animSpeed === 700 ? '1x' : '1.5x'}
+              </button>
+              <button
+                onClick={() => setShowNumbers((prev) => !prev)}
+                className={`rounded-md p-1 ${
+                  showNumbers ? 'text-primary' : 'text-muted-foreground/50'
+                }`}
+                title={isJa ? '番号表示' : "Raqamlarni ko'rsatish"}
+              >
+                {showNumbers ? <Eye size={14} /> : <EyeOff size={14} />}
+              </button>
+            </div>
+          </div>
+
+          {/* Canvas Tools Toolbar: Mode, Colors, Size, Undo, Clear */}
+          <div className="flex w-full max-w-[340px] flex-wrap items-center justify-between gap-2 rounded-2xl border border-border bg-card p-3">
+            {/* Modes */}
+            <div className="flex items-center gap-1 rounded-xl bg-muted/60 p-1">
+              <button
+                onClick={() => setPracticeMode('ghost')}
+                className={`rounded-lg px-2.5 py-1 text-[11px] font-black transition ${
+                  practiceMode === 'ghost'
+                    ? 'shadow-2xs bg-card text-foreground'
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                {isJa ? '手本' : 'Qolip'}
+              </button>
+              <button
+                onClick={() => setPracticeMode('blind')}
+                className={`rounded-lg px-2.5 py-1 text-[11px] font-black transition ${
+                  practiceMode === 'blind'
+                    ? 'shadow-2xs bg-card text-foreground'
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                {isJa ? '記憶' : 'Xotira'}
+              </button>
+              <button
+                onClick={() => setPracticeMode('step')}
+                className={`rounded-lg px-2.5 py-1 text-[11px] font-black transition ${
+                  practiceMode === 'step'
+                    ? 'shadow-2xs bg-card text-foreground'
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                {isJa ? '一画ずつ' : 'Qadam'}
+              </button>
+            </div>
+
+            {/* Brush Colors */}
+            <div className="flex items-center gap-1.5">
+              {[
+                { color: '#1c1917', name: 'Sumi' },
+                { color: '#E8483A', name: 'Hanko' },
+                { color: '#2563eb', name: 'Indigo' },
+              ].map((c) => (
+                <button
+                  key={c.color}
+                  onClick={() => setBrushColor(c.color)}
+                  className={`h-5 w-5 rounded-full transition-transform ${
+                    brushColor === c.color
+                      ? 'scale-125 ring-2 ring-primary ring-offset-1'
+                      : 'opacity-70'
+                  }`}
+                  style={{ backgroundColor: c.color }}
+                  title={c.name}
+                />
+              ))}
+            </div>
+
+            {/* Brush Sizes */}
+            <div className="flex items-center gap-1">
+              {[4, 8, 14].map((size) => (
+                <button
+                  key={size}
+                  onClick={() => setBrushSize(size)}
+                  className={`flex h-6 w-6 items-center justify-center rounded-lg border text-[10px] font-bold ${
+                    brushSize === size
+                      ? 'border-primary bg-primary/10 text-primary'
+                      : 'border-border text-muted-foreground'
+                  }`}
+                >
+                  {size === 4 ? 'S' : size === 8 ? 'M' : 'L'}
+                </button>
+              ))}
+            </div>
+
+            {/* Undo & Clear */}
+            <div className="flex items-center gap-1.5">
+              <button
+                onClick={handleUndo}
+                disabled={userStrokes.length === 0}
+                className="rounded-xl border border-border bg-muted/60 p-1.5 text-foreground transition hover:bg-muted disabled:opacity-30"
+                title={isJa ? '元に戻す' : 'Oxirgi chiziqni bekor qilish'}
+              >
+                <Undo2 size={14} />
+              </button>
+              <button
+                onClick={handleClear}
+                className="rounded-xl border border-border bg-muted/60 p-1.5 text-foreground transition hover:bg-muted"
+                title={isJa ? '全消去' : 'Tozalash'}
+              >
+                <Trash2 size={14} />
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Info & Navigation */}
-        <div className="space-y-4">
-          <div className="space-y-2 rounded-2xl border border-border bg-muted/30 p-4">
-            <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#C9A961]">
-              {isJa ? '選択中の漢字' : 'Aktiv iyeroglif'}
-            </span>
-            <h4 className="font-japanese text-3xl font-black text-foreground">
-              {activeKanji.kanji}
-            </h4>
-            <p className="text-xs font-semibold text-muted-foreground">
-              {isJa
-                ? `意味・用例: ${activeKanji.meaningJa || activeKanji.meaning}`
-                : `Ma'nosi: ${activeKanji.meaning}`}
-            </p>
-            <p className="text-[10px] text-muted-foreground">
-              {isJa
-                ? `総画数: ${activeKanji.strokesCount} 画`
-                : `Chiziqlar soni: ${activeKanji.strokesCount} ta`}
-            </p>
-            {currentStrokeAnim && (
-              <span className="block animate-pulse text-[10px] font-extrabold text-[#E8483A]">
-                {isJa
-                  ? `✍️ アニメーション: 第 ${currentStrokeAnim} 画 / 全 ${activeKanji.strokesCount} 画`
-                  : `✍️ Animatsiya: Chiziq ${currentStrokeAnim} / ${activeKanji.strokesCount}`}
+        {/* Right Column: Educational Metadata, Readings & Vocabulary (5 cols) */}
+        <div className="space-y-4 lg:col-span-5">
+          {/* Main Info Card */}
+          <div className="space-y-3 rounded-2xl border border-border bg-muted/20 p-4">
+            <div className="flex items-start justify-between">
+              <div>
+                <span className="inline-block rounded-md bg-primary/10 px-2 py-0.5 text-[10px] font-black text-primary">
+                  {activeKanji.level} JLPT
+                </span>
+                <h4 className="font-japanese mt-1 text-5xl font-black text-foreground">
+                  {activeKanji.kanji}
+                </h4>
+              </div>
+              <div className="text-right">
+                <span className="text-[11px] font-bold text-muted-foreground">
+                  {isJa ? '総画数' : 'Chiziqlar soni'}
+                </span>
+                <p className="text-xl font-black text-foreground">{totalStrokes} 画</p>
+              </div>
+            </div>
+
+            <div className="border-t border-border/60 pt-2.5">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+                {isJa ? '意味' : "O'zbekcha Ma'nosi"}
               </span>
-            )}
+              <p className="text-sm font-black text-foreground">{activeKanji.meaningUz}</p>
+            </div>
+
+            {/* Readings */}
+            <div className="grid grid-cols-2 gap-2 border-t border-border/60 pt-2.5">
+              <div className="rounded-xl border border-border/60 bg-background/50 p-2.5">
+                <span className="text-[10px] font-extrabold text-[#C9A961]">音読み (Onyomi)</span>
+                <p className="font-japanese mt-0.5 text-xs font-bold text-foreground">
+                  {activeKanji.onyomi || '—'}
+                </p>
+              </div>
+              <div className="rounded-xl border border-border/60 bg-background/50 p-2.5">
+                <span className="text-[10px] font-extrabold text-[#C9A961]">訓読み (Kunyomi)</span>
+                <p className="font-japanese mt-0.5 text-xs font-bold text-foreground">
+                  {activeKanji.kunyomi || '—'}
+                </p>
+              </div>
+            </div>
           </div>
 
-          <div className="grid grid-cols-3 gap-2">
-            {KANJI_PRACTICE_LIST.map((item, idx) => (
-              <button
-                key={idx}
-                onClick={() => setCurrentIndex(idx)}
-                className={`font-japanese rounded-xl border py-3.5 text-base font-black transition-all ${
-                  currentIndex === idx
-                    ? 'border-primary bg-primary text-primary-foreground shadow-xs'
-                    : 'border-border bg-muted/40 text-muted-foreground hover:bg-muted'
-                }`}
+          {/* Example Words */}
+          <div className="space-y-2 rounded-2xl border border-border bg-card p-4">
+            <span className="text-[10px] font-extrabold uppercase tracking-wider text-muted-foreground">
+              {isJa ? '代表的な熟語・単語' : 'Misol So‘z Birikmalari'}
+            </span>
+            <div className="space-y-2 pt-1">
+              {activeKanji.examples && activeKanji.examples.length > 0 ? (
+                activeKanji.examples.map((ex, idx) => (
+                  <div
+                    key={idx}
+                    className="flex items-center justify-between rounded-xl border border-border/60 bg-muted/30 p-2.5 transition hover:bg-muted/60"
+                  >
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="font-japanese text-base font-black text-foreground">
+                          {ex.word}
+                        </span>
+                        <span className="text-xs text-muted-foreground">({ex.reading})</span>
+                      </div>
+                      <p className="mt-0.5 text-[11px] font-medium text-muted-foreground">
+                        {ex.meaning}
+                      </p>
+                    </div>
+                    <button
+                      onClick={() => speakText(ex.word, 'ja-JP')}
+                      className="rounded-lg p-1.5 text-muted-foreground transition hover:text-primary"
+                      title="Eshitish"
+                    >
+                      <Volume2 size={14} />
+                    </button>
+                  </div>
+                ))
+              ) : (
+                <p className="text-xs text-muted-foreground">
+                  {isJa ? '例文準備中' : 'Misollar mavjud'}
+                </p>
+              )}
+            </div>
+          </div>
+
+          {/* Practice Action / XP Reward */}
+          <div className="pt-1">
+            {completedSuccess ? (
+              <div className="flex items-center justify-between rounded-2xl border border-emerald-500/30 bg-emerald-500/10 p-3.5 text-emerald-600 dark:text-emerald-400">
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 size={18} />
+                  <span className="text-xs font-black">
+                    {isJa ? '練習完了！ +15 XP 獲得！' : 'Ajoyib! Mashq yakunlandi (+15 XP)'}
+                  </span>
+                </div>
+                <Award size={18} />
+              </div>
+            ) : (
+              <Button
+                onClick={handleFinishPractice}
+                className="active:scale-98 flex w-full items-center justify-center gap-2 rounded-2xl bg-primary py-3 text-xs font-black text-primary-foreground shadow-xs transition hover:bg-primary/90"
               >
-                {item.kanji}
-              </button>
-            ))}
+                <PenTool size={15} />
+                <span>{isJa ? '書き練習を完了する (+15 XP)' : 'Mashqni Yakunlash (+15 XP)'}</span>
+              </Button>
+            )}
           </div>
         </div>
       </div>
     </div>
   );
 };
+
 export default KanjiCanvasPractice;
