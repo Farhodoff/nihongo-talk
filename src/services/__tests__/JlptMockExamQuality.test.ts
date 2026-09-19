@@ -3,9 +3,9 @@ import { JLPT_MOCK_EXAM_DATA } from '../../data/jlptMockExamData';
 import { calculateJlptScore } from '../../utils/jlptScoring';
 
 describe('JLPT Mock Exam Data Quality & Rigor Tests', () => {
-  const levels = ['N5', 'N4', 'N3'] as const;
+  const levels = ['N5', 'N4', 'N3', 'N2', 'N1'] as const;
 
-  it('validates each level (N5, N4, N3) has exactly 25 questions with standard section balance', () => {
+  it('validates each level (N5, N4, N3, N2, N1) has exactly 25 questions with standard section balance', () => {
     levels.forEach((lvl) => {
       const questions = JLPT_MOCK_EXAM_DATA[lvl];
       expect(questions).toBeDefined();
@@ -27,7 +27,8 @@ describe('JLPT Mock Exam Data Quality & Rigor Tests', () => {
 
     levels.forEach((lvl) => {
       const questions = JLPT_MOCK_EXAM_DATA[lvl];
-      const baseId = lvl === 'N5' ? 100 : lvl === 'N4' ? 200 : 300;
+      const baseId =
+        lvl === 'N5' ? 100 : lvl === 'N4' ? 200 : lvl === 'N3' ? 300 : lvl === 'N2' ? 400 : 500;
 
       questions.forEach((q, idx) => {
         expect(allIds.has(q.id)).toBe(false);

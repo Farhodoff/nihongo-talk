@@ -9608,5 +9608,440 @@
         "uz": "Taslim bo'lmasdan yugurishda davom eting."
       }
     ]
+  },
+  {
+    "id": "n1_rule_kiwamaru",
+    "level": "N1",
+    "title": "〜極まる / 〜極まりない (kiwamaru / kiwamarinai)",
+    "romaji": "kiwamaru / kiwamarinai",
+    "meaningUz": "nihoyatda, haddan tashqari, benihoya (rasmiy his-tuyg'u yoki holat)",
+    "structure": "Na-sifat negizi + 極まる / 極まりない",
+    "examples": [
+      {
+        "ja": "このような不祥事[ふしょうじ]を起こしてしまい、痛恨[つうこん]の極[きわ]み、失礼[しつれい]極まりない。",
+        "romaji": "Kono you na fushouji wo okoshite shimai, tsuukon no kiwami, shitsurei kiwamarinai.",
+        "uz": "Bunday nojo'ya voqeani keltirib chiqarganimizdan nihoyatda afsusdamiz, o'ta noo'rin ish bo'ldi."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_itarida",
+    "level": "N1",
+    "title": "〜至りだ (itari da)",
+    "romaji": "itari da",
+    "meaningUz": "oliy darajadagi (baxt, sharaf yoki pushaymonlik tuyg'usi)",
+    "structure": "Ot + の至りだ",
+    "examples": [
+      {
+        "ja": "このような名誉[めいよ]ある賞[しょう]をいただき、光栄[こうえい]の至[いた]りです。",
+        "romaji": "Kono you na meiyo aru shou wo itadaki, kouei no itari desu.",
+        "uz": "Bunday sharafli mukofotga sazovor bo'lish men uchun yuksak sharafdir."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_taenai",
+    "level": "N1",
+    "title": "〜に堪えない (ni taenai)",
+    "romaji": "ni taenai",
+    "meaningUz": "chidab / bardosh berib bo'lmaydigan darajada (his-tuyg'u toshishi yoki ko'rish og'irligi)",
+    "structure": "Fe'l (Lug'at) / Ot + に堪えない",
+    "examples": [
+      {
+        "ja": "皆様[みなさま]からの温かい励ましに、感謝[かんしゃ]の念[ねん]に堪[た]えません。",
+        "romaji": "Minasama kara no atatakai hagemashi ni, kansha no nen ni taemasen.",
+        "uz": "Barchangizning samimiy dalda berishingizdan cheksiz minnatdorman."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_zu_ni_wa_okanai",
+    "level": "N1",
+    "title": "〜ずにはおかない / 〜ないではおかない (zu ni wa okanai / naide wa okanai)",
+    "romaji": "zu ni wa okanai / naide wa okanai",
+    "meaningUz": "muqarrar ravishda shunday qilishga majbur qiladi / shubhasiz ta'sir ko'rsatadi",
+    "structure": "Fe'l (Nai negizi) + ずにはおかない",
+    "examples": [
+      {
+        "ja": "彼の圧倒的[あっとうてき]な演技[えんぎ]は、観客[かんきゃく]を感動[かんどう]させずにはおかない。",
+        "romaji": "Kare no attouteki na engi wa, kankyaku wo kandou sasezu ni wa okanai.",
+        "uz": "Uning benuqson mahorati tomoshabinlarni to'lqinlantirmay qo'ymaydi."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_wo_oite_hoka_ni_nai",
+    "level": "N1",
+    "title": "〜をおいてほかにない (wo oite hoka ni nai)",
+    "romaji": "wo oite hoka ni nai",
+    "meaningUz": "faqatgina shu shaxs / vosita, bundan o'zgasi aslo bo'lishi mumkin emas",
+    "structure": "Ot + をおいてほかにない",
+    "examples": [
+      {
+        "ja": "この難事業[なんじぎょう]を成功[せいこう]させられるのは、彼をおいてほかにいない。",
+        "romaji": "Kono nanjigyou wo seikou saserareru no wa, kare wo oite hoka ni inai.",
+        "uz": "Ushbu murakkab loyihani muvaffaqiyatli yakunlay oladigan yagona inson — faqat uning o'zidir."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_de_are_de_are",
+    "level": "N1",
+    "title": "〜であれ〜であれ (de are ... de are)",
+    "romaji": "de are ... de are",
+    "meaningUz": "xoh u bo'lsin, xoh bu bo'lsin (ikkala holatda ham farqi yo'q)",
+    "structure": "Ot + であれ + Ot + であれ",
+    "examples": [
+      {
+        "ja": "大人[おとな]であれ子供[こども]であれ、社会[しゃかい]のルールは守らなければならない。",
+        "romaji": "Otona de are kodomo de are, shakai no ruuru wa mamoranakereba naranai.",
+        "uz": "Katta yoshli bo'lsin yoki bola bo'lsin, jamiyat qonunlariga hamma bo'ysunishi shart."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_nagara_ni",
+    "level": "N1",
+    "title": "〜ながらに (nagara ni)",
+    "romaji": "nagara ni",
+    "meaningUz": "asl holicha / tug'ilganidan buyon o'zgarmasdan",
+    "structure": "Fe'l (Masu negizi) / Ot + ながらに",
+    "examples": [
+      {
+        "ja": "彼女は生まれながらに優れた音楽的[おんがくてき]才能[さいのう]を持っていた。",
+        "romaji": "Kanojo wa umarenagara ni sugureta ongakuteki sainou wo motte ita.",
+        "uz": "U tug'ilishidanoq beqiyos musiqiy iqtidorga ega edi."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_wo_mono_to_mo_sezu",
+    "level": "N1",
+    "title": "〜をものともせずに (wo mono to mo sezu ni)",
+    "romaji": "wo mono to mo sezu ni",
+    "meaningUz": "hech qanday to'siq yoki xavf-xatarni pisand qilmasdan, mardlarcha",
+    "structure": "Ot + をものともせずに",
+    "examples": [
+      {
+        "ja": "隊員[たいいん]たちは猛吹雪[もうふぶき]をものともせずに、遭難者[そうなんしゃ]の救助[きゅうじょ]に向かった。",
+        "romaji": "Taiintachi wa moufubuki wo mono to mo sezu ni, sounansha no kyuujo ni mukatta.",
+        "uz": "Qutqaruvchilar shiddatli qor bo'roniga pisand qilmay, falokatga uchraganlarni qutqarishga otlandilar."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_kirai_ga_aru",
+    "level": "N1",
+    "title": "〜きらいがある (kirai ga aru)",
+    "romaji": "kirai ga aru",
+    "meaningUz": "salbiy moyilligi / yoqimsiz tendensiyasi bor",
+    "structure": "Fe'l (Lug'at / Nai) / Ot + の + きらいがある",
+    "examples": [
+      {
+        "ja": "彼は物事[ものごと]を一人で抱[かか]え込みすぎるきらいがある。",
+        "romaji": "Kare wa monogoto wo hitori de kakaekomisugiru kirai ga aru.",
+        "uz": "U barcha masalalarni yolg'iz o'zi yelkasiga ortib olishdek salbiy odatga ega."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_ta_tokoro_de",
+    "level": "N1",
+    "title": "〜たところで (ta tokoro de)",
+    "romaji": "ta tokoro de",
+    "meaningUz": "garchi shunday qilingan taqdirda ham foydasi yo'q",
+    "structure": "Fe'l (Ta shakli) + ところで",
+    "examples": [
+      {
+        "ja": "今さら後悔[こうかい]したところで、過ぎた時間は戻らない。",
+        "romaji": "Imasara koukai shita tokoro de, sugita jikan wa modoranai.",
+        "uz": "Endi afsuslangan bilan ham, o'tgan vaqt ortga qaytmaydi."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_to_ittara_nai",
+    "level": "N1",
+    "title": "〜といったらない (to ittara nai)",
+    "romaji": "to ittara nai",
+    "meaningUz": "so'z bilan ta'riflab bo'lmaydigan darajada kuchli",
+    "structure": "Sifat / Ot + といったらない",
+    "examples": [
+      {
+        "ja": "富士山[ふじさん]の頂上[ちょうじょう]から見た日の出の美しさといったらない。",
+        "romaji": "Fujisan no choujou kara mita hinode no utsukushisa to ittara nai.",
+        "uz": "Fudzi tog'i cho'qqisidan ko'ringan quyosh chiqishining go'zalligini so'z bilan ifodalab bo'lmaydi."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_ni_hikikae",
+    "level": "N1",
+    "title": "〜にひきかえ (ni hikikae)",
+    "romaji": "ni hikikae",
+    "meaningUz": "keskin farqli o'laroq / tamoman teskari holatda",
+    "structure": "Fe'l / Sifat / Ot + なの + にひきかえ",
+    "examples": [
+      {
+        "ja": "社交的[しゃこうてき]な兄にひきかえ、弟は内気[うちき]で無口[むくち]だ。",
+        "romaji": "Shakouteki na ani ni hikikae, otouto wa uchiki de mukuchi da.",
+        "uz": "Kirishimli akasiga keskin farqli o'laroq, ukasi tortinchoq va kamgap."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_tomo_arou_mono",
+    "level": "N1",
+    "title": "〜ともあろう者が (tomo arou mono ga)",
+    "romaji": "tomo arou mono ga",
+    "meaningUz": "shunday yuqori martabali shaxs bo'la turib (salbiy taajjub)",
+    "structure": "Ot + ともあろう者が",
+    "examples": [
+      {
+        "ja": "大学教授[きょうじゅ]ともあろう者が、そのような初歩的[しょほてき]なミスをするとは信じられない。",
+        "romaji": "Daigaku kyouju tomo arou mono ga, sono you na shohoteki na misu wo suru to wa shinjirarenai.",
+        "uz": "Universitet professori darajasidagi odam shunday oddiy xatoga yo'l qo'ygani aqlga sig'maydi."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_ni_atai_suru",
+    "level": "N1",
+    "title": "〜に値する (ni atai suru)",
+    "romaji": "ni atai suru",
+    "meaningUz": "arziydigan, e'tirofga / qadrlashga loyiq",
+    "structure": "Fe'l (Lug'at) / Ot + に値する",
+    "examples": [
+      {
+        "ja": "彼の勇敢[ゆうかん]な行動[こうどう]は、称賛[しょうさん]に値[あたい]する。",
+        "romaji": "Kare no yuukan na koudou wa, shousan ni atai suru.",
+        "uz": "Uning mardona jasorati har qancha tahsinga loyiqdir."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_ni_koshita_koto_wa_nai",
+    "level": "N1",
+    "title": "〜に越したことはない (ni koshita koto wa nai)",
+    "romaji": "ni koshita koto wa nai",
+    "meaningUz": "eng ma'quli / xavfsiz va afzali shudir",
+    "structure": "Fe'l (Lug'at) / Sifat / Ot + に越したことはない",
+    "examples": [
+      {
+        "ja": "旅行の準備[じゅんび]は早めに進めておくのに越[こ]したことはない。",
+        "romaji": "Ryokou no junbi wa hayame ni susumete oku no ni koshita koto wa nai.",
+        "uz": "Sayohatga tayyorgarlikni barvaqt ko'rib qo'yishdan afzali yo'q."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_temae",
+    "level": "N1",
+    "title": "〜手前 (temae)",
+    "romaji": "temae",
+    "meaningUz": "boshqalar oldidagi obro' yoki burch yuzasidan",
+    "structure": "Fe'l (Lug'at / Ta) / Ot + の + 手前",
+    "examples": [
+      {
+        "ja": "後輩[こうはい]の手前[てまえ]、弱音[よわね]を吐[は]くわけにはいかない。",
+        "romaji": "Kouhai no temae, yowane wo haku wake ni wa ikanai.",
+        "uz": "Kichik kursdoshlarim oldida noshudlik qilib shikoyat qilishga haqqim yo'q."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_nai_made_mo",
+    "level": "N1",
+    "title": "〜ないまでも (nai made mo)",
+    "romaji": "nai made mo",
+    "meaningUz": "hatto unchalik bo'lmasa ham, hech bo'lmaganda",
+    "structure": "Fe'l (Nai shakli) + までも",
+    "examples": [
+      {
+        "ja": "全員出席[しゅっせき]とはいかないまでも、過半数[かはんすう]は集まってほしい。",
+        "romaji": "Zenin shusseki to wa ikanai made mo, kahansuu wa atsumatte hoshii.",
+        "uz": "Hamma to'liq kela olmasa ham, hech bo'lmaganda ko'pchilik qatnashishini xohlardim."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_ni_sokushite",
+    "level": "N1",
+    "title": "〜に即して (ni sokushite)",
+    "romaji": "ni sokushite",
+    "meaningUz": "haqiqiy voqelik yoki qoidalarga qat'iy asoslangan holda",
+    "structure": "Ot + に即して",
+    "examples": [
+      {
+        "ja": "現状[げんじょう]に即[そく]した現実的[げんじつてき]な対策[たいさく]を講[こう]じる必要がある。",
+        "romaji": "Genjou ni sokushita genjitsuteki na taisaku wo koujiru hitsuyou ga aru.",
+        "uz": "Haqiqiy holatga mos keluvchi amaliy choralarni ko'rish zarur."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_meku",
+    "level": "N1",
+    "title": "〜めく (meku)",
+    "romaji": "meku",
+    "meaningUz": "shunday alomat / belgi sezila boshlamoq",
+    "structure": "Ot + めく",
+    "examples": [
+      {
+        "ja": "日差しが暖かくなり、ようやく春[はる]めいてきた。",
+        "romaji": "Hizashi ga atatakaku nari, youyaku harumetekita.",
+        "uz": "Quyosh nuri ilib, nihoyat bahor nafasi sezila boshladi."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_buru",
+    "level": "N1",
+    "title": "〜ぶる (buru)",
+    "romaji": "buru",
+    "meaningUz": "o'zini ...dek qilib ko'rsatmoq / soxta xatti-harakat",
+    "structure": "Ot / Sifat negizi + ぶる",
+    "examples": [
+      {
+        "ja": "彼は本当は知らないくせに、いつも偉[えら]そうに学者[がくしゃ]ぶる。",
+        "romaji": "Kare wa hontou wa shiranai kuse ni, itsumo erasou ni gakushaburu.",
+        "uz": "U aslida bilmasa ham, doim o'zini olimdek qilib ko'rsatadi."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_gotoki",
+    "level": "N1",
+    "title": "〜ごとき / 〜ごとく (gotoki / gotoku)",
+    "romaji": "gotoki / gotoku",
+    "meaningUz": "kabi, singari / ...dek (rasmiy, adabiy)",
+    "structure": "Ot + の + ごとき + Ot / ごとく + Fe'l",
+    "examples": [
+      {
+        "ja": "光陰[こういん]矢[や]のごとし。時間はあっという間に過ぎ去る。",
+        "romaji": "Kouin ya no gotoshi. Jikan wa atto iu ma ni sugisaru.",
+        "uz": "Vaqt o'qdek uchar. Vaqt ko'z ochib yumguncha o'tib ketadi."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_n_bakari",
+    "level": "N1",
+    "title": "〜んばかり (n bakari)",
+    "romaji": "n bakari",
+    "meaningUz": "go'yoki ... qilay degandek darajada",
+    "structure": "Fe'l (Nai negizi) + んばかり",
+    "examples": [
+      {
+        "ja": "彼は今にも泣[な]き出さんばかりの表情[ひょうじょう]で立ち尽くしていた。",
+        "romaji": "Kare wa ima ni mo nakidasan bakari no hyoujou de tachitsukushite ita.",
+        "uz": "U hoziroq yig'lab yuboradigandek qiyofada qotib turardi."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_tsu_tsu",
+    "level": "N1",
+    "title": "〜つ〜つ (tsu ... tsu)",
+    "romaji": "tsu ... tsu",
+    "meaningUz": "navbatma-navbat, birin-ketin qarama-qarshi harakat qilmoq",
+    "structure": "Fe'l (Masu negizi) + つ + Fe'l (Masu negizi) + つ",
+    "examples": [
+      {
+        "ja": "マラソンで二人の走者は抜きつ抜かれつの大熱戦[だいねっせん]を繰り広げた。",
+        "romaji": "Marason de futari no sousha wa nukitsu nukaretsu no dainessen wo kurihirogeta.",
+        "uz": "Marafonda ikki yuguruvchi goh u o'zib, goh bu o'zib qizg'in bellashdilar."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_bekarazu",
+    "level": "N1",
+    "title": "〜べからず / 〜べからざる (bekarazu / bekarazaru)",
+    "romaji": "bekarazu / bekarazaru",
+    "meaningUz": "aslo mumkin emas / qat'iyan taqiqlanadi (qadimgi rasmiy taqiq)",
+    "structure": "Fe'l (Lug'at) + べからず",
+    "examples": [
+      {
+        "ja": "芝生[しばふ]に立ち入るべからず。",
+        "romaji": "Shibafu ni tachiiru bekarazu.",
+        "uz": "Maysazorga qat'iyan qadam qo'yilmasin."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_yue_ni",
+    "level": "N1",
+    "title": "〜ゆえに (yue ni)",
+    "romaji": "yue ni",
+    "meaningUz": "sababli, tufayli (adabiy va mantiqiy xulosa)",
+    "structure": "Fe'l / Sifat / Ot + (である) + ゆえ(に)",
+    "examples": [
+      {
+        "ja": "我[われ]思う、ゆえに我あり。",
+        "romaji": "Ware omou, yue ni ware ari.",
+        "uz": "Fikrlayapman, demak mavjudman (Dekart)."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_kara_aru",
+    "level": "N1",
+    "title": "〜からある / 〜からの (kara aru / kara no)",
+    "romaji": "kara aru / kara no",
+    "meaningUz": "kamida shuncha miqdorda (hayratlanarli darajada ko'p)",
+    "structure": "Miqdor + からある / からの",
+    "examples": [
+      {
+        "ja": "彼は30キロからある重い荷物を軽々と持ち上げた。",
+        "romaji": "Kare wa sanjuu kiro kara aru omoi nimotsu wo karugaruto mochiageta.",
+        "uz": "U kamida 30 kilogramm keladigan og'ir yukni yengillik bilan ko'tardi."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_ya_ina_ya",
+    "level": "N1",
+    "title": "〜や / 〜や否や (ya / ya ina ya)",
+    "romaji": "ya / ya ina ya",
+    "meaningUz": "bo'lishi bilanoq o'sha zahoti",
+    "structure": "Fe'l (Lug'at) + や否や",
+    "examples": [
+      {
+        "ja": "選挙[せんきょ]の結果が発表されるや否や、支持者[しじしゃ]から歓声[かんせい]が沸き起こった。",
+        "romaji": "Senkyo no kekka ga happyou sareru ya ina ya, shijisha kara kansei ga wakiokotta.",
+        "uz": "Saylov natijalari e'lon qilinishi bilanoq, tarafdorlar hayqiriqlari yangrab ketdi."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_ka_to_omoikiya",
+    "level": "N1",
+    "title": "〜かと思いきや (ka to omoikiya)",
+    "romaji": "ka to omoikiya",
+    "meaningUz": "...deb o'ylagan edim, ammo kutilmaganda aksincha bo'lib chiqdi",
+    "structure": "Fe'l / Sifat / Ot + かと思いきや",
+    "examples": [
+      {
+        "ja": "雨が降るかと思いきや、急に青空が広がった。",
+        "romaji": "Ame ga furu ka to omoikiya, kyuu ni aozora ga hirogatta.",
+        "uz": "Yomg'ir yog'sa kerak deb tursam, to'satdan musaffo moviy osmon ochilib ketdi."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_ikan_da",
+    "level": "N1",
+    "title": "〜いかんだ / 〜いかんでは (ikan da / ikan de wa)",
+    "romaji": "ikan da / ikan de wa",
+    "meaningUz": "holatning qanday bo'lishiga bog'liq ravishda",
+    "structure": "Ot + (の) + いかんだ / いかんでは",
+    "examples": [
+      {
+        "ja": "検査[けんさ]の結果いかんでは、手術[しゅじゅつ]が必要になるかもしれない。",
+        "romaji": "Kensa no kekka ikan de wa, shujutsu ga hitsuyou ni naru kamo shirenai.",
+        "uz": "Tahlil natijalariga bog'liq ravishda jarrohlik amaliyoti zarur bo'lib qolishi mumkin."
+      }
+    ]
   }
 ]

@@ -1192,7 +1192,6 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
   // === N1 MOCK EXAM =========================
   // ==========================================
   N1: [
-    // Language Knowledge
     {
       id: 501,
       section: 'knowledge',
@@ -1215,10 +1214,10 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
       id: 503,
       section: 'knowledge',
       questionText: '誠心誠意の 謝罪が あって（　）、初めて 和解への 道が 開かれる。',
-      options: ['こそあれ', 'ならでは', 'をおいて', 'なりに'],
-      correctAnswer: 0,
+      options: ['こそあれ', 'ならでは', 'をおいて', 'こそ'],
+      correctAnswer: 3,
       explanationUzbek:
-        "'A atte koso / koso are' ta'kid qolipi: chin dildan uzr bo'lgandagina yo'l ochiladi.",
+        "'A atte koso' ta'kid qolipi: aynan chin dildan uzr bo'lgandagina yarashishga yo'l ochiladi.",
     },
     {
       id: 504,
@@ -1227,11 +1226,93 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
       options: ['あるまじき', 'ありがちな', 'あるべき', 'あり得る'],
       correctAnswer: 0,
       explanationUzbek:
-        "'~aru majiki' qolipi kasbiy yoki mavqe nuqtai nazaridan 'aslo yo'l qo'yib bo'lmaydigan' ma'nosini anglatadi.",
+        "'~aru majiki' qolipi kasbiy yoki ijtimoiy mavqe nuqtai nazaridan 'aslo yo'l qo'yib bo'lmaydigan' ma'nosini anglatadi.",
     },
-    // Reading Comprehension
     {
       id: 505,
+      section: 'knowledge',
+      questionText: '自然の 猛威の 前には、人間の 知恵など 児戯に（　）。',
+      options: ['等しい', '至らない', '及ばない', '堪えない'],
+      correctAnswer: 0,
+      explanationUzbek:
+        "'jigi ni hitoshii' (bolalar o'yiniga teng, arzimas) iborasi tabiat oldida inson ojizligini ko'rsatadi.",
+    },
+    {
+      id: 506,
+      section: 'knowledge',
+      questionText:
+        '次の 下線部の 言葉の 読み方として 最も よいものを 選びなさい。\n「長年の 悲願が ついに <u>成就</u>した。」',
+      options: ['じょうじゅ', 'せいじゅ', 'じょうしゅう', 'せいしゅう'],
+      correctAnswer: 0,
+      explanationUzbek:
+        "成就 so'zining to'g'ri o'qilishi — じょうじゅ (Jouju - niyatning amalga oshishi, ro'yobga chiqishi).",
+    },
+    {
+      id: 507,
+      section: 'knowledge',
+      questionText:
+        '次の 下線部の 言葉の 漢字として 最も よいものを 選びなさい。\n「相手の <u>しつよう</u>な 追及に 苦慮した。」',
+      options: ['執拗', '執要', '湿拗', '執洋'],
+      correctAnswer: 0,
+      explanationUzbek: "'Shitsuyou' (o'jar, tinimsiz, qaysar) so'zining to'g'ri kanjisi — 執拗.",
+    },
+    {
+      id: 508,
+      section: 'knowledge',
+      questionText: '彼の 卓抜した 才能と 弛まぬ 努力が（　）、今回の 歴史的 快挙が 生まれた。',
+      options: ['相まって', '先立って', 'ひきかえ', 'おいて'],
+      correctAnswer: 0,
+      explanationUzbek:
+        "'~to aimatte' (ikki ijobiy omil bir-biri bilan uyg'unlashib, kuchayib) degan N1 grammatik qoidasidir.",
+    },
+    {
+      id: 509,
+      section: 'knowledge',
+      questionText: 'この 難病の 治療法を 見いだすことは、医学者（　）の 崇高な 使命だ。',
+      options: ['たるもの', 'づくめ', 'まみれ', 'ずくめ'],
+      correctAnswer: 0,
+      explanationUzbek:
+        "'~taru mono' (o'z kasbi yoki mas'uliyatli maqomiga sazovor shaxs sifatida) ma'nosini ifodalaydi.",
+    },
+    {
+      id: 510,
+      section: 'knowledge',
+      questionText: '多額の 資金援助を いただいた 恩師には、感謝の（　）ございません。',
+      options: ['念に堪えません', '極みで', 'きらいが', '余儀なく'],
+      correctAnswer: 0,
+      explanationUzbek:
+        "'kansha no nen ni taemasen' (cheksiz minnatdorlik tuyg'usini bosolmayman) eng oliy darajadagi rasmiy minnatdorlik iborasidir.",
+    },
+    {
+      id: 511,
+      section: 'knowledge',
+      questionText: '不祥事を 起こした 企業が、責任を 逃れようとするのは 卑劣（　）。',
+      options: ['極まりない', '極まること', '極めない', '極まり得ない'],
+      correctAnswer: 0,
+      explanationUzbek:
+        "'Na-sifat + kiwamarinai' (haddan tashqari, o'ta darajada nomaqbul) holatni ifodalaydi: hiretsu kiwamarinai.",
+    },
+    {
+      id: 512,
+      section: 'knowledge',
+      questionText:
+        '次の 文の（　）に 入れるのに 最も よい 言葉を 選びなさい。\n「経済指標の 改善傾向は <u>顕著</u>に 現れている。」',
+      options: ['目立って', 'かすかに', '徐々に', '不自然に'],
+      correctAnswer: 0,
+      explanationUzbek:
+        "顕著 (kencho) — 'ko'zga yaqqol tashlanadigan, sezilarli' (目立って - medatte) ma'nodoshidir.",
+    },
+    {
+      id: 513,
+      section: 'knowledge',
+      questionText: '彼が これほど 責任感の 強い 人物であったとは、想像（　）しなかった。',
+      options: ['だに', 'すら', 'だの', 'なり'],
+      correctAnswer: 0,
+      explanationUzbek:
+        "'~dani shinakatta' (hatto xayolga ham keltirmagan edim, tasavvur ham qilmagan edim) ma'nosidagi adabiy N1 vositasidir.",
+    },
+    {
+      id: 514,
       section: 'reading',
       passageText:
         '近代合理主義の進展は、自然を人間が支配・利用すべき客体として捉える二元論的世界観を定着させた。この知のパラダイムは産業革命を駆動し、物質的繁栄をもたらしたが、同時に生態系の深刻な破壊と人間自身の疎外という未曽有の危機を胚胎していた。今求められているのは、人間を自然の支配者ではなく、生命圏の不可分な一環として再定位する思想的転回である。東洋の伝統思想に見られる「天人合一」の境地は、持続可能な文明を再構築する上で、極めて示唆に富む洞察を提供している。',
@@ -1247,7 +1328,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
         "Muallif inson tabiat ustidan hukmronlik qilishi haqidagi qarashdan voz kechib, tabiat bilan uyg'unlikdagi falsafaga o'tish lozimligini ta'kidlaydi.",
     },
     {
-      id: 506,
+      id: 515,
       section: 'reading',
       passageText:
         '古典を読む意義は、単なる過去の知識の蓄積にあるのではない。同時代の価値観に無批判に同調しがちな我々の思考の偏りを、異なる時代精神の鏡に照らし出すことによって自覚化させ、相対化する点にこそある。古典との対話は、自明視されている現代の前提を疑う批判的思考の契機となるのである。',
@@ -1262,9 +1343,74 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
       explanationUzbek:
         "Klassik asarlarni o'qish orqali zamonamiz qoliplaridan chiqib, tanqidiy fikrlash (批判的思考) imkoniyati paydo bo'ladi.",
     },
-    // Listening Comprehension
     {
-      id: 507,
+      id: 516,
+      section: 'reading',
+      passageText:
+        '科学における発見は、しばしば周到に計画された実験の論理的帰結としてではなく、予期せぬ偶然や失敗（セレンディピティ）を契機として生じる。しかし、その偶然を見過ごさず大発見へと昇華させるのは、日頃から問題意識を研ぎ澄まし、既存の常識を疑い続ける準備された知性である。パスツールの「観察の領域において、偶然は準備された精神にのみ微笑む」という言葉は、まさにこの創造的知の本質を看破している。',
+      questionText:
+        '偶然の発見（セレンディピティ）を生かすために最も不可欠なものは何だと述べられていますか？',
+      options: [
+        '最新式の高性能な実験機器と潤沢な研究資金',
+        '常に問題意識を持ち常識を疑う、準備された知性',
+        '偶然の失敗を完全に排除する緻密な計画性',
+        '他の研究者との積極的な共同研究体制',
+      ],
+      correctAnswer: 1,
+      explanationUzbek:
+        "Tasodifiy kashfiyotlardan unumli foydalanish uchun doimo teran izlanishda bo'lgan 'tayyorlangan aql' (準備された精神) zarur.",
+    },
+    {
+      id: 517,
+      section: 'reading',
+      passageText:
+        'AIや自動化技術の急速な浸透は、効率性と利便性を極限まで高める一方で、人間の身体的経験や暗黙知の価値を再考させている。効率至上主義の中で「無駄」として削ぎ落とされた試行錯誤や身体的直観の中にこそ、真の独創性や人間性の根源が宿っているのではないか。技術の進化に身を委ねるだけでなく、人間固有の感性を如何にして錬磨し続けるかが、現代人に課された重い問いである。',
+      questionText: '本文で筆者が問題提起している内容として最も合致するものはどれですか？',
+      options: [
+        'AIの発展によって効率性が高まるのは人類にとって無条件に歓迎すべきことだ',
+        '効率至上主義で失われがちな身体的経験や試行錯誤にこそ人間の独創性がある',
+        'あらゆる自動化技術の開発を今すぐ停止し、手作業の時代に戻るべきだ',
+        '人間の直観や身体感覚は科学的に再現可能であるため重視に値しない',
+      ],
+      correctAnswer: 1,
+      explanationUzbek:
+        'Muallif AI samaradorlikni oshirgani bilan, haqiqiy insoniy ijodkorlik aynan sinov-xatolar va jismoniy tajribada yashiringanini uqtiradi.',
+    },
+    {
+      id: 518,
+      section: 'reading',
+      passageText:
+        '言語の豊かさは、単語数の多寡にあるのではなく、言葉の行間に滲む沈黙や余白を解釈する受容能力に依存している。日本語の和歌や俳句に見られる「余情」や「言わぬが花」の美学は、表現を極限まで切り詰めることで、受け手の想像力を極大化させる。過剰な言葉による説明は、かえって相手の主体的な思考と共感を奪うことになりかねない。',
+      questionText:
+        '「言わぬが花」や「余情」の美学がもたらす効果として、筆者は何を挙げていますか？',
+      options: [
+        '正確な情報伝達により誤解をゼロにすること',
+        '表現を切り詰めることで、受け手の想像力を極大化させること',
+        '会話の時間を短縮して業務を効率化すること',
+        '外国語への翻訳を容易にすること',
+      ],
+      correctAnswer: 1,
+      explanationUzbek:
+        'Gapni qisqa va vazmin qilib, tinglovchining tasavvur qobiliyatini (受け手の想像力) yuksaltirish maqsad qilingan.',
+    },
+    {
+      id: 519,
+      section: 'reading',
+      passageText:
+        'リーダーシップの本質は、他者を力で威圧し牽引することにあるのではなく、成員一人ひとりの内発的動機付けを刺激し、潜在能力を開花させる「サーバント・リーダーシップ（奉仕型リーダーシップ）」にある。トップダウンの号令によって動かされる組織は外的な変化に脆弱であるが、自律的な個人の連携によって支えられる組織は、未曾有の危機に対しても強靭な適応力を発揮する。',
+      questionText: '筆者が推奨するリーダーシップと組織のあり方はどれですか？',
+      options: [
+        '強力な権限を持つリーダーがトップダウンで統率する組織',
+        '成員の内発的動機を引き出し、自律的な連携を促す奉仕型のリーダーシップ',
+        'リーダーを置かず、全員の多数決のみで全ての意思決定を行う組織',
+        '外的な変化に左右されず、過去の規則を頑なに守り抜く組織',
+      ],
+      correctAnswer: 1,
+      explanationUzbek:
+        "Muallif a'zolarning ichki ishtiyoqini uyg'otib, ularga ko'maklashuvchi 'xizmatchi yetakchilik' (サーバント・リーダーシップ) tarafdoridir.",
+    },
+    {
+      id: 520,
       section: 'listening',
       audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3',
       script:
@@ -1281,7 +1427,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
         "Professor mavjud nazariyalar tushuntirib bera olmaydigan anomaliyalar to'planib ketganda paradigma o'zgarishini aytadi.",
     },
     {
-      id: 508,
+      id: 521,
       section: 'listening',
       audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3',
       script:
@@ -1296,6 +1442,74 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
       correctAnswer: 1,
       explanationUzbek:
         "Tilning yo'qolishi shu xalqning asrlar davomida shakllangan o'ziga xos dunyoqarashi va idrok tizimining yo'qolishidir.",
+    },
+    {
+      id: 522,
+      section: 'listening',
+      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-12.mp3',
+      script:
+        '環境問題のセミナーで専門家が講演しています。\n専門家：カーボンニュートラルを実現するためには、単に再生可能エネルギーの導入比率を高めるだけでは不十分です。産業構造そのものの脱炭素化と、消費者のライフスタイルの抜本的な変革という両輪が揃って初めて、実効性のある成果が期待できるのです。',
+      questionText: 'カーボンニュートラルの実現に不可欠な二つの要素は何ですか？',
+      options: [
+        '原子力発電の増設と海外からの電力輸入',
+        '産業構造の脱炭素化と消費者のライフスタイルの変革',
+        '化石燃料の価格引き上げと自動車の利用禁止',
+        '先端技術の輸出制限と自然保護区の拡大',
+      ],
+      correctAnswer: 1,
+      explanationUzbek:
+        "Ekspert sanoat tuzilmasini dekarbonizatsiya qilish hamda iste'molchilar turmush tarzini tubdan o'zgartirishni zaruriy deb ta'kidlaydi.",
+    },
+    {
+      id: 523,
+      section: 'listening',
+      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-13.mp3',
+      script:
+        '経営会議で社長が新規事業の方針について説明しています。\n社長：わが社の成長戦略において、既存事業の漸進的な改善にとどまることは、実質的な後退を意味します。不確実性を恐れず、非連続なイノベーションをもたらすフロンティア領域へ、果敢に経営資源を集中投下すべきです。',
+      questionText: '社長が打ち出した新規事業の基本方針はどれですか？',
+      options: [
+        '既存事業の改善のみに専念し、リスクを徹底的に回避する',
+        '不確実性を恐れず、革新的なフロンティア領域に資源を集中投下する',
+        '全事業から撤退し、他社との合併を目指す',
+        '人件費を大幅に削減し、現状の利益を維持する',
+      ],
+      correctAnswer: 1,
+      explanationUzbek:
+        "Prezident noaniqlikdan cho'chimay, yangi innovatsion sohalarga resurslarni jamlashni taklif qilmoqda.",
+    },
+    {
+      id: 524,
+      section: 'listening',
+      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-14.mp3',
+      script:
+        '美術館の学芸員が特別展について解説しています。\n学芸員：今回の回顧展の眼目は、画家の代表作を年代順に並べることではなく、彼が生涯にわたってこだわり続けた「光の陰影の変遷」というテーマを軸に空間を再構成した点にあります。来館者の皆様には、光と影のダイナミズムを体感していただきたいと考えております。',
+      questionText: '今回の特別展の最も大きな特徴は何ですか？',
+      options: [
+        '作品を制作年代順に機械的に配列したこと',
+        '「光の陰影の変遷」というテーマを軸に空間を再構成したこと',
+        '画家の遺品や手紙のみを展示の中心としたこと',
+        '入場料を無料にして鑑賞者を増やしたこと',
+      ],
+      correctAnswer: 1,
+      explanationUzbek:
+        "Ko'rgazmaning asosiy o'ziga xosligi 'yorug'lik va soyaning o'zgarishi' mavzusi atrofida qayta tashkil etilganligidir.",
+    },
+    {
+      id: 525,
+      section: 'listening',
+      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3',
+      script:
+        '教育フォーラムで教育評論家が話しています。\n評論家：AI時代における真の学力とは、正解の決まっている問いにいかに早く到達するかではありません。何が問題であるのかを自ら見出し、他者と対話を重ねながら新たな価値を共創していく「問いを立てる力」こそが、これからの教育に求められているのです。',
+      questionText: 'これからの教育で最も求められている力は何だと述べられていますか？',
+      options: [
+        '既知の問題に迅速に正解を出す暗記力',
+        '自ら課題を発見し共創を促す「問いを立てる力」',
+        '計算ソフトを使いこなすプログラミング技能',
+        '試験で高得点を取るためのテクニック',
+      ],
+      correctAnswer: 1,
+      explanationUzbek:
+        "Kelajak ta'limida muammoni mustaqil topish va yangi savollarni o'rtaga tashlash qobiliyati (問いを立てる力) talab etiladi.",
     },
   ],
 };
@@ -2204,5 +2418,330 @@ export const JLPT_N2_MOCK_SET_2: ExamQuestion[] = [
     correctAnswer: 1,
     explanationUzbek:
       "Mijoz kulrang o'rniga to'q ko'k (紺 - kon) rangli nimchani (jaket) kiyib ko'rmoqchi bo'ladi: '紺を着てみて決めるよ'.",
+  },
+];
+
+// ==========================================
+// === N1 MOCK EXAM SET 2 (Supplementary) ===
+// ==========================================
+export const JLPT_N1_MOCK_SET_2: ExamQuestion[] = [
+  {
+    id: 526,
+    section: 'knowledge',
+    questionText: '彼の 学問に対する 情熱は、生涯を 通じて 衰えることを（　）。',
+    options: ['知らなかった', '言わなかった', '見なかった', '聞かなかった'],
+    correctAnswer: 0,
+    explanationUzbek:
+      "'otoroeru koto o shiranakatta' (aslo so'nishni bilmadi, tinimsiz kuchaydi) adabiy turg'un iborasidir.",
+  },
+  {
+    id: 527,
+    section: 'knowledge',
+    questionText:
+      'どれほど 科学技術が 発展しようと（　）、死の 恐怖を 完全に 克服することは できない。',
+    options: ['が', 'とも', 'なら', 'から'],
+    correctAnswer: 1,
+    explanationUzbek:
+      "'Verb-(y)ou to / to mo' (qanchalik ... qilingan taqdirda ham) degan N1 shart-inkor vositasi: dore hodo hatten shiyou tomo.",
+  },
+  {
+    id: 528,
+    section: 'knowledge',
+    questionText:
+      '次の 下線部の 言葉の 読み方として 最も よいものを 選びなさい。\n「両国は 長年の 確執を 解消すべく <u>妥協</u>点を探った。」',
+    options: ['だきょう', 'たいきょう', 'だぎょう', 'たいぎょう'],
+    correctAnswer: 0,
+    explanationUzbek:
+      "妥協 iyeroglifining to'g'ri o'qilishi — だきょう (Dakyou - murosa, konsensus).",
+  },
+  {
+    id: 529,
+    section: 'knowledge',
+    questionText:
+      '次の 下線部の 言葉の 漢字として 最も よいものを 選びなさい。\n「相手の 弱点を <u>こうみょう</u>に ついた 戦術だ。」',
+    options: ['巧妙', '功妙', '巧名', '高妙'],
+    correctAnswer: 0,
+    explanationUzbek:
+      "'Koumyou' (ustamonlik bilan, epchil, ayyorona) so'zining to'g'ri kanjisi — 巧妙.",
+  },
+  {
+    id: 530,
+    section: 'knowledge',
+    questionText: '彼の 傲慢な 態度は、周囲の 反感を 買わずには（　）。',
+    options: ['おかない', 'やまない', 'すまない', 'たえない'],
+    correctAnswer: 0,
+    explanationUzbek:
+      "'~zu ni wa okanai' (muqarrar ravishda ...ga olib keladi, sababchi bo'lmay qo'ymaydi) kuchli oqibatni bildiradi.",
+  },
+  {
+    id: 531,
+    section: 'knowledge',
+    questionText: '未曾有の 経済危機に 直面し、政府は 緊急対策を 余儀なく（　）。',
+    options: ['された', 'した', 'させた', 'ならなかった'],
+    correctAnswer: 0,
+    explanationUzbek:
+      "'~o yogi naku sareta' (chora yo'qligidan majburan ... qilishga to'g'ri keldi) passiv konstruksiyasidir.",
+  },
+  {
+    id: 532,
+    section: 'knowledge',
+    questionText: '長年 培った 職人の 熟練技は、機械（　）再現できるものではない。',
+    options: ['とて', 'たりとも', 'とばかりに', 'ごとく'],
+    correctAnswer: 0,
+    explanationUzbek:
+      "'Noun + tote' (hatto ... bo'lgan taqdirda ham / hatto zamonaviy mashinalar ham) degan N1 chegaralash vositasi.",
+  },
+  {
+    id: 533,
+    section: 'knowledge',
+    questionText: '被災地の 一日も 早い 復興を 心から 祈って（　）。',
+    options: ['やまない', 'たえない', 'おかない', 'すまない'],
+    correctAnswer: 0,
+    explanationUzbek:
+      "'inotte yamanai' (yurakdan tinimsiz duo qilmoq / tilamoq) iborasi his-tuyg'uning bardavomligini bildiradi.",
+  },
+  {
+    id: 534,
+    section: 'knowledge',
+    questionText:
+      '次の 下線部の 言葉の 意味として 最も 近いものを 選びなさい。\n「彼の 意見には <u>一理</u>ある。」',
+    options: ['道理にかなった部分がある', '全く根拠がない', '専門的な理論である', '非常識である'],
+    correctAnswer: 0,
+    explanationUzbek:
+      "一理ある (ichiri aru) — unda ham o'ziga yarasha haqiqat yoki to'g'ri mantiq (道理にかなった部分) borligini anglatadi.",
+  },
+  {
+    id: 535,
+    section: 'knowledge',
+    questionText: 'いかに 困難が あろうと、最後まで 初志を 貫徹する（　）だ。',
+    options: ['のみ', 'きらい', 'まじき', 'ずくめ'],
+    correctAnswer: 0,
+    explanationUzbek:
+      "'~suru nomi da' (faqat va faqat ... qilmoq qoladi xolos) qat'iy qaror va ahdni bildiradi.",
+  },
+  {
+    id: 536,
+    section: 'knowledge',
+    questionText: '親の 財産を（　）に 放蕩の 限りを 尽くすなど、言語道断だ。',
+    options: ['いいこと', 'かぎり', 'ばかり', 'もの'],
+    correctAnswer: 0,
+    explanationUzbek:
+      "'~o ii koto ni' (vaziyat yoki imkoniyatdan yomon maqsadda, suiiste'mol qilib foydalanish) ma'nosini bildiradi.",
+  },
+  {
+    id: 537,
+    section: 'knowledge',
+    questionText: '真相が 明らかに なるに（　）、世論の 怒りは ますます 高まった。',
+    options: ['つれて', 'おいて', '沿って', '反して'],
+    correctAnswer: 0,
+    explanationUzbek:
+      "'~ni tsurete' (hodisaning rivojlanishi bilan bir qatorda) o'zgarishni ko'rsatadi.",
+  },
+  {
+    id: 538,
+    section: 'knowledge',
+    questionText: '日頃の 地道な 鍛錬が あって（　）の 栄冠である。',
+    options: ['こそ', 'さえ', 'すら', 'だに'],
+    correctAnswer: 0,
+    explanationUzbek:
+      "'~atte koso no (Noun)' (aynan tinimsiz mashaqqatli mehnat tufayligina qo'lga kiritilgan g'alaba) ta'kid shaklidir.",
+  },
+  {
+    id: 539,
+    section: 'reading',
+    passageText:
+      'グローバル化が加速する現代において、多文化共生が叫ばれて久しい。しかし、単に異なる文化背景を持つ人々が物理的に同じ空間に併存しているだけでは、真の共生とは言えない。互いの文化的前提の違いを理解し、自己の価値観を絶対化することなく、対話を通じて絶えず相互変容を受け入れる柔軟性こそが、共生の真髄である。',
+    questionText: '筆者が考える「真の多文化共生」に必要な姿勢とは何ですか？',
+    options: [
+      '自国の伝統文化のみを他民族に徹底して学習させること',
+      '自己の価値観を絶対化せず、対話を通じて相互変容を受け入れること',
+      '外国人の居住区を隔離し、摩擦を物理的に防ぐこと',
+      'すべての言語を英語に統一し、効率的な社会を作ること',
+    ],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Muallif o'z qadriyatlarini yagona haqiqat deb bilmasdan, o'zaro muloqot orqali bir-birini tushunish va o'zgarishga tayyor bo'lishni aytadi.",
+  },
+  {
+    id: 540,
+    section: 'reading',
+    passageText:
+      '科学的知識の蓄積は、世界から不可知の謎を追放し、全てを計量可能なデータへと還元しつつあるように見える。しかし、知の地平が広がるほど、その外側に広がる「未知の深淵」もまた幾何級数的に拡大していくのである。真の知性とは、自らの知を過信することなく、世界の奥深さに対して謙虚な畏怖の念を抱き続けることにある。',
+    questionText: '筆者が述べる「真の知性」とはどのようなものですか？',
+    options: [
+      'すべての自然現象をデータで完全に解明したと確信すること',
+      '自らの知識を過信せず、未知の深淵に対して謙虚な畏怖の念を抱くこと',
+      '科学以外の迷信や伝統をすべて否定し排除すること',
+      '誰よりも多くの専門用語や公式を記憶していること',
+    ],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Haqiqiy aql-idrok o'z bilganlariga bino qo'ymasdan, noma'lum olam oldida kamtarlik va hayrat tuyg'usini saqlashdadir.",
+  },
+  {
+    id: 541,
+    section: 'reading',
+    passageText:
+      '芸術作品の鑑賞とは、作者の意図を受動的に受け取る作業ではない。鑑賞者自身の人生経験、価値観、感情の総体が作品と衝突し、共鳴することによって、作品の中に新たな意味が生成される創造的行為である。したがって、優れた芸術作品は、時代や観客を超えて汲み尽くせぬ解釈の泉であり続ける。',
+    questionText: '筆者によれば、芸術鑑賞の本質とは何ですか？',
+    options: [
+      '作者の伝記的事実を調べ、作者の意図のみを忠実に復元すること',
+      '鑑賞者の経験と作品が響き合い、新たな意味を共創する能動的行為',
+      '美術評論家の解説をそのまま暗記して作品の値段を当てること',
+      '作品の技法や構図の優劣を客観的な数値で採点すること',
+    ],
+    correctAnswer: 1,
+    explanationUzbek:
+      "San'at asarini tomosha qilish — insonning o'z hayotiy tajribasi bilan asar o'rtasida yangi ma'no yaratuvchi ijodiy jarayondir.",
+  },
+  {
+    id: 542,
+    section: 'reading',
+    passageText:
+      '都市の再開発において、効率や近代性のみを追求して歴史的建造物を破壊することは、都市の「記憶の喪失」に等しい。古い町並みや歴史的遺産は、過去と現在、そして未来を架橋するアイデンティティの拠り所である。利便性と歴史性の調和こそが、持続可能で魅力ある都市景観を創造する鍵である。',
+    questionText: '都市計画に関して筆者が強く主張していることはどれですか？',
+    options: [
+      '古い建物をすべて取り壊し、超高層ビルを建設すべきだ',
+      '歴史的建造物を保存し、利便性と歴史性の調和を図るべきだ',
+      '自動車の通行を完全に禁止し、江戸時代の町並みをそのまま復元すべきだ',
+      '都市の景観は経済的利益のみを最優先に決定されるべきだ',
+    ],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Shahar taraqqiyotida faqat zamonaviylik ortidan quvmay, tarixiy meros va qulaylik uyg'unligini (調和) saqlash lozim.",
+  },
+  {
+    id: 543,
+    section: 'reading',
+    passageText:
+      '失敗を極度に恐れる文化は、組織の創造性を窒息させる。イノベーションとは、数多の試行錯誤と失敗の屍の上に咲く花である。失敗を個人の資質の欠如として断罪するのではなく、新たな知見を獲得するための貴重なデータとして受容する「心理的安全性」のある組織こそが、真の飛躍を遂げることができる。',
+    questionText: 'イノベーションを生み出す組織に必要な条件として、筆者は何を挙げていますか？',
+    options: [
+      '失敗した者を厳しく処罰し、ミスを根絶する規律',
+      '失敗を貴重な学びとして受け入れる「心理的安全性」',
+      '失敗の可能性がゼロである確実なプロジェクトのみを行うこと',
+      '外部のコンサルタントに全ての新規事業を一任すること',
+    ],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Yangi yangiliklar yaratish uchun xatolardan qo'rqmaydigan ruhiy xavfsizlik muhiti (心理的安全性) zarur.",
+  },
+  {
+    id: 544,
+    section: 'reading',
+    passageText:
+      '現代の消費社会は、我々に絶え間ない欲求の喚起と物質的充足を促すが、真の幸福感は所有の多寡とは相関しない。他者との精神的な絆、自己の成長を実感できる挑戦、そして社会に貢献しているという手応えの中にこそ、持続的な幸福の源泉が存在する。物質主義から経験・関係性重視への価値観のシフトが求められている。',
+    questionText: '筆者が説く「真の幸福」の源泉とは何ですか？',
+    options: [
+      '他人よりも多くの高級ブランド品を所有すること',
+      '他者との絆、自己の成長、社会への貢献という経験と関係性',
+      '仕事を辞めて一人で孤立した生活を送ること',
+      '将来の不安を解消するために資産を蓄積し続けること',
+    ],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Muallif baxt boyliklar sonida emas, balki samimiy munosabatlar, shaxsiy o'sish va jamiyatga xizmat qilishda ekanligini ta'kidlaydi.",
+  },
+  {
+    id: 545,
+    section: 'listening',
+    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+    script:
+      '環境フォーラムで研究者が登壇しています。\n研究者：海洋プラスチックゴミの削減に向けて、生分解性素材の開発が進んでいますが、それだけで海洋汚染の根本的な解決には至りません。廃棄物処理インフラの未整備な途上国への技術支援と、使い捨てプラスチックそのものを減らす国際条約の締結が急務なのです。',
+    questionText: '研究者が最も早急に取り組むべきだと主張しているのは何ですか？',
+    options: [
+      '生分解性プラスチックの国内生産のみを増やすこと',
+      '途上国へのインフラ支援と使い捨てプラ削減の国際条約締結',
+      'すべてのプラスチック製品の製造を即座に全面禁止すること',
+      '海洋ゴミの回収作業をボランティアだけに頼ること',
+    ],
+    correctAnswer: 1,
+    explanationUzbek:
+      'Tadqiqotchi rivojlanayotgan davlatlarga infratuzilma yordami berish va bir martalik plastmassani qisqartirish xalqaro shartnomasini zarur deb biladi.',
+  },
+  {
+    id: 546,
+    section: 'listening',
+    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
+    script:
+      '歴史学の講義で准教授が話しています。\n准教授：ある歴史的事件を客観的に評価するためには、勝者の側が遺した公式記録だけでなく、敗者や市井の名もなき庶民の手記や書簡といった多角的な史料を突き合わせることが不可欠です。歴史の真実は、単一の記録の枠内には収まりきらないのです。',
+    questionText: '歴史的事件を正当に評価するために不可欠な方法は何ですか？',
+    options: [
+      '勝者の公式記録のみを絶対の事実として採用すること',
+      '敗者や庶民の手記など多角的な史料を突き合わせて検証すること',
+      '古い記録は信用せず、現代の価値観のみで解釈すること',
+      '教科書の記述をそのまま鵜呑みにすること',
+    ],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Tarixiy hodisani xolis baholash uchun faqat g'oliblarning emas, mag'lublar va oddiy xalq yozuvlarini ham har tomonlama solishtirish zarur.",
+  },
+  {
+    id: 547,
+    section: 'listening',
+    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
+    script:
+      'IT企業の開発会議でプロダクトマネージャーが話しています。\nマネージャー：新機能の追加を急ぐあまり、既存システムの動作安定性を損なっては本末転倒です。今四半期は新機能開発を一時凍結し、コードのリファクタリングとセキュリティの脆弱性対策に全力を注ぎましょう。',
+    questionText: '今四半期において最優先される方針は何ですか？',
+    options: [
+      '新機能のリリースを予定より前倒しして実施すること',
+      '新機能開発を凍結し、システムの安定性とセキュリティ対策を徹底すること',
+      '開発チームの人員を半減させてコストを削減すること',
+      'セキュリティ対策は後回しにして売上拡大を狙うこと',
+    ],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Menejer yangi funksiyalarni to'xtatib, tizim barqarorligi va xavfsizlik zaifliklarini bartaraf etishni birinchi o'ringa qo'ydi.",
+  },
+  {
+    id: 548,
+    section: 'listening',
+    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3',
+    script:
+      '都市社会学のシンポジウムで専門家が話しています。\n専門家：少子高齢化が進む地方都市の再生には、単なるハコモノ（公共施設）の建設ではなく、医療・福祉・商業機能を中心部に集約する「コンパクトシティ」の構築と、公共交通網の再編が不可欠な鍵となります。',
+    questionText: '地方都市の再生に向けて提唱されている施策は何ですか？',
+    options: [
+      '郊外に巨大なショッピングモールを乱立させること',
+      '都市機能を中心部に集約するコンパクトシティ化と公共交通網の再編',
+      'すべての公共施設を民間に売却して撤退すること',
+      '若者の移住のみを強制し、高齢者福祉を削減すること',
+    ],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Shahar markazida xizmatlarni jamlash (kompakt shahar) va jamoat transportini qayta yo'lga qo'yish zaruriyati aytildi.",
+  },
+  {
+    id: 549,
+    section: 'listening',
+    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3',
+    script:
+      '医学シンポジウムで脳科学者が講演しています。\n脳科学者：睡眠不足が長期化すると、脳内の老廃物排出システムが正常に機能しなくなり、認知機能の低下や神経変性疾患のリスクが跳ね上がります。十分な睡眠時間を確保することは、怠惰ではなく、脳の健康維持における必須の投資なのです。',
+    questionText: '脳科学者が睡眠に関して強調しているポイントは何ですか？',
+    options: [
+      '睡眠時間は極力削って仕事に充てるべきである',
+      '十分な睡眠は脳の老廃物を排出し健康を維持する必須の投資である',
+      '睡眠薬を常用して短時間で深い眠りを取れば問題ない',
+      '高齢者は睡眠を全くとる必要がない',
+    ],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Yetarli uyqu miyadagi chiqindilarni tozalab, kognitiv salomatlikni saqlovchi zaruriy omil ekanligi ta'kidlandi.",
+  },
+  {
+    id: 550,
+    section: 'listening',
+    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3',
+    script:
+      '建築デザインの講義で建築家が語っています。\n建築家：日本の伝統建築が木造でありながら数百年もの風雪に耐えうるのは、地震の揺れを剛性で押さえつけるのではなく、各接合部がしなやかに変形してエネルギーを分散吸収する「柔構造」の叡智があるからです。自然に抗うのではなく、いなす思想が息づいています。',
+    questionText: '日本伝統建築の耐震性の本質として説明されているものはどれですか？',
+    options: [
+      '鉄筋コンクリートで揺れを力ずくで押さえつける剛構造',
+      '接合部がしなやかに揺れを逃しエネルギーを分散する柔構造の知恵',
+      '地下深くまで太い金属杭を打ち込む基礎工事',
+      '地震の起きない地域のみを選んで建築すること',
+    ],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Yapon an'anaviy me'morchiligida zilzila kuchini qattiq ushlab turish emas, balki bo'g'inlarning egiluvchan harakati orqali kuchni tarqatish (柔構造 - egiluvchan struktura) uslubi qo'llaniladi.",
   },
 ];
