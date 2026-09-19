@@ -1,5 +1,6 @@
 import type { JlptKanjiItem, JlptGrammarItem, JlptVocabItem } from '../data/jlptGrammarKanji';
 import type { JlptGrammarQuestion } from '../data/jlpt/grammar_data';
+import type { JlptListeningQuestion } from '../data/jlpt/listening_data';
 import { supabase } from '../lib/supabase';
 
 import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
@@ -7,6 +8,7 @@ import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
 const CUSTOM_KANJI_KEY = 'study_planner_custom_admin_kanji';
 const CUSTOM_GRAMMAR_KEY = 'study_planner_custom_admin_grammar';
 const CUSTOM_QUIZ_KEY = 'study_planner_custom_admin_quiz_questions';
+const CUSTOM_CHOUKAI_KEY = 'study_planner_custom_admin_choukai_questions';
 
 export const VALID_JLPT_LEVELS = ['N5', 'N4', 'N3', 'N2', 'N1'] as const;
 export type JlptLevel = (typeof VALID_JLPT_LEVELS)[number];
@@ -31,16 +33,19 @@ export class CustomContentService {
     kanjiCount: number;
     grammarCount: number;
     quizCount: number;
+    choukaiCount: number;
   }> {
     let kanjiCount = 0;
     let grammarCount = 0;
     let quizCount = 0;
+    let choukaiCount = 0;
 
     try {
-      const [kRes, gRes, qRes] = await Promise.allSettled([
+      const [kRes, gRes, qRes, cRes] = await Promise.allSettled([
         supabase.from('custom_kanji').select('*'),
         supabase.from('custom_grammar').select('*'),
         supabase.from('custom_quiz_questions').select('*'),
+        supabase.from('custom_listening_questions').select('*'),
       ]);
 
       if (kRes.status === 'fulfilled' && kRes.value.data && Array.isArray(kRes.value.data)) {
@@ -128,11 +133,48 @@ export class CustomContentService {
         safeLocalStorage.setJSON(CUSTOM_QUIZ_KEY, combined);
         quizCount = combined.length;
       }
+
+      if (cRes.status === 'fulfilled' && cRes.value.data && Array.isArray(cRes.value.data)) {
+        const remoteC: JlptListeningQuestion[] = cRes.value.data.map((r: any) => ({
+          id: r.id,
+          level: r.level || 'N5',
+          type: r.type || 'task',
+          titleUz: r.title_uz || r.titleUz || '',
+          audioUrl: r.audio_url || r.audioUrl || '',
+          script: r.script || '',
+          questionText: r.question_text || r.questionText || '',
+          questionTextUz: r.question_text_uz || r.questionTextUz || '',
+          options: Array.isArray(r.options) ? r.options : [],
+          optionsUz: Array.isArray(r.options_uz) ? r.options_uz : [],
+          correctAnswer:
+            typeof r.correct_answer === 'number'
+              ? r.correct_answer
+              : typeof r.correctAnswer === 'number'
+                ? r.correctAnswer
+                : 0,
+          explanationUzbek: r.explanation_uzbek || r.explanationUzbek || '',
+          tipUzbek: r.tip_uzbek || r.tipUzbek || '',
+        }));
+
+        const localC = this.getCustomChoukaiQuestions();
+        const mergedMap = new Map<string | number, JlptListeningQuestion>();
+        remoteC.forEach((item) => mergedMap.set(item.id || item.questionText, item));
+        localC.forEach((item) => {
+          const key = item.id || item.questionText;
+          if (!mergedMap.has(key)) {
+            mergedMap.set(key, item);
+          }
+        });
+
+        const combined = Array.from(mergedMap.values());
+        safeLocalStorage.setJSON(CUSTOM_CHOUKAI_KEY, combined);
+        choukaiCount = combined.length;
+      }
     } catch (e) {
       console.warn('[CustomContentService] syncFromSupabase fallback to local:', e);
     }
 
-    return { kanjiCount, grammarCount, quizCount };
+    return { kanjiCount, grammarCount, quizCount, choukaiCount };
   }
 
   /**
@@ -1107,6 +1149,205 @@ export class CustomContentService {
     const seenId = new Set<string | number>();
     const seenText = new Set<string>();
     const result: JlptGrammarQuestion[] = [];
+
+    const normalize = (t: string) => t.replace(/\s+/g, ' ').trim().toLowerCase();
+
+    // Custom items take precedence
+    for (const item of custom) {
+      const normText = normalize(item.questionText);
+      if (!normText || seenId.has(item.id) || seenText.has(normText)) continue;
+      seenId.add(item.id);
+      seenText.add(normText);
+      result.push(item);
+    }
+
+    // Append base items if not already present
+    for (const item of baseList) {
+      const normText = normalize(item.questionText);
+      if (!normText || seenId.has(item.id) || seenText.has(normText)) continue;
+      seenId.add(item.id);
+      seenText.add(normText);
+      result.push(item);
+    }
+
+    return result;
+  }
+
+  // =========================================================================
+  // CHOUKAI (LISTENING) QUESTION CRUD & STORAGE
+  // =========================================================================
+
+  /**
+   * Get all custom Choukai questions from local storage
+   */
+  static getCustomChoukaiQuestions(): JlptListeningQuestion[] {
+    try {
+      const data = safeLocalStorage.getJSON<JlptListeningQuestion[]>(CUSTOM_CHOUKAI_KEY, []);
+      return Array.isArray(data) ? data : [];
+    } catch {
+      return [];
+    }
+  }
+
+  /**
+   * Add a new custom Choukai listening question
+   */
+  static async addCustomChoukaiQuestion(
+    question: Omit<JlptListeningQuestion, 'id'> & { id?: number | string },
+  ): Promise<JlptListeningQuestion> {
+    const current = this.getCustomChoukaiQuestions();
+    const id =
+      question.id || `custom_choukai_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`;
+
+    const newItem: JlptListeningQuestion = {
+      ...question,
+      id,
+    };
+
+    current.unshift(newItem);
+    safeLocalStorage.setJSON(CUSTOM_CHOUKAI_KEY, current);
+
+    // Sync to Supabase
+    try {
+      await (supabase.from('custom_listening_questions') as any).upsert({
+        id,
+        level: newItem.level,
+        type: newItem.type,
+        title_uz: newItem.titleUz || '',
+        audio_url: newItem.audioUrl || null,
+        script: newItem.script,
+        question_text: newItem.questionText,
+        question_text_uz: newItem.questionTextUz || '',
+        options: newItem.options,
+        options_uz: newItem.optionsUz || [],
+        correct_answer: newItem.correctAnswer,
+        explanation_uzbek: newItem.explanationUzbek || '',
+        tip_uzbek: newItem.tipUzbek || '',
+        updated_at: new Date().toISOString(),
+      });
+    } catch (e) {
+      console.warn(
+        '[CustomContentService] Supabase choukai insert failed, kept in local storage:',
+        e,
+      );
+    }
+
+    return newItem;
+  }
+
+  /**
+   * Update existing custom Choukai question
+   */
+  static async updateCustomChoukaiQuestion(
+    id: number | string,
+    partial: Partial<JlptListeningQuestion>,
+  ): Promise<boolean> {
+    try {
+      const current = this.getCustomChoukaiQuestions();
+      const idx = current.findIndex((q) => q.id === id);
+      if (idx < 0) return false;
+
+      const updatedItem: JlptListeningQuestion = {
+        ...current[idx],
+        ...partial,
+        id,
+      };
+
+      current[idx] = updatedItem;
+      safeLocalStorage.setJSON(CUSTOM_CHOUKAI_KEY, [...current]);
+
+      try {
+        await (supabase.from('custom_listening_questions') as any)
+          .update({
+            level: updatedItem.level,
+            type: updatedItem.type,
+            title_uz: updatedItem.titleUz || '',
+            audio_url: updatedItem.audioUrl || null,
+            script: updatedItem.script,
+            question_text: updatedItem.questionText,
+            question_text_uz: updatedItem.questionTextUz || '',
+            options: updatedItem.options,
+            options_uz: updatedItem.optionsUz || [],
+            correct_answer: updatedItem.correctAnswer,
+            explanation_uzbek: updatedItem.explanationUzbek || '',
+            tip_uzbek: updatedItem.tipUzbek || '',
+            updated_at: new Date().toISOString(),
+          })
+          .eq('id', id);
+      } catch {
+        // ignore offline
+      }
+
+      return true;
+    } catch (e) {
+      console.error('Error updating custom choukai question:', e);
+      return false;
+    }
+  }
+
+  /**
+   * Delete custom Choukai question
+   */
+  static async deleteCustomChoukaiQuestion(id: number | string): Promise<boolean> {
+    try {
+      const current = this.getCustomChoukaiQuestions();
+      const filtered = current.filter((q) => q.id !== id);
+      safeLocalStorage.setJSON(CUSTOM_CHOUKAI_KEY, filtered);
+
+      try {
+        await (supabase.from('custom_listening_questions') as any).delete().eq('id', id);
+      } catch {
+        // ignore offline
+      }
+
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  /**
+   * Upload an authentic Choukai audio file to Supabase Storage
+   */
+  static async uploadChoukaiAudioFile(
+    file: File,
+  ): Promise<{ success: boolean; url?: string; error?: string }> {
+    try {
+      const cleanName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+      const filePath = `choukai_${Date.now()}_${cleanName}`;
+
+      const { data, error } = await supabase.storage
+        .from('listening_audios')
+        .upload(filePath, file, {
+          cacheControl: '31536000',
+          upsert: true,
+          contentType: file.type || 'audio/mpeg',
+        });
+
+      if (error) {
+        console.warn('[CustomContentService] Storage upload error:', error);
+        return { success: false, error: error.message };
+      }
+
+      const { data: publicData } = supabase.storage
+        .from('listening_audios')
+        .getPublicUrl(data.path);
+
+      return { success: true, url: publicData.publicUrl };
+    } catch (err: any) {
+      console.error('[CustomContentService] Audio upload exception:', err);
+      return { success: false, error: err?.message || 'Yuklashda kutilmagan xatolik yuz berdi' };
+    }
+  }
+
+  /**
+   * Merge base Choukai questions with custom Choukai questions (Deduplicated)
+   */
+  static mergeChoukaiQuestions(baseList: JlptListeningQuestion[]): JlptListeningQuestion[] {
+    const custom = this.getCustomChoukaiQuestions();
+    const seenId = new Set<string | number>();
+    const seenText = new Set<string>();
+    const result: JlptListeningQuestion[] = [];
 
     const normalize = (t: string) => t.replace(/\s+/g, ' ').trim().toLowerCase();
 

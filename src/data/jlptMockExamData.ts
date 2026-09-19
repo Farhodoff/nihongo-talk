@@ -211,7 +211,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 120,
       section: 'listening',
-      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3',
+      audioUrl: '',
       script:
         '女の人が話しています。テーブルの上に何を置きますか？\n女：食事の準備をしましょう。お皿を並べて、その右側にスプーンを置いてください。',
       questionText: 'お皿の右側に何を置きますか？',
@@ -223,7 +223,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 121,
       section: 'listening',
-      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
+      audioUrl: '',
       script:
         '男の人と女の人が話しています。男の人はあした何時に起きますか？\n女：あしたは何時に出かけるの？\n男：8時の電車に乗るから、7時に起きるよ。',
       questionText: '男の人はあした何時に起きますか？',
@@ -234,7 +234,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 122,
       section: 'listening',
-      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+      audioUrl: '',
       script:
         '男の人と女の人が話しています。二人はどこで会いますか？\n男：明日の待ち合わせ、駅の改札口にする？\n女：うーん、改札口は人が多くて見つけにくいよ。北口の本屋さんの前にしない？\n男：そうだね、じゃあそこにしよう。',
       questionText: '二人は 明日 どこで 会いますか？',
@@ -246,7 +246,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 123,
       section: 'listening',
-      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
+      audioUrl: '',
       script:
         '先生が学生に話しています。学生は明日何を持ってこなければなりませんか？\n先生：みなさん、明日は作文のテストをします。えんぴつと消しゴムを必ず持ってきてください。辞書や教科書は使えませんから、机の上に出さないでください。',
       questionText: '学生は 明日 机の上に 何を 出しますか？',
@@ -258,7 +258,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 124,
       section: 'listening',
-      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3',
+      audioUrl: '',
       script:
         '女の人と男の人が話しています。男の人は何を着て出かけますか？\n女：外は風が強くて寒いよ。上着を着ていったほうがいいよ。\n男：うん、じゃあ厚いコートを着ていくよ。帽子もかぶろう。',
       questionText: '男の人は 何を着て 出かけますか？',
@@ -270,7 +270,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 125,
       section: 'listening',
-      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3',
+      audioUrl: '',
       script:
         'レストランで男の人と店員が話しています。男の人は飲み物に何を頼みましたか？\n店員：ご注文はお決まりですか？\n男：カレーライスを一つお願いします。それから、冷たいお茶をください。\n店員：かしこまりました。冷たいお茶ですね。',
       questionText: '男の人は 飲み物に 何を 頼みましたか？',
@@ -489,7 +489,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 220,
       section: 'listening',
-      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3',
+      audioUrl: '',
       script:
         '女の学生と男の学生が話しています。男の学生はどうしてパーティーに来られませんか？\n女：明日の夜、みんなでタワポンさんの送別会をするんだけど、来られる？\n男：あー、明日はアルバイトのシフトが入っていて、休めないんだ。ごめんね。',
       questionText: '男の学生はどうしてパーティーに来られませんか？',
@@ -501,7 +501,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 221,
       section: 'listening',
-      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3',
+      audioUrl: '',
       script:
         '駅で案内放送を聞いています。新幹線は何番線から発車しますか？\n放送：まもなく11番線に、博多行き新幹線が到着いたします。黄色い線の内側までお下がりください。',
       questionText: '新幹線は何番線から発車しますか？',
@@ -513,7 +513,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 222,
       section: 'listening',
-      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3',
+      audioUrl: '',
       script:
         '会社で課長と女性社員が話しています。女性社員はまず何をしますか？\n課長：佐藤さん、午後の会議の準備だけど、資料のコピーはできた？\n女性：あ、まだ会議室の予約をしただけです。\n課長：そうか。じゃあ、先にこの資料を20部コピーして会議室に持っていって。パソコンの準備はその後でいいから。\n女性：はい、わかりました。すぐやります。',
       questionText: '女性社員は まず 何を しますか？',
@@ -525,7 +525,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 223,
       section: 'listening',
-      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3',
+      audioUrl: '',
       script:
         '病院で医者と男の人が話しています。男の人は白い薬をいつ飲みますか？\n医者：喉の痛みを抑える白い薬と、熱が出たときだけの青い薬を出しますね。\n男：はい。\n医者：白い薬は毎食後、必ず水と一緒に飲んでください。青い薬は38度以上の熱が出たときだけですよ。\n男：わかりました。',
       questionText: '男の人は 白い薬を いつ 飲みますか？',
@@ -537,7 +537,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 224,
       section: 'listening',
-      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3',
+      audioUrl: '',
       script:
         '店で客と店員が話しています。客はどうやって支払いますか？\n店員：お会計は4200円になります。\n客：クレジットカードは使えますか？\n店員：すみません、ただいま通信端末の故障でカードとバーコード決済が使えないんです。現金かSuicaなどの交通系電子マネーのみとなります。\n客：そうですか。じゃあSuicaでお願いします。',
       questionText: '客は どうやって 支払いますか？',
@@ -554,7 +554,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 225,
       section: 'listening',
-      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3',
+      audioUrl: '',
       script:
         '男の人と女の人が明日の旅行について話しています。二人は何時の電車に乗りますか？\n男：明日は9時の特急に乗る予定だったよね？\n女：うん。でも現地の博物館が10時から特別展をやるから、できればもう一本早い8時半の電車にしない？\n男：いいね。じゃあ8時半のに乗ろう。駅には8時15分に集合ね。',
       questionText: '二人は 明日 何時の 電車に 乗りますか？',
@@ -781,7 +781,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 320,
       section: 'listening',
-      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3',
+      audioUrl: '',
       script:
         '会社で上司と部下が話しています。部下はこれから何を修正しますか？\n上司：山田さん、提出してもらった企画書、大筋はいいんだけど、予算のグラフが去年のデータのままだよ。\n部下：あ、大変失礼しました！すぐに最新のデータに差し替えます。\n上司：うん、それとスケジュールのフォントも統一しておいてね。',
       questionText: '部下はまず何を修正しますか？',
@@ -793,7 +793,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 321,
       section: 'listening',
-      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3',
+      audioUrl: '',
       script:
         '留学生と先生が相談しています。留学生は何のビザを申請しなければなりませんか？\n学生：先生、卒業後も日本で就職活動を続けたいのですが。\n先生：それなら、「特定活動ビザ」への変更手続きが必要になりますよ。推薦状を準備しましょう。',
       questionText: '留学生が申請するビザの種類は何ですか？',
@@ -805,7 +805,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 322,
       section: 'listening',
-      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3',
+      audioUrl: '',
       script:
         '会社で男性社員と女性上司が話しています。男性社員は今日中に何を終わらせなければなりませんか？\n男：課長、来週のセミナーの発表スライドと、取引先へ送る見積書の作成があるのですが、どちらを優先しましょうか？\n上司：スライドは明日一緒に見直すから、今日はまず見積書を直ちに完成させて先方にメール送信しておいて。\n男：承知しました。見積書を最優先で片付けます。',
       questionText: '男性社員は 今日中に 何を 終わらせますか？',
@@ -822,7 +822,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 323,
       section: 'listening',
-      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3',
+      audioUrl: '',
       script:
         'デパートの館内放送を聞いています。迷子のお子様の特徴は何ですか？\n放送：お客様にお呼び出しを申し上げます。4階おもちゃ売り場にて、4歳くらいの男の子がお連れ様をお探しです。青い長袖Tシャツに、黒い半ズボンを着用し、赤い帽子をかぶっております。お心当たりのあるお客様は、1階案内所までお越しください。',
       questionText: '迷子の男の子が 着ている 服装の 特徴は どれですか？',
@@ -839,7 +839,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 324,
       section: 'listening',
-      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3',
+      audioUrl: '',
       script:
         'ホテルのフロントで客と係員が話しています。客は何時の朝食券をもらいましたか？\n係員：ご朝食は7時、8時、9時の時間指定制となっておりますが、何時がよろしいでしょうか？\n客：明日は朝8時半にチェックアウトして出発したいんです。\n係員：それでしたら、7時からの回が最もゆっくり召し上がっていただけます。\n客：わかりました。では7時でお願いします。',
       questionText: '客は 何時の 朝食券を もらいましたか？',
@@ -851,7 +851,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 325,
       section: 'listening',
-      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3',
+      audioUrl: '',
       script:
         'ラジオで専門家が節電について話しています。家庭で最も簡単に効果が出る節電対策は何ですか？\n専門家：みなさんエアコンの設定温度を気にされますが、実は長期間使っていない家電製品の待機電力を減らすこと、特にスイッチ付きタップでこまめに電源を切ることが、生活の快適さを損なわずに最も効果的な節電になります。',
       questionText: '専門家が 勧めている 最も 手軽で 効果的な 節電対策は何ですか？',
@@ -1093,7 +1093,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 420,
       section: 'listening',
-      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3',
+      audioUrl: '',
       script:
         'テレビで経済アナリストが話しています。今年度の個人消費の特徴は何ですか？\nアナリスト：今年度は物価高の影響で生活必需品の節約志向が強まる一方、旅行やコンサートなど体験型の消費には惜しみなく支出する傾向が見られます。二極化が顕著になっています。',
       questionText: '今年度の個人消費の特徴として述べられているのはどれですか？',
@@ -1110,7 +1110,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 421,
       section: 'listening',
-      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3',
+      audioUrl: '',
       script:
         'セミナーで講師が話しています。チームの生産性を高めるために最も重要な要素は何ですか？\n講師：心理的安全性の確保です。失敗を恐れず率直に意見を言える環境こそが、イノベーションの土台となります。',
       questionText: 'チームの生産性を高めるために最重要とされているものは何ですか？',
@@ -1122,7 +1122,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 422,
       section: 'listening',
-      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3',
+      audioUrl: '',
       script:
         '会社で課長と女性社員が話しています。女性社員はまず何をしなければなりませんか？\n課長：佐藤さん、明日のプレゼン資料の修正、どうなってる？\n社員：はい、市場調査のグラフは差し替え完了しました。\n課長：ありがとう。じゃあ、印刷する前に、部長に最終確認のメールを送ってくれるかな。承認が下りたら部数を刷ろう。\n社員：承知いたしました。すぐにメールをお送りします。',
       questionText: '女性社員は まず 何を しますか？',
@@ -1139,7 +1139,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 423,
       section: 'listening',
-      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3',
+      audioUrl: '',
       script:
         'ラジオで専門家が睡眠について話しています。朝すっきりと目覚めるために効果的な方法は何ですか？\n専門家：目覚めを良くするためには、起きた直後にカーテンを開けて太陽の光を浴びることが極めて効果的です。これにより体内時計がリセットされ、夜の自然な眠気にもつながります。',
       questionText: '朝 すっきりと 目覚めるために 最も 効果的な 方法は何ですか？',
@@ -1156,7 +1156,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 424,
       section: 'listening',
-      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-12.mp3',
+      audioUrl: '',
       script:
         '男の人と女の人が話しています。男の人はなぜ新しいスマートフォンを買わないことにしましたか？\n女：新しいモデル出たけど、買い替えないの？\n男：うーん、カメラの性能は魅力的だったんだけどね。今使っている機種でもバッテリー持ちは悪くないし、何より本体の価格が高すぎて手が出ないよ。\n女：確かに最近のは15万円超えるもんね。',
       questionText: '男の人が 新しいスマートフォンを 買わない 理由は 何ですか？',
@@ -1173,7 +1173,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 425,
       section: 'listening',
-      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-13.mp3',
+      audioUrl: '',
       script:
         '取引先のオフィスで、受付の人が来客に対応しています。\n客：恐れ入ります。本日14時に営業部の田中様とお約束をいただいております、ABC商事の木村と申します。\n受付：木村様ですね。お待ちしておりました。恐れ入りますが、あちらのソファーにお掛けになって少々お待ちいただけますでしょうか。担当の田中に内線で連絡いたします。\n客：わかりました。ありがとうございます。',
       questionText: '木村さんは この後 まず どうしますか？',
@@ -1412,7 +1412,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 520,
       section: 'listening',
-      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3',
+      audioUrl: '',
       script:
         '大学の公開講座で教授が話しています。科学哲学においてパラダイムシフトが起こる契機とは何ですか？\n教授：既存の理論的枠組みでは到底説明のつかない「アノマリー（変則事象）」が累積し、もはや無視できないレベルに達したとき、根本的な転換が促されるのです。',
       questionText: 'パラダイムシフトが起こる根本的な契機として述べられているのはどれですか？',
@@ -1429,7 +1429,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 521,
       section: 'listening',
-      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3',
+      audioUrl: '',
       script:
         '国際シンポジウムで言語学者が話しています。言語の多様性を保持すべき理由は何ですか？\n言語学者：言語の消滅は、単なる語彙の喪失にとどまりません。その言語共同体が何世代にもわたって培ってきた独自の認識体系や世界観そのものが永遠に失われることを意味するからです。',
       questionText: '言語学者が言語の多様性を重要視する最大の理由は何ですか？',
@@ -1446,7 +1446,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 522,
       section: 'listening',
-      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-12.mp3',
+      audioUrl: '',
       script:
         '環境問題のセミナーで専門家が講演しています。\n専門家：カーボンニュートラルを実現するためには、単に再生可能エネルギーの導入比率を高めるだけでは不十分です。産業構造そのものの脱炭素化と、消費者のライフスタイルの抜本的な変革という両輪が揃って初めて、実効性のある成果が期待できるのです。',
       questionText: 'カーボンニュートラルの実現に不可欠な二つの要素は何ですか？',
@@ -1463,7 +1463,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 523,
       section: 'listening',
-      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-13.mp3',
+      audioUrl: '',
       script:
         '経営会議で社長が新規事業の方針について説明しています。\n社長：わが社の成長戦略において、既存事業の漸進的な改善にとどまることは、実質的な後退を意味します。不確実性を恐れず、非連続なイノベーションをもたらすフロンティア領域へ、果敢に経営資源を集中投下すべきです。',
       questionText: '社長が打ち出した新規事業の基本方針はどれですか？',
@@ -1480,7 +1480,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 524,
       section: 'listening',
-      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-14.mp3',
+      audioUrl: '',
       script:
         '美術館の学芸員が特別展について解説しています。\n学芸員：今回の回顧展の眼目は、画家の代表作を年代順に並べることではなく、彼が生涯にわたってこだわり続けた「光の陰影の変遷」というテーマを軸に空間を再構成した点にあります。来館者の皆様には、光と影のダイナミズムを体感していただきたいと考えております。',
       questionText: '今回の特別展の最も大きな特徴は何ですか？',
@@ -1497,7 +1497,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 525,
       section: 'listening',
-      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3',
+      audioUrl: '',
       script:
         '教育フォーラムで教育評論家が話しています。\n評論家：AI時代における真の学力とは、正解の決まっている問いにいかに早く到達するかではありません。何が問題であるのかを自ら見出し、他者と対話を重ねながら新たな価値を共創していく「問いを立てる力」こそが、これからの教育に求められているのです。',
       questionText: 'これからの教育で最も求められている力は何だと述べられていますか？',
@@ -1729,7 +1729,7 @@ export const JLPT_N4_MOCK_SET_2: ExamQuestion[] = [
   {
     id: 245,
     section: 'listening',
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+    audioUrl: '',
     script:
       '会社で 男の人と 女の人が 話しています。女の人は これから どこへ 行きますか？\n男：佐藤さん、さっきの会議の資料、部長に渡してくれた？\n女：あ、すみません。まだです。今から部長室へ持って行きます。\n男：あ、部長はさっきお客様と1階のロビーに行かれたよ。\n女：そうですか。じゃあ、ロビーへ行って渡してきます。',
     questionText: '女の人は これから どこへ 行きますか？',
@@ -1741,7 +1741,7 @@ export const JLPT_N4_MOCK_SET_2: ExamQuestion[] = [
   {
     id: 246,
     section: 'listening',
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
+    audioUrl: '',
     script:
       '大学で 先生が 学生に 話しています。学生は 明日 何時に どこに 集まりますか？\n先生：明日の見学旅行について連絡します。バスは朝9時に出発します。遅れないように、8時45分までに駅の東口に集まってください。西口ではありませんから、間違えないでくださいね。\n学生：はい、わかりました。',
     questionText: '学生は 明日 何時に どこに 集まりますか？',
@@ -1753,7 +1753,7 @@ export const JLPT_N4_MOCK_SET_2: ExamQuestion[] = [
   {
     id: 247,
     section: 'listening',
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
+    audioUrl: '',
     script:
       '店で 男の人と 店員が 話しています。男の人は どのシャツを 買いますか？\n男：すみません。この青いシャツのMサイズはありますか？\n店員：申し訳ありません。青のMサイズは売り切れで、白と黒ならございますが。\n男：そうですか。仕事で使いたいので、白のMサイズをお願いします。',
     questionText: '男の人は どの シャツを 買いますか？',
@@ -1765,7 +1765,7 @@ export const JLPT_N4_MOCK_SET_2: ExamQuestion[] = [
   {
     id: 248,
     section: 'listening',
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3',
+    audioUrl: '',
     script:
       '病院で 医者と 男の人が 話しています。男の人は 薬を いつ 飲みますか？\n医者：この薬は1日3回、必ずご飯を食べたあとに飲んでください。食前に飲むと胃が痛くなりますからね。\n男：わかりました。毎食後ですね。',
     questionText: '男の人は 薬を いつ 飲みますか？',
@@ -1777,7 +1777,7 @@ export const JLPT_N4_MOCK_SET_2: ExamQuestion[] = [
   {
     id: 249,
     section: 'listening',
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3',
+    audioUrl: '',
     script:
       '留学生の 男の人と 女の人が 話しています。男の人は 日本の 生活で 何が 一番 困っていますか？\n女：日本に来て3か月だけど、生活には慣れた？\n男：うん、物価が高いのはちょっと大変だけど、一番困っているのはゴミの分別ルールなんだ。曜日によって出すものが違うから、まだよく覚えられないんだよ。\n女：あー、日本のゴミ出しは確かに複雑だよね。',
     questionText: '男の人は 日本の 生活で 何が 一番 困っていますか？',
@@ -1789,7 +1789,7 @@ export const JLPT_N4_MOCK_SET_2: ExamQuestion[] = [
   {
     id: 250,
     section: 'listening',
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3',
+    audioUrl: '',
     script:
       '駅で 女の人と 駅員が 話しています。女の人は 何番線の 電車に 乗りますか？\n女：すみません。空港へ行きたいんですが、どの電車に乗ればいいですか？\n駅員：空港行きですね。3番線の快速電車に乗ってください。4番線の普通電車でも行けますが、3番線のほうが20分早く着きますよ。\n女：わかりました。3番線ですね。ありがとうございます。',
     questionText: '女の人は 何番線の 電車に 乗りますか？',
@@ -2020,7 +2020,7 @@ export const JLPT_N3_MOCK_SET_2: ExamQuestion[] = [
   {
     id: 345,
     section: 'listening',
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3',
+    audioUrl: '',
     script:
       '会社で男性社員と女性上司が話しています。男性社員はまず何をしなければなりませんか？\n男：課長、明日のプレゼン資料の印刷と、取引先への確認メールの送信ですが、どちらを先に進めましょうか？\n女：あ、取引先の山田部長が今日午後から外出されるそうだから、先に確認メールを送っておいて。印刷は夕方で十分間に合うから。\n男：承知いたしました。すぐにメールを作成します。',
     questionText: '男性社員は まず 何を しますか？',
@@ -2037,7 +2037,7 @@ export const JLPT_N3_MOCK_SET_2: ExamQuestion[] = [
   {
     id: 346,
     section: 'listening',
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3',
+    audioUrl: '',
     script:
       '駅で外国人観光客と案内係が話しています。観光客は何番線の電車に乗りますか？\n観光客：すみません、成田空港へ行く特急に乗りたいのですが、どこへ行けばいいですか？\n案内係：成田空港行きの特急「成田エクスプレス」ですね。地下2階の5番線ホームへお進みください。4番線は普通電車ですのでお乗り間違えのないようにお願いします。\n観光客：地下2階の5番線ですね。ありがとうございます。',
     questionText: '観光客は 何番線の 電車に 乗りますか？',
@@ -2049,7 +2049,7 @@ export const JLPT_N3_MOCK_SET_2: ExamQuestion[] = [
   {
     id: 347,
     section: 'listening',
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3',
+    audioUrl: '',
     script:
       '大学で学生二人が話しています。午後の日本文学の講義はどこで行われますか？\n男：佐藤さん、今日の3限の「日本文学」の授業、教室が変更になったの知ってる？\n女：え、本当？いつもの3号館の201教室じゃないの？\n男：プロジェクターの故障で、5号館の105教室に変更になったって掲示板に出てたよ。\n女：教えてくれてありがとう！危うく間違えるところだった。',
     questionText: '午後の 日本文学の 講義は どこで 行われますか？',
@@ -2061,7 +2061,7 @@ export const JLPT_N3_MOCK_SET_2: ExamQuestion[] = [
   {
     id: 348,
     section: 'listening',
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3',
+    audioUrl: '',
     script:
       '靴屋で客と店員が話しています。客はどの靴を買うことにしましたか？\n客：すみません、この黒のウォーキングシューズ、26.5センチはありますか？\n店員：申し訳ございません。黒の26.5はちょうど在庫切れでして。同じデザインの紺色か茶色ならご用意できますが。\n客：うーん、仕事でも履きたいので茶色にしてみようかな。サイズを試してもいいですか？\n店員：かしこまりました。茶色の26.5をお持ちいたします。',
     questionText: '客は どの靴を 買うことに しましたか？',
@@ -2073,7 +2073,7 @@ export const JLPT_N3_MOCK_SET_2: ExamQuestion[] = [
   {
     id: 349,
     section: 'listening',
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3',
+    audioUrl: '',
     script:
       '天気予報を聞いています。午後はどのような天気になる予報ですか？\nアナウンサー：関東地方のお天気をお伝えします。午前中は広く晴れて穏やかな陽気となりますが、午後は西から雨雲が広がり、夕方以降は激しい雷雨となる所がある見込みです。お出かけの際は、折りたたみ傘を必ずお持ちください。',
     questionText: '午後の 天気について、正しいものは どれですか？',
@@ -2090,7 +2090,7 @@ export const JLPT_N3_MOCK_SET_2: ExamQuestion[] = [
   {
     id: 350,
     section: 'listening',
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+    audioUrl: '',
     script:
       '病院で医師と患者が話しています。患者はどの薬を寝る前に飲みますか？\n医師：風邪の症状を抑えるお薬を出しておきますね。この赤いカプセルは朝と晩の食後に飲んでください。そしてこちらの白い錠剤は、咳を鎮める作用がありますので、毎晩おやすみになる30分前に1錠飲んでください。\n患者：わかりました。白い錠剤が寝る前ですね。',
     questionText: '患者は どの薬を 寝る前に 飲みますか？',
@@ -2325,7 +2325,7 @@ export const JLPT_N2_MOCK_SET_2: ExamQuestion[] = [
   {
     id: 445,
     section: 'listening',
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-14.mp3',
+    audioUrl: '',
     script:
       'オフィスで上司と部下が新プロジェクトのスケジュールについて話しています。\n上司：山田君、来月の新システム導入の件だけど、テスト期間が少し短すぎないかい？\n部下：はい、開発が1週間遅れた影響で、テスト期間を圧縮せざるを得ませんでした。\n上司：バグが見落とされたままリリースされたら大問題になる。クライアントと交渉して、全体の納期を1週間後ろにずらそう。\n部下：わかりました。すぐにクライアントの担当者に連絡して日程調整をいたします。',
     questionText: '二人は 最終的に どうすることに しましたか？',
@@ -2342,7 +2342,7 @@ export const JLPT_N2_MOCK_SET_2: ExamQuestion[] = [
   {
     id: 446,
     section: 'listening',
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3',
+    audioUrl: '',
     script:
       '大学の就職課で相談員が学生に面接のアドバイスをしています。\n相談員：面接では、志望動機を暗記した通りにスラスラ話すことよりも、面接官の質問の意図を正確に捉えて対話することが重要です。一方的にアピールするのではなく、聞かれたことに対して結論から簡潔に答えるキャッチボールを心がけましょう。',
     questionText: '相談員が 面接で 最も 大切だと 言っていることは 何ですか？',
@@ -2359,7 +2359,7 @@ export const JLPT_N2_MOCK_SET_2: ExamQuestion[] = [
   {
     id: 447,
     section: 'listening',
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3',
+    audioUrl: '',
     script:
       '電話で旅行会社の社員と客が話しています。\n社員：お電話ありがとうございます、サンシャインツアーでございます。\n客：すみません、来週の北海道ツアーに申し込んでいる田中ですが、人数の変更をお願いできますか？ 2名から3名に増やしたいのですが。\n社員：かしこまりました。お調べしますので、予約番号をお教えいただけますでしょうか。\n客：はい、Tの4589です。\n社員：ありがとうございます。確認いたしましたところ、1名様分の飛行機の座席とホテルの追加が可能です。差額のお手続きについてメールをお送りしますね。',
     questionText: '客の 要望について、どうなりましたか？',
@@ -2376,7 +2376,7 @@ export const JLPT_N2_MOCK_SET_2: ExamQuestion[] = [
   {
     id: 448,
     section: 'listening',
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+    audioUrl: '',
     script:
       '会社で男性と女性が新入社員の研修について話しています。\n男：今年の新入社員、ビジネスマナー研修の進み具合はどう？\n女：名刺交換や電話応対のロールプレイングは順調です。ただ、ビジネスメールの敬語の使い方で戸惑っている人が目立ちますね。\n男：そうか。じゃあ来週は敬語メールの添削指導に時間を多めに割こう。\n女：賛成です。実際の業務メールを想定した演習を用意しますね。',
     questionText: '来週の 研修で 重点的に 行うことは 何ですか？',
@@ -2393,7 +2393,7 @@ export const JLPT_N2_MOCK_SET_2: ExamQuestion[] = [
   {
     id: 449,
     section: 'listening',
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
+    audioUrl: '',
     script:
       '美術館の案内放送を聞いています。\nアナウンス：ご来館の皆様にご案内いたします。本展覧会の展示室内での写真撮影は、フラッシュおよび三脚を使用しない場合に限り、一部の指定作品のみ可能となっております。動画撮影および録音は一切ご遠慮いただいております。他のお客様の鑑賞の妨げとならないよう、マナーを守ってご鑑賞ください。',
     questionText: '美術館での 写真撮影について、正しいものは どれですか？',
@@ -2410,7 +2410,7 @@ export const JLPT_N2_MOCK_SET_2: ExamQuestion[] = [
   {
     id: 450,
     section: 'listening',
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
+    audioUrl: '',
     script:
       '洋服店で店員と男性客が話しています。\n店員：いかがですか、こちらのジャケット？\n客：うん、軽くて着心地はすごくいいね。ただ、このグレーだと手持ちのズボンと合わせにくいかな。紺か黒のものはありますか？\n店員：はい、同じサイズで紺色がございます。すぐにお持ちしますね。\n客：ありがとう。紺を着てみて決めるよ。',
     questionText: '男性客は 次に 何を 試着しますか？',
@@ -2645,7 +2645,7 @@ export const JLPT_N1_MOCK_SET_2: ExamQuestion[] = [
   {
     id: 545,
     section: 'listening',
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+    audioUrl: '',
     script:
       '環境フォーラムで研究者が登壇しています。\n研究者：海洋プラスチックゴミの削減に向けて、生分解性素材の開発が進んでいますが、それだけで海洋汚染の根本的な解決には至りません。廃棄物処理インフラの未整備な途上国への技術支援と、使い捨てプラスチックそのものを減らす国際条約の締結が急務なのです。',
     questionText: '研究者が最も早急に取り組むべきだと主張しているのは何ですか？',
@@ -2662,7 +2662,7 @@ export const JLPT_N1_MOCK_SET_2: ExamQuestion[] = [
   {
     id: 546,
     section: 'listening',
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
+    audioUrl: '',
     script:
       '歴史学の講義で准教授が話しています。\n准教授：ある歴史的事件を客観的に評価するためには、勝者の側が遺した公式記録だけでなく、敗者や市井の名もなき庶民の手記や書簡といった多角的な史料を突き合わせることが不可欠です。歴史の真実は、単一の記録の枠内には収まりきらないのです。',
     questionText: '歴史的事件を正当に評価するために不可欠な方法は何ですか？',
@@ -2679,7 +2679,7 @@ export const JLPT_N1_MOCK_SET_2: ExamQuestion[] = [
   {
     id: 547,
     section: 'listening',
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
+    audioUrl: '',
     script:
       'IT企業の開発会議でプロダクトマネージャーが話しています。\nマネージャー：新機能の追加を急ぐあまり、既存システムの動作安定性を損なっては本末転倒です。今四半期は新機能開発を一時凍結し、コードのリファクタリングとセキュリティの脆弱性対策に全力を注ぎましょう。',
     questionText: '今四半期において最優先される方針は何ですか？',
@@ -2696,7 +2696,7 @@ export const JLPT_N1_MOCK_SET_2: ExamQuestion[] = [
   {
     id: 548,
     section: 'listening',
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3',
+    audioUrl: '',
     script:
       '都市社会学のシンポジウムで専門家が話しています。\n専門家：少子高齢化が進む地方都市の再生には、単なるハコモノ（公共施設）の建設ではなく、医療・福祉・商業機能を中心部に集約する「コンパクトシティ」の構築と、公共交通網の再編が不可欠な鍵となります。',
     questionText: '地方都市の再生に向けて提唱されている施策は何ですか？',
@@ -2713,7 +2713,7 @@ export const JLPT_N1_MOCK_SET_2: ExamQuestion[] = [
   {
     id: 549,
     section: 'listening',
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3',
+    audioUrl: '',
     script:
       '医学シンポジウムで脳科学者が講演しています。\n脳科学者：睡眠不足が長期化すると、脳内の老廃物排出システムが正常に機能しなくなり、認知機能の低下や神経変性疾患のリスクが跳ね上がります。十分な睡眠時間を確保することは、怠惰ではなく、脳の健康維持における必須の投資なのです。',
     questionText: '脳科学者が睡眠に関して強調しているポイントは何ですか？',
@@ -2730,7 +2730,7 @@ export const JLPT_N1_MOCK_SET_2: ExamQuestion[] = [
   {
     id: 550,
     section: 'listening',
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3',
+    audioUrl: '',
     script:
       '建築デザインの講義で建築家が語っています。\n建築家：日本の伝統建築が木造でありながら数百年もの風雪に耐えうるのは、地震の揺れを剛性で押さえつけるのではなく、各接合部がしなやかに変形してエネルギーを分散吸収する「柔構造」の叡智があるからです。自然に抗うのではなく、いなす思想が息づいています。',
     questionText: '日本伝統建築の耐震性の本質として説明されているものはどれですか？',

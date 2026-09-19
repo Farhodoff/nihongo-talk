@@ -13,6 +13,7 @@ import {
   RefreshCw,
   X,
   Sparkles,
+  Headphones,
 } from 'lucide-react';
 import { CustomContentService, BulkImportResult } from '../../services/CustomContentService';
 import type { JlptKanjiItem, JlptGrammarItem } from '../../data/jlptGrammarKanji';
@@ -20,13 +21,14 @@ import type { JlptGrammarQuestion } from '../../data/jlpt/grammar_data';
 import { useStudyData } from '../../context/StudyPlannerContext';
 import { AdminScenarioManager } from './AdminScenarioManager';
 import { AdminQuizManager } from './AdminQuizManager';
+import { AdminChoukaiManager } from './AdminChoukaiManager';
 import { toast } from '../../hooks/use-toast';
 
 export const AdminContentStudio: React.FC = () => {
   const { subjects, addSubject, addFlashcardsBatch } = useStudyData();
 
   const [activeSubTab, setActiveSubTab] = useState<
-    'kanji' | 'grammar' | 'quiz' | 'flashcards' | 'scenarios'
+    'kanji' | 'grammar' | 'quiz' | 'choukai' | 'flashcards' | 'scenarios'
   >('kanji');
 
   const [isSyncing, setIsSyncing] = useState(false);
@@ -820,6 +822,16 @@ export const AdminContentStudio: React.FC = () => {
           ⚡ Test & Savollar ({customQuizList.length})
         </button>
         <button
+          onClick={() => setActiveSubTab('choukai')}
+          className={`flex cursor-pointer items-center gap-1.5 rounded-xl px-4 py-2 transition-all ${
+            activeSubTab === 'choukai'
+              ? 'bg-primary text-primary-foreground shadow-sm'
+              : 'text-muted-foreground hover:text-foreground'
+          }`}
+        >
+          <Headphones size={14} /> 🎧 Choukai (Eshitish)
+        </button>
+        <button
           onClick={() => setActiveSubTab('flashcards')}
           className={`flex cursor-pointer items-center gap-1.5 rounded-xl px-4 py-2 transition-all ${
             activeSubTab === 'flashcards'
@@ -1462,7 +1474,10 @@ export const AdminContentStudio: React.FC = () => {
       {/* ==================== 4. QUIZ TAB ==================== */}
       {activeSubTab === 'quiz' && <AdminQuizManager />}
 
-      {/* ==================== 5. SCENARIOS TAB ==================== */}
+      {/* ==================== 5. CHOUKAI TAB ==================== */}
+      {activeSubTab === 'choukai' && <AdminChoukaiManager />}
+
+      {/* ==================== 6. SCENARIOS TAB ==================== */}
       {activeSubTab === 'scenarios' && <AdminScenarioManager />}
 
       {/* ==================== MODALS ==================== */}

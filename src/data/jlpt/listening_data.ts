@@ -15,11 +15,11 @@ export interface DialogueLine {
 }
 
 export interface JlptListeningQuestion {
-  id: number;
+  id: number | string;
   level: 'N5' | 'N4' | 'N3' | 'N2' | 'N1';
   type: 'task' | 'point' | 'quick' | 'summary'; // 課題理解, ポイント理解, 即時応答, 概要理解
   titleUz?: string;
-  audioUrl: string;
+  audioUrl?: string;
   script: string;
   dialogueLines?: DialogueLine[];
   questionText: string;
@@ -2515,7 +2515,6 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N4',
     type: 'task',
     titleUz: "Do'konda to'lov qilish",
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3',
     script:
       '店で 男の人と 店員が 話しています。男の人は いくら 払いますか？\n店員：いらっしゃいませ。こちらの お弁当は 500円です。お茶は 150円になります。\n男：あ、この 割引クーポンは 使えますか？100円引きの クーポンです。\n店員：はい、使えますよ。合計から 100円 お引きしますね。\n男：じゃあ、これで お願いします。',
     questionText: '男の人は いくら 払いますか？',
@@ -2533,7 +2532,6 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N4',
     type: 'point',
     titleUz: 'Uchrashuv vaqti',
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3',
     script:
       '大学で 女の学生と 男の学生が 話しています。二人は 何時に どこで 会いますか？\n女：明日の 映画、何時に する？映画は 2時からだよ。\n男：じゃあ、30分前に 映画館の 前で 会おうか。\n女：うーん、お昼ごはんを 一緒に 食べない？12時半に 駅の 改札口で どう？\n男：いいね！じゃあ、そうしよう。',
     questionText: '二人は 明日 何時に どこで 会いますか？',
@@ -2561,7 +2559,6 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N4',
     type: 'quick',
     titleUz: 'Taklifga javob',
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3',
     script: '男：日曜日、みんなで バーベキューを するんだけど、一緒に行かない？',
     questionText: '質問を聞いて、何と答えますか？',
     questionTextUz: "Qanday javob berish to'g'ri?",
@@ -2587,7 +2584,6 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N4',
     type: 'task',
     titleUz: 'Kasalxonada dori ichish tartibi',
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3',
     script:
       '病院で 医者と 女の人が 話しています。女の人は 白い薬を いつ 飲みますか？\n医者：熱が ありますね。薬を 2種類 出しておきます。\n女：はい、どのように 飲めば いいですか？\n医者：この 赤い薬は 毎食後、白い薬は 熱が 高くて つらい時だけに 飲んでください。\n女：わかりました。ありがとうございます。',
     questionText: '女の人は 白い薬を いつ 飲みますか？',
@@ -2610,7 +2606,6 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N4',
     type: 'point',
     titleUz: 'Poyezd kechikishi sababi',
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3',
     script:
       '駅で アナウンスを 聞いています。電車が 遅れている 理由は 何ですか？\nアナウンス：お客様に お知らせいたします。ただいま、強風の 影響により、東海道線は 全線で 運転を 見合わせております。運転再開は 10時30分頃を 予定しております。ご迷惑を おかけして 大変 申し訳ございません。',
     questionText: '電車が 遅れている 理由は 何ですか？',
@@ -2628,7 +2623,6 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N4',
     type: 'summary',
     titleUz: "Yaponiyada bayram sovg'asi",
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3',
     script:
       '先生が 日本の 習慣について 話しています。\n先生：日本には 夏に「お中元」、冬に「お歳暮」という 贈り物を する 習慣があります。これは、日頃 お世話になっている 上司や 親戚に、感謝の 気持ちを 伝えるための ものです。ビールや そうめん、お菓子などが よく 選ばれます。',
     questionText: '先生は 何について 話していますか？',
@@ -2656,7 +2650,6 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N4',
     type: 'quick',
     titleUz: 'Hamdardlik bildirish',
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3',
     script: '女：昨日から ずっと 頭が 痛くて、熱も あるんです。',
     questionText: '質問を聞いて、何と答えますか？',
     questionTextUz: "Qanday javob berish to'g'ri?",
@@ -2682,7 +2675,6 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N4',
     type: 'task',
     titleUz: "Ofisda nusxa ko'chirish",
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3',
     script:
       '会社で 上司と 部下が 話しています。部下の 男性は まず 何を しますか？\n上司：山田くん、この 会議の 資料、20部 コピーして ホチキスで 留めてくれる？\n男性：はい、わかりました。あ、カラーですか、白黒ですか？\n上司：グラフが あるから カラーで お願い。あ、その前に 誤字がないか 1回 見直してくれる？\n男性：承知しました。すぐ 確認します。',
     questionText: '部下の 男性は まず 何を しますか？',
@@ -2710,7 +2702,6 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N4',
     type: 'point',
     titleUz: 'Mehmonxonada nonushta',
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-12.mp3',
     script:
       'ホテルの フロントで 男の人が 係の人に 聞いています。朝食は どこで 食べられますか？\n男：すみません、明日の 朝食は どこですか？\n係：朝食は 2階の レストラン「さくら」で ご用意しております。和食と 洋食の バイキング形式で、朝 7時から 9時半まで ご利用いただけます。\n男：部屋番号を 言えば いいですか？\n係：はい、入口で お部屋の ルームキーを ご提示ください。',
     questionText: '朝食は どこで 食べられますか？',
@@ -2727,7 +2718,6 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N4',
     type: 'quick',
     titleUz: 'Kechikish uchun uzr',
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-13.mp3',
     script: '男：遅れてしまって、本当に すみませんでした！',
     questionText: '質問を聞いて、何と答えますか？',
     questionTextUz: "Qanday javob berish to'g'ri?",
@@ -2753,7 +2743,6 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N3',
     type: 'task',
     titleUz: "Yangi xodimlar yig'ilishiga tayyorgarlik",
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-14.mp3',
     script:
       '会社で 先輩と 後輩が 新入社員研修の 準備について 話しています。後輩の 女性は 次に 何を しますか？\n先輩：研修の 会場、机の 配置は 終わった？\n女性：はい、グループワーク用に 4人掛けの 島を 5つ 作りました。\n先輩：ありがとう。じゃあ、参加者の 名札と 配布資料を 各机に 並べてくれる？\n女性：わかりました。あ、プロジェクターの 接続確認は もう 済んでいますか？\n先輩：あ、それは まだだ。僕が やっておくから、君は 名札と 資料の 準備を 急いでくれ。\n女性：承知しました！',
     questionText: '後輩の 女性は 次に 何を しますか？',
@@ -2781,7 +2770,6 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N3',
     type: 'point',
     titleUz: 'Ish almashtirish sababi',
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3',
     script:
       '男の人と 女の人が 転職について 話しています。男の人が 転職を 決意した 一番の 理由は 何ですか？\n女：田中さん、来月で 退職されるそうですね。待遇に 不満でも あったんですか？\n男：いえ、給与や 福利厚生には 満足していました。残業も 少なかったですし。\n女：じゃあ、どうして？\n男：もっと 自分の スキルを 活かして、海外向けの 新規事業に 挑戦したかったんです。今の 会社では 国内事業が 中心で、希望の 部署に 空きが なくて。\n女：なるほど、キャリアアップの ための 前向きな 挑戦なんですね。',
     questionText: '男の人が 転職を 決意した 一番の 理由は 何ですか？',
@@ -2809,7 +2797,6 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N3',
     type: 'quick',
     titleUz: 'Maslahatga minnatdorlik',
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3',
     script: '男：先輩、先日の アドバイスのおかげで、無事に プレゼンが 成功しました！',
     questionText: '先輩は 何と 答えますか？',
     questionTextUz: 'Katta xodim qanday javob qaytaradi?',
@@ -2835,7 +2822,6 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N3',
     type: 'summary',
     titleUz: 'Qayta tiklanadigan energiya',
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
     script:
       '環境問題の セミナーで 講師が 話しています。\n講師：脱炭素社会の 実現に向けて、太陽光や 風力といった 再生可能エネルギーの 導入が 加速しています。しかし、天候によって 発電量が 変動するという 弱点があります。これを 解決するためには、大容量の 蓄電池技術の 開発と、地域間で 電力を 融通し合う 送電網の 強化が 不可欠です。',
     questionText: '講師が 最も 強調していることは 何ですか？',
@@ -2856,7 +2842,6 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N3',
     type: 'point',
     titleUz: 'Sport zalini tanlash sababi',
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
     script:
       '女性二人が フィットネスクラブについて 話しています。二人が 最終的に Aジムを 選んだ 理由は 何ですか？\n女1：ジム、Bジムは プールが あるけど、駅から 徒歩15分で ちょっと 遠いよね。\n女2：そうだね。Aジムは プールは ないけど、駅直結で 24時間 営業だよ。\n女1：仕事帰りに 寄りやすいのが 一番だよね。月謝も Aジムの 方が 2000円 安いし。\n女2：決まり！じゃあ Aジムに 入会しよう。',
     questionText: '二人が Aジムを 選んだ 決定的な 理由は 何ですか？',
@@ -2884,7 +2869,6 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N3',
     type: 'task',
     titleUz: 'Ijara shartnomasini yangilash',
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
     script:
       '不動産屋で 男の人と 店員が 話しています。男の人は いつまでに 更新手続きの 書類を 出さなければなりませんか？\n店員：マンションの 契約満了が 3月末日となっております。更新を ご希望の場合は、満了の 1ヶ月前までに 書類を ご返送いただく 必要が ございます。\n男：ということは、2月末日までに 必着ですね？\n店員：はい、その通りです。同封の 振込用紙での 更新料の お支払いも 同時に お願いいたします。\n男：わかりました。',
     questionText: '男の人は いつまでに 更新手続きの 書類を 出さなければなりませんか？',
@@ -2906,7 +2890,6 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N3',
     type: 'quick',
     titleUz: "Hamkasbdan yordam so'rash",
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3',
     script:
       '女：すみません、今 ちょっと 手が 離せないんですが、この 荷物を 運ぶのを 手伝っていただけませんか？',
     questionText: '質問を聞いて、何と答えますか？',
@@ -2934,7 +2917,6 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N3',
     type: 'summary',
     titleUz: "Ta'limda o'yinlashtirish (Gamification)",
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3',
     script:
       '教育関係の ラジオ番組を 聞いています。\n解説者：最近、語学学習アプリなどに ゲームの 要素を 取り入れる「ゲーミフィケーション」が 注目されています。経験値や バッジの 獲得、連続ログインの 記録などによって、学習者の モチベーションを 維持する 仕組みです。単調になりがちな 基礎学習を 楽しく 習慣化する上で、非常に 有効な 手法と 言えます。',
     questionText: '解説者は 何について 話していますか？',
@@ -2962,7 +2944,6 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N3',
     type: 'point',
     titleUz: "Kompaniya ekskursiyasi bekor bo'lishi",
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3',
     script:
       '社内放送を 聞いています。週末の 社員旅行が 延期になった 理由は 何ですか？\nアナウンス：社員の 皆様に ご連絡いたします。今週末に 予定されておりました 秋の 社員旅行ですが、大型の 台風が 接近しており、現地の 交通機関に 大幅な 乱れが 予想されるため、誠に 残念ながら 来月に 延期することとなりました。日程の 詳細は 追って ご連絡いたします。',
     questionText: '社員旅行が 延期になった 理由は 何ですか？',
@@ -2989,7 +2970,6 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N3',
     type: 'quick',
     titleUz: 'Hamkasbga minnatdorchilik bildirish',
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3',
     script: '女：課長、お忙しいところ、わざわざ お越しいただき ありがとうございました。',
     questionText: '課長は 何と 答えますか？',
     questionTextUz: "Bo'lim boshlig'i nima deb javob qaytaradi?",
@@ -3016,7 +2996,6 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N2',
     type: 'task',
     titleUz: 'Kompaniya yangi mahsulot taqdimoti',
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3',
     script:
       '商品開発部の 会議で 部長と 担当者が 話しています。担当の 男性は この後 まず 何を しますか？\n部長：来期の 新型スマートウォッチの 試作機、デザインは 非常に 評判が いいね。ただ、バッテリーの 持ちについて 営業部から 懸念が 出ている。\n男性：はい、高機能センサーの 常時稼働が 原因と考えられます。\n部長：来週の 経営会議で 承認を 得る必要がある。コストを 抑えつつ バッテリー容量を 増やす代替案を、明日の 夕方までに 3パターン 作成してくれ。\n男性：承知いたしました。技術チームと 至急 協議に入ります。',
     questionText: '担当の 男性は この後 まず 何を しますか？',
@@ -3043,7 +3022,6 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N2',
     type: 'point',
     titleUz: 'Masofaviy ishning qiyinchiligi',
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3',
     script:
       '人事コンサルタントが テレワークの 課題について 話しています。\nコンサルタント：テレワークは 通勤ストレスの 軽減や 業務効率の 向上を もたらしましたが、その一方で「偶発的な コミュニケーションの 喪失」という 深刻な 弊害を 生んでいます。オフィスでの 雑談や すれ違いざまの 相談から 生まれていた 創発的な アイデアが 激減し、組織の イノベーションが 停滞する リスクが 浮き彫りになっているのです。',
     questionText: 'コンサルタントが 指摘する テレワークの 最大の 弊害は 何ですか？',
@@ -3070,7 +3048,6 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N2',
     type: 'quick',
     titleUz: 'Hamkor bilan kelishuvdagi muloyim rad javobi',
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3',
     script: '取引先：今回の 納期短縮の ご提案、何とか ご検討いただけないでしょうか？',
     questionText: '質問を聞いて、何と答えますか？',
     questionTextUz: "Qanday javob berish biznes etikasiga to'g'ri?",
@@ -3096,7 +3073,6 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N2',
     type: 'summary',
     titleUz: 'Hissiy aql (EQ) va rahbarlik',
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3',
     script:
       '経営大学院の 講義で 教授が 話しています。\n教授：激変する 現代の ビジネス環境において、リーダーに 求められる 資質は、IQ（知能指数）の 高さから EQ（心の知能指数）へと シフトしています。論理的な 正論だけで 部下を 動かそうとしても、反発を 招くだけです。部下の 不安や 葛藤に 共感し、心理的 安全性を 確保した 上で 自発的な 挑戦を 促せる 人物こそが、真の 成果を 生み出せるのです。',
     questionText: '教授の 主張の 要点は 何ですか？',
@@ -3117,7 +3093,6 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N2',
     type: 'point',
     titleUz: 'Mahalliy turizmni rivojlantirish',
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-12.mp3',
     script:
       '自治体の 観光課で 職員二人が 施策について 話しています。二人が 今年度 最優先で 取り組むべきと 合意した 内容は 何ですか？\n男性：外国人観光客を 誘致するために、多言語看板の 増設を 進めるべきでしょうか。\n女性：うーん、看板も 大切ですが、アンケートを 見ると「Wi-Fi環境が 脆弱」「キャッシュレス決済が 使えない」という 声が 圧倒的ですよ。\n男性：なるほど。利便性が 低くては、いくら 訪れても 消費が 伸びませんね。\n女性：ええ。まずは 店舗への デジタル決済端末の 導入補助を 最優先に すべきです。\n男性：異議なしです。その 方針で 予算案を 組みましょう。',
     questionText: '二人が 今年度 最優先で 取り組むべきと 合意した 内容は 何ですか？',
@@ -3144,7 +3119,6 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N2',
     type: 'task',
     titleUz: "Xatolik to'g'risida hisobot berish",
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-13.mp3',
     script:
       'IT企業で プロジェクトマネージャーと エンジニアが 話しています。エンジニアの 女性は この後 直ちに 何を しますか？\nPM：本番サーバーで データベースの 接続エラーが 発生しているようだ。\n女性：はい、先ほど リリースした 新機能の パッチが 原因と 思われます。\nPM：顧客への 影響を 最小限に 抑えたい。新機能の 改修は 後回しにして、まずは 直前の 安定バージョンに システムを 切り戻してくれ。\n女性：ロールバックですね。承知いたしました。直ちに 実行します。\nPM：頼む。完了したら 顧客サポートチームに 一報を 入れてくれ。',
     questionText: 'エンジニアの 女性は この後 直ちに 何を しますか？',
@@ -3171,7 +3145,6 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N2',
     type: 'quick',
     titleUz: 'Ishdagi yordam uchun xushmuomala taklif',
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-14.mp3',
     script: '男：もし よろしければ、こちらの 資料作成、私に お手伝いさせていただけませんか？',
     questionText: '質問を聞いて、何と答えますか？',
     questionTextUz: "Qanday javob berish to'g'ri?",
@@ -3197,7 +3170,6 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N2',
     type: 'summary',
     titleUz: "Eko-qadoqlash va iste'molchi xulq-atvori",
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3',
     script:
       'マーケティングの セミナーで 講師が 話しています。\n講師：脱プラスチックを 掲げ、紙製パッケージへの 転換を 進める メーカーが 急増しています。しかし、単に 素材を 環境配慮型に 変えるだけでは、消費者の 購買行動には つながりません。商品の 鮮度保持や 開けやすさといった 実用的な 利便性を 損なわないこと、そして 環境価値が 価格に見合っていると 納得してもらう コミュニケーションが 不可欠です。',
     questionText: '環境配慮型パッケージの 成功に 不可欠な 要素は 何ですか？',
@@ -3224,7 +3196,6 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N2',
     type: 'point',
     titleUz: "Kitob do'koni strategiyasi",
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3',
     script:
       'ラジオで 書店の 店長が インタビューに 答えています。\n店長：電子書籍や ネット書店の 普及により、町の 書店は 厳しい 局面に あります。そこで 当店では、単に 本を 並べるのではなく、「専門書に 特化した 選書」と「読書カフェの 併設」という 空間価値の 提供に 舵を切りました。実際に 手に取って 吟味し、じっくり 対話できる 場として、遠方からも お客様が 訪れるようになっています。',
     questionText: 'この 書店が 顧客を 引きつけている 最大の 工夫は 何ですか？',
@@ -3251,7 +3222,6 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N2',
     type: 'quick',
     titleUz: "Hamkasbning kechikishi bo'yicha bildirishnoma",
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
     script:
       '男：鈴木先輩、先ほど 営業課の 木村様から、事故渋滞で 会議に 15分ほど 遅れるとの ご連絡が ありました。',
     questionText: '先輩は 何と 答えますか？',
@@ -3279,7 +3249,6 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N1',
     type: 'task',
     titleUz: 'Inqiroz boshqaruvi va matbuot bayonoti',
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
     script:
       '広報部の 緊急会議で 部長と 担当者が 話しています。担当の 男性は この後 まず 何を しますか？\n部長：わが社の クラウドサービスにおける 個人情報流出の 疑いについて、SNS上で 憶測が 飛び交っている。午後3時に 記者会見を 開く。\n男性：はい。流出の 痕跡について、セキュリティ調査会社からの 正式な 報告書は まだ 届いておりません。\n部長：未確認の 情報を 出して 混乱を 招くことは 厳に 慎むべきだ。まずは 現時点で 判明している 客観的 事実のみを 整理し、メディア向けの プレスリリース原稿を 1時間以内に 骨子として まとめなさい。\n男性：承知いたしました。直ちに 着手します。',
     questionText: '担当の 男性は この後 まず 何を しますか？',
@@ -3306,7 +3275,6 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N1',
     type: 'point',
     titleUz: 'Fanning etik chegaralari',
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
     script:
       '生命倫理の シンポジウムで 哲学者が 話しています。\n哲学者：ゲノム編集による 難病治療への 期待が高まる一方で、優生思想への 回帰という 倫理的 危険性が 孕まれています。「技術的に 可能であること」と「倫理的に 許容されること」は 峻別されねばなりません。科学者の 好奇心や 経済的 利益のみに 開発の 暴走を 委ねるのではなく、民主的な 市民対話を 通じた 規範の 策定が 強く 求められているのです。',
     questionText: '哲学者が 最も 懸念している 点は 何ですか？',
@@ -3333,7 +3301,6 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N1',
     type: 'quick',
     titleUz: 'Oliy martabali mehmonga muloyim taklif',
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3',
     script:
       '女性：会長、本日の 懇親会では、乾杯の ご発声を 賜りたく 存じますが、いかがでしょうか。',
     questionText: '会長は 何と 答えますか？',
@@ -3360,7 +3327,6 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N1',
     type: 'summary',
     titleUz: "Modernistik arxitektura va mahalliy o'ziga xoslik",
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3',
     script:
       '建築批評の フォーラムで 専門家が 講演しています。\n専門家：20世紀の モダニズム建築は、鉄と ガラスという 均質な 素材を用いて、世界中どこにでも 建てられる「国際様式」を 確立しました。しかし、それは 風土や 地域の 歴史的 固有性を 剥奪する 結果を 招きました。21世紀の 建築に 課されているのは、地域の 自然素材や 伝統工法を 現代技術と 融合させ、その 土地にしか 成立し得ない「固有の 建築美」を 再構築することなのです。',
     questionText: '講演者が 提唱する「21世紀の 建築」の あり方は どれですか？',
@@ -3387,7 +3353,6 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N1',
     type: 'point',
     titleUz: "Iqtisodiy tahlil: iste'mol xulqi",
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3',
     script:
       '経済アナリストが 消費動向について 解説しています。\nアナリスト：物価高騰が 続く中、消費者の 購買心理は 二極化しています。日常の 消耗品については、徹底して 低価格な プライベートブランドを 選ぶ 一方で、趣味や 推し活といった「自己実現」に 関わる 分野には、価格を 厭わずに 惜しみなく 投資する 傾向が 顕著です。単なる 節約志向ではなく、自己の 価値基準に 照らした「選択と 集中」が 進んでいると言えます。',
     questionText: 'アナリストによれば、現代の 消費者の 購買行動には どのような 特徴が ありますか？',
@@ -3414,7 +3379,6 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N1',
     type: 'task',
     titleUz: 'Kompaniyadagi diplomatik muzokara',
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3',
     script:
       '経営企画室で 役員二人が 海外企業との 提携交渉について 話しています。男性役員は 次に 何を しますか？\n女性役員：相手方の CEOから、合弁会社の 出資比率を 51対49で 主導権を 握りたいとの 要請が ありました。\n男性役員：こちらが 開発した コア技術を 提供する以上、経営権を 相手に 握られるのは 到底 容認できませんね。\n女性役員：ええ。ただ、交渉を 決裂させるわけには いきません。技術提携の 範囲を 限定するか、拒否権条項を 盛り込むか、対案を 提示すべきです。\n男性役員：分かりました。顧問弁護士と 協議し、技術防衛と 提携成立を 両立させる 契約書の 修正条項案を 起草しましょう。',
     questionText: '男性役員は 次に 何を しますか？',
@@ -3441,7 +3405,6 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N1',
     type: 'quick',
     titleUz: 'Diplomatik taklifni qabul qilish',
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3',
     script:
       '男性：長年の 懸案でありました 両社の 共同開発プロジェクト、何卒 前向きな ご決断を 仰ぎたく 存じます。',
     questionText: '質問を聞いて、何と答えますか？',
@@ -3468,7 +3431,6 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N1',
     type: 'summary',
     titleUz: 'Til va dunyoqarash',
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3',
     script:
       '文化人類学の シンポジウムで 教授が 講演しています。\n教授：サピア・ウォーフの 仮説が 示唆するように、言語は 単に 思考を 表出する 道具にとどまらず、我々が 世界を どのように 分節し 認識するかという「認知の 枠組み」そのものを 規定しています。ある言語が 固有の 虹の 色数を 持つように、語彙体系の 差異は 世界認識の 差異に 直結します。言語の 多様性を 保持することは、人類の 知の 多角性を 担保することに他ならないのです。',
     questionText: '教授の 講演の 主旨として 最も 適切なものは どれですか？',
@@ -3496,7 +3458,6 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N1',
     type: 'point',
     titleUz: "Sun'iy intellekt va san'at asari muallifligi",
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3',
     script:
       '知的財産権の 専門家が AI生成コンテンツの 著作権について 話しています。\n専門家：AIが 自律的に 生成した 画像や 音楽について、現行の 著作権法では「思想又は感情を 創作的に 表現した もの」という 人間の 精神的 営為を 前提としており、AI単独の 創作物に 著作権を 認めることは 困難です。争点となっているのは、プロンプトの 工夫や パラメータの 調整に どの程度の「人間の 創作的 寄与」が 認められるかという 境界線の 画定なのです。',
     questionText: 'AI生成物の 著作権を 巡る 最大の 争点は 何ですか？',
@@ -3525,7 +3486,6 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N1',
     type: 'quick',
     titleUz: 'Diplomatik uchrashuvdagi rasmiy kutib olish',
-    audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3',
     script:
       '男性：本日は ご多忙の折、遠方より 弊社の 設立記念式典に ご臨席賜り、身に余る 光栄に 存じます。',
     questionText: '質問を聞いて、何と答えますか？',

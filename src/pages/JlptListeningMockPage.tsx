@@ -26,6 +26,7 @@ import {
   DialogueLine,
   parseScriptIntoDialogueLines,
 } from '../data/jlpt/listening_data';
+import { CustomContentService } from '../services/CustomContentService';
 import { ListeningAudioSyncService, SpeakerGender } from '../services/ListeningAudioSyncService';
 import { HistoryService } from '../services/HistoryService';
 import { MasteryEngine } from '../services/MasteryEngine';
@@ -61,6 +62,8 @@ export const JlptListeningMockPage: React.FC = () => {
     if (urlLevel && ['N5', 'N4', 'N3', 'N2', 'N1'].includes(urlLevel)) {
       setLevel(urlLevel as any);
     }
+    // Background sync authentic Choukai questions from Supabase
+    CustomContentService.syncFromSupabase().catch(() => {});
   }, [urlLevel]);
 
   // Timer & Status
@@ -70,7 +73,7 @@ export const JlptListeningMockPage: React.FC = () => {
   // Questions State
   const [activeQuestions, setActiveQuestions] = useState<JlptListeningQuestion[]>([]);
   const [currentQIdx, setCurrentQIdx] = useState(0);
-  const [userAnswers, setUserAnswers] = useState<{ [qId: number]: number }>({});
+  const [userAnswers, setUserAnswers] = useState<Record<string | number, number>>({});
   const [score, setScore] = useState(0);
 
   // Audio Playback
@@ -120,9 +123,10 @@ export const JlptListeningMockPage: React.FC = () => {
 
   // --- Start JLPT Listening Test ---
   const handleStartTest = () => {
-    let filtered = JLPT_LISTENING_QUESTIONS.filter((q) => q.level === level);
+    const allQuestions = CustomContentService.mergeChoukaiQuestions(JLPT_LISTENING_QUESTIONS);
+    let filtered = allQuestions.filter((q) => q.level === level);
     if (filtered.length === 0) {
-      filtered = JLPT_LISTENING_QUESTIONS.filter((q) => q.level === 'N5');
+      filtered = allQuestions.filter((q) => q.level === 'N5');
     }
 
     stopAudio();
@@ -180,8 +184,11 @@ export const JlptListeningMockPage: React.FC = () => {
         ? q.dialogueLines
         : parseScriptIntoDialogueLines(q.script);
 
-    // If custom audio file URL exists, play native audio element
-    if (q.audioUrl) {
+    // If authentic audio file URL exists and is not a placeholder music link, play native audio element
+    const hasAuthenticAudio =
+      q.audioUrl && q.audioUrl.trim() !== '' && !q.audioUrl.includes('soundhelix.com');
+
+    if (hasAuthenticAudio) {
       setIsUsingTts(false);
       const audio = new Audio(q.audioUrl);
       audio.playbackRate = playbackSpeed;
