@@ -1,0 +1,266 @@
+[
+  {
+    "front": "先週 デパートにかいものにいきました。\n「先週」のよみかたは？",
+    "back": "2. せんしゅう (Senshuu)\nTarjima: O'tgan hafta univermagga xarid qilishga bordim.\nQoida: 先 (せん) + 週 (しゅう) = 先週 (O'tgan hafta).",
+    "phonetic": "せんしゅう - Senshuu",
+    "example": "先週、新しい本を買いました。(O'tgan hafta yangi kitob sotib oldim.)",
+    "category": "Mondai 1: Kanji o'qilishi",
+    "level": "N5"
+  },
+  {
+    "front": "ごはんの後でさんぽします。\n「後」のよみかたは？",
+    "back": "4. あと (Ato)\nTarjima: Ovqatdan keyin sayr qilaman.\nQoida: 〜のあとで = ...dan keyin (ish-harakat ketma-ketligi).",
+    "phonetic": "あと - Ato",
+    "example": "勉強の後で、テレビを見ます。(O'qishdan keyin televizor ko'raman.)",
+    "category": "Mondai 1: Kanji o'qilishi",
+    "level": "N5"
+  },
+  {
+    "front": "もういちど言ってください。\n「言って」のよみかたは？",
+    "back": "1. いって (Itte)\nTarjima: Yana bir bor ayting / takrorlang.\nQoida: 言う (iu) fe'lining te-shakli: 言って (itte).",
+    "phonetic": "いって - Itte",
+    "example": "ゆっくり言ってください。(Iltimos, sekinroq ayting.)",
+    "category": "Mondai 1: Kanji o'qilishi",
+    "level": "N5"
+  },
+  {
+    "front": "ちかくに山があります。\n「山」のよみかたは？",
+    "back": "2. やま (Yama)\nTarjima: Yaqin atrofda tog' bor.\nQoida: 山 (やま) - tog'. Boshqa variantlar: 川 (かわ - daryo), 池 (いけ - hovuz), 海 (うみ - dengiz).",
+    "phonetic": "やま - Yama",
+    "example": "富士山は高い山です。(Fuji tog'i baland tog'dir.)",
+    "category": "Mondai 1: Kanji o'qilishi",
+    "level": "N5"
+  },
+  {
+    "front": "このホテルはへやが多いです。\n「多い」のよみかたは？",
+    "back": "2. おおい (Ooi)\nTarjima: Bu mehmonxonaning xonalari ko'p.\nQoida: 多い (おおい - ko'p) ↔ 少ない (すくない - kam).",
+    "phonetic": "おおい - Ooi",
+    "example": "この町は公園が多いです。(Bu shaharda bog'lar ko'p.)",
+    "category": "Mondai 1: Kanji o'qilishi",
+    "level": "N5"
+  },
+  {
+    "front": "ともだちといっしょに学校にいきます。\n「学校」のよみかたは？",
+    "back": "3. がっこう (Gakkou)\nTarjima: Do'stim bilan birga maktabga boraman.\nQoida: 学 (がく) + 校 (こう) = 学校 (がっこう - sokuon bilan).",
+    "phonetic": "がっこう - Gakkou",
+    "example": "毎朝８時に学校へ行きます。(Har tong soat 8 da maktabga boraman.)",
+    "category": "Mondai 1: Kanji o'qilishi",
+    "level": "N5"
+  },
+  {
+    "front": "えんぴつが六本あります。\n「六本」のよみかたは？",
+    "back": "3. ろっぽん (Roppon)\nTarjima: Oltita qalam bor.\nQoida: Ingichka uzun narsalar sanog'i: 6 ta = ろっぽん (Roppon, p-tovushiga aylanadi).",
+    "phonetic": "ろっぽん - Roppon",
+    "example": "ビールを六本買いました。(Olti shisha pivo sotib oldim.)",
+    "category": "Mondai 1: Kanji o'qilishi",
+    "level": "N5"
+  },
+  {
+    "front": "この新聞はいくらですか。\n「新聞」のよみかたは？",
+    "back": "2. しんぶん (Shinbun)\nTarjima: Bu gazeta qancha turadi?\nQoida: 新 (しん) + 聞 (ぶん) = 新聞 (Gazeta).",
+    "phonetic": "しんぶん - Shinbun",
+    "example": "父は毎朝新聞を読みます。(Otam har tong gazeta o'qiydi.)",
+    "category": "Mondai 1: Kanji o'qilishi",
+    "level": "N5"
+  },
+  {
+    "front": "このカメラは安いです。\n「安い」のよみかたは？",
+    "back": "2. やすい (Yasui)\nTarjima: Bu kamera arzon.\nQoida: 安い (やすい - arzon) ↔ 高い (たかい - qimmat/baland).",
+    "phonetic": "やすい - Yasui",
+    "example": "このりんごはとても安いです。(Bu olma juda arzon.)",
+    "category": "Mondai 1: Kanji o'qilishi",
+    "level": "N5"
+  },
+  {
+    "front": "かさは外にあります。\n「外」のよみかたは？",
+    "back": "3. そと (Soto)\nTarjima: Soyabon tashqarida turibdi.\nQoida: 外 (そと - tashqari) ↔ 中 (なか - ichkari).",
+    "phonetic": "そと - Soto",
+    "example": "外はとても寒いです。(Tashqari juda sovuq.)",
+    "category": "Mondai 1: Kanji o'qilishi",
+    "level": "N5"
+  },
+  {
+    "front": "けさ「しゃわー」をあびました。\nカタカナのただしいかきかたは？",
+    "back": "1. シャワー (Shawaa)\nTarjima: Bugun ertalab dush qabul qildim.\nQoida: シャワーをあびる = dush qabul qilmoq. Kichik ャ va cho'ziq ー belgisiga e'tibor bering.",
+    "phonetic": "シャワー - Shawaa",
+    "example": "起きてすぐシャワーをあびます。(Uyg'onib darhol dush qabul qilaman.)",
+    "category": "Mondai 2: Kanji/Katakana yozilishi",
+    "level": "N5"
+  },
+  {
+    "front": "コーヒーを「のみました」。\nかんじのただしいかきかたは？",
+    "back": "2. 飲みました (Nomimashita)\nTarjima: Kofe ichdim.\nQoida: 飲む (のむ - ichmoq) fe'lining kanjisi: 飲.",
+    "phonetic": "のみました - Nomimashita",
+    "example": "冷たい水を飲みました。(Muzdek suv ichdim.)",
+    "category": "Mondai 2: Kanji/Katakana yozilishi",
+    "level": "N5"
+  },
+  {
+    "front": "あたらしい「くるま」をかいました。\nかんじのただしいかきかたは？",
+    "back": "2. 車 (Kuruma)\nTarjima: Yangi mashina sotib oldim.\nQoida: 車 = mashina/avtomobil (kunyomi: くるま, onyomi: しゃ).",
+    "phonetic": "くるま - Kuruma",
+    "example": "車で京都へ行きました。(Mashinada Kyotoga bordim.)",
+    "category": "Mondai 2: Kanji/Katakana yozilishi",
+    "level": "N5"
+  },
+  {
+    "front": "このぼうしは1000「えん」です。\nかんじのただしいかきかたは？",
+    "back": "4. 1000円 (Sen-en)\nTarjima: Bu bosh kiyim 1000 iyen.\nQoida: 円 (えん) = Yaponiya pul birligi (iyen).",
+    "phonetic": "えん - En",
+    "example": "百円のパンを買いました。(100 iyenlik non sotib oldim.)",
+    "category": "Mondai 2: Kanji/Katakana yozilishi",
+    "level": "N5"
+  },
+  {
+    "front": "しゅくだいが「はんぶん」おわりました。\nかんじのただしいかきかたは？",
+    "back": "2. 半分 (Hanbun)\nTarjima: Uy vazifasining yarmi tugadi.\nQoida: 半 (はん - yarim) + 分 (ぶん - qism) = 半分 (Yarim qism).",
+    "phonetic": "はんぶん - Hanbun",
+    "example": "リンゴを半分食べました。(Olmaning yarmini yedim.)",
+    "category": "Mondai 2: Kanji/Katakana yozilishi",
+    "level": "N5"
+  },
+  {
+    "front": "わたしのうちに「きませんか」。\nかんじのただしいかきかたは？",
+    "back": "2. 来ませんか (Kimasen ka)\nTarjima: Bizning uyga kelmaysizmi?\nQoida: 来る (くる) fe'lining rasmiy taklif shakli: 来ませんか (きませんか).",
+    "phonetic": "きませんか - Kimasen ka",
+    "example": "明日パーティーに来ませんか。(Ertaga ziyofatga kelmaysizmi?)",
+    "category": "Mondai 2: Kanji/Katakana yozilishi",
+    "level": "N5"
+  },
+  {
+    "front": "きのうたなかさんと「あいました」。\nかんじのただしいかきかたは？",
+    "back": "3. 会いました (Aimashita)\nTarjima: Kecha Tanaka bilan uchrashdim.\nQoida: 会う (あう) = uchrashmoq. 他: 見る (ko'rmoq), 書く (yozmoq), 話す (gapirmoq).",
+    "phonetic": "あいました - Aimashita",
+    "example": "駅で友達に会いました。(Vokzalda do'stim bilan uchrashdim.)",
+    "category": "Mondai 2: Kanji/Katakana yozilishi",
+    "level": "N5"
+  },
+  {
+    "front": "いもうとと「おなじ」ふくをかいました。\nかんじのただしいかきかたは？",
+    "back": "1. 同じ (Onaji)\nTarjima: Singlim bilan bir xil kiyim sotib oldim.\nQoida: 同じ (おなじ) = bir xil, o'xshash, aynan o'zi.",
+    "phonetic": "おなじ - Onaji",
+    "example": "彼と同じクラスです。(Men u bilan bir xil sinfdaman.)",
+    "category": "Mondai 2: Kanji/Katakana yozilishi",
+    "level": "N5"
+  },
+  {
+    "front": "わたしのへやはこの（　）の2かいです。\n（　）にはいるもっともよいことばは？",
+    "back": "4. アパート (Apaato)\nTarjima: Mening xonam ushbu kvartira/turar-joyning 2-qavatida.\nQoida: 2-qavatda bo'lishi mumkin bo'lgan turar joy = アパート (boshqalar: lift, hovuz, konditsioner).",
+    "phonetic": "アパート - Apaato",
+    "example": "新しいアパートに引っ越しました。(Yangi kvartiraga ko'chdim.)",
+    "category": "Mondai 3: Kontekstual so'z tanlash",
+    "level": "N5"
+  },
+  {
+    "front": "さとうさんはギターをじょうずに（　）。\n（　）にはいるもっともよいことばは？",
+    "back": "3. ひきます (Hikimasu)\nTarjima: Satou xonim gitara mahorat bilan chaladi.\nQoida: Torli asboblarni (gitara, pianino) chalmoq = 弾く (ひく). Ashula kuylamoq = 歌う (うたう).",
+    "phonetic": "ひきます - Hikimasu",
+    "example": "ピアノを上手に弾きます。(Pianinoni mahorat bilan chaladi.)",
+    "category": "Mondai 3: Kontekstual so'z tanlash",
+    "level": "N5"
+  },
+  {
+    "front": "テーブルにおさらとはしを（　）ください。\n（　）にはいるもっともよいことばは？",
+    "back": "1. ならべて (Narabete)\nTarjima: Stol ustiga likopcha va tayoqchalarni terib qo'ying.\nQoida: 並べる (ならべる) = qator terib qo'ymoq.",
+    "phonetic": "ならべて - Narabete",
+    "example": "机の上にノートを並べました。(Stol ustiga daftarlarni qator terdim.)",
+    "category": "Mondai 3: Kontekstual so'z tanlash",
+    "level": "N5"
+  },
+  {
+    "front": "けさそうじをしたからへやは（　）です。\n（　）にはいるもっともよいことばは？",
+    "back": "1. きれい (Kirei)\nTarjima: Ertalab tozalaganligim sababli xona ozoda/toza.\nQoida: 掃除をした (tozalagach) natijasi -> きれい (toza).",
+    "phonetic": "きれい - Kirei",
+    "example": "部屋をきれいにしてください。(Xonani toza tuting.)",
+    "category": "Mondai 3: Kontekstual so'z tanlash",
+    "level": "N5"
+  },
+  {
+    "front": "きょうは500（　）およぎました。\n（　）にはいるもっともよいことばは？",
+    "back": "3. メートル (Meetoru)\nTarjima: Bugun 500 metr suzdim.\nQoida: Suzish masofasi o'lchov birligi = メートル (metr).",
+    "phonetic": "メートル - Meetoru",
+    "example": "プールで100メートル泳ぎました。(Hovuzda 100 metr suzdim.)",
+    "category": "Mondai 3: Kontekstual so'z tanlash",
+    "level": "N5"
+  },
+  {
+    "front": "えきからたいしかんまでの（　）をかいてください。\n（　）にはいるもっともよいことばは？",
+    "back": "2. ちず (Chizu)\nTarjima: Vokzaldan elchixonagacha bo'lgan xaritani chizib bering.\nQoida: Yo'nalishni tushuntirish uchun chiziladigan narsa = 地図 (ちず - xarita).",
+    "phonetic": "ちず - Chizu",
+    "example": "わかりやすい地図をかきました。(Tushunarli xarita chizdim.)",
+    "category": "Mondai 3: Kontekstual so'z tanlash",
+    "level": "N5"
+  },
+  {
+    "front": "うるさいからテレビを（　）ください。\n（　）にはいるもっともよいことばは？",
+    "back": "1. けして (Keshite)\nTarjima: Shovqin bo'layotgani sababli televizorni o'chirib qo'ying.\nQoida: Elektr jihozni o'chirmoq = 消す (けす) -> けして.",
+    "phonetic": "けして - Keshite",
+    "example": "寝る前に電気を消してください。(Uxlamasdan oldin chiroqni o'chiring.)",
+    "category": "Mondai 3: Kontekstual so'z tanlash",
+    "level": "N5"
+  },
+  {
+    "front": "きょうは（　）がふっています。\n（　）にはいるもっともよいことばは？",
+    "back": "4. ゆき (Yuki)\nTarjima: Bugun qor yog'moqda.\nQoida: 降る (ふる - yog'moq) fe'li 雨 (yomg'ir) va 雪 (qor) bilan ishlatiladi.",
+    "phonetic": "ゆき - Yuki",
+    "example": "外は白い雪が降っています。(Tashqarida oppoq qor yog'moqda.)",
+    "category": "Mondai 3: Kontekstual so'z tanlash",
+    "level": "N5"
+  },
+  {
+    "front": "はこにりんごが（　）あります。\n（　）にはいるもっともよいことばは？",
+    "back": "1. よっつ (Yottsu)\nTarjima: Qutida to'rtta olma bor.\nQoida: Donalab sanash: ひとつ(1), ふたつ(2), みっつ(3), よっつ(4), いつつ(5), むっつ(6), ななつ(7).",
+    "phonetic": "よっつ - Yottsu",
+    "example": "みかんをよっつ食べました。(To'rtta mandarin yedim.)",
+    "category": "Mondai 3: Kontekstual so'z tanlash",
+    "level": "N5"
+  },
+  {
+    "front": "めがねはつくえの（　）にあります。\n（　）にはいるもっともよいことばは？",
+    "back": "4. うえ (Ue)\nTarjima: Ko'zoynak stol ustida turibdi.\nQoida: つくえの上 (ustida). Boshqalar: そば (yonida), よこ (yon tomonida), した (tagida).",
+    "phonetic": "うえ - Ue",
+    "example": "机の上にペンがあります。(Stol ustida ruchka bor.)",
+    "category": "Mondai 3: Kontekstual so'z tanlash",
+    "level": "N5"
+  },
+  {
+    "front": "「まいばんくにのかぞくにでんわします。」\nおなじいみのぶんはどれ？",
+    "back": "3. よるはいつもくにのかぞくにでんわします。\nTarjima: Har kecha vatanimdagi oilamga qo'ng'iroq qilaman.\nQoida: 毎晩 (まいばん - har kecha) = 夜はいつも (oqshomda doimo).",
+    "phonetic": "まいばん = よるはいつも",
+    "example": "毎晩日本語を勉強します。(Har kecha yapon tilini o'rganaman.)",
+    "category": "Mondai 4: Ma'nodosh gaplar",
+    "level": "N5"
+  },
+  {
+    "front": "「このまちにはゆうめいなたてものがあります。」\nおなじいみのぶんはどれ？",
+    "back": "1. このまちにはゆうめいなビルがあります。\nTarjima: Bu shaharda mashhur bino bor.\nQoida: 建物 (たてもの - bino, inshoot) = ビル (Building / bino).",
+    "phonetic": "たてもの = ビル",
+    "example": "高い建物がたくさんあります。(Ko'plab baland binolar bor.)",
+    "category": "Mondai 4: Ma'nodosh gaplar",
+    "level": "N5"
+  },
+  {
+    "front": "「そのえいがはおもしろくなかったです。」\nおなじいみのぶんはどれ？",
+    "back": "2. そのえいがはつまらなかったです。\nTarjima: U film zerikarli edi (qiziq emas edi).\nQoida: おもしろくない (qiziq emas) = つまらない (zerikarli). O'tgan zamoni: つまらなかった.",
+    "phonetic": "おもしろくない = つまらない",
+    "example": "昨日の映画はつまらなかった。(Kechagi kino zerikarli edi.)",
+    "category": "Mondai 4: Ma'nodosh gaplar",
+    "level": "N5"
+  },
+  {
+    "front": "「たんじょうびは 6がつ15にちです。」\nおなじいみのぶんはどれ？",
+    "back": "3. 6がつ15にちにうまれました。\nTarjima: 15-iyunda tug'ilganman.\nQoida: 誕生日 (たんじょうび - tug'ilgan kun) = 生まれました (うまれました - dunyoga kelganman).",
+    "phonetic": "たんじょうび = うまれました",
+    "example": "私は東京で生まれました。(Men Tokioda tug'ilganman.)",
+    "category": "Mondai 4: Ma'nodosh gaplar",
+    "level": "N5"
+  },
+  {
+    "front": "「にねんまえにきょうとへいきました。」\nおなじいみのぶんはどれ？",
+    "back": "4. おととしきょうとへいきました。\nTarjima: O'tgan yildan avvalgi yil (ikki yil oldin) Kyotoga borganman.\nQoida: 二年前 (にねんまえ - ikki yil oldin) = 一昨年前・一昨年 (おととし). (O'tgan yil = 去年/きょねん).",
+    "phonetic": "にねんまえ = おととし",
+    "example": "おととし日本へ来ました。(Ikki yil oldin Yaponiyaga kelganman.)",
+    "category": "Mondai 4: Ma'nodosh gaplar",
+    "level": "N5"
+  }
+]

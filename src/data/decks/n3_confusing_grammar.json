@@ -1,0 +1,178 @@
+[
+  {
+    "front": "「〜わけではない」 vs 「〜わけがない」 ning farqi nima?",
+    "back": "【わけではない】: \"Mutlaqo bunday degani emas\" (qisman inkor).\nMisol: 嫌いなわけではない。(Yoqtirmayman degani emas, shunchaki kam yeyman.)\n\n【わけがない】: \"Aslo bunday bo'lishi mumkin emas!\" (qat'iy inkor, ehtimoli 0%).\nMisol: 彼が嘘をつくわけがない。(U aslo yolg'on gapirishi mumkin emas!)",
+    "phonetic": "wake dewa nai vs wake ga nai",
+    "example": "高いものが全部いいわけではない。(Qimmat narsalarning hammasi ham yaxshi degani emas.)",
+    "category": "Grammar Contrast",
+    "level": "N3"
+  },
+  {
+    "front": "「〜どころではない」 vs 「〜どころか」 ning farqi nima?",
+    "back": "【どころではない】: \"Vaqti / mavridi / imkoni yo'q!\" (vaziyat bunga yo'l qo'ymaydi).\nMisol: 忙しくて旅行どころではない。(Bandligimdan sayohat haqida o'ylashning mavridi ham emas.)\n\n【どころか】: \"...u yoqda tursin, aksincha / undan ham battar\".\nMisol: 独身どころか、子どもが３人いる。(Bo'ydoq u yoqda tursin, uchta bolasi bor.)",
+    "phonetic": "dokoro dewa nai vs dokoroka",
+    "example": "風邪で熱があって、勉強どころではない。(Isitma sabab dars qilishning mutlaqo iloji yo'q.)",
+    "category": "Grammar Contrast",
+    "level": "N3"
+  },
+  {
+    "front": "「〜に対して」 vs 「〜にとって」 vs 「〜について」 ning farqi nima?",
+    "back": "【〜に対して (ni taishite)】: \"...ga nisbatan\" (harakat yo'nalishi) yoki ikki narsa qarama-qarshiligi (kontrast).\nMisol: お客様に対して丁寧に対応する。\n\n【〜にとって (ni totte)】: \"...uchun / ...nuqtai nazaridan\" (baho beruvchi shaxs).\nMisol: 私にとって家族が一番大切だ。\n\n【〜について (ni tsuite)】: \"...haqida / to'g'risida\" (mavzu).\nMisol: 日本の歴史について調べる。",
+    "phonetic": "ni taishite vs ni totte vs ni tsuite",
+    "example": "兄が社交的なのに対して、弟は物静かだ。(Akasi kirishimli bo'lganiga qarama-qarshi o'laroq, ukasi yuvosh.)",
+    "category": "Grammar Contrast",
+    "level": "N3"
+  },
+  {
+    "front": "「〜おかげで」 vs 「〜せいで」 vs 「〜せいか」 ning farqi nima?",
+    "back": "【おかげで】: \"Sharofati bilan / orqasida\" (ijobiy oqibat uchun minnatdorlik).\nMisol: 先生のおかげでN3に合格できた。\n\n【せいで】: \"Kasofatidan / dastidan\" (salbiy oqibat, ayblash).\nMisol: 台風のせいで電車が止まった。\n\n【せいか】: \"Shu sabablimikin...\" (noaniq, gumon qilingan salbiy sabab).\nMisol: 寝不足のせいか頭が重い。",
+    "phonetic": "okage de vs sei de vs sei ka",
+    "example": "薬を飲んだおかげで熱が下がりました。(Dori ichganim sharofati bilan isitma tushdi.)",
+    "category": "Grammar Contrast",
+    "level": "N3"
+  },
+  {
+    "front": "「〜かける」 vs 「〜きる」 ning farqi nima?",
+    "back": "【〜かける / かけの】: \"Boshlab chala qoldirilgan / yarim yo'lda to'xtagan\".\nMisol: 食べかけのリンゴ (chala yeyilgan olma).\n\n【〜きる / きれる】: \"Oxirigacha to'la bitirmoq / mukammal yakunlamoq\".\nMisol: 長い小説を１日で読みきった。(Uzoq romanni bir kunda to'liq o'qib tugatdim.)",
+    "phonetic": "kakeru vs kiru",
+    "example": "書きかけの手紙を机に置いた。(Chala yozilgan xatni stol ustiga qo'ydim.)",
+    "category": "Grammar Contrast",
+    "level": "N3"
+  },
+  {
+    "front": "「〜っぽい」 vs 「〜がち」 vs 「〜気味（ぎみ）」 ning farqi nima?",
+    "back": "【〜っぽい】: \"...ga o'xshash, -simon, moyil xarakterli\".\nMisol: 子どもっぽい (bolalarcha), 怒りっぽい (tez jahli chiqadigan).\n\n【〜がち】: \"Tez-tez shunday bo'lib turadigan (salbiy odat/moyillik)\".\nMisol: 遅刻しがちだ (kechikib turadi), 忘れがちだ (unutib qo'yishga moyil).\n\n【〜気味 (ぎみ)】: \"Ozroq alomatlari sezilmoqda (vaqtinchalik holat)\".\nMisol: 風邪気味 (biroz shamollash alomati bor), 緊張気味 (biroz hayajonda).",
+    "phonetic": "ppoi vs gachi vs gimi",
+    "example": "最近残業続きで、少し疲れ気味です。(Oxirgi payt ortiqcha ish ko'pligidan biroz toliqqanlik alomati bor.)",
+    "category": "Grammar Contrast",
+    "level": "N3"
+  },
+  {
+    "front": "「〜に違いない」 vs 「〜はずだ」 vs 「〜わけだ」 ning farqi nima?",
+    "back": "【〜に違いない】: \"Shubhasiz ... bo'lsa kerak!\" (so'zlovchining shaxsiy kuchli intuitsiyasi/ishonchi).\nMisol: 彼が犯人に違いない。\n\n【〜はずだ】: \"...bo'lishi kerak / kutilganidek\" (fakt yoki qonuniyatga asoslangan mantiqiy xulosa).\nMisol: 今日届くはずだ (bugun yetib kelishi kerak edi).\n\n【〜わけだ】: \"Demak, shuning uchun shunday ekanda!\" (sabab ma'lum bo'lganda).\nMisol: 暑いわけだ。気温が38度もある。(Issiq bo'ladida, harorat 38 daraja ekan!)",
+    "phonetic": "ni chigainai vs hazu da vs wake da",
+    "example": "あんなに努力したのだから、合格するはずだ。(Shuncha harakat qildi, o'tishi tabiiy.)",
+    "category": "Grammar Contrast",
+    "level": "N3"
+  },
+  {
+    "front": "「〜てたまらない」 vs 「〜てならない」 vs 「〜てしょうがない」 ning farqi nima?",
+    "back": "【〜てたまらない】: \"Chidab bo'lmaydigan darajada (jismoniy yoki kuchli hissiy ehtiyoj)\".\nMisol: 水が飲みたくてたまらない (suv ichgim kelib chidolmayapman).\n\n【〜てならない】: \"O'z-o'zidan paydo bo'ladigan chuqur ichki tuyg'u / tashvish (adabiy tus)\".\nMisol: 故郷の家族が心配でならない (oilamdan juda xavotirdaman).\n\n【〜てしょうがない】: \"Iloji yo'q, o'zini to'xtatib bo'lmaydi\".\nMisol: 眠くてしょうがない (uyqum juda kelib ketmoqda).",
+    "phonetic": "te tamaranai vs te naranai vs te shouganai",
+    "example": "一人暮らしは寂しくてたまらない。(Yolg'iz yashash chidab bo'lmas darajada zerikarli/yolg'iz.)",
+    "category": "Grammar Contrast",
+    "level": "N3"
+  },
+  {
+    "front": "「〜を中心に」 vs 「〜をもとに（して）」 ning farqi nima?",
+    "back": "【〜を中心に】: \"...ni markazga / o'qqa qo'ygan holda\".\nMisol: 東京を中心に関東地方に雨が降る。(Tokio markazida Kantou viloyatida yomg'ir yog'adi.)\n\n【〜をもとに（して）】: \"...ni xomashyo, material yoki asos qilib olgan holda\".\nMisol: 実話をもとにして映画が作られた。(Haqiqiy voqealar asosida film ishlandi.)",
+    "phonetic": "wo chuushin ni vs wo moto ni shite",
+    "example": "この小説は歴史的事実をもとに書かれている。(Bu roman tarixiy faktlar asosida yozilgan.)",
+    "category": "Grammar Contrast",
+    "level": "N3"
+  },
+  {
+    "front": "「〜を通じて／通して」 vs 「〜にわたって」 ning farqi nima?",
+    "back": "【〜を通じて／通して】: Vosita orqali (\"do'stim orqali bilib oldim\") yoki uzluksiz butun muddat (\"yil bo'yi\").\nMisol: インターネットを通じて世界と繋がる。\n\n【〜にわたって】: Katta ko'lam, vaqt yoki hududni to'liq qamrab olganlik (\"bo'ylab\").\nMisol: 10年間にわたって研究を続けた。(10 yil davomida tadqiqotni davom ettirdi.)",
+    "phonetic": "wo tsuujite vs ni watatte",
+    "example": "四季を通じて美しい景色が見られる。(To'rt fasl bo'yi go'zal manzarani ko'rish mumkin.)",
+    "category": "Grammar Contrast",
+    "level": "N3"
+  },
+  {
+    "front": "「〜恐れがある」 vs 「〜かねない」 ning farqi nima?",
+    "back": "【〜恐れがある (おそれがある)】: \"Salbiy hodisa yuz berish xavfi bor\" (rasmiy xabar, ob-havo, kasallik tarqalishi).\nMisol: 地震により津波が発生する恐れがあります。\n\n【〜かねない】: \"Bunday qilinsa, yomon oqibat kelib chiqishi mumkin!\" (insonning xatti-harakati sababli).\nMisol: 休まないと過労で倒れかねない。(Dam olmasang, toliqib yiqilib tushishing mumkin.)",
+    "phonetic": "osore ga aru vs kanenai",
+    "example": "この病気は感染が広がる恐れがある。(Bu kasallik keng tarqalish xavfiga ega.)",
+    "category": "Grammar Contrast",
+    "level": "N3"
+  },
+  {
+    "front": "「〜抜く（ぬく）」 vs 「〜切る（きる）」 ning farqi nima?",
+    "back": "【〜抜く】: Qiyinchilik, og'riq yoki to'siqlarga chidab, sabr bilan oxirigacha yetkazmoq.\nMisol: 苦しい練習に耐え抜いた。(Og'ir mashg'ulotlarga chidab oxiriga yetdi.)\n\n【〜切る】: Ish-harakatni 100% batamom tugatmoq yoki haddan tashqari toliqmoq.\nMisol: お金を使い切った。(Pulni oxirigacha ishlatib bitirdi.)",
+    "phonetic": "nuku vs kiru",
+    "example": "最後まで走り抜いた選手に拍手を送った。(Oxirigacha chidab yugurib o'tgan sportchini olqishladilar.)",
+    "category": "Grammar Contrast",
+    "level": "N3"
+  },
+  {
+    "front": "「〜に基づいて」 vs 「〜に沿って」 ning farqi nima?",
+    "back": "【〜に基づいて (motozuite)】: Qonun, qoida, dalil yoki ma'lumotni rasmiy asos qilib olish.\nMisol: 法律に基づいて正しく処理する。\n\n【〜に沿って (sotte)】: Yo'riqnoma, reja, marshrut yoki daryo/yo'l bo'ylab og'ishmasdan borish.\nMisol: 計画に沿ってプロジェクトを進める。(Reja bo'yicha loyihani olib bormoq.)",
+    "phonetic": "ni motozuite vs ni sotte",
+    "example": "アンケートの結果に基づいて改善策を考える。(So'rovnoma natijalariga asoslanib takomillashtirish chorasini o'ylaymiz.)",
+    "category": "Grammar Contrast",
+    "level": "N3"
+  },
+  {
+    "front": "「〜反面（はんめん）」 vs 「〜一方（いっぽう）」 ning farqi nima?",
+    "back": "【〜反面】: Bir narsaning bir-biriga qarama-qarshi ikki tomoni (ijobiy va salbiy yuzlari).\nMisol: 便利である反面、環境破壊の恐れもある。\n\n【〜一方】: Taqqoslash (\"u shunday, boshqasi esa bunday\") YOKI jarayonning to'xtovsiz sur'atda kuchayib borishi.\nMisol: ガソリンの価格は上がる一方だ。(Benzin narxi tinimsiz oshib bormoqda.)",
+    "phonetic": "hanmen vs ippou",
+    "example": "都会での暮らしは刺激的な反面、ストレスも多い。(Shaharda yashash qiziqarli bo'lgani bilan birga, stress ham ko'p.)",
+    "category": "Grammar Contrast",
+    "level": "N3"
+  },
+  {
+    "front": "「〜にすぎない」 vs 「〜しかない」 ning farqi nima?",
+    "back": "【〜にすぎない】: \"...dan ortiq emas / shunchaki oddiy ... xolos\".\nMisol: 私はただの会社員にすぎません。(Men shunchaki oddiy xizmatchiman xolos.)\n\n【〜しかない】: \"...dan boshqa hech qanday chora/imkoniyat yo'q\".\nMisol: バスがないので、歩くしかない。(Avtobus yo'qligi sababli yurishdan o'zga chora yo'q.)",
+    "phonetic": "ni suginai vs shika nai",
+    "example": "噂は噂にすぎないから気にしないで。(Mish-mish shunchaki mish-mish xolos, e'tibor bermang.)",
+    "category": "Grammar Contrast",
+    "level": "N3"
+  },
+  {
+    "front": "「〜際（に）」 vs 「〜たびに」 vs 「〜ついでに」 ning farqi nima?",
+    "back": "【〜際 (さい)】: \"...vaqtida / qilganda\" (とき ning rasmiy shakli).\nMisol: お降りの際は足元にご注意ください。\n\n【〜たびに】: \"Har safar ... bo'lganda (har doim birdek takrorlanadi)\".\nMisol: 写真を見るたびに、母を思い出す。\n\n【〜ついでに】: \"Bajarayotgan ish fursatidan foydalanib, qo'shimcha yana bir ishni qilish\".\nMisol: コンビニへ行くついでに、ゴミを出してくる。",
+    "phonetic": "sai ni vs tabi ni vs tsuide ni",
+    "example": "出張のついでに、昔の友人を訪ねた。(Xizmat safari fursatidan foydalanib, eski do'stimni ko'rib keldim.)",
+    "category": "Grammar Contrast",
+    "level": "N3"
+  },
+  {
+    "front": "「〜向け」 vs 「〜向き」 ning farqi nima?",
+    "back": "【〜向け (むけ)】: \"Maxsus o'shalar uchun mo'ljallab ishlab chiqarilgan\".\nMisol: 子ども向けのアニメ (bolalar uchun atab yaratilgan multfilm).\n\n【〜向き (むき)】: \"Aslida boshqalarga ham bo'laveradi, lekin aynan shularga judayam mos/bop keladi\".\nMisol: この部屋は一人暮らし向きだ (bu xona yolg'iz yashash uchun juda bop).",
+    "phonetic": "muke vs muki",
+    "example": "外国人向けの日本語教科書を買いました。(Chet elliklar uchun mo'ljallangan yapon tili darsligini sotib oldim.)",
+    "category": "Grammar Contrast",
+    "level": "N3"
+  },
+  {
+    "front": "「〜に関して」 vs 「〜に対して」 ning farqi nima?",
+    "back": "【〜に関して (ni kanshite)】: \"...to'g'risida / ...mavzusiga oid\" (〜についての ning rasmiy yozma shakli).\nMisol: 今後の計画に関して議論する。\n\n【〜に対して (ni taishite)】: \"...shaxsga qaratilgan munosabat\" YOKI ikki narsa qiyosidagi qarama-qarshilik.\nMisol: 質問に対して答える。(Savolga nisbatan javob bermoq.)",
+    "phonetic": "ni kanshite vs ni taishite",
+    "example": "この事件に関して新しい情報が入りました。(Ushbu hodisaga doir yangi ma'lumot kelib tushdi.)",
+    "category": "Grammar Contrast",
+    "level": "N3"
+  },
+  {
+    "front": "「〜げ」 vs 「〜そう」 ning farqi nima?",
+    "back": "【〜げ】: Ichki ruhiy holat, his-tuyg'u tashqaridan sezilib turishi (adabiy tus).\nMisol: 自信ありげに答えた (o'ziga ishongandek javob berdi), 悲しげな顔 (ma'yus yuz).\n\n【〜そう】: Ob'ektiv tashqi ko'rinishdan olingan umumiy taassurot.\nMisol: 美味しそう (mazali ko'rinadi), 雨が降りそう (yomg'ir yog'adiganga o'xshaydi).",
+    "phonetic": "ge vs sou",
+    "example": "彼女は何か言いたげな様子でこちらを見た。(U nimadir aytmoqchidek nigoh bilan bu yoqqa qaradi.)",
+    "category": "Grammar Contrast",
+    "level": "N3"
+  },
+  {
+    "front": "【実戦テスト】「どんなに急いだって、今から間に合う（　）。諦めよう。」",
+    "back": "To'g'ri javob: わけがない (yoki はずがない)\nTarjima: \"Qanchalik shoshilmaylik, hozirdan boshlab ulgurishimiz aslo mumkin emas! Taslim bo'laylik.\"\nIzoh: Imkoniyat 0% bo'lgan qat'iy inkor holatida 〜わけがない ishlatiladi.",
+    "phonetic": "maniau wake ga nai",
+    "example": "実力差がありすぎて、勝てるわけがない。(Kuchlar farqi haddan ortiq katta, yuta olishimiz mumkin emas.)",
+    "category": "Grammar Contrast Quiz",
+    "level": "N3"
+  },
+  {
+    "front": "【実戦テスト】「いくら呼んでも返事がない。出かけているに（　）。」",
+    "back": "To'g'ri javob: 違いない (ちがいない)\nTarjima: \"Qancha chaqirsam ham javob yo'q. Shubhasiz, ko'chaga chiqib ketgan bo'lsa kerak!\"\nIzoh: Dalilga asoslangan shaxsiy qat'iy ishonch = 〜に違いない.",
+    "phonetic": "dekakete iru ni chigainai",
+    "example": "足音が聞こえないから、もう寝たに違いない。(Oyoq tovushi eshitilmayapti, demak allaqachon uxlab qolgan.)",
+    "category": "Grammar Contrast Quiz",
+    "level": "N3"
+  },
+  {
+    "front": "【実戦テスト】「読み（　）の本がたくさんあるから、新しい本はまだ買わない。」",
+    "back": "To'g'ri javob: かけ (かけの)\nTarjima: \"Chala o'qilgan kitoblarim ko'p bo'lgani sababli, yangi kitob sotib olmayman.\"\nIzoh: Boshlangan, ammo chala to'xtatilgan harakat = 〜かける / 〜かけ.",
+    "phonetic": "yomikake no hon",
+    "example": "作りかけの料理がある。(Chala tayyorlangan taom bor.)",
+    "category": "Grammar Contrast Quiz",
+    "level": "N3"
+  }
+]

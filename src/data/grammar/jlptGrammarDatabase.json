@@ -10043,5 +10043,925 @@
         "uz": "Tahlil natijalariga bog'liq ravishda jarrohlik amaliyoti zarur bo'lib qolishi mumkin."
       }
     ]
+  },
+  {
+    "id": "n1_rule_to_atte",
+    "level": "N1",
+    "title": "〜とあって (to atte)",
+    "romaji": "to atte",
+    "meaningUz": "...bo'lgani sababli (o'zgacha / favqulodda vaziyat tufayli tabiiy natija)",
+    "structure": "Oddiy gap / Ot + とあって",
+    "examples": [
+      {
+        "ja": "人気アイドルの初コンサートとあって、会場の前には長蛇の列ができた。",
+        "romaji": "Ninki aidoru no hatsu konsaato to atte, kaijou no mae ni wa chouda no retsu ga dekita.",
+        "uz": "Mashhur idola yulduzining ilk konserti bo'lgani sababli, zal oldida uzun navbat paydo bo'ldi."
+      },
+      {
+        "ja": "連休の初日とあって、高速道路はどこも大渋滞している。",
+        "romaji": "Renkyuu no shonichi to atte, kousokudouro wa doko mo daijuutai shite iru.",
+        "uz": "Ketma-ket ta'tilning birinchi kuni bo'lgani tufayli tezyurar yo'llarning barchasida katta tirbandlik kuzatilmoqda."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_ni_mo_mashite",
+    "level": "N1",
+    "title": "〜にもまして (ni mo mashite)",
+    "romaji": "ni mo mashite",
+    "meaningUz": "...dan ham ko'proq / ...dan ham ortiqroq (ilgari yoki odatdagidan kuchliroq)",
+    "structure": "Ot + にもまして",
+    "examples": [
+      {
+        "ja": "今年の花火大会は、例年にもまして多くの人々で賑わった。",
+        "romaji": "Kotoshi no hanabi taikai wa, reinen ni mo mashite ooku no hitobito de nigiwatta.",
+        "uz": "Bu yilgi mushakbozlik bayrami har yilgidan ham ortiq darajada ko'plab odamlar bilan gavjum bo'ldi."
+      },
+      {
+        "ja": "美しい景色もさることながら、彼女の笑顔は何にもまして魅力的だった。",
+        "romaji": "Utsukushii keshiki mo sarukotonagara, kanojo no egao wa nani ni mo mashite miryokuteki datta.",
+        "uz": "Go'zal manzara ham o'z yo'liga, ammo uning tabassumi har qanday narsadan ham jozibaliroq edi."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_kara_shite",
+    "level": "N1",
+    "title": "〜からして (kara shite)",
+    "romaji": "kara shite",
+    "meaningUz": "Hatto ...dan ko'rinib turibdiki (bitta kichik belgining o'ziyoq butun holatni baholashga asos bo'ladi)",
+    "structure": "Ot + からして",
+    "examples": [
+      {
+        "ja": "彼の話し方からして、どうも自信がなさそうだ。",
+        "romaji": "Kare no hanashikata kara shite, doumo jishin ga nasa sou da.",
+        "uz": "Uning gapirish ohangining o'zidan ko'rinib turibdiki, nega bilmasin o'ziga ishonchi yo'qdek."
+      },
+      {
+        "ja": "プロの料理人は、包丁の研ぎ方からして素人とは違う。",
+        "romaji": "Puro no ryourinin wa, houchou no togikata kara shite shirouto to wa chigau.",
+        "uz": "Professional oshpaz pichoqni qayrashining o'zidayoq oddiy havaskordan butunlay farq qiladi."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_nai_demo_nai",
+    "level": "N1",
+    "title": "〜ないでもない (nai demo nai)",
+    "romaji": "nai demo nai",
+    "meaningUz": "...emas ham emas (qisman rozilik yoki shart bilan mumkinligini bildiradi)",
+    "structure": "Fe'l (Nai-shakli) + でもない",
+    "examples": [
+      {
+        "ja": "条件次第では、その提案を受け入れないでもない。",
+        "romaji": "Jouken shidai de wa, sono teian wo ukeirenai demo nai.",
+        "uz": "Shartlarga qarab ushbu taklifni qabul qilmasligim ham mumkin emas (qabul qilish ehtimoli bor)."
+      },
+      {
+        "ja": "少し遠いが、歩いて行けないでもない。",
+        "romaji": "Sukoshi tooi ga, aruite ikenai demo nai.",
+        "uz": "Biroz uzoq, ammo piyoda borib bo'lmaydi ham emas (piyoda yetib olsa bo'ladi)."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_nari_nari",
+    "level": "N1",
+    "title": "〜なり〜なり (nari ... nari)",
+    "romaji": "nari ... nari",
+    "meaningUz": "...yoki ...kabi (shunga o'xshash variantlardan birini tanlashni tavsiya qilganda)",
+    "structure": "Ot / Fe'l (Lug'at shakli) + なり + Ot / Fe'l + なり",
+    "examples": [
+      {
+        "ja": "わからないことがあれば、先生に聞くなり辞書で調べるなりしなさい。",
+        "romaji": "Wakaranai koto ga areba, sensei ni kiku nari jisho de shiraberu nari shinasai.",
+        "uz": "Tushunmagan narsangiz bo'lsa, ustozdan so'rang yoki lug'atdan qidiring."
+      },
+      {
+        "ja": "電話なりメールなりで、早めに連絡をください。",
+        "romaji": "Denwa nari meeru nari de, hayame ni renraku wo kudasai.",
+        "uz": "Qo'ng'iroq yoki elektron pochta orqali bo'lsa ham tezroq xabar bering."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_wa_oroka",
+    "level": "N1",
+    "title": "〜はおろか (wa oroka)",
+    "romaji": "wa oroka",
+    "meaningUz": "...u yoqda tursin / ...tugul (hatto undan ancha oddiyrog'i ham mavjud emas)",
+    "structure": "Ot + はおろか",
+    "examples": [
+      {
+        "ja": "事故で大怪我をして、走る際はおろか歩くことすらできない。",
+        "romaji": "Jiko de oogega wo shite, hashiru koto wa oroka aruku koto sura dekinai.",
+        "uz": "Avariyada og'ir jarohat olib, yugurish u yoqda tursin, hatto piyoda qadam bosishga ham majoli yo'q."
+      },
+      {
+        "ja": "彼は漢字はおろか、ひらがなさえ読めなかった。",
+        "romaji": "Kare wa kanji wa oroka, hiragana sae yomenakatta.",
+        "uz": "U iyerogliflar u yoqda tursin, hatto hiraganani ham o'qiy olmas edi."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_wa_wa",
+    "level": "N1",
+    "title": "〜わ〜わ (wa ... wa)",
+    "romaji": "wa ... wa",
+    "meaningUz": "...ham bor, ...ham bor (bir necha salbiy yoki hayratlanarli holatlar ustma-ust kelganda)",
+    "structure": "Gap / Sifat / Fe'l + わ + Gap + わ",
+    "examples": [
+      {
+        "ja": "財布は落とすわ、電車には乗り遅れるわで、散々な一日だった。",
+        "romaji": "Saifu wa otosu wa, densha ni wa noriokureru wa de, sanzan na ichinichi datta.",
+        "uz": "Hamyonimni yo'qotganim yetmagandek, poyezdga ham kechikdim, xullas o'ta omadsiz kun bo'ldi."
+      },
+      {
+        "ja": "雨は降るわ風は吹くわで、傘も役に立たなかった。",
+        "romaji": "Ame wa furu wa kaze wa fuku wa de, kasa mo yaku ni tatanakatta.",
+        "uz": "Yomg'ir ham quydi, kuchli shamol ham esdi, soyabon ham hech narsaga yaramadi."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_mo_sarukotonagara",
+    "level": "N1",
+    "title": "〜もさることながら (mo sarukoto nagara)",
+    "romaji": "mo sarukoto nagara",
+    "meaningUz": "...o'z yo'liga / albatta muhim, ammo undan ham ko'ra...",
+    "structure": "Ot + もさることながら",
+    "examples": [
+      {
+        "ja": "このレストランは味もさることながら、心のこもった接客が素晴らしい。",
+        "romaji": "Kono resutoran wa aji mo sarukotonagara, kokoro no komotta sekkyaku ga subarashii.",
+        "uz": "Bu restoran taomining mazasi o'z yo'liga, ammo xodimlarining samimiy mehmondo'stligi undan ham ajoyib."
+      },
+      {
+        "ja": "企画の内容もさることながら、プレゼンターの情熱が成功を導いた。",
+        "romaji": "Kikaku no naiyou mo sarukotonagara, purezentaa no jounetsu ga seikou wo michibiita.",
+        "uz": "Loyiha mazmuni muhim bo'lgani kabi, taqdimot ustasining ishtiyoqi g'alabaga olib keldi."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_iu_made_mo_naku",
+    "level": "N1",
+    "title": "〜言うまでもなく (iu made mo naku)",
+    "romaji": "iu made mo naku",
+    "meaningUz": "Aytishga ham hojat yo'qki / o'z-o'zidan ravshanki",
+    "structure": "Ot + は言うまでもなく / Fe'l + までもなく",
+    "examples": [
+      {
+        "ja": "健康の大切さは言うまでもないが、失って初めて気づく人が多い。",
+        "romaji": "Kenkou no taisetsusa wa iu made mo nai ga, ushinatte hajimete kizuku hito ga ooi.",
+        "uz": "Salomatlikning qadr-qimmati aytishga ham hojat bo'lmagan haqiqatdir, biroq ko'pchilik uni yo'qotgachgina anglaydi."
+      },
+      {
+        "ja": "言うまでもなく、法律を守ることは国民の義務である。",
+        "romaji": "Iu made mo naku, houritsu wo mamoru koto wa kokumin no gimu de aru.",
+        "uz": "O'z-o'zidan ma'lumki, qonunlarga rioya qilish har bir fuqaroning burchidir."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_to_ii_to_ii",
+    "level": "N1",
+    "title": "〜といい〜といい (to ii ... to ii)",
+    "romaji": "to ii ... to ii",
+    "meaningUz": "...bo'lsin, ...bo'lsin (har ikki jihatdan ham qoyilmaqom yoki nuqsonli)",
+    "structure": "Ot1 + といい + Ot2 + といい",
+    "examples": [
+      {
+        "ja": "このホテルは立地といいサービスといい、非の打ち所がない。",
+        "romaji": "Kono hoteru wa ricchi to ii saabisu to ii, hi no uchidokoro ga nai.",
+        "uz": "Bu mehmonxona joylashuvi bo'lsin, xizmat ko'rsatishi bo'lsin, aslo ayb topib bo'lmaydigan darajada a'lo."
+      },
+      {
+        "ja": "デザインといい着心地といい、このコートは完璧だ。",
+        "romaji": "Dezain to ii kigokochi to ii, kono kooto wa kampeki da.",
+        "uz": "Dizayni bo'lsin, kiygandagi qulayligi bo'lsin, bu palto mukammaldir."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_to_itta_tokoro",
+    "level": "N1",
+    "title": "〜といったところ (to itta tokoro)",
+    "romaji": "to itta tokoro",
+    "meaningUz": "Ko'pi bilan ... desak bo'ladi / taxminan shunday darajada xolos",
+    "structure": "Ot / Son + といったところだ",
+    "examples": [
+      {
+        "ja": "私の毎月の貯金額は、せいぜい２万円といったところです。",
+        "romaji": "Watashi no maitsuki no chokigaku wa, seizei niman-en to itta tokoro desu.",
+        "uz": "Mening oylik jamg'armam borsa-kelsa 20 ming iyen atrofida desak bo'ladi."
+      },
+      {
+        "ja": "この試験の合格率は、高くても10パーセントといったところだろう。",
+        "romaji": "Kono shiken no goukakuritsu wa, takakutemo juppaasento to itta tokoro darou.",
+        "uz": "Ushbu imtihondan o'tish ko'rsatkichi eng baland bo'lganda ham 10 foiz atrofida bo'lsa kerak."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_to_iu_ka_to_iu_ka",
+    "level": "N1",
+    "title": "〜というか〜というか (to iu ka ... to iu ka)",
+    "romaji": "to iu ka ... to iu ka",
+    "meaningUz": "...deymi yoki ...deymi (aniq baho berish qiyin bo'lganda)",
+    "structure": "So'z1 + というか + So'z2 + というか",
+    "examples": [
+      {
+        "ja": "彼の態度は大胆というか、無謀というか、見ていてハラハラする。",
+        "romaji": "Kare no taido wa daitan to iu ka, mubou to iu ka, mite ite harahara suru.",
+        "uz": "Uning xatti-harakati botirlik deymi yoki o'ylamay qilingan tavakkalchilik deymi, ko'rib yurak hovuchlaysan."
+      },
+      {
+        "ja": "その返事は親切というか、お節介というか、判断に迷う。",
+        "romaji": "Sono henji wa shinsetsu to iu ka, osekkai to iu ka, handan ni mayou.",
+        "uz": "Uning javobi g'amxo'rlikmi yoki o'rinsiz aralashuvmi, aniq aytish qiyin."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_wo_ii_koto_ni",
+    "level": "N1",
+    "title": "〜をいいことに (wo ii koto ni)",
+    "romaji": "wo ii koto ni",
+    "meaningUz": "...dan g'arazli yoki o'z manfaati yo'lida foydalanib",
+    "structure": "Ot + をいいことに / Fe'l (Oddiy shakl) のをいいことに",
+    "examples": [
+      {
+        "ja": "先生がいないのをいいことに、生徒たちは騒ぎ出した。",
+        "romaji": "Sensei ga inai no wo ii koto ni, seitotachi wa sawagidashita.",
+        "uz": "O'qituvchi yo'qligidan foydalanib, o'quvchilar shovqin-suron ko'tara boshladilar."
+      },
+      {
+        "ja": "相手が反論しないのをいいことに、一方的に文句を言った。",
+        "romaji": "Aite ga hanron shinai no wo ii koto ni, ippouteki ni monku wo itta.",
+        "uz": "Raqibi e'tiroz bildirmasligidan foydalanib, bir tomonlama gina-kudurat yog'dirdi."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_ni_mo_hodo_ga_aru",
+    "level": "N1",
+    "title": "〜にもほどがある (ni mo hodo ga aru)",
+    "romaji": "ni mo hodo ga aru",
+    "meaningUz": "...ning ham me'yori / chegarasi bor! (haddidan oshgan xatti-harakatga nisbatan)",
+    "structure": "Ot / Fe'l / Sifat + にもほどがある",
+    "examples": [
+      {
+        "ja": "いくら冗談が好きでも、人を傷つける嘘をつくのは悪ふざけにもほどがある。",
+        "romaji": "Ikura joudan ga suki demo, hito wo kizutsukeru uso wo tsuku no wa warufuzake ni mo hodo ga aru.",
+        "uz": "Hazilni qanchalik yoqtirmagin, inson ko'nglini og'ritadigan yolg'on to'qish haddan oshgan qovun tushirishdir."
+      },
+      {
+        "ja": "無断欠勤を三日も続けるなんて、無責任にもほどがある。",
+        "romaji": "Mudan kekkin wo mikka mo tsuzukeru nante, musekinin ni mo hodo ga aru.",
+        "uz": "Ogohlantirmasdan uch kun ishga kelmaslik mas'uliyatsizlikning ham haddidan oshganidir."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_nara_madashimo",
+    "level": "N1",
+    "title": "〜ならまだしも (nara madashimo)",
+    "romaji": "nara madashimo",
+    "meaningUz": "...bo'lsa mayli edi-ku / chidasa bo'lardi, ammo...",
+    "structure": "Ot / Fe'l (Oddiy) + ならまだしも",
+    "examples": [
+      {
+        "ja": "5分や10分の遅刻ならまだしも、1時間も待たせるなんて許せない。",
+        "romaji": "Gofun ya juppun no chikoku nara madashimo, ichijikan mo mataseru nante yurusenai.",
+        "uz": "5 yoki 10 daqiqa kech qolsa mayli edi-ku, ammo butun bir soat kuttirish aslo kechirib bo'lmas holat."
+      },
+      {
+        "ja": "一度の失敗ならまだしも、同じ間違いを何度も繰り返すな。",
+        "romaji": "Ichido no shippai nara madashimo, onaji machigai wo nando mo kurikaesu na.",
+        "uz": "Bir marta adashsa mayli edi, ammo aynan bitta xatoni qayta-qayta takrorlama."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_okoru_beku_shite",
+    "level": "N1",
+    "title": "〜起こるべくして起こった (okoru beku shite okotta)",
+    "romaji": "okoru beku shite okotta",
+    "meaningUz": "Yuz berishi tabiiy / muqarrar bo'lgan (e'tiborsizlik yoki qonuniyat sababli)",
+    "structure": "Fe'l (Lug'at) + べくして + Fe'l (O'tgan zamon)",
+    "examples": [
+      {
+        "ja": "安全点検を怠っていたのだから、今回の事故は起こるべくして起こったと言える。",
+        "romaji": "Anzen tenken wo okotatte ita no da kara, konkai no jiko wa okoru beku shite okotta to ieru.",
+        "uz": "Xavfsizlik tekshiruvini e'tiborsiz qoldirishgani sababli ushbu fojia yuz berishi muqarrar bo'lgan deb bemalol aytish mumkin."
+      },
+      {
+        "ja": "あれだけ猛練習を重ねた彼が勝ったのは、勝つべくして勝った結果だ。",
+        "romaji": "Are dake mourenshuu wo kasaneta kare ga katta no wa, katsu beku shite katta kekka da.",
+        "uz": "Shunchalik shiddatli mashq qilgan uning g'alabasi g'alaba qozonishi tabiiy bo'lgan natijadir."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_to_iwazu_to_iwazu",
+    "level": "N1",
+    "title": "〜といわず〜といわず (to iwazu ... to iwazu)",
+    "romaji": "to iwazu ... to iwazu",
+    "meaningUz": "...demasdan, ...demasdan (farqisiz, hamma vaqt / har yerda to'liq qamrab olinganda)",
+    "structure": "Ot1 + といわず + Ot2 + といわず",
+    "examples": [
+      {
+        "ja": "彼は昼といわず夜といわず、研究室にこもって論文を書いている。",
+        "romaji": "Kare wa hiru to iwazu yoru to iwazu, kenkyuushitsu ni komotte ronbun wo kaite iru.",
+        "uz": "U kunduz demay, kecha demay ilmiy laboratoriyada qamalib ilmiy maqola yozmoqda."
+      },
+      {
+        "ja": "砂浜で遊んだ子どもたちは、手といわず足といわず砂だらけになった。",
+        "romaji": "Sunahama de asonda kodomotachi wa, te to iwazu ashi to iwazu sunadarake ni natta.",
+        "uz": "Qumloq sohil bo'yida o'ynagan bolalarning qo'l demay, oyoq demay butun a'zoyi badani qumga botdi."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_tara_ta_de",
+    "level": "N1",
+    "title": "〜たら〜たで / 〜ば〜で (tara ... ta de)",
+    "romaji": "tara ... ta de",
+    "meaningUz": "...bo'lsa shunga yarasha tashvishi bor (ikkala holatda ham o'ziga xos muammo mavjud)",
+    "structure": "Fe'l-tara + Fe'l-ta de / Fe'l-ba + Fe'l-de",
+    "examples": [
+      {
+        "ja": "家が広ければ広いで掃除が大変だし、狭ければ狭いで不便だ。",
+        "romaji": "Ie ga hirokereba hiroi de souji ga taihen dashi, semakereba semai de fuben da.",
+        "uz": "Uy katta bo'lsa tozalash dardi bor, tor bo'lsa noqulayligi bor."
+      },
+      {
+        "ja": "給料が上がったら上がったで、税金が高くなって手取りはあまり増えない。",
+        "romaji": "Kyuuryou ga agattara agatta de, zeikin ga takaku natte tedori wa amari fuenai.",
+        "uz": "Maosh oshsa shunga yarasha soliq ham oshadi-da, qo'lga tegadigan pul deyarli ko'paymaydi."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_you_mono_nara",
+    "level": "N1",
+    "title": "〜ようものなら (you mono nara)",
+    "romaji": "you mono nara",
+    "meaningUz": "Mabodo shunday qilib qo'yadigan bo'lsa (dahshatli yomon oqibat kelib chiqishi aniq)",
+    "structure": "Fe'l (Volitional shakli -よう) + ものなら",
+    "examples": [
+      {
+        "ja": "あの気難しい教授の講義に遅刻しようものなら、二度と教室に入れてもらえない。",
+        "romaji": "Ano kimuzukashii kyouju no kougi ni chikoku shiyou mono nara, nidoto kyoushitsu ni irete moraenai.",
+        "uz": "U injiq professorning darsiga mabodo kechikib qo'yadigan bo'lsang, xonaga ikkinchi bor kiritmaydi."
+      },
+      {
+        "ja": "会社の機密情報を漏らそうものなら、直ちに解雇される。",
+        "romaji": "Kaisha no kimitsu jouhou wo morasou mono nara, tadachini kaiko sareru.",
+        "uz": "Kompaniyaning maxfiy sirlarini mabodo oshkor qilib qo'ygudek bo'lsang, darhol haydalaman."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_nara_iza_shirazu",
+    "level": "N1",
+    "title": "〜ならいざしらず (nara iza shirazu)",
+    "romaji": "nara iza shirazu",
+    "meaningUz": "...bo'lsa boshqa gap edi / mayli edi, ammo bu holatda aslo emas",
+    "structure": "Ot + ならいざしらず",
+    "examples": [
+      {
+        "ja": "小学生ならいざしらず、大学生にもなってそんなマナーも知らないのか。",
+        "romaji": "Shougakusei nara iza shirazu, daigakusei ni mo natte sonna manaa mo shiranai no ka.",
+        "uz": "Boshlang'ich maktab o'quvchisi bo'lsa boshqa gap edi, universitet talabasi bo'la turib shunday odob-axloqni ham bilmaysanmi?"
+      },
+      {
+        "ja": "昔ならいざしらず、現代において男女平等の意識は不可欠だ。",
+        "romaji": "Mukashi nara iza shirazu, gendai ni oite danjo byoudou no ishiki wa fukaketsu da.",
+        "uz": "O'tmish zamonda bo'lsa boshqa gap edi, bugungi zamonda erkak va ayol tengligi mutlaqo shartdir."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_ni_rarenai",
+    "level": "N1",
+    "title": "〜に〜ない (ni ... nai)",
+    "romaji": "ni ... nai",
+    "meaningUz": "...qilishga urinib ham qila olmaydi (vaziyat to'sqinlik qiladi)",
+    "structure": "Fe'l (Lug'at) + に + Fe'l (Inkor potentsial shakli: 辞めるに辞められない)",
+    "examples": [
+      {
+        "ja": "長年お世話になった会社だから、事情があっても辞めるに辞められない。",
+        "romaji": "Naganen osewa ni natta kaisha da kara, jijou ga attemo yameru ni yamerarenai.",
+        "uz": "Ko'p yillar davomida menga boshpana bo'lgan korxona bo'lgani sababli, qiyinchilik bo'lsa ham ishdan bo'shashga bo'sholmayman."
+      },
+      {
+        "ja": "責任ある立場上、弱音を吐くにも吐けない状況だ。",
+        "romaji": "Sekinin aru tachibajou, yowane wo haku ni mo hakenai joukyou da.",
+        "uz": "Mas'uliyatli lavozimda bo'lganligim sababli, ojizlik bildiray desam ham bildira olmaydigan holatdaman."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_ja_arumai_shi",
+    "level": "N1",
+    "title": "〜じゃあるまいし (ja aru mai shi)",
+    "romaji": "ja aru mai shi",
+    "meaningUz": "...emas-ku axir! / ...bo'lmagandan keyin (noliydigan yoki bolalarcha tutadigan kimsaga)",
+    "structure": "Ot + じゃあるまいし",
+    "examples": [
+      {
+        "ja": "子どものお使いじゃあるまいし、それくらいのことは自分で判断しなさい。",
+        "romaji": "Kodomo no otsukai ja aru mai shi, sore kurai no koto wa jibun de handan shinasai.",
+        "uz": "Bolaning do'konga borishi emas-ku axir, shu arzimagan narsani o'zing mustaqil hal qil."
+      },
+      {
+        "ja": "死ぬわけじゃあるまいし、これくらいの失敗でそんなに落ち込むな。",
+        "romaji": "Shinu wake ja aru mai shi, kore kurai no shippai de sonna ni ochikomu na.",
+        "uz": "O'lib ketmaysan-ku axir, shunday kichik xato sababli bunchalik tushkunlikka tushma."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_to_iwan_bakari",
+    "level": "N1",
+    "title": "〜と言わんばかり (to iwan bakari)",
+    "romaji": "to iwan bakari",
+    "meaningUz": "Go'yo shuni aytmoqchidek / degandek (so'zlamasdan ko'z qarashi yoki harakati orqali)",
+    "structure": "Gap / Fe'l + と言わんばかりに",
+    "examples": [
+      {
+        "ja": "彼は「早く帰れ」と言わんばかりに、何度も時計に目をやった。",
+        "romaji": "Kare wa 'hayaku kaere' to iwan bakari ni, nando mo tokei ni me wo yatta.",
+        "uz": "U go'yo 'tezroq keta qolsangchi' degandek qayta-qayta soatiga qarab qo'ydi."
+      },
+      {
+        "ja": "犬は「遊んでくれ」と言わんばかりに尻尾を振って駆け寄ってきた。",
+        "romaji": "Inu wa 'asonde kure' to iwan bakari ni shippo wo futte kakeyotte kita.",
+        "uz": "Kuchuk go'yo 'men bilan o'yna' degandek dumini likillatib chopib keldi."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_tara_sore_made_da",
+    "level": "N1",
+    "title": "〜たらそれまでだ (tara sore made da)",
+    "romaji": "tara sore made da",
+    "meaningUz": "...bo'lsa tamom / undan keyin hammasi behuda",
+    "structure": "Fe'l-tara + それまでだ",
+    "examples": [
+      {
+        "ja": "いくら良いアイデアがあっても、実行に移さなければそれまでだ。",
+        "romaji": "Ikura yoi aidea ga attemo, jikkou ni utsusanakereba sore made da.",
+        "uz": "Qanchalik zo'r g'oya bo'lmasin, amaliyotga tatbiq qilinmasa tamom, hech narsaga arzimas bo'lib qoladi."
+      },
+      {
+        "ja": "健康を害してしまったらそれまでだから、無理をしすぎてはいけない。",
+        "romaji": "Kenkou wo gaishite shimattara sore made da kara, muri wo shisugite wa ikenai.",
+        "uz": "Salomatlikka putur yetsa tamom, shuning uchun o'zingni haddan ortiq qiynama."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_to_kitara",
+    "level": "N1",
+    "title": "〜ときたら (to kitara)",
+    "romaji": "to kitara",
+    "meaningUz": "...ga kelganda esa (norozilik yoki tanqidiy kinoya bilan tilga olinganda)",
+    "structure": "Ot + ときたら",
+    "examples": [
+      {
+        "ja": "うちの息子ときたら、休みの日はゲームばかりして勉強を全くしない。",
+        "romaji": "Uchi no musuko to kitara, yasumi no hi wa geemu bakari shite benkyou wo mattaku shinai.",
+        "uz": "Bizning o'g'ilga kelsak, dam olish kunlari faqat o'yin o'ynab darsini umuman qilmaydi."
+      },
+      {
+        "ja": "最近の若い社員ときたら、挨拶一つまともにできない者がいる。",
+        "romaji": "Saikin no wakai shain to kitara, aisatsu hitotsu matomo ni dekinai mono ga iru.",
+        "uz": "Oxirgi paytdagi yosh xodimlarga kelsak, hatto bir dona salomni ham tuzukroq bera olmaydiganlari bor."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_you_ga_mai_ga",
+    "level": "N1",
+    "title": "〜ようが〜まいが (you ga ... mai ga)",
+    "romaji": "you ga ... mai ga",
+    "meaningUz": "...qilsa ham, qilmasa ham (oqibat baribir bir xil qoladi)",
+    "structure": "Fe'l-you + が + Fe'l-mai + が",
+    "examples": [
+      {
+        "ja": "雨が降ろうが降るまいが、明日の試合は予定通り行われます。",
+        "romaji": "Ame ga furou ga furumai ga, ashita no shiai wa yotei doori okonawaremasu.",
+        "uz": "Yomg'ir yog'adimi yo yog'maydimi, ertangi o'yin rejadagidek o'tkaziladi."
+      },
+      {
+        "ja": "周りが反対しようがしまいが、私は自分の信念を貫き通す。",
+        "romaji": "Mawari ga hantai shiyou ga shimai ga, watashi wa jibun no shinnen wo tsuranukitoosu.",
+        "uz": "Atrofdagilar qarshi chiqadimi yoki yo'qmi, men o'z e'tiqodimda qat'iy turaman."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_made_no_koto_da",
+    "level": "N1",
+    "title": "〜までのことだ (made no koto da)",
+    "romaji": "made no koto da",
+    "meaningUz": "...qilishdan o'zga narsa emas / bor-yo'g'i shunchaki ... qilaman xolos",
+    "structure": "Fe'l (Lug'at) + までのことだ",
+    "examples": [
+      {
+        "ja": "断られたら、別の方法を考えるまでのことだ。諦めるつもりはない。",
+        "romaji": "Kotowararetara, betsu no houhou wo kangaeru made no koto da. Akirameru tsumori wa nai.",
+        "uz": "Rad javobi berishsa, boshqa yo'lini o'ylab ko'raman xolos. Taslim bo'lish niyatim yo'q."
+      },
+      {
+        "ja": "私は当たり前の職務を果たしたまでのことで、感謝されるようなことはありません。",
+        "romaji": "Watashi wa atarimae no shokumu wo hatashita made no koto de, kansha sareru you na koto wa arimasen.",
+        "uz": "Men shunchaki o'zimning burchimni bajardim xolos, minnatdorlik bildirishga hech qanday sabab yo'q."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_you_ni_mo_nai",
+    "level": "N1",
+    "title": "〜ようにも〜ない (you ni mo ... nai)",
+    "romaji": "you ni mo ... nai",
+    "meaningUz": "...qilay desam ham qila olmayapman (muayyan to'siq tufayli)",
+    "structure": "Fe'l-you + にも + Fe'l-inkor potentsial",
+    "examples": [
+      {
+        "ja": "連絡先をなくしてしまったので、連絡しようにも連絡できない。",
+        "romaji": "Renrakusaki wo nakushite shimatta node, renraku shiyou ni mo renraku dekinai.",
+        "uz": "Aloqa raqamlarini yo'qotib qo'yganim sababli, bog'lanay desam ham bog'lana olmayapman."
+      },
+      {
+        "ja": "大雪で電車が止まり、帰ろうにも帰れない。",
+        "romaji": "Ooyuki de densha ga tomari, kaerou ni mo kaerenai.",
+        "uz": "Qalin qor tufayli poyezdlar to'xtab, uyga qaytay desam ham qaytolmayapman."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_ni_shita_tokoro_de",
+    "level": "N1",
+    "title": "〜にしたところで (ni shita tokoro de)",
+    "romaji": "ni shita tokoro de",
+    "meaningUz": "...ning nuqtai nazaridan ham / ...bo'lgan taqdirda ham (baribir qiyin yoki bir xil)",
+    "structure": "Ot + にしたところで",
+    "examples": [
+      {
+        "ja": "ベテランの職人にしてみたところで、この繊細な作業は容易ではない。",
+        "romaji": "Beteran no shokunin ni shite mita tokoro de, kono sensai na sagyou wa youi dewa nai.",
+        "uz": "Ko'p yillik tajribali ustaning o'zi uchun ham bu nozik ish aslo oson emas."
+      },
+      {
+        "ja": "今さら後悔したところで、過去を変えることはできない。",
+        "romaji": "Imasara koukai shita tokoro de, kako wo kaeru koto wa dekinai.",
+        "uz": "Endi pushaymon qilgan taqdiringda ham o'tmishni o'zgartirib bo'lmaydi."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_te_miseru",
+    "level": "N1",
+    "title": "〜てみせる (te miseru)",
+    "romaji": "te miseru",
+    "meaningUz": "...qilib ko'rsataman (qat'iyat, o'z so'zining ustidan chiqish azmi)",
+    "structure": "Fe'l-te + みせる",
+    "examples": [
+      {
+        "ja": "今度のJLPT N1試験には、絶対に満点で合格してみせる。",
+        "romaji": "Kondo no JLPT N1 shiken ni wa, zettai ni manten de goukaku shite miseru.",
+        "uz": "Bu galgi JLPT N1 imtihonidan albatta maksimal ball bilan o'tib ko'rsataman!"
+      },
+      {
+        "ja": "誰にも頼らず、自分の力だけで会社を立て直してみせる。",
+        "romaji": "Dare ni mo tayorazu, jibun no chikara dake de kaisha wo tatenaoshite miseru.",
+        "uz": "Hech kimga tayanmasdan, faqat o'z kuchim bilan kompaniyani qayta oyoqqa turg'azib beraman."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_tomonaku",
+    "level": "N1",
+    "title": "〜ともなく / ともなしに (tomonaku / tomonashini)",
+    "romaji": "tomonaku / tomonashini",
+    "meaningUz": "Hech qanday maqsadsiz / beixtiyor / shunchaki",
+    "structure": "Fe'l (Lug'at) + ともなく",
+    "examples": [
+      {
+        "ja": "窓の外を見るともなくぼんやり眺めていたら、虹が出ているのに気づいた。",
+        "romaji": "Mado no soto wo miru tomonaku bonyari nagamete itara, niji ga dete iru no ni kizuita.",
+        "uz": "Derazadan tashqariga maqsadsiz, xomush qarab o'tirganimda kamalak chiqqanini payqab qoldim."
+      },
+      {
+        "ja": "聞くともなしにラジオを聞いていたら、懐かしい曲が流れてきた。",
+        "romaji": "Kiku tomonashini rajio wo kiite itara, natsukashii kyoku ga nagarete kita.",
+        "uz": "Radioni shunchaki e'tiborsiz eshitib ketayotganimda qadrdon kuy yangrab qoldi."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_beku",
+    "level": "N1",
+    "title": "〜べく (beku)",
+    "romaji": "beku",
+    "meaningUz": "...maqsadida / ...qilish uchun (adabiy, oliy uslubda niyat bildirish)",
+    "structure": "Fe'l (Lug'at) + べく (suru -> すべく yoki するべく)",
+    "examples": [
+      {
+        "ja": "最新の医療技術を学ぶべく、海外の大学院へ留学を決意した。",
+        "romaji": "Saishin no iryou gijutsu wo manabu beku, kaigai no daigakuin e ryuugaku wo ketsui shita.",
+        "uz": "Eng so'nggi tibbiy texnologiyalarni o'rganish maqsadida xorijiy magistraturada tahsil olishga qaror qildi."
+      },
+      {
+        "ja": "真相を究明すべく、独立した調査委員会が設置された。",
+        "romaji": "Shinsou wo kyuumei subeku, dokuritsu shita chousa iinkai ga secchi sareta.",
+        "uz": "Haqiqatni to'la oydinlashtirish maqsadida mustaqil tergov komissiyasi tashkil etildi."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_kaneru",
+    "level": "N1",
+    "title": "〜かねる (kaneru)",
+    "romaji": "kaneru",
+    "meaningUz": "...qilishga imkoniyatim yo'q / vaziyat sababli qila olmayman (xushmuomala rad etish)",
+    "structure": "Fe'l (Masu asosi) + かねる",
+    "examples": [
+      {
+        "ja": "申し訳ございませんが、個人情報に関するご質問にはお答えしかねます。",
+        "romaji": "Moushiwake gozaimasen ga, kojin jouhou ni kansuru go-shitsumon ni wa okotaeshikanemasu.",
+        "uz": "Ming bor uzr, biroq shaxsiy ma'lumotlarga oid savollarga javob bera olmaymiz."
+      },
+      {
+        "ja": "その件につきましては、私の一存では決めかねます。",
+        "romaji": "Sono ken ni tsukimashite wa, watashi no ichizon de wa kimekanemasu.",
+        "uz": "Ushbu masala bo'yicha shaxsan bir o'zim yakuniy qaror qabul qila olmayman."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_kara_iru",
+    "level": "N1",
+    "title": "〜からいる (kara iru)",
+    "romaji": "kara iru",
+    "meaningUz": "...dan ko'proq / kamida shuncha (odamlar sonining nihoyatda ko'pligidan hayrat)",
+    "structure": "Son (odamlar) + からいる",
+    "examples": [
+      {
+        "ja": "スタジアムには5万人からいる観客が集まり、熱狂的な声援を送った。",
+        "romaji": "Sutajiamu ni wa goman-nin kara iru kankyaku ga atsumari, nekkyouteki na seien wo okutta.",
+        "uz": "Stadionga 50 mingdan ortiq tomoshabin to'planib, jo'shqin qo'llab-quvvatlash ovozlari yangradi."
+      },
+      {
+        "ja": "広場には千人からいる抗議デモ隊が押し寄せた。",
+        "romaji": "Hiroba ni wa sennin kara iru kougi demotai ga oshiyoseta.",
+        "uz": "Maydonga mingdan ortiq norozilik namoyishchilari oqib kela boshladi."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_ni_katakunai",
+    "level": "N1",
+    "title": "〜に難くない (ni katakunai)",
+    "romaji": "ni katakunai",
+    "meaningUz": "...qilish qiyin emas (osonlik bilan tasavvur qilsa / tushunsa bo'ladi)",
+    "structure": "Ot / Fe'l (Lug'at) + に難くない (想像に難くない, 察するに難くない)",
+    "examples": [
+      {
+        "ja": "愛する家族を突然失った彼の悲しみは、想像に難くない。",
+        "romaji": "Aisuru kazoku wo totsuzen ushinatta kare no kanashimi wa, souzou ni katakunai.",
+        "uz": "Sevimli oilasini to'satdan yo'qotgan uning cheksiz qayg'usini tasavvur qilish aslo qiyin emas."
+      },
+      {
+        "ja": "長年の努力が実を結んだ瞬間の喜びは、察するに難くない。",
+        "romaji": "Naganen no doryoku ga mi wo musunda shunkan no yorokobi wa, sassuru ni katakunai.",
+        "uz": "Ko'p yillik mehnat o'z samarasini bergan damdagi shodlikni his qilish mushkul emas."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_ni_arumajiki",
+    "level": "N1",
+    "title": "〜にあるまじき (ni arumajiki)",
+    "romaji": "ni arumajiki",
+    "meaningUz": "...ga aslo yarashmaydigan / aslo to'g'ri kelmaydigan sharmandali qilmish",
+    "structure": "Ot + にあるまじき + Ot",
+    "examples": [
+      {
+        "ja": "患者のカルテを漏洩するなど、医師にあるまじき行為だ。",
+        "romaji": "Kanja no karute wo rouei suru nado, ishi ni arumajiki koui da.",
+        "uz": "Bemorning kasallik varaqasini tarqatib yuborish shifokorga aslo to'g'ri kelmaydigan qilmishdir."
+      },
+      {
+        "ja": "公金を私的に流用するとは、政治家にあるまじき不正である。",
+        "romaji": "Koukin wo shiteki ni ryuuyou suru to wa, seijika ni arumajiki fusei de aru.",
+        "uz": "Davlat g'aznasini o'z manfaati yo'lida sarflash siyosatchiga aslo yarashmaydigan razillikdir."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_zu_ni_wa_sumanai",
+    "level": "N1",
+    "title": "〜ずにはすまない (zu ni wa sumanai)",
+    "romaji": "zu ni wa sumanai",
+    "meaningUz": "...qilmasdan iloj yo'q / qilmasa javobgarlikdan qutulib bo'lmaydi",
+    "structure": "Fe'l-nai (o'zagi) + ずにはすまない (suru -> せずにはすまない)",
+    "examples": [
+      {
+        "ja": "他人の車を傷つけてしまった以上、弁償せずにはすまないだろう。",
+        "romaji": "Tanin no kuruma wo kizutsukete shimatta ijou, benshou sezu ni wa sumanai darou.",
+        "uz": "Birovning mashinasiga shikast yetkazgandan so'ng, tovon to'lamasdan iloj yo'q."
+      },
+      {
+        "ja": "重大なミスを犯したのだから、公の場で謝罪せずにはすまない。",
+        "romaji": "Juudai na misu wo okashita no da kara, ooyake no ba de shazai sezu ni wa sumanai.",
+        "uz": "Jiddiy xatoga yo'l qo'ygan ekan, jamoatchilik oldida kechirim so'ramasdan qutula olmaydi."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_utagau_beku_mo_nai",
+    "level": "N1",
+    "title": "〜疑うべくもない (utagau beku mo nai)",
+    "romaji": "utagau beku mo nai",
+    "meaningUz": "Shubha qilishga mutlaqo o'rin yo'q / shubhasiz",
+    "structure": "Ot / Fe'l + 疑うべくもない",
+    "examples": [
+      {
+        "ja": "彼の卓越した才能が今回のプロジェクトを成功させたことは、疑うべくもない。",
+        "romaji": "Kare no takuetsushita sainou ga konkai no purojekuto wo seikousaseta koto wa, utagau beku mo nai.",
+        "uz": "Uning benazir iqtidori ushbu loyihani muvaffaqiyatga yetaklaganiga shubha qilishga o'rin yo'q."
+      },
+      {
+        "ja": "地球温暖化が生態系に深刻な影響を与えているのは、疑うべくもない事実だ。",
+        "romaji": "Chikyuu ondanka ga seitaikei ni shinkoku na eikyou wo ataete iru no wa, utagau beku mo nai jijitsu da.",
+        "uz": "Global isish ekotizimga jiddiy zarar yetkazayotgani zarracha shubhasiz haqiqatdir."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_nakushite",
+    "level": "N1",
+    "title": "〜なくして (nakushite)",
+    "romaji": "nakushite",
+    "meaningUz": "...siz / ...bo'lmasa (hech narsaga erishib bo'lmaydi)",
+    "structure": "Ot + なくして（は）",
+    "examples": [
+      {
+        "ja": "国民の信頼なくして、強固な国家の発展はあり得ない。",
+        "romaji": "Kokumin no shinrai nakushite, kyouko na kokka no hatten wa arienai.",
+        "uz": "Xalqning ishonchisiz mustahkam davlat taraqqiyoti bo'lishi aslo mumkin emas."
+      },
+      {
+        "ja": "日々の地道な努力なくして、栄光を掴むことはできない。",
+        "romaji": "Hibi no jimichi na doryoku nakushite, eikou wo tsukamu koto wa dekinai.",
+        "uz": "Kunlik sabrli mehnatsiz yuksak g'alabaga erishib bo'lmaydi."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_ikan_sen",
+    "level": "N1",
+    "title": "〜いかんせん (ikan sen)",
+    "romaji": "ikan sen",
+    "meaningUz": "Afsuski / ming afsuski, nima ham qila olardik (ojizlikni tan olish)",
+    "structure": "いかんせん + Gap",
+    "examples": [
+      {
+        "ja": "新しい事業を立ち上げたいのだが、いかんせん資金が足りない。",
+        "romaji": "Atarashii jigyou wo tachiagetai no da ga, ikansen shikin ga tarinai.",
+        "uz": "Yangi biznes boshlamoqchiman, ammo ming afsuski boshlang'ich mablag' yetarli emas."
+      },
+      {
+        "ja": "手伝ってあげたいのは山々だが、いかんせん私自身も手が離せない。",
+        "romaji": "Tetsudatte agetai no wa yamayama da ga, ikansen watashi jishin mo te ga hanasenai.",
+        "uz": "Yordam berishni jon-dilimdan istardim-ku, ammo afsuski mening o'zim ham qo'lim bo'shamayapti."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_makuru",
+    "level": "N1",
+    "title": "〜まくる (makuru)",
+    "romaji": "makuru",
+    "meaningUz": "Tinimsiz / shiddat bilan takror-takror qilmoq (kuchli shasht bilan)",
+    "structure": "Fe'l (Masu asosi) + まくる",
+    "examples": [
+      {
+        "ja": "試験が終わった開放感から、昨晩はカラオケで朝まで歌いまくった。",
+        "romaji": "Shiken ga owatta kaihoukan kara, sakuban wa karaoke de asa made utaimakutta.",
+        "uz": "Imtihon tugagan erkinlik kayfiyatida kecha oqshom karaokeda tongacha tinimsiz qo'shiq kuyladim."
+      },
+      {
+        "ja": "街中でチラシを配りまくって、新しいカフェの宣伝をした。",
+        "romaji": "Machijuu de chirashi wo kubarimakutte, atarashii kafe no senden wo shita.",
+        "uz": "Shaharning hamma yerida varaqalarni tinimsiz tarqatib, yangi qahvaxonani reklama qildik."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_zu_ni_wa_irarenai",
+    "level": "N1",
+    "title": "〜ずにはいられない (zu ni wa irarenai)",
+    "romaji": "zu ni wa irarenai",
+    "meaningUz": "...qilmasdan turolmayman (kuchli ichki emotsiya yoki turtki tufayli)",
+    "structure": "Fe'l-nai (asosi) + ずにはいられない",
+    "examples": [
+      {
+        "ja": "その映画のあまりに悲しい結末を見て、涙を流さずにはいられなかった。",
+        "romaji": "Sono eiga no amari ni kanashii ketsumatsu wo mite, namida wo nagasazu ni wa irarenakatta.",
+        "uz": "U filmni haddan tashqari g'amgin yakunini ko'rib, ko'z yosh to'kmasdan tura olmadim."
+      },
+      {
+        "ja": "不正を目撃した以上、正義感から一言言わずにはいられない。",
+        "romaji": "Fusei wo mokugeki shita ijou, seigikan kara hitokoto iwazu ni wa irarenai.",
+        "uz": "Nohaqlikni o'z ko'zim bilan ko'rgan ekanman, adolat yuzasidan biron so'z aytmasdan turolmayman."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_n_to_suru",
+    "level": "N1",
+    "title": "〜んとする (n to suru)",
+    "romaji": "n to suru",
+    "meaningUz": "...qilish arafasida turmoq / ...qilmoqchi bo'lmoq (adabiy tus)",
+    "structure": "Fe'l (N-form) + としている",
+    "examples": [
+      {
+        "ja": "沈まんとする夕日が海面を黄金色に染め上げていた。",
+        "romaji": "Shizuman to suru yuuhi ga kaimen wo ougon'iro ni someagete ita.",
+        "uz": "Botish arafasida turgan quyosh dengiz sathini oltin rangiga bo'yamoqda edi."
+      },
+      {
+        "ja": "新時代を切り拓かんとする若者たちの挑戦が始まった。",
+        "romaji": "Shinjidai wo kirihirakan to suru wakamonotachi no chousen ga hajimatta.",
+        "uz": "Yangi davr eshigini ochishga intilayotgan yoshlarning jasur intilishi boshlandi."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_wo_kawakiri_ni_shite",
+    "level": "N1",
+    "title": "〜を皮切りにして (wo kawakiri ni shite)",
+    "romaji": "wo kawakiri ni shite",
+    "meaningUz": "...dan boshlanib (ketma-ket bir qator katta voqealar silsilasi yuz berganda)",
+    "structure": "Ot + を皮切りにして / を皮切りとして",
+    "examples": [
+      {
+        "ja": "東京公演を皮切りにして、全国10都市でのツアーがスタートする。",
+        "romaji": "Toukyou kouen wo kawakiri ni shite, zenkoku juutoshi de no tsuaa ga sutaato suru.",
+        "uz": "Tokiodagi konsert bilan boshlanib, butun mamlakatning 10 ta shahrida gastrol safari start oladi."
+      },
+      {
+        "ja": "そのヒット作を皮切りとして、彼は次々と名作を世に送り出した。",
+        "romaji": "Sono hitto saku wo kawakiri to shite, kare wa tsugitsugi to meisaku wo yo ni okuridashita.",
+        "uz": "Ushbu mashhur asardan boshlab, u birin-ketin durdona asarlarni dunyoga taqdim etdi."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_naredewa_no",
+    "level": "N1",
+    "title": "〜ならではの (naredewa no)",
+    "romaji": "naredewa no",
+    "meaningUz": "Faqat va faqat ...gagina xos bo'lgan (boshqa hech kimda uchramaydigan)",
+    "structure": "Ot + ならではの + Ot",
+    "examples": [
+      {
+        "ja": "京都ならではの風情ある街並みを散策するのが何よりの楽しみだ。",
+        "romaji": "Kyouto naredewa no fujei aru machinami wo sansaku suru no ga nani yori no tanoshimi da.",
+        "uz": "Faqat Kyotogagina xos bo'lgan o'zgacha maftunkor ko'chalarni sayr qilish eng katta lazzatdir."
+      },
+      {
+        "ja": "長年の職人ならではの繊細な手仕事に、誰もが息をのんだ。",
+        "romaji": "Naganen no shokunin naredewa no sensai na teshigoto ni, daremo ga iki wo nonda.",
+        "uz": "Faqat ko'p yillik ustaga xos bo'lgan nozik qo'l mehnatini ko'rib hamma lol qoldi."
+      }
+    ]
+  },
+  {
+    "id": "n1_rule_to_ittara_nai_ex",
+    "level": "N1",
+    "title": "〜といったらない (to ittara nai)",
+    "romaji": "to ittara nai",
+    "meaningUz": "Aytishga so'z ojiz darajada cheksiz / haddan ziyod",
+    "structure": "Sifat / Ot + といったらない",
+    "examples": [
+      {
+        "ja": "富士山頂から見たご来光の美しさといったらない。",
+        "romaji": "Fujisan choujou kara mita goraikou no utsukushisa to ittara nai.",
+        "uz": "Fuji tog'i cho'qqisidan ko'ringan tonggi quyosh chiqishining go'zalligini ta'riflashga til ojiz."
+      },
+      {
+        "ja": "大事な試合の直前で怪我をしてしまい、悔しさといったらない。",
+        "romaji": "Daiji na shiai no chokuzen de kega wo shite shimai, kuyashisa to ittara nai.",
+        "uz": "Muhim bellashuv oldidan jarohat olganim alamini so'z bilan ifodalab bo'lmaydi."
+      }
+    ]
   }
 ]

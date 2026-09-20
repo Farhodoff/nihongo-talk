@@ -87,6 +87,19 @@ export const PRESET_DECKS: PresetDeck[] = [
     loadCards: () => loadAndApplyOverrides(import('./decks/jlpt_n5.json')),
   },
   {
+    id: 'deck_n5_test_bank',
+    title: '📝 JLPT N5 Amaliy Test Banki (Original 33 Savol)',
+    description:
+      "Haqiqiy rasmiy JLPT imtihon kitobidan olingan 33 ta amaliy test savollari (Kanji o'qilishi, yozilishi, so'z tanlash va ma'nodosh gaplar).",
+    language: 'ja',
+    level: 'JLPT N5',
+    badgeColor: 'bg-emerald-500/10 text-emerald-600 border-emerald-500/20',
+    icon: '📝',
+    cardCount: 33,
+    isPremiumOnly: false,
+    loadCards: () => loadAndApplyOverrides(import('./decks/n5_test_bank.json')),
+  },
+  {
     id: 'deck_jlpt_n4',
     title: '🎌 JLPT N4 Master Deck (Shin Kanzen & Kanji 234)',
     description: "Shin Kanzen Master, Minna no Nihongo va 234 ta N4 tayanch Kanji hamda so'zlar.",
@@ -111,6 +124,32 @@ export const PRESET_DECKS: PresetDeck[] = [
     loadCards: () => loadAndApplyOverrides(import('./decks/jlpt_n3.json')),
   },
   {
+    id: 'deck_n3_confusing_grammar',
+    title: "⚡ JLPT N3 Chalg'ituvchi Grammatika (対比・識別 22)",
+    description:
+      "Shin Kanzen Master va Mimi Kara Oboeru darsliklaridan talabalarni eng ko'p chalg'itadigan grammatik juftliklar (わけではない vs わけがない, どころではない vs どころか va h.k.).",
+    language: 'ja',
+    level: 'JLPT N3',
+    badgeColor: 'bg-yellow-500/10 text-yellow-600 border-yellow-500/20',
+    icon: '⚡',
+    cardCount: 22,
+    isPremiumOnly: false,
+    loadCards: () => loadAndApplyOverrides(import('./decks/n3_confusing_grammar.json')),
+  },
+  {
+    id: 'deck_n3_500_mon',
+    title: '🎯 JLPT N3 500 Mon Savollar Banki (文字・語彙・文法 20)',
+    description:
+      "Shin Nihongo 500 Mon N3 kitobidan kanji, leksika va grammatika bo'yicha tematik mashg'ulotlar va o'zbekcha sharhlar.",
+    language: 'ja',
+    level: 'JLPT N3',
+    badgeColor: 'bg-blue-500/10 text-blue-600 border-blue-500/20',
+    icon: '🎯',
+    cardCount: 20,
+    isPremiumOnly: false,
+    loadCards: () => loadAndApplyOverrides(import('./decks/n3_500_mon.json')),
+  },
+  {
     id: 'deck_jlpt_n2',
     title: '🗾 JLPT N2 Master Deck (Shin Kanzen & Goi 3213)',
     description: "Shin Kanzen Master, Sou Matome va 3213 ta N2 tayanch so'zlar.",
@@ -121,6 +160,19 @@ export const PRESET_DECKS: PresetDeck[] = [
     cardCount: 3213,
     isPremiumOnly: false,
     loadCards: () => loadAndApplyOverrides(import('./decks/jlpt_n2.json')),
+  },
+  {
+    id: 'deck_n2_collocations',
+    title: '🎯 JLPT N2 Shin Kanzen Collocations (連語・連用形 55)',
+    description:
+      "Shin Kanzen Master Goi darsligidan eng ko'p imtihonda tushadigan 55 ta fe'l-ot turg'un birikmalari (Collocations) va namunaviy gaplar.",
+    language: 'ja',
+    level: 'JLPT N2',
+    badgeColor: 'bg-amber-500/10 text-amber-600 border-amber-500/20',
+    icon: '🎯',
+    cardCount: 55,
+    isPremiumOnly: false,
+    loadCards: () => loadAndApplyOverrides(import('./decks/n2_collocations.json')),
   },
   {
     id: 'deck_jlpt_n1',
@@ -134,5 +186,18 @@ export const PRESET_DECKS: PresetDeck[] = [
     cardCount: 205,
     isPremiumOnly: false,
     loadCards: () => loadAndApplyOverrides(import('./decks/jlpt_n1.json')),
+  },
+  {
+    id: 'deck_n1_yojijukugo',
+    title: '📜 JLPT N1 Yojijukugo Master (四字熟語 49)',
+    description:
+      "Kanji Master N1 va Sou Matome darsliklaridagi eng muhim 49 ta to'rt iyeroglifli aforizm va idiomalar (O'zbekcha sharh va misollar bilan).",
+    language: 'ja',
+    level: 'JLPT N1',
+    badgeColor: 'bg-rose-500/10 text-rose-600 border-rose-500/20',
+    icon: '📜',
+    cardCount: 49,
+    isPremiumOnly: false,
+    loadCards: () => loadAndApplyOverrides(import('./decks/n1_yojijukugo.json')),
   },
 ];

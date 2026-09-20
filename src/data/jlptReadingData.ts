@@ -433,6 +433,372 @@ export const JLPT_READING_PASSAGES: JlptReadingPassage[] = [
     ],
   },
 
+  {
+    id: 'n5_read_6',
+    level: 'N5',
+    title: '日本語学校[にほんごがっこう]の ピクニック',
+    passageType: 'short',
+    japaneseContent:
+      '来週[らいしゅう]の 金曜日[きんようび]に 学生[がくせい]と 先生[せんせい]で 公園[こうえん]へ ピクニックに 行[い]きます。\n朝[あさ] 9時[くじ]に 学校[がっこう]の 前[まえ]に 集[あつ]まってください。\nバスで 1時間[いちじかん] 行[い]きます。\n飲[の]み物[もの]とお弁当[べんとう]を 持[も]ってきてください。\n雨[あめ]の ときは、ピクニックは ありません。',
+    uzbekTranslation:
+      "Kelasi hafta juma kuni talabalar va o'qituvchilar bog'ga sayrga (piknikka) boradilar. Ertalab soat 9:00 da maktab oldida to'planish kerak. Avtobusda 1 soat yuriladi. Ichimlik va tushlik ovqatingizni (bento) olib keling. Yomg'ir yog'sa, sayr bekor qilinadi.",
+    recommendedTimeMinutes: 3,
+    questions: [
+      {
+        id: 'q_n5_6_1',
+        questionText: 'ピクニックは いつ 行[い]きますか。',
+        options: [
+          '今週[こんしゅう]の 金曜日[きんようび]',
+          '来週[らいしゅう]の 金曜日[きんようび]',
+          '来週[らいしゅう]の 日曜日[にちようび]',
+          '毎日[まいにち]',
+        ],
+        correctIndex: 1,
+        explanation: 'Matnda "来週[らいしゅう]の 金曜日[きんようび]に" deb yozilgan.',
+      },
+      {
+        id: 'q_n5_6_2',
+        questionText: '雨[あめ]が 降[ふ]ったら どうしますか。',
+        options: [
+          '学校[がっこう]で 食[た]べます',
+          'ピクニックを しません',
+          'バスの 中[なか]で 遊[あそ]びます',
+          '土曜日[どようび]に 行[い]きます',
+        ],
+        correctIndex: 1,
+        explanation:
+          "Matnning oxirida \"雨[あめ]の ときは、ピクニックは ありません\" (yomg'ir bo'lsa sayr bo'lmaydi) deyilgan.",
+      },
+    ],
+  },
+  {
+    id: 'n5_read_7',
+    level: 'N5',
+    title: '駅前[えきまえ] レストランの 案内[あんない]',
+    passageType: 'information_retrieval',
+    japaneseContent:
+      '【さくら 食堂[しょくどう]のお知[し]らせ】\n昼[ひる]の 時間[じかん]：午前[ごぜん]11時[じゅういちじ]～午後[ごご]2時半[にじはん]\n夜[よる]の 時間[じかん]：午後[ごご]5時[ごじ]～午後[ごご]9時[くじ]\n定休日[ていきゅうび]：毎週[まいしゅう] 水曜日[すいようび]\n\nお昼[ひる]の 定食[ていしょく]は 全部[ぜんぶ] 700円[ななひゃくえん]です。\nコーヒーは 無料[むりょう]（0円[ぜろえん]）で 飲[の]むことができます。',
+    uzbekTranslation:
+      "Sakura oshxonasi e'loni. Tushlik vaqti: 11:00 dan 14:30 gacha. Kechki vaqt: 17:00 dan 21:00 gacha. Dam olish kuni: Har chorshanba. Tushlik kompleks taomlari barchasi 700 yen. Qahva bepul (0 yen) taqdim etiladi.",
+    recommendedTimeMinutes: 3,
+    questions: [
+      {
+        id: 'q_n5_7_1',
+        questionText: 'レストランが 休[やす]みの 日[ひ]は いつですか。',
+        options: [
+          '月曜日[げつようび]',
+          '火曜日[かようび]',
+          '水曜日[すいようび]',
+          '日曜日[にちようび]',
+        ],
+        correctIndex: 2,
+        explanation:
+          'E\'londa "定休日[ていきゅうび]：毎週[まいしゅう] 水曜日[すいようび]" deb aniq yozilgan.',
+      },
+      {
+        id: 'q_n5_7_2',
+        questionText: '昼[ひる]の 定食[ていしょく]と コーヒーを 飲[の]むと、いくらですか。',
+        options: [
+          '500円[ごひゃくえん]',
+          '700円[ななひゃくえん]',
+          '900円[きゅうひゃくえん]',
+          '1200円[せんにひゃくえん]',
+        ],
+        correctIndex: 1,
+        explanation: "Tushlik 700 yen, kofe esa bepul (0 yen), jami 700 yen bo'ladi.",
+      },
+    ],
+  },
+  {
+    id: 'n5_read_8',
+    level: 'N5',
+    title: 'アパートの ルール',
+    passageType: 'information_retrieval',
+    japaneseContent:
+      '【アパートに 住[す]む みなさんへ】\n1. 夜[よる] 10時[じゅうじ]から 朝[あさ] 7時[しちじ]までは、大[おお]きい 声[こえ]で 話[はな]したり、音楽[おんがく]を 聞[き]いたり しないでください。\n2. 燃[も]える ゴミは 火曜日[かようび]と 金曜日[きんようび]の 朝[あさ] 8時[はちじ]までに 出[だ]してください。\n3. 部屋[へや]の 中[なか]で 犬[いぬ]や 猫[ねこ]などの ペットを 飼[か]うことは できません。',
+    uzbekTranslation:
+      'Kvartirada yashovchilar diqqatiga: 1. Kechki soat 22:00 dan ertalab 7:00 gacha baland ovozda gaplashmang yoki musiqa eshitmang. 2. Yonuvchi axlatlarni seshanba va juma kunlari ertalab soat 8:00 gacha chiqaring. 3. Xonada it yoki mushuk kabi uy hayvonlarini boqish taqiqlanadi.',
+    recommendedTimeMinutes: 3,
+    questions: [
+      {
+        id: 'q_n5_8_1',
+        questionText: 'ゴミは いつ 出[だ]しますか。',
+        options: [
+          '水曜日[すいようび]の 夜[よる]',
+          '火曜日[かようび]と 金曜日[きんようび]の 朝[あさ] 8時[はちじ]まで',
+          '土曜日[どようび]の 午後[ごご]',
+          'いつでも いいです',
+        ],
+        correctIndex: 1,
+        explanation:
+          'Qoidada "火曜日[かようび]と 金曜日[きんようび]の 朝[あさ] 8時[はちじ]までに 出[だ]してください" deb ko\'rsatilgan.',
+      },
+      {
+        id: 'q_n5_8_2',
+        questionText: '部屋[へや]で しては いけないことは どれですか。',
+        options: [
+          '本[ほん]を 読[よ]むこと',
+          '料理[りょうり]を すること',
+          '犬[いぬ]や 猫[ねこ]を 飼[か]うこと',
+          '電気[でんき]を つけること',
+        ],
+        correctIndex: 2,
+        explanation: '3-bandda xonada it yoki mushuk saqlash mumkin emasligi aytilgan.',
+      },
+    ],
+  },
+  {
+    id: 'n5_read_9',
+    level: 'N5',
+    title: '京都[きょうと]への 週末[しゅうまつ] 旅行[りょこう]',
+    passageType: 'short',
+    japaneseContent:
+      '私[わたし]は 先週[せんしゅう]の 土曜日[どようび]に 新幹線[しんかんせん]で 京都[きょうと]へ 行[い]きました。\n東京[とうきょう]から 京都[きょうと]まで 2時間半[にじかんはん] かかりました。\n京都[きょうと]で 古[ふる]い 有名[ゆうめい]な お寺[てら]を 見[み]ました。紅葉[もみじ]が とても きれいでした。\n抹茶[まっちゃ]の アイスクリームを 食[た]べました。甘[あま]くて おいしかったです。\nまた 春[はる]に 桜[さくら]を 見[み]に 行[い]きたいです。',
+    uzbekTranslation:
+      "Men o'tgan haftaning shanba kuni Shinkansenda Kyotoga bordim. Tokyodan Kyotogacha 2 yarim soat vaqt ketdi. Kyotoda qadimiy mashhur ibodatxonalarni tomosha qildim. Kuzgi qizil yaproqlar juda chiroyli edi. Matcha muzqaymog'ini yedim. Shirin va mazali edi. Yana bahorda sakuralarni ko'rgani borishni xohlayman.",
+    recommendedTimeMinutes: 3,
+    questions: [
+      {
+        id: 'q_n5_9_1',
+        questionText: '東京[とうきょう]から 京都[きょうと]まで どのくらい かかりましたか。',
+        options: ['1時間[いちじかん]', '2時間半[にじかんはん]', '5時間[ごじかん]', '1日[いちにち]'],
+        correctIndex: 1,
+        explanation: 'Matnda "2時間半[にじかんはん] かかりました" deb aniq yozilgan.',
+      },
+      {
+        id: 'q_n5_9_2',
+        questionText: 'この 人[ひと]は 春[はる]に 何[なに]を しに 行[い]きたいですか。',
+        options: [
+          'スキーを しに 行[い]きたい',
+          '桜[さくら]を 見[み]に 行[い]きたい',
+          '泳[およ]ぎに 行[い]きたい',
+          '仕事[しごと]を しに 行[い]きたい',
+        ],
+        correctIndex: 1,
+        explanation:
+          'Matnning oxirgi jumlasida: "また 春[はる]に 桜[さくら]を 見[み]に 行[い]きたいです" deyilgan.',
+      },
+    ],
+  },
+  {
+    id: 'n5_read_10',
+    level: 'N5',
+    title: '友[とも]だちからの メモ',
+    passageType: 'short',
+    japaneseContent:
+      'アリさんへ\n今日[きょう]の 午後[ごご]、アリさんの 部屋[へや]へ 行[い]きましたが、留守[るす]でした。\n借[か]りていた 日本語[にほんご]の 辞書[じしょ]を 机[つくえ]の 上[うえ]に 置[お]きました。\n辞書[じしょ]のおかげで、宿題[しゅくだい]が 全部[ぜんぶ] 終[お]わりました。どうも ありがとうございました。\nまた 明日[あした]、学校[がっこう]で 会[あ]いましょう。\nカルロスより',
+    uzbekTranslation:
+      "Aliga: Bugun tushdan keyin xonangizga bordim, lekin uydamasmidingiz. Qarzga olgan yapon tili lug'atimni stulingiz ustiga qo'ydim. Lug'at yordamida uy vazifasini hammasini tugatdim. Katta rahmat. Ertaga yana maktabda ko'rishguncha. Karlosdan.",
+    recommendedTimeMinutes: 3,
+    questions: [
+      {
+        id: 'q_n5_10_1',
+        questionText: 'カルロスさんは 机[つくえ]の 上[うえ]に 何[なに]を 置[お]きましたか。',
+        options: ['ノート', '宿題[しゅくだい]', '辞書[じしょ]', '時計[とけい]'],
+        correctIndex: 2,
+        explanation: "Karlos olib turgan lug'atini (辞書) stol ustiga qo'yib ketgan.",
+      },
+      {
+        id: 'q_n5_10_2',
+        questionText: 'カルロスさんは なぜ アリさんに お礼[れい]を 言[い]いましたか。',
+        options: [
+          'お金[かね]を もらったから',
+          '辞書[じしょ]のおかげで 宿題[しゅくだい]が 終[お]わったから',
+          '部屋[へや]を 掃除[そうじ]してくれたから',
+          '一緒[いっしょ]に ご飯[はん]を 食[た]べたから',
+        ],
+        correctIndex: 1,
+        explanation:
+          'Matnda "辞書[じしょ]のおかげで、宿題[しゅくだい]が 全部[ぜんぶ] 終[お]わりました。どうも ありがとうございました" deb tushuntirilgan.',
+      },
+    ],
+  },
+
+  {
+    id: 'n5_read_6',
+    level: 'N5',
+    title: '日本語学校[にほんごがっこう]の ピクニック',
+    passageType: 'short',
+    japaneseContent:
+      '来週[らいしゅう]の 金曜日[きんようび]に 学生[がくせい]と 先生[せんせい]で 公園[こうえん]へ ピクニックに 行[い]きます。\n朝[あさ] 9時[くじ]に 学校[がっこう]の 前[まえ]に 集[あつ]まってください。\nバスで 1時間[いちじかん] 行[い]きます。\n飲[の]み物[もの]とお弁当[べんとう]を 持[も]ってきてください。\n雨[あめ]の ときは、ピクニックは ありません。',
+    uzbekTranslation:
+      "Kelasi hafta juma kuni talabalar va o'qituvchilar bog'ga sayrga (piknikka) boradilar. Ertalab soat 9:00 da maktab oldida to'planish kerak. Avtobusda 1 soat yuriladi. Ichimlik va tushlik ovqatingizni (bento) olib keling. Yomg'ir yog'sa, sayr bekor qilinadi.",
+    recommendedTimeMinutes: 3,
+    questions: [
+      {
+        id: 'q_n5_6_1',
+        questionText: 'ピクニックは いつ 行[い]きますか。',
+        options: [
+          '今週[こんしゅう]の 金曜日[きんようび]',
+          '来週[らいしゅう]の 金曜日[きんようび]',
+          '来週[らいしゅう]の 日曜日[にちようび]',
+          '毎日[まいにち]',
+        ],
+        correctIndex: 1,
+        explanation: 'Matnda "来週[らいしゅう]の 金曜日[きんようび]に" deb yozilgan.',
+      },
+      {
+        id: 'q_n5_6_2',
+        questionText: '雨[あめ]が 降[ふ]ったら どうしますか。',
+        options: [
+          '学校[がっこう]で 食[た]べます',
+          'ピクニックを しません',
+          'バスの 中[なか]で 遊[あそ]びます',
+          '土曜日[どようび]に 行[い]きます',
+        ],
+        correctIndex: 1,
+        explanation:
+          "Matnning oxirida \"雨[あめ]の ときは、ピクニックは ありません\" (yomg'ir bo'lsa sayr bo'lmaydi) deyilgan.",
+      },
+    ],
+  },
+
+  {
+    id: 'n5_read_7',
+    level: 'N5',
+    title: '駅前[えきまえ] レストランの 案内[あんない]',
+    passageType: 'information_retrieval',
+    japaneseContent:
+      '【さくら 食堂[しょくどう]のお知[し]らせ】\n昼[ひる]の 時間[じかん]：午前[ごぜん]11時[じゅういちじ]～午後[ごご]2時半[にじはん]\n夜[よる]の 時間[じかん]：午後[ごご]5時[ごじ]～午後[ごご]9時[くじ]\n定休日[ていきゅうび]：毎週[まいしゅう] 水曜日[すいようび]\n\nお昼[ひる]の 定食[ていしょく]は 全部[ぜんぶ] 700円[ななひゃくえん]です。\nコーヒーは 無料[むりょう]（0円[ぜろえん]）で 飲[の]むことができます。',
+    uzbekTranslation:
+      "Sakura oshxonasi e'loni. Tushlik vaqti: 11:00 dan 14:30 gacha. Kechki vaqt: 17:00 dan 21:00 gacha. Dam olish kuni: Har chorshanba. Tushlik kompleks taomlari barchasi 700 yen. Qahva bepul (0 yen) taqdim etiladi.",
+    recommendedTimeMinutes: 3,
+    questions: [
+      {
+        id: 'q_n5_7_1',
+        questionText: 'レストランが 休[やす]みの 日[ひ]は いつですか。',
+        options: [
+          '月曜日[げつようび]',
+          '火曜日[かようび]',
+          '水曜日[すいようび]',
+          '日曜日[にちようび]',
+        ],
+        correctIndex: 2,
+        explanation:
+          'E\'londa "定休日[ていきゅうび]：毎週[まいしゅう] 水曜日[すいようび]" deb aniq yozilgan.',
+      },
+      {
+        id: 'q_n5_7_2',
+        questionText: '昼[ひる]の 定食[ていしょく]と コーヒーを 飲[の]むと、いくらですか。',
+        options: [
+          '500円[ごひゃくえん]',
+          '700円[ななひゃくえん]',
+          '900円[きゅうひゃくえん]',
+          '1200円[せんにひゃくえん]',
+        ],
+        correctIndex: 1,
+        explanation: "Tushlik 700 yen, kofe esa bepul (0 yen), jami 700 yen bo'ladi.",
+      },
+    ],
+  },
+
+  {
+    id: 'n5_read_8',
+    level: 'N5',
+    title: 'アパートの ルール',
+    passageType: 'information_retrieval',
+    japaneseContent:
+      '【アパートに 住[す]む みなさんへ】\n1. 夜[よる] 10時[じゅうじ]から 朝[あさ] 7時[しちじ]までは、大[おお]きい 声[こえ]で 話[はな]したり、音楽[おんがく]を 聞[き]いたり しないでください。\n2. 燃[も]える ゴミは 火曜日[かようび]と 金曜日[きんようび]の 朝[あさ] 8時[はちじ]までに 出[だ]してください。\n3. 部屋[へや]の 中[なか]で 犬[いぬ]や 猫[ねこ]などの ペットを 飼[か]うことは できません。',
+    uzbekTranslation:
+      'Kvartirada yashovchilar diqqatiga: 1. Kechki soat 22:00 dan ertalab 7:00 gacha baland ovozda gaplashmang yoki musiqa eshitmang. 2. Yonuvchi axlatlarni seshanba va juma kunlari ertalab soat 8:00 gacha chiqaring. 3. Xonada it yoki mushuk kabi uy hayvonlarini boqish taqiqlanadi.',
+    recommendedTimeMinutes: 3,
+    questions: [
+      {
+        id: 'q_n5_8_1',
+        questionText: 'ゴミは いつ 出[だ]しますか。',
+        options: [
+          '水曜日[すいようび]の 夜[よる]',
+          '火曜日[かようび]と 金曜日[きんようび]の 朝[あさ] 8時[はちじ]まで',
+          '土曜日[どようび]の 午後[ごご]',
+          'いつでも いいです',
+        ],
+        correctIndex: 1,
+        explanation:
+          'Qoidada "火曜日[かようび]と 金曜日[きんようび]の 朝[あさ] 8時[はちじ]までに 出[だ]してください" deb ko\'rsatilgan.',
+      },
+      {
+        id: 'q_n5_8_2',
+        questionText: '部屋[へや]で しては いけないことは どれですか。',
+        options: [
+          '本[ほん]を 読[よ]むこと',
+          '料理[りょうり]を すること',
+          '犬[いぬ]や 猫[ねこ]を 飼[か]うこと',
+          '電気[でんき]を つけること',
+        ],
+        correctIndex: 2,
+        explanation: '3-bandda xonada it yoki mushuk saqlash mumkin emasligi aytilgan.',
+      },
+    ],
+  },
+
+  {
+    id: 'n5_read_9',
+    level: 'N5',
+    title: '京都[きょうと]への 週末[しゅうまつ] 旅行[りょこう]',
+    passageType: 'short',
+    japaneseContent:
+      '私[わたし]は 先週[せんしゅう]の 土曜日[どようび]に 新幹線[しんかんせん]で 京都[きょうと]へ 行[い]きました。\n東京[とうきょう]から 京都[きょうと]まで 2時間半[にじかんはん] かかりました。\n京都[きょうと]で 古[ふる]い 有名[ゆうめい]な お寺[てら]を 見[み]ました。紅葉[もみじ]が とても きれいでした。\n抹茶[まっちゃ]の アイスクリームを 食[た]べました。甘[あま]くて おいしかったです。\nまた 春[はる]に 桜[さくら]を 見[み]に 行[い]きたいです。',
+    uzbekTranslation:
+      "Men o'tgan haftaning shanba kuni Shinkansenda Kyotoga bordim. Tokyodan Kyotogacha 2 yarim soat vaqt ketdi. Kyotoda qadimiy mashhur ibodatxonalarni tomosha qildim. Kuzgi qizil yaproqlar juda chiroyli edi. Matcha muzqaymog'ini yedim. Shirin va mazali edi. Yana bahorda sakuralarni ko'rgani borishni xohlayman.",
+    recommendedTimeMinutes: 3,
+    questions: [
+      {
+        id: 'q_n5_9_1',
+        questionText: '東京[とうきょう]から 京都[きょうと]まで どのくらい かかりましたか。',
+        options: ['1時間[いちじかん]', '2時間半[にじかんはん]', '5時間[ごじかん]', '1日[いちにち]'],
+        correctIndex: 1,
+        explanation: 'Matnda "2時間半[にじかんはん] かかりました" deb aniq yozilgan.',
+      },
+      {
+        id: 'q_n5_9_2',
+        questionText: 'この 人[ひと]は 春[はる]に 何[なに]を しに 行[い]きたいですか。',
+        options: [
+          'スキーを しに 行[い]きたい',
+          '桜[さくら]を 見[み]に 行[い]きたい',
+          '泳[およ]ぎに 行[い]きたい',
+          '仕事[しごと]を しに 行[い]きたい',
+        ],
+        correctIndex: 1,
+        explanation:
+          'Matnning oxirgi jumlasida: "また 春[はる]に 桜[さくら]を 見[み]に 行[い]きたいです" deyilgan.',
+      },
+    ],
+  },
+
+  {
+    id: 'n5_read_10',
+    level: 'N5',
+    title: '友[とも]だちからの メモ',
+    passageType: 'short',
+    japaneseContent:
+      'アリさんへ\n今日[きょう]の 午後[ごご]、アリさんの 部屋[へや]へ 行[い]きましたが、留守[るす]でした。\n借[か]りていた 日本語[にほんご]の 辞書[じしょ]を 机[つくえ]の 上[うえ]に 置[お]きました。\n辞書[じしょ]のおかげで、宿題[しゅくだい]が 全部[ぜんぶ] 終[お]わりました。どうも ありがとうございました。\nまた 明日[あした]、学校[がっこう]で 会[あ]いましょう。\nカルロスより',
+    uzbekTranslation:
+      "Aliga: Bugun tushdan keyin xonangizga bordim, lekin uydamasmidingiz. Qarzga olgan yapon tili lug'atimni stulingiz ustiga qo'ydim. Lug'at yordamida uy vazifasini hammasini tugatdim. Katta rahmat. Ertaga yana maktabda ko'rishguncha. Karlosdan.",
+    recommendedTimeMinutes: 3,
+    questions: [
+      {
+        id: 'q_n5_10_1',
+        questionText: 'カルロスさんは 机[つくえ]の 上[うえ]に 何[なに]を 置[お]きましたか。',
+        options: ['ノート', '宿題[しゅくだい]', '辞書[じしょ]', '時計[とけい]'],
+        correctIndex: 2,
+        explanation: "Karlos olib turgan lug'atini (辞書) stol ustiga qo'yib ketgan.",
+      },
+      {
+        id: 'q_n5_10_2',
+        questionText: 'カルロスさんは なぜ アリさんに お礼[れい]を 言[い]いましたか。',
+        options: [
+          'お金[かね]を もらったから',
+          '辞書[じしょ]のおかげで 宿題[しゅくだい]が 全部[ぜんぶ] 終[お]わったから',
+          '部屋[へや]を 掃除[そうじ]してくれたから',
+          '一緒[いっしょ]に ご飯[はん]を 食[た]べたから',
+        ],
+        correctIndex: 1,
+        explanation:
+          'Matnda "辞書[じしょ]のおかげで、宿題[しゅくだい]が 全部[ぜんぶ] 終[お]わりました。どうも ありがとうございました" deb tushuntirilgan.',
+      },
+    ],
+  },
+
   // --- N4 EXPANDED PASSAGES ---
   {
     id: 'n4_read_3',

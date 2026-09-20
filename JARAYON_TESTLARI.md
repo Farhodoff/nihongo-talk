@@ -25,8 +25,8 @@ Ushbu hujjat loyihadagi barcha JLPT darajalari (N5, N4, N3, N2, N1) bo'yicha kit
 - [x] **1.3. N5 Lug'at**: 750 ta N5 so'z to'liq kiritilgan.
 - [x] **1.4. N5 Grammatika**: 85 ta qoida mavjud.
 - [x] **1.5. N5 Mock Exam Set 2**: `500_voprosov_jlpt_n4_n5.pdf` va `N5 Goi・Kanji test.pdf` kitoblaridan olingan 25 ta haqiqiy savolli 2-sinov imtihoni yaratildi va studiya audiolari biriktirildi.
-- [ ] **1.6. N5 Dokkai (O'qish)**: Hozirgi 6 ta matnni `みんなの日本語初級1標準問題集` asosida 10 tagacha yetkazish.
-- [ ] **1.7. N5 Amaliy Test Banki**: `N5 so'z testi! Orginal JLPT testdan olindi!.pdf` asosida tematik test savollarini qo'shish.
+- [x] **1.6. N5 Dokkai (O'qish)**: Hozirgi 6 ta matn `みんなの日本語初級1標準問題集` va qo'llanmalar asosida 10 tagacha yetkazildi (har birida to'liq o'zbekcha sharh va savollar mavjud).
+- [x] **1.7. N5 Amaliy Test Banki**: `N5 so'z testi! Orginal JLPT testdan olindi!.pdf` asosida 33 ta original rasmiy imtihon savollari interaktiv dek sifatida kiritildi (`deck_n5_test_bank`).
 
 ---
 
@@ -38,9 +38,9 @@ Ushbu hujjat loyihadagi barcha JLPT darajalari (N5, N4, N3, N2, N1) bo'yicha kit
 - [x] **2.2. N4 Kanji**: 230 ta kanji va 230 ta animatsiyali SVG stroke (100% to'liq).
 - [x] **2.3. N4 Grammatika**: 125 ta qoida mavjud.
 - [x] **2.4. N4 Mock Exam Set 2**: `500_voprosov_jlpt_n4_n5.pdf` va `N4_Shinkanzen Master Grammar` kitobidan 25 ta yangi haqiqiy imtihon savollari kiritildi va studiya audiolari ulandi.
-- [ ] **2.5. N4 Shinkanzen Dokkai**: `N4 Shinkanzen Reading 読解.pdf` kitobidan kundalik xatlar, e'lonlar va qisqa matnlar asosida 5 ta yangi Dokkai mashqini qo'shish.
+- [x] **2.5. N4 Shinkanzen Dokkai**: `N4 Shinkanzen Reading 読解.pdf` kitobidan kundalik xatlar, e'lonlar va qisqa matnlar asosida jami 10 ta Dokkai mashqi to'liq o'zbekcha tahlili bilan mavjud.
 - [x] **2.6. N4 Choukai (Studiya Audio)**: `N4_Shinkanzen Master Listening_CD.rar` dagi MP3 fayllar platformaga chiqarilib savollarga ulandi.
-- [ ] **2.7. Minna Shokyu 2 Lug'at kengaytmasi**: 26–50 darslar uchun qo'shimcha so'z va iboralarni boyitish.
+- [x] **2.7. Minna Shokyu 2 Lug'at kengaytmasi**: 26–50 darslar uchun 451 ta asosiy so'z va iboralar to'liq kiritilgan (`minna_shokyu2.json`).
 
 ---
 
@@ -51,11 +51,11 @@ Ushbu hujjat loyihadagi barcha JLPT darajalari (N5, N4, N3, N2, N1) bo'yicha kit
 - [x] **3.1. N3 Kanji**: 337 ta kanji va 337 ta animatsiyali SVG stroke (100% to'liq).
 - [x] **3.2. N3 Lug'at**: 1,648 ta so'z mavjud.
 - [x] **3.3. N3 Grammatika**: 115 ta qoida mavjud.
-- [ ] **3.4. N3 500 Mon Savollar Banki**: `500_voprosov_jlpt_n3_kanji_vocabul.pdf` dagi savollardan tematik testlar yaratish.
+- [x] **3.4. N3 500 Mon Savollar Banki**: `500_voprosov_jlpt_n3_kanji_vocabul.pdf` dagi savollardan 20 ta tematik test savollari interaktiv deki yaratildi (`deck_n3_500_mon`).
 - [x] **3.5. N3 Mock Exam Set 2**: `500 Mon N3` va `Shin Kanzen N3` asosida 25 ta yangi sifatli imtihon savoli qo'shildi va haqiqiy CD audiolari ulandi.
-- [ ] **3.6. N3 Shinkanzen Dokkai**: `N3_Shin_Kanzen_Master_Dokkai 読解.pdf` dagi Chuu-bun (o'rta hajmli maqolalar) va Jouhou-kensaku (jadvalli e'lonlar) matnlarini qo'shish.
+- [x] **3.6. N3 Shinkanzen Dokkai**: `N3_Shin_Kanzen_Master_Dokkai 読解.pdf` dagi Chuu-bun (o'rta hajmli maqolalar) va Jouhou-kensaku (jadvalli e'lonlar) matnlari asosida 10 ta Dokkai mashqi to'liq mavjud.
 - [x] **3.7. N3 Choukai (Studiya Audio)**: `N3_Shinkanzen Master_Listening_CD.rar` dagi haqiqiy MP3 audiolari tizimga ulandi.
-- [ ] **3.8. N3 Chalg'ituvchi Grammatika mashqlari**: `〜わけではない` vs `〜わけがない`, `〜どころではない`, `〜に対して` kabi adashtiruvchi qoidalar bo'yicha qiyosiy testlar.
+- [x] **3.8. N3 Chalg'ituvchi Grammatika mashqlari**: `〜わけではない` vs `〜わけがない`, `〜どころではない`, `〜に対して` kabi adashtiruvchi qoidalar bo'yicha 22 ta chuqur qiyosiy kartalar yaratildi (`deck_n3_confusing_grammar`).
 
 ---
 
@@ -67,8 +67,8 @@ Ushbu hujjat loyihadagi barcha JLPT darajalari (N5, N4, N3, N2, N1) bo'yicha kit
 - [x] **4.2. N2 Lug'at**: 3,235 ta so'z mavjud.
 - [x] **4.3. N2 Grammatika**: 172 ta qoida mavjud.
 - [x] **4.4. N2 Mock Exam Set 2**: `Shin_Nihongo_500_Mon_-_JLPT_N2.pdf` va `N2_Shinkanzen Grammar` asosida 25 ta yangi savolli 2-sinov imtihoni yaratildi va studiya CD MP3 fayllari ulandi.
-- [ ] **4.5. N2 Collocations (So'z birikmalari)**: `N2_Shinkanzen Vocabulary 語彙.pdf` asosida fe'l-ot bog'lanishlari (`責任を果たす`, `手を打つ`, `意図を汲む`) bo'yicha maxsus Flashcardlar to'plami.
-- [ ] **4.6. N2 Shinkanzen Dokkai**: `N2_Shinkanzen_Reading 読解.pdf` kitobidan tahliliy maqolalar va publitsistik matnlar tahlilini qo'shish.
+- [x] **4.5. N2 Collocations (So'z birikmalari)**: `N2_Shinkanzen Vocabulary 語彙.pdf` asosida 55 ta eng ko'p tushadigan fe'l-ot bog'lanishlari (`責任を果たす`, `手を打つ`, `意図を汲む`) maxsus Flashcardlar to'plami yaratildi (`deck_n2_collocations`).
+- [x] **4.6. N2 Shinkanzen Dokkai**: `N2_Shinkanzen_Reading 読解.pdf` kitobidan tahliliy maqolalar va publitsistik matnlar asosida 10 ta Dokkai mashqi to'liq mavjud.
 - [x] **4.7. N2 Choukai (Studiya Audio)**: `book_3/N2_Shinkanzen Listening Audio CD.rar` dagi haqiqiy MP3 lar chiqarilib savollarga ulandi.
 
 ---
@@ -79,11 +79,11 @@ Ushbu hujjat loyihadagi barcha JLPT darajalari (N5, N4, N3, N2, N1) bo'yicha kit
 
 - [x] **5.1. N1 Kanji**: 877 ta kanji va 877 ta animatsiyali SVG stroke (100% to'liq).
 - [x] **5.2. N1 Lug'at**: 1,897 ta so'z mavjud.
-- [x] **5.3. N1 Grammatika**: 105 ta qoida mavjud.
+- [x] **5.3. N1 Grammatika**: 151 ta qoida mavjud (105 tadan 151 taga kengaytirildi).
 - [x] **5.4. N1 Mock Exam Set 2**: `Shin_Nihongo_500_Mon_-_JLPT_N1.pdf` va `N1_Shin_Kanzen_Grammar 文法.pdf` asosida 25 ta murakkab savolli 2-sinov imtihoni to'liq kiritildi.
-- [ ] **5.5. N1 Grammatika kengaytmasi (105 tadan 150+ taga)**: `日本語総まとめ. N1, 文法` kitobidagi barcha arxaik va kam uchraydigan, ammo imtihonda tushadigan ifodalarni kiritish.
-- [ ] **5.6. N1 Yojijukugo (4 ta iyeroglifli aforizmlar)**: `Kanji Master N1` va `日本語総まとめ N1 語彙` asosida maxsus aforizm va idiomalar kartalar to'plami.
-- [ ] **5.7. N1 Shinkanzen Dokkai**: `N1_Shin_Kanzen_Reading 読解.pdf` dagi falsafiy, ilmiy-ommabop va murakkab publitsistik matnlar tahlilini qo'shish.
+- [x] **5.5. N1 Grammatika kengaytmasi (105 tadan 150+ taga)**: `日本語総まとめ. N1, 文法` va `N1 grammatika kitob.pdf` kitoblaridagi barcha arxaik va kam uchraydigan, ammo imtihonda tushadigan ifodalar kiritildi (jami 151 ta qoida).
+- [x] **5.6. N1 Yojijukugo (4 ta iyeroglifli aforizmlar)**: `Kanji Master N1` va `日本語総まとめ N1 語彙` asosida 49 ta eng muhim to'rt iyeroglifli aforizm va idiomalar to'plami yaratildi (`deck_n1_yojijukugo`).
+- [x] **5.7. N1 Shinkanzen Dokkai**: `N1_Shin_Kanzen_Reading 読解.pdf` dagi falsafiy, ilmiy-ommabop va murakkab publitsistik matnlar tahlilidan iborat 10 ta Dokkai mashqi to'liq mavjud.
 
 ---
 

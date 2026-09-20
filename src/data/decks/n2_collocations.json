@@ -1,0 +1,387 @@
+[
+  {
+    "front": "責任を果たす",
+    "back": "Mas'uliyatni to'la ado etmoq",
+    "phonetic": "せきにんをはたす",
+    "example": "リーダーとして最後まで責任を果たす。",
+    "category": "Collocation"
+  },
+  {
+    "front": "手を打つ",
+    "back": "Chora ko‘rmoq, tadbir qo‘llamoq",
+    "phonetic": "てをうつ",
+    "example": "問題が大きくなる前に対策の手を打つ必要がある。",
+    "category": "Collocation"
+  },
+  {
+    "front": "意図を汲む",
+    "back": "Maqsad/niyatni to‘g‘ri tushunib yetmoq",
+    "phonetic": "いとをくむ",
+    "example": "相手の意図を汲んで柔軟に対応する。",
+    "category": "Collocation"
+  },
+  {
+    "front": "顔が利く",
+    "back": "Nufuzga va keng tanish-bilishga ega bo‘lmoq",
+    "phonetic": "かおがきく",
+    "example": "彼は政界にも広く顔が利く人物だ。",
+    "category": "Collocation"
+  },
+  {
+    "front": "口を挟む",
+    "back": "Gapga asossiz aralashmoq",
+    "phonetic": "くちをはさむ",
+    "example": "他人の家庭問題に横から口を挟むべきではない。",
+    "category": "Collocation"
+  },
+  {
+    "front": "気を配る",
+    "back": "Har taraflama e’tiborli va diqqatli bo‘lmoq",
+    "phonetic": "きをくばる",
+    "example": "周囲の人々に常に気を配る優しい先輩だ。",
+    "category": "Collocation"
+  },
+  {
+    "front": "耳を傾ける",
+    "back": "Jon deb samimiy tinglamoq",
+    "phonetic": "みみをかたむける",
+    "example": "住民の切実な声に真摯に耳を傾ける。",
+    "category": "Collocation"
+  },
+  {
+    "front": "目処が立つ",
+    "back": "Yechim yoki yakunlanish istiqboli ko‘rinmoq",
+    "phonetic": "めどがたつ",
+    "example": "ようやく資金調達の目処が立った。",
+    "category": "Collocation"
+  },
+  {
+    "front": "見当がつく",
+    "back": "Taxmin va faraz qila olmoq",
+    "phonetic": "けんとうがつく",
+    "example": "犯人の逃走経路はおおよそ見当がついている。",
+    "category": "Collocation"
+  },
+  {
+    "front": "反感を抱く",
+    "back": "Ich-ichidan norozilik va nafrat his qilmoq",
+    "phonetic": "はんかんをいだく",
+    "example": "不当な処分に対して強い反感を抱く。",
+    "category": "Collocation"
+  },
+  {
+    "front": "脚光を浴びる",
+    "back": "Diqqat markazida bo‘lib shuhrat qozonmoq",
+    "phonetic": "きゃっこうをあびる",
+    "example": "次世代エネルギー技術として脚光を浴びる。",
+    "category": "Collocation"
+  },
+  {
+    "front": "心血を注ぐ",
+    "back": "Bor kuch-g‘ayratini sarflamoq",
+    "phonetic": "しんけつをそそぐ",
+    "example": "小説の執筆に心血を注いできた。",
+    "category": "Collocation"
+  },
+  {
+    "front": "非を認める",
+    "back": "O‘z aybini ochiq tan olmoq",
+    "phonetic": "ひをみとめる",
+    "example": "素直に自らの非を認めて深く謝罪した。",
+    "category": "Collocation"
+  },
+  {
+    "front": "波紋を呼ぶ",
+    "back": "Katta shov-shuv va rezonans keltirib chiqarmoq",
+    "phonetic": "はもんをよぶ",
+    "example": "大臣の軽率な発言が社会に大きな波紋を呼んだ。",
+    "category": "Collocation"
+  },
+  {
+    "front": "口実を設ける",
+    "back": "Baxona to‘qimoq",
+    "phonetic": "こうじつをもうける",
+    "example": "適当な口実を設けて飲み会への参加を断った。",
+    "category": "Collocation"
+  },
+  {
+    "front": "拍車をかける",
+    "back": "Yanada tezlashtirmoq va jadallashtirmoq",
+    "phonetic": "はくしゃをかける",
+    "example": "円安が物価の高騰に拍車をかけている。",
+    "category": "Collocation"
+  },
+  {
+    "front": "根に持つ",
+    "back": "Qalbida uzoq vaqt adovat/kek saqlamoq",
+    "phonetic": "ねにもつ",
+    "example": "昔の些細な失敗をいつまでも根に持つ。",
+    "category": "Collocation"
+  },
+  {
+    "front": "手を焼く",
+    "back": "Boshqarishga kuchi yetmay boshi qotmoq",
+    "phonetic": "てをやく",
+    "example": "反抗期の子供の扱いに手を焼いている。",
+    "category": "Collocation"
+  },
+  {
+    "front": "目を配る",
+    "back": "Har tarafga hushyor ko‘z yugurtirib turmoq",
+    "phonetic": "めをくばる",
+    "example": "先生は教室全体に目を配りながら授業を進める。",
+    "category": "Collocation"
+  },
+  {
+    "front": "匙を投げる",
+    "back": "Umidni uzib taslim bo‘lmoq",
+    "phonetic": "さじをなげる",
+    "example": "何度言っても直らない部下に上司も匙を投げた。",
+    "category": "Collocation"
+  },
+  {
+    "front": "腑に落ちない",
+    "back": "Mantiqan to‘g‘ri kelmaydigan, tushunarsiz",
+    "phonetic": "ふにおちない",
+    "example": "彼の釈明にはどうも腑に落ちない点が多い。",
+    "category": "Collocation"
+  },
+  {
+    "front": "契約を交わす",
+    "back": "O‘zaro rasmiy shartnoma tuzmoq",
+    "phonetic": "けいやくをかわす",
+    "example": "大手企業と業務提携の正式な契約を交わした。",
+    "category": "Collocation"
+  },
+  {
+    "front": "成果を収める",
+    "back": "Yuksak natijaga erishmoq",
+    "phonetic": "せいかをおさめる",
+    "example": "長年の共同研究が素晴らしい成果を収めた。",
+    "category": "Collocation"
+  },
+  {
+    "front": "危機を乗り越える",
+    "back": "Murakkab inqirozni yengib o‘tmoq",
+    "phonetic": "ききをのりこえる",
+    "example": "社員一丸となって倒産の危機を乗り越えた。",
+    "category": "Collocation"
+  },
+  {
+    "front": "先手を打つ",
+    "back": "Oldindan harakat qilib tashabbusni olmoq",
+    "phonetic": "せんてをうつ",
+    "example": "ライバル企業に対して先手を打って新商品を発売した。",
+    "category": "Collocation"
+  },
+  {
+    "front": "音を上げる",
+    "back": "Qiyinchilikdan toliqib taslim bo‘lmoq",
+    "phonetic": "ねをあげる",
+    "example": "厳しい特訓にも決して弱音を上げない。",
+    "category": "Collocation"
+  },
+  {
+    "front": "歯止めがかかる",
+    "back": "Salbiy jarayonga to‘siq qo‘yilmoq",
+    "phonetic": "はどめがかかる",
+    "example": "政府の介入によりインフレにようやく歯止めがかかった。",
+    "category": "Collocation"
+  },
+  {
+    "front": "面目を保つ",
+    "back": "Obro‘ va sha’nini saqlab qolmoq",
+    "phonetic": "めんぼくをたもつ",
+    "example": "逆転勝利によって主将としての面目を保った。",
+    "category": "Collocation"
+  },
+  {
+    "front": "軌道に乗る",
+    "back": "Rejalashtirilgan o‘z iziga tushmoq",
+    "phonetic": "きどうにのる",
+    "example": "新規事業がようやく軌道に乗り始めた。",
+    "category": "Collocation"
+  },
+  {
+    "front": "溝が深まる",
+    "back": "O‘rtadagi ziddiyat va masofa kattalashmoq",
+    "phonetic": "みぞがふかまる",
+    "example": "労使間の対立が激化し溝が深まっている。",
+    "category": "Collocation"
+  },
+  {
+    "front": "一石を投じる",
+    "back": "Yangi jiddiy bahs va munozara uyg‘otmoq",
+    "phonetic": "いっせきをとうじる",
+    "example": "その学説は従来の常識に一石を投じた。",
+    "category": "Collocation"
+  },
+  {
+    "front": "視野を広げる",
+    "back": "Dunyoqarash va fikrlashni kengaytirmoq",
+    "phonetic": "しやをひろげる",
+    "example": "海外留学は自分の視野を広げる絶好の機会だ。",
+    "category": "Collocation"
+  },
+  {
+    "front": "念頭に置く",
+    "back": "Doim yodda va e’tiborda tutmoq",
+    "phonetic": "ねんとうにおく",
+    "example": "顧客満足を第一に念頭に置いて企画を立案する。",
+    "category": "Collocation"
+  },
+  {
+    "front": "功を奏する",
+    "back": "Kutilganidek ijobiy samara bermoq",
+    "phonetic": "こうをそうする",
+    "example": "地道な宣伝活動が功を奏して完売した。",
+    "category": "Collocation"
+  },
+  {
+    "front": "名誉を挽回する",
+    "back": "Yo‘qotilgan obro‘ni qayta tiklamoq",
+    "phonetic": "めいよをばんかいする",
+    "example": "次の大会で優勝して名誉を挽回したい。",
+    "category": "Collocation"
+  },
+  {
+    "front": "凌ぎを削る",
+    "back": "Tengma-teng qizg‘in raqobatlashmoq",
+    "phonetic": "しのぎをけずる",
+    "example": "業界トップの2社がシェア獲得へ凌ぎを削る。",
+    "category": "Collocation"
+  },
+  {
+    "front": "重荷を背負う",
+    "back": "Og‘ir mas’uliyat yukini bo‘yniga olmoq",
+    "phonetic": "おもにをせおう",
+    "example": "若くして一家の大黒柱として重荷を背負う。",
+    "category": "Collocation"
+  },
+  {
+    "front": "口車に乗る",
+    "back": "Yaltoqlik va aldov so‘zlarga aldanmoq",
+    "phonetic": "くちぐるまにのる",
+    "example": "悪質な詐欺師の巧みな口車に乗ってしまった。",
+    "category": "Collocation"
+  },
+  {
+    "front": "水泡に帰す",
+    "back": "Sarob bo‘lib butun mehnat zoe ketmoq",
+    "phonetic": "すいほうにきす",
+    "example": "データの消失によりこれまでの努力が水泡に帰した。",
+    "category": "Collocation"
+  },
+  {
+    "front": "舌を巻く",
+    "back": "Haddan tashqari hayratlanib lol qolmoq",
+    "phonetic": "したをまく",
+    "example": "彼の卓越したプログラミング能力には舌を巻いた。",
+    "category": "Collocation"
+  },
+  {
+    "front": "肝に銘じる",
+    "back": "Yurak to‘riga mustahkam eslab muhrlamoq",
+    "phonetic": "きもにめいじる",
+    "example": "恩師からの温かい忠告を深く肝に銘じる。",
+    "category": "Collocation"
+  },
+  {
+    "front": "身を粉にする",
+    "back": "Vujudini ayamasdan jonbozlik ko‘rsatmoq",
+    "phonetic": "みをこにする",
+    "example": "会社再建のために身を粉にして働いた。",
+    "category": "Collocation"
+  },
+  {
+    "front": "筋が通る",
+    "back": "Mantiqiy izchil va asosli bo‘lmoq",
+    "phonetic": "すじがとおる",
+    "example": "彼の主張は理路整然として筋が通っている。",
+    "category": "Collocation"
+  },
+  {
+    "front": "尾を引く",
+    "back": "Yomon oqibati uzoq muddat davom etmoq",
+    "phonetic": "おをひく",
+    "example": "初戦の敗北のショックが決勝まで尾を引いた。",
+    "category": "Collocation"
+  },
+  {
+    "front": "太鼓判を押す",
+    "back": "Yuz foiz ishonch bilan kafolat bermoq",
+    "phonetic": "たいこばんをおす",
+    "example": "この店の料理の味は私が太鼓判を押します。",
+    "category": "Collocation"
+  },
+  {
+    "front": "手を尽くす",
+    "back": "Mavjud barcha imkoniyatni to‘la sarflamoq",
+    "phonetic": "てをつくす",
+    "example": "医師団は最善を期してあらゆる手を尽くした。",
+    "category": "Collocation"
+  },
+  {
+    "front": "骨を折る",
+    "back": "Birovning og‘irini yengil qilishga mashaqqat chekmoq",
+    "phonetic": "ほねをおる",
+    "example": "留学生の住居探しの相談に親身に骨を折る。",
+    "category": "Collocation"
+  },
+  {
+    "front": "頭角を現す",
+    "back": "Tengdoshlari ichidan iqtidori bilan ajralib chiqmoq",
+    "phonetic": "とうかくをあらわす",
+    "example": "若手研究者として国際学会で急速に頭角を現す。",
+    "category": "Collocation"
+  },
+  {
+    "front": "眉をひそめる",
+    "back": "Norozi bo‘lib qoshlarini chimirmoq",
+    "phonetic": "まゆをひそめる",
+    "example": "マナーの悪い乗客の行為に周囲が眉をひそめた。",
+    "category": "Collocation"
+  },
+  {
+    "front": "後れを取る",
+    "back": "Boshqalardan raqobatda orqada qolmoq",
+    "phonetic": "おくれをとる",
+    "example": "最新AI技術の導入で他国に後れを取ってはならない。",
+    "category": "Collocation"
+  },
+  {
+    "front": "目を光らせる",
+    "back": "Sinchkovlik bilan qattiq nazorat qilmoq",
+    "phonetic": "めをひからせる",
+    "example": "試験監督官が教室内を鋭く目を光らせている。",
+    "category": "Collocation"
+  },
+  {
+    "front": "胸をなでおろす",
+    "back": "Xavf o‘tib yengil chuqur nafas olmoq",
+    "phonetic": "むねをなでおろす",
+    "example": "検査結果が陰性と判明して胸をなでおろした。",
+    "category": "Collocation"
+  },
+  {
+    "front": "腹を割る",
+    "back": "Yashirmasdan samimiy dildan so‘zlashmoq",
+    "phonetic": "はらをわる",
+    "example": "腹を割って本音で話し合えば誤解は解ける。",
+    "category": "Collocation"
+  },
+  {
+    "front": "足を引っ張る",
+    "back": "Boshqalarning muvaffaqiyatiga to‘siq bo‘lmoq",
+    "phonetic": "あしをひっぱる",
+    "example": "チームメイトの足を引っ張らないよう全力で走る。",
+    "category": "Collocation"
+  },
+  {
+    "front": "身につける",
+    "back": "Bilim va ko‘nikmani to‘la o‘zlashtirib olmoq",
+    "phonetic": "みにつける",
+    "example": "実践的なビジネス日本語をしっかりと身につける。",
+    "category": "Collocation"
+  }
+]

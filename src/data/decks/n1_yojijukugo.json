@@ -1,0 +1,345 @@
+[
+  {
+    "front": "一期一会",
+    "back": "Har bir uchrashuv hayotda bir martalik g‘animat",
+    "phonetic": "いちごいちえ",
+    "example": "茶道の精神である一期一会の出会いを大切にする。",
+    "category": "Yojijukugo"
+  },
+  {
+    "front": "臨機応変",
+    "back": "Vaziyat va holatga qarab tezkor epchillik bilan moslashish",
+    "phonetic": "りんきおうへん",
+    "example": "現場の予期せぬトラブルには臨機応変に対処する。",
+    "category": "Yojijukugo"
+  },
+  {
+    "front": "紆余曲折",
+    "back": "Katta qiyinchiliklar, sinovlar va burilishlar yo‘li",
+    "phonetic": "うよきょくせつ",
+    "example": "紆余曲折を経てようやく法案が可決された。",
+    "category": "Yojijukugo"
+  },
+  {
+    "front": "試行錯誤",
+    "back": "Sinov va xatolar orqali to‘g‘ri yo‘lni topish",
+    "phonetic": "しこうさくご",
+    "example": "新薬の開発に向けて試行錯誤を繰り返す。",
+    "category": "Yojijukugo"
+  },
+  {
+    "front": "絶体絶命",
+    "back": "Mutlaqo chorasiz va o‘ta qaltis xavfli holat",
+    "phonetic": "ぜったいぜつめい",
+    "example": "絶体絶命のピンチを奇跡的な機転で脱出した。",
+    "category": "Yojijukugo"
+  },
+  {
+    "front": "百戦百勝",
+    "back": "Har bir kurashda to‘liq g‘alaba qozonish, yengilmaslik",
+    "phonetic": "ひゃくせんひゃくしょう",
+    "example": "百戦百勝を誇る無敵のチャンピオン。",
+    "category": "Yojijukugo"
+  },
+  {
+    "front": "以心伝心",
+    "back": "So‘zsiz, qalb va nigoh orqali bir-birini tushunish",
+    "phonetic": "いしんでんしん",
+    "example": "長年連れ添った夫婦は以心伝心で通じ合える。",
+    "category": "Yojijukugo"
+  },
+  {
+    "front": "危機一髪",
+    "back": "Tugashiga bir qil qolgan o‘ta xavfli on",
+    "phonetic": "ききいっぱつ",
+    "example": "危機一髪のところでトラックの衝突を避けた。",
+    "category": "Yojijukugo"
+  },
+  {
+    "front": "自画自賛",
+    "back": "O‘z qilgan ishini o‘zi maqtash",
+    "phonetic": "じがじさん",
+    "example": "自分の手料理を自画自賛して客に勧める。",
+    "category": "Yojijukugo"
+  },
+  {
+    "front": "本末転倒",
+    "back": "Asosiy maqsad va ikkinchi darajali vositaning o‘rni almashishi",
+    "phonetic": "ほんまつてんとう",
+    "example": "健康のために無理な運動をして怪我をするのは本末転倒だ。",
+    "category": "Yojijukugo"
+  },
+  {
+    "front": "針小棒大",
+    "back": "Kichik arzimas narsani haddan ziyod bo‘rttirib gapirish",
+    "phonetic": "しんしょうぼうだい",
+    "example": "マスコミが事件を針小棒大に書き立てる。",
+    "category": "Yojijukugo"
+  },
+  {
+    "front": "千載一遇",
+    "back": "Ming yilda bir marotaba keladigan nodir imkoniyat",
+    "phonetic": "せんざいいちぐう",
+    "example": "千載一遇の好機を逃さず果敢に挑戦する。",
+    "category": "Yojijukugo"
+  },
+  {
+    "front": "電光石火",
+    "back": "Yashindek tez, chaqmoq tezligidagi harakat",
+    "phonetic": "でんこうせっか",
+    "example": "電光石火の早業で相手の攻撃をかわした。",
+    "category": "Yojijukugo"
+  },
+  {
+    "front": "多事多難",
+    "back": "Tashvishlar va qiyinchiliklarga to‘la davr",
+    "phonetic": "たじたなん",
+    "example": "多事多難な創業期を乗り越えて現在がある。",
+    "category": "Yojijukugo"
+  },
+  {
+    "front": "孤立無援",
+    "back": "Hech qanday ko‘maksiz bir o‘zi yolg‘iz qolish",
+    "phonetic": "こりつむえん",
+    "example": "敵陣の真ん中で孤立無援の状態に陥った。",
+    "category": "Yojijukugo"
+  },
+  {
+    "front": "優柔不断",
+    "back": "Ikkilanuvchan va mustaqil qaror chiqara olmaydigan",
+    "phonetic": "ゆうじゅうふだん",
+    "example": "優柔不断な態度はリーダーとして致命的だ。",
+    "category": "Yojijukugo"
+  },
+  {
+    "front": "喜怒哀楽",
+    "back": "Inson qalbining quvonch, g‘azab, motam va shodlik tuyg‘ulari",
+    "phonetic": "きどあいらく",
+    "example": "喜怒哀楽の感情表現が非常に豊かな俳優。",
+    "category": "Yojijukugo"
+  },
+  {
+    "front": "異口同音",
+    "back": "Hamma yakdillik bilan bir ovozdan so‘zlash",
+    "phonetic": "いくどうおん",
+    "example": "出席者全員が異口同音に賛成の意を表明した。",
+    "category": "Yojijukugo"
+  },
+  {
+    "front": "起死回生",
+    "back": "Hamma narsa boy berilganda vaziyatni o‘nglab hayotga qaytish",
+    "phonetic": "きしかいせい",
+    "example": "起死回生の満塁ホームランで劇的な逆転を果たした。",
+    "category": "Yojijukugo"
+  },
+  {
+    "front": "臥薪嘗胆",
+    "back": "Maqsadga erishish uchun barcha mashaqqatlarga sabr qilish",
+    "phonetic": "がしんしょうたん",
+    "example": "過去の屈辱を胸に十年間の臥薪嘗胆の末に雪辱を果たした。",
+    "category": "Yojijukugo"
+  },
+  {
+    "front": "自暴自棄",
+    "back": "O‘zidan hafsalasi pir bo‘lib o‘zini tashlab qo‘yish",
+    "phonetic": "じぼうじき",
+    "example": "失恋したからといって自暴自棄になって暴飲暴食してはいけない。",
+    "category": "Yojijukugo"
+  },
+  {
+    "front": "朝三暮四",
+    "back": "Ko‘zbo‘yamachilik orqali aldamchi taklif bilan qanoatlantirish",
+    "phonetic": "ちょうさんぼし",
+    "example": "実質的な改善を伴わない制度改定は朝三暮四にすぎない。",
+    "category": "Yojijukugo"
+  },
+  {
+    "front": "単刀直入",
+    "back": "Ortiqcha gaplarsiz to‘g‘ridan-to‘g‘ri asosiy masalaga o‘tish",
+    "phonetic": "たんとうちょくにゅう",
+    "example": "前置きは省いて単刀直入に本題に入ります。",
+    "category": "Yojijukugo"
+  },
+  {
+    "front": "切磋琢磨",
+    "back": "Hamkasblar yoki tengdoshlar bir-biri bilan raqobatlashib o‘sishi",
+    "phonetic": "せっさたくま",
+    "example": "互いに切磋琢磨して技術を高め合う良きライバル。",
+    "category": "Yojijukugo"
+  },
+  {
+    "front": "大同小異",
+    "back": "Asosiy mohiyati deyarli bir xil, arzimagan farqli",
+    "phonetic": "だいどうしょうい",
+    "example": "両社の提案内容は大同小異で決定打に欠ける。",
+    "category": "Yojijukugo"
+  },
+  {
+    "front": "有象無象",
+    "back": "Har xil darajadagi betartib olomon",
+    "phonetic": "うぞうむぞう",
+    "example": "ネット上には真偽不明の有象無象の情報が氾濫している。",
+    "category": "Yojijukugo"
+  },
+  {
+    "front": "羊頭狗肉",
+    "back": "Tashqi yaltiroq reklama ortidagi soxta sifatsizlik",
+    "phonetic": "ようとうくにく",
+    "example": "高級品を謳いながら粗悪品を売る羊頭狗肉の商法。",
+    "category": "Yojijukugo"
+  },
+  {
+    "front": "八方美人",
+    "back": "Hammaga yoqishga urinib o‘z mustaqil printsipiga ega bo‘lmagan",
+    "phonetic": "はっぽうびじん",
+    "example": "八方美人な振る舞いは誰からも信用されなくなる。",
+    "category": "Yojijukugo"
+  },
+  {
+    "front": "虚心坦懐",
+    "back": "Hech qanday noxolisliksiz samimiy ochiq ko‘ngilli",
+    "phonetic": "きょしんたんかい",
+    "example": "過去の確執を忘れて虚心坦懐に意見を交換する。",
+    "category": "Yojijukugo"
+  },
+  {
+    "front": "傍若無人",
+    "back": "Atrofdagilarni pisand qilmasdan o‘zboshimchalik qilish",
+    "phonetic": "ぼうじゃくぶじん",
+    "example": "電車内で大声を出す傍若無人な態度を窘めた。",
+    "category": "Yojijukugo"
+  },
+  {
+    "front": "支離滅裂",
+    "back": "Mantiqiy bog‘lanishsiz, qovushmagan chalkash",
+    "phonetic": "しりめつれつ",
+    "example": "彼の主張は支離滅裂で何を言いたいのか理解できない。",
+    "category": "Yojijukugo"
+  },
+  {
+    "front": "猪突猛進",
+    "back": "Oqibatini o‘ylamasdan bir tomonlama ko‘r-ko‘rona shoshilish",
+    "phonetic": "ちょとつもうしん",
+    "example": "周囲のアドバイスを無視して猪突猛進する癖がある。",
+    "category": "Yojijukugo"
+  },
+  {
+    "front": "適材適所",
+    "back": "Har bir insonni o‘z qobiliyati va xarakteriga mos joyga qo‘yish",
+    "phonetic": "てきざいてきしょ",
+    "example": "適材適所の人員配置により組織の生産性が劇的に向上した。",
+    "category": "Yojijukugo"
+  },
+  {
+    "front": "粉骨砕身",
+    "back": "Suyagini un qilib bor vujudi bilan fidokorlik ko‘rsatish",
+    "phonetic": "ふんこつさいしん",
+    "example": "国家の復興のために粉骨砕身の努力を惜しまない。",
+    "category": "Yojijukugo"
+  },
+  {
+    "front": "満場一致",
+    "back": "Majlisdagilarning to‘liq bir ovozdan ma’qullashi",
+    "phonetic": "まんじょういっち",
+    "example": "新会長の選出案は満場一致で拍手採択された。",
+    "category": "Yojijukugo"
+  },
+  {
+    "front": "唯我独尊",
+    "back": "Faqat o‘zini eng ulug‘ deb biladigan kibrli holat",
+    "phonetic": "ゆいがどくそん",
+    "example": "唯我独尊のワンマン経営が会社の崩壊を招いた。",
+    "category": "Yojijukugo"
+  },
+  {
+    "front": "和洋折衷",
+    "back": "Yapon an’anasi va G‘arb madaniyatining uyg‘unligi",
+    "phonetic": "わようせっちゅう",
+    "example": "畳の上にベッドを置いた和洋折衷のモダンな客室。",
+    "category": "Yojijukugo"
+  },
+  {
+    "front": "一網打尽",
+    "back": "Bitta tezkor tadbir bilan to‘dani butunlay qo‘lga olish",
+    "phonetic": "いちもうだじん",
+    "example": "警察の捜査により密輸組織が一網打尽に検挙された。",
+    "category": "Yojijukugo"
+  },
+  {
+    "front": "順風満帆",
+    "back": "Ishlarning to‘liq ravon va muvaffaqiyatli ketishi",
+    "phonetic": "じゅんぷうまんぱん",
+    "example": "順風満帆に見えた彼のキャリアにも予期せぬ落とし穴があった。",
+    "category": "Yojijukugo"
+  },
+  {
+    "front": "乾坤一擲",
+    "back": "Barcha boylik va taqdirni tikib katta tavakkalchilik qilish",
+    "phonetic": "けんこんいってき",
+    "example": "会社の命運を賭けた乾坤一擲の大勝負に出る。",
+    "category": "Yojijukugo"
+  },
+  {
+    "front": "森羅万象",
+    "back": "Koinot va tabiatdagi jamiki borliq hodisalar",
+    "phonetic": "しんらばんしょう",
+    "example": "森羅万象の理を解き明かそうとする物理学の探求。",
+    "category": "Yojijukugo"
+  },
+  {
+    "front": "誠心誠意",
+    "back": "Chin ko‘ngildan va yuksak samimiyat bilan",
+    "phonetic": "せいしんせいい",
+    "example": "お客様からの苦情に対して誠心誠意の対応を心がける。",
+    "category": "Yojijukugo"
+  },
+  {
+    "front": "巧言令色",
+    "back": "Qalbida yomon niyat bilan tashqi xushomadgo‘y bo‘lish",
+    "phonetic": "こうげんれいしょく",
+    "example": "巧言令色鮮し仁、言葉巧みな人物には注意が必要だ。",
+    "category": "Yojijukugo"
+  },
+  {
+    "front": "虎視眈々",
+    "back": "Yo‘lbarsdek fursat poylab imkoniyat kutish",
+    "phonetic": "こしたんたん",
+    "example": "奪還のチャンスを虎視眈々と狙い続けている。",
+    "category": "Yojijukugo"
+  },
+  {
+    "front": "四面楚歌",
+    "back": "Har tarafdan dushman va qiyinchilik bilan qurshab olinish",
+    "phonetic": "しめんそか",
+    "example": "味方が次々と離脱し、まさに四面楚歌の苦境に立たされた。",
+    "category": "Yojijukugo"
+  },
+  {
+    "front": "自縄自縛",
+    "back": "O‘z so‘zlari yoki qat’iy qoidalari bilan o‘z erkinligini cheklash",
+    "phonetic": "じじょうじばく",
+    "example": "過度なマニュアル重視が自縄自縛に陥る原因となった。",
+    "category": "Yojijukugo"
+  },
+  {
+    "front": "徹頭徹尾",
+    "back": "Boshidan to oxirigacha murosasiz va izchil",
+    "phonetic": "てっとうてつび",
+    "example": "徹頭徹尾、自らの無実と信念を主張し続けた。",
+    "category": "Yojijukugo"
+  },
+  {
+    "front": "馬耳東風",
+    "back": "Birovning nasihatini mutlaqo pisand qilmasdan qulog‘idan o‘tkazish",
+    "phonetic": "ばじとうふう",
+    "example": "親の忠告など彼にとっては馬耳東風で聞き流している。",
+    "category": "Yojijukugo"
+  },
+  {
+    "front": "一念発起",
+    "back": "Qat’iy maqsad bilan qat’iyatli yangi qadam tashlash",
+    "phonetic": "いちねんほっき",
+    "example": "三十歳を機に一念発起して司法試験の勉強を開始した。",
+    "category": "Yojijukugo"
+  }
+]

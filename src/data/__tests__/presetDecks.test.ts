@@ -1,0 +1,52 @@
+import { describe, it, expect } from 'vitest';
+import { PRESET_DECKS } from '../presetDecks';
+
+describe('PRESET_DECKS Integrity & Quality Tests', () => {
+  it('validates that all preset decks have valid metadata and can load cards', async () => {
+    expect(PRESET_DECKS.length).toBeGreaterThanOrEqual(9);
+
+    for (const deck of PRESET_DECKS) {
+      expect(deck.id).toBeDefined();
+      expect(deck.title.length).toBeGreaterThan(5);
+      expect(deck.description.length).toBeGreaterThan(10);
+      expect(deck.cardCount).toBeGreaterThan(0);
+
+      const cards = await deck.loadCards();
+      expect(cards.length).toBe(deck.cardCount);
+      expect(cards[0].front).toBeDefined();
+      expect(cards[0].back).toBeDefined();
+    }
+  });
+
+  it('includes N2 Collocations and N1 Yojijukugo specialized decks', async () => {
+    const n2Deck = PRESET_DECKS.find((d) => d.id === 'deck_n2_collocations');
+    expect(n2Deck).toBeDefined();
+    expect(n2Deck!.level).toBe('JLPT N2');
+    const n2Cards = await n2Deck!.loadCards();
+    expect(n2Cards.length).toBe(55);
+
+    const n1Deck = PRESET_DECKS.find((d) => d.id === 'deck_n1_yojijukugo');
+    expect(n1Deck).toBeDefined();
+    expect(n1Deck!.level).toBe('JLPT N1');
+    const n1Cards = await n1Deck!.loadCards();
+    expect(n1Cards.length).toBe(49);
+
+    const n5Deck = PRESET_DECKS.find((d) => d.id === 'deck_n5_test_bank');
+    expect(n5Deck).toBeDefined();
+    expect(n5Deck!.level).toBe('JLPT N5');
+    const n5Cards = await n5Deck!.loadCards();
+    expect(n5Cards.length).toBe(33);
+
+    const n3Deck = PRESET_DECKS.find((d) => d.id === 'deck_n3_confusing_grammar');
+    expect(n3Deck).toBeDefined();
+    expect(n3Deck!.level).toBe('JLPT N3');
+    const n3Cards = await n3Deck!.loadCards();
+    expect(n3Cards.length).toBe(22);
+
+    const n3MonDeck = PRESET_DECKS.find((d) => d.id === 'deck_n3_500_mon');
+    expect(n3MonDeck).toBeDefined();
+    expect(n3MonDeck!.level).toBe('JLPT N3');
+    const n3MonCards = await n3MonDeck!.loadCards();
+    expect(n3MonCards.length).toBe(20);
+  });
+});
