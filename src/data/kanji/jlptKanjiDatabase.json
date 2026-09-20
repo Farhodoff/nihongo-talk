@@ -41536,5 +41536,903 @@
         "meaning": "Determine, Fix"
       }
     ]
+  },
+  {
+    "id": "kanji_n4_231_育",
+    "level": "N4",
+    "kanji": "育",
+    "onyomi": "イク",
+    "kunyomi": "そだ・つ, そだ・てる",
+    "meaningUz": "O'smoq, tarbiyalamoq",
+    "strokeCount": 8,
+    "examples": [
+      {
+        "word": "育てる",
+        "reading": "そだてる",
+        "meaning": "O'stirmoq, boqmoq"
+      },
+      {
+        "word": "教育",
+        "reading": "きょういく",
+        "meaning": "Ta'lim-tarbiya"
+      },
+      {
+        "word": "体育",
+        "reading": "たいいく",
+        "meaning": "Jismoniy tarbiya"
+      },
+      {
+        "word": "育児",
+        "reading": "いくじ",
+        "meaning": "Bola parvarishi"
+      }
+    ]
+  },
+  {
+    "id": "kanji_n4_232_静",
+    "level": "N4",
+    "kanji": "静",
+    "onyomi": "セイ",
+    "kunyomi": "しず・か, しず・まる",
+    "meaningUz": "Tinch, sokin",
+    "strokeCount": 14,
+    "examples": [
+      {
+        "word": "静か",
+        "reading": "しずか",
+        "meaning": "Tinch, osoyishta"
+      },
+      {
+        "word": "冷静",
+        "reading": "れいせい",
+        "meaning": "Bosiq, sovuqqon"
+      }
+    ]
+  },
+  {
+    "id": "kanji_n4_233_玉",
+    "level": "N4",
+    "kanji": "玉",
+    "onyomi": "ギョク",
+    "kunyomi": "たま",
+    "meaningUz": "Shar, dur, tanga",
+    "strokeCount": 5,
+    "examples": [
+      {
+        "word": "目玉",
+        "reading": "めだま",
+        "meaning": "Ko'z qorachig'i"
+      },
+      {
+        "word": "水玉",
+        "reading": "みずたま",
+        "meaning": "Tomchi, xolli naqsh"
+      },
+      {
+        "word": "百円玉",
+        "reading": "ひゃくえんだま",
+        "meaning": "100 yenlik tanga"
+      }
+    ]
+  },
+  {
+    "id": "kanji_n4_234_毛",
+    "level": "N4",
+    "kanji": "毛",
+    "onyomi": "モウ",
+    "kunyomi": "け",
+    "meaningUz": "Jun, soch, tuk",
+    "strokeCount": 4,
+    "examples": [
+      {
+        "word": "髪の毛",
+        "reading": "かみのけ",
+        "meaning": "Soch"
+      },
+      {
+        "word": "毛布",
+        "reading": "もうふ",
+        "meaning": "Adyol"
+      },
+      {
+        "word": "毛糸",
+        "reading": "けいと",
+        "meaning": "Jun ip"
+      }
+    ]
+  },
+  {
+    "id": "kanji_n4_235_糸",
+    "level": "N4",
+    "kanji": "糸",
+    "onyomi": "シ",
+    "kunyomi": "いと",
+    "meaningUz": "Ip",
+    "strokeCount": 6,
+    "examples": [
+      {
+        "word": "糸",
+        "reading": "いと",
+        "meaning": "Ip"
+      },
+      {
+        "word": "毛糸",
+        "reading": "けいと",
+        "meaning": "Jun ip"
+      },
+      {
+        "word": "絹糸",
+        "reading": "きぬいと",
+        "meaning": "Ipak ip"
+      }
+    ]
+  },
+  {
+    "id": "kanji_n4_236_衣",
+    "level": "N4",
+    "kanji": "衣",
+    "onyomi": "イ",
+    "kunyomi": "ころも",
+    "meaningUz": "Kiyim, po'stloq",
+    "strokeCount": 6,
+    "examples": [
+      {
+        "word": "衣服",
+        "reading": "いふく",
+        "meaning": "Kiyim-bosh"
+      },
+      {
+        "word": "衣類",
+        "reading": "いるい",
+        "meaning": "Kiyimlar"
+      },
+      {
+        "word": "衣替え",
+        "reading": "ころもがえ",
+        "meaning": "Mavsumiy kiyim almashtirish"
+      }
+    ]
+  },
+  {
+    "id": "kanji_n4_237_客",
+    "level": "N4",
+    "kanji": "客",
+    "onyomi": "キャク",
+    "kunyomi": "-",
+    "meaningUz": "Mehmon, mijoz",
+    "strokeCount": 9,
+    "examples": [
+      {
+        "word": "客",
+        "reading": "きゃく",
+        "meaning": "Mijoz, mehmon"
+      },
+      {
+        "word": "お客様",
+        "reading": "おきゃくさま",
+        "meaning": "Hurmatli mijoz"
+      },
+      {
+        "word": "乗客",
+        "reading": "じょうきゃく",
+        "meaning": "Yo'lovchi"
+      }
+    ]
+  },
+  {
+    "id": "kanji_n4_238_当",
+    "level": "N4",
+    "kanji": "当",
+    "onyomi": "トウ",
+    "kunyomi": "あ・たる, あ・てる",
+    "meaningUz": "Tegmoq, mos kelmoq, haqiqiy",
+    "strokeCount": 6,
+    "examples": [
+      {
+        "word": "本当",
+        "reading": "ほんとう",
+        "meaning": "Haqiqat"
+      },
+      {
+        "word": "お弁当",
+        "reading": "おべんとう",
+        "meaning": "Bento tushligi"
+      },
+      {
+        "word": "当たる",
+        "reading": "あたる",
+        "meaning": "Tegmoq, yutmoq"
+      }
+    ]
+  },
+  {
+    "id": "kanji_n4_239_午",
+    "level": "N4",
+    "kanji": "午",
+    "onyomi": "ゴ",
+    "kunyomi": "-",
+    "meaningUz": "Peshin",
+    "strokeCount": 4,
+    "examples": [
+      {
+        "word": "午前",
+        "reading": "ごぜん",
+        "meaning": "Tushgacha (AM"
+      },
+      {
+        "word": "午後",
+        "reading": "ごご",
+        "meaning": "Tushdan keyin (PM"
+      },
+      {
+        "word": "正午",
+        "reading": "しょうご",
+        "meaning": "Ayni peshin vaqti (12:00"
+      }
+    ]
+  },
+  {
+    "id": "kanji_n4_240_宅",
+    "level": "N4",
+    "kanji": "宅",
+    "onyomi": "タク",
+    "kunyomi": "-",
+    "meaningUz": "Xonadon, uy",
+    "strokeCount": 6,
+    "examples": [
+      {
+        "word": "自宅",
+        "reading": "じたく",
+        "meaning": "O'z uyi"
+      },
+      {
+        "word": "宅配便",
+        "reading": "たくはいびん",
+        "meaning": "Kuryerlik xizmati"
+      },
+      {
+        "word": "帰宅",
+        "reading": "きたく",
+        "meaning": "Uyga qaytish"
+      }
+    ]
+  },
+  {
+    "id": "kanji_n4_241_速",
+    "level": "N4",
+    "kanji": "速",
+    "onyomi": "ソク",
+    "kunyomi": "はや・い",
+    "meaningUz": "Tez, chaqqon",
+    "strokeCount": 10,
+    "examples": [
+      {
+        "word": "速い",
+        "reading": "はやい",
+        "meaning": "Tez"
+      },
+      {
+        "word": "速度",
+        "reading": "そくど",
+        "meaning": "Tezlik"
+      },
+      {
+        "word": "高速道路",
+        "reading": "こうそくどうろ",
+        "meaning": "Magistral yo'l"
+      }
+    ]
+  },
+  {
+    "id": "kanji_n4_242_様",
+    "level": "N4",
+    "kanji": "様",
+    "onyomi": "ヨウ",
+    "kunyomi": "さま",
+    "meaningUz": "Janob/xonim (hurmat), holat",
+    "strokeCount": 14,
+    "examples": [
+      {
+        "word": "様",
+        "reading": "さま",
+        "meaning": "Janoblari (hurmat qo'shimchasi"
+      },
+      {
+        "word": "皆様",
+        "reading": "みなさま",
+        "meaning": "Barchangiz"
+      },
+      {
+        "word": "様子",
+        "reading": "ようす",
+        "meaning": "Holat, ko'rinish"
+      }
+    ]
+  },
+  {
+    "id": "kanji_n4_243_番",
+    "level": "N4",
+    "kanji": "番",
+    "onyomi": "バン",
+    "kunyomi": "-",
+    "meaningUz": "Raqam, navbat",
+    "strokeCount": 12,
+    "examples": [
+      {
+        "word": "一番",
+        "reading": "いちばん",
+        "meaning": "Birinchi, eng"
+      },
+      {
+        "word": "番号",
+        "reading": "ばんごう",
+        "meaning": "Raqam"
+      },
+      {
+        "word": "交番",
+        "reading": "こうばん",
+        "meaning": "Militsiya punkti"
+      }
+    ]
+  },
+  {
+    "id": "kanji_n4_244_夫",
+    "level": "N4",
+    "kanji": "夫",
+    "onyomi": "フ",
+    "kunyomi": "おっと",
+    "meaningUz": "Er; erkak",
+    "strokeCount": 4,
+    "examples": [
+      {
+        "word": "夫",
+        "reading": "おっと",
+        "meaning": "Er (o'zining"
+      },
+      {
+        "word": "夫婦",
+        "reading": "ふうふ",
+        "meaning": "Er-xotin"
+      },
+      {
+        "word": "工夫",
+        "reading": "くふう",
+        "meaning": "Rejalash, yangilik topish"
+      }
+    ]
+  },
+  {
+    "id": "kanji_n4_245_妻",
+    "level": "N4",
+    "kanji": "妻",
+    "onyomi": "サイ",
+    "kunyomi": "つま",
+    "meaningUz": "Xotin, rafiqa",
+    "strokeCount": 8,
+    "examples": [
+      {
+        "word": "妻",
+        "reading": "つま",
+        "meaning": "Xotin (o'zining"
+      },
+      {
+        "word": "夫妻",
+        "reading": "ふさい",
+        "meaning": "Er-xotin janoblari"
+      }
+    ]
+  },
+  {
+    "id": "kanji_n4_246_黄",
+    "level": "N4",
+    "kanji": "黄",
+    "onyomi": "コウ, オウ",
+    "kunyomi": "き, こ",
+    "meaningUz": "Sariq",
+    "strokeCount": 11,
+    "examples": [
+      {
+        "word": "黄色",
+        "reading": "きいろ",
+        "meaning": "Sariq rang"
+      },
+      {
+        "word": "黄色い",
+        "reading": "きいろい",
+        "meaning": "Sariq"
+      }
+    ]
+  },
+  {
+    "id": "kanji_n4_247_数",
+    "level": "N4",
+    "kanji": "数",
+    "onyomi": "スウ",
+    "kunyomi": "かず, かぞ・える",
+    "meaningUz": "Son, sanoq, sanamoq",
+    "strokeCount": 13,
+    "examples": [
+      {
+        "word": "数学",
+        "reading": "すうがく",
+        "meaning": "Matematika"
+      },
+      {
+        "word": "数える",
+        "reading": "かぞえる",
+        "meaning": "Sanamoq"
+      },
+      {
+        "word": "人数",
+        "reading": "にんずう",
+        "meaning": "Odamlar soni"
+      }
+    ]
+  },
+  {
+    "id": "kanji_n4_248_酒",
+    "level": "N4",
+    "kanji": "酒",
+    "onyomi": "シュ",
+    "kunyomi": "さけ, さか",
+    "meaningUz": "Spirtli ichimlik, sake",
+    "strokeCount": 10,
+    "examples": [
+      {
+        "word": "お酒",
+        "reading": "おさけ",
+        "meaning": "Sake, spirtli ichimlik"
+      },
+      {
+        "word": "居酒屋",
+        "reading": "いざかや",
+        "meaning": "Yapon barchasi/restorani"
+      }
+    ]
+  },
+  {
+    "id": "kanji_n4_249_油",
+    "level": "N4",
+    "kanji": "油",
+    "onyomi": "ユ",
+    "kunyomi": "あぶら",
+    "meaningUz": "Yog', moy",
+    "strokeCount": 8,
+    "examples": [
+      {
+        "word": "油",
+        "reading": "あぶら",
+        "meaning": "Yog'"
+      },
+      {
+        "word": "石油",
+        "reading": "せきゆ",
+        "meaning": "Neft"
+      },
+      {
+        "word": "しょう油",
+        "reading": "しょうゆ",
+        "meaning": "Soya sousi"
+      }
+    ]
+  },
+  {
+    "id": "kanji_n4_250_皿",
+    "level": "N4",
+    "kanji": "皿",
+    "onyomi": "-",
+    "kunyomi": "さら",
+    "meaningUz": "Tarelka, likopcha",
+    "strokeCount": 5,
+    "examples": [
+      {
+        "word": "皿",
+        "reading": "さら",
+        "meaning": "Tarelka"
+      },
+      {
+        "word": "灰皿",
+        "reading": "はいざら",
+        "meaning": "Kuldonoq"
+      }
+    ]
+  },
+  {
+    "id": "kanji_n4_251_麦",
+    "level": "N4",
+    "kanji": "麦",
+    "onyomi": "バク",
+    "kunyomi": "むぎ",
+    "meaningUz": "Bug'doy, arpa",
+    "strokeCount": 7,
+    "examples": [
+      {
+        "word": "麦",
+        "reading": "むぎ",
+        "meaning": "Bug'doy"
+      },
+      {
+        "word": "小麦粉",
+        "reading": "こむぎこ",
+        "meaning": "Bug'doy uni"
+      },
+      {
+        "word": "麦茶",
+        "reading": "むぎちゃ",
+        "meaning": "Arpa choyi"
+      }
+    ]
+  },
+  {
+    "id": "kanji_n4_252_雲",
+    "level": "N4",
+    "kanji": "雲",
+    "onyomi": "ウン",
+    "kunyomi": "くも",
+    "meaningUz": "Bulut",
+    "strokeCount": 12,
+    "examples": [
+      {
+        "word": "雲",
+        "reading": "くも",
+        "meaning": "Bulut"
+      },
+      {
+        "word": "雨雲",
+        "reading": "あまぐも",
+        "meaning": "Yomg'ir buluti"
+      }
+    ]
+  },
+  {
+    "id": "kanji_n4_253_晴",
+    "level": "N4",
+    "kanji": "晴",
+    "onyomi": "セイ",
+    "kunyomi": "は・れる, は・らす",
+    "meaningUz": "Ochiq havo, musaffo",
+    "strokeCount": 12,
+    "examples": [
+      {
+        "word": "晴れる",
+        "reading": "はれる",
+        "meaning": "Havo ochilmoq"
+      },
+      {
+        "word": "晴れ",
+        "reading": "はれ",
+        "meaning": "Ochiq, quyoshli havo"
+      }
+    ]
+  },
+  {
+    "id": "kanji_n4_254_船",
+    "level": "N4",
+    "kanji": "船",
+    "onyomi": "セン",
+    "kunyomi": "ふね, ふな",
+    "meaningUz": "Kema, qayiq",
+    "strokeCount": 11,
+    "examples": [
+      {
+        "word": "船",
+        "reading": "ふね",
+        "meaning": "Kema"
+      },
+      {
+        "word": "船長",
+        "reading": "せんちょう",
+        "meaning": "Kapitan"
+      },
+      {
+        "word": "風船",
+        "reading": "ふうせん",
+        "meaning": "Sharcha"
+      }
+    ]
+  },
+  {
+    "id": "kanji_n4_255_宿",
+    "level": "N4",
+    "kanji": "宿",
+    "onyomi": "シュク",
+    "kunyomi": "やど",
+    "meaningUz": "Mehmonxona; topshiriq",
+    "strokeCount": 11,
+    "examples": [
+      {
+        "word": "宿題",
+        "reading": "しゅくだい",
+        "meaning": "Uy vazifasi"
+      },
+      {
+        "word": "宿泊",
+        "reading": "しゅくはく",
+        "meaning": "Tunab qolish"
+      }
+    ]
+  },
+  {
+    "id": "kanji_n4_256_丸",
+    "level": "N4",
+    "kanji": "丸",
+    "onyomi": "ガン",
+    "kunyomi": "まる, まる・い",
+    "meaningUz": "Dumaloq, to'garak",
+    "strokeCount": 3,
+    "examples": [
+      {
+        "word": "丸",
+        "reading": "まる",
+        "meaning": "Aylana, dumaloq"
+      },
+      {
+        "word": "丸い",
+        "reading": "まるい",
+        "meaning": "Dumaloq"
+      }
+    ]
+  },
+  {
+    "id": "kanji_n4_257_歴",
+    "level": "N4",
+    "kanji": "歴",
+    "onyomi": "レキ",
+    "kunyomi": "-",
+    "meaningUz": "O'tmish, tarix",
+    "strokeCount": 14,
+    "examples": [
+      {
+        "word": "歴史",
+        "reading": "れきし",
+        "meaning": "Tarix"
+      },
+      {
+        "word": "履歴書",
+        "reading": "りれきしょ",
+        "meaning": "Rezyume"
+      }
+    ]
+  },
+  {
+    "id": "kanji_n4_258_史",
+    "level": "N4",
+    "kanji": "史",
+    "onyomi": "シ",
+    "kunyomi": "-",
+    "meaningUz": "Tarixiy yozuv",
+    "strokeCount": 5,
+    "examples": [
+      {
+        "word": "歴史",
+        "reading": "れきし",
+        "meaning": "Tarix"
+      },
+      {
+        "word": "世界史",
+        "reading": "せかいし",
+        "meaning": "Jahon tarixi"
+      }
+    ]
+  },
+  {
+    "id": "kanji_n4_259_才",
+    "level": "N4",
+    "kanji": "才",
+    "onyomi": "サイ",
+    "kunyomi": "-",
+    "meaningUz": "Yosh (yosh sanagich); iqtidor",
+    "strokeCount": 3,
+    "examples": [
+      {
+        "word": "20才",
+        "reading": "はたち",
+        "meaning": "20 yosh"
+      },
+      {
+        "word": "天才",
+        "reading": "てんさい",
+        "meaning": "Daho, talant"
+      }
+    ]
+  },
+  {
+    "id": "kanji_n4_260_原",
+    "level": "N4",
+    "kanji": "原",
+    "onyomi": "ゲン",
+    "kunyomi": "はら",
+    "meaningUz": "Tekislik, maydon; manba",
+    "strokeCount": 10,
+    "examples": [
+      {
+        "word": "野原",
+        "reading": "のはら",
+        "meaning": "Dala"
+      },
+      {
+        "word": "原因",
+        "reading": "げんいん",
+        "meaning": "Sabab"
+      }
+    ]
+  },
+  {
+    "id": "kanji_n4_261_湖",
+    "level": "N4",
+    "kanji": "湖",
+    "onyomi": "コ",
+    "kunyomi": "みずうみ",
+    "meaningUz": "Ko'l",
+    "strokeCount": 12,
+    "examples": [
+      {
+        "word": "湖",
+        "reading": "みずうみ",
+        "meaning": "Ko'l"
+      },
+      {
+        "word": "びわ湖",
+        "reading": "びわこ",
+        "meaning": "Biva ko'li"
+      }
+    ]
+  },
+  {
+    "id": "kanji_n4_262_谷",
+    "level": "N4",
+    "kanji": "谷",
+    "onyomi": "コク",
+    "kunyomi": "たに",
+    "meaningUz": "Vodiy, daraxona",
+    "strokeCount": 7,
+    "examples": [
+      {
+        "word": "谷",
+        "reading": "たに",
+        "meaning": "Vodiy"
+      },
+      {
+        "word": "渓谷",
+        "reading": "けいこく",
+        "meaning": "Dara"
+      }
+    ]
+  },
+  {
+    "id": "kanji_n4_263_辺",
+    "level": "N4",
+    "kanji": "辺",
+    "onyomi": "ヘン",
+    "kunyomi": "あた・り, べ",
+    "meaningUz": "Atrof, soha, tomon",
+    "strokeCount": 5,
+    "examples": [
+      {
+        "word": "この辺",
+        "reading": "このあたり",
+        "meaning": "Bu atrof"
+      },
+      {
+        "word": "海辺",
+        "reading": "うみべ",
+        "meaning": "Dengiz bo'yi"
+      }
+    ]
+  },
+  {
+    "id": "kanji_n4_264_里",
+    "level": "N4",
+    "kanji": "里",
+    "onyomi": "リ",
+    "kunyomi": "さと",
+    "meaningUz": "Qishloq, vatani",
+    "strokeCount": 7,
+    "examples": [
+      {
+        "word": "ふる里",
+        "reading": "ふるさと",
+        "meaning": "Ona qishloq"
+      },
+      {
+        "word": "里帰り",
+        "reading": "さとがえり",
+        "meaning": "Ota uyiga qaytish"
+      }
+    ]
+  },
+  {
+    "id": "kanji_n4_265_緑",
+    "level": "N4",
+    "kanji": "緑",
+    "onyomi": "リョク",
+    "kunyomi": "みどり",
+    "meaningUz": "Yashil rang, ko'kalamzor",
+    "strokeCount": 14,
+    "examples": [
+      {
+        "word": "緑",
+        "reading": "みどり",
+        "meaning": "Yashil"
+      },
+      {
+        "word": "緑色",
+        "reading": "みどりいろ",
+        "meaning": "Yashil rang"
+      },
+      {
+        "word": "新緑",
+        "reading": "しんりょく",
+        "meaning": "Yangi ko'kalamzor"
+      }
+    ]
+  },
+  {
+    "id": "kanji_n4_266_羽",
+    "level": "N4",
+    "kanji": "羽",
+    "onyomi": "ウ",
+    "kunyomi": "は, はね",
+    "meaningUz": "Qanot, pat (qush sanagich)",
+    "strokeCount": 6,
+    "examples": [
+      {
+        "word": "羽",
+        "reading": "はね",
+        "meaning": "Qanot, pat"
+      },
+      {
+        "word": "一羽",
+        "reading": "いちわ",
+        "meaning": "1 ta qush"
+      }
+    ]
+  },
+  {
+    "id": "kanji_n4_267_馬",
+    "level": "N4",
+    "kanji": "馬",
+    "onyomi": "バ",
+    "kunyomi": "うま, ま",
+    "meaningUz": "Ot",
+    "strokeCount": 10,
+    "examples": [
+      {
+        "word": "馬",
+        "reading": "うま",
+        "meaning": "Ot"
+      },
+      {
+        "word": "乗馬",
+        "reading": "じょうば",
+        "meaning": "Ot minish"
+      },
+      {
+        "word": "競馬",
+        "reading": "けいば",
+        "meaning": "Ot poygasi"
+      }
+    ]
+  },
+  {
+    "id": "kanji_n4_268_鳴",
+    "level": "N4",
+    "kanji": "鳴",
+    "onyomi": "メイ",
+    "kunyomi": "な・く, な・る",
+    "meaningUz": "Sayramoq, jiringlamoq",
+    "strokeCount": 14,
+    "examples": [
+      {
+        "word": "鳴く",
+        "reading": "なく",
+        "meaning": "Sayramoq, uvillamoq (hayvon/qush"
+      },
+      {
+        "word": "鳴る",
+        "reading": "なる",
+        "meaning": "Jiringlamoq (qo'ng'iroq"
+      }
+    ]
   }
 ]

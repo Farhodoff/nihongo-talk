@@ -2,9 +2,9 @@ import { describe, it, expect } from 'vitest';
 import { KanjiPracticeService } from '../KanjiPracticeService';
 
 describe('KanjiPracticeService Unit Tests', () => {
-  it('returns all 2018 kanjis from database with 100% stroke data availability', () => {
+  it('returns all 2056 kanjis from database with 100% stroke data availability', () => {
     const all = KanjiPracticeService.getAllKanjis();
-    expect(all.length).toBe(2018);
+    expect(all.length).toBe(2056);
 
     // Verify stroke coverage
     let missingStrokes = 0;
@@ -25,7 +25,7 @@ describe('KanjiPracticeService Unit Tests', () => {
     const n1 = KanjiPracticeService.getKanjisByLevel('N1');
 
     expect(n5.length).toBe(106);
-    expect(n4.length).toBe(230);
+    expect(n4.length).toBe(268);
     expect(n3.length).toBe(337);
     expect(n2.length).toBe(468);
     expect(n1.length).toBe(877);

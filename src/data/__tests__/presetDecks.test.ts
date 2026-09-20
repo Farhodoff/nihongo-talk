@@ -54,5 +54,12 @@ describe('PRESET_DECKS Integrity & Quality Tests', () => {
     expect(n3ThematicDeck!.level).toBe('JLPT N3');
     const n3ThematicCards = await n3ThematicDeck!.loadCards();
     expect(n3ThematicCards.length).toBe(699);
+
+    const n4KanjiDeck = PRESET_DECKS.find((d) => d.id === 'deck_kanji_master_n4');
+    expect(n4KanjiDeck).toBeDefined();
+    expect(n4KanjiDeck!.level).toBe('JLPT N4');
+    const n4KanjiCards = await n4KanjiDeck!.loadCards();
+    expect(n4KanjiCards.length).toBe(207);
+    expect(n4KanjiCards[0].front).toBe('家');
   });
 });

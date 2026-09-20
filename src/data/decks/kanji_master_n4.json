@@ -1,0 +1,1658 @@
+[
+  {
+    "front": "家",
+    "back": "Uy, oila; xonadon\n• On: カ, ケ | Kun: いえ, や\n• Chizishlar: 10 ta\n• Birikmalar: 家族 (かぞく - Oila) | 家 (いえ - Uy) | 大家 (おおや - Uy egasi) | 専門家 (せんもんか - Mutaxassis)",
+    "phonetic": "いえ, や / カ, ケ",
+    "example": "家族 (かぞく): Oila",
+    "category": "1.1: 家族 (Oila a'zolari)",
+    "level": "N4"
+  },
+  {
+    "front": "族",
+    "back": "Qabila, urug', toifa\n• On: ゾク | Kun: -\n• Chizishlar: 11 ta\n• Birikmalar: 家族 (かぞく - Oila) | 民族 (みんぞく - Millat, xalq) | 水族館 (すいぞくかん - Okeanarium, akvarium)",
+    "phonetic": "ゾク",
+    "example": "家族 (かぞく): Oila",
+    "category": "1.1: 家族 (Oila a'zolari)",
+    "level": "N4"
+  },
+  {
+    "front": "兄",
+    "back": "Aka\n• On: ケイ, キョウ | Kun: あに\n• Chizishlar: 5 ta\n• Birikmalar: 兄 (あに - Aka (o'zining)) | お兄さん (おにいさん - Aka (birovning)) | 兄弟 (きょうだい - Aka-uka, birodarlar)",
+    "phonetic": "あに / ケイ, キョウ",
+    "example": "兄 (あに): Aka (o'zining)",
+    "category": "1.1: 家族 (Oila a'zolari)",
+    "level": "N4"
+  },
+  {
+    "front": "弟",
+    "back": "Uka\n• On: テイ, ダイ | Kun: おとうと\n• Chizishlar: 7 ta\n• Birikmalar: 弟 (おとうと - Uka (o'zining)) | 兄弟 (きょうだい - Aka-uka) | 弟子 (でし - Shogird)",
+    "phonetic": "おとうと / テイ, ダイ",
+    "example": "弟 (おとうと): Uka (o'zining)",
+    "category": "1.1: 家族 (Oila a'zolari)",
+    "level": "N4"
+  },
+  {
+    "front": "姉",
+    "back": "Opa\n• On: シ | Kun: あね\n• Chizishlar: 8 ta\n• Birikmalar: 姉 (あね - Opa (o'zining)) | お姉さん (おねえさん - Opa (birovning)) | 姉妹 (しまい - Opa-singillar)",
+    "phonetic": "あね / シ",
+    "example": "姉 (あね): Opa (o'zining)",
+    "category": "1.1: 家族 (Oila a'zolari)",
+    "level": "N4"
+  },
+  {
+    "front": "妹",
+    "back": "Singil\n• On: マイ | Kun: いもうと\n• Chizishlar: 8 ta\n• Birikmalar: 妹 (いもうと - Singil (o'zining)) | 妹さん (いもうとさん - Singil (birovning)) | 姉妹 (しまい - Opa-singillar)",
+    "phonetic": "いもうと / マイ",
+    "example": "妹 (いもうと): Singil (o'zining)",
+    "category": "1.1: 家族 (Oila a'zolari)",
+    "level": "N4"
+  },
+  {
+    "front": "私",
+    "back": "Men; shaxsiy\n• On: シ | Kun: わたし, わたくし\n• Chizishlar: 7 ta\n• Birikmalar: 私 (わたし - Men) | 私立 (しりつ - Xususiy (maktab, universitet)) | 私用 (しよう - Shaxsiy ish)",
+    "phonetic": "わたし, わたくし / シ",
+    "example": "私 (わたし): Men",
+    "category": "1.1: 家族 (Oila a'zolari)",
+    "level": "N4"
+  },
+  {
+    "front": "育",
+    "back": "O'smoq, tarbiyalamoq\n• On: イク | Kun: そだ・つ, そだ・てる\n• Chizishlar: 8 ta\n• Birikmalar: 育てる (そだてる - O'stirmoq, boqmoq) | 教育 (きょういく - Ta'lim-tarbiya) | 体育 (たいいく - Jismoniy tarbiya) | 育児 (いくじ - Bola parvarishi)",
+    "phonetic": "そだ・つ, そだ・てる / イク",
+    "example": "育てる (そだてる): O'stirmoq, boqmoq",
+    "category": "1.1: 家族 (Oila a'zolari)",
+    "level": "N4"
+  },
+  {
+    "front": "部",
+    "back": "Qism, bo'lim, klub\n• On: ブ | Kun: -\n• Chizishlar: 11 ta\n• Birikmalar: 部屋 (へや - Xona) | 学部 (がくぶ - Fakultet) | 部長 (ぶちょう - Bo'lim boshlig'i) | 一部 (いちぶ - Bir qism)",
+    "phonetic": "ブ",
+    "example": "部屋 (へや): Xona",
+    "category": "1.2: マンション (Xonadon va Uy-joy)",
+    "level": "N4"
+  },
+  {
+    "front": "屋",
+    "back": "Tom, do'kon, uy\n• On: オク | Kun: や\n• Chizishlar: 9 ta\n• Birikmalar: 部屋 (へや - Xona) | 屋上 (おくじょう - Tom usti) | 本屋 (ほんや - Kitob do'koni) | 八百屋 (やおや - Sabzavot do'koni)",
+    "phonetic": "や / オク",
+    "example": "部屋 (へや): Xona",
+    "category": "1.2: マンション (Xonadon va Uy-joy)",
+    "level": "N4"
+  },
+  {
+    "front": "広",
+    "back": "Keng, yoyilmoq\n• On: コウ | Kun: ひろ・い, ひろ・がる\n• Chizishlar: 5 ta\n• Birikmalar: 広い (ひろい - Keng) | 広場 (ひろば - Maydon) | 広告 (こうこく - Reklama)",
+    "phonetic": "ひろ・い, ひろ・がる / コウ",
+    "example": "広い (ひろい): Keng",
+    "category": "1.2: マンション (Xonadon va Uy-joy)",
+    "level": "N4"
+  },
+  {
+    "front": "低",
+    "back": "Past, pasaymoq\n• On: テイ | Kun: ひく・い, ひく・める\n• Chizishlar: 7 ta\n• Birikmalar: 低い (ひくい - Past) | 低下 (ていか - Pasayish, tushish) | 最低 (さいてい - Eng past, eng yomon)",
+    "phonetic": "ひく・い, ひく・める / テイ",
+    "example": "低い (ひくい): Past",
+    "category": "1.2: マンション (Xonadon va Uy-joy)",
+    "level": "N4"
+  },
+  {
+    "front": "近",
+    "back": "Yaqin\n• On: キン | Kun: ちか・い\n• Chizishlar: 7 ta\n• Birikmalar: 近い (ちかい - Yaqin) | 近所 (きんじょ - Mahalla, qo'shnichilik) | 最近 (さいきん - Yaqinda, so'nggi paytlarda)",
+    "phonetic": "ちか・い / キン",
+    "example": "近い (ちかい): Yaqin",
+    "category": "1.2: マンション (Xonadon va Uy-joy)",
+    "level": "N4"
+  },
+  {
+    "front": "遠",
+    "back": "Uzoq\n• On: エン | Kun: とお・い\n• Chizishlar: 13 ta\n• Birikmalar: 遠い (とおい - Uzoq, olis) | 遠足 (えんそく - Sayohat, ekskursiya) | 遠慮 (えんりょ - Iymanmoq, tortinmoq)",
+    "phonetic": "とお・い / エン",
+    "example": "遠い (とおい): Uzoq, olis",
+    "category": "1.2: マンション (Xonadon va Uy-joy)",
+    "level": "N4"
+  },
+  {
+    "front": "静",
+    "back": "Tinch, sokin\n• On: セイ | Kun: しず・か, しず・まる\n• Chizishlar: 14 ta\n• Birikmalar: 静か (しずか - Tinch, osoyishta) | 冷静 (れいせい - Bosiq, sovuqqon)",
+    "phonetic": "しず・か, しず・まる / セイ",
+    "example": "静か (しずか): Tinch, osoyishta",
+    "category": "1.2: マンション (Xonadon va Uy-joy)",
+    "level": "N4"
+  },
+  {
+    "front": "洋",
+    "back": "G'arb, okean\n• On: ヨウ | Kun: -\n• Chizishlar: 9 ta\n• Birikmalar: 洋服 (ようふく - G'arbcha kiyim) | 西洋 (せいよう - G'arb olami) | 東洋 (とうよう - Sharq olami)",
+    "phonetic": "ヨウ",
+    "example": "洋服 (ようふく): G'arbcha kiyim",
+    "category": "1.3: ファッション (Kiyim-kechak va Tashqi ko'rinish)",
+    "level": "N4"
+  },
+  {
+    "front": "服",
+    "back": "Kiyim, bo'ysunmoq\n• On: フク | Kun: -\n• Chizishlar: 8 ta\n• Birikmalar: 洋服 (ようふく - Kiyim) | 和服 (わふく - Yapon milliy kiyimi) | 制服 (せいふく - Forma)",
+    "phonetic": "フク",
+    "example": "洋服 (ようふく): Kiyim",
+    "category": "1.3: ファッション (Kiyim-kechak va Tashqi ko'rinish)",
+    "level": "N4"
+  },
+  {
+    "front": "短",
+    "back": "Qisqa, kamchilik\n• On: タン | Kun: みじか・い\n• Chizishlar: 12 ta\n• Birikmalar: 短い (みじかい - Qisqa) | 短気 (たんき - Jahldor, sabrsiz) | 短所 (たんしょ - Kamchilik)",
+    "phonetic": "みじか・い / タン",
+    "example": "短い (みじかい): Qisqa",
+    "category": "1.3: ファッション (Kiyim-kechak va Tashqi ko'rinish)",
+    "level": "N4"
+  },
+  {
+    "front": "玉",
+    "back": "Shar, dur, tanga\n• On: ギョク | Kun: たま\n• Chizishlar: 5 ta\n• Birikmalar: 目玉 (めだま - Ko'z qorachig'i) | 水玉 (みずたま - Tomchi, xolli naqsh) | 百円玉 (ひゃくえんだま - 100 yenlik tanga)",
+    "phonetic": "たま / ギョク",
+    "example": "目玉 (めだま): Ko'z qorachig'i",
+    "category": "1.3: ファッション (Kiyim-kechak va Tashqi ko'rinish)",
+    "level": "N4"
+  },
+  {
+    "front": "毛",
+    "back": "Jun, soch, tuk\n• On: モウ | Kun: け\n• Chizishlar: 4 ta\n• Birikmalar: 髪の毛 (かみのけ - Soch) | 毛布 (もうふ - Adyol) | 毛糸 (けいと - Jun ip)",
+    "phonetic": "け / モウ",
+    "example": "髪の毛 (かみのけ): Soch",
+    "category": "1.3: ファッション (Kiyim-kechak va Tashqi ko'rinish)",
+    "level": "N4"
+  },
+  {
+    "front": "糸",
+    "back": "Ip\n• On: シ | Kun: いと\n• Chizishlar: 6 ta\n• Birikmalar: 糸 (いと - Ip) | 毛糸 (けいと - Jun ip) | 絹糸 (きぬいと - Ipak ip)",
+    "phonetic": "いと / シ",
+    "example": "糸 (いと): Ip",
+    "category": "1.3: ファッション (Kiyim-kechak va Tashqi ko'rinish)",
+    "level": "N4"
+  },
+  {
+    "front": "光",
+    "back": "Yorug'lik, nur, porlamoq\n• On: コウ | Kun: ひか・る, ひかり\n• Chizishlar: 6 ta\n• Birikmalar: 光 (ひかり - Nur, yorug'lik) | 日光 (にっこう - Quyosh nuri) | 観光 (かんこう - Sayyohlik, turizm)",
+    "phonetic": "ひか・る, ひかり / コウ",
+    "example": "光 (ひかり): Nur, yorug'lik",
+    "category": "1.3: ファッション (Kiyim-kechak va Tashqi ko'rinish)",
+    "level": "N4"
+  },
+  {
+    "front": "衣",
+    "back": "Kiyim, po'stloq\n• On: イ | Kun: ころも\n• Chizishlar: 6 ta\n• Birikmalar: 衣服 (いふく - Kiyim-bosh) | 衣類 (いるい - Kiyimlar) | 衣替え (ころもがえ - Mavsumiy kiyim almashtirish)",
+    "phonetic": "ころも / イ",
+    "example": "衣服 (いふく): Kiyim-bosh",
+    "category": "1.3: ファッション (Kiyim-kechak va Tashqi ko'rinish)",
+    "level": "N4"
+  },
+  {
+    "front": "店",
+    "back": "Do'kon\n• On: テン | Kun: みせ\n• Chizishlar: 8 ta\n• Birikmalar: 店 (みせ - Do'kon) | 店員 (てんいん - Sotuvchi) | 本店 (ほんてん - Bosh do'kon)",
+    "phonetic": "みせ / テン",
+    "example": "店 (みせ): Do'kon",
+    "category": "2.1: レジ (Kassa va Xarid)",
+    "level": "N4"
+  },
+  {
+    "front": "客",
+    "back": "Mehmon, mijoz\n• On: キャク | Kun: -\n• Chizishlar: 9 ta\n• Birikmalar: 客 (きゃく - Mijoz, mehmon) | お客様 (おきゃくさま - Hurmatli mijoz) | 乗客 (じょうきゃく - Yo'lovchi)",
+    "phonetic": "キャク",
+    "example": "客 (きゃく): Mijoz, mehmon",
+    "category": "2.1: レジ (Kassa va Xarid)",
+    "level": "N4"
+  },
+  {
+    "front": "親",
+    "back": "Ota-ona; yaqin\n• On: シン | Kun: おや, した・しい\n• Chizishlar: 16 ta\n• Birikmalar: 親 (おや - Ota-ona) | 親切 (しんせつ - Mehribon, samimiy) | 両親 (りょうしん - Ota-ona)",
+    "phonetic": "おや, した・しい / シン",
+    "example": "親 (おや): Ota-ona",
+    "category": "2.1: レジ (Kassa va Xarid)",
+    "level": "N4"
+  },
+  {
+    "front": "切",
+    "back": "Kesmoq, qat'iy\n• On: セツ | Kun: き・る, き・れる\n• Chizishlar: 4 ta\n• Birikmalar: 切る (きる - Kesmoq) | 切手 (きって - Pochta markasi) | 大切 (たいせつ - Muhim, qadrli)",
+    "phonetic": "き・る, き・れる / セツ",
+    "example": "切る (きる): Kesmoq",
+    "category": "2.1: レジ (Kassa va Xarid)",
+    "level": "N4"
+  },
+  {
+    "front": "売",
+    "back": "Sotmoq\n• On: バイ | Kun: う・る, う・れる\n• Chizishlar: 7 ta\n• Birikmalar: 売る (うる - Sotmoq) | 売り場 (うりば - Sotuv bo'limi) | 売店 (ばいてん - Do'koncha, kioska)",
+    "phonetic": "う・る, う・れる / バイ",
+    "example": "売る (うる): Sotmoq",
+    "category": "2.1: レジ (Kassa va Xarid)",
+    "level": "N4"
+  },
+  {
+    "front": "当",
+    "back": "Tegmoq, mos kelmoq, haqiqiy\n• On: トウ | Kun: あ・たる, あ・てる\n• Chizishlar: 6 ta\n• Birikmalar: 本当 (ほんとう - Haqiqat) | お弁当 (おべんとう - Bento tushligi) | 当たる (あたる - Tegmoq, yutmoq)",
+    "phonetic": "あ・たる, あ・てる / トウ",
+    "example": "本当 (ほんとう): Haqiqat",
+    "category": "2.1: レジ (Kassa va Xarid)",
+    "level": "N4"
+  },
+  {
+    "front": "品",
+    "back": "Mahsulot, buyum, sifat\n• On: ヒン | Kun: しな\n• Chizishlar: 9 ta\n• Birikmalar: 品物 (しなもの - Tovarlar) | 食料品 (しょくりょうひん - Oziq-ovqat mahsulotlari) | 作品 (さくひん - Asar)",
+    "phonetic": "しな / ヒン",
+    "example": "品物 (しなもの): Tovarlar",
+    "category": "2.1: レジ (Kassa va Xarid)",
+    "level": "N4"
+  },
+  {
+    "front": "便",
+    "back": "Qulaylik; xat, reys\n• On: ベン, ビン | Kun: たよ・り\n• Chizishlar: 9 ta\n• Birikmalar: 便利 (べんり - Qulay) | 郵便局 (ゆうびんきょく - Pochta bo'limi) | 航空便 (こうくうびん - Avia pochta)",
+    "phonetic": "たよ・り / ベン, ビン",
+    "example": "便利 (べんり): Qulay",
+    "category": "2.2: 案内 (Xizmatlar va Qulayliklar)",
+    "level": "N4"
+  },
+  {
+    "front": "利",
+    "back": "Foyda, ustunlik\n• On: リ | Kun: -\n• Chizishlar: 7 ta\n• Birikmalar: 便利 (べんり - Qulay) | 利用 (りよう - Foydalanish) | 利息 (りそく - Foiz (bank))",
+    "phonetic": "リ",
+    "example": "便利 (べんり): Qulay",
+    "category": "2.2: 案内 (Xizmatlar va Qulayliklar)",
+    "level": "N4"
+  },
+  {
+    "front": "使",
+    "back": "Ishlatmoq, elchi\n• On: シ | Kun: つか・う\n• Chizishlar: 8 ta\n• Birikmalar: 使う (つかう - Ishlatmoq) | 大使館 (たいしかん - Elchixona) | 使い方 (つかいかた - Foydalanish usuli)",
+    "phonetic": "つか・う / シ",
+    "example": "使う (つかう): Ishlatmoq",
+    "category": "2.2: 案内 (Xizmatlar va Qulayliklar)",
+    "level": "N4"
+  },
+  {
+    "front": "銀",
+    "back": "Kumush\n• On: ギン | Kun: -\n• Chizishlar: 14 ta\n• Birikmalar: 銀行 (ぎんこう - Bank) | 銀色 (ぎんいろ - Kumush rang) | 銀メダル (ぎんメダル - Kumush medal)",
+    "phonetic": "ギン",
+    "example": "銀行 (ぎんこう): Bank",
+    "category": "2.2: 案内 (Xizmatlar va Qulayliklar)",
+    "level": "N4"
+  },
+  {
+    "front": "白",
+    "back": "Oq\n• On: ハク | Kun: しろ, しろ・い\n• Chizishlar: 5 ta\n• Birikmalar: 白い (しろい - Oq) | 白黒 (しろくろ - Oq-qora) | 白鳥 (はくちょう - Oqqush)",
+    "phonetic": "しろ, しろ・い / ハク",
+    "example": "白い (しろい): Oq",
+    "category": "2.2: 案内 (Xizmatlar va Qulayliklar)",
+    "level": "N4"
+  },
+  {
+    "front": "黒",
+    "back": "Qora\n• On: コク | Kun: くろ, くろ・い\n• Chizishlar: 11 ta\n• Birikmalar: 黒い (くろい - Qora) | 黒板 (こくばん - Sinf doskasi) | 白黒 (しろくろ - Oq-qora)",
+    "phonetic": "くろ, くろ・い / コク",
+    "example": "黒い (くろい): Qora",
+    "category": "2.2: 案内 (Xizmatlar va Qulayliklar)",
+    "level": "N4"
+  },
+  {
+    "front": "紙",
+    "back": "Qog'oz\n• On: シ | Kun: かみ\n• Chizishlar: 10 ta\n• Birikmalar: 紙 (かみ - Qog'oz) | 手紙 (てがみ - Xat) | 折り紙 (おりがみ - Origami) | 新聞紙 (しんぶんし - Gazeta qog'ozi)",
+    "phonetic": "かみ / シ",
+    "example": "紙 (かみ): Qog'oz",
+    "category": "2.2: 案内 (Xizmatlar va Qulayliklar)",
+    "level": "N4"
+  },
+  {
+    "front": "朝",
+    "back": "Ertalab, tong\n• On: チョウ | Kun: あさ\n• Chizishlar: 12 ta\n• Birikmalar: 朝 (あさ - Ertalab) | 朝食 (ちょうしょく - Nonushta) | 今朝 (けさ - Bugun ertalab)",
+    "phonetic": "あさ / チョウ",
+    "example": "朝 (あさ): Ertalab",
+    "category": "2.3: 24時間 (24 Soat va Vaqt)",
+    "level": "N4"
+  },
+  {
+    "front": "晩",
+    "back": "Oqshom, tun\n• On: バン | Kun: -\n• Chizishlar: 12 ta\n• Birikmalar: 晩 (ばん - Kechqurun) | 今晩 (こんばん - Bugun kechqurun) | 晩ご飯 (ばんごはん - Kechki ovqat)",
+    "phonetic": "バン",
+    "example": "晩 (ばん): Kechqurun",
+    "category": "2.3: 24時間 (24 Soat va Vaqt)",
+    "level": "N4"
+  },
+  {
+    "front": "昼",
+    "back": "Kunduz, peshin\n• On: チュウ | Kun: ひる\n• Chizishlar: 9 ta\n• Birikmalar: 昼 (ひる - Kunduzi) | 昼ご飯 (ひるごはん - Tushlik) | 昼休み (ひるやすみ - Tushlik tanaffusi)",
+    "phonetic": "ひる / チュウ",
+    "example": "昼 (ひる): Kunduzi",
+    "category": "2.3: 24時間 (24 Soat va Vaqt)",
+    "level": "N4"
+  },
+  {
+    "front": "夜",
+    "back": "Tun\n• On: ヤ | Kun: よる, よ\n• Chizishlar: 8 ta\n• Birikmalar: 夜 (よる - Tun) | 夜中 (よなか - Yarim tun) | 今夜 (こんや - Bugun tun)",
+    "phonetic": "よる, よ / ヤ",
+    "example": "夜 (よる): Tun",
+    "category": "2.3: 24時間 (24 Soat va Vaqt)",
+    "level": "N4"
+  },
+  {
+    "front": "前",
+    "back": "Oldin, old tomon\n• On: ゼン | Kun: まえ\n• Chizishlar: 9 ta\n• Birikmalar: 前 (まえ - Oldin) | 名前 (なまえ - Ism) | 午前 (ごぜん - Tushgacha)",
+    "phonetic": "まえ / ゼン",
+    "example": "前 (まえ): Oldin",
+    "category": "2.3: 24時間 (24 Soat va Vaqt)",
+    "level": "N4"
+  },
+  {
+    "front": "後",
+    "back": "Keyin, orqa tomon\n• On: ゴ, コウ | Kun: のち, うし・ろ, あと\n• Chizishlar: 9 ta\n• Birikmalar: 後ろ (うしろ - Orqada) | 午後 (ごご - Tushdan keyin) | 最後 (さいご - Oxirgi)",
+    "phonetic": "のち, うし・ろ, あと / ゴ, コウ",
+    "example": "後ろ (うしろ): Orqada",
+    "category": "2.3: 24時間 (24 Soat va Vaqt)",
+    "level": "N4"
+  },
+  {
+    "front": "午",
+    "back": "Peshin\n• On: ゴ | Kun: -\n• Chizishlar: 4 ta\n• Birikmalar: 午前 (ごぜん - Tushgacha (AM)) | 午後 (ごご - Tushdan keyin (PM)) | 正午 (しょうご - Ayni peshin vaqti (12:00))",
+    "phonetic": "ゴ",
+    "example": "午前 (ごぜん): Tushgacha (AM)",
+    "category": "2.3: 24時間 (24 Soat va Vaqt)",
+    "level": "N4"
+  },
+  {
+    "front": "早",
+    "back": "Erta, tez\n• On: ソウ | Kun: はや・い, はや・まる\n• Chizishlar: 6 ta\n• Birikmalar: 早い (はやい - Erta) | 早起き (はやおき - Ertalab barvaqt turish) | 早口 (はやくち - Tez gapirish)",
+    "phonetic": "はや・い, はや・まる / ソウ",
+    "example": "早い (はやい): Erta",
+    "category": "2.3: 24時間 (24 Soat va Vaqt)",
+    "level": "N4"
+  },
+  {
+    "front": "荷",
+    "back": "Yuk, bagaj\n• On: カ | Kun: に\n• Chizishlar: 10 ta\n• Birikmalar: 荷物 (にもつ - Yuk, posilka) | 手荷物 (てにもつ - Qo'l yuki)",
+    "phonetic": "に / カ",
+    "example": "荷物 (にもつ): Yuk, posilka",
+    "category": "3.1: 荷物 (Yuk va Tezkor yetkazish)",
+    "level": "N4"
+  },
+  {
+    "front": "送",
+    "back": "Jo'natmoq, kuzatmoq\n• On: ソウ | Kun: おく・る\n• Chizishlar: 9 ta\n• Birikmalar: 送る (おくる - Yubormoq, jo'natmoq) | 送信 (そうしん - Xabar jo'natish) | 見送る (みおくる - Kuzatib qo'ymoq)",
+    "phonetic": "おく・る / ソウ",
+    "example": "送る (おくる): Yubormoq, jo'natmoq",
+    "category": "3.1: 荷物 (Yuk va Tezkor yetkazish)",
+    "level": "N4"
+  },
+  {
+    "front": "宅",
+    "back": "Xonadon, uy\n• On: タク | Kun: -\n• Chizishlar: 6 ta\n• Birikmalar: 自宅 (じたく - O'z uyi) | 宅配便 (たくはいびん - Kuryerlik xizmati) | 帰宅 (きたく - Uyga qaytish)",
+    "phonetic": "タク",
+    "example": "自宅 (じたく): O'z uyi",
+    "category": "3.1: 荷物 (Yuk va Tezkor yetkazish)",
+    "level": "N4"
+  },
+  {
+    "front": "急",
+    "back": "Shoshilmoq; to'satdan\n• On: キュウ | Kun: いそ・ぐ\n• Chizishlar: 9 ta\n• Birikmalar: 急ぐ (いそぐ - Shoshilmoq) | 急行 (きゅうこう - Tez yurar poyezd) | 特急 (とっきゅう - Ekspress poyezd)",
+    "phonetic": "いそ・ぐ / キュウ",
+    "example": "急ぐ (いそぐ): Shoshilmoq",
+    "category": "3.1: 荷物 (Yuk va Tezkor yetkazish)",
+    "level": "N4"
+  },
+  {
+    "front": "速",
+    "back": "Tez, chaqqon\n• On: ソク | Kun: はや・い\n• Chizishlar: 10 ta\n• Birikmalar: 速い (はやい - Tez) | 速度 (そくど - Tezlik) | 高速道路 (こうそくどうろ - Magistral yo'l)",
+    "phonetic": "はや・い / ソク",
+    "example": "速い (はやい): Tez",
+    "category": "3.1: 荷物 (Yuk va Tezkor yetkazish)",
+    "level": "N4"
+  },
+  {
+    "front": "遅",
+    "back": "Kechikmoq, sekin\n• On: チ | Kun: おそ・い, おく・れる\n• Chizishlar: 12 ta\n• Birikmalar: 遅い (おそい - Sekin, kech) | 遅れる (おくれる - Kechikmoq) | 遅刻 (ちこく - Darsga/ishga kech qolish)",
+    "phonetic": "おそ・い, おく・れる / チ",
+    "example": "遅い (おそい): Sekin, kech",
+    "category": "3.1: 荷物 (Yuk va Tezkor yetkazish)",
+    "level": "N4"
+  },
+  {
+    "front": "重",
+    "back": "Og'ir, muhim, qatlam\n• On: ジュウ, チョウ | Kun: おも・い, かさ・なる\n• Chizishlar: 9 ta\n• Birikmalar: 重い (おもい - Og'ir) | 体重 (たいじゅう - Tana vazni) | 重要 (じゅうよう - Muhim)",
+    "phonetic": "おも・い, かさ・なる / ジュウ, チョウ",
+    "example": "重い (おもい): Og'ir",
+    "category": "3.1: 荷物 (Yuk va Tezkor yetkazish)",
+    "level": "N4"
+  },
+  {
+    "front": "軽",
+    "back": "Yengil\n• On: ケイ | Kun: かる・い\n• Chizishlar: 12 ta\n• Birikmalar: 軽い (かるい - Yengil) | 手軽 (てがる - Oson, qulay) | 軽食 (けいしょく - Yengil tamaddi)",
+    "phonetic": "かる・い / ケイ",
+    "example": "軽い (かるい): Yengil",
+    "category": "3.1: 荷物 (Yuk va Tezkor yetkazish)",
+    "level": "N4"
+  },
+  {
+    "front": "住",
+    "back": "Yashamoq, istiqomat\n• On: ジュウ | Kun: す・む, す・まう\n• Chizishlar: 7 ta\n• Birikmalar: 住む (すむ - Yashamoq) | 住所 (じゅうしょ - Manzil) | 住宅 (じゅうたく - Turar joy)",
+    "phonetic": "す・む, す・まう / ジュウ",
+    "example": "住む (すむ): Yashamoq",
+    "category": "3.2: あて先 (Manzil va Xat oluvchi)",
+    "level": "N4"
+  },
+  {
+    "front": "所",
+    "back": "Joy, makon\n• On: ショ | Kun: ところ\n• Chizishlar: 8 ta\n• Birikmalar: 所 (ところ - Joy) | 住所 (じゅうしょ - Manzil) | 近所 (きんじょ - Qo'shnichilik) | 名所 (めいしょ - Mashhur joy)",
+    "phonetic": "ところ / ショ",
+    "example": "所 (ところ): Joy",
+    "category": "3.2: あて先 (Manzil va Xat oluvchi)",
+    "level": "N4"
+  },
+  {
+    "front": "様",
+    "back": "Janob/xonim (hurmat), holat\n• On: ヨウ | Kun: さま\n• Chizishlar: 14 ta\n• Birikmalar: 様 (さま - Janoblari (hurmat qo'shimchasi)) | 皆様 (みなさま - Barchangiz) | 様子 (ようす - Holat, ko'rinish)",
+    "phonetic": "さま / ヨウ",
+    "example": "様 (さま): Janoblari (hurmat qo'shimchasi)",
+    "category": "3.2: あて先 (Manzil va Xat oluvchi)",
+    "level": "N4"
+  },
+  {
+    "front": "主",
+    "back": "Asosiy; xo'jayin\n• On: シュ | Kun: ぬし, おも\n• Chizishlar: 5 ta\n• Birikmalar: 主に (おもに - Asosan) | 主人 (しゅじん - Erim / xo'jayin) | 主人公 (しゅじんこう - Bosh qahramon)",
+    "phonetic": "ぬし, おも / シュ",
+    "example": "主に (おもに): Asosan",
+    "category": "3.2: あて先 (Manzil va Xat oluvchi)",
+    "level": "N4"
+  },
+  {
+    "front": "番",
+    "back": "Raqam, navbat\n• On: バン | Kun: -\n• Chizishlar: 12 ta\n• Birikmalar: 一番 (いちばん - Birinchi, eng) | 番号 (ばんごう - Raqam) | 交番 (こうばん - Militsiya punkti)",
+    "phonetic": "バン",
+    "example": "一番 (いちばん): Birinchi, eng",
+    "category": "3.2: あて先 (Manzil va Xat oluvchi)",
+    "level": "N4"
+  },
+  {
+    "front": "地",
+    "back": "Yer, joy\n• On: チ, ジ | Kun: -\n• Chizishlar: 6 ta\n• Birikmalar: 地震 (じしん - Zilzila) | 地下鉄 (ちかてつ - Metro) | 地図 (ちず - Xarita)",
+    "phonetic": "チ, ジ",
+    "example": "地震 (じしん): Zilzila",
+    "category": "3.2: あて先 (Manzil va Xat oluvchi)",
+    "level": "N4"
+  },
+  {
+    "front": "号",
+    "back": "Raqam, belgi, laqab\n• On: ゴウ | Kun: -\n• Chizishlar: 5 ta\n• Birikmalar: 番号 (ばんごう - Raqam) | 信号 (しんごう - Svetafor) | 1号車 (いちごうしゃ - 1-vagon)",
+    "phonetic": "ゴウ",
+    "example": "番号 (ばんごう): Raqam",
+    "category": "3.2: あて先 (Manzil va Xat oluvchi)",
+    "level": "N4"
+  },
+  {
+    "front": "京",
+    "back": "Poytaxt\n• On: キョウ, ケイ | Kun: みやこ\n• Chizishlar: 8 ta\n• Birikmalar: 東京 (とうきょう - Tokio) | 京都 (きょうと - Kioto) | 上京 (じょうきょう - Poytaxtga borish)",
+    "phonetic": "みやこ / キョウ, ケイ",
+    "example": "東京 (とうきょう): Tokio",
+    "category": "3.2: あて先 (Manzil va Xat oluvchi)",
+    "level": "N4"
+  },
+  {
+    "front": "国",
+    "back": "Mamlakat, yurt\n• On: コク | Kun: くに\n• Chizishlar: 8 ta\n• Birikmalar: 国 (くに - Mamlakat) | 外国 (がいこく - Chet el) | 外国人 (がいこくじん - Chet ellik)",
+    "phonetic": "くに / コク",
+    "example": "国 (くに): Mamlakat",
+    "category": "3.3: 国都 (Hududlar, Viloyatlar va Shaharlar)",
+    "level": "N4"
+  },
+  {
+    "front": "都",
+    "back": "Poytaxt, metropoliya\n• On: ト, ツ | Kun: みやこ\n• Chizishlar: 11 ta\n• Birikmalar: 都会 (とかい - Katta shahar) | 東京都 (とうきょうと - Tokio prefekturasi) | 都合 (つごう - Shart-sharoit, qulaylik)",
+    "phonetic": "みやこ / ト, ツ",
+    "example": "都会 (とかい): Katta shahar",
+    "category": "3.3: 国都 (Hududlar, Viloyatlar va Shaharlar)",
+    "level": "N4"
+  },
+  {
+    "front": "道",
+    "back": "Yo'l; usul\n• On: ドウ | Kun: みち\n• Chizishlar: 12 ta\n• Birikmalar: 道 (みち - Yo'l) | 北海道 (ほっかいどう - Xokkaydo) | 近道 (ちかみち - Yaqin yo'l) | 水道 (すいどう - Vodoprovod)",
+    "phonetic": "みち / ドウ",
+    "example": "道 (みち): Yo'l",
+    "category": "3.3: 国都 (Hududlar, Viloyatlar va Shaharlar)",
+    "level": "N4"
+  },
+  {
+    "front": "府",
+    "back": "Prefektura (Osaka/Kioto)\n• On: フ | Kun: -\n• Chizishlar: 8 ta\n• Birikmalar: 大阪府 (おおさかふ - Osaka prefekturasi) | 京都府 (きょうとふ - Kioto prefekturasi) | 政府 (せいふ - Hukumat)",
+    "phonetic": "フ",
+    "example": "大阪府 (おおさかふ): Osaka prefekturasi",
+    "category": "3.3: 国都 (Hududlar, Viloyatlar va Shaharlar)",
+    "level": "N4"
+  },
+  {
+    "front": "県",
+    "back": "Viloyat, prefektura\n• On: ケン | Kun: -\n• Chizishlar: 9 ta\n• Birikmalar: 県 (けん - Prefektura) | 県庁 (けんちょう - Prefektura ma'muriyati) | 青森県 (あおもりけん - Aomori prefekturasi)",
+    "phonetic": "ケン",
+    "example": "県 (けん): Prefektura",
+    "category": "3.3: 国都 (Hududlar, Viloyatlar va Shaharlar)",
+    "level": "N4"
+  },
+  {
+    "front": "市",
+    "back": "Shahar; bozor\n• On: シ | Kun: いち\n• Chizishlar: 5 ta\n• Birikmalar: 市 (し - Shahar) | 市民 (しみん - Shahar fuqarosi) | 市長 (しちょう - Shahar meri) | 市場 (いちば - Bozor)",
+    "phonetic": "いち / シ",
+    "example": "市 (し): Shahar",
+    "category": "3.3: 国都 (Hududlar, Viloyatlar va Shaharlar)",
+    "level": "N4"
+  },
+  {
+    "front": "区",
+    "back": "Tuman (shahardagi)\n• On: ク | Kun: -\n• Chizishlar: 4 ta\n• Birikmalar: 区 (く - Tuman) | 区役所 (くやくしょ - Tuman hokimiyati) | 新宿区 (しんじゅくく - Shinjuku tumani)",
+    "phonetic": "ク",
+    "example": "区 (く): Tuman",
+    "category": "3.3: 国都 (Hududlar, Viloyatlar va Shaharlar)",
+    "level": "N4"
+  },
+  {
+    "front": "村",
+    "back": "Qishloq\n• On: ソン | Kun: むら\n• Chizishlar: 7 ta\n• Birikmalar: 村 (むら - Qishloq) | 農村 (のうそん - Qishloq xo'jalik qishlog'i) | 村人 (むらびと - Qishloq aholisi)",
+    "phonetic": "むら / ソン",
+    "example": "村 (むら): Qishloq",
+    "category": "3.3: 国都 (Hududlar, Viloyatlar va Shaharlar)",
+    "level": "N4"
+  },
+  {
+    "front": "毎",
+    "back": "Har bir\n• On: マイ | Kun: -\n• Chizishlar: 6 ta\n• Birikmalar: 毎日 (まいにち - Har kuni) | 毎週 (まいしゅう - Har hafta) | 毎月 (まいつき - Har oy) | 毎年 (まいとし - Har yili)",
+    "phonetic": "マイ",
+    "example": "毎日 (まいにち): Har kuni",
+    "category": "4.1: デート (Uchrashuv va Madaniy hordiq)",
+    "level": "N4"
+  },
+  {
+    "front": "週",
+    "back": "Hafta\n• On: シュウ | Kun: -\n• Chizishlar: 11 ta\n• Birikmalar: 今週 (こんしゅう - Bu hafta) | 来週 (らいしゅう - Keyingi hafta) | 週末 (しゅうまつ - Hafta oxiri)",
+    "phonetic": "シュウ",
+    "example": "今週 (こんしゅう): Bu hafta",
+    "category": "4.1: デート (Uchrashuv va Madaniy hordiq)",
+    "level": "N4"
+  },
+  {
+    "front": "映",
+    "back": "Aks etmoq, proyeksiyalamoq\n• On: エイ | Kun: うつ・る, うつ・す\n• Chizishlar: 9 ta\n• Birikmalar: 映画 (えいが - Kino, film) | 映る (うつる - Aks etmoq) | 映画館 (えいがかん - Kinoteatr)",
+    "phonetic": "うつ・る, うつ・す / エイ",
+    "example": "映画 (えいが): Kino, film",
+    "category": "4.1: デート (Uchrashuv va Madaniy hordiq)",
+    "level": "N4"
+  },
+  {
+    "front": "画",
+    "back": "Rasm; reja, chizmoq\n• On: ガ, カク | Kun: -\n• Chizishlar: 8 ta\n• Birikmalar: 映画 (えいが - Kino) | 計画 (けいかく - Reja) | 画家 (がか - Rassom)",
+    "phonetic": "ガ, カク",
+    "example": "映画 (えいが): Kino",
+    "category": "4.1: デート (Uchrashuv va Madaniy hordiq)",
+    "level": "N4"
+  },
+  {
+    "front": "館",
+    "back": "Bino, saroy\n• On: カン | Kun: やかた\n• Chizishlar: 16 ta\n• Birikmalar: 図書館 (としょかん - Kutubxona) | 映画館 (えいがかん - Kinoteatr) | 美術館 (びじゅつかん - Muzey, galereya) | 大使館 (たいしかん - Elchixona)",
+    "phonetic": "やかた / カン",
+    "example": "図書館 (としょかん): Kutubxona",
+    "category": "4.1: デート (Uchrashuv va Madaniy hordiq)",
+    "level": "N4"
+  },
+  {
+    "front": "公",
+    "back": "Jamoat, ommaviy, rasmiy\n• On: コウ | Kun: おおやけ\n• Chizishlar: 4 ta\n• Birikmalar: 公園 (こうえん - Istirohat bog'i) | 公立 (こうりつ - Davlatniki, jamoatniki)",
+    "phonetic": "おおやけ / コウ",
+    "example": "公園 (こうえん): Istirohat bog'i",
+    "category": "4.1: デート (Uchrashuv va Madaniy hordiq)",
+    "level": "N4"
+  },
+  {
+    "front": "園",
+    "back": "Bog', poliz\n• On: エン | Kun: その\n• Chizishlar: 13 ta\n• Birikmalar: 公園 (こうえん - Bog') | 動物園 (どうぶつえん - Hayvonot bog'i) | 遊園地 (ゆうえんち - Attraksionlar bog'i)",
+    "phonetic": "その / エン",
+    "example": "公園 (こうえん): Bog'",
+    "category": "4.1: デート (Uchrashuv va Madaniy hordiq)",
+    "level": "N4"
+  },
+  {
+    "front": "夫",
+    "back": "Er; erkak\n• On: フ | Kun: おっと\n• Chizishlar: 4 ta\n• Birikmalar: 夫 (おっと - Er (o'zining)) | 夫婦 (ふうふ - Er-xotin) | 工夫 (くふう - Rejalash, yangilik topish)",
+    "phonetic": "おっと / フ",
+    "example": "夫 (おっと): Er (o'zining)",
+    "category": "4.2: けっこんきねん日 (Oila, To'y va Bayramona taomlar)",
+    "level": "N4"
+  },
+  {
+    "front": "妻",
+    "back": "Xotin, rafiqa\n• On: サイ | Kun: つま\n• Chizishlar: 8 ta\n• Birikmalar: 妻 (つま - Xotin (o'zining)) | 夫妻 (ふさい - Er-xotin janoblari)",
+    "phonetic": "つま / サイ",
+    "example": "妻 (つま): Xotin (o'zining)",
+    "category": "4.2: けっこんきねん日 (Oila, To'y va Bayramona taomlar)",
+    "level": "N4"
+  },
+  {
+    "front": "特",
+    "back": "Maxsus, alohida\n• On: トク | Kun: -\n• Chizishlar: 10 ta\n• Birikmalar: 特に (とくに - Ayniqsa) | 特別 (とくべつ - Maxsus) | 特急 (とっきゅう - Ekspress poyezd)",
+    "phonetic": "トク",
+    "example": "特に (とくに): Ayniqsa",
+    "category": "4.2: けっこんきねん日 (Oila, To'y va Bayramona taomlar)",
+    "level": "N4"
+  },
+  {
+    "front": "思",
+    "back": "O'ylamoq, his qilmoq\n• On: シ | Kun: おも・う\n• Chizishlar: 9 ta\n• Birikmalar: 思う (おもう - O'ylamoq) | 思い出 (おもいで - Xotira) | 思い出す (おもいだす - Esga olmoq)",
+    "phonetic": "おも・う / シ",
+    "example": "思う (おもう): O'ylamoq",
+    "category": "4.2: けっこんきねん日 (Oila, To'y va Bayramona taomlar)",
+    "level": "N4"
+  },
+  {
+    "front": "料",
+    "back": "Haq, to'lov; xomashyo\n• On: リョウ | Kun: -\n• Chizishlar: 10 ta\n• Birikmalar: 料理 (りょうり - Taom, pishirish) | 料金 (りょうきん - To'lov) | 材料 (ざいりょう - Masalliq, material)",
+    "phonetic": "リョウ",
+    "example": "料理 (りょうり): Taom, pishirish",
+    "category": "4.2: けっこんきねん日 (Oila, To'y va Bayramona taomlar)",
+    "level": "N4"
+  },
+  {
+    "front": "理",
+    "back": "Mantiq, sabab, tartib\n• On: リ | Kun: -\n• Chizishlar: 11 ta\n• Birikmalar: 料理 (りょうり - Pazandalik) | 理由 (りゆう - Sabab) | 地理 (ちり - Geografiya)",
+    "phonetic": "リ",
+    "example": "料理 (りょうり): Pazandalik",
+    "category": "4.2: けっこんきねん日 (Oila, To'y va Bayramona taomlar)",
+    "level": "N4"
+  },
+  {
+    "front": "有",
+    "back": "Bor bo'lmoq, mavjudlik\n• On: ユウ | Kun: あ・る\n• Chizishlar: 6 ta\n• Birikmalar: 有名 (ゆうめい - Mashhur) | 有料 (ゆうりょう - Pullik) | 有益 (ゆうえき - Foydali)",
+    "phonetic": "あ・る / ユウ",
+    "example": "有名 (ゆうめい): Mashhur",
+    "category": "4.2: けっこんきねん日 (Oila, To'y va Bayramona taomlar)",
+    "level": "N4"
+  },
+  {
+    "front": "会",
+    "back": "Uchrashmoq; yig'ilish\n• On: カイ | Kun: あ・う\n• Chizishlar: 6 ta\n• Birikmalar: 会う (あう - Uchrashmoq) | 会社 (かいしゃ - Firma, kompaniya) | 会議 (かいぎ - Majlis) | 会話 (かいわ - Suhbat)",
+    "phonetic": "あ・う / カイ",
+    "example": "会う (あう): Uchrashmoq",
+    "category": "4.3: しごと (Ishxona va Mehnat)",
+    "level": "N4"
+  },
+  {
+    "front": "社",
+    "back": "Jamiyat; ziyoratgoh\n• On: シャ | Kun: やしろ\n• Chizishlar: 7 ta\n• Birikmalar: 会社 (かいしゃ - Kompaniya) | 社会 (しゃかい - Jamiyat) | 神社 (じんじゃ - Shinto ibodatxonasi)",
+    "phonetic": "やしろ / シャ",
+    "example": "会社 (かいしゃ): Kompaniya",
+    "category": "4.3: しごと (Ishxona va Mehnat)",
+    "level": "N4"
+  },
+  {
+    "front": "働",
+    "back": "Ishlamoq, mehnat qilmoq\n• On: ドウ | Kun: はたら・く\n• Chizishlar: 13 ta\n• Birikmalar: 働く (はたらく - Ishlamoq) | 労働 (ろうどう - Mehnat)",
+    "phonetic": "はたら・く / ドウ",
+    "example": "働く (はたらく): Ishlamoq",
+    "category": "4.3: しごと (Ishxona va Mehnat)",
+    "level": "N4"
+  },
+  {
+    "front": "作",
+    "back": "Yasamoq, yaratmoq\n• On: サク, サ | Kun: つく・る\n• Chizishlar: 7 ta\n• Birikmalar: 作る (つくる - Yasamoq) | 作文 (さくぶん - Insho) | 作品 (さくひん - Ijodiy asar) | 作家 (さっか - Yozuvchi)",
+    "phonetic": "つく・る / サク, サ",
+    "example": "作る (つくる): Yasamoq",
+    "category": "4.3: しごと (Ishxona va Mehnat)",
+    "level": "N4"
+  },
+  {
+    "front": "工",
+    "back": "Zavod, sanoat, qurilish\n• On: コウ, ク | Kun: -\n• Chizishlar: 3 ta\n• Birikmalar: 工場 (こうじょう - Zavod, fabrika) | 工事 (こうじ - Qurilish ishlari) | 工学部 (こうがくぶ - Muhandislik fakulteti)",
+    "phonetic": "コウ, ク",
+    "example": "工場 (こうじょう): Zavod, fabrika",
+    "category": "4.3: しごと (Ishxona va Mehnat)",
+    "level": "N4"
+  },
+  {
+    "front": "場",
+    "back": "Joy, maydon\n• On: ジョウ | Kun: ば\n• Chizishlar: 12 ta\n• Birikmalar: 場所 (ばしょ - Joy) | 広場 (ひろば - Maydon) | 工場 (こうじょう - Fabrika) | 売り場 (うりば - Sotuv bo'limi)",
+    "phonetic": "ば / ジョウ",
+    "example": "場所 (ばしょ): Joy",
+    "category": "4.3: しごと (Ishxona va Mehnat)",
+    "level": "N4"
+  },
+  {
+    "front": "始",
+    "back": "Boshlanmoq, boshlamoq\n• On: シ | Kun: はじ・まる, はじ・める\n• Chizishlar: 8 ta\n• Birikmalar: 始まる (はじまる - Boshlanmoq) | 始める (はじめる - Boshlamoq) | 始業式 (しぎょうしき - O'quv yili boshlanish marosimi)",
+    "phonetic": "はじ・まる, はじ・める / シ",
+    "example": "始まる (はじまる): Boshlanmoq",
+    "category": "4.3: しごと (Ishxona va Mehnat)",
+    "level": "N4"
+  },
+  {
+    "front": "終",
+    "back": "Tugamoq, yakunlamoq\n• On: シュウ | Kun: お・わる, お・える\n• Chizishlar: 11 ta\n• Birikmalar: 終わる (おわる - Tugamoq) | 終電 (しゅうでん - So'nggi poyezd) | 終了 (しゅうりょう - Yakunlanish)",
+    "phonetic": "お・わる, お・える / シュウ",
+    "example": "終わる (おわる): Tugamoq",
+    "category": "4.3: しごと (Ishxona va Mehnat)",
+    "level": "N4"
+  },
+  {
+    "front": "駅",
+    "back": "Vokzal, bekat\n• On: エキ | Kun: -\n• Chizishlar: 14 ta\n• Birikmalar: 駅 (えき - Bekat) | 駅前 (えきまえ - Vokzal maydoni) | 駅員 (えきいん - Bekat xodimi)",
+    "phonetic": "エキ",
+    "example": "駅 (えき): Bekat",
+    "category": "5.1: 駅 (Vokzal va Poyezdlar)",
+    "level": "N4"
+  },
+  {
+    "front": "鉄",
+    "back": "Temir, temiryo'l\n• On: テツ | Kun: くろがね\n• Chizishlar: 13 ta\n• Birikmalar: 地下鉄 (ちかてつ - Metro) | 鉄道 (てつどう - Temir yo'l) | 私鉄 (してつ - Xususiy temir yo'l)",
+    "phonetic": "くろがね / テツ",
+    "example": "地下鉄 (ちかてつ): Metro",
+    "category": "5.1: 駅 (Vokzal va Poyezdlar)",
+    "level": "N4"
+  },
+  {
+    "front": "乗",
+    "back": "Minmoq, chiqmoq\n• On: ジョウ | Kun: の・る, の・せる\n• Chizishlar: 9 ta\n• Birikmalar: 乗る (のる - Poyezdga/avtobusga minmoq) | 乗り換え (のりかえ - Boshqa transportga o'tish) | 乗車券 (じょうしゃけん - Chipta)",
+    "phonetic": "の・る, の・せる / ジョウ",
+    "example": "乗る (のる): Poyezdga/avtobusga minmoq",
+    "category": "5.1: 駅 (Vokzal va Poyezdlar)",
+    "level": "N4"
+  },
+  {
+    "front": "降",
+    "back": "Tushmoq, yog'moq\n• On: コウ | Kun: お・りる, お・ろす, ふ・る\n• Chizishlar: 10 ta\n• Birikmalar: 降りる (おりる - Transportdan tushmoq) | 降る (ふる - Yog'moq (yomg'ir/qor)) | 降車 (こうしゃ - Tushish)",
+    "phonetic": "お・りる, お・ろす, ふ・る / コウ",
+    "example": "降りる (おりる): Transportdan tushmoq",
+    "category": "5.1: 駅 (Vokzal va Poyezdlar)",
+    "level": "N4"
+  },
+  {
+    "front": "開",
+    "back": "Ochmoq, ochilmoq\n• On: カイ | Kun: あ・く, あ・ける, ひら・く\n• Chizishlar: 12 ta\n• Birikmalar: 開ける (あける - Ochmoq) | 開く (あく - Ochilmoq) | 開店 (かいてん - Do'kon ochilishi)",
+    "phonetic": "あ・く, あ・ける, ひら・く / カイ",
+    "example": "開ける (あける): Ochmoq",
+    "category": "5.1: 駅 (Vokzal va Poyezdlar)",
+    "level": "N4"
+  },
+  {
+    "front": "閉",
+    "back": "Yopmoq, yopilmoq\n• On: ヘイ | Kun: し・まる, し・める, と・じる\n• Chizishlar: 11 ta\n• Birikmalar: 閉める (しめる - Yopmoq) | 閉まる (しまる - Yopilmoq) | 閉会 (へいかい - Majlis yopilishi)",
+    "phonetic": "し・まる, し・める, と・じる / ヘイ",
+    "example": "閉める (しめる): Yopmoq",
+    "category": "5.1: 駅 (Vokzal va Poyezdlar)",
+    "level": "N4"
+  },
+  {
+    "front": "発",
+    "back": "Jo'namoq, kashf qilmoq\n• On: ハツ, ホツ | Kun: -\n• Chizishlar: 9 ta\n• Birikmalar: 出発 (しゅっぱつ - Jo'nab ketish) | 発見 (はっけん - Kashfiyot) | 発音 (はつおん - Talaffuz)",
+    "phonetic": "ハツ, ホツ",
+    "example": "出発 (しゅっぱつ): Jo'nab ketish",
+    "category": "5.1: 駅 (Vokzal va Poyezdlar)",
+    "level": "N4"
+  },
+  {
+    "front": "着",
+    "back": "Yetib kelmoq; kiymoq\n• On: チャク | Kun: き・る, つ・く\n• Chizishlar: 12 ta\n• Birikmalar: 着く (つく - Yetib kelmoq) | 着る (きる - Kiymoq) | 到着 (とうちゃく - Yetib kelish) | 着物 (きもの - Kimono)",
+    "phonetic": "き・る, つ・く / チャク",
+    "example": "着く (つく): Yetib kelmoq",
+    "category": "5.1: 駅 (Vokzal va Poyezdlar)",
+    "level": "N4"
+  },
+  {
+    "front": "交",
+    "back": "Kesishmoq, aralashmoq\n• On: コウ | Kun: まじ・わる, ま・ぜる\n• Chizishlar: 6 ta\n• Birikmalar: 交通 (こうつう - Yo'l harakati, transport) | 交差点 (こうさてん - Chorraha) | 交番 (こうばん - Politsiya xonasi)",
+    "phonetic": "まじ・わる, ま・ぜる / コウ",
+    "example": "交通 (こうつう): Yo'l harakati, transport",
+    "category": "5.2: こうさてん (Chorraha va Yo'l harakati)",
+    "level": "N4"
+  },
+  {
+    "front": "通",
+    "back": "O'tmoq, qatnamoq\n• On: ツウ | Kun: とお・る, かよ・う\n• Chizishlar: 10 ta\n• Birikmalar: 通る (とおる - O'tmoq) | 通う (かよう - Qatnamoq (maktabga/ishga)) | 通り (とおり - Ko'cha, xiyobon)",
+    "phonetic": "とお・る, かよ・う / ツウ",
+    "example": "通る (とおる): O'tmoq",
+    "category": "5.2: こうさてん (Chorraha va Yo'l harakati)",
+    "level": "N4"
+  },
+  {
+    "front": "台",
+    "back": "Stend, uskuna sanagich\n• On: ダイ, タイ | Kun: -\n• Chizishlar: 5 ta\n• Birikmalar: 一台 (いちだい - 1 ta (mashina/texnika)) | 台所 (だいどころ - Oshxona) | 台風 (たいふう - Tayfun)",
+    "phonetic": "ダイ, タイ",
+    "example": "一台 (いちだい): 1 ta (mashina/texnika)",
+    "category": "5.2: こうさてん (Chorraha va Yo'l harakati)",
+    "level": "N4"
+  },
+  {
+    "front": "止",
+    "back": "To'xtamoq, to'xtatmoq\n• On: シ | Kun: と・まる, と・める\n• Chizishlar: 4 ta\n• Birikmalar: 止まる (とまる - To'xtamoq) | 止める (とめる - To'xtatmoq) | 中止 (ちゅうし - Bekor qilish)",
+    "phonetic": "と・まる, と・める / シ",
+    "example": "止まる (とまる): To'xtamoq",
+    "category": "5.2: こうさてん (Chorraha va Yo'l harakati)",
+    "level": "N4"
+  },
+  {
+    "front": "色",
+    "back": "Rang, tus\n• On: ショク, シキ | Kun: いろ\n• Chizishlar: 6 ta\n• Birikmalar: 色 (いろ - Rang) | 景色 (けしき - Manzara) | 特色 (とくしょく - O'ziga xos xususiyat)",
+    "phonetic": "いろ / ショク, シキ",
+    "example": "色 (いろ): Rang",
+    "category": "5.2: こうさてん (Chorraha va Yo'l harakati)",
+    "level": "N4"
+  },
+  {
+    "front": "赤",
+    "back": "Qizil\n• On: セキ | Kun: あか, あか・い\n• Chizishlar: 7 ta\n• Birikmalar: 赤い (あかい - Qizil) | 赤ちゃん (あかちゃん - Chaqaloq) | 赤字 (あかじ - Kamomad, ziyon)",
+    "phonetic": "あか, あか・い / セキ",
+    "example": "赤い (あかい): Qizil",
+    "category": "5.2: こうさてん (Chorraha va Yo'l harakati)",
+    "level": "N4"
+  },
+  {
+    "front": "黄",
+    "back": "Sariq\n• On: コウ, オウ | Kun: き, こ\n• Chizishlar: 11 ta\n• Birikmalar: 黄色 (きいろ - Sariq rang) | 黄色い (きいろい - Sariq)",
+    "phonetic": "き, こ / コウ, オウ",
+    "example": "黄色 (きいろ): Sariq rang",
+    "category": "5.2: こうさてん (Chorraha va Yo'l harakati)",
+    "level": "N4"
+  },
+  {
+    "front": "青",
+    "back": "Ko'k, moviy, yosh\n• On: セイ, ショウ | Kun: あお, あお・い\n• Chizishlar: 8 ta\n• Birikmalar: 青い (あおい - Ko'k, moviy) | 青空 (あおぞら - Moviya osmon) | 青年 (せいねん - Yosh yigit)",
+    "phonetic": "あお, あお・い / セイ, ショウ",
+    "example": "青い (あおい): Ko'k, moviy",
+    "category": "5.2: こうさてん (Chorraha va Yo'l harakati)",
+    "level": "N4"
+  },
+  {
+    "front": "病",
+    "back": "Kasallik, xastalik\n• On: ビョウ | Kun: や・む\n• Chizishlar: 10 ta\n• Birikmalar: 病気 (びょうき - Kasallik) | 病院 (びょういん - Kasalxona) | 重病 (じゅうびょう - Og'ir kasallik)",
+    "phonetic": "や・む / ビョウ",
+    "example": "病気 (びょうき): Kasallik",
+    "category": "5.3: 病院 (Shifoxona va Tibbiyot)",
+    "level": "N4"
+  },
+  {
+    "front": "院",
+    "back": "Muassasa, maskan\n• On: イン | Kun: -\n• Chizishlar: 10 ta\n• Birikmalar: 病院 (びょういん - Shifoxona) | 入院 (にゅういん - Kasalxonaga yotish) | 退院 (たいいん - Kasalxonadan chiqish) | 大学院 (だいがくいん - Magistratura/aspirantura)",
+    "phonetic": "イン",
+    "example": "病院 (びょういん): Shifoxona",
+    "category": "5.3: 病院 (Shifoxona va Tibbiyot)",
+    "level": "N4"
+  },
+  {
+    "front": "医",
+    "back": "Tibbiyot, shifokor\n• On: イ | Kun: -\n• Chizishlar: 7 ta\n• Birikmalar: 医者 (いしゃ - Shifokor, do'xtir) | 医学 (いがく - Tibbiyot ilmi) | 医院 (いいん - Klinika)",
+    "phonetic": "イ",
+    "example": "医者 (いしゃ): Shifokor, do'xtir",
+    "category": "5.3: 病院 (Shifoxona va Tibbiyot)",
+    "level": "N4"
+  },
+  {
+    "front": "科",
+    "back": "Bo'lim, fan sohasi\n• On: カ | Kun: -\n• Chizishlar: 9 ta\n• Birikmalar: 科学 (かがく - Fan, ilm) | 内科 (ないか - Terapevt bo'limi) | 外科 (げか - Jarrohlik bo'limi) | 教科書 (きょうかしょ - Darslik)",
+    "phonetic": "カ",
+    "example": "科学 (かがく): Fan, ilm",
+    "category": "5.3: 病院 (Shifoxona va Tibbiyot)",
+    "level": "N4"
+  },
+  {
+    "front": "薬",
+    "back": "Dori-darmon\n• On: ヤク | Kun: くすり\n• Chizishlar: 16 ta\n• Birikmalar: 薬 (くすり - Dori) | 薬局 (やっきょく - Dorixona) | 風邪薬 (かぜぐすり - Shamollash dorisi)",
+    "phonetic": "くすり / ヤク",
+    "example": "薬 (くすり): Dori",
+    "category": "5.3: 病院 (Shifoxona va Tibbiyot)",
+    "level": "N4"
+  },
+  {
+    "front": "待",
+    "back": "Kutmoq\n• On: タイ | Kun: ま・つ\n• Chizishlar: 9 ta\n• Birikmalar: 待つ (まつ - Kutmoq) | 待合室 (まちあいしつ - Kutish zali) | 期待 (きたい - Umid, ishonch)",
+    "phonetic": "ま・つ / タイ",
+    "example": "待つ (まつ): Kutmoq",
+    "category": "5.3: 病院 (Shifoxona va Tibbiyot)",
+    "level": "N4"
+  },
+  {
+    "front": "合",
+    "back": "Mos kelmoq, birlashmoq\n• On: ゴウ, ガッ | Kun: あ・う, あ・わせる\n• Chizishlar: 6 ta\n• Birikmalar: 合う (あう - Mos kelmoq) | 合格 (ごうかく - Imtihondan o'tish) | 都合 (つごう - Vaziyat, sharoit) | 試合 (しあい - Musobaqa)",
+    "phonetic": "あ・う, あ・わせる / ゴウ, ガッ",
+    "example": "合う (あう): Mos kelmoq",
+    "category": "5.3: 病院 (Shifoxona va Tibbiyot)",
+    "level": "N4"
+  },
+  {
+    "front": "計",
+    "back": "O'lchamoq, hisoblamoq\n• On: ケイ | Kun: はか・る\n• Chizishlar: 9 ta\n• Birikmalar: 時計 (とけい - Soat) | 計画 (けいかく - Reja) | 合計 (ごうけい - Umumiy hisob)",
+    "phonetic": "はか・る / ケイ",
+    "example": "時計 (とけい): Soat",
+    "category": "5.3: 病院 (Shifoxona va Tibbiyot)",
+    "level": "N4"
+  },
+  {
+    "front": "研",
+    "back": "Tadqiq qilmoq, charxlamoq\n• On: ケン | Kun: と・ぐ\n• Chizishlar: 9 ta\n• Birikmalar: 研究 (けんきゅう - Tadqiqot) | 研究所 (けんきゅうじょ - Tadqiqot instituti)",
+    "phonetic": "と・ぐ / ケン",
+    "example": "研究 (けんきゅう): Tadqiqot",
+    "category": "6.1: 研究 (Ilmiy izlanish va Fanlar)",
+    "level": "N4"
+  },
+  {
+    "front": "究",
+    "back": "Chuqur o'rganmoq\n• On: キュウ | Kun: きわ・める\n• Chizishlar: 7 ta\n• Birikmalar: 研究 (けんきゅう - Tadqiqot) | 究明 (きゅうめい - Tagiga yetish)",
+    "phonetic": "きわ・める / キュウ",
+    "example": "研究 (けんきゅう): Tadqiqot",
+    "category": "6.1: 研究 (Ilmiy izlanish va Fanlar)",
+    "level": "N4"
+  },
+  {
+    "front": "語",
+    "back": "Til, so'z, aytib bermoq\n• On: ゴ | Kun: かた・る\n• Chizishlar: 14 ta\n• Birikmalar: 日本語 (にほんご - Yapon tili) | 単語 (たんご - So'z) | 外国語 (がいこくご - Chet tili)",
+    "phonetic": "かた・る / ゴ",
+    "example": "日本語 (にほんご): Yapon tili",
+    "category": "6.1: 研究 (Ilmiy izlanish va Fanlar)",
+    "level": "N4"
+  },
+  {
+    "front": "文",
+    "back": "Gap, matn, adabiyot\n• On: ブン, モン | Kun: ふみ\n• Chizishlar: 4 ta\n• Birikmalar: 作文 (さくぶん - Insho) | 文学 (ぶんがく - Adabiyot) | 文法 (ぶんぽう - Grammatika)",
+    "phonetic": "ふみ / ブン, モン",
+    "example": "作文 (さくぶん): Insho",
+    "category": "6.1: 研究 (Ilmiy izlanish va Fanlar)",
+    "level": "N4"
+  },
+  {
+    "front": "英",
+    "back": "Ingliz; a'lo, yetuk\n• On: エイ | Kun: -\n• Chizishlar: 8 ta\n• Birikmalar: 英語 (えいご - Ingliz tili) | 英国 (えいこく - Buyuk Britaniya)",
+    "phonetic": "エイ",
+    "example": "英語 (えいご): Ingliz tili",
+    "category": "6.1: 研究 (Ilmiy izlanish va Fanlar)",
+    "level": "N4"
+  },
+  {
+    "front": "化",
+    "back": "O'zgarmoq, kimyo\n• On: カ, ケ | Kun: ば・ける\n• Chizishlar: 4 ta\n• Birikmalar: 化学 (かがく - Kimyo) | 文化 (ぶんか - Madaniyat) | 変化 (へんか - O'zgarish)",
+    "phonetic": "ば・ける / カ, ケ",
+    "example": "化学 (かがく): Kimyo",
+    "category": "6.1: 研究 (Ilmiy izlanish va Fanlar)",
+    "level": "N4"
+  },
+  {
+    "front": "数",
+    "back": "Son, sanoq, sanamoq\n• On: スウ | Kun: かず, かぞ・える\n• Chizishlar: 13 ta\n• Birikmalar: 数学 (すうがく - Matematika) | 数える (かぞえる - Sanamoq) | 人数 (にんずう - Odamlar soni)",
+    "phonetic": "かず, かぞ・える / スウ",
+    "example": "数学 (すうがく): Matematika",
+    "category": "6.1: 研究 (Ilmiy izlanish va Fanlar)",
+    "level": "N4"
+  },
+  {
+    "front": "心",
+    "back": "Qalb, yurak, dil\n• On: シン | Kun: こころ\n• Chizishlar: 4 ta\n• Birikmalar: 心 (こころ - Qalb) | 安心 (あんしん - Xotirjamlik) | 心配 (しんぱい - Xavotir) | 中心 (ちゅうしん - Markaz)",
+    "phonetic": "こころ / シン",
+    "example": "心 (こころ): Qalb",
+    "category": "6.1: 研究 (Ilmiy izlanish va Fanlar)",
+    "level": "N4"
+  },
+  {
+    "front": "若",
+    "back": "Yosh, navqiron\n• On: ジャク | Kun: わか・い\n• Chizishlar: 8 ta\n• Birikmalar: 若い (わかい - Yosh) | 若者 (わかもの - Yoshlar)",
+    "phonetic": "わか・い / ジャク",
+    "example": "若い (わかい): Yosh",
+    "category": "6.2: コミュニケーション (Suhbat, Musiqa va Hordiq)",
+    "level": "N4"
+  },
+  {
+    "front": "集",
+    "back": "Yig'ilmoq, to'plamoq\n• On: シュウ | Kun: あつ・まる, あつ・める\n• Chizishlar: 12 ta\n• Birikmalar: 集まる (あつまる - To'planmoq) | 集める (あつめる - Yig'moq) | 集合 (しゅうごう - Yig'ilish joyi)",
+    "phonetic": "あつ・まる, あつ・める / シュウ",
+    "example": "集まる (あつまる): To'planmoq",
+    "category": "6.2: コミュニケーション (Suhbat, Musiqa va Hordiq)",
+    "level": "N4"
+  },
+  {
+    "front": "知",
+    "back": "Bilmoq, tanimoq\n• On: チ | Kun: し・る\n• Chizishlar: 8 ta\n• Birikmalar: 知る (しる - Bilmoq) | 知らせる (しらせる - Xabar bermoq) | 知識 (ちしき - Bilim)",
+    "phonetic": "し・る / チ",
+    "example": "知る (しる): Bilmoq",
+    "category": "6.2: コミュニケーション (Suhbat, Musiqa va Hordiq)",
+    "level": "N4"
+  },
+  {
+    "front": "酒",
+    "back": "Spirtli ichimlik, sake\n• On: シュ | Kun: さけ, さか\n• Chizishlar: 10 ta\n• Birikmalar: お酒 (おさけ - Sake, spirtli ichimlik) | 居酒屋 (いざかや - Yapon barchasi/restorani)",
+    "phonetic": "さけ, さか / シュ",
+    "example": "お酒 (おさけ): Sake, spirtli ichimlik",
+    "category": "6.2: コミュニケーション (Suhbat, Musiqa va Hordiq)",
+    "level": "N4"
+  },
+  {
+    "front": "歌",
+    "back": "Qo'shiq, kuylamoq\n• On: カ | Kun: うた, うた・う\n• Chizishlar: 14 ta\n• Birikmalar: 歌 (うた - Qo'shiq) | 歌う (うたう - Kuylamoq) | 歌手 (かしゅ - Xonanda)",
+    "phonetic": "うた, うた・う / カ",
+    "example": "歌 (うた): Qo'shiq",
+    "category": "6.2: コミュニケーション (Suhbat, Musiqa va Hordiq)",
+    "level": "N4"
+  },
+  {
+    "front": "声",
+    "back": "Ovoz, un\n• On: セイ | Kun: こえ\n• Chizishlar: 7 ta\n• Birikmalar: 声 (こえ - Ovoz) | 大声 (おおごえ - Baland ovoz) | 音声 (おんせい - Audio, tovush)",
+    "phonetic": "こえ / セイ",
+    "example": "声 (こえ): Ovoz",
+    "category": "6.2: コミュニケーション (Suhbat, Musiqa va Hordiq)",
+    "level": "N4"
+  },
+  {
+    "front": "楽",
+    "back": "Quvnoq; musiqa, oson\n• On: ガク, ラク | Kun: たの・しい, たの・しむ\n• Chizishlar: 13 ta\n• Birikmalar: 楽しい (たのしい - Maroqli, qiziq) | 音楽 (おんがく - Musiqa) | 楽な (らくな - Oson, qulay)",
+    "phonetic": "たの・しい, たの・しむ / ガク, ラク",
+    "example": "楽しい (たのしい): Maroqli, qiziq",
+    "category": "6.2: コミュニケーション (Suhbat, Musiqa va Hordiq)",
+    "level": "N4"
+  },
+  {
+    "front": "味",
+    "back": "Ta'm, maza\n• On: ミ | Kun: あじ, あじ・わう\n• Chizishlar: 8 ta\n• Birikmalar: 味 (あじ - Ta'm) | 意味 (いみ - Ma'no) | 興味 (きょうみ - Qiziqish)",
+    "phonetic": "あじ, あじ・わう / ミ",
+    "example": "味 (あじ): Ta'm",
+    "category": "6.3: ラーメン屋 (Taomlar va Pazandalik)",
+    "level": "N4"
+  },
+  {
+    "front": "油",
+    "back": "Yog', moy\n• On: ユ | Kun: あぶら\n• Chizishlar: 8 ta\n• Birikmalar: 油 (あぶら - Yog') | 石油 (せきゆ - Neft) | しょう油 (しょうゆ - Soya sousi)",
+    "phonetic": "あぶら / ユ",
+    "example": "油 (あぶら): Yog'",
+    "category": "6.3: ラーメン屋 (Taomlar va Pazandalik)",
+    "level": "N4"
+  },
+  {
+    "front": "太",
+    "back": "Yo'g'on, semiz\n• On: タイ, タ | Kun: ふと・い, ふと・る\n• Chizishlar: 4 ta\n• Birikmalar: 太い (ふとい - Yo'g'on) | 太る (ふとる - Semirmoq) | 太陽 (たいよう - Quyosh)",
+    "phonetic": "ふと・い, ふと・る / タイ, タ",
+    "example": "太い (ふとい): Yo'g'on",
+    "category": "6.3: ラーメン屋 (Taomlar va Pazandalik)",
+    "level": "N4"
+  },
+  {
+    "front": "細",
+    "back": "Ingichka, mayda\n• On: サイ | Kun: ほそ・い, こま・かい\n• Chizishlar: 11 ta\n• Birikmalar: 細い (ほそい - Ingichka) | 細かい (こまかい - Mayda (pul/tafsilot))",
+    "phonetic": "ほそ・い, こま・かい / サイ",
+    "example": "細い (ほそい): Ingichka",
+    "category": "6.3: ラーメン屋 (Taomlar va Pazandalik)",
+    "level": "N4"
+  },
+  {
+    "front": "皿",
+    "back": "Tarelka, likopcha\n• On: - | Kun: さら\n• Chizishlar: 5 ta\n• Birikmalar: 皿 (さら - Tarelka) | 灰皿 (はいざら - Kuldonoq)",
+    "phonetic": "さら",
+    "example": "皿 (さら): Tarelka",
+    "category": "6.3: ラーメン屋 (Taomlar va Pazandalik)",
+    "level": "N4"
+  },
+  {
+    "front": "飯",
+    "back": "Pishgan guruch, ovqat\n• On: ハン | Kun: めし\n• Chizishlar: 12 ta\n• Birikmalar: ご飯 (ごはん - Ovqat, guruch) | 朝ご飯 (あさごはん - Nonushta) | 昼ご飯 (ひるごはん - Tushlik)",
+    "phonetic": "めし / ハン",
+    "example": "ご飯 (ごはん): Ovqat, guruch",
+    "category": "6.3: ラーメン屋 (Taomlar va Pazandalik)",
+    "level": "N4"
+  },
+  {
+    "front": "麦",
+    "back": "Bug'doy, arpa\n• On: バク | Kun: むぎ\n• Chizishlar: 7 ta\n• Birikmalar: 麦 (むぎ - Bug'doy) | 小麦粉 (こむぎこ - Bug'doy uni) | 麦茶 (むぎちゃ - Arpa choyi)",
+    "phonetic": "むぎ / バク",
+    "example": "麦 (むぎ): Bug'doy",
+    "category": "6.3: ラーメン屋 (Taomlar va Pazandalik)",
+    "level": "N4"
+  },
+  {
+    "front": "春",
+    "back": "Bahor\n• On: シュン | Kun: はる\n• Chizishlar: 9 ta\n• Birikmalar: 春 (はる - Bahor) | 春休み (はるやすみ - Bahorgi ta'til) | 青春 (せいしゅん - Yoshlik davri)",
+    "phonetic": "はる / シュン",
+    "example": "春 (はる): Bahor",
+    "category": "7.1: きせつ (Yil fasllari va Osmon)",
+    "level": "N4"
+  },
+  {
+    "front": "夏",
+    "back": "Yoz\n• On: ゲ, カ | Kun: なつ\n• Chizishlar: 10 ta\n• Birikmalar: 夏 (なつ - Yoz) | 夏休み (なつやすみ - Yozgi ta'til) | 初夏 (しょか - Yoz boshi)",
+    "phonetic": "なつ / ゲ, カ",
+    "example": "夏 (なつ): Yoz",
+    "category": "7.1: きせつ (Yil fasllari va Osmon)",
+    "level": "N4"
+  },
+  {
+    "front": "秋",
+    "back": "Kuz\n• On: シュウ | Kun: あき\n• Chizishlar: 9 ta\n• Birikmalar: 秋 (あき - Kuz) | 秋風 (あきかぜ - Kuz shabadasi)",
+    "phonetic": "あき / シュウ",
+    "example": "秋 (あき): Kuz",
+    "category": "7.1: きせつ (Yil fasllari va Osmon)",
+    "level": "N4"
+  },
+  {
+    "front": "冬",
+    "back": "Qish\n• On: トウ | Kun: ふゆ\n• Chizishlar: 5 ta\n• Birikmalar: 冬 (ふゆ - Qish) | 冬休み (ふゆやすみ - Qishki ta'til)",
+    "phonetic": "ふゆ / トウ",
+    "example": "冬 (ふゆ): Qish",
+    "category": "7.1: きせつ (Yil fasllari va Osmon)",
+    "level": "N4"
+  },
+  {
+    "front": "空",
+    "back": "Osmon; bo'sh\n• On: クウ | Kun: そら, あ・く, から\n• Chizishlar: 8 ta\n• Birikmalar: 空 (そら - Osmon) | 空気 (くうき - Havo) | 空港 (くうこう - Aeroport)",
+    "phonetic": "そら, あ・く, から / クウ",
+    "example": "空 (そら): Osmon",
+    "category": "7.1: きせつ (Yil fasllari va Osmon)",
+    "level": "N4"
+  },
+  {
+    "front": "星",
+    "back": "Yulduz\n• On: セイ | Kun: ほし\n• Chizishlar: 9 ta\n• Birikmalar: 星 (ほし - Yulduz) | 火星 (かせい - Mars sayyorasi)",
+    "phonetic": "ほし / セイ",
+    "example": "星 (ほし): Yulduz",
+    "category": "7.1: きせつ (Yil fasllari va Osmon)",
+    "level": "N4"
+  },
+  {
+    "front": "雲",
+    "back": "Bulut\n• On: ウン | Kun: くも\n• Chizishlar: 12 ta\n• Birikmalar: 雲 (くも - Bulut) | 雨雲 (あまぐも - Yomg'ir buluti)",
+    "phonetic": "くも / ウン",
+    "example": "雲 (くも): Bulut",
+    "category": "7.1: きせつ (Yil fasllari va Osmon)",
+    "level": "N4"
+  },
+  {
+    "front": "去",
+    "back": "Ketmoq, o'tgan\n• On: キョ, コ | Kun: さ・る\n• Chizishlar: 5 ta\n• Birikmalar: 去年 (きょねん - O'tgan yil) | 過去 (かこ - O'tmish)",
+    "phonetic": "さ・る / キョ, コ",
+    "example": "去年 (きょねん): O'tgan yil",
+    "category": "7.1: きせつ (Yil fasllari va Osmon)",
+    "level": "N4"
+  },
+  {
+    "front": "天",
+    "back": "Osmon, ilohiy\n• On: テン | Kun: あめ, あま\n• Chizishlar: 4 ta\n• Birikmalar: 天気 (てんき - Ob-havo) | 天国 (てんごく - Jannat)",
+    "phonetic": "あめ, あま / テン",
+    "example": "天気 (てんき): Ob-havo",
+    "category": "7.2: 天気 (Ob-havo hodisalari)",
+    "level": "N4"
+  },
+  {
+    "front": "晴",
+    "back": "Ochiq havo, musaffo\n• On: セイ | Kun: は・れる, は・らす\n• Chizishlar: 12 ta\n• Birikmalar: 晴れる (はれる - Havo ochilmoq) | 晴れ (はれ - Ochiq, quyoshli havo)",
+    "phonetic": "は・れる, は・らす / セイ",
+    "example": "晴れる (はれる): Havo ochilmoq",
+    "category": "7.2: 天気 (Ob-havo hodisalari)",
+    "level": "N4"
+  },
+  {
+    "front": "雪",
+    "back": "Qor\n• On: セツ | Kun: ゆき\n• Chizishlar: 11 ta\n• Birikmalar: 雪 (ゆき - Qor) | 大雪 (おおゆき - Kuchli qor yog'ishi)",
+    "phonetic": "ゆき / セツ",
+    "example": "雪 (ゆき): Qor",
+    "category": "7.2: 天気 (Ob-havo hodisalari)",
+    "level": "N4"
+  },
+  {
+    "front": "風",
+    "back": "Shamol; uslub\n• On: フウ | Kun: かぜ\n• Chizishlar: 9 ta\n• Birikmalar: 風 (かぜ - Shamol) | 台風 (たいふう - Tayfun) | お風呂 (おふろ - Vanna)",
+    "phonetic": "かぜ / フウ",
+    "example": "風 (かぜ): Shamol",
+    "category": "7.2: 天気 (Ob-havo hodisalari)",
+    "level": "N4"
+  },
+  {
+    "front": "強",
+    "back": "Kuchli\n• On: キョウ, ゴウ | Kun: つよ・い, つよ・まる\n• Chizishlar: 11 ta\n• Birikmalar: 強い (つよい - Kuchli) | 勉強 (べんきょう - O'qish, saboq) | 強調 (きょうちょう - Urg'u berish)",
+    "phonetic": "つよ・い, つよ・まる / キョウ, ゴウ",
+    "example": "強い (つよい): Kuchli",
+    "category": "7.2: 天気 (Ob-havo hodisalari)",
+    "level": "N4"
+  },
+  {
+    "front": "弱",
+    "back": "Zaif, kuchsiz\n• On: ジャク | Kun: よわ・い, よわ・まる\n• Chizishlar: 10 ta\n• Birikmalar: 弱い (よわい - Kuchsiz, zaif) | 弱点 (じゃくてん - Kuchsiz tomon)",
+    "phonetic": "よわ・い, よわ・まる / ジャク",
+    "example": "弱い (よわい): Kuchsiz, zaif",
+    "category": "7.2: 天気 (Ob-havo hodisalari)",
+    "level": "N4"
+  },
+  {
+    "front": "暑",
+    "back": "Issiq (havo)\n• On: ショ | Kun: あつ・い\n• Chizishlar: 12 ta\n• Birikmalar: 暑い (あつい - Issiq (ob-havo)) | 猛暑 (もうしょ - Jazirama)",
+    "phonetic": "あつ・い / ショ",
+    "example": "暑い (あつい): Issiq (ob-havo)",
+    "category": "7.2: 天気 (Ob-havo hodisalari)",
+    "level": "N4"
+  },
+  {
+    "front": "寒",
+    "back": "Sovuq (havo)\n• On: カン | Kun: さむ・い\n• Chizishlar: 12 ta\n• Birikmalar: 寒い (さむい - Sovuq (ob-havo)) | 寒気 (さむけ - Sovuq qotish, et uvishishi)",
+    "phonetic": "さむ・い / カン",
+    "example": "寒い (さむい): Sovuq (ob-havo)",
+    "category": "7.2: 天気 (Ob-havo hodisalari)",
+    "level": "N4"
+  },
+  {
+    "front": "旅",
+    "back": "Sayohat\n• On: リョ | Kun: たび\n• Chizishlar: 10 ta\n• Birikmalar: 旅行 (りょこう - Sayohat) | 旅 (たび - Safarlar) | 旅館 (りょかん - An'anaviy yapon mehmonxonasi)",
+    "phonetic": "たび / リョ",
+    "example": "旅行 (りょこう): Sayohat",
+    "category": "7.3: 旅行 (Sayohat va Dunyo)",
+    "level": "N4"
+  },
+  {
+    "front": "持",
+    "back": "Ushlamoq, ega bo'lmoq\n• On: ジ | Kun: も・つ\n• Chizishlar: 9 ta\n• Birikmalar: 持つ (もつ - Ushlamoq, tutmoq) | 気持ち (きもち - Kayfiyat, his-tuyg'u) | お金持ち (おかねもち - Boy odam)",
+    "phonetic": "も・つ / ジ",
+    "example": "持つ (もつ): Ushlamoq, tutmoq",
+    "category": "7.3: 旅行 (Sayohat va Dunyo)",
+    "level": "N4"
+  },
+  {
+    "front": "世",
+    "back": "Dunyo, asr\n• On: セイ, セ | Kun: よ\n• Chizishlar: 5 ta\n• Birikmalar: 世界 (せかい - Dunyo, olam) | 世話 (せわ - G'amxo'rlik)",
+    "phonetic": "よ / セイ, セ",
+    "example": "世界 (せかい): Dunyo, olam",
+    "category": "7.3: 旅行 (Sayohat va Dunyo)",
+    "level": "N4"
+  },
+  {
+    "front": "界",
+    "back": "Chegara, olam\n• On: カイ | Kun: -\n• Chizishlar: 9 ta\n• Birikmalar: 世界 (せかい - Dunyo) | 限界 (げんかい - Chek-chegara)",
+    "phonetic": "カイ",
+    "example": "世界 (せかい): Dunyo",
+    "category": "7.3: 旅行 (Sayohat va Dunyo)",
+    "level": "N4"
+  },
+  {
+    "front": "写",
+    "back": "Suratga olmoq, nusxa\n• On: シャ | Kun: うつ・る, うつ・す\n• Chizishlar: 5 ta\n• Birikmalar: 写真 (しゃしん - Surat, rasm) | 写す (うつす - Suratga tushirmoq)",
+    "phonetic": "うつ・る, うつ・す / シャ",
+    "example": "写真 (しゃしん): Surat, rasm",
+    "category": "7.3: 旅行 (Sayohat va Dunyo)",
+    "level": "N4"
+  },
+  {
+    "front": "真",
+    "back": "Haqiqiy, toza\n• On: シン | Kun: ま\n• Chizishlar: 10 ta\n• Birikmalar: 写真 (しゃしん - Surat) | 真ん中 (まんなか - Ayni o'rtasi) | 真実 (しんじつ - Haqiqat)",
+    "phonetic": "ま / シン",
+    "example": "写真 (しゃしん): Surat",
+    "category": "7.3: 旅行 (Sayohat va Dunyo)",
+    "level": "N4"
+  },
+  {
+    "front": "船",
+    "back": "Kema, qayiq\n• On: セン | Kun: ふね, ふな\n• Chizishlar: 11 ta\n• Birikmalar: 船 (ふね - Kema) | 船長 (せんちょう - Kapitan) | 風船 (ふうせん - Sharcha)",
+    "phonetic": "ふね, ふな / セン",
+    "example": "船 (ふね): Kema",
+    "category": "7.3: 旅行 (Sayohat va Dunyo)",
+    "level": "N4"
+  },
+  {
+    "front": "勉",
+    "back": "G'ayrat qilmoq, o'qimoq\n• On: ベン | Kun: つと・める\n• Chizishlar: 10 ta\n• Birikmalar: 勉強 (べんきょう - Dars o'rganish) | 勉学 (べんがく - Ilm olish)",
+    "phonetic": "つと・める / ベン",
+    "example": "勉強 (べんきょう): Dars o'rganish",
+    "category": "8.1: 勉強 (Dars va O'rganish)",
+    "level": "N4"
+  },
+  {
+    "front": "漢",
+    "back": "Xitoy (Han sulolasi)\n• On: カン | Kun: -\n• Chizishlar: 13 ta\n• Birikmalar: 漢字 (かんじ - Kanji iyeroglifi) | 漢方薬 (かんぽうやく - Sharq tabobati dorisi)",
+    "phonetic": "カン",
+    "example": "漢字 (かんじ): Kanji iyeroglifi",
+    "category": "8.1: 勉強 (Dars va O'rganish)",
+    "level": "N4"
+  },
+  {
+    "front": "宿",
+    "back": "Mehmonxona; topshiriq\n• On: シュク | Kun: やど\n• Chizishlar: 11 ta\n• Birikmalar: 宿題 (しゅくだい - Uy vazifasi) | 宿泊 (しゅくはく - Tunab qolish)",
+    "phonetic": "やど / シュク",
+    "example": "宿題 (しゅくだい): Uy vazifasi",
+    "category": "8.1: 勉強 (Dars va O'rganish)",
+    "level": "N4"
+  },
+  {
+    "front": "題",
+    "back": "Mavzu, sarlavha, savol\n• On: ダイ | Kun: -\n• Chizishlar: 18 ta\n• Birikmalar: 問題 (もんだい - Muammo, savol) | 宿題 (しゅくだい - Vazifa) | 題名 (だいめい - Sarlavha)",
+    "phonetic": "ダイ",
+    "example": "問題 (もんだい): Muammo, savol",
+    "category": "8.1: 勉強 (Dars va O'rganish)",
+    "level": "N4"
+  },
+  {
+    "front": "質",
+    "back": "Sifat; savol\n• On: シツ, シチ | Kun: -\n• Chizishlar: 15 ta\n• Birikmalar: 質問 (しつもん - Savol) | 質 (しつ - Sifat)",
+    "phonetic": "シツ, シチ",
+    "example": "質問 (しつもん): Savol",
+    "category": "8.1: 勉強 (Dars va O'rganish)",
+    "level": "N4"
+  },
+  {
+    "front": "問",
+    "back": "So'ramoq, savol\n• On: モン | Kun: と・う\n• Chizishlar: 11 ta\n• Birikmalar: 質問 (しつもん - Savol) | 問題 (もんだい - Muammo)",
+    "phonetic": "と・う / モン",
+    "example": "質問 (しつもん): Savol",
+    "category": "8.1: 勉強 (Dars va O'rganish)",
+    "level": "N4"
+  },
+  {
+    "front": "教",
+    "back": "O'rgatmoq, ta'lim\n• On: キョウ | Kun: おし・える, おそ・わる\n• Chizishlar: 11 ta\n• Birikmalar: 教える (おしえる - O'rgatmoq) | 教室 (きょうしつ - Sinfxona) | 教科書 (きょうかしょ - Darslik)",
+    "phonetic": "おし・える, おそ・わる / キョウ",
+    "example": "教える (おしえる): O'rgatmoq",
+    "category": "8.1: 勉強 (Dars va O'rganish)",
+    "level": "N4"
+  },
+  {
+    "front": "室",
+    "back": "Xona, zal\n• On: シツ | Kun: むろ\n• Chizishlar: 9 ta\n• Birikmalar: 教室 (きょうしつ - Sinfxona) | 研究室 (けんきゅうしつ - Laboratoriya)",
+    "phonetic": "むろ / シツ",
+    "example": "教室 (きょうしつ): Sinfxona",
+    "category": "8.1: 勉強 (Dars va O'rganish)",
+    "level": "N4"
+  },
+  {
+    "front": "試",
+    "back": "Sinab ko'rmoq\n• On: シ | Kun: こころ・みる, ため・す\n• Chizishlar: 13 ta\n• Birikmalar: 試験 (しけん - Imtihon) | 試す (ためす - Sinab ko'rmoq)",
+    "phonetic": "こころ・みる, ため・す / シ",
+    "example": "試験 (しけん): Imtihon",
+    "category": "8.2: テスト (Imtihon va Sinov)",
+    "level": "N4"
+  },
+  {
+    "front": "験",
+    "back": "Sinov, tajriba\n• On: ケン | Kun: -\n• Chizishlar: 18 ta\n• Birikmalar: 試験 (しけん - Imtihon) | 経験 (けいけん - Tajriba) | 実験 (じっけん - Tajriba o'tkazish)",
+    "phonetic": "ケン",
+    "example": "試験 (しけん): Imtihon",
+    "category": "8.2: テスト (Imtihon va Sinov)",
+    "level": "N4"
+  },
+  {
+    "front": "答",
+    "back": "Javob bermoq, javob\n• On: トウ | Kun: こた・える, こた・え\n• Chizishlar: 12 ta\n• Birikmalar: 答える (こたえる - Javob bermoq) | 答え (こたえ - Javob) | 解答 (かいとう - Yechim)",
+    "phonetic": "こた・える, こた・え / トウ",
+    "example": "答える (こたえる): Javob bermoq",
+    "category": "8.2: テスト (Imtihon va Sinov)",
+    "level": "N4"
+  },
+  {
+    "front": "考",
+    "back": "O'ylamoq, fikrlamoq\n• On: コウ | Kun: かんが・える\n• Chizishlar: 6 ta\n• Birikmalar: 考える (かんがえる - Fikrlamoq) | 考え (かんがえ - Fikr, g'oya)",
+    "phonetic": "かんが・える / コウ",
+    "example": "考える (かんがえる): Fikrlamoq",
+    "category": "8.2: テスト (Imtihon va Sinov)",
+    "level": "N4"
+  },
+  {
+    "front": "正",
+    "back": "To'g'ri, adolatli\n• On: セイ, ショウ | Kun: ただ・しい, まさ\n• Chizishlar: 5 ta\n• Birikmalar: 正しい (ただしい - To'g'ri) | お正月 (おしょうがつ - Yangi yil) | 正確 (せいかく - Aniq)",
+    "phonetic": "ただ・しい, まさ / セイ, ショウ",
+    "example": "正しい (ただしい): To'g'ri",
+    "category": "8.2: テスト (Imtihon va Sinov)",
+    "level": "N4"
+  },
+  {
+    "front": "丸",
+    "back": "Dumaloq, to'garak\n• On: ガン | Kun: まる, まる・い\n• Chizishlar: 3 ta\n• Birikmalar: 丸 (まる - Aylana, dumaloq) | 丸い (まるい - Dumaloq)",
+    "phonetic": "まる, まる・い / ガン",
+    "example": "丸 (まる): Aylana, dumaloq",
+    "category": "8.2: テスト (Imtihon va Sinov)",
+    "level": "N4"
+  },
+  {
+    "front": "不",
+    "back": "Emas, no-, inkor\n• On: フ, ブ | Kun: -\n• Chizishlar: 4 ta\n• Birikmalar: 不便 (ふべん - Noqulay) | 不安 (ふあん - Xavotir) | 不合格 (ふごうかく - Imtihondan yiqilish)",
+    "phonetic": "フ, ブ",
+    "example": "不便 (ふべん): Noqulay",
+    "category": "8.2: テスト (Imtihon va Sinov)",
+    "level": "N4"
+  },
+  {
+    "front": "同",
+    "back": "Bir xil, o'xshash\n• On: ドウ | Kun: おな・じ\n• Chizishlar: 6 ta\n• Birikmalar: 同じ (おなじ - Bir xil) | 同時に (どうじに - Bir vaqtda) | 同僚 (どうりょう - Hamkasb)",
+    "phonetic": "おな・じ / ドウ",
+    "example": "同じ (おなじ): Bir xil",
+    "category": "8.2: テスト (Imtihon va Sinov)",
+    "level": "N4"
+  },
+  {
+    "front": "貸",
+    "back": "Qarzga bermoq\n• On: タイ | Kun: か・す\n• Chizishlar: 12 ta\n• Birikmalar: 貸す (かす - Qarzga bermoq) | 貸し出し (かしだし - Kitob berish)",
+    "phonetic": "か・す / タイ",
+    "example": "貸す (かす): Qarzga bermoq",
+    "category": "8.3: 図書館 (Kutubxona va Kitoblar)",
+    "level": "N4"
+  },
+  {
+    "front": "借",
+    "back": "Qarzga olmoq\n• On: シャク | Kun: か・りる\n• Chizishlar: 10 ta\n• Birikmalar: 借りる (かりる - Qarzga olmoq) | 借金 (しゃっきん - Qarz)",
+    "phonetic": "か・りる / シャク",
+    "example": "借りる (かりる): Qarzga olmoq",
+    "category": "8.3: 図書館 (Kutubxona va Kitoblar)",
+    "level": "N4"
+  },
+  {
+    "front": "返",
+    "back": "Qaytarmoq\n• On: ヘン | Kun: かえ・す, かえ・る\n• Chizishlar: 7 ta\n• Birikmalar: 返す (かえす - Qaytarib bermoq) | 返事 (へんじ - Javob)",
+    "phonetic": "かえ・す, かえ・る / ヘン",
+    "example": "返す (かえす): Qaytarib bermoq",
+    "category": "8.3: 図書館 (Kutubxona va Kitoblar)",
+    "level": "N4"
+  },
+  {
+    "front": "冊",
+    "back": "Kitoblar sanog'i\n• On: サツ | Kun: -\n• Chizishlar: 5 ta\n• Birikmalar: 一冊 (いっさつ - 1 ta kitob) | 別冊 (べっさつ - Ilova kitob)",
+    "phonetic": "サツ",
+    "example": "一冊 (いっさつ): 1 ta kitob",
+    "category": "8.3: 図書館 (Kutubxona va Kitoblar)",
+    "level": "N4"
+  },
+  {
+    "front": "歴",
+    "back": "O'tmish, tarix\n• On: レキ | Kun: -\n• Chizishlar: 14 ta\n• Birikmalar: 歴史 (れきし - Tarix) | 履歴書 (りれきしょ - Rezyume)",
+    "phonetic": "レキ",
+    "example": "歴史 (れきし): Tarix",
+    "category": "8.3: 図書館 (Kutubxona va Kitoblar)",
+    "level": "N4"
+  },
+  {
+    "front": "史",
+    "back": "Tarixiy yozuv\n• On: シ | Kun: -\n• Chizishlar: 5 ta\n• Birikmalar: 歴史 (れきし - Tarix) | 世界史 (せかいし - Jahon tarixi)",
+    "phonetic": "シ",
+    "example": "歴史 (れきし): Tarix",
+    "category": "8.3: 図書館 (Kutubxona va Kitoblar)",
+    "level": "N4"
+  },
+  {
+    "front": "図",
+    "back": "Chizma, xarita, reja\n• On: ズ, ト | Kun: はか・る\n• Chizishlar: 7 ta\n• Birikmalar: 地図 (ちず - Xarita) | 図書館 (としょかん - Kutubxona) | 図書 (としょ - Kitoblar)",
+    "phonetic": "はか・る / ズ, ト",
+    "example": "地図 (ちず): Xarita",
+    "category": "8.3: 図書館 (Kutubxona va Kitoblar)",
+    "level": "N4"
+  },
+  {
+    "front": "運",
+    "back": "Tashimoq; omad\n• On: ウン | Kun: はこ・ぶ\n• Chizishlar: 12 ta\n• Birikmalar: 運転 (うんてん - Haydash) | 運動 (うんどう - Jismoniy mashq) | 運ぶ (はこぶ - Tashimoq)",
+    "phonetic": "はこ・ぶ / ウン",
+    "example": "運転 (うんてん): Haydash",
+    "category": "9.1: 運動 (Sport va Jismoniy harakat)",
+    "level": "N4"
+  },
+  {
+    "front": "動",
+    "back": "Qimirlamoq, harakat\n• On: ドウ | Kun: うご・く, うご・かす\n• Chizishlar: 11 ta\n• Birikmalar: 動く (うごく - Qimirlamoq) | 自動車 (じどうしゃ - Avtomobil) | 動物 (どうぶつ - Hayvon)",
+    "phonetic": "うご・く, うご・かす / ドウ",
+    "example": "動く (うごく): Qimirlamoq",
+    "category": "9.1: 運動 (Sport va Jismoniy harakat)",
+    "level": "N4"
+  },
+  {
+    "front": "練",
+    "back": "Mashq qilmoq, toblamoq\n• On: レン | Kun: ね・る\n• Chizishlar: 14 ta\n• Birikmalar: 練習 (れんしゅう - Mashq, amaliyot)",
+    "phonetic": "ね・る / レン",
+    "example": "練習 (れんしゅう): Mashq, amaliyot",
+    "category": "9.1: 運動 (Sport va Jismoniy harakat)",
+    "level": "N4"
+  },
+  {
+    "front": "習",
+    "back": "O'rganmoq, odatlanmoq\n• On: シュウ | Kun: なら・う\n• Chizishlar: 11 ta\n• Birikmalar: 習う (ならう - O'rganmoq) | 予習 (よしゅう - Oldindan tayyorlanish) | 復習 (ふくしゅう - Takrorlash)",
+    "phonetic": "なら・う / シュウ",
+    "example": "習う (ならう): O'rganmoq",
+    "category": "9.1: 運動 (Sport va Jismoniy harakat)",
+    "level": "N4"
+  },
+  {
+    "front": "走",
+    "back": "Yugurmoq\n• On: ソウ | Kun: hashi・ru\n• Chizishlar: 7 ta\n• Birikmalar: 走る (はしる - Yugurmoq) | ご馳走 (ごちそう - Ziyofat)",
+    "phonetic": "hashi・ru / ソウ",
+    "example": "走る (はしる): Yugurmoq",
+    "category": "9.1: 運動 (Sport va Jismoniy harakat)",
+    "level": "N4"
+  },
+  {
+    "front": "歩",
+    "back": "Yurmoq, qadam\n• On: ホ | Kun: ある・く, あゆ・む\n• Chizishlar: 8 ta\n• Birikmalar: 歩く (あるく - Yurmoq) | 散歩 (さんぽ - Sayr) | 歩道 (ほどう - Piyodalar yo'li)",
+    "phonetic": "ある・く, あゆ・む / ホ",
+    "example": "歩く (あるく): Yurmoq",
+    "category": "9.1: 運動 (Sport va Jismoniy harakat)",
+    "level": "N4"
+  },
+  {
+    "front": "泳",
+    "back": "Suzmoq\n• On: エイ | Kun: およ・ぐ\n• Chizishlar: 8 ta\n• Birikmalar: 泳ぐ (およぐ - Suzmoq) | 水泳 (すいえい - Suzish sporti)",
+    "phonetic": "およ・ぐ / エイ",
+    "example": "泳ぐ (およぐ): Suzmoq",
+    "category": "9.1: 運動 (Sport va Jismoniy harakat)",
+    "level": "N4"
+  },
+  {
+    "front": "才",
+    "back": "Yosh (yosh sanagich); iqtidor\n• On: サイ | Kun: -\n• Chizishlar: 3 ta\n• Birikmalar: 20才 (はたち - 20 yosh) | 天才 (てんさい - Daho, talant)",
+    "phonetic": "サイ",
+    "example": "20才 (はたち): 20 yosh",
+    "category": "9.1: 運動 (Sport va Jismoniy harakat)",
+    "level": "N4"
+  },
+  {
+    "front": "自",
+    "back": "O'zi, mustaqil\n• On: ジ, シ | Kun: みずか・ら\n• Chizishlar: 6 ta\n• Birikmalar: 自分 (じぶん - O'zi) | 自転車 (じてんしゃ - Velosiped) | 自由 (じゆう - Erkinlik)",
+    "phonetic": "みずか・ら / ジ, シ",
+    "example": "自分 (じぶん): O'zi",
+    "category": "9.2: リゾート (Dam olish Maskani va Tabiat)",
+    "level": "N4"
+  },
+  {
+    "front": "然",
+    "back": "Tabiiy, shunday\n• On: ゼン, ネン | Kun: -\n• Chizishlar: 12 ta\n• Birikmalar: 自然 (しぜん - Tabiat) | 全然 (ぜんぜん - Umuman)",
+    "phonetic": "ゼン, ネン",
+    "example": "自然 (しぜん): Tabiat",
+    "category": "9.2: リゾート (Dam olish Maskani va Tabiat)",
+    "level": "N4"
+  },
+  {
+    "front": "草",
+    "back": "O't, maysa\n• On: ソウ | Kun: くさ\n• Chizishlar: 9 ta\n• Birikmalar: 草 (くさ - O't, maysa) | 草原 (そうげん - Dasht, yaylov)",
+    "phonetic": "くさ / ソウ",
+    "example": "草 (くさ): O't, maysa",
+    "category": "9.2: リゾート (Dam olish Maskani va Tabiat)",
+    "level": "N4"
+  },
+  {
+    "front": "原",
+    "back": "Tekislik, maydon; manba\n• On: ゲン | Kun: はら\n• Chizishlar: 10 ta\n• Birikmalar: 野原 (のはら - Dala) | 原因 (げんいん - Sabab)",
+    "phonetic": "はら / ゲン",
+    "example": "野原 (のはら): Dala",
+    "category": "9.2: リゾート (Dam olish Maskani va Tabiat)",
+    "level": "N4"
+  },
+  {
+    "front": "湖",
+    "back": "Ko'l\n• On: コ | Kun: みずうみ\n• Chizishlar: 12 ta\n• Birikmalar: 湖 (みずうみ - Ko'l) | びわ湖 (びわこ - Biva ko'li)",
+    "phonetic": "みずうみ / コ",
+    "example": "湖 (みずうみ): Ko'l",
+    "category": "9.2: リゾート (Dam olish Maskani va Tabiat)",
+    "level": "N4"
+  },
+  {
+    "front": "谷",
+    "back": "Vodiy, daraxona\n• On: コク | Kun: たに\n• Chizishlar: 7 ta\n• Birikmalar: 谷 (たに - Vodiy) | 渓谷 (けいこく - Dara)",
+    "phonetic": "たに / コク",
+    "example": "谷 (たに): Vodiy",
+    "category": "9.2: リゾート (Dam olish Maskani va Tabiat)",
+    "level": "N4"
+  },
+  {
+    "front": "海",
+    "back": "Dengiz, ummon\n• On: カイ | Kun: うみ\n• Chizishlar: 9 ta\n• Birikmalar: 海 (うみ - Dengiz) | 海外 (かいがい - Xorij, chet el) | 海岸 (かいがん - Dengiz sohili)",
+    "phonetic": "うみ / カイ",
+    "example": "海 (うみ): Dengiz",
+    "category": "9.2: リゾート (Dam olish Maskani va Tabiat)",
+    "level": "N4"
+  },
+  {
+    "front": "辺",
+    "back": "Atrof, soha, tomon\n• On: ヘン | Kun: あた・り, べ\n• Chizishlar: 5 ta\n• Birikmalar: この辺 (このあたり - Bu atrof) | 海辺 (うみべ - Dengiz bo'yi)",
+    "phonetic": "あた・り, べ / ヘン",
+    "example": "この辺 (このあたり): Bu atrof",
+    "category": "9.2: リゾート (Dam olish Maskani va Tabiat)",
+    "level": "N4"
+  },
+  {
+    "front": "里",
+    "back": "Qishloq, vatani\n• On: リ | Kun: さと\n• Chizishlar: 7 ta\n• Birikmalar: ふる里 (ふるさと - Ona qishloq) | 里帰り (さとがえり - Ota uyiga qaytish)",
+    "phonetic": "さと / リ",
+    "example": "ふる里 (ふるさと): Ona qishloq",
+    "category": "9.3: いなか (Qishloq va Jonivorlar)",
+    "level": "N4"
+  },
+  {
+    "front": "野",
+    "back": "Dala, ochiq maydon\n• On: ヤ | Kun: の\n• Chizishlar: 11 ta\n• Birikmalar: 野菜 (やさい - Sabzavot) | 野球 (やきゅう - Beysbol) | 分野 (ぶんや - Soha)",
+    "phonetic": "の / ヤ",
+    "example": "野菜 (やさい): Sabzavot",
+    "category": "9.3: いなか (Qishloq va Jonivorlar)",
+    "level": "N4"
+  },
+  {
+    "front": "緑",
+    "back": "Yashil rang, ko'kalamzor\n• On: リョク | Kun: みどり\n• Chizishlar: 14 ta\n• Birikmalar: 緑 (みどり - Yashil) | 緑色 (みどりいろ - Yashil rang) | 新緑 (しんりょく - Yangi ko'kalamzor)",
+    "phonetic": "みどり / リョク",
+    "example": "緑 (みどり): Yashil",
+    "category": "9.3: いなか (Qishloq va Jonivorlar)",
+    "level": "N4"
+  },
+  {
+    "front": "池",
+    "back": "Hovuz, ko'lmak\n• On: チ | Kun: いけ\n• Chizishlar: 6 ta\n• Birikmalar: 池 (いけ - Hovuz) | 電池 (でんち - Batareya)",
+    "phonetic": "いけ / チ",
+    "example": "池 (いけ): Hovuz",
+    "category": "9.3: いなか (Qishloq va Jonivorlar)",
+    "level": "N4"
+  },
+  {
+    "front": "鳥",
+    "back": "Qush\n• On: チョウ | Kun: とり\n• Chizishlar: 11 ta\n• Birikmalar: 鳥 (とり - Qush) | 小鳥 (ことり - Qushcha) | 焼き鳥 (やきとり - Kabob qilingan tovuq)",
+    "phonetic": "とり / チョウ",
+    "example": "鳥 (とり): Qush",
+    "category": "9.3: いなか (Qishloq va Jonivorlar)",
+    "level": "N4"
+  },
+  {
+    "front": "羽",
+    "back": "Qanot, pat (qush sanagich)\n• On: ウ | Kun: は, はね\n• Chizishlar: 6 ta\n• Birikmalar: 羽 (はね - Qanot, pat) | 一羽 (いちわ - 1 ta qush)",
+    "phonetic": "は, はね / ウ",
+    "example": "羽 (はね): Qanot, pat",
+    "category": "9.3: いなか (Qishloq va Jonivorlar)",
+    "level": "N4"
+  },
+  {
+    "front": "馬",
+    "back": "Ot\n• On: バ | Kun: うま, ま\n• Chizishlar: 10 ta\n• Birikmalar: 馬 (うま - Ot) | 乗馬 (じょうば - Ot minish) | 競馬 (けいば - Ot poygasi)",
+    "phonetic": "うま, ま / バ",
+    "example": "馬 (うま): Ot",
+    "category": "9.3: いなか (Qishloq va Jonivorlar)",
+    "level": "N4"
+  },
+  {
+    "front": "鳴",
+    "back": "Sayramoq, jiringlamoq\n• On: メイ | Kun: な・く, な・る\n• Chizishlar: 14 ta\n• Birikmalar: 鳴く (なく - Sayramoq, uvillamoq (hayvon/qush)) | 鳴る (なる - Jiringlamoq (qo'ng'iroq))",
+    "phonetic": "な・く, な・る / メイ",
+    "example": "鳴く (なく): Sayramoq, uvillamoq (hayvon/qush)",
+    "category": "9.3: いなか (Qishloq va Jonivorlar)",
+    "level": "N4"
+  }
+]

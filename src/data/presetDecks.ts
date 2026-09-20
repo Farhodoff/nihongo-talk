@@ -112,6 +112,19 @@ export const PRESET_DECKS: PresetDeck[] = [
     loadCards: () => loadAndApplyOverrides(import('./decks/jlpt_n4.json')),
   },
   {
+    id: 'deck_kanji_master_n4',
+    title: '🥋 Kanji Master N4 (207 Iyeroglif & Tematik Birikmalar)',
+    description:
+      "Rasmiy Kanji Master N4 darsligining barcha 9 ta bobi bo'yicha 207 ta tayanch iyeroglif, ularning on/kun o'qilishlari, chizishlar soni va hayotiy birikmalari to'plami.",
+    language: 'ja',
+    level: 'JLPT N4',
+    badgeColor: 'bg-rose-500/10 text-rose-600 border-rose-500/20',
+    icon: '🥋',
+    cardCount: 207,
+    isPremiumOnly: false,
+    loadCards: () => loadAndApplyOverrides(import('./decks/kanji_master_n4.json')),
+  },
+  {
     id: 'deck_jlpt_n3',
     title: '🏮 JLPT N3 Master Deck (Shin Kanzen & Goi 1730)',
     description: "Shin Kanzen Master, Somatome va 1730 ta N3 tayanch so'zlar.",
