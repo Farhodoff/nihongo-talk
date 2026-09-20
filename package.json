@@ -9,8 +9,6 @@
     "preview": "vite preview",
     "test": "vitest",
     "test:coverage": "vitest run --coverage",
-    "audit:academic-deck": "node scripts/validate_academic_deck.mjs",
-    "clean:academic-deck": "node scripts/validate_academic_deck.mjs --apply",
     "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
     "typecheck": "tsc --noEmit",
     "format": "prettier --write \"src/**/*.{ts,tsx,css,json,md}\"",
