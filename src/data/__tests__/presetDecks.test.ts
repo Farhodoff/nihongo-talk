@@ -48,5 +48,11 @@ describe('PRESET_DECKS Integrity & Quality Tests', () => {
     expect(n3MonDeck!.level).toBe('JLPT N3');
     const n3MonCards = await n3MonDeck!.loadCards();
     expect(n3MonCards.length).toBe(20);
+
+    const n3ThematicDeck = PRESET_DECKS.find((d) => d.id === 'deck_n3_thematic_vocab');
+    expect(n3ThematicDeck).toBeDefined();
+    expect(n3ThematicDeck!.level).toBe('JLPT N3');
+    const n3ThematicCards = await n3ThematicDeck!.loadCards();
+    expect(n3ThematicCards.length).toBe(699);
   });
 });

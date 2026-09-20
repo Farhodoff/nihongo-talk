@@ -56,6 +56,7 @@ Ushbu hujjat loyihadagi barcha JLPT darajalari (N5, N4, N3, N2, N1) bo'yicha kit
 - [x] **3.6. N3 Shinkanzen Dokkai**: `N3_Shin_Kanzen_Master_Dokkai 読解.pdf` dagi Chuu-bun (o'rta hajmli maqolalar) va Jouhou-kensaku (jadvalli e'lonlar) matnlari asosida 10 ta Dokkai mashqi to'liq mavjud.
 - [x] **3.7. N3 Choukai (Studiya Audio)**: `N3_Shinkanzen Master_Listening_CD.rar` dagi haqiqiy MP3 audiolari tizimga ulandi.
 - [x] **3.8. N3 Chalg'ituvchi Grammatika mashqlari**: `〜わけではない` vs `〜わけがない`, `〜どころではない`, `〜に対して` kabi adashtiruvchi qoidalar bo'yicha 22 ta chuqur qiyosiy kartalar yaratildi (`deck_n3_confusing_grammar`).
+- [x] **3.9. N3 Tematik Leksika Master**: 12 ta hayotiy mavzuni (Ish, his-tuyg'ular, jamiyat, taomlar, xarakter, tabiat) qamrab olgan 699 ta muhim so'z va namunaviy gaplar deki yaratildi (`deck_n3_thematic_vocab`).
 
 ---
 

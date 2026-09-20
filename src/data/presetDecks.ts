@@ -150,6 +150,19 @@ export const PRESET_DECKS: PresetDeck[] = [
     loadCards: () => loadAndApplyOverrides(import('./decks/n3_500_mon.json')),
   },
   {
+    id: 'deck_n3_thematic_vocab',
+    title: '📖 JLPT N3 Tematik Leksika Master (テーマ別 語彙 699)',
+    description:
+      "12 ta hayotiy mavzu (Ish va kasb, his-tuyg'ular, jamiyat, taomlar, xarakter, tabiat) bo'yicha 699 ta muhim N3 so'zlari va namunaviy gaplar to'plami.",
+    language: 'ja',
+    level: 'JLPT N3',
+    badgeColor: 'bg-cyan-500/10 text-cyan-600 border-cyan-500/20',
+    icon: '📖',
+    cardCount: 699,
+    isPremiumOnly: false,
+    loadCards: () => loadAndApplyOverrides(import('./decks/n3_thematic_vocab.json')),
+  },
+  {
     id: 'deck_jlpt_n2',
     title: '🗾 JLPT N2 Master Deck (Shin Kanzen & Goi 3213)',
     description: "Shin Kanzen Master, Sou Matome va 3213 ta N2 tayanch so'zlar.",
