@@ -10,6 +10,11 @@ import {
   FileText,
   Database,
   Loader2,
+  Lock,
+  AlertTriangle,
+  ShieldAlert,
+  Timer,
+  X,
 } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { HistoryService } from '../services/HistoryService';
@@ -28,6 +33,15 @@ import { useLanguage } from '../context/LanguageContext';
 import { ExamService, ExamListItem, NormalizedExam } from '../services/ExamService';
 import { JLPT_MOCK_EXAM_DATA, ExamQuestion } from '../data/jlptMockExamData';
 import { toast } from '../hooks/use-toast';
+import {
+  JLPT_SECTION_SPECS,
+  getSectionDurationSeconds,
+  getOrderedSections,
+  getSectionIndex,
+  getNextSectionKey,
+  JlptExamMode,
+  SectionKey,
+} from '../utils/jlptExamTiming';
 
 export const JlptMockExamPage: React.FC = () => {
   const navigate = useNavigate();
@@ -48,6 +62,15 @@ export const JlptMockExamPage: React.FC = () => {
   const [loadingExams, setLoadingExams] = useState<boolean>(true);
   const [activeExam, setActiveExam] = useState<NormalizedExam | null>(null);
   const [isStartingExam, setIsStartingExam] = useState<boolean>(false);
+
+  // Official Sectioned Exam Mode State
+  const [examMode, setExamMode] = useState<JlptExamMode>('official_timed');
+  const [useFullOfficialTime, setUseFullOfficialTime] = useState<boolean>(false);
+  const [sealedSections, setSealedSections] = useState<SectionKey[]>([]);
+  const [sectionTimeLeft, setSectionTimeLeft] = useState<number>(1200);
+  const [sectionTotalDuration, setSectionTotalDuration] = useState<number>(1200);
+  const [showSectionTransitionModal, setShowSectionTransitionModal] = useState<boolean>(false);
+  const examStartTimeRef = useRef<number>(Date.now());
 
   useEffect(() => {
     if (urlLevel && ['N5', 'N4', 'N3', 'N2', 'N1'].includes(urlLevel)) {
@@ -89,7 +112,7 @@ export const JlptMockExamPage: React.FC = () => {
   );
   const [userAnswers, setUserAnswers] = useState<{ [qId: number]: number }>({});
 
-  // Timer & Status
+  // Timer & Status (for Practice mode)
   const [timeLeft, setTimeLeft] = useState(3000); // default 50 mins
   const [isTimerRunning, setIsTimerRunning] = useState(false);
 
@@ -109,16 +132,92 @@ export const JlptMockExamPage: React.FC = () => {
   const readingQuestions = levelQuestions.filter((q) => q.section === 'reading');
   const listeningQuestions = levelQuestions.filter((q) => q.section === 'listening');
 
-  // Timer Effect
+  // Timer Effect (handles both official sectioned timer and practice single timer)
   useEffect(() => {
     let timer: any;
-    if (isTimerRunning && timeLeft > 0) {
-      timer = setInterval(() => setTimeLeft((prev) => prev - 1), 1000);
-    } else if (timeLeft === 0 && isTimerRunning) {
-      handleSubmitExam();
+    if (isTimerRunning) {
+      if (examMode === 'official_timed') {
+        if (sectionTimeLeft > 0) {
+          timer = setInterval(() => setSectionTimeLeft((prev) => prev - 1), 1000);
+        } else if (sectionTimeLeft === 0) {
+          handleSectionTimeExpired();
+        }
+      } else {
+        if (timeLeft > 0) {
+          timer = setInterval(() => setTimeLeft((prev) => prev - 1), 1000);
+        } else if (timeLeft === 0) {
+          handleSubmitExam();
+        }
+      }
     }
     return () => clearInterval(timer);
-  }, [isTimerRunning, timeLeft]);
+  }, [isTimerRunning, examMode, sectionTimeLeft, timeLeft]);
+
+  const handleSectionTimeExpired = () => {
+    if (audioRef.current) audioRef.current.pause();
+    setIsPlaying(false);
+
+    const nextSec = getNextSectionKey(level, activeSection);
+    if (nextSec) {
+      setSealedSections((prev) => (prev.includes(activeSection) ? prev : [...prev, activeSection]));
+      setActiveSection(nextSec);
+      const nextDuration = getSectionDurationSeconds(level, nextSec, useFullOfficialTime);
+      setSectionTimeLeft(nextDuration);
+      setSectionTotalDuration(nextDuration);
+      const nextSpec = JLPT_SECTION_SPECS[level].find((s) => s.section === nextSec);
+      toast({
+        title: "⏰ Bo'lim vaqti tugadi!",
+        description: `Oldingi bo'lim muhrlandi. Yangi bo'lim boshlandi: ${nextSpec?.titleUz || nextSec}`,
+      });
+      if (typeof window !== 'undefined' && typeof window.scrollTo === 'function') {
+        try {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } catch {}
+      }
+    } else {
+      toast({
+        title: '⏰ Rasmiy imtihon vaqti yakunlandi!',
+        description: "Barcha bo'limlar topshirildi. Natijangiz hisoblanmoqda...",
+      });
+      handleSubmitExam();
+    }
+  };
+
+  const handleAdvanceSectionClick = () => {
+    const nextSec = getNextSectionKey(level, activeSection);
+    if (!nextSec) {
+      handleSubmitExam();
+      return;
+    }
+    setShowSectionTransitionModal(true);
+  };
+
+  const handleConfirmAdvanceSection = () => {
+    setShowSectionTransitionModal(false);
+    if (audioRef.current) audioRef.current.pause();
+    setIsPlaying(false);
+
+    const nextSec = getNextSectionKey(level, activeSection);
+    if (nextSec) {
+      setSealedSections((prev) => (prev.includes(activeSection) ? prev : [...prev, activeSection]));
+      setActiveSection(nextSec);
+      const nextDuration = getSectionDurationSeconds(level, nextSec, useFullOfficialTime);
+      setSectionTimeLeft(nextDuration);
+      setSectionTotalDuration(nextDuration);
+      const nextSpec = JLPT_SECTION_SPECS[level].find((s) => s.section === nextSec);
+      toast({
+        title: "✅ Bo'lim muhrlandi!",
+        description: `${nextSpec?.shortLabel || nextSec} bo'limiga o'tildi. Orqaga qaytib bo'lmaydi.`,
+      });
+      if (typeof window !== 'undefined' && typeof window.scrollTo === 'function') {
+        try {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } catch {}
+      }
+    } else {
+      handleSubmitExam();
+    }
+  };
 
   const formatTime = (secs: number) => {
     const m = Math.floor(secs / 60);
@@ -137,9 +236,21 @@ export const JlptMockExamPage: React.FC = () => {
       setUserAnswers({});
       setMistakes([]);
       setStep('exam');
-      setActiveSection('knowledge');
+      examStartTimeRef.current = Date.now();
+
+      const ordered = getOrderedSections(level);
+      const firstSec = ordered[0].section;
+      setActiveSection(firstSec);
+      setSealedSections([]);
+
+      if (examMode === 'official_timed') {
+        const duration = getSectionDurationSeconds(level, firstSec, useFullOfficialTime);
+        setSectionTimeLeft(duration);
+        setSectionTotalDuration(duration);
+      } else {
+        setTimeLeft(examData.timeLimitSeconds);
+      }
       setIsTimerRunning(true);
-      setTimeLeft(examData.timeLimitSeconds);
     } catch (err) {
       console.error('Failed to load exam:', err);
     } finally {
@@ -214,7 +325,7 @@ export const JlptMockExamPage: React.FC = () => {
     setStep('report');
     setIsAnalyzing(true);
 
-    const durSecs = Math.max(10, 3000 - timeLeft);
+    const durSecs = Math.max(10, Math.round((Date.now() - examStartTimeRef.current) / 1000));
 
     const questionAnswers: ExamQuestionAnswer[] = levelQuestions.map((q) => {
       const userIdx = userAnswers[q.id];
@@ -285,6 +396,32 @@ export const JlptMockExamPage: React.FC = () => {
       setIsAnalyzing(false);
     }
   };
+
+  const orderedSections = getOrderedSections(level);
+  const currentSectionIndex = getSectionIndex(level, activeSection);
+  const currentSpec = JLPT_SECTION_SPECS[level].find((s) => s.section === activeSection);
+  const nextSectionKey = getNextSectionKey(level, activeSection);
+  const nextSectionSpec = nextSectionKey
+    ? JLPT_SECTION_SPECS[level].find((s) => s.section === nextSectionKey)
+    : null;
+
+  const activeSectionQuestions =
+    activeSection === 'knowledge'
+      ? knowledgeQuestions
+      : activeSection === 'reading'
+        ? readingQuestions
+        : listeningQuestions;
+  const answeredInSection = activeSectionQuestions.filter(
+    (q) => userAnswers[q.id] !== undefined,
+  ).length;
+  const totalInSection = activeSectionQuestions.length;
+  const unansweredInSection = totalInSection - answeredInSection;
+
+  const isWarningTime =
+    examMode === 'official_timed'
+      ? sectionTimeLeft <= 300 && sectionTimeLeft > 60
+      : timeLeft <= 300 && timeLeft > 60;
+  const isCriticalTime = examMode === 'official_timed' ? sectionTimeLeft <= 60 : timeLeft <= 60;
 
   return (
     <div className="mx-auto max-w-5xl space-y-6 p-4 pb-16 md:p-8">
@@ -410,6 +547,123 @@ export const JlptMockExamPage: React.FC = () => {
             )}
           </div>
 
+          {/* Rejimni tanlash (Exam Mode Selection) */}
+          <div className="space-y-3 text-left">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-bold text-foreground">
+                {language === 'ja' ? 'しけんモードを えらぶ' : 'Imtihon Rejimini Tanlang:'}
+              </span>
+              <span className="rounded-full bg-rose-500/10 px-2.5 py-0.5 text-[10px] font-extrabold text-rose-600 dark:text-rose-400">
+                {examMode === 'official_timed' ? '🏛️ Rasmiy Rejim' : '⚡ Tezkor Mashq'}
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              {/* Official Sectioned Timed Mode */}
+              <div
+                onClick={() => setExamMode('official_timed')}
+                className={`cursor-pointer rounded-2xl border p-4 transition-all ${
+                  examMode === 'official_timed'
+                    ? 'border-rose-500 bg-rose-500/10 shadow-md ring-1 ring-rose-500/30'
+                    : 'border-border bg-muted/20 hover:border-border hover:bg-muted/40'
+                }`}
+              >
+                <div className="flex items-start justify-between gap-2">
+                  <div className="flex items-center gap-2">
+                    <span className="text-base">🏛️</span>
+                    <h4 className="text-xs font-extrabold text-foreground">
+                      Rasmiy Bo'limli Taymer
+                    </h4>
+                  </div>
+                  <div
+                    className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full border ${
+                      examMode === 'official_timed'
+                        ? 'border-rose-500 bg-rose-500 text-white'
+                        : 'border-border'
+                    }`}
+                  >
+                    {examMode === 'official_timed' && <CheckCircle2 size={11} />}
+                  </div>
+                </div>
+                <p className="mt-2 text-[11px] leading-relaxed text-muted-foreground">
+                  Japan Foundation qoidalari: har bir bo'limga alohida taymer, o'tilgan bo'limlar
+                  muhrlanadi, qaytish taqiqlanadi.
+                </p>
+                <div className="mt-2 flex flex-wrap gap-1">
+                  <span className="rounded-md bg-amber-500/10 px-2 py-0.5 text-[9px] font-bold text-amber-600 dark:text-amber-400">
+                    🔒 Muhrlash tizimi
+                  </span>
+                  <span className="rounded-md bg-rose-500/10 px-2 py-0.5 text-[9px] font-bold text-rose-600 dark:text-rose-400">
+                    ⏱️ Alohida taymer
+                  </span>
+                </div>
+              </div>
+
+              {/* Practice Mode */}
+              <div
+                onClick={() => setExamMode('practice')}
+                className={`cursor-pointer rounded-2xl border p-4 transition-all ${
+                  examMode === 'practice'
+                    ? 'border-rose-500 bg-rose-500/10 shadow-md ring-1 ring-rose-500/30'
+                    : 'border-border bg-muted/20 hover:border-border hover:bg-muted/40'
+                }`}
+              >
+                <div className="flex items-start justify-between gap-2">
+                  <div className="flex items-center gap-2">
+                    <span className="text-base">⚡</span>
+                    <h4 className="text-xs font-extrabold text-foreground">Erkin Mashq Rejimi</h4>
+                  </div>
+                  <div
+                    className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full border ${
+                      examMode === 'practice'
+                        ? 'border-rose-500 bg-rose-500 text-white'
+                        : 'border-border'
+                    }`}
+                  >
+                    {examMode === 'practice' && <CheckCircle2 size={11} />}
+                  </div>
+                </div>
+                <p className="mt-2 text-[11px] leading-relaxed text-muted-foreground">
+                  Bo'limlar o'rtasida erkin harakatlanish, yagona umumiy taymer va istalgan savolga
+                  qayta javob berish imkoniyati.
+                </p>
+                <div className="mt-2 flex flex-wrap gap-1">
+                  <span className="rounded-md bg-sky-500/10 px-2 py-0.5 text-[9px] font-bold text-sky-600 dark:text-sky-400">
+                    🔄 Erkin navigatsiya
+                  </span>
+                  <span className="rounded-md bg-emerald-500/10 px-2 py-0.5 text-[9px] font-bold text-emerald-600 dark:text-emerald-400">
+                    ⏳ Yagona taymer
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* If official_timed is selected, show timing configuration option */}
+            {examMode === 'official_timed' && (
+              <div className="mt-2 flex items-center justify-between rounded-xl border border-border bg-muted/30 p-3">
+                <div className="space-y-0.5">
+                  <div className="text-xs font-bold text-foreground">Vaqt formati</div>
+                  <div className="text-[11px] text-muted-foreground">
+                    {useFullOfficialTime
+                      ? `To'liq rasmiy JLPT vaqti (${JLPT_SECTION_SPECS[level].reduce((acc, s) => acc + s.officialMinutes, 0)} daqiqa)`
+                      : `Moslashtirilgan sinov vaqti (${Math.round(JLPT_SECTION_SPECS[level].reduce((acc, s) => acc + s.simulationSeconds, 0) / 60)} daqiqa)`}
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setUseFullOfficialTime((prev) => !prev)}
+                  className={`rounded-lg px-3 py-1.5 text-xs font-bold transition-all ${
+                    useFullOfficialTime
+                      ? 'bg-rose-600 text-white'
+                      : 'border border-border bg-muted text-foreground hover:bg-muted/80'
+                  }`}
+                >
+                  {useFullOfficialTime ? 'To‘liq Rasmiy' : 'Tezkor Sinov'}
+                </button>
+              </div>
+            )}
+          </div>
+
           <Button
             disabled={isStartingExam}
             onClick={handleStartExam}
@@ -432,51 +686,186 @@ export const JlptMockExamPage: React.FC = () => {
       {step === 'exam' && (
         <div className="space-y-6">
           {/* Top Stats */}
-          <div className="flex items-center justify-between rounded-2xl border border-border bg-card p-4 shadow-sm">
-            <span className="text-xs font-black uppercase text-rose-500">
-              JLPT {level} Full Simulation Exam
-            </span>
-            <div className="flex items-center gap-2 rounded-full border border-rose-500/20 bg-rose-500/10 px-4 py-1.5 font-mono text-sm font-extrabold text-rose-600 dark:text-rose-400">
+          <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-border bg-card p-4 shadow-sm">
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-black uppercase text-rose-500">
+                JLPT {level} Full Simulation Exam
+              </span>
+              <span className="hidden h-4 w-px bg-border sm:inline-block" />
+              <span className="inline-flex items-center gap-1 rounded-full border border-rose-500/20 bg-rose-500/10 px-2.5 py-0.5 text-[10px] font-extrabold text-rose-600 dark:text-rose-400">
+                {examMode === 'official_timed' ? '🏛️ Rasmiy Bo‘limli Rejim' : '⚡ Erkin Mashq'}
+              </span>
+            </div>
+
+            {/* Countdown timer pill */}
+            <div
+              className={`flex items-center gap-2 rounded-full border px-4 py-1.5 font-mono text-sm font-extrabold transition-all ${
+                isCriticalTime
+                  ? 'animate-pulse border-red-500 bg-red-500/10 text-red-600 shadow-md shadow-red-500/20 dark:text-red-400'
+                  : isWarningTime
+                    ? 'border-amber-500 bg-amber-500/10 text-amber-600 dark:text-amber-400'
+                    : 'border-rose-500/20 bg-rose-500/10 text-rose-600 dark:text-rose-400'
+              }`}
+            >
               <Clock size={16} />
-              <span>{formatTime(timeLeft)}</span>
+              <span>
+                {examMode === 'official_timed' ? formatTime(sectionTimeLeft) : formatTime(timeLeft)}
+              </span>
+              <span className="font-sans text-[10px] font-normal opacity-80">
+                {examMode === 'official_timed' ? "(Bo'lim vaqti)" : '(Umumiy)'}
+              </span>
             </div>
           </div>
 
+          {/* Section Timeline Tracker (Official Timed Mode) */}
+          {examMode === 'official_timed' && (
+            <div className="space-y-3.5 rounded-3xl border border-border bg-card p-5 shadow-sm">
+              <div className="flex flex-col justify-between gap-2 border-b border-border pb-3 sm:flex-row sm:items-center">
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2">
+                    <span className="rounded-md bg-rose-500/10 px-2 py-0.5 text-[10px] font-extrabold text-rose-600 dark:text-rose-400">
+                      {`${currentSectionIndex + 1} / ${orderedSections.length}-BO‘LIM`}
+                    </span>
+                    <h3 className="text-sm font-black text-foreground">
+                      {currentSpec?.titleJa} — {currentSpec?.titleUz}
+                    </h3>
+                  </div>
+                  <p className="text-[11px] text-muted-foreground">{currentSpec?.descriptionUz}</p>
+                </div>
+
+                <div className="flex items-center gap-2 self-start sm:self-center">
+                  <span className="rounded-full bg-muted/60 px-3 py-1 text-[11px] font-bold text-muted-foreground">
+                    Javoblar: <strong className="text-foreground">{answeredInSection}</strong> /{' '}
+                    {totalInSection}
+                  </span>
+                  {isCriticalTime && (
+                    <span className="inline-flex animate-pulse items-center gap-1 rounded-full border border-red-500/30 bg-red-500/15 px-2.5 py-1 text-[10px] font-black text-red-600 dark:text-red-400">
+                      <AlertTriangle size={11} /> 1 daqiqadan kam!
+                    </span>
+                  )}
+                  {!isCriticalTime && isWarningTime && (
+                    <span className="inline-flex items-center gap-1 rounded-full border border-amber-500/30 bg-amber-500/15 px-2.5 py-1 text-[10px] font-black text-amber-600 dark:text-amber-400">
+                      <Clock size={11} /> 5 daqiqadan kam!
+                    </span>
+                  )}
+                </div>
+              </div>
+
+              {/* Section Timeline Cards */}
+              <div className="grid grid-cols-3 gap-2">
+                {orderedSections.map((sec) => {
+                  const isSealed = sealedSections.includes(sec.section);
+                  const isActive = activeSection === sec.section;
+
+                  return (
+                    <div
+                      key={sec.section}
+                      className={`flex flex-col justify-between gap-1 rounded-2xl border p-3 transition-all sm:flex-row sm:items-center ${
+                        isActive
+                          ? 'border-rose-500 bg-rose-500/10 text-rose-600 shadow-sm ring-1 ring-rose-500/30 dark:text-rose-400'
+                          : isSealed
+                            ? 'border-emerald-500/30 bg-emerald-500/5 text-emerald-600 dark:text-emerald-400'
+                            : 'border-border bg-muted/20 text-muted-foreground/60'
+                      }`}
+                    >
+                      <div className="flex min-w-0 items-center gap-2">
+                        {isSealed ? (
+                          <CheckCircle2 size={15} className="shrink-0 text-emerald-500" />
+                        ) : isActive ? (
+                          <Timer size={15} className="shrink-0 animate-pulse text-rose-500" />
+                        ) : (
+                          <Lock size={15} className="shrink-0 text-muted-foreground/60" />
+                        )}
+                        <span className="truncate text-xs font-black">{sec.shortLabel}</span>
+                      </div>
+                      <span className="text-[10px] font-bold">
+                        {isSealed
+                          ? 'Muhrlangan'
+                          : isActive
+                            ? formatTime(sectionTimeLeft)
+                            : 'Qulflangan'}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Progress Bar of Section Time */}
+              <div className="h-1.5 w-full overflow-hidden rounded-full bg-muted">
+                <div
+                  className={`h-full transition-all duration-300 ${
+                    isCriticalTime
+                      ? 'animate-pulse bg-red-500'
+                      : isWarningTime
+                        ? 'bg-amber-500'
+                        : 'bg-rose-500'
+                  }`}
+                  style={{
+                    width: `${Math.max(0, Math.min(100, (sectionTimeLeft / (sectionTotalDuration || 1)) * 100))}%`,
+                  }}
+                />
+              </div>
+            </div>
+          )}
+
           {/* Section Switcher Tabs */}
           <div className="flex border-b border-border text-xs">
-            <button
-              onClick={() => setActiveSection('knowledge')}
-              className={`flex flex-1 items-center justify-center gap-1.5 border-b-2 py-3 font-bold transition-all ${
-                activeSection === 'knowledge'
-                  ? 'border-rose-500 text-rose-600 dark:text-rose-400'
-                  : 'border-transparent text-muted-foreground'
-              }`}
-            >
-              <FileText size={14} />
-              言語知識 (Language Knowledge)
-            </button>
-            <button
-              onClick={() => setActiveSection('reading')}
-              className={`flex flex-1 items-center justify-center gap-1.5 border-b-2 py-3 font-bold transition-all ${
-                activeSection === 'reading'
-                  ? 'border-rose-500 text-rose-600 dark:text-rose-400'
-                  : 'border-transparent text-muted-foreground'
-              }`}
-            >
-              <BookOpen size={14} />
-              読解 (Reading)
-            </button>
-            <button
-              onClick={() => setActiveSection('listening')}
-              className={`flex flex-1 items-center justify-center gap-1.5 border-b-2 py-3 font-bold transition-all ${
-                activeSection === 'listening'
-                  ? 'border-rose-500 text-rose-600 dark:text-rose-400'
-                  : 'border-transparent text-muted-foreground'
-              }`}
-            >
-              <Volume2 size={14} />
-              聴解 (Listening)
-            </button>
+            {orderedSections.map((sec) => {
+              const isSealed = sealedSections.includes(sec.section);
+              const isActive = activeSection === sec.section;
+              const isUpcoming = examMode === 'official_timed' && !isSealed && !isActive;
+
+              return (
+                <button
+                  key={sec.section}
+                  onClick={() => {
+                    if (examMode === 'official_timed') {
+                      if (isUpcoming) {
+                        toast({
+                          title: "🔒 Bo'lim qulflangan",
+                          description:
+                            "Japan Foundation qoidalariga ko'ra, oldingi bo'lim yakunlangach ochiladi.",
+                        });
+                        return;
+                      }
+                      if (isSealed) {
+                        toast({
+                          title: "🔒 Bo'lim muhrlangan",
+                          description: "Ushbu bo'lim yakunlangan, javoblar qat'iy saqlangan.",
+                        });
+                        return;
+                      }
+                    }
+                    setActiveSection(sec.section);
+                  }}
+                  className={`flex flex-1 items-center justify-center gap-1.5 border-b-2 py-3 font-bold transition-all ${
+                    isActive
+                      ? 'border-rose-500 text-rose-600 dark:text-rose-400'
+                      : isSealed
+                        ? 'border-transparent text-emerald-600 dark:text-emerald-400'
+                        : isUpcoming
+                          ? 'cursor-not-allowed border-transparent text-muted-foreground/40'
+                          : 'border-transparent text-muted-foreground'
+                  }`}
+                >
+                  {isSealed ? (
+                    <CheckCircle2 size={14} className="text-emerald-500" />
+                  ) : isUpcoming ? (
+                    <Lock size={14} />
+                  ) : sec.section === 'knowledge' ? (
+                    <FileText size={14} />
+                  ) : sec.section === 'reading' ? (
+                    <BookOpen size={14} />
+                  ) : (
+                    <Volume2 size={14} />
+                  )}
+                  <span>{sec.titleJa}</span>
+                  {isSealed && (
+                    <span className="text-[10px] font-normal text-emerald-500">(Muhrlandi)</span>
+                  )}
+                </button>
+              );
+            })}
           </div>
 
           {/* Questions area according to active section */}
@@ -493,15 +882,18 @@ export const JlptMockExamPage: React.FC = () => {
                   <div className="grid grid-cols-2 gap-2">
                     {q.options.map((opt, idx) => {
                       const isSelected = userAnswers[q.id] === idx;
+                      const isOptionDisabled =
+                        examMode === 'official_timed' && sealedSections.includes('knowledge');
                       return (
                         <button
                           key={idx}
+                          disabled={isOptionDisabled}
                           onClick={() => handleOptionSelect(q.id, idx)}
                           className={`rounded-xl border p-3 text-center text-xs font-bold transition-all ${
                             isSelected
                               ? 'border-rose-500 bg-rose-500/20 text-rose-600 dark:text-rose-400'
                               : 'border-border bg-muted/30 text-muted-foreground hover:bg-muted'
-                          }`}
+                          } ${isOptionDisabled ? 'cursor-not-allowed opacity-60' : ''}`}
                         >
                           {opt}
                         </button>
@@ -529,15 +921,18 @@ export const JlptMockExamPage: React.FC = () => {
                     <div className="space-y-2">
                       {q.options.map((opt, idx) => {
                         const isSelected = userAnswers[q.id] === idx;
+                        const isOptionDisabled =
+                          examMode === 'official_timed' && sealedSections.includes('reading');
                         return (
                           <button
                             key={idx}
+                            disabled={isOptionDisabled}
                             onClick={() => handleOptionSelect(q.id, idx)}
                             className={`flex w-full items-center justify-between rounded-xl border p-3 text-left text-xs font-bold transition-all ${
                               isSelected
                                 ? 'border-rose-500 bg-rose-500/20 text-rose-600 dark:text-rose-400'
                                 : 'border-border bg-muted/30 text-muted-foreground hover:bg-muted'
-                            }`}
+                            } ${isOptionDisabled ? 'cursor-not-allowed opacity-60' : ''}`}
                           >
                             <span>{opt}</span>
                             {isSelected && <CheckCircle2 size={15} className="text-rose-500" />}
@@ -574,15 +969,18 @@ export const JlptMockExamPage: React.FC = () => {
                     <div className="grid grid-cols-2 gap-2">
                       {q.options.map((opt, idx) => {
                         const isSelected = userAnswers[q.id] === idx;
+                        const isOptionDisabled =
+                          examMode === 'official_timed' && sealedSections.includes('listening');
                         return (
                           <button
                             key={idx}
+                            disabled={isOptionDisabled}
                             onClick={() => handleOptionSelect(q.id, idx)}
                             className={`rounded-xl border p-3 text-center text-xs font-bold transition-all ${
                               isSelected
                                 ? 'border-rose-500 bg-rose-500/20 text-rose-600 dark:text-rose-400'
                                 : 'border-border bg-muted/30 text-muted-foreground hover:bg-muted'
-                            }`}
+                            } ${isOptionDisabled ? 'cursor-not-allowed opacity-60' : ''}`}
                           >
                             {opt}
                           </button>
@@ -594,14 +992,40 @@ export const JlptMockExamPage: React.FC = () => {
               ))}
           </div>
 
-          {/* Bottom Submit Actions */}
+          {/* Bottom Actions */}
           <div className="pt-6">
-            <Button
-              onClick={handleSubmitExam}
-              className="w-full rounded-2xl bg-rose-600 py-4 text-sm font-extrabold text-white shadow-lg hover:bg-rose-700"
-            >
-              Imtihonni Yakunlash & Natijani Baholash 🎯
-            </Button>
+            {examMode === 'official_timed' ? (
+              nextSectionKey ? (
+                <div className="space-y-2">
+                  <Button
+                    onClick={handleAdvanceSectionClick}
+                    className="flex w-full items-center justify-center gap-2 rounded-2xl bg-amber-600 py-4 text-sm font-extrabold text-white shadow-lg shadow-amber-500/20 transition-all hover:bg-amber-700"
+                  >
+                    <span>
+                      {`${currentSectionIndex + 1}-bo‘limni muhrlash va ${nextSectionSpec?.shortLabel}ga o‘tish ⏩`}
+                    </span>
+                  </Button>
+                  <p className="text-center text-[11px] text-muted-foreground">
+                    🔒 Eslatma: Keyingi bo‘limga o‘tgach, joriy bo‘lim javoblari qat‘iy muhrlanadi
+                    va orqaga qaytib bo‘lmaydi.
+                  </p>
+                </div>
+              ) : (
+                <Button
+                  onClick={handleSubmitExam}
+                  className="w-full rounded-2xl bg-rose-600 py-4 text-sm font-extrabold text-white shadow-lg shadow-rose-500/20 hover:bg-rose-700"
+                >
+                  Imtihonni Yakunlash & Natijani Baholash 🎯
+                </Button>
+              )
+            ) : (
+              <Button
+                onClick={handleSubmitExam}
+                className="w-full rounded-2xl bg-rose-600 py-4 text-sm font-extrabold text-white shadow-lg hover:bg-rose-700"
+              >
+                Imtihonni Yakunlash & Natijani Baholash 🎯
+              </Button>
+            )}
           </div>
         </div>
       )}
@@ -662,6 +1086,77 @@ export const JlptMockExamPage: React.FC = () => {
             />
           </>
         ) : null)}
+
+      {/* Section Transition & Sealing Modal */}
+      {showSectionTransitionModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 backdrop-blur-md animate-in fade-in">
+          <div className="relative w-full max-w-md space-y-5 overflow-hidden rounded-3xl border border-border bg-card p-6 shadow-2xl duration-200 animate-in zoom-in-95">
+            <div className="flex items-center justify-between border-b border-border pb-3">
+              <div className="flex items-center gap-2 text-amber-500">
+                <ShieldAlert size={20} />
+                <h3 className="text-sm font-extrabold text-foreground">
+                  Bo'limni Muhrlash va Keyingisiga O'tish
+                </h3>
+              </div>
+              <button
+                onClick={() => setShowSectionTransitionModal(false)}
+                className="rounded-full p-1.5 text-muted-foreground hover:bg-muted hover:text-foreground"
+              >
+                <X size={16} />
+              </button>
+            </div>
+
+            <div className="space-y-3 text-xs text-muted-foreground">
+              <p className="leading-relaxed">
+                Haqiqiy Japan Foundation / JLPT qoidalariga ko'ra,{' '}
+                <strong className="text-foreground">{currentSpec?.shortLabel}</strong> bo'limi
+                yakunlanadi va javoblaringiz qat'iy{' '}
+                <strong className="text-rose-500">muhrlanadi</strong>.
+              </p>
+
+              <div className="space-y-1.5 rounded-2xl border border-border bg-muted/40 p-3">
+                <div className="flex justify-between font-bold text-foreground">
+                  <span>Belgilangan savollar:</span>
+                  <span className={unansweredInSection > 0 ? 'text-amber-500' : 'text-emerald-500'}>
+                    {answeredInSection} / {totalInSection} ta
+                  </span>
+                </div>
+                {unansweredInSection > 0 ? (
+                  <div className="flex items-center gap-1.5 text-[11px] font-semibold text-amber-600 dark:text-amber-400">
+                    <AlertTriangle size={13} />
+                    <span>{unansweredInSection} ta savolga javob belgilanmagan!</span>
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-1.5 text-[11px] font-semibold text-emerald-600 dark:text-emerald-400">
+                    <CheckCircle2 size={13} />
+                    <span>Barcha savollar to'liq belgilandi!</span>
+                  </div>
+                )}
+              </div>
+
+              <div className="rounded-xl border border-amber-500/20 bg-amber-500/10 p-3 text-[11px] text-amber-700 dark:text-amber-300">
+                ⚠️ Keyingi bo'limga o'tgach, ushbu bo'limga qaytish va javoblarni o'zgartirish
+                imkoni bo'lmaydi.
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 pt-2">
+              <button
+                onClick={() => setShowSectionTransitionModal(false)}
+                className="flex-1 rounded-xl border border-border py-2.5 text-xs font-bold text-muted-foreground hover:bg-muted"
+              >
+                Davom etish (Ortga)
+              </button>
+              <button
+                onClick={handleConfirmAdvanceSection}
+                className="flex-1 rounded-xl bg-amber-600 py-2.5 text-xs font-black text-white shadow transition-all hover:bg-amber-700"
+              >
+                Ha, Muhrlab O'tish ⏩
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
