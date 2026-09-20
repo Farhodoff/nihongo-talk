@@ -52,6 +52,8 @@ export interface PracticeExercise {
   id: string;
   type: 'multiple-choice' | 'true-false' | 'fill-in-blank';
   prompt: string;
+  audioUrl?: string; // Real CD audio track for listening practice
+  audioTitle?: string;
   options?: string[];
   correctAnswer: string | number;
   explanation?: string;
@@ -61,6 +63,8 @@ export interface PracticeExercise {
 export interface TestQuestion {
   id: string;
   question: string;
+  audioUrl?: string; // Real CD audio track for listening comprehension
+  audioTitle?: string;
   options: string[];
   correctAnswerIndex: number;
   explanation: string;

@@ -39,16 +39,18 @@ describe('Minna no Nihongo N5 Curriculum Quality & Enrichment Verification', () 
     expect(totalKeyPoints).toBeGreaterThanOrEqual(100);
   });
 
-  it('should have proper 3-step structure (learn, practice, test) for each lesson', () => {
+  it('should have proper 4-step structure (learn, practice, test, listening) for each lesson', () => {
     for (const lesson of MINNA_N5_LESSONS) {
-      expect(lesson.steps.length).toBe(3);
+      expect(lesson.steps.length).toBe(4);
       const stepTypes = lesson.steps.map((s) => s.type);
-      expect(stepTypes).toEqual(['learn', 'practice', 'test']);
+      expect(stepTypes).toEqual(['learn', 'practice', 'test', 'test']);
 
-      const [learnStep, practiceStep, testStep] = lesson.steps;
+      const [learnStep, practiceStep, testStep, listeningStep] = lesson.steps;
       expect(learnStep.learnData).toBeDefined();
       expect(practiceStep.practiceData).toBeDefined();
       expect(testStep.testData).toBeDefined();
+      expect(listeningStep.testData).toBeDefined();
+      expect(listeningStep.title).toContain('Mondai Tinglash Testi');
     }
   });
 

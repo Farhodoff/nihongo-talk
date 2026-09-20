@@ -1,5 +1,9 @@
 import { describe, it, expect } from 'vitest';
-import { JLPT_MOCK_EXAM_DATA, JLPT_MOCK_EXAM_SET2_DATA } from '../../data/jlptMockExamData';
+import {
+  JLPT_MOCK_EXAM_DATA,
+  JLPT_MOCK_EXAM_SET2_DATA,
+  JLPT_MOCK_EXAM_SET3_DATA,
+} from '../../data/jlptMockExamData';
 import { calculateJlptScore } from '../../utils/jlptScoring';
 
 describe('JLPT Mock Exam Data Quality & Rigor Tests', () => {
@@ -145,6 +149,38 @@ describe('JLPT Mock Exam Data Quality & Rigor Tests', () => {
         expect(q.correctAnswer).toBeLessThanOrEqual(3);
         expect(q.explanationUzbek).toBeDefined();
         expect(q.explanationUzbek.length).toBeGreaterThan(10);
+      });
+    });
+  });
+
+  it('validates JLPT_MOCK_EXAM_SET3_DATA across all levels (N5..N1) has 25 questions each and valid sections', () => {
+    levels.forEach((lvl) => {
+      const set3Questions = JLPT_MOCK_EXAM_SET3_DATA[lvl];
+      expect(set3Questions).toBeDefined();
+      expect(set3Questions.length).toBe(25);
+
+      const knowledgeQs = set3Questions.filter((q) => q.section === 'knowledge');
+      const readingQs = set3Questions.filter((q) => q.section === 'reading');
+      const listeningQs = set3Questions.filter((q) => q.section === 'listening');
+
+      expect(knowledgeQs.length).toBe(13);
+      expect(readingQs.length).toBe(6);
+      expect(listeningQs.length).toBe(6);
+
+      set3Questions.forEach((q) => {
+        expect(q.options).toHaveLength(4);
+        expect(q.correctAnswer).toBeGreaterThanOrEqual(0);
+        expect(q.correctAnswer).toBeLessThanOrEqual(3);
+        expect(q.explanationUzbek).toBeDefined();
+        expect(q.explanationUzbek.length).toBeGreaterThan(10);
+        if (q.section === 'reading') {
+          expect(q.passageText).toBeDefined();
+          expect(q.passageText!.length).toBeGreaterThan(20);
+        }
+        if (q.section === 'listening' && lvl !== 'N1') {
+          expect(q.audioUrl).toBeDefined();
+          expect(q.audioUrl).toMatch(/^\/audio\/choukai\//);
+        }
       });
     });
   });

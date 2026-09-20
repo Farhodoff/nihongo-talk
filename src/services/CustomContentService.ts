@@ -1,6 +1,8 @@
 import type { JlptKanjiItem, JlptGrammarItem, JlptVocabItem } from '../data/jlptGrammarKanji';
 import type { JlptGrammarQuestion } from '../data/jlpt/grammar_data';
 import type { JlptListeningQuestion } from '../data/jlpt/listening_data';
+import type { JlptReadingPassage } from '../data/jlptReadingData';
+import { JLPT_READING_PASSAGES } from '../data/jlptReadingData';
 import { supabase } from '../lib/supabase';
 
 import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
@@ -9,6 +11,7 @@ const CUSTOM_KANJI_KEY = 'study_planner_custom_admin_kanji';
 const CUSTOM_GRAMMAR_KEY = 'study_planner_custom_admin_grammar';
 const CUSTOM_QUIZ_KEY = 'study_planner_custom_admin_quiz_questions';
 const CUSTOM_CHOUKAI_KEY = 'study_planner_custom_admin_choukai_questions';
+const CUSTOM_DOKKAI_KEY = 'study_planner_custom_admin_dokkai_passages';
 
 export const VALID_JLPT_LEVELS = ['N5', 'N4', 'N3', 'N2', 'N1'] as const;
 export type JlptLevel = (typeof VALID_JLPT_LEVELS)[number];
@@ -34,18 +37,21 @@ export class CustomContentService {
     grammarCount: number;
     quizCount: number;
     choukaiCount: number;
+    dokkaiCount: number;
   }> {
     let kanjiCount = 0;
     let grammarCount = 0;
     let quizCount = 0;
     let choukaiCount = 0;
+    let dokkaiCount = 0;
 
     try {
-      const [kRes, gRes, qRes, cRes] = await Promise.allSettled([
+      const [kRes, gRes, qRes, cRes, dRes] = await Promise.allSettled([
         supabase.from('custom_kanji').select('*'),
         supabase.from('custom_grammar').select('*'),
         supabase.from('custom_quiz_questions').select('*'),
         supabase.from('custom_listening_questions').select('*'),
+        supabase.from('custom_reading_passages').select('*'),
       ]);
 
       if (kRes.status === 'fulfilled' && kRes.value.data && Array.isArray(kRes.value.data)) {
@@ -170,11 +176,37 @@ export class CustomContentService {
         safeLocalStorage.setJSON(CUSTOM_CHOUKAI_KEY, combined);
         choukaiCount = combined.length;
       }
+
+      if (dRes.status === 'fulfilled' && dRes.value.data && Array.isArray(dRes.value.data)) {
+        const remoteD: JlptReadingPassage[] = dRes.value.data.map((r: any) => ({
+          id: r.id,
+          level: r.level || 'N5',
+          title: r.title || '',
+          passageType: r.passage_type || r.passageType || 'short',
+          japaneseContent: r.japanese_content || r.japaneseContent || '',
+          uzbekTranslation: r.uzbek_translation || r.uzbekTranslation || '',
+          recommendedTimeMinutes: r.recommended_time_minutes || r.recommendedTimeMinutes || 5,
+          questions: Array.isArray(r.questions) ? r.questions : [],
+        }));
+
+        const localD = this.getCustomReadingPassages();
+        const mergedMap = new Map<string, JlptReadingPassage>();
+        remoteD.forEach((item) => mergedMap.set(item.id, item));
+        localD.forEach((item) => {
+          if (!mergedMap.has(item.id)) {
+            mergedMap.set(item.id, item);
+          }
+        });
+
+        const combined = Array.from(mergedMap.values());
+        safeLocalStorage.setJSON(CUSTOM_DOKKAI_KEY, combined);
+        dokkaiCount = combined.length;
+      }
     } catch (e) {
       console.warn('[CustomContentService] syncFromSupabase fallback to local:', e);
     }
 
-    return { kanjiCount, grammarCount, quizCount, choukaiCount };
+    return { kanjiCount, grammarCount, quizCount, choukaiCount, dokkaiCount };
   }
 
   /**
@@ -727,17 +759,23 @@ export class CustomContentService {
     const kanji = this.getCustomKanji();
     const grammar = this.getCustomGrammar();
     const quiz = this.getCustomQuizQuestions();
+    const choukai = this.getCustomChoukaiQuestions();
+    const dokkai = this.getCustomReadingPassages();
     const payload = {
-      version: 2,
+      version: 3,
       exportedAt: new Date().toISOString(),
       counts: {
         kanji: kanji.length,
         grammar: grammar.length,
         quiz: quiz.length,
+        choukai: choukai.length,
+        dokkai: dokkai.length,
       },
       kanji,
       grammar,
       quiz,
+      choukai,
+      dokkai,
     };
     return JSON.stringify(payload, null, 2);
   }
@@ -749,23 +787,31 @@ export class CustomContentService {
     kanjiResult: BulkImportResult;
     grammarResult: BulkImportResult;
     quizResult: BulkImportResult;
+    choukaiResult: BulkImportResult;
+    dokkaiResult: BulkImportResult;
   }> {
     try {
       const data = JSON.parse(jsonStr);
       const kanjiList = Array.isArray(data.kanji) ? data.kanji : [];
       const grammarList = Array.isArray(data.grammar) ? data.grammar : [];
       const quizList = Array.isArray(data.quiz) ? data.quiz : [];
+      const choukaiList = Array.isArray(data.choukai) ? data.choukai : [];
+      const dokkaiList = Array.isArray(data.dokkai) ? data.dokkai : [];
 
       const kanjiResult = await this.bulkImportKanji(kanjiList);
       const grammarResult = await this.bulkImportGrammar(grammarList);
       const quizResult = await this.bulkImportQuizQuestions(quizList);
+      const choukaiResult = await this.bulkImportChoukaiQuestions(choukaiList);
+      const dokkaiResult = await this.bulkImportReadingPassages(dokkaiList);
 
-      return { kanjiResult, grammarResult, quizResult };
+      return { kanjiResult, grammarResult, quizResult, choukaiResult, dokkaiResult };
     } catch {
       return {
         kanjiResult: { added: 0, updated: 0, failed: 0 },
         grammarResult: { added: 0, updated: 0, failed: 0 },
         quizResult: { added: 0, updated: 0, failed: 0 },
+        choukaiResult: { added: 0, updated: 0, failed: 0 },
+        dokkaiResult: { added: 0, updated: 0, failed: 0 },
       };
     }
   }
@@ -1307,6 +1353,28 @@ export class CustomContentService {
   }
 
   /**
+   * Bulk import Choukai listening questions
+   */
+  static async bulkImportChoukaiQuestions(
+    questions: JlptListeningQuestion[],
+  ): Promise<BulkImportResult> {
+    const result: BulkImportResult = { added: 0, updated: 0, failed: 0 };
+    for (const q of questions) {
+      if (!q.questionText || !q.script) {
+        result.failed++;
+        continue;
+      }
+      try {
+        await this.addCustomChoukaiQuestion(q);
+        result.added++;
+      } catch {
+        result.failed++;
+      }
+    }
+    return result;
+  }
+
+  /**
    * Upload an authentic Choukai audio file to Supabase Storage
    */
   static async uploadChoukaiAudioFile(
@@ -1369,6 +1437,155 @@ export class CustomContentService {
       result.push(item);
     }
 
+    return result;
+  }
+
+  // ==================== DOKKAI (READING) PASSAGES ====================
+
+  /**
+   * Get all custom admin Dokkai reading passages
+   */
+  static getCustomReadingPassages(): JlptReadingPassage[] {
+    try {
+      const data = safeLocalStorage.getJSON<JlptReadingPassage[]>(CUSTOM_DOKKAI_KEY, []);
+      return Array.isArray(data) ? data : [];
+    } catch {
+      return [];
+    }
+  }
+
+  /**
+   * Save or update custom Dokkai reading passage
+   */
+  static async saveCustomReadingPassage(item: JlptReadingPassage): Promise<boolean> {
+    try {
+      const current = this.getCustomReadingPassages();
+      const existingIdx = current.findIndex(
+        (p) => p.id === item.id || p.title.trim().toLowerCase() === item.title.trim().toLowerCase(),
+      );
+
+      let updated: JlptReadingPassage[];
+      const itemId =
+        item.id || (existingIdx >= 0 ? current[existingIdx].id : `custom-dokkai-${Date.now()}`);
+      const preparedItem: JlptReadingPassage = { ...item, id: itemId };
+
+      if (existingIdx >= 0) {
+        updated = [...current];
+        updated[existingIdx] = preparedItem;
+      } else {
+        updated = [preparedItem, ...current];
+      }
+
+      safeLocalStorage.setJSON(CUSTOM_DOKKAI_KEY, updated);
+
+      try {
+        await (supabase.from('custom_reading_passages') as any).upsert([
+          {
+            id: preparedItem.id,
+            level: preparedItem.level,
+            title: preparedItem.title,
+            passage_type: preparedItem.passageType,
+            japanese_content: preparedItem.japaneseContent,
+            uzbek_translation: preparedItem.uzbekTranslation,
+            recommended_time_minutes: preparedItem.recommendedTimeMinutes,
+            questions: preparedItem.questions,
+            updated_at: new Date().toISOString(),
+          },
+        ]);
+      } catch {
+        // Safe offline fallback
+      }
+
+      return true;
+    } catch (e) {
+      console.error('Error saving custom reading passage:', e);
+      return false;
+    }
+  }
+
+  /**
+   * Delete a custom Dokkai reading passage
+   */
+  static async deleteCustomReadingPassage(id: string): Promise<boolean> {
+    try {
+      const current = this.getCustomReadingPassages();
+      const filtered = current.filter((p) => p.id !== id);
+      safeLocalStorage.setJSON(CUSTOM_DOKKAI_KEY, filtered);
+
+      try {
+        await (supabase.from('custom_reading_passages') as any).delete().eq('id', id);
+      } catch {
+        // Safe offline fallback
+      }
+
+      return true;
+    } catch (e) {
+      console.error('Error deleting custom reading passage:', e);
+      return false;
+    }
+  }
+
+  /**
+   * Bulk import Dokkai reading passages
+   */
+  static async bulkImportReadingPassages(
+    passages: JlptReadingPassage[],
+  ): Promise<BulkImportResult> {
+    const result: BulkImportResult = { added: 0, updated: 0, failed: 0 };
+    for (const p of passages) {
+      if (!p.title || !p.japaneseContent || !p.level) {
+        result.failed++;
+        continue;
+      }
+      const isNew = !this.getCustomReadingPassages().some((existing) => existing.id === p.id);
+      const success = await this.saveCustomReadingPassage(p);
+      if (success) {
+        if (isNew) result.added++;
+        else result.updated++;
+      } else {
+        result.failed++;
+      }
+    }
+    return result;
+  }
+
+  /**
+   * Merge base reading passages with custom reading passages (Deduplicated, Custom overrides Base by ID or title)
+   */
+  static getMergedReadingPassages(level?: 'N5' | 'N4' | 'N3' | 'N2' | 'N1'): JlptReadingPassage[] {
+    const custom = this.getCustomReadingPassages();
+    const seenId = new Set<string>();
+    const seenTitle = new Set<string>();
+    const result: JlptReadingPassage[] = [];
+
+    const normalize = (t: string) =>
+      t
+        .replace(/\[.*?\]/g, '')
+        .replace(/\s+/g, ' ')
+        .trim()
+        .toLowerCase();
+
+    // Custom items take precedence
+    for (const item of custom) {
+      const normTitle = normalize(item.title);
+      if (!normTitle || seenId.has(item.id) || seenTitle.has(normTitle)) continue;
+      seenId.add(item.id);
+      seenTitle.add(normTitle);
+      result.push(item);
+    }
+
+    // Base items appended if not overridden
+    for (const item of JLPT_READING_PASSAGES) {
+      const normTitle = normalize(item.title);
+      if (!normTitle || seenId.has(item.id) || seenTitle.has(normTitle)) continue;
+      seenId.add(item.id);
+      seenTitle.add(normTitle);
+      result.push(item);
+    }
+
+    if (level) {
+      return result.filter((p) => p.level === level);
+    }
     return result;
   }
 }

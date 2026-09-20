@@ -2,6 +2,7 @@ import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { CheckCircle2, XCircle, ArrowRight } from 'lucide-react';
 import { PracticeExercise } from '../../types/lesson';
 import { FuriganaText } from '../jlpt/FuriganaText';
+import { LessonAudioPlayer } from './LessonAudioPlayer';
 
 interface PracticeStepViewProps {
   instructions: string;
@@ -137,6 +138,14 @@ export const PracticeStepView: React.FC<PracticeStepViewProps> = ({
 
       {/* Exercise Card */}
       <div className="space-y-4 rounded-2xl border border-border bg-card p-4 shadow-sm sm:space-y-6 sm:rounded-3xl sm:p-6">
+        {currentExercise.audioUrl && (
+          <LessonAudioPlayer
+            key={`audio-ex-${currentExercise.id}-${currentIdx}`}
+            audioUrl={currentExercise.audioUrl}
+            audioTitle={currentExercise.audioTitle || 'Mondai Mashq Audiosi'}
+          />
+        )}
+
         <div className="break-words text-base font-bold leading-snug text-foreground sm:text-lg md:text-xl">
           <FuriganaText text={currentExercise.prompt} />
         </div>

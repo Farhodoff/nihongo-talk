@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { Award, CheckCircle2, XCircle, ChevronRight, RotateCcw } from 'lucide-react';
 import { TestQuestion } from '../../types/lesson';
 import { FuriganaText } from '../jlpt/FuriganaText';
+import { LessonAudioPlayer } from './LessonAudioPlayer';
 
 export interface MissedQuestionInfo {
   questionId: string;
@@ -141,6 +142,14 @@ export const TestStepView: React.FC<TestStepViewProps> = ({
       {!isCompleted ? (
         /* Active Question Card */
         <div className="space-y-4 rounded-2xl border border-border bg-card p-4 shadow-sm sm:space-y-6 sm:rounded-3xl sm:p-6">
+          {currentQuestion.audioUrl && (
+            <LessonAudioPlayer
+              key={`audio-${currentQuestion.id}-${currentIdx}`}
+              audioUrl={currentQuestion.audioUrl}
+              audioTitle={currentQuestion.audioTitle || 'Mondai Tinglash Audiosi'}
+            />
+          )}
+
           <div className="break-words text-base font-bold leading-snug text-foreground sm:text-lg md:text-xl">
             <FuriganaText text={currentQuestion.question} />
           </div>
@@ -285,6 +294,15 @@ export const TestStepView: React.FC<TestStepViewProps> = ({
                     {q.explanation && (
                       <div className="mt-0.5 text-[11px] text-muted-foreground">
                         💡 <FuriganaText text={q.explanation} />
+                      </div>
+                    )}
+                    {q.audioUrl && (
+                      <div className="pt-2">
+                        <LessonAudioPlayer
+                          audioUrl={q.audioUrl}
+                          audioTitle={q.audioTitle || 'Mondai Tinglash Audiosi'}
+                          className="!p-2.5 text-xs"
+                        />
                       </div>
                     )}
                   </div>

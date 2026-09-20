@@ -1,0 +1,194 @@
+[
+  {
+    "front": "旅行の「準備」をします。\n「準備」の正しい読み方はどれですか？",
+    "back": "1. じゅんび (Junbi)\nTarjima: Sayohatga tayyorgarlik ko'raman.\nQoida: 準 (じゅん - me'yor/standart) + 備 (び - hozirlamoq) = 準備 (Tayyorgarlik ko'rmoq).",
+    "phonetic": "じゅんび - Junbi",
+    "example": "明日の試験の準備はもう終わりました。(Ertangi imtihon tayyorgarligi tugadi.)",
+    "category": "500 Mon N4: 文字 (Kanji)",
+    "level": "N4"
+  },
+  {
+    "front": "どうぞ（　）しないで、たくさん召し上がってください。\n（　）に入る正しい言葉は？",
+    "back": "2. 遠慮 (Enryo)\nTarjima: Bemalol, tortinmasdan ko'proq tanovul qiling.\nQoida: 遠慮する (えんりょする - tortinmoq, iymanmoq). «遠慮しないで» — tortinmasdan.",
+    "phonetic": "えんりょ - Enryo",
+    "example": "分からないことがあれば、遠慮なく聞いてください。(Tushunmagan joyingiz bo'lsa, tortinmasdan so'rang.)",
+    "category": "500 Mon N4: 語彙 (Lug'at)",
+    "level": "N4"
+  },
+  {
+    "front": "どうして遅れたんですか。\n道が混んで（　）。\n（　）に入る正しい文法は？",
+    "back": "3. いたんです (Ita n desu)\nTarjima: Nega kechikdingiz? Yo'l tirband edi-da.\nQoida: Og'zaki nutqda sabab va izoh berish: 普通形 + んです (〜んです).",
+    "phonetic": "いたんです - Ita n desu",
+    "example": "頭が痛いんです。(Boshim og'riyapti-da / shuning uchun kechikdim).",
+    "category": "500 Mon N4: 文法 (Grammatika)",
+    "level": "N4"
+  },
+  {
+    "front": "先生が京都を「案内」してくれました。\n「案内」の正しい読み方はどれですか？",
+    "back": "1. あんない (Annai)\nTarjima: Ustoz bizga Kyotoni tanishtirib / yo'l ko'rsatib berdilar.\nQoida: 案 (あん - fikr/reja) + 内 (ない - ichkarisi) = 案内 (Yo'l ko'rsatish, tanishtirish).",
+    "phonetic": "あんない - Annai",
+    "example": "町を案内します。(Shaharni aylantirib tanishtiraman.)",
+    "category": "500 Mon N4: 文字 (Kanji)",
+    "level": "N4"
+  },
+  {
+    "front": "この機械の使い方はとても（　）で、分かりにくい。\n（　）に入る正しい言葉は？",
+    "back": "4. 複雑 (Fukuzatsu)\nTarjima: Bu mexanizmning ishlatilish qoidasi juda murakkab bo'lib, tushunish qiyin.\nQoida: 複雑な (ふくざつな - murakkab, chigal). Oddiy/oson — 簡単な (かんたんな).",
+    "phonetic": "ふくざつ - Fukuzatsu",
+    "example": "複雑な問題ですね。(Murakkab muammo ekan.)",
+    "category": "500 Mon N4: 語彙 (Lug'at)",
+    "level": "N4"
+  },
+  {
+    "front": "壁に綺麗な絵が（　）あります。\n（　）に入る正しい動詞の形は？",
+    "back": "2. 掛けて (Kakete)\nTarjima: Devorga chiroyli rasm osib qo'yilgan.\nQoida: O'tuvchi fe'l (他動詞) + 〜てあります: Biror maqsadda bajarilgan harakatning saqlanib turgan natijasi.",
+    "phonetic": "かけてあります - Kakete arimasu",
+    "example": "黒板に連絡が書いてあります。(Doskaga e'lon yozib qo'yilgan.)",
+    "category": "500 Mon N4: 文法 (Grammatika)",
+    "level": "N4"
+  },
+  {
+    "front": "日本へ行った「経験」があります。\n「経験」の正しい読み方はどれですか？",
+    "back": "3. けいけん (Keiken)\nTarjima: Yaponiyaga borgan tajribam bor.\nQoida: 経 (けい - o'tmoq) + 験 (けん - sinamoq) = 経験 (Tajriba, hayotiy amaliyot).",
+    "phonetic": "けいけん - Keiken",
+    "example": "色々な経験を積みたいです。(Ko'plab tajribalar orttirmoqchiman.)",
+    "category": "500 Mon N4: 文字 (Kanji)",
+    "level": "N4"
+  },
+  {
+    "front": "パソコンが（　）して動かないので、修理に出した。\n（　）に入る正しい言葉は？",
+    "back": "1. 故障 (Koshou)\nTarjima: Kompyuter buzilib ishlamay qolgani uchun ustaxonaga berdim.\nQoida: 故障 (こしょう - texnik buzilish). 故障する (buzilmoq).",
+    "phonetic": "こしょう - Koshou",
+    "example": "エレベーターが故障中です。(Lift ishlamayapti / buzilgan).",
+    "category": "500 Mon N4: 語彙 (Lug'at)",
+    "level": "N4"
+  },
+  {
+    "front": "来年、自分の会社を（　）と思っています。\n（　）に入る正しい形は？",
+    "back": "2. 作ろう (Tsukurou)\nTarjima: Kelasi yili o'z kompaniyamni ochmoqchi / tuzmoqchi bo'lib turibman.\nQoida: Ixtiyor / Niyat mayli (意向形) + と思っています: Qat'iy reja va niyatni ifodalash.",
+    "phonetic": "つくろうとおもっています - Tsukurou to omotte imasu",
+    "example": "週末は映画を見に行こうと思っています。(Dam olish kuni kino ko'rishga bormoqchiman.)",
+    "category": "500 Mon N4: 文法 (Grammatika)",
+    "level": "N4"
+  },
+  {
+    "front": "先生に進路について「相談」しました。\n「相談」の正しい読み方はどれですか？",
+    "back": "4. そうだん (Soudan)\nTarjima: Ustoz bilan kelajakdagi yo'nalishim haqida maslahatlashdim.\nQoida: 相 (そう - o'zaro) + 談 (だん - suhbat) = 相談 (Maslahatlashish).",
+    "phonetic": "そうだん - Soudan",
+    "example": "困ったときは友達に相談します。(Qiynalgan paytimda do'stlarim bilan maslahatlashaman.)",
+    "category": "500 Mon N4: 文字 (Kanji)",
+    "level": "N4"
+  },
+  {
+    "front": "遅れるときは、必ず電話で（　）してください。\n（　）に入る正しい言葉は？",
+    "back": "3. 連絡 (Renraku)\nTarjima: Kechikayotganingizda albatta telefon orqali xabar bering / bog'laning.\nQoida: 連絡する (れんらくする - xabar bermoq, aloqaga chiqmoq).",
+    "phonetic": "れんらく - Renraku",
+    "example": "後でメールで連絡します。(Keyinroq email orqali aloqaga chiqaman.)",
+    "category": "500 Mon N4: 語彙 (Lug'at)",
+    "level": "N4"
+  },
+  {
+    "front": "熱が高いですから、無理をしないで早く（　）ほうがいいですよ。\n（　）に入る正しい形は？",
+    "back": "1. 帰った (Kaetta)\nTarjima: Isitmangiz baland ekan, zo'riqmasdan erta qaytganingiz ma'qul.\nQoida: V-ta + ほうがいいです: Tinglovchiga aniq maslahat yoki tavsiya berish qolipi.",
+    "phonetic": "かえったほうがいい - Kaetta hou ga ii",
+    "example": "薬を飲んだほうがいいですよ。(Dori ichganingiz ma'qul.)",
+    "category": "500 Mon N4: 文法 (Grammatika)",
+    "level": "N4"
+  },
+  {
+    "front": "大学で「経済」を勉強しています。\n「経済」の正しい読み方はどれですか？",
+    "back": "2. けいざい (Keizai)\nTarjima: Universitetda iqtisodiyotni o'rganmoqdaman.\nQoida: 経 (けい) + 済 (ざい) = 経済 (Iqtisodiyot).",
+    "phonetic": "けいざい - Keizai",
+    "example": "日本の経済について論文を書きます。(Yaponiya iqtisodiyoti haqida maqola yozaman.)",
+    "category": "500 Mon N4: 文字 (Kanji)",
+    "level": "N4"
+  },
+  {
+    "front": "次の文の（　）に入る（　）な言葉を選びなさい。\n（　）に入る正しい言葉は？",
+    "back": "1. 適当 (Tekitou)\nTarjima: Keyingi gapdagi qavs ichiga mos tushuvchi so'zni tanlang.\nQoida: 適当な (てきとうな - mos, to'g'ri, munosib).",
+    "phonetic": "てきとう - Tekitou",
+    "example": "自分に適当な仕事を探しています。(O'ziga mos ish qidirmoqda.)",
+    "category": "500 Mon N4: 語彙 (Lug'at)",
+    "level": "N4"
+  },
+  {
+    "front": "あの看板に「止まれ」と書いてあります。\n「車を（　）」という意味です。\n（　）に入る正しい文法は？",
+    "back": "3. 止めろ (Tomero)\nTarjima: Anavi belgida «To'xta» deb yozilgan. Bu «Mashinani to'xtat» degan ma'noni bildiradi.\nQoida: Buyruq shakli (命令形): 止める -> 止めろ. Xabarni tushuntirish: 〜という意味です.",
+    "phonetic": "とめろ - Tomero",
+    "example": "「入るな」は入ってはいけないという意味です。(«Kirilmasin» kirish mumkin emas deganidir.)",
+    "category": "500 Mon N4: 文法 (Grammatika)",
+    "level": "N4"
+  },
+  {
+    "front": "社会の「法律」を守らなければなりません。\n「法律」の正しい読み方はどれですか？",
+    "back": "1. ほうりつ (Houritsu)\nTarjima: Jamiyat qonun-qoidalariga bo'ysunishimiz shart.\nQoida: 法 (ほう - qonun/usul) + 律 (りつ - qoida) = 法律 (Qonun).",
+    "phonetic": "ほうりつ - Houritsu",
+    "example": "法律の専門家に相談する。(Qonun bo'yicha mutaxassis bilan maslahatlashmoq.)",
+    "category": "500 Mon N4: 文字 (Kanji)",
+    "level": "N4"
+  },
+  {
+    "front": "体を壊しますから、（　）な働き方はやめましょう。\n（　）に入る正しい言葉は？",
+    "back": "4. 無理 (Muri)\nTarjima: Sog'lig'ingiz buziladi, shuning uchun haddan tashqari zo'riqib ishlashni to'xtating.\nQoida: 無理な (むりな - ortiqcha, me'yoridan ortiq, imkonsiz darajada).",
+    "phonetic": "むり - Muri",
+    "example": "無理をしないでください。(O'zingizni ortiqcha zo'riqtirmang.)",
+    "category": "500 Mon N4: 語彙 (Lug'at)",
+    "level": "N4"
+  },
+  {
+    "front": "値段が（　）、買いたいです。\n（　）に入る正しい条件形は？",
+    "back": "2. 安ければ (Yasukereba)\nTarjima: Narxi arzon bo'lsa, sotib olmoqchiman.\nQoida: i-sifat Shart mayli (条件形): 〜ければ: 安い -> 安ければ (arzon bo'lsa).",
+    "phonetic": "やすければ - Yasukereba",
+    "example": "時間がなければ、明日でもいいです。(Vaqtingiz bo'lmasa, ertaga qilsangiz ham bo'ladi.)",
+    "category": "500 Mon N4: 文法 (Grammatika)",
+    "level": "N4"
+  },
+  {
+    "front": "エジソンは電球を「発明」しました。\n「発明」の正しい読み方はどれですか？",
+    "back": "3. はつめい (Hatsumei)\nTarjima: Edison cho'g'lanma elektr chirog'ini ixtiro qildi.\nQoida: 発 (はつ - chiqmoq/yaratmoq) + 明 (めい - yorug') = 発明 (Ixtiro, kashfiyot).",
+    "phonetic": "はつめい - Hatsumei",
+    "example": "素晴らしい発明ですね。(Ajoyib kashfiyot ekan.)",
+    "category": "500 Mon N4: 文字 (Kanji)",
+    "level": "N4"
+  },
+  {
+    "front": "この地方では農業がとても（　）に行われています。\n（　）に入る正しい言葉は？",
+    "back": "2. 盛ん (Sakan)\nTarjima: Ushbu hududda qishloq xo'jaligi juda jadal va rivojlangan holda olib boriladi.\nQoida: 盛んな (さかんな - gullab-yashnagan, jadal, qizg'in).",
+    "phonetic": "さかん - Sakan",
+    "example": "ブラジルではサッカーが盛んです。(Braziliyada futbol juda mashhur va rivojlangan.)",
+    "category": "500 Mon N4: 語彙 (Lug'at)",
+    "level": "N4"
+  },
+  {
+    "front": "コンテストで、先生にスピーチを（　）。\n（　）に入る正しい受身形は？",
+    "back": "1. 褒められました (Homeraremashita)\nTarjima: Tanlovda nutqim ustoz tomonidan maqtovga sazovor bo'ldi.\nQoida: Majhul nisbat (受身形): 褒める -> 褒められる: 〜に褒められました (maqtaldim).",
+    "phonetic": "ほめられました - Homeraremashita",
+    "example": "母に叱られました。(Onam tomonidan koyildim.)",
+    "category": "500 Mon N4: 文法 (Grammatika)",
+    "level": "N4"
+  },
+  {
+    "front": "友達の結婚式に「招待」されました。\n「招待」の正しい読み方はどれですか？",
+    "back": "4. しょうたい (Shoutai)\nTarjima: Do'stimning to'y marosimiga taklif etildim.\nQoida: 招 (しょう - chaqirmoq) + 待 (たい - kutmoq) = 招待 (Taklifnoma, rasmiy taklif).",
+    "phonetic": "しょうたい - Shoutai",
+    "example": "パーティーに招待する。(Bazmga taklif qilmoq.)",
+    "category": "500 Mon N4: 文字 (Kanji)",
+    "level": "N4"
+  },
+  {
+    "front": "ホテルのフロント係は、とても（　）に対応してくれた。\n（　）に入る正しい言葉は？",
+    "back": "1. 親切 (Shinsetsu)\nTarjima: Mehmonxona kutib olish xodimi juda muloyim va mehmondo'stlik bilan xizmat ko'rsatdi.\nQoida: 親切な (しんせつな - mehribon, oqko'ngil, mehmondo'st).",
+    "phonetic": "しんせつ - Shinsetsu",
+    "example": "親切な人に道を聞きました。(Mehribon odamdan yo'l so'radim.)",
+    "category": "500 Mon N4: 語彙 (Lug'at)",
+    "level": "N4"
+  },
+  {
+    "front": "社長はすでに大阪へ（　）になりました。\n（　）に入る正しい敬語は？",
+    "back": "2. お出かけ (Odekake)\nTarjima: Rahbar allaqachon Osakaga jo'nab ketdilar.\nQoida: Hurmat shakli (尊敬語): お + Fe'l masu-o'zagi + になります (お出かけになりました).",
+    "phonetic": "おでかけになりました - Odekake ni narimashita",
+    "example": "先生はお帰りになりました。(Ustoz uyga jo'nab ketdilar.)",
+    "category": "500 Mon N4: 文法 (Grammatika)",
+    "level": "N4"
+  }
+]

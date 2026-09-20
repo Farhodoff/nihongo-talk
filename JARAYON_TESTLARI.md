@@ -25,8 +25,9 @@ Ushbu hujjat loyihadagi barcha JLPT darajalari (N5, N4, N3, N2, N1) bo'yicha kit
 - [x] **1.3. N5 Lug'at**: 750 ta N5 so'z to'liq kiritilgan.
 - [x] **1.4. N5 Grammatika**: 85 ta qoida mavjud.
 - [x] **1.5. N5 Mock Exam Set 2**: `500_voprosov_jlpt_n4_n5.pdf` va `N5 Goi・Kanji test.pdf` kitoblaridan olingan 25 ta haqiqiy savolli 2-sinov imtihoni yaratildi va studiya audiolari biriktirildi.
-- [x] **1.6. N5 Dokkai (O'qish)**: Hozirgi 6 ta matn `みんなの日本語初級1標準問題集` va qo'llanmalar asosida 10 tagacha yetkazildi (har birida to'liq o'zbekcha sharh va savollar mavjud).
+- [x] **1.6. N5 Dokkai (O'qish)**: Hozirgi matnlar `みんなの日本語初級1標準問題集` va qo'llanmalar asosida to'liq 10 ta unikal matnga keltirildi (dublikatlardan tozalandi, har birida to'liq o'zbekcha sharh va savollar mavjud).
 - [x] **1.7. N5 Amaliy Test Banki**: `N5 so'z testi! Orginal JLPT testdan olindi!.pdf` asosida 33 ta original rasmiy imtihon savollari interaktiv dek sifatida kiritildi (`deck_n5_test_bank`).
+- [x] **1.8. Minna no Nihongo 1–25 Mondai Tinglash Testlari (CD Audio)**: Barcha 25 dars oxiridagi haqiqiy CD audiolari (`minna_shokyu_1_002.mp3` dan `087.mp3` gacha) bo'yicha Mondai 1, 2, 3 va 4 vazifalari interaktiv test (Step 4) sifatida qo'shildi, audio pleer, Furigana, o'zbekcha sharhlar va darslar panelida "🎧 Mondai" tezkor tugmasi yaratildi.
 
 ---
 
@@ -38,9 +39,11 @@ Ushbu hujjat loyihadagi barcha JLPT darajalari (N5, N4, N3, N2, N1) bo'yicha kit
 - [x] **2.2. N4 Kanji**: 230 ta kanji va 230 ta animatsiyali SVG stroke (100% to'liq).
 - [x] **2.3. N4 Grammatika**: 125 ta qoida mavjud.
 - [x] **2.4. N4 Mock Exam Set 2**: `500_voprosov_jlpt_n4_n5.pdf` va `N4_Shinkanzen Master Grammar` kitobidan 25 ta yangi haqiqiy imtihon savollari kiritildi va studiya audiolari ulandi.
-- [x] **2.5. N4 Shinkanzen Dokkai**: `N4 Shinkanzen Reading 読解.pdf` kitobidan kundalik xatlar, e'lonlar va qisqa matnlar asosida jami 10 ta Dokkai mashqi to'liq o'zbekcha tahlili bilan mavjud.
-- [x] **2.6. N4 Choukai (Studiya Audio)**: `N4_Shinkanzen Master Listening_CD.rar` dagi MP3 fayllar platformaga chiqarilib savollarga ulandi.
+- [x] **2.5. N4 Shinkanzen Dokkai**: `N4 Shinkanzen Reading 読解.pdf` kitobidan kundalik xatlar, e'lonlar, xorijiy sayohatdagi qiyinchiliklar va kompyuter burchagi qo'llanmasi asosida jami 12 ta Dokkai mashqi to'liq o'zbekcha tahlili bilan mavjud (`n4_read_1` - `n4_read_12`).
+- [x] **2.6. N4 Choukai (Studiya Audio)**: `N4_Shinkanzen Master Listening_CD.rar` dagi 89 ta MP3 fayllar `public/audio/choukai/n4/` papkasiga to'liq chiqarilib savollarga ulandi.
 - [x] **2.7. Minna Shokyu 2 Lug'at kengaytmasi**: 26–50 darslar uchun 451 ta asosiy so'z va iboralar to'liq kiritilgan (`minna_shokyu2.json`).
+- [x] **2.8. Minna no Nihongo Shokyu 2 (26–50) Mondai Tinglash Testlari (CD Audio)**: Barcha 25 dars uchun 175 ta interaktiv tinglash savollari (Step 4) qo'shildi, haqiqiy CD audiolari (`shinkanzen_chokai_n4_CD-A_*.mp3`) bilan integratsiya qilindi, Furigana, o'zbekcha sharhlar va darslar panelida "🎧 Mondai" tugmasi hamda "🎧 Mondai Tinglash (26–50)" filtri faollashtirildi.
+- [x] **2.9. N4 500 Mon Savollar Banki**: `Kanji Master N4`, `Shin Kanzen N4 Bunpou` va `Minna Shokyu 2` asosida 24 ta (8 Kanji + 8 Leksika + 8 Grammatika) 3 talik blokli interaktiv savollar to'plami yaratildi (`deck_n4_500_mon`).
 
 ---
 
@@ -53,7 +56,7 @@ Ushbu hujjat loyihadagi barcha JLPT darajalari (N5, N4, N3, N2, N1) bo'yicha kit
 - [x] **3.3. N3 Grammatika**: 115 ta qoida mavjud.
 - [x] **3.4. N3 500 Mon Savollar Banki**: `500_voprosov_jlpt_n3_kanji_vocabul.pdf` dagi savollardan 20 ta tematik test savollari interaktiv deki yaratildi (`deck_n3_500_mon`).
 - [x] **3.5. N3 Mock Exam Set 2**: `500 Mon N3` va `Shin Kanzen N3` asosida 25 ta yangi sifatli imtihon savoli qo'shildi va haqiqiy CD audiolari ulandi.
-- [x] **3.6. N3 Shinkanzen Dokkai**: `N3_Shin_Kanzen_Master_Dokkai 読解.pdf` dagi Chuu-bun (o'rta hajmli maqolalar) va Jouhou-kensaku (jadvalli e'lonlar) matnlari asosida 10 ta Dokkai mashqi to'liq mavjud.
+- [x] **3.6. N3 Shinkanzen Dokkai**: `N3_Shin_Kanzen_Master_Dokkai 読解.pdf` dagi Chuu-bun (o'rta hajmli maqolalar, uyqu va miya xotirasi, qayta ishlash markazi hisoboti) va Jouhou-kensaku (jadvalli e'lonlar) matnlari asosida 12 ta Dokkai mashqi to'liq mavjud (`n3_read_1` - `n3_read_12`).
 - [x] **3.7. N3 Choukai (Studiya Audio)**: `N3_Shinkanzen Master_Listening_CD.rar` dagi haqiqiy MP3 audiolari tizimga ulandi.
 - [x] **3.8. N3 Chalg'ituvchi Grammatika mashqlari**: `〜わけではない` vs `〜わけがない`, `〜どころではない`, `〜に対して` kabi adashtiruvchi qoidalar bo'yicha 22 ta chuqur qiyosiy kartalar yaratildi (`deck_n3_confusing_grammar`).
 - [x] **3.9. N3 Tematik Leksika Master**: 12 ta hayotiy mavzuni (Ish, his-tuyg'ular, jamiyat, taomlar, xarakter, tabiat) qamrab olgan 699 ta muhim so'z va namunaviy gaplar deki yaratildi (`deck_n3_thematic_vocab`).
@@ -69,8 +72,9 @@ Ushbu hujjat loyihadagi barcha JLPT darajalari (N5, N4, N3, N2, N1) bo'yicha kit
 - [x] **4.3. N2 Grammatika**: 172 ta qoida mavjud.
 - [x] **4.4. N2 Mock Exam Set 2**: `Shin_Nihongo_500_Mon_-_JLPT_N2.pdf` va `N2_Shinkanzen Grammar` asosida 25 ta yangi savolli 2-sinov imtihoni yaratildi va studiya CD MP3 fayllari ulandi.
 - [x] **4.5. N2 Collocations (So'z birikmalari)**: `N2_Shinkanzen Vocabulary 語彙.pdf` asosida 55 ta eng ko'p tushadigan fe'l-ot bog'lanishlari (`責任を果たす`, `手を打つ`, `意図を汲む`) maxsus Flashcardlar to'plami yaratildi (`deck_n2_collocations`).
-- [x] **4.6. N2 Shinkanzen Dokkai**: `N2_Shinkanzen_Reading 読解.pdf` kitobidan tahliliy maqolalar va publitsistik matnlar asosida 10 ta Dokkai mashqi to'liq mavjud.
+- [x] **4.6. N2 Shinkanzen Dokkai**: `N2_Shinkanzen_Reading 読解.pdf` kitobidan tahliliy maqolalar, psixologik durdonalar (Yoshimoto Takaaki) va publitsistik matnlar asosida 12 ta Dokkai mashqi to'liq mavjud (`n2_read_1` - `n2_read_12`).
 - [x] **4.7. N2 Choukai (Studiya Audio)**: `book_3/N2_Shinkanzen Listening Audio CD.rar` dagi haqiqiy MP3 lar chiqarilib savollarga ulandi.
+- [x] **4.8. N2 500 Mon Savollar Banki**: `Shin_Nihongo_500_Mon_-_JLPT_N2.pdf` rasmiy kitobidan 24 ta (8 Kanji + 8 Leksika + 8 Grammatika) 3 talik blokli interaktiv savollar to'plami yaratildi (`deck_n2_500_mon`).
 
 ---
 
@@ -84,7 +88,21 @@ Ushbu hujjat loyihadagi barcha JLPT darajalari (N5, N4, N3, N2, N1) bo'yicha kit
 - [x] **5.4. N1 Mock Exam Set 2**: `Shin_Nihongo_500_Mon_-_JLPT_N1.pdf` va `N1_Shin_Kanzen_Grammar 文法.pdf` asosida 25 ta murakkab savolli 2-sinov imtihoni to'liq kiritildi.
 - [x] **5.5. N1 Grammatika kengaytmasi (105 tadan 150+ taga)**: `日本語総まとめ. N1, 文法` va `N1 grammatika kitob.pdf` kitoblaridagi barcha arxaik va kam uchraydigan, ammo imtihonda tushadigan ifodalar kiritildi (jami 151 ta qoida).
 - [x] **5.6. N1 Yojijukugo (4 ta iyeroglifli aforizmlar)**: `Kanji Master N1` va `日本語総まとめ N1 語彙` asosida 49 ta eng muhim to'rt iyeroglifli aforizm va idiomalar to'plami yaratildi (`deck_n1_yojijukugo`).
-- [x] **5.7. N1 Shinkanzen Dokkai**: `N1_Shin_Kanzen_Reading 読解.pdf` dagi falsafiy, ilmiy-ommabop va murakkab publitsistik matnlar tahlilidan iborat 10 ta Dokkai mashqi to'liq mavjud.
+- [x] **5.7. N1 Shinkanzen Dokkai**: `N1_Shin_Kanzen_Reading 読解.pdf` dagi falsafiy, sotsiologik (Kang Sang-jung), ilmiy metodologiya (Tomas Kun) va murakkab publitsistik matnlar tahlilidan iborat 12 ta Dokkai mashqi to'liq mavjud (`n1_read_1` - `n1_read_12`).
+- [x] **5.8. N1 500 Mon Savollar Banki**: `Nihongo no Mori N1 (520 betlik)` va `Kanji Master N1` asosida 24 ta (8 Kanji + 8 Ilg'or Leksika + 8 Oliy Grammatika) 3 talik blokli interaktiv savollar to'plami yaratildi (`deck_n1_500_mon`).
+
+---
+
+## 🏆 6. JLPT RASMIY MOCK IMTIHONLARI 3-TO'PLAM (SET 3 - BARCHA DARAJALAR: N5–N1)
+
+> **Maqsad**: Barcha 5 ta JLPT darajasi (N5, N4, N3, N2, N1) bo'yicha Speed Master va Choukai Masterclass formatidagi to'liq 3-sinov to'plamini taqdim etish.
+
+- [x] **6.1. JLPT N5 Mock Set 3**: 25 ta savol (13 ta Lug'at/Grammatika, 6 ta Dokkai matni, 6 ta Choukai audiosi - `/audio/choukai/n5/minna_shokyu_1_005.mp3..010.mp3`).
+- [x] **6.2. JLPT N4 Mock Set 3**: 25 ta savol (13 ta Lug'at/Grammatika, 6 ta Dokkai matni, 6 ta Choukai audiosi - `/audio/choukai/n4/shinkanzen_chokai_n4_CD-B_001.mp3..006.mp3`).
+- [x] **6.3. JLPT N3 Mock Set 3**: 25 ta savol (13 ta Lug'at/Grammatika, 6 ta Dokkai matni, 6 ta Choukai audiosi - `/audio/choukai/n3/04 Track 4.mp3..09 Track 9.mp3`).
+- [x] **6.4. JLPT N2 Mock Set 3**: 25 ta savol (13 ta Lug'at/Grammatika, 6 ta Dokkai matni, 6 ta Choukai audiosi - `/audio/choukai/n2/Track04.mp3..Track09.mp3`).
+- [x] **6.5. JLPT N1 Mock Set 3**: 25 ta savol (13 ta Ilg'or Lug'at/Grammatika, 6 ta Katta Falsafiy/Ijtimoiy Dokkai matni, 6 ta Ilmiy Konferensiya Choukai skriptlari).
+- [x] **6.6. ExamService & UI Integratsiyasi**: `builtin_*_set3` sluglari orqali imtihon sahifasida 3-to'plam tanlash va avtomatik diagnostika to'liq ishga tushirildi.
 
 ---
 
@@ -106,3 +124,52 @@ Ushbu hujjat loyihadagi barcha JLPT darajalari (N5, N4, N3, N2, N1) bo'yicha kit
 5. **N1**:
    - Barcha yozma kitoblar to'liq: `500 Mon N1`, `Kanji Master N1`, `Shin Kanzen Grammar`, `Shin Kanzen Reading`, `Sou Matome (Bunpou, Kanji, Goi, Dokkai)`.
    - Audio CD majburiy emas (Admin Choukai orqali xohlagan paytda biriktirish mumkin).
+
+---
+
+## 🛠️ 7. ADMIN STUDIO & CONTENT EDITOR (DOKKAI, CHOUKAI AUDIO VA PRESET DECKS)
+
+> **Maqsad**: Admin panel orqali oʻqituvchilar va ma'murlar yangi Dokkai matnlari, Choukai audiolari va Flashcard deklarni bevosita vizual tahrirlashi, sinab ko'rishi va boshqarishini ta'minlash.
+
+- [x] **7.1. AdminDokkaiManager (Vizual O'qish Boshqaruvi)**:
+  - Base vs Custom matnlar ko'rinishi, daraja (N5–N1) va tur (short, medium, information_retrieval) filtrlari.
+  - Furigana syntax helper (`[漢字|かんじ]`), savollar konstruktori, live Furigana preview.
+  - Bazaviy matnlarni bir bosish bilan shablon sifatida klonlash va yangi tahrir yaratish.
+  - JSON import/eksport va zaxira nusxalash.
+- [x] **7.2. JlptReadingPage Dinamik Integratsiyasi**:
+  - `CustomContentService.getMergedReadingPassages(selectedLevel)` orqali bazaviy va maxsus qo'shilgan/tahrirlangan matnlarni birlashtirib ko'rsatish.
+- [x] **7.3. Choukai Audio Library Explorer (`AdminChoukaiManager`)**:
+  - Loyihadagi mavjud 259 ta professional studiya audio fayllari katalogi (`choukaiAudioLibrary.ts`).
+  - N5 (10 ta), N4 (86 ta), N3 (80 ta), N2 (83 ta) audiolarni jonli eshitish (Play/Pause preview), qidirish va savolga to'g'ridan-to'g'ri biriktirish imkoniyati.
+- [x] **7.4. Preset Decks Explorer & Editor (`AdminContentStudio`)**:
+  - Rasmiy deklarni (500 Mon N1/N2/N4, Yojijukugo, Collocations, Thematic Vocab) kartama-karta ko'rish va qidirish.
+  - Kartalarning Kanji, O'qilishi, O'zbekcha tarjimasi va Misollarini tahrirlash hamda `GlobalFlashcardOverrideService` orqali saqlash.
+- [x] **7.5. Unit Testlar va Build Tekshiruvi**:
+  - `CustomContentDokkai.test.ts` (7 ta test) va `CustomContentService.test.ts` (17 ta test) 100% muvaffaqiyatli o'tdi.
+  - `npx tsc --noEmit` 0 ta xato, `npm run build` muvaffaqiyatli yakunlandi.
+
+---
+
+## 🎯 8. JLPT MOCK EXAM DIAGNOSTIKA & SHAXSIY REJAGA MAXSUS MASHQLARNI BIRIKTIRISH
+
+> **Maqsad**: Imtihon topshirgandan so'ng talabaning zaif nuqtalarini (Lug'at, Kanji, Grammatika, Dokkai, Choukai) avtomatik aniqlab, 4 ustunli chuqur tahlilni ko'rsatish va 1-bosish orqali Shaxsiy O'rganish Rejasiga (`PersonalLearningPlan`) mos mashqlarni kiritish.
+
+- [x] **8.1. JlptMockDiagnosticService (4 Ustunli Diagnostika Dvigateli)**:
+  - `kanji_vocab`, `grammar`, `reading`, `listening` bo'yicha to'g'rilik foizlari va ballarni tahlil qilish.
+  - Sectional cutoff (<19 ball) va kritik zaifliklarni aniqlab, aniq daraja-spesifik `RemediationAction` mashqlarini yaratish (Dokkai matnlari, Choukai audiolari, 500 Mon kvizlari, Anki SRS).
+  - Shaxsiy o'rganish rejasi uchun `WeeklyPlanTask` ob'ektlarini generatsiya qilish.
+- [x] **8.2. PersonalLearningPlanService.injectRemediationTasks**:
+  - Foydalanuvchining faol rejasi kunlariga (`monday`...`sunday`) yangi maxsus amaliy mashg'ulotlarni qo'shish va takrorlanishdan himoyalash.
+  - Reja bo'lmagan taqdirda, darajaga mos boshlang'ich haftalik reja scaffoldini avtomatik yaratish.
+  - `safeLocalStorage` va Supabase o'rtasida UUID muvofiqligi bilan xavfsiz sinxronlash hamda `study_planner_plan_updated` hodisasini yuborish.
+- [x] **8.3. MasteryEngine & WeaknessEngine Integratsiyasi**:
+  - `JlptMockExamPage.tsx` imtihon topshirilganda barcha 4 ta soha (`reading`, `listening`, `grammar`, `vocabulary`) bo'yicha dalillarni (`recordEvidence`) ro'yxatga oladi.
+- [x] **8.4. Natijalar Kartochkasi UI Boyitilishi (`JlptExamResultCard.tsx`)**:
+  - 4 ustun bo'yicha vizual foiz indikatorlari, daraja nishonlari va o'zbekcha sharhlar.
+  - "🎯 Zaif Bo'limlar Bo'yicha Maxsus Mashqlar" bloki: to'g'ridan-to'g'ri bog'langan havolalar bilan.
+  - "⚡ Shaxsiy Rejamga Biriktirish" interaktiv tugmasi: jonli saqlanish holati, bildirishnoma va reja sahifasiga tezkor o'tish tugmasi.
+- [x] **8.5. Unit Testlar va Build Tekshiruvi**:
+  - `JlptMockDiagnosticRemediation.test.ts` (3/3 testlar muvaffaqiyatli).
+  - `JlptExamResultCard.test.tsx` (8/8 testlar muvaffaqiyatli).
+  - `PersonalLearningPlan.test.ts`, `ExamService.test.ts`, `CustomContentDokkai.test.ts` regressiya testlari to'liq o'tdi.
+  - `npx tsc --noEmit` 0 ta xato, `npm run build` muvaffaqiyatli yakunlandi.

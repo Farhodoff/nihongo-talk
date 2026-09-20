@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import { LearningOrchestrator } from '../services/LearningOrchestrator';
 import { AlertCircle, ChevronRight, X } from 'lucide-react';
 import { useStudyData } from '../context/StudyPlannerContext';
@@ -15,6 +15,7 @@ import { useSEO } from '../hooks/useSEO';
 
 export const LessonPlayerPage: React.FC = () => {
   const { lessonId } = useParams<{ lessonId: string }>();
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const { user, awardXP } = useStudyData();
 
@@ -55,9 +56,37 @@ export const LessonPlayerPage: React.FC = () => {
       }
       setLesson(foundLesson);
 
+      // Handle direct step navigation via query param (e.g. ?step=mondai or ?step=3)
+      const stepParam = searchParams.get('step');
+      let targetStepIdx: number | null = null;
+
+      if (stepParam) {
+        if (stepParam === 'mondai' || stepParam === 'listening' || stepParam === 'choukai') {
+          const mondaiIdx = foundLesson.steps.findIndex(
+            (s) =>
+              s.id.includes('s4') ||
+              s.title.toLowerCase().includes('tinglash') ||
+              s.title.toLowerCase().includes('mondai'),
+          );
+          if (mondaiIdx >= 0) {
+            targetStepIdx = mondaiIdx;
+          }
+        } else {
+          const parsed = parseInt(stepParam, 10);
+          if (!isNaN(parsed) && parsed >= 0 && parsed < foundLesson.steps.length) {
+            targetStepIdx = parsed;
+          }
+        }
+      }
+
       // Load saved progress
       const savedProgress = LessonService.getLessonProgress(user?.id || '', lessonId);
-      if (savedProgress) {
+      if (targetStepIdx !== null) {
+        setCurrentStepIdx(targetStepIdx);
+        if (savedProgress?.isCompleted && savedProgress.quizScore) {
+          setQuizResult(savedProgress.quizScore);
+        }
+      } else if (savedProgress) {
         if (savedProgress.isCompleted) {
           setIsLessonCompleted(true);
           setQuizResult(savedProgress.quizScore);
@@ -67,7 +96,7 @@ export const LessonPlayerPage: React.FC = () => {
       }
     }
     setLoading(false);
-  }, [lessonId, user?.id]);
+  }, [lessonId, user?.id, searchParams]);
 
   const totalSteps = lesson ? lesson.steps.length : 0;
   const progressPercentage =
@@ -178,6 +207,27 @@ export const LessonPlayerPage: React.FC = () => {
         userId: user?.id || 'guest',
         currentStepIndex: currentStepIdx,
         completedStepIds: lesson.steps.slice(0, currentStepIdx).map((s) => s.id),
+        isCompleted: false,
+        quizScore: {
+          score: result.score,
+          total: result.total,
+          percentage: result.percentage,
+        },
+        lastAttemptedAt: new Date().toISOString(),
+      };
+      await LessonService.saveLessonProgress(user?.id || '', progress);
+      return;
+    }
+
+    // If there are subsequent steps remaining (e.g. Step 4: Mondai Tinglash Testi), advance smoothly!
+    if (currentStepIdx < totalSteps - 1) {
+      const nextIdx = currentStepIdx + 1;
+      setCurrentStepIdx(nextIdx);
+      const progress: UserLessonProgress = {
+        lessonId: lesson.id,
+        userId: user?.id || 'guest',
+        currentStepIndex: nextIdx,
+        completedStepIds: lesson.steps.slice(0, nextIdx).map((s) => s.id),
         isCompleted: false,
         quizScore: {
           score: result.score,
@@ -340,14 +390,21 @@ export const LessonPlayerPage: React.FC = () => {
             {/* Step Type Pill Header */}
             <div className="mb-2 flex items-center justify-center">
               <span
-                className={`rounded-full px-3.5 py-1 text-xs font-bold ${
+                className={`flex items-center gap-1.5 rounded-full px-3.5 py-1 text-xs font-bold ${
                   currentStep.type === 'learn'
                     ? 'border border-blue-500/20 bg-blue-500/10 text-blue-500'
                     : currentStep.type === 'practice'
                       ? 'border border-purple-500/20 bg-purple-500/10 text-purple-500'
-                      : 'border border-emerald-500/20 bg-emerald-500/10 text-emerald-500'
+                      : currentStep.id.includes('s4') ||
+                          currentStep.title.toLowerCase().includes('tinglash') ||
+                          currentStep.title.toLowerCase().includes('mondai')
+                        ? 'border border-amber-500/30 bg-amber-500/15 text-amber-600 shadow-xs dark:text-amber-400'
+                        : 'border border-emerald-500/20 bg-emerald-500/10 text-emerald-500'
                 }`}
               >
+                {(currentStep.id.includes('s4') ||
+                  currentStep.title.toLowerCase().includes('tinglash')) &&
+                  '🎧 '}
                 {currentStep.title}
               </span>
             </div>

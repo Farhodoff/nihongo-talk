@@ -125,6 +125,19 @@ export const PRESET_DECKS: PresetDeck[] = [
     loadCards: () => loadAndApplyOverrides(import('./decks/kanji_master_n4.json')),
   },
   {
+    id: 'deck_n4_500_mon',
+    title: '🎯 JLPT N4 500 Mon Savollar Banki (文字・語彙・文法 24)',
+    description:
+      "Shin Nihongo 500 Mon N4 darsligidan kanji, leksika va grammatika bo'yicha 3 talik blokli intensiv mashqlar va o'zbekcha sharhlar.",
+    language: 'ja',
+    level: 'JLPT N4',
+    badgeColor: 'bg-rose-500/10 text-rose-600 border-rose-500/20',
+    icon: '🎯',
+    cardCount: 24,
+    isPremiumOnly: false,
+    loadCards: () => loadAndApplyOverrides(import('./decks/n4_500_mon.json')),
+  },
+  {
     id: 'deck_jlpt_n3',
     title: '🏮 JLPT N3 Master Deck (Shin Kanzen & Goi 1730)',
     description: "Shin Kanzen Master, Somatome va 1730 ta N3 tayanch so'zlar.",
@@ -201,6 +214,19 @@ export const PRESET_DECKS: PresetDeck[] = [
     loadCards: () => loadAndApplyOverrides(import('./decks/n2_collocations.json')),
   },
   {
+    id: 'deck_n2_500_mon',
+    title: '🎯 JLPT N2 500 Mon Savollar Banki (文字・語彙・文法 24)',
+    description:
+      "Shin Nihongo 500 Mon N2 rasmiy darsligidan kanji, leksika va grammatika bo'yicha 3 talik blokli intensiv mashqlar va o'zbekcha sharhlar.",
+    language: 'ja',
+    level: 'JLPT N2',
+    badgeColor: 'bg-amber-500/10 text-amber-600 border-amber-500/20',
+    icon: '🎯',
+    cardCount: 24,
+    isPremiumOnly: false,
+    loadCards: () => loadAndApplyOverrides(import('./decks/n2_500_mon.json')),
+  },
+  {
     id: 'deck_jlpt_n1',
     title: '👑 JLPT N1 Master Deck (Shin Kanzen & Sou Matome)',
     description:
@@ -225,5 +251,18 @@ export const PRESET_DECKS: PresetDeck[] = [
     cardCount: 49,
     isPremiumOnly: false,
     loadCards: () => loadAndApplyOverrides(import('./decks/n1_yojijukugo.json')),
+  },
+  {
+    id: 'deck_n1_500_mon',
+    title: '🎯 JLPT N1 500 Mon Savollar Banki (文字・語彙・文法 24)',
+    description:
+      "Shin Nihongo 500 Mon N1 va Nihongo no Mori N1 darsliklaridan kanji, akademik leksika va oliy grammatika bo'yicha 3 talik blokli intensiv mashqlar.",
+    language: 'ja',
+    level: 'JLPT N1',
+    badgeColor: 'bg-red-500/10 text-red-600 border-red-500/20',
+    icon: '🎯',
+    cardCount: 24,
+    isPremiumOnly: false,
+    loadCards: () => loadAndApplyOverrides(import('./decks/n1_500_mon.json')),
   },
 ];

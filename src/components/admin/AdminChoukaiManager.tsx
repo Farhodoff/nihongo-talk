@@ -19,6 +19,7 @@ import {
   JLPT_LISTENING_QUESTIONS,
   parseScriptIntoDialogueLines,
 } from '../../data/jlpt/listening_data';
+import { CHOUKAI_AUDIO_LIBRARY, ChoukaiAudioTrack } from '../../data/choukaiAudioLibrary';
 import { ListeningAudioSyncService } from '../../services/ListeningAudioSyncService';
 import { toast } from '../../hooks/use-toast';
 
@@ -32,6 +33,13 @@ export const AdminChoukaiManager: React.FC = () => {
   const [selectedType, setSelectedType] = useState<'ALL' | 'task' | 'point' | 'quick' | 'summary'>(
     'ALL',
   );
+
+  // Audio Library Modal State
+  const [showAudioLibraryModal, setShowAudioLibraryModal] = useState(false);
+  const [librarySearch, setLibrarySearch] = useState('');
+  const [libraryLevel, setLibraryLevel] = useState<'ALL' | 'N5' | 'N4' | 'N3' | 'N2'>('ALL');
+  const [libraryPlayingUrl, setLibraryPlayingUrl] = useState<string | null>(null);
+  const libraryAudioRef = useRef<HTMLAudioElement | null>(null);
 
   // Form State
   const [editingId, setEditingId] = useState<string | number | null>(null);
@@ -76,11 +84,56 @@ export const AdminChoukaiManager: React.FC = () => {
         audioPreviewRef.current.pause();
         audioPreviewRef.current = null;
       }
+      if (libraryAudioRef.current) {
+        libraryAudioRef.current.pause();
+        libraryAudioRef.current = null;
+      }
       if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
         window.speechSynthesis.cancel();
       }
     };
   }, []);
+
+  const handlePlayLibraryAudio = (url: string) => {
+    if (libraryPlayingUrl === url) {
+      if (libraryAudioRef.current) {
+        libraryAudioRef.current.pause();
+        libraryAudioRef.current = null;
+      }
+      setLibraryPlayingUrl(null);
+      return;
+    }
+    if (libraryAudioRef.current) {
+      libraryAudioRef.current.pause();
+      libraryAudioRef.current = null;
+    }
+    const audio = new Audio(url);
+    libraryAudioRef.current = audio;
+    setLibraryPlayingUrl(url);
+    audio.onended = () => {
+      setLibraryPlayingUrl(null);
+      libraryAudioRef.current = null;
+    };
+    audio.onerror = () => {
+      toast({ variant: 'destructive', title: 'Audio ijro etilmadi' });
+      setLibraryPlayingUrl(null);
+    };
+    audio.play().catch(() => setLibraryPlayingUrl(null));
+  };
+
+  const handleSelectLibraryTrack = (track: ChoukaiAudioTrack) => {
+    if (libraryAudioRef.current) {
+      libraryAudioRef.current.pause();
+      libraryAudioRef.current = null;
+    }
+    setLibraryPlayingUrl(null);
+    setAudioUrl(track.url);
+    setShowAudioLibraryModal(false);
+    toast({
+      title: '🎧 Audio biriktirildi',
+      description: `${track.name} formaga joylashtirildi.`,
+    });
+  };
 
   const resetForm = () => {
     setEditingId(null);
@@ -339,6 +392,17 @@ export const AdminChoukaiManager: React.FC = () => {
     });
   }, [activeTab, customQuestions, selectedLevel, selectedType, searchQuery]);
 
+  const filteredLibraryTracks = useMemo(() => {
+    return CHOUKAI_AUDIO_LIBRARY.filter((track) => {
+      if (libraryLevel !== 'ALL' && track.level !== libraryLevel) return false;
+      if (librarySearch.trim()) {
+        const q = librarySearch.toLowerCase();
+        return track.name.toLowerCase().includes(q) || track.url.toLowerCase().includes(q);
+      }
+      return true;
+    });
+  }, [libraryLevel, librarySearch]);
+
   return (
     <div className="space-y-6">
       {/* Header & Sub-Navigation */}
@@ -495,6 +559,16 @@ export const AdminChoukaiManager: React.FC = () => {
               >
                 <Upload className="h-3.5 w-3.5" />
                 {isUploadingAudio ? 'Yuklanmoqda...' : 'MP3 Yuklash'}
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setShowAudioLibraryModal(true)}
+                className="flex items-center justify-center gap-1.5 rounded-xl border border-border bg-background px-3.5 py-2 text-xs font-bold text-foreground transition-all hover:bg-muted"
+                title="Tizimdagi 259 ta sifatli CD audiolardan tanlash"
+              >
+                <Headphones className="h-3.5 w-3.5 text-primary" />
+                Studiya Kutubxonasi ({CHOUKAI_AUDIO_LIBRARY.length})
               </button>
 
               {(audioUrl || script) && (
@@ -831,6 +905,145 @@ export const AdminChoukaiManager: React.FC = () => {
           })
         )}
       </div>
+
+      {/* Audio Library Picker Modal */}
+      {showAudioLibraryModal && (
+        <div className="backdrop-blur-xs fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
+          <div className="flex max-h-[85vh] w-full max-w-2xl flex-col rounded-2xl border border-border bg-card shadow-2xl">
+            {/* Modal Header */}
+            <div className="flex items-center justify-between border-b border-border p-4">
+              <div className="flex items-center gap-2">
+                <Headphones className="text-primary" size={20} />
+                <div>
+                  <h3 className="text-sm font-bold text-foreground">
+                    Studiya Audiolar Kutubxonasi
+                  </h3>
+                  <p className="text-[11px] text-muted-foreground">
+                    Tizimdagi 259 ta sifatli CD audiodan birini tanlang yoki tinglab ko‘ring.
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  if (libraryAudioRef.current) {
+                    libraryAudioRef.current.pause();
+                    libraryAudioRef.current = null;
+                  }
+                  setLibraryPlayingUrl(null);
+                  setShowAudioLibraryModal(false);
+                }}
+                className="rounded-lg p-1.5 text-muted-foreground hover:bg-muted hover:text-foreground"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            {/* Filters */}
+            <div className="grid grid-cols-1 gap-3 border-b border-border p-4 sm:grid-cols-12">
+              <div className="relative sm:col-span-8">
+                <Search
+                  size={14}
+                  className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+                />
+                <input
+                  type="text"
+                  placeholder="Fayl nomi bo‘yicha qidirish (masalan: Track05, 01 Track, CD-A)..."
+                  value={librarySearch}
+                  onChange={(e) => setLibrarySearch(e.target.value)}
+                  className="w-full rounded-xl border border-border bg-background py-2 pl-8 pr-3 text-xs text-foreground focus:border-primary focus:outline-none"
+                />
+              </div>
+
+              <div className="sm:col-span-4">
+                <select
+                  value={libraryLevel}
+                  onChange={(e) => setLibraryLevel(e.target.value as any)}
+                  className="w-full rounded-xl border border-border bg-background p-2 text-xs font-bold text-foreground focus:border-primary focus:outline-none"
+                >
+                  <option value="ALL">Barcha Darajalar</option>
+                  <option value="N5">N5 (10 ta audio)</option>
+                  <option value="N4">N4 (86 ta audio)</option>
+                  <option value="N3">N3 (80 ta audio)</option>
+                  <option value="N2">N2 (83 ta audio)</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Audio List */}
+            <div className="flex-1 space-y-2 overflow-y-auto p-4">
+              {filteredLibraryTracks.length === 0 ? (
+                <div className="py-12 text-center text-xs text-muted-foreground">
+                  Mos audio fayllar topilmadi.
+                </div>
+              ) : (
+                filteredLibraryTracks.map((track) => (
+                  <div
+                    key={track.id}
+                    className="flex items-center justify-between rounded-xl border border-border/80 bg-background p-3 transition-colors hover:border-primary/40 hover:bg-muted/30"
+                  >
+                    <div className="flex items-center gap-3">
+                      <button
+                        type="button"
+                        onClick={() => handlePlayLibraryAudio(track.url)}
+                        className={`flex h-9 w-9 items-center justify-center rounded-xl transition-colors ${
+                          libraryPlayingUrl === track.url
+                            ? 'bg-emerald-500 text-white'
+                            : 'bg-muted text-foreground hover:bg-muted/80'
+                        }`}
+                        title={libraryPlayingUrl === track.url ? 'To‘xtatish' : 'Tinglash'}
+                      >
+                        {libraryPlayingUrl === track.url ? <Pause size={15} /> : <Play size={15} />}
+                      </button>
+
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <span className="rounded-md bg-primary/10 px-1.5 py-0.5 text-[10px] font-bold text-primary">
+                            {track.level}
+                          </span>
+                          <span className="font-mono text-xs font-bold text-foreground">
+                            {track.name}
+                          </span>
+                        </div>
+                        <span className="font-mono text-[11px] text-muted-foreground">
+                          {track.url}
+                        </span>
+                      </div>
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={() => handleSelectLibraryTrack(track)}
+                      className="rounded-xl bg-primary px-3 py-1.5 text-xs font-bold text-primary-foreground hover:bg-primary/90"
+                    >
+                      Tanlash
+                    </button>
+                  </div>
+                ))
+              )}
+            </div>
+
+            {/* Modal Footer */}
+            <div className="flex items-center justify-between border-t border-border bg-muted/20 p-4 text-xs text-muted-foreground">
+              <span>Ko‘rsatilmoqda: {filteredLibraryTracks.length} ta audio</span>
+              <button
+                type="button"
+                onClick={() => {
+                  if (libraryAudioRef.current) {
+                    libraryAudioRef.current.pause();
+                    libraryAudioRef.current = null;
+                  }
+                  setLibraryPlayingUrl(null);
+                  setShowAudioLibraryModal(false);
+                }}
+                className="rounded-lg bg-muted px-3 py-1.5 font-semibold text-foreground hover:bg-muted/80"
+              >
+                Yopish
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

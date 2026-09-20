@@ -375,19 +375,53 @@ export const JlptMockExamPage: React.FC = () => {
         );
       } catch {}
 
-      // Register evidence for JLPT Level Progression
+      // Register evidence for JLPT Level Progression (All 4 pillars)
       const activeUserId = user?.id || 'guest';
+      const diagPillars = report.diagnosticAnalysis?.pillars;
+
+      // 1. Reading (Dokkai) evidence
       MasteryEngine.recordEvidence(activeUserId, 'ja', {
-        id: `jlpt_mock_${level}_${Date.now()}`,
-        skill:
-          jlptScoreReport.weakestSection === 'listening'
-            ? 'listening'
-            : jlptScoreReport.weakestSection === 'reading'
-              ? 'reading'
-              : 'grammar',
-        score: Math.min(100, Math.round((jlptScoreReport.totalScore / 180) * 100)),
+        id: `jlpt_mock_${level}_reading_${Date.now()}`,
+        skill: 'reading',
+        score: jlptScoreReport.sections.reading?.percentage ?? 50,
         timestamp: new Date().toISOString(),
-        details: `JLPT ${level} Official Mock: ${jlptScoreReport.totalScore}/180 ball (O'tish: ${jlptScoreReport.passMark}) - ${jlptScoreReport.passed ? 'PASSED (GOUKAKU)' : 'FAILED (FUGOUKAKU)'}. Zaif bo'lim: ${jlptScoreReport.weakestSection}`,
+        details: `JLPT ${level} Mock Dokkai: ${jlptScoreReport.sections.reading?.score}/60 ball (${jlptScoreReport.sections.reading?.percentage}%)`,
+        type: 'performance',
+      });
+
+      // 2. Listening (Choukai) evidence
+      MasteryEngine.recordEvidence(activeUserId, 'ja', {
+        id: `jlpt_mock_${level}_listening_${Date.now()}`,
+        skill: 'listening',
+        score: jlptScoreReport.sections.listening?.percentage ?? 50,
+        timestamp: new Date().toISOString(),
+        details: `JLPT ${level} Mock Choukai: ${jlptScoreReport.sections.listening?.score}/60 ball (${jlptScoreReport.sections.listening?.percentage}%)`,
+        type: 'performance',
+      });
+
+      // 3. Grammar evidence
+      MasteryEngine.recordEvidence(activeUserId, 'ja', {
+        id: `jlpt_mock_${level}_grammar_${Date.now()}`,
+        skill: 'grammar',
+        score:
+          diagPillars?.grammar.accuracyPercentage ??
+          jlptScoreReport.sections.knowledge?.percentage ??
+          50,
+        timestamp: new Date().toISOString(),
+        details: `JLPT ${level} Mock Grammar: ${diagPillars?.grammar.accuracyPercentage ?? jlptScoreReport.sections.knowledge?.percentage}% aniqlik`,
+        type: 'performance',
+      });
+
+      // 4. Vocabulary / Kanji evidence
+      MasteryEngine.recordEvidence(activeUserId, 'ja', {
+        id: `jlpt_mock_${level}_vocab_${Date.now()}`,
+        skill: 'vocabulary',
+        score:
+          diagPillars?.kanji_vocab.accuracyPercentage ??
+          jlptScoreReport.sections.knowledge?.percentage ??
+          50,
+        timestamp: new Date().toISOString(),
+        details: `JLPT ${level} Mock Kanji & Vocab: ${diagPillars?.kanji_vocab.accuracyPercentage ?? jlptScoreReport.sections.knowledge?.percentage}% aniqlik`,
         type: 'performance',
       });
     } catch (e) {

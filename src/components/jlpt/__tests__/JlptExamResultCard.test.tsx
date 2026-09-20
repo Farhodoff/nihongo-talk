@@ -2,10 +2,13 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { describe, expect, it, vi, beforeEach } from 'vitest';
 import { JlptExamResultCard } from '../JlptExamResultCard';
 import { JlptScoreReport } from '../../../utils/jlptScoring';
+import { PersonalLearningPlanService } from '../../../services/PersonalLearningPlanService';
 
 const mockAddFlashcardsBatch = vi.fn();
+const mockUser = { id: 'test-user-123', email: 'test@example.com' };
 vi.mock('../../../context/StudyPlannerContext', () => ({
   useStudyData: () => ({
+    user: mockUser,
     addFlashcardsBatch: mockAddFlashcardsBatch,
   }),
 }));
@@ -325,5 +328,130 @@ describe('JlptExamResultCard', () => {
     expect(certBtn).toBeInTheDocument();
     fireEvent.click(certBtn);
     expect(handleViewCert).toHaveBeenCalledTimes(1);
+  });
+
+  it('renders 4-pillar competence radar and targeted remediations when diagnosticAnalysis is provided', async () => {
+    const reportWithDiagnostics = {
+      ...sampleReport,
+      diagnosticAnalysis: {
+        level: 'N4',
+        pillars: {
+          kanji_vocab: {
+            key: 'kanji_vocab' as const,
+            titleUz: 'Kanji & Leksika',
+            titleJa: '文字・語彙',
+            icon: '🈳',
+            totalQuestions: 10,
+            correctCount: 8,
+            accuracyPercentage: 80,
+            status: 'strong' as const,
+            statusTextUz: 'Yuqori natija',
+            feedbackUz: 'Yaxshi',
+          },
+          grammar: {
+            key: 'grammar' as const,
+            titleUz: 'Grammatika',
+            titleJa: '文法',
+            icon: '⛩️',
+            totalQuestions: 10,
+            correctCount: 4,
+            accuracyPercentage: 40,
+            status: 'critical' as const,
+            statusTextUz: 'Jiddiy zaiflik (<50%)',
+            feedbackUz: 'Grammatikani kuchaytirish kerak.',
+          },
+          reading: {
+            key: 'reading' as const,
+            titleUz: "O'qib tushunish (Dokkai)",
+            titleJa: '読解',
+            icon: '📖',
+            totalQuestions: 6,
+            correctCount: 3,
+            accuracyPercentage: 50,
+            status: 'moderate' as const,
+            statusTextUz: "O'rtacha daraja",
+            feedbackUz: 'Matnlar mashqi kerak.',
+          },
+          listening: {
+            key: 'listening' as const,
+            titleUz: 'Tinglab tushunish (Choukai)',
+            titleJa: '聴解',
+            icon: '🎧',
+            totalQuestions: 6,
+            correctCount: 2,
+            accuracyPercentage: 33,
+            status: 'critical' as const,
+            statusTextUz: 'Kritik zaif',
+            feedbackUz: 'Audio eshitish lozim.',
+          },
+        },
+        weakestPillar: 'listening' as const,
+        criticalPillars: ['grammar', 'reading', 'listening'] as any,
+        remediations: [
+          {
+            id: 'dokkai_n4',
+            skill: 'reading' as const,
+            title: '📖 JLPT N4 Dokkai: Matnlarni Tahlil Qilish',
+            subtitle: "Dokkai bo'yicha maxsus mashq",
+            route: '/jlpt?tab=reading&level=N4',
+            estimatedMinutes: 15,
+            actionText: "Matnlarni o'qish ➔",
+            severity: 'high' as const,
+            reasons: ['O‘qish past'],
+          },
+        ],
+        weeklyTasks: [
+          {
+            id: 'task_1',
+            title: '📖 JLPT N4 Dokkai: Matnlarni Tahlil Qilish',
+            type: 'weakness_practice',
+            estimatedMinutes: 15,
+            completed: false,
+            status: 'pending' as const,
+            sourceType: 'ai_generated' as const,
+            route: '/jlpt?tab=reading&level=N4',
+            skill: 'reading' as const,
+          },
+        ],
+        aiAdvice: "JLPT N4 bo'yicha tavsiyalar.",
+      },
+    };
+
+    render(
+      <JlptExamResultCard
+        report={reportWithDiagnostics}
+        level="N4"
+        onRetry={vi.fn()}
+        onBackToHub={vi.fn()}
+      />,
+    );
+
+    // Verify 4-pillar competence radar is shown
+    expect(screen.getByText(/4 Ustun bo'yicha Chuqur Diagnostika/i)).toBeInTheDocument();
+    expect(screen.getByText(/Kanji & Leksika/i)).toBeInTheDocument();
+    expect(screen.getByText(/O'qib tushunish \(Dokkai\)/i)).toBeInTheDocument();
+    expect(screen.getByText(/Tinglab tushunish \(Choukai\)/i)).toBeInTheDocument();
+
+    // Verify targeted remediation card is shown
+    expect(screen.getByText(/Zaif Bo'limlar Bo'yicha Maxsus Mashqlar/i)).toBeInTheDocument();
+    expect(screen.getByText(/📖 JLPT N4 Dokkai: Matnlarni Tahlil Qilish/i)).toBeInTheDocument();
+
+    const injectSpy = vi
+      .spyOn(PersonalLearningPlanService, 'injectRemediationTasks')
+      .mockResolvedValue({
+        success: true,
+        addedCount: 1,
+        targetDays: ['dushanba'],
+      });
+
+    // Click "⚡ Shaxsiy Rejamga Biriktirish" button
+    const injectBtn = screen.getByText(/⚡ Shaxsiy Rejamga Biriktirish/i);
+    expect(injectBtn).toBeInTheDocument();
+    fireEvent.click(injectBtn);
+
+    await waitFor(() => {
+      expect(injectSpy).toHaveBeenCalledTimes(1);
+      expect(screen.getByText(/Rejangizga Biriktirildi!/i)).toBeInTheDocument();
+    });
   });
 });

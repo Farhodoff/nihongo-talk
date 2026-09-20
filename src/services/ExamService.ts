@@ -2,6 +2,7 @@ import { supabase } from '../lib/supabase';
 import {
   JLPT_MOCK_EXAM_DATA,
   JLPT_MOCK_EXAM_SET2_DATA,
+  JLPT_MOCK_EXAM_SET3_DATA,
   ExamQuestion,
 } from '../data/jlptMockExamData';
 
@@ -111,6 +112,16 @@ export class ExamService {
         createdAt: new Date().toISOString(),
         totalQuestions: JLPT_MOCK_EXAM_SET2_DATA[lvl]?.length || 25,
       });
+      items.push({
+        id: `builtin_${lvl.toLowerCase()}_set3`,
+        title: `JLPT ${lvl} Rasmiy Mock Test - 3-to'plam (Speed Master & Choukai Masterclass)`,
+        description: `Speed Master va Choukai Masterclass asosidagi ${lvl} daraja imtihon simulyatori (3-to'liq sinov).`,
+        type: `JLPT ${lvl}`,
+        level: lvl,
+        isPublished: true,
+        createdAt: new Date().toISOString(),
+        totalQuestions: JLPT_MOCK_EXAM_SET3_DATA[lvl]?.length || 25,
+      });
     }
     return items;
   }
@@ -126,8 +137,9 @@ export class ExamService {
     // If ID is a built-in slug
     if (examId.startsWith('builtin_')) {
       const lvl = this.parseLevelFromType(examId);
+      const isSet3 = examId.endsWith('_set3');
       const isSet2 = examId.endsWith('_set2');
-      return this.buildFallbackExam(lvl, isSet2);
+      return this.buildFallbackExam(lvl, isSet2, isSet3);
     }
 
     try {
@@ -255,25 +267,36 @@ export class ExamService {
   private static buildFallbackExam(
     level: JlptLevel,
     isSet2: boolean = false,
+    isSet3: boolean = false,
     existingExamMeta?: any,
   ): NormalizedExam {
-    const rawQuestions = isSet2
-      ? JLPT_MOCK_EXAM_SET2_DATA[level] || JLPT_MOCK_EXAM_DATA[level]
-      : JLPT_MOCK_EXAM_DATA[level] || JLPT_MOCK_EXAM_DATA['N5'];
-    const title = isSet2
-      ? `JLPT ${level} Rasmiy Mock Test - 2-to'plam (500 Mon & Shin Kanzen)`
-      : `JLPT ${level} Rasmiy Mock Test - 1-to'plam`;
+    const rawQuestions = isSet3
+      ? JLPT_MOCK_EXAM_SET3_DATA[level] || JLPT_MOCK_EXAM_DATA[level]
+      : isSet2
+        ? JLPT_MOCK_EXAM_SET2_DATA[level] || JLPT_MOCK_EXAM_DATA[level]
+        : JLPT_MOCK_EXAM_DATA[level] || JLPT_MOCK_EXAM_DATA['N5'];
+    const title = isSet3
+      ? `JLPT ${level} Rasmiy Mock Test - 3-to'plam (Speed Master & Choukai Masterclass)`
+      : isSet2
+        ? `JLPT ${level} Rasmiy Mock Test - 2-to'plam (500 Mon & Shin Kanzen)`
+        : `JLPT ${level} Rasmiy Mock Test - 1-to'plam`;
     const id =
       existingExamMeta?.id ||
-      (isSet2 ? `builtin_${level.toLowerCase()}_set2` : `builtin_${level.toLowerCase()}`);
+      (isSet3
+        ? `builtin_${level.toLowerCase()}_set3`
+        : isSet2
+          ? `builtin_${level.toLowerCase()}_set2`
+          : `builtin_${level.toLowerCase()}`);
     return {
       id,
       title: existingExamMeta?.title || title,
       description:
         existingExamMeta?.description ||
-        (isSet2
-          ? `500 Mon va Shin Kanzen asosidagi ${level} daraja imtihon sinovi.`
-          : `Rasmiy formatdagi ${level} daraja yapon tili sinovi.`),
+        (isSet3
+          ? `Speed Master va Choukai Masterclass asosidagi ${level} daraja imtihon sinovi.`
+          : isSet2
+            ? `500 Mon va Shin Kanzen asosidagi ${level} daraja imtihon sinovi.`
+            : `Rasmiy formatdagi ${level} daraja yapon tili sinovi.`),
       type: existingExamMeta?.type || `JLPT ${level}`,
       level,
       questions: rawQuestions,

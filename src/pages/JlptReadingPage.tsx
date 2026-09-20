@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate, useSearchParams, useLocation } from 'react-router-dom';
 import {
   ArrowLeft,
@@ -13,7 +13,8 @@ import {
 } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import FuriganaText from '../components/jlpt/FuriganaText';
-import { JLPT_READING_PASSAGES, JlptReadingPassage } from '../data/jlptReadingData';
+import { JlptReadingPassage } from '../data/jlptReadingData';
+import { CustomContentService } from '../services/CustomContentService';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { MasteryEngine } from '../services/MasteryEngine';
 import { HistoryService } from '../services/HistoryService';
@@ -47,7 +48,10 @@ export const JlptReadingPage: React.FC = () => {
     }
   }, [urlLevel]);
 
-  const levelPassages = JLPT_READING_PASSAGES.filter((p) => p.level === selectedLevel);
+  const levelPassages = useMemo(
+    () => CustomContentService.getMergedReadingPassages(selectedLevel),
+    [selectedLevel],
+  );
   const currentPassage: JlptReadingPassage | undefined =
     levelPassages[currentPassageIndex] || levelPassages[0];
 

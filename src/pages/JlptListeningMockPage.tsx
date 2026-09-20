@@ -504,11 +504,35 @@ export const JlptListeningMockPage: React.FC = () => {
           </div>
 
           <Button
+            size="lg"
+            className="w-full rounded-2xl bg-rose-500 text-sm font-bold text-white shadow-lg shadow-rose-500/20 transition-all hover:bg-rose-600 active:scale-95 sm:text-base"
             onClick={handleStartTest}
-            className="w-full cursor-pointer rounded-2xl bg-rose-600 py-4 text-sm font-extrabold text-white shadow-lg shadow-rose-500/20 hover:bg-rose-700"
           >
             {language === 'ja' ? 'れんしゅうを スタート 🎌' : 'Boshlash 🎌'}
           </Button>
+
+          {/* Minna no Nihongo Mondai Listening Banner */}
+          <div className="rounded-2xl border border-rose-500/20 bg-rose-500/5 p-4 text-left">
+            <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
+              <div className="space-y-1">
+                <div className="flex items-center gap-1.5 text-xs font-black text-rose-600 dark:text-rose-400">
+                  <Headphones size={14} />
+                  <span>Minna no Nihongo Shokyu 1 (1–25 Darslar)</span>
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  Darslikning har bir darsi oxiridagi haqiqiy CD audiolari bo'yicha Mondai (聴解)
+                  testlarini mashq qiling.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => navigate('/jlpt?tab=lessons&level=n5')}
+                className="shrink-0 cursor-pointer rounded-xl bg-rose-500 px-3.5 py-2 text-xs font-bold text-white shadow-xs transition-all hover:bg-rose-600 active:scale-95"
+              >
+                Darslar Bo'yicha Mashq Qilish →
+              </button>
+            </div>
+          </div>
         </div>
       )}
 

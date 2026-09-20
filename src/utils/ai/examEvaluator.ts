@@ -1,5 +1,9 @@
 import { callSelectedAIProvider } from './aiCore';
 import type { JlptScoreReport } from '../jlptScoring';
+import {
+  JlptMockDiagnosticService,
+  DiagnosticAnalysisResult,
+} from '../../services/JlptMockDiagnosticService';
 
 export interface ExamQuestionAnswer {
   questionText: string;
@@ -23,6 +27,7 @@ export interface ExamDiagnosticReport {
   }>;
   actionable_recommendation: string;
   jlptScoreReport?: JlptScoreReport;
+  diagnosticAnalysis?: DiagnosticAnalysisResult;
 }
 
 export async function evaluateMockExamSession(
@@ -45,6 +50,11 @@ export async function evaluateMockExamSession(
     : `${level}: ${correctCount}/${totalCount} (${percentage}%) - ${passed ? "MUVAFFAQIYATLI (O'TDI 🎉)" : 'QAYTA TOPSHIRISH TAVSIYA ETILADI ⚠️'}`;
 
   const incorrectQuestions = questions.filter((q) => !q.isCorrect);
+  const diagnosticAnalysis = JlptMockDiagnosticService.analyzeExamResults(
+    level,
+    questions,
+    jlptScoreReport,
+  );
 
   // Fallback heuristic report if no mistakes
   if (incorrectQuestions.length === 0) {
@@ -56,6 +66,7 @@ export async function evaluateMockExamSession(
       actionable_recommendation:
         "Ajoyib natija! Barcha savollarga to'g'ri javob berdingiz. Keyingi JLPT darajasiga o'tishni tavsiya etamiz.",
       jlptScoreReport,
+      diagnosticAnalysis,
     };
   }
 
@@ -113,8 +124,10 @@ Format faqat JSON bo'lsin:
           top_3_mistakes: parsed.top_3_mistakes.slice(0, 3),
           actionable_recommendation:
             parsed.actionable_recommendation ||
+            diagnosticAnalysis.aiAdvice ||
             "Xato qilingan mavzular ustida ko'proq mashq qiling.",
           jlptScoreReport,
+          diagnosticAnalysis,
         };
       }
     }
@@ -137,7 +150,9 @@ Format faqat JSON bo'lsin:
     passed,
     top_3_mistakes: fallbackMistakes,
     actionable_recommendation:
+      diagnosticAnalysis.aiAdvice ||
       "Xato qilingan savollar izohini qayta ko'rib chiqing va JLPT grammatika lug'atini takrorlang.",
     jlptScoreReport,
+    diagnosticAnalysis,
   };
 }

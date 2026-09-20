@@ -18,17 +18,26 @@ import {
 import { CustomContentService, BulkImportResult } from '../../services/CustomContentService';
 import type { JlptKanjiItem, JlptGrammarItem } from '../../data/jlptGrammarKanji';
 import type { JlptGrammarQuestion } from '../../data/jlpt/grammar_data';
+import type { JlptReadingPassage } from '../../data/jlptReadingData';
+import { PRESET_DECKS, PresetCard } from '../../data/presetDecks';
+import {
+  GlobalFlashcardOverrideService,
+  GlobalFlashcardOverride,
+} from '../../services/GlobalFlashcardOverrideService';
 import { useStudyData } from '../../context/StudyPlannerContext';
 import { AdminScenarioManager } from './AdminScenarioManager';
 import { AdminQuizManager } from './AdminQuizManager';
 import { AdminChoukaiManager } from './AdminChoukaiManager';
+import { AdminDokkaiManager } from './AdminDokkaiManager';
+import { AdminFlashcardManager } from '../decks/AdminFlashcardManager';
+import { Button } from '../ui/Button';
 import { toast } from '../../hooks/use-toast';
 
 export const AdminContentStudio: React.FC = () => {
   const { subjects, addSubject, addFlashcardsBatch } = useStudyData();
 
   const [activeSubTab, setActiveSubTab] = useState<
-    'kanji' | 'grammar' | 'quiz' | 'choukai' | 'flashcards' | 'scenarios'
+    'kanji' | 'grammar' | 'dokkai' | 'quiz' | 'choukai' | 'flashcards' | 'scenarios'
   >('kanji');
 
   const [isSyncing, setIsSyncing] = useState(false);
@@ -104,27 +113,113 @@ export const AdminContentStudio: React.FC = () => {
   );
 
   const [customQuizList, setCustomQuizList] = useState<JlptGrammarQuestion[]>([]);
+  const [customDokkaiList, setCustomDokkaiList] = useState<JlptReadingPassage[]>([]);
+
+  // Preset Decks Explorer State
+  const [selectedPresetDeckId, setSelectedPresetDeckId] = useState<string>('');
+  const [presetDeckCards, setPresetDeckCards] = useState<PresetCard[]>([]);
+  const [isLoadingPresetCards, setIsLoadingPresetCards] = useState(false);
+  const [presetCardSearch, setPresetCardSearch] = useState('');
+  const [showFlashcardManagerModal, setShowFlashcardManagerModal] = useState(false);
+  const [editingPresetCard, setEditingPresetCard] = useState<PresetCard | null>(null);
+  const [editFront, setEditFront] = useState('');
+  const [editPhonetic, setEditPhonetic] = useState('');
+  const [editBack, setEditBack] = useState('');
+  const [editExample, setEditExample] = useState('');
+  const [isSavingCardOverride, setIsSavingCardOverride] = useState(false);
 
   // Load custom content on mount
   const reloadContent = () => {
     setCustomKanjiList(CustomContentService.getCustomKanji());
     setCustomGrammarList(CustomContentService.getCustomGrammar());
     setCustomQuizList(CustomContentService.getCustomQuizQuestions());
+    setCustomDokkaiList(CustomContentService.getCustomReadingPassages());
   };
 
   useEffect(() => {
     reloadContent();
   }, []);
 
+  // When selectedPresetDeckId changes, load its cards
+  useEffect(() => {
+    if (!selectedPresetDeckId) {
+      setPresetDeckCards([]);
+      return;
+    }
+    const deck = PRESET_DECKS.find((d) => d.id === selectedPresetDeckId);
+    if (!deck) return;
+    setIsLoadingPresetCards(true);
+    deck
+      .loadCards()
+      .then((cards) => setPresetDeckCards(cards))
+      .catch((err) => {
+        console.error('Failed to load preset cards:', err);
+        toast({ variant: 'destructive', title: 'Kartalarni yuklab bo‘lmadi' });
+      })
+      .finally(() => setIsLoadingPresetCards(false));
+  }, [selectedPresetDeckId]);
+
+  const handleEditPresetCardClick = (card: PresetCard) => {
+    setEditingPresetCard(card);
+    setEditFront(card.front);
+    setEditPhonetic(card.phonetic || '');
+    setEditBack(card.back);
+    setEditExample(card.example || '');
+  };
+
+  const handleSavePresetCard = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editingPresetCard) return;
+    setIsSavingCardOverride(true);
+    try {
+      const override: GlobalFlashcardOverride = {
+        word: editingPresetCard.front,
+        front: editFront.trim() || editingPresetCard.front,
+        phonetic: editPhonetic.trim() || undefined,
+        back: editBack.trim(),
+        example: editExample.trim() || undefined,
+        deck_id: selectedPresetDeckId,
+      };
+
+      await GlobalFlashcardOverrideService.saveGlobalOverride(override);
+
+      // Refresh loaded cards
+      setPresetDeckCards((prev) =>
+        prev.map((c) =>
+          c.front === editingPresetCard.front
+            ? {
+                ...c,
+                front: editFront.trim() || c.front,
+                back: editBack.trim() || c.back,
+                phonetic: editPhonetic.trim() || c.phonetic,
+                example: editExample.trim() || c.example,
+              }
+            : c,
+        ),
+      );
+
+      toast({
+        title: '✅ Karta yangilandi',
+        description: `"${editingPresetCard.front}" uchun global tuzatish saqlandi.`,
+      });
+      setEditingPresetCard(null);
+    } catch {
+      toast({ variant: 'destructive', title: 'Saqlashda xatolik yuz berdi' });
+    } finally {
+      setIsSavingCardOverride(false);
+    }
+  };
+
   // Sync from DB handler
   const handleSyncFromDb = async () => {
     setIsSyncing(true);
     try {
-      const { kanjiCount, grammarCount, quizCount } = await CustomContentService.syncFromSupabase();
+      const { kanjiCount, grammarCount, quizCount, choukaiCount, dokkaiCount } =
+        await CustomContentService.syncFromSupabase();
       reloadContent();
       toast({
         title: '☁️ Supabase bilan sinxronlandi',
-        description: `${kanjiCount} ta Kanji, ${grammarCount} ta Grammatika va ${quizCount} ta Test savoli yangilandi.`,
+        description: `${kanjiCount} Kanji, ${grammarCount} Grammatika, ${dokkaiCount} Dokkai, ${choukaiCount} Choukai va ${quizCount} Test yangilandi.`,
       });
     } catch {
       toast({
@@ -812,6 +907,16 @@ export const AdminContentStudio: React.FC = () => {
           📝 Grammatika Boshqaruvi ({customGrammarList.length})
         </button>
         <button
+          onClick={() => setActiveSubTab('dokkai')}
+          className={`flex cursor-pointer items-center gap-1.5 rounded-xl px-4 py-2 transition-all ${
+            activeSubTab === 'dokkai'
+              ? 'bg-primary text-primary-foreground shadow-sm'
+              : 'text-muted-foreground hover:text-foreground'
+          }`}
+        >
+          📖 Dokkai (O‘qish) ({customDokkaiList.length})
+        </button>
+        <button
           onClick={() => setActiveSubTab('quiz')}
           className={`flex cursor-pointer items-center gap-1.5 rounded-xl px-4 py-2 transition-all ${
             activeSubTab === 'quiz'
@@ -1468,8 +1573,147 @@ export const AdminContentStudio: React.FC = () => {
               </button>
             </form>
           </div>
+
+          {/* Preset Decks Studio Section */}
+          <div className="space-y-4 rounded-2xl border border-border bg-card p-5 lg:col-span-12">
+            <div className="flex flex-col gap-3 border-b border-border pb-4 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <h3 className="flex items-center gap-2 text-sm font-bold text-foreground">
+                  <Layers size={16} className="text-primary" />
+                  <span>Preset Fleshkard Deklar Studiyasi ({PRESET_DECKS.length} ta To‘plam)</span>
+                </h3>
+                <p className="text-[11px] text-muted-foreground">
+                  JLPT 500 Mon, Minna no Nihongo, Kanji Master va boshqa rasmiy deklardagi
+                  kartochkalarni ko‘ring va tahrirlang.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowFlashcardManagerModal(true)}
+                className="flex items-center gap-1.5 rounded-xl border border-primary/30 bg-primary/10 px-3.5 py-2 text-xs font-bold text-primary hover:bg-primary/20"
+              >
+                <Sparkles size={14} /> Global Override & Cleaner Markazi
+              </button>
+            </div>
+
+            {/* Preset Deck Picker */}
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-12">
+              <div className="sm:col-span-6">
+                <label className="mb-1 block text-xs font-bold text-foreground">
+                  Dekni Tanlang ({PRESET_DECKS.length} ta)
+                </label>
+                <select
+                  value={selectedPresetDeckId}
+                  onChange={(e) => setSelectedPresetDeckId(e.target.value)}
+                  className="w-full rounded-xl border border-border bg-background p-2.5 text-xs font-bold text-foreground focus:border-primary focus:outline-none"
+                >
+                  <option value="">Dekni tanlang...</option>
+                  {PRESET_DECKS.map((d) => (
+                    <option key={d.id} value={d.id}>
+                      {d.icon} {d.title} ({d.cardCount} ta karta, {d.level})
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="sm:col-span-6">
+                <label className="mb-1 block text-xs font-bold text-foreground">
+                  Kartalardan Qidirish
+                </label>
+                <div className="relative">
+                  <Search
+                    size={14}
+                    className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Iyeroglif, o‘qilishi yoki o‘zbekcha tarjimadan qidirish..."
+                    value={presetCardSearch}
+                    onChange={(e) => setPresetCardSearch(e.target.value)}
+                    disabled={!selectedPresetDeckId}
+                    className="w-full rounded-xl border border-border bg-background py-2 pl-8 pr-3 text-xs text-foreground focus:border-primary focus:outline-none disabled:opacity-50"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Deck Cards List */}
+            {selectedPresetDeckId && (
+              <div className="space-y-3 pt-2">
+                <div className="flex items-center justify-between text-xs text-muted-foreground">
+                  <span>
+                    Jami yuklangan: {presetDeckCards.length} ta karta{' '}
+                    {presetCardSearch &&
+                      `(filtrlangan: ${
+                        presetDeckCards.filter(
+                          (c) =>
+                            c.front.toLowerCase().includes(presetCardSearch.toLowerCase()) ||
+                            c.back.toLowerCase().includes(presetCardSearch.toLowerCase()) ||
+                            (c.phonetic &&
+                              c.phonetic.toLowerCase().includes(presetCardSearch.toLowerCase())),
+                        ).length
+                      } ta)`}
+                  </span>
+                  {isLoadingPresetCards && (
+                    <span className="flex items-center gap-1 text-primary">
+                      <RefreshCw size={12} className="animate-spin" /> Yuklanmoqda...
+                    </span>
+                  )}
+                </div>
+
+                <div className="grid max-h-[480px] grid-cols-1 gap-2.5 overflow-y-auto pr-1 md:grid-cols-2 lg:grid-cols-3">
+                  {presetDeckCards
+                    .filter((c) => {
+                      if (!presetCardSearch.trim()) return true;
+                      const q = presetCardSearch.toLowerCase();
+                      return (
+                        c.front.toLowerCase().includes(q) ||
+                        c.back.toLowerCase().includes(q) ||
+                        (c.phonetic && c.phonetic.toLowerCase().includes(q))
+                      );
+                    })
+                    .map((card, idx) => (
+                      <div
+                        key={idx}
+                        className="flex flex-col justify-between rounded-xl border border-border bg-background p-3 hover:border-primary/40"
+                      >
+                        <div className="space-y-1">
+                          <div className="flex items-start justify-between gap-1">
+                            <span className="text-base font-bold text-foreground">
+                              {card.front}
+                            </span>
+                            <button
+                              type="button"
+                              onClick={() => handleEditPresetCardClick(card)}
+                              className="rounded-lg p-1 text-muted-foreground hover:bg-muted hover:text-foreground"
+                              title="Kartani tahrirlash"
+                            >
+                              <Edit2 size={13} />
+                            </button>
+                          </div>
+                          {card.phonetic && (
+                            <span className="block text-[11px] font-medium text-primary">
+                              {card.phonetic}
+                            </span>
+                          )}
+                          <p className="line-clamp-2 text-xs text-muted-foreground">{card.back}</p>
+                        </div>
+                        {card.example && (
+                          <div className="mt-2 border-t border-border/40 pt-1.5 text-[10px] text-muted-foreground">
+                            {card.example}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       )}
+
+      {/* ==================== DOKKAI TAB ==================== */}
+      {activeSubTab === 'dokkai' && <AdminDokkaiManager />}
 
       {/* ==================== 4. QUIZ TAB ==================== */}
       {activeSubTab === 'quiz' && <AdminQuizManager />}
@@ -1870,6 +2114,106 @@ export const AdminContentStudio: React.FC = () => {
                 Hammasini Yuklash ({parsedBulkGrammar.length})
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Admin Flashcard Manager Modal (Cleaner & Global Overrides) */}
+      {showFlashcardManagerModal && (
+        <AdminFlashcardManager
+          isOpen={showFlashcardManagerModal}
+          onClose={() => setShowFlashcardManagerModal(false)}
+        />
+      )}
+
+      {/* Edit Preset Card Modal */}
+      {editingPresetCard && (
+        <div
+          className="backdrop-blur-xs fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4"
+          onClick={() => setEditingPresetCard(null)}
+        >
+          <div
+            className="w-full max-w-md space-y-4 rounded-2xl border border-border bg-card p-5 shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between border-b border-border pb-3">
+              <h4 className="text-sm font-bold text-foreground">
+                Kartani Tahrirlash (Global Override)
+              </h4>
+              <button
+                type="button"
+                onClick={() => setEditingPresetCard(null)}
+                className="rounded-lg p-1 text-muted-foreground hover:text-foreground"
+              >
+                <X size={16} />
+              </button>
+            </div>
+
+            <form onSubmit={handleSavePresetCard} className="space-y-3 text-xs">
+              <div>
+                <label className="mb-1 block font-bold text-foreground">Old tomoni (Front)</label>
+                <input
+                  type="text"
+                  value={editFront}
+                  onChange={(e) => setEditFront(e.target.value)}
+                  className="w-full rounded-xl border border-border bg-background p-2 font-bold text-foreground focus:border-primary focus:outline-none"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="mb-1 block font-bold text-foreground">
+                  O‘qilishi / Transkripsiya (Phonetic)
+                </label>
+                <input
+                  type="text"
+                  value={editPhonetic}
+                  onChange={(e) => setEditPhonetic(e.target.value)}
+                  className="w-full rounded-xl border border-border bg-background p-2 font-medium text-foreground focus:border-primary focus:outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="mb-1 block font-bold text-foreground">
+                  Orqa tomoni (Tarjima)
+                </label>
+                <textarea
+                  rows={2}
+                  value={editBack}
+                  onChange={(e) => setEditBack(e.target.value)}
+                  className="w-full rounded-xl border border-border bg-background p-2 text-foreground focus:border-primary focus:outline-none"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="mb-1 block font-bold text-foreground">Misol Gap (Example)</label>
+                <textarea
+                  rows={2}
+                  value={editExample}
+                  onChange={(e) => setEditExample(e.target.value)}
+                  className="w-full rounded-xl border border-border bg-background p-2 text-foreground focus:border-primary focus:outline-none"
+                />
+              </div>
+
+              <div className="flex items-center gap-2 pt-2">
+                <Button
+                  type="submit"
+                  disabled={isSavingCardOverride}
+                  className="flex-1 py-2 font-bold"
+                >
+                  {isSavingCardOverride ? 'Saqlanmoqda...' : 'Saqlash'}
+                </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => setEditingPresetCard(null)}
+                  className="py-2"
+                >
+                  Bekor qilish
+                </Button>
+              </div>
+            </form>
           </div>
         </div>
       )}

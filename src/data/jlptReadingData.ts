@@ -614,191 +614,6 @@ export const JLPT_READING_PASSAGES: JlptReadingPassage[] = [
     ],
   },
 
-  {
-    id: 'n5_read_6',
-    level: 'N5',
-    title: '日本語学校[にほんごがっこう]の ピクニック',
-    passageType: 'short',
-    japaneseContent:
-      '来週[らいしゅう]の 金曜日[きんようび]に 学生[がくせい]と 先生[せんせい]で 公園[こうえん]へ ピクニックに 行[い]きます。\n朝[あさ] 9時[くじ]に 学校[がっこう]の 前[まえ]に 集[あつ]まってください。\nバスで 1時間[いちじかん] 行[い]きます。\n飲[の]み物[もの]とお弁当[べんとう]を 持[も]ってきてください。\n雨[あめ]の ときは、ピクニックは ありません。',
-    uzbekTranslation:
-      "Kelasi hafta juma kuni talabalar va o'qituvchilar bog'ga sayrga (piknikka) boradilar. Ertalab soat 9:00 da maktab oldida to'planish kerak. Avtobusda 1 soat yuriladi. Ichimlik va tushlik ovqatingizni (bento) olib keling. Yomg'ir yog'sa, sayr bekor qilinadi.",
-    recommendedTimeMinutes: 3,
-    questions: [
-      {
-        id: 'q_n5_6_1',
-        questionText: 'ピクニックは いつ 行[い]きますか。',
-        options: [
-          '今週[こんしゅう]の 金曜日[きんようび]',
-          '来週[らいしゅう]の 金曜日[きんようび]',
-          '来週[らいしゅう]の 日曜日[にちようび]',
-          '毎日[まいにち]',
-        ],
-        correctIndex: 1,
-        explanation: 'Matnda "来週[らいしゅう]の 金曜日[きんようび]に" deb yozilgan.',
-      },
-      {
-        id: 'q_n5_6_2',
-        questionText: '雨[あめ]が 降[ふ]ったら どうしますか。',
-        options: [
-          '学校[がっこう]で 食[た]べます',
-          'ピクニックを しません',
-          'バスの 中[なか]で 遊[あそ]びます',
-          '土曜日[どようび]に 行[い]きます',
-        ],
-        correctIndex: 1,
-        explanation:
-          "Matnning oxirida \"雨[あめ]の ときは、ピクニックは ありません\" (yomg'ir bo'lsa sayr bo'lmaydi) deyilgan.",
-      },
-    ],
-  },
-
-  {
-    id: 'n5_read_7',
-    level: 'N5',
-    title: '駅前[えきまえ] レストランの 案内[あんない]',
-    passageType: 'information_retrieval',
-    japaneseContent:
-      '【さくら 食堂[しょくどう]のお知[し]らせ】\n昼[ひる]の 時間[じかん]：午前[ごぜん]11時[じゅういちじ]～午後[ごご]2時半[にじはん]\n夜[よる]の 時間[じかん]：午後[ごご]5時[ごじ]～午後[ごご]9時[くじ]\n定休日[ていきゅうび]：毎週[まいしゅう] 水曜日[すいようび]\n\nお昼[ひる]の 定食[ていしょく]は 全部[ぜんぶ] 700円[ななひゃくえん]です。\nコーヒーは 無料[むりょう]（0円[ぜろえん]）で 飲[の]むことができます。',
-    uzbekTranslation:
-      "Sakura oshxonasi e'loni. Tushlik vaqti: 11:00 dan 14:30 gacha. Kechki vaqt: 17:00 dan 21:00 gacha. Dam olish kuni: Har chorshanba. Tushlik kompleks taomlari barchasi 700 yen. Qahva bepul (0 yen) taqdim etiladi.",
-    recommendedTimeMinutes: 3,
-    questions: [
-      {
-        id: 'q_n5_7_1',
-        questionText: 'レストランが 休[やす]みの 日[ひ]は いつですか。',
-        options: [
-          '月曜日[げつようび]',
-          '火曜日[かようび]',
-          '水曜日[すいようび]',
-          '日曜日[にちようび]',
-        ],
-        correctIndex: 2,
-        explanation:
-          'E\'londa "定休日[ていきゅうび]：毎週[まいしゅう] 水曜日[すいようび]" deb aniq yozilgan.',
-      },
-      {
-        id: 'q_n5_7_2',
-        questionText: '昼[ひる]の 定食[ていしょく]と コーヒーを 飲[の]むと、いくらですか。',
-        options: [
-          '500円[ごひゃくえん]',
-          '700円[ななひゃくえん]',
-          '900円[きゅうひゃくえん]',
-          '1200円[せんにひゃくえん]',
-        ],
-        correctIndex: 1,
-        explanation: "Tushlik 700 yen, kofe esa bepul (0 yen), jami 700 yen bo'ladi.",
-      },
-    ],
-  },
-
-  {
-    id: 'n5_read_8',
-    level: 'N5',
-    title: 'アパートの ルール',
-    passageType: 'information_retrieval',
-    japaneseContent:
-      '【アパートに 住[す]む みなさんへ】\n1. 夜[よる] 10時[じゅうじ]から 朝[あさ] 7時[しちじ]までは、大[おお]きい 声[こえ]で 話[はな]したり、音楽[おんがく]を 聞[き]いたり しないでください。\n2. 燃[も]える ゴミは 火曜日[かようび]と 金曜日[きんようび]の 朝[あさ] 8時[はちじ]までに 出[だ]してください。\n3. 部屋[へや]の 中[なか]で 犬[いぬ]や 猫[ねこ]などの ペットを 飼[か]うことは できません。',
-    uzbekTranslation:
-      'Kvartirada yashovchilar diqqatiga: 1. Kechki soat 22:00 dan ertalab 7:00 gacha baland ovozda gaplashmang yoki musiqa eshitmang. 2. Yonuvchi axlatlarni seshanba va juma kunlari ertalab soat 8:00 gacha chiqaring. 3. Xonada it yoki mushuk kabi uy hayvonlarini boqish taqiqlanadi.',
-    recommendedTimeMinutes: 3,
-    questions: [
-      {
-        id: 'q_n5_8_1',
-        questionText: 'ゴミは いつ 出[だ]しますか。',
-        options: [
-          '水曜日[すいようび]の 夜[よる]',
-          '火曜日[かようび]と 金曜日[きんようび]の 朝[あさ] 8時[はちじ]まで',
-          '土曜日[どようび]の 午後[ごご]',
-          'いつでも いいです',
-        ],
-        correctIndex: 1,
-        explanation:
-          'Qoidada "火曜日[かようび]と 金曜日[きんようび]の 朝[あさ] 8時[はちじ]までに 出[だ]してください" deb ko\'rsatilgan.',
-      },
-      {
-        id: 'q_n5_8_2',
-        questionText: '部屋[へや]で しては いけないことは どれですか。',
-        options: [
-          '本[ほん]を 読[よ]むこと',
-          '料理[りょうり]を すること',
-          '犬[いぬ]や 猫[ねこ]を 飼[か]うこと',
-          '電気[でんき]を つけること',
-        ],
-        correctIndex: 2,
-        explanation: '3-bandda xonada it yoki mushuk saqlash mumkin emasligi aytilgan.',
-      },
-    ],
-  },
-
-  {
-    id: 'n5_read_9',
-    level: 'N5',
-    title: '京都[きょうと]への 週末[しゅうまつ] 旅行[りょこう]',
-    passageType: 'short',
-    japaneseContent:
-      '私[わたし]は 先週[せんしゅう]の 土曜日[どようび]に 新幹線[しんかんせん]で 京都[きょうと]へ 行[い]きました。\n東京[とうきょう]から 京都[きょうと]まで 2時間半[にじかんはん] かかりました。\n京都[きょうと]で 古[ふる]い 有名[ゆうめい]な お寺[てら]を 見[み]ました。紅葉[もみじ]が とても きれいでした。\n抹茶[まっちゃ]の アイスクリームを 食[た]べました。甘[あま]くて おいしかったです。\nまた 春[はる]に 桜[さくら]を 見[み]に 行[い]きたいです。',
-    uzbekTranslation:
-      "Men o'tgan haftaning shanba kuni Shinkansenda Kyotoga bordim. Tokyodan Kyotogacha 2 yarim soat vaqt ketdi. Kyotoda qadimiy mashhur ibodatxonalarni tomosha qildim. Kuzgi qizil yaproqlar juda chiroyli edi. Matcha muzqaymog'ini yedim. Shirin va mazali edi. Yana bahorda sakuralarni ko'rgani borishni xohlayman.",
-    recommendedTimeMinutes: 3,
-    questions: [
-      {
-        id: 'q_n5_9_1',
-        questionText: '東京[とうきょう]から 京都[きょうと]まで どのくらい かかりましたか。',
-        options: ['1時間[いちじかん]', '2時間半[にじかんはん]', '5時間[ごじかん]', '1日[いちにち]'],
-        correctIndex: 1,
-        explanation: 'Matnda "2時間半[にじかんはん] かかりました" deb aniq yozilgan.',
-      },
-      {
-        id: 'q_n5_9_2',
-        questionText: 'この 人[ひと]は 春[はる]に 何[なに]を しに 行[い]きたいですか。',
-        options: [
-          'スキーを しに 行[い]きたい',
-          '桜[さくら]を 見[み]に 行[い]きたい',
-          '泳[およ]ぎに 行[い]きたい',
-          '仕事[しごと]を しに 行[い]きたい',
-        ],
-        correctIndex: 1,
-        explanation:
-          'Matnning oxirgi jumlasida: "また 春[はる]に 桜[さくら]を 見[み]に 行[い]きたいです" deyilgan.',
-      },
-    ],
-  },
-
-  {
-    id: 'n5_read_10',
-    level: 'N5',
-    title: '友[とも]だちからの メモ',
-    passageType: 'short',
-    japaneseContent:
-      'アリさんへ\n今日[きょう]の 午後[ごご]、アリさんの 部屋[へや]へ 行[い]きましたが、留守[るす]でした。\n借[か]りていた 日本語[にほんご]の 辞書[じしょ]を 机[つくえ]の 上[うえ]に 置[お]きました。\n辞書[じしょ]のおかげで、宿題[しゅくだい]が 全部[ぜんぶ] 終[お]わりました。どうも ありがとうございました。\nまた 明日[あした]、学校[がっこう]で 会[あ]いましょう。\nカルロスより',
-    uzbekTranslation:
-      "Aliga: Bugun tushdan keyin xonangizga bordim, lekin uydamasmidingiz. Qarzga olgan yapon tili lug'atimni stulingiz ustiga qo'ydim. Lug'at yordamida uy vazifasini hammasini tugatdim. Katta rahmat. Ertaga yana maktabda ko'rishguncha. Karlosdan.",
-    recommendedTimeMinutes: 3,
-    questions: [
-      {
-        id: 'q_n5_10_1',
-        questionText: 'カルロスさんは 机[つくえ]の 上[うえ]に 何[なに]を 置[お]きましたか。',
-        options: ['ノート', '宿題[しゅくだい]', '辞書[じしょ]', '時計[とけい]'],
-        correctIndex: 2,
-        explanation: "Karlos olib turgan lug'atini (辞書) stol ustiga qo'yib ketgan.",
-      },
-      {
-        id: 'q_n5_10_2',
-        questionText: 'カルロスさんは なぜ アリさんに お礼[れい]を 言[い]いましたか。',
-        options: [
-          'お金[かね]を もらったから',
-          '辞書[じしょ]のおかげで 宿題[しゅくだい]が 全部[ぜんぶ] 終[お]わったから',
-          '部屋[へや]を 掃除[そうじ]してくれたから',
-          '一緒[いっしょ]に ご飯[はん]を 食[た]べたから',
-        ],
-        correctIndex: 1,
-        explanation:
-          'Matnda "辞書[じしょ]のおかげで、宿題[しゅくだい]が 全部[ぜんぶ] 終[お]わりました。どうも ありがとうございました" deb tushuntirilgan.',
-      },
-    ],
-  },
-
   // --- N4 EXPANDED PASSAGES ---
   {
     id: 'n4_read_3',
@@ -1682,6 +1497,261 @@ export const JLPT_READING_PASSAGES: JlptReadingPassage[] = [
         correctIndex: 1,
         explanation:
           "Inson hayotni boshqarish vositasiga aylantirib, hayotga nisbatan hurmat va hayrat tuyg'usini yo'qotib qo'yishidan ogohlantiradi.",
+      },
+    ],
+  },
+  // ==========================================
+  // === N4 SHINKANZEN DOKKAI PASSAGES ========
+  // ==========================================
+  {
+    id: 'n4_read_11',
+    level: 'N4',
+    title: '外国[がいこく]旅行[りょこう]の 思[おも]い出[で]と レストランでの トラブル',
+    passageType: 'medium',
+    japaneseContent:
+      '私[わたし]は 以前[いぜん]、友[とも]だちと 二人[ふたり]で 初[はじ]めて 外国[がいこく]旅行[りょこう]へ 行[い]きました。\nとても 楽[たの]しかったのですが、一[ひと]つ 困[こま]ったことが ありました。\nその日[ひ]は 町[まち]を 見物[けんぶつ]した あと、夜[よる]、小[ちい]さな レストランで 食事[しょくじ]を しました。料理[りょうり]は とても おいしかったです。\nしかし、食[た]べ終[お]わって お金[かね]を 払[はら]おうとしたとき、その国[くに]の 現金[げんきん]が ほとんど 残[のこ]っていないことに 気[き]づきました。\n友[とも]だちに「お金[かね]を 貸[か]して」と 言[い]いましたが、友[とも]だちも 少[すこ]ししか 持[も]っていませんでした。\n店員[てんいん]に「クレジットカードは 使[つか]えますか」と 聞[き]きましたが、「現金[げんきん]だけです」と 断[ことわ]られてしまいました。\nそのとき、私[わたし]は 日本[にほん]の 円[えん]を 持[も]っていたことを 思[おも]い出[で]しました。「両替[りょうがえ]してきます」と 言[い]って、友[とも]だちを 店[みせ]に 残[のこ]し、近[ちか]くの 両替所[りょうがえじょ]まで 走[はし]って お金[かね]を 替[か]えてきました。\nやっと お金[かね]を 払[はら]うことが できて 安心[あんしん]しました。今[いま]となっては 笑[わら]い話[ばなし]ですが、旅行[りょこう]中[ちゅう]は 現金[げんきん]の 確認[かくにん]が 大切[たいせつ]だと 痛感[つうかん]しました。',
+    uzbekTranslation:
+      "Men avval do'stim bilan ikki kishi bo'lib ilk bor chet elga sayohatga borgan edim. Juda maroqli bo'ldi, lekin bir muammoga duch keldik. O'sha kuni shaharni tomosha qilib bo'lgach, kechqurun kichik bir restoranda ovqatlandik. Taomlar juda mazali edi. Biroq, ovqatlanib bo'lib pul to'lamoqchi bo'lganimda, o'sha mamlakatning naqd puli deyarli qolmaganini payqab qoldim. Do'stimga 'Menga qarz berib tur' dedim, lekin unda ham ozgina bor ekan. Ofitsiantdan 'Kredit karta ishlatsa bo'ladimi' deb so'radik, ammo 'Faqat naqd pul' degan rad javobini oldik. Shunda yonimda yapon iyenasi borligi yodimga tushdi. 'Pul almashtirib kelaman' deb do'stimni qoldirdim-da, yaqin oradagi valyuta ayirboshlash shoxobchasiga yugurib borib pul almashtirdim. Nihoyat to'lay olganimizda yengil tortdik. Hozir buni kulib eslaymiz, ammo sayohatda naqd pulni tekshirib turish muhimligini dildan his qildik.",
+    recommendedTimeMinutes: 4,
+    questions: [
+      {
+        id: 'q_n4_11_1',
+        questionText: 'この人[ひと]たちは、レストランで なぜ 困[こま]りましたか。',
+        options: [
+          '料理[りょうり]の 味[あじ]が 口[くち]に 合[あ]わなかったから',
+          '現金[げんきん]が 足[た]りず、カードも 使[つか]えなかったから',
+          '店[みせ]の 場所[ばしょ]が 分[わ]からなくなったから',
+          'パスポートを 落[お]としてしまったから',
+        ],
+        correctIndex: 1,
+        explanation:
+          "Ovqatlanib bo'lgach, o'sha mamlakat naqd puli yetmagan va kredit karta ham qabul qilinmagani sababli qiyin ahvolda qolishgan.",
+      },
+      {
+        id: 'q_n4_11_2',
+        questionText: 'この人[ひと]は どのようにして お金[かね]を 払[はら]いましたか。',
+        options: [
+          '友[とも]だちに 全額[ぜんがく] 払[はら]ってもらった',
+          'お店[みせ]の 人[ひと]に お金[かね]を 借[か]りた',
+          '持[も]っていた 日本[にほん]の お金[かね]を 両替[りょうがえ]して 払[はら]った',
+          '警察[けいさつ]に 相談[そうだん]して 助[たす]けてもらった',
+        ],
+        correctIndex: 2,
+        explanation:
+          "Yonidagi yapon iyenasini valyuta ayirboshlash shoxobchasida almashtirib kelib hisobni to'lagan.",
+      },
+    ],
+  },
+  {
+    id: 'n4_read_12',
+    level: 'N4',
+    title: '中央[ちゅうおう]図書館[としょかん] パソコンコーナー利用[りよう]案内[あんない]',
+    passageType: 'information_retrieval',
+    japaneseContent:
+      '中央[ちゅうおう]図書館[としょかん] パソコンコーナー利用[りよう]案内[あんない]\n\n【利用[りよう]できる 方[かた]】\n当館[とうかん]の 図書館[としょかん]カードを お持[も]ちの 方[かた]。\n\n【利用[りよう]時間[じかん]】\n・1回[いっかい]につき 60分[ろくじゅっぷん]まで。\n※次[つぎ]に 待[ま]っている 方[かた]が いない場合[ばあい]のみ、1回[いっかい]だけ 30分[さんじゅっぷん] 延長[えんちょう]できます。\n\n【利用[りよう]の 申[もう]し込[こ]み】\n各[かく]パソコンの 横[よこ]にある 受付機[うけつけき]に 図書館[としょかん]カードを タッチしてください。\n\n【印刷[いんさつ]（プリント）について】\n・白黒[しろくろ]（モノクロ）：1枚[いちまい] 10円[じゅうえん]\n・カラー：1枚[いちまい] 50円[ごじゅうえん]\n※印刷[いんさつ]代[だい]は カウンターで 現金[げんきん]にて お支払[しはら]いください。\n\n【注意[ちゅうい]事項[じこう]】\n・飲食[いんしょく]は 禁止[きんし]です（フタの 閉[し]まる 水筒[すいとう]のみ 可[か]）。\n・ゲームや 動画[どうが]の 閲覧[えつらん]は ご遠慮[えんりょ]ください。',
+    uzbekTranslation:
+      "Markaziy kutubxona kompyuter xonasidan foydalanish bo'yicha ko'rsatma.\n[Foydalanish huquqiga ega bo'lganlar]: Kutubxonamiz a'zolik kartasiga ega shaxslar.\n[Foydalanish vaqti]: Bir martada 60 daqiqagacha. (Keyingi kutib turgan odam bo'lmagandagina bir marta 30 daqiqaga uzaytirish mumkin).\n[Ro'yxatdan o'tish]: Har bir kompyuter yonidagi qabul qilish terminaliga kartani tekkizing.\n[Chop etish (printer)]: Oq-qora: 1 varag'i 10 yen; Rangli: 1 varag'i 50 yen. (Chop etish puli peshtaxtada naqd pulda to'lanadi).\n[Eslatmalar]: Yeb-ichish taqiqlanadi (faqat qopqog'i yopiladigan termos/idish mumkin). O'yinlar va ko'ngilochar video tomosha qilishdan tiyiling.",
+    recommendedTimeMinutes: 4,
+    questions: [
+      {
+        id: 'q_n4_12_1',
+        questionText:
+          'パソコンを 利用[りよう]したいとき、まず 何[なに]を しなければ なりませんか。',
+        options: [
+          '職員[しょくいん]に お金[かね]を 払[はら]う',
+          'パソコンの 横[よこ]の 受付機[うけつけき]に カードを タッチする',
+          'パソコンで ゲームを 始[はじ]める',
+          '電話[でんわ]で 予約[よやく]する',
+        ],
+        correctIndex: 1,
+        explanation:
+          'Qoidada ko\'rsatilganidek, kompyuterdan foydalanish uchun kompyuter yonidagi ro\'yxatga olish qurilmasiga kutubxona kartasini tekkizish kerak ("各パソコンの横にある受付機に図書館カードをタッチしてください").',
+      },
+      {
+        id: 'q_n4_12_2',
+        questionText: '白黒[しろくろ]で 3枚[さんまい] 印刷[いんさつ]すると、いくら かかりますか。',
+        options: [
+          '10円[じゅうえん]',
+          '30円[さんじゅうえん]',
+          '50円[ごじゅうえん]',
+          '150円[ひゃくごじゅうえん]',
+        ],
+        correctIndex: 1,
+        explanation:
+          "Oq-qora (モノクロ) chop etish har bir varaq uchun 10 yen. 3 varaq x 10 yen = 30 yen bo'ladi.",
+      },
+    ],
+  },
+
+  // ==========================================
+  // === N3 SHINKANZEN DOKKAI PASSAGES ========
+  // ==========================================
+  {
+    id: 'n3_read_11',
+    level: 'N3',
+    title: 'リサイクルセンター見学[けんがく]実施[じっし]報告書[ほうこくしょ]',
+    passageType: 'short',
+    japaneseContent:
+      'リサイクルセンター見学[けんがく] 報告[ほうこく]\n\n6月[ろくがつ]20日[はつか]（土[どようび]）、教員[きょういん]2名[めい]と 留学生[りゅうがくせい]12名[めい]で 谷町[たにまち]リサイクルセンターを 見学[けんがく]した。\n午前[ごぜん]9時[くじ]に 谷町[たにまち]駅[えき]前[まえ]に 集合[しゅうごう]し、徒歩[とほ]で センターへ 向[む]かった。9時[くじ]10分[じゅっぷん]に 到着[とうちゃく]し、3階[さんがい]の 会議室[かいぎしつ]で 所長[しょちょう]の 挨拶[あいさつ]を 受[う]けた。\nその後[ご]、職員[しょくいん]から リサイクルの 仕組[しく]みについて 説明[せつめい]が あり、質疑[しつぎ]応答[おうとう]と ごみ分別[ぶんべつ]クイズが 行[おこな]われた。続[つづ]いて 職員[しょくいん]の 案内[あんない]で 施設[しせつ]内[ない]を 見学[けんがく]し、ペットボトルが 再生[さいせい]される 工程[こうてい]を 学[まな]んだ。\n当日は センターまつりが 開催[かいさい]されており、粗大[そだい]ごみとして 出[だ]された 家具[かぐ]の 展示[てんじ]即売[そくばい]や 壊[こわ]れた おもちゃの 修理[しゅうり]コーナー、フリーマーケットなどが 並[なら]んでいた。\n見学[けんがく]後[ご]の 20分間[にじゅっぷんかん]の 自由[じゆう]時間[じかん]では、留学生[りゅうがくせい]たちも 買[か]い物[もの]や 住民[じゅうみん]との 交流[こうりゅう]を 楽[たの]しむことが できた。11時[じゅういちじ]に すべての プログラムが 終了[しゅうりょう]し、現地[げんち]で 解散[かいさん]となった。',
+    uzbekTranslation:
+      "Qayta ishlash markaziga o'quv sayohati hisoboti.\n\n20-iyun (shanba) kuni 2 nafar o'qituvchi va 12 nafar chet ellik talaba Tanimachi qayta ishlash markaziga bordi. Ertalab soat 9:00 da Tanimachi vokzali oldida yig'ilib, markaz sari piyoda yo'l olindi. 9:10 da yetib kelindi va 3-qavatdagi majlislar zalida markaz mudiri kutib oldi. Shundan so'ng, xodim tomonidan qayta ishlash tizimi haqida taqdimot qilindi, savol-javob hamda chiqindilarni saralash bo'yicha viktorina o'tkazildi. So'ngra xodim hamrohligida muassasa ko'zdan kechirilib, plastik idishlar qayta ishlanish bosqichlari o'rganildi. O'sha kuni markazda festival o'tayotgan bo'lib, yaroqsiz deb chiqarilgan mebellar savdosi, buzilgan o'yinchoqlarni ta'mirlash burchagi va yarmarka tashkil etilgan edi. Ekskursiyadan keyingi 20 daqiqalik bo'sh vaqtda talabalar xarid qilish va mahalliy aholi bilan muloqot qilish imkoniga ega bo'ldilar. 11:00 da butun dastur yakunlanib, o'sha yerning o'zida tarqaldilar.",
+    recommendedTimeMinutes: 5,
+    questions: [
+      {
+        id: 'q_n3_11_1',
+        questionText: 'この 文章[ぶんしょう]の 内容[ないよう]と 合[あ]っているものは どれか。',
+        options: [
+          'センターに 着[つ]いて 最初[さいしょ]に 施設[しせつ]の 見学[けんがく]を 行[おこな]った',
+          'センターの 前[まえ]に 留学生[りゅうがくせい]が 9時[くじ]に 集合[しゅうごう]した',
+          '留学生[りゅうがくせい]が フリーマーケットなどで 買[か]い物[もの]をする 時間[じかん]が あった',
+          'センターの 中[なか]で お昼[ひる]ご飯[はん]を 食[た]べた 後[あと]に 解散[かいさん]した',
+        ],
+        correctIndex: 2,
+        explanation:
+          "Matnda ko'rsatilganidek, ekskursiyadan so'ng berilgan 20 daqiqalik erkin vaqtda talabalar yarmarkada xarid qilish va xordiq chiqarish imkoniyatiga ega bo'lishdi.",
+      },
+    ],
+  },
+  {
+    id: 'n3_read_12',
+    level: 'N3',
+    title: '睡眠[すいみん]と 脳[のう]の 記憶[きおく]整理[せいり]メカニズム',
+    passageType: 'medium',
+    japaneseContent:
+      '試験[しけん]が 近[ちか]づくと、睡眠[すいみん]時間[じかん]を 削[けず]って 徹夜[てつや]で 勉強[べんきょう]する 人[ひと]が 少[すく]なくない。\nしかし、脳[のう]科学[かがく]の 研究[けんきゅう]によると、これは 記憶[きおく]の 定着[ていちゃく]にとって 逆効果[ぎゃくこうか]であるという。\n人間[にんげん]が 起[お]きている 間[あいだ]、脳[のう]には 膨大[ぼうだい]な 情報[じょうほう]が 次々[つぎつぎ]と 入[はい]ってくる。だが、それらの 情報[じょうほう]を 整理[せいり]し、長期[ちょうき]記憶[きおく]として 大脳[だいのう]皮質[ひしつ]に 保存[ほぞん]するのは、実[じつ]は 睡眠[すいみん]中[ちゅう]の 海馬[かいば]の 働[はたら]きによるものである。\n特[とく]に 深[ふか]い 眠[ねむ]りの 間[あいだ]に、昼間[ひるま] 得[え]た 知識[ちしき]が 再生[さいせい]・整理[せいり]され、必要[ひつよう]な 知識[ちしき]として 定着[ていちゃく]していく。\nしたがって、睡眠[すいみん]を 取[と]らずに 知識[ちしき]だけを 詰[つ]め込[こ]んでも、脳[のう]が それを 整理[せいり]する 時間[じかん]を 得[え]られなければ、翌日[よくじつ]の 試験[しけん]で スムーズに 思[おも]い出[だ]すことは できない。\n効率[こうりつ]よく 成果[せいか]を 出[だ]すためには、勉強[べんきょう]した 後[あと]に しっかり 眠[ねむ]ることが、最も 理[り]に かなった 学習[がくしゅう]法[ほう]なのである。',
+    uzbekTranslation:
+      "Imtihon yaqinlashganda uyqudan kechib, tuni bilan uxlamasdan dars qiladiganlar oz emas. Ammo miya faoliyati bo'yicha ilmiy tadqiqotlarga ko'ra, bu usul xotirada mustahkamlanishi uchun aks ta'sir ko'rsatadi. Inson uyg'oq paytida miyaga juda katta hajmdagi ma'lumotlar oqimi kirib keladi. Biroq ularni tartiblab, uzoq muddatli xotiraga joylashtirish aynan uyqu paytidagi gipokampus faoliyati orqali amalga oshadi. Ayniqsa, chuqur uyqu davrida kunduzi olingan bilimlar miya po'stlog'ida takrorlanadi, tizimlashtiriladi va mustahkamlanadi. Shu sababli, uyqudan qisib miyaga ma'lumot tiqqan bilan, miyaga uni tartibga solish uchun vaqt berilmasa, ertasi kungi imtihonda ularni tezda eslash mushkul bo'ladi. Samarali natijaga erishish uchun darsdan so'ng to'laqonli uxlash eng oqilona o'rganish usulidir.",
+    recommendedTimeMinutes: 6,
+    questions: [
+      {
+        id: 'q_n3_12_1',
+        questionText:
+          '筆者[ひっしゃ]によると、睡眠[すいみん]には どのような 重要[じゅうよう]な 働[はたら]きがあるか。',
+        options: [
+          '起[お]きている時[とき]よりも 新[あたら]しい 情報[じょうほう]を 多[おお]く 吸収[きゅうしゅう]する',
+          '海馬[かいば]の 働[はたら]きを 完全[かんぜん]に 停止[ていし]させる',
+          '昼間[ひるま]に 入[はい]った 情報[じょうほう]を 整理[せいり]し、長期[ちょうき]記憶[きおく]として 定着[ていちゃく]させる',
+          '翌日[よくじつ]の 試験[しけん]の 出題[しゅつだい]内容[ないよう]を 予測[よそく]する',
+        ],
+        correctIndex: 2,
+        explanation:
+          "Matnda to'g'ridan-to'g'ri ta'kidlanganidek, uyqu kunduzi qabul qilingan bilimlarni tartibga solib, ularni uzoq muddatli xotirada saqlash vazifasini bajaradi.",
+      },
+    ],
+  },
+
+  // ==========================================
+  // === N2 SHINKANZEN DOKKAI PASSAGES ========
+  // ==========================================
+  {
+    id: 'n2_read_11',
+    level: 'N2',
+    title: '読書[どくしょ]と 恋愛[れんあい]の 心理[しんり]学[がく]',
+    passageType: 'medium',
+    japaneseContent:
+      'もし あなたが 今[いま]、激[はげ]しい 恋愛[れんあい]の 真[ま]っ只中[ただなか]に あるならば、私[わたし]は 読書[どくしょ]を まったく お勧[すす]めしない。\nとりわけ 恋愛[れんあい]小説[しょうせつ]など、間違[まちが]っても 手[て]に 取[と]るべきではない。バルザックの 名作[めいさく]を 持[も]ってこようが、トルストイの 傑作[けっさく]を 並[なら]べようが、あなた自身[じしん]が 生[なま]身[み]の 身体[しんたい]で 経験[けいけん]している 鮮烈[せんれつ]な 感情[かんじょう]の 前[まえ]には、ことごとく 色[いろ]あせて 見[み]えるに 決[き]まっているからだ。\nまた、相手[あいて]に 本[ほん]の 話[はなし]など 振[ふ]るべきではない。二人[ふたり]で 観覧車[かんらんしゃ]に 乗[の]って 黙[だま]って 手[て]を 握[にぎ]り合[あ]う 時間[じかん]に 比[くら]べれば、本[ほん]を 語[かた]ることなど 白々[しらじら]しい 退屈[たいくつ]に すぎない。\nしかし、もし その 恋愛[れんあい]の ピークが 過[す]ぎ去[さ]り、破局[はきょく]の 兆[きざ]しが 見[み]え始[はじ]めたなら、あるいは 恋[こい]に 破[やぶ]れて 呆然[ぼうぜん]としているなら、その時[とき]こそ 読書[どくしょ]の 出番[でばん]である。\nなぜなら 本[ほん]は、失[うしな]われた 恋[こい]を 取[と]り戻[もど]すことは できないまでも、あなた自身[じしん]が 生[い]きた 体験[たいけん]を、より 普遍的[ふへんてき]で 崇高[すうこう]な 意味[いみ]へと 昇華[しょうか]させ、深[ふか]く 味わい直[なお]す 力[ちから]を 与[あた]えてくれるからである。',
+    uzbekTranslation:
+      "Agar siz hozir shiddatli sevgi-muhabbatning ayni o'rtasida bo'lsangiz, kitob o'qishni sira tavsiya etmayman. Ayniqsa, muhabbat romanlarini yanglishib ham qo'lga olmang. Balzakning mashhur asarini keltirasizmi yoki Tolstoyning durdonasini qo'yasizmi, ayni damda o'z vujudingiz bilan boshdan kechirayotgan yorqin his-tuyg'ularingiz oldida ular nursiz va soxta ko'rinishi aniq. Shuningdek, sevganingizga kitob haqida gap ochish ham o'rinsiz; charxpalakda indamay qo'l ushlashib o'tirish oldida kitobdan gapirish zerikarli va sovuq bir holatdir. Biroq, agar o'sha sevgi cho'qqisi o'tib, munosabat so'na boshlasa yoki ayriliqqa duch kelib dong qotgan bo'lsangiz, ana o'sha vaqtda aynan kitob o'qish sahnaga chiqishi kerak. Chunki kitob yo'qotilgan sevgini qaytarib bera olmasa-da, siz yashab o'tgan hayotiy tajribani yanada ulug'vor va teranroq ma'noga aylantirib, uni qayta chuqur his etish kuchini bera oladi.",
+    recommendedTimeMinutes: 6,
+    questions: [
+      {
+        id: 'q_n2_11_1',
+        questionText:
+          'この 文章[ぶんしょう]で 筆者[ひっしゃ]が 最[もっと]も 言[い]いたいことは 何[なに]か。',
+        options: [
+          '恋愛[れんあい]している ときは くだらない お喋[しゃべ]りをするより、二人[ふたり]で 本[ほん]を 読[よ]むと よい',
+          '恋愛[れんあい]小説[しょうせつ]の 傑作[けっさく]からは 多[おお]くを 学[まな]べるので、恋愛[れんあい]中[ちゅう]の 人[ひと]こそ 読[よ]むべきだ',
+          '恋愛[れんあい]の 最中[さいちゅう]は 本[ほん]を 読[よ]む 必要[ひつよう]はないが、恋[こい]が 終[お]わりに 近[ちか]づいた 時[とき]こそ、体験[たいけん]を 深[ふか]めるために 読書[どくしょ]が 役[やく]に 立[た]つ',
+          '失恋[しつれん]の 苦[くる]しみを 完全[かんぜん]に 忘[わす]れるために、本[ほん]を 読[よ]むべきだ',
+        ],
+        correctIndex: 2,
+        explanation:
+          "Muallifning fikricha, sevgining ayni qizg'in pallasida kitob o'qishga hojat yo'q, ammo munosabat yakuniga yetayotganda kishi o'z tajribasini yanada teranroq anglab yetishi uchun kitob o'qish beqiyos kuch bag'ishlaydi.",
+      },
+    ],
+  },
+  {
+    id: 'n2_read_12',
+    level: 'N2',
+    title: '食品[しょくひん]ロスと「賞味[しょうみ]期限[きげん]」の 誤解[ごかい]',
+    passageType: 'medium',
+    japaneseContent:
+      '近[ちか]年[ねん]、まだ 食[た]べられるにもかかわらず 廃棄[はいき]されてしまう「食品[しょくひん]ロス」が、世界[せかい]的[てき]な 社会[しゃかい]問題[もんだい]となっている。\n日本[にほん]国内[こくない]でも 毎年[まいとし] 多大[ただい]な 量[りょう]の 食品[しょくひん]が 捨[す]てられているが、その 背景[はいけい]には「消費[しょうひ]期限[きげん]」と「賞味[しょうみ]期限[きげん]」の 混同[こんどう]が あると 指摘[してき]されている。\n「消費[しょうひ]期限[きげん]」とは、安全[あんぜん]に 食[た]べられる 期限[きげん]のことであり、生魚[なまざかな]や サンドイッチなど 傷[いた]みやすい 食品[しょくひん]に 表示[ひょうじ]される。これを 過[す]ぎた 場合[ばあい]は、健康[けんこう]への 影響[えいきょう]が 懸念[けねん]される。\n一方[いっぽう]の「賞味[しょうみ]期限[きげん]」は、品質[ひんしつ]が 保[たも]たれ、美味[おい]しく 食[た]べられる 期限[きげん]を 指[さ]す。スナック菓子[がし]や 缶詰[かんづめ]などに 用[もち]いられ、この 日付[ひづけ]を 少[すこ]し 過[す]ぎたからといって、直[ただ]ちに 食[た]べられなくなるわけではない。\nしかし、多[おお]くの 消費者[しょうひしゃ]が 両者[りょうしゃ]の 違[ちが]いを 正確[せいかく]に 理解[りかい]せず、賞味[しょうみ]期限[きげん]が 切[き]れただけで まだ 食[た]べられる 食品[しょくひん]を ゴミ箱[ばこ]へ 捨[す]ててしまっている。\n食品[しょくひん]ロスを 減[へ]らすためには、まず 私[わたし]たち 一人[ひとり]ひとりが 表示[ひょうじ]の 正[ただ]しい 意味[いみ]を 理解[りかい]し、五感[ごかん]を 使[つか]って 判断[はんだん]する 意識[いしき]を 持[も]つことが 不可欠[ふかけつ]である。',
+    uzbekTranslation:
+      "So'nggi yillarda hali iste'molga yaroqli bo'lsa-da tashlab yuboriladigan oziq-ovqat isrofi (food loss) global ijtimoiy muammoga aylanmoqda. Yaponiyaning o'zida ham har yili behisob miqdorda oziq-ovqat tashlab yuboriladi va buning sabablaridan biri sifatida 'shouhi kigen' va 'shoumi kigen' tushunchalarining bir-biri bilan adashtirib yuborilishi ko'rsatiladi. 'Shouhi kigen' (iste'molning xavfsiz muddati) — xavfsiz yeyish mumkin bo'lgan oxirgi muddat bo'lib, xom baliq, sendvich kabi tez buziluvchi mahsulotlarga yoziladi. Bu muddat o'tsa, sog'liqqa xavf tug'ilishi mumkin. Boshqa tomondan, 'shoumi kigen' (eng yaxshi ta'm muddati) esa mahsulot sifati saqlanib, eng mazali bo'lib turish muddatini anglatadi. Quruq pechenye, chips yoki konservalarga beriladi va bu muddat biroz o'tgan taqdirda ham, mahsulot darhol iste'molga yaroqsiz bo'lib qolmaydi. Biroq ko'plab xaridorlar bu farqni tushunmasdan, shoumi kigen o'tishi bilanoq yeb bo'ladigan narsalarni axlatga tashlaydilar. Isrofni kamaytirish uchun har birimiz ushbu belgilarni to'g'ri tushunishimiz va besh sezgimizdan foydalanib baholash ongiga ega bo'lishimiz zarurdir.",
+    recommendedTimeMinutes: 6,
+    questions: [
+      {
+        id: 'q_n2_12_1',
+        questionText:
+          '「賞味[しょうみ]期限[きげん]」についての 説明[せつめい]として、正[ただ]しいものは どれか。',
+        options: [
+          '期限[きげん]が 1日[いちにち]でも 過[す]ぎたら、食中毒[しょくちゅうどく]の 危険[きけん]がある 期限[きげん]',
+          '主[おも]に 生魚[なまざかな]や サンドイッチなどの 傷[いた]みやすい 食品[しょくひん]に 付[つ]けられる',
+          'おいしく 食[た]べられる 目安[めやす]であり、過[す]ぎても 直[ただ]ちに 食[た]べられなくなるわけではない',
+          '開封[かいふう]した 後[あと]に 適用[てきよう]される 期限[きげん]のことである',
+        ],
+        correctIndex: 2,
+        explanation:
+          "Shoumi kigen — mahsulotning mazali ta'mini saqlab turadigan tavsiyaviy muddat bo'lib, bu sana o'tgan taqdirda ham darhol yeyishga yaroqsiz bo'lib qolmaydi.",
+      },
+    ],
+  },
+
+  // ==========================================
+  // === N1 SHINKANZEN DOKKAI PASSAGES ========
+  // ==========================================
+  {
+    id: 'n1_read_11',
+    level: 'N1',
+    title: '組織[そしき]における「個人[こじん]化[か]」と リーダーシップの 葛藤[かっとう]',
+    passageType: 'medium',
+    japaneseContent:
+      '誤解[ごかい]を 恐[おそ]れずに 言[い]えば、今日[こんにち]の 人[ひと]びとは 再[ふたた]び「支配[しはい]」を 希求[ききゅう]し始[はじ]めているように 見[み]える。\n個々人[ここじん]が バラバラに 自由[じゆう]に 振[ふ]る舞[ま]うのではなく、何[なん]らかの 秩序[ちつじょ]と 連帯[れんたい]の 中[なか]に 自[みずか]らを 位置[いち]づけたいという 欲求[よっきゅう]である。近年[きんねん]における「リーダーシップ論[ろん]」の 活況[かっきょう]は、まさに こうした 心理[しんり]の 変化[へんか]を 背景[はいけい]としている。\n過去[かこ]十数年[じゅうすうねん]、あらゆる 組織[そしき]において 従前[じゅうぜん]の 集団[しゅうだん]主義[しゅぎ]的[てき]な 拘束[こうそく]を 打[う]ち破[やぶ]ることが 正義[せいぎ]とされてきた。「個[こ]の 尊重[そんちょう]」や「自己[じこ]責任[せきにん]」が 喧伝[けんでん]され、上[うえ]からの 指示[しじ]や 統制[とうせい]は 時代遅[じだいおく]れの 悪徳[あくとく]と みなされた。\nしかし、過剰[かじょう]な 個人[こじん]化[か]が もたらしたのは、自由[じゆう]の 謳歌[おうか]であると 同時[どうじ]に、拠[よ]って立[た]つべき 規範[きはん]を 喪失[そうしつ]した 個[こ]の「耐[た]えがたい 孤独[こどく]」であった。\n選択肢[せんたくし]が 無限[むげん]に 広[ひろ]がった 結果[けっか]、自[みずか]らの 決定[けってい]に 確信[かくしん]を 持[も]てなくなった 人[ひと]びとは、方向性[ほうこうせい]を 示[しめ]し 責任[せきにん]を 引[ひ]き受[う]けてくれる「強[つよ]い リーダー」を 再[ふたた]び 渇望[かつぼう]し始[はじ]めているのである。',
+    uzbekTranslation:
+      "Noto'g'ri tushunilishdan cho'chimasdan aytganda, bugungi kunda insonlar yana qaytadan 'boshqaruv' va yetakchilikni qo'msay boshlagandek ko'rinadi. Har bir inson tarqoq holda o'zicha erkin harakatlanishdan ko'ra, ma'lum bir tartib va hamjihatlik ichida o'z o'rnini topishga ehtiyoj sezmoqda. So'nggi yillarda 'liderlik nazariyalari'ning avj olishi aynan mana shunday psixologik burilish bilan bog'liqdir. O'tgan o'n yilliklar davomida barcha jamoalarda eski jamoaviylik kishanlarini parchalash eng to'g'ri yo'l deb hisoblandi. 'Shaxs erkinligi' va 'shaxsiy javobgarlik' ulug'lanib, yuqoridan berilgan buyruq va nazorat eskilik sarqiti deb qaraldi. Biroq haddan ziyod individuallashuv erkinlik nashidasini berish bilan bir qatorda, suyanchiq mezonlarini yo'qotgan shaxsning 'chidab bo'lmas yolg'izligi'ni ham keltirib chiqardi. Tanlovlar cheksiz darajada ko'payishi oqibatida o'z qarorlariga ishonchi qolmagan insonlar to'g'ri yo'lni ko'rsatib, mas'uliyatni o'z zimmasiga oluvchi 'kuchli yetakchi'ni yana chanqoqlik bilan izlay boshlamoqdalar.",
+    recommendedTimeMinutes: 7,
+    questions: [
+      {
+        id: 'q_n1_11_1',
+        questionText:
+          'この 文章[ぶんしょう]の 内容[ないよう]として 最[もっと]も 適切[てきせつ]なものは どれか。',
+        options: [
+          '個人[こじん]化[か]が 進[すす]みすぎた 結果[けっか]、規範[きはん]を 失[うしな]った 人[ひと]びとが 孤独[こどく]に 陥[おちい]り、指針[ししん]を 示[しめ]す リーダーを 再[ふたた]び 求[もと]めている',
+          '過去[かこ]十数年[じゅうすうねん]の間[あいだ]、組織[そしき]における 集団[しゅうだん]主義[しゅぎ]は 常[つね]に 正義[せいぎ]として 称賛[しょうさん]されてきた',
+          '個人[こじん]の 自由[じゆう]が 確立[かくりつ]されたため、現代人[げんだいじん]は 他者[たしゃ]からの 支配[しはい]を 完全[かんぜん]に 拒絶[きょぜつ]している',
+          'リーダーシップが 注目[ちゅうもく]されるのは、組織[そしき]の 経済的[けいざいてき] 利益[りえき]が 著[いちじる]しく 向上[こうじょう]したからである',
+        ],
+        correctIndex: 0,
+        explanation:
+          "Matnda haddan tashqari individuallashuv insonlarni tanlovlar oldida sarosimada va yolg'izlikda qoldirgani sababli, ular yo'l ko'rsatuvchi yetakchini qaytadan izlayotgani asosiy g'oya qilib ko'rsatilgan.",
+      },
+    ],
+  },
+  {
+    id: 'n1_read_12',
+    level: 'N1',
+    title:
+      '科学[かがく]的[てき]「客観[きゃっかん]性[せい]」の 限界[げんかい]と パラダイム転換[てんかん]',
+    passageType: 'medium',
+    japaneseContent:
+      '近代[きんだい]科学[かがく]は、観察者[かんさつしゃ]の 主観[しゅかん]を 徹底[てってい]して 排除[はいじょ]した「純粋[じゅんすい]な 客観[きゃっかん]性[せい]」を 理想[りそう]として 追求[ついきゅう]してきた。\n実験[じっけん]と 測定[そくてい]によって 得[え]られた データのみが、普遍的[ふへんてき]な 自然[しぜん]の 真理[しんり]を 映[うつ]し出[だ]す鏡[かがみ]であると 信[しん]じられてきたのである。\nしかし、20世紀[にじっせいき]の 量子[りょうし]力学[りきがく]の 誕生[たんじょう]は、この 客観[きゃっかん]主義[しゅぎ]の 前提[ぜんてい]を 根底[こんてい]から 揺[ゆ]るがした。\n微視的[びしてき]な 世界[せかい]においては、「観測[かんそく]する」という 行為[こうい]そのものが 対象[たいしょう]の 状態[じょうたい]に 不可逆[ふかぎゃく]な 影響[えいきょう]を 与[あた]えてしまう。\nすなわち、観察者[かんさつしゃ]と 切り離[はな]された「客観[きゃっかん]的[てき]な 実在[じつざい]」など 存在[そんざい]しないことが 明[あき]らかになったのである。\n科学[かがく]史家[しか]の トーマス・クーンが 指摘[してき]したように、科学[かがく]の 発展[はってん]とは 単[たん]なる 知識[ちしき]の 積[つ]み重[かさ]ねではなく、時代[じだい]の 共同体[きょうどうたい]が 共有[きょうゆう]する 前提[ぜんてい]の 枠組[わくぐ]み、すなわち「パラダイム」の 断続的[だんぞくてき]な 転換[てんかん]の 歴史[れきし]である。\n我々[われわれ]が「客観[きゃっかん]的[てき] 事実[じじつ]」と 呼[よ]ぶものすら、特定[とくてい]の パラダイムの レンズを 通[とお]して 構成[こうせい]された 解釈[かいしゃく]に すぎない。\n自[みずか]らの 認識[にんしき]の 枠組[わくぐ]みそのものを 批判的[ひはんてき]に 問い直[なお]す 態度[たいど]こそが、真[しん]の 探究[たんきゅう]に 求[もと]められている。',
+    uzbekTranslation:
+      "Zamonaviy ilm-fan kuzatuvchining subyektiv qarashlarini butunlay istisno etgan 'mutlaq xolislik (ob'yektivlik)'ni oliy maqsad deb bilib keldi. Tajriba va o'lchovlar orqali olingan ma'lumotlargina tabiatning universal haqiqatini aks ettiruvchi ko'zgu deb hisoblangan. Biroq 20-asrda kvant mexanikasining vujudga kelishi ushbu ob'yektivlik asoslarini tubdan larzaga soldi. Mikrodunyoda 'kuzatish' aktining o'zi kuzatilayotgan obyekt holatiga muqarrar ta'sir o'tkazadi. Ya'ni, kuzatuvchidan butunlay ajralgan 'mutlaq ob'yektiv mavjudlik' yo'qligi ayon bo'ldi. Ilm-fan tarixchisi Tomas Kun ta'kidlaganidek, fanning rivoji shunchaki bilimlarning qatlamma-qat yig'ilishi emas, balki muayyan davr ilmiy hamjamiyati qabul qilgan qarashlar tizimi — 'paradigma'larning uzluksiz almashinish tarixidir. Biz 'ob'yektiv fakt' deb biladigan narsalar ham muayyan paradigma linzasi orqali shakllangan talqindir, xolos. O'z idrokimiz doirasini tanqidiy qayta ko'rib chiqishga bo'lgan intilishgina haqiqiy ilmiy izlanishning asosiy talabidir.",
+    recommendedTimeMinutes: 7,
+    questions: [
+      {
+        id: 'q_n1_12_1',
+        questionText: '筆者[ひっしゃ]の 主張[しゅちょう]に 合致[がっち]するものは どれか。',
+        options: [
+          '科学[かがく]的[てき]な データは 観察者[かんさつしゃ]の 存在[そんざい]に関係[かんけい]なく、常[つね]に 絶対[ぜったい]的[てき]な 真理[しんり]である',
+          '観測[かんそく]という 行為[こうい]が 対象[たいしょう]に 影響[えいきょう]を 与[あた]える以上[いじょう]、純粋[じゅんすい]な 客観[きゃっかん]は 存在[そんざい]せず、認識[にんしき]の 枠組[わくぐ]みへの 批判[ひはん]的[てき] 吟味[ぎんみ]が 不可欠[ふかけつ]である',
+          '量子[りょうし]力学[りきがく]によって 近代[きんだい]科学[かがく]の すべての 成果[せいか]が 誤[あやま]りであったと 証明[しょうめい]された',
+          '科学[かがく]の パラダイムは 一度[いちど] 確立[かくりつ]されたら、時代[じだい]が 変[か]わっても 転換[てんかん]することはない',
+        ],
+        correctIndex: 1,
+        explanation:
+          "Muallif sof ob'yektivlik mavjud emasligini, kuzatuv harakatining o'zi obyektga ta'sir qilishini va biz doimo o'z tushunchalarimiz tizimini tanqidiy tahlil qilib borishimiz lozimligini uqtiradi.",
       },
     ],
   },

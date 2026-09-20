@@ -61,5 +61,23 @@ describe('PRESET_DECKS Integrity & Quality Tests', () => {
     const n4KanjiCards = await n4KanjiDeck!.loadCards();
     expect(n4KanjiCards.length).toBe(207);
     expect(n4KanjiCards[0].front).toBe('家');
+
+    const n4MonDeck = PRESET_DECKS.find((d) => d.id === 'deck_n4_500_mon');
+    expect(n4MonDeck).toBeDefined();
+    expect(n4MonDeck!.level).toBe('JLPT N4');
+    const n4MonCards = await n4MonDeck!.loadCards();
+    expect(n4MonCards.length).toBe(24);
+
+    const n1MonDeck = PRESET_DECKS.find((d) => d.id === 'deck_n1_500_mon');
+    expect(n1MonDeck).toBeDefined();
+    expect(n1MonDeck!.level).toBe('JLPT N1');
+    const n1MonCards = await n1MonDeck!.loadCards();
+    expect(n1MonCards.length).toBe(24);
+
+    const n2MonDeck = PRESET_DECKS.find((d) => d.id === 'deck_n2_500_mon');
+    expect(n2MonDeck).toBeDefined();
+    expect(n2MonDeck!.level).toBe('JLPT N2');
+    const n2MonCards = await n2MonDeck!.loadCards();
+    expect(n2MonCards.length).toBe(24);
   });
 });

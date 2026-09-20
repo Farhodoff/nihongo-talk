@@ -138,4 +138,18 @@ describe('LessonPlayerPage', () => {
       await screen.findByText(/4 ta yangi so'z Fleshkartalarga qo'shildi/i, {}, { timeout: 4000 }),
     ).toBeInTheDocument();
   });
+
+  it('navigates directly to Mondai listening step via ?step=mondai query parameter', async () => {
+    render(
+      <MemoryRouter initialEntries={['/lesson/ja-minna-l1?step=mondai']}>
+        <Routes>
+          <Route path="/lesson/:lessonId" element={<LessonPlayerPage />} />
+        </Routes>
+      </MemoryRouter>,
+    );
+
+    // Header should indicate Mondai listening step
+    expect(await screen.findByText(/Mondai Tinglash Testi/i)).toBeInTheDocument();
+    expect(screen.getByText(/4 \/ 4/)).toBeInTheDocument();
+  });
 });

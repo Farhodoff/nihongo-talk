@@ -5,6 +5,8 @@ import {
   WeeklyLearningPlan,
   WeeklyEvaluation,
   PlanStatus,
+  WeeklyPlanTask,
+  WeeklyPlanDay,
 } from '../types/learningPlan';
 import { supabase } from '../lib/supabase';
 import { LearningSignalService } from './LearningSignalService';
@@ -366,11 +368,12 @@ export const PersonalLearningPlanService = {
     if (plan.userId && plan.userId !== 'guest') {
       const dbPlanId = toDeterministicUUID(plan.id);
       const dbGoalId = toDeterministicUUID(plan.goalId);
+      const dbUserId = toDeterministicUUID(plan.userId);
 
       const dbPayload = {
         id: dbPlanId,
         goal_id: dbGoalId,
-        user_id: plan.userId,
+        user_id: dbUserId,
         week_number: plan.weekNumber,
         plan_data: {
           startDate: plan.startDate,
@@ -387,13 +390,16 @@ export const PersonalLearningPlanService = {
         updated_at: new Date().toISOString(),
       };
 
-      const { error } = await supabase
-        .from('weekly_learning_plans')
-        .upsert(dbPayload, { onConflict: 'goal_id, week_number' });
+      try {
+        const { error } = await supabase
+          .from('weekly_learning_plans')
+          .upsert(dbPayload, { onConflict: 'goal_id, week_number' });
 
-      if (error) {
-        console.error('[PersonalLearningPlanService] saveWeeklyPlan DB error:', error);
-        throw error;
+        if (error) {
+          console.warn('[PersonalLearningPlanService] saveWeeklyPlan DB notice:', error.message);
+        }
+      } catch (err) {
+        console.warn('[PersonalLearningPlanService] saveWeeklyPlan DB exception:', err);
       }
     }
   },
@@ -600,5 +606,117 @@ export const PersonalLearningPlanService = {
     }
 
     return Array.from(completedIds);
+  },
+
+  /**
+   * Injects targeted remediation tasks (from Mock Exam diagnosis) directly into the user's active Weekly Learning Plan.
+   * If no active plan exists, creates an initial active plan scaffold for current level and distributes tasks.
+   */
+  async injectRemediationTasks(
+    userId: string = 'guest',
+    tasks: WeeklyPlanTask[],
+    level: string = 'N5',
+  ): Promise<{ success: boolean; addedCount: number; targetDays: string[] }> {
+    if (!tasks || tasks.length === 0) {
+      return { success: false, addedCount: 0, targetDays: [] };
+    }
+
+    try {
+      const activeGoal = await this.fetchActiveGoalFromServer(userId);
+      let latestPlan = activeGoal ? this.getLatestWeeklyPlan(userId, activeGoal.id) : null;
+      if (!latestPlan) {
+        const plans = this.getWeeklyPlans(userId);
+        if (plans.length > 0) {
+          latestPlan = plans[0];
+        }
+      }
+
+      const dayOrder: (
+        'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday'
+      )[] = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+
+      // If still no plan, create an initial weekly plan scaffold
+      if (!latestPlan) {
+        const newGoalId = activeGoal
+          ? activeGoal.id
+          : `goal_jlpt_${level.toLowerCase()}_${Date.now()}`;
+        latestPlan = {
+          id: `plan_${Date.now()}`,
+          goalId: newGoalId,
+          userId,
+          weekNumber: 1,
+          startDate: new Date().toISOString().split('T')[0],
+          endDate: new Date(Date.now() + 7 * 86400000).toISOString().split('T')[0],
+          objectives: [`JLPT ${level} imtihoniga tayyorgarlik va zaif mavzularni mustahkamlash`],
+          focusSkills: ['reading', 'listening', 'grammar', 'vocabulary'],
+          days: dayOrder.map((day) => ({ day, tasks: [] })),
+          reasoning: `JLPT ${level} Mock Imtihon tahlili asosida shakllantirilgan shaxsiy o'rganish rejasi.`,
+          expectedOutcome: `JLPT ${level} bo'yicha aniqlangan zaifliklarni bartaraf etish va imtihon ko'rsatkichini oshirish.`,
+          aiGenerated: true,
+          version: 1,
+          status: 'active',
+          createdAt: new Date().toISOString(),
+        };
+      }
+
+      // Determine today or best upcoming days to distribute tasks
+      const todayIdx = Math.max(0, (new Date().getDay() + 6) % 7); // 0=monday, 6=sunday
+      const targetDayNames: string[] = [];
+
+      // Copy days to avoid mutating existing array directly
+      const updatedDays: WeeklyPlanDay[] = (latestPlan.days || []).map((d) => ({
+        ...d,
+        tasks: [...d.tasks],
+      }));
+
+      // If updatedDays is empty for any reason, populate all 7 days
+      if (updatedDays.length === 0) {
+        dayOrder.forEach((d) => updatedDays.push({ day: d, tasks: [] }));
+      }
+
+      // Distribute tasks starting from today or next available days
+      tasks.forEach((task, idx) => {
+        const targetDayIdx = (todayIdx + idx) % 7;
+        const targetDayName = dayOrder[targetDayIdx];
+        const dayEntry = updatedDays.find((d) => d.day === targetDayName);
+        if (dayEntry) {
+          // Check if same remediation task already added
+          const alreadyExists = dayEntry.tasks.some(
+            (t) => t.title === task.title || (t.route && t.route === task.route),
+          );
+          if (!alreadyExists) {
+            dayEntry.tasks.unshift(task); // Prepend so remediation appears at top of day's tasks
+            if (!targetDayNames.includes(targetDayName)) {
+              targetDayNames.push(targetDayName);
+            }
+          }
+        }
+      });
+
+      const updatedPlan: WeeklyLearningPlan = {
+        ...latestPlan,
+        days: updatedDays,
+        version: (latestPlan.version || 1) + 1,
+        status: 'active',
+      };
+
+      await this.saveWeeklyPlan(updatedPlan);
+
+      // Trigger custom storage event for live UI reactivity
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(
+          new CustomEvent('study_planner_plan_updated', { detail: { planId: updatedPlan.id } }),
+        );
+      }
+
+      return {
+        success: true,
+        addedCount: tasks.length,
+        targetDays: targetDayNames,
+      };
+    } catch (err) {
+      console.error('[PersonalLearningPlanService] injectRemediationTasks error:', err);
+      return { success: false, addedCount: 0, targetDays: [] };
+    }
   },
 };

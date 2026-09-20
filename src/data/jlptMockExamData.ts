@@ -3029,3 +3029,1542 @@ export const JLPT_MOCK_EXAM_SET2_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', 
   N2: JLPT_N2_MOCK_SET_2,
   N1: JLPT_N1_MOCK_SET_2,
 };
+
+// ==========================================
+// === JLPT MOCK EXAMS - SET 3 (Speed Master & Authentic Choukai) ===
+// ==========================================
+
+export const JLPT_N5_MOCK_SET_3: ExamQuestion[] = [
+  {
+    id: 151,
+    section: 'knowledge',
+    questionText: 'きのう、あたらしい（車）を かいました。',
+    options: ['くるま', 'でんしゃ', 'じてんしゃ', 'ひこうき'],
+    correctAnswer: 0,
+    explanationUzbek:
+      "「車」（mashina/avtomobil）kanjisining to'g'ri o'qilishi — くるま (kuruma). でんしゃ — poyezd, じてんしゃ — velosiped.",
+  },
+  {
+    id: 152,
+    section: 'knowledge',
+    questionText: 'つくえの うえに ほんが（五冊）あります。',
+    options: ['ごほん', 'ごさつ', 'ごまい', 'ごだい'],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Kitob va daftarlar «〜冊（さつ）» qo'shimchasi bilan sanaladi: 五冊 — ごさつ (beshta kitob).",
+  },
+  {
+    id: 153,
+    section: 'knowledge',
+    questionText: 'きょうは てんきが よくて、（あたたかい）です。',
+    options: ['暑い', '涼しい', '暖かい', '寒い'],
+    correctAnswer: 2,
+    explanationUzbek:
+      "«Iliq» (ob-havo) so'zining to'g'ri kanjisi — 暖かい (あたたかい). 暑い — issiq, 寒い — sovuq.",
+  },
+  {
+    id: 154,
+    section: 'knowledge',
+    questionText: 'あした ともだち（　）えいがを みに いきます。',
+    options: ['に', 'を', 'で', 'と'],
+    correctAnswer: 3,
+    explanationUzbek:
+      "Birgalikda harakat bajarilganda biriktiruvchi «と» yuklamasi ishlatiladi: ともだちと (do'stim bilan).",
+  },
+  {
+    id: 155,
+    section: 'knowledge',
+    questionText: 'すみません、この りんごを みっつ（　）。',
+    options: ['ください', 'あります', 'います', 'します'],
+    correctAnswer: 0,
+    explanationUzbek:
+      'Xarid qilishda buyurtma «〜を ください» (bering) bilan ifodalanadi: みっつ ください (uchta bering).',
+  },
+  {
+    id: 156,
+    section: 'knowledge',
+    questionText: 'わたしは まいばん おんがくを（　）ながら ほんを よみます。',
+    options: ['きいて', 'きき', 'きく', 'きいた'],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Bir vaqtda ikkita ishni bajarishda V-masu o'zagi + ながら: 聞きながら (tinglagan holda).",
+  },
+  {
+    id: 157,
+    section: 'knowledge',
+    questionText: 'へやの でんきを（　）から、ねます。',
+    options: ['けす', 'けした', 'けして', 'けさない'],
+    correctAnswer: 2,
+    explanationUzbek: "Ketma-ket harakatlarda te-shakl + から: 消してから (o'chirgandan so'ng).",
+  },
+  {
+    id: 158,
+    section: 'knowledge',
+    questionText: 'わたしの へやは ひろい（　）、あかるいです。',
+    options: ['が', 'から', 'でも', 'し'],
+    correctAnswer: 3,
+    explanationUzbek: "Sifatlarni biriktirib ifodalashda: 広いし、明るいです (keng hamda yorug').",
+  },
+  {
+    id: 159,
+    section: 'knowledge',
+    questionText: 'この みちは くるまが おおいですから、（あぶない）です。',
+    options: ['危ない', '安全', '便利', '静か'],
+    correctAnswer: 0,
+    explanationUzbek:
+      "«Xavfli» so'zining to'g'ri kanjisi — 危ない (あぶない). 安全 — xavfsiz, 便利 — qulay.",
+  },
+  {
+    id: 160,
+    section: 'knowledge',
+    questionText: 'きのうは どこ（　）いきませんでした。',
+    options: ['にも', 'へも', 'でも', 'をも'],
+    correctAnswer: 1,
+    explanationUzbek: "To'liq inkor: どこへも 行きませんでした (hech qayerga bormadim).",
+  },
+  {
+    id: 161,
+    section: 'knowledge',
+    questionText: 'あには （がいこく）の だいがくで べんきょうして います。',
+    options: ['外園', '国外国', '外国', '町国'],
+    correctAnswer: 2,
+    explanationUzbek: "«Chet el» so'zining to'g'ri kanjisi — 外国 (がいこく).",
+  },
+  {
+    id: 162,
+    section: 'knowledge',
+    questionText: 'この おかしは とても （あまくて） おいしいです。',
+    options: ['辛くて', '苦くて', '酸っぱくて', '甘くて'],
+    correctAnswer: 3,
+    explanationUzbek: "«Shirin bo'lib» i-sifat te-shakli kanjisi — 甘くて (あまくて).",
+  },
+  {
+    id: 163,
+    section: 'knowledge',
+    questionText: 'えきまで あるいて 15ふん（　）かかります。',
+    options: ['ぐらい', 'ごろ', 'しか', 'まで'],
+    correctAnswer: 0,
+    explanationUzbek: 'Vaqt miqdorining taxminiyligi: 15分ぐらい (taxminan 15 daqiqa).',
+  },
+  {
+    id: 164,
+    section: 'reading',
+    passageText:
+      'わたしは まいあさ 6じに おきます。あさごはんを たべてから、いぬと さんぽを します。それから バスで かいしゃへ いきます。',
+    questionText: 'この ひとは あさごはんの あとで 何[なに]を しますか。',
+    options: ['かいしゃへ いきます', 'いぬと さんぽを します', '6じに おきます', 'テレビを みます'],
+    correctAnswer: 1,
+    explanationUzbek: 'Matnda nonushtadan keyin it bilan sayr qilishi yozilgan.',
+  },
+  {
+    id: 165,
+    section: 'reading',
+    passageText:
+      'きのうの にちようび、たなかさんと デパートへ いきました。たなかさんは あおい シャツを かいました。わたしは くろい くつを かいました。',
+    questionText: '「わたし」は デパートで 何[なに]を かいましたか。',
+    options: ['あおい シャツ', 'コーヒー', 'くろい くつ', 'かばん'],
+    correctAnswer: 2,
+    explanationUzbek: "Matnda qora poyabzal sotib olgani aniq ko'rsatilgan.",
+  },
+  {
+    id: 166,
+    section: 'reading',
+    passageText:
+      'わたしの へやには ベッドと つくえが あります。つくえの うえには パソコンが あります。ほんばこは つくえの ひだりに あります。',
+    questionText: 'ほんばこは どこに ありますか。',
+    options: ['つくえの うえ', 'ベッドの した', 'へやの そと', 'つくえの ひだり'],
+    correctAnswer: 3,
+    explanationUzbek: 'Kitob javoni stolning chap tomonida joylashgan.',
+  },
+  {
+    id: 167,
+    section: 'reading',
+    passageText:
+      '日本の なつは とても あついです。でも、なつやすみには うみや やまへ いきます。わたしは うみで およぐのが だいすきです。',
+    questionText: 'この ひとは なつやすみに 何[なに]を するのが すきですか。',
+    options: ['うみで およぐこと', 'やまに のぼること', 'いえで ねること', 'あめを みること'],
+    correctAnswer: 0,
+    explanationUzbek: "Dengizda suzishni yaxshi ko'rishi aytilgan.",
+  },
+  {
+    id: 168,
+    section: 'reading',
+    passageText:
+      'スミスさんは らいしゅう 国へ かえります。みんなで 金曜日の よるに 送別会を します。時間は 6時半からです。',
+    questionText: 'そうべつかいは いつ ありますか。',
+    options: [
+      'どようびの あさ',
+      'きんようびの よる 6じはん',
+      'らいしゅうの にちようび',
+      'きょうの よる',
+    ],
+    correctAnswer: 1,
+    explanationUzbek: "Juma oqshomi 6:30 da o'tkazilishi aytilgan.",
+  },
+  {
+    id: 169,
+    section: 'reading',
+    passageText:
+      'としょかんの ごあんない：ほんは ひとり 5さつまで かりることが できます。かりる きかんは 2しゅうかんです。',
+    questionText: 'としょかんで ほんは なんさつまで かりられますか。',
+    options: ['2さつまで', '10さつまで', '5さつまで', 'なんさつでも'],
+    correctAnswer: 2,
+    explanationUzbek: "Kutubxona qoidasiga ko'ra 5 tagacha kitob olish mumkin.",
+  },
+  {
+    id: 170,
+    section: 'listening',
+    audioUrl: '/audio/choukai/n5/minna_shokyu_1_005.mp3',
+    script:
+      '男：このペンはいくらですか。\n女：1本150円です。\n男：じゃ、2本ください。\n女：300円になります。',
+    questionText: '男[おとこ]の 人[ひと]は 全部[ぜんぶ]で いくら はらいますか。',
+    options: ['150円', '200円', '450円', '300円'],
+    correctAnswer: 3,
+    explanationUzbek: "150 yendan 2 ta ruchka xarid qilgani uchun 300 yen to'laydi.",
+  },
+  {
+    id: 171,
+    section: 'listening',
+    audioUrl: '/audio/choukai/n5/minna_shokyu_1_006.mp3',
+    script:
+      '女：あした何時に会いましょうか。\n男：9時はどうですか。\n女：9時は少し早いので9時半にしませんか。\n男：いいですよ。',
+    questionText: '2人[ふたり]は あした 何時[なんじ]に 会[あ]いますか。',
+    options: ['9時半[くじはん]', '9時[くじ]', '10時[じゅうじ]', '8時半[はちじはん]'],
+    correctAnswer: 0,
+    explanationUzbek: "9 juda erta bo'lgani sababli 9:30 ga kelishishdi.",
+  },
+  {
+    id: 172,
+    section: 'listening',
+    audioUrl: '/audio/choukai/n5/minna_shokyu_1_007.mp3',
+    script:
+      '男：きのうはどこか行きましたか。\n女：ええ、家族と動物園へ行きました。パンダを見ましたよ。',
+    questionText: '女[おんな]の 人[ひと]は きのう どこへ 行[い]きましたか。',
+    options: ['水族館[すいぞくかん]', '動物園[どうぶつえん]', '映画館[えいがかん]', 'デパート'],
+    correctAnswer: 1,
+    explanationUzbek: "Hayvonot bog'iga borib pandalarni ko'rgani aytildi.",
+  },
+  {
+    id: 173,
+    section: 'listening',
+    audioUrl: '/audio/choukai/n5/minna_shokyu_1_008.mp3',
+    script: '女：その傘は田中さんのですか。\n男：いいえ、私のは青いです。これは山田さんのです。',
+    questionText: '田中[たなか]さんの 傘[かさ]は 何色[なにいろ]ですか。',
+    options: ['黒[くろ]', '白[しろ]', '青[あお]', '赤[あか]'],
+    correctAnswer: 2,
+    explanationUzbek: "Tanaka janob o'z soyaboni ko'k rangdaligini bildirdi.",
+  },
+  {
+    id: 174,
+    section: 'listening',
+    audioUrl: '/audio/choukai/n5/minna_shokyu_1_009.mp3',
+    script: '男：今何時ですか。\n女：ちょうど3時ですよ。\n男：会議の時間ですね。急ぎましょう。',
+    questionText: '2人[ふたり]は これから 何[なに]を しますか。',
+    options: ['昼[ひる]ごはんを 食[た]べる', '帰[かえ]る', '休[やす]む', '会議[かいぎ]に 行[い]く'],
+    correctAnswer: 3,
+    explanationUzbek: "Soat 3 da majlis bo'lgani uchun tezroq yig'ilishga borishmoqda.",
+  },
+  {
+    id: 175,
+    section: 'listening',
+    audioUrl: '/audio/choukai/n5/minna_shokyu_1_010.mp3',
+    script: '女：富士山のはがきを3枚ください。\n店員：はい、3枚で300円です。',
+    questionText: '女[おんな]の 人[ひと]は はがきを 何枚[なんまい] 買[か]いましたか。',
+    options: ['3枚[さんまい]', '1枚[いちまい]', '5枚[ごまい]', '2枚[にまい]'],
+    correctAnswer: 0,
+    explanationUzbek: 'Ayol kishi 3 ta otkritka sotib oldi.',
+  },
+];
+
+export const JLPT_N4_MOCK_SET_3: ExamQuestion[] = [
+  {
+    id: 251,
+    section: 'knowledge',
+    questionText: '日本[にほん]の 歴史[れきし]に ついて（研究[けんきゅう]）して います。',
+    options: ['けんきゅう', 'けんがく', 'けんしゅう', 'せんもん'],
+    correctAnswer: 0,
+    explanationUzbek:
+      "「研究」（ilmiy izlanish, tadqiqot）ning to'g'ri o'qilishi — けんきゅう (kenkyuu).",
+  },
+  {
+    id: 252,
+    section: 'knowledge',
+    questionText:
+      'パスポートを （紛失[ふんしつ]）した 場合は、すぐに 届け出[とどけで]て ください。',
+    options: ['こわした', 'なくした', 'みつけた', 'もらった'],
+    correctAnswer: 1,
+    explanationUzbek: "「紛失」so'zining ma'nosi — tushirib yo'qotmoq (なくした).",
+  },
+  {
+    id: 253,
+    section: 'knowledge',
+    questionText: 'この 荷物[にもつ]は （重[おも]すぎて）、一人[ひとり]では 持[も]てません。',
+    options: ['軽すぎて', '長すぎて', '重すぎて', '多すぎて'],
+    correctAnswer: 2,
+    explanationUzbek: "«Juda og'ir bo'lib ketgan» kanjisi — 重すぎて (おもすぎて).",
+  },
+  {
+    id: 254,
+    section: 'knowledge',
+    questionText: '田中[たなか]さんは 会議[かいぎ]の 資料[しりょう]を もう 集[あつ]めて（　）。',
+    options: ['います', 'おきます', 'しまいます', 'あります'],
+    correctAnswer: 3,
+    explanationUzbek:
+      'Oldindan qilingan maqsadli harakat natijasi: 他動詞＋てあります: 集めてあります.',
+  },
+  {
+    id: 255,
+    section: 'knowledge',
+    questionText: '頭[あたま]が 痛[いた]いんです。（　）早[はや]く 帰[かえ]っても いいですか。',
+    options: ['ですから', 'それで', 'しかし', 'でも'],
+    correctAnswer: 0,
+    explanationUzbek: "Sabab bildirishdan so'ng xulosa chiqarish: ですから (shuning uchun).",
+  },
+  {
+    id: 256,
+    section: 'knowledge',
+    questionText: '先生[せんせい]、この 漢字[かんじ]の 読[よ]み方[かた]を 教[おし]えて（　）。',
+    options: ['あげましょうか', 'いただけませんか', 'もらいますか', 'くれますか'],
+    correctAnswer: 1,
+    explanationUzbek: "O'qituvchidan muloyimlik bilan o'rgatishni so'rash: 〜ていただけませんか.",
+  },
+  {
+    id: 257,
+    section: 'knowledge',
+    questionText: '雨[あめ]が（　）そうだから、傘[かさ]を 持[も]って 行[い]きましょう。',
+    options: ['降る', '降った', '降り', '降って'],
+    correctAnswer: 2,
+    explanationUzbek:
+      "Tashqi belgiga qarab taxmin: Fe'l masu-o'zagi + そう: 降りそう (yog'adiganga o'xshaydi).",
+  },
+  {
+    id: 258,
+    section: 'knowledge',
+    questionText: '将来[しょうらい] 医者[いしゃ]に（　）つもりです。',
+    options: ['なり', 'なって', 'なろう', 'なる'],
+    correctAnswer: 3,
+    explanationUzbek:
+      "Qat'iy niyat va maqsad: Fe'l lug'aviy shakli + つもり: なる つもり (bo'lmoqchiman).",
+  },
+  {
+    id: 259,
+    section: 'knowledge',
+    questionText: 'この 本[ほん]は 難[むずか]しすぎて、ちっとも（　）。',
+    options: ['分かりません', '分かります', '読めました', '面白いです'],
+    correctAnswer: 0,
+    explanationUzbek:
+      "«Juda qiyin bo'lgani uchun umuman tushunmadim»: ちっとも＋inkor (分かりません).",
+  },
+  {
+    id: 260,
+    section: 'knowledge',
+    questionText: '明日[あした]までに この 本[ほん]を 読[よ]んで（　）ください。',
+    options: ['あって', 'おいて', 'いて', 'みせて'],
+    correctAnswer: 1,
+    explanationUzbek: "Belgilangan vaqtgacha tayyorlab qo'yish: V-ておいて ください.",
+  },
+  {
+    id: 261,
+    section: 'knowledge',
+    questionText: '時間[じかん]が ありませんから、（急[いそ]いで） 行[い]きましょう。',
+    options: ['あるいて', 'はしって', 'いそいで', 'とんで'],
+    correctAnswer: 2,
+    explanationUzbek: "«Shoshib, tezlik bilan» fe'lining te-shakli — 急いで (いそいで).",
+  },
+  {
+    id: 262,
+    section: 'knowledge',
+    questionText: '私[わたし]は 毎朝[まいあさ] 6時[ろくじ]に（起[お]きる）ように して います。',
+    options: ['おける', 'あきる', 'いきる', 'おきる'],
+    correctAnswer: 3,
+    explanationUzbek: "«Uyg'onmoq» fe'lining to'g'ri o'qilishi — 起きる (おきる).",
+  },
+  {
+    id: 263,
+    section: 'knowledge',
+    questionText:
+      '田中[たなか]さんは 来週[らいしゅう] アメリカへ 出張[しゅっちょう]する（　）です。',
+    options: ['予定[よてい]', '都合[つごう]', '準備[じゅんび]', '利用[りよう]'],
+    correctAnswer: 0,
+    explanationUzbek: 'Rasmiy taqvim rejasi: 〜予定です (yotei desu - rejalashtirilgan).',
+  },
+  {
+    id: 264,
+    section: 'reading',
+    passageText:
+      'スピーチ大会のお知らせ：日時：11月1日（日）午後1時〜。参加希望者は10月15日（木）までに事務所へ申し込んでください。原稿は10月20日までに提出してください。',
+    questionText:
+      'スピーチ大会[たいかい]に 出[で]る 人[ひと]は 何日[なんにち]までに 申[もう]し込[こ]まなければ なりませんか。',
+    options: ['10月20日', '10月15日[じゅうがつじゅうごにち]', '11月1日', 'いつでもよい'],
+    correctAnswer: 1,
+    explanationUzbek: "E'londa arizalar 10-oktyabr 15-sanagacha qabul qilinishi yozilgan.",
+  },
+  {
+    id: 265,
+    section: 'reading',
+    passageText:
+      'アパートの利用規則：ゴミは決められた曜日の朝8時までに出してください。ペットの飼育や深夜の楽器演奏は禁止です。夜10時以降は近隣の迷惑にならないよう静かに過ごしてください。',
+    questionText: 'この アパートの 規則[きそく]で 正[ただ]しいものは どれですか。',
+    options: [
+      'ペットを 飼[か]っても よい',
+      'ゴミは いつでも 捨[す]てて よい',
+      '夜[よる] 10時[じゅうじ]以降[いこう]は 静[しず]かに する',
+      '部屋[へや]で 楽器[がっき]を 弾[ひ]いて よい',
+    ],
+    correctAnswer: 2,
+    explanationUzbek:
+      'Kvartira qoidasida kechki soat 10 dan keyin shovqin qilmaslik shart qilingan.',
+  },
+  {
+    id: 266,
+    section: 'reading',
+    passageText:
+      '山田さんのメール：「田中部長、すみません。乗っていた電車が事故で止まってしまい、30分ほど遅れます。資料は先に始めていてください。」',
+    questionText: '山田[やまだ]さんは どうして 会議[かいぎ]に 遅[おく]れましたか。',
+    options: [
+      '寝坊[ねぼう]したから',
+      '道[みち]に 迷[まよ]ったから',
+      '場所[ばしょ]を 間違[まちが]えたから',
+      '電車[でんしゃ]が 事故[じこ]で 止[と]まったから',
+    ],
+    correctAnswer: 3,
+    explanationUzbek: "Poyezd halokat sababli to'xtab qolgani tushuntirilgan.",
+  },
+  {
+    id: 267,
+    section: 'reading',
+    passageText:
+      'リサイクルショップ受付基準：汚れや破れのない衣類、正常に動作する電化製品のみ買い取ります。故障品や粗大ゴミはお引き取りできません。',
+    questionText: 'リサイクルショップに 持[も]って 行[い]ける 物[もの]は どれですか。',
+    options: [
+      'まだ 使[つか]える きれいな 服[ふく]',
+      '壊[こわ]れた テレビ',
+      '汚[よご]れた 家具[かぐ]',
+      '動[うご]かない 時計[とけい]',
+    ],
+    correctAnswer: 0,
+    explanationUzbek: 'Faqat toza va yaroqli kiyim-kechaklar qabul qilinishi aytilgan.',
+  },
+  {
+    id: 268,
+    section: 'reading',
+    passageText:
+      'パソコンコーナーの利用案内：利用希望者は受付カウンターで学生証を提示し、利用カードを受け取ってください。1回の利用時間は最大1時間です。',
+    questionText:
+      '図書館[としょかん]の パソコンを 使[つか]いたい 人[ひと]は まず 何[なに]を しますか。',
+    options: [
+      '自由[じゆう]に 座[すわ]って 電源[でんげん]を 入[い]れる',
+      '受付[うけつけ]で 学生証[がくせいしょう]を 見[み]せる',
+      'お金[かね]を 払[はら]う',
+      '先生[せんせい]の 許可[きょか]を もらう',
+    ],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Kutubxonadagi kompyuterdan foydalanish uchun talabalik guvohnomasini ko'rsatish kerak.",
+  },
+  {
+    id: 269,
+    section: 'reading',
+    passageText:
+      '留学生奨学金募集要項：対象は出席率が90％以上で、学業成績が優秀な正規学生です。他の奨学金を受給していないことが条件となります。',
+    questionText:
+      '留学生[りゅうがくせい]センターの 奨学金[しょうがくきん]の 条件[じょうけん]で 合[あ]って いるものは どれですか。',
+    options: [
+      'アルバイトを して いない 人',
+      '1年生[いちねんせい]だけ',
+      '出席率[しゅっせきりつ]が 90％以上[いじょう]の 人[ひと]',
+      '日本語[にほんご]が 話[はな]せない 人',
+    ],
+    correctAnswer: 2,
+    explanationUzbek: "Davomat ko'rsatkichi 90% dan yuqori bo'lishi talab qilinadi.",
+  },
+  {
+    id: 270,
+    section: 'listening',
+    audioUrl: '/audio/choukai/n4/shinkanzen_chokai_n4_CD-B_001.mp3',
+    script:
+      '男：郵便局へ行く前に、まず銀行でお金を下ろしてくるよ。\n女：じゃ、ついでに切手も買ってきてくれる？\n男：うん、分かった。',
+    questionText: '男[おとこ]の 人[ひと]は これから まず どこへ 行[い]きますか。',
+    options: ['郵便局[ゆうびんきょく]', 'コンビニ', '会社[かいしゃ]', '銀行[ぎんこう]'],
+    correctAnswer: 3,
+    explanationUzbek: 'Avval pul yechib olish uchun bankka borishini aytdi.',
+  },
+  {
+    id: 271,
+    section: 'listening',
+    audioUrl: '/audio/choukai/n4/shinkanzen_chokai_n4_CD-B_002.mp3',
+    script:
+      '女：10時ちょうどは満席ですね。\n駅員：10時15分のひかり号なら空きがございます。\n女：じゃ、その10時15分のをお願いします。',
+    questionText: '女[おんな]の 人[ひと]は 何時[なんじ]の 新幹線[しんかんせん]に 乗[の]りますか。',
+    options: ['10時15分[じゅうじじゅうごふん]', '10時[じゅうじ]', '10時30分', '11時[じゅういちじ]'],
+    correctAnswer: 0,
+    explanationUzbek: '10:15 dagi poyezdga chiqishi rejalashtirildi.',
+  },
+  {
+    id: 272,
+    section: 'listening',
+    audioUrl: '/audio/choukai/n4/shinkanzen_chokai_n4_CD-B_003.mp3',
+    script:
+      '男：お昼は何にする？食堂は混んでるよ。\n女：駅前に新しいカレー屋ができたから行ってみない？\n男：いいね、そうしよう。',
+    questionText: '2人[ふたり]は どこで 昼[ひる]ごはんを 食[た]べますか。',
+    options: [
+      '会社の 食堂[しょくどう]',
+      '駅前[えきまえ]の カレー屋[や]',
+      '公園[こうえん]',
+      'コンビニ',
+    ],
+    correctAnswer: 1,
+    explanationUzbek: 'Vokzal oldidagi yangi ochilgan karri oshxonasiga borishga kelishishdi.',
+  },
+  {
+    id: 273,
+    section: 'listening',
+    audioUrl: '/audio/choukai/n4/shinkanzen_chokai_n4_CD-B_004.mp3',
+    script:
+      '受付：明日の健康診断には、健康保険証と写真2枚を必ずお持ちください。\n男：はい、保険証と写真ですね。分かりました。',
+    questionText:
+      '男[おとこ]の 人[ひと]は 明日[あした] 何[なに]を 持[も]って 行[い]かなければ なりませんか。',
+    options: [
+      'お金[かね]だけ',
+      'パスポート',
+      '保険証[ほけんしょう]と 写真[しゃしん]',
+      '筆記用具[ひっきようぐ]だけ',
+    ],
+    correctAnswer: 2,
+    explanationUzbek: "Tibbiy sug'urta kartasi va 2 dona fotosurat talab qilinadi.",
+  },
+  {
+    id: 274,
+    section: 'listening',
+    audioUrl: '/audio/choukai/n4/shinkanzen_chokai_n4_CD-B_005.mp3',
+    script:
+      '男：すみません、この机を隣の部屋に運びたいんですが、手伝ってもらえませんか。\n女：ええ、いいですよ。一緒に持ちましょう。',
+    questionText: '女[おんな]の 人[ひと]は 何[なに]を 手伝[てつだ]いますか。',
+    options: [
+      '書類[しょるい]を コピーする',
+      '電話[でんわ]を かける',
+      '掃除[そうじ]をする',
+      '部屋[へや]の 机[つくえ]を 運[はこ]ぶ',
+    ],
+    correctAnswer: 3,
+    explanationUzbek: "Xonadagi og'ir stolni ko'chirishga yordam beradi.",
+  },
+  {
+    id: 275,
+    section: 'listening',
+    audioUrl: '/audio/choukai/n4/shinkanzen_chokai_n4_CD-B_006.mp3',
+    script:
+      '女：明日の歓迎会、来られる？\n男：残念だけど、急にバイトのシフトが入っちゃって行けないんだ。\n女：そうなんだ、残念。',
+    questionText: '男[おとこ]の 人[ひと]は どうして パーティーに 行[い]けませんか。',
+    options: [
+      'アルバイトが 入[はい]って しまったから',
+      '病気[びょうき]に なったから',
+      '旅行[りょこう]に 行[い]くから',
+      'お金[かね]が ないから',
+    ],
+    correctAnswer: 0,
+    explanationUzbek: 'Kutilmaganda smenada yarim kunlik ish chiqib qolgani sababli borolmaydi.',
+  },
+];
+
+export const JLPT_N3_MOCK_SET_3: ExamQuestion[] = [
+  {
+    id: 351,
+    section: 'knowledge',
+    questionText:
+      'この プロジェクトは 全員[ぜんいん]の 協力[きょうりょく]の（もとに） 成功[せいこう]した。',
+    options: ['もとに', 'うしろに', 'あいだに', 'まえに'],
+    correctAnswer: 0,
+    explanationUzbek:
+      "Biror narsaning rahnamoligi yoki ko'magi ostida: 〜のもとに (yordami ostida).",
+  },
+  {
+    id: 352,
+    section: 'knowledge',
+    questionText: '新商品の 発売[はつばい]を 来月[らいげつ]に（延期[えんき]）することになった。',
+    options: ['えんちょう', 'えんき', 'ちゅうし', 'はいし'],
+    correctAnswer: 1,
+    explanationUzbek:
+      "「延期」（kechiktirish, muddatini surish）ning to'g'ri o'qilishi — えんき (enki).",
+  },
+  {
+    id: 353,
+    section: 'knowledge',
+    questionText: '最近[さいきん]の 若者[わかもの]は スマートフォンに（依存[いぞん]）しがちだ。',
+    options: ['いそん', 'たいぞん', 'いぞん', 'よりぞん'],
+    correctAnswer: 2,
+    explanationUzbek: "«Bog'lanib/qaram bo'lib qolish» so'zining o'qilishi — 依存 (いぞん/いそん).",
+  },
+  {
+    id: 354,
+    section: 'knowledge',
+    questionText: 'どんなに 忙[いそが]しくても、連絡[れんらく]ぐらい（すべきだ）。',
+    options: ['するはずだ', 'するわけだ', 'するべきではない', 'すべきだ'],
+    correctAnswer: 3,
+    explanationUzbek: "Burch va umuminsoniy qoida sifatida: 〜べきだ (qilmog'i shart/lozim).",
+  },
+  {
+    id: 355,
+    section: 'knowledge',
+    questionText: '彼[かれ]は 親切[しんせつ]な（反面[はんめん]）、怒[おこ]りっぽい ところも ある。',
+    options: ['はんめん', 'うらめん', 'ぎゃくめん', 'たいめん'],
+    correctAnswer: 0,
+    explanationUzbek: '«Bir tomondan... ikkinchi tomondan esa»: 反面 (はんめん - hanmen).',
+  },
+  {
+    id: 356,
+    section: 'knowledge',
+    questionText:
+      'この 店[みせ]の パンは 美味[おい]しい（ばかりでなく）、値段[ねだん]も 手頃[てごろ]だ。',
+    options: ['ばかりか', 'ばかりでなく', 'ほどではなく', 'きりではなく'],
+    correctAnswer: 1,
+    explanationUzbek: '«Faqatgina u emas, balki... ham»: 〜ばかりでなく.',
+  },
+  {
+    id: 357,
+    section: 'knowledge',
+    questionText:
+      '試験[しけん]が 近[ちか]づく（にしたがって）、緊張感[きんちょうかん]が 高[たか]まってきた。',
+    options: ['にともなって', 'にたいして', 'にしたがって', 'について'],
+    correctAnswer: 2,
+    explanationUzbek: 'Biror holat rivojlanishi bilan mutanosib ravishda: 〜にしたがって.',
+  },
+  {
+    id: 358,
+    section: 'knowledge',
+    questionText:
+      '田中[たなか]さんが 犯人[はんにん]の（はずがない）。彼[かれ]は その時[とき] 旅行中[りょこうちゅう]だった。',
+    options: ['わけがない', 'にちがいない', 'かもしれない', 'はずがない'],
+    correctAnswer: 3,
+    explanationUzbek: "Kuchli mantiqiy inkor: «bunday bo'lishi aslo mumkin emas» — 〜はずがない.",
+  },
+  {
+    id: 359,
+    section: 'knowledge',
+    questionText: '風邪[かぜ]（気味[ぎみ]）で、頭[あたま]が ぼんやり しています。',
+    options: ['ぎみ', 'っぽい', 'がち', 'だらけ'],
+    correctAnswer: 0,
+    explanationUzbek: 'Biroz shamollash alomati sezilayotganda: 風邪気味 (かぜぎみ).',
+  },
+  {
+    id: 360,
+    section: 'knowledge',
+    questionText:
+      '昨日[きのう]は 一日中[ついたちじゅう] 忙[いそが]しくて、食事[しょくじ]を（とる時間すらなかった）。',
+    options: [
+      'とる時間ばかりだった',
+      'とる時間すらなかった',
+      'とる時間だけだった',
+      'とる時間どころだった',
+    ],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Hatto eng oddiy narsaga ham imkon bo'lmaganda: 〜すら (hattoki ovqatlanishga vaqt ham bo'lmadi).",
+  },
+  {
+    id: 361,
+    section: 'knowledge',
+    questionText: 'その 計画[けいかく]には （賛成[さんせい]）いたしかねます。',
+    options: ['応援する', '賛成できる', '賛同できない', '歓迎する'],
+    correctAnswer: 2,
+    explanationUzbek:
+      '«〜かねます» — vaziyat taqozosi bilan qila olmaslikni muloyim rad etish: 賛成いたしかねます = 賛同できない.',
+  },
+  {
+    id: 362,
+    section: 'knowledge',
+    questionText:
+      '環境[かんきょう]問題[もんだい]に（関心[かんしん]）を 持[も]つ 人[ひと]が 増[ふ]えている。',
+    options: ['かんけい', 'かんかく', 'かんどう', 'かんしん'],
+    correctAnswer: 3,
+    explanationUzbek: "«Qiziqish, e'tibor» so'zining to'g'ri kanjisi — 関心 (かんしん).",
+  },
+  {
+    id: 363,
+    section: 'knowledge',
+    questionText:
+      'この 映画[えいが]は 大人[おとな]から 子供[こども]に（至[いた]るまで）、楽[たの]しめる。',
+    options: ['いたるまで', 'わたるまで', 'かぎるまで', 'つづくまで'],
+    correctAnswer: 0,
+    explanationUzbek: 'Qamrov chegarasi: 〜から〜に至るまで (kattalardan tortib bolalargacha).',
+  },
+  {
+    id: 364,
+    section: 'reading',
+    passageText:
+      '挑戦なくして成長はありません。多くの人は失敗を恐れて新しい一歩を踏み出せなくなりますが、つまずきから得られる学びこそが、将来の確かな力となるのです。失敗を回避する安全策ばかりを選ぶのではなく、未知の課題に勇敢に向き合う姿勢が求められています。',
+    questionText:
+      '筆者[ひっしゃ]が この 文章[ぶんしょう]で 最[もっと]も 伝[つた]えたいことは 何[なに]ですか。',
+    options: [
+      '失敗[しっぱい]しないように 慎重[しんちょう]に 行動[こうどう]すべきである',
+      '失敗[しっぱい]を 恐[おそ]れずに 挑戦[ちょうせん]する 姿勢[しせい]が 成長[せいちょう]に 不可欠[ふかけつ]である',
+      '成功[せいこう]の ためには 他人[たにん]の 意見[いけん]を 聞[き]いてはならない',
+      '目標[もくひょう]は 低[ひく]めに 設定[せってい]するのが よい',
+    ],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Matnda xatolardan qo'rqmasdan yangi sinovlarga dadil intilish inson o'sishi uchun zarurligi ilgari surilgan.",
+  },
+  {
+    id: 365,
+    section: 'reading',
+    passageText:
+      '来月より導入されるフレックスタイム制およびリモートワーク制度は、従業員一人ひとりが生活リズムに合わせて柔軟に働く時間を設計することを目的としています。自律的なスケジュール管理が生産性の向上につながると期待されています。',
+    questionText:
+      '新[あたら]しい 勤務[きんむ]システムに よって、社員[しゃいん]には どのような 変化[へんか]が 期待[きたい]されますか。',
+    options: [
+      '残業代[ざんぎょうだい]が 自動的[じどうてき]に 2倍[ばい]に 増[ふ]えること',
+      '毎日[まいにち] 必[かなら]ず 出社[しゅっしゃ]しなければならなくなること',
+      '自分[じぶん]の 裁量[さいりょう]で 効率的[こうりつてき]に 時間[じかん]を 活用[かつよう]できること',
+      '同僚[どうりょう]との コミュニケーションが 完全[かんぜん]に なくなること',
+    ],
+    correctAnswer: 2,
+    explanationUzbek:
+      "Xodimlarning o'z ixtiyori bilan vaqtni unumli rejalashtirishi ko'zda tutilgan.",
+  },
+  {
+    id: 366,
+    section: 'reading',
+    passageText:
+      '読書習慣に関する調査結果によると、20代の回答者の約65％が「主に電子書籍を利用している」と答えており、紙の書籍派を大きく上回りました。移動中の手軽さや保管場所をとらない利便性が支持される要因となっています。',
+    questionText: 'この アンケート結果[けっか]から 読[よ]み取[と]れる 事実[じじつ]は どれですか。',
+    options: [
+      '高齢者[こうれいしゃ]の 9割[きゅうわり]が 電子書籍[でんししょせき]を 利用[りよう]して いる',
+      '読書[どくしょ]をする 人[ひと]の 割合[わりあい]は 毎年[まいとし] 減少[げんしょう]して いる',
+      '電子書籍[でんししょせき]の 値段[ねだん]は 紙[かみ]の 本[ほん]より 高[たか]い',
+      '若年層[じゃくねんそう]ほど 紙[かみ]の 本[ほん]より 電子書籍[でんししょせき]を 好[この]む 傾向[けいこう]が ある',
+    ],
+    correctAnswer: 3,
+    explanationUzbek:
+      "So'rovnoma yoshlar orasida elektron kitoblarga qiziqish yuqoriligini ko'rsatgan.",
+  },
+  {
+    id: 367,
+    section: 'reading',
+    passageText:
+      '工場見学のお願い：安全管理上、サンダル、ハイヒール等でのご来場は固くお断りいたします。動きやすい靴と服装でお越しください。また、製造ライン内での無断撮影は禁止です。',
+    questionText:
+      '工場見学[こうじょうけんがく]に 参加[さんか]する 際[さい]の 注意事項[ちゅういじこう]として 正[ただ]しいものは どれですか。',
+    options: [
+      '安全[あんぜん]のため、サンダルや ハイヒールでの 参加[さんか]は 認[みと]められない',
+      '工場内[こうじょうない]では 自由[じゆう]に 写真[しゃしん]を 撮影[さつえい]して よい',
+      '小学生[しょうがくせい]以下[いか]の 子供[こども]は 保護者[ほごしゃ]なしで 見学[けんがく]できる',
+      'ヘルメットの 着用[ちゃくよう]は 任意[にんい]である',
+    ],
+    correctAnswer: 0,
+    explanationUzbek:
+      "Xavfsizlik yuzasidan baland poshnali tufli va shippaklarda qatnashish qat'iyan man etiladi.",
+  },
+  {
+    id: 368,
+    section: 'reading',
+    passageText:
+      'AI技術の急速な進展により、定型的な計算やデータ処理は機械の得意分野となりました。これからの時代に人間にこそ求められるのは、他者の感情を深く汲み取り、対話を通じて新しい価値を生み出す共感力と創造性です。',
+    questionText:
+      '筆者[ひっしゃ]に よると、AI（人工知能[じんこうちのう]）時代[じだい]に 人間[にんげん]に 求[もと]められる 力[ちから]とは 何[なに]ですか。',
+    options: [
+      '膨大[ぼうだい]な データを 機械[きかい]より 早[はや]く 暗記[あんき]する 力',
+      '他者[たしゃ]の 気持[きも]ちに 共感[きょうかん]し、創造的[そうぞうてき]に 協働[きょうどう]する 力[ちから]',
+      '誰[だれ]とも 関[かか]わらずに 一人[ひとり]で 計算[けいさん]する 力',
+      '過去[かこ]の 例[れい]を そのまま 丸暗記[まるあんき]する 力',
+    ],
+    correctAnswer: 1,
+    explanationUzbek:
+      'Insoniy hamdardlik, kreativlik va hamkorlikda ishlash fazilatlari talab etiladi.',
+  },
+  {
+    id: 369,
+    section: 'reading',
+    passageText:
+      '給水設備定期清掃のお知らせ：来週火曜日午前9時から午後1時まで、受水槽の清掃点検を行います。作業中は全館で断水となりますので、事前に飲料水等の確保をお願いいたします。',
+    questionText: 'この お知らせの 目的[もくてき]は 何[なに]ですか。',
+    options: [
+      '水道料金[すいどうりょうきん]の 値上[ねあ]げの 通知[つうち]',
+      '新[あたら]しい 水道管[すいどうかん]の 工事[こうじ]の 完了[かんりょう]報告[ほうこく]',
+      '定期点検[ていきてんけん]に 伴[ともな]う 断水[だんすい]の 日時[にちじ]と 協力[きょうりょく]の 依頼[いらい]',
+      'マンションの 管理人[かんりにん]の 交代[こうたい]挨拶[あいさつ]',
+    ],
+    correctAnswer: 2,
+    explanationUzbek: "Rejali texnik ko'rik sababli suv o'chirilishi haqidagi ogohlantirish.",
+  },
+  {
+    id: 370,
+    section: 'listening',
+    audioUrl: '/audio/choukai/n3/04 Track 4.mp3',
+    script:
+      '課長：田中君、さっきのA社からの件だけど、納期が遅れる可能性があるって本当かい？\n男：はい、先方からメールが入っておりました。\n課長：まずは先方の担当者に直接電話して、正確な状況を確認してくれ。\n男：承知いたしました、今すぐ電話します。',
+    questionText: '男[おとこ]の 人[ひと]は これから まず 何[なに]を しますか。',
+    options: [
+      '会議室[かいぎしつ]の 予約[よやく]を 取[と]り消[け]す',
+      '上司[じょうし]に 報告書[ほうこくしょ]を 提出[ていしゅつ]する',
+      '昼休[ひるやす]みを 取[と]る',
+      '取引先[とりひきさき]に 電話[でんわ]を かけて 納期[のうき]を 確認[かくにん]する',
+    ],
+    correctAnswer: 3,
+    explanationUzbek: "Avval hamkor tashkilotga qo'ng'iroq qilib muddatni aniqlashtirishi kerak.",
+  },
+  {
+    id: 371,
+    section: 'listening',
+    audioUrl: '/audio/choukai/n3/05 Track 5.mp3',
+    script:
+      '店員：こちらの光回線とスマートフォンのセットプランですと、毎月1500円の割引が適用されます。\n女：今別々に契約しているので、セットにしたほうがお得ですね。じゃあそれでお願いします。',
+    questionText: '女[おんな]の 人[ひと]は どの プランを 申[もう]し込[こ]むことに しましたか。',
+    options: [
+      'インターネットと 携帯[けいたい]が セットになった 割引[わりびき]プラン',
+      '通話[つうわ]のみの 基本[きほん]プラン',
+      'データ無制限[むせいげん]の 単体[たんたい]プラン',
+      '家族[かぞく]4人[よにん]の ファミリープラン',
+    ],
+    correctAnswer: 0,
+    explanationUzbek: 'Internet va uyali aloqa birlashtirilgan chegirmali tarifni tanladi.',
+  },
+  {
+    id: 372,
+    section: 'listening',
+    audioUrl: '/audio/choukai/n3/06 Track 6.mp3',
+    script:
+      '男：新年会の日程だけど、来月の第1金曜日は部長が出張なんだよね。\n女：第3金曜日は決算期でみんな忙しいですし、第2金曜日なら全員都合が合いそうですよ。\n男：よし、じゃあ第2金曜日で予約を取ろう。',
+    questionText: '2人[ふたり]は 新年会[しんねんかい]の 日程[にってい]を いつに 決[き]めましたか。',
+    options: [
+      '今月[こんげつ]の 末[すえ]',
+      '来月[らいげつ]の 第2金曜日[だいにきんようび]',
+      '来月[らいげつ]の 初日[しょにち]',
+      '再来月[さらいげつ]',
+    ],
+    correctAnswer: 1,
+    explanationUzbek: "Kelasi oyning ikkinchi jumasi hamma uchun qulay bo'lgani sababli tanlandi.",
+  },
+  {
+    id: 373,
+    section: 'listening',
+    audioUrl: '/audio/choukai/n3/07 Track 7.mp3',
+    script:
+      '女：プレゼン資料の3ページ目だけど、売上グラフの縦軸に「百万円」の単位が抜けているわよ。\n男：あ、本当ですね！すぐ修正して印刷し直します。',
+    questionText:
+      '女[おんな]の 人[ひと]が 指摘[してき]した 資料[しりょう]の 修正点[しゅうせいてん]は どこですか。',
+    options: [
+      '表紙[ひょうし]の タイトルが 間違[まちが]えて いる点',
+      'ページ番号[ばんごう]が ない点',
+      '最新[さいしん]の 売上[うりあげ]グラフの 単位[たんい]が 抜[ぬ]けて いる点',
+      'フォントサイズが 小[ちい]さすぎる点',
+    ],
+    correctAnswer: 2,
+    explanationUzbek:
+      "Sotuv diagrammasida o'lchov birligi (million yen) yozilmay qolgani ko'rsatildi.",
+  },
+  {
+    id: 374,
+    section: 'listening',
+    audioUrl: '/audio/choukai/n3/08 Track 8.mp3',
+    script:
+      '先生：出願手続きですが、まず今週中に志望動機と自己PRの作文を書いて見せてください。願書の清書はそのあとで構いません。\n学生：はい、まず作文ですね。頑張って書きます。',
+    questionText:
+      '留学生[りゅうがくせい]は これから まず 何[なに]を 書[か]かなければ なりませんか。',
+    options: [
+      '履歴書[りれきしょ]の 職歴[しょくれき]',
+      '健康[けんこう]診断書[しんだんしょ]',
+      '推薦状[すいせんじょう]',
+      '自己[じこ]PRと 志望[しぼう]理由[りゆう]の 作文[さくぶん]',
+    ],
+    correctAnswer: 3,
+    explanationUzbek:
+      "O'zini tanishtirish va tanlagan mutaxassislik sabablarini bayon qiluvchi insho yozishi kerak.",
+  },
+  {
+    id: 375,
+    section: 'listening',
+    audioUrl: '/audio/choukai/n3/09 Track 9.mp3',
+    script:
+      '店員：こちらは特殊ナイロン製で、わずか400グラムと非常に軽量ですが、強い雨にも耐える高い防水性を持っています。\n男：ノートパソコンを持ち歩くので、軽くて濡れないのは一番助かりますね。これにします。',
+    questionText:
+      '男[おとこ]の 人[ひと]が この 鞄[かばん]を 気[き]に 入[い]った 理由[りゆう]は 何[なに]ですか。',
+    options: [
+      '軽[かる]くて 防水[ぼうすい]機能[きのう]が 優[すぐ]れて いるところ',
+      'デザインが 派手[はで]なところ',
+      '革[かわ]が 高級[こうきゅう]なところ',
+      '鍵[かぎ]が 3つ 付[つ]いて いるところ',
+    ],
+    correctAnswer: 0,
+    explanationUzbek:
+      "Sumkaning juda yengil va suv o'tkazmas (vodonepronitsayemyy) xususiyati yoqdi.",
+  },
+];
+
+export const JLPT_N2_MOCK_SET_3: ExamQuestion[] = [
+  {
+    id: 451,
+    section: 'knowledge',
+    questionText:
+      '政府[せいふ]は 景気[けいき]の 回復[かいふく]を（目指[めざ]して）、新[あたら]しい 経済[けいざい]対策[たいさく]を 打[う]ち出[だ]した。',
+    options: ['めざして', 'めがけて', 'ねらって', 'むかって'],
+    correctAnswer: 0,
+    explanationUzbek: "«Maqsad qilib intilmoq» ma'nosidagi fe'l — 目指して (めざして).",
+  },
+  {
+    id: 452,
+    section: 'knowledge',
+    questionText:
+      '今回[こんかい]の 不祥事[ふしょうじ]は、組織[そしき]の 隠蔽[いんぺい]体質[たいしつ]に（起因[きいん]）する ものだ。',
+    options: ['おこいん', 'きいん', 'はついん', 'げんいん'],
+    correctAnswer: 1,
+    explanationUzbek: "«...dan kelib chiqmoq / sabab bo'lmoq»: 起因 (きいん - kiin).",
+  },
+  {
+    id: 453,
+    section: 'knowledge',
+    questionText:
+      'いかに 困難[こんなん]な 状況[じょうきょう]で（あろうと）、最後[さいご]まで 諦[あきら]めない。',
+    options: ['あろうが', 'あっても', 'あろうと', 'あるまいと'],
+    correctAnswer: 2,
+    explanationUzbek: "Kuchli iroda bilan «qanchalik og'ir bo'lmasin»: 〜であろうと.",
+  },
+  {
+    id: 454,
+    section: 'knowledge',
+    questionText:
+      '両国[りょうこく]の 首脳[しゅのう]は 領土[りょうど]問題[もんだい]を（めぐって）、激[はげ]しい 議論[ぎろん]を 交[か]わした。',
+    options: ['こめて', 'つうじて', 'とおして', 'めぐって'],
+    correctAnswer: 3,
+    explanationUzbek: 'Biror bahsli mavzu atrofida tortishuv: 〜をめぐって.',
+  },
+  {
+    id: 455,
+    section: 'knowledge',
+    questionText:
+      '市民[しみん]の 声[こえ]を（踏[ふ]まえて）、都市[とし]再開発[さいかいはつ]の 計画[けいかく]を 見直[みなお]す。',
+    options: ['ふまえて', 'かまえて', 'おさえて', 'とらえて'],
+    correctAnswer: 0,
+    explanationUzbek: 'Fikr va takliflarni asos qilib olgan holda: 〜を踏まえて (tayangan holda).',
+  },
+  {
+    id: 456,
+    section: 'knowledge',
+    questionText:
+      'こんな 重大[じゅうだい]な 決定[けってい]を、私[わたし]の一存[いちぞん]では（決[き]めかねます）。',
+    options: ['決められます', '決めかねます', '決めるべきです', '決めかねません'],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Vaziyat nozikligi tufayli bir o'zi hal qila olmasligini bildirish: 〜かねます.",
+  },
+  {
+    id: 457,
+    section: 'knowledge',
+    questionText:
+      '調査[ちょうさ]の 結果[けっか]は、私[わたし]たちの 予想[よそう]に（反[はん]して）、大幅[おおはば]な 黒字[くろじ]だった。',
+    options: ['そくして', 'たいして', 'はんして', 'こたえて'],
+    correctAnswer: 2,
+    explanationUzbek: 'Kutilgan taxminga zid ravishda: 〜に反して (予想に反して).',
+  },
+  {
+    id: 458,
+    section: 'knowledge',
+    questionText:
+      '日頃[ひごろ]の 努力[どりょく]（なしには）、このような 快挙[かいきょ]は 達成[たっせい]できなかった。',
+    options: ['ぬきには', 'からには', 'うえないでは', 'なしには'],
+    correctAnswer: 3,
+    explanationUzbek: "«...siz aslo bo'lmasdi»: 〜なしには / 〜なくしては.",
+  },
+  {
+    id: 459,
+    section: 'knowledge',
+    questionText:
+      '彼[かれ]の 成功[せいこう]は 天才[てんさい]的な 才能[さいのう]の（たまもの）と 言[い]える。',
+    options: ['努力の結晶', '偶然の産物', '単なる幸運', '他人の援助'],
+    correctAnswer: 0,
+    explanationUzbek: "«たまもの» — uzoq mehnatu sa'y-harakatning mevasi, samarali natijasi.",
+  },
+  {
+    id: 460,
+    section: 'knowledge',
+    questionText:
+      '契約書[けいやくしょ]の 条件[じょうけん]を （厳格[げんかく]）に 遵守[じゅんしゅ]する。',
+    options: ['ごんかく', 'げんかく', 'きゅうかく', 'りつかく'],
+    correctAnswer: 1,
+    explanationUzbek: "«Qat'iy, shafqatsiz darajada aniq»: 厳格 (げんかく).",
+  },
+  {
+    id: 461,
+    section: 'knowledge',
+    questionText: '彼[かれ]は どんなに 忙[いそが]しくても、笑顔[えがお]を（絶[た]やさない）。',
+    options: ['きらさない', 'やめない', 'たやさない', 'すてない'],
+    correctAnswer: 2,
+    explanationUzbek: "Tabassumini aslo so'ndirmaydi/yo'qotmaydi: 笑顔を絶やさない.",
+  },
+  {
+    id: 462,
+    section: 'knowledge',
+    questionText:
+      '一度[いちど] 決[き]めた（以上[いじょう]）、最後[さいご]まで やり遂[と]げなければ ならない。',
+    options: ['からには', 'うえは', 'ばかりに', 'いじょう'],
+    correctAnswer: 3,
+    explanationUzbek: '«Modomiki qaror qilingan ekan»: 〜以上 (〜以上は).',
+  },
+  {
+    id: 463,
+    section: 'knowledge',
+    questionText:
+      '彼[かれ]の 言動[げんどう]には、いささか 疑問[ぎもん]を（抱[いだ]かざるを得ない）。',
+    options: [
+      'いだかざるをえない',
+      'いだかざるをえないわけがない',
+      'いだかざるをえないはずだ',
+      'いだくべきではない',
+    ],
+    correctAnswer: 0,
+    explanationUzbek:
+      "Majburan shubhalanishga to'g'ri keladi: 〜ざるを得ない (qilmaslikning iloji yo'q).",
+  },
+  {
+    id: 464,
+    section: 'reading',
+    passageText:
+      'かつての指導者像は、強烈なカリスマ性と絶対的な命令権で集団を牽引するトップダウン型でした。しかし複雑化した現代社会において真のリーダーシップとは、部下一人ひとりの自発性と強みを最大限に引き出し、背中を支える「サーバント・リーダー」としての伴走力にほかなりません。',
+    questionText:
+      '筆者[ひっしゃ]が 主張[しゅちょう]する「真[しん]の リーダーシップ」とは どのような ものですか。',
+    options: [
+      'すべてを 独断[どくだん]で 決[き]めて 部下[ぶか]に 命令[めいれい]を 下[くだ]すこと',
+      '権力[けんりょく]で 従[したが]わせるのではなく、組織[そしき]の 潜在能力[せんざいのうりょく]を 引[ひ]き出[だ]す 伴走者[ばんそうしゃ]であること',
+      '失敗[しっぱい]の 責任[せきにん]を すべて 部下[ぶか]に 負[お]わせること',
+      '何[なに]も 指示[しじ]を出さず 現場[げんば]に 丸投[まるな]げすること',
+    ],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Haqiqiy rahbarlik buyruqbozlik emas, balki xodimlarning imkoniyatlarini yuzaga chiqaruvchi hamroh bo'lishdir.",
+  },
+  {
+    id: 465,
+    section: 'reading',
+    passageText:
+      '現代のマーケティングにおいて注目されるのは、「モノ消費」から「コト消費」への明確な転換です。消費者は単に製品の機能やスペックを満たすこと以上に、その商品を通じてどのような人生経験や感動、他者との物語を共有できるかというエモーショナルな価値を購買基準に据えています。',
+    questionText:
+      '現代[げんだい]の 消費者[しょうひひしゃ]行動[こうどう]の 特徴[とくちょう]として 述[の]べられているものは どれですか。',
+    options: [
+      '安ければ品質はどうでもよいという極端な価格至上主義',
+      '他人の評判は一切気にせず直感だけで購買を決定すること',
+      '単なる「モノの所有」から、特別な体験や共感を重視する「コト消費」へのシフト',
+      '店舗での対面販売しか信用しない傾向の強まり',
+    ],
+    correctAnswer: 2,
+    explanationUzbek:
+      "Oddiy buyumga egalik qilishdan ko'ra noyob tajriba va taassurot orttirish muhim ahamiyat kasb etmoqda.",
+  },
+  {
+    id: 466,
+    section: 'reading',
+    passageText:
+      '在宅勤務の定着は業務効率化をもたらした一方で、オフィスの給湯室や廊下で交わされていた何気ない雑談の機会を奪いました。異なる部門同士の偶発的なアイデアの衝突（セレンディピティ）や組織への帰属意識の醸成という観点から、長期的な弊害を指摘する声も少なくありません。',
+    questionText:
+      'リモートワークが 企業[きぎょう]文化[ぶんか]に 与[あた]える 潜在的[せんざいてき]な リスクとして 懸念[けねん]されているものは 何[なに]ですか。',
+    options: [
+      '通勤時間がなくなることで従業員の睡眠時間が過剰になること',
+      '紙の書類が減りすぎてオフィスが整頓されすぎること',
+      '世界中の優秀な人材を採用できるようになること',
+      '偶発的[ぐうはつてき]な 雑談[ざつだん]や 交流[こうりゅう]が 減少[げんしょう]し、組織[そしき]の 一体感[いったいかん]や 創発性[そうはつせい]が 損[そこ]なわれること',
+    ],
+    correctAnswer: 3,
+    explanationUzbek:
+      "Kutilmagan tasodifiy suhbatlarning kamayishi sababli ijodiy g'oyalar va jamoaviy birlik susayishi xavfi bor.",
+  },
+  {
+    id: 467,
+    section: 'reading',
+    passageText:
+      '後継者不足に悩む各地の伝統工芸ですが、単に古典的な様式を墨守するだけでは市場から取り残されます。受け継がれてきた精緻な手技の核心を守りながら、現代の住空間や海外の食卓に調和するモダンな意匠へと再構築する試みが、再生の突破口となっています。',
+    questionText:
+      '伝統工芸[でんとうこうげい]の 継承[けいしょう]における 課題[かだい]と 解決策[かいけつさく]として 適切[てきせつ]なものは どれですか。',
+    options: [
+      '伝統[でんとう]の 技法[ぎほう]を 守[まも]りつつ、現代[げんだい]の ライフスタイルに 合[あ]わせた 新製品[しんせいひん]を 開発[かいはつ]すること',
+      '昔ながらのデザインを絶対に変えずに高価格で維持し続けること',
+      '職人の手作業をすべてロボットによる大量生産に切り替えること',
+      '後継者がいないため自然に産業が消滅するのを待つこと',
+    ],
+    correctAnswer: 0,
+    explanationUzbek:
+      'Qadimiy hunarmandchilik mahoratini asragan holda zamonaviy hayotga mos yangi dizaynlarni joriy etish.',
+  },
+  {
+    id: 468,
+    section: 'reading',
+    passageText:
+      '科学技術の発展は人類に計り知れない恩恵をもたらしてきましたが、遺伝子編集や人工知能の暴走など、一歩間違えれば不可逆的な災厄を招くリスクを孕んでいます。技術決定論に陥ることなく、倫理的・社会的な合意形成を市民を交えて継続していくリテラシーが不可欠です。',
+    questionText:
+      '筆者[ひっしゃ]の 科学[かがく]技術[ぎじゅつ]に 対[たい]する 立場[たちば]は どのような ものですか。',
+    options: [
+      '科学の進展は常に絶対善であり、いかなる規制も加えるべきではない',
+      '技術[ぎじゅつ]の 進歩[しんぽ]を 盲信[もうしん]せず、倫理的[りんりてき]な 影響[えいきょう]を 絶[た]えず 吟味[ぎんみ]する 社会的[しゃかいてき] 対話[たいわ]が 不可欠[ふかけつ]である',
+      '危険な新技術はすべて開発を即座に中止し原始的な生活に戻るべきだ',
+      '専門家だけにすべての判断を委ね、一般市民は沈黙を守るべきだ',
+    ],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Texnologiyaga ko'r-ko'rona ishonmasdan, axloqiy va ijtimoiy oqibatlarni chuqur muhokama qilish lozim.",
+  },
+  {
+    id: 469,
+    section: 'reading',
+    passageText:
+      '複言語を話す能力は、単なる意思疎通の道具に留まりません。異なる文法体系や文化的前提を行き来することで、自己の思考の枠組みを相対化し、多角的な視点から物事の本質を見極める柔軟なメタ認知能力を育む契機となります。',
+    questionText:
+      '多言語[たげんご]教育[きょういく]が もたらす 最大[さいだい]の メリットとして 述[の]べられているものは どれですか。',
+    options: [
+      '将来必ず外交官になって大金を稼げるようになること',
+      '母国語の文法や語彙を完全に忘れて新しい人格になれること',
+      '単なる 言語[げんご]の 習得[しゅうとく]に 留[とど]まらず、多様[たよう]な 視点[してん]から 物事[ものごと]を 捉[とら]える 柔軟[じゅうなん]な 思考力[しこうりょく]が 養[やしな]われること',
+      '外国語を話すときだけ性格が攻撃的になれること',
+    ],
+    correctAnswer: 2,
+    explanationUzbek:
+      "Shunchaki til o'rganish emas, balki dunyoga turli rakurslardan qaray oladigan teran tafakkurni shakllantiradi.",
+  },
+  {
+    id: 470,
+    section: 'listening',
+    audioUrl: '/audio/choukai/n2/Track04.mp3',
+    script:
+      '司会：新型ウェアラブル端末ですが、ユーザーからのフィードバックはいかがですか。\n男：処理速度やセンサーの精度は高く評価されていますが、連続稼働時間が12時間程度と短く、高負荷時の発熱を気にする声が寄せられています。次世代モデルでは、省電力チップの採用によるバッテリー持続時間の延長と放熱機構の抜本的見直しに最優先で取り組みます。',
+    questionText:
+      '男[おとこ]の 開発者[かいはつしゃ]は 今後[こんご] どこを 重点的[じゅうてんてき]に 改良[かいりょう]する 予定[よてい]ですか。',
+    options: [
+      '本体[ほんたい]の カラーバリエーション',
+      'スピーカーの 音質[おんしつ]',
+      'パッケージの デザイン',
+      'バッテリーの 駆動[くどう]時間[じかん]と 放熱[ほうねつ]効率[こうりつ]',
+    ],
+    correctAnswer: 3,
+    explanationUzbek:
+      "Batareyaning ishlash muddatini uzaytirish va qizib ketmasligini ta'minlashga e'tibor qaratiladi.",
+  },
+  {
+    id: 471,
+    section: 'listening',
+    audioUrl: '/audio/choukai/n2/Track05.mp3',
+    script:
+      '女：ネットバンキングの普及により、単純な振り込みや口座照会で来店されるお客様は減少しています。だからこそ店舗に求められるのは、相続や資産承継など、対面でじっくりと個別のライフプランに寄り添う質の高いコンサルティング力の強化です。行員の専門知識研修を急ぎます。',
+    questionText:
+      '女[おんな]の 支店長[してんちょう]が 最優先[さいゆうせん]で 取り組[とりく]むべきと 考[かんが]えている 施策[しさく]は 何[なに]ですか。',
+    options: [
+      '顧客[こきゃく]一人ひとりの ニーズに 合[あ]わせた 資産[しさん]運用[うんよう]コンサルティングの 強化[きょうか]',
+      '支店の 窓口[まどぐち]営業[えいぎょう]時間[じかん]の 延長[えんちょう]',
+      '新規[しんき]口座[こうざ]開設[かいせつ]の 手数料[てすうりょう]の 引き下げ',
+      'テレビCMの 放送[ほうそう]回数[かいすう]の 増加[ぞうか]',
+    ],
+    correctAnswer: 0,
+    explanationUzbek:
+      'Mijozlarning ehtiyojlariga mos professional moliyaviy maslahat berish xizmatini kuchaytirish.',
+  },
+  {
+    id: 472,
+    section: 'listening',
+    audioUrl: '/audio/choukai/n2/Track06.mp3',
+    script:
+      '町長：当町が目指すのは、観光バスで短時間立ち寄ってゴミだけを残していくような大量消費型の観光ではありません。豊かな森林や古民家での暮らしを体験してもらい、数日間ゆっくりと滞在していただく持続可能なエコツーリズムこそが、地域経済に真の活力を生み出します。',
+    questionText:
+      '町長[ちょうちょう]は 観光[かんこう]振興[しんこう]のために どのような 方針[ほうしん]を 示[しめ]しましたか。',
+    options: [
+      '大型[おおがた]リゾートホテルを 多数[たすう] 誘致[ゆうち]すること',
+      '自然[しぜん]や 歴史[れきし]資源[しげん]を 生[い]かした 長期[ちょうき]滞在型[たいざいがた]の エコツーリズムの 推進[すいしん]',
+      '外国人[がいこくじん]観光客[かんこうきゃく]の 入場[にゅうじょう]を 制限[せいげん]すること',
+      '観光地[かんこうち]の 入場料[にゅうじょうりょう]を 完全[かんぜん]無料[むりょう]に すること',
+    ],
+    correctAnswer: 1,
+    explanationUzbek:
+      'Tabiat va tarixiy merosga asoslangan ekoturizmni rivojlantirish orqali uzoq muddatli mehmonlarni jalb qilish.',
+  },
+  {
+    id: 473,
+    section: 'listening',
+    audioUrl: '/audio/choukai/n2/Track07.mp3',
+    script:
+      '研究員：今回開発された植物由来のセルロースナノファイバー複合体は、重量は鉄の5分の1でありながら、強度は鋼鉄の5倍以上を誇ります。さらに廃棄時には微生物によって完全に土に還る生分解性を備えており、自動車の車体軽量化と脱炭素化を同時に実現します。',
+    questionText:
+      '研究所[けんきゅうじょ]の 発表[はっぴょう]に よると、新素材[しんそざい]の 最大[さいだい]の 利点[りてん]は 何[なに]ですか。',
+    options: [
+      '製造コストが プラスチックの 10倍[じゅうばい] かかる点',
+      '火[ひ]に 弱[よわ]く 溶[と]けやすい 点',
+      '軽量[けいりょう]でありながら 鋼鉄[こうてつ]の 5倍[ごばい]の 強度[きょうど]を 持[も]ち、自然[しぜん]分解[ぶんかい]される 点',
+      'リサイクルが 不可能[ふかのう]な 点',
+    ],
+    correctAnswer: 2,
+    explanationUzbek:
+      "Juda yengil bo'lishiga qaramay po'latdan 5 barobar mustahkam va tabiatda o'z-o'zidan parchalanadi.",
+  },
+  {
+    id: 474,
+    section: 'listening',
+    audioUrl: '/audio/choukai/n2/Track08.mp3',
+    script:
+      '女：生産性を高めるためには、無駄な承認手続きを撤廃し、完全にペーパーレス化を進める必要があります。そのうえで、希望者を対象に週休3日制をトライアル導入し、心身のリフレッシュが創造的な成果にどう寄与するか検証してはどうでしょうか。',
+    questionText:
+      '女性[じょせい]が 提案[ていあん]した 働き方[はたらきかた]改革[かいかく]の 具体策[ぐたいさく]は どれですか。',
+    options: [
+      'すべての 会議[かいぎ]の 時間[じかん]を 2倍[ばい]に 延[の]ばすこと',
+      '有給[ゆうきゅう]休暇[きゅうか]の 取得[しゅとく]を 禁止[きんし]すること',
+      '全員[ぜんいん]が 深夜[しんや]まで 残業[ざんぎょう]すること',
+      '週休[しゅうきゅう]3日制[みっかせい]の 試験[しけん]導入[どうにゅう]と 業務[ぎょうむ]の ペーパーレス化[か]',
+    ],
+    correctAnswer: 3,
+    explanationUzbek:
+      "Haftada 3 kunlik dam olish rejimini sinovdan o'tkazish va qog'ozsiz tizimga o'tish taklif etildi.",
+  },
+  {
+    id: 475,
+    section: 'listening',
+    audioUrl: '/audio/choukai/n2/Track09.mp3',
+    script:
+      '担当者：ビザ更新のための在籍証明書および推薦書の発行申請ですが、入国管理局の審査スケジュール上、今月末の金曜日午後5時で締め切ります。1分でも遅れると翌月処理となり、在留期限が切れる恐れがありますので厳守してください。',
+    questionText:
+      '大学[だいがく]の 事務[じむ]スタッフが 留学生[りゅうがくせい]に 伝[つた]えている 手続き[てつづき]の 期限[きげん]は いつですか。',
+    options: [
+      '今月[こんげつ]末[まつ]の 金曜日[きんようび] 午後[ごご]5時[ごじ]まで',
+      '来週[らいしゅう]の 月曜日[げつようび] 朝[あさ]9時[くじ]',
+      '来月[らいげつ]の 15日[じゅうごにち]',
+      'いつでも 提出[ていしゅつ]可能[かのう]',
+    ],
+    correctAnswer: 0,
+    explanationUzbek:
+      "Shu oyning oxirgi juma kuni soat 17:00 ga qadar topshirish qat'iy belgilangan.",
+  },
+];
+
+export const JLPT_N1_MOCK_SET_3: ExamQuestion[] = [
+  {
+    id: 551,
+    section: 'knowledge',
+    questionText:
+      '長年[ながねん]の 宿願[しゅくがん]が ようやく 達成[たっせい]され、（感慨[かんがい]無量[むりょう]）である。',
+    options: ['かんがいむりょう', 'かんげきむりょう', 'かんしょうむりょう', 'かんしんむりょう'],
+    correctAnswer: 0,
+    explanationUzbek:
+      "Cheksiz taassurot va yuksak his-tuyg'ular og'ushida: 感慨無量 (かんがいむりょう).",
+  },
+  {
+    id: 552,
+    section: 'knowledge',
+    questionText:
+      '法案[ほうあん]の 成立[せいりつ]に 向け、野党[やとう]との 妥協点[だきょうてん]を（模索[もさく]）する。',
+    options: ['ぼさく', 'もさく', 'めいさく', 'ばくさく'],
+    correctAnswer: 1,
+    explanationUzbek: "«Paypaslab to'g'ri yo'l qidirmoq»: 模索 (もさく).",
+  },
+  {
+    id: 553,
+    section: 'knowledge',
+    questionText:
+      'あの 政治家[せいじか]の 発言[はつげん]は、無責任[むせきにん]（極[きわ]まりない）。',
+    options: ['かぎりない', 'たえない', 'きわまりない', 'やまない'],
+    correctAnswer: 2,
+    explanationUzbek: "Had-hududsiz salbiy ma'noda: 〜極まりない (nihoyatda mas'uliyatsiz).",
+  },
+  {
+    id: 554,
+    section: 'knowledge',
+    questionText:
+      '一国[いっこく]の 首相[しゅしょう]（たるもの）、国家[こっか]の 将来[しょうらい]に 責任[せきにん]を 持[も]つべきだ。',
+    options: ['ともあろうもの', 'としたところで', 'ならではの', 'たるもの'],
+    correctAnswer: 3,
+    explanationUzbek: '«...dek yuqori maqomdagi shaxsga loyiq ravishda»: 〜たるもの.',
+  },
+  {
+    id: 555,
+    section: 'knowledge',
+    questionText:
+      '天候[てんこう]の 急変[きゅうへん]に より、登山[とざん]ルートの 変更[へんこう]を（余儀[よぎ]なくされた）。',
+    options: ['よぎなくされた', 'やむをえなくなった', 'よぎなくさせた', 'しぜんとなった'],
+    correctAnswer: 0,
+    explanationUzbek: 'Tashqi favqulodda omillar sababli noiloj majbur qolmoq: 〜を余儀なくされた.',
+  },
+  {
+    id: 556,
+    section: 'knowledge',
+    questionText:
+      'たとえ 誰[だれ]で（あれ）、法[ほう]の 前[まえ]には 平等[びょうどう]で なければ ならない。',
+    options: ['あれども', 'あれ', 'あろうとも', 'ありながら'],
+    correctAnswer: 1,
+    explanationUzbek: "«Kim bo'lishidan qat'i nazar»: 〜であれ.",
+  },
+  {
+    id: 557,
+    section: 'knowledge',
+    questionText:
+      '伝統[でんとう]の 技[わざ]と 最新[さいしん]の テクノロジーが（相[あい]まって）、比類[ひるい]なき 名品[めいひん]が 生[う]まれた。',
+    options: ['かさなって', 'ひきかえて', 'あいまって', 'かこつけて'],
+    correctAnswer: 2,
+    explanationUzbek:
+      "Ikki buyuk kuch birlashib yanada kuchayishi: 〜と相まって (qo'shilib, uyg'unlashib).",
+  },
+  {
+    id: 558,
+    section: 'knowledge',
+    questionText:
+      '彼女[かのじょ]は ピアノは（おろか）、バイオリンの 演奏[えんそう]に かけても 一流[いちりゅう]だ。',
+    options: ['さることながら', 'ばかりか', 'どころか', 'おろか'],
+    correctAnswer: 3,
+    explanationUzbek: '«U yoqda tursin, hatto...»: 〜はおろか.',
+  },
+  {
+    id: 559,
+    section: 'knowledge',
+    questionText:
+      '今日[きょう]の 出来事[できごと]は、私[わたし]の 生涯[しょうがい]において 忘[わす]れる（まじき） 屈辱[くつじょく]である。',
+    options: ['まじき', 'べからざる', 'べからず', 'まじきこと'],
+    correctAnswer: 0,
+    explanationUzbek: "«Aslo sodir bo'lmasligi lozim bo'lgan»: 〜まじき.",
+  },
+  {
+    id: 560,
+    section: 'knowledge',
+    questionText:
+      '会社[かいしゃ]の 資金[しきん]を 私的[してき]に 流用[りゅうよう]するなど、言語[ごんご]（道断[どうだん]）だ。',
+    options: ['とうだん', 'どうだん', 'さいだん', 'みちだん'],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Kechirib bo'lmas, so'z bilan ta'riflash mushkul yovuz qilmish: 言語道断 (ごんごどうだん).",
+  },
+  {
+    id: 561,
+    section: 'knowledge',
+    questionText:
+      '彼[かれ]の 論文[ろんぶん]は 既存[きぞん]の 定説[ていせつ]を 根底[こんてい]から 覆[くつがえ]す（画期的[かっきてき]）な ものだ。',
+    options: ['かくきてき', 'がきてき', 'かっきてき', 'えつきてき'],
+    correctAnswer: 2,
+    explanationUzbek: '«Tarixiy burilish yasovchi davriy yangilik»: 画期的 (かっきてき).',
+  },
+  {
+    id: 562,
+    section: 'knowledge',
+    questionText:
+      '新体制[しんたいせい]の 発足[ほっそく]を（皮切[かわき]りに）、全社的[ぜんしゃてき]な 改革[かいかく]が 断行[だんこう]された。',
+    options: ['かぎりに', 'おわりに', 'しめくくりに', 'かわきりに'],
+    correctAnswer: 3,
+    explanationUzbek:
+      'Ketma-ket yirik voqealarning birinchi debochasi: 〜を皮切りに (boshlab berib).',
+  },
+  {
+    id: 563,
+    section: 'knowledge',
+    questionText: '我々[われわれ]の 懸念[けねん]は （杞憂[きゆう]）に 終[お]わった。',
+    options: ['取り越し苦労', '的確な予想', '重大な危機', '正当な判断'],
+    correctAnswer: 0,
+    explanationUzbek:
+      '«杞憂» (qadimiy rivoyatdan kelib chiqqan) — keraksiz, asossiz vahima va havotir = 取り越し苦労.',
+  },
+  {
+    id: 564,
+    section: 'reading',
+    passageText:
+      '高度情報化社会がもたらした極限の効率化は、人間存在を交換可能な機能へと還元してしまいました。あらゆる関係性が費用対効果で計測される中で、個々人は全体との有機的な連帯を失い、自らの生の意味を実感できない根源的な孤独と疎外の淵に立たされているのです。',
+    questionText:
+      '筆者[ひっしゃ]の 述[の]べる「現代[げんだい]社会[しゃかい]の 疎外感[そがいかん]」の 根源[こんげん]は 何[なに]にあるとされていますか。',
+    options: [
+      '単純に物質的な富が不足していること',
+      '効率[こうりつ]と 合理主義[ごうりしゅぎ]の 徹底[てってい]に より、人間[にんげん]が 生[い]きる 意味[いみ]や 全体性[ぜんたいせい]から 切[き]り離[はな]された 点',
+      '科学技術の発展が完全に停止してしまったこと',
+      '人々が過度に宗教的になりすぎたこと',
+    ],
+    correctAnswer: 1,
+    explanationUzbek:
+      'Samaradorlik va ratsionalizm natijasida inson butunlikdan va tiriklik mohiyatidan uzilib qolgani.',
+  },
+  {
+    id: 565,
+    section: 'reading',
+    passageText:
+      '芸術とは美的な装飾でも現実の客観的複写でもありません。それは私たちが自明のものとして疑わない日常の知覚フレームを根底から解体し、見慣れた世界を未知の驚異として再体験させる異化作用であり、感性のラディカルな変革を迫る闘争にほかなりません。',
+    questionText:
+      '芸術[げいじゅつ]の 本質[ほんしつ]について、筆者[ひっしゃ]は どのような 見解[けんかい]を 示[しめ]して いますか。',
+    options: [
+      '権力者のプロパガンダとして奉仕すること',
+      '鑑賞者を退屈させずに眠らせるための娯楽',
+      '現実[げんじつ]を 単[たん]に 模倣[もほう]するのではなく、日常[にちじょう]の 枠組[わくぐ]みを 揺[ゆ]るがし 新[あたら]しい 感受性[かんじゅせい]を 開眼[かいげん]させる 営[いとな]みである',
+      '過去の古典作品を寸分違わず再現する職人芸',
+    ],
+    correctAnswer: 2,
+    explanationUzbek:
+      "San'at oddiy taqlid emas, balki odatiy qarashlarni larzaga solib yangi idrok ufqlari ochishdir.",
+  },
+  {
+    id: 566,
+    section: 'reading',
+    passageText:
+      '私たちは言葉を用いて思考していると考えがちですが、むしろ私たちが特定の言語体系の網の目によって世界を意味づけられていると言えます。言語の持つ語彙や統語構造の違いは、そのまま事象の切り分け方や因果関係の捉え方の差異となり、主体の世界像を無意識のうちに構築しているのです。',
+    questionText:
+      '言語[げんご]と 思考[しこう]の 相関[そうかん]関係[かんけい]に 関[かん]する 記述[きじゅつ]として 最[もっと]も 適切[てきせつ]なものは どれですか。',
+    options: [
+      '人間は言語がなくても全く同じ深さで論理的思考を行える',
+      'すべての言語は本質的に同一であり文化的差異は存在しない',
+      '言語は思考の結果として生じる副産物にすぎない',
+      '言語[げんご]は 単[たん]なる 伝達[でんたつ]の 道具[どうぐ]ではなく、人間[にんげん]が 世界[せかい]を 分節[ぶんせつ]し 認識[にんしき]する 構造[こうぞう]そのものを 規定[きてい]して いる',
+    ],
+    correctAnswer: 3,
+    explanationUzbek:
+      'Til shunchaki muloqot vositasi emas, inson ongining borliqni tushunish tizimini belgilaydi.',
+  },
+  {
+    id: 567,
+    section: 'reading',
+    passageText:
+      '国境を越えた資本と情報の浸透は、世界各地のローカルな生活様式や言語の多様性を平準化の波に晒しています。しかし同時に、この均質化への反作用として、足元の固有の風土や土着の知恵に宿る価値を地球規模の視座から再発見し、新しい文脈で蘇生させようとするダイナミズムも生まれています。',
+    questionText:
+      'グローバリズムが 地域[ちいき]文化[ぶんか]に 与[あた]える 功罪[こうざい]について 筆者[ひっしゃ]はどう 論[ろん]じて いますか。',
+    options: [
+      '画一的[かくいつてき]な 消費[しょうひ]文化[ぶんか]が 固有[こゆう]の 多様性[たようせい]を 侵食[しんしょく]する 一方[いっぽう]で、伝統[でんとう]の 価値[かち]を 再評価[さいひょうか]する 契機[けいき]にも なりうる',
+      '地域文化はグローバル化によって完全に抹殺される運命にある',
+      'グローバル化によって世界中のすべての文化が完全に均質化された',
+      '地域文化は孤立を保ち、外来文化を一切排除すべきである',
+    ],
+    correctAnswer: 0,
+    explanationUzbek:
+      "Globallashuv bir xillashtiruvchi iste'mol madaniyatini yoysa-da, milliy merosni qayta anglash imkonini ham beradi.",
+  },
+  {
+    id: 568,
+    section: 'reading',
+    passageText:
+      'アルゴリズムは厖大な過去ログの相関関係から確率的に最も尤もらしい解を提示できますが、その選択に伴う痛みや不条理を引き受ける主客の一致は持ち得ません。正解のない葛藤の中で悩み抜き、自らの選択の重責を背負い続ける覚悟こそが、人間に固有の尊厳であり意思決定の本質です。',
+    questionText:
+      'AIの 判断[はんだん]と 人間[にんげん]の 意思[いし]決定[けってい]の 差異[さい]について、筆者[ひっしゃ]が 強調[きょうちょう]する 点[てん]は 何[なに]ですか。',
+    options: [
+      'AIの判断には一切の誤りがなく人間よりも常に倫理的である',
+      'AIは 確率[かくりつ]計算[けいさん]に 基[づ]く 最適解[さいてきかい]を 出[だ]すが、結果[けっか]に 対[たい]する 倫理的[りんりてき]な 責任[せきにん]を 引[ひ]き受[う]けられるのは 人間[にんげん]だけである',
+      '人間は感情に左右されるため、すべての司法判断をAIに代行させるべきだ',
+      'AIと人間の意思決定プロセスには本質的な差異は全く存在しない',
+    ],
+    correctAnswer: 1,
+    explanationUzbek:
+      "AI ehtimolliklar asosida optimal javob topsa-da, yuzaga keladigan natija uchun mas'uliyatni faqat inson oladi.",
+  },
+  {
+    id: 569,
+    section: 'reading',
+    passageText:
+      '私たちが触れる公認の歴史物語は、往々にして権力の正統性を担保するために勝者の論理で編纂された言説です。周縁に追いやられ、公的アーカイヴから消去された名もなき民衆の祈りや挫折の残響に耳を澄ませることなくして、真に豊かな歴史の厚みに肉薄することはできません。',
+    questionText:
+      '「歴史[れきし]の 叙述[じょじゅつ]」に ついて 筆者[ひっしゃ]が 警鐘[けいしょう]を 鳴[な]らして いる 内容[ないよう]は どれですか。',
+    options: [
+      '歴史教科書に書かれている記述はすべて疑いの余地のない絶対的真実である',
+      '過去の出来事は現在の基準だけで断罪すれば十分である',
+      '歴史[れきし]は 勝者[しょうしゃ]の 視点[してん]から 都合[つごう]よく 体系化[たいけいか]されがちであり、埋[う]もれた 敗者[はいしゃ]や 名[な]もなき 人々[ひとびと]の 声[こえ]を 掬[すく]い取[と]る 複眼[ふくがん]的[てき]な 読解[どっかい]が 欠[か]かせない',
+      '記録に残っていない民衆の歴史は研究する価値が全くない',
+    ],
+    correctAnswer: 2,
+    explanationUzbek:
+      "Tarix ko'pincha g'oliblar manfaati bo'yicha tizimlashtirilgani bois, mag'lublar va xalq xotirasini ham o'rganish zarur.",
+  },
+  {
+    id: 570,
+    section: 'listening',
+    audioUrl: '',
+    script:
+      '司会：情報空間の進展が代議制民主主義に与える影響について、先生の率直な危機意識をお聞かせください。\n教授：SNS空間における推薦アルゴリズムは、利用者の既存の好悪や情動を増幅し、心地よい言説のみで周囲を囲い込むエコーチェンバー現象を不可避に生み出します。異質な他者との熟議や妥協の余地が削ぎ落とされ、敵対感情が過剰に煽られることで、民主主義の基盤である寛容と連帯が溶解しつつあるのです。',
+    questionText:
+      'シンポジウムにおいて、登壇者[とうだんしゃ]が 指摘[してき]する デジタル民主主義[みんしゅしゅぎ]の 構造的[こうぞうてき]な 脆弱性[ぜいじゃくせい]とは 何[なに]ですか。',
+    options: [
+      'インターネットの通信速度が遅すぎて投票が遅延する点',
+      '政治家のSNSアカウントがハッキングされる危険性',
+      '若者の投票率が異常に高くなりすぎること',
+      'アルゴリズムによる 情報[じょうほう]の 偏向[へんこう]（エコーチェンバー）が 社会[しゃかい]の 分断[ぶんだん]と ポピュリズムを 加速[かそく]させる 点',
+    ],
+    correctAnswer: 3,
+    explanationUzbek:
+      "Algoritmlar keltirib chiqaradigan axborot pufagi (echo chamber) jamiyatning qutblanishi va bo'linishini tezlashtiradi.",
+  },
+  {
+    id: 571,
+    section: 'listening',
+    audioUrl: '',
+    script:
+      '人類学者：マルセル・モースが論じたように、人間社会における贈与は決して純粋な好意のみでは完結しません。贈り物を受け取った瞬間、受贈者の内面には「お返しをしなければならない」という無形の負債感が生じます。この返礼の義務が果たされない限り、贈与者と受贈者の間には不可避な非対称性、すなわち一種の力関係が刻み込まれることになるのです。',
+    questionText:
+      '文化[ぶんか]人類学者[じんるいがくしゃ]が 述[の]べる「贈与[ぞうよ]の 逆説[ぎゃくせつ]」とは どのような 内容[ないよう]ですか。',
+    options: [
+      '純粋[じゅんすい]な 無償[むしょう]の 贈与[ぞうよ]に 見[み]えても、受[う]け手[て]に 返礼[へんれい]の 義務[ぎむ]や 負債感[ふさいかん]を 生[う]じさせ、非対称[ひたいしょう]な 権力[けんりょく]関係[かんけい]を 構築[こうちく]する 点',
+      '贈り物は常に金額が高ければ高いほど人間関係が円滑になる点',
+      'プレゼントを貰ったら即座に同じものを買い与えなければ法的に罰せられる点',
+      '原始社会において物品の交換は一切行われていなかった点',
+    ],
+    correctAnswer: 0,
+    explanationUzbek:
+      "Beg'araz sovg'adek ko'rinsa-da, qabul qiluvchida qaytarish majburiyatini va qaramlik hissini paydo qiladi.",
+  },
+  {
+    id: 572,
+    section: 'listening',
+    audioUrl: '',
+    script:
+      '経済学者：従来の大量生産・大量消費・大量廃棄という「リニア（線形）経済」は、地球環境の臨界点を超えようとしています。求められているのは、単に使用済み製品をリサイクルするという対症療法ではなく、設計の初期段階から再利用や分解を前提とし、資源が半永久的に循環し続けるビジネスモデルの再構築です。',
+    questionText:
+      '経済学者[けいざいがくしゃ]が 提言[ていげん]する「循環型[じゅんかんがた] 経済[けいざい]（サーキュラー・エコノミー）」の 核心[かくしん]は 何[なに]ですか。',
+    options: [
+      '壊れた製品はすべて発展途上国へ輸出して処理すること',
+      '製品[せいひん]の 企画[きかく]・設計[せっけい] 段階[だんかい]から 廃棄物[はいきぶつ]を 出[だ]さない ループを 組[く]み込[こ]み、資源[しげん]の 価値[かち]を 最大限[さいだいげん]に 維持[いじ]し 続[つづ]けること',
+      '消費者が買い物を一切やめて自給自足の原始生活を送ること',
+      'リサイクルマークを印刷するだけで実際は焼却処分を続けること',
+    ],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Mahsulotni yaratish va loyihalash bosqichidanoq chiqindi chiqarmaydigan to'liq aylanma tizimni joriy etish.",
+  },
+  {
+    id: 573,
+    section: 'listening',
+    audioUrl: '',
+    script:
+      '哲学者：レイコフとジョンソンが明らかにしたように、メタファーは単なる文学的装飾ではありません。「時間は金である」や「議論は戦争である」という表現が示すように、私たちは未知の抽象的な領域を、自らの身体を通じた具体的で馴染みのある経験へと写像することで初めて認識しています。メタファーこそが人間の概念体系の根幹を規定しているのです。',
+    questionText:
+      '言語[げんご]哲学者[てつがくしゃ]の 講義[こうぎ]に おいて、メタファー（隠喩[いんゆ]）の 認知的[にんちてき] 機能[きのう]として 説明[せつめい]されたものは どれですか。',
+    options: [
+      '単に詩人や文学者が文章を華やかに飾るための修辞的テクニックにすぎないこと',
+      '日常会話においては誤解を招くだけなので絶対に使用してはならない言葉遣いであること',
+      '未知[みち]の 抽象的[ちゅうしょうてき]な 概念[がいねん]を、身体的[しんたいてき]で 具体的[ぐたいてき]な 経験[けいけん]に 投射[とうしゃ]して 理解[りかい]を 可能[かのう]に する 基盤[きばん]的[てき]な 思考[しこう]の 枠組[わくぐ]みであること',
+      '辞書に載っていない造語を勝手に作り出して相手を混乱させる行為であること',
+    ],
+    correctAnswer: 2,
+    explanationUzbek:
+      'Metafora nafaqat badiiy vosita, balki murakkab mavhum tushunchalarni tana va tajriba orqali idrok etish tizimidir.',
+  },
+  {
+    id: 574,
+    section: 'listening',
+    audioUrl: '',
+    script:
+      '専門家：パリをはじめ欧州で提唱されている15分都市構想は、過度な車依存と長距離通勤からの解放を目指す都市革命です。生活に必要なあらゆるインフラが短距離で完結することにより、移動のストレスが軽減されるだけでなく、地域のコミュニティが活性化し、都市全体のCO2排出量も劇的に抑制されます。',
+    questionText:
+      '都市[とし]計画[けいかく]の 専門家[せんもんか]が 主張[しゅちょう]する「15分[じゅうごふん] 都市[とし]（15-Minute City）」の 狙[ねら]いは 何[なに]ですか。',
+    options: [
+      'すべての住民を毎日15分間強制的に全力疾走させる健康政策',
+      '自動車の所有を法律で完全に死刑にすること',
+      '都市の中心部を富裕層だけの居住区に限定すること',
+      '居住[きょじゅう]、労働[ろうどう]、医療[いりょう]、商業[しょうぎょう]などの 必須[ひっす] 機能[きのう]を 徒歩[とほ]や 自転車[じてんしゃ]で 15分[じゅうごふん]圏内[けんない]に 集約[しゅうやく]し、生活[せいかつ]の 質[しつ]と 脱炭素[だつたんそ]を 両立[りょうりつ]させること',
+    ],
+    correctAnswer: 3,
+    explanationUzbek:
+      "Uy, ishxona, poliklinika va do'konlarni piyoda yoki velosipedda 15 daqiqalik masofada jamlash orqali sifatli hayot yaratish.",
+  },
+  {
+    id: 575,
+    section: 'listening',
+    audioUrl: '',
+    script:
+      '心理学者：多くの人が「自分は仕事をしながらメールを返し、会議も聞けるマルチタスカーだ」と自負していますが、脳科学的に見ればこれは完全な錯覚です。脳の前頭前野は同時に2つの注意を要する作業を処理できず、タスク間を高速で往復しているにすぎません。このスイッチングコストにより、エネルギーが激しく消耗し、ミスが激増しているのです。',
+    questionText:
+      '認知[にんち]心理学者[しんりがくしゃ]が 警鐘[けいしょう]を 鳴[な]らす「マルチタスクの 幻想[げんそう]」の 本質[ほんしつ]は 何[なに]ですか。',
+    options: [
+      '脳[のう]は 複数[ふくすう]の 認知的[にんちてき] 課題[かだい]を 同時[どうじ]に 並行[へいこう]処理[しょり]しているのではなく、急速[きゅうそく]に 注意[ちゅうい]を 切[き]り替[か]えているにすぎず、結果[けっか]として 集中力[しゅうちゅうりょく]と 処理[しょり]能力[のうりょく]が 著[いちじる]しく 低下[ていか]する 点',
+      '脳は訓練すれば同時に5つ以上の複雑な仕事を完璧に遂行できる点',
+      'マルチタスクを行えば睡眠時間を半分に減らしても健康でいられる点',
+      '音楽を聴きながら仕事をすると記憶力が自動的に10倍に跳ね上がる点',
+    ],
+    correctAnswer: 0,
+    explanationUzbek:
+      'Miya bir vaqtda ikkita ishni qilmaydi, balki tez-tez diqqatni almashtirishi sababli aqliy quvvat keskin pasayadi.',
+  },
+];
+
+export const JLPT_MOCK_EXAM_SET3_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQuestion[]> = {
+  N5: JLPT_N5_MOCK_SET_3,
+  N4: JLPT_N4_MOCK_SET_3,
+  N3: JLPT_N3_MOCK_SET_3,
+  N2: JLPT_N2_MOCK_SET_3,
+  N1: JLPT_N1_MOCK_SET_3,
+};

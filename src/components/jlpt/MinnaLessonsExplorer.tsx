@@ -1,6 +1,14 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { Sparkles, CheckCircle2, Play, Search, MessageSquare, BookOpen } from 'lucide-react';
+import {
+  Sparkles,
+  CheckCircle2,
+  Play,
+  Search,
+  MessageSquare,
+  BookOpen,
+  Headphones,
+} from 'lucide-react';
 import { MINNA_N5_LESSONS } from '../../data/curriculum/minnaN5Lessons';
 import { MINNA_N4_LESSONS } from '../../data/curriculum/minnaN4Lessons';
 import { JAPANESE_N3_LESSONS } from '../../data/curriculum/japaneseN3';
@@ -19,6 +27,7 @@ interface MinnaLessonsExplorerProps {
 
 const UNIT_TABS_N5 = [
   { id: 'all', title: 'Barcha Darslar (1–25)', titleJa: 'すべての課 (1–25)' },
+  { id: 'mondai_listening', title: '🎧 Mondai Tinglash (1–25)', titleJa: '🎧 問題 聴解テスト' },
   { id: 'ja-minna-u1', title: 'Unit 1: 1–5 Darslar (Tanishuv & Harakat)', titleJa: '第1課〜第5課' },
   {
     id: 'ja-minna-u2',
@@ -40,6 +49,7 @@ const UNIT_TABS_N5 = [
 
 const UNIT_TABS_N4 = [
   { id: 'all', title: 'Barcha Darslar (26–50)', titleJa: 'すべての課 (26–50)' },
+  { id: 'mondai_listening', title: '🎧 Mondai Tinglash (26–50)', titleJa: '🎧 問題 聴解テスト' },
   { id: 'ja-minna-u6', title: 'Unit 6: 26–30 Darslar (Holat & Izoh)', titleJa: '第26課〜第30課' },
   { id: 'ja-minna-u7', title: 'Unit 7: 31–35 Darslar (Reja & Shart)', titleJa: '第31課〜第35課' },
   {
@@ -362,7 +372,17 @@ export const MinnaLessonsExplorer: React.FC<MinnaLessonsExplorerProps> = ({ init
     return currentLessons.filter((lesson) => {
       // Unit filter
       if (selectedUnit !== 'all') {
-        if (lesson.unitId !== selectedUnit) return false;
+        if (selectedUnit === 'mondai_listening') {
+          const hasMondai = lesson.steps.some(
+            (s) =>
+              s.id.includes('s4') ||
+              s.title.toLowerCase().includes('tinglash') ||
+              s.title.toLowerCase().includes('mondai'),
+          );
+          if (!hasMondai) return false;
+        } else if (lesson.unitId !== selectedUnit) {
+          return false;
+        }
       }
 
       // Search query
@@ -583,6 +603,12 @@ export const MinnaLessonsExplorer: React.FC<MinnaLessonsExplorerProps> = ({ init
                     <Sparkles size={12} className="text-amber-500" />
                     <span>{grammarRules.length} ta qoida</span>
                   </span>
+                  {(activeLevel === 'n5' || activeLevel === 'n4') && (
+                    <span className="flex items-center gap-1 font-bold text-rose-500 dark:text-rose-400">
+                      <Headphones size={12} />
+                      <span>CD Tinglash</span>
+                    </span>
+                  )}
                 </div>
 
                 {/* Grammar tags preview */}
@@ -609,11 +635,24 @@ export const MinnaLessonsExplorer: React.FC<MinnaLessonsExplorerProps> = ({ init
               <div className="mt-5 flex items-center justify-between gap-2 border-t border-border pt-4">
                 <button
                   onClick={() => navigate(`/lesson/${lesson.id}`)}
-                  className="flex h-10 flex-1 cursor-pointer touch-manipulation select-none items-center justify-center gap-1.5 rounded-xl bg-primary px-4 py-2 text-xs font-bold text-primary-foreground shadow-xs transition-all hover:bg-primary/90 active:scale-95"
+                  className="flex h-10 flex-1 cursor-pointer touch-manipulation select-none items-center justify-center gap-1.5 rounded-xl bg-primary px-3 py-2 text-xs font-bold text-primary-foreground shadow-xs transition-all hover:bg-primary/90 active:scale-95"
                 >
                   <Play size={13} fill="currentColor" />
-                  <span>{prog?.completed ? "Qayta O'qish" : 'Darsni Boshlash'}</span>
+                  <span className="truncate">
+                    {prog?.completed ? "Qayta O'qish" : 'Darsni Boshlash'}
+                  </span>
                 </button>
+
+                {(activeLevel === 'n5' || activeLevel === 'n4') && (
+                  <button
+                    onClick={() => navigate(`/lesson/${lesson.id}?step=mondai`)}
+                    title="Mondai Tinglash Testi (CD Audio)"
+                    className="flex h-10 shrink-0 cursor-pointer touch-manipulation select-none items-center justify-center gap-1.5 rounded-xl border border-rose-500/30 bg-rose-500/10 px-3 text-xs font-bold text-rose-600 transition-all hover:bg-rose-500/20 active:scale-95 dark:text-rose-400"
+                  >
+                    <Headphones size={14} />
+                    <span>Mondai</span>
+                  </button>
+                )}
 
                 <button
                   onClick={() =>

@@ -15,10 +15,14 @@ import {
   Headphones,
   CheckCircle2,
   Award,
+  Zap,
+  ArrowRight,
+  ExternalLink,
 } from 'lucide-react';
 import { ExamDiagnosticReport, ExamQuestionAnswer } from '../../utils/ai/examEvaluator';
 import { JlptScoreReport } from '../../utils/jlptScoring';
 import { useStudyData } from '../../context/StudyPlannerContext';
+import { PersonalLearningPlanService } from '../../services/PersonalLearningPlanService';
 import { toast } from '../../hooks/use-toast';
 
 interface JlptExamResultCardProps {
@@ -42,16 +46,64 @@ export const JlptExamResultCard: React.FC<JlptExamResultCardProps> = ({
   onNavigateToPlan,
   onViewCertificate,
 }) => {
-  const { addFlashcardsBatch } = useStudyData();
+  const { user, addFlashcardsBatch } = useStudyData();
   const [isExporting, setIsExporting] = useState(false);
   const [isExported, setIsExported] = useState(false);
   const [showAllMistakes, setShowAllMistakes] = useState(false);
+  const [isInjectingPlan, setIsInjectingPlan] = useState(false);
+  const [isInjectedPlan, setIsInjectedPlan] = useState(false);
+  const [injectedDays, setInjectedDays] = useState<string[]>([]);
 
   const handleGoToPlan = () => {
     if (onNavigateToPlan) {
       onNavigateToPlan();
     } else if (typeof window !== 'undefined') {
       window.location.href = '/personal-plan';
+    }
+  };
+
+  const handleInjectToPersonalPlan = async () => {
+    const tasks = report.diagnosticAnalysis?.weeklyTasks || [];
+    if (tasks.length === 0) {
+      toast({
+        title: 'Tavsiyalar mavjud emas',
+        description: 'Ushbu imtihon uchun alohida zaiflik vazifalari aniqlanmadi.',
+      });
+      return;
+    }
+
+    setIsInjectingPlan(true);
+    try {
+      const activeUserId = user?.id || 'guest';
+      const result = await PersonalLearningPlanService.injectRemediationTasks(
+        activeUserId,
+        tasks,
+        level,
+      );
+
+      if (result.success) {
+        setIsInjectedPlan(true);
+        setInjectedDays(result.targetDays);
+        toast({
+          title: "🎯 Shaxsiy Rejaga Qo'shildi!",
+          description: `${result.addedCount} ta maxsus amaliy mashg'ulot haftalik o'rganish rejangizga biriktirildi.`,
+        });
+      } else {
+        toast({
+          title: 'Xatolik',
+          description: "Rejaga qo'shishda xatolik yuz berdi.",
+          variant: 'destructive',
+        });
+      }
+    } catch (err) {
+      console.error(err);
+      toast({
+        title: 'Xatolik',
+        description: "Rejaga qo'shishda kutilmagan xatolik yuz berdi.",
+        variant: 'destructive',
+      });
+    } finally {
+      setIsInjectingPlan(false);
     }
   };
 
@@ -307,6 +359,206 @@ export const JlptExamResultCard: React.FC<JlptExamResultCardProps> = ({
           )}
         </div>
       )}
+
+      {/* 4-Pillar Competence Matrix */}
+      {report.diagnosticAnalysis?.pillars && (
+        <div className="space-y-4 rounded-3xl border border-border bg-card p-5 shadow-xs sm:p-6">
+          <div className="flex flex-col justify-between gap-1 sm:flex-row sm:items-center">
+            <div>
+              <h3 className="text-sm font-black text-foreground">
+                🧭 4 Ustun bo'yicha Chuqur Diagnostika (JLPT Competence Radar)
+              </h3>
+              <p className="text-xs text-muted-foreground">
+                Leksika, Grammatika, O'qish va Tinglash ko'nikmalarining o'zlashtirilish darajasi.
+              </p>
+            </div>
+            {report.diagnosticAnalysis.criticalPillars.length > 0 && (
+              <span className="rounded-full bg-rose-500/15 px-2.5 py-1 text-[11px] font-black text-rose-600 dark:text-rose-400">
+                ⚠️ {report.diagnosticAnalysis.criticalPillars.length} ta zaif soha aniqlandi
+              </span>
+            )}
+          </div>
+
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {(['kanji_vocab', 'grammar', 'reading', 'listening'] as const).map((pKey) => {
+              const p = report.diagnosticAnalysis!.pillars[pKey];
+              if (!p) return null;
+              const isCrit = p.status === 'critical';
+              const isMod = p.status === 'moderate';
+
+              return (
+                <div
+                  key={pKey}
+                  className={`flex flex-col justify-between rounded-2xl border p-4 transition-all ${
+                    isCrit
+                      ? 'border-rose-500/40 bg-rose-500/5'
+                      : isMod
+                        ? 'border-amber-500/40 bg-amber-500/5'
+                        : 'border-emerald-500/30 bg-emerald-500/5'
+                  }`}
+                >
+                  <div className="space-y-1.5">
+                    <div className="flex items-center justify-between">
+                      <span className="text-2xl">{p.icon}</span>
+                      <span
+                        className={`rounded-full px-2 py-0.5 text-[10px] font-black uppercase ${
+                          isCrit
+                            ? 'bg-rose-500/15 text-rose-600 dark:text-rose-400'
+                            : isMod
+                              ? 'bg-amber-500/15 text-amber-600 dark:text-amber-400'
+                              : 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400'
+                        }`}
+                      >
+                        {p.statusTextUz}
+                      </span>
+                    </div>
+
+                    <h4 className="text-xs font-bold text-foreground">{p.titleUz}</h4>
+                    <p className="text-[10px] text-muted-foreground">{p.titleJa}</p>
+                  </div>
+
+                  <div className="mt-3 space-y-2">
+                    <div className="flex items-baseline justify-between">
+                      <span className="font-mono text-xl font-black text-foreground">
+                        {p.accuracyPercentage}%
+                      </span>
+                      <span className="text-[11px] text-muted-foreground">
+                        {p.correctCount}/{p.totalQuestions} to'g'ri
+                      </span>
+                    </div>
+
+                    <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
+                      <div
+                        className={`h-full transition-all duration-500 ${
+                          isCrit ? 'bg-rose-500' : isMod ? 'bg-amber-500' : 'bg-emerald-500'
+                        }`}
+                        style={{ width: `${p.accuracyPercentage}%` }}
+                      />
+                    </div>
+
+                    <p className="text-[10px] leading-tight text-muted-foreground">
+                      {p.feedbackUz}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* Targeted Remediation & One-Click Plan Integration */}
+      {report.diagnosticAnalysis?.remediations &&
+        report.diagnosticAnalysis.remediations.length > 0 && (
+          <div className="space-y-4 rounded-3xl border border-indigo-500/30 bg-gradient-to-br from-indigo-500/10 via-purple-500/5 to-card p-5 shadow-xs sm:p-6">
+            <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
+              <div className="flex items-center gap-3">
+                <div className="rounded-2xl bg-indigo-500/20 p-2.5 text-indigo-500 dark:text-indigo-400">
+                  <Target size={22} />
+                </div>
+                <div>
+                  <h3 className="text-sm font-black text-foreground">
+                    🎯 Zaif Bo'limlar Bo'yicha Maxsus Mashqlar (Targeted Remediation)
+                  </h3>
+                  <p className="text-xs text-muted-foreground">
+                    Imtihon xatolarini bartaraf qilish uchun eng samarali dars va amaliyotlar.
+                  </p>
+                </div>
+              </div>
+
+              <button
+                onClick={handleInjectToPersonalPlan}
+                disabled={isInjectingPlan || isInjectedPlan}
+                className={`flex shrink-0 items-center justify-center gap-2 rounded-2xl px-4 py-2.5 text-xs font-black shadow-md transition-all ${
+                  isInjectedPlan
+                    ? 'cursor-default bg-emerald-600 text-white shadow-emerald-500/20'
+                    : 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-indigo-500/25 hover:scale-[1.02] active:scale-95'
+                }`}
+              >
+                {isInjectedPlan ? (
+                  <>
+                    <CheckCircle size={15} />
+                    <span>Rejangizga Biriktirildi!</span>
+                  </>
+                ) : (
+                  <>
+                    <Zap size={15} className="fill-current text-amber-300" />
+                    <span>
+                      {isInjectingPlan
+                        ? "Rejaga qo'shilmoqda..."
+                        : '⚡ Shaxsiy Rejamga Biriktirish'}
+                    </span>
+                  </>
+                )}
+              </button>
+            </div>
+
+            {/* Injected banner */}
+            {isInjectedPlan && (
+              <div className="flex flex-col items-center justify-between gap-2 rounded-2xl border border-emerald-500/40 bg-emerald-500/10 p-3 text-xs text-emerald-700 dark:text-emerald-300 sm:flex-row">
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 size={16} className="shrink-0 text-emerald-500" />
+                  <span>
+                    Vazifalar joriy haftalik rejangizga muvaffaqiyatli qo'shildi{' '}
+                    {injectedDays.length > 0 ? `(${injectedDays.join(', ')})` : ''}!
+                  </span>
+                </div>
+                <button
+                  onClick={handleGoToPlan}
+                  className="inline-flex items-center gap-1 font-bold underline hover:text-emerald-900 dark:hover:text-emerald-100"
+                >
+                  <span>Rejani ochish</span>
+                  <ArrowRight size={13} />
+                </button>
+              </div>
+            )}
+
+            {/* Remediation Cards Grid */}
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              {report.diagnosticAnalysis.remediations.map((rem) => (
+                <div
+                  key={rem.id}
+                  className="flex flex-col justify-between rounded-2xl border border-border/80 bg-background/90 p-4 shadow-xs"
+                >
+                  <div className="space-y-1.5">
+                    <div className="flex items-center justify-between">
+                      <span
+                        className={`rounded-full px-2 py-0.5 text-[10px] font-black uppercase ${
+                          rem.severity === 'high'
+                            ? 'bg-rose-500/15 text-rose-600 dark:text-rose-400'
+                            : 'bg-indigo-500/15 text-indigo-600 dark:text-indigo-400'
+                        }`}
+                      >
+                        {rem.severity === 'high' ? 'Kritik mashq' : 'Tavsiya'}
+                      </span>
+                      <span className="text-[11px] font-semibold text-muted-foreground">
+                        ⏱️ {rem.estimatedMinutes} daqiqa
+                      </span>
+                    </div>
+
+                    <h4 className="text-xs font-black text-foreground">{rem.title}</h4>
+                    <p className="text-[11px] leading-relaxed text-muted-foreground">
+                      {rem.subtitle}
+                    </p>
+                  </div>
+
+                  <div className="mt-4 flex items-center justify-between border-t border-border/50 pt-3">
+                    <span className="text-[10px] font-bold text-muted-foreground">
+                      Yo'nalish: {rem.skill.toUpperCase()}
+                    </span>
+                    <a
+                      href={rem.route}
+                      className="inline-flex items-center gap-1.5 rounded-xl bg-primary px-3 py-1.5 text-xs font-bold text-primary-foreground shadow-xs transition-all hover:bg-primary/90"
+                    >
+                      <span>{rem.actionText}</span>
+                      <ExternalLink size={12} />
+                    </a>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
       {/* Mistakes to Flashcards Export Action */}
       {mistakes.length > 0 && (
