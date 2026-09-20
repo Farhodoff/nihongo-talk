@@ -33,6 +33,7 @@ export interface LessonDialogue {
   title: string;
   titleJa?: string;
   situationUz?: string;
+  audioUrl?: string;
   lines: DialogueLineItem[];
 }
 

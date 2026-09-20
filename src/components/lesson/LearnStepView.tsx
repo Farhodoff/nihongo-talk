@@ -8,10 +8,18 @@ import {
   MessageSquare,
   Play,
   Pause,
+  Disc,
 } from 'lucide-react';
 import { LearnContent, SupportedLanguage } from '../../types/lesson';
 import { speakText, speakJapaneseText } from '../../utils/audioTts';
 import { FuriganaText } from '../jlpt/FuriganaText';
+
+const formatAudioTime = (seconds: number) => {
+  if (isNaN(seconds) || seconds <= 0) return '00:00';
+  const mins = Math.floor(seconds / 60);
+  const secs = Math.floor(seconds % 60);
+  return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+};
 
 interface LearnStepViewProps {
   content: LearnContent;
@@ -24,14 +32,37 @@ export const LearnStepView: React.FC<LearnStepViewProps> = ({ content, language 
   const [isAutoPlayingDialogue, setIsAutoPlayingDialogue] = useState(false);
   const autoPlayTimeoutRef = useRef<any>(null);
 
+  // Studio MP3 CD Audio Player State
+  const studioAudioRef = useRef<HTMLAudioElement | null>(null);
+  const [isPlayingStudioAudio, setIsPlayingStudioAudio] = useState(false);
+  const [studioAudioCurrentTime, setStudioAudioCurrentTime] = useState(0);
+  const [studioAudioDuration, setStudioAudioDuration] = useState(0);
+  const [studioPlaybackRate, setStudioPlaybackRate] = useState<number>(1.0);
+
   useEffect(() => {
     return () => {
       if (autoPlayTimeoutRef.current) clearTimeout(autoPlayTimeoutRef.current);
       if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
         window.speechSynthesis.cancel();
       }
+      if (studioAudioRef.current) {
+        studioAudioRef.current.pause();
+        studioAudioRef.current.src = '';
+        studioAudioRef.current = null;
+      }
     };
   }, []);
+
+  // Stop audio on content change
+  useEffect(() => {
+    if (studioAudioRef.current) {
+      studioAudioRef.current.pause();
+      studioAudioRef.current = null;
+    }
+    setIsPlayingStudioAudio(false);
+    setStudioAudioCurrentTime(0);
+    setStudioAudioDuration(0);
+  }, [content]);
 
   const handleSpeak = (text: string) => {
     if (language === 'ja') {
@@ -42,6 +73,10 @@ export const LearnStepView: React.FC<LearnStepViewProps> = ({ content, language 
   };
 
   const handlePlaySingleLine = (idx: number, text: string) => {
+    if (isPlayingStudioAudio && studioAudioRef.current) {
+      studioAudioRef.current.pause();
+      setIsPlayingStudioAudio(false);
+    }
     if (isAutoPlayingDialogue) {
       setIsAutoPlayingDialogue(false);
       if (autoPlayTimeoutRef.current) clearTimeout(autoPlayTimeoutRef.current);
@@ -56,7 +91,81 @@ export const LearnStepView: React.FC<LearnStepViewProps> = ({ content, language 
     );
   };
 
+  const handleToggleStudioAudio = () => {
+    if (!content.dialogue?.audioUrl) return;
+
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+    }
+    if (autoPlayTimeoutRef.current) {
+      clearTimeout(autoPlayTimeoutRef.current);
+      autoPlayTimeoutRef.current = null;
+    }
+    setIsAutoPlayingDialogue(false);
+    setPlayingLineIdx(null);
+
+    if (isPlayingStudioAudio && studioAudioRef.current) {
+      studioAudioRef.current.pause();
+      setIsPlayingStudioAudio(false);
+      return;
+    }
+
+    if (!studioAudioRef.current) {
+      const audio = new Audio(content.dialogue.audioUrl);
+      audio.playbackRate = studioPlaybackRate;
+      studioAudioRef.current = audio;
+
+      audio.ontimeupdate = () => {
+        setStudioAudioCurrentTime(audio.currentTime);
+      };
+      audio.onloadedmetadata = () => {
+        if (!isNaN(audio.duration)) {
+          setStudioAudioDuration(audio.duration);
+        }
+      };
+      audio.onended = () => {
+        setIsPlayingStudioAudio(false);
+        setStudioAudioCurrentTime(0);
+      };
+      audio.onerror = () => {
+        setIsPlayingStudioAudio(false);
+      };
+    }
+
+    const audio = studioAudioRef.current;
+    audio.playbackRate = studioPlaybackRate;
+    audio
+      .play()
+      .then(() => {
+        setIsPlayingStudioAudio(true);
+      })
+      .catch(() => {
+        setIsPlayingStudioAudio(false);
+      });
+  };
+
+  const handleSeekStudioAudio = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newTime = parseFloat(e.target.value);
+    setStudioAudioCurrentTime(newTime);
+    if (studioAudioRef.current) {
+      studioAudioRef.current.currentTime = newTime;
+    }
+  };
+
+  const handleTogglePlaybackRate = () => {
+    const nextRate = studioPlaybackRate === 1.0 ? 0.8 : studioPlaybackRate === 0.8 ? 1.2 : 1.0;
+    setStudioPlaybackRate(nextRate);
+    if (studioAudioRef.current) {
+      studioAudioRef.current.playbackRate = nextRate;
+    }
+  };
+
   const handleTogglePlayAllDialogue = () => {
+    if (content.dialogue?.audioUrl) {
+      handleToggleStudioAudio();
+      return;
+    }
+
     if (isAutoPlayingDialogue) {
       setIsAutoPlayingDialogue(false);
       setPlayingLineIdx(null);
@@ -90,6 +199,8 @@ export const LearnStepView: React.FC<LearnStepViewProps> = ({ content, language 
 
     playNext();
   };
+
+  const isDialoguePlaying = isPlayingStudioAudio || isAutoPlayingDialogue;
 
   return (
     <div className="mx-auto max-w-3xl space-y-6 duration-200 animate-in fade-in">
@@ -336,13 +447,13 @@ export const LearnStepView: React.FC<LearnStepViewProps> = ({ content, language 
               <button
                 onClick={handleTogglePlayAllDialogue}
                 className={`inline-flex items-center gap-2 rounded-xl px-3.5 py-1.5 text-xs font-bold shadow-sm transition-all ${
-                  isAutoPlayingDialogue
+                  isDialoguePlaying
                     ? 'bg-rose-500 text-white hover:bg-rose-600'
                     : 'bg-primary text-primary-foreground hover:bg-primary/90'
                 }`}
-                title={isAutoPlayingDialogue ? "To'xtatish" : 'Ketma-ket tinglash'}
+                title={isDialoguePlaying ? "To'xtatish" : 'Ketma-ket tinglash'}
               >
-                {isAutoPlayingDialogue ? (
+                {isDialoguePlaying ? (
                   <>
                     <Pause size={14} />
                     <span>To'xtatish</span>
@@ -350,11 +461,69 @@ export const LearnStepView: React.FC<LearnStepViewProps> = ({ content, language 
                 ) : (
                   <>
                     <Play size={14} />
-                    <span>Barchasini tinglash</span>
+                    <span>
+                      {content.dialogue.audioUrl ? 'CD Audioni tinglash' : 'Barchasini tinglash'}
+                    </span>
                   </>
                 )}
               </button>
             </div>
+
+            {/* Authentic Studio Audio Player Bar */}
+            {content.dialogue.audioUrl && (
+              <div className="flex flex-col items-stretch justify-between gap-3 rounded-2xl border border-primary/25 bg-gradient-to-r from-primary/10 via-primary/5 to-card p-3 shadow-sm sm:flex-row sm:items-center sm:p-4">
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={handleToggleStudioAudio}
+                    aria-label={
+                      isPlayingStudioAudio ? "To'xtatish" : 'Studiyaviy CD audioni tinglash'
+                    }
+                    className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-md transition-all hover:scale-105 active:scale-95"
+                  >
+                    {isPlayingStudioAudio ? (
+                      <Pause size={20} />
+                    ) : (
+                      <Play size={20} className="ml-0.5" />
+                    )}
+                  </button>
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-2">
+                      <span className="inline-flex items-center gap-1 rounded-full bg-primary/20 px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wide text-primary">
+                        <Disc size={12} className={isPlayingStudioAudio ? 'animate-spin' : ''} />
+                        Haqiqiy Studiya CD Audiosi
+                      </span>
+                      <span className="font-mono text-xs font-bold text-muted-foreground">
+                        {formatAudioTime(studioAudioCurrentTime)} /{' '}
+                        {formatAudioTime(studioAudioDuration)}
+                      </span>
+                    </div>
+                    <p className="mt-0.5 truncate text-xs font-semibold text-foreground">
+                      {content.dialogue.titleJa || content.dialogue.title}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex flex-1 items-center gap-3 sm:max-w-xs">
+                  <input
+                    type="range"
+                    min="0"
+                    max={studioAudioDuration || 100}
+                    step="0.1"
+                    value={studioAudioCurrentTime}
+                    onChange={handleSeekStudioAudio}
+                    className="h-1.5 w-full cursor-pointer appearance-none rounded-lg bg-border accent-primary"
+                    aria-label="Audio progress"
+                  />
+                  <button
+                    onClick={handleTogglePlaybackRate}
+                    className="shrink-0 rounded-lg border border-border bg-card px-2.5 py-1 font-mono text-xs font-bold text-foreground transition-colors hover:bg-secondary"
+                    title="Ijro tezligi"
+                  >
+                    {studioPlaybackRate}x
+                  </button>
+                </div>
+              </div>
+            )}
 
             {content.dialogue.situationUz && (
               <div className="rounded-xl border border-primary/20 bg-primary/5 p-3 text-xs text-foreground/90">

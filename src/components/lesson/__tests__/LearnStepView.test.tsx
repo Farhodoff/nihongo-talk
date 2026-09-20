@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import { describe, expect, it, vi, beforeEach } from 'vitest';
 import { LearnStepView } from '../LearnStepView';
 import { LearnContent } from '../../../types/lesson';
@@ -139,5 +139,43 @@ describe('LearnStepView Component with Dialogue Support', () => {
 
     expect(screen.getByText("📚 Yangi So'zlar")).toBeInTheDocument();
     expect(screen.queryByText('💬 Amaliy Dialog (Kaiwa)')).not.toBeInTheDocument();
+  });
+
+  it('renders authentic studio CD audio player when audioUrl is present', async () => {
+    const contentWithStudioAudio: LearnContent = {
+      ...mockContent,
+      dialogue: {
+        ...mockContent.dialogue!,
+        audioUrl: '/audio/minna/minna_shokyu_1_001.mp3',
+      },
+    };
+
+    // Mock window.Audio as a constructor class
+    const playMock = vi.fn().mockResolvedValue(undefined);
+    const pauseMock = vi.fn();
+    class MockAudio {
+      play = playMock;
+      pause = pauseMock;
+      playbackRate = 1;
+      currentTime = 0;
+      duration = 60;
+      src = '';
+      addEventListener = vi.fn();
+      removeEventListener = vi.fn();
+    }
+    window.Audio = MockAudio as any;
+
+    render(<LearnStepView content={contentWithStudioAudio} language="ja" />);
+
+    // Renders CD audio badge and CD audio button
+    expect(screen.getByText(/Haqiqiy Studiya CD Audiosi/i)).toBeInTheDocument();
+    const playBtns = screen.getAllByRole('button', { name: /CD Audioni tinglash/i });
+    expect(playBtns.length).toBeGreaterThanOrEqual(1);
+
+    // Clicking play triggers audio play
+    await act(async () => {
+      fireEvent.click(playBtns[0]);
+    });
+    expect(playMock).toHaveBeenCalled();
   });
 });
