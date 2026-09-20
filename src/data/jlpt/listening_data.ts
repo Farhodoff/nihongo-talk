@@ -37,7 +37,7 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N5',
     type: 'task',
     titleUz: 'Soyabon olish',
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n5/minna_shokyu_1_002.mp3',
     script:
       '男の人と女の人が話しています。男の人はこれから何をしますか？\n男：あ、雨が降ってきましたね。\n女：そうですね。傘を持っていますか？\n男：いいえ、持っていません。コンビニで買ってきます。\n女：あ、私の傘を貸しましょうか？車の中にありますから。\n男：ありがとうございます！じゃあ、お願いします。',
     questionText: '男の人はこれから何をしますか？',
@@ -115,7 +115,7 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N5',
     type: 'quick',
     titleUz: "Poezd yo'li raqami",
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n5/minna_shokyu_1_003.mp3',
     script:
       '駅で男の人が駅員に聞いています。\n男：すみません、東京行きの電車は何番線ですか？\n駅員：3番線ですよ。もうすぐ来ますよ。',
     questionText: '東京行きの電車は何番線ですか？',
@@ -157,7 +157,7 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N5',
     type: 'point',
     titleUz: 'Test kuni',
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n5/minna_shokyu_1_004.mp3',
     script:
       '学校で先生と学生が話しています。テストは何曜日ですか？\n学生：先生、日本語のテストは金曜日ですか？\n先生：いいえ、金曜日は祝日でお休みですから、木曜日に行いますよ。\n学生：わかりました。木曜日ですね。',
     questionText: '日本語のテストは何曜日ですか？',
@@ -209,7 +209,7 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N5',
     type: 'task',
     titleUz: "Ko'ylak xaridi",
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n5/minna_shokyu_1_005.mp3',
     script:
       '店で男の人と店員が話しています。男の人はどのシャツを買いますか？\n男：すみません、この白いシャツのMサイズはありますか？\n店員：申し訳ありません、白のMは売り切れてしまいました。青のMならございます。\n男：そうですか。じゃあ、青のMをお願いします。',
     questionText: '男の人はどのシャツを買いますか？',
@@ -265,7 +265,7 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N5',
     type: 'quick',
     titleUz: 'Mehmondorchilik odobi',
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n5/minna_shokyu_1_006.mp3',
     script:
       '友達の家で。友達がお茶を出してくれました。何と言いますか？\n男：お茶をどうぞ。\nあなた：あ、（　）',
     questionText: 'こんなとき、何と言いますか？',
@@ -313,7 +313,7 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N5',
     type: 'task',
     titleUz: 'Kutubxonada kitob topshirish',
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n5/minna_shokyu_1_007.mp3',
     script:
       '図書館で男の学生と係の人が話しています。学生は何冊本を返しますか？\n学生：すみません、本を返したいんですが。\n係員：はい。全部で4冊ですね。あれ、この本は来週まで借りられますよ。\n学生：あ、まだ読んでいないので、この1冊はそのまま借ります。\n係員：わかりました。じゃあ、3冊お預かりします。',
     questionText: '学生は何冊本を返しますか？',
@@ -372,7 +372,7 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N5',
     type: 'point',
     titleUz: 'Ertangi uchrashuv joyi',
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n5/minna_shokyu_1_008.mp3',
     script:
       '男の人と女の人が話しています。2人は明日どこで会いますか？\n男：明日の待ち合わせ、駅の改札口でいい？\n女：改札口は人が多くて見つけにくいから、駅の東口にあるカフェの前にしない？\n男：あそこね、いいね。じゃあ、10時にカフェの前で。\n女：うん、そうしよう。',
     questionText: '2人は明日どこで会いますか？',
@@ -436,7 +436,7 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N5',
     type: 'quick',
     titleUz: "Kutubxonada ruxsat so'rash",
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n5/minna_shokyu_1_009.mp3',
     script: '教室でペンがありません。隣の人に借りたいです。何と言いますか？\nあなた：（　）',
     questionText: 'こんなとき、何と言いますか？',
     questionTextUz: "Ruchka so'rashda qanday murojaat qilinadi?",
@@ -480,7 +480,7 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N5',
     type: 'task',
     titleUz: "Supermarketdagi xarid ro'yxati",
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n5/minna_shokyu_1_010.mp3',
     script:
       '家で母親と息子が話しています。息子は何を買ってきますか？\n母：買い物に行ってくれる？牛乳と卵を買ってきて。\n息子：わかった。パンはまだあったっけ？\n母：パンは今朝買ったのがあるから買わなくていいわ。あ、リンゴも2つお願い。\n息子：牛乳、卵、リンゴ2つだね。行ってきます。',
     questionText: '息子は何を買ってきますか？',
@@ -539,7 +539,7 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N4',
     type: 'point',
     titleUz: 'Dars qoldirish sababi',
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n4/shinkanzen_chokai_n4_CD-A_001.mp3',
     script:
       '女の学生と男の学生が話しています。男の学生はどうして昨日学校を休みましたか？\n女：山田くん、昨日はどうして休んだの？風邪？\n男：ううん、風邪じゃなくて。実は、自転車が途中で壊れちゃって、遅刻しそうだったから家に帰ったんだ。\n女：えー、それだけで休んだの？\n男：うん、テストもない日だったしね。',
     questionText: '男の学生はどうして昨日学校を休みましたか？',
@@ -610,7 +610,7 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N4',
     type: 'task',
     titleUz: 'Majlis hujjatlari nusxasi',
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n4/shinkanzen_chokai_n4_CD-A_002.mp3',
     script:
       '会社で女の人と男の人が話しています。男の人はまず何をコピーしますか？\n女：田中さん、会議の準備を手伝ってくれませんか？\n男：はい、何をしましょうか？\n女：まずこの企画書を10部コピーしてください。それからスケジュールの表もお願いします。\n男：わかりました。企画書ですね。',
     questionText: '男の人はまず何をコピーしますか？',
@@ -675,7 +675,7 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N4',
     type: 'task',
     titleUz: 'Kasalxonada birinchi qadam',
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n4/shinkanzen_chokai_n4_CD-A_003.mp3',
     script:
       '病院の受付で女の人と係の人が話しています。女の人はまずどこへ行きますか？\n係員：初診ですね。まずあちらの窓口で問診票を記入して出してください。その後、2階の内科の前でお待ちください。\n女：わかりました。問診票ですね。',
     questionText: '女の人はまず何をしますか？',
@@ -724,7 +724,7 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N4',
     type: 'quick',
     titleUz: "Boshliq topshirig'iga javob",
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n4/shinkanzen_chokai_n4_CD-A_004.mp3',
     script:
       '会社で上司に書類の提出を頼まれました。何と答えますか？\n上司：佐藤さん、この報告書を今日中にまとめてもらえるかい？\nあなた：（　）',
     questionText: '質問を聞いて、何と答えますか？',
@@ -778,7 +778,7 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N4',
     type: 'point',
     titleUz: 'Dam olish kuni sayohati',
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n4/shinkanzen_chokai_n4_CD-A_005.mp3',
     script:
       '男の人と女の人が週末の予定について話しています。2人はどうして山に行くのをやめましたか？\n男：今週末、温泉に行こうか、山に登ろうか。\n女：山登りもいいけど、天気予報見たら土曜日も日曜日も雨が降るって言ってたよ。\n男：本当？雨の中の山道は滑って危ないから、今回は温泉旅館でのんびりしよう。\n女：そうだね、賛成！',
     questionText: '2人はどうして山に行くのをやめましたか？',
@@ -848,7 +848,7 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N4',
     type: 'task',
     titleUz: "Mehmonxona xonasidagi ko'rsatma",
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n4/shinkanzen_chokai_n4_CD-A_006.mp3',
     script:
       'ホテルの部屋でフロントからの電話を聞いています。客はチェックアウトのとき鍵をどこに置きますか？\nフロント：お客様、明朝のチェックアウトについてご案内いたします。朝7時前はフロントが無人となりますので、ルームキーはお部屋のテーブルの上に置いたまま、ドアを閉めてご出発ください。\n客：わかりました。テーブルの上ですね。',
     questionText: '客は鍵をどこに置きますか？',
@@ -898,7 +898,7 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N4',
     type: 'quick',
     titleUz: "Uzr so'rash va kechirim",
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n4/shinkanzen_chokai_n4_CD-A_007.mp3',
     script: '駅で人とぶつかってしまいました。何と言いますか？\nあなた：（　）',
     questionText: 'こんなとき、何と言いますか？',
     questionTextUz: 'Birov bilan turtilishib ketganda nima deyiladi?',
@@ -937,7 +937,7 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N4',
     type: 'summary',
     titleUz: 'Yangi taom xulosasi',
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n4/shinkanzen_chokai_n4_CD-A_008.mp3',
     script:
       'レストランで2人が新メニューについて話しています。2人はこの料理をどう思っていますか？\n男：この季節限定のスープ、すごく野菜の甘みが出ているね。\n女：本当！少し辛いけど、体の芯から温まる感じがして、冬にぴったりだわ。\n男：うん、また来週も食べに来たいね。',
     questionText: '2人はこの料理をどう評価していますか？',
@@ -1000,7 +1000,7 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N4',
     type: 'task',
     titleUz: 'Chiqindilarni saralash',
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n4/shinkanzen_chokai_n4_CD-A_009.mp3',
     script:
       'アパートのゴミ捨て場で管理人と住人が話しています。ペットボトルはいつ出しますか？\n住人：すみません、このペットボトルの回収日は何曜日ですか？\n管理人：ペットボトルと缶は水曜日の朝8時までに出してください。月曜と木曜は燃えるゴミです。\n住人：わかりました。水曜日ですね。',
     questionText: 'ペットボトルは何曜日に出しますか？',
@@ -1053,7 +1053,7 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N3',
     type: 'quick',
     titleUz: 'Pochta qayerda?',
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n3/01 Track 1.mp3',
     script:
       '男の人が女の人に話しかけています。\n男：すみません、この近くに郵便局はありますか？\n女：あ、それなら、この道をまっすぐ行って、最初の角を右に曲がると左側にありますよ。',
     questionText: '郵便局はどこにありますか？',
@@ -1106,7 +1106,7 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N3',
     type: 'task',
     titleUz: 'Restoranda vazifa tartibi',
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n3/02 Track 2.mp3',
     script:
       'レストランで店長とアルバイトの人が話しています。アルバイトの人はこれから何をしますか？\n店長：鈴木さん、テーブルの片付け終わった？\n鈴木：はい、終わりました。次はお皿を洗いましょうか？\n店長：お皿は後でいいから、先に予約のお客様の席を奥の個室に準備しておいてくれる？もうすぐいらっしゃる時間だから。\n鈴木：かしこまりました。すぐ準備します。',
     questionText: '鈴木さんはこれから何をしますか？',
@@ -1172,7 +1172,7 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N3',
     type: 'point',
     titleUz: "Grant talablari o'zgarishi",
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n3/03 Track 3.mp3',
     script:
       '留学生センターで職員が説明しています。奨学金の申請条件で変更されたのは何ですか？\n職員：今年度から申請条件が一部変更されました。成績基準のGPA3.0以上という点は去年と同じですが、アルバイトの週当たり就業時間の上限が、これまでの28時間から20時間以内に制限されることになりました。',
     questionText: '奨学金の申請条件で新しく変更された点は何ですか？',
@@ -1219,7 +1219,7 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N3',
     type: 'task',
     titleUz: 'Bazm menyusi tanlovi',
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n3/04 Track 4.mp3',
     script:
       'オフィスで同僚2人が話しています。男性はこれから何を注文しますか？\n女：来週の歓迎会、お店の予約は済んだ？\n男：席は確保したんだけど、飲み放題のコースにするか料理だけのコースにするか迷っていて。\n女：みんなお酒好きだから、飲み放題付きのコースのほうが安心だよ。\n男：そうだね、じゃあそっちに変更しておくよ。',
     questionText: '男性はどのコースに変更して注文しますか？',
@@ -1289,7 +1289,7 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N3',
     type: 'summary',
     titleUz: "Masofaviy ishning ta'siri",
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n3/05 Track 5.mp3',
     script:
       'テレビでアナウンサーが在宅勤務の調査結果について話しています。調査で明らかになった最も大きなメリットは何ですか？\nアナウンサー：全国の社会人3000人を対象にした意識調査によりますと、テレワークの導入により、通勤による身体的・精神的ストレスが激減したと答えた人が全体の約7割に達し、業務効率化や家族との時間の増加を抑えて最大の利点として挙げられました。',
     questionText: '調査で明らかになった最大のメリットは何ですか？',
@@ -1337,7 +1337,7 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N3',
     type: 'point',
     titleUz: "Ko'chmas mulk ijarasi",
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n3/06 Track 6.mp3',
     script:
       '不動産屋で女性客と店員が話しています。女性がこの部屋を気に入った一番の理由は何ですか？\n店員：こちらのお部屋は、駅からは徒歩15分と少し離れていますが、南向きで日当たりが良く、何より周囲が閑静な住宅街で夜も大変静かです。\n客：駅近の物件も見ましたが、夜勤もあって昼間にぐっすり眠りたいので、この静かさが何より決め手になりますね。ここにします。',
     questionText: '女性がこの部屋に決めた一番の理由は何ですか？',
@@ -1393,7 +1393,7 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N3',
     type: 'quick',
     titleUz: 'Maslahatga minnatdorchilik',
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n3/07 Track 7.mp3',
     script: '先輩に仕事の相談に乗ってもらいました。別れ際に何と言いますか？\nあなた：（　）',
     questionText: 'こんなとき、何と言いますか？',
     questionTextUz:
@@ -1438,7 +1438,7 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N3',
     type: 'task',
     titleUz: "Ekskursiya yig'ilishi",
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n3/08 Track 8.mp3',
     script:
       'ツアーガイドが観光バスの中で案内しています。乗客はバスを降りた後、まず何をしますか？\nガイド：皆様、まもなく目的地の美術館に到着します。到着しましたら、まず入口前の広場で記念撮影を行います。その後、入場チケットをお配りして館内自由見学となります。集合時間は15時です。\n乗客：写真撮影が先なんだね。',
     questionText: '乗客はバスを降りた後、まず何をしますか？',
@@ -1493,7 +1493,7 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N3',
     type: 'summary',
     titleUz: 'Muzey qoidalari',
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n3/09 Track 9.mp3',
     script:
       '美術館の館内放送を聞いています。来館者に呼びかけている主な注意事項は何ですか？\nアナウンス：本日は特別展にご来館いただきありがとうございます。特別展示室内の作品はフラッシュ撮影および動画の撮影が固く禁じられております。また、他のお客様のご迷惑となりますので、携帯電話での通話はお控えください。',
     questionText: '館内放送の主な注意事項は何ですか？',
@@ -1539,7 +1539,7 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N3',
     type: 'task',
     titleUz: "Dori ichish yo'riqnomasi",
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n3/10 Track 10.mp3',
     script:
       '薬局で薬剤師と患者が話しています。患者は食後すぐにどの薬を飲みますか？\n薬剤師：こちらの白い錠剤は毎食後30分以内に1錠お飲みください。そして、こちらの粉薬は胃を保護するものですので、食事の直後すぐにお飲みください。\n患者：食後すぐは粉薬ですね。わかりました。',
     questionText: '患者は食後すぐにどの薬を飲みますか？',
@@ -1588,7 +1588,7 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N2',
     type: 'task',
     titleUz: 'Taqdimot tayyorgarligi',
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n2/Track01.mp3',
     script:
       '会社で課長と女性社員が話しています。女性社員はこれからまず何をしますか？\n課長：佐藤さん、明日の新商品発表会の資料の準備はどうなっていますか？\n佐藤：はい、スライドの印刷はすべて完了しました。会場のプロジェクターの確認も済んでいます。\n課長：そうか。じゃあ、参加者の名簿の最新版を印刷して、受付に届けておいてくれるかい？\n佐藤：承知いたしました。すぐに名簿を確認して印刷します。',
     questionText: '女性社員はこれからまず何をしますか？',
@@ -1658,7 +1658,7 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N2',
     type: 'point',
     titleUz: 'Suhbatda eng muhim qobiliyat',
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n2/Track02.mp3',
     script:
       '大学の就職支援セミナーで講師が話しています。講師は面接で最も重視されるのは何だと言っていますか？\n講師：面接では、資格の多さや話の流暢さももちろんプラスになりますが、それ以上に採用担当者が注目しているのは「相手の質問の意図を正確に捉えて端的に答える力」です。どんなに素晴らしい経歴があっても、質問とずれた回答をしていては信頼を得られません。',
     questionText: '講師は面接で最も重視されるのは何だと言っていますか？',
@@ -1705,7 +1705,7 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N2',
     type: 'point',
     titleUz: "Mijozlarga tezkor e'tibor",
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n2/Track03.mp3',
     script:
       'ビジネスセミナーで経営者が話しています。新規事業を成功させる上で最も重視した要素は何ですか？\n経営者：資金力や最新のITシステムも有用ですが、当社が急成長できた決定的な要因は「顧客からの不満やクレームに24時間以内に直接電話で対応する徹底したアフターフォロー」でした。顧客の信頼が最大の差別化になります。',
     questionText: '経営者が成功の決定的要因として挙げているのは何ですか？',
@@ -1753,7 +1753,7 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N2',
     type: 'quick',
     titleUz: "Biznes qo'ng'iroq odobi",
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n2/Track04.mp3',
     script:
       '取引先の担当者と電話で話しています。相手が「あいにく部長の田中は席を外しております」と言いました。あなたは何と言いますか？\n相手：あいにく部長の田中は席を外しております。\nあなた：（　）',
     questionText: '適切な返答はどれですか？',
@@ -1808,7 +1808,7 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N2',
     type: 'summary',
     titleUz: 'Mahalliy iqtisodiyotni jonlantirish',
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n2/Track05.mp3',
     script:
       '市役所の地域創生課で職員が報告しています。地方活性化プロジェクトで最も高い成果を上げた施策は何ですか？\n職員：過去3年間の施策を検証した結果、大型商業施設の誘致よりも、地元の伝統工芸品や農産物を首都圏のレストランと直接提携してブランディング化した取り組みが、安定した雇用創出と地域所得の向上に最も貢献したことが判明しました。',
     questionText: '最も成果を上げた施策は何ですか？',
@@ -1855,7 +1855,7 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N2',
     type: 'task',
     titleUz: 'Shartnoma tuzatishi',
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n2/Track06.mp3',
     script:
       '法務部の担当者と営業担当者が話しています。営業担当者はこれから契約書のどこを修正しますか？\n法務：この業務委託契約書ですが、第5条の損害賠償の上限額の記述が曖昧です。受託側の一方的な過失による場合でも発注額全額とするのはリスクが高すぎます。\n営業：では、月額報酬の3ヶ月分を限度額とする文言に修正すればよろしいでしょうか？\n法務：ええ、その条件なら問題ありません。直ちに修正して先方に送付してください。',
     questionText: '営業担当者は契約書のどこをどのように修正しますか？',
@@ -1918,7 +1918,7 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N2',
     type: 'quick',
     titleUz: 'Rasmiy taklifga rozilik bildirish',
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n2/Track07.mp3',
     script:
       '取引先の社長から「もしよろしければ、弊社の新工場をご案内いたしましょうか」と提案されました。何と答えますか？\n社長：もしよろしければ、弊社の新工場をご案内いたしましょうか。\nあなた：（　）',
     questionText: '適切な返答はどれですか？',
@@ -1972,7 +1972,7 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N2',
     type: 'point',
     titleUz: 'Ekologik qadoqlash loyihasi',
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n2/Track08.mp3',
     script:
       '商品開発会議でデザイナーが話しています。新パッケージでプラスチックを全廃する代わりに採用された工夫は何ですか？\nデザイナー：脱プラスチックに向けて様々な素材を比較検討しました。紙製容器は環境負荷は低いものの湿気に弱い欠点がありましたが、サトウキビの搾りかすを再利用した耐水性植物性コーティングを施すことで、鮮度保持と環境性能の両立を実現しました。',
     questionText: '新パッケージに採用された画期的な工夫は何ですか？',
@@ -2019,7 +2019,7 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     level: 'N2',
     type: 'task',
     titleUz: 'Taqdimot slaydlarini yangilash',
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n2/Track09.mp3',
     script:
       '研究室で教授が生徒に指示を出しています。生徒は発表スライドをどう変更しますか？\n教授：実験結果のデータは非常に説得力があるね。ただ、グラフの軸の文字が小さすぎて、後方の聴衆には読み取れないよ。フォントサイズを最低でも24ポイントに拡大して、凡例の色分けもコントラストを強めておきなさい。\n生徒：承知しました。フォントを大きくして配色を調整します。',
     questionText: '生徒は発表スライドをどう修正しますか？',

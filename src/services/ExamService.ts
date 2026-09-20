@@ -1,5 +1,9 @@
 import { supabase } from '../lib/supabase';
-import { JLPT_MOCK_EXAM_DATA, ExamQuestion } from '../data/jlptMockExamData';
+import {
+  JLPT_MOCK_EXAM_DATA,
+  JLPT_MOCK_EXAM_SET2_DATA,
+  ExamQuestion,
+} from '../data/jlptMockExamData';
 
 export type JlptLevel = 'N5' | 'N4' | 'N3' | 'N2' | 'N1';
 
@@ -83,18 +87,32 @@ export class ExamService {
       console.warn('ExamService: Failed to fetch exams from Supabase, using fallback', err);
     }
 
-    // Offline / Network fallback list
+    // Offline / Network fallback list (Provides Set 1 and Set 2 for each level)
     const fallbackLevels: JlptLevel[] = level ? [level] : ['N5', 'N4', 'N3', 'N2', 'N1'];
-    return fallbackLevels.map((lvl) => ({
-      id: `builtin_${lvl.toLowerCase()}`,
-      title: `JLPT ${lvl} Rasmiy Mock Test (2026)`,
-      description: `Rasmiy formatdagi ${lvl} daraja yapon tili imtihoni.`,
-      type: `JLPT ${lvl}`,
-      level: lvl,
-      isPublished: true,
-      createdAt: new Date().toISOString(),
-      totalQuestions: JLPT_MOCK_EXAM_DATA[lvl]?.length || 8,
-    }));
+    const items: ExamListItem[] = [];
+    for (const lvl of fallbackLevels) {
+      items.push({
+        id: `builtin_${lvl.toLowerCase()}`,
+        title: `JLPT ${lvl} Rasmiy Mock Test - 1-to'plam`,
+        description: `Rasmiy formatdagi ${lvl} daraja yapon tili imtihoni (1-to'liq sinov).`,
+        type: `JLPT ${lvl}`,
+        level: lvl,
+        isPublished: true,
+        createdAt: new Date().toISOString(),
+        totalQuestions: JLPT_MOCK_EXAM_DATA[lvl]?.length || 25,
+      });
+      items.push({
+        id: `builtin_${lvl.toLowerCase()}_set2`,
+        title: `JLPT ${lvl} Rasmiy Mock Test - 2-to'plam (500 Mon & Shin Kanzen)`,
+        description: `500 Mon va Shin Kanzen asosidagi ${lvl} daraja imtihon simulyatori (2-to'liq sinov).`,
+        type: `JLPT ${lvl}`,
+        level: lvl,
+        isPublished: true,
+        createdAt: new Date().toISOString(),
+        totalQuestions: JLPT_MOCK_EXAM_SET2_DATA[lvl]?.length || 25,
+      });
+    }
+    return items;
   }
 
   /**
@@ -108,7 +126,8 @@ export class ExamService {
     // If ID is a built-in slug
     if (examId.startsWith('builtin_')) {
       const lvl = this.parseLevelFromType(examId);
-      return this.buildFallbackExam(lvl);
+      const isSet2 = examId.endsWith('_set2');
+      return this.buildFallbackExam(lvl, isSet2);
     }
 
     try {
@@ -233,13 +252,28 @@ export class ExamService {
   /**
    * Helper to construct a local mock exam when DB is offline or empty
    */
-  private static buildFallbackExam(level: JlptLevel, existingExamMeta?: any): NormalizedExam {
-    const rawQuestions = JLPT_MOCK_EXAM_DATA[level] || JLPT_MOCK_EXAM_DATA['N5'];
+  private static buildFallbackExam(
+    level: JlptLevel,
+    isSet2: boolean = false,
+    existingExamMeta?: any,
+  ): NormalizedExam {
+    const rawQuestions = isSet2
+      ? JLPT_MOCK_EXAM_SET2_DATA[level] || JLPT_MOCK_EXAM_DATA[level]
+      : JLPT_MOCK_EXAM_DATA[level] || JLPT_MOCK_EXAM_DATA['N5'];
+    const title = isSet2
+      ? `JLPT ${level} Rasmiy Mock Test - 2-to'plam (500 Mon & Shin Kanzen)`
+      : `JLPT ${level} Rasmiy Mock Test - 1-to'plam`;
+    const id =
+      existingExamMeta?.id ||
+      (isSet2 ? `builtin_${level.toLowerCase()}_set2` : `builtin_${level.toLowerCase()}`);
     return {
-      id: existingExamMeta?.id || `builtin_${level.toLowerCase()}`,
-      title: existingExamMeta?.title || `JLPT ${level} Rasmiy Mock Test (2026)`,
+      id,
+      title: existingExamMeta?.title || title,
       description:
-        existingExamMeta?.description || `Rasmiy formatdagi ${level} daraja yapon tili sinovi.`,
+        existingExamMeta?.description ||
+        (isSet2
+          ? `500 Mon va Shin Kanzen asosidagi ${level} daraja imtihon sinovi.`
+          : `Rasmiy formatdagi ${level} daraja yapon tili sinovi.`),
       type: existingExamMeta?.type || `JLPT ${level}`,
       level,
       questions: rawQuestions,

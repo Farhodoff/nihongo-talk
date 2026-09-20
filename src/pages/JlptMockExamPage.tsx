@@ -27,6 +27,7 @@ import { useStudyData } from '../context/StudyPlannerContext';
 import { useLanguage } from '../context/LanguageContext';
 import { ExamService, ExamListItem, NormalizedExam } from '../services/ExamService';
 import { JLPT_MOCK_EXAM_DATA, ExamQuestion } from '../data/jlptMockExamData';
+import { toast } from '../hooks/use-toast';
 
 export const JlptMockExamPage: React.FC = () => {
   const navigate = useNavigate();
@@ -150,36 +151,18 @@ export const JlptMockExamPage: React.FC = () => {
     setUserAnswers((prev) => ({ ...prev, [qId]: optionIdx }));
   };
 
-  // Listening Audio with Web Speech TTS Fallback
-  const handlePlayAudio = (url?: string, script?: string) => {
+  // Listening Audio with Native Audio Player (NO synthetic TTS fallback)
+  const handlePlayAudio = (url?: string, _script?: string) => {
     if (isPlaying) {
       if (audioRef.current) {
         audioRef.current.pause();
         audioRef.current = null;
       }
-      if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-      }
       setIsPlaying(false);
       return;
     }
 
-    const playTtsFallback = () => {
-      if (typeof window !== 'undefined' && 'speechSynthesis' in window && script) {
-        window.speechSynthesis.cancel();
-        const utt = new SpeechSynthesisUtterance(script);
-        utt.lang = 'ja-JP';
-        utt.rate = 0.9;
-        utt.onend = () => setIsPlaying(false);
-        utt.onerror = () => setIsPlaying(false);
-        window.speechSynthesis.speak(utt);
-        setIsPlaying(true);
-      } else {
-        setIsPlaying(false);
-      }
-    };
-
-    if (url) {
+    if (url && url.trim() !== '' && !url.includes('soundhelix.com')) {
       try {
         const audio = new Audio(url);
         audioRef.current = audio;
@@ -189,19 +172,33 @@ export const JlptMockExamPage: React.FC = () => {
             setIsPlaying(true);
           })
           .catch((err) => {
-            console.warn('Audio play failed, falling back to TTS:', err);
-            playTtsFallback();
+            console.warn('Audio play failed:', err);
+            setIsPlaying(false);
+            toast({
+              title: 'Audio xatosi',
+              description: 'Ushbu audio trekni ijro etib bo‘lmadi.',
+              variant: 'destructive',
+            });
           });
         audio.onended = () => setIsPlaying(false);
         audio.onerror = () => {
-          console.warn('Audio onerror, falling back to TTS');
-          playTtsFallback();
+          setIsPlaying(false);
+          toast({
+            title: 'Audio xatosi',
+            description: 'Audio trekni yuklab bo‘lmadi.',
+            variant: 'destructive',
+          });
         };
       } catch {
-        playTtsFallback();
+        setIsPlaying(false);
       }
     } else {
-      playTtsFallback();
+      setIsPlaying(false);
+      toast({
+        title: 'Audio mavjud emas',
+        description:
+          'Ushbu savol uchun haqiqiy studiya audiosi biriktirilmagan. Sun’iy TTS ovozi ishlatilmaydi.',
+      });
     }
   };
 

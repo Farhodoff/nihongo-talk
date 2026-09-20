@@ -179,11 +179,6 @@ export const JlptListeningMockPage: React.FC = () => {
     stopAudio();
     setIsPlaying(true);
 
-    const lines =
-      q.dialogueLines && q.dialogueLines.length > 0
-        ? q.dialogueLines
-        : parseScriptIntoDialogueLines(q.script);
-
     // If authentic audio file URL exists and is not a placeholder music link, play native audio element
     const hasAuthenticAudio =
       q.audioUrl && q.audioUrl.trim() !== '' && !q.audioUrl.includes('soundhelix.com');
@@ -198,33 +193,30 @@ export const JlptListeningMockPage: React.FC = () => {
         setIsPlaying(false);
         setCurrentLineIndex(null);
       };
+      audio.onerror = () => {
+        setIsPlaying(false);
+        toast({
+          title: 'Audio xatosi',
+          description: 'Ushbu audio trekni yuklab bo‘lmadi.',
+          variant: 'destructive',
+        });
+      };
       audio.play().catch(() => {
-        setIsUsingTts(true);
-        playWithAudioSync(lines);
+        setIsPlaying(false);
+        toast({
+          title: 'Ijro etilmadi',
+          description: 'Audio avtomatik ijro etilmadi. Tugmani qayta bosing.',
+        });
       });
       return;
     }
 
-    // High quality Japanese audio synthesis via serverless /api/tts or multi-speaker sync
-    setIsUsingTts(true);
-    playWithAudioSync(lines);
-  };
-
-  const playWithAudioSync = (lines: DialogueLine[]) => {
-    syncControllerRef.current = ListeningAudioSyncService.startSequentialPlayback(lines, {
-      speed: playbackSpeed,
-      isLoopingLine: isLoopingCurrentLine,
-      onLineStart: (idx) => {
-        setCurrentLineIndex(idx);
-      },
-      onStateChange: (playing) => {
-        setIsPlaying(playing);
-      },
-      onComplete: () => {
-        setIsPlaying(false);
-        setCurrentLineIndex(null);
-        syncControllerRef.current = null;
-      },
+    // No authentic audio file attached - do not use robotic TTS
+    setIsPlaying(false);
+    toast({
+      title: 'Haqiqiy audio mavjud emas',
+      description:
+        'Ushbu savol uchun haqiqiy studiya audio treki biriktirilmagan. Sun’iy TTS ovozidan foydalanilmaydi.',
     });
   };
 

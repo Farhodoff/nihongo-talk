@@ -211,7 +211,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 120,
       section: 'listening',
-      audioUrl: '',
+      audioUrl: '/audio/choukai/n5/minna_shokyu_1_001.mp3',
       script:
         '女の人が話しています。テーブルの上に何を置きますか？\n女：食事の準備をしましょう。お皿を並べて、その右側にスプーンを置いてください。',
       questionText: 'お皿の右側に何を置きますか？',
@@ -223,7 +223,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 121,
       section: 'listening',
-      audioUrl: '',
+      audioUrl: '/audio/choukai/n5/minna_shokyu_1_002.mp3',
       script:
         '男の人と女の人が話しています。男の人はあした何時に起きますか？\n女：あしたは何時に出かけるの？\n男：8時の電車に乗るから、7時に起きるよ。',
       questionText: '男の人はあした何時に起きますか？',
@@ -234,7 +234,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 122,
       section: 'listening',
-      audioUrl: '',
+      audioUrl: '/audio/choukai/n5/minna_shokyu_1_003.mp3',
       script:
         '男の人と女の人が話しています。二人はどこで会いますか？\n男：明日の待ち合わせ、駅の改札口にする？\n女：うーん、改札口は人が多くて見つけにくいよ。北口の本屋さんの前にしない？\n男：そうだね、じゃあそこにしよう。',
       questionText: '二人は 明日 どこで 会いますか？',
@@ -246,7 +246,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 123,
       section: 'listening',
-      audioUrl: '',
+      audioUrl: '/audio/choukai/n5/minna_shokyu_1_004.mp3',
       script:
         '先生が学生に話しています。学生は明日何を持ってこなければなりませんか？\n先生：みなさん、明日は作文のテストをします。えんぴつと消しゴムを必ず持ってきてください。辞書や教科書は使えませんから、机の上に出さないでください。',
       questionText: '学生は 明日 机の上に 何を 出しますか？',
@@ -258,7 +258,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 124,
       section: 'listening',
-      audioUrl: '',
+      audioUrl: '/audio/choukai/n5/minna_shokyu_1_005.mp3',
       script:
         '女の人と男の人が話しています。男の人は何を着て出かけますか？\n女：外は風が強くて寒いよ。上着を着ていったほうがいいよ。\n男：うん、じゃあ厚いコートを着ていくよ。帽子もかぶろう。',
       questionText: '男の人は 何を着て 出かけますか？',
@@ -270,7 +270,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 125,
       section: 'listening',
-      audioUrl: '',
+      audioUrl: '/audio/choukai/n5/minna_shokyu_1_006.mp3',
       script:
         'レストランで男の人と店員が話しています。男の人は飲み物に何を頼みましたか？\n店員：ご注文はお決まりですか？\n男：カレーライスを一つお願いします。それから、冷たいお茶をください。\n店員：かしこまりました。冷たいお茶ですね。',
       questionText: '男の人は 飲み物に 何を 頼みましたか？',
@@ -489,7 +489,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 220,
       section: 'listening',
-      audioUrl: '',
+      audioUrl: '/audio/choukai/n4/shinkanzen_chokai_n4_CD-A_001.mp3',
       script:
         '女の学生と男の学生が話しています。男の学生はどうしてパーティーに来られませんか？\n女：明日の夜、みんなでタワポンさんの送別会をするんだけど、来られる？\n男：あー、明日はアルバイトのシフトが入っていて、休めないんだ。ごめんね。',
       questionText: '男の学生はどうしてパーティーに来られませんか？',
@@ -501,7 +501,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 221,
       section: 'listening',
-      audioUrl: '',
+      audioUrl: '/audio/choukai/n4/shinkanzen_chokai_n4_CD-A_002.mp3',
       script:
         '駅で案内放送を聞いています。新幹線は何番線から発車しますか？\n放送：まもなく11番線に、博多行き新幹線が到着いたします。黄色い線の内側までお下がりください。',
       questionText: '新幹線は何番線から発車しますか？',
@@ -513,7 +513,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 222,
       section: 'listening',
-      audioUrl: '',
+      audioUrl: '/audio/choukai/n4/shinkanzen_chokai_n4_CD-A_003.mp3',
       script:
         '会社で課長と女性社員が話しています。女性社員はまず何をしますか？\n課長：佐藤さん、午後の会議の準備だけど、資料のコピーはできた？\n女性：あ、まだ会議室の予約をしただけです。\n課長：そうか。じゃあ、先にこの資料を20部コピーして会議室に持っていって。パソコンの準備はその後でいいから。\n女性：はい、わかりました。すぐやります。',
       questionText: '女性社員は まず 何を しますか？',
@@ -525,7 +525,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 223,
       section: 'listening',
-      audioUrl: '',
+      audioUrl: '/audio/choukai/n4/shinkanzen_chokai_n4_CD-A_004.mp3',
       script:
         '病院で医者と男の人が話しています。男の人は白い薬をいつ飲みますか？\n医者：喉の痛みを抑える白い薬と、熱が出たときだけの青い薬を出しますね。\n男：はい。\n医者：白い薬は毎食後、必ず水と一緒に飲んでください。青い薬は38度以上の熱が出たときだけですよ。\n男：わかりました。',
       questionText: '男の人は 白い薬を いつ 飲みますか？',
@@ -537,7 +537,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 224,
       section: 'listening',
-      audioUrl: '',
+      audioUrl: '/audio/choukai/n4/shinkanzen_chokai_n4_CD-A_005.mp3',
       script:
         '店で客と店員が話しています。客はどうやって支払いますか？\n店員：お会計は4200円になります。\n客：クレジットカードは使えますか？\n店員：すみません、ただいま通信端末の故障でカードとバーコード決済が使えないんです。現金かSuicaなどの交通系電子マネーのみとなります。\n客：そうですか。じゃあSuicaでお願いします。',
       questionText: '客は どうやって 支払いますか？',
@@ -554,7 +554,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 225,
       section: 'listening',
-      audioUrl: '',
+      audioUrl: '/audio/choukai/n4/shinkanzen_chokai_n4_CD-A_006.mp3',
       script:
         '男の人と女の人が明日の旅行について話しています。二人は何時の電車に乗りますか？\n男：明日は9時の特急に乗る予定だったよね？\n女：うん。でも現地の博物館が10時から特別展をやるから、できればもう一本早い8時半の電車にしない？\n男：いいね。じゃあ8時半のに乗ろう。駅には8時15分に集合ね。',
       questionText: '二人は 明日 何時の 電車に 乗りますか？',
@@ -781,7 +781,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 320,
       section: 'listening',
-      audioUrl: '',
+      audioUrl: '/audio/choukai/n3/01 Track 1.mp3',
       script:
         '会社で上司と部下が話しています。部下はこれから何を修正しますか？\n上司：山田さん、提出してもらった企画書、大筋はいいんだけど、予算のグラフが去年のデータのままだよ。\n部下：あ、大変失礼しました！すぐに最新のデータに差し替えます。\n上司：うん、それとスケジュールのフォントも統一しておいてね。',
       questionText: '部下はまず何を修正しますか？',
@@ -793,7 +793,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 321,
       section: 'listening',
-      audioUrl: '',
+      audioUrl: '/audio/choukai/n3/02 Track 2.mp3',
       script:
         '留学生と先生が相談しています。留学生は何のビザを申請しなければなりませんか？\n学生：先生、卒業後も日本で就職活動を続けたいのですが。\n先生：それなら、「特定活動ビザ」への変更手続きが必要になりますよ。推薦状を準備しましょう。',
       questionText: '留学生が申請するビザの種類は何ですか？',
@@ -805,7 +805,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 322,
       section: 'listening',
-      audioUrl: '',
+      audioUrl: '/audio/choukai/n3/03 Track 3.mp3',
       script:
         '会社で男性社員と女性上司が話しています。男性社員は今日中に何を終わらせなければなりませんか？\n男：課長、来週のセミナーの発表スライドと、取引先へ送る見積書の作成があるのですが、どちらを優先しましょうか？\n上司：スライドは明日一緒に見直すから、今日はまず見積書を直ちに完成させて先方にメール送信しておいて。\n男：承知しました。見積書を最優先で片付けます。',
       questionText: '男性社員は 今日中に 何を 終わらせますか？',
@@ -822,7 +822,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 323,
       section: 'listening',
-      audioUrl: '',
+      audioUrl: '/audio/choukai/n3/04 Track 4.mp3',
       script:
         'デパートの館内放送を聞いています。迷子のお子様の特徴は何ですか？\n放送：お客様にお呼び出しを申し上げます。4階おもちゃ売り場にて、4歳くらいの男の子がお連れ様をお探しです。青い長袖Tシャツに、黒い半ズボンを着用し、赤い帽子をかぶっております。お心当たりのあるお客様は、1階案内所までお越しください。',
       questionText: '迷子の男の子が 着ている 服装の 特徴は どれですか？',
@@ -839,7 +839,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 324,
       section: 'listening',
-      audioUrl: '',
+      audioUrl: '/audio/choukai/n3/05 Track 5.mp3',
       script:
         'ホテルのフロントで客と係員が話しています。客は何時の朝食券をもらいましたか？\n係員：ご朝食は7時、8時、9時の時間指定制となっておりますが、何時がよろしいでしょうか？\n客：明日は朝8時半にチェックアウトして出発したいんです。\n係員：それでしたら、7時からの回が最もゆっくり召し上がっていただけます。\n客：わかりました。では7時でお願いします。',
       questionText: '客は 何時の 朝食券を もらいましたか？',
@@ -851,7 +851,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 325,
       section: 'listening',
-      audioUrl: '',
+      audioUrl: '/audio/choukai/n3/06 Track 6.mp3',
       script:
         'ラジオで専門家が節電について話しています。家庭で最も簡単に効果が出る節電対策は何ですか？\n専門家：みなさんエアコンの設定温度を気にされますが、実は長期間使っていない家電製品の待機電力を減らすこと、特にスイッチ付きタップでこまめに電源を切ることが、生活の快適さを損なわずに最も効果的な節電になります。',
       questionText: '専門家が 勧めている 最も 手軽で 効果的な 節電対策は何ですか？',
@@ -1093,7 +1093,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 420,
       section: 'listening',
-      audioUrl: '',
+      audioUrl: '/audio/choukai/n2/Track01.mp3',
       script:
         'テレビで経済アナリストが話しています。今年度の個人消費の特徴は何ですか？\nアナリスト：今年度は物価高の影響で生活必需品の節約志向が強まる一方、旅行やコンサートなど体験型の消費には惜しみなく支出する傾向が見られます。二極化が顕著になっています。',
       questionText: '今年度の個人消費の特徴として述べられているのはどれですか？',
@@ -1110,7 +1110,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 421,
       section: 'listening',
-      audioUrl: '',
+      audioUrl: '/audio/choukai/n2/Track02.mp3',
       script:
         'セミナーで講師が話しています。チームの生産性を高めるために最も重要な要素は何ですか？\n講師：心理的安全性の確保です。失敗を恐れず率直に意見を言える環境こそが、イノベーションの土台となります。',
       questionText: 'チームの生産性を高めるために最重要とされているものは何ですか？',
@@ -1122,7 +1122,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 422,
       section: 'listening',
-      audioUrl: '',
+      audioUrl: '/audio/choukai/n2/Track03.mp3',
       script:
         '会社で課長と女性社員が話しています。女性社員はまず何をしなければなりませんか？\n課長：佐藤さん、明日のプレゼン資料の修正、どうなってる？\n社員：はい、市場調査のグラフは差し替え完了しました。\n課長：ありがとう。じゃあ、印刷する前に、部長に最終確認のメールを送ってくれるかな。承認が下りたら部数を刷ろう。\n社員：承知いたしました。すぐにメールをお送りします。',
       questionText: '女性社員は まず 何を しますか？',
@@ -1139,7 +1139,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 423,
       section: 'listening',
-      audioUrl: '',
+      audioUrl: '/audio/choukai/n2/Track04.mp3',
       script:
         'ラジオで専門家が睡眠について話しています。朝すっきりと目覚めるために効果的な方法は何ですか？\n専門家：目覚めを良くするためには、起きた直後にカーテンを開けて太陽の光を浴びることが極めて効果的です。これにより体内時計がリセットされ、夜の自然な眠気にもつながります。',
       questionText: '朝 すっきりと 目覚めるために 最も 効果的な 方法は何ですか？',
@@ -1156,7 +1156,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 424,
       section: 'listening',
-      audioUrl: '',
+      audioUrl: '/audio/choukai/n2/Track05.mp3',
       script:
         '男の人と女の人が話しています。男の人はなぜ新しいスマートフォンを買わないことにしましたか？\n女：新しいモデル出たけど、買い替えないの？\n男：うーん、カメラの性能は魅力的だったんだけどね。今使っている機種でもバッテリー持ちは悪くないし、何より本体の価格が高すぎて手が出ないよ。\n女：確かに最近のは15万円超えるもんね。',
       questionText: '男の人が 新しいスマートフォンを 買わない 理由は 何ですか？',
@@ -1173,7 +1173,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 425,
       section: 'listening',
-      audioUrl: '',
+      audioUrl: '/audio/choukai/n2/Track06.mp3',
       script:
         '取引先のオフィスで、受付の人が来客に対応しています。\n客：恐れ入ります。本日14時に営業部の田中様とお約束をいただいております、ABC商事の木村と申します。\n受付：木村様ですね。お待ちしておりました。恐れ入りますが、あちらのソファーにお掛けになって少々お待ちいただけますでしょうか。担当の田中に内線で連絡いたします。\n客：わかりました。ありがとうございます。',
       questionText: '木村さんは この後 まず どうしますか？',
@@ -1515,6 +1515,282 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
 };
 
 // ==========================================
+// ==========================================
+// === N5 MOCK EXAM SET 2 (Supplementary) ===
+// ==========================================
+export const JLPT_N5_MOCK_SET_2: ExamQuestion[] = [
+  {
+    id: 126,
+    section: 'knowledge',
+    questionText: 'あしたは（雨）ですか。',
+    options: ['ゆき', 'はれ', 'くもり', 'あめ'],
+    correctAnswer: 3,
+    explanationUzbek:
+      "「雨」（yomg'ir）so'zining to'g'ri o'qilishi — あめ (ame). ゆき — qor, はれ — ochiq havo, くもり — bulutli havo.",
+  },
+  {
+    id: 127,
+    section: 'knowledge',
+    questionText: 'きょうしつで（書いて）ください。',
+    options: ['かいて', 'きいて', 'はいて', 'ひいて'],
+    correctAnswer: 0,
+    explanationUzbek:
+      "「書く」（yozmoq）fe'lining te-shakli — かいて (kaite). きいて — eshitib/so'rab, はいて — kiyib/supurib, ひいて — chalib/tortib.",
+  },
+  {
+    id: 128,
+    section: 'knowledge',
+    questionText: 'しゃしんは はこの（中）に あります。',
+    options: ['そば', 'そと', 'なか', 'よこ'],
+    correctAnswer: 2,
+    explanationUzbek:
+      "「中」（ichida, ichkarisida）so'zining to'g'ri o'qilishi — なか (naka). そば — yonida, そと — tashqarisida, よこ — yon tomonida.",
+  },
+  {
+    id: 129,
+    section: 'knowledge',
+    questionText: 'この いすは（小さい）です。',
+    options: ['ちいさい', 'ちさい', 'しいさい', 'しさい'],
+    correctAnswer: 0,
+    explanationUzbek:
+      "「小さい」（kichkina）so'zining to'g'ri o'qilishi — ちいさい (chiisai). Cho'ziq 'ii' tovushi bilan yoziladi.",
+  },
+  {
+    id: 130,
+    section: 'knowledge',
+    questionText: 'あしたは（火よう日）です。',
+    options: ['どようび', 'すいようび', 'かようび', 'にちようび'],
+    correctAnswer: 2,
+    explanationUzbek:
+      "「火曜日」（Seshanba）ning to'g'ri o'qilishi — かようび (kayoubi). どようび — Shanba, すいようび — Chorshanba, にちようび — Yakshanba.",
+  },
+  {
+    id: 131,
+    section: 'knowledge',
+    questionText: 'せいとは（百人）います。',
+    options: ['ひゃくにん', 'びゃくにん', 'ひゃくじん', 'びゃくじん'],
+    correctAnswer: 0,
+    explanationUzbek:
+      "「百人」（yuz nafar kishi/o'quvchi）ning to'g'ri o'qilishi — ひゃくにん (hyakunin). Odam sanaganda 'nin' qo'shimchasi ulanadi.",
+  },
+  {
+    id: 132,
+    section: 'knowledge',
+    questionText: 'わたしの くには（かわ）が おおいです。',
+    options: ['花', '山', '川', '木'],
+    correctAnswer: 2,
+    explanationUzbek:
+      "「かわ」（daryo）so'zining to'g'ri kanji yozilishi — 川 (kawa). 花 — gul, 山 — tog', 木 — daraxt.",
+  },
+  {
+    id: 133,
+    section: 'knowledge',
+    questionText: 'きのうは（かいしゃ）を やすみました。',
+    options: ['公仕', '公社', '会仕', '会社'],
+    correctAnswer: 3,
+    explanationUzbek:
+      "「かいしゃ」（firma, korxona）ning to'g'ri kanji yozilishi — 会社 (kaisha). 会 (uchrashuv) + 社 (jamiyat).",
+  },
+  {
+    id: 134,
+    section: 'knowledge',
+    questionText: '（　）を わすれましたから、じかんが わかりません。',
+    options: ['じしょ', 'ちず', 'とけい', 'さいふ'],
+    correctAnswer: 2,
+    explanationUzbek:
+      "Vaqtni bilish uchun 'soat' kerak bo'ladi: とけい (tokei - soat). じしょ — lug'at, ちず — xarita, さいふ — hamyon.",
+  },
+  {
+    id: 135,
+    section: 'knowledge',
+    questionText: 'わたしの うちは えきに ちかいですから、（　）です。',
+    options: ['べんり', 'じょうぶ', 'いっぱい', 'へた'],
+    correctAnswer: 0,
+    explanationUzbek:
+      "Vokzalga yaqin bo'lgan uy qulay (べんり - benri) hisoblanadi. じょうぶ — baquvvat, いっぱい — to'la, へた — no'noq.",
+  },
+  {
+    id: 136,
+    section: 'knowledge',
+    questionText: '田中さんは イギリス人（　）けっこんしました。',
+    options: ['と', 'に', 'を', 'へ'],
+    correctAnswer: 0,
+    explanationUzbek:
+      "Biror inson bilan turmush qurishda o'sha shaxsga 'bilan' ma'nosida 'と' yuklamasi ulanadi: イギリス人と結婚しました.",
+  },
+  {
+    id: 137,
+    section: 'knowledge',
+    questionText: 'すみません、この りんごを みっつ（　）ください。',
+    options: ['を', 'に', 'で', 'と'],
+    correctAnswer: 0,
+    explanationUzbek:
+      "Ob'ektni ko'rsatib iltimos qilishda 'o' (を) keladi: りんごを 3つ ください (olmadan 3 ta bering).",
+  },
+  {
+    id: 138,
+    section: 'knowledge',
+    questionText: 'きのう デパートへ シャツを かい（　）いきました。',
+    options: ['に', 'で', 'を', 'へ'],
+    correctAnswer: 0,
+    explanationUzbek:
+      "Harakat maqsadini bildirishda fe'l o'zagiga '~ni ikimasu' (qilish uchun bormoq) qo'shiladi: かいに行きました (sotib olgani bordim).",
+  },
+  {
+    id: 139,
+    section: 'reading',
+    passageText:
+      '【日本語学校の 図書館案内】\n図書館は 月曜日から 金曜日まで 開いています。時間は 朝9時から 夕方5時までです。土曜日と 日曜日は 休みです。本は 1回に 3さつまで、2週間 借りることができます。',
+    questionText: '図書館について、正しいものは どれですか。',
+    options: [
+      '土曜日も 本を 借りることが できる。',
+      '本は 1回に 5さつまで 借りられる。',
+      '平日の 朝9時から 夕方5時まで 開いている。',
+      '本は 1か月 借りることが できる。',
+    ],
+    correctAnswer: 2,
+    explanationUzbek:
+      "E'londa ochiq aytilgan: Dushanbadan Jumagacha (hafta ichi kunlari) soat 9:00 dan 17:00 gacha kutubxona ochiq bo'ladi.",
+  },
+  {
+    id: 140,
+    section: 'reading',
+    passageText:
+      '田中さんへ\n昨日は 楽しい パーティーを ありがとうございました。田中さんの 作った ケーキは とても おいしかったです。写真を 5枚 メールで 送りますので、見てください。また 来週 学校で 会いましょう。\nリーより',
+    questionText: 'リーさんは なぜ このメールを 書きましたか。',
+    options: [
+      'ケーキの 作り方を 質問するため。',
+      'パーティーの お礼を 言って、写真を 送るため。',
+      '来週の 約束を キャンセルするため。',
+      '新しい カメラを 買ってもらうため。',
+    ],
+    correctAnswer: 1,
+    explanationUzbek:
+      'Xat kechagi shirin ziyofat va shirinlik uchun minnatdorchilik bildirish hamda suratlarni yuborish maqsadida yozilgan.',
+  },
+  {
+    id: 141,
+    section: 'reading',
+    passageText:
+      '【富士山 ツアーの スケジュール】\n8:00 新宿駅 西口に 集合\n8:30 バスで 出発\n11:00 富士山の 5合目に 到着、昼ご飯\n13:00〜15:00 散歩と 写真撮影\n15:30 新宿へ 戻る（18:00着予定）',
+    questionText: 'ツアーの 参加者は 昼ご飯を どこで 食べますか。',
+    options: ['新宿駅の レストラン', '富士山の 5合目', '出発前の バスの中', '午後3時の 新宿'],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Jadvalda aniq ko'rsatilgan: 11:00 da Fujisan 5-bosqichiga (5合目) yetib boriladi va o'sha yerda tushlik qilinadi.",
+  },
+  {
+    id: 142,
+    section: 'reading',
+    passageText:
+      '私は 毎朝 6時に 起きます。シャワーを 浴びてから、パンと 卵を 食べて、コーヒーを 飲みます。それから、7時半に うちを 出て、電車で 会社へ 行きます。会社は 8時45分に 始まります。家から 会社まで 1時間くらい かかります。',
+    questionText: 'この人は 朝 何時に うちを 出ますか。',
+    options: ['6時', '7時半', '8時', '8時45分'],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Matnda aniq keltirilgan: '7時半に うちを 出て' (soat 7:30 da uydan chiqib ketadi).",
+  },
+  {
+    id: 143,
+    section: 'reading',
+    passageText:
+      '【さくらクリニック 診療時間】\n月〜金：午前 9:00〜12:30 / 午後 14:30〜18:00\n土曜日：午前 9:00〜13:00（午後休診）\n日曜・祝日：休診\n※初めての 方は 保険証（ほけんしょう）を お持ちください。',
+    questionText: '土曜日の 午後2時に クリニックへ 行くと どうなりますか。',
+    options: [
+      '診察を 受けることが できる。',
+      '薬だけ もらえる。',
+      '休みなので 診察は 受けられない。',
+      '保険証が あれば 見てもらえる。',
+    ],
+    correctAnswer: 2,
+    explanationUzbek:
+      "Shanba kuni faqat 13:00 gacha ishlaydi, tushdan keyin '午後休診' (dam olish) bo'lgani sababli ko'rikdan o'tib bo'lmaydi.",
+  },
+  {
+    id: 144,
+    section: 'reading',
+    passageText:
+      '【買い物の メモ】\n牛乳 2本、りんご 4個、パン 1斤（きん）。\n※スーパーで 牛乳が 売り切れの ときは、近くの コンビニで 買ってきてください。卵は まだ 冷蔵庫に 6個 あるので、買わなくて いいです。',
+    questionText: '買わなくても いいものは どれですか。',
+    options: ['牛乳', 'りんご', 'パン', '卵'],
+    correctAnswer: 3,
+    explanationUzbek:
+      "Eslatmada aniq yozilgan: '卵は まだ 冷蔵庫に 6個 あるので、買わなくて いいです' (tuxum muzlatgichda bor, sotib olish shart emas).",
+  },
+  {
+    id: 145,
+    section: 'listening',
+    audioUrl: '/audio/choukai/n5/minna_shokyu_1_005.mp3',
+    script:
+      '男の人と 女の人が 話しています。男の人は 何を 飲みますか？\n女：いらっしゃい。お茶と コーヒーと ジュースが あるけど、何がいい？\n男：じゃあ、冷たい ジュースを ください。\n女：はい、どうぞ。',
+    questionText: '男の人は 何を 飲みますか？',
+    options: ['お茶', 'コーヒー', '冷たいジュース', '水'],
+    correctAnswer: 2,
+    explanationUzbek:
+      "Mehmon tavsiya etilgan ichimliklar orasidan sovuq sharbatni tanladi: '冷たい ジュースを ください'.",
+  },
+  {
+    id: 146,
+    section: 'listening',
+    audioUrl: '/audio/choukai/n5/minna_shokyu_1_006.mp3',
+    script:
+      '教室で 先生が 話しています。学生は 明日 何を 持ってきますか？\n先生：みなさん、明日は 日本料理の 実習です。エプロンと 三角巾（さんかくきん）を 忘れずに 持ってきてください。包丁や お皿は 学校のものを 使いますから、持ってこなくて いいです。\n学生：はい、わかりました。',
+    questionText: '学生が 明日 持ってくるものは どれですか？',
+    options: ['エプロンと三角巾', '包丁とお皿', '教科書とノート', 'お弁当'],
+    correctAnswer: 0,
+    explanationUzbek:
+      "O'qituvchi talabalarga oshxona fartugi va ro'molcha (エプロンと三角巾) olib kelishni tayinladi.",
+  },
+  {
+    id: 147,
+    section: 'listening',
+    audioUrl: '/audio/choukai/n5/minna_shokyu_1_007.mp3',
+    script:
+      '店で 男の人と 店員が 話しています。男の人は 全部で いくら 払いますか？\n男：この りんごを 2個と、バナナを 1房（ふさ）ください。\n店員：はい。りんごは 1個 100円、バナナは 200円です。合わせて 400円になります。\n男：はい、500円で お願いします。',
+    questionText: '男の人は 全部で いくら 払いますか？',
+    options: ['300円', '400円', '500円', '600円'],
+    correctAnswer: 1,
+    explanationUzbek:
+      "2 ta olma (200 yen) va 1 bog' banan (200 yen) jami 400 yen bo'ladi: '合わせて 400円になります'.",
+  },
+  {
+    id: 148,
+    section: 'listening',
+    audioUrl: '/audio/choukai/n5/minna_shokyu_1_008.mp3',
+    script:
+      '駅で 女の人と 駅員が 話しています。女の人は 何番線の 電車に 乗りますか？\n女：すみません。東京駅へ 行きたいんですが、どの電車ですか？\n駅員：東京駅ですね。あちらの 2番線の 電車に 乗ってください。1番線は 横浜方面行きです。\n女：2番線ですね。ありがとうございます。',
+    questionText: '女の人は 何番線の 電車に 乗りますか？',
+    options: ['1番線', '2番線', '3番線', '4番線'],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Bekat xodimi Tokyo vokzaliga borish uchun 2-yo'ldagi poyezdga chiqishni aytdi: '2番線の 電車に 乗ってください'.",
+  },
+  {
+    id: 149,
+    section: 'listening',
+    audioUrl: '/audio/choukai/n5/minna_shokyu_1_009.mp3',
+    script:
+      '電話で 男の人と 女の人が 話しています。二人は 何時に 会いますか？\n男：もしもし、明日の 映画だけど、何時に 会おうか？\n女：映画は 2時に 始まるから、その30分前に 会わない？\n男：うん、じゃあ 1時半に 駅の 改札口で 会おう。',
+    questionText: '二人は 何時に 会いますか？',
+    options: ['1時', '1時半', '2時', '2時半'],
+    correctAnswer: 1,
+    explanationUzbek:
+      'Kino 14:00 da boshlanadi, ular 30 daqiqa oldin — soat 1:30 da (1時半) uchrashishga kelishdilar.',
+  },
+  {
+    id: 150,
+    section: 'listening',
+    audioUrl: '/audio/choukai/n5/minna_shokyu_1_010.mp3',
+    script:
+      '病院の 受付で 男の人が 話しています。男の人は 次に どこへ 行きますか？\n受付：田中さん、診察券を お返しします。2階の 3番の 部屋の前で お待ちください。\n男：2階の 3番ですね。わかりました。',
+    questionText: '男の人は 次に どこへ 行きますか？',
+    options: ['1階の薬局', '2階の3番の部屋の前', '会計の窓口', '外のタクシー乗り場'],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Qabulxona xodimi 2-qavatdagi 3-xona oldida kutishni aytdi: '2階の 3番の 部屋の前で お待ちください'.",
+  },
+];
+
 // === N4 MOCK EXAM SET 2 (Supplementary) ===
 // ==========================================
 export const JLPT_N4_MOCK_SET_2: ExamQuestion[] = [
@@ -1729,7 +2005,7 @@ export const JLPT_N4_MOCK_SET_2: ExamQuestion[] = [
   {
     id: 245,
     section: 'listening',
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n4/shinkanzen_chokai_n4_CD-A_005.mp3',
     script:
       '会社で 男の人と 女の人が 話しています。女の人は これから どこへ 行きますか？\n男：佐藤さん、さっきの会議の資料、部長に渡してくれた？\n女：あ、すみません。まだです。今から部長室へ持って行きます。\n男：あ、部長はさっきお客様と1階のロビーに行かれたよ。\n女：そうですか。じゃあ、ロビーへ行って渡してきます。',
     questionText: '女の人は これから どこへ 行きますか？',
@@ -1741,7 +2017,7 @@ export const JLPT_N4_MOCK_SET_2: ExamQuestion[] = [
   {
     id: 246,
     section: 'listening',
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n4/shinkanzen_chokai_n4_CD-A_006.mp3',
     script:
       '大学で 先生が 学生に 話しています。学生は 明日 何時に どこに 集まりますか？\n先生：明日の見学旅行について連絡します。バスは朝9時に出発します。遅れないように、8時45分までに駅の東口に集まってください。西口ではありませんから、間違えないでくださいね。\n学生：はい、わかりました。',
     questionText: '学生は 明日 何時に どこに 集まりますか？',
@@ -1753,7 +2029,7 @@ export const JLPT_N4_MOCK_SET_2: ExamQuestion[] = [
   {
     id: 247,
     section: 'listening',
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n4/shinkanzen_chokai_n4_CD-A_007.mp3',
     script:
       '店で 男の人と 店員が 話しています。男の人は どのシャツを 買いますか？\n男：すみません。この青いシャツのMサイズはありますか？\n店員：申し訳ありません。青のMサイズは売り切れで、白と黒ならございますが。\n男：そうですか。仕事で使いたいので、白のMサイズをお願いします。',
     questionText: '男の人は どの シャツを 買いますか？',
@@ -1765,7 +2041,7 @@ export const JLPT_N4_MOCK_SET_2: ExamQuestion[] = [
   {
     id: 248,
     section: 'listening',
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n4/shinkanzen_chokai_n4_CD-A_008.mp3',
     script:
       '病院で 医者と 男の人が 話しています。男の人は 薬を いつ 飲みますか？\n医者：この薬は1日3回、必ずご飯を食べたあとに飲んでください。食前に飲むと胃が痛くなりますからね。\n男：わかりました。毎食後ですね。',
     questionText: '男の人は 薬を いつ 飲みますか？',
@@ -1777,7 +2053,7 @@ export const JLPT_N4_MOCK_SET_2: ExamQuestion[] = [
   {
     id: 249,
     section: 'listening',
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n4/shinkanzen_chokai_n4_CD-A_009.mp3',
     script:
       '留学生の 男の人と 女の人が 話しています。男の人は 日本の 生活で 何が 一番 困っていますか？\n女：日本に来て3か月だけど、生活には慣れた？\n男：うん、物価が高いのはちょっと大変だけど、一番困っているのはゴミの分別ルールなんだ。曜日によって出すものが違うから、まだよく覚えられないんだよ。\n女：あー、日本のゴミ出しは確かに複雑だよね。',
     questionText: '男の人は 日本の 生活で 何が 一番 困っていますか？',
@@ -1789,7 +2065,7 @@ export const JLPT_N4_MOCK_SET_2: ExamQuestion[] = [
   {
     id: 250,
     section: 'listening',
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n4/shinkanzen_chokai_n4_CD-A_010.mp3',
     script:
       '駅で 女の人と 駅員が 話しています。女の人は 何番線の 電車に 乗りますか？\n女：すみません。空港へ行きたいんですが、どの電車に乗ればいいですか？\n駅員：空港行きですね。3番線の快速電車に乗ってください。4番線の普通電車でも行けますが、3番線のほうが20分早く着きますよ。\n女：わかりました。3番線ですね。ありがとうございます。',
     questionText: '女の人は 何番線の 電車に 乗りますか？',
@@ -2020,7 +2296,7 @@ export const JLPT_N3_MOCK_SET_2: ExamQuestion[] = [
   {
     id: 345,
     section: 'listening',
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n3/05 Track 5.mp3',
     script:
       '会社で男性社員と女性上司が話しています。男性社員はまず何をしなければなりませんか？\n男：課長、明日のプレゼン資料の印刷と、取引先への確認メールの送信ですが、どちらを先に進めましょうか？\n女：あ、取引先の山田部長が今日午後から外出されるそうだから、先に確認メールを送っておいて。印刷は夕方で十分間に合うから。\n男：承知いたしました。すぐにメールを作成します。',
     questionText: '男性社員は まず 何を しますか？',
@@ -2037,7 +2313,7 @@ export const JLPT_N3_MOCK_SET_2: ExamQuestion[] = [
   {
     id: 346,
     section: 'listening',
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n3/06 Track 6.mp3',
     script:
       '駅で外国人観光客と案内係が話しています。観光客は何番線の電車に乗りますか？\n観光客：すみません、成田空港へ行く特急に乗りたいのですが、どこへ行けばいいですか？\n案内係：成田空港行きの特急「成田エクスプレス」ですね。地下2階の5番線ホームへお進みください。4番線は普通電車ですのでお乗り間違えのないようにお願いします。\n観光客：地下2階の5番線ですね。ありがとうございます。',
     questionText: '観光客は 何番線の 電車に 乗りますか？',
@@ -2049,7 +2325,7 @@ export const JLPT_N3_MOCK_SET_2: ExamQuestion[] = [
   {
     id: 347,
     section: 'listening',
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n3/07 Track 7.mp3',
     script:
       '大学で学生二人が話しています。午後の日本文学の講義はどこで行われますか？\n男：佐藤さん、今日の3限の「日本文学」の授業、教室が変更になったの知ってる？\n女：え、本当？いつもの3号館の201教室じゃないの？\n男：プロジェクターの故障で、5号館の105教室に変更になったって掲示板に出てたよ。\n女：教えてくれてありがとう！危うく間違えるところだった。',
     questionText: '午後の 日本文学の 講義は どこで 行われますか？',
@@ -2061,7 +2337,7 @@ export const JLPT_N3_MOCK_SET_2: ExamQuestion[] = [
   {
     id: 348,
     section: 'listening',
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n3/08 Track 8.mp3',
     script:
       '靴屋で客と店員が話しています。客はどの靴を買うことにしましたか？\n客：すみません、この黒のウォーキングシューズ、26.5センチはありますか？\n店員：申し訳ございません。黒の26.5はちょうど在庫切れでして。同じデザインの紺色か茶色ならご用意できますが。\n客：うーん、仕事でも履きたいので茶色にしてみようかな。サイズを試してもいいですか？\n店員：かしこまりました。茶色の26.5をお持ちいたします。',
     questionText: '客は どの靴を 買うことに しましたか？',
@@ -2073,7 +2349,7 @@ export const JLPT_N3_MOCK_SET_2: ExamQuestion[] = [
   {
     id: 349,
     section: 'listening',
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n3/09 Track 9.mp3',
     script:
       '天気予報を聞いています。午後はどのような天気になる予報ですか？\nアナウンサー：関東地方のお天気をお伝えします。午前中は広く晴れて穏やかな陽気となりますが、午後は西から雨雲が広がり、夕方以降は激しい雷雨となる所がある見込みです。お出かけの際は、折りたたみ傘を必ずお持ちください。',
     questionText: '午後の 天気について、正しいものは どれですか？',
@@ -2090,7 +2366,7 @@ export const JLPT_N3_MOCK_SET_2: ExamQuestion[] = [
   {
     id: 350,
     section: 'listening',
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n3/10 Track 10.mp3',
     script:
       '病院で医師と患者が話しています。患者はどの薬を寝る前に飲みますか？\n医師：風邪の症状を抑えるお薬を出しておきますね。この赤いカプセルは朝と晩の食後に飲んでください。そしてこちらの白い錠剤は、咳を鎮める作用がありますので、毎晩おやすみになる30分前に1錠飲んでください。\n患者：わかりました。白い錠剤が寝る前ですね。',
     questionText: '患者は どの薬を 寝る前に 飲みますか？',
@@ -2325,7 +2601,7 @@ export const JLPT_N2_MOCK_SET_2: ExamQuestion[] = [
   {
     id: 445,
     section: 'listening',
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n2/Track05.mp3',
     script:
       'オフィスで上司と部下が新プロジェクトのスケジュールについて話しています。\n上司：山田君、来月の新システム導入の件だけど、テスト期間が少し短すぎないかい？\n部下：はい、開発が1週間遅れた影響で、テスト期間を圧縮せざるを得ませんでした。\n上司：バグが見落とされたままリリースされたら大問題になる。クライアントと交渉して、全体の納期を1週間後ろにずらそう。\n部下：わかりました。すぐにクライアントの担当者に連絡して日程調整をいたします。',
     questionText: '二人は 最終的に どうすることに しましたか？',
@@ -2342,7 +2618,7 @@ export const JLPT_N2_MOCK_SET_2: ExamQuestion[] = [
   {
     id: 446,
     section: 'listening',
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n2/Track06.mp3',
     script:
       '大学の就職課で相談員が学生に面接のアドバイスをしています。\n相談員：面接では、志望動機を暗記した通りにスラスラ話すことよりも、面接官の質問の意図を正確に捉えて対話することが重要です。一方的にアピールするのではなく、聞かれたことに対して結論から簡潔に答えるキャッチボールを心がけましょう。',
     questionText: '相談員が 面接で 最も 大切だと 言っていることは 何ですか？',
@@ -2359,7 +2635,7 @@ export const JLPT_N2_MOCK_SET_2: ExamQuestion[] = [
   {
     id: 447,
     section: 'listening',
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n2/Track07.mp3',
     script:
       '電話で旅行会社の社員と客が話しています。\n社員：お電話ありがとうございます、サンシャインツアーでございます。\n客：すみません、来週の北海道ツアーに申し込んでいる田中ですが、人数の変更をお願いできますか？ 2名から3名に増やしたいのですが。\n社員：かしこまりました。お調べしますので、予約番号をお教えいただけますでしょうか。\n客：はい、Tの4589です。\n社員：ありがとうございます。確認いたしましたところ、1名様分の飛行機の座席とホテルの追加が可能です。差額のお手続きについてメールをお送りしますね。',
     questionText: '客の 要望について、どうなりましたか？',
@@ -2376,7 +2652,7 @@ export const JLPT_N2_MOCK_SET_2: ExamQuestion[] = [
   {
     id: 448,
     section: 'listening',
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n2/Track08.mp3',
     script:
       '会社で男性と女性が新入社員の研修について話しています。\n男：今年の新入社員、ビジネスマナー研修の進み具合はどう？\n女：名刺交換や電話応対のロールプレイングは順調です。ただ、ビジネスメールの敬語の使い方で戸惑っている人が目立ちますね。\n男：そうか。じゃあ来週は敬語メールの添削指導に時間を多めに割こう。\n女：賛成です。実際の業務メールを想定した演習を用意しますね。',
     questionText: '来週の 研修で 重点的に 行うことは 何ですか？',
@@ -2393,7 +2669,7 @@ export const JLPT_N2_MOCK_SET_2: ExamQuestion[] = [
   {
     id: 449,
     section: 'listening',
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n2/Track09.mp3',
     script:
       '美術館の案内放送を聞いています。\nアナウンス：ご来館の皆様にご案内いたします。本展覧会の展示室内での写真撮影は、フラッシュおよび三脚を使用しない場合に限り、一部の指定作品のみ可能となっております。動画撮影および録音は一切ご遠慮いただいております。他のお客様の鑑賞の妨げとならないよう、マナーを守ってご鑑賞ください。',
     questionText: '美術館での 写真撮影について、正しいものは どれですか？',
@@ -2410,7 +2686,7 @@ export const JLPT_N2_MOCK_SET_2: ExamQuestion[] = [
   {
     id: 450,
     section: 'listening',
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n2/Track10.mp3',
     script:
       '洋服店で店員と男性客が話しています。\n店員：いかがですか、こちらのジャケット？\n客：うん、軽くて着心地はすごくいいね。ただ、このグレーだと手持ちのズボンと合わせにくいかな。紺か黒のものはありますか？\n店員：はい、同じサイズで紺色がございます。すぐにお持ちしますね。\n客：ありがとう。紺を着てみて決めるよ。',
     questionText: '男性客は 次に 何を 試着しますか？',
@@ -2745,3 +3021,11 @@ export const JLPT_N1_MOCK_SET_2: ExamQuestion[] = [
       "Yapon an'anaviy me'morchiligida zilzila kuchini qattiq ushlab turish emas, balki bo'g'inlarning egiluvchan harakati orqali kuchni tarqatish (柔構造 - egiluvchan struktura) uslubi qo'llaniladi.",
   },
 ];
+
+export const JLPT_MOCK_EXAM_SET2_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQuestion[]> = {
+  N5: JLPT_N5_MOCK_SET_2,
+  N4: JLPT_N4_MOCK_SET_2,
+  N3: JLPT_N3_MOCK_SET_2,
+  N2: JLPT_N2_MOCK_SET_2,
+  N1: JLPT_N1_MOCK_SET_2,
+};

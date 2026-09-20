@@ -79,12 +79,11 @@ planner.pptx
 
 # Large PDF & RAR book files
 *.pdf
-books/*.pdf
-books/*.rar
-books/*.zip
-books/**/*.pdf
-books/**/*.rar
-books/**/*.zip
+books/
+book_2/
+book_3/
+*.rar
+*.zip
 supabase/.temp/
 .env*
 src/data/decks/backups/

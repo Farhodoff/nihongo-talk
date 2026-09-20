@@ -34,9 +34,10 @@ describe('ExamService Unit Tests', () => {
     });
 
     const exams = await ExamService.getPublishedJlptExams('N5');
-    expect(exams.length).toBe(1);
+    expect(exams.length).toBe(2);
     expect(exams[0].level).toBe('N5');
     expect(exams[0].title).toContain('JLPT N5');
+    expect(exams[1].id).toBe('builtin_n5_set2');
   });
 
   it('fetches and maps published exams from Supabase successfully', async () => {
@@ -70,10 +71,16 @@ describe('ExamService Unit Tests', () => {
   });
 
   it('handles builtin_ slugs directly without database query', async () => {
-    const exam = await ExamService.getExamWithQuestions('builtin_n3');
-    expect(exam.level).toBe('N3');
-    expect(exam.questions.length).toBeGreaterThan(0);
-    expect(exam.isFromDb).toBe(false);
+    const exam1 = await ExamService.getExamWithQuestions('builtin_n3');
+    expect(exam1.level).toBe('N3');
+    expect(exam1.questions.length).toBe(25);
+    expect(exam1.isFromDb).toBe(false);
+
+    const exam2 = await ExamService.getExamWithQuestions('builtin_n3_set2');
+    expect(exam2.level).toBe('N3');
+    expect(exam2.title).toContain("2-to'plam");
+    expect(exam2.questions.length).toBe(25);
+    expect(exam2.isFromDb).toBe(false);
   });
 
   it('normalizes DB exam sections and questions correctly with matching option index', async () => {

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { JLPT_MOCK_EXAM_DATA } from '../../data/jlptMockExamData';
+import { JLPT_MOCK_EXAM_DATA, JLPT_MOCK_EXAM_SET2_DATA } from '../../data/jlptMockExamData';
 import { calculateJlptScore } from '../../utils/jlptScoring';
 
 describe('JLPT Mock Exam Data Quality & Rigor Tests', () => {
@@ -72,7 +72,7 @@ describe('JLPT Mock Exam Data Quality & Rigor Tests', () => {
         expect(q.script).toBeDefined();
         expect(q.script!.trim().length).toBeGreaterThan(20);
         if (q.audioUrl) {
-          expect(q.audioUrl).toMatch(/^https?:\/\//);
+          expect(q.audioUrl).toMatch(/^(https?:\/\/|\/audio\/)/);
         }
       });
     });
@@ -122,6 +122,30 @@ describe('JLPT Mock Exam Data Quality & Rigor Tests', () => {
       expect(failReadingReport.sections.reading.passed).toBe(false);
       expect(failReadingReport.passed).toBe(false);
       expect(failReadingReport.failedSections).toContain('reading');
+    });
+  });
+
+  it('validates JLPT_MOCK_EXAM_SET2_DATA across all levels (N5..N1) has 25 questions each and valid sections', () => {
+    levels.forEach((lvl) => {
+      const set2Questions = JLPT_MOCK_EXAM_SET2_DATA[lvl];
+      expect(set2Questions).toBeDefined();
+      expect(set2Questions.length).toBe(25);
+
+      const knowledgeQs = set2Questions.filter((q) => q.section === 'knowledge');
+      const readingQs = set2Questions.filter((q) => q.section === 'reading');
+      const listeningQs = set2Questions.filter((q) => q.section === 'listening');
+
+      expect(knowledgeQs.length).toBe(13);
+      expect(readingQs.length).toBe(6);
+      expect(listeningQs.length).toBe(6);
+
+      set2Questions.forEach((q) => {
+        expect(q.options).toHaveLength(4);
+        expect(q.correctAnswer).toBeGreaterThanOrEqual(0);
+        expect(q.correctAnswer).toBeLessThanOrEqual(3);
+        expect(q.explanationUzbek).toBeDefined();
+        expect(q.explanationUzbek.length).toBeGreaterThan(10);
+      });
     });
   });
 });
