@@ -12,9 +12,11 @@ function escapeHTML(str) {
     .replace(/>/g, '&gt;');
 }
 
+const APP_URL = (process.env.APP_URL || process.env.VITE_APP_URL || 'https://kaiwa.live').replace(/\/+$/, '');
+
 const defaultKeyboard = {
   keyboard: [
-    [{ text: '🚀 Nihon Talk-ni Ochish', web_app: { url: 'https://kaiwa.live/' } }],
+    [{ text: '🚀 Nihon Talk-ni Ochish', web_app: { url: `${APP_URL}/` } }],
     [{ text: '📅 Bugungi reja' }, { text: '🎌 Yaponcha Quiz' }],
     [{ text: '📚 Fleshkartalar' }, { text: '🎯 Speaking Mashqi' }],
     [{ text: 'ℹ️ Yordam' }]
@@ -35,7 +37,7 @@ async function setTelegramMenuButton(chatId) {
         menu_button: {
           type: 'web_app',
           text: 'Nihon Talk',
-          web_app: { url: 'https://kaiwa.live/' }
+          web_app: { url: `${APP_URL}/` }
         }
       })
     });
@@ -314,7 +316,7 @@ export default async function handler(req, res) {
           const nextMarkup = {
             inline_keyboard: [
               [{ text: "🎲 Keyingi savol ➡️", callback_data: "quiz_next" }],
-              [{ text: "🌐 Nihon Talk Webda o'rganish", url: "https://kaiwa.live/jlpt" }]
+              [{ text: "🌐 Nihon Talk Webda o'rganish", url: `${APP_URL}/jlpt` }]
             ]
           };
           await sendTelegramMessage(chatId, replyText, nextMarkup);
@@ -452,7 +454,7 @@ export default async function handler(req, res) {
         `• /start_battle — Har 2 soatda avtomatik savol yuborishni yoqish\n` +
         `• /stop_battle — Avtomatik savollarni to'xtatish\n` +
         `• /battle_help — Ushbu yordam xabari\n\n` +
-        `🚀 <b>Nihon Talk:</b> https://kaiwa.live/`;
+        `🚀 <b>Nihon Talk:</b> ${APP_URL}/`;
       await sendTelegramMessage(chatId, battleHelpText, null);
       return res.status(200).json({ ok: true });
     }
@@ -511,7 +513,7 @@ export default async function handler(req, res) {
       await setTelegramMenuButton(chatId);
       const appInlineMarkup = {
         inline_keyboard: [
-          [{ text: '🚀 Nihon Talk-ni Ochish', web_app: { url: 'https://kaiwa.live/' } }]
+          [{ text: '🚀 Nihon Talk-ni Ochish', web_app: { url: `${APP_URL}/` } }]
         ]
       };
 
@@ -528,7 +530,7 @@ export default async function handler(req, res) {
       await setTelegramMenuButton(chatId);
       const appMarkup = {
         inline_keyboard: [
-          [{ text: '🚀 Nihon Talk-ni Ochish', web_app: { url: 'https://kaiwa.live/' } }]
+          [{ text: '🚀 Nihon Talk-ni Ochish', web_app: { url: `${APP_URL}/` } }]
         ]
       };
       await sendTelegramMessage(
