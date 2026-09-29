@@ -52,8 +52,27 @@ export const KanjiCanvasPractice: React.FC = () => {
     );
   }, [selectedKanjiChar]);
 
-  const strokeData: KanjiStrokeData | null = useMemo(() => {
+  const [strokeData, setStrokeData] = useState<KanjiStrokeData | null>(() => {
     return KanjiPracticeService.getStrokeData(activeKanji.kanji);
+  });
+
+  useEffect(() => {
+    let isCancelled = false;
+    const syncData = KanjiPracticeService.getStrokeData(activeKanji.kanji);
+    if (syncData) {
+      setStrokeData(syncData);
+      return;
+    }
+
+    KanjiPracticeService.getStrokeDataAsync(activeKanji.kanji).then((data) => {
+      if (!isCancelled) {
+        setStrokeData(data);
+      }
+    });
+
+    return () => {
+      isCancelled = true;
+    };
   }, [activeKanji.kanji]);
 
   const totalStrokes = strokeData?.paths.length || activeKanji.strokeCount || 1;

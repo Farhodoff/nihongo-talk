@@ -1,5 +1,4 @@
 import kanjiDataRaw from '../data/kanji/jlptKanjiDatabase.json';
-import strokeDataRaw from '../data/kanjiStrokes.json';
 import type { JlptKanjiItem } from '../data/jlptGrammarKanji';
 
 export interface KanjiStrokeNumber {
@@ -160,7 +159,20 @@ export const CURATED_QUICK_KANJIS: Record<JlptLevelFilter, string[]> = {
 };
 
 const kanjiList: JlptKanjiItem[] = kanjiDataRaw as JlptKanjiItem[];
-const strokeMap: Record<string, KanjiStrokeData> = strokeDataRaw as Record<string, KanjiStrokeData>;
+
+let cachedStrokeMap: Record<string, KanjiStrokeData> | null = null;
+let strokePromise: Promise<Record<string, KanjiStrokeData>> | null = null;
+
+export async function loadKanjiStrokes(): Promise<Record<string, KanjiStrokeData>> {
+  if (cachedStrokeMap) return cachedStrokeMap;
+  if (!strokePromise) {
+    strokePromise = import('../data/kanjiStrokes.json').then((mod) => {
+      cachedStrokeMap = mod.default as unknown as Record<string, KanjiStrokeData>;
+      return cachedStrokeMap;
+    });
+  }
+  return strokePromise;
+}
 
 export class KanjiPracticeService {
   /**
@@ -203,10 +215,29 @@ export class KanjiPracticeService {
   }
 
   /**
-   * Retrieve authentic KanjiVG SVG stroke paths and numbering coordinates
+   * Preload authentic KanjiVG strokes dictionary into memory
+   */
+  static async preloadStrokes(): Promise<Record<string, KanjiStrokeData>> {
+    return loadKanjiStrokes();
+  }
+
+  /**
+   * Retrieve authentic KanjiVG SVG stroke paths and numbering coordinates asynchronously (lazy-loaded)
+   */
+  static async getStrokeDataAsync(kanji: string): Promise<KanjiStrokeData | null> {
+    const strokes = await loadKanjiStrokes();
+    return strokes[kanji] || null;
+  }
+
+  /**
+   * Retrieve authentic KanjiVG SVG stroke paths from memory cache if already loaded
    */
   static getStrokeData(kanji: string): KanjiStrokeData | null {
-    return strokeMap[kanji] || null;
+    if (!cachedStrokeMap) {
+      void loadKanjiStrokes();
+      return null;
+    }
+    return cachedStrokeMap[kanji] || null;
   }
 
   /**

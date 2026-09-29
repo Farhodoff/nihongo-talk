@@ -1,6 +1,7 @@
 import { render, screen, fireEvent, act } from '@testing-library/react';
-import { describe, expect, it, vi, beforeEach } from 'vitest';
+import { describe, expect, it, vi, beforeEach, beforeAll } from 'vitest';
 import { KanjiCanvasPractice } from '../KanjiCanvasPractice';
+import { KanjiPracticeService } from '../../../services/KanjiPracticeService';
 
 const mockAwardXP = vi.fn();
 
@@ -21,6 +22,10 @@ vi.mock('../../../utils/audioTts', () => ({
 }));
 
 describe('KanjiCanvasPractice Component', () => {
+  beforeAll(async () => {
+    await KanjiPracticeService.preloadStrokes();
+  });
+
   beforeEach(() => {
     vi.clearAllMocks();
   });

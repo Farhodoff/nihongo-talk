@@ -14,17 +14,9 @@ import {
   Trash2,
 } from 'lucide-react';
 import { speakText } from '../../utils/audioTts';
-import kanjiStrokesData from '../../data/kanjiStrokes.json';
+import { KanjiPracticeService, type KanjiStrokeData } from '../../services/KanjiPracticeService';
 
-interface KanjiStrokeEntry {
-  paths: string[];
-  numbers: { x: number; y: number; num: number }[];
-}
-
-const localStrokes: Record<string, KanjiStrokeEntry> = kanjiStrokesData as unknown as Record<
-  string,
-  KanjiStrokeEntry
->;
+type KanjiStrokeEntry = KanjiStrokeData;
 
 interface KanjiStrokeOrderModalProps {
   kanji: string;
@@ -85,33 +77,45 @@ export const KanjiStrokeOrderModal: React.FC<KanjiStrokeOrderModalProps> = ({
 
     setIsPracticeMode(false);
 
-    if (localStrokes[kanji]) {
-      setStrokeData(localStrokes[kanji]);
-      setCurrentStep(1);
-      setIsPlaying(true);
-    } else {
-      // Dynamic fetch fallback
-      const code = kanji.charCodeAt(0).toString(16).padStart(5, '0');
-      fetch(`https://cdn.jsdelivr.net/gh/KanjiVG/kanjivg/kanji/${code}.svg`)
-        .then((res) => {
-          if (!res.ok) throw new Error('Not found');
-          return res.text();
-        })
-        .then((svg) => {
-          const parsed = parseKanjiSvg(svg);
-          if (parsed.paths.length > 0) {
-            setStrokeData(parsed);
-            setCurrentStep(1);
-            setIsPlaying(true);
-          } else {
+    let isCancelled = false;
+
+    KanjiPracticeService.getStrokeDataAsync(kanji).then((localStroke) => {
+      if (isCancelled) return;
+
+      if (localStroke) {
+        setStrokeData(localStroke);
+        setCurrentStep(1);
+        setIsPlaying(true);
+      } else {
+        // Dynamic fetch fallback
+        const code = kanji.charCodeAt(0).toString(16).padStart(5, '0');
+        fetch(`https://cdn.jsdelivr.net/gh/KanjiVG/kanjivg/kanji/${code}.svg`)
+          .then((res) => {
+            if (!res.ok) throw new Error('Not found');
+            return res.text();
+          })
+          .then((svg) => {
+            if (isCancelled) return;
+            const parsed = parseKanjiSvg(svg);
+            if (parsed.paths.length > 0) {
+              setStrokeData(parsed);
+              setCurrentStep(1);
+              setIsPlaying(true);
+            } else {
+              setStrokeData(null);
+            }
+          })
+          .catch(() => {
+            if (isCancelled) return;
             setStrokeData(null);
-          }
-        })
-        .catch(() => {
-          setStrokeData(null);
-          setCurrentStep(strokeCount);
-        });
-    }
+            setCurrentStep(strokeCount);
+          });
+      }
+    });
+
+    return () => {
+      isCancelled = true;
+    };
   }, [isOpen, kanji, strokeCount]);
 
   // Animation timer
