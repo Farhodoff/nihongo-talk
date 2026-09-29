@@ -3,6 +3,7 @@ import { CheckCircle2, XCircle, ArrowRight } from 'lucide-react';
 import { PracticeExercise } from '../../types/lesson';
 import { FuriganaText } from '../jlpt/FuriganaText';
 import { LessonAudioPlayer } from './LessonAudioPlayer';
+import { SentenceOrderingQuestion } from '../jlpt/SentenceOrderingQuestion';
 
 interface PracticeStepViewProps {
   instructions: string;
@@ -117,6 +118,83 @@ export const PracticeStepView: React.FC<PracticeStepViewProps> = ({
 
   if (!currentExercise) {
     return <div className="p-8 text-center text-muted-foreground">Mashqlar topilmadi.</div>;
+  }
+
+  if (
+    currentExercise.type === 'sentence-order' &&
+    currentExercise.fragments &&
+    currentExercise.correctOrder
+  ) {
+    const starPos = currentExercise.starPosition || 3;
+    const parts = currentExercise.prompt.split('___');
+    const questionData = {
+      id: currentExercise.id,
+      level: 'N3' as const,
+      prefix: parts[0] || '',
+      suffix: parts[1] || '',
+      fragments: currentExercise.fragments,
+      correctOrder: currentExercise.correctOrder,
+      starPosition: starPos,
+      correctSentence: currentExercise.hint || '',
+      translationUz: currentExercise.explanation || '',
+      explanationUzbek: currentExercise.explanation || '',
+    };
+
+    return (
+      <div className="mx-auto max-w-2xl space-y-6 duration-200 animate-in fade-in">
+        <div className="flex items-center justify-between">
+          <div>
+            <span className="text-xs font-black uppercase tracking-wider text-primary">
+              ★ Gap tartibini tuzish (文の組み立て)
+            </span>
+            <p className="mt-0.5 text-xs text-muted-foreground">
+              {instructions || 'So‘z bo‘laklarini to‘g‘ri tartibda joylashtiring:'}
+            </p>
+          </div>
+          <div className="rounded-full bg-secondary px-3 py-1 text-xs font-bold text-foreground">
+            {currentIdx + 1} / {exercises.length}
+          </div>
+        </div>
+
+        <div className="rounded-2xl border border-border bg-card p-4 shadow-sm sm:rounded-3xl sm:p-6">
+          <SentenceOrderingQuestion
+            key={currentExercise.id}
+            question={questionData}
+            onNext={currentIdx < exercises.length - 1 ? handleNextExercise : undefined}
+            onComplete={(correct) => {
+              onCompleteExercise?.(currentExercise.id, correct);
+              if (!correct) {
+                onIncorrectAnswer?.(
+                  currentExercise.id,
+                  currentExercise.prompt,
+                  'Xato tartib',
+                  'To‘g‘ri tartib',
+                  currentExercise.explanation,
+                );
+              }
+            }}
+          />
+
+          <div className="mt-4 flex items-center justify-between border-t border-border pt-4">
+            <button
+              onClick={handlePrevExercise}
+              disabled={currentIdx === 0}
+              className="rounded-xl border border-border px-3 py-1.5 text-xs font-bold hover:bg-secondary disabled:opacity-40"
+            >
+              Oldingi
+            </button>
+            {currentIdx < exercises.length - 1 && (
+              <button
+                onClick={handleNextExercise}
+                className="flex items-center gap-1 rounded-xl bg-primary px-4 py-1.5 text-xs font-bold text-primary-foreground hover:bg-primary/90"
+              >
+                Keyingi <ArrowRight className="h-3.5 w-3.5" />
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (

@@ -84,4 +84,70 @@ describe('JlptReadinessService', () => {
     expect(reportN3.overallReadiness).toBeLessThan(40);
     expect(reportN3.isProjectedToPass).toBe(false);
   });
+
+  it('generates official 4-pillar model (Moji-Goi, Bunpou, Dokkai, Choukai) and passThresholdRatio', () => {
+    const stats: UserSkillStats = {
+      vocabCount: 800,
+      kanjiCount: 100,
+      grammarMasteredCount: 40,
+      readingCompletedCount: 8,
+      readingAccuracy: 85,
+      listeningCompletedCount: 10,
+      listeningAccuracy: 80,
+      speakingSessionsCount: 5,
+    };
+
+    const report = JlptReadinessService.calculateReadiness(stats, 'N5');
+
+    // Benchmark checks
+    expect(JLPT_BENCHMARKS.N5.readingTarget).toBe(8);
+    expect(JLPT_BENCHMARKS.N4.readingTarget).toBe(12);
+    expect(JLPT_BENCHMARKS.N3.readingTarget).toBe(18);
+    expect(JLPT_BENCHMARKS.N2.readingTarget).toBe(24);
+    expect(JLPT_BENCHMARKS.N1.readingTarget).toBe(30);
+
+    // 4-pillar model
+    expect(report.fourPillars.length).toBe(4);
+    expect(report.radarData4.length).toBe(4);
+    expect(report.radarData4.map((r) => r.subject)).toEqual([
+      '文字・語彙 (Moji-Goi)',
+      '文法 (Bunpou)',
+      '読解 (Dokkai)',
+      '聴解 (Choukai)',
+    ]);
+
+    // Pass threshold ratio (80 / 180 = 0.444)
+    expect(report.passThresholdRatio).toBeCloseTo(0.444, 2);
+    expect(report.isProjectedToPass).toBe(true);
+  });
+
+  it('applies deduction penalty when unresolved mistakes exist in Mistake Vault', () => {
+    const cleanStats: UserSkillStats = {
+      vocabCount: 800,
+      kanjiCount: 100,
+      grammarMasteredCount: 40,
+      listeningCompletedCount: 10,
+      speakingSessionsCount: 5,
+    };
+    const cleanReport = JlptReadinessService.calculateReadiness(cleanStats, 'N5');
+
+    const penalisedStats: UserSkillStats = {
+      ...cleanStats,
+      unresolvedMistakesCount: 8,
+      mistakesByCategory: {
+        grammar: 4, // 4 * 2 = 8 pts penalty
+        listening: 3, // 3 * 2 = 6 pts penalty
+      },
+    };
+    const penalisedReport = JlptReadinessService.calculateReadiness(penalisedStats, 'N5');
+
+    // Grammar score should be penalized
+    const cleanGrammar = cleanReport.pillars.find((p) => p.key === 'grammar')!.score;
+    const penalisedGrammar = penalisedReport.pillars.find((p) => p.key === 'grammar')!.score;
+    expect(penalisedGrammar).toBeLessThan(cleanGrammar);
+
+    // Recommendation should reflect unresolved mistakes
+    expect(penalisedReport.unresolvedMistakesCount).toBe(8);
+    expect(penalisedReport.actionableRecommendation.uz).toContain('Xatolar daftarchangizda');
+  });
 });

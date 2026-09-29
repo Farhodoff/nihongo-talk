@@ -10366,5 +10366,7825 @@
         "uz": "Maktabda geografiyani o'rgandim."
       }
     ]
+  },
+  {
+    "id": "vocab_n4_add_1",
+    "level": "N4",
+    "word": "あ",
+    "reading": "あ",
+    "romaji": "a",
+    "meaningUz": "Ah, oh (Ah)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "冷たいなあ。",
+        "romaji": "tsumetai naa .",
+        "uz": "That's a bit cold."
+      },
+      {
+        "ja": "問題だなあ。",
+        "romaji": "mondai danaa .",
+        "uz": "It's a problem."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_2",
+    "level": "N4",
+    "word": "ああ",
+    "reading": "ああ",
+    "romaji": "aa",
+    "meaningUz": "Shunday, unga o'xshash (Like that)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "ああ悲しい。",
+        "romaji": "aa kanashii .",
+        "uz": "Ah, me!"
+      },
+      {
+        "ja": "ああ嬉しい。",
+        "romaji": "aa ureshii .",
+        "uz": "How glad I am!"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_3",
+    "level": "N4",
+    "word": "あいさつする",
+    "reading": "あいさつする",
+    "romaji": "aisatsusuru",
+    "meaningUz": "Salomlashmoq (To greet)",
+    "partOfSpeech": "Leksika",
+    "examples": []
+  },
+  {
+    "id": "vocab_n4_add_4",
+    "level": "N4",
+    "word": "あかちゃん",
+    "reading": "あかちゃん",
+    "romaji": "akachan",
+    "meaningUz": "Chaqaloq, go'dak (Infant)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "わたち、あかちゃん。",
+        "romaji": "watachi , akachan .",
+        "uz": "I'm baby."
+      },
+      {
+        "ja": "あかちゃんがいるときはたばこを御遠慮下さい。",
+        "romaji": "akachangairutokihatabakowo goenryokudasa i .",
+        "uz": "Would you please refrain from smoking when babies are here?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_5",
+    "level": "N4",
+    "word": "アクセサリー",
+    "reading": "あくせさりー",
+    "romaji": "akusesarii",
+    "meaningUz": "Aksessuar, taqinchoq (Accessory)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "彼女は服にアクセサリーを付けている。",
+        "romaji": "kanojo ha fuku ni akusesarii wo tsuke teiru .",
+        "uz": "She is wearing accessories."
+      },
+      {
+        "ja": "この服にはどんなアクセサリーを付けるの？",
+        "romaji": "kono fuku nihadonna akusesarii wo tsukeru no ？",
+        "uz": "What sort of jewelry are you going to wear with this dress?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_6",
+    "level": "N4",
+    "word": "あげる",
+    "reading": "あげる",
+    "romaji": "ageru",
+    "meaningUz": "Bermoq, tuhfa qilmoq (To give)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "してあげる。",
+        "romaji": "shiteageru .",
+        "uz": "I'll do it for you."
+      },
+      {
+        "ja": "待ってあげる。",
+        "romaji": "matsu teageru .",
+        "uz": "I'll wait for you."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_7",
+    "level": "N4",
+    "word": "アジア",
+    "reading": "あじあ",
+    "romaji": "ajia",
+    "meaningUz": "Osiyo (Asia)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "日本はアジアにある。",
+        "romaji": "nippon ha ajia niaru .",
+        "uz": "Japan is situated in Asia."
+      },
+      {
+        "ja": "日本人はアジア人です。",
+        "romaji": "nihonjin ha ajia nin desu .",
+        "uz": "Japanese are Asians."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_8",
+    "level": "N4",
+    "word": "アナウンサー",
+    "reading": "あなうんさー",
+    "romaji": "anaunsaa",
+    "meaningUz": "Suxandon, diktor (Announcer)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "アナウンサーは早口が出来る。",
+        "romaji": "anaunsaa ha hayakuchi ga dekiru .",
+        "uz": "The announcer can talk rapidly."
+      },
+      {
+        "ja": "アナウンサーは英語を話した。",
+        "romaji": "anaunsaa ha eigo wo hanashi ta .",
+        "uz": "The announcer spoke English."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_9",
+    "level": "N4",
+    "word": "アフリカ",
+    "reading": "あふりか",
+    "romaji": "afurika",
+    "meaningUz": "Afrika (Africa)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "南アフリカは遠い。",
+        "romaji": "minami afurika ha tooi .",
+        "uz": "South Africa is far away."
+      },
+      {
+        "ja": "彼はアフリカで生まれた。",
+        "romaji": "kareha afurika de umare ta .",
+        "uz": "He was born in Africa."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_10",
+    "level": "N4",
+    "word": "アメリカ",
+    "reading": "あめりか",
+    "romaji": "amerika",
+    "meaningUz": "Amerika (America)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "アメリカ出身です。",
+        "romaji": "amerika shusshin desu .",
+        "uz": "I'm from the United States."
+      },
+      {
+        "ja": "彼はアメリカ人です。",
+        "romaji": "kareha amerika nin desu .",
+        "uz": "He is an American."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_11",
+    "level": "N4",
+    "word": "アルコール",
+    "reading": "あるこーる",
+    "romaji": "arukooru",
+    "meaningUz": "Alkogol, spirtli ichimlik (Alcohol)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "アルコールは薬物だよ。",
+        "romaji": "arukooru ha yakubutsu dayo .",
+        "uz": "Alcohol is a drug."
+      },
+      {
+        "ja": "アルコールは苦手です。",
+        "romaji": "arukooru ha nigate desu .",
+        "uz": "I don't like alcohol."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_12",
+    "level": "N4",
+    "word": "アルバイト",
+    "reading": "あるばいと",
+    "romaji": "arubaito",
+    "meaningUz": "Qo'shimcha ish, arubaito (Part-time job)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "私もアルバイトしたいなあ。",
+        "romaji": "watashi mo arubaito shitainaa .",
+        "uz": "I want to have a part-time job, too."
+      },
+      {
+        "ja": "アルバイトを見つけなくては。",
+        "romaji": "arubaito wo mitsu kenakuteha .",
+        "uz": "I'll have to find a part-time job."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_13",
+    "level": "N4",
+    "word": "あんな",
+    "reading": "あんな",
+    "romaji": "anna",
+    "meaningUz": "U kabi, shunday (Such)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "あんな男は嫌よ。",
+        "romaji": "anna otoko ha iya yo .",
+        "uz": "I can't stand that man."
+      },
+      {
+        "ja": "あんな男、嫌い。",
+        "romaji": "anna otoko , kirai .",
+        "uz": "I don't like men like that."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_14",
+    "level": "N4",
+    "word": "いじめる",
+    "reading": "いじめる",
+    "romaji": "ijimeru",
+    "meaningUz": "Mazax qilmoq, xafa qilmoq (To tease)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "新人をいじめるな。",
+        "romaji": "shinjin woijimeruna .",
+        "uz": "Do not harass the new people!"
+      },
+      {
+        "ja": "いじめるのはやめて！",
+        "romaji": "ijimerunohayamete !",
+        "uz": "Stop bullying me!"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_15",
+    "level": "N4",
+    "word": "いっぱい",
+    "reading": "いっぱい",
+    "romaji": "ippai",
+    "meaningUz": "To'la, ko'p (Full)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "お腹いっぱい？",
+        "romaji": "o hara ippai ？",
+        "uz": "Are you full?"
+      },
+      {
+        "ja": "お腹がいっぱい。",
+        "romaji": "o hara gaippai .",
+        "uz": "I'm full."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_16",
+    "level": "N4",
+    "word": "うかがう",
+    "reading": "うかがう",
+    "romaji": "ukagau",
+    "meaningUz": "Tashrif buyurmoq (kamtarlik) (To visit)",
+    "partOfSpeech": "Leksika",
+    "examples": []
+  },
+  {
+    "id": "vocab_n4_add_17",
+    "level": "N4",
+    "word": "うそ",
+    "reading": "うそ",
+    "romaji": "uso",
+    "meaningUz": "Yolg'on (A lie)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "うそを言うな。",
+        "romaji": "usowo iu na .",
+        "uz": "Don't tell lies."
+      },
+      {
+        "ja": "嘘うそつくな！",
+        "romaji": "uso usotsukuna !",
+        "uz": "Don't lie!"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_18",
+    "level": "N4",
+    "word": "うち",
+    "reading": "うち",
+    "romaji": "uchi",
+    "meaningUz": "Ichida, fursatida (Within)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "うちの旦那。",
+        "romaji": "uchino danna .",
+        "uz": "He is my husband."
+      },
+      {
+        "ja": "うちにいます。",
+        "romaji": "uchiniimasu .",
+        "uz": "I am at home."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_19",
+    "level": "N4",
+    "word": "うまい",
+    "reading": "うまい",
+    "romaji": "umai",
+    "meaningUz": "Mazali, epchil (Delicious)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "料理うまいね。",
+        "romaji": "ryouri umaine .",
+        "uz": "You are a good cook, aren't you?"
+      },
+      {
+        "ja": "もう言うまい。",
+        "romaji": "mou iu mai .",
+        "uz": "I'll say no more."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_20",
+    "level": "N4",
+    "word": "うれしい",
+    "reading": "うれしい",
+    "romaji": "ureshii",
+    "meaningUz": "Xursand, baxtiyor (Glad)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "会えてうれしいよ。",
+        "romaji": "ae teureshiiyo .",
+        "uz": "Nice to see you."
+      },
+      {
+        "ja": "僕はとてもうれしい。",
+        "romaji": "bokuha totemoureshii .",
+        "uz": "I'm very happy."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_21",
+    "level": "N4",
+    "word": "うん",
+    "reading": "うん",
+    "romaji": "un",
+    "meaningUz": "Ha (og'zaki) ((informal) yes)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "うん、君は？",
+        "romaji": "un , kun ha ？",
+        "uz": "Fine. And you?"
+      },
+      {
+        "ja": "どう違うんだ？",
+        "romaji": "dou chigau nda ？",
+        "uz": "What's the difference?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_22",
+    "level": "N4",
+    "word": "エスカレーター",
+    "reading": "えすかれーたー",
+    "romaji": "esukareetaa",
+    "meaningUz": "Eskalator (Escalator)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "エスカレーターはどこですか？",
+        "romaji": "esukareetaa hadokodesuka ？",
+        "uz": "Where is the escalator?"
+      },
+      {
+        "ja": "上りのエスカレーターはどこですか？",
+        "romaji": "nobori no esukareetaa hadokodesuka ？",
+        "uz": "Where's the up-escalator?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_23",
+    "level": "N4",
+    "word": "おいでになる",
+    "reading": "おいでになる",
+    "romaji": "oideninaru",
+    "meaningUz": "Tashrif buyurmoq (hurmat) ((respectful) to be)",
+    "partOfSpeech": "Leksika",
+    "examples": []
+  },
+  {
+    "id": "vocab_n4_add_24",
+    "level": "N4",
+    "word": "オートバイ",
+    "reading": "おーとばい",
+    "romaji": "ootobai",
+    "meaningUz": "Mototsikl (Motorcycle)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "オートバイを買うんだ。",
+        "romaji": "ootobai wo kau nda .",
+        "uz": "I'm going to buy myself a motorcycle."
+      },
+      {
+        "ja": "私はオートバイに乗りたい。",
+        "romaji": "watashi ha ootobai ni nori tai .",
+        "uz": "I want to ride a motorcycle."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_25",
+    "level": "N4",
+    "word": "おかげ",
+    "reading": "おかげ",
+    "romaji": "okage",
+    "meaningUz": "Sharofati bilan, tufayli (Owing to)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "おかげでほぼ完徹だ。",
+        "romaji": "okagedehobo kantetsu da .",
+        "uz": "Thanks to which I was up nearly all night."
+      },
+      {
+        "ja": "すべて君のおかげだ。",
+        "romaji": "subete kun nookageda .",
+        "uz": "I owe it all to you."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_26",
+    "level": "N4",
+    "word": "おかしい",
+    "reading": "おかしい",
+    "romaji": "okashii",
+    "meaningUz": "G'alati, kulgili (Strange or funny)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "何かがおかしい。",
+        "romaji": "nanika gaokashii .",
+        "uz": "Something is strange."
+      },
+      {
+        "ja": "彼の話はおかしい。",
+        "romaji": "kano hanashi haokashii .",
+        "uz": "His story sounds strange."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_27",
+    "level": "N4",
+    "word": "おつり",
+    "reading": "おつり",
+    "romaji": "otsuri",
+    "meaningUz": "Qaytim, mayda pul (Change from purchase, balance)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "はい、おつりです。",
+        "romaji": "hai , otsuridesu .",
+        "uz": "Here is your change."
+      },
+      {
+        "ja": "おつりが違いますよ。",
+        "romaji": "otsuriga chigai masuyo .",
+        "uz": "You gave me the wrong change."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_28",
+    "level": "N4",
+    "word": "おもちゃ",
+    "reading": "おもちゃ",
+    "romaji": "omocha",
+    "meaningUz": "O'yinchoq (Toy)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "おもちゃ、直して。",
+        "romaji": "omocha , naoshi te .",
+        "uz": "Fix my toy."
+      },
+      {
+        "ja": "僕のおもちゃを直して。",
+        "romaji": "boku noomochawo naoshi te .",
+        "uz": "Please fix my toy."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_29",
+    "level": "N4",
+    "word": "お金持ち",
+    "reading": "おかねもち",
+    "romaji": "okanemochi",
+    "meaningUz": "Boy odam, badavlat (Rich man)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "お金持ちになりたい。",
+        "romaji": "o kanemochi ninaritai .",
+        "uz": "I want to become rich."
+      },
+      {
+        "ja": "お金持ちだったらなあ。",
+        "romaji": "o kanemochi dattaranaa .",
+        "uz": "I wish I were rich."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_30",
+    "level": "N4",
+    "word": "お祭り",
+    "reading": "おまつり",
+    "romaji": "omatsuri",
+    "meaningUz": "Festival, sayil (Festival)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "彼らはお祭りを中止した。",
+        "romaji": "karera hao matsuri wo chuushi shita .",
+        "uz": "They cancelled the festival."
+      },
+      {
+        "ja": "お祭り中に高山に行きたい。",
+        "romaji": "o matsuri nakani kouzan ni iki tai .",
+        "uz": "I'd like to go to Takayama during festival time."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_31",
+    "level": "N4",
+    "word": "お嬢さん",
+    "reading": "おじょうさん",
+    "romaji": "ojousan",
+    "meaningUz": "Birovning qizi, xonim (Young lady)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "お嬢さんのお名前は？",
+        "romaji": "o jou sannoo namae ha ？",
+        "uz": "What's your daughter's name?"
+      },
+      {
+        "ja": "お嬢さん、背が高いですね。",
+        "romaji": "o jou san , sega takai desune .",
+        "uz": "Your daughter is tall."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_32",
+    "level": "N4",
+    "word": "お宅",
+    "reading": "おたく",
+    "romaji": "otaku",
+    "meaningUz": "Uyingiz (hurmat) ((polite) your house)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "明日お宅に伺います。",
+        "romaji": "ashita o taku ni ukagai masu .",
+        "uz": "I'll pay you a visit at your house tomorrow."
+      },
+      {
+        "ja": "お宅はどちらですか？",
+        "romaji": "o taku hadochiradesuka ？",
+        "uz": "Where is your house?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_33",
+    "level": "N4",
+    "word": "お土産",
+    "reading": "おみやげ",
+    "romaji": "omiyage",
+    "meaningUz": "Esdalik sovg'a (Souvenir)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "これはお土産です。",
+        "romaji": "korehao miyage desu .",
+        "uz": "This is a little gift for you."
+      },
+      {
+        "ja": "お土産何買ったの？",
+        "romaji": "o miyage nani katsu tano ？",
+        "uz": "What kind of souvenirs did you buy?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_34",
+    "level": "N4",
+    "word": "お礼",
+    "reading": "おれい",
+    "romaji": "orei",
+    "meaningUz": "Tashakkur, minnatdorchilik (Expression of gratitude)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "お礼状のカードです。",
+        "romaji": "o reijou no kaado desu .",
+        "uz": "These are my thank-you notes."
+      },
+      {
+        "ja": "お礼には及びません。",
+        "romaji": "o rei niha oyobi masen .",
+        "uz": "Don't mention it."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_35",
+    "level": "N4",
+    "word": "カーテン",
+    "reading": "かーてん",
+    "romaji": "kaaten",
+    "meaningUz": "Parda (Curtain)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "カーテン閉めて。",
+        "romaji": "kaaten shime te .",
+        "uz": "Close the curtain."
+      },
+      {
+        "ja": "カーテン下ろして。",
+        "romaji": "kaaten kudaro shite .",
+        "uz": "Lower the curtains."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_36",
+    "level": "N4",
+    "word": "ガソリン",
+    "reading": "がそりん",
+    "romaji": "gasorin",
+    "meaningUz": "Benzin (Petrol)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "ガソリン臭いよ。",
+        "romaji": "gasorin kusai yo .",
+        "uz": "I smell gasoline."
+      },
+      {
+        "ja": "車にガソリン入ってる？",
+        "romaji": "kuruma ni gasorin itsutsu teru ？",
+        "uz": "Is there gas inside the car?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_37",
+    "level": "N4",
+    "word": "ガソリンスタンド",
+    "reading": "がそりんすたんど",
+    "romaji": "gasorinsutando",
+    "meaningUz": "Yoqilg'i quyish shoxobchasi (Petrol station)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "次のガソリンスタンドに寄ろう。",
+        "romaji": "tsugino gasorinsutando ni yoro u .",
+        "uz": "Let's stop at the next service station."
+      },
+      {
+        "ja": "次のガソリンスタンドに寄ろうよ。",
+        "romaji": "tsugino gasorinsutando ni yoro uyo .",
+        "uz": "Let's stop at the next gas station."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_38",
+    "level": "N4",
+    "word": "かっこう",
+    "reading": "かっこう",
+    "romaji": "kakkou",
+    "meaningUz": "Ko'rinish, qiyofa (Appearance)",
+    "partOfSpeech": "Leksika",
+    "examples": []
+  },
+  {
+    "id": "vocab_n4_add_39",
+    "level": "N4",
+    "word": "かまう",
+    "reading": "かまう",
+    "romaji": "kamau",
+    "meaningUz": "E'tibor bermoq, parvo qilmoq (To mind)",
+    "partOfSpeech": "Leksika",
+    "examples": []
+  },
+  {
+    "id": "vocab_n4_add_40",
+    "level": "N4",
+    "word": "きっと",
+    "reading": "きっと",
+    "romaji": "kitto",
+    "meaningUz": "Albatta, shubhasiz (Surely)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "彼はきっと来る。",
+        "romaji": "kareha kitto kuru .",
+        "uz": "He is certain to come."
+      },
+      {
+        "ja": "彼はきっと勝つ。",
+        "romaji": "kareha kitto katsu .",
+        "uz": "He is sure to win."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_41",
+    "level": "N4",
+    "word": "くださる",
+    "reading": "くださる",
+    "romaji": "kudasaru",
+    "meaningUz": "(respectful) to give",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "最寄駅で降ろしてくださる？",
+        "romaji": "moyorieki de furo shitekudasaru ？",
+        "uz": "Would you kindly let me off at the nearest station?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_42",
+    "level": "N4",
+    "word": "くれる",
+    "reading": "くれる",
+    "romaji": "kureru",
+    "meaningUz": "To give",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "してくれる？",
+        "romaji": "shitekureru ？",
+        "uz": "Will you do it for me?"
+      },
+      {
+        "ja": "信じてくれる？",
+        "romaji": "shinji tekureru ？",
+        "uz": "Do you believe me?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_43",
+    "level": "N4",
+    "word": "ケーキ",
+    "reading": "けーき",
+    "romaji": "keeki",
+    "meaningUz": "Cake",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "ケーキは嘘だ。",
+        "romaji": "keeki ha uso da .",
+        "uz": "The cake is a lie."
+      },
+      {
+        "ja": "ケーキをどうぞ。",
+        "romaji": "keeki wodouzo .",
+        "uz": "Help yourself to the cake."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_44",
+    "level": "N4",
+    "word": "けがする",
+    "reading": "けがする",
+    "romaji": "kegasuru",
+    "meaningUz": "To injure",
+    "partOfSpeech": "Leksika",
+    "examples": []
+  },
+  {
+    "id": "vocab_n4_add_45",
+    "level": "N4",
+    "word": "けれど/けれども",
+    "reading": "けれど/けれども",
+    "romaji": "keredo / keredomo",
+    "meaningUz": "However",
+    "partOfSpeech": "Leksika",
+    "examples": []
+  },
+  {
+    "id": "vocab_n4_add_46",
+    "level": "N4",
+    "word": "けんかする",
+    "reading": "けんかする",
+    "romaji": "kenkasuru",
+    "meaningUz": "To quarrel",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "私はよく彼女とけんかする。",
+        "romaji": "watashi hayoku kanojo tokenkasuru .",
+        "uz": "I often have quarrels with her."
+      },
+      {
+        "ja": "彼らは会えば必ずけんかする。",
+        "romaji": "karera ha ae ba kanarazu kenkasuru .",
+        "uz": "Whenever they meet, they quarrel."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_47",
+    "level": "N4",
+    "word": "こう",
+    "reading": "こう",
+    "romaji": "kou",
+    "meaningUz": "This way",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "車で行こう。",
+        "romaji": "kuruma de iko u .",
+        "uz": "Let's go by car."
+      },
+      {
+        "ja": "さあ行こう。",
+        "romaji": "saa iko u .",
+        "uz": "Now let's go."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_48",
+    "level": "N4",
+    "word": "ごちそう",
+    "reading": "ごちそう",
+    "romaji": "gochisou",
+    "meaningUz": "A feast",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "ごちそうさま。",
+        "romaji": "gochisousama .",
+        "uz": "I'm done."
+      },
+      {
+        "ja": "ごちそうさまでした。",
+        "romaji": "gochisousamadeshita .",
+        "uz": "Thank you for the lovely dinner."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_49",
+    "level": "N4",
+    "word": "こと",
+    "reading": "こと",
+    "romaji": "koto",
+    "meaningUz": "Thing, matter",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "何てことだ！",
+        "romaji": "nante kotoda !",
+        "uz": "Oh no!"
+      },
+      {
+        "ja": "僕のこと好き？",
+        "romaji": "boku nokoto suki ？",
+        "uz": "Do you love me?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_50",
+    "level": "N4",
+    "word": "このあいだ",
+    "reading": "このあいだ",
+    "romaji": "konoaida",
+    "meaningUz": "Ah, oh (The other day, recently)",
+    "partOfSpeech": "Leksika",
+    "examples": []
+  },
+  {
+    "id": "vocab_n4_add_51",
+    "level": "N4",
+    "word": "このごろ",
+    "reading": "このごろ",
+    "romaji": "konogoro",
+    "meaningUz": "These days, nowadays",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "このごろ暖かい日が多い。",
+        "romaji": "konogoro atatakai nichi ga ooi .",
+        "uz": "Recently we have had many mild days."
+      },
+      {
+        "ja": "彼はこのごろ影を潜めてる。",
+        "romaji": "kareha konogoro kage wo hisome teru .",
+        "uz": "He is out of circulation these days."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_52",
+    "level": "N4",
+    "word": "ごらんになる",
+    "reading": "ごらんになる",
+    "romaji": "goranninaru",
+    "meaningUz": "(respectful) to see",
+    "partOfSpeech": "Leksika",
+    "examples": []
+  },
+  {
+    "id": "vocab_n4_add_53",
+    "level": "N4",
+    "word": "これから",
+    "reading": "これから",
+    "romaji": "korekara",
+    "meaningUz": "After this",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "これから帰ります。",
+        "romaji": "korekara kaeri masu .",
+        "uz": "I'm going home now."
+      },
+      {
+        "ja": "これからよろしく。",
+        "romaji": "korekarayoroshiku .",
+        "uz": "I look forward to working with you from now on."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_54",
+    "level": "N4",
+    "word": "コンサート",
+    "reading": "こんさーと",
+    "romaji": "konsaato",
+    "meaningUz": "Concert",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "コンサートよかった？",
+        "romaji": "konsaato yokatta ？",
+        "uz": "Did you have a good concert?"
+      },
+      {
+        "ja": "コンサートに行くの？",
+        "romaji": "konsaato ni iku no ？",
+        "uz": "Are you going to the concert?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_55",
+    "level": "N4",
+    "word": "コンピュータ/コンピューター",
+    "reading": "こんぴゅーた/こんぴゅーたー",
+    "romaji": "konpyuuta / konpyuutaa",
+    "meaningUz": "Computer",
+    "partOfSpeech": "Leksika",
+    "examples": []
+  },
+  {
+    "id": "vocab_n4_add_56",
+    "level": "N4",
+    "word": "ご存じ",
+    "reading": "ごぞんじ",
+    "romaji": "gozonji",
+    "meaningUz": "Knowing, acquaintance",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "ご存じだった？",
+        "romaji": "go zonji datta ？",
+        "uz": "Were you aware of this?"
+      },
+      {
+        "ja": "既にご存じのように。",
+        "romaji": "sudeni go zonji noyouni .",
+        "uz": "As you already know."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_57",
+    "level": "N4",
+    "word": "さっき",
+    "reading": "さっき",
+    "romaji": "sakki",
+    "meaningUz": "Some time ago",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "さっき何かあった？",
+        "romaji": "sakki nanika atta ？",
+        "uz": "Did something happen earlier?"
+      },
+      {
+        "ja": "さっき話してた人誰？",
+        "romaji": "sakki hanashi teta nin dare ？",
+        "uz": "Who was that you were just talking to?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_58",
+    "level": "N4",
+    "word": "サラダ",
+    "reading": "さらだ",
+    "romaji": "sarada",
+    "meaningUz": "Salad",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "サラダ、美味しい？",
+        "romaji": "sarada , oishii ？",
+        "uz": "Is the salad tasty?"
+      },
+      {
+        "ja": "サラダを食べますか。",
+        "romaji": "sarada wo tabe masuka .",
+        "uz": "Do you eat salad?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_59",
+    "level": "N4",
+    "word": "サンダル",
+    "reading": "さんだる",
+    "romaji": "sandaru",
+    "meaningUz": "Sandal",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "サンダルを買った。",
+        "romaji": "sandaru wo katsu ta .",
+        "uz": "I bought a pair of sandals."
+      },
+      {
+        "ja": "サンダルを買ったんだ。",
+        "romaji": "sandaru wo katsu tanda .",
+        "uz": "I bought sandals."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_60",
+    "level": "N4",
+    "word": "サンドイッチ",
+    "reading": "さんどいっち",
+    "romaji": "sandoitchi",
+    "meaningUz": "Sandwich",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "サンドイッチはいかが？",
+        "romaji": "sandoitchi haikaga ？",
+        "uz": "How about a sandwich?"
+      },
+      {
+        "ja": "大きなサンドイッチね。",
+        "romaji": "ooki na sandoitchi ne .",
+        "uz": "That's a big sandwich."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_61",
+    "level": "N4",
+    "word": "さ来月",
+    "reading": "さらいげつ",
+    "romaji": "saraigetsu",
+    "meaningUz": "The month after next",
+    "partOfSpeech": "Leksika",
+    "examples": []
+  },
+  {
+    "id": "vocab_n4_add_62",
+    "level": "N4",
+    "word": "さ来週",
+    "reading": "さらいしゅう",
+    "romaji": "saraishuu",
+    "meaningUz": "The week after next",
+    "partOfSpeech": "Leksika",
+    "examples": []
+  },
+  {
+    "id": "vocab_n4_add_63",
+    "level": "N4",
+    "word": "しかる",
+    "reading": "しかる",
+    "romaji": "shikaru",
+    "meaningUz": "A particular",
+    "partOfSpeech": "Leksika",
+    "examples": []
+  },
+  {
+    "id": "vocab_n4_add_64",
+    "level": "N4",
+    "word": "しっかり",
+    "reading": "しっかり",
+    "romaji": "shikkari",
+    "meaningUz": "Mahkam, jiddiy (Firmly, steadily)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "しっかりしろ。",
+        "romaji": "shikkarishiro .",
+        "uz": "Get a hold of yourself."
+      },
+      {
+        "ja": "しっかり食べなさい。",
+        "romaji": "shikkari tabe nasai .",
+        "uz": "Eat well."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_65",
+    "level": "N4",
+    "word": "しばらく",
+    "reading": "しばらく",
+    "romaji": "shibaraku",
+    "meaningUz": "Biroz muddat (Little while)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "しばらくね。",
+        "romaji": "shibarakune .",
+        "uz": "Nice to see you again."
+      },
+      {
+        "ja": "ここしばらくの間。",
+        "romaji": "kokoshibarakuno kan .",
+        "uz": "For the time being."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_66",
+    "level": "N4",
+    "word": "じゃま",
+    "reading": "じゃま",
+    "romaji": "jama",
+    "meaningUz": "Hindrance, intrusion",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "じゃまたね。",
+        "romaji": "jamatane .",
+        "uz": "I'll see you later."
+      },
+      {
+        "ja": "じゃましないで。",
+        "romaji": "jamashinaide .",
+        "uz": "Stop bugging me!"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_67",
+    "level": "N4",
+    "word": "ジャム",
+    "reading": "じゃむ",
+    "romaji": "jamu",
+    "meaningUz": "Jam",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "苺はジャムにできるよ。",
+        "romaji": "ichigo ha jamu nidekiruyo .",
+        "uz": "Strawberries can be made into jam."
+      },
+      {
+        "ja": "ジャムの作り方知ってる？",
+        "romaji": "jamu no tsukurikata shitte ru ？",
+        "uz": "Do you know how to make jam?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_68",
+    "level": "N4",
+    "word": "ずいぶん",
+    "reading": "ずいぶん",
+    "romaji": "zuibun",
+    "meaningUz": "Extremely",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "ずいぶんと古いな。",
+        "romaji": "zuibunto furui na .",
+        "uz": "It's very old."
+      },
+      {
+        "ja": "ずいぶんと暗いな。",
+        "romaji": "zuibunto kurai na .",
+        "uz": "It's so dark."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_69",
+    "level": "N4",
+    "word": "スーツ",
+    "reading": "すーつ",
+    "romaji": "suutsu",
+    "meaningUz": "Suit",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "スーツに着替えなさい。",
+        "romaji": "suutsu ni kigae nasai .",
+        "uz": "Change into your suit."
+      },
+      {
+        "ja": "私のスーツは灰色です。",
+        "romaji": "watashi no suutsu ha haiiro desu .",
+        "uz": "My suit is gray."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_70",
+    "level": "N4",
+    "word": "スーツケース",
+    "reading": "すーつけーす",
+    "romaji": "suutsukeesu",
+    "meaningUz": "Suitcase",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "そのスーツケース重い？",
+        "romaji": "sono suutsukeesu omoi ？",
+        "uz": "Are your suitcases heavy?"
+      },
+      {
+        "ja": "スーツケースはこちらへ。",
+        "romaji": "suutsukeesu hakochirahe .",
+        "uz": "Put your suitcase over here."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_71",
+    "level": "N4",
+    "word": "すく",
+    "reading": "すく",
+    "romaji": "suku",
+    "meaningUz": "To become empty",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "彼女は肩をすくめた。",
+        "romaji": "kanojo ha kata wosukumeta .",
+        "uz": "She gave a shrug of the shoulders."
+      },
+      {
+        "ja": "波に足をすくわれた。",
+        "romaji": "nami ni ashi wosukuwareta .",
+        "uz": "The waves carried me off my feet."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_72",
+    "level": "N4",
+    "word": "スクリーン",
+    "reading": "すくりーん",
+    "romaji": "sukuriin",
+    "meaningUz": "Screen",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "トムはスクリーンに釘付けだった。",
+        "romaji": "tomu ha sukuriin ni kugizuke datta .",
+        "uz": "Tom's eyes were glued to the screen."
+      },
+      {
+        "ja": "最も効果の高いサンスクリーンはどれですか。",
+        "romaji": "mottomo kouka no takai sansukuriin hadoredesuka .",
+        "uz": "What's your strongest type of sunscreen?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_73",
+    "level": "N4",
+    "word": "すっと",
+    "reading": "すっと",
+    "romaji": "sutto",
+    "meaningUz": "Birdaniga, yengil (Straight, all of a sudden)",
+    "partOfSpeech": "Leksika",
+    "examples": []
+  },
+  {
+    "id": "vocab_n4_add_74",
+    "level": "N4",
+    "word": "ステーキ",
+    "reading": "すてーき",
+    "romaji": "suteeki",
+    "meaningUz": "Steak",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "ステーキ食べたい。",
+        "romaji": "suteeki tabeta i .",
+        "uz": "I want to eat steak."
+      },
+      {
+        "ja": "ステーキがもっと欲しい。",
+        "romaji": "suteeki gamotto hoshii .",
+        "uz": "I want more of the steak."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_75",
+    "level": "N4",
+    "word": "ステレオ",
+    "reading": "すてれお",
+    "romaji": "sutereo",
+    "meaningUz": "Stereo",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "ステレオの音、小さくしてよ。",
+        "romaji": "sutereo no oto , chiisaku shiteyo .",
+        "uz": "Turn down the stereo."
+      },
+      {
+        "ja": "自分のステレオを持っています。",
+        "romaji": "jibun no sutereo wo motsu teimasu .",
+        "uz": "I have my own stereo set."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_76",
+    "level": "N4",
+    "word": "すばらしい",
+    "reading": "すばらしい",
+    "romaji": "subarashii",
+    "meaningUz": "Ajoyib, qoyilmaqom (Wonderful)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "まあ、すばらしいわ。",
+        "romaji": "maa , subarashiiwa .",
+        "uz": "My, but you're nice."
+      },
+      {
+        "ja": "すばらしい日ですね。",
+        "romaji": "subarashii nichi desune .",
+        "uz": "It's a nice day, isn't it?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_77",
+    "level": "N4",
+    "word": "すり",
+    "reading": "すり",
+    "romaji": "suri",
+    "meaningUz": "Pickpocket",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "靴がすり減った。",
+        "romaji": "kutsu gasuri hetsu ta .",
+        "uz": "My shoes are worn out."
+      },
+      {
+        "ja": "すりに用心せよ。",
+        "romaji": "surini youjin seyo .",
+        "uz": "Look out for pickpockets."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_78",
+    "level": "N4",
+    "word": "すると",
+    "reading": "すると",
+    "romaji": "suruto",
+    "meaningUz": "Then",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "彼は遅刻すると思う。",
+        "romaji": "kareha chikoku suruto omou .",
+        "uz": "I suppose he will be late."
+      },
+      {
+        "ja": "登校するところです。",
+        "romaji": "toukou surutokorodesu .",
+        "uz": "I am going to school."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_79",
+    "level": "N4",
+    "word": "ぜひ",
+    "reading": "ぜひ",
+    "romaji": "zehi",
+    "meaningUz": "Without fail",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "ぜひそうしよう。",
+        "romaji": "zehisoushiyou .",
+        "uz": "Why not?"
+      },
+      {
+        "ja": "ぜひ来てください。",
+        "romaji": "zehi kite kudasai .",
+        "uz": "Do come by all means."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_80",
+    "level": "N4",
+    "word": "ぜんぜん",
+    "reading": "ぜんぜん",
+    "romaji": "zenzen",
+    "meaningUz": "Not entirely (used in a negative sentence)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "ぜんぜん気にしない。",
+        "romaji": "zenzen kini shinai .",
+        "uz": "I don't care a bean."
+      },
+      {
+        "ja": "ぜんぜん乾いてないね。",
+        "romaji": "zenzen kawai tenaine .",
+        "uz": "It's not dry at all."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_81",
+    "level": "N4",
+    "word": "そう",
+    "reading": "そう",
+    "romaji": "sou",
+    "meaningUz": "Really",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "本当にそう。",
+        "romaji": "hontou nisou .",
+        "uz": "You can't be so sure."
+      },
+      {
+        "ja": "晴れそうだ。",
+        "romaji": "hare souda .",
+        "uz": "The sky is likely to clear up."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_82",
+    "level": "N4",
+    "word": "ソフト",
+    "reading": "そふと",
+    "romaji": "sofuto",
+    "meaningUz": "Soft",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "ソフトクリーム食べたい。",
+        "romaji": "sofutokuriimu tabeta i .",
+        "uz": "I want to eat soft serve ice cream."
+      },
+      {
+        "ja": "このソフトはフリーです。",
+        "romaji": "kono sofuto ha furii desu .",
+        "uz": "This software is free."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_83",
+    "level": "N4",
+    "word": "それほど",
+    "reading": "それほど",
+    "romaji": "sorehodo",
+    "meaningUz": "U darajada emas (To that extent)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "それほど簡単ではない。",
+        "romaji": "sorehodo kantan dehanai .",
+        "uz": "It's not quite as simple as that."
+      },
+      {
+        "ja": "彼はそれほど怒っていた。",
+        "romaji": "kareha sorehodo ikatsu teita .",
+        "uz": "He was that angry."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_84",
+    "level": "N4",
+    "word": "そろそろ",
+    "reading": "そろそろ",
+    "romaji": "sorosoro",
+    "meaningUz": "Asta-sekin, vaqt bo'ldi (Gradually, soon)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "そろそろ時間だ。",
+        "romaji": "sorosoro jikan da .",
+        "uz": "It's about time."
+      },
+      {
+        "ja": "そろそろ寝るね。",
+        "romaji": "sorosoro neru ne .",
+        "uz": "It's about time to sleep."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_85",
+    "level": "N4",
+    "word": "そんな",
+    "reading": "そんな",
+    "romaji": "sonna",
+    "meaningUz": "Bunday, shunaqa (That sort of)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "そんな馬鹿な。",
+        "romaji": "sonna baka na .",
+        "uz": "That's crazy."
+      },
+      {
+        "ja": "そんなばかな。",
+        "romaji": "sonnabakana .",
+        "uz": "There's no way."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_86",
+    "level": "N4",
+    "word": "そんなに",
+    "reading": "そんなに",
+    "romaji": "sonnani",
+    "meaningUz": "Bunday, shunaqa (So much, like that)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "そんなに騒ぐな。",
+        "romaji": "sonnani sawagu na .",
+        "uz": "Don't make so much noise."
+      },
+      {
+        "ja": "そんなに吸うな。",
+        "romaji": "sonnani suu na .",
+        "uz": "Don't smoke so much."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_87",
+    "level": "N4",
+    "word": "たいてい",
+    "reading": "たいてい",
+    "romaji": "taitei",
+    "meaningUz": "Usually",
+    "partOfSpeech": "Leksika",
+    "examples": []
+  },
+  {
+    "id": "vocab_n4_add_88",
+    "level": "N4",
+    "word": "タイプ",
+    "reading": "たいぷ",
+    "romaji": "taipu",
+    "meaningUz": "Type, style",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "彼って私のタイプ！",
+        "romaji": "karetsu te watashi no taipu !",
+        "uz": "He is my type!"
+      },
+      {
+        "ja": "トムって、タイプ？",
+        "romaji": "tomu tte , taipu ？",
+        "uz": "Is Tom your type?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_89",
+    "level": "N4",
+    "word": "だから",
+    "reading": "だから",
+    "romaji": "dakara",
+    "meaningUz": "So, therefore",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "だから何なの？",
+        "romaji": "dakara nani nano ？",
+        "uz": "So what?"
+      },
+      {
+        "ja": "だから、なに？",
+        "romaji": "dakara , nani ？",
+        "uz": "So what are you implying?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_90",
+    "level": "N4",
+    "word": "だめ",
+    "reading": "だめ",
+    "romaji": "dame",
+    "meaningUz": "No good",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "もうだめだ。",
+        "romaji": "moudameda .",
+        "uz": "It's all over."
+      },
+      {
+        "ja": "来ちゃだめだ。",
+        "romaji": "kichi yadameda .",
+        "uz": "You can't come."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_91",
+    "level": "N4",
+    "word": "チェックする",
+    "reading": "ちぇっくする",
+    "romaji": "chekku suru",
+    "meaningUz": "To check",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "私は仕事を一つ終えるごとにリストの上でチェックする。",
+        "romaji": "watashi ha shigoto wo hitotsu oe rugotoni risuto no uede chekku suru .",
+        "uz": "I check off each task on my list as soon as I complete it."
+      },
+      {
+        "ja": "ヤニーは、Facebookをチェックすることにした。",
+        "romaji": "yanii ha , Facebook wo chekku surukotonishita .",
+        "uz": "Yanni decided to check Facebook."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_92",
+    "level": "N4",
+    "word": "ちっとも",
+    "reading": "ちっとも",
+    "romaji": "chittomo",
+    "meaningUz": "Not at all (used with a negative verb)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "ちっとも構いませんよ。",
+        "romaji": "chittomo kamai masenyo .",
+        "uz": "I don't care."
+      },
+      {
+        "ja": "ちっとも気にしてない。",
+        "romaji": "chittomo kini shitenai .",
+        "uz": "I'm not the least bit worried about it."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_93",
+    "level": "N4",
+    "word": "ちゃん",
+    "reading": "ちゃん",
+    "romaji": "chan",
+    "meaningUz": "Suffix for familiar female person",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "ちゃんとやって。",
+        "romaji": "chantoyatte .",
+        "uz": "Do it right."
+      },
+      {
+        "ja": "ちゃんと座ってろ。",
+        "romaji": "chanto suwatsu tero .",
+        "uz": "Sit tight."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_94",
+    "level": "N4",
+    "word": "つき",
+    "reading": "つき",
+    "romaji": "tsuki",
+    "meaningUz": "Moon",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "落ちつきな。",
+        "romaji": "ochi tsukina .",
+        "uz": "Hey, relax."
+      },
+      {
+        "ja": "僕は嘘つきだ。",
+        "romaji": "bokuha usotsuki da .",
+        "uz": "I'm a liar."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_95",
+    "level": "N4",
+    "word": "つもり",
+    "reading": "つもり",
+    "romaji": "tsumori",
+    "meaningUz": "Niyat, reja (Intention)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "何するつもり？",
+        "romaji": "nani surutsumori ？",
+        "uz": "What do you intend to do?"
+      },
+      {
+        "ja": "何のつもりだ？",
+        "romaji": "nanno tsumorida ？",
+        "uz": "What's the big idea?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_96",
+    "level": "N4",
+    "word": "テキスト",
+    "reading": "てきすと",
+    "romaji": "tekisuto",
+    "meaningUz": "Text, text book",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "どのテキスト使ってるの？",
+        "romaji": "dono tekisuto tsukatte runo ？",
+        "uz": "Which textbook are you using?"
+      },
+      {
+        "ja": "テキストを開いてください。",
+        "romaji": "tekisuto wo hirai tekudasai .",
+        "uz": "Open your textbooks."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_97",
+    "level": "N4",
+    "word": "テニス",
+    "reading": "てにす",
+    "romaji": "tenisu",
+    "meaningUz": "Tennis",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "テニスは得意？",
+        "romaji": "tenisu ha tokui ？",
+        "uz": "Are you good at playing tennis?"
+      },
+      {
+        "ja": "テニスはするの？",
+        "romaji": "tenisu hasuruno ？",
+        "uz": "Do you play tennis?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_98",
+    "level": "N4",
+    "word": "とこや",
+    "reading": "とこや",
+    "romaji": "tokoya",
+    "meaningUz": "Barber",
+    "partOfSpeech": "Leksika",
+    "examples": []
+  },
+  {
+    "id": "vocab_n4_add_99",
+    "level": "N4",
+    "word": "なるほど",
+    "reading": "なるほど",
+    "romaji": "naruhodo",
+    "meaningUz": "Now i understand",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "なるほどね。",
+        "romaji": "naruhodone .",
+        "uz": "I see."
+      },
+      {
+        "ja": "ああ、なるほど！",
+        "romaji": "aa , naruhodo !",
+        "uz": "Ah, gotcha!"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_100",
+    "level": "N4",
+    "word": "ぬれる",
+    "reading": "ぬれる",
+    "romaji": "nureru",
+    "meaningUz": "Ho'l bo'lmoq (To get wet)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "足がぬれると、風邪をひくよ。",
+        "romaji": "ashi ganureruto , kaze wohikuyo .",
+        "uz": "If your feet get wet, you'll get a cold."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_101",
+    "level": "N4",
+    "word": "ねだん",
+    "reading": "ねだん",
+    "romaji": "nedan",
+    "meaningUz": "Narx, qiymat (Price)",
+    "partOfSpeech": "Leksika",
+    "examples": []
+  },
+  {
+    "id": "vocab_n4_add_102",
+    "level": "N4",
+    "word": "ねっしん",
+    "reading": "ねっしん",
+    "romaji": "nesshin",
+    "meaningUz": "Enthusiasm",
+    "partOfSpeech": "Leksika",
+    "examples": []
+  },
+  {
+    "id": "vocab_n4_add_103",
+    "level": "N4",
+    "word": "のど",
+    "reading": "のど",
+    "romaji": "nodo",
+    "meaningUz": "Throat",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "のど渇いた。",
+        "romaji": "nodo katsu ita .",
+        "uz": "I'm thirsty."
+      },
+      {
+        "ja": "のどが痛いです。",
+        "romaji": "nodoga itai desu .",
+        "uz": "I have a sore throat."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_104",
+    "level": "N4",
+    "word": "パート",
+    "reading": "ぱーと",
+    "romaji": "paato",
+    "meaningUz": "Part time",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "いいアパートね。",
+        "romaji": "ii apaato ne .",
+        "uz": "This is a great apartment."
+      },
+      {
+        "ja": "デパートで買った。",
+        "romaji": "depaato de katsu ta .",
+        "uz": "I bought it at a department store."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_105",
+    "level": "N4",
+    "word": "はず",
+    "reading": "はず",
+    "romaji": "hazu",
+    "meaningUz": "It should be so",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "君はずぶぬれだ。",
+        "romaji": "kun hazubunureda .",
+        "uz": "You're wet through."
+      },
+      {
+        "ja": "４０近いはずだ。",
+        "romaji": "4 0 chikai hazuda .",
+        "uz": "He must be nearly forty."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_106",
+    "level": "N4",
+    "word": "パソコン",
+    "reading": "ぱそこん",
+    "romaji": "pasokon",
+    "meaningUz": "Shaxsiy kompyuter (Personal computer)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "パソコンしたよ。",
+        "romaji": "pasokon shitayo .",
+        "uz": "I played with a computer."
+      },
+      {
+        "ja": "パソコンは使える？",
+        "romaji": "pasokon ha tsukae ru ？",
+        "uz": "Do you know how to use a computer?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_107",
+    "level": "N4",
+    "word": "ハンドバッグ",
+    "reading": "はんどばっぐ",
+    "romaji": "handobaggu",
+    "meaningUz": "Handbag",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "そのハンドバッグ、私の。",
+        "romaji": "sono handobaggu , watashi no .",
+        "uz": "That handbag is mine."
+      },
+      {
+        "ja": "彼女はハンドバッグを紛失した。",
+        "romaji": "kanojo ha handobaggu wo funshitsu shita .",
+        "uz": "She lost her handbag."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_108",
+    "level": "N4",
+    "word": "ピアノ",
+    "reading": "ぴあの",
+    "romaji": "piano",
+    "meaningUz": "Ah, oh (Piano)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "ピアノは好き？",
+        "romaji": "piano ha suki ？",
+        "uz": "Do you like the piano?"
+      },
+      {
+        "ja": "古いピアノだよ。",
+        "romaji": "furui piano dayo .",
+        "uz": "It's an old piano."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_109",
+    "level": "N4",
+    "word": "ひげ",
+    "reading": "ひげ",
+    "romaji": "hige",
+    "meaningUz": "Soqol, mo'ylov (Beard)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "昨日ひげ剃った？",
+        "romaji": "kinou hige sotsu ta ？",
+        "uz": "Did you shave yesterday?"
+      },
+      {
+        "ja": "ひげがなくなった！",
+        "romaji": "higeganakunatta !",
+        "uz": "The beard's gone!"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_110",
+    "level": "N4",
+    "word": "びっくりする",
+    "reading": "びっくりする",
+    "romaji": "bikkurisuru",
+    "meaningUz": "To be surprised",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "トムは絶対びっくりするよ。",
+        "romaji": "tomu ha zettai bikkurisuruyo .",
+        "uz": "I'm sure Tom will be surprised."
+      },
+      {
+        "ja": "トムはびっくりするくらいに絵が下手だ。",
+        "romaji": "tomu habikkurisurukuraini e ga heta da .",
+        "uz": "Tom is incredibly bad at drawing."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_111",
+    "level": "N4",
+    "word": "ひどい",
+    "reading": "ひどい",
+    "romaji": "hidoi",
+    "meaningUz": "Dahshatli, shafqatsiz (Awful)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "ひどい天気！",
+        "romaji": "hidoi tenki !",
+        "uz": "What horrible weather!"
+      },
+      {
+        "ja": "ひどい天気だ。",
+        "romaji": "hidoi tenki da .",
+        "uz": "The weather's terrible."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_112",
+    "level": "N4",
+    "word": "ビル",
+    "reading": "びる",
+    "romaji": "biru",
+    "meaningUz": "Building or bill",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "ねえ、ビル。",
+        "romaji": "nee , biru .",
+        "uz": "Come on, Bill."
+      },
+      {
+        "ja": "やあ、ビル。元気？",
+        "romaji": "yaa , biru . genki ？",
+        "uz": "Hi, Bill. How are you?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_113",
+    "level": "N4",
+    "word": "ファックス",
+    "reading": "ふぁっくす",
+    "romaji": "fakkusu",
+    "meaningUz": "Fax",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "ファックスしなきゃ。",
+        "romaji": "fakkusu shinakya .",
+        "uz": "I need to send a fax."
+      },
+      {
+        "ja": "ファックスって、何ですか？",
+        "romaji": "fakkusu tte , nande suka ？",
+        "uz": "What is a fax?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_114",
+    "level": "N4",
+    "word": "ぶどう",
+    "reading": "ぶどう",
+    "romaji": "budou",
+    "meaningUz": "Grapes",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "ぶどう酒がありません。",
+        "romaji": "budou sake gaarimasen .",
+        "uz": "They have no more wine."
+      },
+      {
+        "ja": "ぶどう酒を一瓶ください。",
+        "romaji": "budou sake wo ichi kame kudasai .",
+        "uz": "Give me a bottle of wine."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_115",
+    "level": "N4",
+    "word": "プレゼント",
+    "reading": "ぷれぜんと",
+    "romaji": "purezento",
+    "meaningUz": "Sovg'a (Present)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "プレゼントをどうぞ。",
+        "romaji": "purezento wodouzo .",
+        "uz": "This is a present for you."
+      },
+      {
+        "ja": "プレゼントがあるんだ。",
+        "romaji": "purezento gaarunda .",
+        "uz": "I have some gifts."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_116",
+    "level": "N4",
+    "word": "ベル",
+    "reading": "べる",
+    "romaji": "beru",
+    "meaningUz": "Bell",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "ベルが鳴った。",
+        "romaji": "beru ga natsu ta .",
+        "uz": "The bell rang."
+      },
+      {
+        "ja": "ベルは正午に鳴る。",
+        "romaji": "beru ha shougo ni naru .",
+        "uz": "The bell rings at noon."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_117",
+    "level": "N4",
+    "word": "ほど",
+    "reading": "ほど",
+    "romaji": "hodo",
+    "meaningUz": "Extent",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "なるほどね。",
+        "romaji": "naruhodone .",
+        "uz": "I see."
+      },
+      {
+        "ja": "ああ、なるほど！",
+        "romaji": "aa , naruhodo !",
+        "uz": "Ah, gotcha!"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_118",
+    "level": "N4",
+    "word": "ほめる",
+    "reading": "ほめる",
+    "romaji": "homeru",
+    "meaningUz": "Maqtamoq (To praise)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "彼女はほめる言葉に困る程だ。",
+        "romaji": "kanojo hahomeru kotoba ni komaru hodo da .",
+        "uz": "She is above praise."
+      },
+      {
+        "ja": "みんないつもトニーをほめる。",
+        "romaji": "minnaitsumo tonii wohomeru .",
+        "uz": "Everyone always speaks well of Tony."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_119",
+    "level": "N4",
+    "word": "または",
+    "reading": "または",
+    "romaji": "mataha",
+    "meaningUz": "Or, otherwise",
+    "partOfSpeech": "Leksika",
+    "examples": []
+  },
+  {
+    "id": "vocab_n4_add_120",
+    "level": "N4",
+    "word": "もうすぐ",
+    "reading": "もうすぐ",
+    "romaji": "mousugu",
+    "meaningUz": "Aytmoq, deb atalmoq (Soon)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "もうすぐ冬だ。",
+        "romaji": "mousugu fuyu da .",
+        "uz": "Winter is drawing on."
+      },
+      {
+        "ja": "もうすぐ春だ。",
+        "romaji": "mousugu haru da .",
+        "uz": "It'll soon be spring."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_121",
+    "level": "N4",
+    "word": "もし",
+    "reading": "もし",
+    "romaji": "moshi",
+    "meaningUz": "If",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "何もしないよ。",
+        "romaji": "nanimo shinaiyo .",
+        "uz": "I won't do anything."
+      },
+      {
+        "ja": "何もしなかった。",
+        "romaji": "nanimo shinakatta .",
+        "uz": "I didn't do anything."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_122",
+    "level": "N4",
+    "word": "もちろん",
+    "reading": "もちろん",
+    "romaji": "mochiron",
+    "meaningUz": "Of course",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "もちろんさ。",
+        "romaji": "mochironsa .",
+        "uz": "Of course."
+      },
+      {
+        "ja": "もちろんだよ！",
+        "romaji": "mochirondayo !",
+        "uz": "Definitely!"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_123",
+    "level": "N4",
+    "word": "もっとも",
+    "reading": "もっとも",
+    "romaji": "mottomo",
+    "meaningUz": "Extremely",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "君が怒るのももっともだ。",
+        "romaji": "kun ga ikaru nomomottomoda .",
+        "uz": "You have good reason to be angry."
+      },
+      {
+        "ja": "そう言うのももっともだ。",
+        "romaji": "sou iu nomomottomoda .",
+        "uz": "You have every reason to say so."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_124",
+    "level": "N4",
+    "word": "もらう",
+    "reading": "もらう",
+    "romaji": "morau",
+    "meaningUz": "To receive",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "彼に来てもらう。",
+        "romaji": "kare ni kite morau .",
+        "uz": "I will have him come."
+      },
+      {
+        "ja": "調べてもらう必要がある。",
+        "romaji": "shirabe temorau hitsuyou gaaru .",
+        "uz": "It wants looking into."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_125",
+    "level": "N4",
+    "word": "やはり/やっぱり",
+    "reading": "やはり/やっぱり",
+    "romaji": "yahari / yappari",
+    "meaningUz": "As i thought, absolutely",
+    "partOfSpeech": "Leksika",
+    "examples": []
+  },
+  {
+    "id": "vocab_n4_add_126",
+    "level": "N4",
+    "word": "よろしい",
+    "reading": "よろしい",
+    "romaji": "yoroshii",
+    "meaningUz": "Yaxshi, mayli (hurmat shakli) ((respectful) ok, all right)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "万事よろしい。",
+        "romaji": "banji yoroshii .",
+        "uz": "All is well."
+      },
+      {
+        "ja": "それでよろしい。",
+        "romaji": "soredeyoroshii .",
+        "uz": "That will do."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_127",
+    "level": "N4",
+    "word": "レジ",
+    "reading": "れじ",
+    "romaji": "reji",
+    "meaningUz": "Register",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "レジはあそこよ。",
+        "romaji": "reji haasokoyo .",
+        "uz": "The cash register is over there."
+      },
+      {
+        "ja": "レジはどこですか。",
+        "romaji": "reji hadokodesuka .",
+        "uz": "Where's the checkout counter?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_128",
+    "level": "N4",
+    "word": "レポート/リポート",
+    "reading": "れぽーと/りぽーと",
+    "romaji": "repooto / ripooto",
+    "meaningUz": "Report",
+    "partOfSpeech": "Leksika",
+    "examples": []
+  },
+  {
+    "id": "vocab_n4_add_129",
+    "level": "N4",
+    "word": "ワープロ",
+    "reading": "わーぷろ",
+    "romaji": "waapuro",
+    "meaningUz": "Word processor",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "ワープロを買いたい。",
+        "romaji": "waapuro wo kai tai .",
+        "uz": "I want to buy a word processor."
+      },
+      {
+        "ja": "このワープロは大変便利だ。",
+        "romaji": "kono waapuro ha taihenbenri da .",
+        "uz": "This word-processor is very convenient."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_130",
+    "level": "N4",
+    "word": "以下",
+    "reading": "いか",
+    "romaji": "ika",
+    "meaningUz": "Less than",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "以下は彼の話です。",
+        "romaji": "ika ha kano hanashi desu .",
+        "uz": "The following is his story."
+      },
+      {
+        "ja": "彼はまだ４０歳以下だ。",
+        "romaji": "kareha mada 4 0 toshi ika da .",
+        "uz": "He is still on the right side of forty."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_131",
+    "level": "N4",
+    "word": "以外",
+    "reading": "いがい",
+    "romaji": "igai",
+    "meaningUz": "With the exception of",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "職員以外入室禁止。",
+        "romaji": "shokuin igai nyuushitsu kinshi .",
+        "uz": "Admittance to staff members only."
+      },
+      {
+        "ja": "水以外何も見えない。",
+        "romaji": "mizu igai nanimo mie nai .",
+        "uz": "Nothing is to be seen but water."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_132",
+    "level": "N4",
+    "word": "以上",
+    "reading": "いじょう",
+    "romaji": "ijou",
+    "meaningUz": "More than, this is all",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "以上ですか？",
+        "romaji": "ijou desuka ？",
+        "uz": "Is that all?"
+      },
+      {
+        "ja": "診察は以上です。",
+        "romaji": "shinsatsu ha ijou desu .",
+        "uz": "That's it for your medical exam."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_133",
+    "level": "N4",
+    "word": "為",
+    "reading": "ため",
+    "romaji": "tame",
+    "meaningUz": "In order to",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "それは売名行為だ。",
+        "romaji": "soreha baimei koui da .",
+        "uz": "That's just a cheap publicity stunt."
+      },
+      {
+        "ja": "それは越権行為だ。",
+        "romaji": "soreha ekkenkoui da .",
+        "uz": "You are acting beyond your position."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_134",
+    "level": "N4",
+    "word": "移る",
+    "reading": "うつる",
+    "romaji": "utsuru",
+    "meaningUz": "To move house or transfer",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "熱意は移る。",
+        "romaji": "netsui ha utsuru .",
+        "uz": "Enthusiasm is contagious."
+      },
+      {
+        "ja": "笑いは移る。",
+        "romaji": "warai ha utsuru .",
+        "uz": "Laughter is infectious."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_135",
+    "level": "N4",
+    "word": "医学",
+    "reading": "いがく",
+    "romaji": "igaku",
+    "meaningUz": "Medical science",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "彼は医学の学生だ。",
+        "romaji": "kareha igaku no gakusei da .",
+        "uz": "He is a medical student."
+      },
+      {
+        "ja": "彼女は医学生でした。",
+        "romaji": "kanojo ha igakusei deshita .",
+        "uz": "She was a medical student."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_136",
+    "level": "N4",
+    "word": "一度",
+    "reading": "いちど",
+    "romaji": "ichido",
+    "meaningUz": "Once",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "一度参ります。",
+        "romaji": "ichido mairi masu .",
+        "uz": "We are coming at once."
+      },
+      {
+        "ja": "もう一度おやり。",
+        "romaji": "mou ichido oyari .",
+        "uz": "Do it again!"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_137",
+    "level": "N4",
+    "word": "引き出す",
+    "reading": "ひきだす",
+    "romaji": "hikidasu",
+    "meaningUz": "To withdraw",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "我々は勉強からさらに楽しみを引き出す。",
+        "romaji": "wareware ha benkyou karasarani tanoshimi wo hikidasu .",
+        "uz": "We derive further pleasure from our study."
+      },
+      {
+        "ja": "彼のいいところを引き出すようにしなさい。",
+        "romaji": "kano iitokorowo hikidasu younishinasai .",
+        "uz": "Try to bring out the best in him."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_138",
+    "level": "N4",
+    "word": "引っ越す",
+    "reading": "ひっこす",
+    "romaji": "hikkosu",
+    "meaningUz": "To move house",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "引っ越すの？",
+        "romaji": "hikkosu no ？",
+        "uz": "Are we moving?"
+      },
+      {
+        "ja": "どこに引っ越すの？",
+        "romaji": "dokoni hikkosu no ？",
+        "uz": "Where are you moving to?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_139",
+    "level": "N4",
+    "word": "雲",
+    "reading": "くも",
+    "romaji": "kumo",
+    "meaningUz": "Cloud",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "雲って、何色？",
+        "romaji": "kumo tte , naniiro ？",
+        "uz": "What colour is the cloud?"
+      },
+      {
+        "ja": "空には雲がない。",
+        "romaji": "sora niha kumo ganai .",
+        "uz": "There are no clouds in the sky."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_140",
+    "level": "N4",
+    "word": "泳ぎ方",
+    "reading": "およぎかた",
+    "romaji": "oyogikata",
+    "meaningUz": "Way of swimming",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "彼は泳ぎ方を習った。",
+        "romaji": "kareha oyogi houwo naratsu ta .",
+        "uz": "He learned how to swim."
+      },
+      {
+        "ja": "彼に泳ぎ方を教えた。",
+        "romaji": "kare ni oyogi houwo oshie ta .",
+        "uz": "I taught him how to swim."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_141",
+    "level": "N4",
+    "word": "遠く",
+    "reading": "とおく",
+    "romaji": "tooku",
+    "meaningUz": "Distant",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "遠くにいる？",
+        "romaji": "tooku niiru ？",
+        "uz": "Are you guys far away?"
+      },
+      {
+        "ja": "遠くは見える？",
+        "romaji": "tooku ha mie ru ？",
+        "uz": "Can you see far?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_142",
+    "level": "N4",
+    "word": "押し入れ",
+    "reading": "おしいれ",
+    "romaji": "oshiire",
+    "meaningUz": "Closet",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "トムは妹を押し入れに閉じ込めた。",
+        "romaji": "tomu ha imouto wo oshiire ni tojikome ta .",
+        "uz": "Tom locked his sister in the closet."
+      },
+      {
+        "ja": "強盗はその子供を押し入れに閉じ込めた。",
+        "romaji": "goutou hasono kodomo wo oshiire ni tojikome ta .",
+        "uz": "The burglar shut the child in the closet."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_143",
+    "level": "N4",
+    "word": "億",
+    "reading": "おく",
+    "romaji": "oku",
+    "meaningUz": "One hundred million",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "トムは億万長者だ。",
+        "romaji": "tomu ha okumanchouja da .",
+        "uz": "Tom is a billionaire."
+      },
+      {
+        "ja": "出来高は５億株だった。",
+        "romaji": "dekidaka ha 5 oku kabu datta .",
+        "uz": "The turnover was 500 million shares."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_144",
+    "level": "N4",
+    "word": "下りる",
+    "reading": "おりる",
+    "romaji": "oriru",
+    "meaningUz": "To get off",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "階段を下りるのがつらくてね。",
+        "romaji": "kaidan wo oriru nogatsurakutene .",
+        "uz": "I have trouble walking down stairs."
+      },
+      {
+        "ja": "そんなに騒々しく階段を駆け下りるな。",
+        "romaji": "sonnani soozooshiku kaidan wo kake oriru na .",
+        "uz": "Don't run down the stairs so noisily."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_145",
+    "level": "N4",
+    "word": "下る",
+    "reading": "さがる",
+    "romaji": "sagaru",
+    "meaningUz": "To get down, to descend",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "坂を下ると海が見えてきました。",
+        "romaji": "saka wo kudaru to umi ga mie tekimashita .",
+        "uz": "The ocean came into view as we descended the hill."
+      },
+      {
+        "ja": "彼らは敵の上に天罰が下ることを祈った。",
+        "romaji": "karera ha teki no ueni tenbatsu ga kudaru kotowo inotsu ta .",
+        "uz": "They called down the wrath of God upon the heads of their enemies."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_146",
+    "level": "N4",
+    "word": "下宿",
+    "reading": "げしゅく",
+    "romaji": "geshuku",
+    "meaningUz": "Lodging",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "私は下宿しています。",
+        "romaji": "watashi ha geshuku shiteimasu .",
+        "uz": "I live in a rooming house."
+      },
+      {
+        "ja": "私は下宿を探していました。",
+        "romaji": "watashi ha geshuku wo sagashi teimashita .",
+        "uz": "I was on the hunt for lodgings."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_147",
+    "level": "N4",
+    "word": "下着",
+    "reading": "したぎ",
+    "romaji": "shitagi",
+    "meaningUz": "Ichki kiyim (Underwear)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "トムは下着姿だった。",
+        "romaji": "tomu ha shitagisugata datta .",
+        "uz": "Tom was in his underwear."
+      },
+      {
+        "ja": "汚い下着を人前で洗うな。",
+        "romaji": "kitanai shitagi wo hitomae de arau na .",
+        "uz": "Don't wash your dirty linen in public."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_148",
+    "level": "N4",
+    "word": "家内",
+    "reading": "かない",
+    "romaji": "kanai",
+    "meaningUz": "Housewife",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "家内は医師です。",
+        "romaji": "kanai ha ishi desu .",
+        "uz": "My wife is a doctor."
+      },
+      {
+        "ja": "家内は今、夕食の支度をしている。",
+        "romaji": "kanai ha ima , yuushoku no shitaku woshiteiru .",
+        "uz": "My wife is preparing dinner right now."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_149",
+    "level": "N4",
+    "word": "科学",
+    "reading": "かがく",
+    "romaji": "kagaku",
+    "meaningUz": "Science",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "彼は科学者です。",
+        "romaji": "kareha kagakusha desu .",
+        "uz": "He is a scientist."
+      },
+      {
+        "ja": "彼は科学に熱心だ。",
+        "romaji": "kareha kagaku ni nesshin da .",
+        "uz": "He is keen on science."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_150",
+    "level": "N4",
+    "word": "火",
+    "reading": "ひ",
+    "romaji": "hi",
+    "meaningUz": "Fire",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "火は燃える。",
+        "romaji": "hi ha moe ru .",
+        "uz": "Fire burns."
+      },
+      {
+        "ja": "火は消えた。",
+        "romaji": "hi ha kie ta .",
+        "uz": "The fire went out."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_151",
+    "level": "N4",
+    "word": "花見",
+    "reading": "はなみ",
+    "romaji": "hanami",
+    "meaningUz": "Cherry-blossom viewing",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "あのお花見て。",
+        "romaji": "anoo hanami te .",
+        "uz": "Look at those flowers."
+      },
+      {
+        "ja": "お花見に行こうよ。",
+        "romaji": "o hanami ni iko uyo .",
+        "uz": "Why don't we go and see the cherry blossoms?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_152",
+    "level": "N4",
+    "word": "課長",
+    "reading": "かちょう",
+    "romaji": "kachou",
+    "meaningUz": "Section manager",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "彼は課長に昇進した。",
+        "romaji": "kareha kachou ni shoushin shita .",
+        "uz": "He was promoted to section chief."
+      },
+      {
+        "ja": "私は課長に任命された。",
+        "romaji": "watashi ha kachou ni ninmei sareta .",
+        "uz": "I was appointed to section chief."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_153",
+    "level": "N4",
+    "word": "過ぎる",
+    "reading": "すぎる",
+    "romaji": "sugiru",
+    "meaningUz": "To exceed",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "静か過ぎる。",
+        "romaji": "shizuka sugi ru .",
+        "uz": "It's too quiet."
+      },
+      {
+        "ja": "食べ過ぎるな。",
+        "romaji": "tabe sugi runa .",
+        "uz": "Don't eat to excess."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_154",
+    "level": "N4",
+    "word": "会話",
+    "reading": "かいわ",
+    "romaji": "kaiwa",
+    "meaningUz": "Conversation",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "会話に加われば？",
+        "romaji": "kaiwa ni kuwawa reba ？",
+        "uz": "Why don't you join in the conversation?"
+      },
+      {
+        "ja": "彼らの会話は続いた。",
+        "romaji": "karera no kaiwa ha tsuzui ta .",
+        "uz": "Their conversation went on."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_155",
+    "level": "N4",
+    "word": "回る",
+    "reading": "まわる",
+    "romaji": "mawaru",
+    "meaningUz": "To go around",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "蜂が飛び回る。",
+        "romaji": "hachi ga tobi mawaru .",
+        "uz": "Bees are flying around."
+      },
+      {
+        "ja": "目が回るほど忙しいよ。",
+        "romaji": "me ga mawaru hodo isogashii yo .",
+        "uz": "I'm frantic!"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_156",
+    "level": "N4",
+    "word": "皆",
+    "reading": "みな",
+    "romaji": "mina",
+    "meaningUz": "Everybody",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "皆が笑った。",
+        "romaji": "mina ga waratsu ta .",
+        "uz": "Everybody laughed."
+      },
+      {
+        "ja": "皆満足だった。",
+        "romaji": "mina manzoku datta .",
+        "uz": "All were satisfied."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_157",
+    "level": "N4",
+    "word": "楽しみ",
+    "reading": "たのしみ",
+    "romaji": "tanoshimi",
+    "meaningUz": "Kutilayotgan quvonch, orziqib kutish (Joy)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "明日楽しみだな。",
+        "romaji": "ashita tanoshimi dana .",
+        "uz": "I'm looking forward to tomorrow."
+      },
+      {
+        "ja": "夕食が楽しみだ。",
+        "romaji": "yuushoku ga tanoshimi da .",
+        "uz": "I'm looking forward to our dinner."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_158",
+    "level": "N4",
+    "word": "楽む",
+    "reading": "たのしむ",
+    "romaji": "tanoshimu",
+    "meaningUz": "To enjoy oneself",
+    "partOfSpeech": "Leksika",
+    "examples": []
+  },
+  {
+    "id": "vocab_n4_add_159",
+    "level": "N4",
+    "word": "掛ける",
+    "reading": "かける",
+    "romaji": "kakeru",
+    "meaningUz": "To hang something",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "４掛ける２は８だ。",
+        "romaji": "4 kake ru 2 ha 8 da .",
+        "uz": "Four multiplied by two is eight."
+      },
+      {
+        "ja": "明日は出掛けるの？",
+        "romaji": "ashita ha dekake runo ？",
+        "uz": "Are you going out tomorrow?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_160",
+    "level": "N4",
+    "word": "割合",
+    "reading": "わりあい",
+    "romaji": "wariai",
+    "meaningUz": "Nisbatan, ulush (Rate, ratio, percentage)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "彼らは１時間３マイルの割合で歩いた。",
+        "romaji": "karera ha 1 jikan 3 mairu no wariai de arui ta .",
+        "uz": "They walked at the rate of three miles an hour."
+      },
+      {
+        "ja": "針は中心を一時間に１０回転の割合で回る。",
+        "romaji": "hari ha chuushin wo ichijikan ni 1 0 kaiten no wariai de mawaru .",
+        "uz": "The hand on its axis turns at 10 revolutions per hour."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_161",
+    "level": "N4",
+    "word": "噛む",
+    "reading": "かむ",
+    "romaji": "kamu",
+    "meaningUz": "To bite, to chew",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "窮鼠猫を噛む。",
+        "romaji": "kyuuso neko wo kamu .",
+        "uz": "A cornered rat will bite a cat."
+      },
+      {
+        "ja": "この犬は噛む。",
+        "romaji": "kono inu ha kamu .",
+        "uz": "This dog bites."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_162",
+    "level": "N4",
+    "word": "乾く",
+    "reading": "かわく",
+    "romaji": "kawaku",
+    "meaningUz": "Qaynamoq (To get dry)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "皮は乾くにつれて堅くなった。",
+        "romaji": "kawa ha kawaku nitsurete kataku natta .",
+        "uz": "The skin tightened as it dried."
+      },
+      {
+        "ja": "君のＴシャツはすぐ乾くでしょう。",
+        "romaji": "kun no T shatsu hasugu kawaku deshou .",
+        "uz": "Your T-shirt will dry soon."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_163",
+    "level": "N4",
+    "word": "看護婦",
+    "reading": "かんごふ",
+    "romaji": "kangofu",
+    "meaningUz": "Female nurse",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "私は看護婦です。",
+        "romaji": "watashi ha kangofu desu .",
+        "uz": "I'm a nurse."
+      },
+      {
+        "ja": "彼女は看護婦です。",
+        "romaji": "kanojo ha kangofu desu .",
+        "uz": "She is a nurse."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_164",
+    "level": "N4",
+    "word": "間",
+    "reading": "あいだ",
+    "romaji": "aida",
+    "meaningUz": "Ah, oh (A space)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "貸し間あり。",
+        "romaji": "kashi kan ari .",
+        "uz": "Room for rent."
+      },
+      {
+        "ja": "寝る時間よ。",
+        "romaji": "neru jikan yo .",
+        "uz": "Time for bed."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_165",
+    "level": "N4",
+    "word": "間違える",
+    "reading": "まちがえる",
+    "romaji": "machigaeru",
+    "meaningUz": "To make a mistake",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "私、よく間違えるの。",
+        "romaji": "watashi , yoku machigae runo .",
+        "uz": "I often make mistakes."
+      },
+      {
+        "ja": "間違えるのが嫌なの。",
+        "romaji": "machigae runoga iyana no .",
+        "uz": "I'm scared to make a mistake."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_166",
+    "level": "N4",
+    "word": "喜ぶ",
+    "reading": "よろこぶ",
+    "romaji": "yorokobu",
+    "meaningUz": "Quvonmoq, sevinmoq (To be delighted)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "早まって喜ぶな。",
+        "romaji": "hayama tte yorokobu na .",
+        "uz": "He who laughs last laughs best."
+      },
+      {
+        "ja": "子供達は漫画本を喜ぶ。",
+        "romaji": "kodomotachi ha mangahon wo yorokobu .",
+        "uz": "Children delight in comic books."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_167",
+    "level": "N4",
+    "word": "寄る",
+    "reading": "よる",
+    "romaji": "yoru",
+    "meaningUz": "To'xtab o'tmoq, yaqinlashmoq (To visit)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "犬に近寄るな。",
+        "romaji": "inu ni chikayoru na .",
+        "uz": "Don't go near the dog."
+      },
+      {
+        "ja": "俺に近寄るな。",
+        "romaji": "ore ni chikayoru na .",
+        "uz": "Don't come near me."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_168",
+    "level": "N4",
+    "word": "帰り",
+    "reading": "かえり",
+    "romaji": "kaeri",
+    "meaningUz": "Return",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "帰りなさい。",
+        "romaji": "kaeri nasai .",
+        "uz": "Go home."
+      },
+      {
+        "ja": "持ち帰ります。",
+        "romaji": "mochikaeri masu .",
+        "uz": "I'll take it home with me."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_169",
+    "level": "N4",
+    "word": "気",
+    "reading": "き",
+    "romaji": "ki",
+    "meaningUz": "Spirit, mood",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "本気ですか。",
+        "romaji": "honki desuka .",
+        "uz": "Do you mean what you say?"
+      },
+      {
+        "ja": "病は気から。",
+        "romaji": "byou ha ki kara .",
+        "uz": "Care killed a cat."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_170",
+    "level": "N4",
+    "word": "汽車",
+    "reading": "きしゃ",
+    "romaji": "kisha",
+    "meaningUz": "Steam train",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "汽車が脱線した。",
+        "romaji": "kisha ga dassen shita .",
+        "uz": "The train was derailed."
+      },
+      {
+        "ja": "あ、汽車が来た。",
+        "romaji": "a , kisha ga kita .",
+        "uz": "Here comes the train."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_171",
+    "level": "N4",
+    "word": "起す",
+    "reading": "おこす",
+    "romaji": "okosu",
+    "meaningUz": "To wake",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "試験は大きな問題を提起する。",
+        "romaji": "shiken ha ooki na mondai wo teiki suru .",
+        "uz": "Examinations pose a big problem."
+      },
+      {
+        "ja": "子宮内膜炎は、細菌が子宮内に入り、内膜に炎症を起す病気である。",
+        "romaji": "shikyuu naimaku honoo ha , saikin ga shikyuu nai ni iri , naimaku ni enshou wo okosu byouki dearu .",
+        "uz": "Endometritis is a disease where bacteria enter the uterus and cause inflammation of the inner membrane."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_172",
+    "level": "N4",
+    "word": "客",
+    "reading": "きゃく",
+    "romaji": "kyaku",
+    "meaningUz": "Guest, customer",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "トムは客だ。",
+        "romaji": "tomu ha kyaku da .",
+        "uz": "Tom is a guest."
+      },
+      {
+        "ja": "客はみな帰った。",
+        "romaji": "kyaku hamina kaetsu ta .",
+        "uz": "The guests are all gone."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_173",
+    "level": "N4",
+    "word": "久しぶり",
+    "reading": "ひさしぶり",
+    "romaji": "hisashiburi",
+    "meaningUz": "After a long time",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "お久しぶり。",
+        "romaji": "o hisashi buri .",
+        "uz": "Long time, no see."
+      },
+      {
+        "ja": "よう、久しぶり。",
+        "romaji": "you , hisashi buri .",
+        "uz": "Hey, long time no see."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_174",
+    "level": "N4",
+    "word": "泣く",
+    "reading": "なく",
+    "romaji": "naku",
+    "meaningUz": "To weep",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "泣くもんか。",
+        "romaji": "naku monka .",
+        "uz": "I won't cry."
+      },
+      {
+        "ja": "外で泣くな。",
+        "romaji": "soto de naku na .",
+        "uz": "Don't cry in public."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_175",
+    "level": "N4",
+    "word": "競争",
+    "reading": "きょうそう",
+    "romaji": "kyousou",
+    "meaningUz": "Yolg'on (Competition)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "私は彼と競争した。",
+        "romaji": "watashi ha kare to kyousou shita .",
+        "uz": "I had a race with him."
+      },
+      {
+        "ja": "競争は激しくなった。",
+        "romaji": "kyousou ha hageshiku natta .",
+        "uz": "The competition has become fierce."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_176",
+    "level": "N4",
+    "word": "教会",
+    "reading": "きょうかい",
+    "romaji": "kyoukai",
+    "meaningUz": "Church",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "あれは教会です。",
+        "romaji": "areha kyoukai desu .",
+        "uz": "That's a church."
+      },
+      {
+        "ja": "今夜教会に行くよ。",
+        "romaji": "konya kyoukai ni iku yo .",
+        "uz": "Tonight we're going to church."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_177",
+    "level": "N4",
+    "word": "驚く",
+    "reading": "おどろく",
+    "romaji": "odoroku",
+    "meaningUz": "To be surprised",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "彼女はきっと驚く。",
+        "romaji": "kanojo hakitto odoroku .",
+        "uz": "She is certain to be surprised."
+      },
+      {
+        "ja": "彼の博識には驚く。",
+        "romaji": "kano hakushiki niha odoroku .",
+        "uz": "His extensive knowledge surprises me."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_178",
+    "level": "N4",
+    "word": "苦い",
+    "reading": "にがい",
+    "romaji": "nigai",
+    "meaningUz": "Bitter",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "めちゃ苦い。",
+        "romaji": "mecha nigai .",
+        "uz": "It's so bitter."
+      },
+      {
+        "ja": "恋の味は苦い。",
+        "romaji": "koi no aji ha nigai .",
+        "uz": "The taste of love is bitter."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_179",
+    "level": "N4",
+    "word": "空く",
+    "reading": "あく",
+    "romaji": "aku",
+    "meaningUz": "Ah, oh (To open, to become empty)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "あと１０分で手が空く。",
+        "romaji": "ato 1 0 fun de tega aku .",
+        "uz": "I will be free in ten minutes."
+      },
+      {
+        "ja": "ただいま満席です。席が空くまでこちらでお待ちください。",
+        "romaji": "tadaima manseki desu . seki ga aku madekochiradeo machi kudasai .",
+        "uz": "We are full now. Please wait here until there is a seat."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_180",
+    "level": "N4",
+    "word": "空気",
+    "reading": "くうき",
+    "romaji": "kuuki",
+    "meaningUz": "Air, atmosphere",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "空気読めない。",
+        "romaji": "kuuki yome nai .",
+        "uz": "Unable to sense the situation."
+      },
+      {
+        "ja": "空気読みなよ。",
+        "romaji": "kuuki yomi nayo .",
+        "uz": "You have to read between the lines."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_181",
+    "level": "N4",
+    "word": "君",
+    "reading": "きみ",
+    "romaji": "kimi",
+    "meaningUz": "(informal) you (used by men towards women)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "君次第だよ。",
+        "romaji": "kimiji dai dayo .",
+        "uz": "It's up to you."
+      },
+      {
+        "ja": "君の番だよ。",
+        "romaji": "kun no ban dayo .",
+        "uz": "It's your move."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_182",
+    "level": "N4",
+    "word": "形",
+    "reading": "かたち",
+    "romaji": "katachi",
+    "meaningUz": "Shape",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "あの人形怖い。",
+        "romaji": "ano ningyou kowai .",
+        "uz": "That doll is scary."
+      },
+      {
+        "ja": "林檎の形は丸い。",
+        "romaji": "ringo no katachi ha marui .",
+        "uz": "An apple is round in shape."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_183",
+    "level": "N4",
+    "word": "決して",
+    "reading": "けっして",
+    "romaji": "kesshite",
+    "meaningUz": "Never",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "決して放さないで。",
+        "romaji": "kesshite hanasa naide .",
+        "uz": "Never let me go."
+      },
+      {
+        "ja": "嘘は決してつくな！",
+        "romaji": "uso ha kesshite tsukuna !",
+        "uz": "Never tell a lie!"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_184",
+    "level": "N4",
+    "word": "決る",
+    "reading": "きまる",
+    "romaji": "kimaru",
+    "meaningUz": "To be decided",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "青春期がどのくらい長く続くかは生物学的要因によって決る。",
+        "romaji": "seishun ki gadonokurai nagaku tsuzuku kaha seibutsugakuteki youin niyotte kimaru .",
+        "uz": "How long adolescence continues is determined by biological factors."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_185",
+    "level": "N4",
+    "word": "血",
+    "reading": "ち",
+    "romaji": "chi",
+    "meaningUz": "Blood",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "高血圧です。",
+        "romaji": "kouketsuatsu desu .",
+        "uz": "I have high blood pressure."
+      },
+      {
+        "ja": "血液の循環。",
+        "romaji": "ketsueki no junkan .",
+        "uz": "The cycle of blood is not regular."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_186",
+    "level": "N4",
+    "word": "堅/硬/固い",
+    "reading": "かたい",
+    "romaji": "katai",
+    "meaningUz": "Hard",
+    "partOfSpeech": "Leksika",
+    "examples": []
+  },
+  {
+    "id": "vocab_n4_add_187",
+    "level": "N4",
+    "word": "研究室",
+    "reading": "けんきゅうしつ",
+    "romaji": "kenkyuushitsu",
+    "meaningUz": "Study room, laboratory",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "研究室に戻りなさい。",
+        "romaji": "kenkyuushitsu ni modori nasai .",
+        "uz": "Go back to the lab."
+      },
+      {
+        "ja": "私たちはその研究室を利用した。",
+        "romaji": "watashitachi hasono kenkyuushitsu wo riyou shita .",
+        "uz": "We have made use of the laboratory."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_188",
+    "level": "N4",
+    "word": "絹",
+    "reading": "きぬ",
+    "romaji": "kinu",
+    "meaningUz": "Silk",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "絹は高価なんだよ。",
+        "romaji": "kinu ha kouka nandayo .",
+        "uz": "Silk is expensive."
+      },
+      {
+        "ja": "絹は手触りが柔らかい。",
+        "romaji": "kinu ha tezawari ga yawarakai .",
+        "uz": "Silk feels soft."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_189",
+    "level": "N4",
+    "word": "見つける",
+    "reading": "みつける",
+    "romaji": "mitsukeru",
+    "meaningUz": "Topmoq (To discover)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "私を見つけるの？",
+        "romaji": "watashi wo mitsu keruno ？",
+        "uz": "Will you find me?"
+      },
+      {
+        "ja": "私は私の道を見つける。",
+        "romaji": "watashi ha watashi no michi wo mitsu keru .",
+        "uz": "I will find my own way."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_190",
+    "level": "N4",
+    "word": "見物",
+    "reading": "けんぶつ",
+    "romaji": "kenbutsu",
+    "meaningUz": "Sightseeing",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "町中見物でもするか？",
+        "romaji": "machijuu kenbutsu demosuruka ？",
+        "uz": "Shall we go sightseeing around town?"
+      },
+      {
+        "ja": "名所見物をしている。",
+        "romaji": "meisho kenbutsu woshiteiru .",
+        "uz": "I'm seeing all the sights."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_191",
+    "level": "N4",
+    "word": "湖",
+    "reading": "みずうみ",
+    "romaji": "mizuumi",
+    "meaningUz": "Lake",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "この湖は深い。",
+        "romaji": "kono mizuumi ha fukai .",
+        "uz": "This lake is deep."
+      },
+      {
+        "ja": "湖は凍っていた。",
+        "romaji": "mizuumi ha kogotsu teita .",
+        "uz": "The lake was frozen."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_192",
+    "level": "N4",
+    "word": "御主人",
+    "reading": "ごしゅじん",
+    "romaji": "goshujin",
+    "meaningUz": "(honorable) your husband",
+    "partOfSpeech": "Leksika",
+    "examples": []
+  },
+  {
+    "id": "vocab_n4_add_193",
+    "level": "N4",
+    "word": "交通",
+    "reading": "こうつう",
+    "romaji": "koutsuu",
+    "meaningUz": "Traffic, transportation",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "交通量は少なかった。",
+        "romaji": "koutsuuryou ha sukunaka tta .",
+        "uz": "Traffic was light."
+      },
+      {
+        "ja": "ここは交通量が多い。",
+        "romaji": "kokoha koutsuuryou ga ooi .",
+        "uz": "Traffic is busy here."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_194",
+    "level": "N4",
+    "word": "光",
+    "reading": "ひかり",
+    "romaji": "hikari",
+    "meaningUz": "Yorug'lik, nur (Light)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "身に余る栄光。",
+        "romaji": "mini amaru eikou .",
+        "uz": "The honor you are giving me is more than I deserve."
+      },
+      {
+        "ja": "光陰矢の如し。",
+        "romaji": "kouin ya no gotoshi .",
+        "uz": "Time flies like an arrow."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_195",
+    "level": "N4",
+    "word": "光る",
+    "reading": "ひかる",
+    "romaji": "hikaru",
+    "meaningUz": "To shine, to glitter",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "使っている鎌は光る。",
+        "romaji": "tsukatte iru kama ha hikaru .",
+        "uz": "A sickle that gets used shines."
+      },
+      {
+        "ja": "光るもの必ずしも金ならず。",
+        "romaji": "hikaru mono kanarazushimo kin narazu .",
+        "uz": "All that glitters is not gold."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_196",
+    "level": "N4",
+    "word": "公務員",
+    "reading": "こうむいん",
+    "romaji": "koumuin",
+    "meaningUz": "Davlat xizmatchisi (Government worker)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "私は公務員です。",
+        "romaji": "watashi ha koumuin desu .",
+        "uz": "I'm a government worker."
+      },
+      {
+        "ja": "彼女は地方公務員だ。",
+        "romaji": "kanojo ha chihoukoumuin da .",
+        "uz": "She is a local government officer."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_197",
+    "level": "N4",
+    "word": "向かう",
+    "reading": "むかう",
+    "romaji": "mukau",
+    "meaningUz": "To face",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "女は悪魔の宴へと向かう。",
+        "romaji": "onna ha akuma no utage heto muka u .",
+        "uz": "She rides to the black sabbath."
+      },
+      {
+        "ja": "彼女は明日東京に向かう。",
+        "romaji": "kanojo ha ashita toukyou ni muka u .",
+        "uz": "She's leaving for Tokyo tomorrow."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_198",
+    "level": "N4",
+    "word": "工業",
+    "reading": "こうぎょう",
+    "romaji": "kougyou",
+    "meaningUz": "The manufacturing industry",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "工業都市です。",
+        "romaji": "kougyoutoshi desu .",
+        "uz": "It's an industrial city."
+      },
+      {
+        "ja": "日本は工業国だ。",
+        "romaji": "nippon ha kougyou kuni da .",
+        "uz": "Japan is an industrial nation."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_199",
+    "level": "N4",
+    "word": "校長",
+    "reading": "こうちょう",
+    "romaji": "kouchou",
+    "meaningUz": "Ichida, fursatida (Headmaster)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "彼は校長が嫌いだ。",
+        "romaji": "kareha kouchou ga kirai da .",
+        "uz": "He dislikes the principal."
+      },
+      {
+        "ja": "彼は校長に昇進した。",
+        "romaji": "kareha kouchou ni shoushin shita .",
+        "uz": "He was promoted to the position of head teacher."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_200",
+    "level": "N4",
+    "word": "考える",
+    "reading": "かんがえる",
+    "romaji": "kangaeru",
+    "meaningUz": "To consider",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "なぜそう考えるの？",
+        "romaji": "nazesou kangae runo ？",
+        "uz": "What makes you think so?"
+      },
+      {
+        "ja": "その時に考えるよ。",
+        "romaji": "sono tokini kangae ruyo .",
+        "uz": "I'll just cross that bridge when I come to it."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_201",
+    "level": "N4",
+    "word": "行う",
+    "reading": "おこなう",
+    "romaji": "okonau",
+    "meaningUz": "To do",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "言うは易く行うは難し。",
+        "romaji": "iu ha yasuku okonau ha muzukashi .",
+        "uz": "It's easier said than done."
+      },
+      {
+        "ja": "言うことと行うことは別である。",
+        "romaji": "iu kototo okonau kotoha betsu dearu .",
+        "uz": "Saying and doing are two different things."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_202",
+    "level": "N4",
+    "word": "講義",
+    "reading": "こうぎ",
+    "romaji": "kougi",
+    "meaningUz": "Lecture",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "文学の講義をする。",
+        "romaji": "bungaku no kougi wosuru .",
+        "uz": "I will lecture on literature."
+      },
+      {
+        "ja": "彼は講義を終わらせた。",
+        "romaji": "kareha kougi wo owa raseta .",
+        "uz": "He brought his speech to an end."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_203",
+    "level": "N4",
+    "word": "講堂",
+    "reading": "こうどう",
+    "romaji": "koudou",
+    "meaningUz": "Auditorium",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "その教師は講堂に学生を集めた。",
+        "romaji": "sono kyoushi ha koudou ni gakusei wo atsume ta .",
+        "uz": "The teacher assembled the students in the hall."
+      },
+      {
+        "ja": "この講堂は300人まで入れる。",
+        "romaji": "kono koudou ha 300 nin made ire ru .",
+        "uz": "This auditorium can seat up to 300 people."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_204",
+    "level": "N4",
+    "word": "郊外",
+    "reading": "こうがい",
+    "romaji": "kougai",
+    "meaningUz": "Outskirts",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "私の家は郊外にある。",
+        "romaji": "watashi no ie ha kougai niaru .",
+        "uz": "My house is in the suburbs."
+      },
+      {
+        "ja": "彼女の家は郊外にある。",
+        "romaji": "kanojo no ie ha kougai niaru .",
+        "uz": "Her home is in the suburbs."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_205",
+    "level": "N4",
+    "word": "降り出す",
+    "reading": "ふりだす",
+    "romaji": "furidasu",
+    "meaningUz": "To start to rain",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "まもなく雪が降り出すだろう。",
+        "romaji": "mamonaku yuki ga ori dasu darou .",
+        "uz": "It will begin snowing before long."
+      },
+      {
+        "ja": "私は雨が降り出す前に学校に着いた。",
+        "romaji": "watashi ha ame ga ori dasu mae ni gakkou ni tsui ta .",
+        "uz": "I reached school before the rain started."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_206",
+    "level": "N4",
+    "word": "高校",
+    "reading": "こうこう",
+    "romaji": "koukou",
+    "meaningUz": "High school",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "高校生なの？",
+        "romaji": "koukousei nano ？",
+        "uz": "Are you a high school student?"
+      },
+      {
+        "ja": "高校生ですか？",
+        "romaji": "koukousei desuka ？",
+        "uz": "Are you a senior high school student?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_207",
+    "level": "N4",
+    "word": "高校生",
+    "reading": "こうこうせい",
+    "romaji": "koukousei",
+    "meaningUz": "High school student",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "高校生なの？",
+        "romaji": "koukousei nano ？",
+        "uz": "Are you a high school student?"
+      },
+      {
+        "ja": "高校生ですか？",
+        "romaji": "koukousei desuka ？",
+        "uz": "Are you a senior high school student?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_208",
+    "level": "N4",
+    "word": "高等学校",
+    "reading": "こうとうがっこう",
+    "romaji": "koutougakkou",
+    "meaningUz": "High school",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "彼は高等学校の生徒ではありません。",
+        "romaji": "kareha koutougakkou no seito dehaarimasen .",
+        "uz": "He is not a high school student."
+      },
+      {
+        "ja": "高等学校では英語と数学が重視されている。",
+        "romaji": "koutougakkou deha eigo to suugaku ga juushi sareteiru .",
+        "uz": "English and mathematics are made much of in senior high schools."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_209",
+    "level": "N4",
+    "word": "合う",
+    "reading": "あう",
+    "romaji": "au",
+    "meaningUz": "Ah, oh (To match)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "黒が似合うね。",
+        "romaji": "kuro ga niau ne .",
+        "uz": "You look good in black."
+      },
+      {
+        "ja": "まだ間に合う。",
+        "romaji": "mada maniau .",
+        "uz": "I can still make it."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_210",
+    "level": "N4",
+    "word": "国際",
+    "reading": "こくさい",
+    "romaji": "kokusai",
+    "meaningUz": "Xalqaro (International)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "国際語は必要ですか？",
+        "romaji": "kokusaigo ha hitsuyou desuka ？",
+        "uz": "Do we need a universal language?"
+      },
+      {
+        "ja": "英語は国際語になった。",
+        "romaji": "eigo ha kokusaigo ninatta .",
+        "uz": "English has become an international language."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_211",
+    "level": "N4",
+    "word": "込む",
+    "reading": "こむ",
+    "romaji": "komu",
+    "meaningUz": "To be crowded",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "綿は水を吸い込む。",
+        "romaji": "men ha mizu wo suikomu .",
+        "uz": "Cotton sucks up water."
+      },
+      {
+        "ja": "そう落ち込むなよ。",
+        "romaji": "sou ochikomu nayo .",
+        "uz": "Keep your chin up."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_212",
+    "level": "N4",
+    "word": "今度",
+    "reading": "こんど",
+    "romaji": "kondo",
+    "meaningUz": "Bu safar, kelasi safar (Now, next time)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "また、今度な！",
+        "romaji": "mata , kondo na !",
+        "uz": "Maybe next time!"
+      },
+      {
+        "ja": "今度また誘ってよ。",
+        "romaji": "kondo mata sasotsu teyo .",
+        "uz": "How about a rain check?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_213",
+    "level": "N4",
+    "word": "今夜",
+    "reading": "こんや",
+    "romaji": "konya",
+    "meaningUz": "Tonight",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "今夜会える？",
+        "romaji": "konya ae ru ？",
+        "uz": "Can you meet tonight?"
+      },
+      {
+        "ja": "今夜は外食だ。",
+        "romaji": "konya ha gaishoku da .",
+        "uz": "I'm eating out this evening."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_214",
+    "level": "N4",
+    "word": "差し上げる",
+    "reading": "さしあげる",
+    "romaji": "sashiageru",
+    "meaningUz": "Ah, oh ((polite) to give)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "突然にかような奇怪な手紙を差し上げる非礼をお許し下さい。",
+        "romaji": "totsuzen nikayouna kikai na tegami wo sashiage ru hirei woo yurushi kudasai .",
+        "uz": "Please forgive my impoliteness in sending you suddenly such a strange letter."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_215",
+    "level": "N4",
+    "word": "妻",
+    "reading": "つま",
+    "romaji": "tsuma",
+    "meaningUz": "(humble) wife",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "妻が怖くて。",
+        "romaji": "tsuma ga kowaku te .",
+        "uz": "I'm afraid of my wife."
+      },
+      {
+        "ja": "稲妻が光った。",
+        "romaji": "inazuma ga hikatsu ta .",
+        "uz": "The lightning flashed."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_216",
+    "level": "N4",
+    "word": "細かい",
+    "reading": "こまかい",
+    "romaji": "komakai",
+    "meaningUz": "Small, fine",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "私は細かいんだ。",
+        "romaji": "watashi ha komakai nda .",
+        "uz": "I'm fussy."
+      },
+      {
+        "ja": "細かい雨が降っていた。",
+        "romaji": "komakai ame ga futsu teita .",
+        "uz": "A fine rain was falling."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_217",
+    "level": "N4",
+    "word": "産業",
+    "reading": "さんぎょう",
+    "romaji": "sangyou",
+    "meaningUz": "Industry",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "日本は産業国である。",
+        "romaji": "nippon ha sangyou kuni dearu .",
+        "uz": "Japan is an industrial country."
+      },
+      {
+        "ja": "彼女は不動産業者です。",
+        "romaji": "kanojo ha fudousangyousha desu .",
+        "uz": "She is an estate agent."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_218",
+    "level": "N4",
+    "word": "残念",
+    "reading": "ざんねん",
+    "romaji": "zannen",
+    "meaningUz": "Afsuski, achinarli (Disappointment)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "残念ですが。",
+        "romaji": "zannen desuga .",
+        "uz": "That's too bad."
+      },
+      {
+        "ja": "残念・・・。",
+        "romaji": "zannen ・・・ .",
+        "uz": "What a pity!"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_219",
+    "level": "N4",
+    "word": "始める",
+    "reading": "はじめる",
+    "romaji": "hajimeru",
+    "meaningUz": "Boshlamoq (To begin)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "新たに始める。",
+        "romaji": "aratani hajime ru .",
+        "uz": "I will begin anew."
+      },
+      {
+        "ja": "問題はいつ始めるかだ。",
+        "romaji": "mondai haitsu hajime rukada .",
+        "uz": "The question is when to start."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_220",
+    "level": "N4",
+    "word": "子",
+    "reading": "こ",
+    "romaji": "ko",
+    "meaningUz": "Child",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "花より団子。",
+        "romaji": "hanayo ri dango .",
+        "uz": "A loaf of bread is better than the songs of birds."
+      },
+      {
+        "ja": "その調子だ。",
+        "romaji": "sono choushi da .",
+        "uz": "That's the spirit."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_221",
+    "level": "N4",
+    "word": "市",
+    "reading": "し",
+    "romaji": "shi",
+    "meaningUz": "City",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "市場に行く。",
+        "romaji": "shijou ni iku .",
+        "uz": "I will go to the market."
+      },
+      {
+        "ja": "工業都市です。",
+        "romaji": "kougyoutoshi desu .",
+        "uz": "It's an industrial city."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_222",
+    "level": "N4",
+    "word": "市民",
+    "reading": "しみん",
+    "romaji": "shimin",
+    "meaningUz": "Citizen",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "私は札幌市民です。",
+        "romaji": "watashi ha sapporoshi tami desu .",
+        "uz": "I am a citizen of Sapporo."
+      },
+      {
+        "ja": "私は世界市民である。",
+        "romaji": "watashi ha sekai shimin dearu .",
+        "uz": "I'm a citizen of the world."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_223",
+    "level": "N4",
+    "word": "思う",
+    "reading": "おもう",
+    "romaji": "omou",
+    "meaningUz": "To think, to feel",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "誰だと思う？",
+        "romaji": "dare dato omou ？",
+        "uz": "Guess who?"
+      },
+      {
+        "ja": "勝つと思う？",
+        "romaji": "katsu to omou ？",
+        "uz": "Do you think we'll win?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_224",
+    "level": "N4",
+    "word": "指",
+    "reading": "ゆび",
+    "romaji": "yubi",
+    "meaningUz": "Finger",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "指を開いて。",
+        "romaji": "yubi wo hirai te .",
+        "uz": "Spread your fingers."
+      },
+      {
+        "ja": "指輪がない。",
+        "romaji": "yubiwa ganai .",
+        "uz": "My ring is gone."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_225",
+    "level": "N4",
+    "word": "指輪",
+    "reading": "ゆびわ",
+    "romaji": "yubiwa",
+    "meaningUz": "Finger ring",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "指輪がない。",
+        "romaji": "yubiwa ganai .",
+        "uz": "My ring is gone."
+      },
+      {
+        "ja": "これは指輪。",
+        "romaji": "koreha yubiwa .",
+        "uz": "This is a ring."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_226",
+    "level": "N4",
+    "word": "支度",
+    "reading": "したくする",
+    "romaji": "shitakusuru",
+    "meaningUz": "To prepare",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "冬支度は万端です！",
+        "romaji": "fuyujitaku ha bantan desu !",
+        "uz": "Winter preparations are all complete."
+      },
+      {
+        "ja": "冬支度は万端ですか？",
+        "romaji": "fuyujitaku ha bantan desuka ？",
+        "uz": "Are preparations for winter complete?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_227",
+    "level": "N4",
+    "word": "枝",
+    "reading": "えだ",
+    "romaji": "eda",
+    "meaningUz": "Branch, twig",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "枝を折るな。",
+        "romaji": "eda wo oru na .",
+        "uz": "Don't break the branches."
+      },
+      {
+        "ja": "鳥は枝に止まった。",
+        "romaji": "tori ha eda ni toma tta .",
+        "uz": "The birds settled on the branches."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_228",
+    "level": "N4",
+    "word": "止む",
+    "reading": "やむ",
+    "romaji": "yamu",
+    "meaningUz": "To'xtamoq (yomg'ir/qor) (To stop)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "雨は止む兆しが無い。",
+        "romaji": "ame ha tomu kizashi ga nai .",
+        "uz": "The rain shows no sign of stopping."
+      },
+      {
+        "ja": "雨が止むのを待とう！",
+        "romaji": "ame ga tomu nowo mato u !",
+        "uz": "Let's wait for the rain to end!"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_229",
+    "level": "N4",
+    "word": "糸",
+    "reading": "いと",
+    "romaji": "ito",
+    "meaningUz": "Thread",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "糸が絡まった。",
+        "romaji": "ito ga karama tta .",
+        "uz": "The threads got tangled."
+      },
+      {
+        "ja": "この糸は丈夫だよ。",
+        "romaji": "kono ito ha joubu dayo .",
+        "uz": "This string is strong."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_230",
+    "level": "N4",
+    "word": "試験",
+    "reading": "しけん",
+    "romaji": "shiken",
+    "meaningUz": "Imtihon (Examination)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "来週は試験だ。",
+        "romaji": "raishuu ha shiken da .",
+        "uz": "The exam is coming up next week."
+      },
+      {
+        "ja": "試験に失敗した。",
+        "romaji": "shiken ni shippai shita .",
+        "uz": "He failed the exam."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_231",
+    "level": "N4",
+    "word": "歯医者",
+    "reading": "はいしゃ",
+    "romaji": "haisha",
+    "meaningUz": "Dentist",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "彼は歯医者に行った。",
+        "romaji": "kareha haisha ni itta .",
+        "uz": "He went to the dentist."
+      },
+      {
+        "ja": "歯医者さんが怖くて。",
+        "romaji": "haisha sanga kowaku te .",
+        "uz": "I'm afraid of dentists."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_232",
+    "level": "N4",
+    "word": "事務所",
+    "reading": "じむしょ",
+    "romaji": "jimusho",
+    "meaningUz": "Hasharot (Office)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "事務所にいます。",
+        "romaji": "jimusho niimasu .",
+        "uz": "I'm in my office."
+      },
+      {
+        "ja": "彼は事務所にいない。",
+        "romaji": "kareha jimusho niinai .",
+        "uz": "He is out of the office."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_233",
+    "level": "N4",
+    "word": "似る",
+    "reading": "にる",
+    "romaji": "niru",
+    "meaningUz": "To be similar",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "息子は父親に似る。",
+        "romaji": "musuko ha chichioya ni niru .",
+        "uz": "Like father, like son."
+      },
+      {
+        "ja": "たいていの男の子は父親に似る。",
+        "romaji": "taiteino otokonoko ha chichioya ni niru .",
+        "uz": "Most boys take after their fathers."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_234",
+    "level": "N4",
+    "word": "寺",
+    "reading": "てら",
+    "romaji": "tera",
+    "meaningUz": "Temple",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "寺の隣に鬼が住む。",
+        "romaji": "tera no tonari ni oni ga sumu .",
+        "uz": "The devil lurks behind the cross."
+      },
+      {
+        "ja": "寺院はどこですか？",
+        "romaji": "jiin hadokodesuka ？",
+        "uz": "Where's the temple?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_235",
+    "level": "N4",
+    "word": "辞典",
+    "reading": "じてん",
+    "romaji": "jiten",
+    "meaningUz": "Dictionary",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "トムは中日辞典を買った。",
+        "romaji": "tomu ha chuunichi jiten wo katsu ta .",
+        "uz": "Tom bought a Chinese-Japanese dictionary."
+      },
+      {
+        "ja": "トムは日中辞典を買った。",
+        "romaji": "tomu ha nitchuu jiten wo katsu ta .",
+        "uz": "Tom bought a Japanese-Chinese dictionary."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_236",
+    "level": "N4",
+    "word": "写す",
+    "reading": "うつす",
+    "romaji": "utsusu",
+    "meaningUz": "To copy or photograph",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "彼女は友達のノートを写す。",
+        "romaji": "kanojo ha tomodachi no nooto wo utsusu .",
+        "uz": "She will copy her friend's notebook."
+      },
+      {
+        "ja": "彼は友達のノートを写すのに忙しかった。",
+        "romaji": "kareha tomodachi no nooto wo utsusu noni isogashika tta .",
+        "uz": "He was busy copying his friend's notebook."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_237",
+    "level": "N4",
+    "word": "社会",
+    "reading": "しゃかい",
+    "romaji": "shakai",
+    "meaningUz": "Society, public",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "暴力は社会のガンだ。",
+        "romaji": "bouryoku ha shakai no gan da .",
+        "uz": "Violence is the cancer of our society."
+      },
+      {
+        "ja": "男は社会を形成する。",
+        "romaji": "otoko ha shakai wo keisei suru .",
+        "uz": "The men form a society."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_238",
+    "level": "N4",
+    "word": "謝る",
+    "reading": "あやまる",
+    "romaji": "ayamaru",
+    "meaningUz": "Ah, oh (To apologize)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "謝るしかない。",
+        "romaji": "ayamaru shikanai .",
+        "uz": "There is nothing to do but apologize."
+      },
+      {
+        "ja": "謝ることないよ。",
+        "romaji": "ayamaru kotonaiyo .",
+        "uz": "You don't need to apologize for that."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_239",
+    "level": "N4",
+    "word": "趣味",
+    "reading": "しゅみ",
+    "romaji": "shumi",
+    "meaningUz": "Qiziqish, xobbi (Hobby)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "彼は多趣味だ。",
+        "romaji": "kareha tashumi da .",
+        "uz": "He has a lot of hobbies."
+      },
+      {
+        "ja": "趣味は異なる。",
+        "romaji": "shumi ha kotonaru .",
+        "uz": "Tastes differ."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_240",
+    "level": "N4",
+    "word": "受ける",
+    "reading": "うける",
+    "romaji": "ukeru",
+    "meaningUz": "To take a lesson or test",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "ワクチンを受けるの？",
+        "romaji": "wakuchin wo ukeru no ？",
+        "uz": "Will you get vaccinated?"
+      },
+      {
+        "ja": "噂話を真に受けるな。",
+        "romaji": "uwasabanashi wo makoto ni ukeru na .",
+        "uz": "Don't believe the rumors."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_241",
+    "level": "N4",
+    "word": "周り",
+    "reading": "まわり",
+    "romaji": "mawari",
+    "meaningUz": "Surroundings",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "僕は周りを見回した。",
+        "romaji": "bokuha mawari wo mimawashi ta .",
+        "uz": "I looked around me."
+      },
+      {
+        "ja": "彼は周りを見渡した。",
+        "romaji": "kareha mawari wo miwatashi ta .",
+        "uz": "He looked around."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_242",
+    "level": "N4",
+    "word": "終わり",
+    "reading": "おわり",
+    "romaji": "owari",
+    "meaningUz": "The end",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "終わりはない。",
+        "romaji": "owari hanai .",
+        "uz": "It never ends."
+      },
+      {
+        "ja": "遊びは終わりだ。",
+        "romaji": "asobi ha owari da .",
+        "uz": "Fun and games are over."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_243",
+    "level": "N4",
+    "word": "舟",
+    "reading": "ふね",
+    "romaji": "fune",
+    "meaningUz": "Kema (Ship)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "舟は行方不明だ。",
+        "romaji": "fune ha yukuefumei da .",
+        "uz": "The boat is lost."
+      },
+      {
+        "ja": "小舟は荒波で激しく揺れた。",
+        "romaji": "kobune ha aranami de hageshiku yure ta .",
+        "uz": "The little boat bobbed on the rough sea."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_244",
+    "level": "N4",
+    "word": "集める",
+    "reading": "あつめる",
+    "romaji": "atsumeru",
+    "meaningUz": "Ah, oh (To collect something)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "はがきを集める。",
+        "romaji": "hagakiwo atsume ru .",
+        "uz": "I collect postcards."
+      },
+      {
+        "ja": "彼は古銭を集めるのが好きだ。",
+        "romaji": "kareha kosen wo atsume runoga suki da .",
+        "uz": "He likes collecting old coins."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_245",
+    "level": "N4",
+    "word": "集る",
+    "reading": "あつまる",
+    "romaji": "atsumaru",
+    "meaningUz": "Ah, oh (To gather)",
+    "partOfSpeech": "Leksika",
+    "examples": []
+  },
+  {
+    "id": "vocab_n4_add_246",
+    "level": "N4",
+    "word": "柔らかい",
+    "reading": "やわらかい",
+    "romaji": "yawarakai",
+    "meaningUz": "Soft",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "体柔らかいね。",
+        "romaji": "karada yawarakai ne .",
+        "uz": "Your body is soft."
+      },
+      {
+        "ja": "柔らかい便が出ます。",
+        "romaji": "yawarakai bin ga dema su .",
+        "uz": "I have soft stools."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_247",
+    "level": "N4",
+    "word": "柔道",
+    "reading": "じゅうどう",
+    "romaji": "juudou",
+    "meaningUz": "Judo",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "柔道を練習しています。",
+        "romaji": "juudou wo renshuu shiteimasu .",
+        "uz": "I'm practising judo."
+      },
+      {
+        "ja": "私に柔道を教えてください。",
+        "romaji": "watashi ni juudou wo oshie tekudasai .",
+        "uz": "Teach judo to me."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_248",
+    "level": "N4",
+    "word": "出席",
+    "reading": "しゅっせきする",
+    "romaji": "shussekisuru",
+    "meaningUz": "O'rindiq, joy (To attend)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "出席します。",
+        "romaji": "shusseki shimasu .",
+        "uz": "I will join it!"
+      },
+      {
+        "ja": "出席したい。",
+        "romaji": "shusseki shitai .",
+        "uz": "I want to attend."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_249",
+    "level": "N4",
+    "word": "女性",
+    "reading": "じょせい",
+    "romaji": "josei",
+    "meaningUz": "Woman",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "色っぽい女性。",
+        "romaji": "iro ppoi josei .",
+        "uz": "She is a fox."
+      },
+      {
+        "ja": "私は女性です。",
+        "romaji": "watashi ha josei desu .",
+        "uz": "I am a woman."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_250",
+    "level": "N4",
+    "word": "勝つ",
+    "reading": "かつ",
+    "romaji": "katsu",
+    "meaningUz": "To win",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "戦いに勝つ。",
+        "romaji": "tatakai ni katsu .",
+        "uz": "We will win the day."
+      },
+      {
+        "ja": "真実が勝つ。",
+        "romaji": "shinjitsu ga katsu .",
+        "uz": "Truth prevails."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_251",
+    "level": "N4",
+    "word": "召し上がる",
+    "reading": "めしあがる",
+    "romaji": "meshiagaru",
+    "meaningUz": "Ah, oh ((polite) to eat)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "さあいらっしゃい、何を召し上がるか言いたまえ。",
+        "romaji": "saairasshai , naniwo meshi aga ruka ii tamae .",
+        "uz": "Step right up, gents, and say what you'll have."
+      },
+      {
+        "ja": "母は無邪気にも「もっとビールを召し上がるの」と尋ねた。",
+        "romaji": "haha ha mujaki nimo ( motto biiru wo meshi aga runo ) to tazune ta .",
+        "uz": "Mom was innocent enough to ask him: \"Would you like any more beer?\""
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_252",
+    "level": "N4",
+    "word": "小学校",
+    "reading": "しょうがっこう",
+    "romaji": "shougakkou",
+    "meaningUz": "Elementary school",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "君、小学校に行ってるの？",
+        "romaji": "kun , shougakkou ni itte runo ？",
+        "uz": "Do you go to an elementary school?"
+      },
+      {
+        "ja": "弟は小学校へ通っています。",
+        "romaji": "otouto ha shougakkou he tootte imasu .",
+        "uz": "My little brother goes to an elementary school."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_253",
+    "level": "N4",
+    "word": "小説",
+    "reading": "しょうせつ",
+    "romaji": "shousetsu",
+    "meaningUz": "Novel",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "小説家になるよ。",
+        "romaji": "shousetsuka ninaruyo .",
+        "uz": "I'll be a novelist."
+      },
+      {
+        "ja": "この小説は難解だ。",
+        "romaji": "kono shousetsu ha nankai da .",
+        "uz": "This novel is difficult to understand."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_254",
+    "level": "N4",
+    "word": "小鳥",
+    "reading": "ことり",
+    "romaji": "kotori",
+    "meaningUz": "Small bird",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "彼は小鳥を狙った。",
+        "romaji": "kareha kotori wo neratsu ta .",
+        "uz": "He aimed at the bird."
+      },
+      {
+        "ja": "猫は小鳥に忍び寄った。",
+        "romaji": "neko ha kotori ni shinobi yotsu ta .",
+        "uz": "The cat crept toward the bird."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_255",
+    "level": "N4",
+    "word": "承知",
+    "reading": "しょうちする",
+    "romaji": "shouchisuru",
+    "meaningUz": "Ichida, fursatida (To consent)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "承知しました。",
+        "romaji": "shouchi shimashita .",
+        "uz": "All right."
+      },
+      {
+        "ja": "百も承知です。",
+        "romaji": "hyaku mo shouchi desu .",
+        "uz": "You're telling me."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_256",
+    "level": "N4",
+    "word": "消しゴム",
+    "reading": "けしゴム",
+    "romaji": "keshi gomu",
+    "meaningUz": "Eraser",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "消しゴム返してよ。",
+        "romaji": "keshigomu kaeshi teyo .",
+        "uz": "Give me back my eraser."
+      },
+      {
+        "ja": "消しゴム借りていい？",
+        "romaji": "keshigomu kari teii ？",
+        "uz": "May I borrow your eraser?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_257",
+    "level": "N4",
+    "word": "焼く",
+    "reading": "やく",
+    "romaji": "yaku",
+    "meaningUz": "To bake, to grill",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "やきもちを焼くなよ。",
+        "romaji": "yakimochiwo yaku nayo .",
+        "uz": "You shouldn't be jealous."
+      },
+      {
+        "ja": "私の母は毎朝パンを焼く。",
+        "romaji": "watashi no haha ha maiasa pan wo yaku .",
+        "uz": "My mother bakes bread every morning."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_258",
+    "level": "N4",
+    "word": "焼ける",
+    "reading": "やける",
+    "romaji": "yakeru",
+    "meaningUz": "Kuymoq, qizimoq (To burn, to be roasted)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "焼けるように熱い。",
+        "romaji": "yake ruyouni atsui .",
+        "uz": "It is broiling hot."
+      },
+      {
+        "ja": "目が焼けるように痛い。",
+        "romaji": "me ga yake ruyouni itai .",
+        "uz": "My eyes are burning."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_259",
+    "level": "N4",
+    "word": "笑う",
+    "reading": "わらう",
+    "romaji": "warau",
+    "meaningUz": "Kulmoq (To laugh, to smile)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "トムが笑う。",
+        "romaji": "tomu ga warau .",
+        "uz": "Tom smiles."
+      },
+      {
+        "ja": "どうして笑うの？",
+        "romaji": "doushite warau no ？",
+        "uz": "What makes you laugh?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_260",
+    "level": "N4",
+    "word": "上る",
+    "reading": "あがる",
+    "romaji": "agaru",
+    "meaningUz": "Ah, oh (To rise)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "月は東から上る。",
+        "romaji": "gatsu ha higashi kara noboru .",
+        "uz": "The moon rises in the east."
+      },
+      {
+        "ja": "口あれば京へ上る。",
+        "romaji": "kuchi areba kyou he noboru .",
+        "uz": "If you are up for it, let's go!"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_261",
+    "level": "N4",
+    "word": "乗り物",
+    "reading": "のりもの",
+    "romaji": "norimono",
+    "meaningUz": "Vehicle",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "乗り物は子供向けである。",
+        "romaji": "norimono ha kodomomuke dearu .",
+        "uz": "Rides in the cars are for kids."
+      },
+      {
+        "ja": "乗り物酔いの薬をください。",
+        "romaji": "norimono yoi no kusuri wokudasai .",
+        "uz": "Please give me some airsickness medicine."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_262",
+    "level": "N4",
+    "word": "場合",
+    "reading": "ばあい",
+    "romaji": "baai",
+    "meaningUz": "Ah, oh (Situation)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "それは極端な場合だ。",
+        "romaji": "soreha kyokutan na baai da .",
+        "uz": "They are the extreme cases."
+      },
+      {
+        "ja": "この場合は君が悪い。",
+        "romaji": "kono baai ha kun ga warui .",
+        "uz": "You're wrong in this case."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_263",
+    "level": "N4",
+    "word": "畳",
+    "reading": "たたみ",
+    "romaji": "tatami",
+    "meaningUz": "Japanese straw mat",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "傘は畳んで。",
+        "romaji": "kasa ha tatami nde .",
+        "uz": "Shut the umbrella."
+      },
+      {
+        "ja": "トムは傘を畳んだ。",
+        "romaji": "tomu ha kasa wo tatami nda .",
+        "uz": "Tom folded up his umbrella."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_264",
+    "level": "N4",
+    "word": "植える",
+    "reading": "うえる",
+    "romaji": "ueru",
+    "meaningUz": "To plant, to grow",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "春は木を植える時期です。",
+        "romaji": "haru ha ki wo ue ru jiki desu .",
+        "uz": "Spring is the time to plant trees."
+      },
+      {
+        "ja": "母は庭に花を植えるのに忙しい。",
+        "romaji": "haha ha niwa ni hana wo ue runoni isogashii .",
+        "uz": "My mother is busy planting flowers in the garden."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_265",
+    "level": "N4",
+    "word": "食料品",
+    "reading": "しょくりょうひん",
+    "romaji": "shokuryouhin",
+    "meaningUz": "Groceries",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "食料品買わなくちゃ。",
+        "romaji": "shokuryouhin kawa nakucha .",
+        "uz": "I need to buy some groceries."
+      },
+      {
+        "ja": "食料品商をやっている。",
+        "romaji": "shokuryouhin shou woyatteiru .",
+        "uz": "I am in the grocery line."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_266",
+    "level": "N4",
+    "word": "寝坊",
+    "reading": "ねぼう",
+    "romaji": "nebou",
+    "meaningUz": "Sleeping in late",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "私は寝坊した。",
+        "romaji": "watashi ha nebou shita .",
+        "uz": "I overslept."
+      },
+      {
+        "ja": "彼女は朝寝坊だ。",
+        "romaji": "kanojo ha asanebou da .",
+        "uz": "She is a late riser."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_267",
+    "level": "N4",
+    "word": "心",
+    "reading": "こころ",
+    "romaji": "kokoro",
+    "meaningUz": "Core, heart",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "目は心の鏡。",
+        "romaji": "me ha kokoro no kagami .",
+        "uz": "The eye is the mirror of the soul."
+      },
+      {
+        "ja": "心配するな。",
+        "romaji": "shinpai suruna .",
+        "uz": "Don't worry about it!"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_268",
+    "level": "N4",
+    "word": "新聞社",
+    "reading": "しんぶんしゃ",
+    "romaji": "shinbunsha",
+    "meaningUz": "Newspaper company",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "どちらの新聞社にお勤めですか。",
+        "romaji": "dochirano shinbunsha nio tsutome desuka .",
+        "uz": "Which newspaper do you work for?"
+      },
+      {
+        "ja": "私はこの新聞社に勤めて４年になります。",
+        "romaji": "watashi hakono shinbunsha ni tsutome te 4 nen ninarimasu .",
+        "uz": "I have been working for this newspaper for 4 years."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_269",
+    "level": "N4",
+    "word": "森",
+    "reading": "もり",
+    "romaji": "mori",
+    "meaningUz": "Forest",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "彼は森で迷った。",
+        "romaji": "kareha mori de mayotsu ta .",
+        "uz": "He lost his way in the woods."
+      },
+      {
+        "ja": "月には森も無い。",
+        "romaji": "gatsu niha mori mo nai .",
+        "uz": "Nor are there any woods on the moon."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_270",
+    "level": "N4",
+    "word": "深い",
+    "reading": "ふかい",
+    "romaji": "fukai",
+    "meaningUz": "Deep",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "この湖は深い。",
+        "romaji": "kono mizuumi ha fukai .",
+        "uz": "This lake is deep."
+      },
+      {
+        "ja": "深い闇だった。",
+        "romaji": "fukai yami datta .",
+        "uz": "It was a deep darkness."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_271",
+    "level": "N4",
+    "word": "申し上げる",
+    "reading": "もうしあげる",
+    "romaji": "moushiageru",
+    "meaningUz": "Aytmoq (kamtarlik) ((humble) to say, to tell)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "反対申し上げるつもりは全然なかったのです。",
+        "romaji": "hantai moushiage rutsumoriha zenzen nakattanodesu .",
+        "uz": "I had no desire to say anything against you."
+      },
+      {
+        "ja": "私に関する限り申し上げることはありません。",
+        "romaji": "watashi ni kansu ru kagiri moushiage rukotohaarimasen .",
+        "uz": "As far as I am concerned, I have nothing to say."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_272",
+    "level": "N4",
+    "word": "真中",
+    "reading": "まんなか",
+    "romaji": "mannaka",
+    "meaningUz": "Middle",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "湖の真中に、その島がある。",
+        "romaji": "mizuumi no mannaka ni , sono shima gaaru .",
+        "uz": "In the middle of the lake lies the island."
+      },
+      {
+        "ja": "交差点の真中でガス欠になった。",
+        "romaji": "kousaten no mannaka de gasu ketsu ninatta .",
+        "uz": "We ran out of gas in the middle of the intersection."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_273",
+    "level": "N4",
+    "word": "親",
+    "reading": "おや",
+    "romaji": "oya",
+    "meaningUz": "Parents",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "親が払うよ。",
+        "romaji": "oya ga harau yo .",
+        "uz": "My parents will pay for it."
+      },
+      {
+        "ja": "彼女は親切だ。",
+        "romaji": "kanojo ha shinsetsu da .",
+        "uz": "She is kind."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_274",
+    "level": "N4",
+    "word": "人口",
+    "reading": "じんこう",
+    "romaji": "jinkou",
+    "meaningUz": "Population",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "その町は人口が多い。",
+        "romaji": "sono machi ha jinkou ga ooi .",
+        "uz": "The city has a large population."
+      },
+      {
+        "ja": "インドは人口が多い。",
+        "romaji": "indo ha jinkou ga ooi .",
+        "uz": "India is populous."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_275",
+    "level": "N4",
+    "word": "尋ねる",
+    "reading": "たずねる",
+    "romaji": "tazuneru",
+    "meaningUz": "To ask",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "尋ねるだけの価値がある。",
+        "romaji": "tazune rudakeno kachi gaaru .",
+        "uz": "I think it's worth asking."
+      },
+      {
+        "ja": "彼女に尋ねる勇気がありますか。",
+        "romaji": "kanojo ni tazune ru yuuki gaarimasuka .",
+        "uz": "Dare you ask her?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_276",
+    "level": "N4",
+    "word": "数学",
+    "reading": "すうがく",
+    "romaji": "suugaku",
+    "meaningUz": "Mathematics, arithmetic",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "数学はムズイ。",
+        "romaji": "suugaku ha muzui .",
+        "uz": "Mathematics is difficult."
+      },
+      {
+        "ja": "数学が得意です。",
+        "romaji": "suugaku ga tokui desu .",
+        "uz": "I am good at math."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_277",
+    "level": "N4",
+    "word": "凄い",
+    "reading": "すごい",
+    "romaji": "sugoi",
+    "meaningUz": "Qoyil, daxshat (Terrific)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "そいつは凄い！",
+        "romaji": "soitsuha sugoi !",
+        "uz": "That's amazing!"
+      },
+      {
+        "ja": "凄い経験でした。",
+        "romaji": "sugoi keiken deshita .",
+        "uz": "It was a terrific experience."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_278",
+    "level": "N4",
+    "word": "生きる",
+    "reading": "いきる",
+    "romaji": "ikiru",
+    "meaningUz": "To live",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "生きるのは危険です。",
+        "romaji": "iki runoha kiken desu .",
+        "uz": "Living is dangerous."
+      },
+      {
+        "ja": "生きる意味を教えてくれ。",
+        "romaji": "iki ru imi wo oshie tekure .",
+        "uz": "Tell me the meaning of life."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_279",
+    "level": "N4",
+    "word": "席",
+    "reading": "せき",
+    "romaji": "seki",
+    "meaningUz": "O'rindiq, joy (Seat)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "出席します。",
+        "romaji": "shusseki shimasu .",
+        "uz": "I will join it!"
+      },
+      {
+        "ja": "出席したい。",
+        "romaji": "shusseki shitai .",
+        "uz": "I want to attend."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_280",
+    "level": "N4",
+    "word": "昔",
+    "reading": "むかし",
+    "romaji": "mukashi",
+    "meaningUz": "Qadim zamon, o'tmish (Olden days, former)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "昔はよくした。",
+        "romaji": "mukashi hayokushita .",
+        "uz": "I used to a lot."
+      },
+      {
+        "ja": "昔はよかった。",
+        "romaji": "mukashi hayokatta .",
+        "uz": "I've seen better days."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_281",
+    "level": "N4",
+    "word": "石",
+    "reading": "いし",
+    "romaji": "ishi",
+    "meaningUz": "Stone",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "点滴石を穿つ。",
+        "romaji": "tenteki ishi wo ugatsu .",
+        "uz": "Constant dripping wears away a stone."
+      },
+      {
+        "ja": "転石苔むさず。",
+        "romaji": "tenseki koke musazu .",
+        "uz": "A rolling stone gathers no moss."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_282",
+    "level": "N4",
+    "word": "赤ん坊",
+    "reading": "あかんぼう",
+    "romaji": "akanbou",
+    "meaningUz": "Ah, oh (Baby)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "彼は赤ん坊同然だ。",
+        "romaji": "kareha akanbou douzen da .",
+        "uz": "He is no better than a baby."
+      },
+      {
+        "ja": "赤ん坊は寝入った。",
+        "romaji": "akanbou ha ne itsutsu ta .",
+        "uz": "The baby has fallen asleep."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_283",
+    "level": "N4",
+    "word": "折る",
+    "reading": "おる",
+    "romaji": "oru",
+    "meaningUz": "To break or to fold",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "木を折るな。",
+        "romaji": "ki wo oru na .",
+        "uz": "Don't break the branches."
+      },
+      {
+        "ja": "無駄骨を折るだけだ。",
+        "romaji": "mudabone wo oru dakeda .",
+        "uz": "It is like looking for a needle in a haystack."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_284",
+    "level": "N4",
+    "word": "折れる",
+    "reading": "おれる",
+    "romaji": "oreru",
+    "meaningUz": "To break or be folded",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "折れるより曲がれ。",
+        "romaji": "ore ruyori magare .",
+        "uz": "Better to bend than break."
+      },
+      {
+        "ja": "英語を学ぶのは骨が折れる。",
+        "romaji": "eigo wo manabu noha hone ga ore ru .",
+        "uz": "Learning English is hard work."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_285",
+    "level": "N4",
+    "word": "先輩",
+    "reading": "せんぱい",
+    "romaji": "senpai",
+    "meaningUz": "Katta kursdosh, tajribali hamkasb (Senior)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "トムは高校の先輩です。",
+        "romaji": "tomu ha koukou no senpai desu .",
+        "uz": "Tom and I went to the same high school."
+      },
+      {
+        "ja": "彼は仕事の上では私の先輩だ。",
+        "romaji": "kareha shigoto no uede ha watashi no senpai da .",
+        "uz": "He has more experience on the job than I."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_286",
+    "level": "N4",
+    "word": "浅い",
+    "reading": "あさい",
+    "romaji": "asai",
+    "meaningUz": "Ah, oh (Shallow, superficial)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "眠りが浅いんだ。",
+        "romaji": "nemuri ga asai nda .",
+        "uz": "I'm a light sleeper."
+      },
+      {
+        "ja": "この湖は浅いのよ。",
+        "romaji": "kono mizuumi ha asai noyo .",
+        "uz": "This lake is shallow."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_287",
+    "level": "N4",
+    "word": "選ぶ",
+    "reading": "えらぶ",
+    "romaji": "erabu",
+    "meaningUz": "To choose",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "金を選ぶべきだった。",
+        "romaji": "kin wo erabu bekidatta .",
+        "uz": "I should have taken the money."
+      },
+      {
+        "ja": "君は選ぶ必要がある。",
+        "romaji": "kun ha erabu hitsuyou gaaru .",
+        "uz": "You have to choose."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_288",
+    "level": "N4",
+    "word": "祖父",
+    "reading": "そふ",
+    "romaji": "sofu",
+    "meaningUz": "Grandfather",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "彼は祖父似だ。",
+        "romaji": "kareha sofu ji da .",
+        "uz": "He resembles his grandfather."
+      },
+      {
+        "ja": "私の祖父です。",
+        "romaji": "watashi no sofu desu .",
+        "uz": "This is my grandfather."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_289",
+    "level": "N4",
+    "word": "祖母",
+    "reading": "そぼ",
+    "romaji": "sobo",
+    "meaningUz": "Grandmother",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "祖母はゆっくり話す。",
+        "romaji": "sobo hayukkuri hanasu .",
+        "uz": "My grandmother speaks slowly."
+      },
+      {
+        "ja": "私は祖母に養育された。",
+        "romaji": "watashi ha sobo ni youiku sareta .",
+        "uz": "I was brought up by my grandmother."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_290",
+    "level": "N4",
+    "word": "痩せる",
+    "reading": "やせる",
+    "romaji": "yaseru",
+    "meaningUz": "Ozmoq (To become thin)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "痩せる必要がないというのは残念だ。",
+        "romaji": "yase ru hitsuyou ganaitoiunoha zannen da .",
+        "uz": "It's too bad that I don't need to lose weight."
+      },
+      {
+        "ja": "食べすぎさえしなければ、必ず痩せると思います。",
+        "romaji": "tabe sugisaeshinakereba , kanarazu yase ruto omoi masu .",
+        "uz": "I think that as long as I don't overeat, I will certainly lose weight."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_291",
+    "level": "N4",
+    "word": "草",
+    "reading": "くさ",
+    "romaji": "kusa",
+    "meaningUz": "Grass",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "草草の草ァ！",
+        "romaji": "sousou no kusa a !",
+        "uz": "LOLOLOLOL!"
+      },
+      {
+        "ja": "草履、忘れた。",
+        "romaji": "zouri , wasure ta .",
+        "uz": "I forgot my sandals."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_292",
+    "level": "N4",
+    "word": "騒ぐ",
+    "reading": "さわぐ",
+    "romaji": "sawagu",
+    "meaningUz": "To make noise, to be excited",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "そんなに騒ぐな。",
+        "romaji": "sonnani sawagu na .",
+        "uz": "Don't make so much noise."
+      },
+      {
+        "ja": "声を立てて騒ぐな。",
+        "romaji": "koe wo tate te sawagu na .",
+        "uz": "Don't make a scene."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_293",
+    "level": "N4",
+    "word": "贈り物",
+    "reading": "おくりもの",
+    "romaji": "okurimono",
+    "meaningUz": "Gift",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "贈り物があります。",
+        "romaji": "okurimono gaarimasu .",
+        "uz": "I have some gifts."
+      },
+      {
+        "ja": "贈り物をありがとう。",
+        "romaji": "okurimono woarigatou .",
+        "uz": "Thank you for the present."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_294",
+    "level": "N4",
+    "word": "息子",
+    "reading": "むすこ",
+    "romaji": "musuko",
+    "meaningUz": "O'g'il farzand ((humble) son)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "私の息子です。",
+        "romaji": "watashi no musuko desu .",
+        "uz": "He's my son."
+      },
+      {
+        "ja": "息子は十歳です。",
+        "romaji": "musuko ha juusai desu .",
+        "uz": "My son is ten years old."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_295",
+    "level": "N4",
+    "word": "続く",
+    "reading": "つづく",
+    "romaji": "tsuzuku",
+    "meaningUz": "To be continued",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "最近は寒い日が続く。",
+        "romaji": "saikin ha samui nichi ga tsuzuku .",
+        "uz": "Now we are having one cold day after another."
+      },
+      {
+        "ja": "ホテルに続く道は狭い。",
+        "romaji": "hoteru ni tsuzuku michi ha semai .",
+        "uz": "The road which leads to the hotel is narrow."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_296",
+    "level": "N4",
+    "word": "太る",
+    "reading": "ふとる",
+    "romaji": "futoru",
+    "meaningUz": "Semirmoq (To become fat)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "食べ過ぎると太る。",
+        "romaji": "tabe sugi ruto futoru .",
+        "uz": "If you eat too much, you'll become fat."
+      },
+      {
+        "ja": "そんなに食べると太るよ。",
+        "romaji": "sonnani tabe ruto futoru yo .",
+        "uz": "You'll fatten up if you eat that much."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_297",
+    "level": "N4",
+    "word": "打つ",
+    "reading": "うつ",
+    "romaji": "utsu",
+    "meaningUz": "To hit",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "打つ手がないね。",
+        "romaji": "utsu tega naine .",
+        "uz": "I'm all out of tricks."
+      },
+      {
+        "ja": "牡丹餅で腰打つ。",
+        "romaji": "botamochi de koshi utsu .",
+        "uz": "His bread is buttered on both sides."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_298",
+    "level": "N4",
+    "word": "代わり",
+    "reading": "かわり",
+    "romaji": "kawari",
+    "meaningUz": "Substitute, alternate",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "担当者と代わります。",
+        "romaji": "tantousha to kawari masu .",
+        "uz": "I'll transfer you to the right person."
+      },
+      {
+        "ja": "水のお代わりを下さい。",
+        "romaji": "mizu noo kawari wo kudasai .",
+        "uz": "I would like some more water."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_299",
+    "level": "N4",
+    "word": "大学生",
+    "reading": "だいがくせい",
+    "romaji": "daigakusei",
+    "meaningUz": "University student",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "大学生です。",
+        "romaji": "daigakusei desu .",
+        "uz": "I am a university student."
+      },
+      {
+        "ja": "大学生ですか。",
+        "romaji": "daigakusei desuka .",
+        "uz": "Are you a college student?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_300",
+    "level": "N4",
+    "word": "大体",
+    "reading": "だいたい",
+    "romaji": "daitai",
+    "meaningUz": "Generally",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "大体正しい。",
+        "romaji": "daitai tadashii .",
+        "uz": "That is almost correct."
+      },
+      {
+        "ja": "大体終わった？",
+        "romaji": "daitai owa tta ？",
+        "uz": "Are you about done?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_301",
+    "level": "N4",
+    "word": "大分",
+    "reading": "だいぶ",
+    "romaji": "daibu",
+    "meaningUz": "Greatly",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "今日は大分暖かいね。",
+        "romaji": "konnichiha ooita atatakai ne .",
+        "uz": "It's fairly warm today."
+      },
+      {
+        "ja": "彼女は大分に行く予定です。",
+        "romaji": "kanojo ha ooita ni iku yotei desu .",
+        "uz": "She's going to Ooita."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_302",
+    "level": "N4",
+    "word": "棚",
+    "reading": "たな",
+    "romaji": "tana",
+    "meaningUz": "Javon, tokcha (Shelves)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "棚は空っぽです。",
+        "romaji": "tana ha karappo desu .",
+        "uz": "The shelves are empty."
+      },
+      {
+        "ja": "私は戸棚を覗いた。",
+        "romaji": "watashi ha todana wo nozoi ta .",
+        "uz": "I looked in the cupboard."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_303",
+    "level": "N4",
+    "word": "男性",
+    "reading": "だんせい",
+    "romaji": "dansei",
+    "meaningUz": "Erkak kishi (Male)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "男性より女性が先。",
+        "romaji": "dansei yori josei ga saki .",
+        "uz": "Ladies before gentlemen."
+      },
+      {
+        "ja": "３人の男性がいた。",
+        "romaji": "3 nin no dansei gaita .",
+        "uz": "There were three men."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_304",
+    "level": "N4",
+    "word": "恥ずかしい",
+    "reading": "はずかしい",
+    "romaji": "hazukashii",
+    "meaningUz": "Uyalgan, xijolatli (Embarrassed)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "恥ずかしいなぁ！",
+        "romaji": "hazukashii naa !",
+        "uz": "How embarrassing!"
+      },
+      {
+        "ja": "恥ずかしいです。",
+        "romaji": "hazukashii desu .",
+        "uz": "I am embarrassed."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_305",
+    "level": "N4",
+    "word": "致す",
+    "reading": "いたす",
+    "romaji": "itasu",
+    "meaningUz": "(humble) to do",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "両極端は一致する。",
+        "romaji": "ryoukyokutan ha itchi suru .",
+        "uz": "Extremes meet."
+      },
+      {
+        "ja": "その話は証拠と一致する。",
+        "romaji": "sono hanashi ha shouko to itchi suru .",
+        "uz": "The story is consistent with the evidence."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_306",
+    "level": "N4",
+    "word": "遅れる",
+    "reading": "おくれる",
+    "romaji": "okureru",
+    "meaningUz": "To be late",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "遅れるなよ。",
+        "romaji": "okure runayo .",
+        "uz": "Don't be late."
+      },
+      {
+        "ja": "たぶん遅れる。",
+        "romaji": "tabun okure ru .",
+        "uz": "I may be late."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_307",
+    "level": "N4",
+    "word": "着物",
+    "reading": "きもの",
+    "romaji": "kimono",
+    "meaningUz": "Kimono, milliy yapon kiyimi (Kimono)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "着物は着ますか。",
+        "romaji": "kimono ha chaku masuka .",
+        "uz": "Do you wear a kimono?"
+      },
+      {
+        "ja": "着物姿、素敵ね。",
+        "romaji": "kimono sugata , suteki ne .",
+        "uz": "You look lovely in a kimono."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_308",
+    "level": "N4",
+    "word": "中々",
+    "reading": "なかなか",
+    "romaji": "nakanaka",
+    "meaningUz": "Considerably",
+    "partOfSpeech": "Leksika",
+    "examples": []
+  },
+  {
+    "id": "vocab_n4_add_309",
+    "level": "N4",
+    "word": "中学校",
+    "reading": "ちゅうがっこう",
+    "romaji": "chuugakkou",
+    "meaningUz": "Junior high school, middle school",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "彼は中学校に入った。",
+        "romaji": "kareha chuugakkou ni itsutsu ta .",
+        "uz": "He entered junior high school."
+      },
+      {
+        "ja": "中学校は家から遠かった？",
+        "romaji": "chuugakkou ha ie kara tooka tta ？",
+        "uz": "Was your junior high school far from your home?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_310",
+    "level": "N4",
+    "word": "昼間",
+    "reading": "ひるま",
+    "romaji": "hiruma",
+    "meaningUz": "Kunduzi (Daytime, during the day)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "太陽は昼間輝く。",
+        "romaji": "taiyou ha hiruma kagayaku .",
+        "uz": "The sun shines during the day."
+      },
+      {
+        "ja": "昼間は働いてます。",
+        "romaji": "hiruma ha hatarai temasu .",
+        "uz": "I work during the day."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_311",
+    "level": "N4",
+    "word": "昼休み",
+    "reading": "ひるやすみ",
+    "romaji": "hiruyasumi",
+    "meaningUz": "Noon break",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "お昼休みはいつ？",
+        "romaji": "o hiruyasumi haitsu ？",
+        "uz": "When is your lunch break?"
+      },
+      {
+        "ja": "お昼休みは、１時間です。",
+        "romaji": "o hiruyasumi ha , 1 jikan desu .",
+        "uz": "Lunch break is an hour long."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_312",
+    "level": "N4",
+    "word": "注射",
+    "reading": "ちゅうしゃ",
+    "romaji": "chuusha",
+    "meaningUz": "Inyeksiya, ukol (Injection)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "注射をしましょう。",
+        "romaji": "chuusha woshimashou .",
+        "uz": "I'll give you a shot."
+      },
+      {
+        "ja": "注射の時間ですよ。",
+        "romaji": "chuusha no jikan desuyo .",
+        "uz": "It's time for your shot."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_313",
+    "level": "N4",
+    "word": "虫",
+    "reading": "むし",
+    "romaji": "mushi",
+    "meaningUz": "Hasharot (Insect)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "虫が怖いの？",
+        "romaji": "mushi ga kowai no ？",
+        "uz": "Are you afraid of insects?"
+      },
+      {
+        "ja": "僕は弱虫さ。",
+        "romaji": "bokuha yowamushi sa .",
+        "uz": "I'm a weakling."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_314",
+    "level": "N4",
+    "word": "駐車場",
+    "reading": "ちゅうしゃじょう",
+    "romaji": "chuushajou",
+    "meaningUz": "Inyeksiya, ukol (Parking lot)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "駐車場はある？",
+        "romaji": "chuushajou haaru ？",
+        "uz": "Is there a car park?"
+      },
+      {
+        "ja": "駐車場は満車です。",
+        "romaji": "chuushajou ha mansha desu .",
+        "uz": "There are no parking spaces left."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_315",
+    "level": "N4",
+    "word": "直る",
+    "reading": "なおる",
+    "romaji": "naoru",
+    "meaningUz": "To be fixed, to be repaired",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "すぐに立ち直るよね！",
+        "romaji": "suguni tachinaoru yone !",
+        "uz": "I believe you'll get over it soon."
+      },
+      {
+        "ja": "離婚から立ち直るには時間がかかる。",
+        "romaji": "rikon kara tachinaoru niha jikan gakakaru .",
+        "uz": "It takes time to heal from a divorce."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_316",
+    "level": "N4",
+    "word": "通る",
+    "reading": "とおる",
+    "romaji": "tooru",
+    "meaningUz": "To go through",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "この橋を通るな。",
+        "romaji": "kono hashi wo touru na .",
+        "uz": "Don't cross this bridge."
+      },
+      {
+        "ja": "彼の声はよく通る。",
+        "romaji": "kano koe hayoku touru .",
+        "uz": "His voice carries very well."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_317",
+    "level": "N4",
+    "word": "漬ける",
+    "reading": "つける",
+    "romaji": "tsukeru",
+    "meaningUz": "To soak, to pickle",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "靴下の臭いが気になる時は、クエン酸水に漬けるといいそうよ。",
+        "romaji": "kutsushita no kusai ga kini naru toki ha , kuen san mizu ni tsuke rutoiisouyo .",
+        "uz": "If you're worried about your socks smelling, dipping them in citric acid solution might do the trick."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_318",
+    "level": "N4",
+    "word": "釣る",
+    "reading": "つる",
+    "romaji": "tsuru",
+    "meaningUz": "To fish",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "海老で鯛を釣る。",
+        "romaji": "ebi de tai wo tsuru .",
+        "uz": "Throw a sprat to catch a whale."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_319",
+    "level": "N4",
+    "word": "適当",
+    "reading": "てきとう",
+    "romaji": "tekitou",
+    "meaningUz": "Munosib, o'rinli (Suitability)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "適当にやって。",
+        "romaji": "tekitou niyatte .",
+        "uz": "Let's just wing it."
+      },
+      {
+        "ja": "それはとても不適当だ。",
+        "romaji": "sorehatotemo futekitou da .",
+        "uz": "That's so inappropriate."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_320",
+    "level": "N4",
+    "word": "展覧会",
+    "reading": "てんらんかい",
+    "romaji": "tenrankai",
+    "meaningUz": "Ko'rgazma (Exhibition)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "展覧会は現在開催中です。",
+        "romaji": "tenrankai ha genzai kaisaichuu desu .",
+        "uz": "The exhibition is now open."
+      },
+      {
+        "ja": "美術展覧会に行きましたか。",
+        "romaji": "bijutsuten ran kai ni iki mashitaka .",
+        "uz": "Did you go to the art exhibition?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_321",
+    "level": "N4",
+    "word": "店員",
+    "reading": "てんいん",
+    "romaji": "ten'in",
+    "meaningUz": "Shop assistant",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "彼は店員に金を渡した。",
+        "romaji": "kareha ten'in ni kin wo watashi ta .",
+        "uz": "He handed the salesclerk the money."
+      },
+      {
+        "ja": "強盗は店員に銃を向けた。",
+        "romaji": "goutou ha ten'in ni juu wo muke ta .",
+        "uz": "The robber aimed his gun at the clerk."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_322",
+    "level": "N4",
+    "word": "点",
+    "reading": "てん",
+    "romaji": "ten",
+    "meaningUz": "Point, dot",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "論点がわかる。",
+        "romaji": "ronten gawakaru .",
+        "uz": "I see the point of the argument."
+      },
+      {
+        "ja": "灯りが点いた。",
+        "romaji": "akari ga ten ita .",
+        "uz": "The light went on."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_323",
+    "level": "N4",
+    "word": "田舎",
+    "reading": "いなか",
+    "romaji": "inaka",
+    "meaningUz": "Countryside",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "田舎育ちです。",
+        "romaji": "inaka sodachi desu .",
+        "uz": "I grew up in the countryside."
+      },
+      {
+        "ja": "田舎が好きかね。",
+        "romaji": "inaka ga suki kane .",
+        "uz": "Do you like the country?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_324",
+    "level": "N4",
+    "word": "電灯",
+    "reading": "でんとう",
+    "romaji": "dentou",
+    "meaningUz": "Electric light",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "電灯が消えた。",
+        "romaji": "dentou ga kie ta .",
+        "uz": "The electric light went out."
+      },
+      {
+        "ja": "彼は電灯を消し忘れた。",
+        "romaji": "kareha dentou wo keshi wasure ta .",
+        "uz": "He forgot to turn off the light."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_325",
+    "level": "N4",
+    "word": "電報",
+    "reading": "でんぽう",
+    "romaji": "denpou",
+    "meaningUz": "Telegram",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "電報をすぐ送れ。",
+        "romaji": "denpou wosugu okure .",
+        "uz": "Send the telegram at once."
+      },
+      {
+        "ja": "電報でご返事下さい。",
+        "romaji": "denpou dego henjikudasa i .",
+        "uz": "Please answer me by telegram."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_326",
+    "level": "N4",
+    "word": "途中",
+    "reading": "とちゅう",
+    "romaji": "tochuu",
+    "meaningUz": "Yo'l o'rtasida, chala (On the way)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "家に帰る途中なの？",
+        "romaji": "ie ni kaeru tochuu nano ？",
+        "uz": "Are you on your way home?"
+      },
+      {
+        "ja": "駅に行く途中なの。",
+        "romaji": "eki ni iku tochuu nano .",
+        "uz": "I'm on my way to the station."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_327",
+    "level": "N4",
+    "word": "都",
+    "reading": "と",
+    "romaji": "to",
+    "meaningUz": "Metropolitan",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "工業都市です。",
+        "romaji": "kougyoutoshi desu .",
+        "uz": "It's an industrial city."
+      },
+      {
+        "ja": "まず京都にいく。",
+        "romaji": "mazu kyouto niiku .",
+        "uz": "First we'll hit Kyoto."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_328",
+    "level": "N4",
+    "word": "湯",
+    "reading": "ゆ",
+    "romaji": "yu",
+    "meaningUz": "Hot water",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "いい湯だなあ。",
+        "romaji": "ii yu danaa .",
+        "uz": "Ah, this hot water's good!"
+      },
+      {
+        "ja": "お湯が出ません。",
+        "romaji": "o yu ga dema sen .",
+        "uz": "The hot water isn't running."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_329",
+    "level": "N4",
+    "word": "答",
+    "reading": "こたえ",
+    "romaji": "kotae",
+    "meaningUz": "Response",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "何問答えた？",
+        "romaji": "nanmon kotae ta ？",
+        "uz": "How many questions did you answer?"
+      },
+      {
+        "ja": "即答でした。",
+        "romaji": "sokutou deshita .",
+        "uz": "He responded immediately."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_330",
+    "level": "N4",
+    "word": "踏む",
+    "reading": "ふむ",
+    "romaji": "fumu",
+    "meaningUz": "Bosmoq (oyoq bilan) (To step on)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "割れたガラスを踏むな。",
+        "romaji": "ware ta garasu wo fumu na .",
+        "uz": "Don't step on the broken glass."
+      },
+      {
+        "ja": "私が足を踏むと犬は鳴いた。",
+        "romaji": "watashi ga ashi wo fumu to inu ha nai ta .",
+        "uz": "The dog gave a yelp when I trod on its paw."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_331",
+    "level": "N4",
+    "word": "動物園",
+    "reading": "どうぶつえん",
+    "romaji": "doubutsuen",
+    "meaningUz": "Zoo",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "動物園に行こう。",
+        "romaji": "doubutsuen ni iko u .",
+        "uz": "Let's go to the zoo."
+      },
+      {
+        "ja": "昨日動物園に行った。",
+        "romaji": "kinou doubutsuen ni itta .",
+        "uz": "I went to the zoo yesterday."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_332",
+    "level": "N4",
+    "word": "特急",
+    "reading": "とっきゅう",
+    "romaji": "tokkyuu",
+    "meaningUz": "Tezyurar ekspress poyezd (Limited express train (faster than an express train))",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "特急のホームは何番ですか。",
+        "romaji": "tokkyuu no hoomu ha nanban desuka .",
+        "uz": "What's the track for the limited express?"
+      },
+      {
+        "ja": "最近、特急に乗りましたか。",
+        "romaji": "saikin , tokkyuu ni nori mashitaka .",
+        "uz": "Have you ridden on an express train lately?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_333",
+    "level": "N4",
+    "word": "二階建て",
+    "reading": "にかいだて",
+    "romaji": "nikaidate",
+    "meaningUz": "Two storied",
+    "partOfSpeech": "Leksika",
+    "examples": []
+  },
+  {
+    "id": "vocab_n4_add_334",
+    "level": "N4",
+    "word": "日",
+    "reading": "ひ",
+    "romaji": "hi",
+    "meaningUz": "Day, sun",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "本日定休日。",
+        "romaji": "honjitsu teikyuubi .",
+        "uz": "Today is our regular closing day."
+      },
+      {
+        "ja": "土曜日だよ。",
+        "romaji": "doyoubi dayo .",
+        "uz": "It is Saturday."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_335",
+    "level": "N4",
+    "word": "日記",
+    "reading": "にっき",
+    "romaji": "nikki",
+    "meaningUz": "Kundalik daftar (Journal)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "日記をつける。",
+        "romaji": "nikki wotsukeru .",
+        "uz": "I keep a diary."
+      },
+      {
+        "ja": "俺の日記を読むな！",
+        "romaji": "ore no nikki wo yomu na !",
+        "uz": "Don't read my diary!"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_336",
+    "level": "N4",
+    "word": "入学",
+    "reading": "にゅうがくする",
+    "romaji": "nyuugakusuru",
+    "meaningUz": "To enter school or university",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "彼は裏口入学した。",
+        "romaji": "kareha uraguchi nyuugaku shita .",
+        "uz": "He bought his way into college."
+      },
+      {
+        "ja": "彼女は入学を申し込んだ。",
+        "romaji": "kanojo ha nyuugaku wo moushikon da .",
+        "uz": "She made out the application for admission."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_337",
+    "level": "N4",
+    "word": "拝見",
+    "reading": "はいけんする",
+    "romaji": "haikensuru",
+    "meaningUz": "(humble) to look at",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "搭乗券を拝見します。",
+        "romaji": "toujouken wo haiken shimasu .",
+        "uz": "May I see your boarding pass, please?"
+      },
+      {
+        "ja": "切符を拝見いたします。",
+        "romaji": "kippu wo haiken itashimasu .",
+        "uz": "Ticket, please."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_338",
+    "level": "N4",
+    "word": "背中",
+    "reading": "せなか",
+    "romaji": "senaka",
+    "meaningUz": "Back of the body",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "背中が痛い。",
+        "romaji": "senaka ga itai .",
+        "uz": "My back hurts."
+      },
+      {
+        "ja": "背中かいて。",
+        "romaji": "senaka kaite .",
+        "uz": "Scratch my back."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_339",
+    "level": "N4",
+    "word": "倍",
+    "reading": "ばい",
+    "romaji": "bai",
+    "meaningUz": "Double",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "二の二倍は四。",
+        "romaji": "ni no nibai ha shi .",
+        "uz": "Twice two is equal to four."
+      },
+      {
+        "ja": "彼は私の倍食べた。",
+        "romaji": "kareha watashi no bai tabeta .",
+        "uz": "He ate twice as much as I did."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_340",
+    "level": "N4",
+    "word": "売り場",
+    "reading": "うりば",
+    "romaji": "uriba",
+    "meaningUz": "Place where things are sold",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "切符売り場はどこですか。",
+        "romaji": "kippu uriba hadokodesuka .",
+        "uz": "Where is the ticket window?"
+      },
+      {
+        "ja": "切符売り場はどこですか？",
+        "romaji": "kippu uriba hadokodesuka ？",
+        "uz": "Where's the ticket counter?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_341",
+    "level": "N4",
+    "word": "彼",
+    "reading": "かれ",
+    "romaji": "kare",
+    "meaningUz": "He, boyfriend",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "彼女は歩く。",
+        "romaji": "kanojo ha aruku .",
+        "uz": "She walks."
+      },
+      {
+        "ja": "彼を見張れ。",
+        "romaji": "kare wo mihare .",
+        "uz": "Keep watch on him."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_342",
+    "level": "N4",
+    "word": "彼ら",
+    "reading": "かれら",
+    "romaji": "karera",
+    "meaningUz": "They",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "彼らは青い。",
+        "romaji": "karera ha aoi .",
+        "uz": "They're green."
+      },
+      {
+        "ja": "彼らは勝った。",
+        "romaji": "karera ha katsu ta .",
+        "uz": "They won the day."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_343",
+    "level": "N4",
+    "word": "彼女",
+    "reading": "かのじょ",
+    "romaji": "kanojo",
+    "meaningUz": "She, girlfriend",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "彼女は歩く。",
+        "romaji": "kanojo ha aruku .",
+        "uz": "She walks."
+      },
+      {
+        "ja": "彼女は元気？",
+        "romaji": "kanojo ha genki ？",
+        "uz": "Is she healthy?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_344",
+    "level": "N4",
+    "word": "悲しい",
+    "reading": "かなしい",
+    "romaji": "kanashii",
+    "meaningUz": "Sad",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "悲しいです。",
+        "romaji": "kanashii desu .",
+        "uz": "I'm sad."
+      },
+      {
+        "ja": "ああ悲しい。",
+        "romaji": "aa kanashii .",
+        "uz": "Ah, me!"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_345",
+    "level": "N4",
+    "word": "非常に",
+    "reading": "ひじょうに",
+    "romaji": "hijouni",
+    "meaningUz": "Extremely",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "彼は非常に親切だ。",
+        "romaji": "kareha hijouni shinsetsu da .",
+        "uz": "He is a very decent fellow."
+      },
+      {
+        "ja": "今日は非常に暑い。",
+        "romaji": "konnichiha hijouni atsui .",
+        "uz": "Today is extremely hot."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_346",
+    "level": "N4",
+    "word": "飛行場",
+    "reading": "ひこうじょう",
+    "romaji": "hikoujou",
+    "meaningUz": "Zavod, fabrika (Airport)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "航空券は飛行場で受け取れますか。",
+        "romaji": "koukuuken ha hikoujou de uketore masuka .",
+        "uz": "Can I pick my ticket up at the airport?"
+      },
+      {
+        "ja": "飛行機はすでに飛行場を立っていた。",
+        "romaji": "hikouki hasudeni hikoujou wo tatsu teita .",
+        "uz": "The plane had already left the airport."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_347",
+    "level": "N4",
+    "word": "美しい",
+    "reading": "うつくしい",
+    "romaji": "utsukushii",
+    "meaningUz": "Beautiful",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "私は美しい。",
+        "romaji": "watashi ha utsukushii .",
+        "uz": "I'm beautiful."
+      },
+      {
+        "ja": "人生は美しい。",
+        "romaji": "jinsei ha utsukushii .",
+        "uz": "Life is beautiful."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_348",
+    "level": "N4",
+    "word": "美術館",
+    "reading": "びじゅつかん",
+    "romaji": "bijutsukan",
+    "meaningUz": "Art gallery",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "俺たちは美術館に行った。",
+        "romaji": "ore tachiha bijutsukan ni itta .",
+        "uz": "We went to the museum."
+      },
+      {
+        "ja": "今日は美術館に行くんだ。",
+        "romaji": "konnichiha bijutsukan ni iku nda .",
+        "uz": "I'll go to a museum today."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_349",
+    "level": "N4",
+    "word": "付く",
+    "reading": "つく",
+    "romaji": "tsuku",
+    "meaningUz": "To be attached",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "彼女の水着は目に付く。",
+        "romaji": "kanojo no mizugi ha meni tsuku .",
+        "uz": "Her bathing suit attracts our attention."
+      },
+      {
+        "ja": "このテープはよく付く。",
+        "romaji": "kono teepu hayoku tsuku .",
+        "uz": "This tape sticks well."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_350",
+    "level": "N4",
+    "word": "夫",
+    "reading": "おっと",
+    "romaji": "otto",
+    "meaningUz": "Husband",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "大丈夫そう？",
+        "romaji": "daijoubu sou ？",
+        "uz": "Are you going to be OK?"
+      },
+      {
+        "ja": "大丈夫だよ。",
+        "romaji": "daijoubu dayo .",
+        "uz": "You'll be OK."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_351",
+    "level": "N4",
+    "word": "布団",
+    "reading": "ふとん",
+    "romaji": "futon",
+    "meaningUz": "Japanese bedding, futon",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "布団干しといて。",
+        "romaji": "futon hoshi toite .",
+        "uz": "Air the futon."
+      },
+      {
+        "ja": "布団をはがされた。",
+        "romaji": "futon wohagasareta .",
+        "uz": "My futon was peeled away."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_352",
+    "level": "N4",
+    "word": "怖い",
+    "reading": "こわい",
+    "romaji": "kowai",
+    "meaningUz": "Frightening",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "まだ怖いの？",
+        "romaji": "mada kowai no ？",
+        "uz": "Are you still scared?"
+      },
+      {
+        "ja": "怖いですか。",
+        "romaji": "kowai desuka .",
+        "uz": "Are you afraid?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_353",
+    "level": "N4",
+    "word": "負ける",
+    "reading": "まける",
+    "romaji": "makeru",
+    "meaningUz": "To lose",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "負けるが勝ち。",
+        "romaji": "make ruga kachi .",
+        "uz": "When you lose, you actually win."
+      },
+      {
+        "ja": "弱者は負ける。",
+        "romaji": "jakusha ha make ru .",
+        "uz": "The weakest go to the wall."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_354",
+    "level": "N4",
+    "word": "文学",
+    "reading": "ぶんがく",
+    "romaji": "bungaku",
+    "meaningUz": "Literature",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "彼は文学者である。",
+        "romaji": "kareha bungakusha dearu .",
+        "uz": "He is a man of letters."
+      },
+      {
+        "ja": "文学の講義をする。",
+        "romaji": "bungaku no kougi wosuru .",
+        "uz": "I will lecture on literature."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_355",
+    "level": "N4",
+    "word": "米",
+    "reading": "こめ",
+    "romaji": "kome",
+    "meaningUz": "Uncooked rice",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "米を煮なさい。",
+        "romaji": "kome wo ni nasai .",
+        "uz": "Cook the rice."
+      },
+      {
+        "ja": "お米はあるの？",
+        "romaji": "o kome haaruno ？",
+        "uz": "Do you have rice?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_356",
+    "level": "N4",
+    "word": "別",
+    "reading": "べつ",
+    "romaji": "betsu",
+    "meaningUz": "Boshqa, alohida (Different)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "別人みたい。",
+        "romaji": "betsujin mitai .",
+        "uz": "You look like a completely different person."
+      },
+      {
+        "ja": "別のが欲しい。",
+        "romaji": "betsuno ga hoshii .",
+        "uz": "I want another."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_357",
+    "level": "N4",
+    "word": "変える",
+    "reading": "かえる",
+    "romaji": "kaeru",
+    "meaningUz": "To change",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "熱は氷を水に変える。",
+        "romaji": "netsu ha koori wo mizu ni kae ru .",
+        "uz": "Heat changes ice into water."
+      },
+      {
+        "ja": "気持ちを変えるなよ。",
+        "romaji": "kimochi wo kae runayo .",
+        "uz": "Don't change your mind."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_358",
+    "level": "N4",
+    "word": "変わる",
+    "reading": "かわる",
+    "romaji": "kawaru",
+    "meaningUz": "To change",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "水は蒸気に変わる。",
+        "romaji": "mizu ha jouki ni kawa ru .",
+        "uz": "Water changes into steam."
+      },
+      {
+        "ja": "天気は刻々と変わる。",
+        "romaji": "tenki ha kokukoku to kawa ru .",
+        "uz": "The weather varies from hour to hour."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_359",
+    "level": "N4",
+    "word": "暮れる",
+    "reading": "くれる",
+    "romaji": "kureru",
+    "meaningUz": "To get dark, to come to an end",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "冬の日は速く暮れる。",
+        "romaji": "fuyu no nichi ha hayaku kure ru .",
+        "uz": "The night falls fast in winter."
+      },
+      {
+        "ja": "もうすぐ日が暮れるよ。",
+        "romaji": "mousugu nichi ga kure ruyo .",
+        "uz": "The sun will set soon."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_360",
+    "level": "N4",
+    "word": "包む",
+    "reading": "つつむ",
+    "romaji": "tsutsumu",
+    "meaningUz": "To wrap",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "包む必要はありません。",
+        "romaji": "tsutsumu hitsuyou haarimasen .",
+        "uz": "You don't have to wrap it up."
+      },
+      {
+        "ja": "恋は多く人生の苦痛を包むオブラートなり。",
+        "romaji": "koi ha ooku jinsei no kutsuu wo tsutsumu oburaato nari .",
+        "uz": "Love is a pill made from a great many people's sufferings."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_361",
+    "level": "N4",
+    "word": "放送",
+    "reading": "ほうそうする",
+    "romaji": "housousuru",
+    "meaningUz": "Yolg'on (To broadcast)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "絶賛放送中！",
+        "romaji": "zessan housouchuu !",
+        "uz": "Currently on air!"
+      },
+      {
+        "ja": "今放送中です。",
+        "romaji": "ima housouchuu desu .",
+        "uz": "They are on the air now."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_362",
+    "level": "N4",
+    "word": "僕",
+    "reading": "ぼく",
+    "romaji": "boku",
+    "meaningUz": "Men (erkaklar tilida) (I (used by males))",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "僕は忙しい。",
+        "romaji": "bokuha isogashii .",
+        "uz": "I'm busy."
+      },
+      {
+        "ja": "僕は猫背だ。",
+        "romaji": "bokuha nekoze da .",
+        "uz": "I am round shouldered."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_363",
+    "level": "N4",
+    "word": "味噌",
+    "reading": "みそ",
+    "romaji": "miso",
+    "meaningUz": "Bean paste",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "味噌汁が温まった。",
+        "romaji": "misoshiru ga atatama tta .",
+        "uz": "The miso soup has heated up."
+      },
+      {
+        "ja": "ご飯と味噌汁は合う。",
+        "romaji": "go meshi to misoshiru ha au .",
+        "uz": "Rice is good with miso soup."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_364",
+    "level": "N4",
+    "word": "眠い",
+    "reading": "ねむい",
+    "romaji": "nemui",
+    "meaningUz": "Uyqusi kelgan (Sleepy)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "眠いですか？",
+        "romaji": "nemui desuka ？",
+        "uz": "Are you sleepy?"
+      },
+      {
+        "ja": "まだ眠いの？",
+        "romaji": "mada nemui no ？",
+        "uz": "Are you still sleepy?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_365",
+    "level": "N4",
+    "word": "眠る",
+    "reading": "ねむる",
+    "romaji": "nemuru",
+    "meaningUz": "To sleep",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "私と友に眠る。",
+        "romaji": "watashi to tomo ni nemuru .",
+        "uz": "She lies here beside me."
+      },
+      {
+        "ja": "私は部屋で眠る。",
+        "romaji": "watashi ha heya de nemuru .",
+        "uz": "I sleep in my room."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_366",
+    "level": "N4",
+    "word": "無くなる",
+    "reading": "なくなる",
+    "romaji": "nakunaru",
+    "meaningUz": "Yo'qolmoq, vafot etmoq (To disappear, to get lost)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "会議は恐らく無くなるよ。",
+        "romaji": "kaigi ha osora ku naku naruyo .",
+        "uz": "The meeting will probably be canceled."
+      },
+      {
+        "ja": "金は持っていると無くなる。",
+        "romaji": "kin ha motsu teiruto naku naru .",
+        "uz": "Ready money will away."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_367",
+    "level": "N4",
+    "word": "娘",
+    "reading": "むすめ",
+    "romaji": "musume",
+    "meaningUz": "Qiz farzand ((humble) daughter)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "猫娘は好き。",
+        "romaji": "nekomusume ha suki .",
+        "uz": "I like catgirls."
+      },
+      {
+        "ja": "私の娘です。",
+        "romaji": "watashi no musume desu .",
+        "uz": "She is my daughter."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_368",
+    "level": "N4",
+    "word": "明日",
+    "reading": "あす",
+    "romaji": "asu",
+    "meaningUz": "Ah, oh (Tomorrow)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "明日来れる？",
+        "romaji": "ashita kore ru ？",
+        "uz": "Can you come tomorrow?"
+      },
+      {
+        "ja": "明日来るの？",
+        "romaji": "ashita kuru no ？",
+        "uz": "Are you coming tomorrow?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_369",
+    "level": "N4",
+    "word": "鳴る",
+    "reading": "なる",
+    "romaji": "naru",
+    "meaningUz": "To sound",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "怒鳴るなよ。",
+        "romaji": "donaru nayo .",
+        "uz": "Don't shout."
+      },
+      {
+        "ja": "俺に怒鳴るなよ。",
+        "romaji": "ore ni donaru nayo .",
+        "uz": "Don't yell at me."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_370",
+    "level": "N4",
+    "word": "毛",
+    "reading": "け",
+    "romaji": "ke",
+    "meaningUz": "Hair or fur",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "はい、毛布。",
+        "romaji": "hai , moufu .",
+        "uz": "Here is a blanket."
+      },
+      {
+        "ja": "彼は巻き毛だ。",
+        "romaji": "kareha makige da .",
+        "uz": "He has curly hair."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_371",
+    "level": "N4",
+    "word": "戻る",
+    "reading": "もどる",
+    "romaji": "modoru",
+    "meaningUz": "Qaytmoq (To turn back)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "すぐに戻るよ。",
+        "romaji": "suguni modoru yo .",
+        "uz": "I will be back soon."
+      },
+      {
+        "ja": "3分で戻るよ。",
+        "romaji": "3 fun de modoru yo .",
+        "uz": "I'll be back in three minutes."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_372",
+    "level": "N4",
+    "word": "訳",
+    "reading": "わけ",
+    "romaji": "wake",
+    "meaningUz": "Sabab, ma'no (Meaning, reason)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "その内訳は？",
+        "romaji": "sono uchiwake ha ？",
+        "uz": "Give me the details."
+      },
+      {
+        "ja": "翻訳された!",
+        "romaji": "honyaku sareta !",
+        "uz": "Translated!"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_373",
+    "level": "N4",
+    "word": "優しい",
+    "reading": "やさしい",
+    "romaji": "yasashii",
+    "meaningUz": "Mehribon, muloyim (Kind)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "優しい人です。",
+        "romaji": "yasashii nin desu .",
+        "uz": "He is kind."
+      },
+      {
+        "ja": "姑、優しいよ。",
+        "romaji": "shuutome , yasashii yo .",
+        "uz": "My mother-in-law is kind."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_374",
+    "level": "N4",
+    "word": "遊び",
+    "reading": "あそび",
+    "romaji": "asobi",
+    "meaningUz": "Ah, oh (Play)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "遊びましょう。",
+        "romaji": "asobi mashou .",
+        "uz": "Let's play."
+      },
+      {
+        "ja": "遊びにこいよ。",
+        "romaji": "asobi nikoiyo .",
+        "uz": "Come and see me."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_375",
+    "level": "N4",
+    "word": "揺れる",
+    "reading": "ゆれる",
+    "romaji": "yureru",
+    "meaningUz": "Tebranmoq, chayqalmoq (To shake, to sway)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "家が揺れるのを感じた。",
+        "romaji": "ie ga yure runowo kanji ta .",
+        "uz": "I felt the house shake."
+      },
+      {
+        "ja": "私は床が揺れるのを感じた。",
+        "romaji": "watashi ha toko ga yure runowo kanji ta .",
+        "uz": "I felt the floor shake."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_376",
+    "level": "N4",
+    "word": "用",
+    "reading": "よう",
+    "romaji": "you",
+    "meaningUz": "Use",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "他にご用は？",
+        "romaji": "hokani go you ha ？",
+        "uz": "Did you want anything else?"
+      },
+      {
+        "ja": "心配ご無用！",
+        "romaji": "shinpai go muyou !",
+        "uz": "Don't worry!"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_377",
+    "level": "N4",
+    "word": "用意",
+    "reading": "ようい",
+    "romaji": "youi",
+    "meaningUz": "Tayyorgarlik (Preparation)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "早く用意して。",
+        "romaji": "hayaku youishi te .",
+        "uz": "Get ready quickly."
+      },
+      {
+        "ja": "用意周到だな。",
+        "romaji": "youishuutou dana .",
+        "uz": "It's well-prepared, isn't it?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_378",
+    "level": "N4",
+    "word": "用事",
+    "reading": "ようじ",
+    "romaji": "youji",
+    "meaningUz": "Yumush, zarur ish (Things to do)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "今日用事あるの？",
+        "romaji": "kyou youji aruno ？",
+        "uz": "Is there anything you need to do today?"
+      },
+      {
+        "ja": "私は街に用事がある。",
+        "romaji": "watashi ha machi ni youji gaaru .",
+        "uz": "I have an errand to do in town."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_379",
+    "level": "N4",
+    "word": "葉",
+    "reading": "は",
+    "romaji": "ha",
+    "meaningUz": "Leaf",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "葉が落ちた。",
+        "romaji": "ha ga ochi ta .",
+        "uz": "The leaves fell."
+      },
+      {
+        "ja": "若葉が茂る。",
+        "romaji": "wakaba ga shigeru .",
+        "uz": "The young leaves are lush."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_380",
+    "level": "N4",
+    "word": "踊り",
+    "reading": "おどり",
+    "romaji": "odori",
+    "meaningUz": "A dance",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "踊り続けて。",
+        "romaji": "odori tsuzuke te .",
+        "uz": "Keep dancing."
+      },
+      {
+        "ja": "踊りましょうか。",
+        "romaji": "odori mashouka .",
+        "uz": "Let's dance, shall we?"
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_381",
+    "level": "N4",
+    "word": "踊る",
+    "reading": "おどる",
+    "romaji": "odoru",
+    "meaningUz": "To dance",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "踊るのが大っ嫌い。",
+        "romaji": "odoru noga daikkirai .",
+        "uz": "I hate dancing."
+      },
+      {
+        "ja": "踊るのは好きだよ。",
+        "romaji": "odoru noha suki dayo .",
+        "uz": "I like to dance."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_382",
+    "level": "N4",
+    "word": "落す",
+    "reading": "おとす",
+    "romaji": "otosu",
+    "meaningUz": "To drop",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "そのコップを落すな。",
+        "romaji": "sono koppu wo otosu na .",
+        "uz": "Don't drop that cup."
+      },
+      {
+        "ja": "妻が堕落するのは夫が悪いのだ。",
+        "romaji": "tsuma ga daraku surunoha otto ga warui noda .",
+        "uz": "It is their husbands' faults if wives do fall."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_383",
+    "level": "N4",
+    "word": "落る",
+    "reading": "おちる",
+    "romaji": "ochiru",
+    "meaningUz": "To fall or drop",
+    "partOfSpeech": "Leksika",
+    "examples": []
+  },
+  {
+    "id": "vocab_n4_add_384",
+    "level": "N4",
+    "word": "立てる",
+    "reading": "たてる",
+    "romaji": "tateru",
+    "meaningUz": "Qurmoq, tiklamoq (To stand something up)",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "腹を立てるな。",
+        "romaji": "hara wo tate runa .",
+        "uz": "Don't get angry."
+      },
+      {
+        "ja": "彼は直に腹を立てる。",
+        "romaji": "kareha suguni hara wo tate ru .",
+        "uz": "He is quick to take offense."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_385",
+    "level": "N4",
+    "word": "旅館",
+    "reading": "りょかん",
+    "romaji": "ryokan",
+    "meaningUz": "Japanese hotel",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "あの旅館は家庭的だ。",
+        "romaji": "ano ryokan ha kateiteki da .",
+        "uz": "The hotel has a homey atmosphere."
+      },
+      {
+        "ja": "この旅館は客の扱いがよい。",
+        "romaji": "kono ryokan ha kyaku no atsukai gayoi .",
+        "uz": "This inn gives good service."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_386",
+    "level": "N4",
+    "word": "両方",
+    "reading": "りょうほう",
+    "romaji": "ryouhou",
+    "meaningUz": "Both sides",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "両方好きよ。",
+        "romaji": "ryouhou suki yo .",
+        "uz": "I like both of them."
+      },
+      {
+        "ja": "両方要るよ。",
+        "romaji": "ryouhou iru yo .",
+        "uz": "We need both."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_387",
+    "level": "N4",
+    "word": "林",
+    "reading": "はやし",
+    "romaji": "hayashi",
+    "meaningUz": "Woods, forester",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "林に竹が目立つ。",
+        "romaji": "hayashi ni take ga medatsu .",
+        "uz": "Bamboo stands out in the woods."
+      },
+      {
+        "ja": "林檎の形は丸い。",
+        "romaji": "ringo no katachi ha marui .",
+        "uz": "An apple is round in shape."
+      }
+    ]
+  },
+  {
+    "id": "vocab_n4_add_388",
+    "level": "N4",
+    "word": "連れる",
+    "reading": "つれる",
+    "romaji": "tsureru",
+    "meaningUz": "O'zi bilan olib bormoq (To lead)",
+    "partOfSpeech": "Leksika",
+    "examples": []
+  },
+  {
+    "id": "vocab_n4_add_389",
+    "level": "N4",
+    "word": "腕",
+    "reading": "うで",
+    "romaji": "ude",
+    "meaningUz": "Arm",
+    "partOfSpeech": "Leksika",
+    "examples": [
+      {
+        "ja": "腕を放して。",
+        "romaji": "ude wo hanashi te .",
+        "uz": "Let go of my arm!"
+      },
+      {
+        "ja": "腕が痛いの？",
+        "romaji": "ude ga itai no ？",
+        "uz": "Does your arm hurt?"
+      }
+    ]
   }
 ]

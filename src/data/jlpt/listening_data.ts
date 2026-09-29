@@ -12,6 +12,8 @@ export interface DialogueLine {
   gender?: 'male' | 'female' | 'neutral';
   japanese: string;
   uzbek?: string;
+  startTime?: number; // Exact start timestamp in seconds (Karaoke sync)
+  endTime?: number; // Exact end timestamp in seconds (Karaoke sync)
 }
 
 export interface JlptListeningQuestion {
@@ -2072,8 +2074,8 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     id: 10,
     level: 'N1',
     type: 'point',
+    audioUrl: '/audio/choukai/n1/n1_track_10.mp3',
     titleUz: "Iste'mol pasayishi sababi",
-    audioUrl: '',
     script:
       'ラジオで経済評論家が話しています。評論家は今年度の個人消費が伸び悩んでいる最大の原因は何だと言っていますか？\n評論家：今年度の景気動向を見ますと、雇用の改善は見られるものの、実質賃金の伸びが物価の上昇に追いついていないことが、消費者の節約志向に拍車をかけています。将来の社会保障に対する不安も背景にありますが、やはり直接的には購買力の低下が最大の要因と分析されます。',
     questionText: '今年度の個人消費が伸び悩んでいる最大の原因は何ですか？',
@@ -2174,8 +2176,8 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     id: 20,
     level: 'N1',
     type: 'point',
+    audioUrl: '/audio/choukai/n1/n1_track_20.mp3',
     titleUz: "Yashil energetika to'sig'i",
-    audioUrl: '',
     script:
       '環境問題の専門家フォーラムで学者が話しています。再生可能エネルギーの普及を阻む本質的なボトルネックは何だと指摘されていますか？\n学者：発電コストの低下や技術革新は著しいものの、天候による発電量の変動を吸収する大規模蓄電池インフラの未整備と、既存の基幹送電網の容量不足が、これ以上の系統連系拡大における最大の障壁となっています。',
     questionText: '再生可能エネルギー普及の最大の障壁として指摘されているのは何ですか？',
@@ -2269,8 +2271,8 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     id: 42,
     level: 'N1',
     type: 'summary',
+    audioUrl: '/audio/choukai/n1/n1_track_42.mp3',
     titleUz: "Sun'iy intellekt va mualliflik huquqi",
-    audioUrl: '',
     script:
       '知的財産権のシンポジウムで弁護士がAI生成物の法的扱いについて基調講演を行っています。弁護士は現行法制度の課題をどのように総括していますか？\n弁護士：生成AIによる創作物は、従来の「人間の思想や感情の創作的表現」を前提とした著作権法の枠組みでは捉えきれなくなっています。権利者保護とイノベーション促進のバランスを図る新たな包括的法制度の構築が喫緊の課題と言えます。',
     questionText: '弁護士が指摘する最大の課題は何ですか？',
@@ -2364,8 +2366,8 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     id: 44,
     level: 'N1',
     type: 'quick',
+    audioUrl: '/audio/choukai/n1/n1_track_44.mp3',
     titleUz: 'Yuqori darajadagi rasmiy muzokara rad javobi',
-    audioUrl: '',
     script:
       '役員会で他社との提携案について意見を求められました。時期尚早であると慎重な立場を伝える場合、最もふさわしい表現はどれですか？\n議長：この事業提携案について、経営企画部としての見解を聞かせてください。\nあなた：（　）',
     questionText: '適切な発言はどれですか？',
@@ -2420,8 +2422,8 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     id: 45,
     level: 'N1',
     type: 'task',
+    audioUrl: '/audio/choukai/n1/n1_track_45.mp3',
     titleUz: 'Kiberxavfsizlik protokoli',
-    audioUrl: '',
     script:
       '情報システム部の緊急対策会議でセキュリティ責任者が指示を出しています。社員が直ちに実施すべき初動対応は何ですか？\n責任者：社内サーバーへの不正アクセスが検知されました。基幹データベースの遮断は完了しましたが、感染拡大を防ぐため、全社のアカウントパスワードの強制リセットを行います。全社員に対し、社内ネットワークから即座に端末を切断し、指定の手順で新パスワードを再設定するよう通達してください。',
     questionText: '全社員が直ちに取るべき対応は何ですか？',
@@ -2467,8 +2469,8 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     id: 46,
     level: 'N1',
     type: 'summary',
+    audioUrl: '/audio/choukai/n1/n1_track_46.mp3',
     titleUz: "Ta'lim falsafasi va inson kapitali",
-    audioUrl: '',
     script:
       '大学の学術シンポジウムで教育哲学者が講演しています。現代社会における高等教育の真の使命は何だと論じられていますか？\n講演者：短期的な即戦力としての職業スキルの習得が声高に叫ばれる昨今ですが、技術革新のスピードが加速する時代において真に必要なのは、既存の知識を批判的に疑い、未知の問いを自ら立てる教養と批判的思考力です。知識の消費者を育てるのではなく、問いの創造者を育てることこそが高等教育の真髄です。',
     questionText: '講演者が主張する高等教育の本質的使命は何ですか？',
@@ -2742,6 +2744,7 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     id: 57,
     level: 'N3',
     type: 'task',
+    audioUrl: '/audio/choukai/n3/11 Track 11.mp3',
     titleUz: "Yangi xodimlar yig'ilishiga tayyorgarlik",
     script:
       '会社で 先輩と 後輩が 新入社員研修の 準備について 話しています。後輩の 女性は 次に 何を しますか？\n先輩：研修の 会場、机の 配置は 終わった？\n女性：はい、グループワーク用に 4人掛けの 島を 5つ 作りました。\n先輩：ありがとう。じゃあ、参加者の 名札と 配布資料を 各机に 並べてくれる？\n女性：わかりました。あ、プロジェクターの 接続確認は もう 済んでいますか？\n先輩：あ、それは まだだ。僕が やっておくから、君は 名札と 資料の 準備を 急いでくれ。\n女性：承知しました！',
@@ -2769,6 +2772,7 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     id: 58,
     level: 'N3',
     type: 'point',
+    audioUrl: '/audio/choukai/n3/12 Track 12.mp3',
     titleUz: 'Ish almashtirish sababi',
     script:
       '男の人と 女の人が 転職について 話しています。男の人が 転職を 決意した 一番の 理由は 何ですか？\n女：田中さん、来月で 退職されるそうですね。待遇に 不満でも あったんですか？\n男：いえ、給与や 福利厚生には 満足していました。残業も 少なかったですし。\n女：じゃあ、どうして？\n男：もっと 自分の スキルを 活かして、海外向けの 新規事業に 挑戦したかったんです。今の 会社では 国内事業が 中心で、希望の 部署に 空きが なくて。\n女：なるほど、キャリアアップの ための 前向きな 挑戦なんですね。',
@@ -2796,6 +2800,7 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     id: 59,
     level: 'N3',
     type: 'quick',
+    audioUrl: '/audio/choukai/n3/13 Track 13.mp3',
     titleUz: 'Maslahatga minnatdorlik',
     script: '男：先輩、先日の アドバイスのおかげで、無事に プレゼンが 成功しました！',
     questionText: '先輩は 何と 答えますか？',
@@ -2821,6 +2826,7 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     id: 60,
     level: 'N3',
     type: 'summary',
+    audioUrl: '/audio/choukai/n3/14 Track 14.mp3',
     titleUz: 'Qayta tiklanadigan energiya',
     script:
       '環境問題の セミナーで 講師が 話しています。\n講師：脱炭素社会の 実現に向けて、太陽光や 風力といった 再生可能エネルギーの 導入が 加速しています。しかし、天候によって 発電量が 変動するという 弱点があります。これを 解決するためには、大容量の 蓄電池技術の 開発と、地域間で 電力を 融通し合う 送電網の 強化が 不可欠です。',
@@ -2841,6 +2847,7 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     id: 61,
     level: 'N3',
     type: 'point',
+    audioUrl: '/audio/choukai/n3/15 Track 15.mp3',
     titleUz: 'Sport zalini tanlash sababi',
     script:
       '女性二人が フィットネスクラブについて 話しています。二人が 最終的に Aジムを 選んだ 理由は 何ですか？\n女1：ジム、Bジムは プールが あるけど、駅から 徒歩15分で ちょっと 遠いよね。\n女2：そうだね。Aジムは プールは ないけど、駅直結で 24時間 営業だよ。\n女1：仕事帰りに 寄りやすいのが 一番だよね。月謝も Aジムの 方が 2000円 安いし。\n女2：決まり！じゃあ Aジムに 入会しよう。',
@@ -2868,6 +2875,7 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     id: 62,
     level: 'N3',
     type: 'task',
+    audioUrl: '/audio/choukai/n3/16 Track 16.mp3',
     titleUz: 'Ijara shartnomasini yangilash',
     script:
       '不動産屋で 男の人と 店員が 話しています。男の人は いつまでに 更新手続きの 書類を 出さなければなりませんか？\n店員：マンションの 契約満了が 3月末日となっております。更新を ご希望の場合は、満了の 1ヶ月前までに 書類を ご返送いただく 必要が ございます。\n男：ということは、2月末日までに 必着ですね？\n店員：はい、その通りです。同封の 振込用紙での 更新料の お支払いも 同時に お願いいたします。\n男：わかりました。',
@@ -2889,6 +2897,7 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     id: 63,
     level: 'N3',
     type: 'quick',
+    audioUrl: '/audio/choukai/n3/17 Track 17.mp3',
     titleUz: "Hamkasbdan yordam so'rash",
     script:
       '女：すみません、今 ちょっと 手が 離せないんですが、この 荷物を 運ぶのを 手伝っていただけませんか？',
@@ -2916,6 +2925,7 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     id: 64,
     level: 'N3',
     type: 'summary',
+    audioUrl: '/audio/choukai/n3/18 Track 18.mp3',
     titleUz: "Ta'limda o'yinlashtirish (Gamification)",
     script:
       '教育関係の ラジオ番組を 聞いています。\n解説者：最近、語学学習アプリなどに ゲームの 要素を 取り入れる「ゲーミフィケーション」が 注目されています。経験値や バッジの 獲得、連続ログインの 記録などによって、学習者の モチベーションを 維持する 仕組みです。単調になりがちな 基礎学習を 楽しく 習慣化する上で、非常に 有効な 手法と 言えます。',
@@ -2943,6 +2953,7 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     id: 65,
     level: 'N3',
     type: 'point',
+    audioUrl: '/audio/choukai/n3/19 Track 19.mp3',
     titleUz: "Kompaniya ekskursiyasi bekor bo'lishi",
     script:
       '社内放送を 聞いています。週末の 社員旅行が 延期になった 理由は 何ですか？\nアナウンス：社員の 皆様に ご連絡いたします。今週末に 予定されておりました 秋の 社員旅行ですが、大型の 台風が 接近しており、現地の 交通機関に 大幅な 乱れが 予想されるため、誠に 残念ながら 来月に 延期することとなりました。日程の 詳細は 追って ご連絡いたします。',
@@ -2969,6 +2980,7 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     id: 66,
     level: 'N3',
     type: 'quick',
+    audioUrl: '/audio/choukai/n3/20 Track 20.mp3',
     titleUz: 'Hamkasbga minnatdorchilik bildirish',
     script: '女：課長、お忙しいところ、わざわざ お越しいただき ありがとうございました。',
     questionText: '課長は 何と 答えますか？',
@@ -3248,6 +3260,7 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     id: 77,
     level: 'N1',
     type: 'task',
+    audioUrl: '/audio/choukai/n1/n1_track_77.mp3',
     titleUz: 'Inqiroz boshqaruvi va matbuot bayonoti',
     script:
       '広報部の 緊急会議で 部長と 担当者が 話しています。担当の 男性は この後 まず 何を しますか？\n部長：わが社の クラウドサービスにおける 個人情報流出の 疑いについて、SNS上で 憶測が 飛び交っている。午後3時に 記者会見を 開く。\n男性：はい。流出の 痕跡について、セキュリティ調査会社からの 正式な 報告書は まだ 届いておりません。\n部長：未確認の 情報を 出して 混乱を 招くことは 厳に 慎むべきだ。まずは 現時点で 判明している 客観的 事実のみを 整理し、メディア向けの プレスリリース原稿を 1時間以内に 骨子として まとめなさい。\n男性：承知いたしました。直ちに 着手します。',
@@ -3274,6 +3287,7 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     id: 78,
     level: 'N1',
     type: 'point',
+    audioUrl: '/audio/choukai/n1/n1_track_78.mp3',
     titleUz: 'Fanning etik chegaralari',
     script:
       '生命倫理の シンポジウムで 哲学者が 話しています。\n哲学者：ゲノム編集による 難病治療への 期待が高まる一方で、優生思想への 回帰という 倫理的 危険性が 孕まれています。「技術的に 可能であること」と「倫理的に 許容されること」は 峻別されねばなりません。科学者の 好奇心や 経済的 利益のみに 開発の 暴走を 委ねるのではなく、民主的な 市民対話を 通じた 規範の 策定が 強く 求められているのです。',
@@ -3300,6 +3314,7 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     id: 79,
     level: 'N1',
     type: 'quick',
+    audioUrl: '/audio/choukai/n1/n1_track_79.mp3',
     titleUz: 'Oliy martabali mehmonga muloyim taklif',
     script:
       '女性：会長、本日の 懇親会では、乾杯の ご発声を 賜りたく 存じますが、いかがでしょうか。',
@@ -3326,6 +3341,7 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     id: 80,
     level: 'N1',
     type: 'summary',
+    audioUrl: '/audio/choukai/n1/n1_track_80.mp3',
     titleUz: "Modernistik arxitektura va mahalliy o'ziga xoslik",
     script:
       '建築批評の フォーラムで 専門家が 講演しています。\n専門家：20世紀の モダニズム建築は、鉄と ガラスという 均質な 素材を用いて、世界中どこにでも 建てられる「国際様式」を 確立しました。しかし、それは 風土や 地域の 歴史的 固有性を 剥奪する 結果を 招きました。21世紀の 建築に 課されているのは、地域の 自然素材や 伝統工法を 現代技術と 融合させ、その 土地にしか 成立し得ない「固有の 建築美」を 再構築することなのです。',
@@ -3404,6 +3420,7 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     id: 83,
     level: 'N1',
     type: 'quick',
+    audioUrl: '/audio/choukai/n1/n1_track_83.mp3',
     titleUz: 'Diplomatik taklifni qabul qilish',
     script:
       '男性：長年の 懸案でありました 両社の 共同開発プロジェクト、何卒 前向きな ご決断を 仰ぎたく 存じます。',
@@ -3430,6 +3447,7 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     id: 84,
     level: 'N1',
     type: 'summary',
+    audioUrl: '/audio/choukai/n1/n1_track_84.mp3',
     titleUz: 'Til va dunyoqarash',
     script:
       '文化人類学の シンポジウムで 教授が 講演しています。\n教授：サピア・ウォーフの 仮説が 示唆するように、言語は 単に 思考を 表出する 道具にとどまらず、我々が 世界を どのように 分節し 認識するかという「認知の 枠組み」そのものを 規定しています。ある言語が 固有の 虹の 色数を 持つように、語彙体系の 差異は 世界認識の 差異に 直結します。言語の 多様性を 保持することは、人類の 知の 多角性を 担保することに他ならないのです。',
@@ -3457,6 +3475,7 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
     id: 85,
     level: 'N1',
     type: 'point',
+    audioUrl: '/audio/choukai/n1/n1_track_85.mp3',
     titleUz: "Sun'iy intellekt va san'at asari muallifligi",
     script:
       '知的財産権の 専門家が AI生成コンテンツの 著作権について 話しています。\n専門家：AIが 自律的に 生成した 画像や 音楽について、現行の 著作権法では「思想又は感情を 創作的に 表現した もの」という 人間の 精神的 営為を 前提としており、AI単独の 創作物に 著作権を 認めることは 困難です。争点となっているのは、プロンプトの 工夫や パラメータの 調整に どの程度の「人間の 創作的 寄与」が 認められるかという 境界線の 画定なのです。',

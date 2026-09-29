@@ -131,7 +131,7 @@ export const RealtimeVoiceOverlay: React.FC<RealtimeVoiceOverlayProps> = React.m
               <button
                 type="button"
                 onClick={onBargeIn}
-                className="flex shrink-0 cursor-pointer items-center gap-1 rounded-xl border border-[#C9A961]/40 bg-[#C9A961]/20 px-2 py-1 text-[10px] font-bold text-[#C9A961] shadow-md transition-all hover:bg-[#C9A961]/30 active:scale-95 sm:px-2.5 sm:text-[11px]"
+                className="flex min-h-[44px] shrink-0 cursor-pointer items-center gap-1 rounded-xl border border-[#C9A961]/40 bg-[#C9A961]/20 px-3 text-[10px] font-bold text-[#C9A961] shadow-md transition-all hover:bg-[#C9A961]/30 active:scale-95 sm:px-2.5 sm:text-[11px]"
                 title="AI gapirishini to'xtatish va so'zlash"
               >
                 <Zap size={11} className="animate-pulse text-[#C9A961] sm:size-3" />
@@ -194,7 +194,7 @@ export const RealtimeVoiceOverlay: React.FC<RealtimeVoiceOverlayProps> = React.m
                     <button
                       type="button"
                       onClick={onCommitNow}
-                      className="flex cursor-pointer items-center gap-1 rounded-lg bg-primary px-2 py-0.5 text-[10px] font-bold text-primary-foreground shadow-xs transition-all hover:bg-primary/90 active:scale-95"
+                      className="flex min-h-[44px] cursor-pointer items-center gap-1 rounded-lg bg-primary px-3 text-[10px] font-bold text-primary-foreground shadow-xs transition-all hover:bg-primary/90 active:scale-95"
                       title={isJa ? '今すぐ送信' : 'Hozir yuborish'}
                     >
                       <CheckCircle2 size={11} />
@@ -253,10 +253,11 @@ export const RealtimeVoiceOverlay: React.FC<RealtimeVoiceOverlayProps> = React.m
                             <button
                               type="button"
                               onClick={() => onSpeakText(err.correction)}
-                              className="shrink-0 cursor-pointer rounded p-0.5 text-emerald-400 transition-colors hover:bg-emerald-500/20"
+                              className="flex min-h-[44px] min-w-[44px] shrink-0 cursor-pointer items-center justify-center rounded text-emerald-400 transition-colors hover:bg-emerald-500/20"
                               title="To'g'ri jumlani tinglash"
+                              aria-label="To'g'ri jumlani tinglash"
                             >
-                              <Volume2 size={11} />
+                              <Volume2 size={14} />
                             </button>
                           )}
                         </div>

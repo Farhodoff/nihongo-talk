@@ -32,7 +32,9 @@ describe('JlptReadinessCard and SkillsBreakdown Components', () => {
     // Sectional verification
     expect(screen.getByText(/Sektorlar Xavfsizligi|Sectional Cutoff Check/i)).toBeInTheDocument();
     expect(screen.getByText(/Til Bilimi|Language Knowledge/i)).toBeInTheDocument();
-    expect(screen.getByText(/O'qib Tushunish|読解|Reading Comprehension/i)).toBeInTheDocument();
+    expect(
+      screen.getAllByText(/O'qib Tushunish|読解|Reading Comprehension/i).length,
+    ).toBeGreaterThan(0);
     expect(screen.getAllByText(/Tinglab Tushunish|聴解|Listening/i).length).toBeGreaterThan(0);
   });
 
@@ -43,7 +45,41 @@ describe('JlptReadinessCard and SkillsBreakdown Components', () => {
     fireEvent.click(n4Btn);
 
     // Pass mark for N4 is 90
-    expect(screen.getByText(/90 ball|90点|Pass mark: 90/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/90 ball|90点|Pass mark: 90/i).length).toBeGreaterThan(0);
+  });
+
+  it('supports switching between 4-pillar official model and 5-pillar radar mode', () => {
+    render(<JlptReadinessCard stats={mockStats} initialLevel="N5" />);
+
+    const fourPillarBtn = screen.getByText(/🏛️ Rasmiy 4-Ustun|🏛️ 公式4分野/i);
+    const fivePillarBtn = screen.getByText(/🌐 5-Qirrali|🌐 5大スキル/i);
+
+    expect(fourPillarBtn).toBeInTheDocument();
+    expect(fivePillarBtn).toBeInTheDocument();
+
+    fireEvent.click(fivePillarBtn);
+    expect(fivePillarBtn).toHaveClass('bg-rose-500');
+
+    fireEvent.click(fourPillarBtn);
+    expect(fourPillarBtn).toHaveClass('bg-rose-500');
+  });
+
+  it('displays Mistake Vault warning banner when unresolved mistakes exist', () => {
+    const statsWithMistakes: UserSkillStats = {
+      ...mockStats,
+      unresolvedMistakesCount: 6,
+    };
+
+    render(<JlptReadinessCard stats={statsWithMistakes} initialLevel="N5" />);
+
+    expect(
+      screen.getByText(
+        /Xatolar Daftarchasi: 6 ta xato|Mistake Notebook: 6 unresolved|間違いノート/i,
+      ),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: /Xatolarni tuzatish|Review Vault|ノートで復習/i }),
+    ).toBeInTheDocument();
   });
 
   it('renders JlptSkillsBreakdown with 5 skill cards and action buttons', () => {

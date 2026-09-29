@@ -3,6 +3,7 @@ import { HistoryService, MockExamItem, SpeakingSessionItem } from '../../service
 import { DailyQuestService } from '../../services/DailyQuestService';
 import { useFlashcardStore } from '../../stores/useFlashcardStore';
 import { JlptReadinessService, UserSkillStats } from '../../services/JlptReadinessService';
+import { MistakeVaultService } from '../../services/MistakeVaultService';
 import { JlptReadinessCard } from './JlptReadinessCard';
 import { JlptSkillsBreakdown } from './JlptSkillsBreakdown';
 import { Sparkles, Trophy, Flame, BookOpen, Volume2, History, Award } from 'lucide-react';
@@ -12,6 +13,7 @@ export const JlptProgressAnalytics: React.FC = () => {
   const [jlptExams, setJlptExams] = useState<MockExamItem[]>([]);
   const [jlptSpeaking, setJlptSpeaking] = useState<SpeakingSessionItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [breakdownMode, setBreakdownMode] = useState<'4pillar' | '5pillar'>('4pillar');
 
   const flashcards = useFlashcardStore((s) => s.flashcards);
 
@@ -64,6 +66,11 @@ export const JlptProgressAnalytics: React.FC = () => {
       (c) => c.subjectId?.includes('grammar') || (c as any).skill === 'grammar',
     ).length;
 
+    const mistakeStats = MistakeVaultService.getStats();
+    const readingAttempts = jlptExams.filter(
+      (e) => (e as any).skill === 'reading' || (e as any).title?.toLowerCase().includes('dokkai'),
+    ).length;
+
     return {
       vocabCount: Math.max(cards.length, meta.flashcardsReviewed || 0),
       vocabRetentionRate: 85,
@@ -72,6 +79,8 @@ export const JlptProgressAnalytics: React.FC = () => {
         grammarFromCards,
         meta.listeningQuestionsCompleted > 0 ? 30 : 15,
       ),
+      readingCompletedCount: Math.max(readingAttempts, (meta as any).readingPassagesCompleted || 0),
+      readingAccuracy: 80,
       listeningCompletedCount: Math.max(
         meta.listeningQuestionsCompleted || 0,
         jlptExams.length * 4,
@@ -80,6 +89,8 @@ export const JlptProgressAnalytics: React.FC = () => {
       speakingSessionsCount: Math.max(jlptSpeaking.length, meta.speakingSessionsCompleted || 0),
       speakingFluencyScore: avgFluency ?? 7.5,
       mockExamHighestScore: highestScore > 0 ? highestScore : meta.highestMockScore,
+      unresolvedMistakesCount: mistakeStats.unresolved,
+      mistakesByCategory: mistakeStats.byCategory,
     };
   }, [flashcards, meta, jlptExams.length, jlptSpeaking.length, avgFluency, highestScore]);
 
@@ -161,11 +172,44 @@ export const JlptProgressAnalytics: React.FC = () => {
         </div>
       </div>
 
-      {/* 5-Pillar Radar & JLPT Readiness Assessment Card */}
+      {/* 4/5-Pillar Radar & JLPT Readiness Assessment Card */}
       <JlptReadinessCard stats={userStats} initialLevel={activeLevel} />
 
-      {/* 5 Skills Breakdown with Action Buttons */}
-      <JlptSkillsBreakdown pillars={readinessReport.pillars} />
+      {/* Skills Breakdown with Action Buttons */}
+      <div className="space-y-3">
+        <div className="flex items-center justify-between">
+          <span className="text-xs font-black uppercase tracking-wider text-muted-foreground">
+            {breakdownMode === '4pillar' ? 'Rasmiy 4 Ustun Tahlili' : "5 Ko'nikma Tahlili (+Kaiwa)"}
+          </span>
+          <div className="flex items-center gap-1 rounded-xl border border-border/70 bg-muted/40 p-1">
+            <button
+              onClick={() => setBreakdownMode('4pillar')}
+              className={`cursor-pointer rounded-lg px-2.5 py-1 text-[11px] font-black transition-all active:scale-95 ${
+                breakdownMode === '4pillar'
+                  ? 'bg-rose-500 text-white shadow-xs'
+                  : 'text-muted-foreground hover:text-foreground'
+              }`}
+            >
+              🏛️ Rasmiy 4-Ustun
+            </button>
+            <button
+              onClick={() => setBreakdownMode('5pillar')}
+              className={`cursor-pointer rounded-lg px-2.5 py-1 text-[11px] font-black transition-all active:scale-95 ${
+                breakdownMode === '5pillar'
+                  ? 'bg-rose-500 text-white shadow-xs'
+                  : 'text-muted-foreground hover:text-foreground'
+              }`}
+            >
+              🌐 5-Qirrali (+Kaiwa)
+            </button>
+          </div>
+        </div>
+        <JlptSkillsBreakdown
+          pillars={
+            breakdownMode === '4pillar' ? readinessReport.fourPillars : readinessReport.pillars
+          }
+        />
+      </div>
 
       {/* Score History Progression Chart */}
       {chartData.length > 0 ? (

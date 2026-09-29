@@ -11,6 +11,7 @@ import {
   Check,
   Play,
   ArrowRight,
+  Star,
 } from 'lucide-react';
 import type { JlptGrammarItem, JlptKanjiItem, JlptVocabItem } from '../../data/jlptGrammarKanji';
 import type { JlptGrammarQuestion } from '../../data/jlpt/grammar_data';
@@ -28,6 +29,9 @@ import { useLanguage } from '../../context/LanguageContext';
 import { getOrEnsureLanguageSubject } from '../../utils/subjectResolver';
 import { useSearchParams } from 'react-router-dom';
 import { CustomContentService } from '../../services/CustomContentService';
+import { SENTENCE_ORDERING_QUESTIONS } from '../../data/jlpt/sentence_ordering_data';
+import { SentenceOrderingQuestion } from './SentenceOrderingQuestion';
+import { MistakeVaultService, MistakeLevel } from '../../services/MistakeVaultService';
 
 interface JlptGrammarKanjiMasterProps {
   initialTab?: 'grammar' | 'kanji' | 'goi' | 'quiz';
@@ -41,7 +45,7 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
   const initialLevel: 'ALL' | 'N5' | 'N4' | 'N3' | 'N2' | 'N1' =
     urlLevel && ['N5', 'N4', 'N3', 'N2', 'N1'].includes(urlLevel) ? (urlLevel as any) : 'ALL';
 
-  const { addFlashcardsBatch, subjects, addSubject, awardXP, addSession } = useStudyData();
+  const { user, addFlashcardsBatch, subjects, addSubject, awardXP, addSession } = useStudyData();
   const { getItemStatus, setItemStatus, getStatsForLevel } = useJlptMastery();
   const { language } = useLanguage();
 
@@ -165,6 +169,13 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
   const [isQuizCompleted, setIsQuizCompleted] = useState(false);
   const [missedQuizQuestions, setMissedQuizQuestions] = useState<JlptGrammarQuestion[]>([]);
   const [quizFlashcardsSaved, setQuizFlashcardsSaved] = useState(false);
+  const [quizMode, setQuizMode] = useState<'standard' | 'sentence_order'>('standard');
+  const [soIndex, setSoIndex] = useState(0);
+
+  const soQuestions = useMemo(() => {
+    if (selectedLevel === 'ALL') return SENTENCE_ORDERING_QUESTIONS;
+    return SENTENCE_ORDERING_QUESTIONS.filter((q) => q.level === selectedLevel);
+  }, [selectedLevel]);
 
   // Merge databases (loaded dynamically) + Admin Custom Content
   const baseGrammar: JlptGrammarItem[] = grammarData;
@@ -321,6 +332,24 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
           totalQuestions: quizQuestions.length,
           bandScore: Math.round((score / (quizQuestions.length || 1)) * 180),
         });
+
+        if (missedQuizQuestions.length > 0) {
+          MistakeVaultService.recordBatch(
+            missedQuizQuestions.map((q) => ({
+              userId: user?.id,
+              source: 'quiz',
+              level: (q.level || 'N3') as MistakeLevel,
+              category: 'grammar',
+              title: `[JLPT ${q.level}] ${q.pattern}`,
+              questionText: q.questionText,
+              options: q.options,
+              userAnswer: -1,
+              correctAnswer: q.correctAnswer,
+              explanationUzbek: q.explanationUzbek || '',
+            })),
+            user?.id,
+          );
+        }
       } catch (e) {
         console.warn('Failed to save JLPT quiz score:', e);
       }
@@ -378,7 +407,7 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
 
           {/* Quick Stats Widget */}
           <div className="flex items-center gap-3 rounded-2xl border border-border bg-muted/40 p-3.5">
-            <div className="rounded-xl border border-amber-500/20 bg-amber-500/10 p-3 text-[#C9A961]">
+            <div className="rounded-xl border border-amber-500/20 bg-amber-500/10 p-3 text-amber-600 dark:text-amber-400">
               <Flame className="h-6 w-6" />
             </div>
             <div>
@@ -390,7 +419,7 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
                   {grammarSource.length} {language === 'ja' ? '文法項目' : 'Qoida'}
                 </span>{' '}
                 •{' '}
-                <span className="text-[#E8483A]">
+                <span className="text-rose-600 dark:text-rose-400">
                   {kanjiSource.length} {language === 'ja' ? '漢字' : 'Kanji'}
                 </span>{' '}
                 •{' '}
@@ -460,7 +489,7 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
                 : 'text-muted-foreground hover:bg-muted/60 hover:text-foreground'
             }`}
           >
-            <Flame className="h-4 w-4 text-[#C9A961]" />
+            <Flame className="h-4 w-4 text-amber-600 dark:text-amber-400" />
             {language === 'ja'
               ? `⚡ テスト (${quizSource.length})`
               : `⚡ Test Banki (${quizSource.length})`}
@@ -559,12 +588,14 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
               <div className="text-xs text-muted-foreground">
                 {language === 'ja' ? '進捗率' : 'Progress'} (
                 {selectedLevel === 'ALL' && language === 'ja' ? 'すべて' : selectedLevel}):{' '}
-                <span className="font-bold text-[#C9A961]">{levelStats.percentage}%</span> (
-                {levelStats.mastered + levelStats.learned}/{levelStats.total})
+                <span className="font-bold text-amber-600 dark:text-amber-400">
+                  {levelStats.percentage}%
+                </span>{' '}
+                ({levelStats.mastered + levelStats.learned}/{levelStats.total})
               </div>
               <div className="h-2.5 w-32 overflow-hidden rounded-full border border-border bg-muted">
                 <div
-                  className="h-full bg-gradient-to-r from-[#C9A961] to-[#E8483A] transition-all duration-500"
+                  className="h-full bg-gradient-to-r from-amber-500 to-rose-500 transition-all duration-500"
                   style={{ width: `${levelStats.percentage}%` }}
                 />
               </div>
@@ -588,7 +619,7 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
                 <div>
                   {/* Level Badge & Audio */}
                   <div className="mb-3 flex items-center justify-between">
-                    <span className="rounded-full border border-amber-500/30 bg-amber-500/10 px-2.5 py-0.5 text-xs font-bold text-[#C9A961]">
+                    <span className="rounded-full border border-amber-500/30 bg-amber-500/10 px-2.5 py-0.5 text-xs font-bold text-amber-600 dark:text-amber-400">
                       {item.level}
                     </span>
                     <div className="flex items-center gap-1.5">
@@ -617,12 +648,15 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
                   <h3 className="font-japanese mb-1 text-xl font-bold tracking-tight text-foreground transition group-hover:text-primary">
                     <FuriganaText text={item.title} />
                   </h3>
-                  <div className="mb-2 font-mono text-xs text-[#C9A961]">{item.romaji}</div>
+                  <div className="mb-2 font-mono text-xs text-amber-600 dark:text-amber-400">
+                    {item.romaji}
+                  </div>
 
                   {/* Structure & Uzbek Meaning */}
                   <div className="mb-3 space-y-1 rounded-xl border border-border bg-muted/30 p-2.5">
                     <div className="text-xs font-semibold text-foreground">
-                      <span className="text-[#E8483A]">Formula:</span> {item.structure}
+                      <span className="text-rose-600 dark:text-rose-400">Formula:</span>{' '}
+                      {item.structure}
                     </div>
                     <div className="text-xs text-muted-foreground">
                       <span className="text-emerald-600 dark:text-emerald-400">🇺🇿 Ma'nosi:</span>{' '}
@@ -663,8 +697,8 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
                       onClick={() => setItemStatus(item.id, 'hard')}
                       className={`rounded-lg border px-2 py-1 transition ${
                         status === 'hard'
-                          ? 'border-[#E8483A]/30 bg-rose-500/15 font-bold text-[#E8483A]'
-                          : 'border-border bg-muted/30 text-muted-foreground hover:text-[#E8483A]'
+                          ? 'border-rose-500/30 bg-rose-500/15 font-bold text-rose-600 dark:text-rose-400'
+                          : 'border-border bg-muted/30 text-muted-foreground hover:text-rose-600 dark:text-rose-400'
                       }`}
                     >
                       {language === 'ja' ? 'むずかしい 🔴' : 'Qiyin 🔴'}
@@ -683,8 +717,8 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
                       onClick={() => setItemStatus(item.id, 'mastered')}
                       className={`rounded-lg border px-2 py-1 transition ${
                         status === 'mastered'
-                          ? 'border-[#C9A961]/30 bg-amber-500/15 font-bold text-[#C9A961]'
-                          : 'border-border bg-muted/30 text-muted-foreground hover:text-[#C9A961]'
+                          ? 'border-amber-500/30 bg-amber-500/15 font-bold text-amber-600 dark:text-amber-400'
+                          : 'border-border bg-muted/30 text-muted-foreground hover:text-amber-600 dark:text-amber-400'
                       }`}
                     >
                       {language === 'ja' ? 'おぼえた ⚡' : 'Mukammal ⚡'}
@@ -720,7 +754,7 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
                 <div>
                   {/* Level Badge & Actions */}
                   <div className="mb-3 flex items-center justify-between">
-                    <span className="rounded-full border border-amber-500/30 bg-amber-500/10 px-2.5 py-0.5 text-xs font-bold text-[#C9A961]">
+                    <span className="rounded-full border border-amber-500/30 bg-amber-500/10 px-2.5 py-0.5 text-xs font-bold text-amber-600 dark:text-amber-400">
                       {item.level} • {item.strokeCount} {language === 'ja' ? 'かく' : 'chiziq'}
                     </span>
                     <div className="flex items-center gap-1.5">
@@ -733,7 +767,7 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
                       </button>
                       <button
                         onClick={() => setStrokeModalKanji(item)}
-                        className="flex items-center gap-1 rounded-xl border border-amber-500/30 bg-amber-500/10 p-1.5 text-xs font-bold text-[#C9A961] transition hover:bg-amber-500/20"
+                        className="flex items-center gap-1 rounded-xl border border-amber-500/30 bg-amber-500/10 p-1.5 text-xs font-bold text-amber-600 transition hover:bg-amber-500/20 dark:text-amber-400"
                         title="Stroke Order Animation"
                       >
                         <Play className="h-3.5 w-3.5" />{' '}
@@ -759,14 +793,15 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
                   <div className="mb-4 flex items-center gap-4">
                     <div
                       onClick={() => setStrokeModalKanji(item)}
-                      className="font-japanese flex h-20 w-20 shrink-0 cursor-pointer items-center justify-center rounded-2xl border border-border bg-muted/40 text-4xl font-black text-[#E8483A] shadow-inner transition hover:scale-105"
+                      className="font-japanese flex h-20 w-20 shrink-0 cursor-pointer items-center justify-center rounded-2xl border border-border bg-muted/40 text-4xl font-black text-rose-600 shadow-inner transition hover:scale-105 dark:text-rose-400"
                     >
                       {item.kanji}
                     </div>
                     <div className="space-y-1">
                       <div className="text-base font-bold text-foreground">{item.meaningUz}</div>
                       <div className="text-xs text-muted-foreground">
-                        <span className="font-bold text-[#C9A961]">On:</span> {item.onyomi}
+                        <span className="font-bold text-amber-600 dark:text-amber-400">On:</span>{' '}
+                        {item.onyomi}
                       </div>
                       <div className="text-xs text-muted-foreground">
                         <span className="font-bold text-emerald-600 dark:text-emerald-400">
@@ -800,7 +835,7 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
                       onClick={() => setItemStatus(item.id, 'hard')}
                       className={`rounded-lg border px-2 py-0.5 transition ${
                         status === 'hard'
-                          ? 'border-[#E8483A]/30 bg-rose-500/15 font-bold text-[#E8483A]'
+                          ? 'border-rose-500/30 bg-rose-500/15 font-bold text-rose-600 dark:text-rose-400'
                           : 'border-border bg-muted/30 text-muted-foreground'
                       }`}
                     >
@@ -810,7 +845,7 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
                       onClick={() => setItemStatus(item.id, 'mastered')}
                       className={`rounded-lg border px-2 py-0.5 transition ${
                         status === 'mastered'
-                          ? 'border-[#C9A961]/30 bg-amber-500/15 font-bold text-[#C9A961]'
+                          ? 'border-amber-500/30 bg-amber-500/15 font-bold text-amber-600 dark:text-amber-400'
                           : 'border-border bg-muted/30 text-muted-foreground'
                       }`}
                     >
@@ -891,7 +926,9 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
                       }
                     />
                   </h3>
-                  <div className="mb-2 font-mono text-xs text-[#C9A961]">{item.romaji}</div>
+                  <div className="mb-2 font-mono text-xs text-amber-600 dark:text-amber-400">
+                    {item.romaji}
+                  </div>
 
                   {/* Meaning */}
                   <div className="mb-3 space-y-1 rounded-xl border border-border bg-muted/30 p-2.5">
@@ -942,8 +979,8 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
                       onClick={() => setItemStatus(item.id, 'hard')}
                       className={`rounded-lg border px-2 py-1 transition ${
                         status === 'hard'
-                          ? 'border-[#E8483A]/30 bg-rose-500/15 font-bold text-[#E8483A]'
-                          : 'border-border bg-muted/30 text-muted-foreground hover:text-[#E8483A]'
+                          ? 'border-rose-500/30 bg-rose-500/15 font-bold text-rose-600 dark:text-rose-400'
+                          : 'border-border bg-muted/30 text-muted-foreground hover:text-rose-600 dark:text-rose-400'
                       }`}
                     >
                       {language === 'ja' ? 'むずかしい 🔴' : 'Qiyin 🔴'}
@@ -962,8 +999,8 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
                       onClick={() => setItemStatus(item.id, 'mastered')}
                       className={`rounded-lg border px-2 py-1 transition ${
                         status === 'mastered'
-                          ? 'border-[#C9A961]/30 bg-amber-500/15 font-bold text-[#C9A961]'
-                          : 'border-border bg-muted/30 text-muted-foreground hover:text-[#C9A961]'
+                          ? 'border-amber-500/30 bg-amber-500/15 font-bold text-amber-600 dark:text-amber-400'
+                          : 'border-border bg-muted/30 text-muted-foreground hover:text-amber-600 dark:text-amber-400'
                       }`}
                     >
                       {language === 'ja' ? 'おぼえた ⚡' : 'Mukammal ⚡'}
@@ -989,20 +1026,61 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
       )}
       {activeTab === 'quiz' && !tabLoading && (
         <div className="mx-auto max-w-2xl space-y-4">
+          {/* Sub-mode Switcher: Standard Quiz vs Sentence Ordering */}
+          <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-border bg-card p-3 shadow-xs">
+            <div className="flex items-center gap-1.5 rounded-xl border border-border bg-muted/60 p-1">
+              <button
+                type="button"
+                onClick={() => setQuizMode('standard')}
+                className={`rounded-lg px-3.5 py-1.5 text-xs font-bold transition-all ${
+                  quizMode === 'standard'
+                    ? 'bg-primary text-primary-foreground shadow-xs'
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                📝 Standart Test
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setQuizMode('sentence_order');
+                  setSoIndex(0);
+                }}
+                className={`flex items-center gap-1.5 rounded-lg px-3.5 py-1.5 text-xs font-bold transition-all ${
+                  quizMode === 'sentence_order'
+                    ? 'bg-amber-500 text-white shadow-xs'
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                <Star className="h-3.5 w-3.5 fill-current" /> ★ Gap tartibi (文の組み立て)
+              </button>
+            </div>
+            <span className="text-xs font-semibold text-muted-foreground">
+              {quizMode === 'standard'
+                ? `Jami: ${quizQuestions.length} ta savol`
+                : `Jami: ${soQuestions.length} ta savol`}
+            </span>
+          </div>
+
           {/* Level Switcher for Quiz */}
           <div className="flex items-center justify-between gap-2 overflow-x-auto rounded-2xl border border-border bg-card p-3 shadow-xs">
             <div className="scrollbar-none flex items-center gap-1.5 overflow-x-auto">
               {(['ALL', 'N5', 'N4', 'N3', 'N2', 'N1'] as const).map((lvl) => {
                 const count =
-                  lvl === 'ALL'
-                    ? quizSource.length
-                    : quizSource.filter((q) => q.level === lvl).length;
+                  quizMode === 'standard'
+                    ? lvl === 'ALL'
+                      ? quizSource.length
+                      : quizSource.filter((q) => q.level === lvl).length
+                    : lvl === 'ALL'
+                      ? SENTENCE_ORDERING_QUESTIONS.length
+                      : SENTENCE_ORDERING_QUESTIONS.filter((q) => q.level === lvl).length;
                 return (
                   <button
                     key={lvl}
                     onClick={() => {
                       setSelectedLevel(lvl);
                       setQuizIndex(0);
+                      setSoIndex(0);
                       setSelectedOption(null);
                       setScore(0);
                       setIsQuizCompleted(false);
@@ -1018,133 +1096,219 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
                 );
               })}
             </div>
-            <span className="hidden whitespace-nowrap text-[11px] font-semibold text-muted-foreground sm:inline">
-              Jami: {quizQuestions.length} ta savol
-            </span>
           </div>
 
-          <div className="space-y-6 rounded-3xl border border-border bg-card p-6 shadow-xs md:p-8">
-            {quizQuestions.length === 0 ? (
-              <div className="space-y-3 py-10 text-center">
-                <div className="text-3xl">📭</div>
-                <h3 className="text-base font-bold text-foreground">
-                  {selectedLevel} darajasida hali test savollari yo‘q
-                </h3>
-                <p className="text-xs text-muted-foreground">
-                  Admin paneldagi <strong>Test & Savollar</strong> bo‘limi orqali yangi test
-                  savollarini qo‘shishingiz mumkin.
-                </p>
-              </div>
-            ) : !isQuizCompleted ? (
-              <>
-                <div className="flex items-center justify-between border-b border-border pb-3 text-xs font-semibold text-muted-foreground">
-                  <span>
-                    Savol {quizIndex + 1} / {quizQuestions.length} (
-                    {quizQuestions[quizIndex]?.level})
-                  </span>
-                  <span className="font-bold text-[#C9A961]">Joriy Ball: {score}</span>
+          {quizMode === 'sentence_order' ? (
+            <div className="rounded-3xl border border-border bg-card p-6 shadow-xs md:p-8">
+              {soQuestions.length === 0 ? (
+                <div className="space-y-3 py-10 text-center">
+                  <div className="text-3xl">⭐</div>
+                  <h3 className="text-base font-bold text-foreground">
+                    {selectedLevel} darajasida gap tartibi savollari mavjud emas
+                  </h3>
+                  <p className="text-xs text-muted-foreground">
+                    Iltimos, boshqa darajani tanlang yoki Barchasi (ALL) tugmasini bosing.
+                  </p>
                 </div>
+              ) : (
+                <div className="space-y-6">
+                  <div className="flex items-center justify-between text-xs font-semibold text-muted-foreground">
+                    <span>
+                      Savol {soIndex + 1} / {soQuestions.length} ({soQuestions[soIndex]?.level})
+                    </span>
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        disabled={soIndex === 0}
+                        onClick={() => setSoIndex((prev) => Math.max(0, prev - 1))}
+                        className="rounded-lg border border-border px-2.5 py-1 text-xs font-bold hover:bg-muted disabled:opacity-40"
+                      >
+                        ← Oldingi
+                      </button>
+                      <button
+                        type="button"
+                        disabled={soIndex >= soQuestions.length - 1}
+                        onClick={() =>
+                          setSoIndex((prev) => Math.min(soQuestions.length - 1, prev + 1))
+                        }
+                        className="rounded-lg border border-border px-2.5 py-1 text-xs font-bold hover:bg-muted disabled:opacity-40"
+                      >
+                        Keyingi →
+                      </button>
+                    </div>
+                  </div>
 
-                <h3 className="font-japanese text-xl font-bold leading-relaxed text-foreground">
-                  {quizQuestions[quizIndex]?.questionText}
-                </h3>
+                  <SentenceOrderingQuestion
+                    key={soQuestions[soIndex].id}
+                    question={soQuestions[soIndex]}
+                    onNext={() => {
+                      if (soIndex + 1 < soQuestions.length) {
+                        setSoIndex((prev) => prev + 1);
+                      } else {
+                        setSoIndex(0);
+                      }
+                    }}
+                    onComplete={(isCorrect) => {
+                      if (isCorrect) {
+                        awardXP(25);
+                      } else {
+                        const curQ = soQuestions[soIndex];
+                        if (curQ) {
+                          MistakeVaultService.recordMistake(
+                            {
+                              userId: user?.id,
+                              source: 'sentence_order',
+                              level: (curQ.level || 'N3') as MistakeLevel,
+                              category: 'grammar',
+                              title: `★ Gap tartibini tuzish (${curQ.level})`,
+                              questionText: `${curQ.prefix} [1] [2] [3] [4] ${curQ.suffix}`,
+                              options: curQ.fragments,
+                              userAnswer: 'Noto‘g‘ri tartib',
+                              correctAnswer: curQ.starPosition,
+                              explanationUzbek:
+                                curQ.explanationUzbek ||
+                                `To'g'ri tartib: ${curQ.correctOrder.map((i) => curQ.fragments[i]).join(' ')}`,
+                            },
+                            user?.id,
+                          );
+                        }
+                      }
+                    }}
+                  />
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className="space-y-6 rounded-3xl border border-border bg-card p-6 shadow-xs md:p-8">
+              {quizQuestions.length === 0 ? (
+                <div className="space-y-3 py-10 text-center">
+                  <div className="text-3xl">📭</div>
+                  <h3 className="text-base font-bold text-foreground">
+                    {selectedLevel} darajasida hali test savollari yo‘q
+                  </h3>
+                  <p className="text-xs text-muted-foreground">
+                    Admin paneldagi <strong>Test & Savollar</strong> bo‘limi orqali yangi test
+                    savollarini qo‘shishingiz mumkin.
+                  </p>
+                </div>
+              ) : !isQuizCompleted ? (
+                <>
+                  <div className="flex items-center justify-between border-b border-border pb-3 text-xs font-semibold text-muted-foreground">
+                    <span>
+                      Savol {quizIndex + 1} / {quizQuestions.length} (
+                      {quizQuestions[quizIndex]?.level})
+                    </span>
+                    <span className="font-bold text-amber-600 dark:text-amber-400">
+                      Joriy Ball: {score}
+                    </span>
+                  </div>
 
-                <div className="space-y-3">
-                  {quizQuestions[quizIndex]?.options.map((opt, idx) => {
-                    const isSelected = selectedOption === idx;
-                    const isCorrect = idx === quizQuestions[quizIndex].correctAnswer;
+                  <h3 className="font-japanese text-xl font-bold leading-relaxed text-foreground">
+                    {quizQuestions[quizIndex]?.questionText}
+                  </h3>
 
-                    let btnClass =
-                      'w-full text-left p-4 rounded-2xl border text-sm font-semibold transition-all flex items-center justify-between ';
+                  <div className="space-y-3">
+                    {quizQuestions[quizIndex]?.options.map((opt, idx) => {
+                      const isSelected = selectedOption === idx;
+                      const isCorrect = idx === quizQuestions[quizIndex].correctAnswer;
 
-                    if (selectedOption === null) {
-                      btnClass +=
-                        'bg-muted/30 border-border hover:border-primary/40 text-foreground';
-                    } else if (isCorrect) {
-                      btnClass +=
-                        'bg-emerald-500/15 border-emerald-500/40 text-emerald-600 dark:text-emerald-400 font-bold';
-                    } else if (isSelected) {
-                      btnClass += 'bg-rose-500/15 border-rose-500/40 text-[#E8483A] font-bold';
-                    } else {
-                      btnClass += 'bg-muted/20 border-border text-muted-foreground';
-                    }
+                      let btnClass =
+                        'w-full text-left p-4 rounded-2xl border text-sm font-semibold transition-all flex items-center justify-between ';
 
-                    return (
-                      <button key={idx} onClick={() => handleAnswerQuiz(idx)} className={btnClass}>
-                        <span>{opt}</span>
-                        {selectedOption !== null && isCorrect && (
-                          <CheckCircle2 className="h-5 w-5 text-emerald-500" />
+                      if (selectedOption === null) {
+                        btnClass +=
+                          'bg-muted/30 border-border hover:border-primary/40 text-foreground';
+                      } else if (isCorrect) {
+                        btnClass +=
+                          'bg-emerald-500/15 border-emerald-500/40 text-emerald-600 dark:text-emerald-400 font-bold';
+                      } else if (isSelected) {
+                        btnClass +=
+                          'bg-rose-500/15 border-rose-500/40 text-rose-600 dark:text-rose-400 font-bold';
+                      } else {
+                        btnClass += 'bg-muted/20 border-border text-muted-foreground';
+                      }
+
+                      return (
+                        <button
+                          key={idx}
+                          onClick={() => handleAnswerQuiz(idx)}
+                          className={btnClass}
+                        >
+                          <span>{opt}</span>
+                          {selectedOption !== null && isCorrect && (
+                            <CheckCircle2 className="h-5 w-5 text-emerald-500" />
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {selectedOption !== null && (
+                    <div className="animate-fadeIn space-y-3 rounded-2xl border border-border bg-muted/40 p-4">
+                      <div className="text-xs font-medium text-muted-foreground">
+                        💡 <span className="font-bold text-foreground">Tushuntirish:</span>{' '}
+                        {quizQuestions[quizIndex]?.explanationUzbek}
+                      </div>
+                      <button
+                        onClick={handleNextQuiz}
+                        className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-3 text-sm font-bold text-primary-foreground shadow-xs transition hover:bg-primary/90"
+                      >
+                        Keyingi Savol <ArrowRight className="h-4 w-4" />
+                      </button>
+                    </div>
+                  )}
+                </>
+              ) : (
+                <div className="space-y-5 py-8 text-center">
+                  <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full border border-amber-500/30 bg-amber-500/10 text-2xl font-bold text-amber-600 dark:text-amber-400">
+                    🏆
+                  </div>
+                  <h3 className="font-display text-2xl font-black text-foreground">
+                    Test Yakunlandi!
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    Siz {quizQuestions.length} ta savoldan{' '}
+                    <span className="font-bold text-amber-600 dark:text-amber-400">{score} ta</span>{' '}
+                    to'g'ri javob berdingiz. (+{score * 20} XP)
+                  </p>
+
+                  {missedQuizQuestions.length > 0 && (
+                    <div className="pt-2">
+                      <button
+                        onClick={handleCreateFlashcardsFromMistakes}
+                        disabled={quizFlashcardsSaved}
+                        className={`flex w-full items-center justify-center gap-2 rounded-2xl px-4 py-3.5 text-sm font-bold shadow-xs transition-all ${
+                          quizFlashcardsSaved
+                            ? 'border border-emerald-500/30 bg-emerald-500/15 text-emerald-600 dark:text-emerald-400'
+                            : 'bg-primary text-primary-foreground hover:bg-primary/90'
+                        }`}
+                      >
+                        {quizFlashcardsSaved ? (
+                          <>
+                            <Check className="h-4 w-4" /> Xatolar Fleshkartalarga Qo'shildi!
+                          </>
+                        ) : (
+                          <>
+                            <Plus className="h-4 w-4" /> {missedQuizQuestions.length} ta Xatolarni
+                            Fleshkartaga Aylantirish (Anki SRS)
+                          </>
                         )}
                       </button>
-                    );
-                  })}
-                </div>
-
-                {selectedOption !== null && (
-                  <div className="animate-fadeIn space-y-3 rounded-2xl border border-border bg-muted/40 p-4">
-                    <div className="text-xs font-medium text-muted-foreground">
-                      💡 <span className="font-bold text-foreground">Tushuntirish:</span>{' '}
-                      {quizQuestions[quizIndex]?.explanationUzbek}
                     </div>
-                    <button
-                      onClick={handleNextQuiz}
-                      className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-3 text-sm font-bold text-primary-foreground shadow-xs transition hover:bg-primary/90"
-                    >
-                      Keyingi Savol <ArrowRight className="h-4 w-4" />
-                    </button>
-                  </div>
-                )}
-              </>
-            ) : (
-              <div className="space-y-5 py-8 text-center">
-                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full border border-amber-500/30 bg-amber-500/10 text-2xl font-bold text-[#C9A961]">
-                  🏆
-                </div>
-                <h3 className="font-display text-2xl font-black text-foreground">
-                  Test Yakunlandi!
-                </h3>
-                <p className="text-sm text-muted-foreground">
-                  Siz {quizQuestions.length} ta savoldan{' '}
-                  <span className="font-bold text-[#C9A961]">{score} ta</span> to'g'ri javob
-                  berdingiz. (+{score * 20} XP)
-                </p>
+                  )}
 
-                {missedQuizQuestions.length > 0 && (
                   <div className="pt-2">
                     <button
-                      onClick={handleCreateFlashcardsFromMistakes}
-                      disabled={quizFlashcardsSaved}
-                      className={`flex w-full items-center justify-center gap-2 rounded-2xl px-4 py-3.5 text-sm font-bold shadow-xs transition-all ${
-                        quizFlashcardsSaved
-                          ? 'border border-emerald-500/30 bg-emerald-500/15 text-emerald-600 dark:text-emerald-400'
-                          : 'bg-primary text-primary-foreground hover:bg-primary/90'
-                      }`}
+                      onClick={resetQuiz}
+                      className="rounded-xl border border-border bg-muted px-6 py-3 text-sm font-bold text-foreground transition hover:bg-muted/80"
                     >
-                      {quizFlashcardsSaved ? (
-                        <>
-                          <Check className="h-4 w-4" /> Xatolar Fleshkartalarga Qo'shildi!
-                        </>
-                      ) : (
-                        <>
-                          <Plus className="h-4 w-4" /> {missedQuizQuestions.length} ta Xatolarni
-                          Fleshkartaga Aylantirish (Anki SRS)
-                        </>
-                      )}
+                      Qayta Boshlash
                     </button>
                   </div>
-                )}
-
-                <div className="pt-2">
-                  <button
-                    onClick={resetQuiz}
-                    className="rounded-xl border border-border bg-muted px-6 py-3 text-sm font-bold text-foreground transition hover:bg-muted/80"
-                  >
-                    Qayta Boshlash
-                  </button>
                 </div>
-              </div>
-            )}
-          </div>
+              )}
+            </div>
+          )}
         </div>
       )}
 

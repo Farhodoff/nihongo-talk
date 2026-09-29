@@ -12,6 +12,8 @@ import {
   Award,
   Play,
   RotateCcw,
+  BookMarked,
+  ArrowRight,
 } from 'lucide-react';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { useLanguage } from '../context/LanguageContext';
@@ -26,6 +28,7 @@ import { LearningProgressionService } from '../services/LearningProgressionServi
 import { LearningSignalService } from '../services/LearningSignalService';
 import { MasteryEngine } from '../services/MasteryEngine';
 import { DiagnosticService } from '../services/DiagnosticService';
+import { MistakeVaultService } from '../services/MistakeVaultService';
 import { PersonalLearningGoal, WeeklyLearningPlan, WeeklyEvaluation } from '../types/learningPlan';
 import { generateUUID } from '../utils/uuid';
 import { generatePersonalMilestones } from '../utils/roadmapMilestones';
@@ -70,6 +73,11 @@ export const PersonalPlanPage: React.FC = () => {
   const [evaluating, setEvaluating] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [regenerating, setRegenerating] = useState<boolean>(false);
+  const [mistakeStats, setMistakeStats] = useState(() => MistakeVaultService.getStats(user?.id));
+
+  useEffect(() => {
+    setMistakeStats(MistakeVaultService.getStats(user?.id));
+  }, [user?.id]);
 
   const totalWeeklyTasks = useMemo(() => {
     if (!currentPlan) return 0;
@@ -500,6 +508,23 @@ export const PersonalPlanPage: React.FC = () => {
 
   return (
     <div className="mx-auto max-w-7xl space-y-8 overflow-x-hidden p-3.5 pb-28 duration-200 animate-in fade-in sm:p-4 sm:pb-24 md:p-8 md:pb-12">
+      {/* Canonical next-step notice: Dashboard hero is the single daily decision */}
+      {activeGoal && (
+        <div className="flex flex-col gap-2 rounded-2xl border border-primary/25 bg-primary/5 p-3 text-xs sm:flex-row sm:items-center sm:justify-between sm:p-4">
+          <span className="leading-relaxed text-muted-foreground">
+            <span className="font-bold text-foreground">Kunlik qaror:</span>{' '}
+            {isUz
+              ? 'Har kuni Bosh sahifadagi bitta tavsiyadan boshlang — bu sahifa faqat haftalik reja.'
+              : 'Start each day from the single Home recommendation — this page is only the weekly plan.'}
+          </span>
+          <button
+            onClick={() => navigate('/dashboard')}
+            className="shrink-0 cursor-pointer rounded-xl bg-primary px-3 py-1.5 text-xs font-bold text-primary-foreground transition-all hover:bg-primary/90 active:scale-95"
+          >
+            {isUz ? 'Bosh sahifa' : 'Home'}
+          </button>
+        </div>
+      )}
       {/* WIZARD FLOW */}
       {!activeGoal ? (
         <div className="mx-auto max-w-3xl space-y-8">
@@ -813,7 +838,7 @@ export const PersonalPlanPage: React.FC = () => {
                 <div className="flex items-start gap-3 rounded-2xl border border-amber-500/30 bg-amber-500/10 p-5">
                   <AlertTriangle className="mt-0.5 shrink-0 text-amber-500" size={18} />
                   <div>
-                    <h5 className="text-xs font-black text-[#C9A961]">
+                    <h5 className="text-xs font-black text-amber-600 dark:text-amber-400">
                       {isUz ? 'Agressiv Maqsad Ogohlantirishi' : 'Highly Ambitious Target'}
                     </h5>
                     <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground">
@@ -923,6 +948,107 @@ export const PersonalPlanPage: React.FC = () => {
                   }}
                 />
               </div>
+            </div>
+
+            {/* Weakness & Mistake Vault Remediation Card */}
+            <div className="space-y-4 rounded-3xl border border-border bg-card p-6 shadow-xl">
+              <div className="flex items-center justify-between">
+                <h3 className="flex items-center gap-1.5 text-sm font-black uppercase tracking-wider text-foreground">
+                  <BookMarked size={16} className="text-primary" />
+                  <span>{isUz ? 'Zaifliklar Tahlili (弱点克服)' : 'Weakness Radar & Vault'}</span>
+                </h3>
+                <span
+                  className={`rounded-full px-2.5 py-0.5 text-[10px] font-black uppercase tracking-wider ${
+                    mistakeStats.unresolved > 0
+                      ? 'border border-amber-500/30 bg-amber-500/15 text-amber-600 dark:text-amber-400'
+                      : 'border border-emerald-500/30 bg-emerald-500/15 text-emerald-600 dark:text-emerald-400'
+                  }`}
+                >
+                  {mistakeStats.unresolved > 0
+                    ? `${mistakeStats.unresolved} ta xato`
+                    : isUz
+                      ? 'Barchasi mukammal'
+                      : 'All Mastered'}
+                </span>
+              </div>
+
+              {mistakeStats.unresolved > 0 ? (
+                <div className="space-y-3.5">
+                  <p className="text-xs leading-relaxed text-muted-foreground">
+                    {isUz
+                      ? 'O‘quv rejangiz xatolaringizga moslashadi. Quyidagi kategoriyalarda aniqlangan zaifliklar ustida ishlash tavsiya etiladi:'
+                      : 'Your plan adapts to missed questions. Remediation is active for these areas:'}
+                  </p>
+
+                  <div className="grid grid-cols-2 gap-2 text-xs">
+                    {mistakeStats.byCategory.grammar > 0 && (
+                      <div className="flex items-center justify-between rounded-xl border border-border bg-muted/40 p-2.5">
+                        <span className="font-medium text-muted-foreground">✍️ Bunpou:</span>
+                        <span className="font-black text-rose-500">
+                          {mistakeStats.byCategory.grammar} ta
+                        </span>
+                      </div>
+                    )}
+                    {mistakeStats.byCategory.kanji > 0 && (
+                      <div className="flex items-center justify-between rounded-xl border border-border bg-muted/40 p-2.5">
+                        <span className="font-medium text-muted-foreground">⛩️ Kanji:</span>
+                        <span className="font-black text-amber-500">
+                          {mistakeStats.byCategory.kanji} ta
+                        </span>
+                      </div>
+                    )}
+                    {mistakeStats.byCategory.vocab > 0 && (
+                      <div className="flex items-center justify-between rounded-xl border border-border bg-muted/40 p-2.5">
+                        <span className="font-medium text-muted-foreground">📚 Goi:</span>
+                        <span className="font-black text-blue-500">
+                          {mistakeStats.byCategory.vocab} ta
+                        </span>
+                      </div>
+                    )}
+                    {mistakeStats.byCategory.reading > 0 && (
+                      <div className="flex items-center justify-between rounded-xl border border-border bg-muted/40 p-2.5">
+                        <span className="font-medium text-muted-foreground">📖 Dokkai:</span>
+                        <span className="font-black text-emerald-500">
+                          {mistakeStats.byCategory.reading} ta
+                        </span>
+                      </div>
+                    )}
+                    {mistakeStats.byCategory.listening > 0 && (
+                      <div className="flex items-center justify-between rounded-xl border border-border bg-muted/40 p-2.5">
+                        <span className="font-medium text-muted-foreground">🎧 Choukai:</span>
+                        <span className="font-black text-purple-500">
+                          {mistakeStats.byCategory.listening} ta
+                        </span>
+                      </div>
+                    )}
+                  </div>
+
+                  <button
+                    onClick={() => navigate('/jlpt?tab=mistakes')}
+                    className="flex w-full items-center justify-center gap-2 rounded-2xl bg-primary px-4 py-2.5 text-xs font-black text-primary-foreground transition-all hover:bg-primary/90 active:scale-95"
+                  >
+                    <span>
+                      {isUz ? 'Xatolarni bartaraf etish (Re-test)' : 'Start Mistake Drill'}
+                    </span>
+                    <ArrowRight size={14} />
+                  </button>
+                </div>
+              ) : (
+                <div className="space-y-3 rounded-2xl border border-emerald-500/20 bg-emerald-500/5 p-4 text-center">
+                  <CheckCircle2 size={24} className="mx-auto text-emerald-500" />
+                  <p className="text-xs text-muted-foreground">
+                    {isUz
+                      ? 'Xatolar daftaringiz bo‘sh! Mock imtihon yoki testlar topshirib yangi bilimingizni sinab ko‘ring.'
+                      : 'No unresolved mistakes in your vault! Take a mock exam to test your skills.'}
+                  </p>
+                  <button
+                    onClick={() => navigate('/jlpt?tab=mock')}
+                    className="inline-flex items-center gap-1.5 rounded-xl border border-border bg-card px-3 py-1.5 text-xs font-bold text-foreground transition-all hover:border-primary/40 active:scale-95"
+                  >
+                    <span>{isUz ? '🏆 Mock Imtihon' : '🏆 Take Mock Exam'}</span>
+                  </button>
+                </div>
+              )}
             </div>
 
             {/* Weekly evaluations history */}

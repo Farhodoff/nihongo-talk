@@ -20,13 +20,17 @@ export const JlptSkillsBreakdown: React.FC<JlptSkillsBreakdownProps> = ({
       case 'vocabulary':
         return '/decks';
       case 'kanji':
-        return '/jlpt'; // Has Kanji canvas
+        return '/jlpt?tab=kanji';
       case 'grammar':
-        return '/jlpt'; // Has Bunpou master
+        return '/jlpt?tab=grammar';
+      case 'reading':
+        return '/jlpt?tab=reading';
       case 'listening':
-        return '/jlpt/listening';
+        return '/jlpt?tab=listening';
       case 'speaking':
         return '/coach';
+      case 'moji_goi':
+        return '/jlpt?tab=goi';
       default:
         return '/jlpt';
     }
@@ -35,11 +39,14 @@ export const JlptSkillsBreakdown: React.FC<JlptSkillsBreakdownProps> = ({
   const getPillarIcon = (key: SkillPillarScore['key']) => {
     switch (key) {
       case 'vocabulary':
+      case 'moji_goi':
         return <BookOpen size={18} className="text-indigo-500" />;
       case 'kanji':
         return <PenTool size={18} className="text-amber-500" />;
       case 'grammar':
         return <Sparkles size={18} className="text-rose-500" />;
+      case 'reading':
+        return <BookOpen size={18} className="text-emerald-500" />;
       case 'listening':
         return <Headphones size={18} className="text-sky-500" />;
       case 'speaking':
@@ -98,7 +105,11 @@ export const JlptSkillsBreakdown: React.FC<JlptSkillsBreakdownProps> = ({
         </span>
       </div>
 
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5">
+      <div
+        className={`grid grid-cols-1 gap-3 sm:grid-cols-2 ${
+          pillars.length === 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-5'
+        }`}
+      >
         {pillars.map((pillar) => {
           const badge = getStatusBadge(pillar.status);
           const route = getPillarRoute(pillar.key);

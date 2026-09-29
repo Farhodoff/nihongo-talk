@@ -13,6 +13,7 @@ import { CurriculumLessonResolver, STATIC_CURRICULUM_MAP } from './CurriculumLes
 import { CurriculumService } from './CurriculumService';
 import { LearningPathEngine } from './LearningPathEngine';
 import { PersonalLearningPlanService } from './PersonalLearningPlanService';
+import { MistakeVaultService } from './MistakeVaultService';
 
 import { generateUUID, toDeterministicUUID } from '../utils/uuid';
 import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
@@ -326,9 +327,12 @@ export const PersonalLearningPlanEngine = {
       const allowedRoutes = isJa
         ? [
             `/jlpt?tab=kanji&level=${targetLevelCode}`,
+            `/jlpt?tab=grammar&level=${targetLevelCode}`,
+            `/jlpt?tab=goi&level=${targetLevelCode}`,
             `/jlpt?tab=reading&level=${targetLevelCode}`,
             `/jlpt?tab=listening&level=${targetLevelCode}`,
             `/jlpt?tab=mock&level=${targetLevelCode}`,
+            `/jlpt?tab=mistakes`,
             `/jlpt-writing?level=${targetLevelCode}`,
             '/speaking-coach?lang=ja',
             '/scenarios',
@@ -353,6 +357,28 @@ export const PersonalLearningPlanEngine = {
           severity: w.severity || 'medium',
           reason: w.reason,
         })) || [];
+
+      let mistakeVaultData: {
+        unresolved: number;
+        byCategory: Record<string, number>;
+        topMistakes: string[];
+      } | null = null;
+      if (isJa) {
+        try {
+          const stats = MistakeVaultService.getStats(userId);
+          const topList = MistakeVaultService.getMistakes(userId)
+            .filter((m) => m.status === 'unresolved')
+            .slice(0, 5)
+            .map((m) => `[${m.level} ${m.category}] ${m.questionText.slice(0, 70)}`);
+          if (stats.unresolved > 0) {
+            mistakeVaultData = {
+              unresolved: stats.unresolved,
+              byCategory: stats.byCategory,
+              topMistakes: topList,
+            };
+          }
+        } catch {}
+      }
 
       const systemPrompt = `You are Nihon Talk’s Adaptive Learning Planner for English (IELTS/CEFR) and Japanese (JLPT).
 
@@ -395,6 +421,7 @@ monday, tuesday, wednesday, thursday, friday, saturday, sunday.
 - Weakness weighting: Allocate 60-70% of weekly tasks and study minutes directly to the student's identified weak skills (e.g. Grammar, Dokkai, Choukai, Kanji), and the remaining 30-40% to maintaining strong skills and SRS review.
 - High-severity weak skills must appear at least 3-4 times during the week.
 - Medium-severity weak skills must appear at least 2-3 times.
+- If MISTAKE_VAULT_EVIDENCE contains unresolved mistakes, schedule 1-2 dedicated remediation sessions with route "/jlpt?tab=mistakes" and title format "Xatolar ustida ishlash: [Zaif mavzu]".
 - Strong skills should receive maintenance time, but must not disappear completely if they are relevant to the user’s exam goal.
 - Use diagnostic, mock, SRS, and previous-week evidence as the highest-priority signals.
 
@@ -467,6 +494,9 @@ ${JSON.stringify(state.recentMockScores || 'Oxirgi mock test natijasi mavjud ema
 
 ACTIVE_WEAKNESSES:
 ${JSON.stringify(weaknessesWithSeverity)}
+
+MISTAKE_VAULT_EVIDENCE:
+${mistakeVaultData ? JSON.stringify(mistakeVaultData) : 'No recorded mistakes in vault'}
 
 STRONG_SKILLS:
 ${JSON.stringify(strongSkills)}

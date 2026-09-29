@@ -408,6 +408,18 @@ Return ONLY a raw valid JSON object (no markdown, no backticks) with this struct
 
   return (
     <div className="mx-auto max-w-6xl space-y-8 p-4 pb-16 md:p-8">
+      <div className="flex flex-col gap-2 rounded-2xl border border-border bg-muted/30 p-3 text-xs sm:flex-row sm:items-center sm:justify-between">
+        <span className="leading-relaxed text-muted-foreground">
+          <span className="font-bold text-foreground">AI Lug‘at</span> — yangi so‘z tahlili uchun.
+          Tayyor JLPT ro‘yxatlar Goi bo‘limida.
+        </span>
+        <a
+          href="/jlpt?tab=goi"
+          className="shrink-0 rounded-xl border border-primary/30 bg-primary/10 px-3 py-1.5 text-xs font-bold text-primary transition-all hover:bg-primary/20"
+        >
+          Goi ro‘yxatiga o‘tish
+        </a>
+      </div>
       {/* Header */}
       <div className="flex flex-col items-start justify-between gap-4 border-b border-border pb-6 md:flex-row md:items-center">
         <div className="flex items-center gap-3.5">
@@ -656,32 +668,48 @@ Return ONLY a raw valid JSON object (no markdown, no backticks) with this struct
                 )}
               </div>
 
-              {/* Example Sentences */}
+              {/* Example Sentences — first visible, rest collapsed on mobile */}
               {currentResult.examples.length > 0 && (
                 <div className="space-y-3">
                   <h4 className="text-xs font-bold uppercase tracking-wider text-foreground">
-                    {language === 'ja' ? '実践例文' : 'Kontekstual Misollar (3 ta gap)'}
+                    {language === 'ja'
+                      ? '実践例文'
+                      : `Kontekstual Misollar (${currentResult.examples.length} ta gap)`}
                   </h4>
-                  <div className="space-y-3">
-                    {currentResult.examples.map((ex, i) => (
-                      <div
-                        key={i}
-                        className="space-y-1 rounded-2xl border border-border bg-muted/20 p-4"
-                      >
-                        <p className="text-xs font-bold italic text-foreground">
-                          {i + 1}. "{ex.sentence}"
-                        </p>
-                        <p className="text-[11px] font-medium text-muted-foreground">
-                          ➔ {ex.translation}
-                        </p>
-                      </div>
-                    ))}
+                  <div className="space-y-1 rounded-2xl border border-border bg-muted/20 p-4">
+                    <p className="text-xs font-bold italic text-foreground">
+                      1. "{currentResult.examples[0].sentence}"
+                    </p>
+                    <p className="text-[11px] font-medium text-muted-foreground">
+                      ➔ {currentResult.examples[0].translation}
+                    </p>
                   </div>
+                  {currentResult.examples.length > 1 && (
+                    <details className="rounded-2xl border border-border bg-muted/20">
+                      <summary className="cursor-pointer p-4 text-xs font-bold text-primary">
+                        {language === 'ja'
+                          ? `他の例文 (${currentResult.examples.length - 1}件)`
+                          : `Yana ${currentResult.examples.length - 1} ta misol`}
+                      </summary>
+                      <div className="space-y-3 px-4 pb-4">
+                        {currentResult.examples.slice(1).map((ex, i) => (
+                          <div key={i} className="space-y-1">
+                            <p className="text-xs font-bold italic text-foreground">
+                              {i + 2}. "{ex.sentence}"
+                            </p>
+                            <p className="text-[11px] font-medium text-muted-foreground">
+                              ➔ {ex.translation}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    </details>
+                  )}
                 </div>
               )}
 
-              {/* 1-Click Flashcard Creator Bar (Super Admin only) */}
-              {isSuper && (
+              {/* 1-Click Flashcard Creator Bar — open to all users (Discover -> SRS) */}
+              {
                 <div className="flex flex-col items-center justify-between gap-4 border-t border-border pt-4 sm:flex-row">
                   <div className="flex w-full items-center gap-3 sm:w-auto">
                     <span className="whitespace-nowrap text-xs font-bold text-muted-foreground">
@@ -724,7 +752,7 @@ Return ONLY a raw valid JSON object (no markdown, no backticks) with this struct
                     )}
                   </button>
                 </div>
-              )}
+              }
             </div>
           )}
         </div>

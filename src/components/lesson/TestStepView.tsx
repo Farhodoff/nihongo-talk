@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
-import { Award, CheckCircle2, XCircle, ChevronRight, RotateCcw } from 'lucide-react';
+import { Award, CheckCircle2, XCircle, ChevronRight, RotateCcw, Headphones } from 'lucide-react';
 import { TestQuestion } from '../../types/lesson';
-import { FuriganaText } from '../jlpt/FuriganaText';
+import { FuriganaText, FuriganaMode } from '../jlpt/FuriganaText';
 import { LessonAudioPlayer } from './LessonAudioPlayer';
 
 export interface MissedQuestionInfo {
@@ -34,6 +34,7 @@ export const TestStepView: React.FC<TestStepViewProps> = ({
   const [currentIdx, setCurrentIdx] = useState(0);
   const [isCompleted, setIsCompleted] = useState(false);
   const [attemptSeed, setAttemptSeed] = useState(0);
+  const [furiganaMode, setFuriganaMode] = useState<FuriganaMode>('hover');
 
   // Shuffle options for each question dynamically per attempt
   const activeQuestions = useMemo(() => {
@@ -143,15 +144,73 @@ export const TestStepView: React.FC<TestStepViewProps> = ({
         /* Active Question Card */
         <div className="space-y-4 rounded-2xl border border-border bg-card p-4 shadow-sm sm:space-y-6 sm:rounded-3xl sm:p-6">
           {currentQuestion.audioUrl && (
-            <LessonAudioPlayer
-              key={`audio-${currentQuestion.id}-${currentIdx}`}
-              audioUrl={currentQuestion.audioUrl}
-              audioTitle={currentQuestion.audioTitle || 'Mondai Tinglash Audiosi'}
-            />
+            <div className="space-y-2">
+              <div className="flex items-center justify-between rounded-xl border border-amber-500/25 bg-amber-500/10 px-3 py-1.5 text-amber-700 dark:text-amber-300">
+                <div className="flex items-center gap-2 text-xs font-bold">
+                  <Headphones size={15} className="text-amber-600 dark:text-amber-400" />
+                  <span>Mondai Tinglash Topshirig'i</span>
+                </div>
+                <span className="hidden text-[11px] font-medium text-muted-foreground sm:inline">
+                  Audioni tinglang va to'g'ri javobni tanlang
+                </span>
+              </div>
+              <LessonAudioPlayer
+                key={`audio-${currentQuestion.id}-${currentIdx}`}
+                audioUrl={currentQuestion.audioUrl}
+                audioTitle={currentQuestion.audioTitle || 'Minna no Nihongo Mondai CD Audiosi'}
+              />
+            </div>
           )}
 
+          {/* Prompt Header with Furigana Peek Controls */}
+          <div className="flex items-center justify-between gap-2 border-b border-border/40 pb-2">
+            <span className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
+              {currentQuestion.audioUrl ? '🎧 Savol:' : 'Savol matni:'}
+            </span>
+
+            {/* Furigana Mode Pills */}
+            <div className="flex items-center rounded-lg border border-border/60 bg-muted/40 p-0.5 text-xs font-medium">
+              <button
+                type="button"
+                onClick={() => setFuriganaMode('always')}
+                className={`rounded-md px-2 py-0.5 text-[11px] font-bold transition-all ${
+                  furiganaMode === 'always'
+                    ? 'bg-background text-foreground shadow-xs'
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+                title="Barcha furiganani ko'rsatish"
+              >
+                振 ON
+              </button>
+              <button
+                type="button"
+                onClick={() => setFuriganaMode('hover')}
+                className={`rounded-md px-2 py-0.5 text-[11px] font-bold transition-all ${
+                  furiganaMode === 'hover'
+                    ? 'bg-background text-foreground shadow-xs'
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+                title="Faqat ustiga borganda ko'rsatish"
+              >
+                👁️ Hover
+              </button>
+              <button
+                type="button"
+                onClick={() => setFuriganaMode('never')}
+                className={`rounded-md px-2 py-0.5 text-[11px] font-bold transition-all ${
+                  furiganaMode === 'never'
+                    ? 'bg-background text-foreground shadow-xs'
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+                title="Furiganani yashirish"
+              >
+                🚫 OFF
+              </button>
+            </div>
+          </div>
+
           <div className="break-words text-base font-bold leading-snug text-foreground sm:text-lg md:text-xl">
-            <FuriganaText text={currentQuestion.question} />
+            <FuriganaText text={currentQuestion.question} mode={furiganaMode} />
           </div>
 
           <div
@@ -182,7 +241,7 @@ export const TestStepView: React.FC<TestStepViewProps> = ({
                       {String.fromCharCode(65 + optIdx)}
                     </span>
                     <span className="break-words font-medium leading-relaxed">
-                      <FuriganaText text={opt} />
+                      <FuriganaText text={opt} mode={furiganaMode} />
                     </span>
                   </div>
                   {isSelected && (
@@ -254,9 +313,51 @@ export const TestStepView: React.FC<TestStepViewProps> = ({
 
           {/* Question by Question Review */}
           <div className="space-y-3">
-            <h4 className="text-xs font-black uppercase tracking-wider text-muted-foreground">
-              Savollar Tahlili:
-            </h4>
+            <div className="flex items-center justify-between">
+              <h4 className="text-xs font-black uppercase tracking-wider text-muted-foreground">
+                Savollar Tahlili:
+              </h4>
+
+              {/* Furigana Mode Pills in Review */}
+              <div className="flex items-center rounded-lg border border-border/60 bg-muted/40 p-0.5 text-xs font-medium">
+                <button
+                  type="button"
+                  onClick={() => setFuriganaMode('always')}
+                  className={`rounded-md px-2 py-0.5 text-[11px] font-bold transition-all ${
+                    furiganaMode === 'always'
+                      ? 'bg-background text-foreground shadow-xs'
+                      : 'text-muted-foreground hover:text-foreground'
+                  }`}
+                  title="Barcha furiganani ko'rsatish"
+                >
+                  振 ON
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setFuriganaMode('hover')}
+                  className={`rounded-md px-2 py-0.5 text-[11px] font-bold transition-all ${
+                    furiganaMode === 'hover'
+                      ? 'bg-background text-foreground shadow-xs'
+                      : 'text-muted-foreground hover:text-foreground'
+                  }`}
+                  title="Faqat ustiga borganda ko'rsatish"
+                >
+                  👁️ Hover
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setFuriganaMode('never')}
+                  className={`rounded-md px-2 py-0.5 text-[11px] font-bold transition-all ${
+                    furiganaMode === 'never'
+                      ? 'bg-background text-foreground shadow-xs'
+                      : 'text-muted-foreground hover:text-foreground'
+                  }`}
+                  title="Furiganani yashirish"
+                >
+                  🚫 OFF
+                </button>
+              </div>
+            </div>
 
             {activeQuestions.map((q, qIdx) => {
               const userAnswer = selectedAnswers[qIdx];
@@ -271,7 +372,7 @@ export const TestStepView: React.FC<TestStepViewProps> = ({
                 >
                   <div className="flex items-start justify-between gap-2">
                     <div className="text-xs font-bold text-foreground">
-                      {qIdx + 1}. <FuriganaText text={q.question} />
+                      {qIdx + 1}. <FuriganaText text={q.question} mode={furiganaMode} />
                     </div>
                     {isUserCorrect ? (
                       <span className="flex shrink-0 items-center gap-1 text-xs font-bold text-emerald-500">
@@ -288,19 +389,19 @@ export const TestStepView: React.FC<TestStepViewProps> = ({
                     <div>
                       <span className="font-semibold text-foreground">To'g'ri javob: </span>
                       <span className="font-bold text-emerald-500">
-                        <FuriganaText text={q.options[q.correctAnswerIndex]} />
+                        <FuriganaText text={q.options[q.correctAnswerIndex]} mode={furiganaMode} />
                       </span>
                     </div>
                     {q.explanation && (
                       <div className="mt-0.5 text-[11px] text-muted-foreground">
-                        💡 <FuriganaText text={q.explanation} />
+                        💡 <FuriganaText text={q.explanation} mode={furiganaMode} />
                       </div>
                     )}
                     {q.audioUrl && (
                       <div className="pt-2">
                         <LessonAudioPlayer
                           audioUrl={q.audioUrl}
-                          audioTitle={q.audioTitle || 'Mondai Tinglash Audiosi'}
+                          audioTitle={q.audioTitle || 'Minna no Nihongo Mondai CD Audiosi'}
                           className="!p-2.5 text-xs"
                         />
                       </div>

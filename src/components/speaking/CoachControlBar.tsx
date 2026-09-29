@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Mic,
   HeartPulse,
@@ -7,6 +7,7 @@ import {
   MicOff,
   PhoneOff,
   PhoneCall,
+  Send,
 } from 'lucide-react';
 import AudioVisualizer from './AudioVisualizer';
 
@@ -27,6 +28,7 @@ interface CoachControlBarProps {
   onForceStartListening?: () => void;
   onBargeIn?: () => void;
   isPreparingAudio?: boolean;
+  onSendText?: (text: string) => void;
 }
 
 export const CoachControlBar: React.FC<CoachControlBarProps> = ({
@@ -44,9 +46,18 @@ export const CoachControlBar: React.FC<CoachControlBarProps> = ({
   onForceStartListening,
   onBargeIn,
   isPreparingAudio = false,
+  onSendText,
 }) => {
   const { language } = useLanguage();
   const isJa = language === 'ja';
+  const [textDraft, setTextDraft] = useState('');
+
+  const submitText = (e?: React.FormEvent) => {
+    e?.preventDefault();
+    if (!onSendText || isThinking) return;
+    onSendText(textDraft);
+    setTextDraft('');
+  };
 
   const getStatusInfo = () => {
     if (isSpeaking)
@@ -84,6 +95,30 @@ export const CoachControlBar: React.FC<CoachControlBarProps> = ({
   return (
     <div className="relative z-20 flex-shrink-0 px-3 pb-[max(env(safe-area-inset-bottom),0.75rem)] pt-1 md:px-5 md:pb-3">
       <div className="rounded-2xl border border-border bg-card/90 p-2.5 shadow-xl backdrop-blur-2xl md:p-3">
+        {/* Text fallback — usable when microphone is unavailable */}
+        {isLiveSession && onSendText && (
+          <form onSubmit={submitText} className="mb-2 flex items-center gap-2">
+            <input
+              type="text"
+              value={textDraft}
+              onChange={(e) => setTextDraft(e.target.value)}
+              enterKeyHint="send"
+              autoComplete="off"
+              disabled={isThinking}
+              placeholder={isJa ? 'タイプして送信…' : 'Yozib yuboring…'}
+              aria-label={isJa ? 'テキストで返答' : 'Matn bilan javob berish'}
+              className="h-11 min-w-0 flex-1 rounded-xl border border-border bg-background px-3.5 text-sm text-foreground transition-colors placeholder:text-muted-foreground/60 focus:border-primary focus:outline-none disabled:opacity-50"
+            />
+            <button
+              type="submit"
+              disabled={isThinking || textDraft.trim().length < 2}
+              aria-label={isJa ? '送信' : 'Yuborish'}
+              className="flex h-11 w-11 shrink-0 cursor-pointer items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-md transition-all hover:bg-primary/90 active:scale-95 disabled:opacity-40"
+            >
+              <Send size={16} />
+            </button>
+          </form>
+        )}
         {/* Audio Visualizer Row — Only during live session */}
         {isLiveSession && (
           <div className="mb-2 px-1 sm:mb-2.5 sm:px-2">
@@ -179,7 +214,7 @@ export const CoachControlBar: React.FC<CoachControlBarProps> = ({
                     }
                   }
                 }}
-                className={`flex cursor-pointer items-center gap-1.5 rounded-xl p-2.5 transition-all ${
+                className={`flex min-h-[44px] cursor-pointer items-center gap-1.5 rounded-xl px-3 py-2.5 transition-all ${
                   isMuted
                     ? 'bg-amber-500 text-white shadow-md shadow-amber-500/25'
                     : isSpeaking
@@ -207,13 +242,30 @@ export const CoachControlBar: React.FC<CoachControlBarProps> = ({
                 ) : (
                   <Mic size={16} className={isListening ? 'animate-pulse text-emerald-400' : ''} />
                 )}
-                {isSpeaking ? (
-                  <span className="text-[11px] font-bold text-[#C9A961]">
-                    {isJa ? '中断' : "TO'XTATISH"}
-                  </span>
-                ) : !isListening && !isMuted && !isThinking ? (
-                  <span className="text-[11px] font-bold">{isJa ? '話す' : 'GAPIRISH'}</span>
-                ) : null}
+                <span
+                  className={`text-[11px] font-bold ${isSpeaking ? 'text-[#C9A961]' : ''}`}
+                  aria-live="polite"
+                >
+                  {isSpeaking
+                    ? isJa
+                      ? '中断'
+                      : "TO'XTATISH"
+                    : isListening
+                      ? isJa
+                        ? '聴取中'
+                        : 'ESHITYAPMAN'
+                      : isThinking
+                        ? isJa
+                          ? '思考中'
+                          : 'KUTILMOQDA'
+                        : isMuted
+                          ? isJa
+                            ? 'ミュート'
+                            : "O'CHIQ"
+                          : isJa
+                            ? '話す'
+                            : 'GAPIRISH'}
+                </span>
               </button>
             )}
 

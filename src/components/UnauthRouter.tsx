@@ -30,7 +30,6 @@ const DiagnosticPage = lazyWithRetry(() =>
 const DecksPage = lazyWithRetry(() => import('../pages/DecksPage'));
 const StudyModePage = lazyWithRetry(() => import('../pages/StudyModePage'));
 const FocusPage = lazyWithRetry(() => import('../pages/FocusPage'));
-const JlptWritingPage = lazyWithRetry(() => import('../pages/JlptWritingPage'));
 const ExamTake = lazyWithRetry(() => import('../pages/exams/ExamTake'));
 
 const PageLoader = () => (
@@ -61,8 +60,11 @@ export const UnauthRouter: React.FC = () => (
                 {/* Educational pages wrapped in Layout (with sidebar navigation) */}
                 <Route element={<Layout />}>
                   <Route path="/jlpt" element={<JlptHubPage />} />
-                  <Route path="/speaking" element={<SpeakingCoachPage />} />
                   <Route path="/speaking-coach" element={<SpeakingCoachPage />} />
+                  <Route
+                    path="/speaking"
+                    element={<Navigate to="/speaking-coach?lang=ja" replace />}
+                  />
                   <Route
                     path="/coach"
                     element={<Navigate to="/speaking-coach?lang=ja" replace />}
@@ -72,7 +74,10 @@ export const UnauthRouter: React.FC = () => (
                     path="/jlpt-speaking"
                     element={<Navigate to="/speaking-coach?lang=ja" replace />}
                   />
-                  <Route path="/jlpt-writing" element={<JlptWritingPage />} />
+                  <Route
+                    path="/jlpt-writing"
+                    element={<Navigate to="/jlpt?tab=writing" replace />}
+                  />
                   <Route path="/vocabulary" element={<VocabularyBuilderPage />} />
                   <Route path="/roadmap" element={<RoadmapPage />} />
                   <Route path="/diagnostic" element={<DiagnosticPage />} />
@@ -94,10 +99,21 @@ export const UnauthRouter: React.FC = () => (
                     path="/jlpt/listening"
                     element={<Navigate to="/jlpt?tab=listening" replace />}
                   />
-                  <Route path="/jlpt/grammar" element={<Navigate to="/jlpt?tab=kanji" replace />} />
+                  <Route
+                    path="/jlpt/grammar"
+                    element={<Navigate to="/jlpt?tab=grammar" replace />}
+                  />
                   <Route
                     path="/jlpt/grammar-quiz"
-                    element={<Navigate to="/jlpt?tab=kanji" replace />}
+                    element={<Navigate to="/jlpt?tab=grammar" replace />}
+                  />
+                  <Route
+                    path="/jlpt/writing"
+                    element={<Navigate to="/jlpt?tab=writing" replace />}
+                  />
+                  <Route
+                    path="/jlpt/sakubun"
+                    element={<Navigate to="/jlpt?tab=writing" replace />}
                   />
                   <Route
                     path="/jlpt/reading"
@@ -136,6 +152,10 @@ export const UnauthRouter: React.FC = () => (
                 <Route path="/admin" element={<AuthPage />} />
 
                 {/* Protected routes requiring login */}
+                <Route
+                  path="/flashcards/new"
+                  element={<Navigate to="/auth?redirect=/flashcards" replace />}
+                />
                 <Route
                   path="/dashboard"
                   element={<Navigate to="/auth?redirect=/dashboard" replace />}

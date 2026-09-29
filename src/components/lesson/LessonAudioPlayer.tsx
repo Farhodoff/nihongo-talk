@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Play, Pause, Disc, RotateCcw } from 'lucide-react';
+import { Play, Pause, Disc, RotateCcw, RotateCw, Volume2, VolumeX } from 'lucide-react';
 
 interface LessonAudioPlayerProps {
   audioUrl: string;
   audioTitle?: string;
   className?: string;
+  autoPlay?: boolean;
 }
 
 const formatAudioTime = (seconds: number): string => {
@@ -14,77 +15,94 @@ const formatAudioTime = (seconds: number): string => {
   return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
 };
 
+const PLAYBACK_RATES = [0.8, 1.0, 1.2, 1.5];
+
 export const LessonAudioPlayer: React.FC<LessonAudioPlayerProps> = ({
   audioUrl,
   audioTitle,
   className = '',
+  autoPlay = false,
 }) => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [playbackRate, setPlaybackRate] = useState<number>(1.0);
+  const [isMuted, setIsMuted] = useState(false);
 
-  // Clean up audio on unmount
+  // Initialize and clean up audio on audioUrl change or unmount
   useEffect(() => {
-    return () => {
-      if (audioRef.current) {
-        audioRef.current.pause();
-        audioRef.current.src = '';
-        audioRef.current = null;
-      }
+    if (typeof window === 'undefined' || typeof Audio === 'undefined') return;
+
+    const audio = new Audio(audioUrl);
+    audio.preload = 'metadata';
+    audio.playbackRate = playbackRate;
+    audioRef.current = audio;
+
+    const onLoadedMetadata = () => {
+      setDuration(audio.duration || 0);
     };
-  }, []);
 
-  // Reset when audioUrl changes
-  useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.pause();
-      audioRef.current.src = '';
-      audioRef.current = null;
+    const onTimeUpdate = () => {
+      setCurrentTime(audio.currentTime || 0);
+    };
+
+    const onEnded = () => {
+      setIsPlaying(false);
+      setCurrentTime(0);
+    };
+
+    const onError = (e: Event) => {
+      console.warn('[LessonAudioPlayer] Error loading audio:', audioUrl, e);
+      setIsPlaying(false);
+    };
+
+    audio.addEventListener('loadedmetadata', onLoadedMetadata);
+    audio.addEventListener('timeupdate', onTimeUpdate);
+    audio.addEventListener('ended', onEnded);
+    audio.addEventListener('error', onError);
+
+    if (autoPlay) {
+      const p = audio.play();
+      if (p && typeof p.then === 'function') {
+        p.then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
+      } else {
+        setIsPlaying(true);
+      }
     }
-    setIsPlaying(false);
-    setCurrentTime(0);
-    setDuration(0);
-  }, [audioUrl]);
+
+    return () => {
+      audio.pause();
+      audio.removeEventListener('loadedmetadata', onLoadedMetadata);
+      audio.removeEventListener('timeupdate', onTimeUpdate);
+      audio.removeEventListener('ended', onEnded);
+      audio.removeEventListener('error', onError);
+      audio.src = '';
+      audioRef.current = null;
+    };
+  }, [audioUrl, autoPlay]);
 
   const handleTogglePlay = () => {
     if (!audioRef.current) {
-      const audio = new Audio(audioUrl);
-      audio.playbackRate = playbackRate;
-
-      audio.onloadedmetadata = () => {
-        setDuration(audio.duration || 0);
-      };
-
-      audio.ontimeupdate = () => {
-        setCurrentTime(audio.currentTime || 0);
-      };
-
-      audio.onended = () => {
-        setIsPlaying(false);
-        setCurrentTime(0);
-      };
-
-      audio.onerror = (e) => {
-        console.error('[LessonAudioPlayer] Error loading audio:', audioUrl, e);
-        setIsPlaying(false);
-      };
-
-      audioRef.current = audio;
+      if (typeof window === 'undefined' || typeof Audio === 'undefined') return;
+      audioRef.current = new Audio(audioUrl);
     }
+    const audio = audioRef.current;
+    audio.playbackRate = playbackRate;
 
     if (isPlaying) {
-      audioRef.current.pause();
+      audio.pause();
       setIsPlaying(false);
     } else {
-      audioRef.current
-        .play()
-        .then(() => setIsPlaying(true))
-        .catch((err) => {
+      const p = audio.play();
+      if (p && typeof p.then === 'function') {
+        p.then(() => setIsPlaying(true)).catch((err) => {
           console.warn('[LessonAudioPlayer] Playback was prevented:', err);
           setIsPlaying(false);
         });
+      } else {
+        setIsPlaying(true);
+      }
     }
   };
 
@@ -96,60 +114,86 @@ export const LessonAudioPlayer: React.FC<LessonAudioPlayerProps> = ({
     }
   };
 
-  const handleTogglePlaybackRate = () => {
-    const rates = [1.0, 0.8, 1.2];
-    const nextIdx = (rates.indexOf(playbackRate) + 1) % rates.length;
-    const newRate = rates[nextIdx];
-    setPlaybackRate(newRate);
-    if (audioRef.current) {
-      audioRef.current.playbackRate = newRate;
-    }
+  const handleJump = (delta: number) => {
+    if (!audioRef.current) return;
+    const current = audioRef.current.currentTime || 0;
+    const target = Math.max(0, Math.min(duration || current + delta, current + delta));
+    audioRef.current.currentTime = target;
+    setCurrentTime(target);
   };
 
   const handleReplay = () => {
     if (audioRef.current) {
       audioRef.current.currentTime = 0;
       setCurrentTime(0);
-      if (!isPlaying) {
-        audioRef.current
-          .play()
-          .then(() => setIsPlaying(true))
-          .catch(() => setIsPlaying(false));
+      const p = audioRef.current.play();
+      if (p && typeof p.then === 'function') {
+        p.then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
+      } else {
+        setIsPlaying(true);
       }
     }
   };
 
+  const handleRateChange = (rate: number) => {
+    setPlaybackRate(rate);
+    if (audioRef.current) {
+      audioRef.current.playbackRate = rate;
+    }
+  };
+
+  const handleToggleMute = () => {
+    if (audioRef.current) {
+      audioRef.current.muted = !isMuted;
+      setIsMuted(!isMuted);
+    }
+  };
+
+  const progressPct = duration > 0 ? Math.min(100, Math.max(0, (currentTime / duration) * 100)) : 0;
+
   return (
     <div
-      className={`flex flex-col items-stretch justify-between gap-3 rounded-2xl border border-primary/25 bg-gradient-to-r from-primary/10 via-primary/5 to-card p-3 shadow-sm sm:flex-row sm:items-center sm:p-4 ${className}`}
+      className={`sm:p-4.5 relative overflow-hidden rounded-2xl border border-primary/25 bg-gradient-to-br from-primary/10 via-card to-card p-3.5 shadow-sm transition-all ${className}`}
     >
-      <div className="flex items-center gap-3">
-        <button
-          type="button"
-          onClick={handleTogglePlay}
-          aria-label={isPlaying ? "Audioni to'xtatish" : 'Audioni tinglash'}
-          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-md transition-all hover:scale-105 active:scale-95"
-        >
-          {isPlaying ? <Pause size={20} /> : <Play size={20} className="ml-0.5" />}
-        </button>
-
-        <div className="min-w-0">
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="inline-flex items-center gap-1 rounded-full bg-primary/20 px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wide text-primary">
-              <Disc size={12} className={isPlaying ? 'animate-spin' : ''} />
-              Studiya CD Audiosi
-            </span>
-            <span className="font-mono text-xs font-bold text-muted-foreground">
-              {formatAudioTime(currentTime)} / {formatAudioTime(duration)}
-            </span>
+      {/* Top Row: Track Badge, Title & Timing */}
+      <div className="flex flex-col gap-2.5 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex min-w-0 items-center gap-2.5">
+          <div className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/15 text-primary">
+            <Disc size={20} className={isPlaying ? 'animate-spin' : ''} />
+            {isPlaying && (
+              <span className="absolute -right-0.5 -top-0.5 flex h-2.5 w-2.5">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500" />
+              </span>
+            )}
           </div>
-          <p className="mt-0.5 truncate text-xs font-semibold text-foreground">
-            {audioTitle || 'Minna no Nihongo Mondai Tinglash Audiosi'}
-          </p>
+          <div className="min-w-0">
+            <div className="flex items-center gap-1.5">
+              <span className="inline-flex items-center rounded-md bg-primary/20 px-2 py-0.5 text-[10px] font-black uppercase tracking-wider text-primary">
+                Studiya CD Audiosi
+              </span>
+              <span className="xs:inline hidden text-[11px] font-medium text-muted-foreground">
+                {isPlaying ? 'Ijro etilmoqda...' : 'Tinglashga tayyor'}
+              </span>
+            </div>
+            <p className="mt-0.5 truncate text-xs font-bold text-foreground sm:text-sm">
+              {audioTitle || 'Minna no Nihongo Mondai Tinglash Audiosi'}
+            </p>
+          </div>
+        </div>
+
+        {/* Timestamp */}
+        <div className="flex items-center justify-between gap-2 text-xs sm:justify-end">
+          <span className="font-mono font-bold text-foreground">
+            {formatAudioTime(currentTime)}
+          </span>
+          <span className="font-mono text-muted-foreground">/</span>
+          <span className="font-mono text-muted-foreground">{formatAudioTime(duration)}</span>
         </div>
       </div>
 
-      <div className="flex flex-1 items-center gap-2.5 sm:max-w-xs">
+      {/* Scrubber Progress Slider */}
+      <div className="relative mt-3 flex items-center">
         <input
           type="range"
           min="0"
@@ -157,27 +201,97 @@ export const LessonAudioPlayer: React.FC<LessonAudioPlayerProps> = ({
           step="0.1"
           value={currentTime}
           onChange={handleSeek}
-          className="h-1.5 w-full cursor-pointer appearance-none rounded-lg bg-border accent-primary"
+          className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-secondary accent-primary transition-all hover:h-2.5"
           aria-label="Audio progress slider"
+          style={{
+            background: `linear-gradient(to right, var(--primary, #6366f1) ${progressPct}%, var(--secondary, #27272a) ${progressPct}%)`,
+          }}
         />
+      </div>
 
-        <button
-          type="button"
-          onClick={handleReplay}
-          className="shrink-0 rounded-lg border border-border bg-card p-1.5 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
-          title="Boshidan tinglash"
-        >
-          <RotateCcw size={14} />
-        </button>
+      {/* Bottom Controls Row: Play, Jumps, Speed & Mute */}
+      <div className="mt-3 flex flex-wrap items-center justify-between gap-2 border-t border-border/40 pt-1">
+        {/* Playback Controls */}
+        <div className="flex items-center gap-1.5 sm:gap-2">
+          {/* Main Play/Pause Button */}
+          <button
+            type="button"
+            onClick={handleTogglePlay}
+            aria-label={isPlaying ? "Audioni to'xtatish" : 'Audioni tinglash'}
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-md transition-all hover:scale-105 active:scale-95"
+          >
+            {isPlaying ? <Pause size={18} /> : <Play size={18} className="ml-0.5" />}
+          </button>
 
-        <button
-          type="button"
-          onClick={handleTogglePlaybackRate}
-          className="shrink-0 rounded-lg border border-border bg-card px-2.5 py-1 font-mono text-xs font-bold text-foreground transition-colors hover:bg-secondary"
-          title="Ijro tezligi"
-        >
-          {playbackRate}x
-        </button>
+          {/* Jump -5s */}
+          <button
+            type="button"
+            onClick={() => handleJump(-5)}
+            className="flex h-9 items-center gap-1 rounded-lg border border-border bg-card px-2 text-[11px] font-bold text-foreground transition-all hover:bg-secondary active:scale-95"
+            title="5 soniya orqaga"
+          >
+            <RotateCcw size={13} />
+            <span>-5s</span>
+          </button>
+
+          {/* Jump +5s */}
+          <button
+            type="button"
+            onClick={() => handleJump(5)}
+            className="flex h-9 items-center gap-1 rounded-lg border border-border bg-card px-2 text-[11px] font-bold text-foreground transition-all hover:bg-secondary active:scale-95"
+            title="5 soniya oldinga"
+          >
+            <RotateCw size={13} />
+            <span>+5s</span>
+          </button>
+
+          {/* Replay */}
+          <button
+            type="button"
+            onClick={handleReplay}
+            className="flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-card text-muted-foreground transition-all hover:bg-secondary hover:text-foreground active:scale-95"
+            title="Boshidan tinglash"
+          >
+            <RotateCcw size={14} />
+          </button>
+        </div>
+
+        {/* Speed Pills & Mute */}
+        <div className="flex items-center gap-1.5">
+          <div className="flex items-center rounded-lg border border-border bg-card/60 p-0.5">
+            {PLAYBACK_RATES.map((rate) => {
+              const isSelected = playbackRate === rate;
+              return (
+                <button
+                  key={rate}
+                  type="button"
+                  onClick={() => handleRateChange(rate)}
+                  className={`rounded-md px-2 py-1 font-mono text-[11px] font-bold transition-all ${
+                    isSelected
+                      ? 'bg-primary text-primary-foreground shadow-xs'
+                      : 'text-muted-foreground hover:bg-secondary/60 hover:text-foreground'
+                  }`}
+                  title={`${rate}x tezlik`}
+                >
+                  {rate}x
+                </button>
+              );
+            })}
+          </div>
+
+          <button
+            type="button"
+            onClick={handleToggleMute}
+            className={`flex h-9 w-9 items-center justify-center rounded-lg border transition-all ${
+              isMuted
+                ? 'border-rose-500/40 bg-rose-500/10 text-rose-500'
+                : 'border-border bg-card text-muted-foreground hover:bg-secondary hover:text-foreground'
+            }`}
+            title={isMuted ? 'Ovozni yoqish' : "Ovozni o'chirish"}
+          >
+            {isMuted ? <VolumeX size={15} /> : <Volume2 size={15} />}
+          </button>
+        </div>
       </div>
     </div>
   );

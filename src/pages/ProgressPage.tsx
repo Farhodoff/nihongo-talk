@@ -89,7 +89,7 @@ const ProgressPage: React.FC = () => {
       <div className="no-scrollbar flex items-center gap-2 overflow-x-auto border-b border-border pb-3">
         <button
           onClick={() => setActiveTab('overview')}
-          className={`flex shrink-0 cursor-pointer items-center gap-2 rounded-xl px-4 py-2.5 text-xs font-extrabold transition-all active:scale-95 ${
+          className={`flex min-h-[44px] shrink-0 cursor-pointer items-center gap-2 rounded-xl px-4 py-2.5 text-xs font-extrabold transition-all active:scale-95 ${
             activeTab === 'overview'
               ? 'bg-primary text-primary-foreground shadow-sm'
               : 'bg-muted/40 text-muted-foreground hover:bg-muted'
@@ -100,7 +100,7 @@ const ProgressPage: React.FC = () => {
         </button>
         <button
           onClick={() => setActiveTab('language')}
-          className={`flex shrink-0 cursor-pointer items-center gap-2 rounded-xl px-4 py-2.5 text-xs font-extrabold transition-all active:scale-95 ${
+          className={`flex min-h-[44px] shrink-0 cursor-pointer items-center gap-2 rounded-xl px-4 py-2.5 text-xs font-extrabold transition-all active:scale-95 ${
             activeTab === 'language'
               ? 'bg-primary text-primary-foreground shadow-sm'
               : 'bg-muted/40 text-muted-foreground hover:bg-muted'
@@ -111,7 +111,7 @@ const ProgressPage: React.FC = () => {
         </button>
         <button
           onClick={() => setActiveTab('subjects')}
-          className={`flex shrink-0 cursor-pointer items-center gap-2 rounded-xl px-4 py-2.5 text-xs font-extrabold transition-all active:scale-95 ${
+          className={`flex min-h-[44px] shrink-0 cursor-pointer items-center gap-2 rounded-xl px-4 py-2.5 text-xs font-extrabold transition-all active:scale-95 ${
             activeTab === 'subjects'
               ? 'bg-primary text-primary-foreground shadow-sm'
               : 'bg-muted/40 text-muted-foreground hover:bg-muted'
@@ -122,7 +122,7 @@ const ProgressPage: React.FC = () => {
         </button>
         <button
           onClick={() => setActiveTab('achievements')}
-          className={`flex shrink-0 cursor-pointer items-center gap-2 rounded-xl px-4 py-2.5 text-xs font-extrabold transition-all active:scale-95 ${
+          className={`flex min-h-[44px] shrink-0 cursor-pointer items-center gap-2 rounded-xl px-4 py-2.5 text-xs font-extrabold transition-all active:scale-95 ${
             activeTab === 'achievements'
               ? 'bg-primary text-primary-foreground shadow-sm'
               : 'bg-muted/40 text-muted-foreground hover:bg-muted'

@@ -5,6 +5,7 @@ import {
   ChevronRight,
   Clock,
   Copy,
+  Home,
   Menu,
   Settings as SettingsIcon,
   Mic,
@@ -129,8 +130,9 @@ const Layout: React.FC = () => {
   const navItems: NavItem[] = useMemo(() => {
     const isJa = language === 'ja';
     const isEn = language === 'en';
-    // 100% Japanese (JLPT) Navigation
+    // 100% Japanese (JLPT) Navigation — Dashboard is canonical home (single entry)
     return [
+      { name: isJa ? 'ホーム' : isEn ? 'Home' : 'Bosh sahifa', path: '/dashboard', icon: Home },
       { name: isJa ? 'JLPTマスター' : 'JLPT Master', path: '/jlpt', icon: BookOpen },
       {
         name: isJa ? '個人学習プラン' : isEn ? 'My Study Plan' : 'Shaxsiy Rejam',
@@ -138,22 +140,26 @@ const Layout: React.FC = () => {
         icon: Target,
       },
       {
-        name: isJa ? '単語・語彙分析' : 'Vocabulary',
+        name: isJa ? '単語・語彙分析' : isEn ? 'AI Vocabulary' : 'AI Lug‘at',
         path: '/vocabulary?lang=ja',
         icon: Languages,
       },
       {
-        name: isJa ? '会話シナリオ' : 'Scenarios',
+        name: isJa ? '会話シナリオ' : isEn ? 'Scenarios' : 'Ssenariylar',
         path: '/scenarios?lang=ja',
         icon: MessageSquare,
       },
-      { name: isJa ? 'AIスピーキング' : 'Speaking', path: '/speaking-coach?lang=ja', icon: Mic },
       {
-        name: isJa ? 'フラッシュカード' : isEn ? 'Flashcards' : 'Fleshkard',
+        name: isJa ? 'AIスピーキング' : isEn ? 'Speaking Coach' : 'Speaking',
+        path: '/speaking-coach?lang=ja',
+        icon: Mic,
+      },
+      {
+        name: isJa ? '復習・フラッシュカード' : isEn ? 'Review' : 'Takrorlash',
         path: '/flashcards',
         icon: Copy,
       },
-      { name: isJa ? '集中タイマー' : 'Pomodoro', path: '/focus', icon: Clock },
+      { name: isJa ? '集中タイマー' : isEn ? 'Focus Timer' : 'Fokus', path: '/focus', icon: Clock },
       { name: isJa ? '進捗・分析' : 'Progress', path: '/progress', icon: BarChart3 },
     ];
   }, [language]);
@@ -204,6 +210,7 @@ const Layout: React.FC = () => {
     if (location.pathname.startsWith('/speaking-coach'))
       return isJa ? 'AIスピーキング' : 'Speaking';
     if (location.pathname === '/jlpt') return isJa ? 'JLPTマスター' : 'JLPT Master';
+    if (location.pathname === '/dashboard') return isJa ? 'ホーム' : isEn ? 'Home' : 'Bosh sahifa';
     if (location.pathname === '/progress')
       return isJa
         ? '学習進捗 & アナリティクス'
@@ -218,51 +225,116 @@ const Layout: React.FC = () => {
           : 'Super Admin Paneli';
     if (location.pathname === '/personal-plan')
       return isJa ? '個人学習プラン' : isEn ? 'My Study Plan' : 'Shaxsiy Rejam';
-    if (location.pathname === '/settings') return isJa ? '設定' : isEn ? 'Settings' : 'Sozlamalar';
+    if (location.pathname === '/settings')
+      return isJa ? 'プロフィール・設定' : isEn ? 'Profile & Settings' : 'Profil & Sozlamalar';
     return 'Nihongo Talk';
   };
 
-  const NavLinks = ({ onClick }: { onClick?: () => void }) => (
-    <div className="scrollbar-hide flex-1 space-y-1.5 overflow-y-auto px-3.5 py-3">
-      {/* Direct Flat Menu Items */}
-      {navItems.map((item) => (
-        <NavLink
-          key={item.path}
-          to={item.path}
-          onClick={onClick}
-          aria-label={item.name}
-          className={({ isActive }) =>
-            `group relative flex items-center ${isCollapsed ? 'justify-center' : ''} gap-3.5 rounded-xl px-3.5 py-2.5 text-sm font-medium transition-all duration-200 ${
-              isActive
-                ? 'bg-primary/10 font-bold text-primary shadow-xs'
-                : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
-            }`
-          }
-          title={isCollapsed ? item.name : ''}
-        >
-          {({ isActive }) => (
-            <>
-              {isActive && (
-                <motion.div
-                  layoutId="activeNavIndicator"
-                  className="absolute left-0 h-6 w-1.5 rounded-r-full bg-primary"
-                  transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-                />
+  const getNavGroup = (path: string): string | null => {
+    if (isCollapsed) return null;
+    if (path.startsWith('/dashboard')) return language === 'ja' ? 'ホーム' : 'Asosiy';
+    if (
+      path.startsWith('/jlpt') ||
+      path.startsWith('/vocabulary') ||
+      path.startsWith('/flashcards')
+    )
+      return language === 'ja' ? '学習' : "O'rganish";
+    if (path.startsWith('/scenarios') || path.startsWith('/speaking') || path.startsWith('/focus'))
+      return language === 'ja' ? '練習' : 'Mashq';
+    if (path.startsWith('/personal-plan') || path.startsWith('/progress'))
+      return language === 'ja' ? '計画' : 'Reja';
+    return null;
+  };
+
+  const NavLinks = ({ onClick }: { onClick?: () => void }) => {
+    let lastGroup: string | null = null;
+    return (
+      <div className="scrollbar-hide flex-1 space-y-1.5 overflow-y-auto px-3.5 py-3">
+        {navItems.map((item) => {
+          const group = getNavGroup(item.path);
+          const showLabel = group !== null && group !== lastGroup;
+          lastGroup = group;
+          return (
+            <div key={item.path}>
+              {showLabel && (
+                <div className="px-3.5 pb-1 pt-3 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/70">
+                  {group}
+                </div>
               )}
-              <item.icon
-                size={19}
-                className={`transition-transform duration-200 ${isCollapsed ? '' : 'group-hover:scale-105'} ${isActive ? 'text-primary' : 'text-muted-foreground'}`}
-                strokeWidth={isActive ? 2.5 : 2}
-              />
-              {!isCollapsed && (
-                <span className="truncate font-medium tracking-tight">{item.name}</span>
-              )}
-            </>
-          )}
-        </NavLink>
-      ))}
-    </div>
-  );
+              <NavLink
+                to={item.path}
+                onClick={onClick}
+                aria-label={item.name}
+                className={({ isActive }) =>
+                  `group relative flex items-center ${isCollapsed ? 'justify-center' : ''} gap-3.5 rounded-xl px-3.5 py-2.5 text-sm font-medium transition-all duration-200 ${
+                    isActive
+                      ? 'bg-primary/10 font-bold text-primary shadow-xs'
+                      : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
+                  }`
+                }
+                title={isCollapsed ? item.name : ''}
+              >
+                {({ isActive }) => (
+                  <>
+                    {isActive && (
+                      <motion.div
+                        layoutId="activeNavIndicator"
+                        className="absolute left-0 h-6 w-1.5 rounded-r-full bg-primary"
+                        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                      />
+                    )}
+                    <item.icon
+                      size={19}
+                      className={`transition-transform duration-200 ${isCollapsed ? '' : 'group-hover:scale-105'} ${isActive ? 'text-primary' : 'text-muted-foreground'}`}
+                      strokeWidth={isActive ? 2.5 : 2}
+                    />
+                    {!isCollapsed && (
+                      <span className="truncate font-medium tracking-tight">{item.name}</span>
+                    )}
+                  </>
+                )}
+              </NavLink>
+            </div>
+          );
+        })}
+        {!isCollapsed && (
+          <div className="space-y-1.5 pt-2">
+            <div className="px-3.5 pb-1 pt-2 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/70">
+              {language === 'ja' ? '計画の詳細' : 'Reja tafsiloti'}
+            </div>
+            <NavLink
+              to="/roadmap"
+              onClick={onClick}
+              className={({ isActive }) =>
+                `group relative flex items-center gap-3.5 rounded-xl px-3.5 py-2 text-xs font-medium transition-all duration-200 ${
+                  isActive
+                    ? 'bg-primary/10 font-bold text-primary'
+                    : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
+                }`
+              }
+            >
+              <span aria-hidden>🗺️</span>
+              <span className="truncate">Roadmap</span>
+            </NavLink>
+            <NavLink
+              to="/diagnostic"
+              onClick={onClick}
+              className={({ isActive }) =>
+                `group relative flex items-center gap-3.5 rounded-xl px-3.5 py-2 text-xs font-medium transition-all duration-200 ${
+                  isActive
+                    ? 'bg-primary/10 font-bold text-primary'
+                    : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
+                }`
+              }
+            >
+              <span aria-hidden>🎯</span>
+              <span className="truncate">Diagnostika</span>
+            </NavLink>
+          </div>
+        )}
+      </div>
+    );
+  };
 
   return (
     <div className="flex h-screen w-full max-w-[100vw] flex-col overflow-hidden bg-background font-sans text-foreground transition-colors duration-300 md:flex-row">
@@ -439,17 +511,21 @@ const Layout: React.FC = () => {
               title={
                 isCollapsed
                   ? language === 'ja'
-                    ? '設定'
+                    ? 'プロフィール・設定'
                     : language === 'en'
-                      ? 'Settings'
-                      : 'Sozlamalar'
+                      ? 'Profile & Settings'
+                      : 'Profil & Sozlamalar'
                   : ''
               }
             >
               <SettingsIcon size={16} />
               {!isCollapsed && (
                 <span>
-                  {language === 'ja' ? '設定' : language === 'en' ? 'Settings' : 'Sozlamalar'}
+                  {language === 'ja'
+                    ? 'プロフィール・設定'
+                    : language === 'en'
+                      ? 'Profile & Settings'
+                      : 'Profil & Sozlamalar'}
                 </span>
               )}
             </NavLink>
@@ -481,6 +557,9 @@ const Layout: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
+            // Lift content above the virtual keyboard (var set by useKeyboardOffset).
+            // marginBottom stacks with the class padding instead of overriding it.
+            style={{ marginBottom: 'var(--keyboard-offset, 0px)' }}
             className={`w-full max-w-full overflow-x-hidden ${
               isFullScreenPage
                 ? 'flex h-full flex-col overflow-hidden'
@@ -504,6 +583,11 @@ const Layout: React.FC = () => {
         >
           {[
             {
+              name: language === 'ja' ? 'ホーム' : 'Home',
+              path: '/dashboard',
+              icon: Home,
+            },
+            {
               name: 'JLPT',
               path: '/jlpt',
               icon: BookOpen,
@@ -522,7 +606,7 @@ const Layout: React.FC = () => {
           ].map((item) => {
             const isItemActive =
               location.pathname.startsWith(item.path) ||
-              (item.path === '/jlpt' && location.pathname === '/') ||
+              (item.path === '/dashboard' && location.pathname === '/') ||
               (item.path === '/speaking-coach' && location.pathname.startsWith('/speaking')) ||
               (item.path === '/flashcards' &&
                 (location.pathname.startsWith('/flashcards') ||
@@ -534,14 +618,16 @@ const Layout: React.FC = () => {
                 to={item.path}
                 aria-label={item.name}
                 aria-current={isItemActive ? 'page' : undefined}
-                className={`flex h-12 w-16 cursor-pointer flex-col items-center justify-center rounded-xl p-1 transition-all duration-200 active:scale-95 ${
+                className={`flex h-12 w-14 cursor-pointer flex-col items-center justify-center rounded-xl p-1 transition-all duration-200 active:scale-95 ${
                   isItemActive
                     ? 'bg-primary/10 font-bold text-primary shadow-xs'
                     : 'text-muted-foreground hover:text-foreground'
                 }`}
               >
                 <item.icon size={20} className="mb-1" strokeWidth={isItemActive ? 2.5 : 2} />
-                <span className="text-[10px] font-medium leading-none">{item.name}</span>
+                <span className="max-w-full truncate text-[10px] font-medium leading-none">
+                  {item.name}
+                </span>
               </NavLink>
             );
           })}
@@ -549,15 +635,17 @@ const Layout: React.FC = () => {
           <button
             type="button"
             onClick={() => setSidebarOpen(true)}
-            aria-label="Menyuni ochish"
-            className={`flex h-12 w-16 cursor-pointer flex-col items-center justify-center rounded-xl p-1 transition-all duration-200 active:scale-95 ${
+            aria-label="Barcha bo'limlar"
+            className={`flex h-12 w-14 cursor-pointer flex-col items-center justify-center rounded-xl p-1 transition-all duration-200 active:scale-95 ${
               isSidebarOpen
                 ? 'bg-primary/10 font-bold text-primary shadow-xs'
                 : 'text-muted-foreground hover:text-foreground'
             }`}
           >
             <Menu size={20} className="mb-1" />
-            <span className="text-[10px] font-medium leading-none">Menyu</span>
+            <span className="text-[10px] font-medium leading-none">
+              {language === 'ja' ? 'すべて' : 'Barchasi'}
+            </span>
           </button>
         </nav>
       )}
@@ -614,7 +702,7 @@ const Layout: React.FC = () => {
               }
             >
               <SettingsIcon size={16} className="shrink-0" />
-              <span>{t('nav.settings') || 'Sozlamalar'}</span>
+              <span>{t('nav.settings') || 'Profil & Sozlamalar'}</span>
             </NavLink>
           </div>
         </SheetContent>

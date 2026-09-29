@@ -1,5 +1,5 @@
 import { PracticeExercise, TestQuestion } from '../../types/lesson';
-import rawData from './levels/minnaN4QuizDatabase.json';
+import rawData from './levels/n4/minnaQuizDatabase.json';
 
 export interface LessonQuizSet {
   practice: PracticeExercise[];

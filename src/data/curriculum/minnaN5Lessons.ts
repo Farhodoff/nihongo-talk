@@ -1,5 +1,5 @@
 import { Lesson } from '../../types/lesson';
-import rawData from './levels/minnaN5Lessons.json';
+import rawData from './levels/n5/minnaLessons.json';
 
 export const MINNA_N5_LESSONS: Lesson[] = rawData as unknown as Lesson[];
 export default MINNA_N5_LESSONS;

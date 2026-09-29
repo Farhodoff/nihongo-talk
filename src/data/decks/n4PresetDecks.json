@@ -2350,7 +2350,7 @@
   },
   {
     "id": "jlpt-n4-vocab",
-    "title": "🌸 JLPT N4 Daily Vocabulary (語彙 800)",
+    "title": "🌸 JLPT N4 Daily Vocabulary (語彙 1037)",
     "description": "JLPT N4 darajasining barcha muhim so'zlari (Minna Shokyu 2 va Shin 500 Mon)",
     "level": "N4",
     "icon": "Languages",
@@ -8767,6 +8767,3896 @@
         "level": "N4",
         "type": "vocab",
         "example": "学校で地理を習いました。 (Maktabda geografiyani o'rgandim.)"
+      },
+      {
+        "id": "n4-v649",
+        "front": "あ",
+        "back": "Ah, oh (Ah)",
+        "romaji": "a",
+        "furigana": "あ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "冷たいなあ。"
+      },
+      {
+        "id": "n4-v650",
+        "front": "ああ",
+        "back": "Shunday, unga o'xshash (Like that)",
+        "romaji": "aa",
+        "furigana": "ああ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "ああ悲しい。"
+      },
+      {
+        "id": "n4-v651",
+        "front": "あいさつする",
+        "back": "Salomlashmoq (To greet)",
+        "romaji": "aisatsusuru",
+        "furigana": "あいさつする",
+        "level": "N4",
+        "type": "vocab",
+        "example": ""
+      },
+      {
+        "id": "n4-v652",
+        "front": "あかちゃん",
+        "back": "Chaqaloq, go'dak (Infant)",
+        "romaji": "akachan",
+        "furigana": "あかちゃん",
+        "level": "N4",
+        "type": "vocab",
+        "example": "わたち、あかちゃん。"
+      },
+      {
+        "id": "n4-v653",
+        "front": "アクセサリー",
+        "back": "Aksessuar, taqinchoq (Accessory)",
+        "romaji": "akusesarii",
+        "furigana": "あくせさりー",
+        "level": "N4",
+        "type": "vocab",
+        "example": "彼女は服にアクセサリーを付けている。"
+      },
+      {
+        "id": "n4-v654",
+        "front": "あげる",
+        "back": "Bermoq, tuhfa qilmoq (To give)",
+        "romaji": "ageru",
+        "furigana": "あげる",
+        "level": "N4",
+        "type": "vocab",
+        "example": "してあげる。"
+      },
+      {
+        "id": "n4-v655",
+        "front": "アジア",
+        "back": "Osiyo (Asia)",
+        "romaji": "ajia",
+        "furigana": "あじあ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "日本はアジアにある。"
+      },
+      {
+        "id": "n4-v656",
+        "front": "アナウンサー",
+        "back": "Suxandon, diktor (Announcer)",
+        "romaji": "anaunsaa",
+        "furigana": "あなうんさー",
+        "level": "N4",
+        "type": "vocab",
+        "example": "アナウンサーは早口が出来る。"
+      },
+      {
+        "id": "n4-v657",
+        "front": "アフリカ",
+        "back": "Afrika (Africa)",
+        "romaji": "afurika",
+        "furigana": "あふりか",
+        "level": "N4",
+        "type": "vocab",
+        "example": "南アフリカは遠い。"
+      },
+      {
+        "id": "n4-v658",
+        "front": "アメリカ",
+        "back": "Amerika (America)",
+        "romaji": "amerika",
+        "furigana": "あめりか",
+        "level": "N4",
+        "type": "vocab",
+        "example": "アメリカ出身です。"
+      },
+      {
+        "id": "n4-v659",
+        "front": "アルコール",
+        "back": "Alkogol, spirtli ichimlik (Alcohol)",
+        "romaji": "arukooru",
+        "furigana": "あるこーる",
+        "level": "N4",
+        "type": "vocab",
+        "example": "アルコールは薬物だよ。"
+      },
+      {
+        "id": "n4-v660",
+        "front": "アルバイト",
+        "back": "Qo'shimcha ish, arubaito (Part-time job)",
+        "romaji": "arubaito",
+        "furigana": "あるばいと",
+        "level": "N4",
+        "type": "vocab",
+        "example": "私もアルバイトしたいなあ。"
+      },
+      {
+        "id": "n4-v661",
+        "front": "あんな",
+        "back": "U kabi, shunday (Such)",
+        "romaji": "anna",
+        "furigana": "あんな",
+        "level": "N4",
+        "type": "vocab",
+        "example": "あんな男は嫌よ。"
+      },
+      {
+        "id": "n4-v662",
+        "front": "いじめる",
+        "back": "Mazax qilmoq, xafa qilmoq (To tease)",
+        "romaji": "ijimeru",
+        "furigana": "いじめる",
+        "level": "N4",
+        "type": "vocab",
+        "example": "新人をいじめるな。"
+      },
+      {
+        "id": "n4-v663",
+        "front": "いっぱい",
+        "back": "To'la, ko'p (Full)",
+        "romaji": "ippai",
+        "furigana": "いっぱい",
+        "level": "N4",
+        "type": "vocab",
+        "example": "お腹いっぱい？"
+      },
+      {
+        "id": "n4-v664",
+        "front": "うかがう",
+        "back": "Tashrif buyurmoq (kamtarlik) (To visit)",
+        "romaji": "ukagau",
+        "furigana": "うかがう",
+        "level": "N4",
+        "type": "vocab",
+        "example": ""
+      },
+      {
+        "id": "n4-v665",
+        "front": "うそ",
+        "back": "Yolg'on (A lie)",
+        "romaji": "uso",
+        "furigana": "うそ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "うそを言うな。"
+      },
+      {
+        "id": "n4-v666",
+        "front": "うち",
+        "back": "Ichida, fursatida (Within)",
+        "romaji": "uchi",
+        "furigana": "うち",
+        "level": "N4",
+        "type": "vocab",
+        "example": "うちの旦那。"
+      },
+      {
+        "id": "n4-v667",
+        "front": "うまい",
+        "back": "Mazali, epchil (Delicious)",
+        "romaji": "umai",
+        "furigana": "うまい",
+        "level": "N4",
+        "type": "vocab",
+        "example": "料理うまいね。"
+      },
+      {
+        "id": "n4-v668",
+        "front": "うれしい",
+        "back": "Xursand, baxtiyor (Glad)",
+        "romaji": "ureshii",
+        "furigana": "うれしい",
+        "level": "N4",
+        "type": "vocab",
+        "example": "会えてうれしいよ。"
+      },
+      {
+        "id": "n4-v669",
+        "front": "うん",
+        "back": "Ha (og'zaki) ((informal) yes)",
+        "romaji": "un",
+        "furigana": "うん",
+        "level": "N4",
+        "type": "vocab",
+        "example": "うん、君は？"
+      },
+      {
+        "id": "n4-v670",
+        "front": "エスカレーター",
+        "back": "Eskalator (Escalator)",
+        "romaji": "esukareetaa",
+        "furigana": "えすかれーたー",
+        "level": "N4",
+        "type": "vocab",
+        "example": "エスカレーターはどこですか？"
+      },
+      {
+        "id": "n4-v671",
+        "front": "おいでになる",
+        "back": "Tashrif buyurmoq (hurmat) ((respectful) to be)",
+        "romaji": "oideninaru",
+        "furigana": "おいでになる",
+        "level": "N4",
+        "type": "vocab",
+        "example": ""
+      },
+      {
+        "id": "n4-v672",
+        "front": "オートバイ",
+        "back": "Mototsikl (Motorcycle)",
+        "romaji": "ootobai",
+        "furigana": "おーとばい",
+        "level": "N4",
+        "type": "vocab",
+        "example": "オートバイを買うんだ。"
+      },
+      {
+        "id": "n4-v673",
+        "front": "おかげ",
+        "back": "Sharofati bilan, tufayli (Owing to)",
+        "romaji": "okage",
+        "furigana": "おかげ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "おかげでほぼ完徹だ。"
+      },
+      {
+        "id": "n4-v674",
+        "front": "おかしい",
+        "back": "G'alati, kulgili (Strange or funny)",
+        "romaji": "okashii",
+        "furigana": "おかしい",
+        "level": "N4",
+        "type": "vocab",
+        "example": "何かがおかしい。"
+      },
+      {
+        "id": "n4-v675",
+        "front": "おつり",
+        "back": "Qaytim, mayda pul (Change from purchase, balance)",
+        "romaji": "otsuri",
+        "furigana": "おつり",
+        "level": "N4",
+        "type": "vocab",
+        "example": "はい、おつりです。"
+      },
+      {
+        "id": "n4-v676",
+        "front": "おもちゃ",
+        "back": "O'yinchoq (Toy)",
+        "romaji": "omocha",
+        "furigana": "おもちゃ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "おもちゃ、直して。"
+      },
+      {
+        "id": "n4-v677",
+        "front": "お金持ち",
+        "back": "Boy odam, badavlat (Rich man)",
+        "romaji": "okanemochi",
+        "furigana": "おかねもち",
+        "level": "N4",
+        "type": "vocab",
+        "example": "お金持ちになりたい。"
+      },
+      {
+        "id": "n4-v678",
+        "front": "お祭り",
+        "back": "Festival, sayil (Festival)",
+        "romaji": "omatsuri",
+        "furigana": "おまつり",
+        "level": "N4",
+        "type": "vocab",
+        "example": "彼らはお祭りを中止した。"
+      },
+      {
+        "id": "n4-v679",
+        "front": "お嬢さん",
+        "back": "Birovning qizi, xonim (Young lady)",
+        "romaji": "ojousan",
+        "furigana": "おじょうさん",
+        "level": "N4",
+        "type": "vocab",
+        "example": "お嬢さんのお名前は？"
+      },
+      {
+        "id": "n4-v680",
+        "front": "お宅",
+        "back": "Uyingiz (hurmat) ((polite) your house)",
+        "romaji": "otaku",
+        "furigana": "おたく",
+        "level": "N4",
+        "type": "vocab",
+        "example": "明日お宅に伺います。"
+      },
+      {
+        "id": "n4-v681",
+        "front": "お土産",
+        "back": "Esdalik sovg'a (Souvenir)",
+        "romaji": "omiyage",
+        "furigana": "おみやげ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "これはお土産です。"
+      },
+      {
+        "id": "n4-v682",
+        "front": "お礼",
+        "back": "Tashakkur, minnatdorchilik (Expression of gratitude)",
+        "romaji": "orei",
+        "furigana": "おれい",
+        "level": "N4",
+        "type": "vocab",
+        "example": "お礼状のカードです。"
+      },
+      {
+        "id": "n4-v683",
+        "front": "カーテン",
+        "back": "Parda (Curtain)",
+        "romaji": "kaaten",
+        "furigana": "かーてん",
+        "level": "N4",
+        "type": "vocab",
+        "example": "カーテン閉めて。"
+      },
+      {
+        "id": "n4-v684",
+        "front": "ガソリン",
+        "back": "Benzin (Petrol)",
+        "romaji": "gasorin",
+        "furigana": "がそりん",
+        "level": "N4",
+        "type": "vocab",
+        "example": "ガソリン臭いよ。"
+      },
+      {
+        "id": "n4-v685",
+        "front": "ガソリンスタンド",
+        "back": "Yoqilg'i quyish shoxobchasi (Petrol station)",
+        "romaji": "gasorinsutando",
+        "furigana": "がそりんすたんど",
+        "level": "N4",
+        "type": "vocab",
+        "example": "次のガソリンスタンドに寄ろう。"
+      },
+      {
+        "id": "n4-v686",
+        "front": "かっこう",
+        "back": "Ko'rinish, qiyofa (Appearance)",
+        "romaji": "kakkou",
+        "furigana": "かっこう",
+        "level": "N4",
+        "type": "vocab",
+        "example": ""
+      },
+      {
+        "id": "n4-v687",
+        "front": "かまう",
+        "back": "E'tibor bermoq, parvo qilmoq (To mind)",
+        "romaji": "kamau",
+        "furigana": "かまう",
+        "level": "N4",
+        "type": "vocab",
+        "example": ""
+      },
+      {
+        "id": "n4-v688",
+        "front": "きっと",
+        "back": "Albatta, shubhasiz (Surely)",
+        "romaji": "kitto",
+        "furigana": "きっと",
+        "level": "N4",
+        "type": "vocab",
+        "example": "彼はきっと来る。"
+      },
+      {
+        "id": "n4-v689",
+        "front": "くださる",
+        "back": "(respectful) to give",
+        "romaji": "kudasaru",
+        "furigana": "くださる",
+        "level": "N4",
+        "type": "vocab",
+        "example": "最寄駅で降ろしてくださる？"
+      },
+      {
+        "id": "n4-v690",
+        "front": "くれる",
+        "back": "To give",
+        "romaji": "kureru",
+        "furigana": "くれる",
+        "level": "N4",
+        "type": "vocab",
+        "example": "してくれる？"
+      },
+      {
+        "id": "n4-v691",
+        "front": "ケーキ",
+        "back": "Cake",
+        "romaji": "keeki",
+        "furigana": "けーき",
+        "level": "N4",
+        "type": "vocab",
+        "example": "ケーキは嘘だ。"
+      },
+      {
+        "id": "n4-v692",
+        "front": "けがする",
+        "back": "To injure",
+        "romaji": "kegasuru",
+        "furigana": "けがする",
+        "level": "N4",
+        "type": "vocab",
+        "example": ""
+      },
+      {
+        "id": "n4-v693",
+        "front": "けれど/けれども",
+        "back": "However",
+        "romaji": "keredo / keredomo",
+        "furigana": "けれど/けれども",
+        "level": "N4",
+        "type": "vocab",
+        "example": ""
+      },
+      {
+        "id": "n4-v694",
+        "front": "けんかする",
+        "back": "To quarrel",
+        "romaji": "kenkasuru",
+        "furigana": "けんかする",
+        "level": "N4",
+        "type": "vocab",
+        "example": "私はよく彼女とけんかする。"
+      },
+      {
+        "id": "n4-v695",
+        "front": "こう",
+        "back": "This way",
+        "romaji": "kou",
+        "furigana": "こう",
+        "level": "N4",
+        "type": "vocab",
+        "example": "車で行こう。"
+      },
+      {
+        "id": "n4-v696",
+        "front": "ごちそう",
+        "back": "A feast",
+        "romaji": "gochisou",
+        "furigana": "ごちそう",
+        "level": "N4",
+        "type": "vocab",
+        "example": "ごちそうさま。"
+      },
+      {
+        "id": "n4-v697",
+        "front": "こと",
+        "back": "Thing, matter",
+        "romaji": "koto",
+        "furigana": "こと",
+        "level": "N4",
+        "type": "vocab",
+        "example": "何てことだ！"
+      },
+      {
+        "id": "n4-v698",
+        "front": "このあいだ",
+        "back": "Ah, oh (The other day, recently)",
+        "romaji": "konoaida",
+        "furigana": "このあいだ",
+        "level": "N4",
+        "type": "vocab",
+        "example": ""
+      },
+      {
+        "id": "n4-v699",
+        "front": "このごろ",
+        "back": "These days, nowadays",
+        "romaji": "konogoro",
+        "furigana": "このごろ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "このごろ暖かい日が多い。"
+      },
+      {
+        "id": "n4-v700",
+        "front": "ごらんになる",
+        "back": "(respectful) to see",
+        "romaji": "goranninaru",
+        "furigana": "ごらんになる",
+        "level": "N4",
+        "type": "vocab",
+        "example": ""
+      },
+      {
+        "id": "n4-v701",
+        "front": "これから",
+        "back": "After this",
+        "romaji": "korekara",
+        "furigana": "これから",
+        "level": "N4",
+        "type": "vocab",
+        "example": "これから帰ります。"
+      },
+      {
+        "id": "n4-v702",
+        "front": "コンサート",
+        "back": "Concert",
+        "romaji": "konsaato",
+        "furigana": "こんさーと",
+        "level": "N4",
+        "type": "vocab",
+        "example": "コンサートよかった？"
+      },
+      {
+        "id": "n4-v703",
+        "front": "コンピュータ/コンピューター",
+        "back": "Computer",
+        "romaji": "konpyuuta / konpyuutaa",
+        "furigana": "こんぴゅーた/こんぴゅーたー",
+        "level": "N4",
+        "type": "vocab",
+        "example": ""
+      },
+      {
+        "id": "n4-v704",
+        "front": "ご存じ",
+        "back": "Knowing, acquaintance",
+        "romaji": "gozonji",
+        "furigana": "ごぞんじ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "ご存じだった？"
+      },
+      {
+        "id": "n4-v705",
+        "front": "さっき",
+        "back": "Some time ago",
+        "romaji": "sakki",
+        "furigana": "さっき",
+        "level": "N4",
+        "type": "vocab",
+        "example": "さっき何かあった？"
+      },
+      {
+        "id": "n4-v706",
+        "front": "サラダ",
+        "back": "Salad",
+        "romaji": "sarada",
+        "furigana": "さらだ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "サラダ、美味しい？"
+      },
+      {
+        "id": "n4-v707",
+        "front": "サンダル",
+        "back": "Sandal",
+        "romaji": "sandaru",
+        "furigana": "さんだる",
+        "level": "N4",
+        "type": "vocab",
+        "example": "サンダルを買った。"
+      },
+      {
+        "id": "n4-v708",
+        "front": "サンドイッチ",
+        "back": "Sandwich",
+        "romaji": "sandoitchi",
+        "furigana": "さんどいっち",
+        "level": "N4",
+        "type": "vocab",
+        "example": "サンドイッチはいかが？"
+      },
+      {
+        "id": "n4-v709",
+        "front": "さ来月",
+        "back": "The month after next",
+        "romaji": "saraigetsu",
+        "furigana": "さらいげつ",
+        "level": "N4",
+        "type": "vocab",
+        "example": ""
+      },
+      {
+        "id": "n4-v710",
+        "front": "さ来週",
+        "back": "The week after next",
+        "romaji": "saraishuu",
+        "furigana": "さらいしゅう",
+        "level": "N4",
+        "type": "vocab",
+        "example": ""
+      },
+      {
+        "id": "n4-v711",
+        "front": "しかる",
+        "back": "A particular",
+        "romaji": "shikaru",
+        "furigana": "しかる",
+        "level": "N4",
+        "type": "vocab",
+        "example": ""
+      },
+      {
+        "id": "n4-v712",
+        "front": "しっかり",
+        "back": "Mahkam, jiddiy (Firmly, steadily)",
+        "romaji": "shikkari",
+        "furigana": "しっかり",
+        "level": "N4",
+        "type": "vocab",
+        "example": "しっかりしろ。"
+      },
+      {
+        "id": "n4-v713",
+        "front": "しばらく",
+        "back": "Biroz muddat (Little while)",
+        "romaji": "shibaraku",
+        "furigana": "しばらく",
+        "level": "N4",
+        "type": "vocab",
+        "example": "しばらくね。"
+      },
+      {
+        "id": "n4-v714",
+        "front": "じゃま",
+        "back": "Hindrance, intrusion",
+        "romaji": "jama",
+        "furigana": "じゃま",
+        "level": "N4",
+        "type": "vocab",
+        "example": "じゃまたね。"
+      },
+      {
+        "id": "n4-v715",
+        "front": "ジャム",
+        "back": "Jam",
+        "romaji": "jamu",
+        "furigana": "じゃむ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "苺はジャムにできるよ。"
+      },
+      {
+        "id": "n4-v716",
+        "front": "ずいぶん",
+        "back": "Extremely",
+        "romaji": "zuibun",
+        "furigana": "ずいぶん",
+        "level": "N4",
+        "type": "vocab",
+        "example": "ずいぶんと古いな。"
+      },
+      {
+        "id": "n4-v717",
+        "front": "スーツ",
+        "back": "Suit",
+        "romaji": "suutsu",
+        "furigana": "すーつ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "スーツに着替えなさい。"
+      },
+      {
+        "id": "n4-v718",
+        "front": "スーツケース",
+        "back": "Suitcase",
+        "romaji": "suutsukeesu",
+        "furigana": "すーつけーす",
+        "level": "N4",
+        "type": "vocab",
+        "example": "そのスーツケース重い？"
+      },
+      {
+        "id": "n4-v719",
+        "front": "すく",
+        "back": "To become empty",
+        "romaji": "suku",
+        "furigana": "すく",
+        "level": "N4",
+        "type": "vocab",
+        "example": "彼女は肩をすくめた。"
+      },
+      {
+        "id": "n4-v720",
+        "front": "スクリーン",
+        "back": "Screen",
+        "romaji": "sukuriin",
+        "furigana": "すくりーん",
+        "level": "N4",
+        "type": "vocab",
+        "example": "トムはスクリーンに釘付けだった。"
+      },
+      {
+        "id": "n4-v721",
+        "front": "すっと",
+        "back": "Birdaniga, yengil (Straight, all of a sudden)",
+        "romaji": "sutto",
+        "furigana": "すっと",
+        "level": "N4",
+        "type": "vocab",
+        "example": ""
+      },
+      {
+        "id": "n4-v722",
+        "front": "ステーキ",
+        "back": "Steak",
+        "romaji": "suteeki",
+        "furigana": "すてーき",
+        "level": "N4",
+        "type": "vocab",
+        "example": "ステーキ食べたい。"
+      },
+      {
+        "id": "n4-v723",
+        "front": "ステレオ",
+        "back": "Stereo",
+        "romaji": "sutereo",
+        "furigana": "すてれお",
+        "level": "N4",
+        "type": "vocab",
+        "example": "ステレオの音、小さくしてよ。"
+      },
+      {
+        "id": "n4-v724",
+        "front": "すばらしい",
+        "back": "Ajoyib, qoyilmaqom (Wonderful)",
+        "romaji": "subarashii",
+        "furigana": "すばらしい",
+        "level": "N4",
+        "type": "vocab",
+        "example": "まあ、すばらしいわ。"
+      },
+      {
+        "id": "n4-v725",
+        "front": "すり",
+        "back": "Pickpocket",
+        "romaji": "suri",
+        "furigana": "すり",
+        "level": "N4",
+        "type": "vocab",
+        "example": "靴がすり減った。"
+      },
+      {
+        "id": "n4-v726",
+        "front": "すると",
+        "back": "Then",
+        "romaji": "suruto",
+        "furigana": "すると",
+        "level": "N4",
+        "type": "vocab",
+        "example": "彼は遅刻すると思う。"
+      },
+      {
+        "id": "n4-v727",
+        "front": "ぜひ",
+        "back": "Without fail",
+        "romaji": "zehi",
+        "furigana": "ぜひ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "ぜひそうしよう。"
+      },
+      {
+        "id": "n4-v728",
+        "front": "ぜんぜん",
+        "back": "Not entirely (used in a negative sentence)",
+        "romaji": "zenzen",
+        "furigana": "ぜんぜん",
+        "level": "N4",
+        "type": "vocab",
+        "example": "ぜんぜん気にしない。"
+      },
+      {
+        "id": "n4-v729",
+        "front": "そう",
+        "back": "Really",
+        "romaji": "sou",
+        "furigana": "そう",
+        "level": "N4",
+        "type": "vocab",
+        "example": "本当にそう。"
+      },
+      {
+        "id": "n4-v730",
+        "front": "ソフト",
+        "back": "Soft",
+        "romaji": "sofuto",
+        "furigana": "そふと",
+        "level": "N4",
+        "type": "vocab",
+        "example": "ソフトクリーム食べたい。"
+      },
+      {
+        "id": "n4-v731",
+        "front": "それほど",
+        "back": "U darajada emas (To that extent)",
+        "romaji": "sorehodo",
+        "furigana": "それほど",
+        "level": "N4",
+        "type": "vocab",
+        "example": "それほど簡単ではない。"
+      },
+      {
+        "id": "n4-v732",
+        "front": "そろそろ",
+        "back": "Asta-sekin, vaqt bo'ldi (Gradually, soon)",
+        "romaji": "sorosoro",
+        "furigana": "そろそろ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "そろそろ時間だ。"
+      },
+      {
+        "id": "n4-v733",
+        "front": "そんな",
+        "back": "Bunday, shunaqa (That sort of)",
+        "romaji": "sonna",
+        "furigana": "そんな",
+        "level": "N4",
+        "type": "vocab",
+        "example": "そんな馬鹿な。"
+      },
+      {
+        "id": "n4-v734",
+        "front": "そんなに",
+        "back": "Bunday, shunaqa (So much, like that)",
+        "romaji": "sonnani",
+        "furigana": "そんなに",
+        "level": "N4",
+        "type": "vocab",
+        "example": "そんなに騒ぐな。"
+      },
+      {
+        "id": "n4-v735",
+        "front": "たいてい",
+        "back": "Usually",
+        "romaji": "taitei",
+        "furigana": "たいてい",
+        "level": "N4",
+        "type": "vocab",
+        "example": ""
+      },
+      {
+        "id": "n4-v736",
+        "front": "タイプ",
+        "back": "Type, style",
+        "romaji": "taipu",
+        "furigana": "たいぷ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "彼って私のタイプ！"
+      },
+      {
+        "id": "n4-v737",
+        "front": "だから",
+        "back": "So, therefore",
+        "romaji": "dakara",
+        "furigana": "だから",
+        "level": "N4",
+        "type": "vocab",
+        "example": "だから何なの？"
+      },
+      {
+        "id": "n4-v738",
+        "front": "だめ",
+        "back": "No good",
+        "romaji": "dame",
+        "furigana": "だめ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "もうだめだ。"
+      },
+      {
+        "id": "n4-v739",
+        "front": "チェックする",
+        "back": "To check",
+        "romaji": "chekku suru",
+        "furigana": "ちぇっくする",
+        "level": "N4",
+        "type": "vocab",
+        "example": "私は仕事を一つ終えるごとにリストの上でチェックする。"
+      },
+      {
+        "id": "n4-v740",
+        "front": "ちっとも",
+        "back": "Not at all (used with a negative verb)",
+        "romaji": "chittomo",
+        "furigana": "ちっとも",
+        "level": "N4",
+        "type": "vocab",
+        "example": "ちっとも構いませんよ。"
+      },
+      {
+        "id": "n4-v741",
+        "front": "ちゃん",
+        "back": "Suffix for familiar female person",
+        "romaji": "chan",
+        "furigana": "ちゃん",
+        "level": "N4",
+        "type": "vocab",
+        "example": "ちゃんとやって。"
+      },
+      {
+        "id": "n4-v742",
+        "front": "つき",
+        "back": "Moon",
+        "romaji": "tsuki",
+        "furigana": "つき",
+        "level": "N4",
+        "type": "vocab",
+        "example": "落ちつきな。"
+      },
+      {
+        "id": "n4-v743",
+        "front": "つもり",
+        "back": "Niyat, reja (Intention)",
+        "romaji": "tsumori",
+        "furigana": "つもり",
+        "level": "N4",
+        "type": "vocab",
+        "example": "何するつもり？"
+      },
+      {
+        "id": "n4-v744",
+        "front": "テキスト",
+        "back": "Text, text book",
+        "romaji": "tekisuto",
+        "furigana": "てきすと",
+        "level": "N4",
+        "type": "vocab",
+        "example": "どのテキスト使ってるの？"
+      },
+      {
+        "id": "n4-v745",
+        "front": "テニス",
+        "back": "Tennis",
+        "romaji": "tenisu",
+        "furigana": "てにす",
+        "level": "N4",
+        "type": "vocab",
+        "example": "テニスは得意？"
+      },
+      {
+        "id": "n4-v746",
+        "front": "とこや",
+        "back": "Barber",
+        "romaji": "tokoya",
+        "furigana": "とこや",
+        "level": "N4",
+        "type": "vocab",
+        "example": ""
+      },
+      {
+        "id": "n4-v747",
+        "front": "なるほど",
+        "back": "Now i understand",
+        "romaji": "naruhodo",
+        "furigana": "なるほど",
+        "level": "N4",
+        "type": "vocab",
+        "example": "なるほどね。"
+      },
+      {
+        "id": "n4-v748",
+        "front": "ぬれる",
+        "back": "Ho'l bo'lmoq (To get wet)",
+        "romaji": "nureru",
+        "furigana": "ぬれる",
+        "level": "N4",
+        "type": "vocab",
+        "example": "足がぬれると、風邪をひくよ。"
+      },
+      {
+        "id": "n4-v749",
+        "front": "ねだん",
+        "back": "Narx, qiymat (Price)",
+        "romaji": "nedan",
+        "furigana": "ねだん",
+        "level": "N4",
+        "type": "vocab",
+        "example": ""
+      },
+      {
+        "id": "n4-v750",
+        "front": "ねっしん",
+        "back": "Enthusiasm",
+        "romaji": "nesshin",
+        "furigana": "ねっしん",
+        "level": "N4",
+        "type": "vocab",
+        "example": ""
+      },
+      {
+        "id": "n4-v751",
+        "front": "のど",
+        "back": "Throat",
+        "romaji": "nodo",
+        "furigana": "のど",
+        "level": "N4",
+        "type": "vocab",
+        "example": "のど渇いた。"
+      },
+      {
+        "id": "n4-v752",
+        "front": "パート",
+        "back": "Part time",
+        "romaji": "paato",
+        "furigana": "ぱーと",
+        "level": "N4",
+        "type": "vocab",
+        "example": "いいアパートね。"
+      },
+      {
+        "id": "n4-v753",
+        "front": "はず",
+        "back": "It should be so",
+        "romaji": "hazu",
+        "furigana": "はず",
+        "level": "N4",
+        "type": "vocab",
+        "example": "君はずぶぬれだ。"
+      },
+      {
+        "id": "n4-v754",
+        "front": "パソコン",
+        "back": "Shaxsiy kompyuter (Personal computer)",
+        "romaji": "pasokon",
+        "furigana": "ぱそこん",
+        "level": "N4",
+        "type": "vocab",
+        "example": "パソコンしたよ。"
+      },
+      {
+        "id": "n4-v755",
+        "front": "ハンドバッグ",
+        "back": "Handbag",
+        "romaji": "handobaggu",
+        "furigana": "はんどばっぐ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "そのハンドバッグ、私の。"
+      },
+      {
+        "id": "n4-v756",
+        "front": "ピアノ",
+        "back": "Ah, oh (Piano)",
+        "romaji": "piano",
+        "furigana": "ぴあの",
+        "level": "N4",
+        "type": "vocab",
+        "example": "ピアノは好き？"
+      },
+      {
+        "id": "n4-v757",
+        "front": "ひげ",
+        "back": "Soqol, mo'ylov (Beard)",
+        "romaji": "hige",
+        "furigana": "ひげ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "昨日ひげ剃った？"
+      },
+      {
+        "id": "n4-v758",
+        "front": "びっくりする",
+        "back": "To be surprised",
+        "romaji": "bikkurisuru",
+        "furigana": "びっくりする",
+        "level": "N4",
+        "type": "vocab",
+        "example": "トムは絶対びっくりするよ。"
+      },
+      {
+        "id": "n4-v759",
+        "front": "ひどい",
+        "back": "Dahshatli, shafqatsiz (Awful)",
+        "romaji": "hidoi",
+        "furigana": "ひどい",
+        "level": "N4",
+        "type": "vocab",
+        "example": "ひどい天気！"
+      },
+      {
+        "id": "n4-v760",
+        "front": "ビル",
+        "back": "Building or bill",
+        "romaji": "biru",
+        "furigana": "びる",
+        "level": "N4",
+        "type": "vocab",
+        "example": "ねえ、ビル。"
+      },
+      {
+        "id": "n4-v761",
+        "front": "ファックス",
+        "back": "Fax",
+        "romaji": "fakkusu",
+        "furigana": "ふぁっくす",
+        "level": "N4",
+        "type": "vocab",
+        "example": "ファックスしなきゃ。"
+      },
+      {
+        "id": "n4-v762",
+        "front": "ぶどう",
+        "back": "Grapes",
+        "romaji": "budou",
+        "furigana": "ぶどう",
+        "level": "N4",
+        "type": "vocab",
+        "example": "ぶどう酒がありません。"
+      },
+      {
+        "id": "n4-v763",
+        "front": "プレゼント",
+        "back": "Sovg'a (Present)",
+        "romaji": "purezento",
+        "furigana": "ぷれぜんと",
+        "level": "N4",
+        "type": "vocab",
+        "example": "プレゼントをどうぞ。"
+      },
+      {
+        "id": "n4-v764",
+        "front": "ベル",
+        "back": "Bell",
+        "romaji": "beru",
+        "furigana": "べる",
+        "level": "N4",
+        "type": "vocab",
+        "example": "ベルが鳴った。"
+      },
+      {
+        "id": "n4-v765",
+        "front": "ほど",
+        "back": "Extent",
+        "romaji": "hodo",
+        "furigana": "ほど",
+        "level": "N4",
+        "type": "vocab",
+        "example": "なるほどね。"
+      },
+      {
+        "id": "n4-v766",
+        "front": "ほめる",
+        "back": "Maqtamoq (To praise)",
+        "romaji": "homeru",
+        "furigana": "ほめる",
+        "level": "N4",
+        "type": "vocab",
+        "example": "彼女はほめる言葉に困る程だ。"
+      },
+      {
+        "id": "n4-v767",
+        "front": "または",
+        "back": "Or, otherwise",
+        "romaji": "mataha",
+        "furigana": "または",
+        "level": "N4",
+        "type": "vocab",
+        "example": ""
+      },
+      {
+        "id": "n4-v768",
+        "front": "もうすぐ",
+        "back": "Aytmoq, deb atalmoq (Soon)",
+        "romaji": "mousugu",
+        "furigana": "もうすぐ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "もうすぐ冬だ。"
+      },
+      {
+        "id": "n4-v769",
+        "front": "もし",
+        "back": "If",
+        "romaji": "moshi",
+        "furigana": "もし",
+        "level": "N4",
+        "type": "vocab",
+        "example": "何もしないよ。"
+      },
+      {
+        "id": "n4-v770",
+        "front": "もちろん",
+        "back": "Of course",
+        "romaji": "mochiron",
+        "furigana": "もちろん",
+        "level": "N4",
+        "type": "vocab",
+        "example": "もちろんさ。"
+      },
+      {
+        "id": "n4-v771",
+        "front": "もっとも",
+        "back": "Extremely",
+        "romaji": "mottomo",
+        "furigana": "もっとも",
+        "level": "N4",
+        "type": "vocab",
+        "example": "君が怒るのももっともだ。"
+      },
+      {
+        "id": "n4-v772",
+        "front": "もらう",
+        "back": "To receive",
+        "romaji": "morau",
+        "furigana": "もらう",
+        "level": "N4",
+        "type": "vocab",
+        "example": "彼に来てもらう。"
+      },
+      {
+        "id": "n4-v773",
+        "front": "やはり/やっぱり",
+        "back": "As i thought, absolutely",
+        "romaji": "yahari / yappari",
+        "furigana": "やはり/やっぱり",
+        "level": "N4",
+        "type": "vocab",
+        "example": ""
+      },
+      {
+        "id": "n4-v774",
+        "front": "よろしい",
+        "back": "Yaxshi, mayli (hurmat shakli) ((respectful) ok, all right)",
+        "romaji": "yoroshii",
+        "furigana": "よろしい",
+        "level": "N4",
+        "type": "vocab",
+        "example": "万事よろしい。"
+      },
+      {
+        "id": "n4-v775",
+        "front": "レジ",
+        "back": "Register",
+        "romaji": "reji",
+        "furigana": "れじ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "レジはあそこよ。"
+      },
+      {
+        "id": "n4-v776",
+        "front": "レポート/リポート",
+        "back": "Report",
+        "romaji": "repooto / ripooto",
+        "furigana": "れぽーと/りぽーと",
+        "level": "N4",
+        "type": "vocab",
+        "example": ""
+      },
+      {
+        "id": "n4-v777",
+        "front": "ワープロ",
+        "back": "Word processor",
+        "romaji": "waapuro",
+        "furigana": "わーぷろ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "ワープロを買いたい。"
+      },
+      {
+        "id": "n4-v778",
+        "front": "以下",
+        "back": "Less than",
+        "romaji": "ika",
+        "furigana": "いか",
+        "level": "N4",
+        "type": "vocab",
+        "example": "以下は彼の話です。"
+      },
+      {
+        "id": "n4-v779",
+        "front": "以外",
+        "back": "With the exception of",
+        "romaji": "igai",
+        "furigana": "いがい",
+        "level": "N4",
+        "type": "vocab",
+        "example": "職員以外入室禁止。"
+      },
+      {
+        "id": "n4-v780",
+        "front": "以上",
+        "back": "More than, this is all",
+        "romaji": "ijou",
+        "furigana": "いじょう",
+        "level": "N4",
+        "type": "vocab",
+        "example": "以上ですか？"
+      },
+      {
+        "id": "n4-v781",
+        "front": "為",
+        "back": "In order to",
+        "romaji": "tame",
+        "furigana": "ため",
+        "level": "N4",
+        "type": "vocab",
+        "example": "それは売名行為だ。"
+      },
+      {
+        "id": "n4-v782",
+        "front": "移る",
+        "back": "To move house or transfer",
+        "romaji": "utsuru",
+        "furigana": "うつる",
+        "level": "N4",
+        "type": "vocab",
+        "example": "熱意は移る。"
+      },
+      {
+        "id": "n4-v783",
+        "front": "医学",
+        "back": "Medical science",
+        "romaji": "igaku",
+        "furigana": "いがく",
+        "level": "N4",
+        "type": "vocab",
+        "example": "彼は医学の学生だ。"
+      },
+      {
+        "id": "n4-v784",
+        "front": "一度",
+        "back": "Once",
+        "romaji": "ichido",
+        "furigana": "いちど",
+        "level": "N4",
+        "type": "vocab",
+        "example": "一度参ります。"
+      },
+      {
+        "id": "n4-v785",
+        "front": "引き出す",
+        "back": "To withdraw",
+        "romaji": "hikidasu",
+        "furigana": "ひきだす",
+        "level": "N4",
+        "type": "vocab",
+        "example": "我々は勉強からさらに楽しみを引き出す。"
+      },
+      {
+        "id": "n4-v786",
+        "front": "引っ越す",
+        "back": "To move house",
+        "romaji": "hikkosu",
+        "furigana": "ひっこす",
+        "level": "N4",
+        "type": "vocab",
+        "example": "引っ越すの？"
+      },
+      {
+        "id": "n4-v787",
+        "front": "雲",
+        "back": "Cloud",
+        "romaji": "kumo",
+        "furigana": "くも",
+        "level": "N4",
+        "type": "vocab",
+        "example": "雲って、何色？"
+      },
+      {
+        "id": "n4-v788",
+        "front": "泳ぎ方",
+        "back": "Way of swimming",
+        "romaji": "oyogikata",
+        "furigana": "およぎかた",
+        "level": "N4",
+        "type": "vocab",
+        "example": "彼は泳ぎ方を習った。"
+      },
+      {
+        "id": "n4-v789",
+        "front": "遠く",
+        "back": "Distant",
+        "romaji": "tooku",
+        "furigana": "とおく",
+        "level": "N4",
+        "type": "vocab",
+        "example": "遠くにいる？"
+      },
+      {
+        "id": "n4-v790",
+        "front": "押し入れ",
+        "back": "Closet",
+        "romaji": "oshiire",
+        "furigana": "おしいれ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "トムは妹を押し入れに閉じ込めた。"
+      },
+      {
+        "id": "n4-v791",
+        "front": "億",
+        "back": "One hundred million",
+        "romaji": "oku",
+        "furigana": "おく",
+        "level": "N4",
+        "type": "vocab",
+        "example": "トムは億万長者だ。"
+      },
+      {
+        "id": "n4-v792",
+        "front": "下りる",
+        "back": "To get off",
+        "romaji": "oriru",
+        "furigana": "おりる",
+        "level": "N4",
+        "type": "vocab",
+        "example": "階段を下りるのがつらくてね。"
+      },
+      {
+        "id": "n4-v793",
+        "front": "下る",
+        "back": "To get down, to descend",
+        "romaji": "sagaru",
+        "furigana": "さがる",
+        "level": "N4",
+        "type": "vocab",
+        "example": "坂を下ると海が見えてきました。"
+      },
+      {
+        "id": "n4-v794",
+        "front": "下宿",
+        "back": "Lodging",
+        "romaji": "geshuku",
+        "furigana": "げしゅく",
+        "level": "N4",
+        "type": "vocab",
+        "example": "私は下宿しています。"
+      },
+      {
+        "id": "n4-v795",
+        "front": "下着",
+        "back": "Ichki kiyim (Underwear)",
+        "romaji": "shitagi",
+        "furigana": "したぎ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "トムは下着姿だった。"
+      },
+      {
+        "id": "n4-v796",
+        "front": "家内",
+        "back": "Housewife",
+        "romaji": "kanai",
+        "furigana": "かない",
+        "level": "N4",
+        "type": "vocab",
+        "example": "家内は医師です。"
+      },
+      {
+        "id": "n4-v797",
+        "front": "科学",
+        "back": "Science",
+        "romaji": "kagaku",
+        "furigana": "かがく",
+        "level": "N4",
+        "type": "vocab",
+        "example": "彼は科学者です。"
+      },
+      {
+        "id": "n4-v798",
+        "front": "火",
+        "back": "Fire",
+        "romaji": "hi",
+        "furigana": "ひ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "火は燃える。"
+      },
+      {
+        "id": "n4-v799",
+        "front": "花見",
+        "back": "Cherry-blossom viewing",
+        "romaji": "hanami",
+        "furigana": "はなみ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "あのお花見て。"
+      },
+      {
+        "id": "n4-v800",
+        "front": "課長",
+        "back": "Section manager",
+        "romaji": "kachou",
+        "furigana": "かちょう",
+        "level": "N4",
+        "type": "vocab",
+        "example": "彼は課長に昇進した。"
+      },
+      {
+        "id": "n4-v801",
+        "front": "過ぎる",
+        "back": "To exceed",
+        "romaji": "sugiru",
+        "furigana": "すぎる",
+        "level": "N4",
+        "type": "vocab",
+        "example": "静か過ぎる。"
+      },
+      {
+        "id": "n4-v802",
+        "front": "会話",
+        "back": "Conversation",
+        "romaji": "kaiwa",
+        "furigana": "かいわ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "会話に加われば？"
+      },
+      {
+        "id": "n4-v803",
+        "front": "回る",
+        "back": "To go around",
+        "romaji": "mawaru",
+        "furigana": "まわる",
+        "level": "N4",
+        "type": "vocab",
+        "example": "蜂が飛び回る。"
+      },
+      {
+        "id": "n4-v804",
+        "front": "皆",
+        "back": "Everybody",
+        "romaji": "mina",
+        "furigana": "みな",
+        "level": "N4",
+        "type": "vocab",
+        "example": "皆が笑った。"
+      },
+      {
+        "id": "n4-v805",
+        "front": "楽しみ",
+        "back": "Kutilayotgan quvonch, orziqib kutish (Joy)",
+        "romaji": "tanoshimi",
+        "furigana": "たのしみ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "明日楽しみだな。"
+      },
+      {
+        "id": "n4-v806",
+        "front": "楽む",
+        "back": "To enjoy oneself",
+        "romaji": "tanoshimu",
+        "furigana": "たのしむ",
+        "level": "N4",
+        "type": "vocab",
+        "example": ""
+      },
+      {
+        "id": "n4-v807",
+        "front": "掛ける",
+        "back": "To hang something",
+        "romaji": "kakeru",
+        "furigana": "かける",
+        "level": "N4",
+        "type": "vocab",
+        "example": "４掛ける２は８だ。"
+      },
+      {
+        "id": "n4-v808",
+        "front": "割合",
+        "back": "Nisbatan, ulush (Rate, ratio, percentage)",
+        "romaji": "wariai",
+        "furigana": "わりあい",
+        "level": "N4",
+        "type": "vocab",
+        "example": "彼らは１時間３マイルの割合で歩いた。"
+      },
+      {
+        "id": "n4-v809",
+        "front": "噛む",
+        "back": "To bite, to chew",
+        "romaji": "kamu",
+        "furigana": "かむ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "窮鼠猫を噛む。"
+      },
+      {
+        "id": "n4-v810",
+        "front": "乾く",
+        "back": "Qaynamoq (To get dry)",
+        "romaji": "kawaku",
+        "furigana": "かわく",
+        "level": "N4",
+        "type": "vocab",
+        "example": "皮は乾くにつれて堅くなった。"
+      },
+      {
+        "id": "n4-v811",
+        "front": "看護婦",
+        "back": "Female nurse",
+        "romaji": "kangofu",
+        "furigana": "かんごふ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "私は看護婦です。"
+      },
+      {
+        "id": "n4-v812",
+        "front": "間",
+        "back": "Ah, oh (A space)",
+        "romaji": "aida",
+        "furigana": "あいだ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "貸し間あり。"
+      },
+      {
+        "id": "n4-v813",
+        "front": "間違える",
+        "back": "To make a mistake",
+        "romaji": "machigaeru",
+        "furigana": "まちがえる",
+        "level": "N4",
+        "type": "vocab",
+        "example": "私、よく間違えるの。"
+      },
+      {
+        "id": "n4-v814",
+        "front": "喜ぶ",
+        "back": "Quvonmoq, sevinmoq (To be delighted)",
+        "romaji": "yorokobu",
+        "furigana": "よろこぶ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "早まって喜ぶな。"
+      },
+      {
+        "id": "n4-v815",
+        "front": "寄る",
+        "back": "To'xtab o'tmoq, yaqinlashmoq (To visit)",
+        "romaji": "yoru",
+        "furigana": "よる",
+        "level": "N4",
+        "type": "vocab",
+        "example": "犬に近寄るな。"
+      },
+      {
+        "id": "n4-v816",
+        "front": "帰り",
+        "back": "Return",
+        "romaji": "kaeri",
+        "furigana": "かえり",
+        "level": "N4",
+        "type": "vocab",
+        "example": "帰りなさい。"
+      },
+      {
+        "id": "n4-v817",
+        "front": "気",
+        "back": "Spirit, mood",
+        "romaji": "ki",
+        "furigana": "き",
+        "level": "N4",
+        "type": "vocab",
+        "example": "本気ですか。"
+      },
+      {
+        "id": "n4-v818",
+        "front": "汽車",
+        "back": "Steam train",
+        "romaji": "kisha",
+        "furigana": "きしゃ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "汽車が脱線した。"
+      },
+      {
+        "id": "n4-v819",
+        "front": "起す",
+        "back": "To wake",
+        "romaji": "okosu",
+        "furigana": "おこす",
+        "level": "N4",
+        "type": "vocab",
+        "example": "試験は大きな問題を提起する。"
+      },
+      {
+        "id": "n4-v820",
+        "front": "客",
+        "back": "Guest, customer",
+        "romaji": "kyaku",
+        "furigana": "きゃく",
+        "level": "N4",
+        "type": "vocab",
+        "example": "トムは客だ。"
+      },
+      {
+        "id": "n4-v821",
+        "front": "久しぶり",
+        "back": "After a long time",
+        "romaji": "hisashiburi",
+        "furigana": "ひさしぶり",
+        "level": "N4",
+        "type": "vocab",
+        "example": "お久しぶり。"
+      },
+      {
+        "id": "n4-v822",
+        "front": "泣く",
+        "back": "To weep",
+        "romaji": "naku",
+        "furigana": "なく",
+        "level": "N4",
+        "type": "vocab",
+        "example": "泣くもんか。"
+      },
+      {
+        "id": "n4-v823",
+        "front": "競争",
+        "back": "Yolg'on (Competition)",
+        "romaji": "kyousou",
+        "furigana": "きょうそう",
+        "level": "N4",
+        "type": "vocab",
+        "example": "私は彼と競争した。"
+      },
+      {
+        "id": "n4-v824",
+        "front": "教会",
+        "back": "Church",
+        "romaji": "kyoukai",
+        "furigana": "きょうかい",
+        "level": "N4",
+        "type": "vocab",
+        "example": "あれは教会です。"
+      },
+      {
+        "id": "n4-v825",
+        "front": "驚く",
+        "back": "To be surprised",
+        "romaji": "odoroku",
+        "furigana": "おどろく",
+        "level": "N4",
+        "type": "vocab",
+        "example": "彼女はきっと驚く。"
+      },
+      {
+        "id": "n4-v826",
+        "front": "苦い",
+        "back": "Bitter",
+        "romaji": "nigai",
+        "furigana": "にがい",
+        "level": "N4",
+        "type": "vocab",
+        "example": "めちゃ苦い。"
+      },
+      {
+        "id": "n4-v827",
+        "front": "空く",
+        "back": "Ah, oh (To open, to become empty)",
+        "romaji": "aku",
+        "furigana": "あく",
+        "level": "N4",
+        "type": "vocab",
+        "example": "あと１０分で手が空く。"
+      },
+      {
+        "id": "n4-v828",
+        "front": "空気",
+        "back": "Air, atmosphere",
+        "romaji": "kuuki",
+        "furigana": "くうき",
+        "level": "N4",
+        "type": "vocab",
+        "example": "空気読めない。"
+      },
+      {
+        "id": "n4-v829",
+        "front": "君",
+        "back": "(informal) you (used by men towards women)",
+        "romaji": "kimi",
+        "furigana": "きみ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "君次第だよ。"
+      },
+      {
+        "id": "n4-v830",
+        "front": "形",
+        "back": "Shape",
+        "romaji": "katachi",
+        "furigana": "かたち",
+        "level": "N4",
+        "type": "vocab",
+        "example": "あの人形怖い。"
+      },
+      {
+        "id": "n4-v831",
+        "front": "決して",
+        "back": "Never",
+        "romaji": "kesshite",
+        "furigana": "けっして",
+        "level": "N4",
+        "type": "vocab",
+        "example": "決して放さないで。"
+      },
+      {
+        "id": "n4-v832",
+        "front": "決る",
+        "back": "To be decided",
+        "romaji": "kimaru",
+        "furigana": "きまる",
+        "level": "N4",
+        "type": "vocab",
+        "example": "青春期がどのくらい長く続くかは生物学的要因によって決る。"
+      },
+      {
+        "id": "n4-v833",
+        "front": "血",
+        "back": "Blood",
+        "romaji": "chi",
+        "furigana": "ち",
+        "level": "N4",
+        "type": "vocab",
+        "example": "高血圧です。"
+      },
+      {
+        "id": "n4-v834",
+        "front": "堅/硬/固い",
+        "back": "Hard",
+        "romaji": "katai",
+        "furigana": "かたい",
+        "level": "N4",
+        "type": "vocab",
+        "example": ""
+      },
+      {
+        "id": "n4-v835",
+        "front": "研究室",
+        "back": "Study room, laboratory",
+        "romaji": "kenkyuushitsu",
+        "furigana": "けんきゅうしつ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "研究室に戻りなさい。"
+      },
+      {
+        "id": "n4-v836",
+        "front": "絹",
+        "back": "Silk",
+        "romaji": "kinu",
+        "furigana": "きぬ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "絹は高価なんだよ。"
+      },
+      {
+        "id": "n4-v837",
+        "front": "見つける",
+        "back": "Topmoq (To discover)",
+        "romaji": "mitsukeru",
+        "furigana": "みつける",
+        "level": "N4",
+        "type": "vocab",
+        "example": "私を見つけるの？"
+      },
+      {
+        "id": "n4-v838",
+        "front": "見物",
+        "back": "Sightseeing",
+        "romaji": "kenbutsu",
+        "furigana": "けんぶつ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "町中見物でもするか？"
+      },
+      {
+        "id": "n4-v839",
+        "front": "湖",
+        "back": "Lake",
+        "romaji": "mizuumi",
+        "furigana": "みずうみ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "この湖は深い。"
+      },
+      {
+        "id": "n4-v840",
+        "front": "御主人",
+        "back": "(honorable) your husband",
+        "romaji": "goshujin",
+        "furigana": "ごしゅじん",
+        "level": "N4",
+        "type": "vocab",
+        "example": ""
+      },
+      {
+        "id": "n4-v841",
+        "front": "交通",
+        "back": "Traffic, transportation",
+        "romaji": "koutsuu",
+        "furigana": "こうつう",
+        "level": "N4",
+        "type": "vocab",
+        "example": "交通量は少なかった。"
+      },
+      {
+        "id": "n4-v842",
+        "front": "光",
+        "back": "Yorug'lik, nur (Light)",
+        "romaji": "hikari",
+        "furigana": "ひかり",
+        "level": "N4",
+        "type": "vocab",
+        "example": "身に余る栄光。"
+      },
+      {
+        "id": "n4-v843",
+        "front": "光る",
+        "back": "To shine, to glitter",
+        "romaji": "hikaru",
+        "furigana": "ひかる",
+        "level": "N4",
+        "type": "vocab",
+        "example": "使っている鎌は光る。"
+      },
+      {
+        "id": "n4-v844",
+        "front": "公務員",
+        "back": "Davlat xizmatchisi (Government worker)",
+        "romaji": "koumuin",
+        "furigana": "こうむいん",
+        "level": "N4",
+        "type": "vocab",
+        "example": "私は公務員です。"
+      },
+      {
+        "id": "n4-v845",
+        "front": "向かう",
+        "back": "To face",
+        "romaji": "mukau",
+        "furigana": "むかう",
+        "level": "N4",
+        "type": "vocab",
+        "example": "女は悪魔の宴へと向かう。"
+      },
+      {
+        "id": "n4-v846",
+        "front": "工業",
+        "back": "The manufacturing industry",
+        "romaji": "kougyou",
+        "furigana": "こうぎょう",
+        "level": "N4",
+        "type": "vocab",
+        "example": "工業都市です。"
+      },
+      {
+        "id": "n4-v847",
+        "front": "校長",
+        "back": "Ichida, fursatida (Headmaster)",
+        "romaji": "kouchou",
+        "furigana": "こうちょう",
+        "level": "N4",
+        "type": "vocab",
+        "example": "彼は校長が嫌いだ。"
+      },
+      {
+        "id": "n4-v848",
+        "front": "考える",
+        "back": "To consider",
+        "romaji": "kangaeru",
+        "furigana": "かんがえる",
+        "level": "N4",
+        "type": "vocab",
+        "example": "なぜそう考えるの？"
+      },
+      {
+        "id": "n4-v849",
+        "front": "行う",
+        "back": "To do",
+        "romaji": "okonau",
+        "furigana": "おこなう",
+        "level": "N4",
+        "type": "vocab",
+        "example": "言うは易く行うは難し。"
+      },
+      {
+        "id": "n4-v850",
+        "front": "講義",
+        "back": "Lecture",
+        "romaji": "kougi",
+        "furigana": "こうぎ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "文学の講義をする。"
+      },
+      {
+        "id": "n4-v851",
+        "front": "講堂",
+        "back": "Auditorium",
+        "romaji": "koudou",
+        "furigana": "こうどう",
+        "level": "N4",
+        "type": "vocab",
+        "example": "その教師は講堂に学生を集めた。"
+      },
+      {
+        "id": "n4-v852",
+        "front": "郊外",
+        "back": "Outskirts",
+        "romaji": "kougai",
+        "furigana": "こうがい",
+        "level": "N4",
+        "type": "vocab",
+        "example": "私の家は郊外にある。"
+      },
+      {
+        "id": "n4-v853",
+        "front": "降り出す",
+        "back": "To start to rain",
+        "romaji": "furidasu",
+        "furigana": "ふりだす",
+        "level": "N4",
+        "type": "vocab",
+        "example": "まもなく雪が降り出すだろう。"
+      },
+      {
+        "id": "n4-v854",
+        "front": "高校",
+        "back": "High school",
+        "romaji": "koukou",
+        "furigana": "こうこう",
+        "level": "N4",
+        "type": "vocab",
+        "example": "高校生なの？"
+      },
+      {
+        "id": "n4-v855",
+        "front": "高校生",
+        "back": "High school student",
+        "romaji": "koukousei",
+        "furigana": "こうこうせい",
+        "level": "N4",
+        "type": "vocab",
+        "example": "高校生なの？"
+      },
+      {
+        "id": "n4-v856",
+        "front": "高等学校",
+        "back": "High school",
+        "romaji": "koutougakkou",
+        "furigana": "こうとうがっこう",
+        "level": "N4",
+        "type": "vocab",
+        "example": "彼は高等学校の生徒ではありません。"
+      },
+      {
+        "id": "n4-v857",
+        "front": "合う",
+        "back": "Ah, oh (To match)",
+        "romaji": "au",
+        "furigana": "あう",
+        "level": "N4",
+        "type": "vocab",
+        "example": "黒が似合うね。"
+      },
+      {
+        "id": "n4-v858",
+        "front": "国際",
+        "back": "Xalqaro (International)",
+        "romaji": "kokusai",
+        "furigana": "こくさい",
+        "level": "N4",
+        "type": "vocab",
+        "example": "国際語は必要ですか？"
+      },
+      {
+        "id": "n4-v859",
+        "front": "込む",
+        "back": "To be crowded",
+        "romaji": "komu",
+        "furigana": "こむ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "綿は水を吸い込む。"
+      },
+      {
+        "id": "n4-v860",
+        "front": "今度",
+        "back": "Bu safar, kelasi safar (Now, next time)",
+        "romaji": "kondo",
+        "furigana": "こんど",
+        "level": "N4",
+        "type": "vocab",
+        "example": "また、今度な！"
+      },
+      {
+        "id": "n4-v861",
+        "front": "今夜",
+        "back": "Tonight",
+        "romaji": "konya",
+        "furigana": "こんや",
+        "level": "N4",
+        "type": "vocab",
+        "example": "今夜会える？"
+      },
+      {
+        "id": "n4-v862",
+        "front": "差し上げる",
+        "back": "Ah, oh ((polite) to give)",
+        "romaji": "sashiageru",
+        "furigana": "さしあげる",
+        "level": "N4",
+        "type": "vocab",
+        "example": "突然にかような奇怪な手紙を差し上げる非礼をお許し下さい。"
+      },
+      {
+        "id": "n4-v863",
+        "front": "妻",
+        "back": "(humble) wife",
+        "romaji": "tsuma",
+        "furigana": "つま",
+        "level": "N4",
+        "type": "vocab",
+        "example": "妻が怖くて。"
+      },
+      {
+        "id": "n4-v864",
+        "front": "細かい",
+        "back": "Small, fine",
+        "romaji": "komakai",
+        "furigana": "こまかい",
+        "level": "N4",
+        "type": "vocab",
+        "example": "私は細かいんだ。"
+      },
+      {
+        "id": "n4-v865",
+        "front": "産業",
+        "back": "Industry",
+        "romaji": "sangyou",
+        "furigana": "さんぎょう",
+        "level": "N4",
+        "type": "vocab",
+        "example": "日本は産業国である。"
+      },
+      {
+        "id": "n4-v866",
+        "front": "残念",
+        "back": "Afsuski, achinarli (Disappointment)",
+        "romaji": "zannen",
+        "furigana": "ざんねん",
+        "level": "N4",
+        "type": "vocab",
+        "example": "残念ですが。"
+      },
+      {
+        "id": "n4-v867",
+        "front": "始める",
+        "back": "Boshlamoq (To begin)",
+        "romaji": "hajimeru",
+        "furigana": "はじめる",
+        "level": "N4",
+        "type": "vocab",
+        "example": "新たに始める。"
+      },
+      {
+        "id": "n4-v868",
+        "front": "子",
+        "back": "Child",
+        "romaji": "ko",
+        "furigana": "こ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "花より団子。"
+      },
+      {
+        "id": "n4-v869",
+        "front": "市",
+        "back": "City",
+        "romaji": "shi",
+        "furigana": "し",
+        "level": "N4",
+        "type": "vocab",
+        "example": "市場に行く。"
+      },
+      {
+        "id": "n4-v870",
+        "front": "市民",
+        "back": "Citizen",
+        "romaji": "shimin",
+        "furigana": "しみん",
+        "level": "N4",
+        "type": "vocab",
+        "example": "私は札幌市民です。"
+      },
+      {
+        "id": "n4-v871",
+        "front": "思う",
+        "back": "To think, to feel",
+        "romaji": "omou",
+        "furigana": "おもう",
+        "level": "N4",
+        "type": "vocab",
+        "example": "誰だと思う？"
+      },
+      {
+        "id": "n4-v872",
+        "front": "指",
+        "back": "Finger",
+        "romaji": "yubi",
+        "furigana": "ゆび",
+        "level": "N4",
+        "type": "vocab",
+        "example": "指を開いて。"
+      },
+      {
+        "id": "n4-v873",
+        "front": "指輪",
+        "back": "Finger ring",
+        "romaji": "yubiwa",
+        "furigana": "ゆびわ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "指輪がない。"
+      },
+      {
+        "id": "n4-v874",
+        "front": "支度",
+        "back": "To prepare",
+        "romaji": "shitakusuru",
+        "furigana": "したくする",
+        "level": "N4",
+        "type": "vocab",
+        "example": "冬支度は万端です！"
+      },
+      {
+        "id": "n4-v875",
+        "front": "枝",
+        "back": "Branch, twig",
+        "romaji": "eda",
+        "furigana": "えだ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "枝を折るな。"
+      },
+      {
+        "id": "n4-v876",
+        "front": "止む",
+        "back": "To'xtamoq (yomg'ir/qor) (To stop)",
+        "romaji": "yamu",
+        "furigana": "やむ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "雨は止む兆しが無い。"
+      },
+      {
+        "id": "n4-v877",
+        "front": "糸",
+        "back": "Thread",
+        "romaji": "ito",
+        "furigana": "いと",
+        "level": "N4",
+        "type": "vocab",
+        "example": "糸が絡まった。"
+      },
+      {
+        "id": "n4-v878",
+        "front": "試験",
+        "back": "Imtihon (Examination)",
+        "romaji": "shiken",
+        "furigana": "しけん",
+        "level": "N4",
+        "type": "vocab",
+        "example": "来週は試験だ。"
+      },
+      {
+        "id": "n4-v879",
+        "front": "歯医者",
+        "back": "Dentist",
+        "romaji": "haisha",
+        "furigana": "はいしゃ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "彼は歯医者に行った。"
+      },
+      {
+        "id": "n4-v880",
+        "front": "事務所",
+        "back": "Hasharot (Office)",
+        "romaji": "jimusho",
+        "furigana": "じむしょ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "事務所にいます。"
+      },
+      {
+        "id": "n4-v881",
+        "front": "似る",
+        "back": "To be similar",
+        "romaji": "niru",
+        "furigana": "にる",
+        "level": "N4",
+        "type": "vocab",
+        "example": "息子は父親に似る。"
+      },
+      {
+        "id": "n4-v882",
+        "front": "寺",
+        "back": "Temple",
+        "romaji": "tera",
+        "furigana": "てら",
+        "level": "N4",
+        "type": "vocab",
+        "example": "寺の隣に鬼が住む。"
+      },
+      {
+        "id": "n4-v883",
+        "front": "辞典",
+        "back": "Dictionary",
+        "romaji": "jiten",
+        "furigana": "じてん",
+        "level": "N4",
+        "type": "vocab",
+        "example": "トムは中日辞典を買った。"
+      },
+      {
+        "id": "n4-v884",
+        "front": "写す",
+        "back": "To copy or photograph",
+        "romaji": "utsusu",
+        "furigana": "うつす",
+        "level": "N4",
+        "type": "vocab",
+        "example": "彼女は友達のノートを写す。"
+      },
+      {
+        "id": "n4-v885",
+        "front": "社会",
+        "back": "Society, public",
+        "romaji": "shakai",
+        "furigana": "しゃかい",
+        "level": "N4",
+        "type": "vocab",
+        "example": "暴力は社会のガンだ。"
+      },
+      {
+        "id": "n4-v886",
+        "front": "謝る",
+        "back": "Ah, oh (To apologize)",
+        "romaji": "ayamaru",
+        "furigana": "あやまる",
+        "level": "N4",
+        "type": "vocab",
+        "example": "謝るしかない。"
+      },
+      {
+        "id": "n4-v887",
+        "front": "趣味",
+        "back": "Qiziqish, xobbi (Hobby)",
+        "romaji": "shumi",
+        "furigana": "しゅみ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "彼は多趣味だ。"
+      },
+      {
+        "id": "n4-v888",
+        "front": "受ける",
+        "back": "To take a lesson or test",
+        "romaji": "ukeru",
+        "furigana": "うける",
+        "level": "N4",
+        "type": "vocab",
+        "example": "ワクチンを受けるの？"
+      },
+      {
+        "id": "n4-v889",
+        "front": "周り",
+        "back": "Surroundings",
+        "romaji": "mawari",
+        "furigana": "まわり",
+        "level": "N4",
+        "type": "vocab",
+        "example": "僕は周りを見回した。"
+      },
+      {
+        "id": "n4-v890",
+        "front": "終わり",
+        "back": "The end",
+        "romaji": "owari",
+        "furigana": "おわり",
+        "level": "N4",
+        "type": "vocab",
+        "example": "終わりはない。"
+      },
+      {
+        "id": "n4-v891",
+        "front": "舟",
+        "back": "Kema (Ship)",
+        "romaji": "fune",
+        "furigana": "ふね",
+        "level": "N4",
+        "type": "vocab",
+        "example": "舟は行方不明だ。"
+      },
+      {
+        "id": "n4-v892",
+        "front": "集める",
+        "back": "Ah, oh (To collect something)",
+        "romaji": "atsumeru",
+        "furigana": "あつめる",
+        "level": "N4",
+        "type": "vocab",
+        "example": "はがきを集める。"
+      },
+      {
+        "id": "n4-v893",
+        "front": "集る",
+        "back": "Ah, oh (To gather)",
+        "romaji": "atsumaru",
+        "furigana": "あつまる",
+        "level": "N4",
+        "type": "vocab",
+        "example": ""
+      },
+      {
+        "id": "n4-v894",
+        "front": "柔らかい",
+        "back": "Soft",
+        "romaji": "yawarakai",
+        "furigana": "やわらかい",
+        "level": "N4",
+        "type": "vocab",
+        "example": "体柔らかいね。"
+      },
+      {
+        "id": "n4-v895",
+        "front": "柔道",
+        "back": "Judo",
+        "romaji": "juudou",
+        "furigana": "じゅうどう",
+        "level": "N4",
+        "type": "vocab",
+        "example": "柔道を練習しています。"
+      },
+      {
+        "id": "n4-v896",
+        "front": "出席",
+        "back": "O'rindiq, joy (To attend)",
+        "romaji": "shussekisuru",
+        "furigana": "しゅっせきする",
+        "level": "N4",
+        "type": "vocab",
+        "example": "出席します。"
+      },
+      {
+        "id": "n4-v897",
+        "front": "女性",
+        "back": "Woman",
+        "romaji": "josei",
+        "furigana": "じょせい",
+        "level": "N4",
+        "type": "vocab",
+        "example": "色っぽい女性。"
+      },
+      {
+        "id": "n4-v898",
+        "front": "勝つ",
+        "back": "To win",
+        "romaji": "katsu",
+        "furigana": "かつ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "戦いに勝つ。"
+      },
+      {
+        "id": "n4-v899",
+        "front": "召し上がる",
+        "back": "Ah, oh ((polite) to eat)",
+        "romaji": "meshiagaru",
+        "furigana": "めしあがる",
+        "level": "N4",
+        "type": "vocab",
+        "example": "さあいらっしゃい、何を召し上がるか言いたまえ。"
+      },
+      {
+        "id": "n4-v900",
+        "front": "小学校",
+        "back": "Elementary school",
+        "romaji": "shougakkou",
+        "furigana": "しょうがっこう",
+        "level": "N4",
+        "type": "vocab",
+        "example": "君、小学校に行ってるの？"
+      },
+      {
+        "id": "n4-v901",
+        "front": "小説",
+        "back": "Novel",
+        "romaji": "shousetsu",
+        "furigana": "しょうせつ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "小説家になるよ。"
+      },
+      {
+        "id": "n4-v902",
+        "front": "小鳥",
+        "back": "Small bird",
+        "romaji": "kotori",
+        "furigana": "ことり",
+        "level": "N4",
+        "type": "vocab",
+        "example": "彼は小鳥を狙った。"
+      },
+      {
+        "id": "n4-v903",
+        "front": "承知",
+        "back": "Ichida, fursatida (To consent)",
+        "romaji": "shouchisuru",
+        "furigana": "しょうちする",
+        "level": "N4",
+        "type": "vocab",
+        "example": "承知しました。"
+      },
+      {
+        "id": "n4-v904",
+        "front": "消しゴム",
+        "back": "Eraser",
+        "romaji": "keshi gomu",
+        "furigana": "けしゴム",
+        "level": "N4",
+        "type": "vocab",
+        "example": "消しゴム返してよ。"
+      },
+      {
+        "id": "n4-v905",
+        "front": "焼く",
+        "back": "To bake, to grill",
+        "romaji": "yaku",
+        "furigana": "やく",
+        "level": "N4",
+        "type": "vocab",
+        "example": "やきもちを焼くなよ。"
+      },
+      {
+        "id": "n4-v906",
+        "front": "焼ける",
+        "back": "Kuymoq, qizimoq (To burn, to be roasted)",
+        "romaji": "yakeru",
+        "furigana": "やける",
+        "level": "N4",
+        "type": "vocab",
+        "example": "焼けるように熱い。"
+      },
+      {
+        "id": "n4-v907",
+        "front": "笑う",
+        "back": "Kulmoq (To laugh, to smile)",
+        "romaji": "warau",
+        "furigana": "わらう",
+        "level": "N4",
+        "type": "vocab",
+        "example": "トムが笑う。"
+      },
+      {
+        "id": "n4-v908",
+        "front": "上る",
+        "back": "Ah, oh (To rise)",
+        "romaji": "agaru",
+        "furigana": "あがる",
+        "level": "N4",
+        "type": "vocab",
+        "example": "月は東から上る。"
+      },
+      {
+        "id": "n4-v909",
+        "front": "乗り物",
+        "back": "Vehicle",
+        "romaji": "norimono",
+        "furigana": "のりもの",
+        "level": "N4",
+        "type": "vocab",
+        "example": "乗り物は子供向けである。"
+      },
+      {
+        "id": "n4-v910",
+        "front": "場合",
+        "back": "Ah, oh (Situation)",
+        "romaji": "baai",
+        "furigana": "ばあい",
+        "level": "N4",
+        "type": "vocab",
+        "example": "それは極端な場合だ。"
+      },
+      {
+        "id": "n4-v911",
+        "front": "畳",
+        "back": "Japanese straw mat",
+        "romaji": "tatami",
+        "furigana": "たたみ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "傘は畳んで。"
+      },
+      {
+        "id": "n4-v912",
+        "front": "植える",
+        "back": "To plant, to grow",
+        "romaji": "ueru",
+        "furigana": "うえる",
+        "level": "N4",
+        "type": "vocab",
+        "example": "春は木を植える時期です。"
+      },
+      {
+        "id": "n4-v913",
+        "front": "食料品",
+        "back": "Groceries",
+        "romaji": "shokuryouhin",
+        "furigana": "しょくりょうひん",
+        "level": "N4",
+        "type": "vocab",
+        "example": "食料品買わなくちゃ。"
+      },
+      {
+        "id": "n4-v914",
+        "front": "寝坊",
+        "back": "Sleeping in late",
+        "romaji": "nebou",
+        "furigana": "ねぼう",
+        "level": "N4",
+        "type": "vocab",
+        "example": "私は寝坊した。"
+      },
+      {
+        "id": "n4-v915",
+        "front": "心",
+        "back": "Core, heart",
+        "romaji": "kokoro",
+        "furigana": "こころ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "目は心の鏡。"
+      },
+      {
+        "id": "n4-v916",
+        "front": "新聞社",
+        "back": "Newspaper company",
+        "romaji": "shinbunsha",
+        "furigana": "しんぶんしゃ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "どちらの新聞社にお勤めですか。"
+      },
+      {
+        "id": "n4-v917",
+        "front": "森",
+        "back": "Forest",
+        "romaji": "mori",
+        "furigana": "もり",
+        "level": "N4",
+        "type": "vocab",
+        "example": "彼は森で迷った。"
+      },
+      {
+        "id": "n4-v918",
+        "front": "深い",
+        "back": "Deep",
+        "romaji": "fukai",
+        "furigana": "ふかい",
+        "level": "N4",
+        "type": "vocab",
+        "example": "この湖は深い。"
+      },
+      {
+        "id": "n4-v919",
+        "front": "申し上げる",
+        "back": "Aytmoq (kamtarlik) ((humble) to say, to tell)",
+        "romaji": "moushiageru",
+        "furigana": "もうしあげる",
+        "level": "N4",
+        "type": "vocab",
+        "example": "反対申し上げるつもりは全然なかったのです。"
+      },
+      {
+        "id": "n4-v920",
+        "front": "真中",
+        "back": "Middle",
+        "romaji": "mannaka",
+        "furigana": "まんなか",
+        "level": "N4",
+        "type": "vocab",
+        "example": "湖の真中に、その島がある。"
+      },
+      {
+        "id": "n4-v921",
+        "front": "親",
+        "back": "Parents",
+        "romaji": "oya",
+        "furigana": "おや",
+        "level": "N4",
+        "type": "vocab",
+        "example": "親が払うよ。"
+      },
+      {
+        "id": "n4-v922",
+        "front": "人口",
+        "back": "Population",
+        "romaji": "jinkou",
+        "furigana": "じんこう",
+        "level": "N4",
+        "type": "vocab",
+        "example": "その町は人口が多い。"
+      },
+      {
+        "id": "n4-v923",
+        "front": "尋ねる",
+        "back": "To ask",
+        "romaji": "tazuneru",
+        "furigana": "たずねる",
+        "level": "N4",
+        "type": "vocab",
+        "example": "尋ねるだけの価値がある。"
+      },
+      {
+        "id": "n4-v924",
+        "front": "数学",
+        "back": "Mathematics, arithmetic",
+        "romaji": "suugaku",
+        "furigana": "すうがく",
+        "level": "N4",
+        "type": "vocab",
+        "example": "数学はムズイ。"
+      },
+      {
+        "id": "n4-v925",
+        "front": "凄い",
+        "back": "Qoyil, daxshat (Terrific)",
+        "romaji": "sugoi",
+        "furigana": "すごい",
+        "level": "N4",
+        "type": "vocab",
+        "example": "そいつは凄い！"
+      },
+      {
+        "id": "n4-v926",
+        "front": "生きる",
+        "back": "To live",
+        "romaji": "ikiru",
+        "furigana": "いきる",
+        "level": "N4",
+        "type": "vocab",
+        "example": "生きるのは危険です。"
+      },
+      {
+        "id": "n4-v927",
+        "front": "席",
+        "back": "O'rindiq, joy (Seat)",
+        "romaji": "seki",
+        "furigana": "せき",
+        "level": "N4",
+        "type": "vocab",
+        "example": "出席します。"
+      },
+      {
+        "id": "n4-v928",
+        "front": "昔",
+        "back": "Qadim zamon, o'tmish (Olden days, former)",
+        "romaji": "mukashi",
+        "furigana": "むかし",
+        "level": "N4",
+        "type": "vocab",
+        "example": "昔はよくした。"
+      },
+      {
+        "id": "n4-v929",
+        "front": "石",
+        "back": "Stone",
+        "romaji": "ishi",
+        "furigana": "いし",
+        "level": "N4",
+        "type": "vocab",
+        "example": "点滴石を穿つ。"
+      },
+      {
+        "id": "n4-v930",
+        "front": "赤ん坊",
+        "back": "Ah, oh (Baby)",
+        "romaji": "akanbou",
+        "furigana": "あかんぼう",
+        "level": "N4",
+        "type": "vocab",
+        "example": "彼は赤ん坊同然だ。"
+      },
+      {
+        "id": "n4-v931",
+        "front": "折る",
+        "back": "To break or to fold",
+        "romaji": "oru",
+        "furigana": "おる",
+        "level": "N4",
+        "type": "vocab",
+        "example": "木を折るな。"
+      },
+      {
+        "id": "n4-v932",
+        "front": "折れる",
+        "back": "To break or be folded",
+        "romaji": "oreru",
+        "furigana": "おれる",
+        "level": "N4",
+        "type": "vocab",
+        "example": "折れるより曲がれ。"
+      },
+      {
+        "id": "n4-v933",
+        "front": "先輩",
+        "back": "Katta kursdosh, tajribali hamkasb (Senior)",
+        "romaji": "senpai",
+        "furigana": "せんぱい",
+        "level": "N4",
+        "type": "vocab",
+        "example": "トムは高校の先輩です。"
+      },
+      {
+        "id": "n4-v934",
+        "front": "浅い",
+        "back": "Ah, oh (Shallow, superficial)",
+        "romaji": "asai",
+        "furigana": "あさい",
+        "level": "N4",
+        "type": "vocab",
+        "example": "眠りが浅いんだ。"
+      },
+      {
+        "id": "n4-v935",
+        "front": "選ぶ",
+        "back": "To choose",
+        "romaji": "erabu",
+        "furigana": "えらぶ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "金を選ぶべきだった。"
+      },
+      {
+        "id": "n4-v936",
+        "front": "祖父",
+        "back": "Grandfather",
+        "romaji": "sofu",
+        "furigana": "そふ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "彼は祖父似だ。"
+      },
+      {
+        "id": "n4-v937",
+        "front": "祖母",
+        "back": "Grandmother",
+        "romaji": "sobo",
+        "furigana": "そぼ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "祖母はゆっくり話す。"
+      },
+      {
+        "id": "n4-v938",
+        "front": "痩せる",
+        "back": "Ozmoq (To become thin)",
+        "romaji": "yaseru",
+        "furigana": "やせる",
+        "level": "N4",
+        "type": "vocab",
+        "example": "痩せる必要がないというのは残念だ。"
+      },
+      {
+        "id": "n4-v939",
+        "front": "草",
+        "back": "Grass",
+        "romaji": "kusa",
+        "furigana": "くさ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "草草の草ァ！"
+      },
+      {
+        "id": "n4-v940",
+        "front": "騒ぐ",
+        "back": "To make noise, to be excited",
+        "romaji": "sawagu",
+        "furigana": "さわぐ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "そんなに騒ぐな。"
+      },
+      {
+        "id": "n4-v941",
+        "front": "贈り物",
+        "back": "Gift",
+        "romaji": "okurimono",
+        "furigana": "おくりもの",
+        "level": "N4",
+        "type": "vocab",
+        "example": "贈り物があります。"
+      },
+      {
+        "id": "n4-v942",
+        "front": "息子",
+        "back": "O'g'il farzand ((humble) son)",
+        "romaji": "musuko",
+        "furigana": "むすこ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "私の息子です。"
+      },
+      {
+        "id": "n4-v943",
+        "front": "続く",
+        "back": "To be continued",
+        "romaji": "tsuzuku",
+        "furigana": "つづく",
+        "level": "N4",
+        "type": "vocab",
+        "example": "最近は寒い日が続く。"
+      },
+      {
+        "id": "n4-v944",
+        "front": "太る",
+        "back": "Semirmoq (To become fat)",
+        "romaji": "futoru",
+        "furigana": "ふとる",
+        "level": "N4",
+        "type": "vocab",
+        "example": "食べ過ぎると太る。"
+      },
+      {
+        "id": "n4-v945",
+        "front": "打つ",
+        "back": "To hit",
+        "romaji": "utsu",
+        "furigana": "うつ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "打つ手がないね。"
+      },
+      {
+        "id": "n4-v946",
+        "front": "代わり",
+        "back": "Substitute, alternate",
+        "romaji": "kawari",
+        "furigana": "かわり",
+        "level": "N4",
+        "type": "vocab",
+        "example": "担当者と代わります。"
+      },
+      {
+        "id": "n4-v947",
+        "front": "大学生",
+        "back": "University student",
+        "romaji": "daigakusei",
+        "furigana": "だいがくせい",
+        "level": "N4",
+        "type": "vocab",
+        "example": "大学生です。"
+      },
+      {
+        "id": "n4-v948",
+        "front": "大体",
+        "back": "Generally",
+        "romaji": "daitai",
+        "furigana": "だいたい",
+        "level": "N4",
+        "type": "vocab",
+        "example": "大体正しい。"
+      },
+      {
+        "id": "n4-v949",
+        "front": "大分",
+        "back": "Greatly",
+        "romaji": "daibu",
+        "furigana": "だいぶ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "今日は大分暖かいね。"
+      },
+      {
+        "id": "n4-v950",
+        "front": "棚",
+        "back": "Javon, tokcha (Shelves)",
+        "romaji": "tana",
+        "furigana": "たな",
+        "level": "N4",
+        "type": "vocab",
+        "example": "棚は空っぽです。"
+      },
+      {
+        "id": "n4-v951",
+        "front": "男性",
+        "back": "Erkak kishi (Male)",
+        "romaji": "dansei",
+        "furigana": "だんせい",
+        "level": "N4",
+        "type": "vocab",
+        "example": "男性より女性が先。"
+      },
+      {
+        "id": "n4-v952",
+        "front": "恥ずかしい",
+        "back": "Uyalgan, xijolatli (Embarrassed)",
+        "romaji": "hazukashii",
+        "furigana": "はずかしい",
+        "level": "N4",
+        "type": "vocab",
+        "example": "恥ずかしいなぁ！"
+      },
+      {
+        "id": "n4-v953",
+        "front": "致す",
+        "back": "(humble) to do",
+        "romaji": "itasu",
+        "furigana": "いたす",
+        "level": "N4",
+        "type": "vocab",
+        "example": "両極端は一致する。"
+      },
+      {
+        "id": "n4-v954",
+        "front": "遅れる",
+        "back": "To be late",
+        "romaji": "okureru",
+        "furigana": "おくれる",
+        "level": "N4",
+        "type": "vocab",
+        "example": "遅れるなよ。"
+      },
+      {
+        "id": "n4-v955",
+        "front": "着物",
+        "back": "Kimono, milliy yapon kiyimi (Kimono)",
+        "romaji": "kimono",
+        "furigana": "きもの",
+        "level": "N4",
+        "type": "vocab",
+        "example": "着物は着ますか。"
+      },
+      {
+        "id": "n4-v956",
+        "front": "中々",
+        "back": "Considerably",
+        "romaji": "nakanaka",
+        "furigana": "なかなか",
+        "level": "N4",
+        "type": "vocab",
+        "example": ""
+      },
+      {
+        "id": "n4-v957",
+        "front": "中学校",
+        "back": "Junior high school, middle school",
+        "romaji": "chuugakkou",
+        "furigana": "ちゅうがっこう",
+        "level": "N4",
+        "type": "vocab",
+        "example": "彼は中学校に入った。"
+      },
+      {
+        "id": "n4-v958",
+        "front": "昼間",
+        "back": "Kunduzi (Daytime, during the day)",
+        "romaji": "hiruma",
+        "furigana": "ひるま",
+        "level": "N4",
+        "type": "vocab",
+        "example": "太陽は昼間輝く。"
+      },
+      {
+        "id": "n4-v959",
+        "front": "昼休み",
+        "back": "Noon break",
+        "romaji": "hiruyasumi",
+        "furigana": "ひるやすみ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "お昼休みはいつ？"
+      },
+      {
+        "id": "n4-v960",
+        "front": "注射",
+        "back": "Inyeksiya, ukol (Injection)",
+        "romaji": "chuusha",
+        "furigana": "ちゅうしゃ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "注射をしましょう。"
+      },
+      {
+        "id": "n4-v961",
+        "front": "虫",
+        "back": "Hasharot (Insect)",
+        "romaji": "mushi",
+        "furigana": "むし",
+        "level": "N4",
+        "type": "vocab",
+        "example": "虫が怖いの？"
+      },
+      {
+        "id": "n4-v962",
+        "front": "駐車場",
+        "back": "Inyeksiya, ukol (Parking lot)",
+        "romaji": "chuushajou",
+        "furigana": "ちゅうしゃじょう",
+        "level": "N4",
+        "type": "vocab",
+        "example": "駐車場はある？"
+      },
+      {
+        "id": "n4-v963",
+        "front": "直る",
+        "back": "To be fixed, to be repaired",
+        "romaji": "naoru",
+        "furigana": "なおる",
+        "level": "N4",
+        "type": "vocab",
+        "example": "すぐに立ち直るよね！"
+      },
+      {
+        "id": "n4-v964",
+        "front": "通る",
+        "back": "To go through",
+        "romaji": "tooru",
+        "furigana": "とおる",
+        "level": "N4",
+        "type": "vocab",
+        "example": "この橋を通るな。"
+      },
+      {
+        "id": "n4-v965",
+        "front": "漬ける",
+        "back": "To soak, to pickle",
+        "romaji": "tsukeru",
+        "furigana": "つける",
+        "level": "N4",
+        "type": "vocab",
+        "example": "靴下の臭いが気になる時は、クエン酸水に漬けるといいそうよ。"
+      },
+      {
+        "id": "n4-v966",
+        "front": "釣る",
+        "back": "To fish",
+        "romaji": "tsuru",
+        "furigana": "つる",
+        "level": "N4",
+        "type": "vocab",
+        "example": "海老で鯛を釣る。"
+      },
+      {
+        "id": "n4-v967",
+        "front": "適当",
+        "back": "Munosib, o'rinli (Suitability)",
+        "romaji": "tekitou",
+        "furigana": "てきとう",
+        "level": "N4",
+        "type": "vocab",
+        "example": "適当にやって。"
+      },
+      {
+        "id": "n4-v968",
+        "front": "展覧会",
+        "back": "Ko'rgazma (Exhibition)",
+        "romaji": "tenrankai",
+        "furigana": "てんらんかい",
+        "level": "N4",
+        "type": "vocab",
+        "example": "展覧会は現在開催中です。"
+      },
+      {
+        "id": "n4-v969",
+        "front": "店員",
+        "back": "Shop assistant",
+        "romaji": "ten'in",
+        "furigana": "てんいん",
+        "level": "N4",
+        "type": "vocab",
+        "example": "彼は店員に金を渡した。"
+      },
+      {
+        "id": "n4-v970",
+        "front": "点",
+        "back": "Point, dot",
+        "romaji": "ten",
+        "furigana": "てん",
+        "level": "N4",
+        "type": "vocab",
+        "example": "論点がわかる。"
+      },
+      {
+        "id": "n4-v971",
+        "front": "田舎",
+        "back": "Countryside",
+        "romaji": "inaka",
+        "furigana": "いなか",
+        "level": "N4",
+        "type": "vocab",
+        "example": "田舎育ちです。"
+      },
+      {
+        "id": "n4-v972",
+        "front": "電灯",
+        "back": "Electric light",
+        "romaji": "dentou",
+        "furigana": "でんとう",
+        "level": "N4",
+        "type": "vocab",
+        "example": "電灯が消えた。"
+      },
+      {
+        "id": "n4-v973",
+        "front": "電報",
+        "back": "Telegram",
+        "romaji": "denpou",
+        "furigana": "でんぽう",
+        "level": "N4",
+        "type": "vocab",
+        "example": "電報をすぐ送れ。"
+      },
+      {
+        "id": "n4-v974",
+        "front": "途中",
+        "back": "Yo'l o'rtasida, chala (On the way)",
+        "romaji": "tochuu",
+        "furigana": "とちゅう",
+        "level": "N4",
+        "type": "vocab",
+        "example": "家に帰る途中なの？"
+      },
+      {
+        "id": "n4-v975",
+        "front": "都",
+        "back": "Metropolitan",
+        "romaji": "to",
+        "furigana": "と",
+        "level": "N4",
+        "type": "vocab",
+        "example": "工業都市です。"
+      },
+      {
+        "id": "n4-v976",
+        "front": "湯",
+        "back": "Hot water",
+        "romaji": "yu",
+        "furigana": "ゆ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "いい湯だなあ。"
+      },
+      {
+        "id": "n4-v977",
+        "front": "答",
+        "back": "Response",
+        "romaji": "kotae",
+        "furigana": "こたえ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "何問答えた？"
+      },
+      {
+        "id": "n4-v978",
+        "front": "踏む",
+        "back": "Bosmoq (oyoq bilan) (To step on)",
+        "romaji": "fumu",
+        "furigana": "ふむ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "割れたガラスを踏むな。"
+      },
+      {
+        "id": "n4-v979",
+        "front": "動物園",
+        "back": "Zoo",
+        "romaji": "doubutsuen",
+        "furigana": "どうぶつえん",
+        "level": "N4",
+        "type": "vocab",
+        "example": "動物園に行こう。"
+      },
+      {
+        "id": "n4-v980",
+        "front": "特急",
+        "back": "Tezyurar ekspress poyezd (Limited express train (faster than an express train))",
+        "romaji": "tokkyuu",
+        "furigana": "とっきゅう",
+        "level": "N4",
+        "type": "vocab",
+        "example": "特急のホームは何番ですか。"
+      },
+      {
+        "id": "n4-v981",
+        "front": "二階建て",
+        "back": "Two storied",
+        "romaji": "nikaidate",
+        "furigana": "にかいだて",
+        "level": "N4",
+        "type": "vocab",
+        "example": ""
+      },
+      {
+        "id": "n4-v982",
+        "front": "日",
+        "back": "Day, sun",
+        "romaji": "hi",
+        "furigana": "ひ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "本日定休日。"
+      },
+      {
+        "id": "n4-v983",
+        "front": "日記",
+        "back": "Kundalik daftar (Journal)",
+        "romaji": "nikki",
+        "furigana": "にっき",
+        "level": "N4",
+        "type": "vocab",
+        "example": "日記をつける。"
+      },
+      {
+        "id": "n4-v984",
+        "front": "入学",
+        "back": "To enter school or university",
+        "romaji": "nyuugakusuru",
+        "furigana": "にゅうがくする",
+        "level": "N4",
+        "type": "vocab",
+        "example": "彼は裏口入学した。"
+      },
+      {
+        "id": "n4-v985",
+        "front": "拝見",
+        "back": "(humble) to look at",
+        "romaji": "haikensuru",
+        "furigana": "はいけんする",
+        "level": "N4",
+        "type": "vocab",
+        "example": "搭乗券を拝見します。"
+      },
+      {
+        "id": "n4-v986",
+        "front": "背中",
+        "back": "Back of the body",
+        "romaji": "senaka",
+        "furigana": "せなか",
+        "level": "N4",
+        "type": "vocab",
+        "example": "背中が痛い。"
+      },
+      {
+        "id": "n4-v987",
+        "front": "倍",
+        "back": "Double",
+        "romaji": "bai",
+        "furigana": "ばい",
+        "level": "N4",
+        "type": "vocab",
+        "example": "二の二倍は四。"
+      },
+      {
+        "id": "n4-v988",
+        "front": "売り場",
+        "back": "Place where things are sold",
+        "romaji": "uriba",
+        "furigana": "うりば",
+        "level": "N4",
+        "type": "vocab",
+        "example": "切符売り場はどこですか。"
+      },
+      {
+        "id": "n4-v989",
+        "front": "彼",
+        "back": "He, boyfriend",
+        "romaji": "kare",
+        "furigana": "かれ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "彼女は歩く。"
+      },
+      {
+        "id": "n4-v990",
+        "front": "彼ら",
+        "back": "They",
+        "romaji": "karera",
+        "furigana": "かれら",
+        "level": "N4",
+        "type": "vocab",
+        "example": "彼らは青い。"
+      },
+      {
+        "id": "n4-v991",
+        "front": "彼女",
+        "back": "She, girlfriend",
+        "romaji": "kanojo",
+        "furigana": "かのじょ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "彼女は歩く。"
+      },
+      {
+        "id": "n4-v992",
+        "front": "悲しい",
+        "back": "Sad",
+        "romaji": "kanashii",
+        "furigana": "かなしい",
+        "level": "N4",
+        "type": "vocab",
+        "example": "悲しいです。"
+      },
+      {
+        "id": "n4-v993",
+        "front": "非常に",
+        "back": "Extremely",
+        "romaji": "hijouni",
+        "furigana": "ひじょうに",
+        "level": "N4",
+        "type": "vocab",
+        "example": "彼は非常に親切だ。"
+      },
+      {
+        "id": "n4-v994",
+        "front": "飛行場",
+        "back": "Zavod, fabrika (Airport)",
+        "romaji": "hikoujou",
+        "furigana": "ひこうじょう",
+        "level": "N4",
+        "type": "vocab",
+        "example": "航空券は飛行場で受け取れますか。"
+      },
+      {
+        "id": "n4-v995",
+        "front": "美しい",
+        "back": "Beautiful",
+        "romaji": "utsukushii",
+        "furigana": "うつくしい",
+        "level": "N4",
+        "type": "vocab",
+        "example": "私は美しい。"
+      },
+      {
+        "id": "n4-v996",
+        "front": "美術館",
+        "back": "Art gallery",
+        "romaji": "bijutsukan",
+        "furigana": "びじゅつかん",
+        "level": "N4",
+        "type": "vocab",
+        "example": "俺たちは美術館に行った。"
+      },
+      {
+        "id": "n4-v997",
+        "front": "付く",
+        "back": "To be attached",
+        "romaji": "tsuku",
+        "furigana": "つく",
+        "level": "N4",
+        "type": "vocab",
+        "example": "彼女の水着は目に付く。"
+      },
+      {
+        "id": "n4-v998",
+        "front": "夫",
+        "back": "Husband",
+        "romaji": "otto",
+        "furigana": "おっと",
+        "level": "N4",
+        "type": "vocab",
+        "example": "大丈夫そう？"
+      },
+      {
+        "id": "n4-v999",
+        "front": "布団",
+        "back": "Japanese bedding, futon",
+        "romaji": "futon",
+        "furigana": "ふとん",
+        "level": "N4",
+        "type": "vocab",
+        "example": "布団干しといて。"
+      },
+      {
+        "id": "n4-v1000",
+        "front": "怖い",
+        "back": "Frightening",
+        "romaji": "kowai",
+        "furigana": "こわい",
+        "level": "N4",
+        "type": "vocab",
+        "example": "まだ怖いの？"
+      },
+      {
+        "id": "n4-v1001",
+        "front": "負ける",
+        "back": "To lose",
+        "romaji": "makeru",
+        "furigana": "まける",
+        "level": "N4",
+        "type": "vocab",
+        "example": "負けるが勝ち。"
+      },
+      {
+        "id": "n4-v1002",
+        "front": "文学",
+        "back": "Literature",
+        "romaji": "bungaku",
+        "furigana": "ぶんがく",
+        "level": "N4",
+        "type": "vocab",
+        "example": "彼は文学者である。"
+      },
+      {
+        "id": "n4-v1003",
+        "front": "米",
+        "back": "Uncooked rice",
+        "romaji": "kome",
+        "furigana": "こめ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "米を煮なさい。"
+      },
+      {
+        "id": "n4-v1004",
+        "front": "別",
+        "back": "Boshqa, alohida (Different)",
+        "romaji": "betsu",
+        "furigana": "べつ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "別人みたい。"
+      },
+      {
+        "id": "n4-v1005",
+        "front": "変える",
+        "back": "To change",
+        "romaji": "kaeru",
+        "furigana": "かえる",
+        "level": "N4",
+        "type": "vocab",
+        "example": "熱は氷を水に変える。"
+      },
+      {
+        "id": "n4-v1006",
+        "front": "変わる",
+        "back": "To change",
+        "romaji": "kawaru",
+        "furigana": "かわる",
+        "level": "N4",
+        "type": "vocab",
+        "example": "水は蒸気に変わる。"
+      },
+      {
+        "id": "n4-v1007",
+        "front": "暮れる",
+        "back": "To get dark, to come to an end",
+        "romaji": "kureru",
+        "furigana": "くれる",
+        "level": "N4",
+        "type": "vocab",
+        "example": "冬の日は速く暮れる。"
+      },
+      {
+        "id": "n4-v1008",
+        "front": "包む",
+        "back": "To wrap",
+        "romaji": "tsutsumu",
+        "furigana": "つつむ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "包む必要はありません。"
+      },
+      {
+        "id": "n4-v1009",
+        "front": "放送",
+        "back": "Yolg'on (To broadcast)",
+        "romaji": "housousuru",
+        "furigana": "ほうそうする",
+        "level": "N4",
+        "type": "vocab",
+        "example": "絶賛放送中！"
+      },
+      {
+        "id": "n4-v1010",
+        "front": "僕",
+        "back": "Men (erkaklar tilida) (I (used by males))",
+        "romaji": "boku",
+        "furigana": "ぼく",
+        "level": "N4",
+        "type": "vocab",
+        "example": "僕は忙しい。"
+      },
+      {
+        "id": "n4-v1011",
+        "front": "味噌",
+        "back": "Bean paste",
+        "romaji": "miso",
+        "furigana": "みそ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "味噌汁が温まった。"
+      },
+      {
+        "id": "n4-v1012",
+        "front": "眠い",
+        "back": "Uyqusi kelgan (Sleepy)",
+        "romaji": "nemui",
+        "furigana": "ねむい",
+        "level": "N4",
+        "type": "vocab",
+        "example": "眠いですか？"
+      },
+      {
+        "id": "n4-v1013",
+        "front": "眠る",
+        "back": "To sleep",
+        "romaji": "nemuru",
+        "furigana": "ねむる",
+        "level": "N4",
+        "type": "vocab",
+        "example": "私と友に眠る。"
+      },
+      {
+        "id": "n4-v1014",
+        "front": "無くなる",
+        "back": "Yo'qolmoq, vafot etmoq (To disappear, to get lost)",
+        "romaji": "nakunaru",
+        "furigana": "なくなる",
+        "level": "N4",
+        "type": "vocab",
+        "example": "会議は恐らく無くなるよ。"
+      },
+      {
+        "id": "n4-v1015",
+        "front": "娘",
+        "back": "Qiz farzand ((humble) daughter)",
+        "romaji": "musume",
+        "furigana": "むすめ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "猫娘は好き。"
+      },
+      {
+        "id": "n4-v1016",
+        "front": "明日",
+        "back": "Ah, oh (Tomorrow)",
+        "romaji": "asu",
+        "furigana": "あす",
+        "level": "N4",
+        "type": "vocab",
+        "example": "明日来れる？"
+      },
+      {
+        "id": "n4-v1017",
+        "front": "鳴る",
+        "back": "To sound",
+        "romaji": "naru",
+        "furigana": "なる",
+        "level": "N4",
+        "type": "vocab",
+        "example": "怒鳴るなよ。"
+      },
+      {
+        "id": "n4-v1018",
+        "front": "毛",
+        "back": "Hair or fur",
+        "romaji": "ke",
+        "furigana": "け",
+        "level": "N4",
+        "type": "vocab",
+        "example": "はい、毛布。"
+      },
+      {
+        "id": "n4-v1019",
+        "front": "戻る",
+        "back": "Qaytmoq (To turn back)",
+        "romaji": "modoru",
+        "furigana": "もどる",
+        "level": "N4",
+        "type": "vocab",
+        "example": "すぐに戻るよ。"
+      },
+      {
+        "id": "n4-v1020",
+        "front": "訳",
+        "back": "Sabab, ma'no (Meaning, reason)",
+        "romaji": "wake",
+        "furigana": "わけ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "その内訳は？"
+      },
+      {
+        "id": "n4-v1021",
+        "front": "優しい",
+        "back": "Mehribon, muloyim (Kind)",
+        "romaji": "yasashii",
+        "furigana": "やさしい",
+        "level": "N4",
+        "type": "vocab",
+        "example": "優しい人です。"
+      },
+      {
+        "id": "n4-v1022",
+        "front": "遊び",
+        "back": "Ah, oh (Play)",
+        "romaji": "asobi",
+        "furigana": "あそび",
+        "level": "N4",
+        "type": "vocab",
+        "example": "遊びましょう。"
+      },
+      {
+        "id": "n4-v1023",
+        "front": "揺れる",
+        "back": "Tebranmoq, chayqalmoq (To shake, to sway)",
+        "romaji": "yureru",
+        "furigana": "ゆれる",
+        "level": "N4",
+        "type": "vocab",
+        "example": "家が揺れるのを感じた。"
+      },
+      {
+        "id": "n4-v1024",
+        "front": "用",
+        "back": "Use",
+        "romaji": "you",
+        "furigana": "よう",
+        "level": "N4",
+        "type": "vocab",
+        "example": "他にご用は？"
+      },
+      {
+        "id": "n4-v1025",
+        "front": "用意",
+        "back": "Tayyorgarlik (Preparation)",
+        "romaji": "youi",
+        "furigana": "ようい",
+        "level": "N4",
+        "type": "vocab",
+        "example": "早く用意して。"
+      },
+      {
+        "id": "n4-v1026",
+        "front": "用事",
+        "back": "Yumush, zarur ish (Things to do)",
+        "romaji": "youji",
+        "furigana": "ようじ",
+        "level": "N4",
+        "type": "vocab",
+        "example": "今日用事あるの？"
+      },
+      {
+        "id": "n4-v1027",
+        "front": "葉",
+        "back": "Leaf",
+        "romaji": "ha",
+        "furigana": "は",
+        "level": "N4",
+        "type": "vocab",
+        "example": "葉が落ちた。"
+      },
+      {
+        "id": "n4-v1028",
+        "front": "踊り",
+        "back": "A dance",
+        "romaji": "odori",
+        "furigana": "おどり",
+        "level": "N4",
+        "type": "vocab",
+        "example": "踊り続けて。"
+      },
+      {
+        "id": "n4-v1029",
+        "front": "踊る",
+        "back": "To dance",
+        "romaji": "odoru",
+        "furigana": "おどる",
+        "level": "N4",
+        "type": "vocab",
+        "example": "踊るのが大っ嫌い。"
+      },
+      {
+        "id": "n4-v1030",
+        "front": "落す",
+        "back": "To drop",
+        "romaji": "otosu",
+        "furigana": "おとす",
+        "level": "N4",
+        "type": "vocab",
+        "example": "そのコップを落すな。"
+      },
+      {
+        "id": "n4-v1031",
+        "front": "落る",
+        "back": "To fall or drop",
+        "romaji": "ochiru",
+        "furigana": "おちる",
+        "level": "N4",
+        "type": "vocab",
+        "example": ""
+      },
+      {
+        "id": "n4-v1032",
+        "front": "立てる",
+        "back": "Qurmoq, tiklamoq (To stand something up)",
+        "romaji": "tateru",
+        "furigana": "たてる",
+        "level": "N4",
+        "type": "vocab",
+        "example": "腹を立てるな。"
+      },
+      {
+        "id": "n4-v1033",
+        "front": "旅館",
+        "back": "Japanese hotel",
+        "romaji": "ryokan",
+        "furigana": "りょかん",
+        "level": "N4",
+        "type": "vocab",
+        "example": "あの旅館は家庭的だ。"
+      },
+      {
+        "id": "n4-v1034",
+        "front": "両方",
+        "back": "Both sides",
+        "romaji": "ryouhou",
+        "furigana": "りょうほう",
+        "level": "N4",
+        "type": "vocab",
+        "example": "両方好きよ。"
+      },
+      {
+        "id": "n4-v1035",
+        "front": "林",
+        "back": "Woods, forester",
+        "romaji": "hayashi",
+        "furigana": "はやし",
+        "level": "N4",
+        "type": "vocab",
+        "example": "林に竹が目立つ。"
+      },
+      {
+        "id": "n4-v1036",
+        "front": "連れる",
+        "back": "O'zi bilan olib bormoq (To lead)",
+        "romaji": "tsureru",
+        "furigana": "つれる",
+        "level": "N4",
+        "type": "vocab",
+        "example": ""
+      },
+      {
+        "id": "n4-v1037",
+        "front": "腕",
+        "back": "Arm",
+        "romaji": "ude",
+        "furigana": "うで",
+        "level": "N4",
+        "type": "vocab",
+        "example": "腕を放して。"
       }
     ]
   },

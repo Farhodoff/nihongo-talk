@@ -1,7 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import { LearningOrchestrator } from '../services/LearningOrchestrator';
-import { AlertCircle, ChevronRight, X } from 'lucide-react';
+import {
+  AlertCircle,
+  ChevronRight,
+  X,
+  CheckCircle2,
+  Headphones,
+  BookOpen,
+  Edit3,
+} from 'lucide-react';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { LessonService } from '../services/LessonService';
 import { LearningSignalService } from '../services/LearningSignalService';
@@ -12,12 +20,13 @@ import { PracticeStepView } from '../components/lesson/PracticeStepView';
 import { TestStepView, MissedQuestionInfo } from '../components/lesson/TestStepView';
 import { LessonCompletionView } from '../components/lesson/LessonCompletionView';
 import { useSEO } from '../hooks/useSEO';
+import { toast } from '../hooks/use-toast';
 
 export const LessonPlayerPage: React.FC = () => {
   const { lessonId } = useParams<{ lessonId: string }>();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const { user, awardXP } = useStudyData();
+  const { user, awardXP, settings, updateSettings } = useStudyData();
 
   const [lesson, setLesson] = useState<Lesson | null>(null);
   const [currentStepIdx, setCurrentStepIdx] = useState(0);
@@ -51,6 +60,12 @@ export const LessonPlayerPage: React.FC = () => {
       const access = LearningOrchestrator.canAccessLesson(lessonId, user?.id || '');
       if (!access.allowed) {
         console.warn(`[LessonPlayer] Access denied: ${access.reason}`);
+        toast({
+          title: '🔒 Dars qulflangan',
+          description:
+            access.reason ||
+            "Bu darsni ochish uchun avval oldingi mavzularni yakunlang. Sizni mos darsga yo'naltirdik.",
+        });
         navigate(access.redirectTo || '/jlpt', { replace: true });
         return;
       }
@@ -161,6 +176,22 @@ export const LessonPlayerPage: React.FC = () => {
     if (currentStepIdx > 0) {
       setCurrentStepIdx((prev) => prev - 1);
     }
+  };
+
+  const handleJumpToStep = async (idx: number) => {
+    if (!lesson || idx < 0 || idx >= totalSteps || idx === currentStepIdx) return;
+    setCurrentStepIdx(idx);
+
+    // Save progress (same shape as sequential navigation)
+    const progress: UserLessonProgress = {
+      lessonId: lesson.id,
+      userId: user?.id || 'guest',
+      currentStepIndex: idx,
+      completedStepIds: lesson.steps.slice(0, idx).map((s) => s.id),
+      isCompleted: false,
+      lastAttemptedAt: new Date().toISOString(),
+    };
+    await LessonService.saveLessonProgress(user?.id || '', progress);
   };
 
   const handleTestCompletion = async (result: {
@@ -353,17 +384,41 @@ export const LessonPlayerPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Right: Step Counter */}
-          {!isLessonCompleted && (
-            <div className="flex shrink-0 items-center gap-3">
+          {/* Right: Furigana Toggle & Step Counter */}
+          <div className="flex shrink-0 items-center gap-2.5 sm:gap-3">
+            {lesson.language === 'ja' && (
+              <button
+                type="button"
+                onClick={() => updateSettings({ showFurigana: !settings.showFurigana })}
+                className={`flex items-center gap-1.5 rounded-xl border px-2.5 py-1.5 text-xs font-bold transition-all active:scale-95 ${
+                  settings?.showFurigana
+                    ? 'border-indigo-500/30 bg-indigo-500/10 text-indigo-500 shadow-xs hover:bg-indigo-500/20 dark:text-indigo-400'
+                    : 'border-border bg-secondary/60 text-muted-foreground hover:bg-secondary hover:text-foreground'
+                }`}
+                title={
+                  settings?.showFurigana
+                    ? "Furiganani o'chirish (Kanjilarni mustaqil o'qish)"
+                    : "Furiganani ko'rsatish"
+                }
+                aria-pressed={settings?.showFurigana}
+              >
+                <span className="font-mono text-[11px] font-bold">振</span>
+                <span className="hidden sm:inline">
+                  {settings?.showFurigana ? 'Furigana: ON' : 'Furigana: OFF'}
+                </span>
+                <span className="sm:hidden">{settings?.showFurigana ? 'ON' : 'OFF'}</span>
+              </button>
+            )}
+
+            {!isLessonCompleted && (
               <div className="text-right">
                 <div className="text-[11px] font-bold uppercase text-muted-foreground">Qadam</div>
                 <div className="text-xs font-black text-foreground">
                   {currentStepIdx + 1} / {totalSteps}
                 </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
 
         {/* Progress Line */}
@@ -373,6 +428,63 @@ export const LessonPlayerPage: React.FC = () => {
             style={{ width: `${Math.min(100, Math.max(5, progressPercentage))}%` }}
           />
         </div>
+
+        {/* Interactive Step Navigation Pills */}
+        {lesson && totalSteps > 1 && (
+          <div className="mt-2.5 flex items-center gap-1.5 overflow-x-auto pb-0.5 [scrollbar-width:none] sm:gap-2 [&::-webkit-scrollbar]:hidden">
+            {lesson.steps.map((step, idx) => {
+              const isActive = currentStepIdx === idx && !isLessonCompleted;
+              const isPast = currentStepIdx > idx || isLessonCompleted;
+              const isMondai =
+                step.id.includes('s4') ||
+                step.title.toLowerCase().includes('tinglash') ||
+                step.title.toLowerCase().includes('mondai');
+
+              return (
+                <button
+                  key={step.id}
+                  type="button"
+                  onClick={() => handleJumpToStep(idx)}
+                  className={`group flex shrink-0 items-center gap-1.5 rounded-xl border px-2.5 py-1 text-xs font-bold transition-all active:scale-95 sm:px-3 sm:py-1.5 ${
+                    isActive
+                      ? isMondai
+                        ? 'border-amber-500 bg-amber-500/15 text-amber-600 shadow-xs ring-2 ring-amber-500/30 dark:text-amber-300'
+                        : 'border-primary bg-primary/15 text-primary shadow-xs ring-2 ring-primary/30'
+                      : isPast
+                        ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-600 hover:bg-emerald-500/20 dark:text-emerald-400'
+                        : 'border-border bg-card text-muted-foreground hover:border-primary/40 hover:bg-secondary hover:text-foreground'
+                  }`}
+                  title={`${idx + 1}-qadam: ${step.title}`}
+                >
+                  <span className="flex items-center justify-center text-xs">
+                    {isPast && !isActive ? (
+                      <CheckCircle2 size={13} className="text-emerald-500" />
+                    ) : isMondai ? (
+                      <Headphones
+                        size={13}
+                        className={
+                          isActive ? 'animate-pulse text-amber-500' : 'text-muted-foreground'
+                        }
+                      />
+                    ) : step.type === 'learn' ? (
+                      <BookOpen size={13} />
+                    ) : step.type === 'practice' ? (
+                      <Edit3 size={13} />
+                    ) : (
+                      <CheckCircle2 size={13} />
+                    )}
+                  </span>
+                  <span className="max-w-[100px] truncate sm:max-w-[150px]">
+                    {step.title.replace(/\s*\(CD Audio\)/i, '')}
+                  </span>
+                  {isActive && (
+                    <span className="h-1.5 w-1.5 animate-ping rounded-full bg-current" />
+                  )}
+                </button>
+              );
+            })}
+          </div>
+        )}
       </div>
 
       {/* Main Content Area - Scrollable Container with bottom buffer */}
@@ -441,11 +553,26 @@ export const LessonPlayerPage: React.FC = () => {
             <button
               onClick={handlePrevStep}
               disabled={currentStepIdx === 0}
-              className="h-11 cursor-pointer touch-manipulation select-none rounded-2xl border border-border px-3 text-xs font-bold text-muted-foreground transition-all hover:bg-secondary hover:text-foreground active:scale-95 disabled:cursor-not-allowed disabled:opacity-30 sm:px-4"
+              className="h-11 shrink-0 cursor-pointer touch-manipulation select-none rounded-2xl border border-border px-3 text-xs font-bold text-muted-foreground transition-all hover:bg-secondary hover:text-foreground active:scale-95 disabled:cursor-not-allowed disabled:opacity-30 sm:px-4"
             >
               <span className="sm:hidden">Oldingi</span>
               <span className="hidden sm:inline">Oldingi qadam</span>
             </button>
+
+            {lesson && totalSteps > 1 && (
+              <select
+                value={currentStepIdx}
+                onChange={(e) => handleJumpToStep(Number(e.target.value))}
+                aria-label="Qadamga sakrash"
+                className="h-11 min-w-0 flex-1 cursor-pointer truncate rounded-2xl border border-border bg-card px-2 text-center text-xs font-bold text-foreground focus:border-primary focus:outline-none sm:flex-none sm:px-3"
+              >
+                {lesson.steps.map((s, i) => (
+                  <option key={s.id} value={i}>
+                    {i + 1}/{totalSteps} · {s.title}
+                  </option>
+                ))}
+              </select>
+            )}
 
             <button
               onClick={handleNextStep}

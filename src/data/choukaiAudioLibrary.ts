@@ -1,7 +1,7 @@
 // Auto-generated Choukai Audio Tracks Library
 export interface ChoukaiAudioTrack {
   id: string;
-  level: 'N5' | 'N4' | 'N3' | 'N2';
+  level: 'N5' | 'N4' | 'N3' | 'N2' | 'N1';
   name: string;
   url: string;
 }
@@ -1560,5 +1560,95 @@ export const CHOUKAI_AUDIO_LIBRARY: ChoukaiAudioTrack[] = [
     level: 'N2',
     name: 'Track83.mp3',
     url: '/audio/choukai/n2/Track83.mp3',
+  },
+  {
+    id: 'n1_n1_lecture_l08.mp3',
+    level: 'N1',
+    name: 'n1_lecture_l08.mp3',
+    url: '/audio/choukai/n1/n1_lecture_l08.mp3',
+  },
+  {
+    id: 'n1_n1_dialogue_l20.mp3',
+    level: 'N1',
+    name: 'n1_dialogue_l20.mp3',
+    url: '/audio/choukai/n1/n1_dialogue_l20.mp3',
+  },
+  {
+    id: 'n1_n1_track_10.mp3',
+    level: 'N1',
+    name: 'n1_track_10.mp3',
+    url: '/audio/choukai/n1/n1_track_10.mp3',
+  },
+  {
+    id: 'n1_n1_track_20.mp3',
+    level: 'N1',
+    name: 'n1_track_20.mp3',
+    url: '/audio/choukai/n1/n1_track_20.mp3',
+  },
+  {
+    id: 'n1_n1_track_42.mp3',
+    level: 'N1',
+    name: 'n1_track_42.mp3',
+    url: '/audio/choukai/n1/n1_track_42.mp3',
+  },
+  {
+    id: 'n1_n1_track_44.mp3',
+    level: 'N1',
+    name: 'n1_track_44.mp3',
+    url: '/audio/choukai/n1/n1_track_44.mp3',
+  },
+  {
+    id: 'n1_n1_track_45.mp3',
+    level: 'N1',
+    name: 'n1_track_45.mp3',
+    url: '/audio/choukai/n1/n1_track_45.mp3',
+  },
+  {
+    id: 'n1_n1_track_46.mp3',
+    level: 'N1',
+    name: 'n1_track_46.mp3',
+    url: '/audio/choukai/n1/n1_track_46.mp3',
+  },
+  {
+    id: 'n1_n1_track_77.mp3',
+    level: 'N1',
+    name: 'n1_track_77.mp3',
+    url: '/audio/choukai/n1/n1_track_77.mp3',
+  },
+  {
+    id: 'n1_n1_track_78.mp3',
+    level: 'N1',
+    name: 'n1_track_78.mp3',
+    url: '/audio/choukai/n1/n1_track_78.mp3',
+  },
+  {
+    id: 'n1_n1_track_79.mp3',
+    level: 'N1',
+    name: 'n1_track_79.mp3',
+    url: '/audio/choukai/n1/n1_track_79.mp3',
+  },
+  {
+    id: 'n1_n1_track_80.mp3',
+    level: 'N1',
+    name: 'n1_track_80.mp3',
+    url: '/audio/choukai/n1/n1_track_80.mp3',
+  },
+  {
+    id: 'n1_n1_track_83.mp3',
+    level: 'N1',
+    name: 'n1_track_83.mp3',
+    url: '/audio/choukai/n1/n1_track_83.mp3',
+  },
+  {
+    id: 'n1_n1_track_84.mp3',
+    level: 'N1',
+    name: 'n1_track_84.mp3',
+    url: '/audio/choukai/n1/n1_track_84.mp3',
+  },
+  {
+    id: 'n1_n1_track_85.mp3',
+    level: 'N1',
+    name: 'n1_track_85.mp3',
+    url: '/audio/choukai/n1/n1_track_85.mp3',
   },
 ];

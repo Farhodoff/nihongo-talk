@@ -33,7 +33,7 @@ import { Button } from '../components/ui/Button';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { useLanguage } from '../context/LanguageContext';
 import { useFlashcardImport } from '../hooks/useFlashcardImport';
-import { isSuperAdmin, isUserAdmin } from '../utils/admin';
+import { isUserAdmin } from '../utils/admin';
 import { PRESET_DECKS, PresetDeck, PresetSubDeck } from '../data/presetDecks';
 import { PresetDeckService, DeckPart } from '../services/PresetDeckService';
 import { toast } from '../hooks/use-toast';
@@ -54,7 +54,6 @@ const DecksPage: React.FC = () => {
   const { t, language } = useLanguage();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-  const isSuper = isSuperAdmin(user?.email, user?.role);
 
   const studyQueryParam = searchParams.get('study');
   const [activeStudySubjectId, setActiveStudySubjectId] = useState<string | null>(studyQueryParam);
@@ -80,6 +79,10 @@ const DecksPage: React.FC = () => {
   const [explorerParts, setExplorerParts] = useState<DeckPart[]>([]);
   const [importedDeckTitle, setImportedDeckTitle] = useState<string | null>(null);
   const [isImportingPreset, setIsImportingPreset] = useState(false);
+  const [presetImportProgress, setPresetImportProgress] = useState<{
+    done: number;
+    total: number;
+  } | null>(null);
   const [standaloneAlbums, setStandaloneAlbums] = useState<PresetSubDeck[]>([]);
 
   const isAdmin = isUserAdmin(user);
@@ -87,6 +90,17 @@ const DecksPage: React.FC = () => {
   const activeSubjects = subjects.filter((s) => !s.isArchived);
   const archivedSubjects = subjects.filter((s) => !!s.isArchived);
   const currentList = subTab === 'active' ? activeSubjects : archivedSubjects;
+
+  const reviewInbox = useMemo(() => {
+    const now = new Date();
+    const isDue = (c: { nextReviewDate?: string; isArchived?: boolean }) =>
+      !c.isArchived && c.nextReviewDate ? new Date(c.nextReviewDate) <= now : false;
+    const totalDue = flashcards.filter(isDue).length;
+    const firstDueSubjectId =
+      activeSubjects.find((s) => flashcards.some((c) => c.subjectId === s.id && isDue(c)))?.id ||
+      null;
+    return { totalDue, firstDueSubjectId };
+  }, [flashcards, activeSubjects]);
 
   const { handleImport, downloadTemplate, isImporting } = useFlashcardImport(importFlashcards);
 
@@ -157,9 +171,14 @@ const DecksPage: React.FC = () => {
             }));
 
             const chunkSize = 100;
+            setPresetImportProgress({ done: 0, total: batchCards.length });
             for (let i = 0; i < batchCards.length; i += chunkSize) {
               const chunk = batchCards.slice(i, i + chunkSize);
               await addFlashcardsBatch(chunk);
+              setPresetImportProgress({
+                done: Math.min(i + chunkSize, batchCards.length),
+                total: batchCards.length,
+              });
             }
             setImportedDeckTitle(
               `${cleanTitle || preset.title} (${newCards.length} ta yangi kartochka qo'shildi)`,
@@ -180,6 +199,7 @@ const DecksPage: React.FC = () => {
       });
     } finally {
       setIsImportingPreset(false);
+      setPresetImportProgress(null);
     }
   };
 
@@ -479,6 +499,26 @@ const DecksPage: React.FC = () => {
 
   return (
     <div className="mx-auto max-w-7xl space-y-6 p-3.5 sm:p-4 md:space-y-8 md:p-8">
+      <div className="flex flex-col gap-2 rounded-2xl border border-primary/25 bg-primary/5 p-3 text-xs sm:flex-row sm:items-center sm:justify-between">
+        <span className="leading-relaxed text-muted-foreground">
+          <span className="font-bold text-foreground">Takrorlash inbox:</span>{' '}
+          {reviewInbox.totalDue > 0
+            ? `bugun ${reviewInbox.totalDue} ta karta muddati keldi — Due birinchi.`
+            : 'bugun muddati kelgan karta yo‘q. Kutubxona faqat boshqaruv uchun.'}
+        </span>
+        {reviewInbox.totalDue > 0 && reviewInbox.firstDueSubjectId ? (
+          <button
+            onClick={() => setActiveStudySubjectId(reviewInbox.firstDueSubjectId)}
+            className="shrink-0 cursor-pointer rounded-xl bg-primary px-3 py-1.5 text-xs font-bold text-primary-foreground transition-all hover:bg-primary/90 active:scale-95"
+          >
+            Hozir takrorlash ({reviewInbox.totalDue})
+          </button>
+        ) : (
+          <span className="shrink-0 rounded-xl bg-primary/10 px-3 py-1.5 text-xs font-bold text-primary">
+            Due birinchi
+          </span>
+        )}
+      </div>
       {/* Header Area */}
       <div className="flex flex-col justify-between gap-4 border-b border-border/60 pb-4 lg:flex-row lg:items-center">
         <div>
@@ -487,7 +527,7 @@ const DecksPage: React.FC = () => {
           </h2>
         </div>
 
-        {isSuper && (
+        {
           <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
             {/* Add Subject Button */}
             <Button
@@ -505,7 +545,7 @@ const DecksPage: React.FC = () => {
             </Link>
 
             {/* AI & Import Action Group */}
-            <div className="no-scrollbar flex max-w-full items-center gap-1 overflow-x-auto rounded-xl border border-border bg-card/80 p-1 sm:gap-1.5 sm:rounded-2xl">
+            <div className="no-scrollbar flex max-w-full flex-wrap items-center gap-1 overflow-x-visible rounded-xl border border-border bg-card/80 p-1 sm:flex-nowrap sm:gap-1.5 sm:overflow-x-auto sm:rounded-2xl">
               <button
                 onClick={() => setIsDocGeneratorOpen(true)}
                 className="flex shrink-0 items-center gap-1.5 rounded-xl border border-[#C9A961]/30 bg-[#C9A961]/20 px-3 py-2 text-xs font-extrabold text-[#C9A961] shadow-xs transition-all hover:bg-[#C9A961]/30"
@@ -551,16 +591,37 @@ const DecksPage: React.FC = () => {
               )}
             </div>
           </div>
-        )}
+        }
       </div>
 
       {/* Toast/Notice for preset deck import */}
       {isImportingPreset && (
-        <div className="flex animate-pulse items-center justify-between rounded-2xl border border-primary/20 bg-primary/10 p-4 text-primary">
-          <div className="flex items-center gap-2 text-sm font-extrabold">
+        <div className="space-y-2 rounded-2xl border border-primary/20 bg-primary/10 p-4 text-primary">
+          <div className="flex animate-pulse items-center gap-2 text-sm font-extrabold">
             <Sparkles size={18} className="animate-spin" />
-            <span>Kutubxonadagi barcha kartochkalar bazaga saqlanmoqda...</span>
+            <span>
+              {presetImportProgress
+                ? `Saqlanmoqda: ${presetImportProgress.done}/${presetImportProgress.total} (${Math.round((presetImportProgress.done / Math.max(presetImportProgress.total, 1)) * 100)}%)`
+                : 'Kutubxonadagi barcha kartochkalar bazaga saqlanmoqda...'}
+            </span>
           </div>
+          {presetImportProgress && (
+            <div
+              className="h-2 w-full overflow-hidden rounded-full bg-primary/20"
+              role="progressbar"
+              aria-valuenow={presetImportProgress.done}
+              aria-valuemin={0}
+              aria-valuemax={presetImportProgress.total}
+              aria-label="Import progress"
+            >
+              <div
+                className="h-full rounded-full bg-primary transition-all duration-300"
+                style={{
+                  width: `${Math.round((presetImportProgress.done / Math.max(presetImportProgress.total, 1)) * 100)}%`,
+                }}
+              />
+            </div>
+          )}
         </div>
       )}
 
@@ -591,7 +652,7 @@ const DecksPage: React.FC = () => {
         <div className="flex w-full items-center gap-1.5 rounded-2xl border border-border/80 bg-card p-1 shadow-xs sm:w-auto sm:gap-2 sm:p-1.5">
           <button
             onClick={() => setActiveTab('my')}
-            className={`flex flex-1 cursor-pointer items-center justify-center gap-1.5 rounded-xl px-3 py-2 text-xs font-black transition-all sm:flex-initial sm:gap-2 sm:px-5 sm:py-2.5 ${
+            className={`flex min-h-[44px] flex-1 cursor-pointer items-center justify-center gap-1.5 rounded-xl px-3 py-2 text-xs font-black transition-all sm:flex-initial sm:gap-2 sm:px-5 sm:py-2.5 ${
               activeTab === 'my'
                 ? 'bg-primary text-primary-foreground shadow-xs'
                 : 'text-muted-foreground hover:text-foreground'
@@ -601,7 +662,7 @@ const DecksPage: React.FC = () => {
           </button>
           <button
             onClick={() => setActiveTab('library')}
-            className={`flex flex-1 cursor-pointer items-center justify-center gap-1.5 rounded-xl px-3 py-2 text-xs font-black transition-all sm:flex-initial sm:gap-2 sm:px-5 sm:py-2.5 ${
+            className={`flex min-h-[44px] flex-1 cursor-pointer items-center justify-center gap-1.5 rounded-xl px-3 py-2 text-xs font-black transition-all sm:flex-initial sm:gap-2 sm:px-5 sm:py-2.5 ${
               activeTab === 'library'
                 ? 'bg-primary text-primary-foreground shadow-xs'
                 : 'text-muted-foreground hover:text-foreground'
@@ -622,7 +683,7 @@ const DecksPage: React.FC = () => {
                   setSubTab('active');
                   setSelectedSubjectIds([]);
                 }}
-                className={`flex flex-1 items-center justify-center gap-1.5 rounded-xl px-3 py-2 text-xs font-black transition-all sm:flex-initial sm:px-4 ${
+                className={`flex min-h-[44px] flex-1 items-center justify-center gap-1.5 rounded-xl px-3 py-2 text-xs font-black transition-all sm:flex-initial sm:px-4 ${
                   subTab === 'active'
                     ? 'bg-primary text-primary-foreground shadow-xs'
                     : 'text-muted-foreground hover:bg-muted/60 hover:text-foreground'
@@ -635,7 +696,7 @@ const DecksPage: React.FC = () => {
                   setSubTab('archived');
                   setSelectedSubjectIds([]);
                 }}
-                className={`flex flex-1 items-center justify-center gap-1.5 rounded-xl px-3 py-2 text-xs font-black transition-all sm:flex-initial sm:px-4 ${
+                className={`flex min-h-[44px] flex-1 items-center justify-center gap-1.5 rounded-xl px-3 py-2 text-xs font-black transition-all sm:flex-initial sm:px-4 ${
                   subTab === 'archived'
                     ? 'bg-[#C9A961] font-black text-black shadow-xs'
                     : 'text-muted-foreground hover:bg-muted/60 hover:text-foreground'
@@ -759,13 +820,13 @@ const DecksPage: React.FC = () => {
                     >
                       <Library size={18} className="mr-2" /> Standart Kutubxona
                     </Button>
-                    {isSuper && (
+                    {
                       <Link to="/subjects">
                         <Button className="bg-primary px-6 font-bold text-primary-foreground hover:bg-primary/90">
                           <Plus size={18} className="mr-2" /> Fan Qo'shish
                         </Button>
                       </Link>
-                    )}
+                    }
                   </div>
                 )}
               </div>

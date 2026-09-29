@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import { ShieldAlert, X } from 'lucide-react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { Mic, ShieldAlert, X } from 'lucide-react';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { isSuperAdmin, isUserAdmin } from '../utils/admin';
 import { useSEO } from '../hooks/useSEO';
@@ -40,7 +40,8 @@ const SpeakingCoachPage: React.FC = () => {
       'yapon tili speaking, AI yapon tili suhbatdosh, Yuki sensei, yaponcha talaffuz, JLPT kaiwa',
   });
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const {
     user,
     subjects,
@@ -281,6 +282,7 @@ const SpeakingCoachPage: React.FC = () => {
   const PERSONAS = PERSONAS_BY_LANG[language];
   const PROMPT_SUGGESTIONS = PROMPT_SUGGESTIONS_BY_LANG[language];
   const currentPersona = PERSONAS[persona];
+  const isMicPermissionError = !!error && /mikrofon/iu.test(error);
 
   return (
     <div
@@ -333,7 +335,7 @@ const SpeakingCoachPage: React.FC = () => {
 
       <SpeakingScenarioBanner
         activeScenario={activeScenario}
-        onExitScenario={() => setSearchParams({ lang: language })}
+        onExitScenario={() => navigate('/scenarios?lang=ja')}
       />
 
       {!isSupported && (
@@ -360,19 +362,45 @@ const SpeakingCoachPage: React.FC = () => {
       {error && (
         <div
           role="alert"
-          className="mx-3 mb-2 flex items-center justify-between gap-2 rounded-xl border border-rose-500/20 bg-rose-500/10 px-3 py-2 text-xs text-rose-600 backdrop-blur-sm animate-in fade-in dark:text-rose-400 md:mx-5"
+          className="mx-3 mb-2 rounded-xl border border-rose-500/20 bg-rose-500/10 px-3 py-2 text-xs text-rose-600 backdrop-blur-sm animate-in fade-in dark:text-rose-400 md:mx-5"
         >
-          <div className="flex items-center gap-2">
-            <ShieldAlert size={16} className="shrink-0" />
-            <span className="font-medium">{error}</span>
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2">
+              <ShieldAlert size={16} className="shrink-0" />
+              <span className="font-medium">{error}</span>
+            </div>
+            <button
+              onClick={() => setError(null)}
+              className="flex min-h-[44px] min-w-[44px] shrink-0 items-center justify-center rounded-lg hover:bg-rose-500/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500"
+              aria-label="Xatolik xabarini yopish"
+            >
+              <X size={16} />
+            </button>
           </div>
-          <button
-            onClick={() => setError(null)}
-            className="flex min-h-[44px] min-w-[44px] items-center justify-center rounded-lg hover:bg-rose-500/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500"
-            aria-label="Xatolik xabarini yopish"
-          >
-            <X size={16} />
-          </button>
+          {isMicPermissionError && (
+            <div className="mt-1 space-y-2 border-t border-rose-500/20 pt-2 text-rose-600 dark:text-rose-400">
+              <ol className="list-decimal space-y-0.5 pl-5 leading-relaxed">
+                <li>Brauzer manzil satri yonidagi 🔒 yoki ⚙️ belgini bosing</li>
+                <li>Sayt sozlamalarida Mikrofon ga ruxsat bering</li>
+                <li>Sahifani yangilab, pastdagi tugmani bosing</li>
+              </ol>
+              <div className="flex flex-wrap items-center gap-2">
+                <button
+                  onClick={() => {
+                    setError(null);
+                    toggleMic();
+                  }}
+                  className="flex min-h-[44px] cursor-pointer items-center gap-1.5 rounded-xl bg-rose-600 px-4 py-2 text-xs font-bold text-white shadow-md transition-all hover:bg-rose-500 active:scale-95"
+                >
+                  <Mic size={14} />
+                  <span>Mikrofonni qayta so‘rash</span>
+                </button>
+                <span className="text-[11px] opacity-80">
+                  Yoki pastdagi yozish maydonidan matn bilan davom eting
+                </span>
+              </div>
+            </div>
+          )}
         </div>
       )}
 
@@ -445,6 +473,7 @@ const SpeakingCoachPage: React.FC = () => {
         onForceStartListening={toggleMic}
         onBargeIn={handleBargeIn}
         isPreparingAudio={isPreparingAudio}
+        onSendText={handleSendUserText}
       />
 
       <CoachSettingsModal isOpen={isSettingsOpen} onClose={() => setIsSettingsOpen(false)} />

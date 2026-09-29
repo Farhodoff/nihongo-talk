@@ -1,5 +1,6 @@
 import React from 'react';
-import { X } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { LayoutGrid, X } from 'lucide-react';
 import { ConversationScenario } from './scenarioTypes';
 
 interface SpeakingScenarioBannerProps {
@@ -11,6 +12,7 @@ export const SpeakingScenarioBanner: React.FC<SpeakingScenarioBannerProps> = ({
   activeScenario,
   onExitScenario,
 }) => {
+  const navigate = useNavigate();
   if (!activeScenario) return null;
 
   return (
@@ -40,15 +42,26 @@ export const SpeakingScenarioBanner: React.FC<SpeakingScenarioBannerProps> = ({
         </div>
       </div>
 
-      <button
-        onClick={onExitScenario}
-        className="flex min-h-[44px] shrink-0 cursor-pointer items-center gap-1 rounded-xl border border-border bg-muted px-3 py-2 text-xs font-bold text-muted-foreground transition-all hover:bg-muted/80 hover:text-foreground"
-        title="Ssenariydan chiqish"
-        aria-label="Ssenariydan chiqish"
-      >
-        <X size={15} />
-        <span className="hidden sm:inline">Chiqish</span>
-      </button>
+      <div className="flex shrink-0 items-center gap-2">
+        <button
+          onClick={() => navigate('/scenarios?lang=ja')}
+          className="flex min-h-[44px] cursor-pointer items-center gap-1 rounded-xl border border-primary/30 bg-primary/10 px-3 py-2 text-xs font-bold text-primary transition-all hover:bg-primary/20"
+          title="Boshqa ssenariy tanlash"
+          aria-label="Boshqa ssenariy tanlash"
+        >
+          <LayoutGrid size={15} />
+          <span className="hidden sm:inline">Ssenariylar</span>
+        </button>
+        <button
+          onClick={onExitScenario}
+          className="flex min-h-[44px] cursor-pointer items-center gap-1 rounded-xl border border-border bg-muted px-3 py-2 text-xs font-bold text-muted-foreground transition-all hover:bg-muted/80 hover:text-foreground"
+          title="Ssenariydan chiqish"
+          aria-label="Ssenariydan chiqish"
+        >
+          <X size={15} />
+          <span className="hidden sm:inline">Chiqish</span>
+        </button>
+      </div>
     </div>
   );
 };

@@ -24,9 +24,12 @@ export interface DialogueLineItem {
   id?: string;
   speaker: string;
   speakerRoleUz?: string;
+  gender?: 'male' | 'female' | 'neutral';
   japanese: string;
   romaji?: string;
   uzbek: string;
+  startTime?: number;
+  endTime?: number;
 }
 
 export interface LessonDialogue {
@@ -50,7 +53,7 @@ export interface LearnContent {
 
 export interface PracticeExercise {
   id: string;
-  type: 'multiple-choice' | 'true-false' | 'fill-in-blank';
+  type: 'multiple-choice' | 'true-false' | 'fill-in-blank' | 'sentence-order';
   prompt: string;
   audioUrl?: string; // Real CD audio track for listening practice
   audioTitle?: string;
@@ -58,6 +61,9 @@ export interface PracticeExercise {
   correctAnswer: string | number;
   explanation?: string;
   hint?: string;
+  starPosition?: number;
+  fragments?: string[];
+  correctOrder?: number[];
 }
 
 export interface TestQuestion {

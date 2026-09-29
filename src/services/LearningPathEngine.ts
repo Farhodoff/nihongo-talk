@@ -21,6 +21,7 @@ import { LessonService } from './LessonService';
 import { RoadmapService } from './RoadmapService';
 import { resolveNextLesson } from './NextLessonResolver';
 import { PersonalLearningPlanService } from './PersonalLearningPlanService';
+import { MistakeVaultService } from './MistakeVaultService';
 import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
 
 export const PROGRESSION_CONFIG = {
@@ -792,7 +793,7 @@ export const LearningPathEngine = {
         route: resolvedRemediation
           ? resolvedRemediation.route
           : isJa
-            ? '/jlpt/grammar-quiz'
+            ? '/jlpt?tab=mistakes'
             : '/vocabulary',
         lessonId: resolvedRemediation ? resolvedRemediation.lessonId : undefined,
         contentId: resolvedRemediation ? resolvedRemediation.contentId : undefined,
@@ -805,6 +806,57 @@ export const LearningPathEngine = {
         ctaLabel: isJa ? '🔧 Mustahkamlash' : '🔧 Focus Topic',
         badgeIcon: '🔧',
       });
+    }
+
+    // 4.5 Candidate: Active Mistake Vault items (Priority: 86)
+    if (state.primaryLanguage === 'ja') {
+      try {
+        const mistakeStats = MistakeVaultService.getStats(state.userId);
+        if (mistakeStats.unresolved > 0) {
+          const topCategoryEntry = Object.entries(mistakeStats.byCategory).sort(
+            (a, b) => b[1] - a[1],
+          )[0];
+          const topCategoryName =
+            topCategoryEntry && topCategoryEntry[1] > 0 ? topCategoryEntry[0] : 'grammar';
+
+          const reason: LearningReason = {
+            code: 'RECENT_MISTAKES',
+            type: 'weak_skill',
+            title: isJa ? 'Xatolar daftari (弱点克服)' : 'Mistake Review',
+            description: isJa
+              ? `Sizda ${mistakeStats.unresolved} ta bartaraf etilmagan xato mavjud (${topCategoryName}).`
+              : `You have ${mistakeStats.unresolved} unresolved mistake questions to master.`,
+            evidence: { metricValue: mistakeStats.unresolved },
+            priority: 86,
+          };
+          reasons.push(reason);
+
+          candidates.push({
+            type: 'remediation',
+            route: '/jlpt?tab=mistakes',
+            language: state.primaryLanguage,
+            skill:
+              topCategoryName === 'reading'
+                ? 'reading'
+                : topCategoryName === 'listening'
+                  ? 'listening'
+                  : 'grammar',
+            title: isJa
+              ? `Xatolar daftari: ${mistakeStats.unresolved} ta zaif savolni tuzatish`
+              : `Review ${mistakeStats.unresolved} Mistakes in Vault`,
+            description: isJa
+              ? `Test va mashqlardagi xatolarni tahlil qilib, qayta yechish orqali zaifliklarni bartaraf eting.`
+              : `Re-test missed questions to turn weaknesses into strengths.`,
+            estimatedMinutes: Math.min(15, Math.max(5, mistakeStats.unresolved * 2)),
+            priority: 86,
+            reason,
+            ctaLabel: isJa ? '📓 Xatolarni tuzatish' : '📓 Review Mistakes',
+            badgeIcon: '📓',
+          });
+        }
+      } catch (err) {
+        console.warn('Failed to query MistakeVaultService in evalNextBestAction:', err);
+      }
     }
 
     // 5. Candidate: Due SRS (Priority: 78)
@@ -1191,6 +1243,42 @@ export const LearningPathEngine = {
       reason: nextAction.reason,
     };
     activities.push(mainActivity);
+
+    // 3. Mistake Vault Remediation Activity (if unresolved mistakes exist and not already the primary activity)
+    if (state.primaryLanguage === 'ja' && nextAction.route !== '/jlpt?tab=mistakes') {
+      try {
+        const mstkStats = MistakeVaultService.getStats(state.userId);
+        if (mstkStats.unresolved > 0 && totalMinutes >= 25) {
+          const mMinutes = Math.min(10, Math.max(5, Math.round(totalMinutes * 0.2)));
+          mainActivity.estimatedMinutes = Math.max(10, mainTime - mMinutes);
+          mainActivity.minutes = mainActivity.estimatedMinutes;
+
+          activities.push({
+            id: 'act-mistakes',
+            type: 'remediation',
+            title:
+              state.primaryLanguage === 'ja'
+                ? `Xatolar daftari (${mstkStats.unresolved} ta xato)`
+                : `Mistake Review (${mstkStats.unresolved} items)`,
+            skill: 'grammar',
+            estimatedMinutes: mMinutes,
+            minutes: mMinutes,
+            route: '/jlpt?tab=mistakes',
+            priority: 86,
+            isCompleted: false,
+            status: 'pending',
+            reason: {
+              code: 'RECENT_MISTAKES',
+              type: 'mistake_topic',
+              title: 'Mistake Review',
+              description: `${mstkStats.unresolved} xatoni qayta yechish tavsiya etiladi.`,
+              evidence: { unresolvedCount: mstkStats.unresolved },
+              priority: 86,
+            },
+          });
+        }
+      } catch {}
+    }
 
     const primaryFocus = nextAction.skill ? nextAction.skill.toUpperCase() : 'General learning';
     const summaryReason = nextAction.description;

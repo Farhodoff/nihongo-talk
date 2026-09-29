@@ -42434,5 +42434,110 @@
         "meaning": "Jiringlamoq (qo'ng'iroq"
       }
     ]
+  },
+  {
+    "id": "kanji_n3_release",
+    "level": "N3",
+    "kanji": "放",
+    "onyomi": "ホウ (hou)",
+    "kunyomi": "はな・す (hana-su), はな・つ (hana-tsu), はな・れる (hana-reru)",
+    "meaningUz": "Qo'yib yubormoq, Ozod qilmoq, Chiqarmoq (Release, Free)",
+    "strokeCount": 8,
+    "examples": [
+      {
+        "word": "放送",
+        "reading": "ほうそう (Housou)",
+        "meaning": "Eshittirish, Translyatsiya"
+      },
+      {
+        "word": "解放",
+        "reading": "かいほう (Kaihou)",
+        "meaning": "Ozod qilish, Erkinlik berish"
+      }
+    ]
+  },
+  {
+    "id": "kanji_n3_return",
+    "level": "N3",
+    "kanji": "戻",
+    "onyomi": "レイ (rei)",
+    "kunyomi": "もど・る (modo-ru), もど・す (modo-su)",
+    "meaningUz": "Qaytmoq, Qaytarmoq (Return, Restore)",
+    "strokeCount": 7,
+    "examples": [
+      {
+        "word": "戻る",
+        "reading": "もどる (Modoru)",
+        "meaning": "Qaytmoq"
+      },
+      {
+        "word": "払い戻し",
+        "reading": "はらいもどし (Haraimodoshi)",
+        "meaning": "Pulni qaytarish, Kompensatsiya"
+      }
+    ]
+  },
+  {
+    "id": "kanji_n3_freight",
+    "level": "N3",
+    "kanji": "貨",
+    "onyomi": "カ (ka)",
+    "kunyomi": "たから (takara)",
+    "meaningUz": "Yuk, Mol, Pul (Freight, Goods, Currency)",
+    "strokeCount": 11,
+    "examples": [
+      {
+        "word": "通貨",
+        "reading": "つうか (Tsuuka)",
+        "meaning": "Valyuta"
+      },
+      {
+        "word": "貨物",
+        "reading": "かもつ (Kamotsu)",
+        "meaning": "Yuk, tovar"
+      }
+    ]
+  },
+  {
+    "id": "kanji_n2_symptom",
+    "level": "N2",
+    "kanji": "症",
+    "onyomi": "ショウ (shou)",
+    "kunyomi": "-",
+    "meaningUz": "Kasallik alomati, Sindrom (Symptom, Condition)",
+    "strokeCount": 10,
+    "examples": [
+      {
+        "word": "症状",
+        "reading": "しょうじょう (Shoujou)",
+        "meaning": "Alomat, simptom"
+      },
+      {
+        "word": "重症",
+        "reading": "じゅうしょう (Juushou)",
+        "meaning": "Og'ir holat / kasallik"
+      }
+    ]
+  },
+  {
+    "id": "kanji_n2_pasture",
+    "level": "N2",
+    "kanji": "牧",
+    "onyomi": "ボク (boku)",
+    "kunyomi": "まき (maki)",
+    "meaningUz": "O'tloq, Yaylov, Boqmoq (Pasture, Breed)",
+    "strokeCount": 8,
+    "examples": [
+      {
+        "word": "牧場",
+        "reading": "ぼくじょう (Bokujou)",
+        "meaning": "Ferma, yaylov"
+      },
+      {
+        "word": "遊牧",
+        "reading": "ゆうぼく (Yuuboku)",
+        "meaning": "Ko'chmanchilik"
+      }
+    ]
   }
 ]

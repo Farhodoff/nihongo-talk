@@ -1,7 +1,7 @@
 [
   {
     "id": "jlpt-n3-vocab",
-    "title": "📚 JLPT N3 Essential Vocabulary (語彙 1721)",
+    "title": "📚 JLPT N3 Essential Vocabulary (語彙 2233)",
     "description": "N3 darajasi uchun barcha 1721 ta asosiy so'zlar va iboralar",
     "level": "N3",
     "icon": "BookOpen",
@@ -17215,12 +17215,5132 @@
         "level": "N3",
         "type": "vocab",
         "example": "閉店前のセールで全品二割引で購入することができた。 — Do'kon yopilishidan oldingi arzonlashtirishda barcha tovarlarni 20% arzon sotib oldim."
+      },
+      {
+        "id": "n3-v1722",
+        "front": "愛想",
+        "back": "Hushmuomalalik, Iltofot",
+        "romaji": "aiso",
+        "furigana": "あいそ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "愛想がいい"
+      },
+      {
+        "id": "n3-v1723",
+        "front": "あいにく",
+        "back": "Afsuski, Baxtga qarshi",
+        "romaji": "ainiku",
+        "furigana": "Ainiku",
+        "level": "N3",
+        "type": "vocab",
+        "example": "あいにく雨だ"
+      },
+      {
+        "id": "n3-v1724",
+        "front": "明かり",
+        "back": "Yorug'lik, Chiroq",
+        "romaji": "akari",
+        "furigana": "あかり",
+        "level": "N3",
+        "type": "vocab",
+        "example": "部屋の明かりをつける"
+      },
+      {
+        "id": "n3-v1725",
+        "front": "空き",
+        "back": "Bosh o'rin, Bo'sh joy",
+        "romaji": "aki",
+        "furigana": "あき",
+        "level": "N3",
+        "type": "vocab",
+        "example": "部屋の空きがある"
+      },
+      {
+        "id": "n3-v1726",
+        "front": "明らか",
+        "back": "Aniq, Ravshan",
+        "romaji": "akiraka",
+        "furigana": "あきらか",
+        "level": "N3",
+        "type": "vocab",
+        "example": "事実が明らかになった"
+      },
+      {
+        "id": "n3-v1727",
+        "front": "あきらめる",
+        "back": "Taslim bo'lmoq, Voz kechmoq",
+        "romaji": "akirameru",
+        "furigana": "Akirameru",
+        "level": "N3",
+        "type": "vocab",
+        "example": "夢をあきらめない"
+      },
+      {
+        "id": "n3-v1728",
+        "front": "握手",
+        "back": "Qol berib ko'rishish",
+        "romaji": "akushu",
+        "furigana": "あくしゅ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "固い握手を交わす"
+      },
+      {
+        "id": "n3-v1729",
+        "front": "あくび",
+        "back": "Esnash",
+        "romaji": "akubi",
+        "furigana": "Akubi",
+        "level": "N3",
+        "type": "vocab",
+        "example": "大きなあくびをする"
+      },
+      {
+        "id": "n3-v1730",
+        "front": "あける",
+        "back": "Ochmoq, Bo'shatmoq",
+        "romaji": "akeru",
+        "furigana": "Akeru",
+        "level": "N3",
+        "type": "vocab",
+        "example": "時間をあける"
+      },
+      {
+        "id": "n3-v1731",
+        "front": "愛情",
+        "back": "Mehr, muhabbat, sevgi",
+        "romaji": "aijou",
+        "furigana": "あいじょう",
+        "level": "N3",
+        "type": "vocab",
+        "example": "深い愛情を注ぐ。"
+      },
+      {
+        "id": "n3-v1732",
+        "front": "憧れる",
+        "back": "Havas qilmoq, intilmoq",
+        "romaji": "akogareru",
+        "furigana": "あこがれる",
+        "level": "N3",
+        "type": "vocab",
+        "example": "日本の大学生活に憧れる。"
+      },
+      {
+        "id": "n3-v1733",
+        "front": "味わう",
+        "back": "Tatib ko'rmoq, bahra olmoq",
+        "romaji": "ajiwau",
+        "furigana": "あじわう",
+        "level": "N3",
+        "type": "vocab",
+        "example": "伝統料理をじっくり味わう。"
+      },
+      {
+        "id": "n3-v1734",
+        "front": "預かる",
+        "back": "Omonat saqlab turmoq, qabul qilmoq",
+        "romaji": "azukaru",
+        "furigana": "あずかる",
+        "level": "N3",
+        "type": "vocab",
+        "example": "荷物をフロントで預かってもらう。"
+      },
+      {
+        "id": "n3-v1735",
+        "front": "焦る",
+        "back": "Shoshmoq, dovdiramoq, bezovtalanmoq",
+        "romaji": "aseru",
+        "furigana": "あせる",
+        "level": "N3",
+        "type": "vocab",
+        "example": "焦らずに落ち着いて行動してください。"
+      },
+      {
+        "id": "n3-v1736",
+        "front": "暴れる",
+        "back": "To'polon qilmoq, g'alva ko'tarmoq",
+        "romaji": "abareru",
+        "furigana": "あばれる",
+        "level": "N3",
+        "type": "vocab",
+        "example": "酒を飲んで暴れるのは迷惑だ。"
+      },
+      {
+        "id": "n3-v1737",
+        "front": "誤り",
+        "back": "Xato, yanglishish",
+        "romaji": "ayamari",
+        "furigana": "あやまり",
+        "level": "N3",
+        "type": "vocab",
+        "example": "計算の誤りに気づいた。"
+      },
+      {
+        "id": "n3-v1738",
+        "front": "争う",
+        "back": "Tortishmoq, bahslashmoq, bellashmoq",
+        "romaji": "arasou",
+        "furigana": "あらそう",
+        "level": "N3",
+        "type": "vocab",
+        "example": "優勝を争う熱い戦い。"
+      },
+      {
+        "id": "n3-v1739",
+        "front": "改める",
+        "back": "O'zgartirmoq, yangilamoq, tuzatmoq",
+        "romaji": "aratameru",
+        "furigana": "あらためる",
+        "level": "N3",
+        "type": "vocab",
+        "example": "態度を改める必要がある。"
+      },
+      {
+        "id": "n3-v1740",
+        "front": "威張る",
+        "back": "Kekkaymoq, maqtanmoq, o'zini ko'rsatmoq",
+        "romaji": "ibaru",
+        "furigana": "いばる",
+        "level": "N3",
+        "type": "vocab",
+        "example": "先輩だからといって威張ってはいけない。"
+      },
+      {
+        "id": "n3-v1741",
+        "front": "引退",
+        "back": "Iste'foga chiqish, nafaqaga ketish",
+        "romaji": "intai",
+        "furigana": "いんたい",
+        "level": "N3",
+        "type": "vocab",
+        "example": "現役を引退することを決意した。"
+      },
+      {
+        "id": "n3-v1742",
+        "front": "ミックス (する)",
+        "back": "aralashtirmoq, miks qilmoq",
+        "romaji": "mikkusu (suru)",
+        "furigana": "みっくす",
+        "level": "N3",
+        "type": "vocab",
+        "example": "数種類のフルーツをミキサーでミックスしてジュースを作った。"
+      },
+      {
+        "id": "n3-v1743",
+        "front": "メール (する)",
+        "back": "elektron xat (yozmoq), email jo'natmoq",
+        "romaji": "meeru (suru)",
+        "furigana": "めーる",
+        "level": "N3",
+        "type": "vocab",
+        "example": "詳しい資料を添付して先生にメールしました。"
+      },
+      {
+        "id": "n3-v1744",
+        "front": "メモ (する)",
+        "back": "qayd, eslatma (yozib olmoq)",
+        "romaji": "memo (suru)",
+        "furigana": "めも",
+        "level": "N3",
+        "type": "vocab",
+        "example": "忘れないように大切な約束を手帳にメモしておいた。"
+      },
+      {
+        "id": "n3-v1745",
+        "front": "リサイクル (する)",
+        "back": "qayta ishlash, qayta ishlamoq",
+        "romaji": "risaikuru (suru)",
+        "furigana": "りさいくる",
+        "level": "N3",
+        "type": "vocab",
+        "example": "ペットボトルや缶は資源ゴミとして回収してリサイクルされる。"
+      },
+      {
+        "id": "n3-v1746",
+        "front": "ロック (する)",
+        "back": "qulflamoq, qulf; rok musiqasi",
+        "romaji": "rokku (suru)",
+        "furigana": "ろっく",
+        "level": "N3",
+        "type": "vocab",
+        "example": "車から離れるときは必ずドアをロックしてください。"
+      },
+      {
+        "id": "n3-v1747",
+        "front": "明日 (あす)",
+        "back": "ertaga (rasmiy nutq ohangida)",
+        "romaji": "asu",
+        "furigana": "あす",
+        "level": "N3",
+        "type": "vocab",
+        "example": "あすの午前十時に貴社へお伺いいたします。"
+      },
+      {
+        "id": "n3-v1748",
+        "front": "私 (わたくし)",
+        "back": "kamina, men (o'ta rasmiy kamtarona olmosh)",
+        "romaji": "watakushi",
+        "furigana": "わたくし",
+        "level": "N3",
+        "type": "vocab",
+        "example": "本日の司会を務めさせていただきます私、田中でございます。"
+      },
+      {
+        "id": "n3-v1749",
+        "front": "チラシ",
+        "back": "Reklama varaqasi, flayer",
+        "romaji": "chirashi",
+        "furigana": "チラシ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "チラシを見ました。"
+      },
+      {
+        "id": "n3-v1750",
+        "front": "ホームページ",
+        "back": "Veb-sayt, bosh sahifa",
+        "romaji": "hōmupēji",
+        "furigana": "ホームページ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "ホームページを見ます。"
+      },
+      {
+        "id": "n3-v1751",
+        "front": "学生証",
+        "back": "Talabalik guvohnomasi",
+        "romaji": "gakuseishō",
+        "furigana": "がくせいしょう",
+        "level": "N3",
+        "type": "vocab",
+        "example": "学生証を見せます。"
+      },
+      {
+        "id": "n3-v1752",
+        "front": "履歴書",
+        "back": "Rezyume, CV",
+        "romaji": "rirekisho",
+        "furigana": "りれきしょ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "履歴書を書きます。"
+      },
+      {
+        "id": "n3-v1753",
+        "front": "希望する",
+        "back": "Istamoq, xohlamoq",
+        "romaji": "kibō suru",
+        "furigana": "きぼうする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "東京で働くことを希望します。"
+      },
+      {
+        "id": "n3-v1754",
+        "front": "募集する",
+        "back": "Ishchi qidirmoq,募集 qilmoq",
+        "romaji": "boshū suru",
+        "furigana": "ぼしゅうする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "会社が社員を募集しています。"
+      },
+      {
+        "id": "n3-v1755",
+        "front": "入力する",
+        "back": "Ma'lumot kiritmoq",
+        "romaji": "nyūryoku suru",
+        "furigana": "にゅうりょくする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "名前を入力します。"
+      },
+      {
+        "id": "n3-v1756",
+        "front": "それでは",
+        "back": "Unda, yaxshi unda",
+        "romaji": "soredewa",
+        "furigana": "それでは",
+        "level": "N3",
+        "type": "vocab",
+        "example": "それでは、始めましょう。"
+      },
+      {
+        "id": "n3-v1757",
+        "front": "申します",
+        "back": "Ismim..., deb atalaman (kamtarlik shakli)",
+        "romaji": "mōshimasu",
+        "furigana": "もうします",
+        "level": "N3",
+        "type": "vocab",
+        "example": "田中と申します。"
+      },
+      {
+        "id": "n3-v1758",
+        "front": "参ります",
+        "back": "Bormoq, kelmoq (kamtarlik shakli)",
+        "romaji": "mairimasu",
+        "furigana": "まいります",
+        "level": "N3",
+        "type": "vocab",
+        "example": "明日、会社へ参ります。"
+      },
+      {
+        "id": "n3-v1759",
+        "front": "少々お待ちください",
+        "back": "Iltimos, biroz kuting",
+        "romaji": "shōshō omachi kudasai",
+        "furigana": "しょうしょうおまちください",
+        "level": "N3",
+        "type": "vocab",
+        "example": "少々お待ちください。"
+      },
+      {
+        "id": "n3-v1760",
+        "front": "お先に失礼します",
+        "back": "Sizdan oldin ketayotganim uchun uzr",
+        "romaji": "osaki ni shitsurei shimasu",
+        "furigana": "おさきにしつれいします",
+        "level": "N3",
+        "type": "vocab",
+        "example": "お先に失礼します。"
+      },
+      {
+        "id": "n3-v1761",
+        "front": "こちらへどうぞ",
+        "back": "Bu yoqqa marhamat",
+        "romaji": "kochira e dōzo",
+        "furigana": "こちらへどうぞ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "こちらへどうぞ。"
+      },
+      {
+        "id": "n3-v1762",
+        "front": "よろしくお願いいたします",
+        "back": "Siz bilan yaxshi hamkorlik qilishni kutaman",
+        "romaji": "yoroshiku onegai itashimasu",
+        "furigana": "よろしくおねがいいたします",
+        "level": "N3",
+        "type": "vocab",
+        "example": "よろしくお願いいたします。"
+      },
+      {
+        "id": "n3-v1763",
+        "front": "歴史",
+        "back": "Tarix",
+        "romaji": "rekishi",
+        "furigana": "れきし",
+        "level": "N3",
+        "type": "vocab",
+        "example": "日本の歴史を勉強します。"
+      },
+      {
+        "id": "n3-v1764",
+        "front": "お年寄り",
+        "back": "Keksa odam, qariya",
+        "romaji": "otoshiyori",
+        "furigana": "おとしより",
+        "level": "N3",
+        "type": "vocab",
+        "example": "お年寄りに親切にします。"
+      },
+      {
+        "id": "n3-v1765",
+        "front": "言葉",
+        "back": "So'z, til, ibora",
+        "romaji": "kotoba",
+        "furigana": "ことば",
+        "level": "N3",
+        "type": "vocab",
+        "example": "この言葉の意味は何ですか。"
+      },
+      {
+        "id": "n3-v1766",
+        "front": "自分",
+        "back": "O'zi, o'z",
+        "romaji": "jibun",
+        "furigana": "じぶん",
+        "level": "N3",
+        "type": "vocab",
+        "example": "自分でします。"
+      },
+      {
+        "id": "n3-v1767",
+        "front": "話",
+        "back": "Suhbat, gap, hikoya",
+        "romaji": "hanashi",
+        "furigana": "はなし",
+        "level": "N3",
+        "type": "vocab",
+        "example": "友達と話をしました。"
+      },
+      {
+        "id": "n3-v1768",
+        "front": "野外ライブ",
+        "back": "Ochiq havodagi jonli konsert",
+        "romaji": "yagai raibu",
+        "furigana": "やがいライブ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "野外ライブに行きました。"
+      },
+      {
+        "id": "n3-v1769",
+        "front": "～個",
+        "back": "Dona uchun hisob so'zi",
+        "romaji": "~ko",
+        "furigana": "～こ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "りんごを三個買いました。"
+      },
+      {
+        "id": "n3-v1770",
+        "front": "応援する",
+        "back": "Qo'llab-quvvatlamoq, dalda bermoq",
+        "romaji": "ōen suru",
+        "furigana": "おうえんする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "友達を応援します。"
+      },
+      {
+        "id": "n3-v1771",
+        "front": "サイクリングする",
+        "back": "Velosiped haydamoq",
+        "romaji": "saikuringu suru",
+        "furigana": "サイクリングする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "週末にサイクリングします。"
+      },
+      {
+        "id": "n3-v1772",
+        "front": "遅い",
+        "back": "Sekin, kech",
+        "romaji": "osoi",
+        "furigana": "おそい",
+        "level": "N3",
+        "type": "vocab",
+        "example": "この車は遅いです。"
+      },
+      {
+        "id": "n3-v1773",
+        "front": "速い",
+        "back": "Tez",
+        "romaji": "hayai",
+        "furigana": "はやい",
+        "level": "N3",
+        "type": "vocab",
+        "example": "この電車は速いです。"
+      },
+      {
+        "id": "n3-v1774",
+        "front": "つまらない",
+        "back": "Zerikarli",
+        "romaji": "tsumaranai",
+        "furigana": "つまらない",
+        "level": "N3",
+        "type": "vocab",
+        "example": "この映画はつまらないです。"
+      },
+      {
+        "id": "n3-v1775",
+        "front": "得意",
+        "back": "Yaxshi bilmoq, mohir bo'lmoq",
+        "romaji": "tokui",
+        "furigana": "とくい",
+        "level": "N3",
+        "type": "vocab",
+        "example": "私は料理が得意です。"
+      },
+      {
+        "id": "n3-v1776",
+        "front": "苦手",
+        "back": "Yaxshi emas, qiynalmoq",
+        "romaji": "nigate",
+        "furigana": "にがて",
+        "level": "N3",
+        "type": "vocab",
+        "example": "私は英語が苦手です。"
+      },
+      {
+        "id": "n3-v1777",
+        "front": "朝早く",
+        "back": "Ertalab juda erta",
+        "romaji": "asa hayaku",
+        "furigana": "あさはやく",
+        "level": "N3",
+        "type": "vocab",
+        "example": "朝早く起きます。"
+      },
+      {
+        "id": "n3-v1778",
+        "front": "もう一度聞こう",
+        "back": "Yana bir marta eshitaylik",
+        "romaji": "mō ichido kikō",
+        "furigana": "もういちどきこう",
+        "level": "N3",
+        "type": "vocab",
+        "example": "もう一度聞きましょう。"
+      },
+      {
+        "id": "n3-v1779",
+        "front": "字幕",
+        "back": "Subtitr",
+        "romaji": "jimaku",
+        "furigana": "じまく",
+        "level": "N3",
+        "type": "vocab",
+        "example": "字幕を見ます。"
+      },
+      {
+        "id": "n3-v1780",
+        "front": "大好き",
+        "back": "Juda yaxshi ko'rmoq",
+        "romaji": "daisuki",
+        "furigana": "だいすき",
+        "level": "N3",
+        "type": "vocab",
+        "example": "日本料理が大好きです。"
+      },
+      {
+        "id": "n3-v1781",
+        "front": "まず",
+        "back": "Avvalo, birinchi navbatda",
+        "romaji": "mazu",
+        "furigana": "まず",
+        "level": "N3",
+        "type": "vocab",
+        "example": "まず勉強しましょう。"
+      },
+      {
+        "id": "n3-v1782",
+        "front": "恥ずかしい",
+        "back": "Uyalmok, noqulay his qilmoq",
+        "romaji": "hazukashii",
+        "furigana": "はずかしい",
+        "level": "N3",
+        "type": "vocab",
+        "example": "ちょっと恥ずかしいです。"
+      },
+      {
+        "id": "n3-v1783",
+        "front": "次",
+        "back": "Keyingi, navbatdagi",
+        "romaji": "tsugi",
+        "furigana": "つぎ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "次は私です。"
+      },
+      {
+        "id": "n3-v1784",
+        "front": "うれしい",
+        "back": "Xursand, mamnun",
+        "romaji": "ureshii",
+        "furigana": "うれしい",
+        "level": "N3",
+        "type": "vocab",
+        "example": "プレゼントをもらって、うれしいです。"
+      },
+      {
+        "id": "n3-v1785",
+        "front": "画面",
+        "back": "Ekran",
+        "romaji": "gamen",
+        "furigana": "がめん",
+        "level": "N3",
+        "type": "vocab",
+        "example": "画面を見てください。"
+      },
+      {
+        "id": "n3-v1786",
+        "front": "セーター",
+        "back": "Sviter",
+        "romaji": "sētā",
+        "furigana": "セーター",
+        "level": "N3",
+        "type": "vocab",
+        "example": "このセーターが好きです。"
+      },
+      {
+        "id": "n3-v1787",
+        "front": "スーツケース",
+        "back": "Chamadon",
+        "romaji": "sūtsukēsu",
+        "furigana": "スーツケース",
+        "level": "N3",
+        "type": "vocab",
+        "example": "スーツケースを持っています。"
+      },
+      {
+        "id": "n3-v1788",
+        "front": "コート",
+        "back": "Palto",
+        "romaji": "kōto",
+        "furigana": "コート",
+        "level": "N3",
+        "type": "vocab",
+        "example": "コートを着ます。"
+      },
+      {
+        "id": "n3-v1789",
+        "front": "指輪",
+        "back": "Uzuk",
+        "romaji": "yubiwa",
+        "furigana": "ゆびわ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "指輪を買いました。"
+      },
+      {
+        "id": "n3-v1790",
+        "front": "サイズ",
+        "back": "O'lcham, razmer",
+        "romaji": "saizu",
+        "furigana": "サイズ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "このサイズは大きいです。"
+      },
+      {
+        "id": "n3-v1791",
+        "front": "ヒール",
+        "back": "Poshna",
+        "romaji": "hīru",
+        "furigana": "ヒール",
+        "level": "N3",
+        "type": "vocab",
+        "example": "この靴はヒールが高いです。"
+      },
+      {
+        "id": "n3-v1792",
+        "front": "ボタン",
+        "back": "Tugma",
+        "romaji": "botan",
+        "furigana": "ボタン",
+        "level": "N3",
+        "type": "vocab",
+        "example": "ボタンを押してください。"
+      },
+      {
+        "id": "n3-v1793",
+        "front": "ジーンズ",
+        "back": "Jinsi shim",
+        "romaji": "jīnzu",
+        "furigana": "ジーンズ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "ジーンズをはいています。"
+      },
+      {
+        "id": "n3-v1794",
+        "front": "動く",
+        "back": "Harakatlanmoq",
+        "romaji": "ugoku",
+        "furigana": "うごく",
+        "level": "N3",
+        "type": "vocab",
+        "example": "時計が動いています。"
+      },
+      {
+        "id": "n3-v1795",
+        "front": "説明する",
+        "back": "Tushuntirmoq",
+        "romaji": "setsumei suru",
+        "furigana": "せつめいする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "店員が説明します。"
+      },
+      {
+        "id": "n3-v1796",
+        "front": "配達する",
+        "back": "Yetkazib bermoq",
+        "romaji": "haitatsu suru",
+        "furigana": "はいたつする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "荷物を配達します。"
+      },
+      {
+        "id": "n3-v1797",
+        "front": "重い",
+        "back": "Og'ir",
+        "romaji": "omoi",
+        "furigana": "おもい",
+        "level": "N3",
+        "type": "vocab",
+        "example": "このかばんは重いです。"
+      },
+      {
+        "id": "n3-v1798",
+        "front": "ちょうどいい",
+        "back": "Aynan mos, juda yaxshi mos keladigan",
+        "romaji": "chōdo ii",
+        "furigana": "ちょうどいい",
+        "level": "N3",
+        "type": "vocab",
+        "example": "このサイズはちょうどいいです。"
+      },
+      {
+        "id": "n3-v1799",
+        "front": "丈夫",
+        "back": "Mustahkam, chidamli",
+        "romaji": "jōbu",
+        "furigana": "じょうぶ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "このかばんは丈夫です。"
+      },
+      {
+        "id": "n3-v1800",
+        "front": "もっと",
+        "back": "Yana, ko'proq",
+        "romaji": "motto",
+        "furigana": "もっと",
+        "level": "N3",
+        "type": "vocab",
+        "example": "もっと大きいのがほしいです。"
+      },
+      {
+        "id": "n3-v1801",
+        "front": "もっと大きいかばんがほしいです。",
+        "back": "Kattaroq sumka xohlayman.",
+        "romaji": "motto ōkii kaban ga hoshii desu",
+        "furigana": "もっと大きいかばんがほしいです。",
+        "level": "N3",
+        "type": "vocab",
+        "example": "もっと大きいかばんがほしいです。"
+      },
+      {
+        "id": "n3-v1802",
+        "front": "いかがですか",
+        "back": "Qanday? Yoqdimi?",
+        "romaji": "ikaga desu ka",
+        "furigana": "いかがですか",
+        "level": "N3",
+        "type": "vocab",
+        "example": "この靴はいかがですか。"
+      },
+      {
+        "id": "n3-v1803",
+        "front": "かしこまりました",
+        "back": "Tushundim, xo'p bo'ladi (kamtarlik shakli)",
+        "romaji": "kashikomarimashita",
+        "furigana": "かしこまりました",
+        "level": "N3",
+        "type": "vocab",
+        "example": "はい、かしこまりました。"
+      },
+      {
+        "id": "n3-v1804",
+        "front": "カレンダー",
+        "back": "Kalendar",
+        "romaji": "karendā",
+        "furigana": "カレンダー",
+        "level": "N3",
+        "type": "vocab",
+        "example": "カレンダーを見ます。"
+      },
+      {
+        "id": "n3-v1805",
+        "front": "世界地図",
+        "back": "Dunyo xaritasi",
+        "romaji": "sekai chizu",
+        "furigana": "せかいちず",
+        "level": "N3",
+        "type": "vocab",
+        "example": "世界地図を見ます。"
+      },
+      {
+        "id": "n3-v1806",
+        "front": "最新",
+        "back": "Eng yangi, so'nggi",
+        "romaji": "saishin",
+        "furigana": "さいしん",
+        "level": "N3",
+        "type": "vocab",
+        "example": "これは最新のモデルです。"
+      },
+      {
+        "id": "n3-v1807",
+        "front": "飲み放題",
+        "back": "Cheksiz ichimlik",
+        "romaji": "nomihōdai",
+        "furigana": "のみほうだい",
+        "level": "N3",
+        "type": "vocab",
+        "example": "ここは飲み放題です。"
+      },
+      {
+        "id": "n3-v1808",
+        "front": "期間限定",
+        "back": "Cheklangan muddat, vaqtinchalik",
+        "romaji": "kikan gentei",
+        "furigana": "きかんげんてい",
+        "level": "N3",
+        "type": "vocab",
+        "example": "これは期間限定です。"
+      },
+      {
+        "id": "n3-v1809",
+        "front": "セット",
+        "back": "Set, to'plam",
+        "romaji": "setto",
+        "furigana": "セット",
+        "level": "N3",
+        "type": "vocab",
+        "example": "セットを注文します。"
+      },
+      {
+        "id": "n3-v1810",
+        "front": "フロアガイド",
+        "back": "Qavatlar xaritasi, yo'nalish ko'rsatmasi",
+        "romaji": "furoa gaido",
+        "furigana": "フロアガイド",
+        "level": "N3",
+        "type": "vocab",
+        "example": "フロアガイドを見ます。"
+      },
+      {
+        "id": "n3-v1811",
+        "front": "営業中",
+        "back": "Ochiq, ishlayotgan",
+        "romaji": "eigyōchū",
+        "furigana": "えいぎょうちゅう",
+        "level": "N3",
+        "type": "vocab",
+        "example": "店は営業中です。"
+      },
+      {
+        "id": "n3-v1812",
+        "front": "大盛り",
+        "back": "Katta porsiya",
+        "romaji": "ōmori",
+        "furigana": "おおもり",
+        "level": "N3",
+        "type": "vocab",
+        "example": "ご飯を大盛りにします。"
+      },
+      {
+        "id": "n3-v1813",
+        "front": "おかわり",
+        "back": "Qo'shimcha porsiya, yana olish",
+        "romaji": "okawari",
+        "furigana": "おかわり",
+        "level": "N3",
+        "type": "vocab",
+        "example": "ご飯をおかわりします。"
+      },
+      {
+        "id": "n3-v1814",
+        "front": "タイムサービス",
+        "back": "Qisqa muddatli aksiya",
+        "romaji": "taimu sābisu",
+        "furigana": "タイムサービス",
+        "level": "N3",
+        "type": "vocab",
+        "example": "今、タイムサービスです。"
+      },
+      {
+        "id": "n3-v1815",
+        "front": "半額",
+        "back": "Yarim narx",
+        "romaji": "hangaku",
+        "furigana": "はんがく",
+        "level": "N3",
+        "type": "vocab",
+        "example": "今日は半額です。"
+      },
+      {
+        "id": "n3-v1816",
+        "front": "レディースデー",
+        "back": "Ayollar kuni",
+        "romaji": "redīsu dē",
+        "furigana": "レディースデー",
+        "level": "N3",
+        "type": "vocab",
+        "example": "今日はレディースデーです。"
+      },
+      {
+        "id": "n3-v1817",
+        "front": "親子丼",
+        "back": "Tovuq va tuxumli guruchli taom",
+        "romaji": "oyakodon",
+        "furigana": "おやこどん",
+        "level": "N3",
+        "type": "vocab",
+        "example": "親子丼を食べます。"
+      },
+      {
+        "id": "n3-v1818",
+        "front": "牛丼",
+        "back": "Mol go'shtli guruchli taom",
+        "romaji": "gyūdon",
+        "furigana": "ぎゅうどん",
+        "level": "N3",
+        "type": "vocab",
+        "example": "牛丼を食べました。"
+      },
+      {
+        "id": "n3-v1819",
+        "front": "サンドイッチ",
+        "back": "Sendvich",
+        "romaji": "sandoicchi",
+        "furigana": "サンドイッチ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "サンドイッチを食べます。"
+      },
+      {
+        "id": "n3-v1820",
+        "front": "ソース",
+        "back": "Sous",
+        "romaji": "sōsu",
+        "furigana": "ソース",
+        "level": "N3",
+        "type": "vocab",
+        "example": "ソースをかけます。"
+      },
+      {
+        "id": "n3-v1821",
+        "front": "～券",
+        "back": "Chipta, kupon",
+        "romaji": "~ken",
+        "furigana": "～けん",
+        "level": "N3",
+        "type": "vocab",
+        "example": "割引券を使います。"
+      },
+      {
+        "id": "n3-v1822",
+        "front": "かける",
+        "back": "Ilmoq, osmoq; ustiga solmoq",
+        "romaji": "kakeru",
+        "furigana": "かける",
+        "level": "N3",
+        "type": "vocab",
+        "example": "カレンダーをかけます。"
+      },
+      {
+        "id": "n3-v1823",
+        "front": "注文する",
+        "back": "Buyurtma bermoq",
+        "romaji": "chūmon suru",
+        "furigana": "ちゅうもんする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "ラーメンを注文します。"
+      },
+      {
+        "id": "n3-v1824",
+        "front": "割引する",
+        "back": "Chegirma qilmoq",
+        "romaji": "waribiki suru",
+        "furigana": "わりびきする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "今日は割引します。"
+      },
+      {
+        "id": "n3-v1825",
+        "front": "両替する",
+        "back": "Pulni maydalamoq, valyuta almashtirmoq",
+        "romaji": "ryōgae suru",
+        "furigana": "りょうがえする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "お金を両替します。"
+      },
+      {
+        "id": "n3-v1826",
+        "front": "得",
+        "back": "Foydali, tejamli, manfaatli",
+        "romaji": "toku",
+        "furigana": "とく",
+        "level": "N3",
+        "type": "vocab",
+        "example": "このセットは得です。"
+      },
+      {
+        "id": "n3-v1827",
+        "front": "特別",
+        "back": "Maxsus, alohida",
+        "romaji": "tokubetsu",
+        "furigana": "とくべつ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "今日は特別な日です。"
+      },
+      {
+        "id": "n3-v1828",
+        "front": "どういう",
+        "back": "Qanday, qanday turdagi",
+        "romaji": "dō iu",
+        "furigana": "どういう",
+        "level": "N3",
+        "type": "vocab",
+        "example": "どういう意味ですか。"
+      },
+      {
+        "id": "n3-v1829",
+        "front": "もう",
+        "back": "Yana, boshqa; allaqachon",
+        "romaji": "mō",
+        "furigana": "もう",
+        "level": "N3",
+        "type": "vocab",
+        "example": "もう一つください。"
+      },
+      {
+        "id": "n3-v1830",
+        "front": "もう一杯",
+        "back": "Yana bir stakan/kosa",
+        "romaji": "mō ippai",
+        "furigana": "もういっぱい",
+        "level": "N3",
+        "type": "vocab",
+        "example": "もう一杯ください。"
+      },
+      {
+        "id": "n3-v1831",
+        "front": "大変",
+        "back": "Juda, nihoyatda; qiyin",
+        "romaji": "taihen",
+        "furigana": "たいへん",
+        "level": "N3",
+        "type": "vocab",
+        "example": "今日は大変です。"
+      },
+      {
+        "id": "n3-v1832",
+        "front": "デザート",
+        "back": "Desert",
+        "romaji": "dezāto",
+        "furigana": "デザート",
+        "level": "N3",
+        "type": "vocab",
+        "example": "デザートを食べます。"
+      },
+      {
+        "id": "n3-v1833",
+        "front": "サークル",
+        "back": "Klub, guruh",
+        "romaji": "sākuru",
+        "furigana": "サークル",
+        "level": "N3",
+        "type": "vocab",
+        "example": "大学のサークルに入ります。"
+      },
+      {
+        "id": "n3-v1834",
+        "front": "見学会",
+        "back": "Tanishuv tashrifi, kuzatuv ekskursiyasi",
+        "romaji": "kengakukai",
+        "furigana": "けんがくかい",
+        "level": "N3",
+        "type": "vocab",
+        "example": "学校の見学会に行きます。"
+      },
+      {
+        "id": "n3-v1835",
+        "front": "学部",
+        "back": "Fakultet, akademik bo'lim",
+        "romaji": "gakubu",
+        "furigana": "がくぶ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "私は工学部です。"
+      },
+      {
+        "id": "n3-v1836",
+        "front": "法律",
+        "back": "Qonun, huquq",
+        "romaji": "hōritsu",
+        "furigana": "ほうりつ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "法律を勉強しています。"
+      },
+      {
+        "id": "n3-v1837",
+        "front": "カナダ",
+        "back": "Kanada",
+        "romaji": "Kanada",
+        "furigana": "カナダ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "カナダに行きたいです。"
+      },
+      {
+        "id": "n3-v1838",
+        "front": "聴解",
+        "back": "Tinglab tushunish",
+        "romaji": "chōkai",
+        "furigana": "ちょうかい",
+        "level": "N3",
+        "type": "vocab",
+        "example": "聴解の練習をします。"
+      },
+      {
+        "id": "n3-v1839",
+        "front": "アクセサリー",
+        "back": "Aksessuar",
+        "romaji": "akusesarī",
+        "furigana": "アクセサリー",
+        "level": "N3",
+        "type": "vocab",
+        "example": "アクセサリーを買いました。"
+      },
+      {
+        "id": "n3-v1840",
+        "front": "答え",
+        "back": "Javob",
+        "romaji": "kotae",
+        "furigana": "こたえ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "答えを書きます。"
+      },
+      {
+        "id": "n3-v1841",
+        "front": "ビジネス",
+        "back": "Biznes, ish faoliyati",
+        "romaji": "bijinesu",
+        "furigana": "ビジネス",
+        "level": "N3",
+        "type": "vocab",
+        "example": "ビジネスを勉強します。"
+      },
+      {
+        "id": "n3-v1842",
+        "front": "日本語能力試験",
+        "back": "Yapon tili darajasini aniqlash imtihoni (JLPT)",
+        "romaji": "nihongo nōryoku shiken",
+        "furigana": "にほんごのうりょくしけん",
+        "level": "N3",
+        "type": "vocab",
+        "example": "日本語能力試験を受けます。"
+      },
+      {
+        "id": "n3-v1843",
+        "front": "間違い",
+        "back": "Xato, adashish",
+        "romaji": "machigai",
+        "furigana": "まちがい",
+        "level": "N3",
+        "type": "vocab",
+        "example": "これは間違いです。"
+      },
+      {
+        "id": "n3-v1844",
+        "front": "寮",
+        "back": "Talabalar yotoqxonasi",
+        "romaji": "ryō",
+        "furigana": "りょう",
+        "level": "N3",
+        "type": "vocab",
+        "example": "寮に住んでいます。"
+      },
+      {
+        "id": "n3-v1845",
+        "front": "～料",
+        "back": "To'lov, haq",
+        "romaji": "~ryō",
+        "furigana": "～りょう",
+        "level": "N3",
+        "type": "vocab",
+        "example": "授業料を払います。"
+      },
+      {
+        "id": "n3-v1846",
+        "front": "翻訳する",
+        "back": "Tarjima qilmoq",
+        "romaji": "honyaku suru",
+        "furigana": "ほんやくする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "日本語を翻訳します。"
+      },
+      {
+        "id": "n3-v1847",
+        "front": "見学する",
+        "back": "Borib ko'rmoq, kuzatmoq",
+        "romaji": "kengaku suru",
+        "furigana": "けんがくする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "学校を見学します。"
+      },
+      {
+        "id": "n3-v1848",
+        "front": "相談する",
+        "back": "Maslahatlashmoq",
+        "romaji": "sōdan suru",
+        "furigana": "そうだんする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "先生に相談します。"
+      },
+      {
+        "id": "n3-v1849",
+        "front": "貯金する",
+        "back": "Pul jamg'armoq",
+        "romaji": "chokin suru",
+        "furigana": "ちょきんする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "毎月、貯金します。"
+      },
+      {
+        "id": "n3-v1850",
+        "front": "留学する",
+        "back": "Chet elda o'qimoq",
+        "romaji": "ryūgaku suru",
+        "furigana": "りゅうがくする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "日本に留学したいです。"
+      },
+      {
+        "id": "n3-v1851",
+        "front": "開く",
+        "back": "Ochmoq",
+        "romaji": "hiraku",
+        "furigana": "ひらく",
+        "level": "N3",
+        "type": "vocab",
+        "example": "店を開きます。"
+      },
+      {
+        "id": "n3-v1852",
+        "front": "自分の店を開く",
+        "back": "O'z do'konini ochmoq",
+        "romaji": "jibun no mise o hiraku",
+        "furigana": "じぶんのみせをひらく",
+        "level": "N3",
+        "type": "vocab",
+        "example": "将来、自分の店を開きたいです。"
+      },
+      {
+        "id": "n3-v1853",
+        "front": "続ける",
+        "back": "Davom ettirmoq",
+        "romaji": "tsuzukeru",
+        "furigana": "つづける",
+        "level": "N3",
+        "type": "vocab",
+        "example": "日本語の勉強を続けます。"
+      },
+      {
+        "id": "n3-v1854",
+        "front": "やめる",
+        "back": "To'xtatmoq, tashlamoq",
+        "romaji": "yameru",
+        "furigana": "やめる",
+        "level": "N3",
+        "type": "vocab",
+        "example": "仕事をやめます。"
+      },
+      {
+        "id": "n3-v1855",
+        "front": "案内する",
+        "back": "Yo'l ko'rsatmoq, yo'naltirmoq",
+        "romaji": "annai suru",
+        "furigana": "あんないする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "駅まで案内します。"
+      },
+      {
+        "id": "n3-v1856",
+        "front": "進学する",
+        "back": "Keyingi bosqichda o'qishni davom ettirmoq",
+        "romaji": "shingaku suru",
+        "furigana": "しんがくする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "大学に進学します。"
+      },
+      {
+        "id": "n3-v1857",
+        "front": "通学する",
+        "back": "Maktab yoki universitetga qatnab o'qimoq",
+        "romaji": "tsūgaku suru",
+        "furigana": "つうがくする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "毎日、電車で通学します。"
+      },
+      {
+        "id": "n3-v1858",
+        "front": "考える",
+        "back": "O'ylamoq, o'ylab ko'rmoq",
+        "romaji": "kangaeru",
+        "furigana": "かんがえる",
+        "level": "N3",
+        "type": "vocab",
+        "example": "将来について考えます。"
+      },
+      {
+        "id": "n3-v1859",
+        "front": "合格する",
+        "back": "Imtihondan o'tmoq",
+        "romaji": "gōkaku suru",
+        "furigana": "ごうかくする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "試験に合格しました。"
+      },
+      {
+        "id": "n3-v1860",
+        "front": "専攻する",
+        "back": "Mutaxassislik bo'yicha o'qimoq",
+        "romaji": "senkō suru",
+        "furigana": "せんこうする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "情報工学を専攻しています。"
+      },
+      {
+        "id": "n3-v1861",
+        "front": "就職する",
+        "back": "Ishga joylashmoq",
+        "romaji": "shūshoku suru",
+        "furigana": "しゅうしょくする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "日本で就職したいです。"
+      },
+      {
+        "id": "n3-v1862",
+        "front": "確認する",
+        "back": "Tekshirmoq, tasdiqlamoq",
+        "romaji": "kakunin suru",
+        "furigana": "かくにんする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "もう一度確認します。"
+      },
+      {
+        "id": "n3-v1863",
+        "front": "正しい",
+        "back": "To'g'ri",
+        "romaji": "tadashii",
+        "furigana": "ただしい",
+        "level": "N3",
+        "type": "vocab",
+        "example": "この答えは正しいです。"
+      },
+      {
+        "id": "n3-v1864",
+        "front": "建築家",
+        "back": "Arxitektor",
+        "romaji": "kenchikuka",
+        "furigana": "けんちくか",
+        "level": "N3",
+        "type": "vocab",
+        "example": "建築家になりたいです。"
+      },
+      {
+        "id": "n3-v1865",
+        "front": "デザイナー",
+        "back": "Dizayner",
+        "romaji": "dezainā",
+        "furigana": "デザイナー",
+        "level": "N3",
+        "type": "vocab",
+        "example": "デザイナーになりたいです。"
+      },
+      {
+        "id": "n3-v1866",
+        "front": "スーツ",
+        "back": "Kostyum",
+        "romaji": "sūtsu",
+        "furigana": "スーツ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "スーツを着ます。"
+      },
+      {
+        "id": "n3-v1867",
+        "front": "願書",
+        "back": "Ariza, hujjat shakli",
+        "romaji": "gansho",
+        "furigana": "がんしょ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "願書を書きます。"
+      },
+      {
+        "id": "n3-v1868",
+        "front": "～中",
+        "back": "Davomida, ichida",
+        "romaji": "~jū",
+        "furigana": "～じゅう",
+        "level": "N3",
+        "type": "vocab",
+        "example": "今日中に終わります。"
+      },
+      {
+        "id": "n3-v1869",
+        "front": "経営する",
+        "back": "Boshqarmoq, biznes yuritmoq",
+        "romaji": "keiei suru",
+        "furigana": "けいえいする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "店を経営しています。"
+      },
+      {
+        "id": "n3-v1870",
+        "front": "体験する",
+        "back": "Tajriba orttirmoq, boshdan kechirmoq",
+        "romaji": "taiken suru",
+        "furigana": "たいけんする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "日本の生活を体験します。"
+      },
+      {
+        "id": "n3-v1871",
+        "front": "スピーチする",
+        "back": "Nutq so'zlamoq",
+        "romaji": "supīchi suru",
+        "furigana": "スピーチする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "みんなの前でスピーチします。"
+      },
+      {
+        "id": "n3-v1872",
+        "front": "受験する",
+        "back": "Imtihon topshirmoq",
+        "romaji": "juken suru",
+        "furigana": "じゅけんする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "大学を受験します。"
+      },
+      {
+        "id": "n3-v1873",
+        "front": "復習する",
+        "back": "Takrorlamoq, darsni qayta ko'rib chiqmoq",
+        "romaji": "fukushū suru",
+        "furigana": "ふくしゅうする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "毎日、復習します。"
+      },
+      {
+        "id": "n3-v1874",
+        "front": "予習する",
+        "back": "Darsga oldindan tayyorlanmoq",
+        "romaji": "yoshū suru",
+        "furigana": "よしゅうする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "授業の前に予習します。"
+      },
+      {
+        "id": "n3-v1875",
+        "front": "デッサンする",
+        "back": "Rasm eskizini chizmoq",
+        "romaji": "dessan suru",
+        "furigana": "デッサンする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "毎日、デッサンします。"
+      },
+      {
+        "id": "n3-v1876",
+        "front": "パティシエ",
+        "back": "Qandolatchi, pastry chef",
+        "romaji": "patishie",
+        "furigana": "パティシエ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "パティシエになりたいです。"
+      },
+      {
+        "id": "n3-v1877",
+        "front": "タコ",
+        "back": "Ahtapot",
+        "romaji": "tako",
+        "furigana": "タコ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "タコを食べます。"
+      },
+      {
+        "id": "n3-v1878",
+        "front": "たこ焼き",
+        "back": "Takoyaki, ahtapotli yapon taomi",
+        "romaji": "takoyaki",
+        "furigana": "たこやき",
+        "level": "N3",
+        "type": "vocab",
+        "example": "たこ焼きを食べます。"
+      },
+      {
+        "id": "n3-v1879",
+        "front": "におい",
+        "back": "Hid, is",
+        "romaji": "nioi",
+        "furigana": "におい",
+        "level": "N3",
+        "type": "vocab",
+        "example": "いいにおいがします。"
+      },
+      {
+        "id": "n3-v1880",
+        "front": "～がする",
+        "back": "Hid yoki tovush sezilmoq",
+        "romaji": "~ga suru",
+        "furigana": "～がする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "いいにおいがします。"
+      },
+      {
+        "id": "n3-v1881",
+        "front": "小さな",
+        "back": "Kichkina",
+        "romaji": "chiisana",
+        "furigana": "ちいさな",
+        "level": "N3",
+        "type": "vocab",
+        "example": "小さな店があります。"
+      },
+      {
+        "id": "n3-v1882",
+        "front": "生活を楽しむ",
+        "back": "Hayotdan zavqlanmoq",
+        "romaji": "seikatsu o tanoshimu",
+        "furigana": "せいかつをたのしむ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "日本の生活を楽しんでいます。"
+      },
+      {
+        "id": "n3-v1883",
+        "front": "歯科",
+        "back": "Tish shifokori, stomatologiya",
+        "romaji": "shika",
+        "furigana": "しか",
+        "level": "N3",
+        "type": "vocab",
+        "example": "歯科へ行きます。"
+      },
+      {
+        "id": "n3-v1884",
+        "front": "三味線",
+        "back": "Shamisen, yapon musiqa asbobi",
+        "romaji": "shamisen",
+        "furigana": "しゃみせん",
+        "level": "N3",
+        "type": "vocab",
+        "example": "三味線を聞きました。"
+      },
+      {
+        "id": "n3-v1885",
+        "front": "水道",
+        "back": "Suv ta'minoti, kran suvi",
+        "romaji": "suidō",
+        "furigana": "すいどう",
+        "level": "N3",
+        "type": "vocab",
+        "example": "水道の水を飲みます。"
+      },
+      {
+        "id": "n3-v1886",
+        "front": "てんぷら",
+        "back": "Tempura",
+        "romaji": "tenpura",
+        "furigana": "てんぷら",
+        "level": "N3",
+        "type": "vocab",
+        "example": "てんぷらを食べました。"
+      },
+      {
+        "id": "n3-v1887",
+        "front": "交流会",
+        "back": "Madaniy almashinuv uchrashuvi",
+        "romaji": "kōryūkai",
+        "furigana": "こうりゅうかい",
+        "level": "N3",
+        "type": "vocab",
+        "example": "交流会に参加します。"
+      },
+      {
+        "id": "n3-v1888",
+        "front": "小学校",
+        "back": "Boshlang'ich maktab",
+        "romaji": "shōgakkō",
+        "furigana": "しょうがっこう",
+        "level": "N3",
+        "type": "vocab",
+        "example": "弟は小学校に通っています。"
+      },
+      {
+        "id": "n3-v1889",
+        "front": "タオル",
+        "back": "Sochiq",
+        "romaji": "taoru",
+        "furigana": "タオル",
+        "level": "N3",
+        "type": "vocab",
+        "example": "タオルを使います。"
+      },
+      {
+        "id": "n3-v1890",
+        "front": "茶道",
+        "back": "Choy marosimi",
+        "romaji": "sadō",
+        "furigana": "さどう",
+        "level": "N3",
+        "type": "vocab",
+        "example": "茶道を勉強しています。"
+      },
+      {
+        "id": "n3-v1891",
+        "front": "センター",
+        "back": "Markaz",
+        "romaji": "sentā",
+        "furigana": "センター",
+        "level": "N3",
+        "type": "vocab",
+        "example": "センターへ行きます。"
+      },
+      {
+        "id": "n3-v1892",
+        "front": "～場",
+        "back": "Joy, maydon",
+        "romaji": "~jō",
+        "furigana": "～じょう",
+        "level": "N3",
+        "type": "vocab",
+        "example": "サッカー場へ行きます。"
+      },
+      {
+        "id": "n3-v1893",
+        "front": "～口",
+        "back": "Kirish yoki chiqish joyi",
+        "romaji": "~guchi",
+        "furigana": "～ぐち",
+        "level": "N3",
+        "type": "vocab",
+        "example": "西口で会いましょう。"
+      },
+      {
+        "id": "n3-v1894",
+        "front": "かかる",
+        "back": "Vaqt ketmoq, sarflanmoq",
+        "romaji": "kakaru",
+        "furigana": "かかる",
+        "level": "N3",
+        "type": "vocab",
+        "example": "駅まで10分かかります。"
+      },
+      {
+        "id": "n3-v1895",
+        "front": "質問する",
+        "back": "Savol bermoq",
+        "romaji": "shitsumon suru",
+        "furigana": "しつもんする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "先生に質問します。"
+      },
+      {
+        "id": "n3-v1896",
+        "front": "カットする",
+        "back": "Soch kestirmoq, kesmoq",
+        "romaji": "katto suru",
+        "furigana": "カットする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "髪をカットします。"
+      },
+      {
+        "id": "n3-v1897",
+        "front": "紹介する",
+        "back": "Tanishtirmoq",
+        "romaji": "shōkai suru",
+        "furigana": "しょうかいする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "友達を紹介します。"
+      },
+      {
+        "id": "n3-v1898",
+        "front": "修理する",
+        "back": "Ta'mirlamoq",
+        "romaji": "shūri suru",
+        "furigana": "しゅうりする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "自転車を修理します。"
+      },
+      {
+        "id": "n3-v1899",
+        "front": "知らせる",
+        "back": "Xabar bermoq, bildirmoq",
+        "romaji": "shiraseru",
+        "furigana": "しらせる",
+        "level": "N3",
+        "type": "vocab",
+        "example": "友達に知らせます。"
+      },
+      {
+        "id": "n3-v1900",
+        "front": "出る",
+        "back": "Chiqmoq; qatnamoq",
+        "romaji": "deru",
+        "furigana": "でる",
+        "level": "N3",
+        "type": "vocab",
+        "example": "バスが出ます。"
+      },
+      {
+        "id": "n3-v1901",
+        "front": "利用する",
+        "back": "Foydalanmoq",
+        "romaji": "riyō suru",
+        "furigana": "りようする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "このサービスを利用します。"
+      },
+      {
+        "id": "n3-v1902",
+        "front": "必要",
+        "back": "Kerakli, zarur",
+        "romaji": "hitsuyō",
+        "furigana": "ひつよう",
+        "level": "N3",
+        "type": "vocab",
+        "example": "パスポートが必要です。"
+      },
+      {
+        "id": "n3-v1903",
+        "front": "行き方を教える",
+        "back": "Qanday borishni tushuntirmoq",
+        "romaji": "ikikata o oshieru",
+        "furigana": "いきかたをおしえる",
+        "level": "N3",
+        "type": "vocab",
+        "example": "駅への行き方を教えてください。"
+      },
+      {
+        "id": "n3-v1904",
+        "front": "大使館",
+        "back": "Elchixona",
+        "romaji": "taishikan",
+        "furigana": "たいしかん",
+        "level": "N3",
+        "type": "vocab",
+        "example": "大使館へ行きます。"
+      },
+      {
+        "id": "n3-v1905",
+        "front": "メートル",
+        "back": "Metr",
+        "romaji": "mētoru",
+        "furigana": "メートル",
+        "level": "N3",
+        "type": "vocab",
+        "example": "駅は100メートル先です。"
+      },
+      {
+        "id": "n3-v1906",
+        "front": "～階建て",
+        "back": "~ qavatli bino",
+        "romaji": "~kaidate",
+        "furigana": "～かいだて",
+        "level": "N3",
+        "type": "vocab",
+        "example": "この建物は4階建てです。"
+      },
+      {
+        "id": "n3-v1907",
+        "front": "～番線",
+        "back": "~-raqamli poyezd yoki metro liniyasi platformasi",
+        "romaji": "~bansen",
+        "furigana": "～ばんせん",
+        "level": "N3",
+        "type": "vocab",
+        "example": "3番線で待ってください。"
+      },
+      {
+        "id": "n3-v1908",
+        "front": "～行き",
+        "back": "~ tomon ketadigan, ~ yo'nalishidagi",
+        "romaji": "~yuki",
+        "furigana": "～ゆき",
+        "level": "N3",
+        "type": "vocab",
+        "example": "新宿行きの電車です。"
+      },
+      {
+        "id": "n3-v1909",
+        "front": "上る",
+        "back": "Yuqoriga ko'tarilmoq",
+        "romaji": "noboru",
+        "furigana": "のぼる",
+        "level": "N3",
+        "type": "vocab",
+        "example": "坂を上ります。"
+      },
+      {
+        "id": "n3-v1910",
+        "front": "下りる",
+        "back": "Pastga tushmoq",
+        "romaji": "oriru",
+        "furigana": "おりる",
+        "level": "N3",
+        "type": "vocab",
+        "example": "坂を下ります。"
+      },
+      {
+        "id": "n3-v1911",
+        "front": "駐車する",
+        "back": "Avtomobilni park qilmoq",
+        "romaji": "chūsha suru",
+        "furigana": "ちゅうしゃする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "ここに車を駐車します。"
+      },
+      {
+        "id": "n3-v1912",
+        "front": "中学校",
+        "back": "O'rta maktab",
+        "romaji": "chūgakkō",
+        "furigana": "ちゅうがっこう",
+        "level": "N3",
+        "type": "vocab",
+        "example": "弟は中学校に通っています。"
+      },
+      {
+        "id": "n3-v1913",
+        "front": "びっくり",
+        "back": "Hayrat, ajablanish",
+        "romaji": "bikkuri",
+        "furigana": "びっくり",
+        "level": "N3",
+        "type": "vocab",
+        "example": "びっくりしました。"
+      },
+      {
+        "id": "n3-v1914",
+        "front": "本当に",
+        "back": "Haqiqatan ham, rostdan",
+        "romaji": "hontō ni",
+        "furigana": "ほんとうに",
+        "level": "N3",
+        "type": "vocab",
+        "example": "本当にありがとうございます。"
+      },
+      {
+        "id": "n3-v1915",
+        "front": "もう少し",
+        "back": "Yana biroz, sal ko'proq",
+        "romaji": "mō sukoshi",
+        "furigana": "もうすこし",
+        "level": "N3",
+        "type": "vocab",
+        "example": "もう少し待ってください。"
+      },
+      {
+        "id": "n3-v1916",
+        "front": "ゆっくり",
+        "back": "Sekin, asta",
+        "romaji": "yukkuri",
+        "furigana": "ゆっくり",
+        "level": "N3",
+        "type": "vocab",
+        "example": "ゆっくり話してください。"
+      },
+      {
+        "id": "n3-v1917",
+        "front": "もう一度",
+        "back": "Yana bir marta",
+        "romaji": "mō ichido",
+        "furigana": "もういちど",
+        "level": "N3",
+        "type": "vocab",
+        "example": "もう一度お願いします。"
+      },
+      {
+        "id": "n3-v1918",
+        "front": "白",
+        "back": "Oq rang",
+        "romaji": "shiro",
+        "furigana": "しろ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "白い服を着ています。"
+      },
+      {
+        "id": "n3-v1919",
+        "front": "～号車",
+        "back": "~-raqamli vagon",
+        "romaji": "~gōsha",
+        "furigana": "～ごうしゃ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "三号車に乗ります。"
+      },
+      {
+        "id": "n3-v1920",
+        "front": "～ずつ",
+        "back": "Har biridan, teng miqdorda",
+        "romaji": "~zutsu",
+        "furigana": "～ずつ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "一人に二つずつください。"
+      },
+      {
+        "id": "n3-v1921",
+        "front": "自然",
+        "back": "Tabiat",
+        "romaji": "shizen",
+        "furigana": "しぜん",
+        "level": "N3",
+        "type": "vocab",
+        "example": "自然がきれいです。"
+      },
+      {
+        "id": "n3-v1922",
+        "front": "ラベンダー畑",
+        "back": "Lavanda dalasi",
+        "romaji": "rabandā batake",
+        "furigana": "ラベンダーばたけ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "ラベンダー畑へ行きます。"
+      },
+      {
+        "id": "n3-v1923",
+        "front": "湿原",
+        "back": "Botqoqlik, namlik maydoni",
+        "romaji": "shitsugen",
+        "furigana": "しつげん",
+        "level": "N3",
+        "type": "vocab",
+        "example": "湿原を見ました。"
+      },
+      {
+        "id": "n3-v1924",
+        "front": "牧場",
+        "back": "Ferma, chorvachilik xo'jaligi",
+        "romaji": "bokujō",
+        "furigana": "ぼくじょう",
+        "level": "N3",
+        "type": "vocab",
+        "example": "牧場へ行きます。"
+      },
+      {
+        "id": "n3-v1925",
+        "front": "ジャガイモ",
+        "back": "Kartoshka",
+        "romaji": "jagaimo",
+        "furigana": "ジャガイモ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "ジャガイモを食べます。"
+      },
+      {
+        "id": "n3-v1926",
+        "front": "トウモロコシ",
+        "back": "Makkajo'xori",
+        "romaji": "tōmorokoshi",
+        "furigana": "トウモロコシ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "トウモロコシを食べました。"
+      },
+      {
+        "id": "n3-v1927",
+        "front": "ウニ",
+        "back": "Dengiz kirpisi",
+        "romaji": "uni",
+        "furigana": "ウニ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "ウニを食べたことがあります。"
+      },
+      {
+        "id": "n3-v1928",
+        "front": "乗馬",
+        "back": "Ot minish",
+        "romaji": "jōba",
+        "furigana": "じょうば",
+        "level": "N3",
+        "type": "vocab",
+        "example": "乗馬をしたいです。"
+      },
+      {
+        "id": "n3-v1929",
+        "front": "カヌー",
+        "back": "Kanoe",
+        "romaji": "kanū",
+        "furigana": "カヌー",
+        "level": "N3",
+        "type": "vocab",
+        "example": "カヌーに乗ります。"
+      },
+      {
+        "id": "n3-v1930",
+        "front": "カニ",
+        "back": "Qisqichbaqa",
+        "romaji": "kani",
+        "furigana": "カニ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "カニを食べました。"
+      },
+      {
+        "id": "n3-v1931",
+        "front": "ショッピングセンター",
+        "back": "Savdo markazi",
+        "romaji": "shoppingu sentā",
+        "furigana": "ショッピングセンター",
+        "level": "N3",
+        "type": "vocab",
+        "example": "ショッピングセンターへ行きます。"
+      },
+      {
+        "id": "n3-v1932",
+        "front": "水族館",
+        "back": "Akvarium",
+        "romaji": "suizokukan",
+        "furigana": "すいぞくかん",
+        "level": "N3",
+        "type": "vocab",
+        "example": "水族館へ行きたいです。"
+      },
+      {
+        "id": "n3-v1933",
+        "front": "スノーボード",
+        "back": "Snoubord",
+        "romaji": "sunōbōdo",
+        "furigana": "スノーボード",
+        "level": "N3",
+        "type": "vocab",
+        "example": "スノーボードをします。"
+      },
+      {
+        "id": "n3-v1934",
+        "front": "雰囲気",
+        "back": "Muhit, atmosfera",
+        "romaji": "fun'iki",
+        "furigana": "ふんいき",
+        "level": "N3",
+        "type": "vocab",
+        "example": "この店は雰囲気がいいです。"
+      },
+      {
+        "id": "n3-v1935",
+        "front": "こっち",
+        "back": "Bu tomon, bu yoq (norasmiy)",
+        "romaji": "kotchi",
+        "furigana": "こっち",
+        "level": "N3",
+        "type": "vocab",
+        "example": "こっちへ来てください。"
+      },
+      {
+        "id": "n3-v1936",
+        "front": "そっち",
+        "back": "U tomon, u yoq (norasmiy)",
+        "romaji": "sotchi",
+        "furigana": "そっち",
+        "level": "N3",
+        "type": "vocab",
+        "example": "そっちにあります。"
+      },
+      {
+        "id": "n3-v1937",
+        "front": "旅館",
+        "back": "Yaponcha uslubdagi mehmonxona",
+        "romaji": "ryokan",
+        "furigana": "りょかん",
+        "level": "N3",
+        "type": "vocab",
+        "example": "旅館に泊まります。"
+      },
+      {
+        "id": "n3-v1938",
+        "front": "登山",
+        "back": "Tog'ga chiqish",
+        "romaji": "tozan",
+        "furigana": "とざん",
+        "level": "N3",
+        "type": "vocab",
+        "example": "夏に登山をします。"
+      },
+      {
+        "id": "n3-v1939",
+        "front": "虫",
+        "back": "Hasharot",
+        "romaji": "mushi",
+        "furigana": "むし",
+        "level": "N3",
+        "type": "vocab",
+        "example": "虫がいます。"
+      },
+      {
+        "id": "n3-v1940",
+        "front": "宿泊",
+        "back": "Turar joyda tunash",
+        "romaji": "shukuhaku",
+        "furigana": "しゅくはく",
+        "level": "N3",
+        "type": "vocab",
+        "example": "ホテルに宿泊します。"
+      },
+      {
+        "id": "n3-v1941",
+        "front": "なし",
+        "back": "Yo'q, mavjud emas",
+        "romaji": "nashi",
+        "furigana": "なし",
+        "level": "N3",
+        "type": "vocab",
+        "example": "朝食はなしです。"
+      },
+      {
+        "id": "n3-v1942",
+        "front": "大人",
+        "back": "Katta odam, voyaga yetgan",
+        "romaji": "otona",
+        "furigana": "おとな",
+        "level": "N3",
+        "type": "vocab",
+        "example": "大人は二人です。"
+      },
+      {
+        "id": "n3-v1943",
+        "front": "～付き",
+        "back": "~ bilan birga, ~ qo'shilgan",
+        "romaji": "~tsuki",
+        "furigana": "～つき",
+        "level": "N3",
+        "type": "vocab",
+        "example": "朝食付きのホテルです。"
+      },
+      {
+        "id": "n3-v1944",
+        "front": "～泊～日",
+        "back": "~ kecha ~ kun",
+        "romaji": "~haku ~nichi",
+        "furigana": "～はく～にち",
+        "level": "N3",
+        "type": "vocab",
+        "example": "二泊三日の旅行です。"
+      },
+      {
+        "id": "n3-v1945",
+        "front": "～費",
+        "back": "~ xarajat, ~ to'lovi",
+        "romaji": "~hi",
+        "furigana": "～ひ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "交通費はいくらですか。"
+      },
+      {
+        "id": "n3-v1946",
+        "front": "ガイドする",
+        "back": "Yo'l ko'rsatmoq, gidlik qilmoq",
+        "romaji": "gaido suru",
+        "furigana": "ガイドする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "町をガイドします。"
+      },
+      {
+        "id": "n3-v1947",
+        "front": "観光する",
+        "back": "Sayohat qilmoq, diqqatga sazovor joylarni tomosha qilmoq",
+        "romaji": "kankō suru",
+        "furigana": "かんこうする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "東京を観光します。"
+      },
+      {
+        "id": "n3-v1948",
+        "front": "出発する",
+        "back": "Jo'namoq, yo'lga chiqmoq",
+        "romaji": "shuppatsu suru",
+        "furigana": "しゅっぱつする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "朝八時に出発します。"
+      },
+      {
+        "id": "n3-v1949",
+        "front": "キャンプする",
+        "back": "Kemping qilmoq",
+        "romaji": "kyanpu suru",
+        "furigana": "キャンプする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "山でキャンプします。"
+      },
+      {
+        "id": "n3-v1950",
+        "front": "伝統的",
+        "back": "An'anaviy",
+        "romaji": "dentōteki",
+        "furigana": "でんとうてき",
+        "level": "N3",
+        "type": "vocab",
+        "example": "これは伝統的な料理です。"
+      },
+      {
+        "id": "n3-v1951",
+        "front": "どっち",
+        "back": "Qaysi biri (norasmiy)",
+        "romaji": "dotchi",
+        "furigana": "どっち",
+        "level": "N3",
+        "type": "vocab",
+        "example": "どっちがいいですか。"
+      },
+      {
+        "id": "n3-v1952",
+        "front": "イルカ",
+        "back": "Delfin",
+        "romaji": "iruka",
+        "furigana": "イルカ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "イルカを見ました。"
+      },
+      {
+        "id": "n3-v1953",
+        "front": "ショー",
+        "back": "Shou, tomosha dasturi",
+        "romaji": "shō",
+        "furigana": "ショー",
+        "level": "N3",
+        "type": "vocab",
+        "example": "イルカのショーを見ます。"
+      },
+      {
+        "id": "n3-v1954",
+        "front": "マフラー",
+        "back": "Sharf",
+        "romaji": "mafurā",
+        "furigana": "マフラー",
+        "level": "N3",
+        "type": "vocab",
+        "example": "マフラーを買いました。"
+      },
+      {
+        "id": "n3-v1955",
+        "front": "ガイドブック",
+        "back": "Sayohat qo'llanmasi",
+        "romaji": "gaidobukku",
+        "furigana": "ガイドブック",
+        "level": "N3",
+        "type": "vocab",
+        "example": "ガイドブックを読みます。"
+      },
+      {
+        "id": "n3-v1956",
+        "front": "パーク",
+        "back": "Park",
+        "romaji": "pāku",
+        "furigana": "パーク",
+        "level": "N3",
+        "type": "vocab",
+        "example": "パークへ行きます。"
+      },
+      {
+        "id": "n3-v1957",
+        "front": "早割",
+        "back": "Oldindan bron qilish uchun chegirma",
+        "romaji": "hayawari",
+        "furigana": "はやわり",
+        "level": "N3",
+        "type": "vocab",
+        "example": "早割でチケットを買いました。"
+      },
+      {
+        "id": "n3-v1958",
+        "front": "取る",
+        "back": "Olmoq",
+        "romaji": "toru",
+        "furigana": "とる",
+        "level": "N3",
+        "type": "vocab",
+        "example": "休みを取ります。"
+      },
+      {
+        "id": "n3-v1959",
+        "front": "休みを取る",
+        "back": "Ta'til olmoq, dam olish kunini olmoq",
+        "romaji": "yasumi o toru",
+        "furigana": "やすみをとる",
+        "level": "N3",
+        "type": "vocab",
+        "example": "来週、休みを取ります。"
+      },
+      {
+        "id": "n3-v1960",
+        "front": "ぬれる",
+        "back": "Ho'llanmoq",
+        "romaji": "nureru",
+        "furigana": "ぬれる",
+        "level": "N3",
+        "type": "vocab",
+        "example": "雨で服がぬれました。"
+      },
+      {
+        "id": "n3-v1961",
+        "front": "用意する",
+        "back": "Tayyorlamoq",
+        "romaji": "yōi suru",
+        "furigana": "よういする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "旅行の準備を用意します。"
+      },
+      {
+        "id": "n3-v1962",
+        "front": "コピーする",
+        "back": "Nusxa ko'chirmoq",
+        "romaji": "kopī suru",
+        "furigana": "コピーする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "書類をコピーします。"
+      },
+      {
+        "id": "n3-v1963",
+        "front": "あとで",
+        "back": "Keyinroq",
+        "romaji": "ato de",
+        "furigana": "あとで",
+        "level": "N3",
+        "type": "vocab",
+        "example": "あとで電話します。"
+      },
+      {
+        "id": "n3-v1964",
+        "front": "違い",
+        "back": "Farq",
+        "romaji": "chigai",
+        "furigana": "ちがい",
+        "level": "N3",
+        "type": "vocab",
+        "example": "文化の違いがあります。"
+      },
+      {
+        "id": "n3-v1965",
+        "front": "失礼",
+        "back": "Qo'pollik, odobsizlik",
+        "romaji": "shitsurei",
+        "furigana": "しつれい",
+        "level": "N3",
+        "type": "vocab",
+        "example": "失礼なことを言いました。"
+      },
+      {
+        "id": "n3-v1966",
+        "front": "社長",
+        "back": "Kompaniya prezidenti, direktor",
+        "romaji": "shachō",
+        "furigana": "しゃちょう",
+        "level": "N3",
+        "type": "vocab",
+        "example": "社長に会いました。"
+      },
+      {
+        "id": "n3-v1967",
+        "front": "ご存じ",
+        "back": "Bilmoq, xabardor bo'lmoq (hurmat shakli)",
+        "romaji": "gozonji",
+        "furigana": "ごぞんじ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "この店をご存じですか。"
+      },
+      {
+        "id": "n3-v1968",
+        "front": "どなた",
+        "back": "Kim? (hurmat shakli)",
+        "romaji": "donata",
+        "furigana": "どなた",
+        "level": "N3",
+        "type": "vocab",
+        "example": "あの方はどなたですか。"
+      },
+      {
+        "id": "n3-v1969",
+        "front": "ミステリー",
+        "back": "Detektiv, sirli asar",
+        "romaji": "misuterī",
+        "furigana": "ミステリー",
+        "level": "N3",
+        "type": "vocab",
+        "example": "ミステリーが好きです。"
+      },
+      {
+        "id": "n3-v1970",
+        "front": "ごろ",
+        "back": "Taxminan, atrofida",
+        "romaji": "goro",
+        "furigana": "ごろ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "七時ごろ帰ります。"
+      },
+      {
+        "id": "n3-v1971",
+        "front": "いらっしゃる",
+        "back": "Bormoq, kelmoq, bo'lmoq (hurmat shakli)",
+        "romaji": "irassharu",
+        "furigana": "いらっしゃる",
+        "level": "N3",
+        "type": "vocab",
+        "example": "先生はいらっしゃいます。"
+      },
+      {
+        "id": "n3-v1972",
+        "front": "なさる",
+        "back": "Qilmoq (hurmat shakli)",
+        "romaji": "nasaru",
+        "furigana": "なさる",
+        "level": "N3",
+        "type": "vocab",
+        "example": "何をなさいますか。"
+      },
+      {
+        "id": "n3-v1973",
+        "front": "召し上がる",
+        "back": "Yemoq, ichmoq (hurmat shakli)",
+        "romaji": "meshiagaru",
+        "furigana": "めしあがる",
+        "level": "N3",
+        "type": "vocab",
+        "example": "どうぞ召し上がってください。"
+      },
+      {
+        "id": "n3-v1974",
+        "front": "出席する",
+        "back": "Qatnashmoq, ishtirok etmoq",
+        "romaji": "shusseki suru",
+        "furigana": "しゅっせきする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "会議に出席します。"
+      },
+      {
+        "id": "n3-v1975",
+        "front": "退院する",
+        "back": "Kasalxonadan chiqmoq",
+        "romaji": "taiin suru",
+        "furigana": "たいいんする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "明日、退院します。"
+      },
+      {
+        "id": "n3-v1976",
+        "front": "一緒に作りましょう",
+        "back": "Birgalikda tayyorlaylik",
+        "romaji": "issho ni tsukurimashō",
+        "furigana": "いっしょにつくりましょう",
+        "level": "N3",
+        "type": "vocab",
+        "example": "一緒に料理を作りましょう。"
+      },
+      {
+        "id": "n3-v1977",
+        "front": "このくらい",
+        "back": "Shunchalik, mana shuncha",
+        "romaji": "kono kurai",
+        "furigana": "このくらい",
+        "level": "N3",
+        "type": "vocab",
+        "example": "このくらいでいいです。"
+      },
+      {
+        "id": "n3-v1978",
+        "front": "キャベツ",
+        "back": "Karam",
+        "romaji": "kyabetsu",
+        "furigana": "キャベツ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "キャベツを切ります。"
+      },
+      {
+        "id": "n3-v1979",
+        "front": "大根",
+        "back": "Yapon rediska",
+        "romaji": "daikon",
+        "furigana": "だいこん",
+        "level": "N3",
+        "type": "vocab",
+        "example": "大根を切ります。"
+      },
+      {
+        "id": "n3-v1980",
+        "front": "タマネギ",
+        "back": "Piyoz",
+        "romaji": "tamanegi",
+        "furigana": "タマネギ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "タマネギを切ります。"
+      },
+      {
+        "id": "n3-v1981",
+        "front": "ニンジン",
+        "back": "Sabzi",
+        "romaji": "ninjin",
+        "furigana": "ニンジン",
+        "level": "N3",
+        "type": "vocab",
+        "example": "ニンジンを切ります。"
+      },
+      {
+        "id": "n3-v1982",
+        "front": "ネギ",
+        "back": "Ko'k piyoz",
+        "romaji": "negi",
+        "furigana": "ネギ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "ネギを入れます。"
+      },
+      {
+        "id": "n3-v1983",
+        "front": "カップ",
+        "back": "Stakan, piyola, o'lchov idishi",
+        "romaji": "kappu",
+        "furigana": "カップ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "水を一カップ入れます。"
+      },
+      {
+        "id": "n3-v1984",
+        "front": "クリーム",
+        "back": "Krem",
+        "romaji": "kurīmu",
+        "furigana": "クリーム",
+        "level": "N3",
+        "type": "vocab",
+        "example": "クリームを入れます。"
+      },
+      {
+        "id": "n3-v1985",
+        "front": "ゼリー",
+        "back": "Jele",
+        "romaji": "zerī",
+        "furigana": "ゼリー",
+        "level": "N3",
+        "type": "vocab",
+        "example": "ゼリーを食べます。"
+      },
+      {
+        "id": "n3-v1986",
+        "front": "パスタのソースを作る",
+        "back": "Pasta sousini tayyorlamoq",
+        "romaji": "pasuta no sōsu o tsukuru",
+        "furigana": "パスタのソースをつくる",
+        "level": "N3",
+        "type": "vocab",
+        "example": "パスタのソースを作ります。"
+      },
+      {
+        "id": "n3-v1987",
+        "front": "パスタ",
+        "back": "Makaron, pasta",
+        "romaji": "pasuta",
+        "furigana": "パスタ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "パスタを食べます。"
+      },
+      {
+        "id": "n3-v1988",
+        "front": "はちみつ",
+        "back": "Asal",
+        "romaji": "hachimitsu",
+        "furigana": "はちみつ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "はちみつを入れます。"
+      },
+      {
+        "id": "n3-v1989",
+        "front": "みそ汁",
+        "back": "Miso sho'rvasi",
+        "romaji": "misoshiru",
+        "furigana": "みそしる",
+        "level": "N3",
+        "type": "vocab",
+        "example": "みそ汁を飲みます。"
+      },
+      {
+        "id": "n3-v1990",
+        "front": "火",
+        "back": "Olov, issiqlik",
+        "romaji": "hi",
+        "furigana": "ひ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "火をつけます。"
+      },
+      {
+        "id": "n3-v1991",
+        "front": "強火",
+        "back": "Kuchli olov",
+        "romaji": "tsuyobi",
+        "furigana": "つよび",
+        "level": "N3",
+        "type": "vocab",
+        "example": "強火で焼きます。"
+      },
+      {
+        "id": "n3-v1992",
+        "front": "弱火",
+        "back": "Past olov",
+        "romaji": "yowabi",
+        "furigana": "よわび",
+        "level": "N3",
+        "type": "vocab",
+        "example": "弱火で煮ます。"
+      },
+      {
+        "id": "n3-v1993",
+        "front": "ルー",
+        "back": "Sous yoki karri uchun quyuqlashtiruvchi massa",
+        "romaji": "rū",
+        "furigana": "ルー",
+        "level": "N3",
+        "type": "vocab",
+        "example": "ルーを入れます。"
+      },
+      {
+        "id": "n3-v1994",
+        "front": "グラム",
+        "back": "Gramm",
+        "romaji": "guramu",
+        "furigana": "グラム",
+        "level": "N3",
+        "type": "vocab",
+        "example": "肉を二百グラム買います。"
+      },
+      {
+        "id": "n3-v1995",
+        "front": "できあがり",
+        "back": "Tayyor bo'lishi, tayyor",
+        "romaji": "dekiagari",
+        "furigana": "できあがり",
+        "level": "N3",
+        "type": "vocab",
+        "example": "料理のできあがりです。"
+      },
+      {
+        "id": "n3-v1996",
+        "front": "むく",
+        "back": "Po'stini archmoq",
+        "romaji": "muku",
+        "furigana": "むく",
+        "level": "N3",
+        "type": "vocab",
+        "example": "じゃがいもの皮をむきます。"
+      },
+      {
+        "id": "n3-v1997",
+        "front": "沸かす",
+        "back": "Suvni qaynatmoq",
+        "romaji": "wakasu",
+        "furigana": "わかす",
+        "level": "N3",
+        "type": "vocab",
+        "example": "お湯を沸かします。"
+      },
+      {
+        "id": "n3-v1998",
+        "front": "沸騰する",
+        "back": "Qaynab ketmoq",
+        "romaji": "futtō suru",
+        "furigana": "ふっとうする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "お湯が沸騰しました。"
+      },
+      {
+        "id": "n3-v1999",
+        "front": "炒める",
+        "back": "Qovurmoq",
+        "romaji": "itameru",
+        "furigana": "いためる",
+        "level": "N3",
+        "type": "vocab",
+        "example": "野菜を炒めます。"
+      },
+      {
+        "id": "n3-v2000",
+        "front": "厚い",
+        "back": "Qalin",
+        "romaji": "atsui",
+        "furigana": "あつい",
+        "level": "N3",
+        "type": "vocab",
+        "example": "この肉は厚いです。"
+      },
+      {
+        "id": "n3-v2001",
+        "front": "薄い",
+        "back": "Yupqa; ta'mi kuchsiz",
+        "romaji": "usui",
+        "furigana": "うすい",
+        "level": "N3",
+        "type": "vocab",
+        "example": "肉を薄く切ります。"
+      },
+      {
+        "id": "n3-v2002",
+        "front": "弱い",
+        "back": "Kuchsiz, sust",
+        "romaji": "yowai",
+        "furigana": "よわい",
+        "level": "N3",
+        "type": "vocab",
+        "example": "火が弱いです。"
+      },
+      {
+        "id": "n3-v2003",
+        "front": "次に",
+        "back": "Keyin, navbatdagi bosqichda",
+        "romaji": "tsugi ni",
+        "furigana": "つぎに",
+        "level": "N3",
+        "type": "vocab",
+        "example": "次に肉を入れます。"
+      },
+      {
+        "id": "n3-v2004",
+        "front": "最後に",
+        "back": "Oxirida, nihoyat",
+        "romaji": "saigo ni",
+        "furigana": "さいごに",
+        "level": "N3",
+        "type": "vocab",
+        "example": "最後に味を見ます。"
+      },
+      {
+        "id": "n3-v2005",
+        "front": "肉じゃが",
+        "back": "Go'sht va kartoshkali yapon taomi",
+        "romaji": "nikujaga",
+        "furigana": "にくじゃが",
+        "level": "N3",
+        "type": "vocab",
+        "example": "肉じゃがを作ります。"
+      },
+      {
+        "id": "n3-v2006",
+        "front": "遠慮する",
+        "back": "Tortinmoq, o'zini tiyib turmoq",
+        "romaji": "enryo suru",
+        "furigana": "えんりょする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "遠慮しないでください。"
+      },
+      {
+        "id": "n3-v2007",
+        "front": "もちろん",
+        "back": "Albatta, shubhasiz",
+        "romaji": "mochiron",
+        "furigana": "もちろん",
+        "level": "N3",
+        "type": "vocab",
+        "example": "もちろん大丈夫です。"
+      },
+      {
+        "id": "n3-v2008",
+        "front": "お邪魔します",
+        "back": "Xalaqit berganim uchun uzr; uyingizga kirishda aytiladi",
+        "romaji": "ojama shimasu",
+        "furigana": "おじゃまします",
+        "level": "N3",
+        "type": "vocab",
+        "example": "お邪魔します。"
+      },
+      {
+        "id": "n3-v2009",
+        "front": "よくいらっしゃいました",
+        "back": "Xush kelibsiz, kelganingizdan xursandman",
+        "romaji": "yoku irasshaimashita",
+        "furigana": "よくいらっしゃいました",
+        "level": "N3",
+        "type": "vocab",
+        "example": "よくいらっしゃいました。"
+      },
+      {
+        "id": "n3-v2010",
+        "front": "明るい",
+        "back": "Yorqin, quvnoq",
+        "romaji": "akarui",
+        "furigana": "あかるい",
+        "level": "N3",
+        "type": "vocab",
+        "example": "明るい部屋です。"
+      },
+      {
+        "id": "n3-v2011",
+        "front": "（お）団子 (おだんご)",
+        "back": "Dango, guruchli shirinlik",
+        "romaji": "odango",
+        "furigana": "（お）団子 (おだんご)",
+        "level": "N3",
+        "type": "vocab",
+        "example": "お団子を食べます。"
+      },
+      {
+        "id": "n3-v2012",
+        "front": "駅員",
+        "back": "Vokzal xodimi",
+        "romaji": "ekiin",
+        "furigana": "えきいん",
+        "level": "N3",
+        "type": "vocab",
+        "example": "駅員さんに聞きました。"
+      },
+      {
+        "id": "n3-v2013",
+        "front": "お巡りさん",
+        "back": "Politsiyachi",
+        "romaji": "omawarisan",
+        "furigana": "おまわりさん",
+        "level": "N3",
+        "type": "vocab",
+        "example": "お巡りさんに聞きます。"
+      },
+      {
+        "id": "n3-v2014",
+        "front": "～さん",
+        "back": "Janob, xonim; ayrim kasblarga hurmat bilan qo'shiladi",
+        "romaji": "~san",
+        "furigana": "～さん",
+        "level": "N3",
+        "type": "vocab",
+        "example": "駅員さん、ありがとうございます。"
+      },
+      {
+        "id": "n3-v2015",
+        "front": "譲る",
+        "back": "Bermoq, boshqasiga o'tkazmoq",
+        "romaji": "yuzuru",
+        "furigana": "ゆずる",
+        "level": "N3",
+        "type": "vocab",
+        "example": "席を譲ります。"
+      },
+      {
+        "id": "n3-v2016",
+        "front": "連れて行く",
+        "back": "Olib bormoq, birga olib ketmoq",
+        "romaji": "tsurete iku",
+        "furigana": "つれていく",
+        "level": "N3",
+        "type": "vocab",
+        "example": "友達を駅まで連れて行きます。"
+      },
+      {
+        "id": "n3-v2017",
+        "front": "教える",
+        "back": "O'rgatmoq, ma'lumot bermoq",
+        "romaji": "oshieru",
+        "furigana": "おしえる",
+        "level": "N3",
+        "type": "vocab",
+        "example": "駅への行き方を教えます。"
+      },
+      {
+        "id": "n3-v2018",
+        "front": "迎えに来る",
+        "back": "Kutib olish uchun kelmoq",
+        "romaji": "mukae ni kuru",
+        "furigana": "むかえにくる",
+        "level": "N3",
+        "type": "vocab",
+        "example": "父が迎えに来ます。"
+      },
+      {
+        "id": "n3-v2019",
+        "front": "捕る",
+        "back": "Tutmoq, ushlamoq",
+        "romaji": "toru",
+        "furigana": "とる",
+        "level": "N3",
+        "type": "vocab",
+        "example": "魚を捕ります。"
+      },
+      {
+        "id": "n3-v2020",
+        "front": "そんなに",
+        "back": "Bunchalik, shunchalik",
+        "romaji": "sonnani",
+        "furigana": "そんなに",
+        "level": "N3",
+        "type": "vocab",
+        "example": "そんなに難しくないです。"
+      },
+      {
+        "id": "n3-v2021",
+        "front": "お世話になりました",
+        "back": "Ko'rsatgan yordamingiz uchun rahmat",
+        "romaji": "osewa ni narimashita",
+        "furigana": "おせわになりました",
+        "level": "N3",
+        "type": "vocab",
+        "example": "いろいろお世話になりました。"
+      },
+      {
+        "id": "n3-v2022",
+        "front": "花瓶",
+        "back": "Gul vaza",
+        "romaji": "kabin",
+        "furigana": "かびん",
+        "level": "N3",
+        "type": "vocab",
+        "example": "花瓶に花を入れます。"
+      },
+      {
+        "id": "n3-v2023",
+        "front": "茶碗",
+        "back": "Chinni kosa, guruch kosasi",
+        "romaji": "chawan",
+        "furigana": "ちゃわん",
+        "level": "N3",
+        "type": "vocab",
+        "example": "茶碗を洗います。"
+      },
+      {
+        "id": "n3-v2024",
+        "front": "～先",
+        "back": "~ boriladigan joy, manzil",
+        "romaji": "~saki",
+        "furigana": "～さき",
+        "level": "N3",
+        "type": "vocab",
+        "example": "アルバイト先は駅の近くです。"
+      },
+      {
+        "id": "n3-v2025",
+        "front": "教授",
+        "back": "Professor",
+        "romaji": "kyōju",
+        "furigana": "きょうじゅ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "教授に質問します。"
+      },
+      {
+        "id": "n3-v2026",
+        "front": "いただく",
+        "back": "Qabul qilmoq, olmoq (kamtarlik shakli)",
+        "romaji": "itadaku",
+        "furigana": "いただく",
+        "level": "N3",
+        "type": "vocab",
+        "example": "先生から資料をいただきました。"
+      },
+      {
+        "id": "n3-v2027",
+        "front": "くださる",
+        "back": "Berib qo'ymoq (hurmat shakli)",
+        "romaji": "kudasaru",
+        "furigana": "くださる",
+        "level": "N3",
+        "type": "vocab",
+        "example": "先生が本をくださいました。"
+      },
+      {
+        "id": "n3-v2028",
+        "front": "どういたしまして",
+        "back": "Arzimaydi, hechqisi yo'q",
+        "romaji": "dōitashimashite",
+        "furigana": "どういたしまして",
+        "level": "N3",
+        "type": "vocab",
+        "example": "どういたしまして。"
+      },
+      {
+        "id": "n3-v2029",
+        "front": "チヂミ",
+        "back": "Chijimi, koreyscha quymoq",
+        "romaji": "chijimi",
+        "furigana": "チヂミ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "チヂミを食べます。"
+      },
+      {
+        "id": "n3-v2030",
+        "front": "乾杯",
+        "back": "Qadah ko'tarmoq, tost",
+        "romaji": "kanpai",
+        "furigana": "かんぱい",
+        "level": "N3",
+        "type": "vocab",
+        "example": "みんなで乾杯しましょう。"
+      },
+      {
+        "id": "n3-v2031",
+        "front": "大切さ",
+        "back": "Muhimlik, ahamiyat",
+        "romaji": "taisetsusa",
+        "furigana": "たいせつさ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "仕事の大切さが分かりました。"
+      },
+      {
+        "id": "n3-v2032",
+        "front": "ですから",
+        "back": "Shuning uchun, shu sababli",
+        "romaji": "desu kara",
+        "furigana": "ですから",
+        "level": "N3",
+        "type": "vocab",
+        "example": "今日は忙しいです。ですから、行きません。"
+      },
+      {
+        "id": "n3-v2033",
+        "front": "アルバイト先",
+        "back": "Yarim stavkali ish joyi",
+        "romaji": "arubaito saki",
+        "furigana": "アルバイトさき",
+        "level": "N3",
+        "type": "vocab",
+        "example": "アルバイト先は駅の近くです。"
+      },
+      {
+        "id": "n3-v2034",
+        "front": "裏",
+        "back": "Orqa tomon",
+        "romaji": "ura",
+        "furigana": "うら",
+        "level": "N3",
+        "type": "vocab",
+        "example": "紙の裏を見てください。"
+      },
+      {
+        "id": "n3-v2035",
+        "front": "シフト",
+        "back": "Ish smenasi",
+        "romaji": "shifuto",
+        "furigana": "シフト",
+        "level": "N3",
+        "type": "vocab",
+        "example": "明日のシフトは朝です。"
+      },
+      {
+        "id": "n3-v2036",
+        "front": "スタッフ",
+        "back": "Xodimlar, personal",
+        "romaji": "sutaffu",
+        "furigana": "スタッフ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "スタッフに聞きます。"
+      },
+      {
+        "id": "n3-v2037",
+        "front": "タイムカード",
+        "back": "Ish vaqtini qayd qiluvchi karta",
+        "romaji": "taimu kādo",
+        "furigana": "タイムカード",
+        "level": "N3",
+        "type": "vocab",
+        "example": "タイムカードを押します。"
+      },
+      {
+        "id": "n3-v2038",
+        "front": "ホール",
+        "back": "Restoranning mijozlar zali",
+        "romaji": "hōru",
+        "furigana": "ホール",
+        "level": "N3",
+        "type": "vocab",
+        "example": "ホールで働いています。"
+      },
+      {
+        "id": "n3-v2039",
+        "front": "毎月",
+        "back": "Har oy",
+        "romaji": "maigetsu",
+        "furigana": "まいげつ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "毎月給料をもらいます。"
+      },
+      {
+        "id": "n3-v2040",
+        "front": "髪の毛",
+        "back": "Soch",
+        "romaji": "kaminoke",
+        "furigana": "かみのけ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "髪の毛を切ります。"
+      },
+      {
+        "id": "n3-v2041",
+        "front": "スニーカー",
+        "back": "Krossovka, sport oyoq kiyimi",
+        "romaji": "sunīkā",
+        "furigana": "スニーカー",
+        "level": "N3",
+        "type": "vocab",
+        "example": "スニーカーをはいています。"
+      },
+      {
+        "id": "n3-v2042",
+        "front": "調理場",
+        "back": "Oshxona, ovqat tayyorlash joyi",
+        "romaji": "chōriba",
+        "furigana": "ちょうりば",
+        "level": "N3",
+        "type": "vocab",
+        "example": "調理場で料理をします。"
+      },
+      {
+        "id": "n3-v2043",
+        "front": "伝票",
+        "back": "Buyurtma varaqasi, hisob qog'ozi",
+        "romaji": "denpyō",
+        "furigana": "でんぴょう",
+        "level": "N3",
+        "type": "vocab",
+        "example": "伝票を確認します。"
+      },
+      {
+        "id": "n3-v2044",
+        "front": "マニュアル",
+        "back": "Qo'llanma, yo'riqnoma",
+        "romaji": "manyuaru",
+        "furigana": "マニュアル",
+        "level": "N3",
+        "type": "vocab",
+        "example": "マニュアルを読みます。"
+      },
+      {
+        "id": "n3-v2045",
+        "front": "オーブン",
+        "back": "Duxovka, pech",
+        "romaji": "ōbun",
+        "furigana": "オーブン",
+        "level": "N3",
+        "type": "vocab",
+        "example": "オーブンでパンを焼きます。"
+      },
+      {
+        "id": "n3-v2046",
+        "front": "～様",
+        "back": "Janob, xonim (juda hurmatli shakl)",
+        "romaji": "~sama",
+        "furigana": "～さま",
+        "level": "N3",
+        "type": "vocab",
+        "example": "お客様、こちらへどうぞ。"
+      },
+      {
+        "id": "n3-v2047",
+        "front": "出す",
+        "back": "Chiqarib qo'ymoq; olib chiqmoq",
+        "romaji": "dasu",
+        "furigana": "だす",
+        "level": "N3",
+        "type": "vocab",
+        "example": "ごみを出します。"
+      },
+      {
+        "id": "n3-v2048",
+        "front": "着替える",
+        "back": "Kiyim almashtirmoq",
+        "romaji": "kigaeru",
+        "furigana": "きがえる",
+        "level": "N3",
+        "type": "vocab",
+        "example": "服を着替えます。"
+      },
+      {
+        "id": "n3-v2049",
+        "front": "つける",
+        "back": "Taqmoq, kiymoq, biriktirmoq",
+        "romaji": "tsukeru",
+        "furigana": "つける",
+        "level": "N3",
+        "type": "vocab",
+        "example": "アクセサリーをつけます。"
+      },
+      {
+        "id": "n3-v2050",
+        "front": "アクセサリーをつける",
+        "back": "Aksessuar taqmoq",
+        "romaji": "akusesarī o tsukeru",
+        "furigana": "アクセサリーをつける",
+        "level": "N3",
+        "type": "vocab",
+        "example": "今日はアクセサリーをつけます。"
+      },
+      {
+        "id": "n3-v2051",
+        "front": "おしゃべりする",
+        "back": "Suhbatlashmoq, gaplashmoq",
+        "romaji": "oshaberi suru",
+        "furigana": "おしゃべりする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "仕事中におしゃべりしません。"
+      },
+      {
+        "id": "n3-v2052",
+        "front": "チェックする",
+        "back": "Tekshirmoq",
+        "romaji": "chekku suru",
+        "furigana": "チェックする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "注文をチェックします。"
+      },
+      {
+        "id": "n3-v2053",
+        "front": "しまう",
+        "back": "Joyiga olib qo'ymoq, saqlab qo'ymoq",
+        "romaji": "shimau",
+        "furigana": "しまう",
+        "level": "N3",
+        "type": "vocab",
+        "example": "道具をしまいます。"
+      },
+      {
+        "id": "n3-v2054",
+        "front": "滑る",
+        "back": "Sirpanmoq",
+        "romaji": "suberu",
+        "furigana": "すべる",
+        "level": "N3",
+        "type": "vocab",
+        "example": "床が濡れていて滑ります。"
+      },
+      {
+        "id": "n3-v2055",
+        "front": "拭く",
+        "back": "Artmoq",
+        "romaji": "fuku",
+        "furigana": "ふく",
+        "level": "N3",
+        "type": "vocab",
+        "example": "テーブルを拭きます。"
+      },
+      {
+        "id": "n3-v2056",
+        "front": "あいさつする",
+        "back": "Salomlashmoq, salom bermoq",
+        "romaji": "aisatsu suru",
+        "furigana": "あいさつする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "毎朝、あいさつします。"
+      },
+      {
+        "id": "n3-v2057",
+        "front": "上がる",
+        "back": "Ko'tarilmoq",
+        "romaji": "agaru",
+        "furigana": "あがる",
+        "level": "N3",
+        "type": "vocab",
+        "example": "温度が上がります。"
+      },
+      {
+        "id": "n3-v2058",
+        "front": "代わる",
+        "back": "O'rnini almashtirmoq",
+        "romaji": "kawaru",
+        "furigana": "かわる",
+        "level": "N3",
+        "type": "vocab",
+        "example": "今日は私が代わります。"
+      },
+      {
+        "id": "n3-v2059",
+        "front": "アルバイトを代わる",
+        "back": "Birovning ish smenasini almashtirmoq",
+        "romaji": "arubaito o kawaru",
+        "furigana": "アルバイトを代わる",
+        "level": "N3",
+        "type": "vocab",
+        "example": "友達のアルバイトを代わります。"
+      },
+      {
+        "id": "n3-v2060",
+        "front": "呼ぶ",
+        "back": "Chaqirmoq",
+        "romaji": "yobu",
+        "furigana": "よぶ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "スタッフを呼びます。"
+      },
+      {
+        "id": "n3-v2061",
+        "front": "上げる",
+        "back": "Ko'tarmoq",
+        "romaji": "ageru",
+        "furigana": "あげる",
+        "level": "N3",
+        "type": "vocab",
+        "example": "温度を上げます。"
+      },
+      {
+        "id": "n3-v2062",
+        "front": "下げる",
+        "back": "Tushirmoq, pasaytirmoq",
+        "romaji": "sageru",
+        "furigana": "さげる",
+        "level": "N3",
+        "type": "vocab",
+        "example": "温度を下げます。"
+      },
+      {
+        "id": "n3-v2063",
+        "front": "足りる",
+        "back": "Yetarli bo'lmoq",
+        "romaji": "tariru",
+        "furigana": "たりる",
+        "level": "N3",
+        "type": "vocab",
+        "example": "お金が足ります。"
+      },
+      {
+        "id": "n3-v2064",
+        "front": "邪魔",
+        "back": "Xalaqit, to'sqinlik",
+        "romaji": "jama",
+        "furigana": "じゃま",
+        "level": "N3",
+        "type": "vocab",
+        "example": "仕事の邪魔をしません。"
+      },
+      {
+        "id": "n3-v2065",
+        "front": "丁寧",
+        "back": "Muloyim, odobli",
+        "romaji": "teinei",
+        "furigana": "ていねい",
+        "level": "N3",
+        "type": "vocab",
+        "example": "丁寧に話します。"
+      },
+      {
+        "id": "n3-v2066",
+        "front": "しっかり",
+        "back": "Puxta, yaxshilab",
+        "romaji": "shikkari",
+        "furigana": "しっかり",
+        "level": "N3",
+        "type": "vocab",
+        "example": "しっかり働きます。"
+      },
+      {
+        "id": "n3-v2067",
+        "front": "絶対に",
+        "back": "Albatta, mutlaqo",
+        "romaji": "zettai ni",
+        "furigana": "ぜったいに",
+        "level": "N3",
+        "type": "vocab",
+        "example": "絶対に忘れません。"
+      },
+      {
+        "id": "n3-v2068",
+        "front": "はっきり",
+        "back": "Aniq, ravshan",
+        "romaji": "hakkiri",
+        "furigana": "はっきり",
+        "level": "N3",
+        "type": "vocab",
+        "example": "はっきり話してください。"
+      },
+      {
+        "id": "n3-v2069",
+        "front": "大きな",
+        "back": "Katta",
+        "romaji": "ōkina",
+        "furigana": "おおきな",
+        "level": "N3",
+        "type": "vocab",
+        "example": "大きな声で話します。"
+      },
+      {
+        "id": "n3-v2070",
+        "front": "ガソリン",
+        "back": "Benzin",
+        "romaji": "gasorin",
+        "furigana": "ガソリン",
+        "level": "N3",
+        "type": "vocab",
+        "example": "ガソリンがありません。"
+      },
+      {
+        "id": "n3-v2071",
+        "front": "ひも",
+        "back": "Ip, bog'ich",
+        "romaji": "himo",
+        "furigana": "ひも",
+        "level": "N3",
+        "type": "vocab",
+        "example": "ひもを結びます。"
+      },
+      {
+        "id": "n3-v2072",
+        "front": "モップ",
+        "back": "Mop, pol artgich",
+        "romaji": "moppu",
+        "furigana": "モップ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "モップで床を掃除します。"
+      },
+      {
+        "id": "n3-v2073",
+        "front": "バター",
+        "back": "Sariyog'",
+        "romaji": "batā",
+        "furigana": "バター",
+        "level": "N3",
+        "type": "vocab",
+        "example": "バターを使います。"
+      },
+      {
+        "id": "n3-v2074",
+        "front": "瓶",
+        "back": "Shisha idish, butilka",
+        "romaji": "bin",
+        "furigana": "びん",
+        "level": "N3",
+        "type": "vocab",
+        "example": "瓶を捨てます。"
+      },
+      {
+        "id": "n3-v2075",
+        "front": "ガス",
+        "back": "Gaz",
+        "romaji": "gasu",
+        "furigana": "ガス",
+        "level": "N3",
+        "type": "vocab",
+        "example": "ガスを使います。"
+      },
+      {
+        "id": "n3-v2076",
+        "front": "～袋",
+        "back": "~ xalta, paket",
+        "romaji": "~bukuro",
+        "furigana": "～ぶくろ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "ごみ袋を使います。"
+      },
+      {
+        "id": "n3-v2077",
+        "front": "決まる",
+        "back": "Hal bo'lmoq, belgilab qo'yilmoq",
+        "romaji": "kimaru",
+        "furigana": "きまる",
+        "level": "N3",
+        "type": "vocab",
+        "example": "予定が決まりました。"
+      },
+      {
+        "id": "n3-v2078",
+        "front": "注意する",
+        "back": "E'tibor bermoq, ehtiyot bo'lmoq",
+        "romaji": "chūi suru",
+        "furigana": "ちゅういする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "足元に注意してください。"
+      },
+      {
+        "id": "n3-v2079",
+        "front": "なくなる",
+        "back": "Tugamoq, qolmay qolmoq",
+        "romaji": "nakunaru",
+        "furigana": "なくなる",
+        "level": "N3",
+        "type": "vocab",
+        "example": "ガソリンがなくなりました。"
+      },
+      {
+        "id": "n3-v2080",
+        "front": "切れる",
+        "back": "Tugab qolmoq",
+        "romaji": "kireru",
+        "furigana": "きれる",
+        "level": "N3",
+        "type": "vocab",
+        "example": "電池が切れました。"
+      },
+      {
+        "id": "n3-v2081",
+        "front": "焦げる",
+        "back": "Kuyib qolmoq",
+        "romaji": "kogeru",
+        "furigana": "こげる",
+        "level": "N3",
+        "type": "vocab",
+        "example": "パンが焦げました。"
+      },
+      {
+        "id": "n3-v2082",
+        "front": "破れる",
+        "back": "Yirtilmoq",
+        "romaji": "yabureru",
+        "furigana": "やぶれる",
+        "level": "N3",
+        "type": "vocab",
+        "example": "紙が破れました。"
+      },
+      {
+        "id": "n3-v2083",
+        "front": "そのままにする",
+        "back": "O'z holicha qoldirmoq",
+        "romaji": "sono mama ni suru",
+        "furigana": "そのままにする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "そのままにしてください。"
+      },
+      {
+        "id": "n3-v2084",
+        "front": "並べる",
+        "back": "Qator qilib terib qo'ymoq",
+        "romaji": "naraberu",
+        "furigana": "ならべる",
+        "level": "N3",
+        "type": "vocab",
+        "example": "商品を並べます。"
+      },
+      {
+        "id": "n3-v2085",
+        "front": "休憩する",
+        "back": "Tanaffus qilmoq, dam olmoq",
+        "romaji": "kyūkei suru",
+        "furigana": "きゅうけいする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "少し休憩します。"
+      },
+      {
+        "id": "n3-v2086",
+        "front": "お先にどうぞ",
+        "back": "Avval siz, marhamat",
+        "romaji": "osaki ni dōzo",
+        "furigana": "おさきにどうぞ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "お先にどうぞ。"
+      },
+      {
+        "id": "n3-v2087",
+        "front": "申し訳ないんですが",
+        "back": "Kechirasiz-u, ammo...",
+        "romaji": "mōshiwake nain desu ga",
+        "furigana": "もうしわけないんですが",
+        "level": "N3",
+        "type": "vocab",
+        "example": "申し訳ないんですが、もう一度お願いします。"
+      },
+      {
+        "id": "n3-v2088",
+        "front": "気をつける",
+        "back": "Ehtiyot bo'lmoq",
+        "romaji": "ki o tsukeru",
+        "furigana": "きをつける",
+        "level": "N3",
+        "type": "vocab",
+        "example": "車に気をつけてください。"
+      },
+      {
+        "id": "n3-v2089",
+        "front": "最初に",
+        "back": "Avvalo, birinchi navbatda",
+        "romaji": "saisho ni",
+        "furigana": "さいしょに",
+        "level": "N3",
+        "type": "vocab",
+        "example": "最初に名前を書きます。"
+      },
+      {
+        "id": "n3-v2090",
+        "front": "おじさん",
+        "back": "Amaki, o'rta yoshli erkak (muloyim atama)",
+        "romaji": "ojisan",
+        "furigana": "おじさん",
+        "level": "N3",
+        "type": "vocab",
+        "example": "おじさんに聞きました。"
+      },
+      {
+        "id": "n3-v2091",
+        "front": "親しい",
+        "back": "Yaqin, qadrdon",
+        "romaji": "shitashii",
+        "furigana": "したしい",
+        "level": "N3",
+        "type": "vocab",
+        "example": "親しい友達がいます。"
+      },
+      {
+        "id": "n3-v2092",
+        "front": "何度も",
+        "back": "Ko'p marta, qayta-qayta",
+        "romaji": "nando mo",
+        "furigana": "なんども",
+        "level": "N3",
+        "type": "vocab",
+        "example": "何度も練習しました。"
+      },
+      {
+        "id": "n3-v2093",
+        "front": "彼",
+        "back": "Yigit, sevgilisi",
+        "romaji": "kare",
+        "furigana": "かれ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "彼に会いたいです。"
+      },
+      {
+        "id": "n3-v2094",
+        "front": "彼女",
+        "back": "Qiz, sevgilisi",
+        "romaji": "kanojo",
+        "furigana": "かのじょ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "彼女に会いたいです。"
+      },
+      {
+        "id": "n3-v2095",
+        "front": "～こと",
+        "back": "~ haqidagi narsa, masala",
+        "romaji": "~koto",
+        "furigana": "～こと",
+        "level": "N3",
+        "type": "vocab",
+        "example": "将来のことを考えます。"
+      },
+      {
+        "id": "n3-v2096",
+        "front": "ボランティア",
+        "back": "Ko'ngillilik, volontyor",
+        "romaji": "borantia",
+        "furigana": "ボランティア",
+        "level": "N3",
+        "type": "vocab",
+        "example": "ボランティアをしています。"
+      },
+      {
+        "id": "n3-v2097",
+        "front": "～代",
+        "back": "~ xarajat, ~ to'lovi",
+        "romaji": "~dai",
+        "furigana": "～だい",
+        "level": "N3",
+        "type": "vocab",
+        "example": "食事代を払います。"
+      },
+      {
+        "id": "n3-v2098",
+        "front": "節約する",
+        "back": "Tejamoq, iqtisod qilmoq",
+        "romaji": "setsuyaku suru",
+        "furigana": "せつやくする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "お金を節約します。"
+      },
+      {
+        "id": "n3-v2099",
+        "front": "外食する",
+        "back": "Tashqarida ovqatlanmoq",
+        "romaji": "gaishoku suru",
+        "furigana": "がいしょくする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "週末は外食します。"
+      },
+      {
+        "id": "n3-v2100",
+        "front": "ダイエットする",
+        "back": "Parhez qilmoq, dieta qilmoq",
+        "romaji": "daietto suru",
+        "furigana": "ダイエットする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "ダイエットをしています。"
+      },
+      {
+        "id": "n3-v2101",
+        "front": "故障する",
+        "back": "Buzilmoq, ishdan chiqmoq",
+        "romaji": "koshō suru",
+        "furigana": "こしょうする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "テレビが故障しました。"
+      },
+      {
+        "id": "n3-v2102",
+        "front": "育てる",
+        "back": "Tarbiyalamoq, voyaga yetkazmoq",
+        "romaji": "sodateru",
+        "furigana": "そだてる",
+        "level": "N3",
+        "type": "vocab",
+        "example": "子どもを育てます。"
+      },
+      {
+        "id": "n3-v2103",
+        "front": "研究する",
+        "back": "Tadqiqot qilmoq",
+        "romaji": "kenkyū suru",
+        "furigana": "けんきゅうする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "大学で研究しています。"
+      },
+      {
+        "id": "n3-v2104",
+        "front": "あんまり",
+        "back": "Unchalik, ko'p emas",
+        "romaji": "anmari",
+        "furigana": "あんまり",
+        "level": "N3",
+        "type": "vocab",
+        "example": "あんまり食べません。"
+      },
+      {
+        "id": "n3-v2105",
+        "front": "区役所",
+        "back": "Tuman hokimiyati",
+        "romaji": "kuyakusho",
+        "furigana": "くやくしょ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "区役所へ行きます。"
+      },
+      {
+        "id": "n3-v2106",
+        "front": "今夜",
+        "back": "Bugun kechqurun",
+        "romaji": "konya",
+        "furigana": "こんや",
+        "level": "N3",
+        "type": "vocab",
+        "example": "今夜、友達と会います。"
+      },
+      {
+        "id": "n3-v2107",
+        "front": "出張する",
+        "back": "Xizmat safariga bormoq",
+        "romaji": "shutchō suru",
+        "furigana": "しゅっちょうする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "来週、大阪へ出張します。"
+      },
+      {
+        "id": "n3-v2108",
+        "front": "地域",
+        "back": "Hudud, mintaqa",
+        "romaji": "chiiki",
+        "furigana": "ちいき",
+        "level": "N3",
+        "type": "vocab",
+        "example": "この地域は静かです。"
+      },
+      {
+        "id": "n3-v2109",
+        "front": "チーム",
+        "back": "Jamoa",
+        "romaji": "chīmu",
+        "furigana": "チーム",
+        "level": "N3",
+        "type": "vocab",
+        "example": "スポーツチームに入ります。"
+      },
+      {
+        "id": "n3-v2110",
+        "front": "～君",
+        "back": "O'g'il bolalar yoki yosh erkaklarga qo'shiladigan hurmat shakli",
+        "romaji": "~kun",
+        "furigana": "～くん",
+        "level": "N3",
+        "type": "vocab",
+        "example": "田中君は学生です。"
+      },
+      {
+        "id": "n3-v2111",
+        "front": "シュートする",
+        "back": "Zarba bermoq, golga tepmoq",
+        "romaji": "shūto suru",
+        "furigana": "シュートする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "ゴールにシュートします。"
+      },
+      {
+        "id": "n3-v2112",
+        "front": "お帰りなさい",
+        "back": "Xush kelibsiz, uyga qaytganingiz bilan",
+        "romaji": "okaerinasai",
+        "furigana": "おかえりなさい",
+        "level": "N3",
+        "type": "vocab",
+        "example": "お帰りなさい。"
+      },
+      {
+        "id": "n3-v2113",
+        "front": "よし",
+        "back": "Yaxshi, qani, bo'ldi",
+        "romaji": "yoshi",
+        "furigana": "よし",
+        "level": "N3",
+        "type": "vocab",
+        "example": "よし、頑張りましょう。"
+      },
+      {
+        "id": "n3-v2114",
+        "front": "食料品",
+        "back": "Oziq-ovqat mahsulotlari",
+        "romaji": "shokuryōhin",
+        "furigana": "しょくりょうひん",
+        "level": "N3",
+        "type": "vocab",
+        "example": "食料品を買います。"
+      },
+      {
+        "id": "n3-v2115",
+        "front": "冷凍する",
+        "back": "Muzlatmoq",
+        "romaji": "reitō suru",
+        "furigana": "れいとうする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "肉を冷凍します。"
+      },
+      {
+        "id": "n3-v2116",
+        "front": "体調不良",
+        "back": "Sog'liqning yomon holati",
+        "romaji": "taichō furyō",
+        "furigana": "たいちょうふりょう",
+        "level": "N3",
+        "type": "vocab",
+        "example": "今日は体調不良です。"
+      },
+      {
+        "id": "n3-v2117",
+        "front": "おにぎり",
+        "back": "Guruchdan tayyorlangan dumaloq taom",
+        "romaji": "onigiri",
+        "furigana": "おにぎり",
+        "level": "N3",
+        "type": "vocab",
+        "example": "おにぎりを食べます。"
+      },
+      {
+        "id": "n3-v2118",
+        "front": "元気",
+        "back": "Sog'lom, tetik, quvnoq",
+        "romaji": "genki",
+        "furigana": "げんき",
+        "level": "N3",
+        "type": "vocab",
+        "example": "今日は元気です。"
+      },
+      {
+        "id": "n3-v2119",
+        "front": "元気がない",
+        "back": "Kayfiyati yo'q, tushkun",
+        "romaji": "genki ga nai",
+        "furigana": "げんきがない",
+        "level": "N3",
+        "type": "vocab",
+        "example": "今日は元気がありません。"
+      },
+      {
+        "id": "n3-v2120",
+        "front": "痛み",
+        "back": "Og'riq",
+        "romaji": "itami",
+        "furigana": "いたみ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "痛みがあります。"
+      },
+      {
+        "id": "n3-v2121",
+        "front": "疲れ",
+        "back": "Charchoq",
+        "romaji": "tsukare",
+        "furigana": "つかれ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "疲れがたまりました。"
+      },
+      {
+        "id": "n3-v2122",
+        "front": "湿布",
+        "back": "Sovuq yoki issiq kompress plastiri",
+        "romaji": "shippu",
+        "furigana": "しっぷ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "肩に湿布を貼ります。"
+      },
+      {
+        "id": "n3-v2123",
+        "front": "うがい",
+        "back": "Tomoqni chayish",
+        "romaji": "ugai",
+        "furigana": "うがい",
+        "level": "N3",
+        "type": "vocab",
+        "example": "家に帰ったら、うがいをします。"
+      },
+      {
+        "id": "n3-v2124",
+        "front": "ジム",
+        "back": "Sport zali",
+        "romaji": "jimu",
+        "furigana": "ジム",
+        "level": "N3",
+        "type": "vocab",
+        "example": "ジムで運動します。"
+      },
+      {
+        "id": "n3-v2125",
+        "front": "氷",
+        "back": "Muz",
+        "romaji": "kōri",
+        "furigana": "こおり",
+        "level": "N3",
+        "type": "vocab",
+        "example": "氷を入れます。"
+      },
+      {
+        "id": "n3-v2126",
+        "front": "ドレッシング",
+        "back": "Salat sousi",
+        "romaji": "doresshingu",
+        "furigana": "ドレッシング",
+        "level": "N3",
+        "type": "vocab",
+        "example": "サラダにドレッシングをかけます。"
+      },
+      {
+        "id": "n3-v2127",
+        "front": "～金",
+        "back": "~ to'lovi, ~ haqi",
+        "romaji": "~kin",
+        "furigana": "～きん",
+        "level": "N3",
+        "type": "vocab",
+        "example": "入会金を払います。"
+      },
+      {
+        "id": "n3-v2128",
+        "front": "取れる",
+        "back": "Xalos bo'lmoq, yengillashmoq",
+        "romaji": "toreru",
+        "furigana": "とれる",
+        "level": "N3",
+        "type": "vocab",
+        "example": "疲れが取れました。"
+      },
+      {
+        "id": "n3-v2129",
+        "front": "入会する",
+        "back": "Klub yoki guruhga a'zo bo'lmoq",
+        "romaji": "nyūkai suru",
+        "furigana": "にゅうかいする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "ジムに入会しました。"
+      },
+      {
+        "id": "n3-v2130",
+        "front": "さす",
+        "back": "Ustida ochib tutmoq",
+        "romaji": "sasu",
+        "furigana": "さす",
+        "level": "N3",
+        "type": "vocab",
+        "example": "傘をさします。"
+      },
+      {
+        "id": "n3-v2131",
+        "front": "ガンガン",
+        "back": "Qattiq, kuchli urib og'rish holati",
+        "romaji": "gangan",
+        "furigana": "ガンガン",
+        "level": "N3",
+        "type": "vocab",
+        "example": "頭がガンガンします。"
+      },
+      {
+        "id": "n3-v2132",
+        "front": "パンパン",
+        "back": "Mushaklar tarang va shishgan holat",
+        "romaji": "panpan",
+        "furigana": "パンパン",
+        "level": "N3",
+        "type": "vocab",
+        "example": "足がパンパンです。"
+      },
+      {
+        "id": "n3-v2133",
+        "front": "フラフラ",
+        "back": "Boshi aylangan, holsiz holat",
+        "romaji": "furafura",
+        "furigana": "フラフラ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "フラフラします。"
+      },
+      {
+        "id": "n3-v2134",
+        "front": "ムカムカ",
+        "back": "Ko'ngil aynishi",
+        "romaji": "mukamuka",
+        "furigana": "ムカムカ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "胃がムカムカします。"
+      },
+      {
+        "id": "n3-v2135",
+        "front": "毎日に、元気に！",
+        "back": "Har kuni tetik bo'ling!",
+        "romaji": "mainichi, genki ni",
+        "furigana": "まいにち、げんきに！",
+        "level": "N3",
+        "type": "vocab",
+        "example": "毎日、元気に過ごしましょう。"
+      },
+      {
+        "id": "n3-v2136",
+        "front": "カロリー",
+        "back": "Kaloriya",
+        "romaji": "karorī",
+        "furigana": "カロリー",
+        "level": "N3",
+        "type": "vocab",
+        "example": "カロリーを計算します。"
+      },
+      {
+        "id": "n3-v2137",
+        "front": "ジューサー",
+        "back": "Sharbat chiqargich",
+        "romaji": "jūsā",
+        "furigana": "ジューサー",
+        "level": "N3",
+        "type": "vocab",
+        "example": "ジューサーでジュースを作ります。"
+      },
+      {
+        "id": "n3-v2138",
+        "front": "体脂肪計",
+        "back": "Tana yog'i o'lchagich",
+        "romaji": "taishibōkei",
+        "furigana": "たいしぼうけい",
+        "level": "N3",
+        "type": "vocab",
+        "example": "体脂肪計で測ります。"
+      },
+      {
+        "id": "n3-v2139",
+        "front": "体脂肪率",
+        "back": "Tana yog'i foizi",
+        "romaji": "taishibōritsu",
+        "furigana": "たいしぼうりつ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "体脂肪率を測ります。"
+      },
+      {
+        "id": "n3-v2140",
+        "front": "ネックストレッチ",
+        "back": "Bo'yin cho'zish mashqi",
+        "romaji": "nekku sutoretchi",
+        "furigana": "ネックストレッチ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "ネックストレッチをします。"
+      },
+      {
+        "id": "n3-v2141",
+        "front": "マッサージ器",
+        "back": "Massaj apparati",
+        "romaji": "massāji ki",
+        "furigana": "マッサージき",
+        "level": "N3",
+        "type": "vocab",
+        "example": "マッサージ器を使います。"
+      },
+      {
+        "id": "n3-v2142",
+        "front": "万歩計",
+        "back": "Qadam o'lchagich, pedometr",
+        "romaji": "manpokei",
+        "furigana": "まんぽけい",
+        "level": "N3",
+        "type": "vocab",
+        "example": "万歩計で歩数を測ります。"
+      },
+      {
+        "id": "n3-v2143",
+        "front": "ストレス",
+        "back": "Stress",
+        "romaji": "sutoresu",
+        "furigana": "ストレス",
+        "level": "N3",
+        "type": "vocab",
+        "example": "ストレスがたまっています。"
+      },
+      {
+        "id": "n3-v2144",
+        "front": "ビタミンC",
+        "back": "C vitamini",
+        "romaji": "bitamin shī",
+        "furigana": "ビタミンC",
+        "level": "N3",
+        "type": "vocab",
+        "example": "ビタミンCを取ります。"
+      },
+      {
+        "id": "n3-v2145",
+        "front": "健康",
+        "back": "Sog'liq, salomatlik",
+        "romaji": "kenkō",
+        "furigana": "けんこう",
+        "level": "N3",
+        "type": "vocab",
+        "example": "健康に気をつけます。"
+      },
+      {
+        "id": "n3-v2146",
+        "front": "ショウガ",
+        "back": "Zanjabil",
+        "romaji": "shōga",
+        "furigana": "ショウガ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "ショウガを入れます。"
+      },
+      {
+        "id": "n3-v2147",
+        "front": "バランス",
+        "back": "Muvozanat, balans",
+        "romaji": "baransu",
+        "furigana": "バランス",
+        "level": "N3",
+        "type": "vocab",
+        "example": "栄養のバランスを考えます。"
+      },
+      {
+        "id": "n3-v2148",
+        "front": "～不足",
+        "back": "~ yetishmasligi",
+        "romaji": "~busoku",
+        "furigana": "～ぶそく",
+        "level": "N3",
+        "type": "vocab",
+        "example": "運動不足です。"
+      },
+      {
+        "id": "n3-v2149",
+        "front": "疲れを取る",
+        "back": "Charchoqni yo'qotmoq",
+        "romaji": "tsukare o toru",
+        "furigana": "つかれをとる",
+        "level": "N3",
+        "type": "vocab",
+        "example": "ゆっくり休んで疲れを取ります。"
+      },
+      {
+        "id": "n3-v2150",
+        "front": "計算する",
+        "back": "Hisoblamoq",
+        "romaji": "keisan suru",
+        "furigana": "けいさんする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "カロリーを計算します。"
+      },
+      {
+        "id": "n3-v2151",
+        "front": "マッサージする",
+        "back": "Massaj qilmoq",
+        "romaji": "massāji suru",
+        "furigana": "マッサージする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "肩をマッサージします。"
+      },
+      {
+        "id": "n3-v2152",
+        "front": "たまる",
+        "back": "To'planmoq, yig'ilmoq",
+        "romaji": "tamaru",
+        "furigana": "たまる",
+        "level": "N3",
+        "type": "vocab",
+        "example": "ストレスがたまります。"
+      },
+      {
+        "id": "n3-v2153",
+        "front": "やせる",
+        "back": "Ozmoq, vazn tashlamoq",
+        "romaji": "yaseru",
+        "furigana": "やせる",
+        "level": "N3",
+        "type": "vocab",
+        "example": "少しやせました。"
+      },
+      {
+        "id": "n3-v2154",
+        "front": "こる",
+        "back": "Qotib qolmoq, taranglashmoq",
+        "romaji": "koru",
+        "furigana": "こる",
+        "level": "N3",
+        "type": "vocab",
+        "example": "肩がこります。"
+      },
+      {
+        "id": "n3-v2155",
+        "front": "動かす",
+        "back": "Harakatlantirmoq",
+        "romaji": "ugokasu",
+        "furigana": "うごかす",
+        "level": "N3",
+        "type": "vocab",
+        "example": "体を動かします。"
+      },
+      {
+        "id": "n3-v2156",
+        "front": "このごろ",
+        "back": "Shu kunlarda, oxirgi paytlarda",
+        "romaji": "kono goro",
+        "furigana": "このごろ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "このごろ忙しいです。"
+      },
+      {
+        "id": "n3-v2157",
+        "front": "ふーん",
+        "back": "Hmm, shundaymi",
+        "romaji": "fūn",
+        "furigana": "ふーん",
+        "level": "N3",
+        "type": "vocab",
+        "example": "ふーん、そうですか。"
+      },
+      {
+        "id": "n3-v2158",
+        "front": "グレープフルーツ",
+        "back": "Greypfrut",
+        "romaji": "gurēpufurūtsu",
+        "furigana": "グレープフルーツ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "グレープフルーツを食べます。"
+      },
+      {
+        "id": "n3-v2159",
+        "front": "二日酔い",
+        "back": "Mastlikdan keyingi holat, hangover",
+        "romaji": "futsuka yoi",
+        "furigana": "ふつかよい",
+        "level": "N3",
+        "type": "vocab",
+        "example": "二日酔いで気分が悪いです。"
+      },
+      {
+        "id": "n3-v2160",
+        "front": "釣る",
+        "back": "Baliq tutmoq",
+        "romaji": "tsuru",
+        "furigana": "つる",
+        "level": "N3",
+        "type": "vocab",
+        "example": "魚を釣ります。"
+      },
+      {
+        "id": "n3-v2161",
+        "front": "不利",
+        "back": "Noqulay, foydasiz holat",
+        "romaji": "furi",
+        "furigana": "ふり",
+        "level": "N3",
+        "type": "vocab",
+        "example": "これは少し不利です。"
+      },
+      {
+        "id": "n3-v2162",
+        "front": "手に入れる",
+        "back": "Qo'lga kiritmoq, ega bo'lmoq",
+        "romaji": "te ni ireru",
+        "furigana": "てにいれる",
+        "level": "N3",
+        "type": "vocab",
+        "example": "新しい本を手に入れました。"
+      },
+      {
+        "id": "n3-v2163",
+        "front": "町で見かけた子どもたち",
+        "back": "Shaharda ko'rilgan bolalar",
+        "romaji": "machi de mikaketa kodomo-tachi",
+        "furigana": "まちでみかけたこどもたち",
+        "level": "N3",
+        "type": "vocab",
+        "example": "町で子どもたちを見かけました。"
+      },
+      {
+        "id": "n3-v2164",
+        "front": "子ども",
+        "back": "Bola",
+        "romaji": "kodomo",
+        "furigana": "こども",
+        "level": "N3",
+        "type": "vocab",
+        "example": "子どもが遊んでいます。"
+      },
+      {
+        "id": "n3-v2165",
+        "front": "近所の子ども",
+        "back": "Yaqin atrofdagi bola",
+        "romaji": "kinjo no kodomo",
+        "furigana": "きんじょのこども",
+        "level": "N3",
+        "type": "vocab",
+        "example": "近所の子どもと遊びます。"
+      },
+      {
+        "id": "n3-v2166",
+        "front": "家事",
+        "back": "Uy ishlari",
+        "romaji": "kaji",
+        "furigana": "かじ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "毎日、家事をします。"
+      },
+      {
+        "id": "n3-v2167",
+        "front": "コーチ",
+        "back": "Murabbiy",
+        "romaji": "kōchi",
+        "furigana": "コーチ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "コーチが教えます。"
+      },
+      {
+        "id": "n3-v2168",
+        "front": "塾",
+        "back": "Qo'shimcha o'quv markazi",
+        "romaji": "juku",
+        "furigana": "じゅく",
+        "level": "N3",
+        "type": "vocab",
+        "example": "学校のあとで塾に行きます。"
+      },
+      {
+        "id": "n3-v2169",
+        "front": "ゲームセンター",
+        "back": "O'yin markazi",
+        "romaji": "gēmu sentā",
+        "furigana": "ゲームセンター",
+        "level": "N3",
+        "type": "vocab",
+        "example": "ゲームセンターに行きます。"
+      },
+      {
+        "id": "n3-v2170",
+        "front": "ころ",
+        "back": "Vaqtida, paytida",
+        "romaji": "koro",
+        "furigana": "ころ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "子どものころ、よく遊びました。"
+      },
+      {
+        "id": "n3-v2171",
+        "front": "～キロ",
+        "back": "~ kilometr, ~ kilogramm",
+        "romaji": "~kiro",
+        "furigana": "～キロ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "駅まで二キロあります。"
+      },
+      {
+        "id": "n3-v2172",
+        "front": "世話する",
+        "back": "G'amxo'rlik qilmoq, qaramoq",
+        "romaji": "sewa suru",
+        "furigana": "せわする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "子どもの世話をします。"
+      },
+      {
+        "id": "n3-v2173",
+        "front": "えらい",
+        "back": "Ajoyib, maqtovga loyiq",
+        "romaji": "erai",
+        "furigana": "えらい",
+        "level": "N3",
+        "type": "vocab",
+        "example": "よく頑張って、えらいです。"
+      },
+      {
+        "id": "n3-v2174",
+        "front": "必ず",
+        "back": "Albatta, shubhasiz",
+        "romaji": "kanarazu",
+        "furigana": "かならず",
+        "level": "N3",
+        "type": "vocab",
+        "example": "必ず行きます。"
+      },
+      {
+        "id": "n3-v2175",
+        "front": "やっぱり",
+        "back": "Baribir, o'ylaganimdek",
+        "romaji": "yappari",
+        "furigana": "やっぱり",
+        "level": "N3",
+        "type": "vocab",
+        "example": "やっぱり日本が好きです。"
+      },
+      {
+        "id": "n3-v2176",
+        "front": "夜遅く",
+        "back": "Tunda kech, juda kech paytda",
+        "romaji": "yoru osoku",
+        "furigana": "よるおそく",
+        "level": "N3",
+        "type": "vocab",
+        "example": "夜遅くまで勉強します。"
+      },
+      {
+        "id": "n3-v2177",
+        "front": "うち",
+        "back": "Men, uyim, mening tomonim",
+        "romaji": "uchi",
+        "furigana": "うち",
+        "level": "N3",
+        "type": "vocab",
+        "example": "うちに帰ります。"
+      },
+      {
+        "id": "n3-v2178",
+        "front": "うちの親",
+        "back": "Mening ota-onam",
+        "romaji": "uchi no oya",
+        "furigana": "うちのおや",
+        "level": "N3",
+        "type": "vocab",
+        "example": "うちの親は元気です。"
+      },
+      {
+        "id": "n3-v2179",
+        "front": "化粧品",
+        "back": "Kosmetika",
+        "romaji": "keshōhin",
+        "furigana": "けしょうひん",
+        "level": "N3",
+        "type": "vocab",
+        "example": "化粧品を買います。"
+      },
+      {
+        "id": "n3-v2180",
+        "front": "けんかする",
+        "back": "Janjallashmoq, urishmoq",
+        "romaji": "kenka suru",
+        "furigana": "けんかする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "兄弟でけんかしました。"
+      },
+      {
+        "id": "n3-v2181",
+        "front": "やる",
+        "back": "Qilmoq",
+        "romaji": "yaru",
+        "furigana": "やる",
+        "level": "N3",
+        "type": "vocab",
+        "example": "宿題をやります。"
+      },
+      {
+        "id": "n3-v2182",
+        "front": "宿題をやる",
+        "back": "Uy vazifasini qilmoq",
+        "romaji": "shukudai o yaru",
+        "furigana": "しゅくだいをやる",
+        "level": "N3",
+        "type": "vocab",
+        "example": "毎日、宿題をやります。"
+      },
+      {
+        "id": "n3-v2183",
+        "front": "厳しい",
+        "back": "Qattiqqo'l, talabchan, og'ir",
+        "romaji": "kibishii",
+        "furigana": "きびしい",
+        "level": "N3",
+        "type": "vocab",
+        "example": "父は厳しいです。"
+      },
+      {
+        "id": "n3-v2184",
+        "front": "熱心",
+        "back": "G'ayratli, astoydil",
+        "romaji": "nesshin",
+        "furigana": "ねっしん",
+        "level": "N3",
+        "type": "vocab",
+        "example": "先生は仕事に熱心です。"
+      },
+      {
+        "id": "n3-v2185",
+        "front": "何でも",
+        "back": "Har qanday narsa, nima bo'lsa ham",
+        "romaji": "nandemo",
+        "furigana": "なんでも",
+        "level": "N3",
+        "type": "vocab",
+        "example": "何でも聞いてください。"
+      },
+      {
+        "id": "n3-v2186",
+        "front": "おもちゃ",
+        "back": "O'yinchoq",
+        "romaji": "omocha",
+        "furigana": "おもちゃ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "子どもにおもちゃをあげます。"
+      },
+      {
+        "id": "n3-v2187",
+        "front": "役に立つ",
+        "back": "Foydali bo'lmoq, ish bermoq",
+        "romaji": "yaku ni tatsu",
+        "furigana": "やくにたつ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "この本は役に立ちます。"
+      },
+      {
+        "id": "n3-v2188",
+        "front": "ちゃんと",
+        "back": "To'g'ri, yaxshilab, tartibli ravishda",
+        "romaji": "chanto",
+        "furigana": "ちゃんと",
+        "level": "N3",
+        "type": "vocab",
+        "example": "ちゃんと勉強してください。"
+      },
+      {
+        "id": "n3-v2189",
+        "front": "仕方がない",
+        "back": "Boshqa chora yo'q, iloj yo'q",
+        "romaji": "shikata ga nai",
+        "furigana": "しかたがない",
+        "level": "N3",
+        "type": "vocab",
+        "example": "仕方がないです。"
+      },
+      {
+        "id": "n3-v2190",
+        "front": "漫画家",
+        "back": "Manga rassomi, manga chizuvchi",
+        "romaji": "mangaka",
+        "furigana": "まんがか",
+        "level": "N3",
+        "type": "vocab",
+        "example": "漫画家になりたいです。"
+      },
+      {
+        "id": "n3-v2191",
+        "front": "～部",
+        "back": "~ bo'lim, ~ klub",
+        "romaji": "~bu",
+        "furigana": "～ぶ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "テニス部に入っています。"
+      },
+      {
+        "id": "n3-v2192",
+        "front": "メジャーな",
+        "back": "Mashhur, ommabop, asosiy",
+        "romaji": "mejā na",
+        "furigana": "メジャーな",
+        "level": "N3",
+        "type": "vocab",
+        "example": "これはメジャーなスポーツです。"
+      },
+      {
+        "id": "n3-v2193",
+        "front": "連載する",
+        "back": "Seriyali tarzda nashr etmoq",
+        "romaji": "rensai suru",
+        "furigana": "れんさいする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "この漫画は雑誌で連載しています。"
+      },
+      {
+        "id": "n3-v2194",
+        "front": "スタートする",
+        "back": "Boshlamoq",
+        "romaji": "sutāto suru",
+        "furigana": "スタートする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "イベントがスタートします。"
+      },
+      {
+        "id": "n3-v2195",
+        "front": "ヒットする",
+        "back": "Juda ommalashmoq, hit bo'lmoq",
+        "romaji": "hitto suru",
+        "furigana": "ヒットする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "この歌がヒットしました。"
+      },
+      {
+        "id": "n3-v2196",
+        "front": "支援する",
+        "back": "Qo'llab-quvvatlamoq",
+        "romaji": "shien suru",
+        "furigana": "しえんする",
+        "level": "N3",
+        "type": "vocab",
+        "example": "学生を支援します。"
+      },
+      {
+        "id": "n3-v2197",
+        "front": "女の子",
+        "back": "Qiz bola",
+        "romaji": "onna no ko",
+        "furigana": "おんなのこ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "女の子が遊んでいます。"
+      },
+      {
+        "id": "n3-v2198",
+        "front": "おせち料理",
+        "back": "Yangi yilga tayyorlanadigan an'anaviy yapon taomlari",
+        "romaji": "osechi ryōri",
+        "furigana": "おせちりょうり",
+        "level": "N3",
+        "type": "vocab",
+        "example": "お正月におせち料理を食べます。"
+      },
+      {
+        "id": "n3-v2199",
+        "front": "行事",
+        "back": "Tadbir, marosim",
+        "romaji": "gyōji",
+        "furigana": "ぎょうじ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "学校の行事があります。"
+      },
+      {
+        "id": "n3-v2200",
+        "front": "敬老の日",
+        "back": "Keksalarni hurmat qilish kuni",
+        "romaji": "keirō no hi",
+        "furigana": "けいろうのひ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "敬老の日に祖母に電話します。"
+      },
+      {
+        "id": "n3-v2201",
+        "front": "（お）正月 (おしょうがつ)",
+        "back": "Yangi yil bayrami",
+        "romaji": "oshōgatsu",
+        "furigana": "（お）正月 (おしょうがつ)",
+        "level": "N3",
+        "type": "vocab",
+        "example": "お正月に家族と過ごします。"
+      },
+      {
+        "id": "n3-v2202",
+        "front": "七五三",
+        "back": "7-5-3 bolalar bayrami",
+        "romaji": "shichigosan",
+        "furigana": "しちごさん",
+        "level": "N3",
+        "type": "vocab",
+        "example": "七五三は子どもの行事です。"
+      },
+      {
+        "id": "n3-v2203",
+        "front": "新年",
+        "back": "Yangi yil",
+        "romaji": "shinnen",
+        "furigana": "しんねん",
+        "level": "N3",
+        "type": "vocab",
+        "example": "新年を家族と祝います。"
+      },
+      {
+        "id": "n3-v2204",
+        "front": "成人式",
+        "back": "Voyaga yetganlik marosimi",
+        "romaji": "seijinshiki",
+        "furigana": "せいじんしき",
+        "level": "N3",
+        "type": "vocab",
+        "example": "成人式に参加します。"
+      },
+      {
+        "id": "n3-v2205",
+        "front": "節分",
+        "back": "Setsubun, qish oxiri marosimi",
+        "romaji": "setsubun",
+        "furigana": "せつぶん",
+        "level": "N3",
+        "type": "vocab",
+        "example": "節分に豆をまきます。"
+      },
+      {
+        "id": "n3-v2206",
+        "front": "ひなまつり",
+        "back": "Qizlar bayrami, Hina Matsuri",
+        "romaji": "hinamatsuri",
+        "furigana": "ひなまつり",
+        "level": "N3",
+        "type": "vocab",
+        "example": "三月三日はひなまつりです。"
+      },
+      {
+        "id": "n3-v2207",
+        "front": "（お）赤飯 (おせきはん)",
+        "back": "Bayramlarda yeyiladigan qizil guruch",
+        "romaji": "osekihan",
+        "furigana": "（お）赤飯 (おせきはん)",
+        "level": "N3",
+        "type": "vocab",
+        "example": "お祝いに赤飯を食べます。"
+      },
+      {
+        "id": "n3-v2208",
+        "front": "布",
+        "back": "Mato, gazlama",
+        "romaji": "nuno",
+        "furigana": "ぬの",
+        "level": "N3",
+        "type": "vocab",
+        "example": "布で包みます。"
+      },
+      {
+        "id": "n3-v2209",
+        "front": "年賀状",
+        "back": "Yangi yil tabriknomasi",
+        "romaji": "nengajō",
+        "furigana": "ねんがじょう",
+        "level": "N3",
+        "type": "vocab",
+        "example": "年賀状を書きます。"
+      },
+      {
+        "id": "n3-v2210",
+        "front": "はがき",
+        "back": "Pochta kartochkasi",
+        "romaji": "hagaki",
+        "furigana": "はがき",
+        "level": "N3",
+        "type": "vocab",
+        "example": "はがきを送ります。"
+      },
+      {
+        "id": "n3-v2211",
+        "front": "ふろしき",
+        "back": "Narsalarni o'rash uchun mato",
+        "romaji": "furoshiki",
+        "furigana": "ふろしき",
+        "level": "N3",
+        "type": "vocab",
+        "example": "ふろしきで荷物を包みます。"
+      },
+      {
+        "id": "n3-v2212",
+        "front": "ランドセル",
+        "back": "Boshlang'ich maktab o'quvchisi sumkasi",
+        "romaji": "randoseru",
+        "furigana": "ランドセル",
+        "level": "N3",
+        "type": "vocab",
+        "example": "ランドセルを背負います。"
+      },
+      {
+        "id": "n3-v2213",
+        "front": "ウナギ",
+        "back": "Ilonbaliq",
+        "romaji": "unagi",
+        "furigana": "ウナギ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "ウナギを食べます。"
+      },
+      {
+        "id": "n3-v2214",
+        "front": "大晦日",
+        "back": "Yilning so'nggi kuni",
+        "romaji": "ōmisoka",
+        "furigana": "おおみそか",
+        "level": "N3",
+        "type": "vocab",
+        "example": "大晦日にそばを食べます。"
+      },
+      {
+        "id": "n3-v2215",
+        "front": "（お）金持ち (おかねもち)",
+        "back": "Boy odam",
+        "romaji": "okanemochi",
+        "furigana": "（お）金持ち (おかねもち)",
+        "level": "N3",
+        "type": "vocab",
+        "example": "あの人はお金持ちです。"
+      },
+      {
+        "id": "n3-v2216",
+        "front": "スイカ",
+        "back": "Tarvuz",
+        "romaji": "suika",
+        "furigana": "スイカ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "夏にスイカを食べます。"
+      },
+      {
+        "id": "n3-v2217",
+        "front": "ブルーベリー",
+        "back": "Ko'k rezavor meva, blueberry",
+        "romaji": "burūberī",
+        "furigana": "ブルーベリー",
+        "level": "N3",
+        "type": "vocab",
+        "example": "ブルーベリーを食べます。"
+      },
+      {
+        "id": "n3-v2218",
+        "front": "ミカン",
+        "back": "Mandarin",
+        "romaji": "mikan",
+        "furigana": "ミカン",
+        "level": "N3",
+        "type": "vocab",
+        "example": "ミカンを食べます。"
+      },
+      {
+        "id": "n3-v2219",
+        "front": "ユズ",
+        "back": "Yuzu, yapon sitrusi",
+        "romaji": "yuzu",
+        "furigana": "ユズ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "ユズを使います。"
+      },
+      {
+        "id": "n3-v2220",
+        "front": "冬至",
+        "back": "Qish quyoshi turishi, qishki quyosh turishi",
+        "romaji": "tōji",
+        "furigana": "とうじ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "冬至にゆず湯に入ります。"
+      },
+      {
+        "id": "n3-v2221",
+        "front": "年",
+        "back": "Yosh, yil",
+        "romaji": "toshi",
+        "furigana": "とし",
+        "level": "N3",
+        "type": "vocab",
+        "example": "今年はいい年です。"
+      },
+      {
+        "id": "n3-v2222",
+        "front": "土用の丑の日",
+        "back": "Midsummerda eel yeyiladigan maxsus kun",
+        "romaji": "doyō no ushi no hi",
+        "furigana": "どようのうしのひ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "土用の丑の日にうなぎを食べます。"
+      },
+      {
+        "id": "n3-v2223",
+        "front": "招き猫",
+        "back": "Omad chaqiruvchi mushuk haykalchasi",
+        "romaji": "maneki neko",
+        "furigana": "まねきねこ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "店に招き猫があります。"
+      },
+      {
+        "id": "n3-v2224",
+        "front": "遊び",
+        "back": "O'yin, hordiq",
+        "romaji": "asobi",
+        "furigana": "あそび",
+        "level": "N3",
+        "type": "vocab",
+        "example": "子どもたちは遊びが好きです。"
+      },
+      {
+        "id": "n3-v2225",
+        "front": "お盆",
+        "back": "Obon, marhumlarni xotirlash bayrami",
+        "romaji": "obon",
+        "furigana": "おぼん",
+        "level": "N3",
+        "type": "vocab",
+        "example": "お盆に家族が集まります。"
+      },
+      {
+        "id": "n3-v2226",
+        "front": "空手",
+        "back": "Karate",
+        "romaji": "karate",
+        "furigana": "からて",
+        "level": "N3",
+        "type": "vocab",
+        "example": "空手を習っています。"
+      },
+      {
+        "id": "n3-v2227",
+        "front": "餃子",
+        "back": "Gyoza, ichli xamir taomi",
+        "romaji": "gyōza",
+        "furigana": "ぎょうざ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "餃子を食べます。"
+      },
+      {
+        "id": "n3-v2228",
+        "front": "ごちそう",
+        "back": "Hashamatli ovqat, ziyofat",
+        "romaji": "gochisō",
+        "furigana": "ごちそう",
+        "level": "N3",
+        "type": "vocab",
+        "example": "今日はごちそうを食べます。"
+      },
+      {
+        "id": "n3-v2229",
+        "front": "シチュー",
+        "back": "Dimlama, stew",
+        "romaji": "shichū",
+        "furigana": "シチュー",
+        "level": "N3",
+        "type": "vocab",
+        "example": "シチューを作ります。"
+      },
+      {
+        "id": "n3-v2230",
+        "front": "将棋",
+        "back": "Shogi, yapon shaxmati",
+        "romaji": "shōgi",
+        "furigana": "しょうぎ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "父と将棋をします。"
+      },
+      {
+        "id": "n3-v2231",
+        "front": "先祖",
+        "back": "Ajdodlar",
+        "romaji": "senzo",
+        "furigana": "せんぞ",
+        "level": "N3",
+        "type": "vocab",
+        "example": "先祖のお墓に行きます。"
+      },
+      {
+        "id": "n3-v2232",
+        "front": "チェス",
+        "back": "Shaxmat",
+        "romaji": "chesu",
+        "furigana": "チェス",
+        "level": "N3",
+        "type": "vocab",
+        "example": "チェスをします。"
+      },
+      {
+        "id": "n3-v2233",
+        "front": "テコンドー",
+        "back": "Taekvondo",
+        "romaji": "tekondō",
+        "furigana": "テコンドー",
+        "level": "N3",
+        "type": "vocab",
+        "example": "テコンドーを習います。"
       }
     ]
   },
   {
     "id": "jlpt-n3-kanji",
-    "title": "🗾 JLPT N3 Essential Kanji (漢字 337)",
+    "title": "🗾 JLPT N3 Essential Kanji (漢字 340)",
     "description": "JLPT N3 darajasidagi barcha 337 ta asosiy iyerogliflar, o'qilishi va ma'nolari",
     "level": "N3",
     "icon": "Award",
@@ -20594,6 +25714,36 @@
         "level": "N3",
         "type": "kanji",
         "example": "製品 (せいひん (Seihin)): Tayyor mahsulot"
+      },
+      {
+        "id": "n3-k338",
+        "front": "放",
+        "back": "Qo'yib yubormoq, Ozod qilmoq (Release, Free)\nOn: ホウ (hou)\nKun: はな・す (hana-su)",
+        "romaji": "hou, hana-su",
+        "furigana": "ホウ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "放送 (ほうそう (Housou)): Eshittirish / Ko‘rsatuv"
+      },
+      {
+        "id": "n3-k339",
+        "front": "戻",
+        "back": "Qaytmoq, Qaytarmoq (Return, Restore)\nOn: レイ (rei)\nKun: もど・る (modo-ru)",
+        "romaji": "rei, modo-ru",
+        "furigana": "レイ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "戻る (もどる (Modoru)): Qaytmoq / Ortga qaytish"
+      },
+      {
+        "id": "n3-k340",
+        "front": "貨",
+        "back": "Yuk, Mol, Pul (Freight, Goods, Currency)\nOn: カ (ka)\nKun: たから (takara)",
+        "romaji": "ka, takara",
+        "furigana": "カ",
+        "level": "N3",
+        "type": "kanji",
+        "example": "通貨 (つうか (Tsuuka)): Valyuta"
       }
     ]
   },

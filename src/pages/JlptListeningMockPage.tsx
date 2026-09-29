@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { useNavigate, useSearchParams, useLocation } from 'react-router-dom';
 import {
   ArrowLeft,
@@ -9,6 +9,7 @@ import {
   Play,
   Pause,
   RotateCcw,
+  RotateCw,
   BookOpen,
   Sparkles,
   CheckCircle,
@@ -18,8 +19,10 @@ import {
   EyeOff,
   User,
   HelpCircle,
+  Languages,
 } from 'lucide-react';
 import { Button } from '../components/ui/Button';
+import { FuriganaText, FuriganaMode } from '../components/jlpt/FuriganaText';
 import {
   JLPT_LISTENING_QUESTIONS,
   JlptListeningQuestion,
@@ -27,7 +30,11 @@ import {
   parseScriptIntoDialogueLines,
 } from '../data/jlpt/listening_data';
 import { CustomContentService } from '../services/CustomContentService';
-import { ListeningAudioSyncService, SpeakerGender } from '../services/ListeningAudioSyncService';
+import {
+  ListeningAudioSyncService,
+  SpeakerGender,
+  SequentialPlaybackController,
+} from '../services/ListeningAudioSyncService';
 import { HistoryService } from '../services/HistoryService';
 import { MasteryEngine } from '../services/MasteryEngine';
 import { DailyQuestService } from '../services/DailyQuestService';
@@ -76,9 +83,11 @@ export const JlptListeningMockPage: React.FC = () => {
   const [userAnswers, setUserAnswers] = useState<Record<string | number, number>>({});
   const [score, setScore] = useState(0);
 
-  // Audio Playback
+  // Audio Playback State
   const [isPlaying, setIsPlaying] = useState(false);
   const [playbackSpeed, setPlaybackSpeed] = useState(1.0);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const objectUrlRef = useRef<string | null>(null);
 
@@ -87,13 +96,21 @@ export const JlptListeningMockPage: React.FC = () => {
   const [isLoopingCurrentLine, setIsLoopingCurrentLine] = useState(false);
   const [showScriptInExam, setShowScriptInExam] = useState(false);
   const [showTranslations, setShowTranslations] = useState(false);
-  const syncControllerRef = useRef<{
-    stop: () => void;
-    pause: () => void;
-    resume: () => void;
-  } | null>(null);
+  const [furiganaMode, setFuriganaMode] = useState<FuriganaMode>('hover');
+  const syncControllerRef = useRef<SequentialPlaybackController | null>(null);
+  const activeLineRef = useRef<HTMLDivElement | null>(null);
 
-  // TTS Fallback
+  // Auto-scroll active line into view smoothly during playback
+  useEffect(() => {
+    if (currentLineIndex !== null && activeLineRef.current) {
+      activeLineRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+      });
+    }
+  }, [currentLineIndex]);
+
+  // TTS Engine State
   const [isUsingTts, setIsUsingTts] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
   const [isExported, setIsExported] = useState(false);
@@ -119,6 +136,13 @@ export const JlptListeningMockPage: React.FC = () => {
     const m = Math.floor(secs / 60);
     const s = secs % 60;
     return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+  };
+
+  const formatTrackTime = (seconds: number) => {
+    if (isNaN(seconds) || seconds < 0) return '00:00';
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
   // --- Start JLPT Listening Test ---
@@ -153,6 +177,10 @@ export const JlptListeningMockPage: React.FC = () => {
     if (audioRef.current) {
       audioRef.current.pause();
       audioRef.current.currentTime = 0;
+      audioRef.current.ontimeupdate = null;
+      audioRef.current.onloadedmetadata = null;
+      audioRef.current.onended = null;
+      audioRef.current.onerror = null;
       audioRef.current = null;
     }
     if (objectUrlRef.current) {
@@ -169,9 +197,28 @@ export const JlptListeningMockPage: React.FC = () => {
     if (!activeQ) return;
 
     if (isPlaying) {
-      stopAudio();
+      if (audioRef.current) {
+        audioRef.current.pause();
+        setIsPlaying(false);
+      } else if (syncControllerRef.current) {
+        syncControllerRef.current.pause();
+        setIsPlaying(false);
+      } else {
+        stopAudio();
+      }
     } else {
-      playAudio(activeQ);
+      if (audioRef.current) {
+        audioRef.current.playbackRate = playbackSpeed;
+        audioRef.current
+          .play()
+          .then(() => setIsPlaying(true))
+          .catch(() => {});
+      } else if (syncControllerRef.current) {
+        syncControllerRef.current.resume();
+        setIsPlaying(true);
+      } else {
+        playAudio(activeQ);
+      }
     }
   };
 
@@ -189,17 +236,35 @@ export const JlptListeningMockPage: React.FC = () => {
       audio.playbackRate = playbackSpeed;
       audioRef.current = audio;
 
+      const lines =
+        q.dialogueLines && q.dialogueLines.length > 0
+          ? q.dialogueLines
+          : parseScriptIntoDialogueLines(q.script);
+
+      audio.ontimeupdate = () => {
+        setCurrentTime(audio.currentTime);
+        if (lines.length > 0) {
+          const activeIdx = ListeningAudioSyncService.getActiveLineIndex(
+            lines,
+            audio.currentTime,
+            audio.duration || 0,
+          );
+          if (activeIdx !== null) {
+            setCurrentLineIndex(activeIdx);
+          }
+        }
+      };
+      audio.onloadedmetadata = () => {
+        setDuration(audio.duration || 0);
+      };
       audio.onended = () => {
         setIsPlaying(false);
+        setCurrentTime(0);
         setCurrentLineIndex(null);
       };
       audio.onerror = () => {
-        setIsPlaying(false);
-        toast({
-          title: 'Audio xatosi',
-          description: 'Ushbu audio trekni yuklab bo‘lmadi.',
-          variant: 'destructive',
-        });
+        console.warn('[Choukai] Audio load failed, falling back to TTS dialogue synthesis');
+        playTtsDialogue(q);
       };
       audio.play().catch(() => {
         setIsPlaying(false);
@@ -211,16 +276,142 @@ export const JlptListeningMockPage: React.FC = () => {
       return;
     }
 
-    // No authentic audio file attached - do not use robotic TTS
-    setIsPlaying(false);
-    toast({
-      title: 'Haqiqiy audio mavjud emas',
-      description:
-        'Ushbu savol uchun haqiqiy studiya audio treki biriktirilmagan. Sun’iy TTS ovozidan foydalanilmaydi.',
+    // Fallback to sequential multi-speaker TTS dialogue synthesis
+    playTtsDialogue(q);
+  };
+
+  const playTtsDialogue = (q: JlptListeningQuestion) => {
+    const lines =
+      q.dialogueLines && q.dialogueLines.length > 0
+        ? q.dialogueLines
+        : parseScriptIntoDialogueLines(q.script);
+
+    if (lines.length === 0) {
+      setIsPlaying(false);
+      toast({
+        title: 'Skript mavjud emas',
+        description: 'Ushbu savol uchun audio skript topilmadi.',
+      });
+      return;
+    }
+
+    setIsUsingTts(true);
+    setIsPlaying(true);
+    setCurrentTime(0);
+    setDuration(lines.length);
+
+    const controller = ListeningAudioSyncService.startSequentialPlayback(lines, {
+      startIndex: currentLineIndex ?? 0,
+      speed: playbackSpeed,
+      isLoopingLine: isLoopingCurrentLine,
+      onLineStart: (idx) => {
+        setCurrentLineIndex(idx);
+        setCurrentTime(idx + 1);
+      },
+      onStateChange: (playing) => {
+        setIsPlaying(playing);
+      },
+      onComplete: () => {
+        setIsPlaying(false);
+        setCurrentLineIndex(null);
+        setCurrentTime(0);
+      },
     });
+
+    syncControllerRef.current = controller;
+  };
+
+  const handleSeekToLine = (idx: number) => {
+    const q = activeQuestions[currentQIdx];
+    if (!q) return;
+
+    const lines = currentDialogueLines;
+    if (idx < 0 || idx >= lines.length) return;
+
+    const lineStartTime = ListeningAudioSyncService.getLineStartTime(
+      lines,
+      idx,
+      audioRef.current?.duration || duration || 0,
+    );
+
+    // If native audio element is already active
+    if (audioRef.current && !isUsingTts) {
+      audioRef.current.currentTime = lineStartTime;
+      setCurrentTime(lineStartTime);
+      setCurrentLineIndex(idx);
+      if (!isPlaying) {
+        audioRef.current.playbackRate = playbackSpeed;
+        audioRef.current
+          .play()
+          .then(() => setIsPlaying(true))
+          .catch(() => {});
+      }
+      return;
+    }
+
+    const hasAuthenticAudio =
+      q.audioUrl && q.audioUrl.trim() !== '' && !q.audioUrl.includes('soundhelix.com');
+
+    if (hasAuthenticAudio) {
+      setIsUsingTts(false);
+      setIsPlaying(true);
+      const audio = new Audio(q.audioUrl);
+      audio.playbackRate = playbackSpeed;
+      audioRef.current = audio;
+
+      audio.ontimeupdate = () => {
+        setCurrentTime(audio.currentTime);
+        if (lines.length > 0) {
+          const activeIdx = ListeningAudioSyncService.getActiveLineIndex(
+            lines,
+            audio.currentTime,
+            audio.duration || 0,
+          );
+          if (activeIdx !== null) {
+            setCurrentLineIndex(activeIdx);
+          }
+        }
+      };
+      audio.onloadedmetadata = () => {
+        setDuration(audio.duration || 0);
+        audio.currentTime = lineStartTime;
+        setCurrentTime(lineStartTime);
+        setCurrentLineIndex(idx);
+      };
+      audio.onended = () => {
+        setIsPlaying(false);
+        setCurrentTime(0);
+        setCurrentLineIndex(null);
+      };
+      audio.onerror = () => {
+        const line = lines[idx];
+        if (line) handlePlaySpecificLine(line, idx);
+      };
+      audio.play().catch(() => {
+        const line = lines[idx];
+        if (line) handlePlaySpecificLine(line, idx);
+      });
+      return;
+    }
+
+    const line = lines[idx];
+    if (line) handlePlaySpecificLine(line, idx);
   };
 
   const handlePlaySpecificLine = (line: DialogueLine, idx: number) => {
+    // If native audio is actively playing, jump directly to that line's start time in authentic audio!
+    if (audioRef.current && !isUsingTts && isPlaying) {
+      const lineStartTime = ListeningAudioSyncService.getLineStartTime(
+        currentDialogueLines,
+        idx,
+        audioRef.current.duration || duration || 0,
+      );
+      audioRef.current.currentTime = lineStartTime;
+      setCurrentTime(lineStartTime);
+      setCurrentLineIndex(idx);
+      return;
+    }
+
     stopAudio();
     setCurrentLineIndex(idx);
     setIsPlaying(true);
@@ -231,7 +422,13 @@ export const JlptListeningMockPage: React.FC = () => {
       () => setIsPlaying(true),
       () => {
         setIsPlaying(false);
-        setCurrentLineIndex(null);
+        if (!isLoopingCurrentLine) {
+          setCurrentLineIndex(null);
+        } else {
+          setTimeout(() => {
+            handlePlaySpecificLine(line, idx);
+          }, 300);
+        }
       },
       () => {
         setIsPlaying(false);
@@ -245,14 +442,45 @@ export const JlptListeningMockPage: React.FC = () => {
     if (audioRef.current) {
       audioRef.current.playbackRate = speed;
     }
+    if (syncControllerRef.current) {
+      syncControllerRef.current.setSpeed(speed);
+    }
   };
 
   const skipTime = (amount: number) => {
     if (audioRef.current) {
       let next = audioRef.current.currentTime + amount;
       if (next < 0) next = 0;
-      if (next > audioRef.current.duration) next = audioRef.current.duration;
+      if (audioRef.current.duration && next > audioRef.current.duration) {
+        next = audioRef.current.duration;
+      }
       audioRef.current.currentTime = next;
+      setCurrentTime(next);
+    } else if (syncControllerRef.current) {
+      if (amount < 0) {
+        syncControllerRef.current.prevLine();
+      } else {
+        syncControllerRef.current.nextLine();
+      }
+    }
+  };
+
+  const handleSeek = (newTime: number) => {
+    if (audioRef.current) {
+      audioRef.current.currentTime = newTime;
+      setCurrentTime(newTime);
+    } else if (syncControllerRef.current) {
+      const targetIdx = Math.max(0, Math.floor(newTime) - 1);
+      syncControllerRef.current.jumpToLine(targetIdx);
+      setCurrentTime(targetIdx + 1);
+    }
+  };
+
+  const handleToggleLoop = () => {
+    const nextVal = !isLoopingCurrentLine;
+    setIsLoopingCurrentLine(nextVal);
+    if (syncControllerRef.current) {
+      syncControllerRef.current.setLooping(nextVal);
     }
   };
 
@@ -264,6 +492,8 @@ export const JlptListeningMockPage: React.FC = () => {
 
   const handleNext = () => {
     stopAudio();
+    setCurrentTime(0);
+    setDuration(0);
     setIsUsingTts(false);
 
     if (currentQIdx < activeQuestions.length - 1) {
@@ -388,6 +618,13 @@ export const JlptListeningMockPage: React.FC = () => {
       ? currentQuestion.dialogueLines
       : parseScriptIntoDialogueLines(currentQuestion.script)
     : [];
+
+  const lineSegments = useMemo(() => {
+    return ListeningAudioSyncService.calculateLineTimeSegments(
+      currentDialogueLines,
+      duration || (audioRef.current?.duration ?? 0),
+    );
+  }, [currentDialogueLines, duration]);
 
   return (
     <div className="mx-auto max-w-5xl space-y-6 p-4 pb-16 md:p-8">
@@ -560,19 +797,30 @@ export const JlptListeningMockPage: React.FC = () => {
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
             {/* LEFT COLUMN: Audio Player & Interactive Subtitles (7 cols on desktop) */}
             <div className="space-y-4 rounded-3xl border border-border bg-card p-5 shadow-xs sm:p-6 lg:col-span-7">
-              <div className="flex items-center justify-between border-b border-border pb-3">
-                <h3 className="text-xs font-extrabold text-foreground sm:text-sm">
-                  {currentQuestion.type === 'task' && '課題理解 (Vazifa tushunish)'}
-                  {currentQuestion.type === 'point' && 'ポイント理解 (Kalit nuqtalar)'}
-                  {currentQuestion.type === 'quick' && '即時応答 (Tezkor javob)'}
-                  {currentQuestion.type === 'summary' && '概要理解 (Umumiy mazmun)'}
-                </h3>
+              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border pb-3">
+                <div className="flex items-center gap-2">
+                  <h3 className="text-xs font-extrabold text-foreground sm:text-sm">
+                    {currentQuestion.type === 'task' && '課題理解 (Vazifa tushunish)'}
+                    {currentQuestion.type === 'point' && 'ポイント理解 (Kalit nuqtalar)'}
+                    {currentQuestion.type === 'quick' && '即時応答 (Tezkor javob)'}
+                    {currentQuestion.type === 'summary' && '概要理解 (Umumiy mazmun)'}
+                  </h3>
+                  {currentQuestion.audioUrl && (
+                    <span className="hidden items-center gap-1 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2 py-0.5 text-[10px] font-bold text-emerald-600 dark:text-emerald-400 sm:inline-flex">
+                      Studio CD
+                    </span>
+                  )}
+                </div>
 
                 {/* Script Visibility Toggle */}
                 <button
                   type="button"
                   onClick={() => setShowScriptInExam(!showScriptInExam)}
-                  className="flex cursor-pointer items-center gap-1.5 rounded-xl border border-border bg-muted/40 px-2.5 py-1 text-[11px] font-bold text-muted-foreground transition-all hover:text-foreground"
+                  className={`flex cursor-pointer items-center gap-1.5 rounded-xl border px-3 py-1 text-[11px] font-bold transition-all ${
+                    showScriptInExam
+                      ? 'border-rose-500/30 bg-rose-500/10 text-rose-600 dark:text-rose-400'
+                      : 'border-border bg-muted/40 text-muted-foreground hover:text-foreground'
+                  }`}
                   title="Audio skriptni ko'rsatish/yashirish"
                 >
                   {showScriptInExam ? <EyeOff size={13} /> : <Eye size={13} />}
@@ -580,133 +828,295 @@ export const JlptListeningMockPage: React.FC = () => {
                 </button>
               </div>
 
-              {/* Audio Status Card */}
-              <div className="flex flex-col items-center justify-center rounded-2xl border border-rose-200/60 bg-rose-50/60 p-4 text-center dark:border-rose-900/40 dark:bg-rose-950/20">
-                <div className="animate-pulse rounded-full bg-rose-500/10 p-3 text-rose-600 dark:text-rose-400">
-                  <Volume2 size={28} />
+              {/* Audio Status Card & Visualizer Wave */}
+              <div className="relative overflow-hidden rounded-2xl border border-rose-200/60 bg-gradient-to-br from-rose-50/80 via-background to-rose-100/30 p-4 text-center dark:border-rose-900/40 dark:from-rose-950/20 dark:via-background dark:to-rose-900/10">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3 text-left">
+                    <div
+                      className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl transition-all ${
+                        isPlaying
+                          ? 'animate-pulse bg-rose-500 text-white shadow-md shadow-rose-500/30 ring-4 ring-rose-500/20'
+                          : 'bg-rose-500/10 text-rose-600 dark:text-rose-400'
+                      }`}
+                    >
+                      <Volume2 size={22} />
+                    </div>
+                    <div>
+                      <h4 className="text-xs font-black text-foreground sm:text-sm">
+                        {isUsingTts
+                          ? 'Listening Audio Track (Multi-Speaker TTS)'
+                          : 'Listening Audio Track (JLPT Studio CD)'}
+                      </h4>
+                      <p className="text-[11px] text-muted-foreground">
+                        {isPlaying
+                          ? 'Tinglash davom etmoqda... Diqqat bilan eshiting'
+                          : 'Tinglash uchun Ijro etish (Play) tugmasini bosing'}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Active playing indicator badge */}
+                  <span
+                    className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wide ${
+                      isPlaying
+                        ? 'border border-rose-500/30 bg-rose-500/10 text-rose-600 dark:text-rose-400'
+                        : 'border border-border bg-muted/40 text-muted-foreground'
+                    }`}
+                  >
+                    <span
+                      className={`h-2 w-2 rounded-full ${isPlaying ? 'animate-ping bg-rose-500' : 'bg-muted-foreground/40'}`}
+                    />
+                    {isPlaying ? 'Ijro' : 'To‘xtatilgan'}
+                  </span>
                 </div>
-                <h4 className="mt-2 text-xs font-black text-foreground">
-                  {isUsingTts ? 'Listening Audio Track (Multi-Speaker)' : 'Listening Audio Track'}
-                </h4>
-                <p className="mt-0.5 text-[11px] text-muted-foreground">
-                  Tokio standarti talaffuzi va dialog personajlari ovozlari
-                </p>
+
+                {/* Progress / Timeline Scrubber */}
+                <div className="mt-4 space-y-1.5">
+                  <div className="flex items-center gap-2">
+                    <span className="w-11 text-right font-mono text-[11px] font-bold text-muted-foreground">
+                      {isUsingTts ? `Gap ${currentTime}` : formatTrackTime(currentTime)}
+                    </span>
+                    <input
+                      type="range"
+                      min={0}
+                      max={duration > 0 ? duration : 100}
+                      step={isUsingTts ? 1 : 0.1}
+                      value={duration > 0 ? currentTime : 0}
+                      onChange={(e) => handleSeek(parseFloat(e.target.value))}
+                      className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-muted-foreground/20 accent-rose-500 transition-all hover:bg-muted-foreground/30"
+                      title="Audio vaqtini surish (Scrubber)"
+                    />
+                    <span className="w-11 text-left font-mono text-[11px] font-bold text-muted-foreground">
+                      {isUsingTts ? `/${duration}` : formatTrackTime(duration)}
+                    </span>
+                  </div>
+                </div>
               </div>
 
               {/* Audio Controls Bar */}
               <div className="space-y-3 rounded-2xl border border-border bg-muted/40 p-4">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  {/* Left: Rewind -5s, Play/Pause, Forward +5s */}
+                  <div className="flex items-center gap-1.5 sm:gap-2">
                     <button
-                      onClick={() => skipTime(-10)}
-                      className="cursor-pointer rounded-xl p-2 text-muted-foreground transition-all hover:bg-muted hover:text-foreground"
-                      title="10 soniya orqaga"
+                      onClick={() => skipTime(-5)}
+                      className="group flex cursor-pointer items-center gap-1 rounded-xl border border-border bg-card px-2.5 py-2 text-xs font-bold text-muted-foreground transition-all hover:border-rose-500/40 hover:bg-card hover:text-foreground active:scale-95"
+                      title="5 soniya orqaga (-5s)"
                     >
-                      <RotateCcw size={16} />
+                      <RotateCcw
+                        size={15}
+                        className="transition-transform group-hover:-rotate-45"
+                      />
+                      <span className="font-mono text-[11px]">-5s</span>
                     </button>
+
                     <Button
                       onClick={handlePlayPause}
-                      className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-rose-600 text-white shadow-md transition-all hover:bg-rose-700 active:scale-95"
+                      className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-rose-600 text-white shadow-md shadow-rose-600/30 transition-all hover:scale-105 hover:bg-rose-700 active:scale-95"
                       title={isPlaying ? "To'xtatish" : 'Ijro etish'}
                     >
                       {isPlaying ? <Pause size={18} /> : <Play size={18} className="ml-0.5" />}
                     </Button>
+
                     <button
-                      onClick={() => skipTime(10)}
-                      className="cursor-pointer rounded-xl p-2 text-muted-foreground transition-all hover:bg-muted hover:text-foreground"
-                      title="10 soniya oldinga"
+                      onClick={() => skipTime(5)}
+                      className="group flex cursor-pointer items-center gap-1 rounded-xl border border-border bg-card px-2.5 py-2 text-xs font-bold text-muted-foreground transition-all hover:border-rose-500/40 hover:bg-card hover:text-foreground active:scale-95"
+                      title="5 soniya oldinga (+5s)"
                     >
-                      <Play size={16} className="rotate-180" />
+                      <span className="font-mono text-[11px]">+5s</span>
+                      <RotateCw size={15} className="transition-transform group-hover:rotate-45" />
                     </button>
                   </div>
 
-                  {/* Loop Current Line button */}
+                  {/* Center: Loop Button */}
                   <button
                     type="button"
-                    onClick={() => setIsLoopingCurrentLine(!isLoopingCurrentLine)}
-                    className={`flex cursor-pointer items-center gap-1 rounded-xl border px-2.5 py-1.5 text-[10px] font-extrabold transition-all ${
+                    onClick={handleToggleLoop}
+                    className={`flex cursor-pointer items-center gap-1.5 rounded-xl border px-3 py-2 text-xs font-bold transition-all ${
                       isLoopingCurrentLine
-                        ? 'border-rose-500 bg-rose-500 text-white shadow-xs'
-                        : 'border-border bg-card text-muted-foreground hover:text-foreground'
+                        ? 'border-rose-500 bg-rose-500 text-white shadow-xs ring-1 ring-rose-500'
+                        : 'border-border bg-card text-muted-foreground hover:bg-card hover:text-foreground'
                     }`}
-                    title="Hozirgi gapni qayta takrorlash (Loop sentence)"
+                    title="Hozirgi gap yoki trekni takrorlash (Loop)"
                   >
-                    <Repeat size={12} />
-                    <span>Loop</span>
+                    <Repeat size={13} className={isLoopingCurrentLine ? 'animate-spin' : ''} />
+                    <span>Loop {isLoopingCurrentLine ? 'ON' : 'OFF'}</span>
                   </button>
 
-                  {/* Speed Selector */}
-                  <div className="flex items-center gap-1 text-[10px] font-extrabold">
-                    {[0.8, 1.0, 1.2].map((speed) => (
-                      <button
-                        key={speed}
-                        onClick={() => handleSpeedChange(speed)}
-                        className={`cursor-pointer rounded-lg border px-2 py-1 transition-all ${
-                          Math.abs(playbackSpeed - speed) < 0.05
-                            ? 'border-rose-500 bg-rose-500 text-white shadow-xs'
-                            : 'border-border bg-card text-muted-foreground hover:text-foreground'
-                        }`}
-                        title={`Tezlik: ${speed}x`}
-                      >
-                        {speed}x
-                      </button>
-                    ))}
+                  {/* Right: Speed Selector Pills */}
+                  <div className="flex items-center gap-1 rounded-xl border border-border bg-card p-1">
+                    {[0.8, 1.0, 1.2, 1.5].map((speed) => {
+                      const isActive = Math.abs(playbackSpeed - speed) < 0.05;
+                      return (
+                        <button
+                          key={speed}
+                          onClick={() => handleSpeedChange(speed)}
+                          className={`cursor-pointer rounded-lg px-2 py-1 text-[11px] font-black transition-all ${
+                            isActive
+                              ? 'bg-rose-500 text-white shadow-xs'
+                              : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                          }`}
+                          title={`Tezlik: ${speed}x`}
+                        >
+                          {speed}x
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
               </div>
 
-              {/* Synchronized Dialogue Lines (Karaoke Subtitles) */}
-              {showScriptInExam && (
-                <div className="space-y-2 rounded-2xl border border-border bg-card p-3.5 duration-200 animate-in fade-in sm:p-4">
-                  <div className="flex items-center justify-between border-b border-border/60 pb-2 text-xs font-bold text-muted-foreground">
-                    <div className="flex items-center gap-1.5">
+              {/* Script Section */}
+              {!showScriptInExam ? (
+                /* Hidden Script Banner in Exam mode */
+                <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-border bg-muted/20 p-6 text-center">
+                  <div className="rounded-full bg-muted p-3 text-muted-foreground">
+                    <EyeOff size={22} />
+                  </div>
+                  <h4 className="mt-2 text-xs font-bold text-foreground">
+                    Audio Skript (台本) yashirilgan
+                  </h4>
+                  <p className="mt-1 max-w-sm text-[11px] text-muted-foreground">
+                    Haqiqiy JLPT imtihonida bo‘lgani kabi faqat eshitish orqali javob toping. Zarur
+                    bo‘lsa, skriptni istalgan payt ochishingiz mumkin.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setShowScriptInExam(true)}
+                    className="mt-3.5 inline-flex cursor-pointer items-center gap-1.5 rounded-xl border border-rose-500/30 bg-rose-500/10 px-3.5 py-1.5 text-xs font-bold text-rose-600 transition-all hover:bg-rose-500 hover:text-white dark:text-rose-400"
+                  >
+                    <Eye size={13} />
+                    <span>Skriptni ko‘rish (台本)</span>
+                  </button>
+                </div>
+              ) : (
+                /* Synchronized Dialogue Lines (Karaoke Subtitles) */
+                <div className="space-y-3 rounded-2xl border border-border bg-card p-3.5 duration-200 animate-in fade-in sm:p-4">
+                  {/* Subtitles Header & Furigana / Translation Controls */}
+                  <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border/60 pb-2.5">
+                    <div className="flex items-center gap-1.5 text-xs font-bold text-muted-foreground">
                       <Headphones size={14} className="text-primary" />
                       <span>Sinxron Subtitrlar (Dialog):</span>
                     </div>
-                    <button
-                      type="button"
-                      onClick={() => setShowTranslations(!showTranslations)}
-                      className="cursor-pointer text-[10px] font-semibold text-primary hover:underline"
-                    >
-                      {showTranslations ? 'Tarjimani yashirish' : "Tarjimani ko'rsatish"}
-                    </button>
+
+                    <div className="flex items-center gap-2">
+                      {/* Furigana Mode Pills: ON, Hover, OFF */}
+                      <div className="flex items-center gap-1 rounded-xl border border-border bg-muted/40 p-0.5 text-[10px] font-bold">
+                        <span className="px-1.5 text-muted-foreground">Furigana:</span>
+                        <button
+                          type="button"
+                          onClick={() => setFuriganaMode('always')}
+                          className={`cursor-pointer rounded-lg px-2 py-0.5 transition-all ${
+                            furiganaMode === 'always'
+                              ? 'bg-rose-500 text-white shadow-xs'
+                              : 'text-muted-foreground hover:text-foreground'
+                          }`}
+                          title="Furigana doimo ko'rinadi"
+                        >
+                          振 ON
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setFuriganaMode('hover')}
+                          className={`cursor-pointer rounded-lg px-2 py-0.5 transition-all ${
+                            furiganaMode === 'hover'
+                              ? 'bg-rose-500 text-white shadow-xs'
+                              : 'text-muted-foreground hover:text-foreground'
+                          }`}
+                          title="Cursor olib kelinganda / bosilganda ko'rinadi"
+                        >
+                          👁️ Hover
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setFuriganaMode('never')}
+                          className={`cursor-pointer rounded-lg px-2 py-0.5 transition-all ${
+                            furiganaMode === 'never'
+                              ? 'bg-rose-500 text-white shadow-xs'
+                              : 'text-muted-foreground hover:text-foreground'
+                          }`}
+                          title="Furigana o'chirilgan"
+                        >
+                          🚫 OFF
+                        </button>
+                      </div>
+
+                      {/* Translation Toggle */}
+                      <button
+                        type="button"
+                        onClick={() => setShowTranslations(!showTranslations)}
+                        className={`flex cursor-pointer items-center gap-1 rounded-xl border px-2.5 py-1 text-[10px] font-bold transition-all ${
+                          showTranslations
+                            ? 'border-primary/40 bg-primary/10 text-primary'
+                            : 'border-border bg-muted/40 text-muted-foreground hover:text-foreground'
+                        }`}
+                        title="O'zbekcha tarjimalarni ko'rsatish/yashirish"
+                      >
+                        <Languages size={12} />
+                        <span>Tarjima</span>
+                      </button>
+                    </div>
                   </div>
 
-                  <div className="max-h-72 space-y-2 overflow-y-auto pr-1">
+                  {/* Lines list with interactive Furigana, Karaoke time-sync & Shadowing */}
+                  <div className="max-h-80 space-y-2 overflow-y-auto pr-1">
                     {currentDialogueLines.map((line, idx) => {
                       const isActive = currentLineIndex === idx;
                       const badgeStyle = getSpeakerBadgeStyle(line.gender);
+                      const lineStart = lineSegments[idx]?.start ?? 0;
 
                       return (
                         <div
                           key={line.id || idx}
+                          ref={isActive ? activeLineRef : undefined}
                           onClick={() => handlePlaySpecificLine(line, idx)}
-                          className={`flex cursor-pointer items-start gap-2.5 rounded-xl border p-2.5 transition-all ${
+                          className={`group flex cursor-pointer items-start gap-2.5 rounded-xl border p-2.5 transition-all ${
                             isActive
                               ? 'border-rose-500 bg-rose-500/10 shadow-sm ring-2 ring-rose-500/30'
-                              : 'border-border/60 bg-muted/20 hover:bg-muted/50'
+                              : 'border-border/60 bg-muted/20 hover:border-border hover:bg-muted/50'
                           }`}
                           title="Faqat shu gapni eshitish uchun bosing"
                         >
-                          <span
-                            className={`inline-flex shrink-0 items-center gap-1 rounded-md border px-1.5 py-0.5 text-[10px] font-black ${badgeStyle}`}
-                          >
-                            <User size={10} />
-                            {line.speaker}
-                          </span>
+                          <div className="flex shrink-0 flex-col items-start gap-1">
+                            <span
+                              className={`inline-flex items-center gap-1 rounded-md border px-1.5 py-0.5 text-[10px] font-black ${badgeStyle}`}
+                            >
+                              <User size={10} />
+                              {line.speaker}
+                            </span>
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleSeekToLine(idx);
+                              }}
+                              className={`rounded px-1.5 py-0.5 font-mono text-[9px] font-bold transition-all ${
+                                isActive
+                                  ? 'bg-rose-500 text-white shadow-xs'
+                                  : 'bg-muted/70 text-muted-foreground hover:bg-rose-500/20 hover:text-rose-600'
+                              }`}
+                              title="Audioni ayni shu vaqtdan boshlash (Seek)"
+                            >
+                              ⏱ {ListeningAudioSyncService.formatTime(lineStart)}
+                            </button>
+                          </div>
 
                           <div className="min-w-0 flex-1">
-                            <p
+                            <div
                               className={`text-xs leading-relaxed transition-all ${
                                 isActive
                                   ? 'font-black text-foreground'
                                   : 'font-medium text-foreground/90'
                               }`}
                             >
-                              {line.japanese}
-                            </p>
+                              <FuriganaText
+                                text={line.japanese}
+                                mode={furiganaMode}
+                                rubyClassName="text-[10px] text-rose-500 dark:text-rose-400 font-bold"
+                              />
+                            </div>
                             {showTranslations && line.uzbek && (
-                              <p className="mt-0.5 text-[10px] text-muted-foreground">
+                              <p className="mt-1 text-[11px] leading-snug text-muted-foreground">
                                 {line.uzbek}
                               </p>
                             )}
@@ -718,10 +1128,14 @@ export const JlptListeningMockPage: React.FC = () => {
                               e.stopPropagation();
                               handlePlaySpecificLine(line, idx);
                             }}
-                            className="shrink-0 p-1 text-muted-foreground transition-colors hover:text-rose-500"
-                            title="Tinglash"
+                            className={`shrink-0 rounded-lg p-1.5 transition-all ${
+                              isActive
+                                ? 'bg-rose-500 text-white shadow-xs'
+                                : 'text-muted-foreground opacity-60 group-hover:text-rose-500 group-hover:opacity-100'
+                            }`}
+                            title={isActive ? 'Ijroda...' : 'Tinglash'}
                           >
-                            <Play size={12} />
+                            <Play size={12} className={isActive ? 'animate-pulse' : ''} />
                           </button>
                         </div>
                       );
@@ -869,10 +1283,53 @@ export const JlptListeningMockPage: React.FC = () => {
 
           {/* Detailed Question Review with Audio */}
           <div className="space-y-4 border-t border-border pt-5 text-left">
-            <h4 className="flex items-center gap-2 text-xs font-extrabold uppercase tracking-wider text-foreground sm:text-sm">
-              <BookOpen size={16} className="text-rose-500" />
-              <span>Savollar va Skript Tahlili:</span>
-            </h4>
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <h4 className="flex items-center gap-2 text-xs font-extrabold uppercase tracking-wider text-foreground sm:text-sm">
+                <BookOpen size={16} className="text-rose-500" />
+                <span>Savollar va Skript Tahlili:</span>
+              </h4>
+
+              {/* Furigana selector for review */}
+              <div className="flex items-center gap-1 rounded-xl border border-border bg-muted/40 p-0.5 text-[10px] font-bold">
+                <span className="px-1.5 text-muted-foreground">Furigana:</span>
+                <button
+                  type="button"
+                  onClick={() => setFuriganaMode('always')}
+                  className={`cursor-pointer rounded-lg px-2 py-0.5 transition-all ${
+                    furiganaMode === 'always'
+                      ? 'bg-rose-500 text-white shadow-xs'
+                      : 'text-muted-foreground hover:text-foreground'
+                  }`}
+                  title="Furigana doimo ko'rinadi"
+                >
+                  振 ON
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setFuriganaMode('hover')}
+                  className={`cursor-pointer rounded-lg px-2 py-0.5 transition-all ${
+                    furiganaMode === 'hover'
+                      ? 'bg-rose-500 text-white shadow-xs'
+                      : 'text-muted-foreground hover:text-foreground'
+                  }`}
+                  title="Cursor olib kelinganda ko'rinadi"
+                >
+                  👁️ Hover
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setFuriganaMode('never')}
+                  className={`cursor-pointer rounded-lg px-2 py-0.5 transition-all ${
+                    furiganaMode === 'never'
+                      ? 'bg-rose-500 text-white shadow-xs'
+                      : 'text-muted-foreground hover:text-foreground'
+                  }`}
+                  title="Furigana o'chirilgan"
+                >
+                  🚫 OFF
+                </button>
+              </div>
+            </div>
 
             {activeQuestions.map((q, idx) => {
               const isCorrect = userAnswers[q.id] === q.correctAnswer;
@@ -922,7 +1379,13 @@ export const JlptListeningMockPage: React.FC = () => {
                         <span className="shrink-0 font-bold text-rose-600 dark:text-rose-400">
                           {line.speaker}:
                         </span>
-                        <span className="flex-1 text-foreground">{line.japanese}</span>
+                        <div className="flex-1 text-foreground">
+                          <FuriganaText
+                            text={line.japanese}
+                            mode={furiganaMode}
+                            rubyClassName="text-[9px] text-rose-500 dark:text-rose-400 font-bold"
+                          />
+                        </div>
                         <Play
                           size={10}
                           className="mt-0.5 shrink-0 text-muted-foreground hover:text-foreground"

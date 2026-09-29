@@ -104,8 +104,8 @@ const UNIT_TABS_N2 = [
   },
   {
     id: 'ja-n2-u2',
-    title: 'Unit 2: Corporate Keigo (高度敬語・ビジネス)',
-    titleJa: '第2章：高度敬語',
+    title: 'Unit 2: Professional Japanese & Applied Skills (実務日本語・応用)',
+    titleJa: '第2章：実務日本語・応用',
   },
   {
     id: 'ja-n2-u3',
@@ -114,8 +114,8 @@ const UNIT_TABS_N2 = [
   },
   {
     id: 'ja-n2-u4',
-    title: 'Unit 4: Dokkai & Social Context (社会・評論読解)',
-    titleJa: '第4章：社会読解',
+    title: 'Unit 4: Reading & Listening in Social Context (社会読解・聴解)',
+    titleJa: '第4章：社会読解・聴解',
   },
   {
     id: 'ja-n2-u5',

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import {
   Volume2,
   BookOpen,
@@ -13,6 +13,7 @@ import {
 import { LearnContent, SupportedLanguage } from '../../types/lesson';
 import { speakText, speakJapaneseText } from '../../utils/audioTts';
 import { FuriganaText } from '../jlpt/FuriganaText';
+import { ListeningAudioSyncService } from '../../services/ListeningAudioSyncService';
 
 const formatAudioTime = (seconds: number) => {
   if (isNaN(seconds) || seconds <= 0) return '00:00';
@@ -53,6 +54,26 @@ export const LearnStepView: React.FC<LearnStepViewProps> = ({ content, language 
     };
   }, []);
 
+  const activeLineRef = useRef<HTMLDivElement | null>(null);
+
+  // Auto-scroll active dialogue line into view smoothly
+  useEffect(() => {
+    if (playingLineIdx !== null && activeLineRef.current) {
+      activeLineRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+      });
+    }
+  }, [playingLineIdx]);
+
+  const dialogueLineSegments = useMemo(() => {
+    if (!content.dialogue?.lines) return [];
+    return ListeningAudioSyncService.calculateLineTimeSegments(
+      content.dialogue.lines,
+      studioAudioDuration || (studioAudioRef.current?.duration ?? 0),
+    );
+  }, [content.dialogue?.lines, studioAudioDuration]);
+
   // Stop audio on content change
   useEffect(() => {
     if (studioAudioRef.current) {
@@ -72,7 +93,80 @@ export const LearnStepView: React.FC<LearnStepViewProps> = ({ content, language 
     }
   };
 
+  const handleSeekStudioToLine = (idx: number) => {
+    if (!content.dialogue?.audioUrl || !content.dialogue.lines) return;
+
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+    }
+    if (autoPlayTimeoutRef.current) {
+      clearTimeout(autoPlayTimeoutRef.current);
+      autoPlayTimeoutRef.current = null;
+    }
+    setIsAutoPlayingDialogue(false);
+
+    const startTime = ListeningAudioSyncService.getLineStartTime(
+      content.dialogue.lines,
+      idx,
+      studioAudioRef.current?.duration || studioAudioDuration || 0,
+    );
+
+    if (!studioAudioRef.current) {
+      const audio = new Audio(content.dialogue.audioUrl);
+      audio.playbackRate = studioPlaybackRate;
+      studioAudioRef.current = audio;
+
+      audio.ontimeupdate = () => {
+        setStudioAudioCurrentTime(audio.currentTime);
+        if (content.dialogue?.lines && content.dialogue.lines.length > 0) {
+          const activeIdx = ListeningAudioSyncService.getActiveLineIndex(
+            content.dialogue.lines,
+            audio.currentTime,
+            audio.duration || 0,
+          );
+          setPlayingLineIdx(activeIdx);
+        }
+      };
+      audio.onloadedmetadata = () => {
+        if (!isNaN(audio.duration)) {
+          setStudioAudioDuration(audio.duration);
+        }
+        audio.currentTime = startTime;
+        setStudioAudioCurrentTime(startTime);
+        setPlayingLineIdx(idx);
+      };
+      audio.onended = () => {
+        setIsPlayingStudioAudio(false);
+        setStudioAudioCurrentTime(0);
+        setPlayingLineIdx(null);
+      };
+      audio.onerror = () => {
+        setIsPlayingStudioAudio(false);
+      };
+    }
+
+    const audio = studioAudioRef.current;
+    audio.playbackRate = studioPlaybackRate;
+    audio.currentTime = startTime;
+    setStudioAudioCurrentTime(startTime);
+    setPlayingLineIdx(idx);
+
+    audio
+      .play()
+      .then(() => {
+        setIsPlayingStudioAudio(true);
+      })
+      .catch(() => {
+        setIsPlayingStudioAudio(false);
+      });
+  };
+
   const handlePlaySingleLine = (idx: number, text: string) => {
+    if (content.dialogue?.audioUrl && isPlayingStudioAudio && studioAudioRef.current) {
+      handleSeekStudioToLine(idx);
+      return;
+    }
+
     if (isPlayingStudioAudio && studioAudioRef.current) {
       studioAudioRef.current.pause();
       setIsPlayingStudioAudio(false);
@@ -117,6 +211,14 @@ export const LearnStepView: React.FC<LearnStepViewProps> = ({ content, language 
 
       audio.ontimeupdate = () => {
         setStudioAudioCurrentTime(audio.currentTime);
+        if (content.dialogue?.lines && content.dialogue.lines.length > 0) {
+          const activeIdx = ListeningAudioSyncService.getActiveLineIndex(
+            content.dialogue.lines,
+            audio.currentTime,
+            audio.duration || 0,
+          );
+          setPlayingLineIdx(activeIdx);
+        }
       };
       audio.onloadedmetadata = () => {
         if (!isNaN(audio.duration)) {
@@ -126,6 +228,7 @@ export const LearnStepView: React.FC<LearnStepViewProps> = ({ content, language 
       audio.onended = () => {
         setIsPlayingStudioAudio(false);
         setStudioAudioCurrentTime(0);
+        setPlayingLineIdx(null);
       };
       audio.onerror = () => {
         setIsPlayingStudioAudio(false);
@@ -535,12 +638,21 @@ export const LearnStepView: React.FC<LearnStepViewProps> = ({ content, language 
             <div className="space-y-2.5">
               {content.dialogue.lines.map((line, idx) => {
                 const isPlaying = playingLineIdx === idx;
+                const lineStart = dialogueLineSegments[idx]?.start ?? 0;
                 return (
                   <div
                     key={idx}
+                    ref={isPlaying ? activeLineRef : undefined}
+                    onClick={() => {
+                      if (content.dialogue?.audioUrl) {
+                        handleSeekStudioToLine(idx);
+                      }
+                    }}
                     className={`group relative flex flex-col justify-between rounded-2xl border p-4 transition-all duration-300 ${
+                      content.dialogue?.audioUrl ? 'cursor-pointer' : ''
+                    } ${
                       isPlaying
-                        ? 'border-primary bg-primary/10 shadow-md ring-1 ring-primary/40'
+                        ? 'border-primary bg-primary/10 shadow-md ring-2 ring-primary/40'
                         : 'border-border bg-card hover:border-primary/40'
                     }`}
                   >
@@ -554,6 +666,23 @@ export const LearnStepView: React.FC<LearnStepViewProps> = ({ content, language 
                             <span className="text-[11px] font-medium text-muted-foreground">
                               ({line.speakerRoleUz})
                             </span>
+                          )}
+                          {content.dialogue?.audioUrl && (
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleSeekStudioToLine(idx);
+                              }}
+                              className={`rounded px-1.5 py-0.5 font-mono text-[10px] font-bold transition-all ${
+                                isPlaying
+                                  ? 'bg-primary text-primary-foreground shadow-xs'
+                                  : 'bg-muted/70 text-muted-foreground hover:bg-primary/20 hover:text-primary'
+                              }`}
+                              title="Audioni shu vaqtdan boshlash (Seek)"
+                            >
+                              ⏱ {formatAudioTime(lineStart)}
+                            </button>
                           )}
                           {isPlaying && (
                             <span className="inline-flex animate-pulse items-center gap-1 text-[11px] font-semibold text-primary">

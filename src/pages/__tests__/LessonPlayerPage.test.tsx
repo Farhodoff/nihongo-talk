@@ -3,6 +3,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { LessonPlayerPage } from '../LessonPlayerPage';
 import { LearningSignalService } from '../../services/LearningSignalService';
+import { LessonService } from '../../services/LessonService';
 
 vi.mock('../../context/StudyPlannerContext', () => ({
   useStudyData: () => ({
@@ -31,6 +32,8 @@ describe('LessonPlayerPage', () => {
   beforeEach(() => {
     localStorage.clear();
     vi.clearAllMocks();
+    vi.spyOn(LessonService, 'saveLessonProgress').mockResolvedValue(undefined);
+    vi.spyOn(LessonService, 'completeLesson').mockResolvedValue(undefined as any);
   });
 
   it('renders Japanese lesson properly with title, level, and Learn step', () => {
@@ -149,7 +152,12 @@ describe('LessonPlayerPage', () => {
     );
 
     // Header should indicate Mondai listening step
-    expect(await screen.findByText(/Mondai Tinglash Testi/i)).toBeInTheDocument();
+    // (step title also appears in the footer jump-select options)
+    const mondaiMatches = await screen.findAllByText(/Mondai Tinglash Testi/i);
+    expect(mondaiMatches.length).toBeGreaterThanOrEqual(1);
     expect(screen.getByText(/4 \/ 4/)).toBeInTheDocument();
+    // Footer jump-select reflects the current step
+    const jumpSelect = screen.getByRole('combobox', { name: /Qadamga sakrash/i });
+    expect(jumpSelect).toHaveValue('3');
   });
 });

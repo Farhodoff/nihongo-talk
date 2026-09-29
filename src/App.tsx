@@ -1,10 +1,9 @@
 import React, { Suspense, useEffect, useState } from 'react';
-import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { Session } from '@supabase/supabase-js';
 import ErrorBoundary from './components/ErrorBoundary';
 import GlobalAudioPlayer from './components/GlobalAudioPlayer';
 import Layout from './components/Layout';
-import { VersionUpdateService } from './services/VersionUpdateService';
 import { StudyPlannerProvider } from './context/StudyPlannerContext';
 import { FocusTimerProvider } from './context/FocusTimerContext';
 import { LanguageProvider } from './context/LanguageContext';
@@ -26,7 +25,6 @@ const SubjectsPage = lazyWithRetry(() => import('./pages/SubjectsPage'));
 const AdminDashboardPage = lazyWithRetry(() => import('./pages/AdminDashboardPage'));
 const SpeakingCoachPage = lazyWithRetry(() => import('./pages/SpeakingCoachPage'));
 const JlptHubPage = lazyWithRetry(() => import('./pages/JlptHubPage'));
-const JlptWritingPage = lazyWithRetry(() => import('./pages/JlptWritingPage'));
 const VocabularyBuilderPage = lazyWithRetry(() =>
   import('./pages/VocabularyBuilderPage').then((m) => ({ default: m.VocabularyBuilderPage })),
 );
@@ -146,16 +144,7 @@ const PageLoader = () => (
   </div>
 );
 
-import ReloadPrompt from './components/pwa/ReloadPrompt';
 import UnauthRouter from './components/UnauthRouter';
-
-const RouteVersionWatcher: React.FC = () => {
-  const location = useLocation();
-  useEffect(() => {
-    VersionUpdateService.checkForUpdate();
-  }, [location.pathname]);
-  return null;
-};
 
 const App: React.FC = () => {
   const [session, setSession] = useState<Session | null>(() => {
@@ -298,7 +287,6 @@ const App: React.FC = () => {
     return (
       <LanguageProvider>
         <UnauthRouter />
-        <ReloadPrompt />
       </LanguageProvider>
     );
   }
@@ -309,12 +297,11 @@ const App: React.FC = () => {
         <StudyPlannerProvider>
           <FocusTimerProvider>
             <BrowserRouter>
-              <RouteVersionWatcher />
               <div className="relative h-screen overflow-hidden bg-background text-foreground transition-colors duration-200">
                 <Suspense fallback={<PageLoader />}>
                   <Routes>
                     <Route path="/" element={<Layout />}>
-                      <Route index element={<Navigate to="/jlpt" replace />} />
+                      <Route index element={<Navigate to="/dashboard" replace />} />
                       <Route path="landing" element={<LandingPage />} />
                       <Route path="dashboard" element={<DashboardPage />} />
                       <Route
@@ -329,8 +316,11 @@ const App: React.FC = () => {
                       <Route path="personal-plan" element={<PersonalPlanPage />} />
                       <Route path="diagnostic" element={<DiagnosticPage />} />
                       <Route path="lesson/:lessonId" element={<LessonPlayerPage />} />
-                      <Route path="speaking" element={<SpeakingCoachPage />} />
                       <Route path="speaking-coach" element={<SpeakingCoachPage />} />
+                      <Route
+                        path="speaking"
+                        element={<Navigate to="/speaking-coach?lang=ja" replace />}
+                      />
                       {/* IELTS Legacy Routes -> Redirect to JLPT */}
                       <Route path="ielts/*" element={<Navigate to="/jlpt" replace />} />
                       <Route path="ielts" element={<Navigate to="/jlpt" replace />} />
@@ -345,7 +335,10 @@ const App: React.FC = () => {
                         path="jlpt-speaking"
                         element={<Navigate to="/speaking-coach?lang=ja" replace />}
                       />
-                      <Route path="jlpt-writing" element={<JlptWritingPage />} />
+                      <Route
+                        path="jlpt-writing"
+                        element={<Navigate to="/jlpt?tab=writing" replace />}
+                      />
                       <Route path="minna" element={<Navigate to="/jlpt?tab=lessons" replace />} />
                       <Route path="lessons" element={<Navigate to="/jlpt?tab=lessons" replace />} />
                       <Route
@@ -426,18 +419,17 @@ const App: React.FC = () => {
                     </Route>
                     <Route path="/auth/reset-password" element={<AuthPage />} />
                     <Route path="/reset-password" element={<AuthPage />} />
-                    <Route path="/auth" element={<Navigate to="/jlpt" replace />} />
+                    <Route path="/auth" element={<Navigate to="/dashboard" replace />} />
                     <Route path="/admin/login" element={<Navigate to="/auth" replace />} />
-                    <Route path="/login" element={<Navigate to="/jlpt" replace />} />
-                    <Route path="/register" element={<Navigate to="/jlpt" replace />} />
-                    <Route path="/signup" element={<Navigate to="/jlpt" replace />} />
-                    <Route path="*" element={<Navigate to="/jlpt" replace />} />
+                    <Route path="/login" element={<Navigate to="/dashboard" replace />} />
+                    <Route path="/register" element={<Navigate to="/dashboard" replace />} />
+                    <Route path="/signup" element={<Navigate to="/dashboard" replace />} />
+                    <Route path="*" element={<Navigate to="/dashboard" replace />} />
                   </Routes>
                 </Suspense>
                 <GlobalAudioPlayer />
 
                 {/* PWA Prompts */}
-                <ReloadPrompt />
                 <PushNotificationPrompt />
 
                 <OfflineIndicator />

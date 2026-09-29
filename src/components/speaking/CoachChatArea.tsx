@@ -191,7 +191,7 @@ export const CoachChatArea: React.FC<CoachChatAreaProps> = ({
                               : msg.correction!.corrected || '',
                           )
                         }
-                        className="inline-flex cursor-pointer items-center gap-1 rounded-md bg-amber-500/15 px-2 py-0.5 text-[10px] font-bold text-amber-500 transition-colors hover:bg-amber-500/25"
+                        className="inline-flex min-h-[44px] cursor-pointer items-center gap-1 rounded-md bg-amber-500/15 px-2.5 text-[10px] font-bold text-amber-500 transition-colors hover:bg-amber-500/25"
                         title="Maslahatni to'liq ovozda tinglash"
                       >
                         <Volume2 size={12} />
@@ -208,7 +208,7 @@ export const CoachChatArea: React.FC<CoachChatAreaProps> = ({
                       <button
                         type="button"
                         onClick={() => speakText(msg.correction?.corrected || '')}
-                        className="inline-flex shrink-0 cursor-pointer items-center gap-1 rounded-md px-1.5 py-0.5 text-[10px] font-bold text-emerald-400 transition-colors hover:bg-emerald-500/20"
+                        className="inline-flex min-h-[44px] shrink-0 cursor-pointer items-center gap-1 rounded-md px-2.5 text-[10px] font-bold text-emerald-400 transition-colors hover:bg-emerald-500/20"
                         title="To'g'ri jumlani tinglash"
                       >
                         <Volume2 size={12} />
@@ -266,10 +266,11 @@ export const CoachChatArea: React.FC<CoachChatAreaProps> = ({
                             <button
                               type="button"
                               onClick={() => speakText(vocab.reading || vocab.word)}
-                              className="cursor-pointer rounded-md p-0.5 text-muted-foreground transition-colors hover:bg-muted hover:text-amber-400"
+                              className="flex min-h-[44px] min-w-[44px] cursor-pointer items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-amber-400"
                               title="So'z talaffuzini tinglash"
+                              aria-label="So'z talaffuzini tinglash"
                             >
-                              <Volume2 size={12} />
+                              <Volume2 size={16} />
                             </button>
                           </div>
                           <span className="text-[11px] text-muted-foreground">
@@ -280,7 +281,7 @@ export const CoachChatArea: React.FC<CoachChatAreaProps> = ({
                             <button
                               type="button"
                               onClick={() => onInspectPitch(vocab.word, vocab.reading)}
-                              className="inline-flex cursor-pointer items-center gap-1 rounded-lg border border-primary/25 bg-primary/10 px-1.5 py-0.5 text-[10px] font-bold text-primary transition-all hover:bg-primary/20 hover:shadow-xs active:scale-95"
+                              className="inline-flex min-h-[44px] cursor-pointer items-center gap-1 rounded-lg border border-primary/25 bg-primary/10 px-2.5 text-[10px] font-bold text-primary transition-all hover:bg-primary/20 hover:shadow-xs active:scale-95"
                               title="Yapon tili ohangi (Pitch Accent) grafigini ko'rish"
                             >
                               <TrendingUp size={11} />
@@ -292,7 +293,7 @@ export const CoachChatArea: React.FC<CoachChatAreaProps> = ({
                             <button
                               type="button"
                               onClick={() => handleVocabClick(vocab)}
-                              className={`inline-flex cursor-pointer items-center gap-1 rounded-lg px-1.5 py-0.5 text-[11px] font-bold transition-all ${
+                              className={`inline-flex min-h-[44px] cursor-pointer items-center gap-1 rounded-lg px-2.5 text-[11px] font-bold transition-all ${
                                 isSaved
                                   ? 'cursor-default bg-emerald-600 text-white'
                                   : 'bg-primary text-primary-foreground shadow-xs hover:bg-primary/90 active:scale-95'
@@ -334,7 +335,7 @@ export const CoachChatArea: React.FC<CoachChatAreaProps> = ({
                     <button
                       onClick={() => handleTranslateMessage(idx)}
                       disabled={msg.isTranslating}
-                      className="inline-flex cursor-pointer items-center gap-1.5 rounded-lg border border-primary/20 bg-primary/10 px-2.5 py-1 text-[11px] font-bold text-primary transition-colors hover:text-primary/80"
+                      className="inline-flex min-h-[44px] cursor-pointer items-center gap-1.5 rounded-lg border border-primary/20 bg-primary/10 px-2.5 text-[11px] font-bold text-primary transition-colors hover:text-primary/80"
                     >
                       <UzbekistanFlag className="h-2.5 w-3.5" />
                       <span>
@@ -356,7 +357,7 @@ export const CoachChatArea: React.FC<CoachChatAreaProps> = ({
                               ),
                             )
                           }
-                          className="cursor-pointer text-[10px] text-muted-foreground hover:text-foreground"
+                          className="flex min-h-[44px] min-w-[44px] cursor-pointer items-center justify-center px-2 text-[10px] text-muted-foreground hover:text-foreground"
                         >
                           Berkitish ✕
                         </button>
@@ -381,7 +382,7 @@ export const CoachChatArea: React.FC<CoachChatAreaProps> = ({
                       onInspectPitch(firstWord[0]);
                     }
                   }}
-                  className="inline-flex cursor-pointer items-center gap-1 rounded-md px-1.5 py-0.5 text-[10px] font-bold text-muted-foreground transition-colors hover:bg-muted hover:text-primary"
+                  className="inline-flex min-h-[44px] cursor-pointer items-center gap-1 rounded-md px-2.5 text-[10px] font-bold text-muted-foreground transition-colors hover:bg-muted hover:text-primary"
                   title="Ohang (Pitch Accent) grafigini ko'rish"
                 >
                   <TrendingUp size={11} />
@@ -392,8 +393,9 @@ export const CoachChatArea: React.FC<CoachChatAreaProps> = ({
               <button
                 type="button"
                 onClick={() => copyToClipboard(msg.content, idx)}
-                className="cursor-pointer rounded-md p-1 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                className="flex min-h-[44px] min-w-[44px] cursor-pointer items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
                 title="Nusxalash"
+                aria-label="Nusxalash"
               >
                 {copiedIndex === idx ? (
                   <Check size={13} className="text-emerald-500" />

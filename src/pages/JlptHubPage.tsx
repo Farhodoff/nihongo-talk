@@ -9,6 +9,7 @@ import {
   ChevronDown,
   ChevronUp,
   Sparkles,
+  BookMarked,
 } from 'lucide-react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useStudyData } from '../context/StudyPlannerContext';
@@ -33,6 +34,11 @@ const JlptWritingPage = lazyWithRetry(() =>
 );
 const JlptMockExamPage = lazyWithRetry(() =>
   import('./JlptMockExamPage').then((m) => ({ default: m.JlptMockExamPage })),
+);
+const JlptMistakeNotebook = lazyWithRetry(() =>
+  import('../components/jlpt/JlptMistakeNotebook').then((m) => ({
+    default: m.JlptMistakeNotebook,
+  })),
 );
 
 export const JlptHubPage: React.FC = () => {
@@ -88,7 +94,7 @@ export const JlptHubPage: React.FC = () => {
                 onClick={() => updateSettings({ showRomaji: !settings.showRomaji })}
                 className={`rounded-lg px-3 py-1.5 text-xs font-bold transition-all ${
                   settings.showRomaji
-                    ? 'border border-[#C9A961]/30 bg-amber-500/15 text-[#C9A961]'
+                    ? 'border border-amber-500/30 bg-amber-500/15 text-amber-600 dark:text-amber-400'
                     : 'text-muted-foreground hover:text-foreground'
                 }`}
               >
@@ -111,96 +117,187 @@ export const JlptHubPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Tabs Strip with Horizontal Smooth Scroll */}
-      <div className="no-scrollbar flex items-center gap-2 overflow-x-auto border-b border-border/80 px-1 pb-3">
-        <button
-          onClick={() => handleTabChange('lessons')}
-          className={`flex shrink-0 cursor-pointer touch-manipulation select-none items-center gap-2 whitespace-nowrap rounded-xl px-3.5 py-2.5 text-xs font-bold transition-all active:scale-95 ${
-            activeTab === 'lessons'
-              ? 'scale-[1.02] bg-primary text-primary-foreground shadow-xs'
-              : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
-          }`}
-        >
-          <Sparkles size={15} />{' '}
-          {language === 'ja' ? '📚 体系的レッスン (N5–N1)' : '📚 Darsliklar (N5–N1)'}
-        </button>
+      {/* Start-here guide: single onboarding path (Dashboard is home) */}
+      <div className="flex flex-col gap-2 rounded-2xl border border-primary/25 bg-primary/5 p-3 text-xs sm:flex-row sm:items-center sm:justify-between sm:p-4">
+        <div className="leading-relaxed text-muted-foreground">
+          <span className="font-bold text-foreground">
+            {language === 'ja' ? 'はじめに' : 'Qayerdan boshlash:'}
+          </span>{' '}
+          {language === 'ja'
+            ? '診断 → プラン → ダッシュボードの順に進めます。'
+            : '1) Diagnostika → 2) Shaxsiy reja → 3) Bosh sahifadagi bugungi tavsiya.'}
+        </div>
+        <div className="flex shrink-0 flex-wrap items-center gap-2">
+          <button
+            onClick={() => navigate('/diagnostic')}
+            className="rounded-xl bg-primary px-3 py-1.5 text-xs font-bold text-primary-foreground transition-all hover:bg-primary/90 active:scale-95"
+          >
+            1. Diagnostika
+          </button>
+          <button
+            onClick={() => navigate('/personal-plan')}
+            className="rounded-xl border border-border bg-card px-3 py-1.5 text-xs font-bold text-foreground transition-all hover:border-primary/40 active:scale-95"
+          >
+            2. Shaxsiy reja
+          </button>
+          <button
+            onClick={() => navigate('/dashboard')}
+            className="rounded-xl border border-border bg-card px-3 py-1.5 text-xs font-bold text-foreground transition-all hover:border-primary/40 active:scale-95"
+          >
+            3. Bosh sahifa
+          </button>
+        </div>
+      </div>
 
-        <button
-          onClick={() => handleTabChange('grammar')}
-          className={`flex shrink-0 cursor-pointer touch-manipulation select-none items-center gap-2 whitespace-nowrap rounded-xl px-3.5 py-2.5 text-xs font-bold transition-all active:scale-95 ${
-            activeTab === 'grammar'
-              ? 'scale-[1.02] bg-primary text-primary-foreground shadow-xs'
-              : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
-          }`}
-        >
-          <BookOpen size={15} /> {language === 'ja' ? '✍️ 文法' : '✍️ Bunpou (Grammatika)'}
-        </button>
+      {/* Reading controls for mobile — desktop header is hidden on small screens */}
+      <div className="flex items-center gap-2 md:hidden">
+        <span className="px-1 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/70">
+          {language === 'ja' ? '読み方' : "O'qish"}
+        </span>
+        <div className="flex items-center rounded-xl border border-border bg-muted/50 p-1">
+          <button
+            onClick={() => updateSettings({ showFurigana: !settings.showFurigana })}
+            aria-pressed={settings.showFurigana}
+            className={`flex min-h-[44px] items-center gap-1 rounded-lg px-3 py-1.5 text-xs font-bold transition-all ${
+              settings.showFurigana
+                ? 'bg-primary text-primary-foreground shadow-xs'
+                : 'text-muted-foreground'
+            }`}
+          >
+            <Languages size={13} />
+            <span>がな</span>
+          </button>
+          <button
+            onClick={() => updateSettings({ showRomaji: !settings.showRomaji })}
+            aria-pressed={settings.showRomaji}
+            className={`min-h-[44px] rounded-lg px-3 py-1.5 text-xs font-bold transition-all ${
+              settings.showRomaji
+                ? 'border border-amber-500/30 bg-amber-500/15 text-amber-600 dark:text-amber-400'
+                : 'text-muted-foreground'
+            }`}
+          >
+            <span>Romaji</span>
+          </button>
+        </div>
+      </div>
 
-        <button
-          onClick={() => handleTabChange('kanji')}
-          className={`flex shrink-0 cursor-pointer touch-manipulation select-none items-center gap-2 whitespace-nowrap rounded-xl px-3.5 py-2.5 text-xs font-bold transition-all active:scale-95 ${
-            activeTab === 'kanji'
-              ? 'scale-[1.02] bg-primary text-primary-foreground shadow-xs'
-              : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
-          }`}
-        >
-          <BookOpen size={15} /> {language === 'ja' ? '⛩️ 漢字' : '⛩️ Kanji'}
-        </button>
+      {/* Tabs Strip — grouped: Learn vs Practice (same tab params, no route change) */}
+      <div className="space-y-2 border-b border-border/80 px-1 pb-3">
+        <div className="px-1 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/70">
+          {language === 'ja' ? '学習 — まずここ' : "O'rganish — avval bu"}
+        </div>
+        <div className="no-scrollbar flex items-center gap-2 overflow-x-auto pb-1">
+          <button
+            onClick={() => handleTabChange('lessons')}
+            className={`flex min-h-[44px] shrink-0 cursor-pointer touch-manipulation select-none items-center gap-2 whitespace-nowrap rounded-xl px-3.5 py-2.5 text-xs font-bold transition-all active:scale-95 ${
+              activeTab === 'lessons'
+                ? 'scale-[1.02] bg-primary text-primary-foreground shadow-xs'
+                : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
+            }`}
+          >
+            <Sparkles size={15} />{' '}
+            {language === 'ja' ? '📚 体系的レッスン (N5–N1)' : '📚 Darsliklar (N5–N1)'}
+          </button>
 
-        <button
-          onClick={() => handleTabChange('goi')}
-          className={`flex shrink-0 cursor-pointer touch-manipulation select-none items-center gap-2 whitespace-nowrap rounded-xl px-3.5 py-2.5 text-xs font-bold transition-all active:scale-95 ${
-            activeTab === 'goi'
-              ? 'scale-[1.02] bg-primary text-primary-foreground shadow-xs'
-              : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
-          }`}
-        >
-          <Languages size={15} /> {language === 'ja' ? '📚 語彙' : '📚 Goi (Lug‘at)'}
-        </button>
+          <button
+            onClick={() => handleTabChange('grammar')}
+            className={`flex min-h-[44px] shrink-0 cursor-pointer touch-manipulation select-none items-center gap-2 whitespace-nowrap rounded-xl px-3.5 py-2.5 text-xs font-bold transition-all active:scale-95 ${
+              activeTab === 'grammar'
+                ? 'scale-[1.02] bg-primary text-primary-foreground shadow-xs'
+                : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
+            }`}
+          >
+            <BookOpen size={15} /> {language === 'ja' ? '✍️ 文法' : '✍️ Bunpou (Grammatika)'}
+          </button>
 
-        <button
-          onClick={() => handleTabChange('reading')}
-          className={`flex shrink-0 cursor-pointer touch-manipulation select-none items-center gap-2 whitespace-nowrap rounded-xl px-3.5 py-2.5 text-xs font-bold transition-all active:scale-95 ${
-            activeTab === 'reading'
-              ? 'scale-[1.02] bg-primary text-primary-foreground shadow-xs'
-              : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
-          }`}
-        >
-          <FileText size={15} /> {language === 'ja' ? '📖 読解' : '📖 Dokkai (O‘qish)'}
-        </button>
+          <button
+            onClick={() => handleTabChange('kanji')}
+            className={`flex min-h-[44px] shrink-0 cursor-pointer touch-manipulation select-none items-center gap-2 whitespace-nowrap rounded-xl px-3.5 py-2.5 text-xs font-bold transition-all active:scale-95 ${
+              activeTab === 'kanji'
+                ? 'scale-[1.02] bg-primary text-primary-foreground shadow-xs'
+                : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
+            }`}
+          >
+            <BookOpen size={15} /> {language === 'ja' ? '⛩️ 漢字' : '⛩️ Kanji'}
+          </button>
 
-        <button
-          onClick={() => handleTabChange('listening')}
-          className={`flex shrink-0 cursor-pointer touch-manipulation select-none items-center gap-2 whitespace-nowrap rounded-xl px-3.5 py-2.5 text-xs font-bold transition-all active:scale-95 ${
-            activeTab === 'listening'
-              ? 'scale-[1.02] bg-primary text-primary-foreground shadow-xs'
-              : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
-          }`}
-        >
-          <Headphones size={15} /> {language === 'ja' ? '🎧 聴解' : '🎧 Choukai (Tinglash)'}
-        </button>
+          <button
+            onClick={() => handleTabChange('goi')}
+            className={`flex min-h-[44px] shrink-0 cursor-pointer touch-manipulation select-none items-center gap-2 whitespace-nowrap rounded-xl px-3.5 py-2.5 text-xs font-bold transition-all active:scale-95 ${
+              activeTab === 'goi'
+                ? 'scale-[1.02] bg-primary text-primary-foreground shadow-xs'
+                : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
+            }`}
+          >
+            <Languages size={15} /> {language === 'ja' ? '📚 語彙' : '📚 Goi (Lug‘at)'}
+          </button>
+        </div>
+        <div className="px-1 pt-1 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/70">
+          {language === 'ja' ? '練習・試験 — あとで' : 'Mashq va imtihon — keyin'}
+        </div>
+        <div className="no-scrollbar flex items-center gap-2 overflow-x-auto pb-1">
+          <button
+            onClick={() => handleTabChange('reading')}
+            className={`flex min-h-[44px] shrink-0 cursor-pointer touch-manipulation select-none items-center gap-2 whitespace-nowrap rounded-xl px-3.5 py-2.5 text-xs font-bold transition-all active:scale-95 ${
+              activeTab === 'reading'
+                ? 'scale-[1.02] bg-primary text-primary-foreground shadow-xs'
+                : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
+            }`}
+          >
+            <FileText size={15} /> {language === 'ja' ? '📖 読解' : '📖 Dokkai (O‘qish)'}
+          </button>
 
-        <button
-          onClick={() => handleTabChange('writing')}
-          className={`flex shrink-0 cursor-pointer touch-manipulation select-none items-center gap-2 whitespace-nowrap rounded-xl px-3.5 py-2.5 text-xs font-bold transition-all active:scale-95 ${
-            activeTab === 'writing'
-              ? 'scale-[1.02] bg-primary text-primary-foreground shadow-xs'
-              : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
-          }`}
-        >
-          <FileText size={15} /> {language === 'ja' ? '📝 作文' : '📝 Sakubun (Insho)'}
-        </button>
+          <button
+            onClick={() => handleTabChange('listening')}
+            className={`flex min-h-[44px] shrink-0 cursor-pointer touch-manipulation select-none items-center gap-2 whitespace-nowrap rounded-xl px-3.5 py-2.5 text-xs font-bold transition-all active:scale-95 ${
+              activeTab === 'listening'
+                ? 'scale-[1.02] bg-primary text-primary-foreground shadow-xs'
+                : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
+            }`}
+          >
+            <Headphones size={15} /> {language === 'ja' ? '🎧 聴解' : '🎧 Choukai (Tinglash)'}
+          </button>
 
-        <button
-          onClick={() => handleTabChange('mock')}
-          className={`flex shrink-0 cursor-pointer touch-manipulation select-none items-center gap-2 whitespace-nowrap rounded-xl px-3.5 py-2.5 text-xs font-bold transition-all active:scale-95 ${
-            activeTab === 'mock'
-              ? 'scale-[1.02] bg-primary text-primary-foreground shadow-xs'
-              : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
-          }`}
-        >
-          <GraduationCap size={15} /> {language === 'ja' ? '🏆 JLPT模擬' : '🏆 JLPT Exam'}
-        </button>
+          <button
+            onClick={() => handleTabChange('writing')}
+            className={`flex min-h-[44px] shrink-0 cursor-pointer touch-manipulation select-none items-center gap-2 whitespace-nowrap rounded-xl px-3.5 py-2.5 text-xs font-bold transition-all active:scale-95 ${
+              activeTab === 'writing'
+                ? 'scale-[1.02] bg-primary text-primary-foreground shadow-xs'
+                : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
+            }`}
+          >
+            <FileText size={15} /> {language === 'ja' ? '📝 作文' : '📝 Sakubun (Insho)'}
+          </button>
+
+          <button
+            onClick={() => handleTabChange('mock')}
+            className={`flex min-h-[44px] shrink-0 cursor-pointer touch-manipulation select-none items-center gap-2 whitespace-nowrap rounded-xl px-3.5 py-2.5 text-xs font-bold transition-all active:scale-95 ${
+              activeTab === 'mock'
+                ? 'scale-[1.02] bg-primary text-primary-foreground shadow-xs'
+                : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
+            }`}
+          >
+            <GraduationCap size={15} /> {language === 'ja' ? '🏆 JLPT模擬' : '🏆 JLPT Exam'}
+          </button>
+
+          <button
+            onClick={() => handleTabChange('mistakes')}
+            className={`flex min-h-[44px] shrink-0 cursor-pointer touch-manipulation select-none items-center gap-2 whitespace-nowrap rounded-xl px-3.5 py-2.5 text-xs font-bold transition-all active:scale-95 ${
+              activeTab === 'mistakes'
+                ? 'scale-[1.02] bg-primary text-primary-foreground shadow-xs'
+                : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
+            }`}
+          >
+            <BookMarked size={15} /> {language === 'ja' ? '📓 弱点ノート' : '📓 Xatolar daftari'}
+          </button>
+
+          <button
+            onClick={() => navigate('/flashcards')}
+            className="flex shrink-0 cursor-pointer touch-manipulation select-none items-center gap-2 whitespace-nowrap rounded-xl border border-dashed border-border px-3.5 py-2.5 text-xs font-bold text-muted-foreground transition-all hover:border-primary/40 hover:text-foreground active:scale-95"
+          >
+            🔁 {language === 'ja' ? '復習へ' : 'Takrorlashga'}
+          </button>
+        </div>
       </div>
 
       {/* Tab Views */}
@@ -309,6 +406,13 @@ export const JlptHubPage: React.FC = () => {
         {activeTab === 'mock' && (
           <div className="animate-in fade-in">
             <JlptMockExamPage />
+          </div>
+        )}
+
+        {/* Tab 8: Xatolar Daftari (Mistake Notebook) */}
+        {activeTab === 'mistakes' && (
+          <div className="animate-in fade-in">
+            <JlptMistakeNotebook />
           </div>
         )}
       </Suspense>

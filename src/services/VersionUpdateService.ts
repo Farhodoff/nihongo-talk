@@ -70,6 +70,7 @@ export class VersionUpdateServiceClass {
    * Check /version.json with cache-busting to see if a newer deployment is live
    */
   public async checkForUpdate(): Promise<boolean> {
+    if (import.meta.env.MODE === 'development') return false;
     if (this.isChecking || this.isApplyingUpdate) return this.hasUpdate;
     this.isChecking = true;
 
@@ -161,6 +162,7 @@ export class VersionUpdateServiceClass {
    * Start background periodic monitor and event triggers
    */
   public startPeriodicCheck(intervalMs: number = 30000): void {
+    if (import.meta.env.MODE === 'development') return;
     if (this.checkIntervalId) return;
 
     // 1. Dastlabki 2 soniyadan so'ng tekshirish

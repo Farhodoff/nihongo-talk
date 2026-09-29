@@ -1,5 +1,6 @@
 import React from 'react';
-import { Play } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { LayoutGrid, Play } from 'lucide-react';
 import { LiveAmbientSphere } from './LiveAmbientSphere';
 
 import { useLanguage } from '../../context/LanguageContext';
@@ -33,6 +34,7 @@ export const CoachWelcomeScreen: React.FC<CoachWelcomeScreenProps> = ({
 }) => {
   const ActivePersonaIcon = currentPersona.icon;
   const { language } = useLanguage();
+  const navigate = useNavigate();
 
   return (
     <div className="scrollbar-hide flex flex-1 flex-col items-center justify-center overflow-y-auto px-3 py-3 text-center sm:px-4 sm:py-6">
@@ -80,6 +82,19 @@ export const CoachWelcomeScreen: React.FC<CoachWelcomeScreenProps> = ({
       <p className="mb-3 max-w-sm text-xs leading-relaxed text-muted-foreground sm:mb-6 sm:text-sm">
         {currentPersona.desc}
       </p>
+      <p className="mb-3 max-w-sm text-[11px] leading-relaxed text-muted-foreground/80 sm:mb-4 sm:text-xs">
+        {language === 'ja'
+          ? '🎙️ 開始時にマイクの許可を求められます。「許可」をタップしてください。'
+          : "🎙️ Boshlanganda brauzer mikrofon so'raydi — «Ruxsat berish» ni bosing."}
+      </p>
+
+      <button
+        onClick={() => navigate('/scenarios?lang=ja')}
+        className="mb-3 flex cursor-pointer items-center gap-2 rounded-2xl border border-primary/30 bg-primary/10 px-4 py-2.5 text-xs font-bold text-primary transition-all hover:bg-primary/20 active:scale-95"
+      >
+        <LayoutGrid size={15} />
+        <span>{language === 'ja' ? 'シナリオを選ぶ' : 'Ssenariy tanlash'}</span>
+      </button>
 
       {/* Quick Prompts — Premium Cards */}
       <div className="grid w-full max-w-lg grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-2.5">

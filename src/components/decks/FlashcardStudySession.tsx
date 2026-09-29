@@ -176,6 +176,7 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
 
   // Admin inline editing state
   const [isEditingCard, setIsEditingCard] = useState(false);
+  const [deleteArmedFor, setDeleteArmedFor] = useState<string | null>(null);
   const [editFront, setEditFront] = useState('');
   const [editBack, setEditBack] = useState('');
   const [editPhonetic, setEditPhonetic] = useState('');
@@ -402,19 +403,28 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
     onHapticThreshold: () => haptics.selection(),
   });
 
+  // Two-tap delete: first tap arms the button for 3s, second tap deletes.
+  // Avoids native window.confirm dialogs which are jarring on mobile.
   const handleDeleteCard = async (e: React.MouseEvent) => {
     e.stopPropagation();
     if (!currentCard) return;
-    if (window.confirm("Ushbu kartochkani o'chirmoqchimisiz?")) {
-      const cardToDeleteId = currentCard.id;
-      setQueue((prev) => prev.filter((c) => c.id !== cardToDeleteId));
-      if (currentCardIndex >= queue.length - 1) {
-        setIsFinished(true);
-      }
-      setIsFlipped(false);
-      await deleteFlashcard(cardToDeleteId);
-      toast({ title: "🗑️ Kartochka o'chirildi" });
+    if (deleteArmedFor !== currentCard.id) {
+      setDeleteArmedFor(currentCard.id);
+      const armedId = currentCard.id;
+      setTimeout(() => {
+        setDeleteArmedFor((prev) => (prev === armedId ? null : prev));
+      }, 3000);
+      return;
     }
+    setDeleteArmedFor(null);
+    const cardToDeleteId = currentCard.id;
+    setQueue((prev) => prev.filter((c) => c.id !== cardToDeleteId));
+    if (currentCardIndex >= queue.length - 1) {
+      setIsFinished(true);
+    }
+    setIsFlipped(false);
+    await deleteFlashcard(cardToDeleteId);
+    toast({ title: "🗑️ Kartochka o'chirildi" });
   };
 
   const handleStartEdit = (e: React.MouseEvent) => {
@@ -901,11 +911,12 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
                         : 'SRS Fleshkarta'}
                   </span>
 
-                  <div className="flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
+                  <div className="flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
                     <button
                       onClick={handleSpeak}
-                      className="cursor-pointer rounded-xl p-1.5 text-muted-foreground transition-all hover:bg-primary/10 hover:text-primary sm:p-2"
+                      className="flex min-h-[44px] min-w-[44px] cursor-pointer items-center justify-center rounded-xl p-1.5 text-muted-foreground transition-all hover:bg-primary/10 hover:text-primary sm:p-2"
                       title={isJa ? '音声再生 (TTS)' : 'Ovoz chiqarish (TTS)'}
+                      aria-label={isJa ? '音声再生 (TTS)' : 'Ovoz chiqarish (TTS)'}
                     >
                       <Volume2 size={18} className="sm:h-5 sm:w-5" />
                     </button>
@@ -914,17 +925,34 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
                       <>
                         <button
                           onClick={handleStartEdit}
-                          className="cursor-pointer rounded-xl p-1.5 text-muted-foreground transition-all hover:bg-[#C9A961]/10 hover:text-[#C9A961] sm:p-2"
+                          className="flex min-h-[44px] min-w-[44px] cursor-pointer items-center justify-center rounded-xl p-1.5 text-muted-foreground transition-all hover:bg-[#C9A961]/10 hover:text-[#C9A961] sm:p-2"
                           title={isJa ? '編集' : 'Tahrirlash'}
+                          aria-label={isJa ? '編集' : 'Tahrirlash'}
                         >
                           <Edit3 size={16} className="sm:h-[18px] sm:w-[18px]" />
                         </button>
                         <button
                           onClick={handleDeleteCard}
-                          className="cursor-pointer rounded-xl p-1.5 text-muted-foreground transition-all hover:bg-rose-500/10 hover:text-rose-500 sm:p-2"
-                          title={isJa ? '削除' : "O'chirish"}
+                          aria-label={
+                            deleteArmedFor === currentCard?.id
+                              ? isJa
+                                ? '削除の確認'
+                                : "O'chirishni tasdiqlash"
+                              : isJa
+                                ? '削除'
+                                : "O'chirish"
+                          }
+                          className={`flex min-h-[44px] cursor-pointer items-center justify-center gap-1.5 rounded-xl transition-all active:scale-95 ${
+                            deleteArmedFor === currentCard?.id
+                              ? 'min-w-[44px] bg-rose-600 px-3 text-xs font-bold text-white shadow-md'
+                              : 'min-w-[44px] p-1.5 text-muted-foreground hover:bg-rose-500/10 hover:text-rose-500 sm:p-2'
+                          }`}
                         >
-                          <Trash2 size={16} className="sm:h-[18px] sm:w-[18px]" />
+                          {deleteArmedFor === currentCard?.id ? (
+                            <span>{isJa ? '本当に削除?' : 'Aniqmi?'}</span>
+                          ) : (
+                            <Trash2 size={16} className="sm:h-[18px] sm:w-[18px]" />
+                          )}
                         </button>
                       </>
                     )}
@@ -1058,7 +1086,8 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
                 {isJa ? 'もう一度 (Again)' : 'Qayta (Again)'}
               </span>
               <span className="block text-[9px] font-semibold opacity-80 sm:text-[10px]">
-                {previewIntervals[Rating.AGAIN]} (1)
+                <span className="sm:hidden">{previewIntervals[Rating.AGAIN]}</span>
+                <span className="hidden sm:inline">{previewIntervals[Rating.AGAIN]} (1)</span>
               </span>
             </button>
 
@@ -1071,7 +1100,8 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
                 {isJa ? '難しい (Hard)' : 'Qiyin (Hard)'}
               </span>
               <span className="block text-[9px] font-semibold opacity-80 sm:text-[10px]">
-                {previewIntervals[Rating.HARD]} (2)
+                <span className="sm:hidden">{previewIntervals[Rating.HARD]}</span>
+                <span className="hidden sm:inline">{previewIntervals[Rating.HARD]} (2)</span>
               </span>
             </button>
 
@@ -1084,7 +1114,8 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
                 {isJa ? '普通 (Good)' : 'Yaxshi (Good)'}
               </span>
               <span className="block text-[9px] font-semibold opacity-80 sm:text-[10px]">
-                {previewIntervals[Rating.GOOD]} (3)
+                <span className="sm:hidden">{previewIntervals[Rating.GOOD]}</span>
+                <span className="hidden sm:inline">{previewIntervals[Rating.GOOD]} (3)</span>
               </span>
             </button>
 
@@ -1097,7 +1128,8 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
                 {isJa ? '簡単 (Easy)' : 'Oson (Easy)'}
               </span>
               <span className="block text-[9px] font-semibold opacity-80 sm:text-[10px]">
-                {previewIntervals[Rating.EASY]} (4)
+                <span className="sm:hidden">{previewIntervals[Rating.EASY]}</span>
+                <span className="hidden sm:inline">{previewIntervals[Rating.EASY]} (4)</span>
               </span>
             </button>
           </div>

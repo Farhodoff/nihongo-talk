@@ -52,6 +52,13 @@ vi.mock('../JlptMockExamPage', () => ({
   JlptMockExamPage: () => <div data-testid="jlpt-mock-exam-page">Mock Exam Page Content</div>,
 }));
 
+vi.mock('../../components/jlpt/JlptMistakeNotebook', () => ({
+  JlptMistakeNotebook: () => (
+    <div data-testid="jlpt-mistake-notebook">Mistake Notebook Content</div>
+  ),
+  default: () => <div data-testid="jlpt-mistake-notebook">Mistake Notebook Content</div>,
+}));
+
 describe('JlptHubPage', () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -74,6 +81,7 @@ describe('JlptHubPage', () => {
     expect(screen.getByText(/Choukai/i)).toBeInTheDocument();
     expect(screen.getByText(/Sakubun/i)).toBeInTheDocument();
     expect(screen.getByText(/JLPT Exam/i)).toBeInTheDocument();
+    expect(screen.getByText(/Xatolar daftari/i)).toBeInTheDocument();
   });
 
   it('renders Grammar master when tab is set to grammar', async () => {
@@ -116,5 +124,17 @@ describe('JlptHubPage', () => {
     const toggleCanvasBtn = screen.getByText(/Ochish/i);
     fireEvent.click(toggleCanvasBtn);
     expect(await screen.findByTestId('kanji-canvas-practice')).toBeInTheDocument();
+  });
+
+  it('renders Mistake Notebook when tab is set to mistakes', async () => {
+    render(
+      <MemoryRouter initialEntries={['/jlpt?tab=mistakes']}>
+        <Routes>
+          <Route path="/jlpt" element={<JlptHubPage />} />
+        </Routes>
+      </MemoryRouter>,
+    );
+
+    expect(await screen.findByTestId('jlpt-mistake-notebook')).toBeInTheDocument();
   });
 });

@@ -15,6 +15,8 @@ import {
   ShieldAlert,
   Timer,
   X,
+  LayoutGrid,
+  Flag,
 } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { HistoryService } from '../services/HistoryService';
@@ -33,6 +35,11 @@ import { useLanguage } from '../context/LanguageContext';
 import { ExamService, ExamListItem, NormalizedExam } from '../services/ExamService';
 import { JLPT_MOCK_EXAM_DATA, ExamQuestion } from '../data/jlptMockExamData';
 import { toast } from '../hooks/use-toast';
+import {
+  MistakeVaultService,
+  MistakeCategory,
+  MistakeLevel,
+} from '../services/MistakeVaultService';
 import {
   JLPT_SECTION_SPECS,
   getSectionDurationSeconds,
@@ -71,6 +78,29 @@ export const JlptMockExamPage: React.FC = () => {
   const [sectionTotalDuration, setSectionTotalDuration] = useState<number>(1200);
   const [showSectionTransitionModal, setShowSectionTransitionModal] = useState<boolean>(false);
   const examStartTimeRef = useRef<number>(Date.now());
+
+  // Interactive Question Matrix & Flagging State
+  const [flaggedQuestions, setFlaggedQuestions] = useState<Set<number>>(new Set());
+
+  const toggleFlagQuestion = (qId: number) => {
+    setFlaggedQuestions((prev) => {
+      const next = new Set(prev);
+      if (next.has(qId)) next.delete(qId);
+      else next.add(qId);
+      return next;
+    });
+  };
+
+  const scrollToQuestion = (qId: number) => {
+    const el = document.getElementById(`exam-q-${qId}`);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      el.classList.add('ring-2', 'ring-rose-500');
+      setTimeout(() => {
+        el.classList.remove('ring-2', 'ring-rose-500');
+      }, 2000);
+    }
+  };
 
   useEffect(() => {
     if (urlLevel && ['N5', 'N4', 'N3', 'N2', 'N1'].includes(urlLevel)) {
@@ -343,7 +373,43 @@ export const JlptMockExamPage: React.FC = () => {
     });
 
     // Track wrong questions for flashcard export
-    setMistakes(questionAnswers.filter((q) => !q.isCorrect));
+    const wrongAnswers = questionAnswers.filter((q) => !q.isCorrect);
+    setMistakes(wrongAnswers);
+
+    // Persist wrong questions automatically into Mistake Vault Notebook
+    try {
+      const wrongExamQuestions = levelQuestions.filter(
+        (q) => userAnswers[q.id] !== q.correctAnswer,
+      );
+      if (wrongExamQuestions.length > 0) {
+        const mapSectionToCategory = (sec: string): MistakeCategory => {
+          if (sec === 'choukai' || sec === 'listening') return 'listening';
+          if (sec === 'dokkai' || sec === 'reading') return 'reading';
+          if (sec === 'moji_goi' || sec === 'vocab') return 'vocab';
+          return 'grammar';
+        };
+
+        MistakeVaultService.recordBatch(
+          wrongExamQuestions.map((q) => ({
+            userId: user?.id,
+            source: 'mock_exam',
+            level: (level || 'N5') as MistakeLevel,
+            category: mapSectionToCategory(q.section),
+            title: `JLPT ${level} Mock — ${q.section}`,
+            questionText: q.questionText,
+            passageText: q.script || undefined,
+            audioUrl: q.audioUrl,
+            options: q.options,
+            userAnswer: userAnswers[q.id] !== undefined ? userAnswers[q.id] : -1,
+            correctAnswer: q.correctAnswer,
+            explanationUzbek: q.explanationUzbek || '',
+          })),
+          user?.id,
+        );
+      }
+    } catch (e) {
+      console.warn('Failed to record mistakes to MistakeVaultService:', e);
+    }
 
     // Calculate official JLPT score report with sectional cutoffs
     const jlptScoreReport = calculateJlptScore(level, levelQuestions, userAnswers);
@@ -902,27 +968,106 @@ export const JlptMockExamPage: React.FC = () => {
             })}
           </div>
 
+          {/* Interactive Question Grid Matrix */}
+          <div className="rounded-3xl border border-border bg-card p-4 shadow-sm sm:p-5">
+            <div className="flex flex-col justify-between gap-2 border-b border-border pb-3 sm:flex-row sm:items-center">
+              <div className="flex items-center gap-2">
+                <LayoutGrid size={16} className="text-rose-500" />
+                <h4 className="text-xs font-black text-foreground">
+                  Savollar Matritsasi ({answeredInSection} / {totalInSection} javob berildi)
+                </h4>
+              </div>
+              <div className="flex flex-wrap items-center gap-3 text-[10px] font-semibold">
+                <span className="flex items-center gap-1 text-emerald-600 dark:text-emerald-400">
+                  <span className="h-2 w-2 rounded-full bg-emerald-500"></span> Javob berilgan (
+                  {answeredInSection})
+                </span>
+                <span className="flex items-center gap-1 text-amber-600 dark:text-amber-400">
+                  <span className="h-2 w-2 rounded-full bg-amber-500"></span> Belgilangan (
+                  {
+                    [...flaggedQuestions].filter((id) =>
+                      activeSectionQuestions.some((q) => q.id === id),
+                    ).length
+                  }
+                  )
+                </span>
+                <span className="flex items-center gap-1 text-muted-foreground">
+                  <span className="h-2 w-2 rounded-full bg-muted-foreground/30"></span> Qolgan (
+                  {unansweredInSection})
+                </span>
+              </div>
+            </div>
+
+            <div className="mt-3 flex flex-wrap gap-1.5 sm:gap-2">
+              {activeSectionQuestions.map((q, idx) => {
+                const isAnswered = userAnswers[q.id] !== undefined;
+                const isFlagged = flaggedQuestions.has(q.id);
+
+                return (
+                  <button
+                    key={q.id}
+                    type="button"
+                    onClick={() => scrollToQuestion(q.id)}
+                    className={`relative flex h-8 w-8 items-center justify-center rounded-xl border text-xs font-black transition-all hover:scale-105 active:scale-95 sm:h-9 sm:w-9 ${
+                      isAnswered
+                        ? 'border-emerald-500/40 bg-emerald-500/15 text-emerald-600 shadow-xs dark:text-emerald-400'
+                        : 'border-border bg-muted/40 text-muted-foreground hover:border-primary/40 hover:bg-muted'
+                    }`}
+                  >
+                    <span>{idx + 1}</span>
+                    {isFlagged && (
+                      <span className="absolute -right-1 -top-1 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-amber-500 text-[8px] font-black text-slate-950 shadow-xs">
+                        ★
+                      </span>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
           {/* Questions area according to active section */}
           <div className="space-y-4">
             {activeSection === 'knowledge' &&
-              knowledgeQuestions.map((q) => (
+              knowledgeQuestions.map((q, idx) => (
                 <div
                   key={q.id}
-                  className="space-y-3 rounded-2xl border border-border bg-card p-5 shadow-sm"
+                  id={`exam-q-${q.id}`}
+                  className="space-y-3 rounded-2xl border border-border bg-card p-5 shadow-sm transition-all duration-300"
                 >
+                  <div className="flex items-center justify-between border-b border-border/60 pb-2">
+                    <span className="font-mono text-xs font-black text-rose-600 dark:text-rose-400">
+                      {`Q${idx + 1}`}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => toggleFlagQuestion(q.id)}
+                      className={`flex items-center gap-1 rounded-lg px-2.5 py-1 text-xs font-bold transition-all ${
+                        flaggedQuestions.has(q.id)
+                          ? 'border border-amber-500/40 bg-amber-500/15 text-amber-600 dark:text-amber-400'
+                          : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                      }`}
+                    >
+                      <Flag
+                        size={12}
+                        className={flaggedQuestions.has(q.id) ? 'fill-current' : ''}
+                      />
+                      <span>{flaggedQuestions.has(q.id) ? 'Belgilandi ⭐' : 'Belgilash'}</span>
+                    </button>
+                  </div>
                   <h4 className="font-serif text-xs font-black text-foreground">
-                    Q{q.id}. {q.questionText}
+                    {q.questionText}
                   </h4>
                   <div className="grid grid-cols-2 gap-2">
-                    {q.options.map((opt, idx) => {
-                      const isSelected = userAnswers[q.id] === idx;
+                    {q.options.map((opt, optIdx) => {
+                      const isSelected = userAnswers[q.id] === optIdx;
                       const isOptionDisabled =
                         examMode === 'official_timed' && sealedSections.includes('knowledge');
                       return (
                         <button
-                          key={idx}
+                          key={optIdx}
                           disabled={isOptionDisabled}
-                          onClick={() => handleOptionSelect(q.id, idx)}
+                          onClick={() => handleOptionSelect(q.id, optIdx)}
                           className={`rounded-xl border p-3 text-center text-xs font-bold transition-all ${
                             isSelected
                               ? 'border-rose-500 bg-rose-500/20 text-rose-600 dark:text-rose-400'
@@ -938,30 +1083,57 @@ export const JlptMockExamPage: React.FC = () => {
               ))}
 
             {activeSection === 'reading' &&
-              readingQuestions.map((q) => (
-                <div key={q.id} className="grid grid-cols-1 gap-6 md:grid-cols-2">
+              readingQuestions.map((q, idx) => (
+                <div
+                  key={q.id}
+                  id={`exam-q-${q.id}`}
+                  className="grid grid-cols-1 gap-6 transition-all duration-300 md:grid-cols-2"
+                >
                   <div className="h-fit rounded-3xl border border-border bg-card p-6 shadow-sm">
-                    <h4 className="mb-2 text-xs font-extrabold text-foreground">
-                      読解 (Reading Passage)
-                    </h4>
+                    <div className="mb-3 flex items-center justify-between border-b border-border/60 pb-2">
+                      <h4 className="text-xs font-extrabold text-foreground">
+                        読解 (Reading Passage)
+                      </h4>
+                      <span className="font-mono text-xs font-black text-rose-600 dark:text-rose-400">
+                        {`Q${idx + 1}`}
+                      </span>
+                    </div>
                     <p className="whitespace-pre-wrap font-serif text-xs leading-relaxed text-muted-foreground">
                       {q.passageText}
                     </p>
                   </div>
                   <div className="h-fit space-y-3 rounded-2xl border border-border bg-card p-5 shadow-sm">
+                    <div className="flex items-center justify-between border-b border-border/60 pb-2">
+                      <span className="font-serif text-xs font-black text-foreground">Savol:</span>
+                      <button
+                        type="button"
+                        onClick={() => toggleFlagQuestion(q.id)}
+                        className={`flex items-center gap-1 rounded-lg px-2.5 py-1 text-xs font-bold transition-all ${
+                          flaggedQuestions.has(q.id)
+                            ? 'border border-amber-500/40 bg-amber-500/15 text-amber-600 dark:text-amber-400'
+                            : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                        }`}
+                      >
+                        <Flag
+                          size={12}
+                          className={flaggedQuestions.has(q.id) ? 'fill-current' : ''}
+                        />
+                        <span>{flaggedQuestions.has(q.id) ? 'Belgilandi ⭐' : 'Belgilash'}</span>
+                      </button>
+                    </div>
                     <h4 className="font-serif text-xs font-black text-foreground">
-                      Q{q.id}. {q.questionText}
+                      {q.questionText}
                     </h4>
                     <div className="space-y-2">
-                      {q.options.map((opt, idx) => {
-                        const isSelected = userAnswers[q.id] === idx;
+                      {q.options.map((opt, optIdx) => {
+                        const isSelected = userAnswers[q.id] === optIdx;
                         const isOptionDisabled =
                           examMode === 'official_timed' && sealedSections.includes('reading');
                         return (
                           <button
-                            key={idx}
+                            key={optIdx}
                             disabled={isOptionDisabled}
-                            onClick={() => handleOptionSelect(q.id, idx)}
+                            onClick={() => handleOptionSelect(q.id, optIdx)}
                             className={`flex w-full items-center justify-between rounded-xl border p-3 text-left text-xs font-bold transition-all ${
                               isSelected
                                 ? 'border-rose-500 bg-rose-500/20 text-rose-600 dark:text-rose-400'
@@ -979,21 +1151,44 @@ export const JlptMockExamPage: React.FC = () => {
               ))}
 
             {activeSection === 'listening' &&
-              listeningQuestions.map((q) => (
+              listeningQuestions.map((q, idx) => (
                 <div
                   key={q.id}
-                  className="space-y-4 rounded-2xl border border-border bg-card p-5 shadow-sm"
+                  id={`exam-q-${q.id}`}
+                  className="space-y-4 rounded-2xl border border-border bg-card p-5 shadow-sm transition-all duration-300"
                 >
                   <div className="flex items-center justify-between border-b border-border pb-3">
-                    <h4 className="text-xs font-black text-foreground">
-                      聴解 (Listening Question)
-                    </h4>
-                    <button
-                      onClick={() => handlePlayAudio(q.audioUrl, q.script)}
-                      className="flex cursor-pointer items-center gap-1.5 rounded-xl bg-rose-500 px-3 py-1.5 text-xs font-extrabold text-white shadow transition-all hover:bg-rose-600"
-                    >
-                      <Volume2 size={15} /> {isPlaying ? "Audio to'xtatish" : 'Audio eshitish'} 🎧
-                    </button>
+                    <div className="flex items-center gap-2">
+                      <span className="font-mono text-xs font-black text-rose-600 dark:text-rose-400">
+                        {`Q${idx + 1}`}
+                      </span>
+                      <h4 className="text-xs font-black text-foreground">
+                        聴解 (Listening Question)
+                      </h4>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() => toggleFlagQuestion(q.id)}
+                        className={`flex items-center gap-1 rounded-lg px-2.5 py-1 text-xs font-bold transition-all ${
+                          flaggedQuestions.has(q.id)
+                            ? 'border border-amber-500/40 bg-amber-500/15 text-amber-600 dark:text-amber-400'
+                            : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                        }`}
+                      >
+                        <Flag
+                          size={12}
+                          className={flaggedQuestions.has(q.id) ? 'fill-current' : ''}
+                        />
+                        <span>{flaggedQuestions.has(q.id) ? 'Belgilandi ⭐' : 'Belgilash'}</span>
+                      </button>
+                      <button
+                        onClick={() => handlePlayAudio(q.audioUrl, q.script)}
+                        className="flex cursor-pointer items-center gap-1.5 rounded-xl bg-rose-500 px-3 py-1.5 text-xs font-extrabold text-white shadow transition-all hover:bg-rose-600"
+                      >
+                        <Volume2 size={15} /> {isPlaying ? "Audio to'xtatish" : 'Audio eshitish'} 🎧
+                      </button>
+                    </div>
                   </div>
 
                   <div className="space-y-3">
@@ -1001,15 +1196,15 @@ export const JlptMockExamPage: React.FC = () => {
                       {q.questionText}
                     </h4>
                     <div className="grid grid-cols-2 gap-2">
-                      {q.options.map((opt, idx) => {
-                        const isSelected = userAnswers[q.id] === idx;
+                      {q.options.map((opt, optIdx) => {
+                        const isSelected = userAnswers[q.id] === optIdx;
                         const isOptionDisabled =
                           examMode === 'official_timed' && sealedSections.includes('listening');
                         return (
                           <button
-                            key={idx}
+                            key={optIdx}
                             disabled={isOptionDisabled}
-                            onClick={() => handleOptionSelect(q.id, idx)}
+                            onClick={() => handleOptionSelect(q.id, optIdx)}
                             className={`rounded-xl border p-3 text-center text-xs font-bold transition-all ${
                               isSelected
                                 ? 'border-rose-500 bg-rose-500/20 text-rose-600 dark:text-rose-400'

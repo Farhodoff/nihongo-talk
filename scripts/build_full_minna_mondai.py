@@ -1571,8 +1571,8 @@ with open('src/data/curriculum/minnaMondaiListeningData.ts', 'w', encoding='utf-
     f.write(ts_code)
 print("Wrote src/data/curriculum/minnaMondaiListeningData.ts")
 
-# 2. Update src/data/curriculum/levels/minnaN5Lessons.json
-with open('src/data/curriculum/levels/minnaN5Lessons.json', 'r', encoding='utf-8') as f:
+# 2. Update src/data/curriculum/levels/n5/minnaLessons.json
+with open('src/data/curriculum/levels/n5/minnaLessons.json', 'r', encoding='utf-8') as f:
     lessons = json.load(f)
 
 for lesson in lessons:
@@ -1597,12 +1597,12 @@ for lesson in lessons:
         }
         lesson['steps'].append(step4)
 
-with open('src/data/curriculum/levels/minnaN5Lessons.json', 'w', encoding='utf-8') as f:
+with open('src/data/curriculum/levels/n5/minnaLessons.json', 'w', encoding='utf-8') as f:
     json.dump(lessons, f, ensure_ascii=False, indent=2)
-print(f"Updated {len(lessons)} lessons in src/data/curriculum/levels/minnaN5Lessons.json with Step 4!")
+print(f"Updated {len(lessons)} lessons in src/data/curriculum/levels/n5/minnaLessons.json with Step 4!")
 
-# 3. Update src/data/curriculum/levels/minnaN5QuizDatabase.json
-with open('src/data/curriculum/levels/minnaN5QuizDatabase.json', 'r', encoding='utf-8') as f:
+# 3. Update src/data/curriculum/levels/n5/minnaQuizDatabase.json
+with open('src/data/curriculum/levels/n5/minnaQuizDatabase.json', 'r', encoding='utf-8') as f:
     quiz_db = json.load(f)
 
 for l_num_str, qset in quiz_db.items():
@@ -1610,13 +1610,13 @@ for l_num_str, qset in quiz_db.items():
     if l_num in MINNA_MONDAI_DATA:
         qset['mondaiListening'] = MINNA_MONDAI_DATA[l_num]['questions']
 
-with open('src/data/curriculum/levels/minnaN5QuizDatabase.json', 'w', encoding='utf-8') as f:
+with open('src/data/curriculum/levels/n5/minnaQuizDatabase.json', 'w', encoding='utf-8') as f:
     json.dump(quiz_db, f, ensure_ascii=False, indent=2)
-print("Updated src/data/curriculum/levels/minnaN5QuizDatabase.json with mondaiListening!")
+print("Updated src/data/curriculum/levels/n5/minnaQuizDatabase.json with mondaiListening!")
 
 # 4. Update src/data/curriculum/minnaN5QuizDatabase.ts
 quiz_ts = """import { PracticeExercise, TestQuestion } from '../../types/lesson';
-import rawData from './levels/minnaN5QuizDatabase.json';
+import rawData from './levels/n5/minnaQuizDatabase.json';
 
 export interface LessonQuizSet {
   practice: PracticeExercise[];

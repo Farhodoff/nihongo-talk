@@ -7,6 +7,7 @@ export interface JlptLevelBenchmark {
   vocabTarget: number;
   kanjiTarget: number;
   grammarTarget: number;
+  readingTarget: number; // passages
   listeningTarget: number;
   speakingTarget: number;
 }
@@ -19,6 +20,7 @@ export const JLPT_BENCHMARKS: Record<JlptLevel, JlptLevelBenchmark> = {
     vocabTarget: 800,
     kanjiTarget: 100,
     grammarTarget: 40,
+    readingTarget: 8,
     listeningTarget: 10,
     speakingTarget: 5,
   },
@@ -29,6 +31,7 @@ export const JLPT_BENCHMARKS: Record<JlptLevel, JlptLevelBenchmark> = {
     vocabTarget: 1500,
     kanjiTarget: 300,
     grammarTarget: 80,
+    readingTarget: 12,
     listeningTarget: 15,
     speakingTarget: 10,
   },
@@ -39,6 +42,7 @@ export const JLPT_BENCHMARKS: Record<JlptLevel, JlptLevelBenchmark> = {
     vocabTarget: 3750,
     kanjiTarget: 650,
     grammarTarget: 140,
+    readingTarget: 18,
     listeningTarget: 20,
     speakingTarget: 15,
   },
@@ -49,6 +53,7 @@ export const JLPT_BENCHMARKS: Record<JlptLevel, JlptLevelBenchmark> = {
     vocabTarget: 6000,
     kanjiTarget: 1000,
     grammarTarget: 200,
+    readingTarget: 24,
     listeningTarget: 25,
     speakingTarget: 20,
   },
@@ -59,6 +64,7 @@ export const JLPT_BENCHMARKS: Record<JlptLevel, JlptLevelBenchmark> = {
     vocabTarget: 10000,
     kanjiTarget: 2000,
     grammarTarget: 300,
+    readingTarget: 30,
     listeningTarget: 30,
     speakingTarget: 25,
   },
@@ -69,15 +75,21 @@ export interface UserSkillStats {
   vocabRetentionRate?: number; // 0-100
   kanjiCount: number;
   grammarMasteredCount: number;
+  readingCompletedCount?: number;
+  readingAccuracy?: number; // 0-100
   listeningCompletedCount: number;
   listeningAccuracy?: number; // 0-100
   speakingSessionsCount: number;
   speakingFluencyScore?: number; // 0-10
   mockExamHighestScore?: number; // 0-180
+  unresolvedMistakesCount?: number;
+  mistakesByCategory?: Partial<
+    Record<'grammar' | 'kanji' | 'vocab' | 'reading' | 'listening', number>
+  >;
 }
 
 export interface SkillPillarScore {
-  key: 'vocabulary' | 'kanji' | 'grammar' | 'listening' | 'speaking';
+  key: 'vocabulary' | 'kanji' | 'grammar' | 'reading' | 'listening' | 'speaking' | 'moji_goi';
   name: { uz: string; ja: string; en: string };
   shortName: string;
   score: number; // 0-100 normalized
@@ -99,11 +111,14 @@ export interface JlptReadinessReport {
   overallReadiness: number; // 0-100 percentage
   projectedScore: number; // 0-180
   passMark: number;
+  passThresholdRatio: number; // e.g. 0.444 for N5
   passProbability: number; // 0-100
   isProjectedToPass: boolean;
   hasSectionalFailureRisk: boolean;
-  radarData: { subject: string; score: number; fullMark: number }[];
-  pillars: SkillPillarScore[];
+  radarData: { subject: string; score: number; fullMark: number }[]; // 5-item radar (backwards compatible)
+  radarData4: { subject: string; score: number; fullMark: number }[]; // 4-item radar (official JLPT)
+  pillars: SkillPillarScore[]; // 5 pillars
+  fourPillars: SkillPillarScore[]; // 4 pillars
   sections: {
     gengoChishiki: SectionalScoreEstimate;
     dokkai: SectionalScoreEstimate;
@@ -111,6 +126,7 @@ export interface JlptReadinessReport {
   };
   weakestPillar: SkillPillarScore;
   actionableRecommendation: { uz: string; ja: string; en: string };
+  unresolvedMistakesCount: number;
 }
 
 export class JlptReadinessService {
@@ -120,29 +136,54 @@ export class JlptReadinessService {
   static calculateReadiness(stats: UserSkillStats, level: JlptLevel = 'N5'): JlptReadinessReport {
     const benchmark = JLPT_BENCHMARKS[level] || JLPT_BENCHMARKS.N5;
 
+    // Unresolved mistake penalties per category (deductions from skill scores, max 12 points per skill)
+    const mistakePenalty = (cat: 'grammar' | 'kanji' | 'vocab' | 'reading' | 'listening') => {
+      const count = stats.mistakesByCategory?.[cat] ?? 0;
+      return Math.min(12, count * 2);
+    };
+
     // 1. Calculate normalized 0-100 score per skill pillar
     // Vocabulary (Tango)
     const vocabRatio = Math.min(1.2, stats.vocabCount / benchmark.vocabTarget);
     const vocabRetention = (stats.vocabRetentionRate ?? 80) / 100;
-    const vocabScore = Math.min(100, Math.round(vocabRatio * vocabRetention * 100));
+    const rawVocabScore = Math.min(100, Math.round(vocabRatio * vocabRetention * 100));
+    const vocabScore = Math.max(0, rawVocabScore - mistakePenalty('vocab'));
 
     // Kanji (Strokes & Recognition)
     const kanjiRatio = Math.min(1.2, stats.kanjiCount / benchmark.kanjiTarget);
-    const kanjiScore = Math.min(100, Math.round(kanjiRatio * 100));
+    const rawKanjiScore = Math.min(100, Math.round(kanjiRatio * 100));
+    const kanjiScore = Math.max(0, rawKanjiScore - mistakePenalty('kanji'));
 
     // Grammar (Bunpou)
     const grammarRatio = Math.min(1.2, stats.grammarMasteredCount / benchmark.grammarTarget);
-    const grammarScore = Math.min(100, Math.round(grammarRatio * 100));
+    const rawGrammarScore = Math.min(100, Math.round(grammarRatio * 100));
+    const grammarScore = Math.max(0, rawGrammarScore - mistakePenalty('grammar'));
+
+    // Reading (Dokkai)
+    const hasRealReading =
+      stats.readingCompletedCount !== undefined && stats.readingCompletedCount > 0;
+    const readingRatio = hasRealReading
+      ? Math.min(1.2, stats.readingCompletedCount! / benchmark.readingTarget)
+      : Math.min(1.2, (grammarScore * 0.6 + vocabScore * 0.4) / 100);
+    const readingAcc = (stats.readingAccuracy ?? 75) / 100;
+    const rawReadingScore = hasRealReading
+      ? Math.min(100, Math.round(readingRatio * readingAcc * 100))
+      : Math.round(grammarScore * 0.6 + vocabScore * 0.4);
+    const readingScore = Math.max(0, rawReadingScore - mistakePenalty('reading'));
 
     // Listening (Choukai)
     const listeningRatio = Math.min(1.2, stats.listeningCompletedCount / benchmark.listeningTarget);
     const listeningAcc = (stats.listeningAccuracy ?? 75) / 100;
-    const listeningScore = Math.min(100, Math.round(listeningRatio * listeningAcc * 100));
+    const rawListeningScore = Math.min(100, Math.round(listeningRatio * listeningAcc * 100));
+    const listeningScore = Math.max(0, rawListeningScore - mistakePenalty('listening'));
 
     // Speaking / Pronunciation (Kaiwa / Pitch)
     const speakingRatio = Math.min(1.2, stats.speakingSessionsCount / benchmark.speakingTarget);
     const fluencyAcc = Math.min(1, (stats.speakingFluencyScore ?? 7.0) / 10);
     const speakingScore = Math.min(100, Math.round(speakingRatio * fluencyAcc * 100));
+
+    // Moji-Goi (Combined Vocabulary & Kanji for 4-pillar model)
+    const mojiGoiScore = Math.min(100, Math.round(vocabScore * 0.6 + kanjiScore * 0.4));
 
     const getStatus = (score: number): 'beginner' | 'developing' | 'proficient' | 'mastered' => {
       if (score >= 85) return 'mastered';
@@ -151,6 +192,7 @@ export class JlptReadinessService {
       return 'beginner';
     };
 
+    // 5-Pillar breakdown (Tango, Kanji, Bunpou, Choukai, Kaiwa) for backwards compatibility & holistic practice
     const pillars: SkillPillarScore[] = [
       {
         key: 'vocabulary',
@@ -199,6 +241,46 @@ export class JlptReadinessService {
       },
     ];
 
+    // Official 4-Pillar breakdown (Moji-Goi, Bunpou, Dokkai, Choukai)
+    const fourPillars: SkillPillarScore[] = [
+      {
+        key: 'moji_goi',
+        name: { uz: "Moji-Goi (So'z & Kanji)", ja: '文字・語彙', en: 'Vocabulary & Kanji' },
+        shortName: '文字・語彙 (Moji-Goi)',
+        score: mojiGoiScore,
+        currentCount: stats.vocabCount + stats.kanjiCount,
+        targetCount: benchmark.vocabTarget + benchmark.kanjiTarget,
+        status: getStatus(mojiGoiScore),
+      },
+      {
+        key: 'grammar',
+        name: { uz: 'Bunpou (Grammatika)', ja: '文法・構文', en: 'Grammar' },
+        shortName: '文法 (Bunpou)',
+        score: grammarScore,
+        currentCount: stats.grammarMasteredCount,
+        targetCount: benchmark.grammarTarget,
+        status: getStatus(grammarScore),
+      },
+      {
+        key: 'reading',
+        name: { uz: "Dokkai (O'qib Tushunish)", ja: '読解・長文', en: 'Reading Comprehension' },
+        shortName: '読解 (Dokkai)',
+        score: readingScore,
+        currentCount: stats.readingCompletedCount ?? 0,
+        targetCount: benchmark.readingTarget,
+        status: getStatus(readingScore),
+      },
+      {
+        key: 'listening',
+        name: { uz: 'Choukai (Tinglash)', ja: '聴解・リスニング', en: 'Listening' },
+        shortName: '聴解 (Choukai)',
+        score: listeningScore,
+        currentCount: stats.listeningCompletedCount,
+        targetCount: benchmark.listeningTarget,
+        status: getStatus(listeningScore),
+      },
+    ];
+
     // Weakest pillar
     const sortedPillars = [...pillars].sort((a, b) => a.score - b.score);
     const weakestPillar = sortedPillars[0];
@@ -210,11 +292,16 @@ export class JlptReadinessService {
       Math.round(((vocabScore * 0.5 + kanjiScore * 0.25 + grammarScore * 0.25) / 100) * 60),
     );
 
-    // Section 2: Reading (Dokkai) = Grammar (60%) + Vocab (40%)
-    const dokkaiScore = Math.min(
-      60,
-      Math.round(((grammarScore * 0.6 + vocabScore * 0.4) / 100) * 60),
-    );
+    // Section 2: Reading (Dokkai)
+    // If real reading passages completed, blend them with grammar/vocab baseline
+    const dokkaiScore = hasRealReading
+      ? Math.min(
+          60,
+          Math.round(
+            ((readingScore * 0.7 + (grammarScore * 0.6 + vocabScore * 0.4) * 0.3) / 100) * 60,
+          ),
+        )
+      : Math.min(60, Math.round(((grammarScore * 0.6 + vocabScore * 0.4) / 100) * 60));
 
     // Section 3: Listening (Choukai) = Listening (80%) + Speaking/Pitch (20%)
     const choukaiScore = Math.min(
@@ -295,6 +382,20 @@ export class JlptReadinessService {
       fullMark: 100,
     }));
 
+    const radarData4 = fourPillars.map((p) => ({
+      subject: p.shortName,
+      score: p.score,
+      fullMark: 100,
+    }));
+
+    const passThresholdRatio = Math.round((benchmark.passMark / 180) * 1000) / 1000;
+
+    const unresolvedMistakesCount =
+      stats.unresolvedMistakesCount ??
+      (stats.mistakesByCategory
+        ? Object.values(stats.mistakesByCategory).reduce((acc, n) => acc + (n || 0), 0)
+        : 0);
+
     // 6. Actionable Recommendation
     let actionableRecommendation = {
       uz: `JLPT ${level} imtihoniga tayyorgarlik darajangiz yuqori! Rasmiy Mock Exam sinovidan o'ting.`,
@@ -322,6 +423,12 @@ export class JlptReadinessService {
           en: 'Caution: Language Knowledge score is near the cutoff! Prioritize kanji strokes and vocabulary flashcards.',
         };
       }
+    } else if (unresolvedMistakesCount >= 5) {
+      actionableRecommendation = {
+        uz: `Xatolar daftarchangizda ${unresolvedMistakesCount} ta xato to'plangan! Xatolarni tuzatmaslik imtihon ballingizni pasaytiradi.`,
+        ja: `間違いノートに未復習の誤答が${unresolvedMistakesCount}件あります！早めの復習を推奨します。`,
+        en: `You have ${unresolvedMistakesCount} unresolved mistakes in your vault! Review them to boost your exam score.`,
+      };
     } else if (weakestPillar.score < 50) {
       actionableRecommendation = {
         uz: `Eng zaif bo'g'iningiz: ${weakestPillar.name.uz} (${weakestPillar.score}%). Ushbu soha bo'yicha kunlik mashg'ulotlarni ko'paytiring.`,
@@ -335,11 +442,14 @@ export class JlptReadinessService {
       overallReadiness,
       projectedScore,
       passMark: benchmark.passMark,
+      passThresholdRatio,
       passProbability,
       isProjectedToPass,
       hasSectionalFailureRisk,
       radarData,
+      radarData4,
       pillars,
+      fourPillars,
       sections: {
         gengoChishiki: gengoSection,
         dokkai: dokkaiSection,
@@ -347,6 +457,7 @@ export class JlptReadinessService {
       },
       weakestPillar,
       actionableRecommendation,
+      unresolvedMistakesCount,
     };
   }
 }

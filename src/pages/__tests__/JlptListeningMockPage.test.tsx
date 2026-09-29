@@ -120,4 +120,75 @@ describe('JlptListeningMockPage Component Tests', () => {
 
     expect(screen.getByText(/Savol 2 \//i)).toBeInTheDocument();
   });
+
+  it('supports speed pills, 5-second jumps, and loop toggle in audio controls', () => {
+    render(
+      <MemoryRouter initialEntries={['/listening?level=N5']}>
+        <JlptListeningMockPage />
+      </MemoryRouter>,
+    );
+
+    const startBtn = screen.getByRole('button', { name: /Boshlash/i });
+    fireEvent.click(startBtn);
+
+    // Verify speed pills: 0.8x, 1.0x, 1.2x, 1.5x
+    const speedPill08 = screen.getByRole('button', { name: /0\.8x/i });
+    const speedPill12 = screen.getByRole('button', { name: /1\.2x/i });
+    const speedPill15 = screen.getByRole('button', { name: /1\.5x/i });
+
+    expect(speedPill08).toBeInTheDocument();
+    expect(speedPill12).toBeInTheDocument();
+    expect(speedPill15).toBeInTheDocument();
+
+    // Click 1.5x speed
+    fireEvent.click(speedPill15);
+    expect(speedPill15.className).toContain('bg-rose-500');
+
+    // Verify 5-second jump buttons
+    const rewind5s = screen.getByTitle(/5 soniya orqaga/i);
+    const forward5s = screen.getByTitle(/5 soniya oldinga/i);
+    expect(rewind5s).toBeInTheDocument();
+    expect(forward5s).toBeInTheDocument();
+
+    fireEvent.click(forward5s);
+    fireEvent.click(rewind5s);
+
+    // Verify Loop toggle
+    const loopBtn = screen.getByRole('button', { name: /Loop/i });
+    expect(loopBtn).toBeInTheDocument();
+    fireEvent.click(loopBtn);
+    expect(screen.getByText(/Loop ON/i)).toBeInTheDocument();
+  });
+
+  it('supports Furigana mode toggling (ON, Hover, OFF) on synchronized subtitles', () => {
+    render(
+      <MemoryRouter initialEntries={['/listening?level=N5']}>
+        <JlptListeningMockPage />
+      </MemoryRouter>,
+    );
+
+    const startBtn = screen.getByRole('button', { name: /Boshlash/i });
+    fireEvent.click(startBtn);
+
+    // Toggle script visibility
+    const scriptToggleBtn = screen.getByTitle("Audio skriptni ko'rsatish/yashirish");
+    fireEvent.click(scriptToggleBtn);
+
+    // Verify Furigana toggle pills
+    const furiganaOn = screen.getByRole('button', { name: /振 ON/i });
+    const furiganaHover = screen.getByRole('button', { name: /👁️ Hover/i });
+    const furiganaOff = screen.getByRole('button', { name: /🚫 OFF/i });
+
+    expect(furiganaOn).toBeInTheDocument();
+    expect(furiganaHover).toBeInTheDocument();
+    expect(furiganaOff).toBeInTheDocument();
+
+    // Switch to Furigana Always ON
+    fireEvent.click(furiganaOn);
+    expect(furiganaOn.className).toContain('bg-rose-500');
+
+    // Switch to Furigana OFF
+    fireEvent.click(furiganaOff);
+    expect(furiganaOff.className).toContain('bg-rose-500');
+  }, 15000);
 });

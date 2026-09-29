@@ -163,8 +163,7 @@ export const KanjiCanvasPractice: React.FC = () => {
 
     canvas.width = displaySize * dpr;
     canvas.height = displaySize * dpr;
-    canvas.style.width = `${displaySize}px`;
-    canvas.style.height = `${displaySize}px`;
+    // CSS size comes from responsive classes; internal space stays 300 units.
 
     const ctx = canvas.getContext('2d');
     if (ctx) {
@@ -210,9 +209,12 @@ export const KanjiCanvasPractice: React.FC = () => {
     const rect = canvas.getBoundingClientRect();
     const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
     const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
+    // Normalize to the internal 300-unit drawing space regardless of CSS size.
+    const scaleX = 300 / (rect.width || 300);
+    const scaleY = 300 / (rect.height || 300);
     return {
-      x: clientX - rect.left,
-      y: clientY - rect.top,
+      x: (clientX - rect.left) * scaleX,
+      y: (clientY - rect.top) * scaleY,
     };
   };
 
@@ -400,7 +402,7 @@ export const KanjiCanvasPractice: React.FC = () => {
         {/* Left Column: Canvas Practice & Stroke Order (7 cols) */}
         <div className="flex flex-col items-center space-y-4 lg:col-span-7">
           {/* Canvas Box with Grid & Guide Overlay */}
-          <div className="relative h-[300px] w-[300px] select-none overflow-hidden rounded-3xl border-2 border-border bg-card shadow-inner">
+          <div className="relative aspect-square w-full max-w-[340px] select-none overflow-hidden rounded-3xl border-2 border-border bg-card shadow-inner">
             {/* Background Ghost / Tracing Template */}
             {practiceMode === 'ghost' && (
               <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-15">
@@ -488,7 +490,7 @@ export const KanjiCanvasPractice: React.FC = () => {
               onTouchStart={startDrawing}
               onTouchMove={draw}
               onTouchEnd={stopDrawing}
-              className="absolute inset-0 block h-[300px] w-[300px] cursor-crosshair touch-none"
+              className="absolute inset-0 block h-full w-full cursor-crosshair touch-none"
             />
           </div>
 

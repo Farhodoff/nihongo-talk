@@ -13828,5 +13828,3526 @@
     "example": "閉店前のセールで全品二割引で購入することができた。 (Do'kon yopilishidan oldingi arzonlashtirishda barcha tovarlarni 20% arzon sotib oldim.)",
     "category": "Vocabulary",
     "level": "N3"
+  },
+  {
+    "front": "愛情",
+    "back": "Mehr, muhabbat, sevgi",
+    "phonetic": "あいじょう - aijou",
+    "example": "深い愛情を注ぐ。",
+    "level": "N3"
+  },
+  {
+    "front": "憧れる",
+    "back": "Havas qilmoq, intilmoq",
+    "phonetic": "あこがれる - akogareru",
+    "example": "日本の大学生活に憧れる。",
+    "level": "N3"
+  },
+  {
+    "front": "味わう",
+    "back": "Tatib ko'rmoq, bahra olmoq",
+    "phonetic": "あじわう - ajiwau",
+    "example": "伝統料理をじっくり味わう。",
+    "level": "N3"
+  },
+  {
+    "front": "預かる",
+    "back": "Omonat saqlab turmoq, qabul qilmoq",
+    "phonetic": "あずかる - azukaru",
+    "example": "荷物をフロントで預かってもらう。",
+    "level": "N3"
+  },
+  {
+    "front": "焦る",
+    "back": "Shoshmoq, dovdiramoq, bezovtalanmoq",
+    "phonetic": "あせる - aseru",
+    "example": "焦らずに落ち着いて行動してください。",
+    "level": "N3"
+  },
+  {
+    "front": "暴れる",
+    "back": "To'polon qilmoq, g'alva ko'tarmoq",
+    "phonetic": "あばれる - abareru",
+    "example": "酒を飲んで暴れるのは迷惑だ。",
+    "level": "N3"
+  },
+  {
+    "front": "誤り",
+    "back": "Xato, yanglishish",
+    "phonetic": "あやまり - ayamari",
+    "example": "計算の誤りに気づいた。",
+    "level": "N3"
+  },
+  {
+    "front": "争う",
+    "back": "Tortishmoq, bahslashmoq, bellashmoq",
+    "phonetic": "あらそう - arasou",
+    "example": "優勝を争う熱い戦い。",
+    "level": "N3"
+  },
+  {
+    "front": "改める",
+    "back": "O'zgartirmoq, yangilamoq, tuzatmoq",
+    "phonetic": "あらためる - aratameru",
+    "example": "態度を改める必要がある。",
+    "level": "N3"
+  },
+  {
+    "front": "威張る",
+    "back": "Kekkaymoq, maqtanmoq, o'zini ko'rsatmoq",
+    "phonetic": "いばる - ibaru",
+    "example": "先輩だからといって威張ってはいけない。",
+    "level": "N3"
+  },
+  {
+    "front": "引退",
+    "back": "Iste'foga chiqish, nafaqaga ketish",
+    "phonetic": "いんたい - intai",
+    "example": "現役を引退することを決意した。",
+    "level": "N3"
+  },
+  {
+    "front": "ミックス (する)",
+    "back": "aralashtirmoq, miks qilmoq",
+    "phonetic": "みっくす - mikkusu (suru)",
+    "example": "数種類のフルーツをミキサーでミックスしてジュースを作った。",
+    "level": "N3"
+  },
+  {
+    "front": "メール (する)",
+    "back": "elektron xat (yozmoq), email jo'natmoq",
+    "phonetic": "めーる - meeru (suru)",
+    "example": "詳しい資料を添付して先生にメールしました。",
+    "level": "N3"
+  },
+  {
+    "front": "メモ (する)",
+    "back": "qayd, eslatma (yozib olmoq)",
+    "phonetic": "めも - memo (suru)",
+    "example": "忘れないように大切な約束を手帳にメモしておいた。",
+    "level": "N3"
+  },
+  {
+    "front": "リサイクル (する)",
+    "back": "qayta ishlash, qayta ishlamoq",
+    "phonetic": "りさいくる - risaikuru (suru)",
+    "example": "ペットボトルや缶は資源ゴミとして回収してリサイクルされる。",
+    "level": "N3"
+  },
+  {
+    "front": "ロック (する)",
+    "back": "qulflamoq, qulf; rok musiqasi",
+    "phonetic": "ろっく - rokku (suru)",
+    "example": "車から離れるときは必ずドアをロックしてください。",
+    "level": "N3"
+  },
+  {
+    "front": "明日 (あす)",
+    "back": "ertaga (rasmiy nutq ohangida)",
+    "phonetic": "あす - asu",
+    "example": "あすの午前十時に貴社へお伺いいたします。",
+    "level": "N3"
+  },
+  {
+    "front": "私 (わたくし)",
+    "back": "kamina, men (o'ta rasmiy kamtarona olmosh)",
+    "phonetic": "わたくし - watakushi",
+    "example": "本日の司会を務めさせていただきます私、田中でございます。",
+    "level": "N3"
+  },
+  {
+    "front": "チラシ",
+    "back": "Reklama varaqasi, flayer",
+    "phonetic": "チラシ - chirashi",
+    "example": "チラシを見ました。",
+    "level": "N3"
+  },
+  {
+    "front": "ホームページ",
+    "back": "Veb-sayt, bosh sahifa",
+    "phonetic": "ホームページ - hōmupēji",
+    "example": "ホームページを見ます。",
+    "level": "N3"
+  },
+  {
+    "front": "学生証",
+    "back": "Talabalik guvohnomasi",
+    "phonetic": "がくせいしょう - gakuseishō",
+    "example": "学生証を見せます。",
+    "level": "N3"
+  },
+  {
+    "front": "履歴書",
+    "back": "Rezyume, CV",
+    "phonetic": "りれきしょ - rirekisho",
+    "example": "履歴書を書きます。",
+    "level": "N3"
+  },
+  {
+    "front": "希望する",
+    "back": "Istamoq, xohlamoq",
+    "phonetic": "きぼうする - kibō suru",
+    "example": "東京で働くことを希望します。",
+    "level": "N3"
+  },
+  {
+    "front": "募集する",
+    "back": "Ishchi qidirmoq,募集 qilmoq",
+    "phonetic": "ぼしゅうする - boshū suru",
+    "example": "会社が社員を募集しています。",
+    "level": "N3"
+  },
+  {
+    "front": "入力する",
+    "back": "Ma'lumot kiritmoq",
+    "phonetic": "にゅうりょくする - nyūryoku suru",
+    "example": "名前を入力します。",
+    "level": "N3"
+  },
+  {
+    "front": "それでは",
+    "back": "Unda, yaxshi unda",
+    "phonetic": "それでは - soredewa",
+    "example": "それでは、始めましょう。",
+    "level": "N3"
+  },
+  {
+    "front": "申します",
+    "back": "Ismim..., deb atalaman (kamtarlik shakli)",
+    "phonetic": "もうします - mōshimasu",
+    "example": "田中と申します。",
+    "level": "N3"
+  },
+  {
+    "front": "参ります",
+    "back": "Bormoq, kelmoq (kamtarlik shakli)",
+    "phonetic": "まいります - mairimasu",
+    "example": "明日、会社へ参ります。",
+    "level": "N3"
+  },
+  {
+    "front": "少々お待ちください",
+    "back": "Iltimos, biroz kuting",
+    "phonetic": "しょうしょうおまちください - shōshō omachi kudasai",
+    "example": "少々お待ちください。",
+    "level": "N3"
+  },
+  {
+    "front": "お先に失礼します",
+    "back": "Sizdan oldin ketayotganim uchun uzr",
+    "phonetic": "おさきにしつれいします - osaki ni shitsurei shimasu",
+    "example": "お先に失礼します。",
+    "level": "N3"
+  },
+  {
+    "front": "こちらへどうぞ",
+    "back": "Bu yoqqa marhamat",
+    "phonetic": "こちらへどうぞ - kochira e dōzo",
+    "example": "こちらへどうぞ。",
+    "level": "N3"
+  },
+  {
+    "front": "よろしくお願いいたします",
+    "back": "Siz bilan yaxshi hamkorlik qilishni kutaman",
+    "phonetic": "よろしくおねがいいたします - yoroshiku onegai itashimasu",
+    "example": "よろしくお願いいたします。",
+    "level": "N3"
+  },
+  {
+    "front": "歴史",
+    "back": "Tarix",
+    "phonetic": "れきし - rekishi",
+    "example": "日本の歴史を勉強します。",
+    "level": "N3"
+  },
+  {
+    "front": "お年寄り",
+    "back": "Keksa odam, qariya",
+    "phonetic": "おとしより - otoshiyori",
+    "example": "お年寄りに親切にします。",
+    "level": "N3"
+  },
+  {
+    "front": "言葉",
+    "back": "So'z, til, ibora",
+    "phonetic": "ことば - kotoba",
+    "example": "この言葉の意味は何ですか。",
+    "level": "N3"
+  },
+  {
+    "front": "自分",
+    "back": "O'zi, o'z",
+    "phonetic": "じぶん - jibun",
+    "example": "自分でします。",
+    "level": "N3"
+  },
+  {
+    "front": "話",
+    "back": "Suhbat, gap, hikoya",
+    "phonetic": "はなし - hanashi",
+    "example": "友達と話をしました。",
+    "level": "N3"
+  },
+  {
+    "front": "野外ライブ",
+    "back": "Ochiq havodagi jonli konsert",
+    "phonetic": "やがいライブ - yagai raibu",
+    "example": "野外ライブに行きました。",
+    "level": "N3"
+  },
+  {
+    "front": "～個",
+    "back": "Dona uchun hisob so'zi",
+    "phonetic": "～こ - ~ko",
+    "example": "りんごを三個買いました。",
+    "level": "N3"
+  },
+  {
+    "front": "応援する",
+    "back": "Qo'llab-quvvatlamoq, dalda bermoq",
+    "phonetic": "おうえんする - ōen suru",
+    "example": "友達を応援します。",
+    "level": "N3"
+  },
+  {
+    "front": "サイクリングする",
+    "back": "Velosiped haydamoq",
+    "phonetic": "サイクリングする - saikuringu suru",
+    "example": "週末にサイクリングします。",
+    "level": "N3"
+  },
+  {
+    "front": "遅い",
+    "back": "Sekin, kech",
+    "phonetic": "おそい - osoi",
+    "example": "この車は遅いです。",
+    "level": "N3"
+  },
+  {
+    "front": "速い",
+    "back": "Tez",
+    "phonetic": "はやい - hayai",
+    "example": "この電車は速いです。",
+    "level": "N3"
+  },
+  {
+    "front": "つまらない",
+    "back": "Zerikarli",
+    "phonetic": "つまらない - tsumaranai",
+    "example": "この映画はつまらないです。",
+    "level": "N3"
+  },
+  {
+    "front": "得意",
+    "back": "Yaxshi bilmoq, mohir bo'lmoq",
+    "phonetic": "とくい - tokui",
+    "example": "私は料理が得意です。",
+    "level": "N3"
+  },
+  {
+    "front": "苦手",
+    "back": "Yaxshi emas, qiynalmoq",
+    "phonetic": "にがて - nigate",
+    "example": "私は英語が苦手です。",
+    "level": "N3"
+  },
+  {
+    "front": "朝早く",
+    "back": "Ertalab juda erta",
+    "phonetic": "あさはやく - asa hayaku",
+    "example": "朝早く起きます。",
+    "level": "N3"
+  },
+  {
+    "front": "もう一度聞こう",
+    "back": "Yana bir marta eshitaylik",
+    "phonetic": "もういちどきこう - mō ichido kikō",
+    "example": "もう一度聞きましょう。",
+    "level": "N3"
+  },
+  {
+    "front": "字幕",
+    "back": "Subtitr",
+    "phonetic": "じまく - jimaku",
+    "example": "字幕を見ます。",
+    "level": "N3"
+  },
+  {
+    "front": "大好き",
+    "back": "Juda yaxshi ko'rmoq",
+    "phonetic": "だいすき - daisuki",
+    "example": "日本料理が大好きです。",
+    "level": "N3"
+  },
+  {
+    "front": "まず",
+    "back": "Avvalo, birinchi navbatda",
+    "phonetic": "まず - mazu",
+    "example": "まず勉強しましょう。",
+    "level": "N3"
+  },
+  {
+    "front": "恥ずかしい",
+    "back": "Uyalmok, noqulay his qilmoq",
+    "phonetic": "はずかしい - hazukashii",
+    "example": "ちょっと恥ずかしいです。",
+    "level": "N3"
+  },
+  {
+    "front": "次",
+    "back": "Keyingi, navbatdagi",
+    "phonetic": "つぎ - tsugi",
+    "example": "次は私です。",
+    "level": "N3"
+  },
+  {
+    "front": "うれしい",
+    "back": "Xursand, mamnun",
+    "phonetic": "うれしい - ureshii",
+    "example": "プレゼントをもらって、うれしいです。",
+    "level": "N3"
+  },
+  {
+    "front": "画面",
+    "back": "Ekran",
+    "phonetic": "がめん - gamen",
+    "example": "画面を見てください。",
+    "level": "N3"
+  },
+  {
+    "front": "セーター",
+    "back": "Sviter",
+    "phonetic": "セーター - sētā",
+    "example": "このセーターが好きです。",
+    "level": "N3"
+  },
+  {
+    "front": "スーツケース",
+    "back": "Chamadon",
+    "phonetic": "スーツケース - sūtsukēsu",
+    "example": "スーツケースを持っています。",
+    "level": "N3"
+  },
+  {
+    "front": "コート",
+    "back": "Palto",
+    "phonetic": "コート - kōto",
+    "example": "コートを着ます。",
+    "level": "N3"
+  },
+  {
+    "front": "指輪",
+    "back": "Uzuk",
+    "phonetic": "ゆびわ - yubiwa",
+    "example": "指輪を買いました。",
+    "level": "N3"
+  },
+  {
+    "front": "サイズ",
+    "back": "O'lcham, razmer",
+    "phonetic": "サイズ - saizu",
+    "example": "このサイズは大きいです。",
+    "level": "N3"
+  },
+  {
+    "front": "ヒール",
+    "back": "Poshna",
+    "phonetic": "ヒール - hīru",
+    "example": "この靴はヒールが高いです。",
+    "level": "N3"
+  },
+  {
+    "front": "ボタン",
+    "back": "Tugma",
+    "phonetic": "ボタン - botan",
+    "example": "ボタンを押してください。",
+    "level": "N3"
+  },
+  {
+    "front": "ジーンズ",
+    "back": "Jinsi shim",
+    "phonetic": "ジーンズ - jīnzu",
+    "example": "ジーンズをはいています。",
+    "level": "N3"
+  },
+  {
+    "front": "動く",
+    "back": "Harakatlanmoq",
+    "phonetic": "うごく - ugoku",
+    "example": "時計が動いています。",
+    "level": "N3"
+  },
+  {
+    "front": "説明する",
+    "back": "Tushuntirmoq",
+    "phonetic": "せつめいする - setsumei suru",
+    "example": "店員が説明します。",
+    "level": "N3"
+  },
+  {
+    "front": "配達する",
+    "back": "Yetkazib bermoq",
+    "phonetic": "はいたつする - haitatsu suru",
+    "example": "荷物を配達します。",
+    "level": "N3"
+  },
+  {
+    "front": "重い",
+    "back": "Og'ir",
+    "phonetic": "おもい - omoi",
+    "example": "このかばんは重いです。",
+    "level": "N3"
+  },
+  {
+    "front": "ちょうどいい",
+    "back": "Aynan mos, juda yaxshi mos keladigan",
+    "phonetic": "ちょうどいい - chōdo ii",
+    "example": "このサイズはちょうどいいです。",
+    "level": "N3"
+  },
+  {
+    "front": "丈夫",
+    "back": "Mustahkam, chidamli",
+    "phonetic": "じょうぶ - jōbu",
+    "example": "このかばんは丈夫です。",
+    "level": "N3"
+  },
+  {
+    "front": "もっと",
+    "back": "Yana, ko'proq",
+    "phonetic": "もっと - motto",
+    "example": "もっと大きいのがほしいです。",
+    "level": "N3"
+  },
+  {
+    "front": "もっと大きいかばんがほしいです。",
+    "back": "Kattaroq sumka xohlayman.",
+    "phonetic": "もっと大きいかばんがほしいです。 - motto ōkii kaban ga hoshii desu",
+    "example": "もっと大きいかばんがほしいです。",
+    "level": "N3"
+  },
+  {
+    "front": "いかがですか",
+    "back": "Qanday? Yoqdimi?",
+    "phonetic": "いかがですか - ikaga desu ka",
+    "example": "この靴はいかがですか。",
+    "level": "N3"
+  },
+  {
+    "front": "かしこまりました",
+    "back": "Tushundim, xo'p bo'ladi (kamtarlik shakli)",
+    "phonetic": "かしこまりました - kashikomarimashita",
+    "example": "はい、かしこまりました。",
+    "level": "N3"
+  },
+  {
+    "front": "カレンダー",
+    "back": "Kalendar",
+    "phonetic": "カレンダー - karendā",
+    "example": "カレンダーを見ます。",
+    "level": "N3"
+  },
+  {
+    "front": "世界地図",
+    "back": "Dunyo xaritasi",
+    "phonetic": "せかいちず - sekai chizu",
+    "example": "世界地図を見ます。",
+    "level": "N3"
+  },
+  {
+    "front": "最新",
+    "back": "Eng yangi, so'nggi",
+    "phonetic": "さいしん - saishin",
+    "example": "これは最新のモデルです。",
+    "level": "N3"
+  },
+  {
+    "front": "飲み放題",
+    "back": "Cheksiz ichimlik",
+    "phonetic": "のみほうだい - nomihōdai",
+    "example": "ここは飲み放題です。",
+    "level": "N3"
+  },
+  {
+    "front": "期間限定",
+    "back": "Cheklangan muddat, vaqtinchalik",
+    "phonetic": "きかんげんてい - kikan gentei",
+    "example": "これは期間限定です。",
+    "level": "N3"
+  },
+  {
+    "front": "セット",
+    "back": "Set, to'plam",
+    "phonetic": "セット - setto",
+    "example": "セットを注文します。",
+    "level": "N3"
+  },
+  {
+    "front": "フロアガイド",
+    "back": "Qavatlar xaritasi, yo'nalish ko'rsatmasi",
+    "phonetic": "フロアガイド - furoa gaido",
+    "example": "フロアガイドを見ます。",
+    "level": "N3"
+  },
+  {
+    "front": "営業中",
+    "back": "Ochiq, ishlayotgan",
+    "phonetic": "えいぎょうちゅう - eigyōchū",
+    "example": "店は営業中です。",
+    "level": "N3"
+  },
+  {
+    "front": "大盛り",
+    "back": "Katta porsiya",
+    "phonetic": "おおもり - ōmori",
+    "example": "ご飯を大盛りにします。",
+    "level": "N3"
+  },
+  {
+    "front": "おかわり",
+    "back": "Qo'shimcha porsiya, yana olish",
+    "phonetic": "おかわり - okawari",
+    "example": "ご飯をおかわりします。",
+    "level": "N3"
+  },
+  {
+    "front": "タイムサービス",
+    "back": "Qisqa muddatli aksiya",
+    "phonetic": "タイムサービス - taimu sābisu",
+    "example": "今、タイムサービスです。",
+    "level": "N3"
+  },
+  {
+    "front": "半額",
+    "back": "Yarim narx",
+    "phonetic": "はんがく - hangaku",
+    "example": "今日は半額です。",
+    "level": "N3"
+  },
+  {
+    "front": "レディースデー",
+    "back": "Ayollar kuni",
+    "phonetic": "レディースデー - redīsu dē",
+    "example": "今日はレディースデーです。",
+    "level": "N3"
+  },
+  {
+    "front": "親子丼",
+    "back": "Tovuq va tuxumli guruchli taom",
+    "phonetic": "おやこどん - oyakodon",
+    "example": "親子丼を食べます。",
+    "level": "N3"
+  },
+  {
+    "front": "牛丼",
+    "back": "Mol go'shtli guruchli taom",
+    "phonetic": "ぎゅうどん - gyūdon",
+    "example": "牛丼を食べました。",
+    "level": "N3"
+  },
+  {
+    "front": "サンドイッチ",
+    "back": "Sendvich",
+    "phonetic": "サンドイッチ - sandoicchi",
+    "example": "サンドイッチを食べます。",
+    "level": "N3"
+  },
+  {
+    "front": "ソース",
+    "back": "Sous",
+    "phonetic": "ソース - sōsu",
+    "example": "ソースをかけます。",
+    "level": "N3"
+  },
+  {
+    "front": "～券",
+    "back": "Chipta, kupon",
+    "phonetic": "～けん - ~ken",
+    "example": "割引券を使います。",
+    "level": "N3"
+  },
+  {
+    "front": "かける",
+    "back": "Ilmoq, osmoq; ustiga solmoq",
+    "phonetic": "かける - kakeru",
+    "example": "カレンダーをかけます。",
+    "level": "N3"
+  },
+  {
+    "front": "注文する",
+    "back": "Buyurtma bermoq",
+    "phonetic": "ちゅうもんする - chūmon suru",
+    "example": "ラーメンを注文します。",
+    "level": "N3"
+  },
+  {
+    "front": "割引する",
+    "back": "Chegirma qilmoq",
+    "phonetic": "わりびきする - waribiki suru",
+    "example": "今日は割引します。",
+    "level": "N3"
+  },
+  {
+    "front": "両替する",
+    "back": "Pulni maydalamoq, valyuta almashtirmoq",
+    "phonetic": "りょうがえする - ryōgae suru",
+    "example": "お金を両替します。",
+    "level": "N3"
+  },
+  {
+    "front": "得",
+    "back": "Foydali, tejamli, manfaatli",
+    "phonetic": "とく - toku",
+    "example": "このセットは得です。",
+    "level": "N3"
+  },
+  {
+    "front": "特別",
+    "back": "Maxsus, alohida",
+    "phonetic": "とくべつ - tokubetsu",
+    "example": "今日は特別な日です。",
+    "level": "N3"
+  },
+  {
+    "front": "どういう",
+    "back": "Qanday, qanday turdagi",
+    "phonetic": "どういう - dō iu",
+    "example": "どういう意味ですか。",
+    "level": "N3"
+  },
+  {
+    "front": "もう",
+    "back": "Yana, boshqa; allaqachon",
+    "phonetic": "もう - mō",
+    "example": "もう一つください。",
+    "level": "N3"
+  },
+  {
+    "front": "もう一杯",
+    "back": "Yana bir stakan/kosa",
+    "phonetic": "もういっぱい - mō ippai",
+    "example": "もう一杯ください。",
+    "level": "N3"
+  },
+  {
+    "front": "大変",
+    "back": "Juda, nihoyatda; qiyin",
+    "phonetic": "たいへん - taihen",
+    "example": "今日は大変です。",
+    "level": "N3"
+  },
+  {
+    "front": "デザート",
+    "back": "Desert",
+    "phonetic": "デザート - dezāto",
+    "example": "デザートを食べます。",
+    "level": "N3"
+  },
+  {
+    "front": "サークル",
+    "back": "Klub, guruh",
+    "phonetic": "サークル - sākuru",
+    "example": "大学のサークルに入ります。",
+    "level": "N3"
+  },
+  {
+    "front": "見学会",
+    "back": "Tanishuv tashrifi, kuzatuv ekskursiyasi",
+    "phonetic": "けんがくかい - kengakukai",
+    "example": "学校の見学会に行きます。",
+    "level": "N3"
+  },
+  {
+    "front": "学部",
+    "back": "Fakultet, akademik bo'lim",
+    "phonetic": "がくぶ - gakubu",
+    "example": "私は工学部です。",
+    "level": "N3"
+  },
+  {
+    "front": "法律",
+    "back": "Qonun, huquq",
+    "phonetic": "ほうりつ - hōritsu",
+    "example": "法律を勉強しています。",
+    "level": "N3"
+  },
+  {
+    "front": "カナダ",
+    "back": "Kanada",
+    "phonetic": "カナダ - Kanada",
+    "example": "カナダに行きたいです。",
+    "level": "N3"
+  },
+  {
+    "front": "聴解",
+    "back": "Tinglab tushunish",
+    "phonetic": "ちょうかい - chōkai",
+    "example": "聴解の練習をします。",
+    "level": "N3"
+  },
+  {
+    "front": "アクセサリー",
+    "back": "Aksessuar",
+    "phonetic": "アクセサリー - akusesarī",
+    "example": "アクセサリーを買いました。",
+    "level": "N3"
+  },
+  {
+    "front": "答え",
+    "back": "Javob",
+    "phonetic": "こたえ - kotae",
+    "example": "答えを書きます。",
+    "level": "N3"
+  },
+  {
+    "front": "ビジネス",
+    "back": "Biznes, ish faoliyati",
+    "phonetic": "ビジネス - bijinesu",
+    "example": "ビジネスを勉強します。",
+    "level": "N3"
+  },
+  {
+    "front": "日本語能力試験",
+    "back": "Yapon tili darajasini aniqlash imtihoni (JLPT)",
+    "phonetic": "にほんごのうりょくしけん - nihongo nōryoku shiken",
+    "example": "日本語能力試験を受けます。",
+    "level": "N3"
+  },
+  {
+    "front": "間違い",
+    "back": "Xato, adashish",
+    "phonetic": "まちがい - machigai",
+    "example": "これは間違いです。",
+    "level": "N3"
+  },
+  {
+    "front": "寮",
+    "back": "Talabalar yotoqxonasi",
+    "phonetic": "りょう - ryō",
+    "example": "寮に住んでいます。",
+    "level": "N3"
+  },
+  {
+    "front": "～料",
+    "back": "To'lov, haq",
+    "phonetic": "～りょう - ~ryō",
+    "example": "授業料を払います。",
+    "level": "N3"
+  },
+  {
+    "front": "翻訳する",
+    "back": "Tarjima qilmoq",
+    "phonetic": "ほんやくする - honyaku suru",
+    "example": "日本語を翻訳します。",
+    "level": "N3"
+  },
+  {
+    "front": "見学する",
+    "back": "Borib ko'rmoq, kuzatmoq",
+    "phonetic": "けんがくする - kengaku suru",
+    "example": "学校を見学します。",
+    "level": "N3"
+  },
+  {
+    "front": "相談する",
+    "back": "Maslahatlashmoq",
+    "phonetic": "そうだんする - sōdan suru",
+    "example": "先生に相談します。",
+    "level": "N3"
+  },
+  {
+    "front": "貯金する",
+    "back": "Pul jamg'armoq",
+    "phonetic": "ちょきんする - chokin suru",
+    "example": "毎月、貯金します。",
+    "level": "N3"
+  },
+  {
+    "front": "留学する",
+    "back": "Chet elda o'qimoq",
+    "phonetic": "りゅうがくする - ryūgaku suru",
+    "example": "日本に留学したいです。",
+    "level": "N3"
+  },
+  {
+    "front": "開く",
+    "back": "Ochmoq",
+    "phonetic": "ひらく - hiraku",
+    "example": "店を開きます。",
+    "level": "N3"
+  },
+  {
+    "front": "自分の店を開く",
+    "back": "O'z do'konini ochmoq",
+    "phonetic": "じぶんのみせをひらく - jibun no mise o hiraku",
+    "example": "将来、自分の店を開きたいです。",
+    "level": "N3"
+  },
+  {
+    "front": "続ける",
+    "back": "Davom ettirmoq",
+    "phonetic": "つづける - tsuzukeru",
+    "example": "日本語の勉強を続けます。",
+    "level": "N3"
+  },
+  {
+    "front": "やめる",
+    "back": "To'xtatmoq, tashlamoq",
+    "phonetic": "やめる - yameru",
+    "example": "仕事をやめます。",
+    "level": "N3"
+  },
+  {
+    "front": "案内する",
+    "back": "Yo'l ko'rsatmoq, yo'naltirmoq",
+    "phonetic": "あんないする - annai suru",
+    "example": "駅まで案内します。",
+    "level": "N3"
+  },
+  {
+    "front": "進学する",
+    "back": "Keyingi bosqichda o'qishni davom ettirmoq",
+    "phonetic": "しんがくする - shingaku suru",
+    "example": "大学に進学します。",
+    "level": "N3"
+  },
+  {
+    "front": "通学する",
+    "back": "Maktab yoki universitetga qatnab o'qimoq",
+    "phonetic": "つうがくする - tsūgaku suru",
+    "example": "毎日、電車で通学します。",
+    "level": "N3"
+  },
+  {
+    "front": "考える",
+    "back": "O'ylamoq, o'ylab ko'rmoq",
+    "phonetic": "かんがえる - kangaeru",
+    "example": "将来について考えます。",
+    "level": "N3"
+  },
+  {
+    "front": "合格する",
+    "back": "Imtihondan o'tmoq",
+    "phonetic": "ごうかくする - gōkaku suru",
+    "example": "試験に合格しました。",
+    "level": "N3"
+  },
+  {
+    "front": "専攻する",
+    "back": "Mutaxassislik bo'yicha o'qimoq",
+    "phonetic": "せんこうする - senkō suru",
+    "example": "情報工学を専攻しています。",
+    "level": "N3"
+  },
+  {
+    "front": "就職する",
+    "back": "Ishga joylashmoq",
+    "phonetic": "しゅうしょくする - shūshoku suru",
+    "example": "日本で就職したいです。",
+    "level": "N3"
+  },
+  {
+    "front": "確認する",
+    "back": "Tekshirmoq, tasdiqlamoq",
+    "phonetic": "かくにんする - kakunin suru",
+    "example": "もう一度確認します。",
+    "level": "N3"
+  },
+  {
+    "front": "正しい",
+    "back": "To'g'ri",
+    "phonetic": "ただしい - tadashii",
+    "example": "この答えは正しいです。",
+    "level": "N3"
+  },
+  {
+    "front": "建築家",
+    "back": "Arxitektor",
+    "phonetic": "けんちくか - kenchikuka",
+    "example": "建築家になりたいです。",
+    "level": "N3"
+  },
+  {
+    "front": "デザイナー",
+    "back": "Dizayner",
+    "phonetic": "デザイナー - dezainā",
+    "example": "デザイナーになりたいです。",
+    "level": "N3"
+  },
+  {
+    "front": "スーツ",
+    "back": "Kostyum",
+    "phonetic": "スーツ - sūtsu",
+    "example": "スーツを着ます。",
+    "level": "N3"
+  },
+  {
+    "front": "願書",
+    "back": "Ariza, hujjat shakli",
+    "phonetic": "がんしょ - gansho",
+    "example": "願書を書きます。",
+    "level": "N3"
+  },
+  {
+    "front": "～中",
+    "back": "Davomida, ichida",
+    "phonetic": "～じゅう - ~jū",
+    "example": "今日中に終わります。",
+    "level": "N3"
+  },
+  {
+    "front": "経営する",
+    "back": "Boshqarmoq, biznes yuritmoq",
+    "phonetic": "けいえいする - keiei suru",
+    "example": "店を経営しています。",
+    "level": "N3"
+  },
+  {
+    "front": "体験する",
+    "back": "Tajriba orttirmoq, boshdan kechirmoq",
+    "phonetic": "たいけんする - taiken suru",
+    "example": "日本の生活を体験します。",
+    "level": "N3"
+  },
+  {
+    "front": "スピーチする",
+    "back": "Nutq so'zlamoq",
+    "phonetic": "スピーチする - supīchi suru",
+    "example": "みんなの前でスピーチします。",
+    "level": "N3"
+  },
+  {
+    "front": "受験する",
+    "back": "Imtihon topshirmoq",
+    "phonetic": "じゅけんする - juken suru",
+    "example": "大学を受験します。",
+    "level": "N3"
+  },
+  {
+    "front": "復習する",
+    "back": "Takrorlamoq, darsni qayta ko'rib chiqmoq",
+    "phonetic": "ふくしゅうする - fukushū suru",
+    "example": "毎日、復習します。",
+    "level": "N3"
+  },
+  {
+    "front": "予習する",
+    "back": "Darsga oldindan tayyorlanmoq",
+    "phonetic": "よしゅうする - yoshū suru",
+    "example": "授業の前に予習します。",
+    "level": "N3"
+  },
+  {
+    "front": "デッサンする",
+    "back": "Rasm eskizini chizmoq",
+    "phonetic": "デッサンする - dessan suru",
+    "example": "毎日、デッサンします。",
+    "level": "N3"
+  },
+  {
+    "front": "パティシエ",
+    "back": "Qandolatchi, pastry chef",
+    "phonetic": "パティシエ - patishie",
+    "example": "パティシエになりたいです。",
+    "level": "N3"
+  },
+  {
+    "front": "タコ",
+    "back": "Ahtapot",
+    "phonetic": "タコ - tako",
+    "example": "タコを食べます。",
+    "level": "N3"
+  },
+  {
+    "front": "たこ焼き",
+    "back": "Takoyaki, ahtapotli yapon taomi",
+    "phonetic": "たこやき - takoyaki",
+    "example": "たこ焼きを食べます。",
+    "level": "N3"
+  },
+  {
+    "front": "におい",
+    "back": "Hid, is",
+    "phonetic": "におい - nioi",
+    "example": "いいにおいがします。",
+    "level": "N3"
+  },
+  {
+    "front": "～がする",
+    "back": "Hid yoki tovush sezilmoq",
+    "phonetic": "～がする - ~ga suru",
+    "example": "いいにおいがします。",
+    "level": "N3"
+  },
+  {
+    "front": "小さな",
+    "back": "Kichkina",
+    "phonetic": "ちいさな - chiisana",
+    "example": "小さな店があります。",
+    "level": "N3"
+  },
+  {
+    "front": "生活を楽しむ",
+    "back": "Hayotdan zavqlanmoq",
+    "phonetic": "せいかつをたのしむ - seikatsu o tanoshimu",
+    "example": "日本の生活を楽しんでいます。",
+    "level": "N3"
+  },
+  {
+    "front": "歯科",
+    "back": "Tish shifokori, stomatologiya",
+    "phonetic": "しか - shika",
+    "example": "歯科へ行きます。",
+    "level": "N3"
+  },
+  {
+    "front": "三味線",
+    "back": "Shamisen, yapon musiqa asbobi",
+    "phonetic": "しゃみせん - shamisen",
+    "example": "三味線を聞きました。",
+    "level": "N3"
+  },
+  {
+    "front": "水道",
+    "back": "Suv ta'minoti, kran suvi",
+    "phonetic": "すいどう - suidō",
+    "example": "水道の水を飲みます。",
+    "level": "N3"
+  },
+  {
+    "front": "てんぷら",
+    "back": "Tempura",
+    "phonetic": "てんぷら - tenpura",
+    "example": "てんぷらを食べました。",
+    "level": "N3"
+  },
+  {
+    "front": "交流会",
+    "back": "Madaniy almashinuv uchrashuvi",
+    "phonetic": "こうりゅうかい - kōryūkai",
+    "example": "交流会に参加します。",
+    "level": "N3"
+  },
+  {
+    "front": "小学校",
+    "back": "Boshlang'ich maktab",
+    "phonetic": "しょうがっこう - shōgakkō",
+    "example": "弟は小学校に通っています。",
+    "level": "N3"
+  },
+  {
+    "front": "タオル",
+    "back": "Sochiq",
+    "phonetic": "タオル - taoru",
+    "example": "タオルを使います。",
+    "level": "N3"
+  },
+  {
+    "front": "茶道",
+    "back": "Choy marosimi",
+    "phonetic": "さどう - sadō",
+    "example": "茶道を勉強しています。",
+    "level": "N3"
+  },
+  {
+    "front": "センター",
+    "back": "Markaz",
+    "phonetic": "センター - sentā",
+    "example": "センターへ行きます。",
+    "level": "N3"
+  },
+  {
+    "front": "～場",
+    "back": "Joy, maydon",
+    "phonetic": "～じょう - ~jō",
+    "example": "サッカー場へ行きます。",
+    "level": "N3"
+  },
+  {
+    "front": "～口",
+    "back": "Kirish yoki chiqish joyi",
+    "phonetic": "～ぐち - ~guchi",
+    "example": "西口で会いましょう。",
+    "level": "N3"
+  },
+  {
+    "front": "かかる",
+    "back": "Vaqt ketmoq, sarflanmoq",
+    "phonetic": "かかる - kakaru",
+    "example": "駅まで10分かかります。",
+    "level": "N3"
+  },
+  {
+    "front": "質問する",
+    "back": "Savol bermoq",
+    "phonetic": "しつもんする - shitsumon suru",
+    "example": "先生に質問します。",
+    "level": "N3"
+  },
+  {
+    "front": "カットする",
+    "back": "Soch kestirmoq, kesmoq",
+    "phonetic": "カットする - katto suru",
+    "example": "髪をカットします。",
+    "level": "N3"
+  },
+  {
+    "front": "紹介する",
+    "back": "Tanishtirmoq",
+    "phonetic": "しょうかいする - shōkai suru",
+    "example": "友達を紹介します。",
+    "level": "N3"
+  },
+  {
+    "front": "修理する",
+    "back": "Ta'mirlamoq",
+    "phonetic": "しゅうりする - shūri suru",
+    "example": "自転車を修理します。",
+    "level": "N3"
+  },
+  {
+    "front": "知らせる",
+    "back": "Xabar bermoq, bildirmoq",
+    "phonetic": "しらせる - shiraseru",
+    "example": "友達に知らせます。",
+    "level": "N3"
+  },
+  {
+    "front": "出る",
+    "back": "Chiqmoq; qatnamoq",
+    "phonetic": "でる - deru",
+    "example": "バスが出ます。",
+    "level": "N3"
+  },
+  {
+    "front": "利用する",
+    "back": "Foydalanmoq",
+    "phonetic": "りようする - riyō suru",
+    "example": "このサービスを利用します。",
+    "level": "N3"
+  },
+  {
+    "front": "必要",
+    "back": "Kerakli, zarur",
+    "phonetic": "ひつよう - hitsuyō",
+    "example": "パスポートが必要です。",
+    "level": "N3"
+  },
+  {
+    "front": "行き方を教える",
+    "back": "Qanday borishni tushuntirmoq",
+    "phonetic": "いきかたをおしえる - ikikata o oshieru",
+    "example": "駅への行き方を教えてください。",
+    "level": "N3"
+  },
+  {
+    "front": "大使館",
+    "back": "Elchixona",
+    "phonetic": "たいしかん - taishikan",
+    "example": "大使館へ行きます。",
+    "level": "N3"
+  },
+  {
+    "front": "メートル",
+    "back": "Metr",
+    "phonetic": "メートル - mētoru",
+    "example": "駅は100メートル先です。",
+    "level": "N3"
+  },
+  {
+    "front": "～階建て",
+    "back": "~ qavatli bino",
+    "phonetic": "～かいだて - ~kaidate",
+    "example": "この建物は4階建てです。",
+    "level": "N3"
+  },
+  {
+    "front": "～番線",
+    "back": "~-raqamli poyezd yoki metro liniyasi platformasi",
+    "phonetic": "～ばんせん - ~bansen",
+    "example": "3番線で待ってください。",
+    "level": "N3"
+  },
+  {
+    "front": "～行き",
+    "back": "~ tomon ketadigan, ~ yo'nalishidagi",
+    "phonetic": "～ゆき - ~yuki",
+    "example": "新宿行きの電車です。",
+    "level": "N3"
+  },
+  {
+    "front": "上る",
+    "back": "Yuqoriga ko'tarilmoq",
+    "phonetic": "のぼる - noboru",
+    "example": "坂を上ります。",
+    "level": "N3"
+  },
+  {
+    "front": "下りる",
+    "back": "Pastga tushmoq",
+    "phonetic": "おりる - oriru",
+    "example": "坂を下ります。",
+    "level": "N3"
+  },
+  {
+    "front": "駐車する",
+    "back": "Avtomobilni park qilmoq",
+    "phonetic": "ちゅうしゃする - chūsha suru",
+    "example": "ここに車を駐車します。",
+    "level": "N3"
+  },
+  {
+    "front": "中学校",
+    "back": "O'rta maktab",
+    "phonetic": "ちゅうがっこう - chūgakkō",
+    "example": "弟は中学校に通っています。",
+    "level": "N3"
+  },
+  {
+    "front": "びっくり",
+    "back": "Hayrat, ajablanish",
+    "phonetic": "びっくり - bikkuri",
+    "example": "びっくりしました。",
+    "level": "N3"
+  },
+  {
+    "front": "本当に",
+    "back": "Haqiqatan ham, rostdan",
+    "phonetic": "ほんとうに - hontō ni",
+    "example": "本当にありがとうございます。",
+    "level": "N3"
+  },
+  {
+    "front": "もう少し",
+    "back": "Yana biroz, sal ko'proq",
+    "phonetic": "もうすこし - mō sukoshi",
+    "example": "もう少し待ってください。",
+    "level": "N3"
+  },
+  {
+    "front": "ゆっくり",
+    "back": "Sekin, asta",
+    "phonetic": "ゆっくり - yukkuri",
+    "example": "ゆっくり話してください。",
+    "level": "N3"
+  },
+  {
+    "front": "もう一度",
+    "back": "Yana bir marta",
+    "phonetic": "もういちど - mō ichido",
+    "example": "もう一度お願いします。",
+    "level": "N3"
+  },
+  {
+    "front": "白",
+    "back": "Oq rang",
+    "phonetic": "しろ - shiro",
+    "example": "白い服を着ています。",
+    "level": "N3"
+  },
+  {
+    "front": "～号車",
+    "back": "~-raqamli vagon",
+    "phonetic": "～ごうしゃ - ~gōsha",
+    "example": "三号車に乗ります。",
+    "level": "N3"
+  },
+  {
+    "front": "～ずつ",
+    "back": "Har biridan, teng miqdorda",
+    "phonetic": "～ずつ - ~zutsu",
+    "example": "一人に二つずつください。",
+    "level": "N3"
+  },
+  {
+    "front": "自然",
+    "back": "Tabiat",
+    "phonetic": "しぜん - shizen",
+    "example": "自然がきれいです。",
+    "level": "N3"
+  },
+  {
+    "front": "ラベンダー畑",
+    "back": "Lavanda dalasi",
+    "phonetic": "ラベンダーばたけ - rabandā batake",
+    "example": "ラベンダー畑へ行きます。",
+    "level": "N3"
+  },
+  {
+    "front": "湿原",
+    "back": "Botqoqlik, namlik maydoni",
+    "phonetic": "しつげん - shitsugen",
+    "example": "湿原を見ました。",
+    "level": "N3"
+  },
+  {
+    "front": "牧場",
+    "back": "Ferma, chorvachilik xo'jaligi",
+    "phonetic": "ぼくじょう - bokujō",
+    "example": "牧場へ行きます。",
+    "level": "N3"
+  },
+  {
+    "front": "ジャガイモ",
+    "back": "Kartoshka",
+    "phonetic": "ジャガイモ - jagaimo",
+    "example": "ジャガイモを食べます。",
+    "level": "N3"
+  },
+  {
+    "front": "トウモロコシ",
+    "back": "Makkajo'xori",
+    "phonetic": "トウモロコシ - tōmorokoshi",
+    "example": "トウモロコシを食べました。",
+    "level": "N3"
+  },
+  {
+    "front": "ウニ",
+    "back": "Dengiz kirpisi",
+    "phonetic": "ウニ - uni",
+    "example": "ウニを食べたことがあります。",
+    "level": "N3"
+  },
+  {
+    "front": "乗馬",
+    "back": "Ot minish",
+    "phonetic": "じょうば - jōba",
+    "example": "乗馬をしたいです。",
+    "level": "N3"
+  },
+  {
+    "front": "カヌー",
+    "back": "Kanoe",
+    "phonetic": "カヌー - kanū",
+    "example": "カヌーに乗ります。",
+    "level": "N3"
+  },
+  {
+    "front": "カニ",
+    "back": "Qisqichbaqa",
+    "phonetic": "カニ - kani",
+    "example": "カニを食べました。",
+    "level": "N3"
+  },
+  {
+    "front": "ショッピングセンター",
+    "back": "Savdo markazi",
+    "phonetic": "ショッピングセンター - shoppingu sentā",
+    "example": "ショッピングセンターへ行きます。",
+    "level": "N3"
+  },
+  {
+    "front": "水族館",
+    "back": "Akvarium",
+    "phonetic": "すいぞくかん - suizokukan",
+    "example": "水族館へ行きたいです。",
+    "level": "N3"
+  },
+  {
+    "front": "スノーボード",
+    "back": "Snoubord",
+    "phonetic": "スノーボード - sunōbōdo",
+    "example": "スノーボードをします。",
+    "level": "N3"
+  },
+  {
+    "front": "雰囲気",
+    "back": "Muhit, atmosfera",
+    "phonetic": "ふんいき - fun'iki",
+    "example": "この店は雰囲気がいいです。",
+    "level": "N3"
+  },
+  {
+    "front": "こっち",
+    "back": "Bu tomon, bu yoq (norasmiy)",
+    "phonetic": "こっち - kotchi",
+    "example": "こっちへ来てください。",
+    "level": "N3"
+  },
+  {
+    "front": "そっち",
+    "back": "U tomon, u yoq (norasmiy)",
+    "phonetic": "そっち - sotchi",
+    "example": "そっちにあります。",
+    "level": "N3"
+  },
+  {
+    "front": "旅館",
+    "back": "Yaponcha uslubdagi mehmonxona",
+    "phonetic": "りょかん - ryokan",
+    "example": "旅館に泊まります。",
+    "level": "N3"
+  },
+  {
+    "front": "登山",
+    "back": "Tog'ga chiqish",
+    "phonetic": "とざん - tozan",
+    "example": "夏に登山をします。",
+    "level": "N3"
+  },
+  {
+    "front": "虫",
+    "back": "Hasharot",
+    "phonetic": "むし - mushi",
+    "example": "虫がいます。",
+    "level": "N3"
+  },
+  {
+    "front": "宿泊",
+    "back": "Turar joyda tunash",
+    "phonetic": "しゅくはく - shukuhaku",
+    "example": "ホテルに宿泊します。",
+    "level": "N3"
+  },
+  {
+    "front": "なし",
+    "back": "Yo'q, mavjud emas",
+    "phonetic": "なし - nashi",
+    "example": "朝食はなしです。",
+    "level": "N3"
+  },
+  {
+    "front": "大人",
+    "back": "Katta odam, voyaga yetgan",
+    "phonetic": "おとな - otona",
+    "example": "大人は二人です。",
+    "level": "N3"
+  },
+  {
+    "front": "～付き",
+    "back": "~ bilan birga, ~ qo'shilgan",
+    "phonetic": "～つき - ~tsuki",
+    "example": "朝食付きのホテルです。",
+    "level": "N3"
+  },
+  {
+    "front": "～泊～日",
+    "back": "~ kecha ~ kun",
+    "phonetic": "～はく～にち - ~haku ~nichi",
+    "example": "二泊三日の旅行です。",
+    "level": "N3"
+  },
+  {
+    "front": "～費",
+    "back": "~ xarajat, ~ to'lovi",
+    "phonetic": "～ひ - ~hi",
+    "example": "交通費はいくらですか。",
+    "level": "N3"
+  },
+  {
+    "front": "ガイドする",
+    "back": "Yo'l ko'rsatmoq, gidlik qilmoq",
+    "phonetic": "ガイドする - gaido suru",
+    "example": "町をガイドします。",
+    "level": "N3"
+  },
+  {
+    "front": "観光する",
+    "back": "Sayohat qilmoq, diqqatga sazovor joylarni tomosha qilmoq",
+    "phonetic": "かんこうする - kankō suru",
+    "example": "東京を観光します。",
+    "level": "N3"
+  },
+  {
+    "front": "出発する",
+    "back": "Jo'namoq, yo'lga chiqmoq",
+    "phonetic": "しゅっぱつする - shuppatsu suru",
+    "example": "朝八時に出発します。",
+    "level": "N3"
+  },
+  {
+    "front": "キャンプする",
+    "back": "Kemping qilmoq",
+    "phonetic": "キャンプする - kyanpu suru",
+    "example": "山でキャンプします。",
+    "level": "N3"
+  },
+  {
+    "front": "伝統的",
+    "back": "An'anaviy",
+    "phonetic": "でんとうてき - dentōteki",
+    "example": "これは伝統的な料理です。",
+    "level": "N3"
+  },
+  {
+    "front": "どっち",
+    "back": "Qaysi biri (norasmiy)",
+    "phonetic": "どっち - dotchi",
+    "example": "どっちがいいですか。",
+    "level": "N3"
+  },
+  {
+    "front": "イルカ",
+    "back": "Delfin",
+    "phonetic": "イルカ - iruka",
+    "example": "イルカを見ました。",
+    "level": "N3"
+  },
+  {
+    "front": "ショー",
+    "back": "Shou, tomosha dasturi",
+    "phonetic": "ショー - shō",
+    "example": "イルカのショーを見ます。",
+    "level": "N3"
+  },
+  {
+    "front": "マフラー",
+    "back": "Sharf",
+    "phonetic": "マフラー - mafurā",
+    "example": "マフラーを買いました。",
+    "level": "N3"
+  },
+  {
+    "front": "ガイドブック",
+    "back": "Sayohat qo'llanmasi",
+    "phonetic": "ガイドブック - gaidobukku",
+    "example": "ガイドブックを読みます。",
+    "level": "N3"
+  },
+  {
+    "front": "パーク",
+    "back": "Park",
+    "phonetic": "パーク - pāku",
+    "example": "パークへ行きます。",
+    "level": "N3"
+  },
+  {
+    "front": "早割",
+    "back": "Oldindan bron qilish uchun chegirma",
+    "phonetic": "はやわり - hayawari",
+    "example": "早割でチケットを買いました。",
+    "level": "N3"
+  },
+  {
+    "front": "取る",
+    "back": "Olmoq",
+    "phonetic": "とる - toru",
+    "example": "休みを取ります。",
+    "level": "N3"
+  },
+  {
+    "front": "休みを取る",
+    "back": "Ta'til olmoq, dam olish kunini olmoq",
+    "phonetic": "やすみをとる - yasumi o toru",
+    "example": "来週、休みを取ります。",
+    "level": "N3"
+  },
+  {
+    "front": "ぬれる",
+    "back": "Ho'llanmoq",
+    "phonetic": "ぬれる - nureru",
+    "example": "雨で服がぬれました。",
+    "level": "N3"
+  },
+  {
+    "front": "用意する",
+    "back": "Tayyorlamoq",
+    "phonetic": "よういする - yōi suru",
+    "example": "旅行の準備を用意します。",
+    "level": "N3"
+  },
+  {
+    "front": "コピーする",
+    "back": "Nusxa ko'chirmoq",
+    "phonetic": "コピーする - kopī suru",
+    "example": "書類をコピーします。",
+    "level": "N3"
+  },
+  {
+    "front": "あとで",
+    "back": "Keyinroq",
+    "phonetic": "あとで - ato de",
+    "example": "あとで電話します。",
+    "level": "N3"
+  },
+  {
+    "front": "違い",
+    "back": "Farq",
+    "phonetic": "ちがい - chigai",
+    "example": "文化の違いがあります。",
+    "level": "N3"
+  },
+  {
+    "front": "失礼",
+    "back": "Qo'pollik, odobsizlik",
+    "phonetic": "しつれい - shitsurei",
+    "example": "失礼なことを言いました。",
+    "level": "N3"
+  },
+  {
+    "front": "社長",
+    "back": "Kompaniya prezidenti, direktor",
+    "phonetic": "しゃちょう - shachō",
+    "example": "社長に会いました。",
+    "level": "N3"
+  },
+  {
+    "front": "ご存じ",
+    "back": "Bilmoq, xabardor bo'lmoq (hurmat shakli)",
+    "phonetic": "ごぞんじ - gozonji",
+    "example": "この店をご存じですか。",
+    "level": "N3"
+  },
+  {
+    "front": "どなた",
+    "back": "Kim? (hurmat shakli)",
+    "phonetic": "どなた - donata",
+    "example": "あの方はどなたですか。",
+    "level": "N3"
+  },
+  {
+    "front": "ミステリー",
+    "back": "Detektiv, sirli asar",
+    "phonetic": "ミステリー - misuterī",
+    "example": "ミステリーが好きです。",
+    "level": "N3"
+  },
+  {
+    "front": "ごろ",
+    "back": "Taxminan, atrofida",
+    "phonetic": "ごろ - goro",
+    "example": "七時ごろ帰ります。",
+    "level": "N3"
+  },
+  {
+    "front": "いらっしゃる",
+    "back": "Bormoq, kelmoq, bo'lmoq (hurmat shakli)",
+    "phonetic": "いらっしゃる - irassharu",
+    "example": "先生はいらっしゃいます。",
+    "level": "N3"
+  },
+  {
+    "front": "なさる",
+    "back": "Qilmoq (hurmat shakli)",
+    "phonetic": "なさる - nasaru",
+    "example": "何をなさいますか。",
+    "level": "N3"
+  },
+  {
+    "front": "召し上がる",
+    "back": "Yemoq, ichmoq (hurmat shakli)",
+    "phonetic": "めしあがる - meshiagaru",
+    "example": "どうぞ召し上がってください。",
+    "level": "N3"
+  },
+  {
+    "front": "出席する",
+    "back": "Qatnashmoq, ishtirok etmoq",
+    "phonetic": "しゅっせきする - shusseki suru",
+    "example": "会議に出席します。",
+    "level": "N3"
+  },
+  {
+    "front": "退院する",
+    "back": "Kasalxonadan chiqmoq",
+    "phonetic": "たいいんする - taiin suru",
+    "example": "明日、退院します。",
+    "level": "N3"
+  },
+  {
+    "front": "一緒に作りましょう",
+    "back": "Birgalikda tayyorlaylik",
+    "phonetic": "いっしょにつくりましょう - issho ni tsukurimashō",
+    "example": "一緒に料理を作りましょう。",
+    "level": "N3"
+  },
+  {
+    "front": "このくらい",
+    "back": "Shunchalik, mana shuncha",
+    "phonetic": "このくらい - kono kurai",
+    "example": "このくらいでいいです。",
+    "level": "N3"
+  },
+  {
+    "front": "キャベツ",
+    "back": "Karam",
+    "phonetic": "キャベツ - kyabetsu",
+    "example": "キャベツを切ります。",
+    "level": "N3"
+  },
+  {
+    "front": "大根",
+    "back": "Yapon rediska",
+    "phonetic": "だいこん - daikon",
+    "example": "大根を切ります。",
+    "level": "N3"
+  },
+  {
+    "front": "タマネギ",
+    "back": "Piyoz",
+    "phonetic": "タマネギ - tamanegi",
+    "example": "タマネギを切ります。",
+    "level": "N3"
+  },
+  {
+    "front": "ニンジン",
+    "back": "Sabzi",
+    "phonetic": "ニンジン - ninjin",
+    "example": "ニンジンを切ります。",
+    "level": "N3"
+  },
+  {
+    "front": "ネギ",
+    "back": "Ko'k piyoz",
+    "phonetic": "ネギ - negi",
+    "example": "ネギを入れます。",
+    "level": "N3"
+  },
+  {
+    "front": "カップ",
+    "back": "Stakan, piyola, o'lchov idishi",
+    "phonetic": "カップ - kappu",
+    "example": "水を一カップ入れます。",
+    "level": "N3"
+  },
+  {
+    "front": "クリーム",
+    "back": "Krem",
+    "phonetic": "クリーム - kurīmu",
+    "example": "クリームを入れます。",
+    "level": "N3"
+  },
+  {
+    "front": "ゼリー",
+    "back": "Jele",
+    "phonetic": "ゼリー - zerī",
+    "example": "ゼリーを食べます。",
+    "level": "N3"
+  },
+  {
+    "front": "パスタのソースを作る",
+    "back": "Pasta sousini tayyorlamoq",
+    "phonetic": "パスタのソースをつくる - pasuta no sōsu o tsukuru",
+    "example": "パスタのソースを作ります。",
+    "level": "N3"
+  },
+  {
+    "front": "パスタ",
+    "back": "Makaron, pasta",
+    "phonetic": "パスタ - pasuta",
+    "example": "パスタを食べます。",
+    "level": "N3"
+  },
+  {
+    "front": "はちみつ",
+    "back": "Asal",
+    "phonetic": "はちみつ - hachimitsu",
+    "example": "はちみつを入れます。",
+    "level": "N3"
+  },
+  {
+    "front": "みそ汁",
+    "back": "Miso sho'rvasi",
+    "phonetic": "みそしる - misoshiru",
+    "example": "みそ汁を飲みます。",
+    "level": "N3"
+  },
+  {
+    "front": "火",
+    "back": "Olov, issiqlik",
+    "phonetic": "ひ - hi",
+    "example": "火をつけます。",
+    "level": "N3"
+  },
+  {
+    "front": "強火",
+    "back": "Kuchli olov",
+    "phonetic": "つよび - tsuyobi",
+    "example": "強火で焼きます。",
+    "level": "N3"
+  },
+  {
+    "front": "弱火",
+    "back": "Past olov",
+    "phonetic": "よわび - yowabi",
+    "example": "弱火で煮ます。",
+    "level": "N3"
+  },
+  {
+    "front": "ルー",
+    "back": "Sous yoki karri uchun quyuqlashtiruvchi massa",
+    "phonetic": "ルー - rū",
+    "example": "ルーを入れます。",
+    "level": "N3"
+  },
+  {
+    "front": "グラム",
+    "back": "Gramm",
+    "phonetic": "グラム - guramu",
+    "example": "肉を二百グラム買います。",
+    "level": "N3"
+  },
+  {
+    "front": "できあがり",
+    "back": "Tayyor bo'lishi, tayyor",
+    "phonetic": "できあがり - dekiagari",
+    "example": "料理のできあがりです。",
+    "level": "N3"
+  },
+  {
+    "front": "むく",
+    "back": "Po'stini archmoq",
+    "phonetic": "むく - muku",
+    "example": "じゃがいもの皮をむきます。",
+    "level": "N3"
+  },
+  {
+    "front": "沸かす",
+    "back": "Suvni qaynatmoq",
+    "phonetic": "わかす - wakasu",
+    "example": "お湯を沸かします。",
+    "level": "N3"
+  },
+  {
+    "front": "沸騰する",
+    "back": "Qaynab ketmoq",
+    "phonetic": "ふっとうする - futtō suru",
+    "example": "お湯が沸騰しました。",
+    "level": "N3"
+  },
+  {
+    "front": "炒める",
+    "back": "Qovurmoq",
+    "phonetic": "いためる - itameru",
+    "example": "野菜を炒めます。",
+    "level": "N3"
+  },
+  {
+    "front": "厚い",
+    "back": "Qalin",
+    "phonetic": "あつい - atsui",
+    "example": "この肉は厚いです。",
+    "level": "N3"
+  },
+  {
+    "front": "薄い",
+    "back": "Yupqa; ta'mi kuchsiz",
+    "phonetic": "うすい - usui",
+    "example": "肉を薄く切ります。",
+    "level": "N3"
+  },
+  {
+    "front": "弱い",
+    "back": "Kuchsiz, sust",
+    "phonetic": "よわい - yowai",
+    "example": "火が弱いです。",
+    "level": "N3"
+  },
+  {
+    "front": "次に",
+    "back": "Keyin, navbatdagi bosqichda",
+    "phonetic": "つぎに - tsugi ni",
+    "example": "次に肉を入れます。",
+    "level": "N3"
+  },
+  {
+    "front": "最後に",
+    "back": "Oxirida, nihoyat",
+    "phonetic": "さいごに - saigo ni",
+    "example": "最後に味を見ます。",
+    "level": "N3"
+  },
+  {
+    "front": "肉じゃが",
+    "back": "Go'sht va kartoshkali yapon taomi",
+    "phonetic": "にくじゃが - nikujaga",
+    "example": "肉じゃがを作ります。",
+    "level": "N3"
+  },
+  {
+    "front": "遠慮する",
+    "back": "Tortinmoq, o'zini tiyib turmoq",
+    "phonetic": "えんりょする - enryo suru",
+    "example": "遠慮しないでください。",
+    "level": "N3"
+  },
+  {
+    "front": "もちろん",
+    "back": "Albatta, shubhasiz",
+    "phonetic": "もちろん - mochiron",
+    "example": "もちろん大丈夫です。",
+    "level": "N3"
+  },
+  {
+    "front": "お邪魔します",
+    "back": "Xalaqit berganim uchun uzr; uyingizga kirishda aytiladi",
+    "phonetic": "おじゃまします - ojama shimasu",
+    "example": "お邪魔します。",
+    "level": "N3"
+  },
+  {
+    "front": "よくいらっしゃいました",
+    "back": "Xush kelibsiz, kelganingizdan xursandman",
+    "phonetic": "よくいらっしゃいました - yoku irasshaimashita",
+    "example": "よくいらっしゃいました。",
+    "level": "N3"
+  },
+  {
+    "front": "明るい",
+    "back": "Yorqin, quvnoq",
+    "phonetic": "あかるい - akarui",
+    "example": "明るい部屋です。",
+    "level": "N3"
+  },
+  {
+    "front": "（お）団子 (おだんご)",
+    "back": "Dango, guruchli shirinlik",
+    "phonetic": "（お）団子 (おだんご) - odango",
+    "example": "お団子を食べます。",
+    "level": "N3"
+  },
+  {
+    "front": "駅員",
+    "back": "Vokzal xodimi",
+    "phonetic": "えきいん - ekiin",
+    "example": "駅員さんに聞きました。",
+    "level": "N3"
+  },
+  {
+    "front": "お巡りさん",
+    "back": "Politsiyachi",
+    "phonetic": "おまわりさん - omawarisan",
+    "example": "お巡りさんに聞きます。",
+    "level": "N3"
+  },
+  {
+    "front": "～さん",
+    "back": "Janob, xonim; ayrim kasblarga hurmat bilan qo'shiladi",
+    "phonetic": "～さん - ~san",
+    "example": "駅員さん、ありがとうございます。",
+    "level": "N3"
+  },
+  {
+    "front": "譲る",
+    "back": "Bermoq, boshqasiga o'tkazmoq",
+    "phonetic": "ゆずる - yuzuru",
+    "example": "席を譲ります。",
+    "level": "N3"
+  },
+  {
+    "front": "連れて行く",
+    "back": "Olib bormoq, birga olib ketmoq",
+    "phonetic": "つれていく - tsurete iku",
+    "example": "友達を駅まで連れて行きます。",
+    "level": "N3"
+  },
+  {
+    "front": "教える",
+    "back": "O'rgatmoq, ma'lumot bermoq",
+    "phonetic": "おしえる - oshieru",
+    "example": "駅への行き方を教えます。",
+    "level": "N3"
+  },
+  {
+    "front": "迎えに来る",
+    "back": "Kutib olish uchun kelmoq",
+    "phonetic": "むかえにくる - mukae ni kuru",
+    "example": "父が迎えに来ます。",
+    "level": "N3"
+  },
+  {
+    "front": "捕る",
+    "back": "Tutmoq, ushlamoq",
+    "phonetic": "とる - toru",
+    "example": "魚を捕ります。",
+    "level": "N3"
+  },
+  {
+    "front": "そんなに",
+    "back": "Bunchalik, shunchalik",
+    "phonetic": "そんなに - sonnani",
+    "example": "そんなに難しくないです。",
+    "level": "N3"
+  },
+  {
+    "front": "お世話になりました",
+    "back": "Ko'rsatgan yordamingiz uchun rahmat",
+    "phonetic": "おせわになりました - osewa ni narimashita",
+    "example": "いろいろお世話になりました。",
+    "level": "N3"
+  },
+  {
+    "front": "花瓶",
+    "back": "Gul vaza",
+    "phonetic": "かびん - kabin",
+    "example": "花瓶に花を入れます。",
+    "level": "N3"
+  },
+  {
+    "front": "茶碗",
+    "back": "Chinni kosa, guruch kosasi",
+    "phonetic": "ちゃわん - chawan",
+    "example": "茶碗を洗います。",
+    "level": "N3"
+  },
+  {
+    "front": "～先",
+    "back": "~ boriladigan joy, manzil",
+    "phonetic": "～さき - ~saki",
+    "example": "アルバイト先は駅の近くです。",
+    "level": "N3"
+  },
+  {
+    "front": "教授",
+    "back": "Professor",
+    "phonetic": "きょうじゅ - kyōju",
+    "example": "教授に質問します。",
+    "level": "N3"
+  },
+  {
+    "front": "いただく",
+    "back": "Qabul qilmoq, olmoq (kamtarlik shakli)",
+    "phonetic": "いただく - itadaku",
+    "example": "先生から資料をいただきました。",
+    "level": "N3"
+  },
+  {
+    "front": "くださる",
+    "back": "Berib qo'ymoq (hurmat shakli)",
+    "phonetic": "くださる - kudasaru",
+    "example": "先生が本をくださいました。",
+    "level": "N3"
+  },
+  {
+    "front": "どういたしまして",
+    "back": "Arzimaydi, hechqisi yo'q",
+    "phonetic": "どういたしまして - dōitashimashite",
+    "example": "どういたしまして。",
+    "level": "N3"
+  },
+  {
+    "front": "チヂミ",
+    "back": "Chijimi, koreyscha quymoq",
+    "phonetic": "チヂミ - chijimi",
+    "example": "チヂミを食べます。",
+    "level": "N3"
+  },
+  {
+    "front": "乾杯",
+    "back": "Qadah ko'tarmoq, tost",
+    "phonetic": "かんぱい - kanpai",
+    "example": "みんなで乾杯しましょう。",
+    "level": "N3"
+  },
+  {
+    "front": "大切さ",
+    "back": "Muhimlik, ahamiyat",
+    "phonetic": "たいせつさ - taisetsusa",
+    "example": "仕事の大切さが分かりました。",
+    "level": "N3"
+  },
+  {
+    "front": "ですから",
+    "back": "Shuning uchun, shu sababli",
+    "phonetic": "ですから - desu kara",
+    "example": "今日は忙しいです。ですから、行きません。",
+    "level": "N3"
+  },
+  {
+    "front": "アルバイト先",
+    "back": "Yarim stavkali ish joyi",
+    "phonetic": "アルバイトさき - arubaito saki",
+    "example": "アルバイト先は駅の近くです。",
+    "level": "N3"
+  },
+  {
+    "front": "裏",
+    "back": "Orqa tomon",
+    "phonetic": "うら - ura",
+    "example": "紙の裏を見てください。",
+    "level": "N3"
+  },
+  {
+    "front": "シフト",
+    "back": "Ish smenasi",
+    "phonetic": "シフト - shifuto",
+    "example": "明日のシフトは朝です。",
+    "level": "N3"
+  },
+  {
+    "front": "スタッフ",
+    "back": "Xodimlar, personal",
+    "phonetic": "スタッフ - sutaffu",
+    "example": "スタッフに聞きます。",
+    "level": "N3"
+  },
+  {
+    "front": "タイムカード",
+    "back": "Ish vaqtini qayd qiluvchi karta",
+    "phonetic": "タイムカード - taimu kādo",
+    "example": "タイムカードを押します。",
+    "level": "N3"
+  },
+  {
+    "front": "ホール",
+    "back": "Restoranning mijozlar zali",
+    "phonetic": "ホール - hōru",
+    "example": "ホールで働いています。",
+    "level": "N3"
+  },
+  {
+    "front": "毎月",
+    "back": "Har oy",
+    "phonetic": "まいげつ - maigetsu",
+    "example": "毎月給料をもらいます。",
+    "level": "N3"
+  },
+  {
+    "front": "髪の毛",
+    "back": "Soch",
+    "phonetic": "かみのけ - kaminoke",
+    "example": "髪の毛を切ります。",
+    "level": "N3"
+  },
+  {
+    "front": "スニーカー",
+    "back": "Krossovka, sport oyoq kiyimi",
+    "phonetic": "スニーカー - sunīkā",
+    "example": "スニーカーをはいています。",
+    "level": "N3"
+  },
+  {
+    "front": "調理場",
+    "back": "Oshxona, ovqat tayyorlash joyi",
+    "phonetic": "ちょうりば - chōriba",
+    "example": "調理場で料理をします。",
+    "level": "N3"
+  },
+  {
+    "front": "伝票",
+    "back": "Buyurtma varaqasi, hisob qog'ozi",
+    "phonetic": "でんぴょう - denpyō",
+    "example": "伝票を確認します。",
+    "level": "N3"
+  },
+  {
+    "front": "マニュアル",
+    "back": "Qo'llanma, yo'riqnoma",
+    "phonetic": "マニュアル - manyuaru",
+    "example": "マニュアルを読みます。",
+    "level": "N3"
+  },
+  {
+    "front": "オーブン",
+    "back": "Duxovka, pech",
+    "phonetic": "オーブン - ōbun",
+    "example": "オーブンでパンを焼きます。",
+    "level": "N3"
+  },
+  {
+    "front": "～様",
+    "back": "Janob, xonim (juda hurmatli shakl)",
+    "phonetic": "～さま - ~sama",
+    "example": "お客様、こちらへどうぞ。",
+    "level": "N3"
+  },
+  {
+    "front": "出す",
+    "back": "Chiqarib qo'ymoq; olib chiqmoq",
+    "phonetic": "だす - dasu",
+    "example": "ごみを出します。",
+    "level": "N3"
+  },
+  {
+    "front": "着替える",
+    "back": "Kiyim almashtirmoq",
+    "phonetic": "きがえる - kigaeru",
+    "example": "服を着替えます。",
+    "level": "N3"
+  },
+  {
+    "front": "つける",
+    "back": "Taqmoq, kiymoq, biriktirmoq",
+    "phonetic": "つける - tsukeru",
+    "example": "アクセサリーをつけます。",
+    "level": "N3"
+  },
+  {
+    "front": "アクセサリーをつける",
+    "back": "Aksessuar taqmoq",
+    "phonetic": "アクセサリーをつける - akusesarī o tsukeru",
+    "example": "今日はアクセサリーをつけます。",
+    "level": "N3"
+  },
+  {
+    "front": "おしゃべりする",
+    "back": "Suhbatlashmoq, gaplashmoq",
+    "phonetic": "おしゃべりする - oshaberi suru",
+    "example": "仕事中におしゃべりしません。",
+    "level": "N3"
+  },
+  {
+    "front": "チェックする",
+    "back": "Tekshirmoq",
+    "phonetic": "チェックする - chekku suru",
+    "example": "注文をチェックします。",
+    "level": "N3"
+  },
+  {
+    "front": "しまう",
+    "back": "Joyiga olib qo'ymoq, saqlab qo'ymoq",
+    "phonetic": "しまう - shimau",
+    "example": "道具をしまいます。",
+    "level": "N3"
+  },
+  {
+    "front": "滑る",
+    "back": "Sirpanmoq",
+    "phonetic": "すべる - suberu",
+    "example": "床が濡れていて滑ります。",
+    "level": "N3"
+  },
+  {
+    "front": "拭く",
+    "back": "Artmoq",
+    "phonetic": "ふく - fuku",
+    "example": "テーブルを拭きます。",
+    "level": "N3"
+  },
+  {
+    "front": "あいさつする",
+    "back": "Salomlashmoq, salom bermoq",
+    "phonetic": "あいさつする - aisatsu suru",
+    "example": "毎朝、あいさつします。",
+    "level": "N3"
+  },
+  {
+    "front": "上がる",
+    "back": "Ko'tarilmoq",
+    "phonetic": "あがる - agaru",
+    "example": "温度が上がります。",
+    "level": "N3"
+  },
+  {
+    "front": "代わる",
+    "back": "O'rnini almashtirmoq",
+    "phonetic": "かわる - kawaru",
+    "example": "今日は私が代わります。",
+    "level": "N3"
+  },
+  {
+    "front": "アルバイトを代わる",
+    "back": "Birovning ish smenasini almashtirmoq",
+    "phonetic": "アルバイトを代わる - arubaito o kawaru",
+    "example": "友達のアルバイトを代わります。",
+    "level": "N3"
+  },
+  {
+    "front": "呼ぶ",
+    "back": "Chaqirmoq",
+    "phonetic": "よぶ - yobu",
+    "example": "スタッフを呼びます。",
+    "level": "N3"
+  },
+  {
+    "front": "上げる",
+    "back": "Ko'tarmoq",
+    "phonetic": "あげる - ageru",
+    "example": "温度を上げます。",
+    "level": "N3"
+  },
+  {
+    "front": "下げる",
+    "back": "Tushirmoq, pasaytirmoq",
+    "phonetic": "さげる - sageru",
+    "example": "温度を下げます。",
+    "level": "N3"
+  },
+  {
+    "front": "足りる",
+    "back": "Yetarli bo'lmoq",
+    "phonetic": "たりる - tariru",
+    "example": "お金が足ります。",
+    "level": "N3"
+  },
+  {
+    "front": "邪魔",
+    "back": "Xalaqit, to'sqinlik",
+    "phonetic": "じゃま - jama",
+    "example": "仕事の邪魔をしません。",
+    "level": "N3"
+  },
+  {
+    "front": "丁寧",
+    "back": "Muloyim, odobli",
+    "phonetic": "ていねい - teinei",
+    "example": "丁寧に話します。",
+    "level": "N3"
+  },
+  {
+    "front": "しっかり",
+    "back": "Puxta, yaxshilab",
+    "phonetic": "しっかり - shikkari",
+    "example": "しっかり働きます。",
+    "level": "N3"
+  },
+  {
+    "front": "絶対に",
+    "back": "Albatta, mutlaqo",
+    "phonetic": "ぜったいに - zettai ni",
+    "example": "絶対に忘れません。",
+    "level": "N3"
+  },
+  {
+    "front": "はっきり",
+    "back": "Aniq, ravshan",
+    "phonetic": "はっきり - hakkiri",
+    "example": "はっきり話してください。",
+    "level": "N3"
+  },
+  {
+    "front": "大きな",
+    "back": "Katta",
+    "phonetic": "おおきな - ōkina",
+    "example": "大きな声で話します。",
+    "level": "N3"
+  },
+  {
+    "front": "ガソリン",
+    "back": "Benzin",
+    "phonetic": "ガソリン - gasorin",
+    "example": "ガソリンがありません。",
+    "level": "N3"
+  },
+  {
+    "front": "ひも",
+    "back": "Ip, bog'ich",
+    "phonetic": "ひも - himo",
+    "example": "ひもを結びます。",
+    "level": "N3"
+  },
+  {
+    "front": "モップ",
+    "back": "Mop, pol artgich",
+    "phonetic": "モップ - moppu",
+    "example": "モップで床を掃除します。",
+    "level": "N3"
+  },
+  {
+    "front": "バター",
+    "back": "Sariyog'",
+    "phonetic": "バター - batā",
+    "example": "バターを使います。",
+    "level": "N3"
+  },
+  {
+    "front": "瓶",
+    "back": "Shisha idish, butilka",
+    "phonetic": "びん - bin",
+    "example": "瓶を捨てます。",
+    "level": "N3"
+  },
+  {
+    "front": "ガス",
+    "back": "Gaz",
+    "phonetic": "ガス - gasu",
+    "example": "ガスを使います。",
+    "level": "N3"
+  },
+  {
+    "front": "～袋",
+    "back": "~ xalta, paket",
+    "phonetic": "～ぶくろ - ~bukuro",
+    "example": "ごみ袋を使います。",
+    "level": "N3"
+  },
+  {
+    "front": "決まる",
+    "back": "Hal bo'lmoq, belgilab qo'yilmoq",
+    "phonetic": "きまる - kimaru",
+    "example": "予定が決まりました。",
+    "level": "N3"
+  },
+  {
+    "front": "注意する",
+    "back": "E'tibor bermoq, ehtiyot bo'lmoq",
+    "phonetic": "ちゅういする - chūi suru",
+    "example": "足元に注意してください。",
+    "level": "N3"
+  },
+  {
+    "front": "なくなる",
+    "back": "Tugamoq, qolmay qolmoq",
+    "phonetic": "なくなる - nakunaru",
+    "example": "ガソリンがなくなりました。",
+    "level": "N3"
+  },
+  {
+    "front": "切れる",
+    "back": "Tugab qolmoq",
+    "phonetic": "きれる - kireru",
+    "example": "電池が切れました。",
+    "level": "N3"
+  },
+  {
+    "front": "焦げる",
+    "back": "Kuyib qolmoq",
+    "phonetic": "こげる - kogeru",
+    "example": "パンが焦げました。",
+    "level": "N3"
+  },
+  {
+    "front": "破れる",
+    "back": "Yirtilmoq",
+    "phonetic": "やぶれる - yabureru",
+    "example": "紙が破れました。",
+    "level": "N3"
+  },
+  {
+    "front": "そのままにする",
+    "back": "O'z holicha qoldirmoq",
+    "phonetic": "そのままにする - sono mama ni suru",
+    "example": "そのままにしてください。",
+    "level": "N3"
+  },
+  {
+    "front": "並べる",
+    "back": "Qator qilib terib qo'ymoq",
+    "phonetic": "ならべる - naraberu",
+    "example": "商品を並べます。",
+    "level": "N3"
+  },
+  {
+    "front": "休憩する",
+    "back": "Tanaffus qilmoq, dam olmoq",
+    "phonetic": "きゅうけいする - kyūkei suru",
+    "example": "少し休憩します。",
+    "level": "N3"
+  },
+  {
+    "front": "お先にどうぞ",
+    "back": "Avval siz, marhamat",
+    "phonetic": "おさきにどうぞ - osaki ni dōzo",
+    "example": "お先にどうぞ。",
+    "level": "N3"
+  },
+  {
+    "front": "申し訳ないんですが",
+    "back": "Kechirasiz-u, ammo...",
+    "phonetic": "もうしわけないんですが - mōshiwake nain desu ga",
+    "example": "申し訳ないんですが、もう一度お願いします。",
+    "level": "N3"
+  },
+  {
+    "front": "気をつける",
+    "back": "Ehtiyot bo'lmoq",
+    "phonetic": "きをつける - ki o tsukeru",
+    "example": "車に気をつけてください。",
+    "level": "N3"
+  },
+  {
+    "front": "最初に",
+    "back": "Avvalo, birinchi navbatda",
+    "phonetic": "さいしょに - saisho ni",
+    "example": "最初に名前を書きます。",
+    "level": "N3"
+  },
+  {
+    "front": "おじさん",
+    "back": "Amaki, o'rta yoshli erkak (muloyim atama)",
+    "phonetic": "おじさん - ojisan",
+    "example": "おじさんに聞きました。",
+    "level": "N3"
+  },
+  {
+    "front": "親しい",
+    "back": "Yaqin, qadrdon",
+    "phonetic": "したしい - shitashii",
+    "example": "親しい友達がいます。",
+    "level": "N3"
+  },
+  {
+    "front": "何度も",
+    "back": "Ko'p marta, qayta-qayta",
+    "phonetic": "なんども - nando mo",
+    "example": "何度も練習しました。",
+    "level": "N3"
+  },
+  {
+    "front": "彼",
+    "back": "Yigit, sevgilisi",
+    "phonetic": "かれ - kare",
+    "example": "彼に会いたいです。",
+    "level": "N3"
+  },
+  {
+    "front": "彼女",
+    "back": "Qiz, sevgilisi",
+    "phonetic": "かのじょ - kanojo",
+    "example": "彼女に会いたいです。",
+    "level": "N3"
+  },
+  {
+    "front": "～こと",
+    "back": "~ haqidagi narsa, masala",
+    "phonetic": "～こと - ~koto",
+    "example": "将来のことを考えます。",
+    "level": "N3"
+  },
+  {
+    "front": "ボランティア",
+    "back": "Ko'ngillilik, volontyor",
+    "phonetic": "ボランティア - borantia",
+    "example": "ボランティアをしています。",
+    "level": "N3"
+  },
+  {
+    "front": "～代",
+    "back": "~ xarajat, ~ to'lovi",
+    "phonetic": "～だい - ~dai",
+    "example": "食事代を払います。",
+    "level": "N3"
+  },
+  {
+    "front": "節約する",
+    "back": "Tejamoq, iqtisod qilmoq",
+    "phonetic": "せつやくする - setsuyaku suru",
+    "example": "お金を節約します。",
+    "level": "N3"
+  },
+  {
+    "front": "外食する",
+    "back": "Tashqarida ovqatlanmoq",
+    "phonetic": "がいしょくする - gaishoku suru",
+    "example": "週末は外食します。",
+    "level": "N3"
+  },
+  {
+    "front": "ダイエットする",
+    "back": "Parhez qilmoq, dieta qilmoq",
+    "phonetic": "ダイエットする - daietto suru",
+    "example": "ダイエットをしています。",
+    "level": "N3"
+  },
+  {
+    "front": "故障する",
+    "back": "Buzilmoq, ishdan chiqmoq",
+    "phonetic": "こしょうする - koshō suru",
+    "example": "テレビが故障しました。",
+    "level": "N3"
+  },
+  {
+    "front": "育てる",
+    "back": "Tarbiyalamoq, voyaga yetkazmoq",
+    "phonetic": "そだてる - sodateru",
+    "example": "子どもを育てます。",
+    "level": "N3"
+  },
+  {
+    "front": "研究する",
+    "back": "Tadqiqot qilmoq",
+    "phonetic": "けんきゅうする - kenkyū suru",
+    "example": "大学で研究しています。",
+    "level": "N3"
+  },
+  {
+    "front": "あんまり",
+    "back": "Unchalik, ko'p emas",
+    "phonetic": "あんまり - anmari",
+    "example": "あんまり食べません。",
+    "level": "N3"
+  },
+  {
+    "front": "区役所",
+    "back": "Tuman hokimiyati",
+    "phonetic": "くやくしょ - kuyakusho",
+    "example": "区役所へ行きます。",
+    "level": "N3"
+  },
+  {
+    "front": "今夜",
+    "back": "Bugun kechqurun",
+    "phonetic": "こんや - konya",
+    "example": "今夜、友達と会います。",
+    "level": "N3"
+  },
+  {
+    "front": "出張する",
+    "back": "Xizmat safariga bormoq",
+    "phonetic": "しゅっちょうする - shutchō suru",
+    "example": "来週、大阪へ出張します。",
+    "level": "N3"
+  },
+  {
+    "front": "地域",
+    "back": "Hudud, mintaqa",
+    "phonetic": "ちいき - chiiki",
+    "example": "この地域は静かです。",
+    "level": "N3"
+  },
+  {
+    "front": "チーム",
+    "back": "Jamoa",
+    "phonetic": "チーム - chīmu",
+    "example": "スポーツチームに入ります。",
+    "level": "N3"
+  },
+  {
+    "front": "～君",
+    "back": "O'g'il bolalar yoki yosh erkaklarga qo'shiladigan hurmat shakli",
+    "phonetic": "～くん - ~kun",
+    "example": "田中君は学生です。",
+    "level": "N3"
+  },
+  {
+    "front": "シュートする",
+    "back": "Zarba bermoq, golga tepmoq",
+    "phonetic": "シュートする - shūto suru",
+    "example": "ゴールにシュートします。",
+    "level": "N3"
+  },
+  {
+    "front": "お帰りなさい",
+    "back": "Xush kelibsiz, uyga qaytganingiz bilan",
+    "phonetic": "おかえりなさい - okaerinasai",
+    "example": "お帰りなさい。",
+    "level": "N3"
+  },
+  {
+    "front": "よし",
+    "back": "Yaxshi, qani, bo'ldi",
+    "phonetic": "よし - yoshi",
+    "example": "よし、頑張りましょう。",
+    "level": "N3"
+  },
+  {
+    "front": "食料品",
+    "back": "Oziq-ovqat mahsulotlari",
+    "phonetic": "しょくりょうひん - shokuryōhin",
+    "example": "食料品を買います。",
+    "level": "N3"
+  },
+  {
+    "front": "冷凍する",
+    "back": "Muzlatmoq",
+    "phonetic": "れいとうする - reitō suru",
+    "example": "肉を冷凍します。",
+    "level": "N3"
+  },
+  {
+    "front": "体調不良",
+    "back": "Sog'liqning yomon holati",
+    "phonetic": "たいちょうふりょう - taichō furyō",
+    "example": "今日は体調不良です。",
+    "level": "N3"
+  },
+  {
+    "front": "おにぎり",
+    "back": "Guruchdan tayyorlangan dumaloq taom",
+    "phonetic": "おにぎり - onigiri",
+    "example": "おにぎりを食べます。",
+    "level": "N3"
+  },
+  {
+    "front": "元気",
+    "back": "Sog'lom, tetik, quvnoq",
+    "phonetic": "げんき - genki",
+    "example": "今日は元気です。",
+    "level": "N3"
+  },
+  {
+    "front": "元気がない",
+    "back": "Kayfiyati yo'q, tushkun",
+    "phonetic": "げんきがない - genki ga nai",
+    "example": "今日は元気がありません。",
+    "level": "N3"
+  },
+  {
+    "front": "痛み",
+    "back": "Og'riq",
+    "phonetic": "いたみ - itami",
+    "example": "痛みがあります。",
+    "level": "N3"
+  },
+  {
+    "front": "疲れ",
+    "back": "Charchoq",
+    "phonetic": "つかれ - tsukare",
+    "example": "疲れがたまりました。",
+    "level": "N3"
+  },
+  {
+    "front": "湿布",
+    "back": "Sovuq yoki issiq kompress plastiri",
+    "phonetic": "しっぷ - shippu",
+    "example": "肩に湿布を貼ります。",
+    "level": "N3"
+  },
+  {
+    "front": "うがい",
+    "back": "Tomoqni chayish",
+    "phonetic": "うがい - ugai",
+    "example": "家に帰ったら、うがいをします。",
+    "level": "N3"
+  },
+  {
+    "front": "ジム",
+    "back": "Sport zali",
+    "phonetic": "ジム - jimu",
+    "example": "ジムで運動します。",
+    "level": "N3"
+  },
+  {
+    "front": "氷",
+    "back": "Muz",
+    "phonetic": "こおり - kōri",
+    "example": "氷を入れます。",
+    "level": "N3"
+  },
+  {
+    "front": "ドレッシング",
+    "back": "Salat sousi",
+    "phonetic": "ドレッシング - doresshingu",
+    "example": "サラダにドレッシングをかけます。",
+    "level": "N3"
+  },
+  {
+    "front": "～金",
+    "back": "~ to'lovi, ~ haqi",
+    "phonetic": "～きん - ~kin",
+    "example": "入会金を払います。",
+    "level": "N3"
+  },
+  {
+    "front": "取れる",
+    "back": "Xalos bo'lmoq, yengillashmoq",
+    "phonetic": "とれる - toreru",
+    "example": "疲れが取れました。",
+    "level": "N3"
+  },
+  {
+    "front": "入会する",
+    "back": "Klub yoki guruhga a'zo bo'lmoq",
+    "phonetic": "にゅうかいする - nyūkai suru",
+    "example": "ジムに入会しました。",
+    "level": "N3"
+  },
+  {
+    "front": "さす",
+    "back": "Ustida ochib tutmoq",
+    "phonetic": "さす - sasu",
+    "example": "傘をさします。",
+    "level": "N3"
+  },
+  {
+    "front": "ガンガン",
+    "back": "Qattiq, kuchli urib og'rish holati",
+    "phonetic": "ガンガン - gangan",
+    "example": "頭がガンガンします。",
+    "level": "N3"
+  },
+  {
+    "front": "パンパン",
+    "back": "Mushaklar tarang va shishgan holat",
+    "phonetic": "パンパン - panpan",
+    "example": "足がパンパンです。",
+    "level": "N3"
+  },
+  {
+    "front": "フラフラ",
+    "back": "Boshi aylangan, holsiz holat",
+    "phonetic": "フラフラ - furafura",
+    "example": "フラフラします。",
+    "level": "N3"
+  },
+  {
+    "front": "ムカムカ",
+    "back": "Ko'ngil aynishi",
+    "phonetic": "ムカムカ - mukamuka",
+    "example": "胃がムカムカします。",
+    "level": "N3"
+  },
+  {
+    "front": "毎日に、元気に！",
+    "back": "Har kuni tetik bo'ling!",
+    "phonetic": "まいにち、げんきに！ - mainichi, genki ni",
+    "example": "毎日、元気に過ごしましょう。",
+    "level": "N3"
+  },
+  {
+    "front": "カロリー",
+    "back": "Kaloriya",
+    "phonetic": "カロリー - karorī",
+    "example": "カロリーを計算します。",
+    "level": "N3"
+  },
+  {
+    "front": "ジューサー",
+    "back": "Sharbat chiqargich",
+    "phonetic": "ジューサー - jūsā",
+    "example": "ジューサーでジュースを作ります。",
+    "level": "N3"
+  },
+  {
+    "front": "体脂肪計",
+    "back": "Tana yog'i o'lchagich",
+    "phonetic": "たいしぼうけい - taishibōkei",
+    "example": "体脂肪計で測ります。",
+    "level": "N3"
+  },
+  {
+    "front": "体脂肪率",
+    "back": "Tana yog'i foizi",
+    "phonetic": "たいしぼうりつ - taishibōritsu",
+    "example": "体脂肪率を測ります。",
+    "level": "N3"
+  },
+  {
+    "front": "ネックストレッチ",
+    "back": "Bo'yin cho'zish mashqi",
+    "phonetic": "ネックストレッチ - nekku sutoretchi",
+    "example": "ネックストレッチをします。",
+    "level": "N3"
+  },
+  {
+    "front": "マッサージ器",
+    "back": "Massaj apparati",
+    "phonetic": "マッサージき - massāji ki",
+    "example": "マッサージ器を使います。",
+    "level": "N3"
+  },
+  {
+    "front": "万歩計",
+    "back": "Qadam o'lchagich, pedometr",
+    "phonetic": "まんぽけい - manpokei",
+    "example": "万歩計で歩数を測ります。",
+    "level": "N3"
+  },
+  {
+    "front": "ストレス",
+    "back": "Stress",
+    "phonetic": "ストレス - sutoresu",
+    "example": "ストレスがたまっています。",
+    "level": "N3"
+  },
+  {
+    "front": "ビタミンC",
+    "back": "C vitamini",
+    "phonetic": "ビタミンC - bitamin shī",
+    "example": "ビタミンCを取ります。",
+    "level": "N3"
+  },
+  {
+    "front": "健康",
+    "back": "Sog'liq, salomatlik",
+    "phonetic": "けんこう - kenkō",
+    "example": "健康に気をつけます。",
+    "level": "N3"
+  },
+  {
+    "front": "ショウガ",
+    "back": "Zanjabil",
+    "phonetic": "ショウガ - shōga",
+    "example": "ショウガを入れます。",
+    "level": "N3"
+  },
+  {
+    "front": "バランス",
+    "back": "Muvozanat, balans",
+    "phonetic": "バランス - baransu",
+    "example": "栄養のバランスを考えます。",
+    "level": "N3"
+  },
+  {
+    "front": "～不足",
+    "back": "~ yetishmasligi",
+    "phonetic": "～ぶそく - ~busoku",
+    "example": "運動不足です。",
+    "level": "N3"
+  },
+  {
+    "front": "疲れを取る",
+    "back": "Charchoqni yo'qotmoq",
+    "phonetic": "つかれをとる - tsukare o toru",
+    "example": "ゆっくり休んで疲れを取ります。",
+    "level": "N3"
+  },
+  {
+    "front": "計算する",
+    "back": "Hisoblamoq",
+    "phonetic": "けいさんする - keisan suru",
+    "example": "カロリーを計算します。",
+    "level": "N3"
+  },
+  {
+    "front": "マッサージする",
+    "back": "Massaj qilmoq",
+    "phonetic": "マッサージする - massāji suru",
+    "example": "肩をマッサージします。",
+    "level": "N3"
+  },
+  {
+    "front": "たまる",
+    "back": "To'planmoq, yig'ilmoq",
+    "phonetic": "たまる - tamaru",
+    "example": "ストレスがたまります。",
+    "level": "N3"
+  },
+  {
+    "front": "やせる",
+    "back": "Ozmoq, vazn tashlamoq",
+    "phonetic": "やせる - yaseru",
+    "example": "少しやせました。",
+    "level": "N3"
+  },
+  {
+    "front": "こる",
+    "back": "Qotib qolmoq, taranglashmoq",
+    "phonetic": "こる - koru",
+    "example": "肩がこります。",
+    "level": "N3"
+  },
+  {
+    "front": "動かす",
+    "back": "Harakatlantirmoq",
+    "phonetic": "うごかす - ugokasu",
+    "example": "体を動かします。",
+    "level": "N3"
+  },
+  {
+    "front": "このごろ",
+    "back": "Shu kunlarda, oxirgi paytlarda",
+    "phonetic": "このごろ - kono goro",
+    "example": "このごろ忙しいです。",
+    "level": "N3"
+  },
+  {
+    "front": "ふーん",
+    "back": "Hmm, shundaymi",
+    "phonetic": "ふーん - fūn",
+    "example": "ふーん、そうですか。",
+    "level": "N3"
+  },
+  {
+    "front": "グレープフルーツ",
+    "back": "Greypfrut",
+    "phonetic": "グレープフルーツ - gurēpufurūtsu",
+    "example": "グレープフルーツを食べます。",
+    "level": "N3"
+  },
+  {
+    "front": "二日酔い",
+    "back": "Mastlikdan keyingi holat, hangover",
+    "phonetic": "ふつかよい - futsuka yoi",
+    "example": "二日酔いで気分が悪いです。",
+    "level": "N3"
+  },
+  {
+    "front": "釣る",
+    "back": "Baliq tutmoq",
+    "phonetic": "つる - tsuru",
+    "example": "魚を釣ります。",
+    "level": "N3"
+  },
+  {
+    "front": "不利",
+    "back": "Noqulay, foydasiz holat",
+    "phonetic": "ふり - furi",
+    "example": "これは少し不利です。",
+    "level": "N3"
+  },
+  {
+    "front": "手に入れる",
+    "back": "Qo'lga kiritmoq, ega bo'lmoq",
+    "phonetic": "てにいれる - te ni ireru",
+    "example": "新しい本を手に入れました。",
+    "level": "N3"
+  },
+  {
+    "front": "町で見かけた子どもたち",
+    "back": "Shaharda ko'rilgan bolalar",
+    "phonetic": "まちでみかけたこどもたち - machi de mikaketa kodomo-tachi",
+    "example": "町で子どもたちを見かけました。",
+    "level": "N3"
+  },
+  {
+    "front": "子ども",
+    "back": "Bola",
+    "phonetic": "こども - kodomo",
+    "example": "子どもが遊んでいます。",
+    "level": "N3"
+  },
+  {
+    "front": "近所の子ども",
+    "back": "Yaqin atrofdagi bola",
+    "phonetic": "きんじょのこども - kinjo no kodomo",
+    "example": "近所の子どもと遊びます。",
+    "level": "N3"
+  },
+  {
+    "front": "家事",
+    "back": "Uy ishlari",
+    "phonetic": "かじ - kaji",
+    "example": "毎日、家事をします。",
+    "level": "N3"
+  },
+  {
+    "front": "コーチ",
+    "back": "Murabbiy",
+    "phonetic": "コーチ - kōchi",
+    "example": "コーチが教えます。",
+    "level": "N3"
+  },
+  {
+    "front": "塾",
+    "back": "Qo'shimcha o'quv markazi",
+    "phonetic": "じゅく - juku",
+    "example": "学校のあとで塾に行きます。",
+    "level": "N3"
+  },
+  {
+    "front": "ゲームセンター",
+    "back": "O'yin markazi",
+    "phonetic": "ゲームセンター - gēmu sentā",
+    "example": "ゲームセンターに行きます。",
+    "level": "N3"
+  },
+  {
+    "front": "ころ",
+    "back": "Vaqtida, paytida",
+    "phonetic": "ころ - koro",
+    "example": "子どものころ、よく遊びました。",
+    "level": "N3"
+  },
+  {
+    "front": "～キロ",
+    "back": "~ kilometr, ~ kilogramm",
+    "phonetic": "～キロ - ~kiro",
+    "example": "駅まで二キロあります。",
+    "level": "N3"
+  },
+  {
+    "front": "世話する",
+    "back": "G'amxo'rlik qilmoq, qaramoq",
+    "phonetic": "せわする - sewa suru",
+    "example": "子どもの世話をします。",
+    "level": "N3"
+  },
+  {
+    "front": "えらい",
+    "back": "Ajoyib, maqtovga loyiq",
+    "phonetic": "えらい - erai",
+    "example": "よく頑張って、えらいです。",
+    "level": "N3"
+  },
+  {
+    "front": "必ず",
+    "back": "Albatta, shubhasiz",
+    "phonetic": "かならず - kanarazu",
+    "example": "必ず行きます。",
+    "level": "N3"
+  },
+  {
+    "front": "やっぱり",
+    "back": "Baribir, o'ylaganimdek",
+    "phonetic": "やっぱり - yappari",
+    "example": "やっぱり日本が好きです。",
+    "level": "N3"
+  },
+  {
+    "front": "夜遅く",
+    "back": "Tunda kech, juda kech paytda",
+    "phonetic": "よるおそく - yoru osoku",
+    "example": "夜遅くまで勉強します。",
+    "level": "N3"
+  },
+  {
+    "front": "うち",
+    "back": "Men, uyim, mening tomonim",
+    "phonetic": "うち - uchi",
+    "example": "うちに帰ります。",
+    "level": "N3"
+  },
+  {
+    "front": "うちの親",
+    "back": "Mening ota-onam",
+    "phonetic": "うちのおや - uchi no oya",
+    "example": "うちの親は元気です。",
+    "level": "N3"
+  },
+  {
+    "front": "化粧品",
+    "back": "Kosmetika",
+    "phonetic": "けしょうひん - keshōhin",
+    "example": "化粧品を買います。",
+    "level": "N3"
+  },
+  {
+    "front": "けんかする",
+    "back": "Janjallashmoq, urishmoq",
+    "phonetic": "けんかする - kenka suru",
+    "example": "兄弟でけんかしました。",
+    "level": "N3"
+  },
+  {
+    "front": "やる",
+    "back": "Qilmoq",
+    "phonetic": "やる - yaru",
+    "example": "宿題をやります。",
+    "level": "N3"
+  },
+  {
+    "front": "宿題をやる",
+    "back": "Uy vazifasini qilmoq",
+    "phonetic": "しゅくだいをやる - shukudai o yaru",
+    "example": "毎日、宿題をやります。",
+    "level": "N3"
+  },
+  {
+    "front": "厳しい",
+    "back": "Qattiqqo'l, talabchan, og'ir",
+    "phonetic": "きびしい - kibishii",
+    "example": "父は厳しいです。",
+    "level": "N3"
+  },
+  {
+    "front": "熱心",
+    "back": "G'ayratli, astoydil",
+    "phonetic": "ねっしん - nesshin",
+    "example": "先生は仕事に熱心です。",
+    "level": "N3"
+  },
+  {
+    "front": "何でも",
+    "back": "Har qanday narsa, nima bo'lsa ham",
+    "phonetic": "なんでも - nandemo",
+    "example": "何でも聞いてください。",
+    "level": "N3"
+  },
+  {
+    "front": "おもちゃ",
+    "back": "O'yinchoq",
+    "phonetic": "おもちゃ - omocha",
+    "example": "子どもにおもちゃをあげます。",
+    "level": "N3"
+  },
+  {
+    "front": "役に立つ",
+    "back": "Foydali bo'lmoq, ish bermoq",
+    "phonetic": "やくにたつ - yaku ni tatsu",
+    "example": "この本は役に立ちます。",
+    "level": "N3"
+  },
+  {
+    "front": "ちゃんと",
+    "back": "To'g'ri, yaxshilab, tartibli ravishda",
+    "phonetic": "ちゃんと - chanto",
+    "example": "ちゃんと勉強してください。",
+    "level": "N3"
+  },
+  {
+    "front": "仕方がない",
+    "back": "Boshqa chora yo'q, iloj yo'q",
+    "phonetic": "しかたがない - shikata ga nai",
+    "example": "仕方がないです。",
+    "level": "N3"
+  },
+  {
+    "front": "漫画家",
+    "back": "Manga rassomi, manga chizuvchi",
+    "phonetic": "まんがか - mangaka",
+    "example": "漫画家になりたいです。",
+    "level": "N3"
+  },
+  {
+    "front": "～部",
+    "back": "~ bo'lim, ~ klub",
+    "phonetic": "～ぶ - ~bu",
+    "example": "テニス部に入っています。",
+    "level": "N3"
+  },
+  {
+    "front": "メジャーな",
+    "back": "Mashhur, ommabop, asosiy",
+    "phonetic": "メジャーな - mejā na",
+    "example": "これはメジャーなスポーツです。",
+    "level": "N3"
+  },
+  {
+    "front": "連載する",
+    "back": "Seriyali tarzda nashr etmoq",
+    "phonetic": "れんさいする - rensai suru",
+    "example": "この漫画は雑誌で連載しています。",
+    "level": "N3"
+  },
+  {
+    "front": "スタートする",
+    "back": "Boshlamoq",
+    "phonetic": "スタートする - sutāto suru",
+    "example": "イベントがスタートします。",
+    "level": "N3"
+  },
+  {
+    "front": "ヒットする",
+    "back": "Juda ommalashmoq, hit bo'lmoq",
+    "phonetic": "ヒットする - hitto suru",
+    "example": "この歌がヒットしました。",
+    "level": "N3"
+  },
+  {
+    "front": "支援する",
+    "back": "Qo'llab-quvvatlamoq",
+    "phonetic": "しえんする - shien suru",
+    "example": "学生を支援します。",
+    "level": "N3"
+  },
+  {
+    "front": "女の子",
+    "back": "Qiz bola",
+    "phonetic": "おんなのこ - onna no ko",
+    "example": "女の子が遊んでいます。",
+    "level": "N3"
+  },
+  {
+    "front": "おせち料理",
+    "back": "Yangi yilga tayyorlanadigan an'anaviy yapon taomlari",
+    "phonetic": "おせちりょうり - osechi ryōri",
+    "example": "お正月におせち料理を食べます。",
+    "level": "N3"
+  },
+  {
+    "front": "行事",
+    "back": "Tadbir, marosim",
+    "phonetic": "ぎょうじ - gyōji",
+    "example": "学校の行事があります。",
+    "level": "N3"
+  },
+  {
+    "front": "敬老の日",
+    "back": "Keksalarni hurmat qilish kuni",
+    "phonetic": "けいろうのひ - keirō no hi",
+    "example": "敬老の日に祖母に電話します。",
+    "level": "N3"
+  },
+  {
+    "front": "（お）正月 (おしょうがつ)",
+    "back": "Yangi yil bayrami",
+    "phonetic": "（お）正月 (おしょうがつ) - oshōgatsu",
+    "example": "お正月に家族と過ごします。",
+    "level": "N3"
+  },
+  {
+    "front": "七五三",
+    "back": "7-5-3 bolalar bayrami",
+    "phonetic": "しちごさん - shichigosan",
+    "example": "七五三は子どもの行事です。",
+    "level": "N3"
+  },
+  {
+    "front": "新年",
+    "back": "Yangi yil",
+    "phonetic": "しんねん - shinnen",
+    "example": "新年を家族と祝います。",
+    "level": "N3"
+  },
+  {
+    "front": "成人式",
+    "back": "Voyaga yetganlik marosimi",
+    "phonetic": "せいじんしき - seijinshiki",
+    "example": "成人式に参加します。",
+    "level": "N3"
+  },
+  {
+    "front": "節分",
+    "back": "Setsubun, qish oxiri marosimi",
+    "phonetic": "せつぶん - setsubun",
+    "example": "節分に豆をまきます。",
+    "level": "N3"
+  },
+  {
+    "front": "ひなまつり",
+    "back": "Qizlar bayrami, Hina Matsuri",
+    "phonetic": "ひなまつり - hinamatsuri",
+    "example": "三月三日はひなまつりです。",
+    "level": "N3"
+  },
+  {
+    "front": "（お）赤飯 (おせきはん)",
+    "back": "Bayramlarda yeyiladigan qizil guruch",
+    "phonetic": "（お）赤飯 (おせきはん) - osekihan",
+    "example": "お祝いに赤飯を食べます。",
+    "level": "N3"
+  },
+  {
+    "front": "布",
+    "back": "Mato, gazlama",
+    "phonetic": "ぬの - nuno",
+    "example": "布で包みます。",
+    "level": "N3"
+  },
+  {
+    "front": "年賀状",
+    "back": "Yangi yil tabriknomasi",
+    "phonetic": "ねんがじょう - nengajō",
+    "example": "年賀状を書きます。",
+    "level": "N3"
+  },
+  {
+    "front": "はがき",
+    "back": "Pochta kartochkasi",
+    "phonetic": "はがき - hagaki",
+    "example": "はがきを送ります。",
+    "level": "N3"
+  },
+  {
+    "front": "ふろしき",
+    "back": "Narsalarni o'rash uchun mato",
+    "phonetic": "ふろしき - furoshiki",
+    "example": "ふろしきで荷物を包みます。",
+    "level": "N3"
+  },
+  {
+    "front": "ランドセル",
+    "back": "Boshlang'ich maktab o'quvchisi sumkasi",
+    "phonetic": "ランドセル - randoseru",
+    "example": "ランドセルを背負います。",
+    "level": "N3"
+  },
+  {
+    "front": "ウナギ",
+    "back": "Ilonbaliq",
+    "phonetic": "ウナギ - unagi",
+    "example": "ウナギを食べます。",
+    "level": "N3"
+  },
+  {
+    "front": "大晦日",
+    "back": "Yilning so'nggi kuni",
+    "phonetic": "おおみそか - ōmisoka",
+    "example": "大晦日にそばを食べます。",
+    "level": "N3"
+  },
+  {
+    "front": "（お）金持ち (おかねもち)",
+    "back": "Boy odam",
+    "phonetic": "（お）金持ち (おかねもち) - okanemochi",
+    "example": "あの人はお金持ちです。",
+    "level": "N3"
+  },
+  {
+    "front": "スイカ",
+    "back": "Tarvuz",
+    "phonetic": "スイカ - suika",
+    "example": "夏にスイカを食べます。",
+    "level": "N3"
+  },
+  {
+    "front": "ブルーベリー",
+    "back": "Ko'k rezavor meva, blueberry",
+    "phonetic": "ブルーベリー - burūberī",
+    "example": "ブルーベリーを食べます。",
+    "level": "N3"
+  },
+  {
+    "front": "ミカン",
+    "back": "Mandarin",
+    "phonetic": "ミカン - mikan",
+    "example": "ミカンを食べます。",
+    "level": "N3"
+  },
+  {
+    "front": "ユズ",
+    "back": "Yuzu, yapon sitrusi",
+    "phonetic": "ユズ - yuzu",
+    "example": "ユズを使います。",
+    "level": "N3"
+  },
+  {
+    "front": "冬至",
+    "back": "Qish quyoshi turishi, qishki quyosh turishi",
+    "phonetic": "とうじ - tōji",
+    "example": "冬至にゆず湯に入ります。",
+    "level": "N3"
+  },
+  {
+    "front": "年",
+    "back": "Yosh, yil",
+    "phonetic": "とし - toshi",
+    "example": "今年はいい年です。",
+    "level": "N3"
+  },
+  {
+    "front": "土用の丑の日",
+    "back": "Midsummerda eel yeyiladigan maxsus kun",
+    "phonetic": "どようのうしのひ - doyō no ushi no hi",
+    "example": "土用の丑の日にうなぎを食べます。",
+    "level": "N3"
+  },
+  {
+    "front": "招き猫",
+    "back": "Omad chaqiruvchi mushuk haykalchasi",
+    "phonetic": "まねきねこ - maneki neko",
+    "example": "店に招き猫があります。",
+    "level": "N3"
+  },
+  {
+    "front": "遊び",
+    "back": "O'yin, hordiq",
+    "phonetic": "あそび - asobi",
+    "example": "子どもたちは遊びが好きです。",
+    "level": "N3"
+  },
+  {
+    "front": "お盆",
+    "back": "Obon, marhumlarni xotirlash bayrami",
+    "phonetic": "おぼん - obon",
+    "example": "お盆に家族が集まります。",
+    "level": "N3"
+  },
+  {
+    "front": "空手",
+    "back": "Karate",
+    "phonetic": "からて - karate",
+    "example": "空手を習っています。",
+    "level": "N3"
+  },
+  {
+    "front": "餃子",
+    "back": "Gyoza, ichli xamir taomi",
+    "phonetic": "ぎょうざ - gyōza",
+    "example": "餃子を食べます。",
+    "level": "N3"
+  },
+  {
+    "front": "ごちそう",
+    "back": "Hashamatli ovqat, ziyofat",
+    "phonetic": "ごちそう - gochisō",
+    "example": "今日はごちそうを食べます。",
+    "level": "N3"
+  },
+  {
+    "front": "シチュー",
+    "back": "Dimlama, stew",
+    "phonetic": "シチュー - shichū",
+    "example": "シチューを作ります。",
+    "level": "N3"
+  },
+  {
+    "front": "将棋",
+    "back": "Shogi, yapon shaxmati",
+    "phonetic": "しょうぎ - shōgi",
+    "example": "父と将棋をします。",
+    "level": "N3"
+  },
+  {
+    "front": "先祖",
+    "back": "Ajdodlar",
+    "phonetic": "せんぞ - senzo",
+    "example": "先祖のお墓に行きます。",
+    "level": "N3"
+  },
+  {
+    "front": "チェス",
+    "back": "Shaxmat",
+    "phonetic": "チェス - chesu",
+    "example": "チェスをします。",
+    "level": "N3"
+  },
+  {
+    "front": "テコンドー",
+    "back": "Taekvondo",
+    "phonetic": "テコンドー - tekondō",
+    "example": "テコンドーを習います。",
+    "level": "N3"
   }
 ]

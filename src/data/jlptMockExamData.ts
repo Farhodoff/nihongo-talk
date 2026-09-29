@@ -1412,7 +1412,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 520,
       section: 'listening',
-      audioUrl: '',
+      audioUrl: '/audio/choukai/n1/n1_mock_q520.mp3',
       script:
         '大学の公開講座で教授が話しています。科学哲学においてパラダイムシフトが起こる契機とは何ですか？\n教授：既存の理論的枠組みでは到底説明のつかない「アノマリー（変則事象）」が累積し、もはや無視できないレベルに達したとき、根本的な転換が促されるのです。',
       questionText: 'パラダイムシフトが起こる根本的な契機として述べられているのはどれですか？',
@@ -1429,7 +1429,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 521,
       section: 'listening',
-      audioUrl: '',
+      audioUrl: '/audio/choukai/n1/n1_mock_q521.mp3',
       script:
         '国際シンポジウムで言語学者が話しています。言語の多様性を保持すべき理由は何ですか？\n言語学者：言語の消滅は、単なる語彙の喪失にとどまりません。その言語共同体が何世代にもわたって培ってきた独自の認識体系や世界観そのものが永遠に失われることを意味するからです。',
       questionText: '言語学者が言語の多様性を重要視する最大の理由は何ですか？',
@@ -1446,7 +1446,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 522,
       section: 'listening',
-      audioUrl: '',
+      audioUrl: '/audio/choukai/n1/n1_mock_q522.mp3',
       script:
         '環境問題のセミナーで専門家が講演しています。\n専門家：カーボンニュートラルを実現するためには、単に再生可能エネルギーの導入比率を高めるだけでは不十分です。産業構造そのものの脱炭素化と、消費者のライフスタイルの抜本的な変革という両輪が揃って初めて、実効性のある成果が期待できるのです。',
       questionText: 'カーボンニュートラルの実現に不可欠な二つの要素は何ですか？',
@@ -1463,7 +1463,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 523,
       section: 'listening',
-      audioUrl: '',
+      audioUrl: '/audio/choukai/n1/n1_mock_q523.mp3',
       script:
         '経営会議で社長が新規事業の方針について説明しています。\n社長：わが社の成長戦略において、既存事業の漸進的な改善にとどまることは、実質的な後退を意味します。不確実性を恐れず、非連続なイノベーションをもたらすフロンティア領域へ、果敢に経営資源を集中投下すべきです。',
       questionText: '社長が打ち出した新規事業の基本方針はどれですか？',
@@ -1480,7 +1480,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 524,
       section: 'listening',
-      audioUrl: '',
+      audioUrl: '/audio/choukai/n1/n1_mock_q524.mp3',
       script:
         '美術館の学芸員が特別展について解説しています。\n学芸員：今回の回顧展の眼目は、画家の代表作を年代順に並べることではなく、彼が生涯にわたってこだわり続けた「光の陰影の変遷」というテーマを軸に空間を再構成した点にあります。来館者の皆様には、光と影のダイナミズムを体感していただきたいと考えております。',
       questionText: '今回の特別展の最も大きな特徴は何ですか？',
@@ -1497,7 +1497,7 @@ export const JLPT_MOCK_EXAM_DATA: Record<'N5' | 'N4' | 'N3' | 'N2' | 'N1', ExamQ
     {
       id: 525,
       section: 'listening',
-      audioUrl: '',
+      audioUrl: '/audio/choukai/n1/n1_mock_q525.mp3',
       script:
         '教育フォーラムで教育評論家が話しています。\n評論家：AI時代における真の学力とは、正解の決まっている問いにいかに早く到達するかではありません。何が問題であるのかを自ら見出し、他者と対話を重ねながら新たな価値を共創していく「問いを立てる力」こそが、これからの教育に求められているのです。',
       questionText: 'これからの教育で最も求められている力は何だと述べられていますか？',
@@ -4454,7 +4454,7 @@ export const JLPT_N1_MOCK_SET_3: ExamQuestion[] = [
   {
     id: 570,
     section: 'listening',
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n1/n1_mock_q570.mp3',
     script:
       '司会：情報空間の進展が代議制民主主義に与える影響について、先生の率直な危機意識をお聞かせください。\n教授：SNS空間における推薦アルゴリズムは、利用者の既存の好悪や情動を増幅し、心地よい言説のみで周囲を囲い込むエコーチェンバー現象を不可避に生み出します。異質な他者との熟議や妥協の余地が削ぎ落とされ、敵対感情が過剰に煽られることで、民主主義の基盤である寛容と連帯が溶解しつつあるのです。',
     questionText:
@@ -4472,7 +4472,7 @@ export const JLPT_N1_MOCK_SET_3: ExamQuestion[] = [
   {
     id: 571,
     section: 'listening',
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n1/n1_mock_q571.mp3',
     script:
       '人類学者：マルセル・モースが論じたように、人間社会における贈与は決して純粋な好意のみでは完結しません。贈り物を受け取った瞬間、受贈者の内面には「お返しをしなければならない」という無形の負債感が生じます。この返礼の義務が果たされない限り、贈与者と受贈者の間には不可避な非対称性、すなわち一種の力関係が刻み込まれることになるのです。',
     questionText:
@@ -4490,7 +4490,7 @@ export const JLPT_N1_MOCK_SET_3: ExamQuestion[] = [
   {
     id: 572,
     section: 'listening',
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n1/n1_mock_q572.mp3',
     script:
       '経済学者：従来の大量生産・大量消費・大量廃棄という「リニア（線形）経済」は、地球環境の臨界点を超えようとしています。求められているのは、単に使用済み製品をリサイクルするという対症療法ではなく、設計の初期段階から再利用や分解を前提とし、資源が半永久的に循環し続けるビジネスモデルの再構築です。',
     questionText:
@@ -4508,7 +4508,7 @@ export const JLPT_N1_MOCK_SET_3: ExamQuestion[] = [
   {
     id: 573,
     section: 'listening',
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n1/n1_mock_q573.mp3',
     script:
       '哲学者：レイコフとジョンソンが明らかにしたように、メタファーは単なる文学的装飾ではありません。「時間は金である」や「議論は戦争である」という表現が示すように、私たちは未知の抽象的な領域を、自らの身体を通じた具体的で馴染みのある経験へと写像することで初めて認識しています。メタファーこそが人間の概念体系の根幹を規定しているのです。',
     questionText:
@@ -4526,7 +4526,7 @@ export const JLPT_N1_MOCK_SET_3: ExamQuestion[] = [
   {
     id: 574,
     section: 'listening',
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n1/n1_mock_q574.mp3',
     script:
       '専門家：パリをはじめ欧州で提唱されている15分都市構想は、過度な車依存と長距離通勤からの解放を目指す都市革命です。生活に必要なあらゆるインフラが短距離で完結することにより、移動のストレスが軽減されるだけでなく、地域のコミュニティが活性化し、都市全体のCO2排出量も劇的に抑制されます。',
     questionText:
@@ -4544,7 +4544,7 @@ export const JLPT_N1_MOCK_SET_3: ExamQuestion[] = [
   {
     id: 575,
     section: 'listening',
-    audioUrl: '',
+    audioUrl: '/audio/choukai/n1/n1_mock_q575.mp3',
     script:
       '心理学者：多くの人が「自分は仕事をしながらメールを返し、会議も聞けるマルチタスカーだ」と自負していますが、脳科学的に見ればこれは完全な錯覚です。脳の前頭前野は同時に2つの注意を要する作業を処理できず、タスク間を高速で往復しているにすぎません。このスイッチングコストにより、エネルギーが激しく消耗し、ミスが激増しているのです。',
     questionText:
