@@ -16,7 +16,7 @@ const APP_URL = (process.env.APP_URL || process.env.VITE_APP_URL || 'https://kai
 
 const defaultKeyboard = {
   keyboard: [
-    [{ text: '🚀 Nihon Talk-ni Ochish', web_app: { url: `${APP_URL}/` } }],
+    [{ text: '🚀 Nihongo Talk-ni Ochish', web_app: { url: `${APP_URL}/` } }],
     [{ text: '📅 Bugungi reja' }, { text: '🎌 Yaponcha Quiz' }],
     [{ text: '📚 Fleshkartalar' }, { text: '🎯 Speaking Mashqi' }],
     [{ text: 'ℹ️ Yordam' }]
@@ -36,7 +36,7 @@ async function setTelegramMenuButton(chatId) {
         chat_id: chatId,
         menu_button: {
           type: 'web_app',
-          text: 'Nihon Talk',
+          text: 'Nihongo Talk',
           web_app: { url: `${APP_URL}/` }
         }
       })
@@ -179,7 +179,7 @@ export default async function handler(req, res) {
 
           const welcomeText =
             `🎌 <b>JLPT Quiz Battle Guruhga Xush Kelibsiz!</b> ⚔️\n\n` +
-            `Men <b>Nihon Talk</b> botiman. Ushbu guruhda talabalar o'rtasida JLPT (N5 - N2) bilimi bo'yicha jonli viktorina boshlandi!\n\n` +
+            `Men <b>Nihongo Talk</b> botiman. Ushbu guruhda talabalar o'rtasida JLPT (N5 - N2) bilimi bo'yicha jonli viktorina boshlandi!\n\n` +
             `⚡ <b>Imkoniyatlar:</b>\n` +
             `• Har 2 soatda bot avtomatik yangi JLPT savolini tashlaydi.\n` +
             `• To'g'ri javob bergan ishtirokchilar <b>+10 XP</b> oladi!\n` +
@@ -316,7 +316,7 @@ export default async function handler(req, res) {
           const nextMarkup = {
             inline_keyboard: [
               [{ text: "🎲 Keyingi savol ➡️", callback_data: "quiz_next" }],
-              [{ text: "🌐 Nihon Talk Webda o'rganish", url: `${APP_URL}/jlpt` }]
+              [{ text: "🌐 Nihongo Talk Webda o'rganish", url: `${APP_URL}/jlpt` }]
             ]
           };
           await sendTelegramMessage(chatId, replyText, nextMarkup);
@@ -454,7 +454,7 @@ export default async function handler(req, res) {
         `• /start_battle — Har 2 soatda avtomatik savol yuborishni yoqish\n` +
         `• /stop_battle — Avtomatik savollarni to'xtatish\n` +
         `• /battle_help — Ushbu yordam xabari\n\n` +
-        `🚀 <b>Nihon Talk:</b> ${APP_URL}/`;
+        `🚀 <b>Nihongo Talk:</b> ${APP_URL}/`;
       await sendTelegramMessage(chatId, battleHelpText, null);
       return res.status(200).json({ ok: true });
     }
@@ -480,7 +480,7 @@ export default async function handler(req, res) {
           .maybeSingle();
 
         if (codeErr || !linkRecord) {
-          await sendTelegramMessage(chatId, `❌ <b>Noto'g'ri yoki muddati o'tgan kod!</b>\n\nIltimos, Nihon Talk saytidagi Sozlamalar sahifasidan yangi kod oling:\n<a href="https://kaiwa.live/settings">Sozlamalar sahifasiga o'tish</a>`);
+          await sendTelegramMessage(chatId, `❌ <b>Noto'g'ri yoki muddati o'tgan kod!</b>\n\nIltimos, Nihongo Talk saytidagi Sozlamalar sahifasidan yangi kod oling:\n<a href="https://kaiwa.live/settings">Sozlamalar sahifasiga o'tish</a>`);
           return res.status(200).json({ ok: true });
         }
 
@@ -499,7 +499,7 @@ export default async function handler(req, res) {
         // Mark code as used
         await supabase.from('telegram_link_codes').update({ used: true }).eq('id', linkRecord.id);
 
-        await sendTelegramMessage(chatId, `🎉 <b>Tabriklaymiz, ${escapeHTML(firstName)}!</b>\n\nTelegram bot Nihon Talk hisobingizga muvaffaqiyatli ulandi! 🚀\n\nEndi siz:\n• Kunlik darslar va vazifalar eslatmalarini olasiz\n• Mini-quizlar orqali yapon tilini mustahkamlaysiz\n• Speaking va fleshkarta natijalaringizni kuzatib borasiz!`, defaultKeyboard);
+        await sendTelegramMessage(chatId, `🎉 <b>Tabriklaymiz, ${escapeHTML(firstName)}!</b>\n\nTelegram bot Nihongo Talk hisobingizga muvaffaqiyatli ulandi! 🚀\n\nEndi siz:\n• Kunlik darslar va vazifalar eslatmalarini olasiz\n• Mini-quizlar orqali yapon tilini mustahkamlaysiz\n• Speaking va fleshkarta natijalaringizni kuzatib borasiz!`, defaultKeyboard);
         return res.status(200).json({ ok: true });
       }
 
@@ -513,29 +513,29 @@ export default async function handler(req, res) {
       await setTelegramMenuButton(chatId);
       const appInlineMarkup = {
         inline_keyboard: [
-          [{ text: '🚀 Nihon Talk-ni Ochish', web_app: { url: `${APP_URL}/` } }]
+          [{ text: '🚀 Nihongo Talk-ni Ochish', web_app: { url: `${APP_URL}/` } }]
         ]
       };
 
       if (existingUser) {
         await sendTelegramMessage(chatId, `👋 <b>Assalomu alaykum, ${escapeHTML(firstName)}!</b>\n\nHisobingiz platformaga ulangan.\n\nTelegram ichida platformani to'liq ochish uchun quyidagi tugmani bosing:`, appInlineMarkup);
       } else {
-        await sendTelegramMessage(chatId, `👋 <b>Assalomu alaykum!</b>\n\nNihon Talk Telegram botiga xush kelibsiz.\n\nTelegramdan chiqmasdan yapon tilini o'rganishni boshlash uchun quyidagi tugmani bosing:`, appInlineMarkup);
+        await sendTelegramMessage(chatId, `👋 <b>Assalomu alaykum!</b>\n\nNihongo Talk Telegram botiga xush kelibsiz.\n\nTelegramdan chiqmasdan yapon tilini o'rganishni boshlash uchun quyidagi tugmani bosing:`, appInlineMarkup);
       }
       return res.status(200).json({ ok: true });
     }
 
     // B. Handle /app or 'Mini App'
-    if (text === '/app' || text.includes('Mini App') || text.includes('Nihon Talk')) {
+    if (text === '/app' || text.includes('Mini App') || text.includes('Nihongo Talk')) {
       await setTelegramMenuButton(chatId);
       const appMarkup = {
         inline_keyboard: [
-          [{ text: '🚀 Nihon Talk-ni Ochish', web_app: { url: `${APP_URL}/` } }]
+          [{ text: '🚀 Nihongo Talk-ni Ochish', web_app: { url: `${APP_URL}/` } }]
         ]
       };
       await sendTelegramMessage(
         chatId,
-        `📱 <b>Nihon Talk:</b>\n\nTelegramdan chiqmasdan yapon tilini to'liq o'rganing:\n• 🎴 JLPT N5–N1 Grammatika, Kanji va Quizlar\n• 🎙️ AI Speaking Coach\n• 📚 Anki SM-2 Fleshkartalar\n• 🔥 Shaxsiy kunlik reja va Pomodoro\n\nIlovani ochish uchun quyidagi tugmani bosing:`,
+        `📱 <b>Nihongo Talk:</b>\n\nTelegramdan chiqmasdan yapon tilini to'liq o'rganing:\n• 🎴 JLPT N5–N1 Grammatika, Kanji va Quizlar\n• 🎙️ AI Speaking Coach\n• 📚 Anki SM-2 Fleshkartalar\n• 🔥 Shaxsiy kunlik reja va Pomodoro\n\nIlovani ochish uchun quyidagi tugmani bosing:`,
         appMarkup
       );
       return res.status(200).json({ ok: true });
@@ -578,7 +578,7 @@ export default async function handler(req, res) {
       };
       await sendTelegramMessage(
         chatId,
-        `📚 <b>Nihon Talk Fleshkartalari (SRS Tizimi):</b>\n\nSuperMemo SM-2 algoritmi asosida so'zlar va iyerogliflarni eslab qoling.${cardInfo}\n\nFleshkartalarni o'rganish uchun veb ilovaga kiring:`,
+        `📚 <b>Nihongo Talk Fleshkartalari (SRS Tizimi):</b>\n\nSuperMemo SM-2 algoritmi asosida so'zlar va iyerogliflarni eslab qoling.${cardInfo}\n\nFleshkartalarni o'rganish uchun veb ilovaga kiring:`,
         flashcardMarkup
       );
       return res.status(200).json({ ok: true });
@@ -634,13 +634,13 @@ export default async function handler(req, res) {
 
     // F. Legacy fallback: /subscription
     if (text === '/subscription' || text.includes('Obuna holati')) {
-      await sendTelegramMessage(chatId, `🎁 <b>Nihon Talk 100% Bepul va Ochiq!</b>\n\nPlatformadagi barcha imkoniyatlar (AI Speaking Coach, JLPT Mock Exam, Anki Fleshkartalar, Audio talaffuz) barcha foydalanuvchilar uchun mutlaqo bepul taqdim etiladi! 🚀\n\n🔗 Web sayt: <a href="https://kaiwa.live">Nihon Talk Bosh Sahifa</a>`);
+      await sendTelegramMessage(chatId, `🎁 <b>Nihongo Talk 100% Bepul va Ochiq!</b>\n\nPlatformadagi barcha imkoniyatlar (AI Speaking Coach, JLPT Mock Exam, Anki Fleshkartalar, Audio talaffuz) barcha foydalanuvchilar uchun mutlaqo bepul taqdim etiladi! 🚀\n\n🔗 Web sayt: <a href="https://kaiwa.live">Nihongo Talk Bosh Sahifa</a>`);
       return res.status(200).json({ ok: true });
     }
 
     // G. Handle /help or 'ℹ️ Yordam'
     if (text === '/help' || text.includes('Yordam')) {
-      await sendTelegramMessage(chatId, `ℹ️ <b>Nihon Talk Bot Yordam Qo'llanmasi:</b>\n\n/start - Akkauntni ulash yoki bosh menyu\n/app - Telegram Mini App ilovasini ochish 🚀\n/quiz - Yapon tili bo'yicha interaktiv mini-quiz\n/plan - Bugungi o'quv rejalari va vazifalar\n/flashcards - Fleshkartalar holati va takrorlash\n/speaking - Speaking Coach mashqlari\n/help - Yordam menyusi\n\n🌐 Asosiy veb-sayt: <a href="https://kaiwa.live">Nihon Talk Platformasi</a>`);
+      await sendTelegramMessage(chatId, `ℹ️ <b>Nihongo Talk Bot Yordam Qo'llanmasi:</b>\n\n/start - Akkauntni ulash yoki bosh menyu\n/app - Telegram Mini App ilovasini ochish 🚀\n/quiz - Yapon tili bo'yicha interaktiv mini-quiz\n/plan - Bugungi o'quv rejalari va vazifalar\n/flashcards - Fleshkartalar holati va takrorlash\n/speaking - Speaking Coach mashqlari\n/help - Yordam menyusi\n\n🌐 Asosiy veb-sayt: <a href="https://kaiwa.live">Nihongo Talk Platformasi</a>`);
       return res.status(200).json({ ok: true });
     }
 

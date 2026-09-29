@@ -260,7 +260,7 @@ export class TelegramDatasetService {
     const summary = customSummary || (await this.getDailySummary());
 
     // 1. Build Header & High-level Stats Message
-    let messageText = `📊 <b>Nihon Talk — KUNLIK OVOZLI SUHBATLAR HISOBOTI (${summary.date})</b>\n`;
+    let messageText = `📊 <b>Nihongo Talk — KUNLIK OVOZLI SUHBATLAR HISOBOTI (${summary.date})</b>\n`;
     messageText += `━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
     messageText += `🗣 <b>Jami suhbatlar:</b> ${summary.totalSessions} ta\n`;
     messageText += `⏱ <b>Umumiy suhbat vaqti:</b> ${summary.totalDurationMinutes} daqiqa\n`;
@@ -300,7 +300,7 @@ export class TelegramDatasetService {
       messageText += `<i>Bugun hali yangi suhbatlar yozilmadi.</i>\n`;
     }
 
-    messageText += `\n🤖 <i>Nihon Talk Speech Dataset Engine</i>`;
+    messageText += `\n🤖 <i>Nihongo Talk Speech Dataset Engine</i>`;
 
     try {
       let sentSuccessfully = false;
@@ -469,7 +469,7 @@ export class TelegramDatasetService {
           const result = await TelegramDatasetService.sendDailyReportToTelegram();
           if (result.success) {
             safeLocalStorage.setItem('nihon_talk_telegram_last_dispatched_date', todayStr);
-            console.log('✅ Nihon Talk Daily 22:00 Telegram Telemetry Dispatched Successfully');
+            console.log('✅ Nihongo Talk Daily 22:00 Telegram Telemetry Dispatched Successfully');
           }
         } catch (e) {
           console.warn('Auto 22:00 dispatch warning:', e);

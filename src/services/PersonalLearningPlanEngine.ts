@@ -380,7 +380,7 @@ export const PersonalLearningPlanEngine = {
         } catch {}
       }
 
-      const systemPrompt = `You are Nihon Talk’s Adaptive Learning Planner for English (IELTS/CEFR) and Japanese (JLPT).
+      const systemPrompt = `You are Nihongo Talk’s Adaptive Learning Planner for English (IELTS/CEFR) and Japanese (JLPT).
 
 Your job is to create one realistic, personalized 7-day study plan using only the student data and valid learning routes provided below.
 

@@ -170,7 +170,7 @@ export const AdminDatasetVaultModal: React.FC<AdminDatasetVaultModalProps> = ({
 
       // 2. Human-readable text archive (Clean & Beautiful)
       let humanReadableText = `================================================================================\n`;
-      humanReadableText += `NIHON TALK SPEECH DATASET ARCHIVE\n`;
+      humanReadableText += `NIHONGO TALK SPEECH DATASET ARCHIVE\n`;
       humanReadableText += `Export Timestamp: ${new Date().toISOString()}\n`;
       humanReadableText += `Dataset Filter: ${summary.date}\n`;
       humanReadableText += `Total Sessions: ${summary.totalSessions} | Total Duration: ${summary.totalDurationMinutes} min | Active Users: ${summary.activeUsersCount}\n`;

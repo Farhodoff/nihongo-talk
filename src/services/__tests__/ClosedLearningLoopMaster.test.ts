@@ -7,7 +7,7 @@ import { LearningPathEngine } from '../LearningPathEngine';
 import { PersonalLearningGoal } from '../../types/learningPlan';
 import { PRESET_DECKS } from '../../data/presetDecks';
 
-describe('Nihon Talk Closed Learning Loop Master Integration Tests', () => {
+describe('Nihongo Talk Closed Learning Loop Master Integration Tests', () => {
   const userA_id = 'guest';
   const userB_id = 'user-b-mock';
 

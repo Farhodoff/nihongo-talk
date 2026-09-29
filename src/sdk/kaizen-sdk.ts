@@ -1,5 +1,5 @@
 /**
- * Nihon Talk Universal SDK
+ * Nihongo Talk Universal SDK
  * Lightweight, zero-dependency client for IELTS Evaluation, JLPT, Flashcards, and SM-2 Spaced Repetition.
  * Works in Node.js, Next.js, React, Vue, React Native, and vanilla JavaScript.
  */
