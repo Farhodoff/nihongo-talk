@@ -1,10 +1,37 @@
-*.pdf
-books/
+# Build and bundle outputs
+build/
+dist/
+.vercel
+bundle-analysis.html
+*.tsbuildinfo
+
+# Dependencies
+node_modules/
+
+# Test and coverage reports
+coverage/
+playwright-report/
+test-results/
+test_reports/
+reports/
+report/
+
+# Scripts & temporary workspace items
 scratch/
 scripts/temp/
+scripts/archive/
 *.log
-coverage/
-.venv/
-.agents/
+*.pdf
+books/
+book_2/
+book_3/
+*.rar
+*.zip
 planner.pptx
 *.pptx
+.venv/
+.agents/
+skills-lock.json
+supabase/.temp/
+src/data/decks/backups/
+scripts/live_session.json
