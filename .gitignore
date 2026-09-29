@@ -3,45 +3,15 @@
 # dependencies
 node_modules/
 
-# Expo
-.expo/
+# production builds
 dist/
 build/
-web-build/
-expo-env.d.ts
-
-# Native
-.kotlin/
-*.orig.*
-*.jks
-*.p8
-*.p12
-*.key
-*.mobileprovision
-
-# Metro
-.metro-health-check*
+bundle-analysis.html
+*.tsbuildinfo
 
 # macOS
 .DS_Store
 *.pem
-
-# local env files - CRITICAL: API keys and secrets
-.env
-.env.local
-.env*.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-# typescript
-*.tsbuildinfo
-
-app-example
-
-# generated native folders
-/ios
-/android
 
 # IDE
 .vscode/

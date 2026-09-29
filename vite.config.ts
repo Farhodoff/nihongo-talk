@@ -338,7 +338,7 @@ export default defineConfig(({ mode }) => {
             if (id.includes('/data/jlptGrammarKanji')) {
               return 'jlpt-grammar-kanji-data';
             }
-            if (id.includes('/data/jlptVocabData') || id.includes('/data/jlptVocabDatabase')) {
+            if (id.includes('/data/jlptVocabData')) {
               return 'jlpt-vocab-core';
             }
           },
