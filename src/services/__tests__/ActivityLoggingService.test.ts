@@ -105,10 +105,10 @@ describe('ActivityLoggingService', () => {
       expect(stored[0].activityTitle).toBe('N5 Flashcard 1-qism');
     });
 
-    it('inserts activity into Supabase when authenticated', async () => {
+    it('inserts activity into Supabase with deterministic UUID when authenticated', async () => {
       const mockInsert = vi.fn().mockResolvedValue({ error: null });
       vi.mocked(supabase.auth.getSession).mockResolvedValue({
-        data: { session: { user: { id: 'user-abc-123' } } },
+        data: { session: { user: { id: 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11' } } },
         error: null,
       } as any);
       vi.mocked(supabase.from).mockReturnValue({ insert: mockInsert } as any);
@@ -124,13 +124,68 @@ describe('ActivityLoggingService', () => {
 
       expect(mockInsert).toHaveBeenCalledWith(
         expect.objectContaining({
-          user_id: 'user-abc-123',
+          user_id: 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
           activity_type: 'speaking',
           activity_title: 'AI Coach Dialog',
           duration_minutes: 12,
           xp_earned: 65,
         }),
       );
+    });
+
+    it('safely converts non-UUID user id (e.g. tg-user-...) to deterministic UUID for Supabase', async () => {
+      const mockInsert = vi.fn().mockResolvedValue({ error: null });
+      vi.mocked(supabase.auth.getSession).mockResolvedValue({
+        data: { session: { user: { id: 'tg-user-987654321' } } },
+        error: null,
+      } as any);
+      vi.mocked(supabase.from).mockReturnValue({ insert: mockInsert } as any);
+      vi.mocked(supabase.rpc).mockResolvedValue({ data: null, error: null } as any);
+
+      await ActivityLoggingService.logActivity(
+        {
+          activityType: 'kanji',
+          activityTitle: '日 (Kun: ひ) Kanji Mashqi',
+          durationMinutes: 2,
+          itemsCount: 1,
+          xpEarned: 15,
+        },
+        'tg-user-987654321',
+      );
+
+      expect(mockInsert).toHaveBeenCalledWith(
+        expect.objectContaining({
+          user_id: expect.stringMatching(
+            /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i,
+          ),
+          activity_type: 'kanji',
+          activity_title: '日 (Kun: ひ) Kanji Mashqi',
+        }),
+      );
+    });
+
+    it('records quest progress when kanji or listening activities are logged', async () => {
+      const recordQuestSpy = vi.spyOn(useGamificationStore.getState(), 'recordQuestProgress');
+
+      await ActivityLoggingService.logActivity({
+        activityType: 'kanji',
+        activityTitle: 'Kanji Canvas',
+        durationMinutes: 3,
+        itemsCount: 2,
+        xpEarned: 30,
+      });
+      expect(recordQuestSpy).toHaveBeenCalledWith('kanji', 2);
+
+      await ActivityLoggingService.logActivity({
+        activityType: 'listening',
+        activityTitle: 'Mondai Audio',
+        durationMinutes: 5,
+        itemsCount: 1,
+        xpEarned: 25,
+      });
+      expect(recordQuestSpy).toHaveBeenCalledWith('listening', 1);
+
+      recordQuestSpy.mockRestore();
     });
   });
 

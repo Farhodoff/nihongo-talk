@@ -2,6 +2,7 @@ import { supabase } from '../lib/supabase';
 import { logger } from '../utils/logger';
 import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
 import { OfflineSyncManager } from './OfflineSyncManager';
+import { toDeterministicUUID } from '../utils/uuid';
 
 export interface WritingHistoryItem {
   id: string;
@@ -93,8 +94,9 @@ export class HistoryService {
         } = await supabase.auth.getUser();
         if (user) {
           userId = user.id;
+          const safeUserId = toDeterministicUUID(user.id);
           const { error } = await supabase.from('ielts_writing_history').insert({
-            user_id: user.id,
+            user_id: safeUserId,
             task_type: newItem.taskType,
             prompt: newItem.prompt,
             essay: newItem.essay,
@@ -157,10 +159,11 @@ export class HistoryService {
 
     if (!isTableDisabled('ielts_writing_history') && userId) {
       try {
+        const safeUserId = toDeterministicUUID(userId);
         const { data, error } = await supabase
           .from('ielts_writing_history')
           .select('*')
-          .eq('user_id', userId)
+          .eq('user_id', safeUserId)
           .order('created_at', { ascending: false })
           .limit(limit);
         if (!error && data) {
@@ -213,11 +216,12 @@ export class HistoryService {
       } = await supabase.auth.getUser();
       if (user) {
         userId = user.id;
+        const safeUserId = toDeterministicUUID(user.id);
 
         // 1. Primary insert into speaking_sessions
         const res1 = await supabase.from('speaking_sessions').insert({
           id: newItem.id,
-          user_id: user.id,
+          user_id: safeUserId,
           user_email: user.email,
           language: newItem.language,
           persona_title: newItem.persona,
@@ -238,7 +242,7 @@ export class HistoryService {
         // 2. Fallback insert into speaking_coach_sessions
         const res2 = await supabase.from('speaking_coach_sessions').insert({
           id: newItem.id,
-          user_id: user.id,
+          user_id: safeUserId,
           language: newItem.language,
           persona: newItem.persona,
           duration_seconds: newItem.durationSeconds,
@@ -308,10 +312,11 @@ export class HistoryService {
 
     if (!isTableDisabled('speaking_coach_sessions') && userId) {
       try {
+        const safeUserId = toDeterministicUUID(userId);
         const { data, error } = await supabase
           .from('speaking_coach_sessions')
           .select('*')
-          .eq('user_id', userId)
+          .eq('user_id', safeUserId)
           .order('created_at', { ascending: false })
           .limit(limit);
         if (!error && data) {
@@ -360,8 +365,9 @@ export class HistoryService {
         } = await supabase.auth.getUser();
         if (user) {
           userId = user.id;
+          const safeUserId = toDeterministicUUID(user.id);
           const { error } = await supabase.from('mock_exams_history').insert({
-            user_id: user.id,
+            user_id: safeUserId,
             exam_type: newItem.examType,
             level: newItem.level || null,
             score: newItem.score,
@@ -430,10 +436,11 @@ export class HistoryService {
 
     if (!isTableDisabled('mock_exams_history') && userId) {
       try {
+        const safeUserId = toDeterministicUUID(userId);
         const { data, error } = await supabase
           .from('mock_exams_history')
           .select('*')
-          .eq('user_id', userId)
+          .eq('user_id', safeUserId)
           .order('created_at', { ascending: false })
           .limit(limit);
         if (!error && data) {

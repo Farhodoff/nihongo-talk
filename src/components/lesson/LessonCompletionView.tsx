@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Trophy, Zap, ArrowRight, Home, CheckCircle2, Layers, AlertCircle } from 'lucide-react';
 import { Lesson } from '../../types/lesson';
 import { LessonService } from '../../services/LessonService';
+import { useTelegramWebApp } from '../../hooks/useTelegramWebApp';
 
 interface LessonCompletionViewProps {
   lesson: Lesson;
@@ -25,6 +26,11 @@ export const LessonCompletionView: React.FC<LessonCompletionViewProps> = ({
 }) => {
   const navigate = useNavigate();
   const nextLesson = LessonService.getNextLesson(lesson.id);
+  const { haptics } = useTelegramWebApp();
+
+  useEffect(() => {
+    haptics.notification('success');
+  }, []);
 
   const handleContinue = () => {
     if (nextLesson) {

@@ -19,6 +19,8 @@ import { LearnStepView } from '../components/lesson/LearnStepView';
 import { PracticeStepView } from '../components/lesson/PracticeStepView';
 import { TestStepView, MissedQuestionInfo } from '../components/lesson/TestStepView';
 import { LessonCompletionView } from '../components/lesson/LessonCompletionView';
+import { ActivityLoggingService } from '../services/ActivityLoggingService';
+import { useGamificationStore } from '../stores/useGamificationStore';
 import { useSEO } from '../hooks/useSEO';
 import { toast } from '../hooks/use-toast';
 
@@ -313,6 +315,35 @@ export const LessonPlayerPage: React.FC = () => {
         mistakes,
       );
       setSrsSummary(summary);
+
+      // Log activity to user learning history and update listening quest if applicable
+      await ActivityLoggingService.logActivity(
+        {
+          activityType: 'lesson',
+          activityTitle: `${lesson.title} Darsi`,
+          durationMinutes: lesson.estimatedDurationMinutes || 20,
+          itemsCount: lesson.steps.length,
+          xpEarned: alreadyCompleted ? 0 : 50,
+          metadata: {
+            lessonId: lesson.id,
+            level: lesson.level,
+            unitId: lesson.unitId,
+            score: score.percentage,
+          },
+        },
+        activeUserId,
+      );
+
+      const hasListeningStep = lesson.steps.some(
+        (s) =>
+          s.id.includes('s4') ||
+          s.title.toLowerCase().includes('tinglash') ||
+          s.title.toLowerCase().includes('mondai') ||
+          s.title.toLowerCase().includes('choukai'),
+      );
+      if (hasListeningStep) {
+        useGamificationStore.getState().recordQuestProgress('listening', 1);
+      }
     } catch (err) {
       console.error('[LessonPlayerPage] Failed to complete lesson mastery pipeline:', err);
     } finally {

@@ -2,10 +2,11 @@ import { supabase } from '../lib/supabase';
 import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
 import { useGamificationStore } from '../stores/useGamificationStore';
 import { DailyQuestService } from './DailyQuestService';
-import { generateUUID } from '../utils/uuid';
+import { generateUUID, toDeterministicUUID } from '../utils/uuid';
 import { format } from 'date-fns';
 
-export type ActivityType = 'flashcards' | 'speaking' | 'focus' | 'lesson' | 'quiz' | 'exam';
+export type ActivityType =
+  'flashcards' | 'speaking' | 'focus' | 'lesson' | 'quiz' | 'exam' | 'kanji' | 'listening';
 
 export interface UserLearningActivity {
   id: string;
@@ -103,13 +104,16 @@ export class ActivityLoggingService {
       createdAt?: string;
       activityDate?: string;
     },
+    explicitUserId?: string | null,
   ): Promise<UserLearningActivity> {
-    let userId: string | null = null;
-    try {
-      const sessionRes = await supabase.auth.getSession();
-      userId = sessionRes?.data?.session?.user?.id || null;
-    } catch {
-      // Offline or guest
+    let userId: string | null = explicitUserId ?? null;
+    if (!userId) {
+      try {
+        const sessionRes = await supabase.auth.getSession();
+        userId = sessionRes?.data?.session?.user?.id || null;
+      } catch {
+        // Offline or guest
+      }
     }
 
     const now = new Date();
@@ -151,6 +155,14 @@ export class ActivityLoggingService {
       } else if (activity.activityType === 'speaking') {
         DailyQuestService.incrementMetaCounter(userId, 'speakingSessionsCompleted', 1);
         useGamificationStore.getState().recordQuestProgress('speaking', 1);
+      } else if (activity.activityType === 'kanji') {
+        DailyQuestService.incrementMetaCounter(userId, 'kanjiMastered', activity.itemsCount || 1);
+        useGamificationStore.getState().recordQuestProgress('kanji', activity.itemsCount || 1);
+      } else if (activity.activityType === 'listening') {
+        DailyQuestService.incrementMetaCounter(userId, 'listeningQuestionsCompleted', 1);
+        useGamificationStore.getState().recordQuestProgress('listening', 1);
+      } else if (activity.activityType === 'lesson') {
+        // Lessons contribute to learning history and overall study time
       } else if (activity.activityType === 'focus') {
         useGamificationStore.getState().recordQuestProgress('focus', 1);
       }
@@ -164,9 +176,10 @@ export class ActivityLoggingService {
     // 3. Persist to Supabase if authenticated
     if (userId && userId !== 'guest' && userId !== 'anon') {
       try {
+        const safeUserId = toDeterministicUUID(userId);
         const { error } = await supabase.from('user_learning_activities').insert({
           id: activity.id,
-          user_id: userId,
+          user_id: safeUserId,
           activity_type: activity.activityType,
           activity_title: activity.activityTitle,
           duration_minutes: activity.durationMinutes,
@@ -183,7 +196,7 @@ export class ActivityLoggingService {
           // Attempt atomic increment if function exists
           try {
             await supabase.rpc('increment_user_xp', {
-              user_uuid: userId,
+              user_uuid: safeUserId,
               xp_to_add: activity.xpEarned,
             });
           } catch {
@@ -219,10 +232,11 @@ export class ActivityLoggingService {
     }
 
     try {
+      const safeUserId = toDeterministicUUID(userId);
       const { data, error } = await supabase
         .from('user_learning_activities')
         .select('*')
-        .eq('user_id', userId)
+        .eq('user_id', safeUserId)
         .order('created_at', { ascending: false })
         .limit(1000);
 

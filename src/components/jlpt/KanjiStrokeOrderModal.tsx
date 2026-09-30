@@ -12,9 +12,14 @@ import {
   Eye,
   EyeOff,
   Trash2,
+  CheckCircle2,
 } from 'lucide-react';
 import { speakText } from '../../utils/audioTts';
 import { KanjiPracticeService, type KanjiStrokeData } from '../../services/KanjiPracticeService';
+import { useGamificationStore } from '../../stores/useGamificationStore';
+import { DailyQuestService } from '../../services/DailyQuestService';
+import { ActivityLoggingService } from '../../services/ActivityLoggingService';
+import { useTelegramWebApp } from '../../hooks/useTelegramWebApp';
 
 type KanjiStrokeEntry = KanjiStrokeData;
 
@@ -55,11 +60,13 @@ export const KanjiStrokeOrderModal: React.FC<KanjiStrokeOrderModalProps> = ({
   isOpen,
   onClose,
 }) => {
+  const { haptics } = useTelegramWebApp();
   const [strokeData, setStrokeData] = useState<KanjiStrokeEntry | null>(null);
   const [currentStep, setCurrentStep] = useState<number>(0);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [showNumbers, setShowNumbers] = useState<boolean>(true);
   const [isPracticeMode, setIsPracticeMode] = useState<boolean>(false);
+  const [practiceCompleted, setPracticeCompleted] = useState<boolean>(false);
   const [speed, setSpeed] = useState<number>(750); // ms per stroke
 
   // Canvas drawing state for practice mode
@@ -72,10 +79,12 @@ export const KanjiStrokeOrderModal: React.FC<KanjiStrokeOrderModalProps> = ({
   useEffect(() => {
     if (!isOpen) {
       setIsPlaying(false);
+      setPracticeCompleted(false);
       return;
     }
 
     setIsPracticeMode(false);
+    setPracticeCompleted(false);
 
     let isCancelled = false;
 
@@ -171,7 +180,10 @@ export const KanjiStrokeOrderModal: React.FC<KanjiStrokeOrderModalProps> = ({
   };
 
   const stopDrawing = () => {
-    setIsDrawing(false);
+    if (isDrawing) {
+      setIsDrawing(false);
+      haptics.impact('light');
+    }
   };
 
   const clearCanvas = () => {
@@ -180,6 +192,26 @@ export const KanjiStrokeOrderModal: React.FC<KanjiStrokeOrderModalProps> = ({
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    haptics.impact('medium');
+  };
+
+  const handleFinishModalPractice = () => {
+    if (practiceCompleted) return;
+    setPracticeCompleted(true);
+    haptics.notification('success');
+    try {
+      useGamificationStore.getState().awardXP(10);
+      useGamificationStore.getState().recordQuestProgress('kanji', 1);
+      DailyQuestService.incrementMetaCounter(null, 'kanjiMastered', 1);
+      ActivityLoggingService.logActivity({
+        activityType: 'kanji',
+        activityTitle: `${kanji} (${meaningUz}) Kanji Mashqi (Modal)`,
+        durationMinutes: 2,
+        itemsCount: 1,
+        xpEarned: 10,
+        metadata: { kanji, level, meaningUz },
+      });
+    } catch {}
   };
 
   const speedLabels: Record<number, string> = {
@@ -490,16 +522,30 @@ export const KanjiStrokeOrderModal: React.FC<KanjiStrokeOrderModalProps> = ({
             </div>
           ) : (
             /* Practice Mode Controls */
-            <div className="mt-5 flex items-center gap-3">
+            <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
               <button
                 onClick={clearCanvas}
-                className="flex items-center gap-1.5 rounded-xl border border-rose-500/30 bg-rose-600/20 px-4 py-2 font-semibold text-rose-300 transition hover:bg-rose-600/30"
+                className="flex items-center gap-1.5 rounded-xl border border-rose-500/30 bg-rose-600/20 px-3.5 py-2 text-xs font-semibold text-rose-300 transition hover:bg-rose-600/30 active:scale-95"
               >
                 <Trash2 className="h-4 w-4" /> Tozalash
               </button>
               <button
+                onClick={handleFinishModalPractice}
+                disabled={practiceCompleted}
+                className={`flex items-center gap-1.5 rounded-xl px-4 py-2 text-xs font-bold transition active:scale-95 ${
+                  practiceCompleted
+                    ? 'border border-emerald-500/30 bg-emerald-500/20 text-emerald-300'
+                    : 'bg-emerald-600 text-white shadow-md shadow-emerald-600/30 hover:bg-emerald-500'
+                }`}
+              >
+                <CheckCircle2 className="h-4 w-4" />
+                <span>
+                  {practiceCompleted ? 'Bajarildi! (+10 XP)' : 'Mashqni Yakunlash (+10 XP)'}
+                </span>
+              </button>
+              <button
                 onClick={() => speakText(kanji, 'ja-JP')}
-                className="rounded-xl border border-amber-500/30 bg-amber-500/20 p-2.5 text-amber-300 transition hover:bg-amber-500/30"
+                className="rounded-xl border border-amber-500/30 bg-amber-500/20 p-2 text-amber-300 transition hover:bg-amber-500/30 active:scale-95"
                 title="Ovozli eshitish"
               >
                 <Volume2 className="h-5 w-5" />

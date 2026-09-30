@@ -26,6 +26,8 @@ import {
 } from '../../services/KanjiPracticeService';
 import { DailyQuestService } from '../../services/DailyQuestService';
 import { useGamificationStore } from '../../stores/useGamificationStore';
+import { ActivityLoggingService } from '../../services/ActivityLoggingService';
+import { useTelegramWebApp } from '../../hooks/useTelegramWebApp';
 import type { JlptKanjiItem } from '../../data/jlptGrammarKanji';
 
 interface DrawnStroke {
@@ -37,7 +39,8 @@ interface DrawnStroke {
 export const KanjiCanvasPractice: React.FC = () => {
   const { language } = useLanguage();
   const isJa = language === 'ja';
-  const { awardXP } = useStudyData();
+  const { awardXP, user } = useStudyData();
+  const { haptics } = useTelegramWebApp();
 
   // Filters & Selection
   const [level, setLevel] = useState<JlptLevelFilter>('N5');
@@ -292,6 +295,7 @@ export const KanjiCanvasPractice: React.FC = () => {
         },
       ]);
       currentStrokePoints.current = [];
+      haptics.impact('light');
     }
 
     const canvas = canvasRef.current;
@@ -306,23 +310,42 @@ export const KanjiCanvasPractice: React.FC = () => {
       const updated = prev.slice(0, -1);
       return updated;
     });
+    haptics.impact('light');
   };
 
   const handleClear = () => {
     setUserStrokes([]);
     currentStrokePoints.current = [];
     redrawCanvas();
+    haptics.impact('medium');
   };
 
   // Completion Award
   const handleFinishPractice = () => {
     setCompletedSuccess(true);
+    haptics.notification('success');
     if (awardXP) {
       awardXP(15);
     }
+    const currentUserId = user?.id || null;
     try {
-      DailyQuestService.incrementMetaCounter(null, 'kanjiMastered', 1);
+      DailyQuestService.incrementMetaCounter(currentUserId, 'kanjiMastered', 1);
       useGamificationStore.getState().recordQuestProgress('kanji', 1);
+      ActivityLoggingService.logActivity(
+        {
+          activityType: 'kanji',
+          activityTitle: `${activeKanji.kanji} (${activeKanji.meaningUz}) Kanji Mashqi`,
+          durationMinutes: 2,
+          itemsCount: 1,
+          xpEarned: 15,
+          metadata: {
+            kanji: activeKanji.kanji,
+            level: activeKanji.level,
+            meaning: activeKanji.meaningUz,
+          },
+        },
+        currentUserId,
+      );
     } catch {}
   };
 
