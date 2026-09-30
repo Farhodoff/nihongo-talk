@@ -37,14 +37,16 @@ export function isMidSentenceConjunction(text: string, lang: 'en' | 'ja'): boole
   if (!trimmed) return false;
 
   if (lang === 'ja') {
-    // Te-form, connective particles, conditionals, hesitation markers
-    return /(て|で|から|ので|けど|けれど|けれども|が|たら|なら|ば|のに|し|とか|たり|と|に|を|は|ええと|あのー|そのー)$/.test(
+    // Te-form, connective particles, conditionals, hesitation markers & thinking fillers
+    return /(て|で|から|ので|けど|けれど|けれども|が|たら|なら|ば|のに|し|とか|たり|と|に|を|は|ええと|えーと|あのー|あの|そのー|その|まあ|うーん|えっと|なんか)$/.test(
       trimmed,
     );
   }
 
   // English: conjunctions, prepositions, or hesitation fillers at end of sentence
-  return /\b(and|or|but|because|so|although|if|when|while|to|for|with|um|uh|like)$/i.test(trimmed);
+  return /\b(and|or|but|because|so|although|if|when|while|to|for|with|um|uh|like|well|you know|i mean|sort of|kind of)$/i.test(
+    trimmed,
+  );
 }
 
 /**
@@ -568,15 +570,24 @@ export const useSpeechRecognition = ({
         !isSpeakingRef.current &&
         !isThinkingRef.current
       ) {
-        // Chrome's SpeechRecognition engine stopped prematurely without speech.
-        // Keep listening active so user can speak whenever ready.
-        try {
-          recognition.lang = languageRef.current === 'ja' ? 'ja-JP' : 'en-US';
-          recognition.start();
-          setIsListening(true);
-        } catch (e) {
-          // Recognition may already be starting or active
-        }
+        // Continuous listening auto-recovery: keep listening active with slight backoff
+        setTimeout(() => {
+          if (
+            isLiveSessionRef.current &&
+            !isProcessingRef.current &&
+            !isMutedRef.current &&
+            !isSpeakingRef.current &&
+            !isThinkingRef.current
+          ) {
+            try {
+              recognition.lang = languageRef.current === 'ja' ? 'ja-JP' : 'en-US';
+              recognition.start();
+              setIsListening(true);
+            } catch (e) {
+              // Recognition may already be starting or active
+            }
+          }
+        }, 150);
       } else {
         stopVolumeMeter();
       }

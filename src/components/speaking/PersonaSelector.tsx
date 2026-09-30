@@ -76,7 +76,7 @@ export const PERSONAS_BY_LANG: Record<
   },
   ja: {
     roast: {
-      name: '厳格な先生 (げんかくな せんせい)',
+      name: '鬼の雪先生 (おにの ゆきせんせい)',
       icon: Flame,
       color: 'from-red-500 to-rose-600',
       gradientBg: 'from-red-500/20 via-rose-500/10 to-transparent',
@@ -85,7 +85,7 @@ export const PERSONAS_BY_LANG: Record<
       emoji: '🔥',
     },
     gentle: {
-      name: '優しいチューター (やさしい せんせい)',
+      name: '優しい雪先生 (やさしい ゆきせんせい)',
       icon: Sparkles,
       color: 'from-emerald-400 to-teal-600',
       gradientBg: 'from-emerald-500/20 via-teal-500/10 to-transparent',
@@ -94,7 +94,7 @@ export const PERSONAS_BY_LANG: Record<
       emoji: '🌸',
     },
     ielts: {
-      name: 'JLPT 会話試験官 (かいわ しけんかん)',
+      name: 'JLPT試験官 雪先生 (ゆきせんせい)',
       icon: GraduationCap,
       color: 'from-blue-500 to-indigo-600',
       gradientBg: 'from-blue-500/20 via-indigo-500/10 to-transparent',

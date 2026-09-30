@@ -35,6 +35,9 @@ describe('useSpeechRecognition Adaptive Silence & VAD Detection Tests', () => {
       expect(isMidSentenceConjunction('雨が降ったら', 'ja')).toBe(true);
       expect(isMidSentenceConjunction('ええと', 'ja')).toBe(true);
       expect(isMidSentenceConjunction('あのー', 'ja')).toBe(true);
+      expect(isMidSentenceConjunction('えーと', 'ja')).toBe(true);
+      expect(isMidSentenceConjunction('まあ', 'ja')).toBe(true);
+      expect(isMidSentenceConjunction('うーん', 'ja')).toBe(true);
     });
 
     it('returns false for completed terminal sentences', () => {
@@ -47,6 +50,7 @@ describe('useSpeechRecognition Adaptive Silence & VAD Detection Tests', () => {
       expect(isMidSentenceConjunction('Because', 'en')).toBe(true);
       expect(isMidSentenceConjunction('I was studying and', 'en')).toBe(true);
       expect(isMidSentenceConjunction('Well, you know, um', 'en')).toBe(true);
+      expect(isMidSentenceConjunction('I think sort of', 'en')).toBe(true);
     });
   });
 });

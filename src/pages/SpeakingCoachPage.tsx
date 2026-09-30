@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { Mic, ShieldAlert, X } from 'lucide-react';
+import { Mic, ShieldAlert, X, ExternalLink } from 'lucide-react';
 import { useStudyData } from '../context/StudyPlannerContext';
+import { useTelegramWebApp } from '../hooks/useTelegramWebApp';
 import { isSuperAdmin, isUserAdmin } from '../utils/admin';
 import { useSEO } from '../hooks/useSEO';
 import SessionReportModal from '../components/speaking/SessionReportModal';
@@ -54,6 +55,7 @@ const SpeakingCoachPage: React.FC = () => {
   } = useStudyData();
   const isAdmin = isUserAdmin(user);
   const isSuper = isSuperAdmin(user?.email, (user as any)?.role);
+  const { isTwa, openLink, haptics } = useTelegramWebApp();
 
   // Clean up legacy flashcards
   const hasCleanedLegacyCardsRef = useRef(false);
@@ -342,20 +344,35 @@ const SpeakingCoachPage: React.FC = () => {
         <div
           role="alert"
           aria-live="polite"
-          className="mx-3 mb-2 flex items-center justify-between rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-xs text-amber-200 backdrop-blur-sm animate-in fade-in md:mx-5"
+          className="mx-3 mb-2 flex flex-col justify-between gap-3 rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-xs text-amber-200 backdrop-blur-sm animate-in fade-in sm:flex-row sm:items-center md:mx-5"
         >
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-start gap-2.5 sm:items-center">
             <span className="text-lg">🎙️</span>
             <div>
               <p className="font-semibold text-amber-300">
                 Ovozli suhbat ushbu brauzerda cheklangan
               </p>
               <p className="text-[11px] text-amber-300/80">
-                Eng yaxshi tajriba uchun Google Chrome yoki Microsoft Edge brauzeridan foydalaning.
-                Matn orqali suhbatlashish faol.
+                {isTwa
+                  ? "Telegram ichki brauzerida Web Speech API cheklangan bo'lishi mumkin. To'liq ovozli suhbat uchun tashqi brauzerda ochishingiz mumkin. Matnli suhbat esa to'liq faol."
+                  : 'Eng yaxshi tajriba uchun Google Chrome yoki Microsoft Edge brauzeridan foydalaning. Matn orqali suhbatlashish faol.'}
               </p>
             </div>
           </div>
+          {isTwa && (
+            <button
+              onClick={() => {
+                haptics.impact('light');
+                const targetUrl =
+                  window.location.href.split('?')[0] || 'https://kaiwa.live/speaking';
+                openLink(targetUrl);
+              }}
+              className="inline-flex shrink-0 items-center justify-center gap-1.5 rounded-lg bg-amber-500 px-3 py-1.5 text-xs font-semibold text-zinc-950 shadow transition-transform hover:bg-amber-400 active:scale-95"
+            >
+              <ExternalLink size={13} />
+              <span>Brauzerda ochish</span>
+            </button>
+          )}
         </div>
       )}
 

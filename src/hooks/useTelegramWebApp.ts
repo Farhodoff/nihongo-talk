@@ -15,6 +15,7 @@ export interface UseTelegramWebAppReturn {
   };
   closeApp: () => void;
   openTelegramLink: (url: string) => void;
+  openLink: (url: string) => void;
 }
 
 export function useTelegramWebApp(): UseTelegramWebAppReturn {
@@ -155,6 +156,17 @@ export function useTelegramWebApp(): UseTelegramWebAppReturn {
     [webApp],
   );
 
+  const openLink = useCallback(
+    (url: string) => {
+      if (webApp?.openLink) {
+        webApp.openLink(url);
+      } else {
+        window.open(url, '_blank');
+      }
+    },
+    [webApp],
+  );
+
   return {
     isTwa,
     webApp,
@@ -165,5 +177,6 @@ export function useTelegramWebApp(): UseTelegramWebAppReturn {
     haptics,
     closeApp,
     openTelegramLink,
+    openLink,
   };
 }

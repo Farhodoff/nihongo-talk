@@ -12,6 +12,7 @@ import {
 import AudioVisualizer from './AudioVisualizer';
 
 import { useLanguage } from '../../context/LanguageContext';
+import { useTelegramWebApp } from '../../hooks/useTelegramWebApp';
 
 interface CoachControlBarProps {
   isLiveSession: boolean;
@@ -49,12 +50,14 @@ export const CoachControlBar: React.FC<CoachControlBarProps> = ({
   onSendText,
 }) => {
   const { language } = useLanguage();
+  const { haptics } = useTelegramWebApp();
   const isJa = language === 'ja';
   const [textDraft, setTextDraft] = useState('');
 
   const submitText = (e?: React.FormEvent) => {
     e?.preventDefault();
     if (!onSendText || isThinking) return;
+    haptics.impact('light');
     onSendText(textDraft);
     setTextDraft('');
   };
@@ -203,6 +206,7 @@ export const CoachControlBar: React.FC<CoachControlBarProps> = ({
             {isLiveSession && (
               <button
                 onClick={() => {
+                  haptics.impact('light');
                   if (isSpeaking && onBargeIn) {
                     onBargeIn();
                   } else {
@@ -271,7 +275,10 @@ export const CoachControlBar: React.FC<CoachControlBarProps> = ({
 
             {/* PRIMARY CALL BUTTON */}
             <button
-              onClick={toggleSession}
+              onClick={() => {
+                haptics.impact('medium');
+                toggleSession();
+              }}
               className={`group relative flex cursor-pointer items-center gap-2 overflow-hidden rounded-xl px-4 py-2 font-extrabold text-white shadow-md transition-all duration-300 active:scale-95 sm:px-6 sm:py-2.5 ${
                 isLiveSession
                   ? 'bg-rose-600 shadow-rose-600/25 hover:bg-rose-700'
