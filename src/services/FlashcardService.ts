@@ -1,6 +1,6 @@
 import { supabase } from '../lib/supabase';
 import { Flashcard } from '../types';
-import { generateUUID, isUuid } from '../utils/uuid';
+import { generateUUID, isUuid, toDeterministicUUID } from '../utils/uuid';
 import { PRESET_DECKS } from '../data/presetDecks';
 import { FlashcardOfflineSync } from './FlashcardOfflineSync';
 import { GlobalFlashcardOverrideService } from './GlobalFlashcardOverrideService';
@@ -131,16 +131,17 @@ export function sanitizeCardContent(card: Flashcard): { card: Flashcard; wasModi
 
 export const FlashcardService = {
   async fetchFlashcards(userId: string): Promise<Flashcard[]> {
-    if (!userId || !isUuid(userId)) {
+    if (!userId || userId === 'guest' || userId === 'local_user') {
       return getLocalFlashcardCache(userId || 'guest');
     }
 
+    const dbUserId = isUuid(userId) ? userId : toDeterministicUUID(userId);
     const localCached = getLocalFlashcardCache(userId);
     let dbCards: Flashcard[] = [];
     let isNetworkError = false;
 
     try {
-      let { data, error } = await supabase.from('flashcards').select('*').eq('user_id', userId);
+      let { data, error } = await supabase.from('flashcards').select('*').eq('user_id', dbUserId);
 
       if (error) {
         isNetworkError = true;
@@ -199,6 +200,25 @@ export const FlashcardService = {
 
     const rawMerged = [...dbCards, ...missingLocalCards];
 
+    // Apply any pending offline updates so user doesn't lose offline review progress before sync completes
+    try {
+      const pendingUpdates = await FlashcardOfflineSync.getPendingUpdates();
+      if (pendingUpdates && pendingUpdates.length > 0) {
+        const pendingMap = new Map(pendingUpdates.map((u) => [u.id, u.updates]));
+        for (const card of rawMerged) {
+          const updates = pendingMap.get(card.id);
+          if (updates) {
+            if (updates.next_review_date) card.nextReviewDate = updates.next_review_date;
+            if (updates.ease_factor !== undefined) card.easeFactor = updates.ease_factor;
+            if (updates.interval !== undefined) card.interval = updates.interval;
+            if (updates.repetitions !== undefined) card.repetitions = updates.repetitions;
+            if (updates.front) card.front = updates.front;
+            if (updates.back) card.back = updates.back;
+          }
+        }
+      }
+    } catch {}
+
     // Sanitize any corrupted placeholder cards in memory
     const sanitizedMerged: Flashcard[] = rawMerged.map((card) => {
       const { card: cleanCard } = sanitizeCardContent(card);
@@ -246,7 +266,7 @@ export const FlashcardService = {
 
   async addFlashcard(userId: string, cardData: Partial<Flashcard>): Promise<Flashcard | null> {
     const tempId = cardData.id || `temp-${Date.now()}`;
-    if (!userId || userId === 'local_user' || !isUuid(userId)) {
+    if (!userId || userId === 'guest' || userId === 'local_user') {
       const finalCard: Flashcard = {
         id: tempId,
         subjectId: cardData.subjectId || '',
@@ -266,8 +286,9 @@ export const FlashcardService = {
       return finalCard;
     }
 
+    const dbUserId = isUuid(userId) ? userId : toDeterministicUUID(userId);
     const dbCard: Record<string, any> = {
-      user_id: userId,
+      user_id: dbUserId,
       subject_id:
         cardData.subjectId && cardData.subjectId.trim().length > 0 ? cardData.subjectId : null,
       front: cardData.front,
@@ -346,7 +367,7 @@ export const FlashcardService = {
   },
 
   async addFlashcardsBatch(userId: string, cardsData: Partial<Flashcard>[]): Promise<Flashcard[]> {
-    if (!userId || userId === 'local_user' || !isUuid(userId)) {
+    if (!userId || userId === 'guest' || userId === 'local_user') {
       const finalCards: Flashcard[] = cardsData.map((c) => ({
         id: c.id && !c.id.startsWith('temp_') ? c.id : generateUUID(),
         subjectId: c.subjectId && c.subjectId.trim().length > 0 ? c.subjectId : '',
@@ -366,11 +387,12 @@ export const FlashcardService = {
       return finalCards;
     }
 
+    const dbUserId = isUuid(userId) ? userId : toDeterministicUUID(userId);
     const tempCards = cardsData.map((c) => {
       const cardId = c.id && !c.id.startsWith('temp_') && isUuid(c.id) ? c.id : generateUUID();
       const card: Record<string, any> = {
         id: cardId,
-        user_id: userId,
+        user_id: dbUserId,
         subject_id: c.subjectId && isUuid(c.subjectId) ? c.subjectId : null,
         front: c.front,
         back: c.back,

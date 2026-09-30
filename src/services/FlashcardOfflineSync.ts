@@ -49,6 +49,18 @@ export const FlashcardOfflineSync = {
   },
 
   /**
+   * Retrieves all pending offline updates.
+   */
+  async getPendingUpdates(): Promise<QueuedFlashcardUpdate[]> {
+    try {
+      const queue = await idbGet<QueuedFlashcardUpdate[]>(OFFLINE_QUEUE_KEY);
+      return queue && Array.isArray(queue) ? queue : [];
+    } catch {
+      return [];
+    }
+  },
+
+  /**
    * Clears the offline queue (primarily for test resets).
    */
   async clearQueue(): Promise<void> {

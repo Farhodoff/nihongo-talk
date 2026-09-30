@@ -33,6 +33,7 @@ import { toast } from '../../hooks/use-toast';
 import { safeLocalStorage } from '../../utils/storage/safeLocalStorage';
 import { useTelegramWebApp } from '../../hooks/useTelegramWebApp';
 import { useFlashcardSwipe } from '../../hooks/useFlashcardSwipe';
+import { FuriganaText } from '../jlpt/FuriganaText';
 
 export function cleanCardFront(front?: string): string {
   if (!front) return '';
@@ -962,7 +963,7 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
                 {/* Card Front Content */}
                 <div className="my-auto py-4 text-center sm:py-6">
                   <h3 className="break-words text-2xl font-black leading-tight tracking-tight text-foreground sm:text-3xl md:text-4xl">
-                    {cleanCardFront(currentCard?.front)}
+                    <FuriganaText text={cleanCardFront(currentCard?.front)} />
                   </h3>
                   <p className="flex items-center justify-center gap-1.5 pt-4 text-[11px] font-bold text-muted-foreground/60 sm:pt-6 sm:text-xs">
                     <Keyboard size={14} className="hidden sm:inline" />{' '}
@@ -1025,9 +1026,9 @@ export const FlashcardStudySession: React.FC<FlashcardStudySessionProps> = ({
                         <span>💬</span>
                         <span>{isJa ? '例文' : 'Misol jumla:'}</span>
                       </div>
-                      <p className="whitespace-pre-line text-xs font-semibold leading-relaxed text-foreground sm:text-sm">
-                        {currentCard.example}
-                      </p>
+                      <div className="whitespace-pre-line text-xs font-semibold leading-relaxed text-foreground sm:text-sm">
+                        <FuriganaText text={currentCard.example} />
+                      </div>
                     </div>
                   )}
                 </div>

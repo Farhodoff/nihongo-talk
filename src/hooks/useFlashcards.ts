@@ -12,7 +12,7 @@ import { LearningSignalService } from '../services/LearningSignalService';
 import { DailyQuestService } from '../services/DailyQuestService';
 import { useGamificationStore } from '../stores/useGamificationStore';
 import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
-import { isUuid } from '../utils/uuid';
+import { isUuid, toDeterministicUUID } from '../utils/uuid';
 
 const getAuthUserId = async (): Promise<string> => {
   try {
@@ -30,7 +30,9 @@ const getAuthUserId = async (): Promise<string> => {
       'study_planner_user_cache',
       null,
     );
-    if (cachedUser?.id && isUuid(cachedUser.id)) return cachedUser.id;
+    if (cachedUser?.id) {
+      return isUuid(cachedUser.id) ? cachedUser.id : toDeterministicUUID(cachedUser.id);
+    }
   } catch {}
   return 'local_user';
 };
@@ -87,7 +89,11 @@ export const useFlashcards = (onCardReviewed?: (amount: number) => Promise<void>
         'study_planner_user_cache',
         null,
       );
-      const activeId = cachedUser?.id && isUuid(cachedUser.id) ? cachedUser.id : 'guest';
+      const activeId = cachedUser?.id
+        ? isUuid(cachedUser.id)
+          ? cachedUser.id
+          : toDeterministicUUID(cachedUser.id)
+        : 'guest';
       const userCached = getLocalFlashcardCache(activeId);
       if (userCached && userCached.length > 0) return userCached;
 
