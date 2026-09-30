@@ -20,9 +20,12 @@ import { useLanguage } from '../../context/LanguageContext';
 import { FuriganaText } from './FuriganaText';
 import { getOrEnsureLanguageSubject } from '../../utils/subjectResolver';
 import { toast } from '../../hooks/use-toast';
+import { ActivityLoggingService } from '../../services/ActivityLoggingService';
+import { useTelegramWebApp } from '../../hooks/useTelegramWebApp';
 
 export const JlptMistakeNotebook: React.FC = () => {
   const { user, addFlashcardsBatch, subjects, addSubject, awardXP } = useStudyData();
+  const { haptics } = useTelegramWebApp();
   const { language } = useLanguage();
 
   const [mistakes, setMistakes] = useState<JlptMistakeItem[]>([]);
@@ -103,9 +106,12 @@ export const JlptMistakeNotebook: React.FC = () => {
           String(currentDrillItem.correctAnswer).trim().toLowerCase();
 
     if (isCorrect) {
+      haptics.notification('success');
       setDrillScore((prev) => prev + 1);
       MistakeVaultService.markAsMastered(currentDrillItem.id, user?.id);
       if (awardXP) awardXP(20);
+    } else {
+      haptics.notification('warning');
     }
   };
 
@@ -116,7 +122,24 @@ export const JlptMistakeNotebook: React.FC = () => {
       setIsDrillSubmitted(false);
     } else {
       setIsDrillFinished(true);
+      haptics.notification('success');
       reloadMistakes();
+      try {
+        ActivityLoggingService.logActivity(
+          {
+            activityType: 'quiz',
+            activityTitle: 'Xatolar Daftarchasi: Qayta Mashq',
+            durationMinutes: Math.max(1, Math.ceil(activeDrillQuestions.length * 0.75)),
+            itemsCount: activeDrillQuestions.length,
+            xpEarned: drillScore * 20,
+            metadata: {
+              totalQuestions: activeDrillQuestions.length,
+              correctCount: drillScore,
+            },
+          },
+          user?.id,
+        );
+      } catch {}
     }
   };
 
@@ -149,6 +172,7 @@ export const JlptMistakeNotebook: React.FC = () => {
       });
 
       await addFlashcardsBatch(cards);
+      haptics.notification('success');
       toast({
         title: "🎴 Fleshkartalarga Qo'shildi!",
         description: `${cards.length} ta xato savol SRS takrorlash ro‘yxatiga muvaffaqiyatli kiritildi.`,
@@ -166,12 +190,14 @@ export const JlptMistakeNotebook: React.FC = () => {
 
   // Clear single mistake
   const handleDeleteMistake = (id: string) => {
+    haptics.impact('light');
     MistakeVaultService.deleteMistake(id, user?.id);
     reloadMistakes();
   };
 
   // Clear all mastered
   const handleClearMastered = () => {
+    haptics.impact('medium');
     MistakeVaultService.clearMastered(user?.id);
     reloadMistakes();
     toast({
@@ -309,7 +335,12 @@ export const JlptMistakeNotebook: React.FC = () => {
                   return (
                     <button
                       key={idx}
-                      onClick={() => !isDrillSubmitted && setSelectedOption(idx)}
+                      onClick={() => {
+                        if (!isDrillSubmitted) {
+                          setSelectedOption(idx);
+                          haptics.selection();
+                        }
+                      }}
                       disabled={isDrillSubmitted}
                       className={`flex w-full items-center justify-between rounded-2xl border p-4 text-left text-sm font-semibold transition-all ${btnStyle}`}
                     >

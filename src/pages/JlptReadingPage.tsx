@@ -30,6 +30,8 @@ import { useLanguage } from '../context/LanguageContext';
 import { MasteryEngine } from '../services/MasteryEngine';
 import { HistoryService } from '../services/HistoryService';
 import { MistakeVaultService } from '../services/MistakeVaultService';
+import { ActivityLoggingService } from '../services/ActivityLoggingService';
+import { useTelegramWebApp } from '../hooks/useTelegramWebApp';
 import {
   DokkaiSpeedReaderService,
   SokudokuMetrics,
@@ -42,6 +44,7 @@ export const JlptReadingPage: React.FC = () => {
   const [searchParams] = useSearchParams();
   const location = useLocation();
   const { awardXP, addSession, user } = useStudyData();
+  const { haptics } = useTelegramWebApp();
   const { language } = useLanguage();
   const langKey = language === 'ja' ? 'ja' : language === 'en' ? 'en' : 'uz';
 
@@ -189,6 +192,7 @@ export const JlptReadingPage: React.FC = () => {
 
   const handleSelectAnswer = (questionId: string, optionIndex: number) => {
     if (isSubmitted) return;
+    haptics.selection();
     setUserAnswers((prev) => ({
       ...prev,
       [questionId]: optionIndex,
@@ -209,6 +213,12 @@ export const JlptReadingPage: React.FC = () => {
     });
 
     const accuracy = Math.round((correctCount / (currentPassage.questions.length || 1)) * 100);
+    if (accuracy >= 60) {
+      haptics.notification('success');
+    } else {
+      haptics.notification('warning');
+    }
+
     const readingDuration =
       practiceMode === 'sokudoku'
         ? Math.max(5, readingTimeElapsed)
@@ -240,8 +250,9 @@ export const JlptReadingPage: React.FC = () => {
     DokkaiSpeedReaderService.saveProgress(progressRecord);
     setPassageHistory(DokkaiSpeedReaderService.getProgressHistory());
 
+    const earnedXp = correctCount * 20 + (metrics.speedRating !== 'slow' ? 15 : 0);
     if (correctCount > 0 && awardXP) {
-      await awardXP(correctCount * 20 + (metrics.speedRating !== 'slow' ? 15 : 0));
+      await awardXP(earnedXp);
     }
 
     if (addSession) {
@@ -253,6 +264,30 @@ export const JlptReadingPage: React.FC = () => {
           startTime: new Date().toISOString(),
         });
       } catch (e) {}
+    }
+
+    // Persist attempt to ActivityLoggingService
+    try {
+      await ActivityLoggingService.logActivity(
+        {
+          activityType: 'quiz',
+          activityTitle: `JLPT ${selectedLevel} Dokkai: ${currentPassage.title}`,
+          durationMinutes: Math.max(1, Math.ceil(readingDuration / 60)),
+          itemsCount: currentPassage.questions.length,
+          xpEarned: earnedXp,
+          metadata: {
+            passageId: currentPassage.id,
+            level: selectedLevel,
+            accuracy,
+            cpm: metrics.cpm,
+            correctCount,
+            totalQuestions: currentPassage.questions.length,
+          },
+        },
+        user?.id,
+      );
+    } catch (e) {
+      console.warn('Failed to log dokkai reading activity:', e);
     }
 
     // Persist attempt to HistoryService
