@@ -10,6 +10,7 @@ import { idbGet, idbSet, idbDelete } from '../utils/storage/indexedDb';
 import { supabase } from '../lib/supabase';
 import { FlashcardOfflineSync } from './FlashcardOfflineSync';
 import { toast } from '../hooks/use-toast';
+import { toDeterministicUUID, isUuid } from '../utils/uuid';
 
 export interface QueuedMockExam {
   id: string;
@@ -336,8 +337,9 @@ export const OfflineSyncManager = {
         const remainingGamification: QueuedGamificationProfile[] = [];
         for (const item of gamificationQueue) {
           try {
+            const dbUserId = isUuid(item.userId) ? item.userId : toDeterministicUUID(item.userId);
             const { error } = await supabase.from('profiles').upsert({
-              id: item.userId,
+              id: dbUserId,
               total_xp: item.totalXp,
               level: item.level,
               current_streak: item.currentStreak,

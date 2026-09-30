@@ -3,6 +3,8 @@ import { supabase } from '../lib/supabase';
 import { getLevelInfo, calculateStreak } from '../utils/gamification';
 import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
 import { OfflineSyncManager } from '../services/OfflineSyncManager';
+import { DailyQuestService } from '../services/DailyQuestService';
+import { toDeterministicUUID, isUuid } from '../utils/uuid';
 
 export interface GamificationState {
   totalXp: number;
@@ -46,15 +48,26 @@ export const useGamification = (initialState: GamificationState) => {
     setGameState((prev) => {
       const newXp = prev.totalXp + amount;
       const newLevel = getLevelInfo(newXp).level;
-      const { streak: newStreak, lastActivityDate: newLastActivityDate } = calculateStreak(
-        prev.lastActivityDate,
-        prev.currentStreak,
-      );
+      const meta = DailyQuestService.getGamificationMeta(user?.id);
+      const streakFreezeAvailable = (meta?.streakFreezes || 0) > 0;
+      const {
+        streak: newStreak,
+        lastActivityDate: newLastActivityDate,
+        freezeUsed,
+      } = calculateStreak(prev.lastActivityDate, prev.currentStreak, new Date(), {
+        streakFreezeAvailable,
+        useLocalDate: true,
+      });
+
+      if (freezeUsed) {
+        DailyQuestService.consumeStreakFreeze(user?.id);
+      }
 
       if (user) {
+        const dbUserId = isUuid(user.id) ? user.id : toDeterministicUUID(user.id);
         if (typeof navigator !== 'undefined' && !navigator.onLine) {
           OfflineSyncManager.enqueueGamificationSync({
-            userId: user.id,
+            userId: dbUserId,
             totalXp: newXp,
             level: newLevel,
             currentStreak: newStreak,
@@ -65,7 +78,7 @@ export const useGamification = (initialState: GamificationState) => {
           supabase
             .from('profiles')
             .upsert({
-              id: user.id,
+              id: dbUserId,
               total_xp: newXp,
               level: newLevel,
               current_streak: newStreak,
@@ -77,7 +90,7 @@ export const useGamification = (initialState: GamificationState) => {
                 if (error) {
                   if (navigator.onLine) console.warn('XP and streak update notice:', error.message);
                   OfflineSyncManager.enqueueGamificationSync({
-                    userId: user.id,
+                    userId: dbUserId,
                     totalXp: newXp,
                     level: newLevel,
                     currentStreak: newStreak,
@@ -88,7 +101,7 @@ export const useGamification = (initialState: GamificationState) => {
               },
               () => {
                 OfflineSyncManager.enqueueGamificationSync({
-                  userId: user.id,
+                  userId: dbUserId,
                   totalXp: newXp,
                   level: newLevel,
                   currentStreak: newStreak,

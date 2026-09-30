@@ -56,8 +56,17 @@ export const useGamificationStore = create<GamificationState>((set, get) => {
         const levelInfo = getLevelInfo(newXp);
         const newLevel = levelInfo.level;
         const oldLevel = state.level;
-
-        const streakData = calculateStreak(state.lastActivityDate, state.currentStreak);
+        const meta = DailyQuestService.getGamificationMeta(null);
+        const streakFreezeAvailable = (meta?.streakFreezes || 0) > 0;
+        const streakData = calculateStreak(
+          state.lastActivityDate,
+          state.currentStreak,
+          new Date(),
+          { streakFreezeAvailable, useLocalDate: true },
+        );
+        if (streakData.freezeUsed) {
+          DailyQuestService.consumeStreakFreeze(null);
+        }
 
         // Check if level increased
         const pendingLevelUp =
@@ -66,7 +75,6 @@ export const useGamificationStore = create<GamificationState>((set, get) => {
             : state.pendingLevelUp;
 
         // Auto evaluate streak achievements
-        const meta = DailyQuestService.getGamificationMeta(null);
         const newlyUnlocked = AchievementService.evaluateAchievements(
           {
             currentStreak: streakData.streak,

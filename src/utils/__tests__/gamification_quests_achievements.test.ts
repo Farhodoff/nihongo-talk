@@ -210,5 +210,31 @@ describe('Gamification, Daily Quests & Achievements Suite', () => {
       updated.clearPendingLevelUp();
       expect(useGamificationStore.getState().pendingLevelUp).toBeNull();
     });
+
+    it('consumes streak freeze in store when 1 day is missed and preserves streak', () => {
+      // Setup initial store state: streak of 5, last activity 2 days ago
+      const twoDaysAgo = new Date();
+      twoDaysAgo.setDate(twoDaysAgo.getDate() - 2);
+      const twoDaysAgoStr = getLocalDateString(twoDaysAgo);
+
+      useGamificationStore.getState().setGamificationState({
+        currentStreak: 5,
+        lastActivityDate: twoDaysAgoStr,
+      });
+
+      // Ensure streak freeze is available
+      const initialMeta = DailyQuestService.getGamificationMeta(null);
+      expect(initialMeta.streakFreezes).toBeGreaterThan(0);
+
+      // Award XP today
+      useGamificationStore.getState().awardXP(50);
+
+      const stateAfter = useGamificationStore.getState();
+      expect(stateAfter.currentStreak).toBe(5); // Preserved by freeze!
+      expect(stateAfter.lastActivityDate).toBe(getLocalDateString());
+
+      const metaAfter = DailyQuestService.getGamificationMeta(null);
+      expect(metaAfter.streakFreezes).toBe(initialMeta.streakFreezes - 1);
+    });
   });
 });

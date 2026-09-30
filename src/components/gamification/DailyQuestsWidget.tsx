@@ -5,11 +5,13 @@ import { useLanguage } from '../../context/LanguageContext';
 import { DailyQuest } from '../../types/gamification';
 import { DailyQuestService } from '../../services/DailyQuestService';
 import { toast } from '../../hooks/use-toast';
+import { useTelegramWebApp } from '../../hooks/useTelegramWebApp';
 
 export const DailyQuestsWidget: React.FC = () => {
   const { dailyQuestState, claimQuestReward, claimAllCompletedBonus, currentStreak } =
     useGamificationStore();
   const { language } = useLanguage();
+  const { haptics } = useTelegramWebApp();
   const [claimingId, setClaimingId] = useState<string | null>(null);
 
   const langKey = language === 'ja' ? 'ja' : language === 'en' ? 'en' : 'uz';
@@ -26,6 +28,7 @@ export const DailyQuestsWidget: React.FC = () => {
     setClaimingId(quest.id);
     try {
       const xp = claimQuestReward(quest.id);
+      haptics.notification('success');
       toast({
         title:
           language === 'ja'
@@ -43,6 +46,7 @@ export const DailyQuestsWidget: React.FC = () => {
   const handleClaimAllClear = () => {
     if (!allCompleted || bonusClaimed) return;
     const xp = claimAllCompletedBonus();
+    haptics.notification('success');
     toast({
       title:
         language === 'ja'

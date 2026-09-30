@@ -6,10 +6,12 @@ import { useGamificationStore } from '../../stores/useGamificationStore';
 import { useLanguage } from '../../context/LanguageContext';
 import { AchievementCategory, AchievementDefinition } from '../../types/gamification';
 import { toast } from '../../hooks/use-toast';
+import { useTelegramWebApp } from '../../hooks/useTelegramWebApp';
 
 export const AchievementsGrid: React.FC = () => {
   const { currentStreak, awardXP } = useGamificationStore();
   const { language } = useLanguage();
+  const { haptics } = useTelegramWebApp();
   const [selectedCategory, setSelectedCategory] = useState<AchievementCategory | 'all'>('all');
   const [unlockedList, setUnlockedList] = useState(() =>
     AchievementService.getUnlockedAchievements(null),
@@ -49,6 +51,7 @@ export const AchievementsGrid: React.FC = () => {
     const res = AchievementService.claimAchievement(achId, null);
     if (res.xpAwarded > 0) {
       awardXP(res.xpAwarded);
+      haptics.notification('success');
       toast({
         title:
           language === 'ja'
