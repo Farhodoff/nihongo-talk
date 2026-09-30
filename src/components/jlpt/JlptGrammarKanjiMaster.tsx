@@ -32,6 +32,8 @@ import { CustomContentService } from '../../services/CustomContentService';
 import { SENTENCE_ORDERING_QUESTIONS } from '../../data/jlpt/sentence_ordering_data';
 import { SentenceOrderingQuestion } from './SentenceOrderingQuestion';
 import { MistakeVaultService, MistakeLevel } from '../../services/MistakeVaultService';
+import { ActivityLoggingService } from '../../services/ActivityLoggingService';
+import { useTelegramWebApp } from '../../hooks/useTelegramWebApp';
 
 interface JlptGrammarKanjiMasterProps {
   initialTab?: 'grammar' | 'kanji' | 'goi' | 'quiz';
@@ -40,6 +42,7 @@ interface JlptGrammarKanjiMasterProps {
 export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
   initialTab = 'grammar',
 }) => {
+  const { haptics } = useTelegramWebApp();
   const [searchParams] = useSearchParams();
   const urlLevel = searchParams.get('level')?.toUpperCase();
   const initialLevel: 'ALL' | 'N5' | 'N4' | 'N3' | 'N2' | 'N1' =
@@ -201,11 +204,17 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
     );
   }
 
+  const handlePlayAudio = (text: string) => {
+    haptics.impact('light');
+    speakText(text, 'ja-JP');
+  };
+
   // Direct Export to Flashcards
   const handleExportToFlashcard = async (
     item: JlptGrammarItem | JlptKanjiItem | JlptVocabItem,
     type: 'grammar' | 'kanji' | 'vocab',
   ) => {
+    haptics.notification('success');
     const subjectId = await getOrEnsureLanguageSubject(subjects, addSubject, 'ja');
 
     let frontText = '';
@@ -297,20 +306,24 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
     setSelectedOption(index);
     const currentQ = quizQuestions[quizIndex];
     if (index === currentQ.correctAnswer) {
+      haptics.notification('success');
       setScore((prev) => prev + 1);
       setItemStatus(`jlpt_${currentQ.level}_${currentQ.id}`, 'mastered');
     } else {
+      haptics.notification('warning');
       setMissedQuizQuestions((prev) => [...prev, currentQ]);
       setItemStatus(`jlpt_${currentQ.level}_${currentQ.id}`, 'hard');
     }
   };
 
   const handleNextQuiz = async () => {
+    haptics.selection();
     setSelectedOption(null);
     if (quizIndex + 1 < quizQuestions.length) {
       setQuizIndex((prev) => prev + 1);
     } else {
       setIsQuizCompleted(true);
+      haptics.notification('success');
       try {
         if (awardXP && score > 0) {
           awardXP(score * 20);
@@ -332,6 +345,24 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
           totalQuestions: quizQuestions.length,
           bandScore: Math.round((score / (quizQuestions.length || 1)) * 180),
         });
+
+        // Log to ActivityLoggingService
+        ActivityLoggingService.logActivity(
+          {
+            activityType: 'quiz',
+            activityTitle: `JLPT Grammatika Sinovi (${selectedLevel === 'ALL' ? 'Aralash' : selectedLevel})`,
+            durationMinutes: Math.max(3, Math.round(quizQuestions.length * 1.5)),
+            itemsCount: quizQuestions.length,
+            xpEarned: 0, // already awarded via awardXP above
+            metadata: {
+              score,
+              totalQuestions: quizQuestions.length,
+              level: selectedLevel,
+              bandScore: Math.round((score / (quizQuestions.length || 1)) * 180),
+            },
+          },
+          user?.id,
+        ).catch((err) => console.warn('[JlptGrammarMaster] Activity logging warning:', err));
 
         if (missedQuizQuestions.length > 0) {
           MistakeVaultService.recordBatch(
@@ -358,6 +389,7 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
 
   const handleCreateFlashcardsFromMistakes = async () => {
     if (missedQuizQuestions.length === 0 || quizFlashcardsSaved) return;
+    haptics.notification('success');
     const subjectId = await getOrEnsureLanguageSubject(subjects, addSubject, 'ja');
     const cards = missedQuizQuestions.map((q) => ({
       subjectId,
@@ -372,6 +404,7 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
   };
 
   const resetQuiz = () => {
+    haptics.impact('light');
     setQuizIndex(0);
     setSelectedOption(null);
     setScore(0);
@@ -434,7 +467,10 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
         {/* Sub-Tabs Bar */}
         <div className="scrollbar-none flex touch-pan-x items-center gap-1.5 overflow-x-auto md:mt-6 md:border-t md:border-border md:pt-4">
           <button
-            onClick={() => setActiveTab('grammar')}
+            onClick={() => {
+              haptics.selection();
+              setActiveTab('grammar');
+            }}
             className={`flex shrink-0 cursor-pointer touch-manipulation select-none items-center gap-2 rounded-xl px-3.5 py-2 text-xs font-bold transition-all sm:px-4 ${
               activeTab === 'grammar'
                 ? 'scale-[1.02] bg-primary text-primary-foreground shadow-xs'
@@ -448,7 +484,10 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
           </button>
 
           <button
-            onClick={() => setActiveTab('kanji')}
+            onClick={() => {
+              haptics.selection();
+              setActiveTab('kanji');
+            }}
             className={`flex shrink-0 cursor-pointer touch-manipulation select-none items-center gap-2 rounded-xl px-3.5 py-2 text-xs font-bold transition-all sm:px-4 ${
               activeTab === 'kanji'
                 ? 'scale-[1.02] bg-primary text-primary-foreground shadow-xs'
@@ -462,7 +501,10 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
           </button>
 
           <button
-            onClick={() => setActiveTab('goi')}
+            onClick={() => {
+              haptics.selection();
+              setActiveTab('goi');
+            }}
             className={`flex shrink-0 cursor-pointer touch-manipulation select-none items-center gap-2 rounded-xl px-3.5 py-2 text-xs font-bold transition-all sm:px-4 ${
               activeTab === 'goi'
                 ? 'scale-[1.02] bg-primary text-primary-foreground shadow-xs'
@@ -477,6 +519,7 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
 
           <button
             onClick={() => {
+              haptics.selection();
               setActiveTab('quiz');
               setQuizIndex(0);
               setSelectedOption(null);
@@ -506,7 +549,10 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
               {(['ALL', 'N5', 'N4', 'N3', 'N2', 'N1'] as const).map((lvl) => (
                 <button
                   key={lvl}
-                  onClick={() => setSelectedLevel(lvl)}
+                  onClick={() => {
+                    haptics.selection();
+                    setSelectedLevel(lvl);
+                  }}
                   className={`shrink-0 cursor-pointer touch-manipulation select-none whitespace-nowrap rounded-xl px-3.5 py-1.5 text-xs font-bold transition-all ${
                     selectedLevel === lvl
                       ? 'bg-primary text-primary-foreground shadow-xs'
@@ -624,7 +670,7 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
                     </span>
                     <div className="flex items-center gap-1.5">
                       <button
-                        onClick={() => speakText(item.title, 'ja-JP')}
+                        onClick={() => handlePlayAudio(item.title)}
                         className="rounded-xl border border-border bg-muted/60 p-2 text-muted-foreground transition hover:bg-muted hover:text-foreground"
                         title="Yaponcha talaffuz"
                       >
@@ -675,7 +721,7 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
                           <FuriganaText text={ex.ja} />
                         </span>
                         <button
-                          onClick={() => speakText(ex.ja, 'ja-JP')}
+                          onClick={() => handlePlayAudio(ex.ja)}
                           className="text-muted-foreground transition hover:text-foreground"
                         >
                           <Volume2 className="h-3.5 w-3.5" />
@@ -759,14 +805,17 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
                     </span>
                     <div className="flex items-center gap-1.5">
                       <button
-                        onClick={() => speakText(item.kanji, 'ja-JP')}
+                        onClick={() => handlePlayAudio(item.kanji)}
                         className="rounded-xl border border-border bg-muted/60 p-1.5 text-muted-foreground transition hover:bg-muted hover:text-foreground"
                         title={language === 'ja' ? 'おんせい' : 'Talaffuz'}
                       >
                         <Volume2 className="h-4 w-4" />
                       </button>
                       <button
-                        onClick={() => setStrokeModalKanji(item)}
+                        onClick={() => {
+                          haptics.selection();
+                          setStrokeModalKanji(item);
+                        }}
                         className="flex items-center gap-1 rounded-xl border border-amber-500/30 bg-amber-500/10 p-1.5 text-xs font-bold text-amber-600 transition hover:bg-amber-500/20 dark:text-amber-400"
                         title="Stroke Order Animation"
                       >
@@ -894,7 +943,7 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
                     </div>
                     <div className="flex items-center gap-1.5">
                       <button
-                        onClick={() => speakText(item.reading || item.word, 'ja-JP')}
+                        onClick={() => handlePlayAudio(item.reading || item.word)}
                         className="rounded-xl border border-border bg-muted/60 p-2 text-muted-foreground transition hover:bg-muted hover:text-foreground"
                         title={language === 'ja' ? 'おんせい' : 'Talaffuz'}
                       >
@@ -951,7 +1000,7 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
                               <FuriganaText text={ex.ja} />
                             </span>
                             <button
-                              onClick={() => speakText(ex.ja, 'ja-JP')}
+                              onClick={() => handlePlayAudio(ex.ja)}
                               className="text-muted-foreground transition hover:text-foreground"
                             >
                               <Volume2 className="h-3 w-3" />
@@ -1031,7 +1080,10 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
             <div className="flex items-center gap-1.5 rounded-xl border border-border bg-muted/60 p-1">
               <button
                 type="button"
-                onClick={() => setQuizMode('standard')}
+                onClick={() => {
+                  haptics.selection();
+                  setQuizMode('standard');
+                }}
                 className={`rounded-lg px-3.5 py-1.5 text-xs font-bold transition-all ${
                   quizMode === 'standard'
                     ? 'bg-primary text-primary-foreground shadow-xs'
@@ -1043,6 +1095,7 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
               <button
                 type="button"
                 onClick={() => {
+                  haptics.selection();
                   setQuizMode('sentence_order');
                   setSoIndex(0);
                 }}
@@ -1078,6 +1131,7 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
                   <button
                     key={lvl}
                     onClick={() => {
+                      haptics.selection();
                       setSelectedLevel(lvl);
                       setQuizIndex(0);
                       setSoIndex(0);
@@ -1120,7 +1174,10 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
                       <button
                         type="button"
                         disabled={soIndex === 0}
-                        onClick={() => setSoIndex((prev) => Math.max(0, prev - 1))}
+                        onClick={() => {
+                          haptics.selection();
+                          setSoIndex((prev) => Math.max(0, prev - 1));
+                        }}
                         className="rounded-lg border border-border px-2.5 py-1 text-xs font-bold hover:bg-muted disabled:opacity-40"
                       >
                         ← Oldingi
@@ -1128,9 +1185,10 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
                       <button
                         type="button"
                         disabled={soIndex >= soQuestions.length - 1}
-                        onClick={() =>
-                          setSoIndex((prev) => Math.min(soQuestions.length - 1, prev + 1))
-                        }
+                        onClick={() => {
+                          haptics.selection();
+                          setSoIndex((prev) => Math.min(soQuestions.length - 1, prev + 1));
+                        }}
                         className="rounded-lg border border-border px-2.5 py-1 text-xs font-bold hover:bg-muted disabled:opacity-40"
                       >
                         Keyingi →
@@ -1151,6 +1209,23 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
                     onComplete={(isCorrect) => {
                       if (isCorrect) {
                         awardXP(25);
+                        ActivityLoggingService.logActivity(
+                          {
+                            activityType: 'quiz',
+                            activityTitle: `JLPT Gap Tartibi (★) - ${soQuestions[soIndex]?.level || 'N3'}`,
+                            durationMinutes: 2,
+                            itemsCount: 1,
+                            xpEarned: 0,
+                            metadata: {
+                              questionId: soQuestions[soIndex]?.id,
+                              level: soQuestions[soIndex]?.level,
+                              isCorrect: true,
+                            },
+                          },
+                          user?.id,
+                        ).catch((err) =>
+                          console.warn('[JlptGrammarMaster] Activity logging warning:', err),
+                        );
                       } else {
                         const curQ = soQuestions[soIndex];
                         if (curQ) {

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { CheckCircle2, XCircle, RotateCcw, ArrowRight, Star } from 'lucide-react';
 import { SentenceOrderingQuestion as IQuestion } from '../../data/jlpt/sentence_ordering_data';
 import { FuriganaText } from './FuriganaText';
+import { useTelegramWebApp } from '../../hooks/useTelegramWebApp';
 
 interface SentenceOrderingQuestionProps {
   question: IQuestion;
@@ -14,6 +15,7 @@ export const SentenceOrderingQuestion: React.FC<SentenceOrderingQuestionProps> =
   onNext,
   onComplete,
 }) => {
+  const { haptics } = useTelegramWebApp();
   // slots: array of length 4 storing index of fragment placed in slot i, or null
   const [placedSlots, setPlacedSlots] = useState<(number | null)[]>([null, null, null, null]);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -23,6 +25,7 @@ export const SentenceOrderingQuestion: React.FC<SentenceOrderingQuestionProps> =
 
   const handleSelectFragment = (fragIdx: number) => {
     if (isSubmitted || placedSet.has(fragIdx)) return;
+    haptics.selection();
     // Find first empty slot
     const emptySlotIdx = placedSlots.findIndex((s) => s === null);
     if (emptySlotIdx !== -1) {
@@ -34,6 +37,7 @@ export const SentenceOrderingQuestion: React.FC<SentenceOrderingQuestionProps> =
 
   const handleRemoveFromSlot = (slotIdx: number) => {
     if (isSubmitted) return;
+    haptics.impact('light');
     const next = [...placedSlots];
     next[slotIdx] = null;
     setPlacedSlots(next);
@@ -41,6 +45,7 @@ export const SentenceOrderingQuestion: React.FC<SentenceOrderingQuestionProps> =
 
   const handleReset = () => {
     if (isSubmitted) return;
+    haptics.impact('light');
     setPlacedSlots([null, null, null, null]);
   };
 
@@ -55,6 +60,11 @@ export const SentenceOrderingQuestion: React.FC<SentenceOrderingQuestionProps> =
   const handleSubmit = () => {
     if (!isFull || isSubmitted) return;
     setIsSubmitted(true);
+    if (isCorrect) {
+      haptics.notification('success');
+    } else {
+      haptics.notification('warning');
+    }
     if (onComplete) {
       onComplete(isCorrect);
     }
@@ -234,7 +244,10 @@ export const SentenceOrderingQuestion: React.FC<SentenceOrderingQuestionProps> =
           {onNext && (
             <button
               type="button"
-              onClick={onNext}
+              onClick={() => {
+                haptics.selection();
+                onNext();
+              }}
               className="flex w-full items-center justify-center gap-2 rounded-2xl bg-primary py-3 text-sm font-bold text-primary-foreground shadow-sm transition hover:bg-primary/90"
             >
               <span>Keyingi Savol</span>
