@@ -50,6 +50,8 @@ import {
   SectionKey,
 } from '../utils/jlptExamTiming';
 
+const DRAFT_EXAM_STORAGE_KEY = 'jlpt_mock_exam_draft_v1';
+
 export const JlptMockExamPage: React.FC = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -255,6 +257,40 @@ export const JlptMockExamPage: React.FC = () => {
     return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
   };
 
+  // Auto-save active exam draft to localStorage in real-time
+  useEffect(() => {
+    if (step === 'exam' && Object.keys(userAnswers).length > 0) {
+      try {
+        if (typeof localStorage !== 'undefined') {
+          localStorage.setItem(
+            DRAFT_EXAM_STORAGE_KEY,
+            JSON.stringify({
+              level,
+              examId: selectedExamId,
+              userAnswers,
+              activeSection,
+              sealedSections,
+              examMode,
+              sectionTimeLeft,
+              timeLeft,
+              timestamp: Date.now(),
+            }),
+          );
+        }
+      } catch {}
+    }
+  }, [
+    step,
+    level,
+    selectedExamId,
+    userAnswers,
+    activeSection,
+    sealedSections,
+    examMode,
+    sectionTimeLeft,
+    timeLeft,
+  ]);
+
   const handleStartExam = async () => {
     setIsStartingExam(true);
     try {
@@ -263,22 +299,65 @@ export const JlptMockExamPage: React.FC = () => {
         level,
       );
       setActiveExam(examData);
-      setUserAnswers({});
+
+      // Check for valid existing draft for this level
+      let restoredAnswers: { [qId: number]: number } = {};
+      let restoredActiveSection: 'knowledge' | 'reading' | 'listening' | null = null;
+      let restoredSealedSections: SectionKey[] | null = null;
+      let restoredSectionTime: number | null = null;
+      let restoredTimeLeft: number | null = null;
+
+      try {
+        if (typeof localStorage !== 'undefined') {
+          const raw = localStorage.getItem(DRAFT_EXAM_STORAGE_KEY);
+          if (raw) {
+            const draft = JSON.parse(raw);
+            const isFresh = Date.now() - (draft.timestamp || 0) < 4 * 60 * 60 * 1000;
+            if (
+              isFresh &&
+              draft.level === level &&
+              draft.userAnswers &&
+              Object.keys(draft.userAnswers).length > 0
+            ) {
+              restoredAnswers = draft.userAnswers;
+              if (draft.activeSection) restoredActiveSection = draft.activeSection;
+              if (Array.isArray(draft.sealedSections))
+                restoredSealedSections = draft.sealedSections;
+              if (typeof draft.sectionTimeLeft === 'number' && draft.sectionTimeLeft > 0) {
+                restoredSectionTime = draft.sectionTimeLeft;
+              }
+              if (typeof draft.timeLeft === 'number' && draft.timeLeft > 0) {
+                restoredTimeLeft = draft.timeLeft;
+              }
+              toast({
+                title: 'Qoralama tiklandi',
+                description: `${Object.keys(restoredAnswers).length} ta belgilangan javobingiz muvaffaqiyatli tiklandi.`,
+              });
+            }
+          }
+        }
+      } catch {}
+
+      setUserAnswers(restoredAnswers);
       setMistakes([]);
       setStep('exam');
       examStartTimeRef.current = Date.now();
 
       const ordered = getOrderedSections(level);
       const firstSec = ordered[0].section;
-      setActiveSection(firstSec);
-      setSealedSections([]);
+      setActiveSection(restoredActiveSection || firstSec);
+      setSealedSections(restoredSealedSections || []);
 
       if (examMode === 'official_timed') {
-        const duration = getSectionDurationSeconds(level, firstSec, useFullOfficialTime);
+        const duration =
+          restoredSectionTime ??
+          getSectionDurationSeconds(level, restoredActiveSection || firstSec, useFullOfficialTime);
         setSectionTimeLeft(duration);
-        setSectionTotalDuration(duration);
+        setSectionTotalDuration(
+          getSectionDurationSeconds(level, restoredActiveSection || firstSec, useFullOfficialTime),
+        );
       } else {
-        setTimeLeft(examData.timeLimitSeconds);
+        setTimeLeft(restoredTimeLeft ?? examData.timeLimitSeconds);
       }
       setIsTimerRunning(true);
     } catch (err) {
@@ -352,6 +431,11 @@ export const JlptMockExamPage: React.FC = () => {
     }
     setIsPlaying(false);
     setIsTimerRunning(false);
+    try {
+      if (typeof localStorage !== 'undefined') {
+        localStorage.removeItem(DRAFT_EXAM_STORAGE_KEY);
+      }
+    } catch {}
     setStep('report');
     setIsAnalyzing(true);
 

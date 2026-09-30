@@ -43,6 +43,8 @@ import { useStudyData } from '../context/StudyPlannerContext';
 import { useLanguage } from '../context/LanguageContext';
 import { toast } from '../hooks/use-toast';
 
+const DRAFT_CHOUKAI_STORAGE_KEY = 'jlpt_choukai_draft_v1';
+
 export const JlptListeningMockPage: React.FC = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -145,6 +147,26 @@ export const JlptListeningMockPage: React.FC = () => {
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
+  // Auto-save active Choukai draft to localStorage in real-time
+  useEffect(() => {
+    if (step === 'test' && Object.keys(userAnswers).length > 0) {
+      try {
+        if (typeof localStorage !== 'undefined') {
+          localStorage.setItem(
+            DRAFT_CHOUKAI_STORAGE_KEY,
+            JSON.stringify({
+              level,
+              currentQIdx,
+              userAnswers,
+              timeLeft,
+              timestamp: Date.now(),
+            }),
+          );
+        }
+      } catch {}
+    }
+  }, [step, level, currentQIdx, userAnswers, timeLeft]);
+
   // --- Start JLPT Listening Test ---
   const handleStartTest = () => {
     const allQuestions = CustomContentService.mergeChoukaiQuestions(JLPT_LISTENING_QUESTIONS);
@@ -155,12 +177,46 @@ export const JlptListeningMockPage: React.FC = () => {
 
     stopAudio();
     setActiveQuestions(filtered);
-    setCurrentQIdx(0);
-    setUserAnswers({});
+
+    // Check for existing valid draft
+    let restoredAnswers: Record<string | number, number> = {};
+    let restoredIdx = 0;
+    let restoredTime = 1800;
+
+    try {
+      if (typeof localStorage !== 'undefined') {
+        const raw = localStorage.getItem(DRAFT_CHOUKAI_STORAGE_KEY);
+        if (raw) {
+          const draft = JSON.parse(raw);
+          const isFresh = Date.now() - (draft.timestamp || 0) < 4 * 60 * 60 * 1000;
+          if (
+            isFresh &&
+            draft.level === level &&
+            draft.userAnswers &&
+            Object.keys(draft.userAnswers).length > 0
+          ) {
+            restoredAnswers = draft.userAnswers;
+            if (typeof draft.currentQIdx === 'number' && draft.currentQIdx < filtered.length) {
+              restoredIdx = draft.currentQIdx;
+            }
+            if (typeof draft.timeLeft === 'number' && draft.timeLeft > 0) {
+              restoredTime = draft.timeLeft;
+            }
+            toast({
+              title: 'Qoralama tiklandi',
+              description: `${Object.keys(restoredAnswers).length} ta belgilangan javobingiz muvaffaqiyatli tiklandi.`,
+            });
+          }
+        }
+      }
+    } catch {}
+
+    setCurrentQIdx(restoredIdx);
+    setUserAnswers(restoredAnswers);
     setIsExported(false);
     setStep('test');
     setIsTimerRunning(true);
-    setTimeLeft(1800);
+    setTimeLeft(restoredTime);
     setShowScriptInExam(mode === 'sync');
   };
 
@@ -506,6 +562,12 @@ export const JlptListeningMockPage: React.FC = () => {
   const handleSubmitTest = async () => {
     stopAudio();
     setIsTimerRunning(false);
+
+    try {
+      if (typeof localStorage !== 'undefined') {
+        localStorage.removeItem(DRAFT_CHOUKAI_STORAGE_KEY);
+      }
+    } catch {}
 
     let correctCount = 0;
     activeQuestions.forEach((q) => {

@@ -158,6 +158,38 @@ export class ListeningAudioSyncService {
     utterance.rate = Math.max(0.6, Math.min(1.8, speed));
     utterance.pitch = this.getPitchForGender(line.gender || 'neutral');
 
+    // Match Japanese voice with speaker gender if available
+    try {
+      const voices = window.speechSynthesis.getVoices();
+      if (voices && voices.length > 0) {
+        const jaVoices = voices.filter((v) => v.lang === 'ja-JP' || v.lang.startsWith('ja'));
+        if (jaVoices.length > 0) {
+          const gender = line.gender || 'neutral';
+          let matchedVoice: SpeechSynthesisVoice | undefined;
+          if (gender === 'male') {
+            matchedVoice = jaVoices.find(
+              (v) =>
+                v.name.includes('Otoya') ||
+                v.name.includes('Hattori') ||
+                v.name.includes('Male') ||
+                v.name.includes('Ichiro') ||
+                v.name.includes('Keita'),
+            );
+          } else if (gender === 'female') {
+            matchedVoice = jaVoices.find(
+              (v) =>
+                v.name.includes('Kyoko') ||
+                v.name.includes('Haruka') ||
+                v.name.includes('Female') ||
+                v.name.includes('Ayumi') ||
+                v.name.includes('Nanami'),
+            );
+          }
+          utterance.voice = matchedVoice || jaVoices[0];
+        }
+      }
+    } catch {}
+
     utterance.onstart = () => {
       onStart?.();
     };
@@ -173,6 +205,20 @@ export class ListeningAudioSyncService {
 
     window.speechSynthesis.speak(utterance);
     return utterance;
+  }
+
+  /**
+   * Pre-warms or unlocks Web SpeechSynthesis on user gesture
+   */
+  static unlockSpeechSynthesis(): void {
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+      try {
+        const silent = new SpeechSynthesisUtterance('');
+        silent.volume = 0;
+        silent.lang = 'ja-JP';
+        window.speechSynthesis.speak(silent);
+      } catch {}
+    }
   }
 
   /**

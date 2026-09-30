@@ -10,7 +10,7 @@ import {
 } from '../types/learningPlan';
 import { supabase } from '../lib/supabase';
 import { LearningSignalService } from './LearningSignalService';
-import { toDeterministicUUID } from '../utils/uuid';
+import { toDeterministicUUID, isUuid } from '../utils/uuid';
 import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
 
 const GOAL_STORAGE_PREFIX = 'study_planner_personal_goal_';
@@ -165,9 +165,10 @@ export const PersonalLearningPlanService = {
 
     if (userId && userId !== 'guest') {
       const dbGoalId = toDeterministicUUID(goal.id);
+      const dbUserId = isUuid(userId) ? userId : toDeterministicUUID(userId);
       const dbPayload = {
         id: dbGoalId,
-        user_id: userId,
+        user_id: dbUserId,
         language: goal.language,
         goal_type: goal.goalType,
         current_level: goal.currentLevel,
@@ -213,10 +214,11 @@ export const PersonalLearningPlanService = {
     }
 
     try {
+      const dbUserId = isUuid(userId) ? userId : toDeterministicUUID(userId);
       const { data, error } = await supabase
         .from('personal_learning_goals')
         .select('*')
-        .eq('user_id', userId)
+        .eq('user_id', dbUserId)
         .eq('status', 'active')
         .maybeSingle();
 
@@ -302,10 +304,11 @@ export const PersonalLearningPlanService = {
     if (!userId || userId === 'guest') return this.getWeeklyPlans(userId);
 
     try {
+      const dbUserId = isUuid(userId) ? userId : toDeterministicUUID(userId);
       const { data, error } = await supabase
         .from('weekly_learning_plans')
         .select('*')
-        .eq('user_id', userId);
+        .eq('user_id', dbUserId);
 
       if (error) throw error;
 
@@ -441,10 +444,11 @@ export const PersonalLearningPlanService = {
     if (!userId || userId === 'guest') return this.getWeeklyEvaluations(userId);
 
     try {
+      const dbUserId = isUuid(userId) ? userId : toDeterministicUUID(userId);
       const { data, error } = await supabase
         .from('weekly_learning_evaluations')
         .select('*')
-        .eq('user_id', userId);
+        .eq('user_id', dbUserId);
 
       if (error) throw error;
 
@@ -501,11 +505,14 @@ export const PersonalLearningPlanService = {
 
       const dbEvalId = toDeterministicUUID(evaluation.id);
       const dbGoalId = toDeterministicUUID(activeGoal.id);
+      const dbUserId = isUuid(evaluation.userId)
+        ? evaluation.userId
+        : toDeterministicUUID(evaluation.userId);
 
       const dbPayload = {
         id: dbEvalId,
         goal_id: dbGoalId,
-        user_id: evaluation.userId,
+        user_id: dbUserId,
         week_number: evaluation.weekNumber,
         evaluation_data: {
           weeklyPlanId: evaluation.weeklyPlanId,
