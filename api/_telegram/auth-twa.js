@@ -37,6 +37,31 @@ export function verifyTelegramWebAppData(initData, botToken) {
   }
 }
 
+/**
+ * Deterministically converts a string ID to a valid UUID.
+ */
+export function toDeterministicUUID(str) {
+  if (!str) return crypto.randomUUID();
+  if (/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(str)) {
+    return str;
+  }
+  let h1 = 0xdeadbeef, h2 = 0x41c6ce57;
+  for (let i = 0; i < str.length; i++) {
+    const ch = str.charCodeAt(i);
+    h1 = Math.imul(h1 ^ ch, 2654435761);
+    h2 = Math.imul(h2 ^ ch, 1597334677);
+  }
+  h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+  h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+
+  const hex = ((h1 >>> 0).toString(16).padStart(8, '0') +
+               (h2 >>> 0).toString(16).padStart(8, '0') +
+               ((h1 ^ h2) >>> 0).toString(16).padStart(8, '0') +
+               ((h1 + h2) >>> 0).toString(16).padStart(8, '0')).slice(0, 32);
+
+  return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-4${hex.slice(12, 15)}-a${hex.slice(15, 18)}-${hex.slice(18, 30)}`;
+}
+
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -50,7 +75,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { initData, mockUser } = req.body || {};
+  const { initData, mockUser, userId: clientUserId } = req.body || {};
 
   let telegramUser = null;
 
@@ -116,8 +141,8 @@ export default async function handler(req, res) {
         })
         .eq('id', existingUser.id);
     } else {
-      // Create new user mapping
-      finalUserId = crypto.randomUUID();
+      // Create new user mapping with deterministic UUID matching client
+      finalUserId = clientUserId || toDeterministicUUID(`tg-user-${telegramUser.id}`);
       isNewUser = true;
 
       await supabase.from('telegram_users').insert({

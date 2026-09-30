@@ -38,6 +38,7 @@ describe('OfflineIndicator Component', () => {
       syncedExams: 0,
       syncedSpeaking: 0,
       syncedGamification: 0,
+      syncedLessons: 0,
       totalSynced: 5,
       totalFailed: 0,
     });

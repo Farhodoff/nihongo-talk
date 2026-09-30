@@ -44,12 +44,26 @@ export interface QueuedGamificationProfile {
   timestamp: number;
 }
 
+export interface QueuedLessonProgress {
+  id: string;
+  userId: string;
+  lessonId: string;
+  language: string;
+  currentStepIndex: number;
+  isCompleted: boolean;
+  score: number;
+  answers: Record<string, any>;
+  completedAt?: string | null;
+  updatedAt: string;
+}
+
 export interface StorageDiagnostics {
   isOnline: boolean;
   pendingFlashcards: number;
   pendingExams: number;
   pendingSpeaking: number;
   pendingGamification: number;
+  pendingLessonProgress: number;
   totalPending: number;
   cachedFlashcardsCount: number;
   lastSyncTimestamp: number | null;
@@ -58,6 +72,7 @@ export interface StorageDiagnostics {
 const EXAMS_QUEUE_KEY = 'study_planner_offline_exams_queue';
 const SPEAKING_QUEUE_KEY = 'study_planner_offline_speaking_queue';
 const GAMIFICATION_QUEUE_KEY = 'study_planner_offline_gamification_queue';
+const LESSON_PROGRESS_QUEUE_KEY = 'study_planner_offline_lesson_progress_queue';
 const LAST_SYNC_KEY = 'study_planner_last_offline_sync_time';
 
 let isSyncingAll = false;
@@ -120,6 +135,28 @@ export const OfflineSyncManager = {
     }
   },
 
+  /**
+   * Enqueues an offline lesson progress update.
+   */
+  async enqueueLessonProgress(progress: QueuedLessonProgress): Promise<void> {
+    try {
+      const queue = (await idbGet<QueuedLessonProgress[]>(LESSON_PROGRESS_QUEUE_KEY)) || [];
+      const existingIdx = queue.findIndex(
+        (p) =>
+          p.id === progress.id ||
+          (p.userId === progress.userId && p.lessonId === progress.lessonId),
+      );
+      if (existingIdx >= 0) {
+        queue[existingIdx] = progress;
+      } else {
+        queue.push(progress);
+      }
+      await idbSet(LESSON_PROGRESS_QUEUE_KEY, queue);
+    } catch (e) {
+      console.warn('[OfflineSyncManager] Failed to enqueue lesson progress:', e);
+    }
+  },
+
   // ─── Queue Counters ─────────────────────────────────────────────
 
   async getPendingExamsCount(): Promise<number> {
@@ -149,18 +186,28 @@ export const OfflineSyncManager = {
     }
   },
 
+  async getPendingLessonProgressCount(): Promise<number> {
+    try {
+      const queue = await idbGet<QueuedLessonProgress[]>(LESSON_PROGRESS_QUEUE_KEY);
+      return queue ? queue.length : 0;
+    } catch {
+      return 0;
+    }
+  },
+
   /**
    * Returns total count of pending mutations across all domains.
    */
   async getOverallPendingCount(): Promise<number> {
-    const [flashcards, exams, speaking, gamification] = await Promise.all([
+    const [flashcards, exams, speaking, gamification, lessons] = await Promise.all([
       FlashcardOfflineSync.getPendingCount(),
       this.getPendingExamsCount(),
       this.getPendingSpeakingCount(),
       this.getPendingGamificationCount(),
+      this.getPendingLessonProgressCount(),
     ]);
 
-    return flashcards + exams + speaking + gamification;
+    return flashcards + exams + speaking + gamification + lessons;
   },
 
   // ─── Queue Flush / Sync ─────────────────────────────────────────
@@ -173,6 +220,7 @@ export const OfflineSyncManager = {
     syncedExams: number;
     syncedSpeaking: number;
     syncedGamification: number;
+    syncedLessons: number;
     totalSynced: number;
     totalFailed: number;
   }> {
@@ -182,6 +230,7 @@ export const OfflineSyncManager = {
         syncedExams: 0,
         syncedSpeaking: 0,
         syncedGamification: 0,
+        syncedLessons: 0,
         totalSynced: 0,
         totalFailed: 0,
       };
@@ -193,6 +242,7 @@ export const OfflineSyncManager = {
         syncedExams: 0,
         syncedSpeaking: 0,
         syncedGamification: 0,
+        syncedLessons: 0,
         totalSynced: 0,
         totalFailed: 0,
       };
@@ -308,7 +358,45 @@ export const OfflineSyncManager = {
         await idbSet(GAMIFICATION_QUEUE_KEY, remainingGamification);
       }
 
-      const totalSynced = syncedCards + syncedExams + syncedSpeaking + syncedGamification;
+      // 5. Sync Lesson Progress
+      let syncedLessons = 0;
+      const lessonQueue = (await idbGet<QueuedLessonProgress[]>(LESSON_PROGRESS_QUEUE_KEY)) || [];
+      if (lessonQueue.length > 0) {
+        const remainingLessons: QueuedLessonProgress[] = [];
+        for (const lp of lessonQueue) {
+          try {
+            if (lp.userId && lp.userId !== 'guest') {
+              const { error } = await supabase.from('lesson_progress').upsert({
+                id: lp.id,
+                user_id: lp.userId,
+                lesson_id: lp.lessonId,
+                language: lp.language,
+                current_step_index: lp.currentStepIndex,
+                is_completed: lp.isCompleted,
+                score: lp.score,
+                answers: lp.answers,
+                completed_at: lp.completedAt,
+                updated_at: lp.updatedAt,
+              });
+              if (error) {
+                remainingLessons.push(lp);
+                totalFailed++;
+              } else {
+                syncedLessons++;
+              }
+            } else {
+              syncedLessons++;
+            }
+          } catch {
+            remainingLessons.push(lp);
+            totalFailed++;
+          }
+        }
+        await idbSet(LESSON_PROGRESS_QUEUE_KEY, remainingLessons);
+      }
+
+      const totalSynced =
+        syncedCards + syncedExams + syncedSpeaking + syncedGamification + syncedLessons;
 
       if (totalSynced > 0) {
         try {
@@ -327,6 +415,7 @@ export const OfflineSyncManager = {
         syncedExams,
         syncedSpeaking,
         syncedGamification,
+        syncedLessons,
         totalSynced,
         totalFailed,
       };
@@ -338,11 +427,18 @@ export const OfflineSyncManager = {
   // ─── Diagnostics & Status ───────────────────────────────────────
 
   async getDiagnostics(userId?: string): Promise<StorageDiagnostics> {
-    const [pendingCards, pendingExams, pendingSpeaking, pendingGamification] = await Promise.all([
+    const [
+      pendingCards,
+      pendingExams,
+      pendingSpeaking,
+      pendingGamification,
+      pendingLessonProgress,
+    ] = await Promise.all([
       FlashcardOfflineSync.getPendingCount(),
       this.getPendingExamsCount(),
       this.getPendingSpeakingCount(),
       this.getPendingGamificationCount(),
+      this.getPendingLessonProgressCount(),
     ]);
 
     let cachedFlashcardsCount = 0;
@@ -367,7 +463,9 @@ export const OfflineSyncManager = {
       pendingExams,
       pendingSpeaking,
       pendingGamification,
-      totalPending: pendingCards + pendingExams + pendingSpeaking + pendingGamification,
+      pendingLessonProgress,
+      totalPending:
+        pendingCards + pendingExams + pendingSpeaking + pendingGamification + pendingLessonProgress,
       cachedFlashcardsCount,
       lastSyncTimestamp,
     };
@@ -381,6 +479,7 @@ export const OfflineSyncManager = {
       idbDelete(EXAMS_QUEUE_KEY),
       idbDelete(SPEAKING_QUEUE_KEY),
       idbDelete(GAMIFICATION_QUEUE_KEY),
+      idbDelete(LESSON_PROGRESS_QUEUE_KEY),
     ]);
   },
 

@@ -103,6 +103,7 @@ describe('OfflineSyncManager Service', () => {
       if (table === 'speaking_coach_sessions') return { insert: mockInsert } as any;
       if (table === 'profiles') return { upsert: mockUpsert } as any;
       if (table === 'flashcards') return { update: mockUpdate } as any;
+      if (table === 'lesson_progress') return { upsert: mockUpsert } as any;
       return {} as any;
     });
 
@@ -135,6 +136,19 @@ describe('OfflineSyncManager Service', () => {
       timestamp: Date.now(),
     });
 
+    await OfflineSyncManager.enqueueLessonProgress({
+      id: 'lp-10',
+      userId: 'user-1',
+      lessonId: 'minna-lesson-1',
+      language: 'ja',
+      currentStepIndex: 3,
+      isCompleted: true,
+      score: 100,
+      answers: {},
+      completedAt: '2026-09-19T12:00:00Z',
+      updatedAt: '2026-09-19T12:00:00Z',
+    });
+
     await FlashcardOfflineSync.enqueueUpdate('c-10', { interval: 3 });
 
     const result = await OfflineSyncManager.syncAllPending();
@@ -143,14 +157,15 @@ describe('OfflineSyncManager Service', () => {
     expect(result.syncedExams).toBe(1);
     expect(result.syncedSpeaking).toBe(1);
     expect(result.syncedGamification).toBe(1);
-    expect(result.totalSynced).toBe(4);
+    expect(result.syncedLessons).toBe(1);
+    expect(result.totalSynced).toBe(5);
     expect(result.totalFailed).toBe(0);
 
     expect(await OfflineSyncManager.getOverallPendingCount()).toBe(0);
     expect(toast).toHaveBeenCalledWith(
       expect.objectContaining({
         title: expect.stringContaining('Sinxronlash muvaffaqiyatli'),
-        description: expect.stringContaining('4 ta oflayn'),
+        description: expect.stringContaining('5 ta oflayn'),
       }),
     );
   });

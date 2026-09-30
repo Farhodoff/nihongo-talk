@@ -186,6 +186,7 @@ export function initTelegramAuth(): { user: User; session: Session } | null {
           body: JSON.stringify({
             initData: tg?.initData || '',
             mockUser: tgUser,
+            userId: user.id,
           }),
         }).catch((e) => {
           console.debug('[TelegramAuth] Backend sync notice:', e);

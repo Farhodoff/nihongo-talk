@@ -3,28 +3,38 @@ import crypto from 'crypto';
 // @ts-ignore
 import twaHandler, { verifyTelegramWebAppData } from '../../../api/_telegram/auth-twa.js';
 
+let lastInsertedRow: any = null;
+
 // Mock Supabase client
 vi.mock('@supabase/supabase-js', () => ({
   createClient: () => ({
     from: (_table: string) => ({
       select: () => ({
-        eq: () => ({
-          maybeSingle: async () => ({
-            data: {
-              id: 'rec_1',
-              user_id: '00000000-0000-0000-0000-000000000001',
-              telegram_id: 998877,
-              telegram_first_name: 'Farhod',
-            },
-            error: null,
-          }),
+        eq: (_field: string, val: any) => ({
+          maybeSingle: async () => {
+            if (val === 998877) {
+              return {
+                data: {
+                  id: 'rec_1',
+                  user_id: '00000000-0000-0000-0000-000000000001',
+                  telegram_id: 998877,
+                  telegram_first_name: 'Farhod',
+                },
+                error: null,
+              };
+            }
+            return { data: null, error: null };
+          },
           lte: async () => ({ count: 5, error: null }),
         }),
       }),
       update: () => ({
         eq: async () => ({ data: {}, error: null }),
       }),
-      insert: async () => ({ data: {}, error: null }),
+      insert: async (row: any) => {
+        lastInsertedRow = row;
+        return { data: row, error: null };
+      },
     }),
   }),
 }));
@@ -89,5 +99,47 @@ describe('Telegram TWA Auth', () => {
     expect(jsonResponse.ok).toBe(true);
     expect(jsonResponse.userId).toBe('00000000-0000-0000-0000-000000000001');
     expect(jsonResponse.telegramUser.firstName).toBe('Farhod');
+  });
+
+  it('4. assigns deterministic UUID and persists user when new user authenticates', async () => {
+    let statusCode = 200;
+    let jsonResponse: any = null;
+
+    const res = {
+      setHeader: vi.fn(),
+      status: (code: number) => {
+        statusCode = code;
+        return {
+          json: (data: any) => {
+            jsonResponse = data;
+          },
+          end: vi.fn(),
+        };
+      },
+    };
+
+    const req = {
+      method: 'POST',
+      body: {
+        mockUser: {
+          id: 554433,
+          first_name: 'Yuki',
+          username: 'yuki_learner',
+        },
+      },
+    };
+
+    await twaHandler(req as any, res as any);
+
+    expect(statusCode).toBe(200);
+    expect(jsonResponse.ok).toBe(true);
+    expect(jsonResponse.isNewUser).toBe(true);
+    expect(jsonResponse.userId).toBeDefined();
+    expect(jsonResponse.userId).toMatch(
+      /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i,
+    );
+    expect(lastInsertedRow).toBeDefined();
+    expect(lastInsertedRow.telegram_id).toBe(554433);
+    expect(lastInsertedRow.user_id).toBe(jsonResponse.userId);
   });
 });
