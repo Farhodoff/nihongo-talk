@@ -10,6 +10,7 @@ import {
   History,
   Trash2,
   ArrowRight,
+  TrendingUp,
 } from 'lucide-react';
 import { generateAIResponse, extractJsonFromAiResponse } from '../utils/ai/aiCore';
 import { speakText } from '../utils/audioTts';
@@ -20,6 +21,11 @@ import { toDeterministicUUID } from '../utils/uuid';
 import { isSuperAdmin } from '../utils/admin';
 import { useLanguage } from '../context/LanguageContext';
 import { findLanguageSubject, getOrEnsureLanguageSubject } from '../utils/subjectResolver';
+import { PitchAccentService, PitchAccentInfo } from '../services/PitchAccentService';
+import { PitchAccentModal } from '../components/speaking/PitchAccentModal';
+import { PitchAccentTrainer } from '../components/speaking/PitchAccentTrainer';
+import { ActivityLoggingService } from '../services/ActivityLoggingService';
+import { useTelegramWebApp } from '../hooks/useTelegramWebApp';
 
 export interface VocabWordDetails {
   word: string;
@@ -38,7 +44,11 @@ export interface VocabWordDetails {
 export const VocabularyBuilderPage: React.FC = () => {
   const { user, subjects, addFlashcard, addSubject, primaryLanguage } = useStudyData();
   const { language } = useLanguage();
+  const { haptics } = useTelegramWebApp();
   const isSuper = isSuperAdmin(user?.email, user?.role);
+
+  const [pitchModalOpen, setPitchModalOpen] = useState(false);
+  const [pitchTrainerOpen, setPitchTrainerOpen] = useState(false);
 
   const BUILTIN_VOCAB_DB: Record<string, VocabWordDetails> = {
     維持: {
@@ -120,6 +130,14 @@ export const VocabularyBuilderPage: React.FC = () => {
   const [currentResult, setCurrentResult] = useState<VocabWordDetails | null>(
     () => BUILTIN_VOCAB_DB['維持'],
   );
+
+  const currentPitchInfo: PitchAccentInfo | null = React.useMemo(() => {
+    if (!currentResult || currentResult.language !== 'ja') return null;
+    return PitchAccentService.getPitchAccent(
+      currentResult.word,
+      currentResult.furigana || currentResult.phonetic,
+    );
+  }, [currentResult]);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [selectedSubjectId, setSelectedSubjectId] = useState<string>('');
   const [isAddedToFlashcards, setIsAddedToFlashcards] = useState(false);
@@ -221,6 +239,7 @@ export const VocabularyBuilderPage: React.FC = () => {
     const searchTerm = (targetQuery || query).trim();
     if (!searchTerm) return;
 
+    haptics.impact('light');
     setIsSearching(true);
     setErrorMsg(null);
     setIsAddedToFlashcards(false);
@@ -321,6 +340,7 @@ Return ONLY a raw valid JSON object (no markdown, no backticks) with this struct
   };
 
   const toggleSaveWord = (wordObj: VocabWordDetails) => {
+    haptics.selection();
     const isSaved = savedWords.some((w) => w.word.toLowerCase() === wordObj.word.toLowerCase());
     let updated: VocabWordDetails[];
     if (isSaved) {
@@ -376,6 +396,7 @@ Return ONLY a raw valid JSON object (no markdown, no backticks) with this struct
 
   const handleCreateFlashcard = async () => {
     if (!currentResult) return;
+    haptics.notification('success');
 
     let targetSubId = selectedSubjectId;
     if (!targetSubId) {
@@ -400,6 +421,27 @@ Return ONLY a raw valid JSON object (no markdown, no backticks) with this struct
 
     setIsAddedToFlashcards(true);
     setTimeout(() => setIsAddedToFlashcards(false), 3000);
+
+    // Record activity in ActivityLoggingService
+    try {
+      await ActivityLoggingService.logActivity(
+        {
+          activityType: 'flashcards',
+          activityTitle: `Lug'atdan yangi so'z: ${currentResult.word}`,
+          durationMinutes: 1,
+          itemsCount: 1,
+          xpEarned: 10,
+          metadata: {
+            word: currentResult.word,
+            level: currentResult.level,
+            subjectId: targetSubId,
+          },
+        },
+        user?.id,
+      );
+    } catch (e) {
+      console.warn('[VocabularyBuilderPage] Failed to log activity:', e);
+    }
   };
 
   const isCurrentSaved = currentResult
@@ -413,12 +455,24 @@ Return ONLY a raw valid JSON object (no markdown, no backticks) with this struct
           <span className="font-bold text-foreground">AI Lug‘at</span> — yangi so‘z tahlili uchun.
           Tayyor JLPT ro‘yxatlar Goi bo‘limida.
         </span>
-        <a
-          href="/jlpt?tab=goi"
-          className="shrink-0 rounded-xl border border-primary/30 bg-primary/10 px-3 py-1.5 text-xs font-bold text-primary transition-all hover:bg-primary/20"
-        >
-          Goi ro‘yxatiga o‘tish
-        </a>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => {
+              haptics.selection();
+              setPitchTrainerOpen(true);
+            }}
+            className="flex shrink-0 items-center gap-1.5 rounded-xl border border-indigo-500/30 bg-indigo-500/10 px-3 py-1.5 text-xs font-bold text-indigo-500 transition-all hover:bg-indigo-500/20 active:scale-95 dark:text-indigo-400"
+          >
+            <TrendingUp size={14} />
+            <span>Pitch Accent Studio</span>
+          </button>
+          <a
+            href="/jlpt?tab=goi"
+            className="shrink-0 rounded-xl border border-primary/30 bg-primary/10 px-3 py-1.5 text-xs font-bold text-primary transition-all hover:bg-primary/20"
+          >
+            Goi ro‘yxatiga o‘tish
+          </a>
+        </div>
       </div>
       {/* Header */}
       <div className="flex flex-col items-start justify-between gap-4 border-b border-border pb-6 md:flex-row md:items-center">
@@ -552,7 +606,7 @@ Return ONLY a raw valid JSON object (no markdown, no backticks) with this struct
               {/* Word Top Header */}
               <div className="flex flex-col items-start justify-between gap-4 border-b border-border pb-6 sm:flex-row sm:items-center">
                 <div>
-                  <div className="flex items-center gap-3">
+                  <div className="flex flex-wrap items-center gap-3">
                     <h2 className="font-display text-3xl font-black text-foreground">
                       {currentResult.furigana ? (
                         <FuriganaText text={currentResult.furigana} />
@@ -566,6 +620,21 @@ Return ONLY a raw valid JSON object (no markdown, no backticks) with this struct
                     <span className="font-serif text-xs italic text-muted-foreground">
                       ({currentResult.partOfSpeech})
                     </span>
+                    {currentPitchInfo && (
+                      <button
+                        onClick={() => {
+                          haptics.selection();
+                          setPitchModalOpen(true);
+                        }}
+                        className="inline-flex cursor-pointer items-center gap-1.5 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-3 py-1 text-xs font-extrabold text-indigo-500 transition-all hover:bg-indigo-500/20 active:scale-95 dark:text-indigo-400"
+                        title="Tokyo standarti bo'yicha Pitch Accent (Ohang) grafigini ko'rish"
+                      >
+                        <TrendingUp size={13} />
+                        <span>
+                          {currentPitchInfo.pitchTypeNameUz} [{currentPitchInfo.pitchPatternNumber}]
+                        </span>
+                      </button>
+                    )}
                   </div>
                   {currentResult.phonetic && (
                     <p className="mt-1 font-mono text-xs text-muted-foreground">
@@ -575,13 +644,27 @@ Return ONLY a raw valid JSON object (no markdown, no backticks) with this struct
                 </div>
 
                 <div className="flex items-center gap-2">
+                  {currentPitchInfo && (
+                    <button
+                      onClick={() => {
+                        haptics.selection();
+                        setPitchModalOpen(true);
+                      }}
+                      className="flex cursor-pointer items-center gap-2 rounded-2xl border border-indigo-500/30 bg-indigo-500/10 p-3 text-xs font-bold text-indigo-500 transition-all hover:bg-indigo-500/20 active:scale-95 dark:text-indigo-400"
+                      title="Pitch Accent Tahlili"
+                    >
+                      <TrendingUp size={18} />
+                      <span>{language === 'ja' ? 'アクセント' : 'Ohang'}</span>
+                    </button>
+                  )}
                   <button
-                    onClick={() =>
+                    onClick={() => {
+                      haptics.impact('light');
                       speakText(
                         currentResult.word,
                         currentResult.language === 'ja' ? 'ja-JP' : 'en-US',
-                      )
-                    }
+                      );
+                    }}
                     className="flex cursor-pointer items-center gap-2 rounded-2xl border border-border bg-muted p-3 text-xs font-bold text-foreground transition-all hover:bg-muted/80 active:scale-95"
                   >
                     <Volume2 size={18} className="text-primary" />
@@ -852,6 +935,17 @@ Return ONLY a raw valid JSON object (no markdown, no backticks) with this struct
           )}
         </div>
       )}
+
+      {/* Pitch Accent Detail Modal */}
+      <PitchAccentModal
+        isOpen={pitchModalOpen}
+        onClose={() => setPitchModalOpen(false)}
+        accentInfo={currentPitchInfo}
+        onOpenStudio={() => setPitchTrainerOpen(true)}
+      />
+
+      {/* Interactive Pitch Accent Studio Modal */}
+      <PitchAccentTrainer isOpen={pitchTrainerOpen} onClose={() => setPitchTrainerOpen(false)} />
     </div>
   );
 };

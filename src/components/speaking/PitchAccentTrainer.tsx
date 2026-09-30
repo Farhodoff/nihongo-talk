@@ -21,6 +21,9 @@ import {
   MoraPitch,
 } from '../../services/PitchAccentService';
 import { speakText } from '../../utils/audioTts';
+import { useTelegramWebApp } from '../../hooks/useTelegramWebApp';
+import { DailyQuestService } from '../../services/DailyQuestService';
+import { ActivityLoggingService } from '../../services/ActivityLoggingService';
 
 interface PitchAccentTrainerProps {
   isOpen: boolean;
@@ -152,6 +155,7 @@ export const PitchAccentTrainer: React.FC<PitchAccentTrainerProps> = ({
   onClose,
   onAwardXP,
 }) => {
+  const { haptics } = useTelegramWebApp();
   const [activeTab, setActiveTab] = useState<TrainerTab>('types');
   const [selectedType, setSelectedType] = useState<PitchType>('heiban');
   const [searchQuery, setSearchQuery] = useState('');
@@ -190,6 +194,7 @@ export const PitchAccentTrainer: React.FC<PitchAccentTrainerProps> = ({
 
   // Start new quiz round
   const startNewQuiz = () => {
+    haptics.impact('medium');
     const items = PitchAccentService.getRandomPitchQuiz(5);
     setQuizQuestions(items);
     setQuizIndex(0);
@@ -214,17 +219,23 @@ export const PitchAccentTrainer: React.FC<PitchAccentTrainerProps> = ({
     setIsAnswerRevealed(true);
     const isCorrect = type === currentQuizItem.pitchType;
     if (isCorrect) {
+      haptics.notification('success');
       setQuizScore((prev) => prev + 1);
+    } else {
+      haptics.notification('warning');
     }
   };
 
   const handleNextQuestion = async () => {
     if (quizIndex + 1 < quizQuestions.length) {
+      haptics.selection();
       setQuizIndex((prev) => prev + 1);
       setSelectedAnswer(null);
       setIsAnswerRevealed(false);
     } else {
       setIsQuizFinished(true);
+      haptics.notification('success');
+
       if (!xpAwarded && onAwardXP) {
         setXpAwarded(true);
         try {
@@ -233,10 +244,37 @@ export const PitchAccentTrainer: React.FC<PitchAccentTrainerProps> = ({
           // Ignore XP award failure
         }
       }
+
+      // Update Daily Quests & Gamification Meta
+      try {
+        DailyQuestService.incrementMetaCounter(undefined, 'pitchAccentPracticesCompleted', 1);
+        DailyQuestService.recordQuestProgress('speaking', 1);
+      } catch (e) {
+        console.warn('[PitchAccentTrainer] DailyQuest error:', e);
+      }
+
+      // Record Activity in ActivityLoggingService
+      try {
+        await ActivityLoggingService.logActivity({
+          activityType: 'speaking',
+          activityTitle: "Pitch Accent Studio Mashg'uloti",
+          durationMinutes: 3,
+          itemsCount: quizQuestions.length,
+          xpEarned: onAwardXP ? 0 : 15,
+          metadata: {
+            quizScore,
+            totalQuestions: quizQuestions.length,
+            accuracy: Math.round((quizScore / (quizQuestions.length || 1)) * 100),
+          },
+        });
+      } catch (e) {
+        console.warn('[PitchAccentTrainer] Activity logging error:', e);
+      }
     }
   };
 
   const handlePlayTTS = (text: string) => {
+    haptics.impact('light');
     speakText(text, 'ja-JP');
   };
 
@@ -277,7 +315,10 @@ export const PitchAccentTrainer: React.FC<PitchAccentTrainerProps> = ({
         {/* Navigation Tabs */}
         <div className="flex border-b border-border bg-muted/40 px-3 sm:px-5">
           <button
-            onClick={() => setActiveTab('types')}
+            onClick={() => {
+              haptics.selection();
+              setActiveTab('types');
+            }}
             className={`flex cursor-pointer items-center gap-2 border-b-2 px-3 py-3 text-xs font-bold transition-all sm:px-4 sm:text-sm ${
               activeTab === 'types'
                 ? 'border-primary text-primary'
@@ -292,7 +333,10 @@ export const PitchAccentTrainer: React.FC<PitchAccentTrainerProps> = ({
           </button>
 
           <button
-            onClick={() => setActiveTab('pairs')}
+            onClick={() => {
+              haptics.selection();
+              setActiveTab('pairs');
+            }}
             className={`flex cursor-pointer items-center gap-2 border-b-2 px-3 py-3 text-xs font-bold transition-all sm:px-4 sm:text-sm ${
               activeTab === 'pairs'
                 ? 'border-primary text-primary'
@@ -307,7 +351,10 @@ export const PitchAccentTrainer: React.FC<PitchAccentTrainerProps> = ({
           </button>
 
           <button
-            onClick={() => setActiveTab('quiz')}
+            onClick={() => {
+              haptics.selection();
+              setActiveTab('quiz');
+            }}
             className={`flex cursor-pointer items-center gap-2 border-b-2 px-3 py-3 text-xs font-bold transition-all sm:px-4 sm:text-sm ${
               activeTab === 'quiz'
                 ? 'border-primary text-primary'
@@ -334,7 +381,10 @@ export const PitchAccentTrainer: React.FC<PitchAccentTrainerProps> = ({
                 return (
                   <button
                     key={type}
-                    onClick={() => setSelectedType(type)}
+                    onClick={() => {
+                      haptics.selection();
+                      setSelectedType(type);
+                    }}
                     className={`flex cursor-pointer flex-col items-start rounded-2xl border p-2.5 text-left transition-all ${
                       isSelected
                         ? `${conf.badge} border-primary shadow-sm ring-1 ring-primary/40`

@@ -9,6 +9,8 @@ import FocusTimer from '../components/focus/FocusTimer';
 import MoodCheckOverlay from '../components/focus/MoodCheckOverlay';
 import { PersonalLearningPlanService } from '../services/PersonalLearningPlanService';
 import { LearningSignalService } from '../services/LearningSignalService';
+import { ActivityLoggingService } from '../services/ActivityLoggingService';
+import { useTelegramWebApp } from '../hooks/useTelegramWebApp';
 
 const FocusPage: React.FC = () => {
   const navigate = useNavigate();
@@ -30,6 +32,7 @@ const FocusPage: React.FC = () => {
     setFocusTask,
   } = useFocusTimerContext();
   const { language } = useLanguage();
+  const { haptics } = useTelegramWebApp();
 
   // Mood State
   const [moodBefore, setMoodBefore] = useState<number | null>(null);
@@ -44,12 +47,13 @@ const FocusPage: React.FC = () => {
     ((activeDurationMins * 60 - focusState.timeLeft) / (activeDurationMins * 60)) * 100;
 
   const handleTimerEnd = useCallback(() => {
+    haptics.notification('success');
     if (focusState.mode === 'focus') {
       if (!showMoodCheck) setShowMoodCheck('after');
     } else {
       resetTimer();
     }
-  }, [focusState.mode, showMoodCheck, resetTimer]);
+  }, [focusState.mode, showMoodCheck, resetTimer, haptics]);
 
   // Watch for timer completion via focusState to trigger mood check
   useEffect(() => {
@@ -59,6 +63,7 @@ const FocusPage: React.FC = () => {
   }, [focusState.timeLeft, focusState.isActive, handleTimerEnd]);
 
   const handleStartClick = () => {
+    haptics.impact('medium');
     if (focusState.isActive) {
       pauseTimer();
       return;
@@ -72,11 +77,13 @@ const FocusPage: React.FC = () => {
   };
 
   const handleSelectDuration = (mins: number) => {
+    haptics.selection();
     setActiveDurationMins(mins);
     setCustomTime(mins * 60);
   };
 
   const handleMoodSelect = (value: number) => {
+    haptics.selection();
     if (showMoodCheck === 'before') {
       setMoodBefore(value);
       setShowMoodCheck(null);
@@ -111,6 +118,28 @@ const FocusPage: React.FC = () => {
 
     // Dynamic XP Award: 10 XP per minute completed
     await awardXP(activeDurationMins * 10);
+
+    // Sync with Learning Activity Log & Gamification Quests
+    try {
+      await ActivityLoggingService.logActivity(
+        {
+          activityType: 'focus',
+          activityTitle: `${activeDurationMins} daqiqalik Pomodoro Fokus`,
+          durationMinutes: activeDurationMins,
+          itemsCount: 1,
+          xpEarned: 0, // already awarded via awardXP above
+          metadata: {
+            mode: focusState.mode,
+            moodBefore,
+            moodAfter: moodAfterValue,
+            taskId: focusState.selectedTaskId,
+          },
+        },
+        user?.id,
+      );
+    } catch (e) {
+      console.warn('[FocusPage] Activity logging warning:', e);
+    }
 
     // Sync with Personal Learning Plan & Learning Signals
     const activeUserId = user?.id || 'guest';
@@ -156,19 +185,28 @@ const FocusPage: React.FC = () => {
       <div className="flex flex-col items-center gap-3">
         <div className="flex rounded-2xl border border-border/50 bg-muted/50 p-1">
           <button
-            onClick={() => switchMode('focus')}
+            onClick={() => {
+              haptics.selection();
+              switchMode('focus');
+            }}
             className={`rounded-xl px-4 py-2 text-xs font-bold transition-all sm:text-sm ${focusState.mode === 'focus' ? 'bg-primary text-primary-foreground shadow-xs' : 'text-muted-foreground hover:text-foreground'}`}
           >
             {language === 'ja' ? '集中' : 'Fokus'}
           </button>
           <button
-            onClick={() => switchMode('short_break')}
+            onClick={() => {
+              haptics.selection();
+              switchMode('short_break');
+            }}
             className={`rounded-xl px-4 py-2 text-xs font-bold transition-all sm:text-sm ${focusState.mode === 'short_break' ? 'bg-primary text-primary-foreground shadow-xs' : 'text-muted-foreground hover:text-foreground'}`}
           >
             {language === 'ja' ? '小休憩' : 'Qisqa'}
           </button>
           <button
-            onClick={() => switchMode('long_break')}
+            onClick={() => {
+              haptics.selection();
+              switchMode('long_break');
+            }}
             className={`rounded-xl px-4 py-2 text-xs font-bold transition-all sm:text-sm ${focusState.mode === 'long_break' ? 'bg-primary text-primary-foreground shadow-xs' : 'text-muted-foreground hover:text-foreground'}`}
           >
             {language === 'ja' ? '大休憩' : 'Uzun'}
@@ -212,7 +250,10 @@ const FocusPage: React.FC = () => {
       <FocusControls
         isActive={focusState.isActive}
         onToggle={handleStartClick}
-        onReset={resetTimer}
+        onReset={() => {
+          haptics.impact('light');
+          resetTimer();
+        }}
       />
 
       {/* Live Study Room Card */}

@@ -2,11 +2,13 @@ import React from 'react';
 import { X, Volume2, TrendingUp, Sparkles, HelpCircle } from 'lucide-react';
 import { PitchAccentInfo, PitchType } from '../../services/PitchAccentService';
 import { speakText } from '../../utils/audioTts';
+import { useTelegramWebApp } from '../../hooks/useTelegramWebApp';
 
 interface PitchAccentModalProps {
   isOpen: boolean;
   onClose: () => void;
   accentInfo: PitchAccentInfo | null;
+  onOpenStudio?: () => void;
 }
 
 const TYPE_STYLES: Record<PitchType, { badge: string; text: string; label: string }> = {
@@ -36,13 +38,16 @@ export const PitchAccentModal: React.FC<PitchAccentModalProps> = ({
   isOpen,
   onClose,
   accentInfo,
+  onOpenStudio,
 }) => {
+  const { haptics } = useTelegramWebApp();
   if (!isOpen || !accentInfo) return null;
 
   const style = TYPE_STYLES[accentInfo.pitchType];
   const morae = accentInfo.morae;
 
   const handlePlayAudio = () => {
+    haptics.impact('light');
     speakText(accentInfo.reading || accentInfo.word, 'ja-JP');
   };
 
@@ -191,7 +196,20 @@ export const PitchAccentModal: React.FC<PitchAccentModalProps> = ({
         </div>
 
         {/* Footer */}
-        <div className="flex justify-end border-t border-border bg-muted/20 p-4">
+        <div className="flex items-center justify-between border-t border-border bg-muted/20 p-4">
+          {onOpenStudio ? (
+            <button
+              onClick={() => {
+                onClose();
+                onOpenStudio();
+              }}
+              className="cursor-pointer text-xs font-bold text-primary hover:underline"
+            >
+              Pitch Accent Studio ochish &rarr;
+            </button>
+          ) : (
+            <div />
+          )}
           <button
             onClick={onClose}
             className="cursor-pointer rounded-xl bg-primary px-5 py-2.5 text-xs font-bold text-primary-foreground shadow-md transition-all hover:bg-primary/90"

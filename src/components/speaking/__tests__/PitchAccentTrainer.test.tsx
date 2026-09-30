@@ -102,4 +102,24 @@ describe('PitchAccentTrainer Component', () => {
 
     expect(onClose).toHaveBeenCalledTimes(1);
   });
+
+  it('completes full quiz, awards XP, and displays completion summary', async () => {
+    const onAwardXP = vi.fn();
+    render(<PitchAccentTrainer isOpen={true} onClose={vi.fn()} onAwardXP={onAwardXP} />);
+
+    const quizTab = screen.getByRole('button', { name: /Quloq Mashqi/i });
+    fireEvent.click(quizTab);
+
+    // Answer 5 questions to reach completion
+    for (let i = 0; i < 5; i++) {
+      const choice = screen.getByRole('button', { name: /Heiban \(Tekis\)/i });
+      fireEvent.click(choice);
+
+      const nextBtn = screen.getByRole('button', { name: /Keyingi savol|Natijani ko'rish/i });
+      fireEvent.click(nextBtn);
+    }
+
+    expect(screen.getByText('Mashq Yakunlandi!')).toBeDefined();
+    expect(onAwardXP).toHaveBeenCalledWith(15);
+  });
 });
