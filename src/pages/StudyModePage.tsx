@@ -21,7 +21,7 @@ import {
   Grade,
   getPreviewIntervalLabels,
   calculateReview,
-  sortCardsBySRSPriority,
+  buildDailyStudyQueue,
 } from '../utils/srs';
 import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
 import { speakText } from '../utils/audioTts';
@@ -137,19 +137,13 @@ const StudyModePage: React.FC = () => {
         pool = pool.filter(isCardEnglish);
       }
 
-      let targetSet: Flashcard[] = [];
-      if (subjectId) {
-        const subjectCards = pool.filter((c: Flashcard) => c.subjectId === subjectId);
-        const due = subjectCards.filter((c: Flashcard) => new Date(c.nextReviewDate) <= new Date());
-        targetSet = due.length > 0 ? due : subjectCards;
-      } else {
-        // Global study mode across all decks / subjects (with language filter if active)
-        const due = pool.filter((c: Flashcard) => new Date(c.nextReviewDate) <= new Date());
-        targetSet = due.length > 0 ? due : pool;
-      }
+      const scopedCards = subjectId
+        ? pool.filter((card: Flashcard) => card.subjectId === subjectId)
+        : pool;
+      const targetSet = buildDailyStudyQueue(scopedCards, { maxNewCards: 10 });
       setAllAvailableCards(targetSet);
       const limitNum = batchLimit === 'all' ? targetSet.length : parseInt(batchLimit, 10);
-      const initialQueue = sortCardsBySRSPriority(targetSet).slice(0, limitNum);
+      const initialQueue = targetSet.slice(0, limitNum);
       setQueue(initialQueue);
       setCurrentCardIndex(0);
       setIsFlipped(false);
@@ -184,9 +178,10 @@ const StudyModePage: React.FC = () => {
     } else if (langFilter === 'en') {
       fallbackCards = fallbackCards.filter(isCardEnglish);
     }
-    const pool = allAvailableCards.length > 0 ? allAvailableCards : fallbackCards;
+    const eligibleFallback = buildDailyStudyQueue(fallbackCards, { maxNewCards: 10 });
+    const pool = allAvailableCards.length > 0 ? allAvailableCards : eligibleFallback;
     const limitNum = newLimit === 'all' ? pool.length : parseInt(newLimit, 10);
-    const newQueue = sortCardsBySRSPriority(pool).slice(0, limitNum);
+    const newQueue = pool.slice(0, limitNum);
     setQueue(newQueue);
     setCurrentCardIndex(0);
     setIsFlipped(false);

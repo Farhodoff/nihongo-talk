@@ -277,4 +277,63 @@ describe('Phase 1 — Route Integrity & StudyMode Global Entry Tests', () => {
       expect(screen.getByRole('button', { name: /Filter: Inglizcha/i })).toBeInTheDocument();
     });
   });
+
+  it('11. Excludes future-scheduled cards and limits new cards from the daily SRS queue', async () => {
+    const futureDate = new Date(Date.now() + 86400000 * 3).toISOString(); // 3 days in future
+    const overdueDate = new Date(Date.now() - 86400000).toISOString();
+
+    const complexFlashcards: Flashcard[] = [
+      {
+        id: 'fc-due',
+        subjectId: 'subj-jlpt',
+        front: 'Due Card',
+        back: 'Overdue Japanese card',
+        interval: 1,
+        repetitions: 2,
+        easeFactor: 2.5,
+        nextReviewDate: overdueDate,
+      },
+      {
+        id: 'fc-future',
+        subjectId: 'subj-jlpt',
+        front: 'Future Card',
+        back: 'Card scheduled for future review',
+        interval: 5,
+        repetitions: 3,
+        easeFactor: 2.5,
+        nextReviewDate: futureDate,
+      },
+      {
+        id: 'fc-new-1',
+        subjectId: 'subj-jlpt',
+        front: 'New Card 1',
+        back: 'Unstudied new card 1',
+        interval: 0,
+        repetitions: 0,
+        easeFactor: 2.5,
+        nextReviewDate: '',
+      },
+    ];
+
+    mockCurrentContextValue = {
+      ...mockCurrentContextValue,
+      flashcards: complexFlashcards,
+    };
+
+    render(
+      <MemoryRouter initialEntries={['/study-mode?lang=ja']}>
+        <Routes>
+          <Route path="study-mode" element={<StudyModePage />} />
+        </Routes>
+      </MemoryRouter>,
+    );
+
+    // Should include fc-due (1) and fc-new-1 (1) = total 2 cards. fc-future must be excluded.
+    await waitFor(() => {
+      expect(screen.getByText(/1 \/ 2/)).toBeInTheDocument();
+    });
+
+    expect(screen.getAllByText('Due Card').length).toBeGreaterThanOrEqual(1);
+    expect(screen.queryByText('Future Card')).not.toBeInTheDocument();
+  });
 });

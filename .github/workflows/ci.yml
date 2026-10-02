@@ -1,7 +1,4 @@
-# Status Badge:
-# [![CI](https://github.com/Farhodoff/study_planner/actions/workflows/ci.yml/badge.svg)](https://github.com/Farhodoff/study_planner/actions/workflows/ci.yml)
-
-name: CI
+name: CI / Quality Gate
 
 on:
   push:
@@ -9,60 +6,107 @@ on:
   pull_request:
     branches: [ "main" ]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   lint:
+    name: ESLint Static Analysis
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Setup Node.js
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'npm'
-      - name: Install dependencies
+
+      - name: Install Dependencies
         run: npm ci
+
       - name: Run ESLint
         run: npm run lint
 
   typecheck:
+    name: TypeScript Strict Typecheck
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Setup Node.js
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'npm'
-      - name: Install dependencies
+
+      - name: Install Dependencies
         run: npm ci
-      - name: Run TypeScript type checking
+
+      - name: Run Typecheck
         run: npm run typecheck
 
-  test:
+  seo:
+    name: SEO & Metadata Verification
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Setup Node.js
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'npm'
-      - name: Install dependencies
+
+      - name: Install Dependencies
         run: npm ci
-      - name: Run Vitest tests
+
+      - name: Run SEO Validator
+        run: npm run test:seo
+
+  test:
+    name: Vitest Automated Unit & Integration Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run Tests
         run: npm test -- --run
 
   build:
-    needs: [lint, typecheck, test]
+    name: Production Vite Bundle Build
+    needs: [lint, typecheck, seo, test]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Setup Node.js
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'npm'
-      - name: Install dependencies
+
+      - name: Install Dependencies
         run: npm ci
-      - name: Build the project
+
+      - name: Build Production Assets
+        env:
+          NODE_ENV: production
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL || 'https://dummy.supabase.co' }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY || 'dummy-anon-key' }}
         run: npm run build

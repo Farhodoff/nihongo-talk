@@ -278,6 +278,40 @@ export function isNew(card: { repetitions?: number; repetition?: number }): bool
  * 3. Brand-new unstudied cards
  * 4. Cards not yet due (future reviews)
  */
+export interface DailyStudyQueueOptions {
+  now?: Date;
+  maxNewCards?: number;
+  maxTotalCards?: number;
+}
+
+/**
+ * Builds an SRS-safe daily queue:
+ * 1. overdue reviewed cards
+ * 2. reviewed cards due now/today
+ * 3. a limited number of brand-new cards
+ *
+ * Reviewed cards scheduled for the future are never included.
+ */
+export function buildDailyStudyQueue<
+  T extends {
+    nextReviewDate?: string;
+    nextReview?: string;
+    dueDate?: string;
+    repetitions?: number;
+    repetition?: number;
+  },
+>(cards: T[], options: DailyStudyQueueOptions = {}): T[] {
+  const now = options.now ?? new Date();
+  const maxNewCards = Math.max(0, options.maxNewCards ?? 10);
+  const maxTotalCards = Math.max(0, options.maxTotalCards ?? Number.POSITIVE_INFINITY);
+
+  const dueReviewedCards = cards.filter((card) => !isNew(card) && isDue(card, now));
+  const newCards = cards.filter(isNew).slice(0, maxNewCards);
+  const eligibleCards = sortCardsBySRSPriority([...dueReviewedCards, ...newCards], now);
+
+  return eligibleCards.slice(0, maxTotalCards);
+}
+
 export function sortCardsBySRSPriority<
   T extends {
     nextReviewDate?: string;

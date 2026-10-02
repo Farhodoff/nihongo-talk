@@ -1,5 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import { calculateReview, Rating, sortCardsBySRSPriority, getPreviewIntervalLabels } from './srs';
+import {
+  buildDailyStudyQueue,
+  calculateReview,
+  Rating,
+  sortCardsBySRSPriority,
+  getPreviewIntervalLabels,
+} from './srs';
 
 describe('SRS (Spaced Repetition System) Utils', () => {
   describe('calculateReview', () => {
@@ -196,6 +202,52 @@ describe('SRS (Spaced Repetition System) Utils', () => {
         expect(sorted[1].id).toBe('c2'); // Due today is second
         expect(sorted[2].id).toBe('c3'); // Brand-new is third
         expect(sorted[3].id).toBe('c4'); // Future is last
+      });
+    });
+
+    describe('buildDailyStudyQueue', () => {
+      const now = new Date('2026-09-02T12:00:00.000Z');
+
+      it('includes overdue, due and limited new cards but excludes future reviews', () => {
+        const cards = [
+          { id: 'future', nextReviewDate: '2026-09-10T00:00:00.000Z', repetitions: 4 },
+          { id: 'due', nextReviewDate: '2026-09-02T08:00:00.000Z', repetitions: 2 },
+          { id: 'overdue', nextReviewDate: '2026-08-30T00:00:00.000Z', repetitions: 3 },
+          ...Array.from({ length: 12 }, (_, index) => ({ id: `new-${index}`, repetitions: 0 })),
+        ];
+
+        const queue = buildDailyStudyQueue(cards, { now, maxNewCards: 10 });
+
+        expect(queue).toHaveLength(12);
+        expect(queue[0].id).toBe('overdue');
+        expect(queue[1].id).toBe('due');
+        expect(queue.some((card) => card.id === 'future')).toBe(false);
+        expect(queue.filter((card) => card.id.startsWith('new-'))).toHaveLength(10);
+      });
+
+      it('returns an empty queue when every reviewed card is scheduled in the future', () => {
+        const queue = buildDailyStudyQueue(
+          [
+            { id: 'future-1', nextReviewDate: '2026-09-10T00:00:00.000Z', repetitions: 2 },
+            { id: 'future-2', nextReviewDate: '2026-10-10T00:00:00.000Z', repetitions: 5 },
+          ],
+          { now },
+        );
+
+        expect(queue).toEqual([]);
+      });
+
+      it('applies the total batch limit after SRS priority ordering', () => {
+        const queue = buildDailyStudyQueue(
+          [
+            { id: 'new', repetitions: 0 },
+            { id: 'due', nextReviewDate: '2026-09-02T08:00:00.000Z', repetitions: 2 },
+            { id: 'overdue', nextReviewDate: '2026-08-30T00:00:00.000Z', repetitions: 3 },
+          ],
+          { now, maxTotalCards: 2 },
+        );
+
+        expect(queue.map((card) => card.id)).toEqual(['overdue', 'due']);
       });
     });
 
