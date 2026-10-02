@@ -269,15 +269,6 @@ const App: React.FC = () => {
       window.removeEventListener('storage', handleStorageAuth);
     };
   }, []);
-
-  console.log(
-    '[App Debug]',
-    JSON.stringify({
-      sessionUser: session?.user?.email,
-      isLoading,
-      pathname: typeof window !== 'undefined' ? window.location.pathname : '',
-    }),
-  );
   if (isLoading) {
     return <PageLoader />;
   }
