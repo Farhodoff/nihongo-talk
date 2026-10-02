@@ -18,8 +18,16 @@ import { RoadmapSummary } from '../types/curriculum';
 import { LevelUpModal } from '../components/gamification/LevelUpModal';
 
 const DashboardPage: React.FC = () => {
-  const { loading, flashcards, primaryLanguage, targetLevel, targetGoal, user, settings } =
-    useStudyData();
+  const {
+    loading,
+    flashcards,
+    subjects,
+    primaryLanguage,
+    targetLevel,
+    targetGoal,
+    user,
+    settings,
+  } = useStudyData();
   const { language } = useLanguage();
   const isJaTrack = true; // Nihongo Talk is strictly Japanese only
   const cachedStateKey = `study_planner_cached_dashboard_ja`;
@@ -186,6 +194,8 @@ const DashboardPage: React.FC = () => {
     // Background load of learning path state
     const pathPromise = LearningPathEngine.getLearningPathState(activeUserId, {
       forceLanguage: effectiveTrack,
+      cachedFlashcards: flashcards,
+      cachedSubjects: subjects,
     }).then(async (pathState) => {
       if (isMounted) {
         setNextAction(pathState.nextAction);
@@ -217,6 +227,7 @@ const DashboardPage: React.FC = () => {
     const roadmapPromise = LearningOrchestrator.getUserLearningState(activeUserId, {
       forceLanguage: effectiveTrack,
       cachedFlashcards: flashcards,
+      cachedSubjects: subjects,
     })
       .then((learningState) => {
         if (isMounted) {
@@ -247,6 +258,7 @@ const DashboardPage: React.FC = () => {
     targetLevel,
     targetGoal,
     flashcards.length,
+    subjects.length,
     user?.id,
     retryTrigger,
     cachedStateKey,

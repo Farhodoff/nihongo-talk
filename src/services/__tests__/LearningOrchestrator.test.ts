@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { LearningOrchestrator } from '../LearningOrchestrator';
 import { LessonService } from '../LessonService';
 import { LearningSignalService } from '../LearningSignalService';
-import { Flashcard } from '../../types';
+import { Flashcard, Subject } from '../../types';
 
 describe('LearningOrchestrator Foundation Unit Tests', () => {
   beforeEach(() => {
@@ -140,7 +140,43 @@ describe('LearningOrchestrator Foundation Unit Tests', () => {
     expect(summary.averageRetentionScore).toBeGreaterThan(0);
   });
 
-  it('7. should handle empty/no-data user gracefully with clean defaults', async () => {
+  it('7. should isolate Japanese SRS counts from unrelated user-created subjects', () => {
+    const pastDate = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
+    const subjects: Subject[] = [
+      { id: 'sub-ja', name: 'JLPT N2 Vocabulary', color: '#ef4444', schedule: [] },
+      { id: 'sub-math', name: 'N2 Matematika', color: '#10b981', schedule: [] },
+    ];
+    const cards: Flashcard[] = [
+      {
+        id: 'ja-card',
+        subjectId: 'sub-ja',
+        front: '改善',
+        back: 'Yaxshilanish',
+        nextReviewDate: pastDate,
+        interval: 1,
+        repetitions: 2,
+        easeFactor: 2.5,
+      },
+      {
+        id: 'math-card',
+        subjectId: 'sub-math',
+        front: 'Formula：速度 = 距離 ÷ 時間',
+        back: 'Tezlik formulasi',
+        nextReviewDate: pastDate,
+        interval: 1,
+        repetitions: 2,
+        easeFactor: 2.5,
+      },
+    ];
+
+    const summary = LearningOrchestrator.getReviewSummary('test-user', cards, 'ja', subjects);
+
+    expect(summary.totalCards).toBe(1);
+    expect(summary.dueCount).toBe(1);
+    expect(summary.learnedCount).toBe(1);
+  });
+
+  it('8. should handle empty/no-data user gracefully with clean defaults', async () => {
     const state = await LearningOrchestrator.getUserLearningState('unknown-guest-user');
 
     expect(state.userId).toBe('unknown-guest-user');

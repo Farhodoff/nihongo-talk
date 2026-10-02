@@ -96,7 +96,7 @@ const ProgressPage: React.FC = () => {
           }`}
         >
           <BarChart3 size={15} />
-          <span>{language === 'ja' ? '総合アクティビティ・時間' : 'Umumiy Faoliyat & Vaqt'}</span>
+          <span>{language === 'ja' ? '総合' : language === 'en' ? 'Overview' : 'Umumiy'}</span>
         </button>
         <button
           onClick={() => setActiveTab('language')}
@@ -107,7 +107,13 @@ const ProgressPage: React.FC = () => {
           }`}
         >
           <Globe2 size={15} />
-          <span>{language === 'ja' ? '言語・JLPT・スピーキング' : 'Til, JLPT & Speaking'}</span>
+          <span>
+            {language === 'ja'
+              ? '言語 & JLPT'
+              : language === 'en'
+                ? 'Language & JLPT'
+                : 'Til & JLPT'}
+          </span>
         </button>
         <button
           onClick={() => setActiveTab('subjects')}
@@ -118,7 +124,7 @@ const ProgressPage: React.FC = () => {
           }`}
         >
           <BookOpen size={15} />
-          <span>{language === 'ja' ? '科目・フラッシュカード' : 'Fanlar & Fleshkartalar'}</span>
+          <span>{language === 'ja' ? '科目' : language === 'en' ? 'Subjects' : 'Fanlar'}</span>
         </button>
         <button
           onClick={() => setActiveTab('achievements')}
@@ -130,11 +136,7 @@ const ProgressPage: React.FC = () => {
         >
           <Trophy size={15} />
           <span>
-            {language === 'ja'
-              ? '実績 & クエスト'
-              : language === 'en'
-                ? 'Badges & Quests'
-                : 'Yutuqlar & Missiyalar'}
+            {language === 'ja' ? '実績' : language === 'en' ? 'Achievements' : 'Yutuqlar'}
           </span>
         </button>
       </div>

@@ -32,6 +32,7 @@ import { useTelegramWebApp } from '../hooks/useTelegramWebApp';
 import { useFlashcardSwipe } from '../hooks/useFlashcardSwipe';
 import { GlobalFlashcardOverrideService } from '../services/GlobalFlashcardOverrideService';
 import { cleanCardFront } from '../components/decks/FlashcardStudySession';
+import { isFlashcardForLanguage } from '../utils/subjectResolver';
 
 const StudyModePage: React.FC = () => {
   const { subjectId } = useParams<{ subjectId?: string }>();
@@ -51,7 +52,15 @@ const StudyModePage: React.FC = () => {
   const [totalXpEarned, setTotalXpEarned] = useState(0);
 
   const searchParams = useMemo(() => new URLSearchParams(location.search), [location.search]);
-  const langFilter = searchParams.get('lang'); // 'ja' | 'en' | null
+  const requestedLanguage = searchParams.get('lang');
+  const langFilter: 'ja' | 'en' | null =
+    requestedLanguage === 'all'
+      ? null
+      : requestedLanguage === 'en'
+        ? 'en'
+        : requestedLanguage === 'ja' || !subjectId
+          ? 'ja'
+          : null;
 
   const [accent, setAccent] = useState<'en-GB' | 'en-US' | 'ja-JP'>(() => {
     return langFilter === 'ja' ? 'ja-JP' : 'en-US';
@@ -102,27 +111,13 @@ const StudyModePage: React.FC = () => {
   const currentSubject = subjects.find((s) => s.id === subjectId);
 
   const isCardJapanese = useCallback(
-    (c: Flashcard): boolean => {
-      const sub = subjects.find((s) => s.id === c.subjectId);
-      const hasJaChars = /[\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff00-\uffef\u4e00-\u9faf]/.test(
-        (c.front || '') + (c.back || '') + (sub?.name || '') + (c.phonetic || ''),
-      );
-      const isJlptSubject =
-        sub?.name?.toLowerCase().includes('jlpt') ||
-        sub?.name?.toLowerCase().includes('kanji') ||
-        sub?.name?.toLowerCase().includes('yapon') ||
-        sub?.name?.toLowerCase().includes('japanese') ||
-        (sub as any)?.category?.toLowerCase()?.includes('jlpt');
-      return Boolean(hasJaChars || isJlptSubject);
-    },
+    (card: Flashcard): boolean => isFlashcardForLanguage(card, subjects, 'ja'),
     [subjects],
   );
 
   const isCardEnglish = useCallback(
-    (c: Flashcard): boolean => {
-      return !isCardJapanese(c);
-    },
-    [isCardJapanese],
+    (card: Flashcard): boolean => isFlashcardForLanguage(card, subjects, 'en'),
+    [subjects],
   );
 
   const filterKey = `${subjectId || 'all'}-${langFilter || 'all'}`;
@@ -135,7 +130,7 @@ const StudyModePage: React.FC = () => {
       }
       let pool = flashcards;
 
-      // Filter by language if specified in URL query params
+      // Global study mode defaults to Japanese. Subject-specific routes stay scoped to their deck.
       if (langFilter === 'ja') {
         pool = pool.filter(isCardJapanese);
       } else if (langFilter === 'en') {
@@ -210,7 +205,7 @@ const StudyModePage: React.FC = () => {
     if (newLang) {
       params.set('lang', newLang);
     } else {
-      params.delete('lang');
+      params.set('lang', 'all');
     }
     const queryString = params.toString();
     navigate(

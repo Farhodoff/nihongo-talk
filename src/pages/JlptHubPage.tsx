@@ -117,38 +117,6 @@ export const JlptHubPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Start-here guide: single onboarding path (Dashboard is home) */}
-      <div className="flex flex-col gap-2 rounded-2xl border border-primary/25 bg-primary/5 p-3 text-xs sm:flex-row sm:items-center sm:justify-between sm:p-4">
-        <div className="leading-relaxed text-muted-foreground">
-          <span className="font-bold text-foreground">
-            {language === 'ja' ? 'はじめに' : 'Qayerdan boshlash:'}
-          </span>{' '}
-          {language === 'ja'
-            ? '診断 → プラン → ダッシュボードの順に進めます。'
-            : '1) Diagnostika → 2) Shaxsiy reja → 3) Bosh sahifadagi bugungi tavsiya.'}
-        </div>
-        <div className="flex shrink-0 flex-wrap items-center gap-2">
-          <button
-            onClick={() => navigate('/diagnostic')}
-            className="rounded-xl bg-primary px-3 py-1.5 text-xs font-bold text-primary-foreground transition-all hover:bg-primary/90 active:scale-95"
-          >
-            1. Diagnostika
-          </button>
-          <button
-            onClick={() => navigate('/personal-plan')}
-            className="rounded-xl border border-border bg-card px-3 py-1.5 text-xs font-bold text-foreground transition-all hover:border-primary/40 active:scale-95"
-          >
-            2. Shaxsiy reja
-          </button>
-          <button
-            onClick={() => navigate('/dashboard')}
-            className="rounded-xl border border-border bg-card px-3 py-1.5 text-xs font-bold text-foreground transition-all hover:border-primary/40 active:scale-95"
-          >
-            3. Bosh sahifa
-          </button>
-        </div>
-      </div>
-
       {/* Reading controls for mobile — desktop header is hidden on small screens */}
       <div className="flex items-center gap-2 md:hidden">
         <span className="px-1 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/70">

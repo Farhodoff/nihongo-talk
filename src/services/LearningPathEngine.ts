@@ -42,6 +42,8 @@ export const LearningPathEngine = {
     const forceLang = options?.forceLanguage;
     const state = await LearningOrchestrator.getUserLearningState(userId, {
       forceLanguage: forceLang,
+      cachedFlashcards: options?.cachedFlashcards,
+      cachedSubjects: options?.cachedSubjects,
     });
     const lang = state.primaryLanguage;
     const totalMinutes = options?.customMinutes || state.availableStudyMinutes || 30;

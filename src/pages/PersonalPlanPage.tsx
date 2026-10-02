@@ -508,23 +508,6 @@ export const PersonalPlanPage: React.FC = () => {
 
   return (
     <div className="mx-auto max-w-7xl space-y-8 overflow-x-hidden p-3.5 pb-28 duration-200 animate-in fade-in sm:p-4 sm:pb-24 md:p-8 md:pb-12">
-      {/* Canonical next-step notice: Dashboard hero is the single daily decision */}
-      {activeGoal && (
-        <div className="flex flex-col gap-2 rounded-2xl border border-primary/25 bg-primary/5 p-3 text-xs sm:flex-row sm:items-center sm:justify-between sm:p-4">
-          <span className="leading-relaxed text-muted-foreground">
-            <span className="font-bold text-foreground">Kunlik qaror:</span>{' '}
-            {isUz
-              ? 'Har kuni Bosh sahifadagi bitta tavsiyadan boshlang — bu sahifa faqat haftalik reja.'
-              : 'Start each day from the single Home recommendation — this page is only the weekly plan.'}
-          </span>
-          <button
-            onClick={() => navigate('/dashboard')}
-            className="shrink-0 cursor-pointer rounded-xl bg-primary px-3 py-1.5 text-xs font-bold text-primary-foreground transition-all hover:bg-primary/90 active:scale-95"
-          >
-            {isUz ? 'Bosh sahifa' : 'Home'}
-          </button>
-        </div>
-      )}
       {/* WIZARD FLOW */}
       {!activeGoal ? (
         <div className="mx-auto max-w-3xl space-y-8">

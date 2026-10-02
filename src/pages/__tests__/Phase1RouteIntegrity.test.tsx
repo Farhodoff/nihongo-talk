@@ -66,7 +66,7 @@ describe('Phase 1 — Route Integrity & StudyMode Global Entry Tests', () => {
     };
   });
 
-  it('1. /study-mode route loads global due cards across all subjects', async () => {
+  it('1. /study-mode defaults to Japanese due cards in the Japanese-only product', async () => {
     render(
       <MemoryRouter initialEntries={['/study-mode']}>
         <Routes>
@@ -76,10 +76,12 @@ describe('Phase 1 — Route Integrity & StudyMode Global Entry Tests', () => {
       </MemoryRouter>,
     );
 
-    // Queue progress should display "1 / 2"
     await waitFor(() => {
-      expect(screen.getByText(/1 \/ 2/)).toBeInTheDocument();
+      expect(screen.getByText(/1 \/ 1/)).toBeInTheDocument();
     });
+
+    expect(screen.getAllByText('食べる (taberu)').length).toBeGreaterThanOrEqual(1);
+    expect(screen.queryByText('Meticulous')).not.toBeInTheDocument();
 
     expect(screen.getByRole('button', { name: /Flashcard SRS/i })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /Yozib Tekshirish/i })).toBeInTheDocument();
@@ -208,7 +210,59 @@ describe('Phase 1 — Route Integrity & StudyMode Global Entry Tests', () => {
     expect(screen.getByText(/🇯🇵 JP/)).toBeInTheDocument();
   });
 
-  it('8. Global study mode displays language filter pills', async () => {
+  it('8. /study-mode?lang=ja excludes cards owned by unrelated user-created subjects', async () => {
+    mockCurrentContextValue = {
+      ...mockCurrentContextValue,
+      subjects: [
+        ...mockCurrentContextValue.subjects,
+        { id: 'sub-math', name: 'N2 Matematika', targetHours: 10, color: '#10b981' },
+      ],
+      flashcards: [
+        ...mockFlashcards,
+        {
+          id: 'fc-math',
+          subjectId: 'sub-math',
+          front: 'Formula：速度 = 距離 ÷ 時間',
+          back: 'Tezlik formulasi',
+          interval: 1,
+          repetitions: 1,
+          easeFactor: 2.5,
+          nextReviewDate: new Date(Date.now() - 86400000).toISOString(),
+        },
+      ],
+    };
+
+    render(
+      <MemoryRouter initialEntries={['/study-mode?lang=ja']}>
+        <Routes>
+          <Route path="study-mode" element={<StudyModePage />} />
+        </Routes>
+      </MemoryRouter>,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByText(/1 \/ 1/)).toBeInTheDocument();
+    });
+
+    expect(screen.getAllByText('食べる (taberu)').length).toBeGreaterThanOrEqual(1);
+    expect(screen.queryByText('Formula：速度 = 距離 ÷ 時間')).not.toBeInTheDocument();
+  });
+
+  it('9. /study-mode?lang=all intentionally includes cards from all subjects', async () => {
+    render(
+      <MemoryRouter initialEntries={['/study-mode?lang=all']}>
+        <Routes>
+          <Route path="study-mode" element={<StudyModePage />} />
+        </Routes>
+      </MemoryRouter>,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByText(/1 \/ 2/)).toBeInTheDocument();
+    });
+  });
+
+  it('10. Global study mode displays language filter pills', async () => {
     render(
       <MemoryRouter initialEntries={['/study-mode']}>
         <Routes>

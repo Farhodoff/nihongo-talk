@@ -121,21 +121,6 @@ const RoadmapPage: React.FC = () => {
 
   return (
     <div className="mx-auto max-w-6xl space-y-8 p-4 duration-200 animate-in fade-in md:p-8">
-      {/* Canonical next-step notice: Dashboard is single source of truth */}
-      <div className="flex flex-col gap-2 rounded-2xl border border-primary/25 bg-primary/5 p-3 text-xs sm:flex-row sm:items-center sm:justify-between sm:p-4">
-        <span className="leading-relaxed text-muted-foreground">
-          <span className="font-bold text-foreground">Bugungi tavsiya:</span>{' '}
-          {isUz
-            ? 'Bosh sahifadagi bitta tavsiyaga amal qiling — bu yerda faqat umumiy xarita.'
-            : 'Follow the single recommendation on Home — this page is only the big-picture map.'}
-        </span>
-        <Link
-          to="/dashboard"
-          className="shrink-0 rounded-xl bg-primary px-3 py-1.5 text-xs font-bold text-primary-foreground transition-all hover:bg-primary/90 active:scale-95"
-        >
-          {isUz ? 'Bosh sahifaga qaytish' : 'Back to Home'}
-        </Link>
-      </div>
       {/* Header Hero Banner */}
       <div className="relative overflow-hidden rounded-3xl border border-border bg-card p-6 shadow-xl md:p-8">
         <div className="relative z-10 flex flex-col justify-between gap-6 lg:flex-row lg:items-center">

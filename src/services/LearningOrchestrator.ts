@@ -17,8 +17,9 @@ import { LearningTrackStorage } from '../utils/storage/LearningTrackStorage';
 import { CurriculumLessonResolver } from './CurriculumLessonResolver';
 
 import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
-import { Flashcard } from '../types';
+import { Flashcard, Subject } from '../types';
 import { isDue, isOverdue } from '../utils/srs';
+import { isFlashcardForLanguage } from '../utils/subjectResolver';
 import { supabase } from '../lib/supabase';
 
 export const LearningOrchestrator = {
@@ -216,6 +217,7 @@ export const LearningOrchestrator = {
     _userId: string = 'guest',
     cachedFlashcards?: Flashcard[],
     language?: SupportedLanguage,
+    cachedSubjects: Subject[] = [],
   ): SrsReviewSummary {
     let cards: Flashcard[] = cachedFlashcards || [];
 
@@ -242,10 +244,9 @@ export const LearningOrchestrator = {
 
     // Apply language isolation filter
     const filterLang = language || this.getPrimaryLanguage();
-    const filteredCards = cards.filter((card) => {
-      const isJa = /[\u3040-\u30ff\u4e00-\u9faf]/.test((card.front || '') + (card.back || ''));
-      return filterLang === 'ja' ? isJa : !isJa;
-    });
+    const filteredCards = cards.filter((card) =>
+      isFlashcardForLanguage(card, cachedSubjects, filterLang),
+    );
 
     let dueCount = 0;
     let overdueCount = 0;
@@ -275,10 +276,11 @@ export const LearningOrchestrator = {
       totalMasterySum += cardScore;
     }
 
-    const averageRetentionScore = cards.length > 0 ? Math.round(totalMasterySum / cards.length) : 0;
+    const averageRetentionScore =
+      filteredCards.length > 0 ? Math.round(totalMasterySum / filteredCards.length) : 0;
 
     return {
-      totalCards: cards.length,
+      totalCards: filteredCards.length,
       dueCount,
       overdueCount,
       newCount,
@@ -411,6 +413,7 @@ export const LearningOrchestrator = {
       activeUserId,
       options?.cachedFlashcards,
       primaryLanguage,
+      options?.cachedSubjects,
     );
     const signalsSummary = this.getLearningSignalsSummary(activeUserId, primaryLanguage);
     const recentActivity = this.getRecentLearningActivity(activeUserId, primaryLanguage);

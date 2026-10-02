@@ -233,8 +233,7 @@ const Layout: React.FC = () => {
           : 'Super Admin Paneli';
     if (location.pathname === '/personal-plan')
       return isJa ? '個人学習プラン' : isEn ? 'My Study Plan' : 'Shaxsiy Rejam';
-    if (location.pathname === '/settings')
-      return isJa ? 'プロフィール・設定' : isEn ? 'Profile & Settings' : 'Profil & Sozlamalar';
+    if (location.pathname === '/settings') return isJa ? '設定' : isEn ? 'Settings' : 'Sozlamalar';
     return 'Nihongo Talk';
   };
 
@@ -447,11 +446,7 @@ const Layout: React.FC = () => {
             <Star size={16} className="shrink-0 fill-amber-400 text-amber-500" />
             {!isCollapsed && (
               <span>
-                {language === 'ja'
-                  ? '⭐ アプリ評価'
-                  : language === 'en'
-                    ? '⭐ Rate App'
-                    : '⭐ Baholash'}
+                {language === 'ja' ? 'アプリ評価' : language === 'en' ? 'Rate App' : 'Baholash'}
               </span>
             )}
           </button>
@@ -469,21 +464,17 @@ const Layout: React.FC = () => {
               title={
                 isCollapsed
                   ? language === 'ja'
-                    ? 'プロフィール・設定'
+                    ? '設定'
                     : language === 'en'
-                      ? 'Profile & Settings'
-                      : 'Profil & Sozlamalar'
+                      ? 'Settings'
+                      : 'Sozlamalar'
                   : ''
               }
             >
               <SettingsIcon size={16} />
               {!isCollapsed && (
                 <span>
-                  {language === 'ja'
-                    ? 'プロフィール・設定'
-                    : language === 'en'
-                      ? 'Profile & Settings'
-                      : 'Profil & Sozlamalar'}
+                  {language === 'ja' ? '設定' : language === 'en' ? 'Settings' : 'Sozlamalar'}
                 </span>
               )}
             </NavLink>
@@ -541,7 +532,7 @@ const Layout: React.FC = () => {
         >
           {[
             {
-              name: language === 'ja' ? 'ホーム' : 'Home',
+              name: language === 'ja' ? 'ホーム' : language === 'en' ? 'Home' : 'Bosh sahifa',
               path: '/dashboard',
               icon: Home,
             },
@@ -552,12 +543,12 @@ const Layout: React.FC = () => {
             },
             { name: t('nav.aiCoach') || 'Speaking', path: '/speaking-coach', icon: Mic },
             {
-              name: t('nav.flashcards') || (language === 'en' ? 'Flashcards' : 'Fleshkard'),
+              name: language === 'ja' ? '復習' : language === 'en' ? 'Review' : 'Takrorlash',
               path: '/flashcards',
               icon: Copy,
             },
             {
-              name: language === 'ja' ? 'プラン' : language === 'en' ? 'My Plan' : 'Rejam',
+              name: language === 'ja' ? 'プラン' : language === 'en' ? 'Plan' : 'Reja',
               path: '/personal-plan',
               icon: Target,
             },
@@ -629,7 +620,13 @@ const Layout: React.FC = () => {
               className="flex w-full items-center gap-2.5 rounded-xl border border-amber-500/25 bg-amber-500/10 px-3 py-2 text-xs font-bold text-amber-600 transition hover:bg-amber-500/20 active:scale-95 dark:text-amber-400"
             >
               <Star size={16} className="shrink-0 fill-amber-400 text-amber-500" />
-              <span>{language === 'ja' ? '⭐ アプリを評価する' : '⭐ Ilovani baholash'}</span>
+              <span>
+                {language === 'ja'
+                  ? 'アプリを評価する'
+                  : language === 'en'
+                    ? 'Rate App'
+                    : 'Ilovani baholash'}
+              </span>
             </button>
 
             {isAdmin && (
@@ -660,7 +657,9 @@ const Layout: React.FC = () => {
               }
             >
               <SettingsIcon size={16} className="shrink-0" />
-              <span>{t('nav.settings') || 'Profil & Sozlamalar'}</span>
+              <span>
+                {language === 'ja' ? '設定' : language === 'en' ? 'Settings' : 'Sozlamalar'}
+              </span>
             </NavLink>
           </div>
         </SheetContent>

@@ -1,3 +1,4 @@
+import { Flashcard, Subject } from './index';
 import { SupportedLanguage } from './lesson';
 import { MasterySkill, UserMasteryProfile } from './mastery';
 import { DiagnosticResult } from './diagnostic';
@@ -295,6 +296,8 @@ export interface SRSAllocation {
 
 export interface LearningPathOptions {
   forceLanguage?: SupportedLanguage;
+  cachedFlashcards?: Flashcard[];
+  cachedSubjects?: Subject[];
   customMinutes?: number;
   goalWeightingEnabled?: boolean;
   skipSrs?: boolean;
