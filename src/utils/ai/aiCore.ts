@@ -7,43 +7,152 @@ export interface ChatMessage {
   text: string;
 }
 
+interface CacheEntry {
+  response: string;
+  expiresAt: number;
+}
+
+// In-memory LRU / TTL Cache (30 min default TTL, 150 max items)
+const AI_CACHE = new Map<string, CacheEntry>();
+const MAX_CACHE_SIZE = 150;
+const DEFAULT_TTL_MS = 30 * 60 * 1000;
+
+// In-flight Promise deduplication to avoid redundant concurrent requests
+const PENDING_REQUESTS = new Map<string, Promise<string>>();
+
+export const clearAICache = (): void => {
+  AI_CACHE.clear();
+  PENDING_REQUESTS.clear();
+};
+
+export const getAICacheStats = () => ({
+  size: AI_CACHE.size,
+  pending: PENDING_REQUESTS.size,
+});
+
 /**
  * Universal AI Dispatcher for Nihongo Talk Platform.
- * Single Provider: DeepSeek via Secure Serverless Gateway (/api/deepseek).
+ * Enhanced with LRU/TTL caching, in-flight deduplication, and exponential backoff retry.
  */
 export const callAI = async (
   prompt: string,
   systemPrompt?: string,
   isJson: boolean = false,
+  options?: { skipCache?: boolean; ttlMs?: number; maxRetries?: number },
 ): Promise<string> => {
-  const startTime = Date.now();
-  try {
-    const result = await callDeepSeek(
-      prompt,
-      systemPrompt,
-      undefined,
-      isJson,
-      'deepseek-chat',
-      false,
-    );
-    trackAITelemetry({
-      provider: 'deepseek',
-      model: 'deepseek-chat',
-      durationMs: Date.now() - startTime,
-      success: true,
-    });
-    return result;
-  } catch (err: any) {
-    trackAITelemetry({
-      provider: 'deepseek',
-      model: 'deepseek-chat',
-      durationMs: Date.now() - startTime,
-      success: false,
-      error: err?.message,
-    });
-    throw err;
+  const normalizedKey = `[${isJson ? 'json' : 'text'}]::${(systemPrompt || '').trim()}::${prompt.trim()}`;
+
+  // 1. Check in-memory cache if caching is not explicitly skipped
+  if (!options?.skipCache) {
+    const cached = AI_CACHE.get(normalizedKey);
+    if (cached) {
+      if (Date.now() < cached.expiresAt) {
+        return cached.response;
+      }
+      AI_CACHE.delete(normalizedKey);
+    }
   }
+
+  // 2. Check in-flight promise deduplication
+  if (PENDING_REQUESTS.has(normalizedKey)) {
+    return PENDING_REQUESTS.get(normalizedKey)!;
+  }
+
+  const startTime = Date.now();
+  const maxRetries = options?.maxRetries ?? 2;
+
+  const executeRequest = async (): Promise<string> => {
+    let lastError: any = null;
+
+    for (let attempt = 0; attempt <= maxRetries; attempt++) {
+      try {
+        const result = await callDeepSeek(
+          prompt,
+          systemPrompt,
+          undefined,
+          isJson,
+          'deepseek-chat',
+          false,
+        );
+
+        trackAITelemetry({
+          provider: 'deepseek',
+          model: 'deepseek-chat',
+          durationMs: Date.now() - startTime,
+          success: true,
+        });
+
+        // Store into LRU cache
+        if (!options?.skipCache && result) {
+          if (AI_CACHE.size >= MAX_CACHE_SIZE) {
+            const oldestKey = AI_CACHE.keys().next().value;
+            if (oldestKey) AI_CACHE.delete(oldestKey);
+          }
+          AI_CACHE.set(normalizedKey, {
+            response: result,
+            expiresAt: Date.now() + (options?.ttlMs ?? DEFAULT_TTL_MS),
+          });
+        }
+
+        return result;
+      } catch (err: any) {
+        lastError = err;
+        const errMsg = String(err?.message || '').toLowerCase();
+        const isRateLimit =
+          errMsg.includes('429') ||
+          errMsg.includes('rate limit') ||
+          errMsg.includes('too many requests');
+
+        if (isRateLimit && attempt < maxRetries) {
+          // Exponential backoff with jitter
+          const delay = Math.pow(2, attempt) * 1000 + Math.random() * 500;
+          console.warn(
+            `[callAI] Rate limit encountered, retrying in ${Math.round(delay)}ms (attempt ${attempt + 1}/${maxRetries})...`,
+          );
+          await new Promise((resolve) => setTimeout(resolve, delay));
+          continue;
+        }
+
+        trackAITelemetry({
+          provider: 'deepseek',
+          model: 'deepseek-chat',
+          durationMs: Date.now() - startTime,
+          success: false,
+          error: err?.message,
+        });
+        throw err;
+      }
+    }
+    throw lastError;
+  };
+
+  const pendingPromise = executeRequest().finally(() => {
+    PENDING_REQUESTS.delete(normalizedKey);
+  });
+
+  PENDING_REQUESTS.set(normalizedKey, pendingPromise);
+  return pendingPromise;
 };
+
+/**
+ * Sequential batch runner to prevent hitting API burst rate limits (429).
+ * Processes items sequentially with a courteous delay between calls.
+ */
+export async function batchSequentialAI<T, R>(
+  items: T[],
+  worker: (item: T, index: number) => Promise<R>,
+  delayBetweenMs: number = 300,
+): Promise<R[]> {
+  const results: R[] = [];
+  for (let i = 0; i < items.length; i++) {
+    const res = await worker(items[i], i);
+    results.push(res);
+    if (i < items.length - 1 && delayBetweenMs > 0) {
+      await new Promise((resolve) => setTimeout(resolve, delayBetweenMs));
+    }
+  }
+  return results;
+}
 
 export const callSelectedAIProvider = callAI;
 export const callDeepSeekAI = callAI;

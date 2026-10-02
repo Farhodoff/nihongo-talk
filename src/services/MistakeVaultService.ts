@@ -190,4 +190,41 @@ export class MistakeVaultService {
       byCategory,
     };
   }
+
+  /**
+   * Get all currently unresolved mistakes for remedial training
+   */
+  public static getUnresolvedMistakes(
+    userId?: string | null,
+    category?: MistakeCategory,
+  ): JlptMistakeItem[] {
+    const list = this.getMistakes(userId);
+    return list.filter((m) => {
+      const matchStatus = m.status === 'unresolved';
+      const matchCat = category ? m.category === category : true;
+      return matchStatus && matchCat;
+    });
+  }
+
+  /**
+   * Get count of unresolved mistakes broken down by category for score penalty calculation
+   */
+  public static getUnresolvedCountByCategory(
+    userId?: string | null,
+  ): Record<MistakeCategory, number> {
+    const list = this.getUnresolvedMistakes(userId);
+    const counts: Record<MistakeCategory, number> = {
+      grammar: 0,
+      kanji: 0,
+      vocab: 0,
+      reading: 0,
+      listening: 0,
+    };
+    for (const item of list) {
+      if (counts[item.category] !== undefined) {
+        counts[item.category]++;
+      }
+    }
+    return counts;
+  }
 }

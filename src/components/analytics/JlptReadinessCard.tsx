@@ -341,6 +341,36 @@ export const JlptReadinessCard: React.FC<JlptReadinessCardProps> = ({
                         ? 'Unresolved errors apply a score penalty to your readiness rating.'
                         : 'Tuzatilmagan xatolar radar tayyorgarlik balingizdan ayirilmoqda.'}
                   </p>
+                  {stats.mistakesByCategory &&
+                    Object.values(stats.mistakesByCategory).some((c) => (c || 0) > 0) && (
+                      <div className="mt-2 flex flex-wrap gap-1.5">
+                        {stats.mistakesByCategory.grammar ? (
+                          <span className="rounded-md border border-rose-500/25 bg-rose-500/10 px-2 py-0.5 text-[10px] font-bold text-rose-600 dark:text-rose-400">
+                            ✍️ Bunpou: {stats.mistakesByCategory.grammar} ta
+                          </span>
+                        ) : null}
+                        {stats.mistakesByCategory.kanji ? (
+                          <span className="rounded-md border border-rose-500/25 bg-rose-500/10 px-2 py-0.5 text-[10px] font-bold text-rose-600 dark:text-rose-400">
+                            ⛩️ Kanji: {stats.mistakesByCategory.kanji} ta
+                          </span>
+                        ) : null}
+                        {stats.mistakesByCategory.vocab ? (
+                          <span className="rounded-md border border-rose-500/25 bg-rose-500/10 px-2 py-0.5 text-[10px] font-bold text-rose-600 dark:text-rose-400">
+                            📖 Tango: {stats.mistakesByCategory.vocab} ta
+                          </span>
+                        ) : null}
+                        {stats.mistakesByCategory.reading ? (
+                          <span className="rounded-md border border-rose-500/25 bg-rose-500/10 px-2 py-0.5 text-[10px] font-bold text-rose-600 dark:text-rose-400">
+                            📰 Dokkai: {stats.mistakesByCategory.reading} ta
+                          </span>
+                        ) : null}
+                        {stats.mistakesByCategory.listening ? (
+                          <span className="rounded-md border border-rose-500/25 bg-rose-500/10 px-2 py-0.5 text-[10px] font-bold text-rose-600 dark:text-rose-400">
+                            🎧 Choukai: {stats.mistakesByCategory.listening} ta
+                          </span>
+                        ) : null}
+                      </div>
+                    )}
                 </div>
               </div>
               <button
