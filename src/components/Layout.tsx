@@ -8,7 +8,6 @@ import {
   Copy,
   Home,
   Languages,
-  Map,
   Menu,
   MessageSquare,
   Mic,
@@ -16,7 +15,6 @@ import {
   Shield,
   BarChart3,
   Star,
-  Target,
 } from 'lucide-react';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { SessionCompleteModal } from './SessionCompleteModal';
@@ -137,11 +135,6 @@ const Layout: React.FC = () => {
       { name: isJa ? 'ホーム' : isEn ? 'Home' : 'Bosh sahifa', path: '/dashboard', icon: Home },
       { name: isJa ? 'JLPTマスター' : 'JLPT Master', path: '/jlpt', icon: BookOpen },
       {
-        name: isJa ? '個人学習プラン' : isEn ? 'My Study Plan' : 'Shaxsiy Rejam',
-        path: '/personal-plan',
-        icon: Target,
-      },
-      {
         name: isJa ? '単語・語彙分析' : isEn ? 'AI Vocabulary' : 'AI Lug‘at',
         path: '/vocabulary?lang=ja',
         icon: Languages,
@@ -163,7 +156,6 @@ const Layout: React.FC = () => {
       },
       { name: isJa ? '集中タイマー' : isEn ? 'Focus Timer' : 'Fokus', path: '/focus', icon: Clock },
       { name: isJa ? '進捗・分析' : 'Progress', path: '/progress', icon: BarChart3 },
-      { name: isJa ? 'ロードマップ' : 'Roadmap', path: '/roadmap', icon: Map },
       {
         name: isJa ? 'レベル診断' : isEn ? 'Diagnostic' : 'Diagnostika',
         path: '/diagnostic',
@@ -548,9 +540,9 @@ const Layout: React.FC = () => {
               icon: Copy,
             },
             {
-              name: language === 'ja' ? 'プラン' : language === 'en' ? 'Plan' : 'Reja',
-              path: '/personal-plan',
-              icon: Target,
+              name: language === 'ja' ? '進捗' : language === 'en' ? 'Progress' : 'Progress',
+              path: '/progress',
+              icon: BarChart3,
             },
           ].map((item) => {
             const isItemActive =
