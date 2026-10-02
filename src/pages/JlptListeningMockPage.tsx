@@ -42,6 +42,7 @@ import { useGamificationStore } from '../stores/useGamificationStore';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { useLanguage } from '../context/LanguageContext';
 import { toast } from '../hooks/use-toast';
+import { resolveAudioUrl } from '../utils/audioUrl';
 
 const DRAFT_CHOUKAI_STORAGE_KEY = 'jlpt_choukai_draft_v1';
 
@@ -288,7 +289,7 @@ export const JlptListeningMockPage: React.FC = () => {
 
     if (hasAuthenticAudio) {
       setIsUsingTts(false);
-      const audio = new Audio(q.audioUrl);
+      const audio = new Audio(resolveAudioUrl(q.audioUrl));
       audio.playbackRate = playbackSpeed;
       audioRef.current = audio;
 
@@ -411,7 +412,7 @@ export const JlptListeningMockPage: React.FC = () => {
     if (hasAuthenticAudio) {
       setIsUsingTts(false);
       setIsPlaying(true);
-      const audio = new Audio(q.audioUrl);
+      const audio = new Audio(resolveAudioUrl(q.audioUrl));
       audio.playbackRate = playbackSpeed;
       audioRef.current = audio;
 

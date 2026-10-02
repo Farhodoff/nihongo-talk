@@ -14,6 +14,7 @@ import { LearnContent, SupportedLanguage } from '../../types/lesson';
 import { speakText, speakJapaneseText } from '../../utils/audioTts';
 import { FuriganaText } from '../jlpt/FuriganaText';
 import { ListeningAudioSyncService } from '../../services/ListeningAudioSyncService';
+import { resolveAudioUrl } from '../../utils/audioUrl';
 
 const formatAudioTime = (seconds: number) => {
   if (isNaN(seconds) || seconds <= 0) return '00:00';
@@ -112,7 +113,7 @@ export const LearnStepView: React.FC<LearnStepViewProps> = ({ content, language 
     );
 
     if (!studioAudioRef.current) {
-      const audio = new Audio(content.dialogue.audioUrl);
+      const audio = new Audio(resolveAudioUrl(content.dialogue.audioUrl));
       audio.playbackRate = studioPlaybackRate;
       studioAudioRef.current = audio;
 
@@ -205,7 +206,7 @@ export const LearnStepView: React.FC<LearnStepViewProps> = ({ content, language 
     }
 
     if (!studioAudioRef.current) {
-      const audio = new Audio(content.dialogue.audioUrl);
+      const audio = new Audio(resolveAudioUrl(content.dialogue.audioUrl));
       audio.playbackRate = studioPlaybackRate;
       studioAudioRef.current = audio;
 

@@ -49,6 +49,7 @@ import {
   JlptExamMode,
   SectionKey,
 } from '../utils/jlptExamTiming';
+import { resolveAudioUrl } from '../utils/audioUrl';
 
 const DRAFT_EXAM_STORAGE_KEY = 'jlpt_mock_exam_draft_v1';
 
@@ -384,7 +385,7 @@ export const JlptMockExamPage: React.FC = () => {
 
     if (url && url.trim() !== '' && !url.includes('soundhelix.com')) {
       try {
-        const audio = new Audio(url);
+        const audio = new Audio(resolveAudioUrl(url));
         audioRef.current = audio;
         audio
           .play()

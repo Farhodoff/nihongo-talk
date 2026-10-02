@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Play, Pause, Disc, RotateCcw, RotateCw, Volume2, VolumeX } from 'lucide-react';
+import { resolveAudioUrl } from '../../utils/audioUrl';
 
 interface LessonAudioPlayerProps {
   audioUrl: string;
@@ -34,7 +35,8 @@ export const LessonAudioPlayer: React.FC<LessonAudioPlayerProps> = ({
   useEffect(() => {
     if (typeof window === 'undefined' || typeof Audio === 'undefined') return;
 
-    const audio = new Audio(audioUrl);
+    const resolvedSrc = resolveAudioUrl(audioUrl);
+    const audio = new Audio(resolvedSrc);
     audio.preload = 'metadata';
     audio.playbackRate = playbackRate;
     audioRef.current = audio;
@@ -85,7 +87,7 @@ export const LessonAudioPlayer: React.FC<LessonAudioPlayerProps> = ({
   const handleTogglePlay = () => {
     if (!audioRef.current) {
       if (typeof window === 'undefined' || typeof Audio === 'undefined') return;
-      audioRef.current = new Audio(audioUrl);
+      audioRef.current = new Audio(resolveAudioUrl(audioUrl));
     }
     const audio = audioRef.current;
     audio.playbackRate = playbackRate;
