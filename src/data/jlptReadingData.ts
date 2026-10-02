@@ -1755,4 +1755,148 @@ export const JLPT_READING_PASSAGES: JlptReadingPassage[] = [
       },
     ],
   },
+  {
+    id: 'n2_read_13',
+    level: 'N2',
+    title:
+      '情報[じょうほう]検索[けんさく]：在宅[ざいたく]勤務[きんむ]における セキュリティ・ガイドライン',
+    passageType: 'information_retrieval',
+    japaneseContent: `【グローバル・ソリューションズ株式会社[かぶしきがいしゃ]　テレワーク安全[あんぜん]基準[きじゅん]】
+
+1. 端末[たんまつ]の 取[と]り扱[あつか]い
+・業務[ぎょうむ]には 会社[かいしゃ]から 支給[しきゅう]された PCのみを 使用[しよう]すること。個人[こじん]所有[しょゆう]の 端末[たんまつ]（BYOD）での 社内[しゃない]データ アクセスは 厳禁[げんきん]とする。
+・離席[りせき]時[じ]は 短時間[たんじかん]であっても、必[かなら]ず 画面[がめん]ロック（Windowsキー＋L）を 徹底[てってい]すること。
+
+2. ネットワーク接続[せつぞく]
+・自宅[じたく]の Wi-Fiルーターには WPA3または WPA2の 暗号化[あんごうか]を 設定[せってい]すること。公衆[こうしゅう]無料[むりょう]Wi-Fi（カフェや 空港[くうこう]等[など]）からの 接続[せつぞく]は 一切[いっさい]禁止[きんし]する。
+・社内[しゃない]サーバーへの アクセスは、必[かなら]ず 指定[してい]の VPNを 経由[けいゆ]しなければならない。
+
+3. データ管理[かんり]と 外部[がいぶ]送信[そうしん]
+・機密[きみつ]書類[しょるい]（顧客[こきゃく]データ、財務[ざいむ]諸表[しょひょう]）を 私的[してき]な クラウドストレージ（個人[こじん]の Google Drive等[など]）に 保存[ほぞん]してはならない。
+・万一[まんいつ]、端末[たんまつ]の 紛失[ふんしつ]や ウイルス感染[かんせん]が 疑[うたが]われる 場合[ばあい]は、30分[さんじゅっぷん]以内[いない]に 情報[じょうほう]セキュリティ委員会[いいんかい]（内線[ないせん]：9911）へ 緊急[きんきゅう]報告[ほうこく]を 行[おこな]うこと。`,
+    uzbekTranslation:
+      "Global Solutions aksiyadorlik jamiyati masofaviy ishlash xavfsizlik qoidalari: 1. Qurilmalardan foydalanish: faqat kompaniya bergan noutbukdan foydalanish shart, shaxsiy kompyuterdan kirish qat'iyan man etiladi. O'rindan turganda qisqa fursat bo'lsa ham ekranni qulflash lozim. 2. Tarmoqqa ulanish: uy Wi-Fi yo'riqnomasida WPA2/WPA3 shifrlash bo'lishi shart, qahvaxona yoki aeroportdagi ochiq bepul Wi-Fi dan kirish butunlay taqiqlanadi. Kompaniya serverlariga faqat belgilangan VPN orqali ulaniladi. 3. Ma'lumotlarni saqlash: maxfiy hujjatlarni shaxsiy bulut xotirasiga saqlash mumkin emas. Qurilma yo'qolsa yoki virus tushsa, 30 daqiqa ichida xavfsizlik bo'limiga shoshilinch xabar berish shart.",
+    recommendedTimeMinutes: 5,
+    questions: [
+      {
+        id: 'q_n2_13_1',
+        questionText: 'この ガイドラインに 従[したが]った 正[ただ]しい 行動[こうどう]は どれか。',
+        options: [
+          '気分転換[きぶんてんかん]のため、カフェの 無料[むりょう]Wi-Fiに 接続[せつぞく]して 業務[ぎょうむ]メールを 送信[そうしん]した',
+          '自宅[じたく]の WPA2暗号化[あんごうか]ルーターから、会社[かいしゃ]の VPNを 通[とお]して 社内[しゃない]サーバーに アクセスした',
+          '支給[しきゅう]PCが 重[おも]いので、自分[じぶん]の 個人[こじん]PCに 顧客[こきゃく]リストを コピーして 自宅[じたく]で 作業[さぎょう]した',
+          'パソコンが ウイルスに 感染[かんせん]したと 思[おも]われたが、翌日[よくじつ]の 朝[あさ] 出社[しゅっしゃ]してから 報告[ほうこく]した',
+        ],
+        correctIndex: 1,
+        explanation:
+          "2-bo'limga ko'ra, uyning WPA2/WPA3 bilan himoyalangan Wi-Fi tarmog'idan faqat kompaniyaning maxsus VPN tizimi orqali ulanish ruxsat etilgan to'g'ri qoidadir.",
+      },
+    ],
+  },
+  {
+    id: 'n2_read_14',
+    level: 'N2',
+    title:
+      '行動[こうどう]心理学[しんりがく]：小[ちい]さな 習慣[しゅうかん]の 連鎖[れんさ]が 生[う]み出[だ]す 劇的[げきてき]な 変容[へんよう]',
+    passageType: 'medium',
+    japaneseContent: `多[おお]くの 人[ひと]は、自[みずか]らの 人生[じんせい]を 大[おお]きく 変[か]えようとする 際[さい]、劇的[げきてき]な 決意[けつい]や 過酷[かこく]な 努力[どりょく]を 求[もと]めがちである。
+しかし、行動[こうどう]科学[かがく]の 知見[ちけん]が 示[しめ]す 現実[げんじつ]は むしろ 逆[ぎゃく]である。
+人間[にんげん]の 脳[のう]は 急激[きゅうげき]な 変化[へんか]を「生命[せいめい]の 危機[きき]」と 錯覚[さっかく]し、強力[きょうりょく]な 抵抗[ていこう]を 示[しめ]すように 進化[しんか]してきた。
+したがって、大[おお]きすぎる 目標[もくひょう]を 掲[かか]げることこそが、三日坊主[みっかぼうず]に 陥[おちい]る 最大[さいだい]の 原因[げんいん]なのである。
+長期的[ちょうきてき]な 成長[せいちょう]を 実現[じつげん]する 鍵[かぎ]は、「意志[いし]の力[ちから]を 必要[ひつよう]としないほど 些細[ささい]な 行動[こうどう]」から 始[はじ]めることにある。
+例[たと]えば、毎日[まいにち]1時間[いちじかん] 読書[どくしょ]するのではなく、本[ほん]を 開[ひら]いて 1行[いちぎょう]だけ 読[よ]む。
+あるいは、腕立[うでた]て伏[ふ]せを 1回[いっかい]だけ 行[おこな]う。
+このように 心理的[しんりてき] ハードルを 極限[きょくげん]まで 下[さ]げることで、行動[こうどう]への 着手[ちゃくしゅ]が 容易[ようい]になり、やがて その 行為[こうい]は 無意識[むいしき]の ルーティンへと 昇華[しょうか]していく。
+小[ちい]さな 1歩[いっぽ]の 複利[ふくり]効果[こうか]こそが、結果的[けっかてき]に 人間[にんげん]を 最[もっと]も 遠[とお]くまで 連[つ]れていくのである。`,
+    uzbekTranslation:
+      "Ko'pchilik odamlar hayotini tubdan o'zgartirishga qaror qilganda keskin qarorlar va haddan ortiq mashaqqatli harakat talab etiladi deb o'ylashadi. Biroq xatti-harakat psixologiyasining isbotlashicha, haqiqat buning aksi. Inson miyasi to'satdan bo'ladigan keskin o'zgarishlarni xavf deb hisoblaydi va unga kuchli qarshilik ko'rsatishga moslashgan. Shu sababli haddan ziyod ulkan maqsadlar qo'yish boshlangan ishni 3 kunda tashlab ketishning asosiy omilidir. Uzoq muddatli yuksak marraga erishishning siri — iroda kuchini deyarli talab qilmaydigan darajadagi eng kichik odatdan boshlashdir. Masalan, har kuni bir soatlab kitob o'qish emas, balki shunchaki kitobni ochib bitta qator o'qish, yoki bitta dona turnikda tortilish. Shunday qilib psixologik to'siq eng quyi nuqtaga tushirilsa, ishga kirishish osonlashadi va sekin-asta ongsiz odatga aylanadi. Kichik qadamlarning murakkab foiz samaradorligigina insonni eng uzoq cho'qqilargacha yetkazadi.",
+    recommendedTimeMinutes: 6,
+    questions: [
+      {
+        id: 'q_n2_14_1',
+        questionText:
+          '筆者[ひっしゃ]によると、目標[もくひょう]が「三日坊主[みっかぼうず]」で 終[お]わってしまう 根本的[こんぽんてき]な 理由[りゆう]は 何[なに]か。',
+        options: [
+          '人間[にんげん]の 脳[のう]が 急激[きゅうげき]な 変化[へんか]に 対[たい]して 抵抗[ていこう]を 示[しめ]すように できているから',
+          '若[わか]い 頃[ころ]に 比[くら]べて 記憶力[きおくりょく]が 衰[おとろ]えてしまうから',
+          '他人[たにん]からの 励[はげ]ましが 足[た]りないと 怠[なま]けてしまうから',
+          '十分[じゅうぶん]な お金[かね]が ないと 習慣[しゅうかん]は 続[つづ]かないから',
+        ],
+        correctIndex: 0,
+        explanation:
+          "Matnda miya keskin o'zgarishlarni hayotiy xavf sifatida qabul qilib unga qarshilik ko'rsatishi (急激な変化に抵抗を示す) tushuntirilgan.",
+      },
+    ],
+  },
+  {
+    id: 'n1_read_13',
+    level: 'N1',
+    title:
+      'アルゴリズム社会[しゃかい]における「認知[にんち]バイアス」と 主体的[しゅたいてき] 思考[しこう]の 危機[きき]',
+    passageType: 'medium',
+    japaneseContent: `現代[げんだい]の 情報[じょうほう]空間[くうかん]は、精緻[せいち]な アルゴリズムによって 徹底[てってい]して 個別化[こべつか]されている。
+検索[けんさく]エンジンや SNSは、利用客[りようきゃく]の 過去[かこ]の 行動[こうどう]履歴[りれき]や 滞在[たいざい]時間[じかん]を 瞬時[しゅんじ]に 解析[かいせき]し、その 者[もの]の 好奇心[こうきしん]や 感情[かんじょう]を 最[もっと]も 刺激[しげき]する 情報[じょうほう]のみを 抽出[ちゅうしゅつ]して フィードに 供給[きょうきゅう]し続[つづ]ける。
+この メカニズムが もたらす 帰結[きけつ]こそが、悪名[あくめい]高[だか]き「フィルターバブル」であり「エコーチェンバー現象[げんしょう]」である。
+人[ひと]びとは 自[みずか]らの 偏見[へんけん]を 追認[ついにん]・補強[ほきょう]してくれる 心地[ここち]よい 言説[げんせつ]にのみ 囲[かこ]まれ、異論[いろん]や 複雑[ふくざつ]な 真理[しんり]から 隔離[かくり]されていく。
+さらに 深刻[しんこく]なのは、この 認知[にんち]の 閉塞[へいそく]が、当事者[とうじしゃ]の「自律的[じりつてき]に 選[えら]び取[と]った」という 強固[きょうこ]な 錯覚[さっかく]を 伴[ともな]う点[てん]である。
+受動的[じゅどうてき]な 快適さ[かいてきさ]に 埋没[まいぼつ]する 精神[せいしん]は、やがて 他者[たしゃ]の 痛[いた]みや 多角性[たかくせい]への 想像力[そうぞうりょく]を 決定的に[けっていてきに] 喪失[そうしつ]していく。
+アルゴリズムの 飼[か]い慣[な]らしに 抗[あらが]い、自[みずか]らを 敢[あ]えて「不快[ふかい]な 異物[いぶつ]としての 知識[ちしき]」に 晒[さら]す 知的[ちてき] 負荷[ふか]を 引[ひ]き受[う]けることなしに、真[しん]の 自由[じゆう]な 主体[しゅたい]であり 続[つづ]けることは 不可能[ふかのう]である。`,
+    uzbekTranslation:
+      "Zamonaviy axborot makoni murakkab algoritmlar vositasida chuqur individuallashtirilgan. Qidiruv tizimlari va ijtimoiy tarmoqlar foydalanuvchining o'tmishdagi harakatlari va sarflagan vaqtini bir zumda tahlil qilib, uning qiziqishi va his-tuyg'ularini eng ko'p qo'zg'atadigan kontentnigina taqdim etadi. Ushbu mexanizm oqibati mash'um 'filtr pufagi' (filter bubble) va 'aks-sado xonasi' (echo chamber) fenomenidir. Insonlar o'zlarining mavjud xomxayollarini tasdiqlab, ma'qullab beruvchi yoqimli fikrlar qurshovida qoladi, muqobil qarashlar va murakkab haqiqatlardan uziladi. Bundan ham xatarli jihati shundaki, bu tor aqliy qobiq insonning 'buni o'z irodam bilan tanladim' degan kuchli illyuziyasi bilan birga kechadi. Passiv qulaylikka cho'kkan tafakkur boshqalarning dardi va voqelikning ko'p qirraliligini tasavvur qilish qobiliyatini batamom yo'qotadi. Algoritmning xushomadiga qarshi chiqib, o'zini noqulay va zid qarashlar maydoniga solishdek aqliy mashaqqatni bo'yniga olmasdan turib, inson erkin fikrlovchi shaxs bo'lib qola olmaydi.",
+    recommendedTimeMinutes: 7,
+    questions: [
+      {
+        id: 'q_n1_13_1',
+        questionText:
+          'アルゴリズムによる 情報[じょうほう]提供[ていきょう]が 人間[にんげん]に 与[あた]える 最[もっと]も 深刻[しんこく]な 弊害[へいがい]として、筆者[ひっしゃ]が 警鐘[けいしょう]を 鳴[な]らしているのは どれか。',
+        options: [
+          '通信[つうしん]料金[りょうきん]が 跳[は]ね上[あ]がり、生活[せいかつ]を 圧迫[あっぱく]すること',
+          '自分[じぶん]の 都合[つごう]の 良[よ]い 情報[じょうほう]に 囲[かこ]まれながらも、それを 自主的に[じしゅてきに] 選[えら]んだと 錯覚[さっかく]し、批判的[ひはんてき]・多角的[たかくてき]な 思考[しこう]を 麻痺[まひ]させること',
+          'パソコンの 処理[しょり]速度[そくど]が 低下[ていか]し、仕事[しごと]が 停滞[ていたい]すること',
+          '文字[もじ]を 書[か]く 機会[きかい]が 激減[げきげん]して 漢字[かんじ]を 忘[わす]れてしまうこと',
+        ],
+        correctIndex: 1,
+        explanation:
+          "Muallif insonlar algoritm tanlagan yoqimli ma'lumotlar ichida qolib, buni o'z tanlovi deb adashishi va natijada tanqidiy ko'p qirrali fikrlashni yo'qotishini eng xatarli oqibat deb hisoblaydi.",
+      },
+    ],
+  },
+  {
+    id: 'n1_read_14',
+    level: 'N1',
+    title:
+      '情報[じょうほう]検索[けんさく]：生成[せいせい]AI 利用[りよう]と 著作権[ちょさくけん]・知的[ちてき]財産[ざいさん] 保護[ほご]規程[きてい]',
+    passageType: 'information_retrieval',
+    japaneseContent: `【高度[こうど]情報[じょうほう]通信[つうしん]機構[きこう]（AICO）知的[ちてき]財産[ざいさん]・AI利用[りよう]コンプライアンス規程[きてい]】
+
+第4条（生成[せいせい]AIの 業務[ぎょうむ]利用[りよう]基準[きじゅん]）
+1. 役員[やくいん]および 職員[しょくいん]は、業務[ぎょうむ]上[じょう] 作成[さくせい]する 成果物[せいかぶつ]に 生成[せいせい]AIを 補助的[ほじょてき]に 利用[りよう]することができる。ただし、著作権[ちょさくけん]法[ほう]ならびに 関連[かんれん]法令[ほうれい]を 遵守[じゅんしゅ]しなければならない。
+
+2. プロンプト（入力[にゅうりょく]文[ぶん]）に関する 制限[せいげん]：
+・他者[たしゃ]が 著作権[ちょさくけん]を 保有[ほゆう]する 文章[ぶんしょう]、歌詞[かし]、設計図[せっけいず]、ソースコードの 全部[ぜんぶ]または 一部[いちぶ]を、権利者[けんりしゃ]の 許諾[きょだく]なしに プロンプトとして 入力[にゅうりょく]することを 禁[きん]ずる。
+・顧客[こきゃく]の 個人[こじん]情報[じょうほう]や 未公開[みこうかい]の 財務[ざいむ]情報[じょうほう]、開発中[かいはつちゅう]の コア技術[ぎじゅつ]など、機密[きみつ]情報[じょうほう]の 入力[にゅうりょく]は 固[かた]く 禁止[きんし]する。
+
+3. 生成物[せいせいぶつ]の 利用[りよう]と 責任[せきにん]：
+・AIが 出力[しゅつりょく]した 文章[ぶんしょう]や 画像[がぞう]を そのまま 外部[がいぶ]に 公表[こうひょう]・商用[しょうよう]利用[りよう]してはならない。必[かなら]ず 人間[にんげん]による ファクトチェック（事実[じじつ]確認[かくにん]）および 既存[きぞん]著作物[ちょさくぶつ]との 類似性[るいじせい]調査[ちょうさ]を 経[へ]なければならない。
+・公的[こうてき]な 論文[ろんぶん]、調査[ちょうさ]報告書[ほうこくしょ]等[など]において AI生成物[せいせいぶつ]を 引用[いんよう]・活用[かつよう]する 際[さい]は、使用[しよう]した モデル名[めい]および プロンプトの 概要[がいよう]を 明記[めいき]する 義務[ぎむ]を 負[お]う。`,
+    uzbekTranslation:
+      "AICO Ilg'or Axborot Aloqa Tashkiloti intellektual mulk va generativ AI qoidalari: 4-modda. 1. Xodimlar ish jarayonida generativ AIdan yordamchi vosita sifatida foydalanishi mumkin, ammo mualliflik huquqiga qat'iy rioya etishi shart. 2. Prompt (kiritish matni) cheklovlari: boshqalarning ruxsatisiz ularga tegishli matn, she'r, chizma yoki dasturiy kodni prompt sifatida kiritish taqiqlanadi. Mijozlarning shaxsiy ma'lumotlari, sir tutilgan moliya hisobotlari yoki maxfiy texnologiyalarni AIga kiritish qat'iyan man etiladi. 3. AI natijalaridan foydalanish: AIdan chiqqan matn yoki rasmni to'g'ridan-to'g'ri tekshiruvsiz ommaga e'lon qilish yoki tijoriy maqsadda ishlatish mumkin emas. Inson tomonidan faktlar tekshirilishi va mavjud asarlar bilan o'xshashlik tekshiruvi o'tkazilishi shart. Rasmiy hisobot va ilmiy maqolalarda AIdan foydalanilganda qaysi model ishlatilgani va prompt mazmuni aniq ko'rsatilishi shart.",
+    recommendedTimeMinutes: 5,
+    questions: [
+      {
+        id: 'q_n1_14_1',
+        questionText:
+          'この 規程[きてい]に 照[て]らして、適法[てきほう]かつ 認[みと]められる AIの 利用[りよう]方法[ほうほう]は どれか。',
+        options: [
+          '他社[たしゃ]が 特許[とっきょ]を 出願[しゅつがん]中の 設計図[せっけいず]を プロンプトに 入力[にゅうりょく]して 類似品[るいじひん]を 生成[せいせい]させた',
+          '公開[こうかい] 調査[ちょうさ]報告書[ほうこくしょ]の 作成[さくせい]にあたり、AIの 出力[しゅつりょく]した 統計[とうけい]の 事実[じじつ]確認[かくにん]を 行[おこな]い、使用[しよう]モデル名[めい]を 文末[ぶんまつ]に 明記[めいき]して 発表[はっぴょう]した',
+          '顧客[こきゃく]の 住所[じゅうしょ]や 氏名[しめい]を AIに 入力[にゅうりょく]して、ダイレクトメールを 自動[じどう]生成[せいせい]させた',
+          'AIが 生成[せいせい]した 画像[がぞう]を、他者[たしゃ]の 著作物[ちょさくぶつ]との 類似性[るいじせい]を 調[しら]べずに 直[ただ]ちに 商品[しょうひん]パッケージとして 販売[はんばい]した',
+        ],
+        correctIndex: 1,
+        explanation:
+          "3-bo'limga ko'ra, inson tomonidan fakt tekshiruvi (ファクトチェック) o'tkazilib, foydalanilgan model nomi ochiq ko'rsatilgan holda foydalanish qoidaga to'liq muvofiq keladi.",
+      },
+    ],
+  },
 ];

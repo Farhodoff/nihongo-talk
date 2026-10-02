@@ -108,11 +108,7 @@ const ProgressPage: React.FC = () => {
         >
           <Globe2 size={15} />
           <span>
-            {language === 'ja'
-              ? '言語 & JLPT'
-              : language === 'en'
-                ? 'Language & JLPT'
-                : 'Til & JLPT'}
+            {language === 'ja' ? '言語・JLPT' : language === 'en' ? 'Language & JLPT' : 'Til, JLPT'}
           </span>
         </button>
         <button

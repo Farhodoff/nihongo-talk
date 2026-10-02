@@ -3526,6 +3526,177 @@ export const JLPT_LISTENING_QUESTIONS: JlptListeningQuestion[] = [
       "Tantanali yubiley marosimidagi rasmiy qutlovga '記念すべき佳き日にお招きいただき、心より御礼申し上げます。貴社の益々のご発展をお祈り申し上げます' deb javob qaytarish N1 rasmiy etiketining oliy ko'rinishidir.",
     tipUzbek: "Oliy rasmiy tabriklarga javoban qutlov va tilak bildirish to'g'ri variantdir.",
   },
+  {
+    id: 87,
+    level: 'N2',
+    type: 'task',
+    audioUrl: '/audio/choukai/n2/n2_track_87.mp3',
+    titleUz: 'Kompaniya mahsulot taqdimotiga tayyorgarlik',
+    script:
+      'オフィスで課長と女性社員が、来週の取引先へのプレゼンについて話しています。女性社員はこの後、まず何をしなければなりませんか？\n女：課長、来週の新規エコ素材の企画提案書、一通り出来上がりましたのでご確認いただけますか。\n男：うん、全体の構成はすごく論理的でいいね。ただ、競合他社との価格比較データの部分が少し前年度の古い数字のままになっているみたいだ。\n女：あ、申し訳ありません。最新の市場調査レポートの数値を反映させるのを忘れていました。\n男：そうだね。あと、プレゼンの導入部分のスライド順序も少し変えたいけど、それはデータが揃ってからでいいよ。まずはその最新の市場価格データを更新して差し替えてくれるかい？デザインのブラッシュアップはその後で一緒に見よう。\n女：承知いたしました。すぐに最新レポートを確認して修正いたします。',
+    questionText: '女性社員はこの後、まず何をしなければなりませんか？',
+    questionTextUz: "Ayol xodim bundan so'ng eng birinchi nima qilishi kerak?",
+    options: [
+      'プレゼンの導入部分のスライド順序を変更する',
+      '最新の市場価格データを更新して資料を差し替える',
+      'スライド全体のデザインをブラッシュアップする',
+      '取引先に古い提案書をメールで送信する',
+    ],
+    optionsUz: [
+      "Taqdimotning kirish qismidagi slaydlar ketma-ketligini o'zgartirish",
+      "Eng so'nggi bozor narxlari ma'lumotlarini yangilab, materialni almashtirish",
+      'Slaydlarning umumiy dizaynini takomillashtirish',
+      'Mijozga eski loyiha taklifini elektron pochta orqali yuborish',
+    ],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Bo'lim boshlig'i (課長) taqdimot slaydlarining tartibini o'zgartirish va dizaynni ko'rib chiqish keyinroqqa qoldirilishini, lekin avvalo eng so'nggi bozor narxlari ma'lumotlarini yangilab qo'yish kerakligini (まずはその最新の市場価格データを更新して差し替えてくれるかい) aytdi. Shuning uchun ayol xodim eng birinchi bo'lib ma'lumotlarni yangilashi lozim.",
+    tipUzbek:
+      "JLPT N2 課題理解 savollarida 'まず' (avvalo) so'zi kalit hisoblanadi. Boshliq 'それはデータが揃ってからでいい' deb boshqa ishlarni kechiktirdi va 'まずは〜' orqali birinchi vazifani belgilab berdi.",
+  },
+  {
+    id: 88,
+    level: 'N2',
+    type: 'point',
+    audioUrl: '/audio/choukai/n2/n2_track_88.mp3',
+    titleUz: "Ekologik qadoq va iste'molchilar xulq-atvori",
+    script:
+      'テレビでアナウンサーが、食品メーカーの環境対策について専門家にインタビューしています。消費者がやや割高なエコ包装商品を選ぶ最大の理由は何ですか？\nアナウンサー：最近、脱プラスチックを目指して紙製や生分解性プラスチックの包装を採用する企業が増えていますね。一般的にコストが1割ほど高くなるそうですが、売れ行きは好調だと伺いました。\n専門家：ええ。以前は「環境に良くても高いなら買わない」という意見が主流でしたが、最近の調査では意識が大きく変化しています。特に若い世代やファミリー層を中心に、「日々の買い物を通じて環境保護に貢献している」という実感や満足感が得られることが、購入を後押しする決定打となっているのです。もちろんパッケージの見た目のナチュラルさや企業イメージへの共感もありますが、自己肯定感や社会的責任を果たしているという納得感が一番の購買動機ですね。',
+    questionText: '消費者がやや割高なエコ包装商品を選ぶ最大の理由は何ですか？',
+    questionTextUz:
+      "Iste'molchilarning narxi biroz qimmatroq bo'lgan eko-qadoqli mahsulotlarni tanlashining eng asosiy sababi nima?",
+    options: [
+      '商品の賞味期限が通常より大幅に伸びるから',
+      '買い物を楽しむことで環境保護に貢献している実感が得られるから',
+      'パッケージを回収に出すとお金がキャッシュバックされるから',
+      'プラスチック包装よりも重くて頑丈だから',
+    ],
+    optionsUz: [
+      'Mahsulotning yaroqlilik muddati odatdagidan sezilarli darajada uzaygani uchun',
+      "Xarid orqali atrof-muhitni asrashga hissa qo'shayotganlik hissi va qoniqish olingani uchun",
+      'Qadoqni qaytarib topshirganda pul qaytarib berilgani uchun',
+      'Plastik qadoqqa qaraganda og‘irroq va mustahkamroq bo‘lgani uchun',
+    ],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Mutaxassis (専門家) iste'molchilar nima uchun 10% qimmatroq eko-qadoqni sotib olayotganini tushuntirar ekan, asosiy sabab — 'kundalik xarid orqali atrof-muhitni asrashga hissa qo'shayotganlik hissi va qoniqish olish' (環境保護に貢献しているという実感や満足感が得られること) hamda burchini bajarganlik hissi ekanligini ta'kidladi.",
+    tipUzbek:
+      "Nuqtai nazar savollarida (ポイント理解) ekspertning '決定打となっている' (hal qiluvchi omil bo'lmoqda) va '一番の購買動機' (eng asosiy sotib olish motivi) degan yakuniy urg'uli jumlalariga diqqat qarating.",
+  },
+  {
+    id: 89,
+    level: 'N1',
+    type: 'task',
+    audioUrl: '/audio/choukai/n1/n1_track_89.mp3',
+    titleUz: 'Kiberxavfsizlik insidenti va inqirozli boshqaruv',
+    script:
+      'IT企業の緊急危機管理対策本部で、役員とセキュリティ担当チーフが話しています。担当チーフはこの後、公表前にまず何に着手しなければなりませんか？\n役員：先ほど検知されたクラウド基盤への不正アクセスインシデントの件だが、顧客情報の漏洩懸念について報道関係へのブリーフィングをどう進めるべきか。\nチーフ：はい。現時点で侵入経路となった脆弱性のパッチ適用と外部ネットワークからの当該サーバの隔離は完了しております。速やかなプレスリリースが求められますが、影響範囲の特定、すなわちどのデータが持ち出された痕跡があるかのログフォレンジック解析を完了させ、被害実態を確定させることが最優先です。\n役員：被害規模の数字が曖昧なまま会見を開けば、市場の不信感を招くからね。\nチーフ：おっしゃる通りです。再発防止策の策定や被害顧客への個別補償の検討も並行して進めますが、まずは詳細なログ解析による漏洩実態の特定を完遂させ、その確証を報告書にまとめます。\n役員：分かった。急ぎ取りかかってくれたまえ。',
+    questionText: '担当チーフはこの後、公表前にまず何に着手しなければなりませんか？',
+    questionTextUz:
+      "Xavfsizlik bo'yicha bosh mutaxassis bundan so'ng, rasmiy e'lon qilishdan oldin eng birinchi nimaga kirishishi kerak?",
+    options: [
+      '当該サーバを外部ネットワークから直ちに隔離する',
+      '詳細なログ解析を行って情報漏洩の被害実態を特定する',
+      '被害に遭った全顧客への損害賠償金の送金手続きを行う',
+      '影響範囲が未確定のまま直ちに記者会見を開く',
+    ],
+    optionsUz: [
+      'Tegishli serverni zudlik bilan tashqi tarmoqdan uzib ajratish',
+      "Batafsil log-tahlil (forensika) o'tkazib, ma'lumotlar sizib chiqishi ko'lamini aniqlash",
+      "Zarar ko'rgan barcha mijozlarga tovon pulini o'tkazib berish amaliyotini boshlash",
+      "Zarar ko'lami noaniq bo'lgan holda zudlik bilan matbuot anjumani o'tkazish",
+    ],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Serverni ajratish va zaiflikni tuzatish allaqachon bajarilgan (完了しております). Matbuotga e'lon qilishdan oldin, eng birinchi navbatda batafsil log tahlili orqali qanday ma'lumotlar chiqib ketganini aniqlash (ログフォレンジック解析を完了させ、被害実態を確定させることが最優先 / まずは詳細なログ解析による漏洩実態の特定を完遂させ) lozimligi aytildi.",
+    tipUzbek:
+      "JLPT N1 da allaqachon tugallangan ishlarni (完了しております) chalg'ituvchi variant sifatida berishadi. Bajarilishi kerak bo'lgan birinchi ish '最優先' va 'まずは〜' orqali berilgan log tahlilidir.",
+  },
+  {
+    id: 90,
+    level: 'N1',
+    type: 'summary',
+    audioUrl: '/audio/choukai/n1/n1_track_90.mp3',
+    titleUz: 'Hududiy qayta tiklanish va aholi migratsiyasi falsafasi',
+    script:
+      '地域経済学のシンポジウムで、大学教授が過疎地域の再生政策について基調講演を行っています。\n教授：従来の過疎対策は、工場誘致や大規模公共事業など、都市部の資本に依存した「外部活力の注入」が中心でした。しかし人口減少社会が本格化する中で、そうした画一的な振興策はもはや持続可能ではありません。真の地域創生とは、単に転入者数を競う頭数主義ではなく、その土地固有の自然資源や文化的土着性に根ざした「関係人口」の創出にあります。定住に固執せず、複業やリモートワークを通じて地域と重層的に関わり続ける人々を育むこと、すなわち自律分散的なコミュニティの生態系を再構築することこそが、今後の地方再生の根幹をなす理念なのです。',
+    questionText: '教授の講演の主旨として最も適切なものはどれですか？',
+    questionTextUz: "Professor ma'ruzasining asosiy g'oyasi sifatida eng to'g'ri fikr qaysi?",
+    options: [
+      '工場の誘致と大型公共事業をさらに拡大して外部資本を呼び込むべきだ',
+      '定住者数の増加のみに固執せず、地域と多層的に関わる関係人口と自律的生態系を育むべきだ',
+      '過疎地域は再生不可能であるため、全住民を大都市に集約移転させるべきだ',
+      'リモートワークを禁止して全員を現地の農業に専従させるべきだ',
+    ],
+    optionsUz: [
+      'Zavodlarni jalb qilish va yirik jamoat loyihalarini kengaytirish orqali tashqi sarmoyani kiritish kerak',
+      "Faqat doimiy ko'chib keluvchilar soniga bog'lanib qolmasdan, hudud bilan ko'p qatlamli bog'langan 'aloqador aholi' va o'zini-o'zi boshqaruvchi ekotizimni rivojlantirish lozim",
+      "Aholisi siyraklashgan hududlarni tiklab bo'lmaydi, shuning uchun barcha aholini megapolislarga ko'chirish shart",
+      "Masofaviy ishni taqiqlab, hamma fuqarolarni mahalliy qishloq xo'jaligiga jalb etish lozim",
+    ],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Professor an'anaviy zavod qurish yoki faqat doimiy ko'chib keluvchilar soni ortidan quvish davri o'tganini, kelajakdagi haqiqiy mintaqaviy tiklanish — bu hudud bilan ko'p tomonlama bog'langan 'aloqador aholi' (関係人口) va o'zini o'zi ta'minlovchi jamoaviy ekotizimni shakllantirishda ekanligini (自律分散的なコミュニティの生態系を再構築することこそが〜根幹をなす理念) tushuntirdi.",
+    tipUzbek:
+      "N1 Gist (概要理解) savollarida ma'ruzachining an'anaviy yondashuvni inkor qilib (もはや持続可能ではない), '真の〜とは' yoki '〜ことこそが根幹をなす理念' deb yakunlagan konseptual xulosasi to'g'ri javob kalitidir.",
+  },
+  {
+    id: 91,
+    level: 'N1',
+    type: 'quick',
+    audioUrl: '/audio/choukai/n1/n1_track_91.mp3',
+    titleUz: 'Biznesda taklifni xushmuomalalik bilan rad etish (Keigo)',
+    script:
+      '男性：先般ご提案申し上げました新規共同プロジェクトの件、前向きにご検討いただけておりますでしょうか。',
+    questionText: '質問を聞いて、何と答えますか？',
+    questionTextUz: "Qanday javob berish to'g'ri?",
+    options: [
+      '大変魅力的なお話ではございますが、諸般の事情により今回は見送らせていただきたく存じます。',
+      'はい、検討する価値もありませんのでお引き取りください。',
+      '前向きに検討しないことになっていますので、困惑しております。',
+      'せっかくのご提案ですが、二度と連絡してこないでいただけますか。',
+    ],
+    optionsUz: [
+      "Juda qiziqarli taklif bo'lishiga qaramay, turli holatlar sababli bu safar uni qabul qilmaslikni (rad etishni) ma'qul ko'rdik.",
+      "Ha, ko'rib chiqishga ham arzimaydi, shuning uchun ketishingiz mumkin.",
+      "Ijobiy ko'rib chiqmaslik belgilab qo'yilgan, shuning uchun sarosimadaman.",
+      "Qanchalik taklif bo'lmasin, boshqa qaytib bog'lanmasligingizni so'raymiz.",
+    ],
+    correctAnswer: 0,
+    explanationUzbek:
+      "Biznes muzokaralarida hamkorlik taklifini rad etishda '大変魅力的なお話ではございますが、諸般の事情により今回は見送らせていただきたく存じます' (Taklif juda ajoyib bo'lsa-da, turli sabablarga ko'ra bu gal kechiktirishga / rad etishga to'g'ri keladi) deb diplomatik va yuksak ehtirom (Sonkeigo/Kenjougo) bilan javob qaytarish yapon ishbilarmonlik madaniyatining oltin qoidasidir.",
+    tipUzbek:
+      "Rad etish keigosida '今回は見送らせていただく' (bu safar rad etishga ruxsat bergaysiz) iborasi eng klassik N1 konstruksiyasidir.",
+  },
+  {
+    id: 92,
+    level: 'N1',
+    type: 'point',
+    audioUrl: '/audio/choukai/n1/n1_track_92.mp3',
+    titleUz: 'Kognitiv neyrobiologiya va qaror qabul qilish mexanizmi',
+    script:
+      '学術フォーラムで、認知心理学の研究者が「直感と論理的推論」について発表しています。研究者によると、熟練のチェス棋士が瞬時に最善手を見出せる最大の要因は何ですか？\n研究者：熟練のチェス棋士や医師の診断プロセスをfMRIで観察すると、興味深い現象が確認されます。彼らは膨大な選択肢を網羅的に論理計算しているのではなく、過去の膨大な経験を通じて脳の大脳基底核や前頭前野に蓄積された「パターンの直感的照合」を無意識下で行っています。思考の堂々巡りを排除し、状況を一目見ただけで無関係な何千もの悪手を瞬時に枝刈りして、最善の数手に絞り込む認知のチャンキング能力こそが、卓越した直感的意思決定を可能にしているのです。',
+    questionText: '研究者によると、熟練のチェス棋士が瞬時に最善手を見出せる最大の要因は何ですか？',
+    questionTextUz:
+      "Tadqiqotchiga ko'ra, tajribali shaxmatchilar eng yaxshi yurishni bir lahzada topa olishining eng asosiy omili nima?",
+    options: [
+      'すべての盤面の変化を毎秒何千万通りも完全に計算し尽くすこと',
+      '経験に基づき無関係な悪手を瞬時に排除しパターンを照合する認知能力',
+      '対戦相手の脈拍や呼吸の乱れから心理状態を読み取ること',
+      '試合前の十分な睡眠によって脳の活動を活性化させること',
+    ],
+    optionsUz: [
+      "Doskadagi barcha o'zgarishlarni soniyasiga o'n millionlab kombinatsiyada to'liq hisoblab chiqish",
+      "Tajribaga tayanib noto'g'ri yurishlarni bir lahzada chetga surib, naqshlarni (pattern) qiyoslaydigan kognitiv qobiliyat",
+      "Raqibning puls va nafas olish ritmidan uning ruhiy holatini o'qib olish",
+      "O'yindan oldin yetarlicha uxlab, miya faoliyatini faollashtirish",
+    ],
+    correctAnswer: 1,
+    explanationUzbek:
+      "Olim tushuntirishicha, usta shaxmatchilar barcha kombinatsiyalarni bittalab hisoblab chiqmaydi, balki ko'p yillik tajriba natijasida noo'rin yurishlarni bir lahzada chiqarib tashlab (無関係な何千もの悪手を瞬時に枝刈りして), vaziyatga mos patternlarni avtomatik taqqoslay oladigan 'kognitiv chunking' (認知のチャンキング能力) qobiliyatiga ega bo'ladilar.",
+    tipUzbek:
+      "Point (ポイント理解) savolida 'すべての計算' (variant 1) chalg'ituvchi bo'lib, tadqiqotchi uni inkor etdi (論理計算しているのではなく). '枝刈りして絞り込む認知能力' ifodasi to'g'ri javobni belgilab berdi.",
+  },
 ];
 
 /**

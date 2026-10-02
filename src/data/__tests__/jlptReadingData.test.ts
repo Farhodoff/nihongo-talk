@@ -2,14 +2,14 @@ import { describe, it, expect } from 'vitest';
 import { JLPT_READING_PASSAGES } from '../jlptReadingData';
 
 describe('JLPT Reading Data (Dokkai) Integrity Tests', () => {
-  it('contains exactly 58 unique passages across N5 through N1', () => {
-    expect(JLPT_READING_PASSAGES.length).toBe(58);
+  it('contains exactly 62 unique passages across N5 through N1', () => {
+    expect(JLPT_READING_PASSAGES.length).toBe(62);
     const ids = JLPT_READING_PASSAGES.map((p) => p.id);
     const uniqueIds = new Set(ids);
-    expect(uniqueIds.size).toBe(58);
+    expect(uniqueIds.size).toBe(62);
   });
 
-  it('has expected distribution across all levels (N5:10, N4:12, N3:12, N2:12, N1:12)', () => {
+  it('has expected distribution across all levels (N5:10, N4:12, N3:12, N2:14, N1:14)', () => {
     const counts: Record<string, number> = { N5: 0, N4: 0, N3: 0, N2: 0, N1: 0 };
     for (const p of JLPT_READING_PASSAGES) {
       counts[p.level] = (counts[p.level] || 0) + 1;
@@ -18,8 +18,8 @@ describe('JLPT Reading Data (Dokkai) Integrity Tests', () => {
     expect(counts['N5']).toBe(10);
     expect(counts['N4']).toBe(12);
     expect(counts['N3']).toBe(12);
-    expect(counts['N2']).toBe(12);
-    expect(counts['N1']).toBe(12);
+    expect(counts['N2']).toBe(14);
+    expect(counts['N1']).toBe(14);
   });
 
   it('ensures every passage and its questions conform to schema requirements', () => {
@@ -51,8 +51,12 @@ describe('JLPT Reading Data (Dokkai) Integrity Tests', () => {
       'n3_read_12',
       'n2_read_11',
       'n2_read_12',
+      'n2_read_13',
+      'n2_read_14',
       'n1_read_11',
       'n1_read_12',
+      'n1_read_13',
+      'n1_read_14',
     ];
 
     for (const tid of targetIds) {

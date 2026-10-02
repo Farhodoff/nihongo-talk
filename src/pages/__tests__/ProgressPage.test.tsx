@@ -41,7 +41,7 @@ describe('ProgressPage - Learning Analytics & Activity', () => {
       render(<ProgressPage />);
     });
 
-    const langTab = screen.getByRole('button', { name: /Til, JLPT|Language|言語/i });
+    const langTab = screen.getByRole('button', { name: /Til[, &]+JLPT|Language|言語/i });
     const subjectsTab = screen.getByRole('button', { name: /Fanlar|Subjects|科目/i });
     const overviewTab = screen.getByRole('button', { name: /Umumiy|Overview|総合/i });
 
