@@ -5,7 +5,6 @@ import { toast } from '../../hooks/use-toast';
 import { useLanguage } from '../../context/LanguageContext';
 import { UzbekistanFlag, JapanFlag, UKFlag } from '../common/FlagIcons';
 import AIProviderSection from './AIProviderSection';
-import OfflineStorageSettings from './OfflineStorageSettings';
 
 import { isSuperAdmin } from '../../utils/admin';
 
@@ -207,9 +206,6 @@ const PreferencesSection: React.FC<PreferencesSectionProps> = ({
           </div>
         </div>
       </div>
-
-      {/* Offline Storage & PWA Resilience Panel */}
-      <OfflineStorageSettings />
     </div>
   );
 };

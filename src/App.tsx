@@ -8,7 +8,6 @@ import { StudyPlannerProvider } from './context/StudyPlannerContext';
 import { FocusTimerProvider } from './context/FocusTimerContext';
 import { LanguageProvider } from './context/LanguageContext';
 import { supabase } from './lib/supabase';
-import OfflineIndicator from './components/OfflineIndicator';
 import { PushNotificationPrompt } from './components/pwa/PushNotificationPrompt';
 import { Toaster } from './components/ui/toaster';
 import { GlobalFlashcardOverrideService } from './services/GlobalFlashcardOverrideService';
@@ -432,7 +431,6 @@ const App: React.FC = () => {
                 {/* PWA Prompts */}
                 <PushNotificationPrompt />
 
-                <OfflineIndicator />
                 <Toaster />
               </div>
             </BrowserRouter>

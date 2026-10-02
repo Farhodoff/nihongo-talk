@@ -3,7 +3,6 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import ErrorBoundary from './ErrorBoundary';
 import GlobalAudioPlayer from './GlobalAudioPlayer';
 import Layout from './Layout';
-import OfflineIndicator from './OfflineIndicator';
 import { Toaster } from './ui/toaster';
 import { StudyPlannerProvider } from '../context/StudyPlannerContext';
 import { FocusTimerProvider } from '../context/FocusTimerContext';
@@ -215,7 +214,6 @@ export const UnauthRouter: React.FC = () => (
             </Suspense>
 
             <GlobalAudioPlayer />
-            <OfflineIndicator />
             <Toaster />
           </div>
         </BrowserRouter>
