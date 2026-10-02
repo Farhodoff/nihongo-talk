@@ -105,8 +105,4 @@ jobs:
         run: npm ci
 
       - name: Build Production Assets
-        env:
-          NODE_ENV: production
-          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL || 'https://dummy.supabase.co' }}
-          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY || 'dummy-anon-key' }}
         run: npm run build
