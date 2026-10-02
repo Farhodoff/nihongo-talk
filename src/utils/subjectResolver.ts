@@ -1,4 +1,4 @@
-import { Subject } from '../types';
+import { Flashcard, Subject } from '../types';
 
 export const JAPANESE_SUBJECT_KEYWORDS = [
   'japan',
@@ -23,6 +23,62 @@ export const ENGLISH_SUBJECT_KEYWORDS = [
   'grammar',
   'speaking',
 ];
+
+const JAPANESE_TEXT_PATTERN = /[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff]/;
+
+const getSubjectSearchText = (subject: Subject): string =>
+  [
+    subject.name,
+    subject.description,
+    (subject as any).category,
+    (subject as any).type,
+    (subject as any).language,
+  ]
+    .filter(Boolean)
+    .join(' ')
+    .toLowerCase();
+
+/**
+ * Strictly identifies subjects that explicitly belong to a language track.
+ * Bare level-like text such as "N2 matematika" is intentionally not enough;
+ * JLPT or another Japanese marker must also be present.
+ */
+export function isSubjectForLanguage(subject: Subject, lang: 'ja' | 'en'): boolean {
+  const text = getSubjectSearchText(subject);
+  const explicitLanguage = String((subject as any).language || '').toLowerCase();
+
+  if (lang === 'ja') {
+    if (explicitLanguage === 'ja' || explicitLanguage === 'japanese') return true;
+    return (
+      JAPANESE_TEXT_PATTERN.test(text) ||
+      ['japan', 'jlpt', 'yapon', 'nihongo', 'kanji', 'kaiwa', 'bunpou'].some((keyword) =>
+        text.includes(keyword),
+      )
+    );
+  }
+
+  if (explicitLanguage === 'en' || explicitLanguage === 'english') return true;
+  return ENGLISH_SUBJECT_KEYWORDS.some((keyword) => text.includes(keyword));
+}
+
+/**
+ * Resolves flashcard language by deck/subject ownership first. Content-based
+ * detection is only a fallback for legacy cards whose subject no longer exists.
+ */
+export function isFlashcardForLanguage(
+  card: Flashcard,
+  subjects: Subject[],
+  lang: 'ja' | 'en',
+): boolean {
+  const subject = subjects.find((item) => item.id === card.subjectId);
+  if (subject) {
+    return isSubjectForLanguage(subject, lang);
+  }
+
+  const content = `${card.front || ''} ${card.back || ''} ${card.phonetic || ''}`;
+  const containsJapanese = JAPANESE_TEXT_PATTERN.test(content);
+  return lang === 'ja' ? containsJapanese : !containsJapanese;
+}
 
 /**
  * Searches user's subject list to find the most appropriate subject matching the language track.

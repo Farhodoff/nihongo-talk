@@ -4,13 +4,15 @@ import {
   ChevronLeft,
   ChevronRight,
   Clock,
+  Compass,
   Copy,
   Home,
-  Menu,
-  Settings as SettingsIcon,
-  Mic,
   Languages,
+  Map,
+  Menu,
   MessageSquare,
+  Mic,
+  Settings as SettingsIcon,
   Shield,
   BarChart3,
   Star,
@@ -161,6 +163,12 @@ const Layout: React.FC = () => {
       },
       { name: isJa ? '集中タイマー' : isEn ? 'Focus Timer' : 'Fokus', path: '/focus', icon: Clock },
       { name: isJa ? '進捗・分析' : 'Progress', path: '/progress', icon: BarChart3 },
+      { name: isJa ? 'ロードマップ' : 'Roadmap', path: '/roadmap', icon: Map },
+      {
+        name: isJa ? 'レベル診断' : isEn ? 'Diagnostic' : 'Diagnostika',
+        path: '/diagnostic',
+        icon: Compass,
+      },
     ];
   }, [language]);
 
@@ -230,53 +238,38 @@ const Layout: React.FC = () => {
     return 'Nihongo Talk';
   };
 
-  const getNavGroup = (path: string): string | null => {
-    if (isCollapsed) return null;
-    if (path.startsWith('/dashboard')) return language === 'ja' ? 'ホーム' : 'Asosiy';
-    if (
-      path.startsWith('/jlpt') ||
-      path.startsWith('/vocabulary') ||
-      path.startsWith('/flashcards')
-    )
-      return language === 'ja' ? '学習' : "O'rganish";
-    if (path.startsWith('/scenarios') || path.startsWith('/speaking') || path.startsWith('/focus'))
-      return language === 'ja' ? '練習' : 'Mashq';
-    if (path.startsWith('/personal-plan') || path.startsWith('/progress'))
-      return language === 'ja' ? '計画' : 'Reja';
-    return null;
-  };
-
   const NavLinks = ({ onClick }: { onClick?: () => void }) => {
-    let lastGroup: string | null = null;
     return (
-      <div className="scrollbar-hide flex-1 space-y-1.5 overflow-y-auto px-3.5 py-3">
+      <div className="scrollbar-hide flex-1 space-y-1 overflow-y-auto px-3.5 py-3">
         {navItems.map((item) => {
-          const group = getNavGroup(item.path);
-          const showLabel = group !== null && group !== lastGroup;
-          lastGroup = group;
+          const itemPathname = item.path.split('?')[0];
           return (
-            <div key={item.path}>
-              {showLabel && (
-                <div className="px-3.5 pb-1 pt-3 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/70">
-                  {group}
-                </div>
-              )}
-              <NavLink
-                to={item.path}
-                onClick={onClick}
-                aria-label={item.name}
-                className={({ isActive }) =>
-                  `group relative flex items-center ${isCollapsed ? 'justify-center' : ''} gap-3.5 rounded-xl px-3.5 py-2.5 text-sm font-medium transition-all duration-200 ${
-                    isActive
-                      ? 'bg-primary/10 font-bold text-primary shadow-xs'
-                      : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
-                  }`
-                }
-                title={isCollapsed ? item.name : ''}
-              >
-                {({ isActive }) => (
+            <NavLink
+              key={item.path}
+              to={item.path}
+              onClick={onClick}
+              aria-label={item.name}
+              className={({ isActive }) => {
+                const active =
+                  isActive ||
+                  location.pathname === itemPathname ||
+                  (itemPathname === '/dashboard' && location.pathname === '/');
+                return `group relative flex items-center ${isCollapsed ? 'justify-center' : ''} gap-3.5 rounded-xl px-3.5 py-2.5 text-sm font-medium transition-all duration-200 ${
+                  active
+                    ? 'bg-primary/10 font-bold text-primary shadow-xs'
+                    : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
+                }`;
+              }}
+              title={isCollapsed ? item.name : ''}
+            >
+              {({ isActive }) => {
+                const active =
+                  isActive ||
+                  location.pathname === itemPathname ||
+                  (itemPathname === '/dashboard' && location.pathname === '/');
+                return (
                   <>
-                    {isActive && (
+                    {active && (
                       <motion.div
                         layoutId="activeNavIndicator"
                         className="absolute left-0 h-6 w-1.5 rounded-r-full bg-primary"
@@ -285,53 +278,18 @@ const Layout: React.FC = () => {
                     )}
                     <item.icon
                       size={19}
-                      className={`transition-transform duration-200 ${isCollapsed ? '' : 'group-hover:scale-105'} ${isActive ? 'text-primary' : 'text-muted-foreground'}`}
-                      strokeWidth={isActive ? 2.5 : 2}
+                      className={`shrink-0 transition-transform duration-200 ${isCollapsed ? '' : 'group-hover:scale-105'} ${active ? 'text-primary' : 'text-muted-foreground'}`}
+                      strokeWidth={active ? 2.5 : 2}
                     />
                     {!isCollapsed && (
                       <span className="truncate font-medium tracking-tight">{item.name}</span>
                     )}
                   </>
-                )}
-              </NavLink>
-            </div>
+                );
+              }}
+            </NavLink>
           );
         })}
-        {!isCollapsed && (
-          <div className="space-y-1.5 pt-2">
-            <div className="px-3.5 pb-1 pt-2 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/70">
-              {language === 'ja' ? '計画の詳細' : 'Reja tafsiloti'}
-            </div>
-            <NavLink
-              to="/roadmap"
-              onClick={onClick}
-              className={({ isActive }) =>
-                `group relative flex items-center gap-3.5 rounded-xl px-3.5 py-2 text-xs font-medium transition-all duration-200 ${
-                  isActive
-                    ? 'bg-primary/10 font-bold text-primary'
-                    : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
-                }`
-              }
-            >
-              <span aria-hidden>🗺️</span>
-              <span className="truncate">Roadmap</span>
-            </NavLink>
-            <NavLink
-              to="/diagnostic"
-              onClick={onClick}
-              className={({ isActive }) =>
-                `group relative flex items-center gap-3.5 rounded-xl px-3.5 py-2 text-xs font-medium transition-all duration-200 ${
-                  isActive
-                    ? 'bg-primary/10 font-bold text-primary'
-                    : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
-                }`
-              }
-            >
-              <span aria-hidden>🎯</span>
-              <span className="truncate">Diagnostika</span>
-            </NavLink>
-          </div>
-        )}
       </div>
     );
   };
