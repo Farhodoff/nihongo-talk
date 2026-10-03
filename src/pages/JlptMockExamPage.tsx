@@ -258,30 +258,31 @@ export const JlptMockExamPage: React.FC = () => {
     return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
   };
 
-  // Auto-save active exam draft to localStorage in real-time
+  // Auto-save active exam draft to localStorage with throttling
+  // Answers, section changes, and transitions save immediately; timer updates save every 15s or on window exit
+  const latestDraftRef = useRef({
+    level,
+    selectedExamId,
+    userAnswers,
+    activeSection,
+    sealedSections,
+    examMode,
+    sectionTimeLeft,
+    timeLeft,
+  });
+
   useEffect(() => {
-    if (step === 'exam' && Object.keys(userAnswers).length > 0) {
-      try {
-        if (typeof localStorage !== 'undefined') {
-          localStorage.setItem(
-            DRAFT_EXAM_STORAGE_KEY,
-            JSON.stringify({
-              level,
-              examId: selectedExamId,
-              userAnswers,
-              activeSection,
-              sealedSections,
-              examMode,
-              sectionTimeLeft,
-              timeLeft,
-              timestamp: Date.now(),
-            }),
-          );
-        }
-      } catch {}
-    }
+    latestDraftRef.current = {
+      level,
+      selectedExamId,
+      userAnswers,
+      activeSection,
+      sealedSections,
+      examMode,
+      sectionTimeLeft,
+      timeLeft,
+    };
   }, [
-    step,
     level,
     selectedExamId,
     userAnswers,
@@ -291,6 +292,54 @@ export const JlptMockExamPage: React.FC = () => {
     sectionTimeLeft,
     timeLeft,
   ]);
+
+  const persistDraft = () => {
+    const cur = latestDraftRef.current;
+    if (step === 'exam' && Object.keys(cur.userAnswers).length > 0) {
+      try {
+        if (typeof localStorage !== 'undefined') {
+          localStorage.setItem(
+            DRAFT_EXAM_STORAGE_KEY,
+            JSON.stringify({
+              level: cur.level,
+              examId: cur.selectedExamId,
+              userAnswers: cur.userAnswers,
+              activeSection: cur.activeSection,
+              sealedSections: cur.sealedSections,
+              examMode: cur.examMode,
+              sectionTimeLeft: cur.sectionTimeLeft,
+              timeLeft: cur.timeLeft,
+              timestamp: Date.now(),
+            }),
+          );
+        }
+      } catch {}
+    }
+  };
+
+  // Immediate save on user interaction or section transition
+  useEffect(() => {
+    persistDraft();
+  }, [step, level, selectedExamId, userAnswers, activeSection, sealedSections, examMode]);
+
+  // Periodic save for timer updates (every 15 seconds) to avoid writing to disk every second
+  useEffect(() => {
+    if (step === 'exam' && (sectionTimeLeft % 15 === 0 || timeLeft % 15 === 0)) {
+      persistDraft();
+    }
+  }, [step, sectionTimeLeft, timeLeft]);
+
+  // Persist on beforeunload or component unmount
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      persistDraft();
+    };
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => {
+      persistDraft();
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [step]);
 
   const handleStartExam = async () => {
     setIsStartingExam(true);
