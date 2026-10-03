@@ -117,6 +117,7 @@ const SpeakingCoachPage: React.FC = () => {
   const orchestrator = useSpeakingSessionOrchestrator({
     language,
     persona,
+    targetJlptLevel,
     activeScenario,
     user,
     subjects,
@@ -185,6 +186,12 @@ const SpeakingCoachPage: React.FC = () => {
 
       const applyScenario = (scenario: ConversationScenario) => {
         setActiveScenario((prev) => (prev?.id === scenario.id ? prev : scenario));
+        if (
+          scenario.difficulty &&
+          ['N5', 'N4', 'N3', 'N2', 'N1'].includes(scenario.difficulty.toUpperCase())
+        ) {
+          setTargetJlptLevel(scenario.difficulty.toUpperCase() as any);
+        }
         setIsLiveSession(true);
 
         const greeting = scenario.opening_line_ja || 'こんにちは！会話を始めましょう。';

@@ -430,18 +430,133 @@ export const parseCoachResponse = (
   };
 };
 
+export function getJlptLevelPromptBoundary(
+  level: string = 'N3',
+  language: 'en' | 'ja' = 'ja',
+  persona: string = 'roast',
+): string {
+  if (language === 'en') {
+    const norm = (level || 'B1').toUpperCase();
+    if (norm === 'A1' || norm === 'A2' || norm === 'N5') {
+      return `
+      CRITICAL CEFR A1/A2 (BEGINNER) BOUNDARY:
+      - Vocabulary: Ultra-simple basic English only (everyday routines, family, hobbies, food).
+      - Grammar: Present simple, past simple, "can", "want to". NO complex idioms, passive voice, or conditionals.
+      - Sentences: 1-2 short sentences (max 10-12 words per sentence). Exactly ONE simple, clear question at the end.
+      ${
+        persona === 'roast'
+          ? '- Roast style: Sarcastic but gently tease basic beginner mistakes (missing third-person "s", confusing do/does, single-word answers). Do NOT demand Band 8 idioms!'
+          : ''
+      }
+      `;
+    }
+    return `
+      CEFR LEVEL BOUNDARY (${norm}):
+      - Calibrate vocabulary and grammar naturally to ${norm} CEFR level.
+      - Keep responses conversational, concise (1-2 sentences), with exactly one engaging follow-up question.
+    `;
+  }
+
+  // Japanese JLPT calibration
+  const normLevel = (level || 'N3').toUpperCase();
+  if (normLevel === 'N5') {
+    return `
+    🚨 CRITICAL PEDAGOGICAL LAW — JLPT N5 (BEGINNER / 初級1) STRICT BOUNDARY:
+    The student is an absolute beginner (JLPT N5 level, Minna no Nihongo Lessons 1-25).
+    You MUST STRICTLY ADHERE TO THESE LINGUISTIC CONSTRAINTS:
+    1. GRAMMAR WHITELIST (YOU MUST ONLY USE THESE BASIC FORMS):
+       - Polite present & past: 〜です, 〜じゃありません, 〜でした, 〜じゃありませんでした.
+       - Polite verbs: 〜ます, 〜ません, 〜ました, 〜ませんでした.
+       - Requests: 〜てください (simple requests only, e.g. 食べてください, 来てください).
+       - Desires: 〜たいです, 〜たくないです.
+       - Invitations: 〜ましょう, 〜ましょうか.
+       - Permission: 〜てもいいですか.
+       - Existence: 〜があります, 〜がいます.
+       - Basic question: 〜か.
+    2. STRICTLY FORBIDDEN IN YOUR RESPONSE:
+       - NO Keigo / Sonkeigo / Kenjougo (FORBIDDEN: いらっしゃる, おっしゃる, なさる, 申す, 参る, いただく, ご利用になります, お決まりでしょうか, 〜ていただけますか). ONLY simple です/ます.
+       - NO complex grammatical patterns (FORBIDDEN: 〜わけにはいかない, 〜にあたって, 〜ざるを得ない, 〜ことになっている, 〜べき, 〜ほど, 〜おかげで, 〜せいで, 〜とおりに, 〜ば/たら/なら complex hypotheticals).
+       - NO relative subordinate clauses or nested sentences.
+    3. PARTICLES:
+       - ONLY basic particles: は, が, を, に, で, へ, と, も, から, まで, ね, よ.
+    4. VOCABULARY & KANJI:
+       - Use ONLY basic N5 words (food, numbers, days of the week, family, everyday verbs like 食べる, 飲む, 行く, 来る, 見る, 聞く, 話す, 勉強する).
+       - Write unfamiliar words, adverbs, and adjectives in HIRAGANA (e.g. write どこ, なに, どう, たくさん, おいしい, きれい, ゆっくり). Only use basic N5 kanji (日, 月, 火, 水, 木, 金, 土, 年, 人, 私, 本, 何, 行, 食, 飲, 見, 学, 校).
+    5. LENGTH & TURN STRUCTURE:
+       - MAXIMUM 1 to 2 very short sentences (max 10-12 words per sentence).
+       - End with EXACTLY ONE simple, direct question (e.g. 「きのう 何を しましたか？」「すきな たべものは 何ですか？」).
+    ${
+      persona === 'roast'
+        ? `6. N5 ROAST STYLE (鬼の雪先生・初級編):
+       - DO NOT demand N2/N1 grammar or difficult words!
+       - Instead, roast basic N5 beginner errors with playful strictness (e.g. forgetting です/ます, dropping particles を/に/で, using English words, confusing は and が).
+       - Example roast:「『私 りんご 食べる』？助詞の『を』を忘れていますよ！『私は りんごを 食べます』でしょう！もう一度言ってください！」`
+        : ''
+    }
+    `;
+  }
+
+  if (normLevel === 'N4') {
+    return `
+    🚨 JLPT N4 (UPPER BEGINNER / 初級2) BOUNDARY:
+    The student is at JLPT N4 level (Minna no Nihongo Lessons 26-50).
+    1. GRAMMAR SCOPE:
+       - Basic conjunctions: 〜てもいいですか, 〜てはいけません, 〜なければなりません, 〜たことがあります.
+       - Action lists & conditionals: 〜たり〜たりします, 〜たら, 〜なら, 〜ので, 〜のに, 〜し.
+       - Potential & helpers: 〜ことができます, 〜すぎます, 〜やすい, 〜にくい, 〜てみる, 〜てしまう.
+       - NO advanced N2/N1 patterns or formal business Keigo.
+    2. VOCABULARY:
+       - Elementary and lower-intermediate everyday vocabulary.
+       - Keep sentences concise (1-2 moderate sentences). Exactly one engaging follow-up question.
+    ${
+      persona === 'roast'
+        ? `3. N4 ROAST STYLE:
+       - Call out N4 mistakes: improper Te-form conjugations, mixing up 〜たら and 〜なら, forgetting 〜なければなりません.
+       - Keep critiques strictly accessible to an N4 learner.`
+        : ''
+    }
+    `;
+  }
+
+  if (normLevel === 'N3') {
+    return `
+    JLPT N3 (INTERMEDIATE / 中級) BOUNDARY:
+    - Target natural intermediate conversational Japanese.
+    - Grammar: 〜ようにする, 〜ようになる, 〜わけだ, 〜はずだ, 〜てごらん, 〜に違いない, standard casual/polite mix.
+    - Encourage explaining reasons, opinions, and feelings in 2-3 natural sentences.
+    `;
+  }
+
+  // N2 or N1
+  return `
+    JLPT ${normLevel} (ADVANCED / 上級) BOUNDARY:
+    - Advanced native Japanese, business Keigo (尊敬語・謙譲語), nuanced particles, idioms, and sophisticated vocabulary.
+    - Challenge the student with analytical questions, abstract topics, and professional discourse.
+  `;
+}
+
 export const buildCoachPrompts = (
   message: string,
   history: { role: 'user' | 'assistant'; content: string }[],
   language: 'en' | 'ja' = 'en',
   persona: string = 'roast',
   scenario?: ConversationScenario | null,
+  level: string = 'N3',
 ): { systemPrompt: string; userPrompt: string } => {
   // Keep last 6 messages to optimize token usage & ensure fast responses
   const recentHistory = history.slice(-6);
   const historyText = recentHistory
     .map((h) => `${h.role === 'user' ? 'Student' : 'Coach'}: ${h.content}`)
     .join('\n');
+
+  // Determine effective level: if scenario specifies a JLPT level (e.g. N5), respect scenario unless level is explicitly set
+  const effectiveLevel = (
+    scenario?.difficulty && scenario.difficulty.toUpperCase().startsWith('N')
+      ? scenario.difficulty
+      : level || 'N3'
+  ).toUpperCase();
+
+  const levelBoundary = getJlptLevelPromptBoundary(effectiveLevel, language, persona);
 
   let personaPrompt = '';
 
@@ -450,7 +565,7 @@ export const buildCoachPrompts = (
     const scenarioTitle = isJa
       ? `${scenario.title_ja || scenario.title_uz} (${scenario.title_uz})`
       : `${scenario.title_en || scenario.title_uz} (${scenario.title_uz})`;
-    const difficultyLabel = isJa ? `JLPT ${scenario.difficulty}` : `CEFR / ${scenario.difficulty}`;
+    const difficultyLabel = isJa ? `JLPT ${effectiveLevel}` : `CEFR / ${effectiveLevel}`;
 
     if (isJa) {
       personaPrompt = `IDENTITY: あなたは【${scenarioTitle}】の会話シナリオに登場するネイティブキャラクターです。
@@ -474,7 +589,7 @@ export const buildCoachPrompts = (
         break;
       case 'examiner':
       case 'ielts':
-        personaPrompt = `IDENTITY: JLPT会話試験官「雪先生（ゆきせんせい、Yuki-sensei）」。助詞や語彙の正確性を中立的・公正に評価し、JLPT（N5〜N1）合格に必要な的確なアドバイスを行います。`;
+        personaPrompt = `IDENTITY: JLPT会話試験官「雪先生（ゆきせんせい、Yuki-sensei）」。助詞や語彙の正確性を中立的・公正に評価し、JLPT（${effectiveLevel}）合格に必要な的確なアドバイスを行います。`;
         break;
       case 'gentle':
         personaPrompt = `IDENTITY: 優しく忍耐強い日本語教師「雪先生（ゆきせんせい、Yuki-sensei）」。丁寧語（です・ます）で温かく生徒を励まし、間違いがあっても優しく導き自信を育てます。`;
@@ -488,12 +603,11 @@ export const buildCoachPrompts = (
       default: // 'roast' -> 鬼の雪先生 (Strict Drill Master Oni Yuki-sensei)
         personaPrompt = `IDENTITY: 妥協を一切許さない超激辛・毒舌指導官「鬼の雪先生（おにのゆきせんせい、Oni Yuki-sensei）」。
                 PERSONALITY & ROAST PHILOSOPHY:
-                1. 徹底的な激辛指導（Deep Roast）: 学生の短い手抜き返答（「いいです」「はい」「どうです」等）、子供っぽい単語、助詞の乱れ、不自然な敬語を容赦なく辛辣に指摘します。
+                1. 徹底的な激辛指導（Deep Roast）: 学生の短い手抜き返答（「いいです」「はい」「どうです」等）、助詞の乱れ、不自然な表現を容赦なく辛辣に指摘します。
                 2. 厳しいツッコミ例:
-                   - 短すぎる返答に対して:「『いいです』？それだけですか！小学生のお使いではないのですから、理由や背景をもっと詳しく説明しなさい！」
-                   - 語彙が乏しい時:「いつまでそんな初歩的な単語にしがみついているのですか！ビジネスの場なら即失格ですよ！」
-                   - 助詞・文法ミスに対して:「助詞の使い方がめちゃくちゃです！聞いているこちらが恥ずかしくなりますよ！」
-                3. 教育的熱意: 単なる悪口ではなく、必ず高度な表現（N2/N1レベルや自然な慣用句）を提示し、深く考えさせる鋭い質問を浴びせて長い発話を強制してください。`;
+                   - 短すぎる返答に対して:「『いいです』？それだけですか！もっと詳しく理由を話しなさい！」
+                   - 助詞・文法ミスに対して:「助詞の使い方がおかしいですよ！聞いているこちらが恥ずかしくなります！」
+                3. 教育的熱意: 単なる悪口ではなく、必ず学生のレベル（${effectiveLevel}）に合った正しい表現を提示し、次の返答を促す鋭い質問を投げかけてください。`;
         break;
     }
   } else {
@@ -518,8 +632,8 @@ export const buildCoachPrompts = (
         personaPrompt = `IDENTITY: Gordon, an uncompromisingly brutal, razor-sharp English Speaking Drill Master (the "Gordon Ramsay of Language Coaching").
                 PERSONALITY & ROAST PHILOSOPHY:
                 1. Deep Savage Critique: Ruthlessly call out lazy, single-clause answers ("It's good", "Fine", "I like it"), elementary vocabulary, filler hesitations ("um, like"), and weak repetitive phrases.
-                2. Sarcastic & Fiery Delivery: Roast their laziness with sharp wit (e.g. "Is that your entire vocabulary or did the rest take a vacation?", "A toddler could string together a more compelling argument!").
-                3. High-Standard Force: Demand Band 8.5+ sophisticated idioms, advanced nuance, and hit them with tough, analytical follow-up questions that force multi-sentence elaboration.`;
+                2. Sarcastic & Fiery Delivery: Roast their laziness with sharp wit (e.g. "Is that your entire vocabulary or did the rest take a vacation?").
+                3. High-Standard Force: Demand appropriate sentences suited to their target level (${effectiveLevel}), and hit them with tough, analytical follow-up questions that force elaboration.`;
         break;
     }
   }
@@ -576,20 +690,22 @@ You MUST respond with a VALID JSON object matching this schema exactly:
   const systemPrompt = `
       ${personaPrompt}
       Target Language: ${language === 'ja' ? 'Japanese (日本語)' : 'English'}
+      Target Level: ${effectiveLevel}
+      ${levelBoundary}
       ${weakItemsSnippet}
 
       ${jsonContract}
 
       PEDAGOGICAL & DIALOGUE RULES:
       1. ONLY return a valid JSON object matching the contract. Do not include any text, preamble, or markdown outside the JSON.
-      2. Keep responses brief (1-3 sentences maximum). Act as an active conversation partner and coach. Always encourage the student to speak more by asking a natural, relevant follow-up question.
+      2. Keep responses brief (1-2 sentences maximum, strictly adhering to ${effectiveLevel} linguistic and sentence length limits). Act as an active conversation partner and coach. Always encourage the student to speak more by asking a natural, relevant follow-up question strictly within their level.
       3. For Japanese: "reply" and "ttsText" MUST be 100% Japanese (Kanji/Kana). NEVER mix Romaji or English into reply or ttsText. Romaji goes ONLY in "romaji" field for UI display.
       4. For English: "reply" and "ttsText" MUST be 100% English. "romaji" must be an empty string.
       5. Error Correction & Critique Policy:
          ${
            persona === 'roast'
-             ? `ROAST MODE IS ACTIVE: Call out every flaw with fiery strictness and witty sarcasm. If the student gives an overly short answer (like "いいです", "yes", "fine"), uses elementary words, hesitates, or makes a particle/grammar slip, roast them sharply (e.g. "小学生のような短い返事です！もっと詳しく理由を話してください！") and challenge them with an advanced follow-up question.`
-             : `Correct ONLY meaningful mistakes (incorrect particles は/が/に/で/を, wrong verb/adjective forms, incorrect tenses, or unnatural vocabulary). Do NOT nitpick minor stylistic variations. If the student made no mistake, set "hasError": false. Keep explanations concise (1 short sentence).`
+             ? `ROAST MODE IS ACTIVE: Call out errors with playful strictness and witty sarcasm calibrated strictly to ${effectiveLevel}. If the student gives an overly short answer, drops particles, or makes a grammar slip, roast them sharply using vocabulary and explanations suited for ${effectiveLevel}. Do NOT demand grammar or words beyond ${effectiveLevel}!`
+             : `Correct ONLY meaningful mistakes matching ${effectiveLevel} expectations (incorrect particles は/が/に/で/を, wrong verb/adjective forms, incorrect tenses, or unnatural vocabulary). Do NOT nitpick minor stylistic variations. If the student made no mistake, set "hasError": false. Keep explanations concise (1 short sentence).`
          }
       6. Vocabulary Engine: Provide 1 to 3 truly useful, contextual words or collocations with reading, meaning, and contextual example. For Japanese, the "meaning" field MUST prioritize the Uzbek explanation followed by English in parentheses, e.g. "O'zini tanishtirish va kuchli tomonlarini ko'rsatish (Self-promotion)". The student is studying Japanese and speaks Uzbek, so the Uzbek explanation is required.
       7. Scenario & Topic Adherence: Stay in character and context throughout the dialogue.
@@ -613,6 +729,7 @@ export const converseWithCoachStructured = async (
   persona: string = 'roast',
   _userKey?: string,
   scenario?: ConversationScenario | null,
+  level: string = 'N3',
 ): Promise<CoachStructuredResponse> => {
   const { systemPrompt, userPrompt } = buildCoachPrompts(
     message,
@@ -620,6 +737,7 @@ export const converseWithCoachStructured = async (
     language,
     persona,
     scenario,
+    level,
   );
 
   const dsResult = await callSelectedAIProvider(userPrompt, systemPrompt, true);
@@ -638,6 +756,7 @@ export const converseWithCoach = async (
   persona: string = 'roast',
   userKey?: string,
   scenario?: ConversationScenario | null,
+  level: string = 'N3',
 ): Promise<string> => {
   const structured = await converseWithCoachStructured(
     message,
@@ -646,6 +765,7 @@ export const converseWithCoach = async (
     persona,
     userKey,
     scenario,
+    level,
   );
   return structured.reply || structured.rawText || '';
 };

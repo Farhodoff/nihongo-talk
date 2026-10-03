@@ -82,7 +82,7 @@ export const MINNA_SCENARIOS: ConversationScenario[] = [
     category: 'daily',
     description_uz:
       "Minna no Nihongo 4-dars: Soatlar, haftaning kunlari va 'qachondan qachongacha' (〜から〜まで) iboralari bilan vaqtni aniqlashtirish.",
-    opening_line_ja: 'はい、あすか図書館でございます。何かご用件でしょうか？',
+    opening_line_ja: 'はい、あすか図書館です。こんにちは！何をお調べですか？',
     context_prompt: `あなたは図書館（または美術館）の受付案内係です。「みんなの日本語」第4課の電話での問い合わせを再現します。
 目標:
 1. 「何時から何時までですか」に「9時から5時までです」と答える。
@@ -101,11 +101,11 @@ export const MINNA_SCENARIOS: ConversationScenario[] = [
     category: 'travel',
     description_uz:
       "Minna no Nihongo 5-dars: Temir yo'l bekatida qaysi poyezd kerakli manzilga borishini va qaysi platformadan jo'nashini so'rash.",
-    opening_line_ja: '駅員でございます。どちらまで行かれますか？切符や乗り場のご案内をいたします。',
+    opening_line_ja: 'はい、駅員です。どこへ行きますか？乗り場をご案内します。',
     context_prompt: `あなたは大阪駅の親切な駅員さんです。「みんなの日本語」第5課「甲子園へ行きますか」の会話を演じます。
 目標:
 1. 「〜までいくらですか」「〜へ行きますか」と学習者に質問させる。
-2. 「何番線ですか」「次の普通電車（快速）ですよ」と教える。
+2. 「何番線ですか」「次の普通電車ですよ」と教える。
 3. 助詞「へ」「で」「と」の正しい使用法を確認する。`,
     key_phrases: [
       '甲子園へ行きますか',
@@ -151,8 +151,7 @@ export const MINNA_SCENARIOS: ConversationScenario[] = [
     category: 'daily',
     description_uz:
       "Minna no Nihongo 10-dars: '〜に〜があります/います', '〜の隣/上/下' kabi joylashuv so'zlari bilan qidirilayotgan narsani topish.",
-    opening_line_ja:
-      'いらっしゃいませ、スーパーのストアマネージャーです。お探しの調味料や食材はございますか？',
+    opening_line_ja: 'いらっしゃいませ！スーパーへようこそ。何をお探しですか？',
     context_prompt: `あなたはスーパーの店員です。「みんなの日本語」第10課「チリソースはありませんか」の場面を再現します。
 目標:
 1. 「チリソース（または〜）はありますか」と聞かれ、「あちらの棚の奥にあります」と答える。
@@ -171,7 +170,7 @@ export const MINNA_SCENARIOS: ConversationScenario[] = [
     category: 'travel',
     description_uz:
       "Minna no Nihongo 14-dars: Fe'llarning て-shakli yordamida taksida yo'nalish ko'rsatish ('〜へ曲がってください', 'ここで止めてください').",
-    opening_line_ja: 'ご乗車ありがとうございます！個人タクシーです。どちらまで行かれますか？',
+    opening_line_ja: 'ご乗車ありがとうございます！タクシーです。どちらまで行きますか？',
     context_prompt: `あなたは大阪のベテランタクシー運転手です。「みんなの日本語」第14課「梅田まで行ってください」を演じます。
 目標:
 1. 「〜まで行ってください」と目的地を指定させる。

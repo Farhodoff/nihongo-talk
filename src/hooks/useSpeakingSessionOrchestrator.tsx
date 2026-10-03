@@ -38,6 +38,7 @@ import { getCoachInitialGreeting } from '../components/speaking/speakingConstant
 export interface UseSpeakingSessionOrchestratorOptions {
   language?: 'en' | 'ja';
   persona: CoachPersona;
+  targetJlptLevel?: 'N5' | 'N4' | 'N3' | 'N2' | 'N1';
   activeScenario: ConversationScenario | null;
   user: any;
   subjects: any[];
@@ -51,6 +52,7 @@ export interface UseSpeakingSessionOrchestratorOptions {
 export function useSpeakingSessionOrchestrator({
   language = 'ja',
   persona,
+  targetJlptLevel = 'N3',
   activeScenario,
   user,
   subjects,
@@ -77,6 +79,7 @@ export function useSpeakingSessionOrchestrator({
   const chatHistoryRef = useRef<CoachChatMessage[]>([]);
   const languageRef = useRef(language);
   const personaRef = useRef(persona);
+  const targetJlptLevelRef = useRef(targetJlptLevel);
   const isSpeakingRef = useRef(isSpeaking);
   const lastCoachSpokenTextRef = useRef<string>('');
   const streamAbortControllerRef = useRef<AbortController | null>(null);
@@ -93,7 +96,8 @@ export function useSpeakingSessionOrchestrator({
   useEffect(() => {
     languageRef.current = language;
     personaRef.current = persona;
-  }, [language, persona]);
+    targetJlptLevelRef.current = targetJlptLevel;
+  }, [language, persona, targetJlptLevel]);
 
   useEffect(() => {
     isSpeakingRef.current = isSpeaking;
@@ -254,6 +258,7 @@ export function useSpeakingSessionOrchestrator({
               enqueueStreamSentence(sentence);
             },
             abortController.signal,
+            targetJlptLevelRef.current || 'N3',
           );
           endStreamPlayback();
         } catch (streamErr: any) {
@@ -272,6 +277,7 @@ export function useSpeakingSessionOrchestrator({
             personaRef.current,
             undefined,
             activeScenarioRef.current,
+            targetJlptLevelRef.current || 'N3',
           );
         }
 

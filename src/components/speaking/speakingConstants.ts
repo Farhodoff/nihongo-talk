@@ -33,19 +33,19 @@ export const PROMPT_SUGGESTIONS_BY_LANG: Record<
       icon: '🙋',
     },
     {
-      title: 'IT面接 (IT Mock Interview)',
-      text: '日本のIT企業の面接練習をお願いします。自己紹介からスタートしてください。',
-      icon: '💻',
-    },
-    {
-      title: '敬語チェック (Keigo Check)',
-      text: '私の敬語の使い方をチェックしてアドバイスをください。',
-      icon: '📖',
+      title: 'カフェ・買い物 (Shopping & Cafe)',
+      text: 'カフェでの注文やお店での買い物の練習をしたいです。',
+      icon: '☕',
     },
     {
       title: '日常会話 (Daily Japanese)',
-      text: '日本語で楽しい日常会話をしましょう！',
+      text: '日本語で楽しい日常会話をしましょう！今日の予定や趣味を話したいです。',
       icon: '🗣️',
+    },
+    {
+      title: '敬語・面接 (Interview & Keigo)',
+      text: '丁寧な敬語や面接の練習をお願いします。',
+      icon: '💼',
     },
   ],
 };
@@ -62,7 +62,7 @@ export const getCoachInitialGreeting = (lang: 'en' | 'ja', p: CoachPersona): str
       case 'interview':
         return 'こんにちは。本日のIT面接を担当いたします。自己紹介をお願いします。';
       case 'travel':
-        return 'いらっしゃいませ！成田空港へようこそ。どのようなご要件でしょうか？';
+        return 'いらっしゃいませ！成田空港へようこそ。どこへ行きますか？';
       case 'casual':
         return 'やあ！ユキだよ。元気？今日は何について話そうか！';
     }

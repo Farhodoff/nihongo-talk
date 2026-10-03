@@ -127,6 +127,7 @@ export const streamCoachDialogue = async (
   scenario?: ConversationScenario | null,
   onSentenceReady?: (sentence: string, index: number) => void,
   signal?: AbortSignal,
+  level: string = 'N3',
 ): Promise<CoachStructuredResponse> => {
   const { systemPrompt, userPrompt } = buildCoachPrompts(
     message,
@@ -134,6 +135,7 @@ export const streamCoachDialogue = async (
     language,
     persona,
     scenario,
+    level,
   );
 
   const messages = [

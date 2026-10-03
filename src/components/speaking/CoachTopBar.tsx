@@ -42,6 +42,8 @@ export const CoachTopBar: React.FC<CoachTopBarProps> = ({
   setPersona,
   targetBand: _targetBand,
   setTargetBand: _setTargetBand,
+  targetLevel = 'N3',
+  setTargetLevel,
   isPaidUser: _isPaidUser,
   isAdmin,
   isSuperAdmin: _isSuper,
@@ -173,6 +175,39 @@ export const CoachTopBar: React.FC<CoachTopBarProps> = ({
             </>
           )}
         </div>
+
+        {/* JLPT Level Selector (N5, N4, N3, N2, N1) */}
+        {language === 'ja' && (
+          <div className="flex items-center rounded-xl border border-border bg-card/90 p-0.5 backdrop-blur-xl">
+            {(['N5', 'N4', 'N3', 'N2', 'N1'] as const).map((lvl) => {
+              const isCurrent = (targetLevel || 'N3').toUpperCase() === lvl;
+              return (
+                <button
+                  key={lvl}
+                  type="button"
+                  onClick={() => setTargetLevel?.(lvl)}
+                  disabled={isLiveSession}
+                  className={`cursor-pointer rounded-lg px-2 py-1 text-[10px] font-extrabold transition-all disabled:opacity-50 ${
+                    isCurrent
+                      ? lvl === 'N5'
+                        ? 'bg-emerald-500 text-white shadow-xs'
+                        : lvl === 'N4'
+                          ? 'bg-blue-500 text-white shadow-xs'
+                          : lvl === 'N3'
+                            ? 'bg-indigo-500 text-white shadow-xs'
+                            : lvl === 'N2'
+                              ? 'bg-amber-500 text-white shadow-xs'
+                              : 'bg-rose-500 text-white shadow-xs'
+                      : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                  }`}
+                  title={`JLPT ${lvl} darajasi`}
+                >
+                  {lvl}
+                </button>
+              );
+            })}
+          </div>
+        )}
 
         {/* AI Speech Speed Selector (0.8x, 1.0x, 1.2x) */}
         <div className="hidden items-center rounded-xl border border-border bg-card/90 px-2 py-1 backdrop-blur-xl md:flex">
