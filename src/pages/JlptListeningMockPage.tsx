@@ -690,7 +690,7 @@ export const JlptListeningMockPage: React.FC = () => {
   }, [currentDialogueLines, duration]);
 
   return (
-    <div className="mx-auto max-w-5xl space-y-6 p-4 pb-16 md:p-8">
+    <div className="mx-auto max-w-5xl space-y-6 p-4 pb-[max(6.5rem,calc(env(safe-area-inset-bottom)+5rem))] md:p-8 md:pb-8">
       {/* Top Navigation */}
       <div className="flex items-center justify-between border-b border-border pb-4">
         <button

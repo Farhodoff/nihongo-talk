@@ -77,5 +77,20 @@ describe('Admin Mobile Responsiveness & Supabase Key Resilience Suite', () => {
       expect(adminContent).toContain('supabaseUrl');
       expect(adminContent).toContain('supabaseAnonKey');
     });
+
+    it('verifies JLPT study pages include safe-area-inset-bottom padding for mobile/TWA', () => {
+      const jlptPages = [
+        '../../pages/JlptReadingPage.tsx',
+        '../../pages/JlptListeningMockPage.tsx',
+        '../../pages/JlptMockExamPage.tsx',
+        '../../pages/JlptWritingPage.tsx',
+      ];
+
+      for (const pageRelPath of jlptPages) {
+        const fullPath = path.resolve(__dirname, pageRelPath);
+        const content = fs.readFileSync(fullPath, 'utf-8');
+        expect(content).toContain('safe-area-inset-bottom');
+      }
+    });
   });
 });
