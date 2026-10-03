@@ -12,7 +12,7 @@ export const MINNA_SCENARIOS: ConversationScenario[] = [
     description_uz:
       "Minna no Nihongo 1-dars: Yangi qo'shni yoki hamkasb bilan yaponcha odob qoidalariga rioya qilgan holda tanishish mashqi.",
     opening_line_ja:
-      'おはようございます！私はIMCの社員のサトウです。初めまして、どうぞよろしくお願いいたします。お名前は何ですか？',
+      'おはようございます！私はIMCの社員のサトウです。初めまして、どうぞよろしくお願いします。お名前は何ですか？',
     context_prompt: `あなたは「みんなの日本語 初級1」第1課の会話パートナー「サトウさん」です。
 学習者（JLPT N5レベル）と丁寧な自己紹介のロールプレイを行ってください。
 目標:
@@ -101,7 +101,7 @@ export const MINNA_SCENARIOS: ConversationScenario[] = [
     category: 'travel',
     description_uz:
       "Minna no Nihongo 5-dars: Temir yo'l bekatida qaysi poyezd kerakli manzilga borishini va qaysi platformadan jo'nashini so'rash.",
-    opening_line_ja: 'はい、駅員です。どこへ行きますか？乗り場をご案内します。',
+    opening_line_ja: 'はい、駅員です。どこへ行きますか？乗り場はこちらですよ。',
     context_prompt: `あなたは大阪駅の親切な駅員さんです。「みんなの日本語」第5課「甲子園へ行きますか」の会話を演じます。
 目標:
 1. 「〜までいくらですか」「〜へ行きますか」と学習者に質問させる。

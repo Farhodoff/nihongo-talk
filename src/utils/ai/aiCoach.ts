@@ -568,9 +568,22 @@ export const buildCoachPrompts = (
     const difficultyLabel = isJa ? `JLPT ${effectiveLevel}` : `CEFR / ${effectiveLevel}`;
 
     if (isJa) {
+      const levelRoleplayDirective =
+        effectiveLevel === 'N5'
+          ? `【🚨 絶対遵守: JLPT N5 初級会話ルール — 超シンプル化】
+相手は日本語を学び始めたばかりの初学者（N5レベル）です！
+店員・受付・友達など、いかなる配役であっても【接客敬語・尊敬語・謙譲語（いらっしゃる、おっしゃる、申し上げる、〜でしょうか、〜ていただけますか、ご案内いたします等）は絶対禁止】です！
+必ずN5レベルの超シンプルな「です・ます」調（1発話につき1〜2文、10語以内）のみで話してください。
+質問は1つずつ、子どもや留学生に話すようにやさしく平易に聞いてください。`
+          : effectiveLevel === 'N4'
+            ? `【🚨 絶対遵守: JLPT N4 初級会話ルール】
+相手はJLPT N4学習者です。難解な敬語や複雑な慣用句は避け、N4レベル（〜てください、〜てもいいですか、〜たらどうですか等）のわかりやすい日本語で話してください。1発話につき1〜2文で簡潔に保ってください。`
+            : '';
+
       personaPrompt = `IDENTITY: あなたは【${scenarioTitle}】の会話シナリオに登場するネイティブキャラクターです。
            ROLE CONTEXT: ${scenario.context_prompt}
            TARGET DIFFICULTY: ${difficultyLabel}
+           ${levelRoleplayDirective}
            KEY PHRASES TO ENCOURAGE: ${scenario.key_phrases.join(', ')}`;
     } else {
       personaPrompt = `IDENTITY: You are an authentic roleplay character for the scenario: "${scenarioTitle}".
@@ -698,7 +711,7 @@ You MUST respond with a VALID JSON object matching this schema exactly:
 
       PEDAGOGICAL & DIALOGUE RULES:
       1. ONLY return a valid JSON object matching the contract. Do not include any text, preamble, or markdown outside the JSON.
-      2. Keep responses brief (1-2 sentences maximum, strictly adhering to ${effectiveLevel} linguistic and sentence length limits). Act as an active conversation partner and coach. Always encourage the student to speak more by asking a natural, relevant follow-up question strictly within their level.
+      2. Keep responses brief (1-2 sentences maximum, strictly adhering to ${effectiveLevel} linguistic and sentence length limits). Act as an active conversation partner and coach. Always encourage the student to speak more by asking a natural, relevant follow-up question strictly within their level. Even in realistic roleplays (waiter, clerk, station staff, friend), NEVER escalate vocabulary or use business Keigo above ${effectiveLevel}.
       3. For Japanese: "reply" and "ttsText" MUST be 100% Japanese (Kanji/Kana). NEVER mix Romaji or English into reply or ttsText. Romaji goes ONLY in "romaji" field for UI display.
       4. For English: "reply" and "ttsText" MUST be 100% English. "romaji" must be an empty string.
       5. Error Correction & Critique Policy:
