@@ -104,6 +104,95 @@ const BUILTIN_EXAMS: Record<
       ],
     },
   },
+  exam_jlpt_n5_1: {
+    exam: {
+      id: 'exam_jlpt_n5_1',
+      title: 'JLPT N5 Official Practice Exam',
+      type: 'JLPT N5',
+      description: 'N5 言語知識・読解 (Vocabulary, Grammar & Reading Comprehension)',
+    },
+    sections: [
+      {
+        id: 'sec_n5_dokkai_1',
+        exam_id: 'exam_jlpt_n5_1',
+        title: 'N5 言語知識・読解 (Reading Comprehension)',
+        type: 'Reading',
+        order_index: 1,
+        content: `わたしは田中です。毎朝七時に起きます。あさごはんを食べてから、電車で大学へ行きます。\n大学の授業は九時から四時半までです。日本語の勉強はとても面白いですが、漢字は少し難しいです。\n放課後は図書館で一時間勉強して、六時に家へ帰ります。夜はテレビを見たり、音楽を聞いたりします。`,
+      },
+    ],
+    questionsBySection: {
+      sec_n5_dokkai_1: [
+        {
+          id: 'q_n5_1',
+          section_id: 'sec_n5_dokkai_1',
+          question_text: '田中さんは何で大学へ行きますか。',
+          options: ['バス', 'じてんしゃ', 'でんしゃ', 'あるいて'],
+          correct_answer: 'でんしゃ',
+          order_index: 1,
+        },
+        {
+          id: 'q_n5_2',
+          section_id: 'sec_n5_dokkai_1',
+          question_text: '田中さんは何時に起きますか。',
+          options: ['六時', '六時半', '七時', '七時半'],
+          correct_answer: '七時',
+          order_index: 2,
+        },
+        {
+          id: 'q_n5_3',
+          section_id: 'sec_n5_dokkai_1',
+          question_text: '田中さんは放課後どこで勉強しますか。',
+          options: ['きょうしつ', 'としょかん', 'いえ', 'へや'],
+          correct_answer: 'としょかん',
+          order_index: 3,
+        },
+      ],
+    },
+  },
+  exam_jlpt_n4_1: {
+    exam: {
+      id: 'exam_jlpt_n4_1',
+      title: 'JLPT N4 Official Practice Exam',
+      type: 'JLPT N4',
+      description: 'N4 言語知識・読解 (Vocabulary, Grammar & Reading Comprehension)',
+    },
+    sections: [
+      {
+        id: 'sec_n4_dokkai_1',
+        exam_id: 'exam_jlpt_n4_1',
+        title: 'N4 言語知識・読解 (Reading Comprehension)',
+        type: 'Reading',
+        order_index: 1,
+        content: `先週の土曜日、友達の佐藤さんと京都へ旅行に行きました。新幹線で行ったので、東京から二時間半しかかかりませんでした。\n午前中は有名なお寺を見学して、写真をたくさん撮りました。昼ごはんは京都の伝統的な日本料理を食べました。とてもおいしかったです。\n午後は少し雨が降ってきましたが、美術館に入ってゆっくり美術品を鑑賞することができました。また機会があれば行きたいです。`,
+      },
+    ],
+    questionsBySection: {
+      sec_n4_dokkai_1: [
+        {
+          id: 'q_n4_1',
+          section_id: 'sec_n4_dokkai_1',
+          question_text: '東京から京都まで何で行きましたか。',
+          options: ['ひこうき', '新幹線 (しんかんせん)', '車 (くるま)', 'ふね'],
+          correct_answer: '新幹線 (しんかんせん)',
+          order_index: 1,
+        },
+        {
+          id: 'q_n4_2',
+          section_id: 'sec_n4_dokkai_1',
+          question_text: '午後に雨が降ったとき、二人は何をしましたか。',
+          options: [
+            'お寺で雨宿りをした',
+            '美術館に入って鑑賞した',
+            '新幹線で東京へ帰った',
+            '写真を撮り続けた',
+          ],
+          correct_answer: '美術館に入って鑑賞した',
+          order_index: 2,
+        },
+      ],
+    },
+  },
   exam_jlpt_n3_1: {
     exam: {
       id: 'exam_jlpt_n3_1',
@@ -263,7 +352,9 @@ export const ExamTake: React.FC = () => {
         if (examErr || !examData) {
           // Fallback to built-in JLPT exam if unknown
           const fallback =
-            BUILTIN_EXAMS['exam_jlpt_n3_1'] || BUILTIN_EXAMS['exam_ielts_academic_1'];
+            BUILTIN_EXAMS['exam_jlpt_n5_1'] ||
+            BUILTIN_EXAMS['exam_jlpt_n3_1'] ||
+            BUILTIN_EXAMS['exam_ielts_academic_1'];
           setExam(fallback.exam);
           setSections(fallback.sections);
           if (fallback.sections.length > 0) {
@@ -284,7 +375,10 @@ export const ExamTake: React.FC = () => {
         }
       } catch (err) {
         console.error('Exam fetch error:', err);
-        const fallback = BUILTIN_EXAMS['exam_jlpt_n3_1'] || BUILTIN_EXAMS['exam_ielts_academic_1'];
+        const fallback =
+          BUILTIN_EXAMS['exam_jlpt_n5_1'] ||
+          BUILTIN_EXAMS['exam_jlpt_n3_1'] ||
+          BUILTIN_EXAMS['exam_ielts_academic_1'];
         setExam(fallback.exam);
         setSections(fallback.sections);
         if (fallback.sections.length > 0) {
