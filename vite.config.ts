@@ -5,6 +5,7 @@ import { defineConfig } from 'vitest/config';
 import { VitePWA } from 'vite-plugin-pwa';
 import { telegramApiPlugin } from './server/vitePlugin.js';
 import { visualizer } from 'rollup-plugin-visualizer';
+import { pwaGlobIgnores, pwaRuntimeCaching } from './src/config/pwaRuntimeCaching';
 
 const buildTimestamp = Date.now();
 
@@ -137,112 +138,10 @@ export default defineConfig(({ mode }) => {
           clientsClaim: true,
           cleanupOutdatedCaches: true,
           globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
-          globIgnores: [
-            '**/kanji-strokes-*.js',
-            '**/jlpt-vocab-*.js',
-            '**/jlpt-deck-*.js',
-            '**/curriculum-core-*.js',
-            '**/jlpt_n2-*.js',
-            '**/jlpt_n3-*.js',
-            '**/AdminDashboardPage-*.js',
-            '**/JlptGrammarKanjiMaster-*.js',
-            '**/jlpt-grammar-kanji-data-*.js',
-            '**/minna_shokyu*.js',
-          ],
+          globIgnores: pwaGlobIgnores,
           navigateFallback: '/index.html',
           navigateFallbackDenylist: [/^\/api/, /^\/version\.json/],
-          runtimeCaching: [
-            {
-              urlPattern:
-                /assets\/(?:kanji-strokes|jlpt-vocab|jlpt-deck|curriculum-core|jlpt_n[1-5]|jlpt-grammar-kanji-data|AdminDashboardPage|JlptGrammarKanjiMaster|minna_shokyu).*\.js$/i,
-              handler: 'StaleWhileRevalidate',
-              options: {
-                cacheName: 'large-data-chunks-cache',
-                expiration: {
-                  maxEntries: 60,
-                  maxAgeSeconds: 30 * 24 * 60 * 60,
-                },
-                cacheableResponse: {
-                  statuses: [0, 200],
-                },
-              },
-            },
-            {
-              urlPattern: ({ request }) => request.mode === 'navigate',
-              handler: 'NetworkFirst',
-              options: {
-                cacheName: 'html-cache',
-                networkTimeoutSeconds: 2,
-                expiration: {
-                  maxEntries: 1,
-                  maxAgeSeconds: 24 * 60 * 60,
-                },
-                cacheableResponse: {
-                  statuses: [0, 200],
-                },
-              },
-            },
-            {
-              urlPattern: /version\.json/i,
-              handler: 'NetworkOnly',
-            },
-            {
-              urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
-              handler: 'CacheFirst',
-              options: {
-                cacheName: 'google-fonts-cache',
-                expiration: {
-                  maxEntries: 10,
-                  maxAgeSeconds: 60 * 60 * 24 * 365, // 1 yil
-                },
-                cacheableResponse: {
-                  statuses: [0, 200],
-                },
-              },
-            },
-            {
-              urlPattern: /^https:\/\/fonts\.gstatic\.com\/.*/i,
-              handler: 'CacheFirst',
-              options: {
-                cacheName: 'gstatic-fonts-cache',
-                expiration: {
-                  maxEntries: 10,
-                  maxAgeSeconds: 60 * 60 * 24 * 365,
-                },
-                cacheableResponse: {
-                  statuses: [0, 200],
-                },
-              },
-            },
-            {
-              urlPattern: /\.(?:mp3|wav|ogg|m4a)$/i,
-              handler: 'CacheFirst',
-              options: {
-                cacheName: 'audio-assets-cache',
-                expiration: {
-                  maxEntries: 100,
-                  maxAgeSeconds: 60 * 60 * 24 * 30, // 30 days
-                },
-                cacheableResponse: {
-                  statuses: [0, 200],
-                },
-              },
-            },
-            {
-              urlPattern: /^https:\/\/.*\.supabase\.co\/storage\/v1\/object\/public\/.*audio.*/i,
-              handler: 'CacheFirst',
-              options: {
-                cacheName: 'supabase-audio-cache',
-                expiration: {
-                  maxEntries: 100,
-                  maxAgeSeconds: 60 * 60 * 24 * 30,
-                },
-                cacheableResponse: {
-                  statuses: [0, 200],
-                },
-              },
-            },
-          ],
+          runtimeCaching: pwaRuntimeCaching,
         },
       }),
     ],
