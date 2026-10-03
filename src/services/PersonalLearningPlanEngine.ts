@@ -380,7 +380,11 @@ export const PersonalLearningPlanEngine = {
         } catch {}
       }
 
-      const systemPrompt = `You are Nihongo Talk’s Adaptive Learning Planner for English (IELTS/CEFR) and Japanese (JLPT).
+      const systemPrompt = `You are ${
+        isJa
+          ? 'Nihongo Talk’s Adaptive Japanese (JLPT) Learning Planner'
+          : 'Nihongo Talk’s Adaptive Learning Planner for English (IELTS/CEFR)'
+      }.
 
 Your job is to create one realistic, personalized 7-day study plan using only the student data and valid learning routes provided below.
 
@@ -427,8 +431,11 @@ monday, tuesday, wednesday, thursday, friday, saturday, sunday.
 
 7. Goal intensity:
 - A higher target score and shorter remaining deadline require more exam-oriented practice.
-- IELTS target 7.0+ must include speaking, writing, reading/listening, and mock/exam practice across the week when DAILY_MINUTES permits.
-- JLPT plans must balance grammar, vocabulary, kanji, reading, and listening according to level and weakness.
+${
+  isJa
+    ? '- JLPT plans must balance grammar, vocabulary, kanji, reading, and listening according to level and weakness.'
+    : '- IELTS target 7.0+ must include speaking, writing, reading/listening, and mock/exam practice across the week when DAILY_MINUTES permits.'
+}
 - Do not give beginner material to an advanced learner unless it is explicitly a review/remediation task.
 
 8. Content safety:
@@ -440,8 +447,8 @@ monday, tuesday, wednesday, thursday, friday, saturday, sunday.
 
 9. Quality:
 - Tasks must be concrete and actionable, not generic.
-- Bad: "English practice"
-- Good: "Past Simple: irregular verbs bo‘yicha 15 savollik mashq"
+- Bad: ${isJa ? '"Yapon tili mashqi"' : '"English practice"'}
+- Good: ${isJa ? '"N5 Fe\'llar te-formasi bo‘yicha 15 savollik mashq"' : '"Past Simple: irregular verbs bo‘yicha 15 savollik mashq"'}
 - Do not repeat the same task title on consecutive days unless it is SRS.
 
 OUTPUT JSON SCHEMA:

@@ -67,8 +67,8 @@ export const JlptWritingPage: React.FC = () => {
 
     try {
       const prompt = `
-            Act as an expert JLPT Japanese Essay (Sakubun 作文) Examiner.
-            Evaluate this Japanese text written for target level ${targetLevel}:
+            Act as an expert Japanese Essay (Sakubun 作文) and Grammar Evaluator.
+            Evaluate this Japanese text written for target JLPT level ${targetLevel} (appropriate for JLPT grammar/vocab practice, EJU, and academic/workplace writing):
             "${essayText}"
 
             Output ONLY a JSON response in Uzbek:
@@ -104,8 +104,8 @@ export const JlptWritingPage: React.FC = () => {
 
       // Persist to database & local safe storage
       await HistoryService.saveWritingHistory({
-        taskType: `jlpt_${targetLevel.toLowerCase()}`,
-        prompt: `JLPT ${targetLevel} Sakubun (作文)`,
+        taskType: `sakubun_${targetLevel.toLowerCase()}`,
+        prompt: `Sakubun (${targetLevel} darajasi)`,
         essay: essayText,
         score: evalData.score,
         criteriaBreakdown: {
@@ -153,7 +153,8 @@ export const JlptWritingPage: React.FC = () => {
               Sakubun (作文) Insho va Grammatika Tahlili
             </h2>
             <p className="text-xs text-muted-foreground">
-              Yaponcha insho yoki matningizni kiriting va AI bahosini oling
+              Yaponcha insho yoki matningizni kiriting va AI bahosini oling (EJU, Rirekisho va erkin
+              yozish amaliyoti)
             </p>
           </div>
 
@@ -175,6 +176,15 @@ export const JlptWritingPage: React.FC = () => {
               ))}
             </div>
           </div>
+        </div>
+
+        <div className="flex items-start gap-2.5 rounded-2xl border border-sky-500/20 bg-sky-500/5 px-4 py-3 text-xs text-muted-foreground">
+          <span className="text-base leading-none">💡</span>
+          <span>
+            JLPT rasmiy testida insho bo'limi mavjud bo'lmasa-da, Sakubun yozish grammatika, kanji
+            va so'z boyligini erkin qo'llash (shuningdek EJU va ish suhbatlariga tayyorlanish) uchun
+            eng foydali amaliyotdir.
+          </span>
         </div>
 
         <textarea

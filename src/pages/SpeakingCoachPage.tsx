@@ -453,8 +453,7 @@ const SpeakingCoachPage: React.FC = () => {
               audioVolume={audioVolume}
               transcript={currentTranscript}
               errors={liveErrors}
-              activeCefrLevel="B2"
-              activeJlptLevel="N3"
+              activeJlptLevel={targetJlptLevel}
               onBargeIn={handleBargeIn}
               onToggleRecording={toggleMic}
               onCommitNow={commitSpeechNow}

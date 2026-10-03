@@ -258,8 +258,8 @@ export const DiagnosticPage: React.FC = () => {
               </h3>
               <p className="text-xs text-muted-foreground">
                 {isUz
-                  ? "Test topshirmasdan to'g'ridan-to'g'ri boshlang'ich poydevor darslaridan boshlang."
-                  : 'Skip testing and start directly from foundational A1 / N5 lessons.'}
+                  ? "Test topshirmasdan to'g'ridan-to'g'ri boshlang'ich N5 poydevor darslaridan boshlang."
+                  : 'Skip testing and start directly from foundational N5 lessons.'}
               </p>
             </div>
             <button
