@@ -88,11 +88,17 @@ const SpeakingCoachPage: React.FC = () => {
 
   const [persona, setPersona] = useState<CoachPersona>('roast');
   const [targetJlptLevel, setTargetJlptLevel] = useState<'N5' | 'N4' | 'N3' | 'N2' | 'N1'>(() => {
+    if (
+      activeScenario?.difficulty &&
+      ['N5', 'N4', 'N3', 'N2', 'N1'].includes(activeScenario.difficulty.toUpperCase())
+    ) {
+      return activeScenario.difficulty.toUpperCase() as any;
+    }
     const raw = (targetLevel || '').toUpperCase();
     if (['N5', 'N4', 'N3', 'N2', 'N1'].includes(raw)) {
       return raw as any;
     }
-    return 'N3';
+    return 'N5';
   });
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
   const [showPersonaSelector, setShowPersonaSelector] = useState(false);

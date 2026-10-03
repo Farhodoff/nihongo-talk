@@ -282,7 +282,7 @@ Key Phrases: in my opinion, on the other hand, significantly impacts, from my pe
     description_uz:
       'Ramen yoki sushi restoranda joylashish, menyudan taom va ichimlik buyurtma berish.',
     opening_line_ja:
-      'いらっしゃいませ！何名様でしょうか？こちらのテーブル席へご案内いたします。ご注文が決まりましたらお呼びください！',
+      'いらっしゃいませ！何人ですか？こちらの席へどうぞ。ご注文が決まったら呼んでくださいね！',
     context_prompt: `あなたは日本の和食レストランの元気なホールスタッフです。客（JLPT N4レベル）の注文対応を行ってください。
 思考の流れ・会話の目標:
 1. 人数を確認し、席へ案内します。
@@ -309,7 +309,7 @@ Key Phrases: in my opinion, on the other hand, significantly impacts, from my pe
     description_uz:
       "Check-in qilish, pasport ko'rsatish, Wi-Fi paroli va nonushta vaqtini so'rash.",
     opening_line_ja:
-      'いらっしゃいませ。ようこそグランドホテル東京へ。チェックインのお手続きでしょうか？',
+      'いらっしゃいませ。グランドホテル東京へようこそ。チェックインですか？お名前をお願いします。',
     context_prompt: `あなたは高級ホテルのレセプション（フロント）係です。宿泊客（JLPT N4レベル）のチェックイン手続きを行ってください。
 思考の流れ・会話の目標:
 1. ご予約のお名前を確認し、パスポートの提示をお願いしてください。
@@ -430,8 +430,7 @@ Key Phrases: in my opinion, on the other hand, significantly impacts, from my pe
     category: 'travel',
     description_uz:
       "JR bekatida chipta xarid qilish, yo'nalish, transfer (norikae) va platforma raqamini so'rash.",
-    opening_line_ja:
-      'いらっしゃいませ。JRきっぷうりばへようこそ。どちらの駅までのきっぷをお求めでしょうか？',
+    opening_line_ja: 'いらっしゃいませ。JRきっぷうりばです。どちらの駅まで行きますか？',
     context_prompt: `あなたは東京駅のみどりの窓口の駅員です。外国人旅行者（JLPT N4レベル）のきっぷ購入や電車の乗り換え案内を行ってください。
 思考の流れ・会話の目標:
 1. 目的地（新宿、渋谷、秋葉原、京都など）と片道・往復、何名様かを確認します。
@@ -553,7 +552,7 @@ Key Phrases: in my opinion, on the other hand, significantly impacts, from my pe
     category: 'social',
     description_uz:
       "Oila a'zolari, ularning kasbi, yoshi va birga o'tkaziladigan vaqt haqida oddiy yaponcha suhbat.",
-    opening_line_ja: '家族は何人ですか？ご家族について少し教えてください。',
+    opening_line_ja: 'こんにちは！家族は何人ですか？ご家族のことを教えてください。',
     context_prompt: `あなたは気さくな日本人の友達です。JLPT N5レベルの学習者と家族について話してください。
 会話の目標:
 1. 家族の人数、兄弟姉妹、仕事、住んでいる場所を順番に尋ねます。

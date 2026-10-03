@@ -62,6 +62,30 @@ describe('AI Coach JLPT Level Calibration & Prompt Engineering', () => {
     // Scenario difficulty N5 should prevail
     expect(systemPrompt).toContain('Target Level: N5');
     expect(systemPrompt).toContain('JLPT N5 (BEGINNER / 初級1) STRICT BOUNDARY');
+    expect(systemPrompt).toContain('【🚨 絶対遵守: JLPT N5 初級会話ルール — 超シンプル化】');
+    expect(systemPrompt).toContain('接客敬語・尊敬語・謙譲語');
+  });
+
+  it('injects N4 scenario roleplay boundary when N4 scenario is provided', () => {
+    const n4Scenario: ConversationScenario = {
+      id: 'test_n4',
+      language: 'ja',
+      title_ja: 'レストラン',
+      title_uz: 'Restoran',
+      emoji: '🍣',
+      difficulty: 'N4',
+      category: 'daily',
+      description_uz: 'Test N4',
+      opening_line_ja: 'いらっしゃいませ！',
+      context_prompt: '和食レストランのスタッフ',
+      key_phrases: ['おすすめは何ですか'],
+      is_custom: false,
+    };
+
+    const { systemPrompt } = buildCoachPrompts('こんにちは', [], 'ja', 'gentle', n4Scenario, 'N4');
+
+    expect(systemPrompt).toContain('Target Level: N4');
+    expect(systemPrompt).toContain('【🚨 絶対遵守: JLPT N4 初級会話ルール】');
   });
 
   it('correctly provides N4 boundary when N4 level is specified', () => {

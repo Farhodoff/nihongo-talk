@@ -52,7 +52,7 @@ export interface UseSpeakingSessionOrchestratorOptions {
 export function useSpeakingSessionOrchestrator({
   language = 'ja',
   persona,
-  targetJlptLevel = 'N3',
+  targetJlptLevel = 'N5',
   activeScenario,
   user,
   subjects,
@@ -217,6 +217,13 @@ export function useSpeakingSessionOrchestrator({
         let streamedSentences = 0;
         let accumulatedSpeech = '';
 
+        const scenarioDiff = activeScenarioRef.current?.difficulty?.toUpperCase();
+        const effectiveDialogueLevel = (
+          scenarioDiff && ['N5', 'N4', 'N3', 'N2', 'N1'].includes(scenarioDiff)
+            ? scenarioDiff
+            : targetJlptLevelRef.current || 'N5'
+        ) as 'N5' | 'N4' | 'N3' | 'N2' | 'N1';
+
         try {
           structured = await streamCoachDialogue(
             cleanText,
@@ -258,7 +265,7 @@ export function useSpeakingSessionOrchestrator({
               enqueueStreamSentence(sentence);
             },
             abortController.signal,
-            targetJlptLevelRef.current || 'N3',
+            effectiveDialogueLevel,
           );
           endStreamPlayback();
         } catch (streamErr: any) {
@@ -277,7 +284,7 @@ export function useSpeakingSessionOrchestrator({
             personaRef.current,
             undefined,
             activeScenarioRef.current,
-            targetJlptLevelRef.current || 'N3',
+            effectiveDialogueLevel,
           );
         }
 
