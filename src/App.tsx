@@ -50,6 +50,7 @@ const ProgressPage = lazyWithRetry(() => import('./pages/ProgressPage'));
 const DashboardPage = lazyWithRetry(() => import('./pages/DashboardPage'));
 const LandingPage = lazyWithRetry(() => import('./pages/LandingPage'));
 const AuthPage = lazyWithRetry(() => import('./pages/AuthPage'));
+const TelegramMiniAppPage = lazyWithRetry(() => import('./pages/TelegramMiniAppPage'));
 
 import { isUserAdmin } from './utils/admin';
 import { useAuthStore } from './stores';
@@ -386,7 +387,8 @@ const App: React.FC = () => {
                       <Route path="pricing" element={<PricingPage />} />
                       <Route path="room/:roomId" element={<StudyRoomPage />} />
                       <Route path="settings" element={<SettingsPage />} />
-                      <Route path="twa" element={<Navigate to="/jlpt" replace />} />
+                      <Route path="twa" element={<TelegramMiniAppPage />} />
+                      <Route path="telegram-app" element={<TelegramMiniAppPage />} />
                       <Route path="developers" element={<DeveloperApiPage />} />
                       <Route path="api-docs" element={<Navigate to="/developers" replace />} />
                       <Route
