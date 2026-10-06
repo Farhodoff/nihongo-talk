@@ -30,6 +30,7 @@ const DecksPage = lazyWithRetry(() => import('../pages/DecksPage'));
 const StudyModePage = lazyWithRetry(() => import('../pages/StudyModePage'));
 const FocusPage = lazyWithRetry(() => import('../pages/FocusPage'));
 const ExamTake = lazyWithRetry(() => import('../pages/exams/ExamTake'));
+const TelegramMiniAppPage = lazyWithRetry(() => import('../pages/TelegramMiniAppPage'));
 
 const PageLoader = () => (
   <div className="flex h-screen items-center justify-center bg-background text-foreground">
@@ -138,7 +139,8 @@ export const UnauthRouter: React.FC = () => (
                 <Route path="/pricing" element={<PricingPage />} />
                 <Route path="/developers" element={<DeveloperApiPage />} />
                 <Route path="/api-docs" element={<Navigate to="/developers" replace />} />
-                <Route path="/twa" element={<Navigate to="/jlpt" replace />} />
+                <Route path="/twa" element={<TelegramMiniAppPage />} />
+                <Route path="/telegram-app" element={<TelegramMiniAppPage />} />
 
                 {/* Auth routes */}
                 <Route path="/auth" element={<AuthPage />} />
