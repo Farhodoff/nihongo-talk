@@ -1,9 +1,10 @@
 import { Trophy, ArrowRight, Clock, Map, Sparkles, Loader2 } from 'lucide-react';
 import React, { useMemo, useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useStudyData } from '../context/StudyPlannerContext';
 import { useLanguage } from '../context/LanguageContext';
 import { safeLocalStorage } from '../utils/storage/safeLocalStorage';
+import WeeklyStudyDigest from '../components/analytics/WeeklyStudyDigest';
 import { LearningPathEngine } from '../services/LearningPathEngine';
 import { LearningOrchestrator } from '../services/LearningOrchestrator';
 import { LearningProgressionService } from '../services/LearningProgressionService';
@@ -16,8 +17,12 @@ import {
 } from '../types/learningPath';
 import { RoadmapSummary } from '../types/curriculum';
 import { LevelUpModal } from '../components/gamification/LevelUpModal';
+import { JlptReadinessService, UserSkillStats, JlptLevel } from '../services/JlptReadinessService';
+import { DailyQuestService } from '../services/DailyQuestService';
+import { MistakeVaultService } from '../services/MistakeVaultService';
 
 const DashboardPage: React.FC = () => {
+  const navigate = useNavigate();
   const {
     loading,
     flashcards,
@@ -86,6 +91,38 @@ const DashboardPage: React.FC = () => {
   const srsDueCount = flashcards.filter(
     (c) => c.nextReviewDate && new Date(c.nextReviewDate) <= nowForDue,
   ).length;
+
+  const readinessReport = useMemo(() => {
+    const cards = Array.isArray(flashcards) ? flashcards : [];
+    const kanjiCount = cards.filter((c) => /[\u4e00-\u9faf]/.test(c.front || '')).length;
+    const grammarCount = cards.filter(
+      (c) => c.subjectId?.includes('grammar') || (c as any).skill === 'grammar',
+    ).length;
+    const meta = DailyQuestService.getGamificationMeta(null);
+    const mistakes = MistakeVaultService.getStats(user?.id);
+
+    const stats: UserSkillStats = {
+      vocabCount: Math.max(cards.length, meta.flashcardsReviewed || 0),
+      vocabRetentionRate: 85,
+      kanjiCount: Math.max(kanjiCount, meta.kanjiMastered || 0),
+      grammarMasteredCount: Math.max(grammarCount, meta.listeningQuestionsCompleted > 0 ? 35 : 20),
+      readingCompletedCount: (meta as any).readingPassagesCompleted || 0,
+      readingAccuracy: 80,
+      listeningCompletedCount: meta.listeningQuestionsCompleted || 0,
+      listeningAccuracy: 80,
+      speakingSessionsCount: meta.speakingSessionsCompleted || 0,
+      speakingFluencyScore: 7.5,
+      mockExamHighestScore: meta.highestMockScore || 0,
+      unresolvedMistakesCount: mistakes.unresolved,
+      mistakesByCategory: mistakes.byCategory,
+    };
+
+    const targetLvl = (
+      ['N5', 'N4', 'N3', 'N2', 'N1'].includes(targetLevel) ? targetLevel : 'N5'
+    ) as JlptLevel;
+
+    return JlptReadinessService.calculateReadiness(stats, targetLvl);
+  }, [flashcards, targetLevel, user?.id]);
 
   const greetingSubtitle = useMemo(() => {
     if (totalTodayItems === 0) {
@@ -404,6 +441,38 @@ const DashboardPage: React.FC = () => {
               </div>
             </div>
           </div>
+
+          {/* JLPT Readiness Mini Card */}
+          <Link
+            to="/personal-plan"
+            className="glass-card group flex items-center gap-3 rounded-2xl border border-rose-500/30 bg-rose-500/5 p-2.5 px-4 shadow-xs transition-all hover:border-rose-500/60 hover:bg-rose-500/10"
+            title={
+              language === 'ja'
+                ? `JLPT ${readinessReport.level} 合格準備度: ${readinessReport.overallReadiness}%`
+                : `JLPT ${readinessReport.level} tayyorgarligi: ${readinessReport.overallReadiness}%`
+            }
+          >
+            <div className="flex items-center justify-center rounded-xl bg-rose-500/20 p-2 text-lg text-rose-500 transition-transform group-hover:scale-110">
+              🎌
+            </div>
+            <div>
+              <div className="flex items-center justify-between gap-2 text-[10px] font-bold uppercase tracking-wider text-rose-600 dark:text-rose-400">
+                <span>JLPT {readinessReport.level}</span>
+                <span className="font-black">{readinessReport.overallReadiness}%</span>
+              </div>
+              <div className="mt-1 flex items-center gap-2">
+                <div className="h-1.5 w-20 overflow-hidden rounded-full bg-rose-500/20">
+                  <div
+                    className="h-full rounded-full bg-rose-500 transition-all duration-700"
+                    style={{ width: `${readinessReport.overallReadiness}%` }}
+                  />
+                </div>
+                <span className="text-[10px] font-bold text-foreground">
+                  {readinessReport.projectedScore}/180
+                </span>
+              </div>
+            </div>
+          </Link>
         </div>
       </div>
 
@@ -866,6 +935,12 @@ const DashboardPage: React.FC = () => {
           )}
         </div>
       )}
+
+      {/* Weekly Study Digest & Streak Analytics */}
+      <WeeklyStudyDigest
+        onNavigateToDecks={() => navigate('/decks')}
+        onNavigateToSpeaking={() => navigate('/speaking')}
+      />
 
       {/* Calendar tasks live in Personal Plan / Calendar — not duplicated here.
           Full AI insights live in Progress (SmartInsight). */}
