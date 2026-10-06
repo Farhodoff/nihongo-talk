@@ -30,13 +30,22 @@ export const LessonPlayerPage: React.FC = () => {
   const navigate = useNavigate();
   const { user, awardXP, settings, updateSettings } = useStudyData();
 
-  const [lesson, setLesson] = useState<Lesson | null>(null);
+  const [lesson, setLesson] = useState<Lesson | null>(() => {
+    if (!lessonId) return null;
+    const initial = LessonService.getLessonById(lessonId);
+    return initial && initial.steps && initial.steps.length > 0 ? initial : null;
+  });
   const [currentStepIdx, setCurrentStepIdx] = useState(0);
   const [isLessonCompleted, setIsLessonCompleted] = useState(false);
   const [quizResult, setQuizResult] = useState<
     { score: number; total: number; percentage: number } | undefined
   >(undefined);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(() => {
+    if (!lessonId) return false;
+    const initial = LessonService.getLessonById(lessonId);
+    if (!initial) return false;
+    return !(initial.steps && initial.steps.length > 0);
+  });
   const [sessionErrors, setSessionErrors] = useState<IncorrectAnswerSignal[]>([]);
   const [srsSummary, setSrsSummary] = useState<{ newCardsCount: number; mistakesCount: number }>({
     newCardsCount: 0,
@@ -56,8 +65,16 @@ export const LessonPlayerPage: React.FC = () => {
       return;
     }
 
-    const foundLesson = LessonService.getLessonById(lessonId);
-    if (foundLesson) {
+    const checkInitial = LessonService.getLessonById(lessonId);
+    if (!checkInitial) {
+      setLesson(null);
+      setLoading(false);
+      return;
+    }
+
+    let isMounted = true;
+
+    const setupLesson = (foundLesson: Lesson) => {
       // Phase 15: Service-level prerequisite and access validation
       const access = LearningOrchestrator.canAccessLesson(lessonId, user?.id || '');
       if (!access.allowed) {
@@ -111,9 +128,28 @@ export const LessonPlayerPage: React.FC = () => {
           setCurrentStepIdx(Math.min(savedProgress.currentStepIndex, foundLesson.steps.length - 1));
         }
       }
+      setLoading(false);
+    };
+
+    const syncLesson = LessonService.getLessonById(lessonId);
+    if (syncLesson && syncLesson.steps && syncLesson.steps.length > 0) {
+      setupLesson(syncLesson);
+    } else {
+      setLoading(true);
+      LessonService.loadLessonById(lessonId).then((foundLesson) => {
+        if (!isMounted) return;
+        if (foundLesson) {
+          setupLesson(foundLesson);
+        } else {
+          setLoading(false);
+        }
+      });
     }
-    setLoading(false);
-  }, [lessonId, user?.id, searchParams]);
+
+    return () => {
+      isMounted = false;
+    };
+  }, [lessonId, user?.id, searchParams, navigate]);
 
   const totalSteps = lesson ? lesson.steps.length : 0;
   const progressPercentage =
