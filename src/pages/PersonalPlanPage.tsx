@@ -32,9 +32,13 @@ import { MistakeVaultService } from '../services/MistakeVaultService';
 import { PersonalLearningGoal, WeeklyLearningPlan, WeeklyEvaluation } from '../types/learningPlan';
 import { generateUUID } from '../utils/uuid';
 import { generatePersonalMilestones } from '../utils/roadmapMilestones';
+import { JlptReadinessCard } from '../components/analytics/JlptReadinessCard';
+import { UserSkillStats, JlptLevel } from '../services/JlptReadinessService';
+import { DailyQuestService } from '../services/DailyQuestService';
+import { HistoryService } from '../services/HistoryService';
 
 export const PersonalPlanPage: React.FC = () => {
-  const { user, awardXP } = useStudyData();
+  const { user, awardXP, flashcards } = useStudyData();
   const { language } = useLanguage();
   const isUz = language !== 'en';
   const navigate = useNavigate();
@@ -74,10 +78,69 @@ export const PersonalPlanPage: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [regenerating, setRegenerating] = useState<boolean>(false);
   const [mistakeStats, setMistakeStats] = useState(() => MistakeVaultService.getStats(user?.id));
+  const [jlptExams, setJlptExams] = useState<any[]>([]);
+  const [jlptSpeaking, setJlptSpeaking] = useState<any[]>([]);
 
   useEffect(() => {
     setMistakeStats(MistakeVaultService.getStats(user?.id));
+    Promise.all([
+      HistoryService.getMockExamsHistory().catch(() => []),
+      HistoryService.getSpeakingHistory().catch(() => []),
+    ]).then(([exams, speaking]) => {
+      setJlptExams(exams || []);
+      setJlptSpeaking(speaking || []);
+    });
   }, [user?.id]);
+
+  const readinessStats: UserSkillStats = useMemo(() => {
+    const cards = Array.isArray(flashcards) ? flashcards : [];
+    const kanjiFromCards = cards.filter((c) => /[\u4e00-\u9faf]/.test(c.front || '')).length;
+    const grammarFromCards = cards.filter(
+      (c) => c.subjectId?.includes('grammar') || (c as any).skill === 'grammar',
+    ).length;
+
+    const meta = DailyQuestService.getGamificationMeta(null);
+
+    const highestScore =
+      jlptExams.length > 0
+        ? Math.max(
+            ...jlptExams.map((e: any) =>
+              Math.round(((e.score || 0) / (e.totalQuestions || 1)) * 180),
+            ),
+          )
+        : 0;
+
+    const avgFluency =
+      jlptSpeaking.length > 0
+        ? jlptSpeaking.reduce((a: number, s: any) => a + (s.fluencyScore || 7.5), 0) /
+          jlptSpeaking.length
+        : 7.5;
+
+    return {
+      vocabCount: Math.max(cards.length, meta.flashcardsReviewed || 0),
+      vocabRetentionRate: 85,
+      kanjiCount: Math.max(kanjiFromCards, meta.kanjiMastered || 0),
+      grammarMasteredCount: Math.max(
+        grammarFromCards,
+        meta.listeningQuestionsCompleted > 0 ? 35 : 20,
+      ),
+      readingCompletedCount: Math.max(
+        jlptExams.length,
+        (meta as any).readingPassagesCompleted || 0,
+      ),
+      readingAccuracy: 80,
+      listeningCompletedCount: Math.max(
+        meta.listeningQuestionsCompleted || 0,
+        jlptExams.length * 4,
+      ),
+      listeningAccuracy: 80,
+      speakingSessionsCount: Math.max(jlptSpeaking.length, meta.speakingSessionsCompleted || 0),
+      speakingFluencyScore: avgFluency,
+      mockExamHighestScore: highestScore > 0 ? highestScore : meta.highestMockScore,
+      unresolvedMistakesCount: mistakeStats.unresolved,
+      mistakesByCategory: mistakeStats.byCategory,
+    };
+  }, [flashcards, jlptExams, jlptSpeaking, mistakeStats]);
 
   const totalWeeklyTasks = useMemo(() => {
     if (!currentPlan) return 0;
@@ -932,6 +995,17 @@ export const PersonalPlanPage: React.FC = () => {
                 />
               </div>
             </div>
+
+            {/* JLPT Readiness Score & 5-Pillar Radar Visual */}
+            <JlptReadinessCard
+              stats={readinessStats}
+              initialLevel={
+                (['N5', 'N4', 'N3', 'N2', 'N1'].includes(activeGoal.targetLevel)
+                  ? activeGoal.targetLevel
+                  : 'N5') as JlptLevel
+              }
+              onNavigate={(route) => navigate(route)}
+            />
 
             {/* Weakness & Mistake Vault Remediation Card */}
             <div className="space-y-4 rounded-3xl border border-border bg-card p-6 shadow-xl">

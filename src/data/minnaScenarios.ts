@@ -352,4 +352,107 @@ export const MINNA_SCENARIOS: ConversationScenario[] = [
     key_phrases: ['申します', '参りました', '伺います', '拝見します', 'お〜いたします'],
     is_custom: false,
   },
+  {
+    id: 'minna_l34_toorini',
+    language: 'ja',
+    title_ja: "私が言うとおりに、やってみてください (Ko'rsatmalar)",
+    title_uz: "34-dars: Ko'rsatmalarga rioya qilish (〜とおりに / 〜あとで)",
+    emoji: '📝',
+    difficulty: 'N4',
+    category: 'daily',
+    description_uz:
+      "Minna no Nihongo 34-dars: Retsept yoki ish ko'rsatmalariga muvofiq harakat qilish va 'ish tugagach' (〜あとで) ifodalari.",
+    opening_line_ja:
+      'これから伝統的な折り紙の折り方を説明しますね。私の言うとおりに折ってみてください。準備はいいですか？',
+    context_prompt: `あなたは折り紙や料理の先生です。「みんなの日本語」第34課の文法（〜とおりに、〜あとで）を使ってロールプレイを行います。
+目標:
+1. 「説明書のとおりに」「先生が言ったとおりに」を使って作業の手順を確認させる。
+2. 「仕事が終わったあとで」「確認したあとで」を使って次の行動を伝える練習をさせる。
+3. 学習者が指示を理解して質問や確認を日本語で自然に行えるように促す。`,
+    key_phrases: ['とおりに', 'あとで', '説明書のとおり', 'どうすればいいですか', 'やってみます'],
+    is_custom: false,
+  },
+  {
+    id: 'minna_l35_jokenkei',
+    language: 'ja',
+    title_ja: '旅行に行くなら、どこがいいですか？ (Maslahat)',
+    title_uz: '35-dars: Shart mayli va Maslahat (〜ば / 条件形)',
+    emoji: '🧭',
+    difficulty: 'N4',
+    category: 'travel',
+    description_uz:
+      "Minna no Nihongo 35-dars: Shart maylidan foydalanib tavsiya berish yoki eng maqbul variantni so'rash mashqi.",
+    opening_line_ja:
+      '来月、日本へ初めて旅行に行くんですね！どこに行きたいか決まっていなければ、何かおすすめを紹介しましょうか？',
+    context_prompt: `あなたは日本在住の観光アドバイザーです。「みんなの日本語」第35課の条件形（〜ば、〜なら）を活用して会話します。
+目標:
+1. 「安ければ」「時間が許せば」「東京に行くなら」などの条件形を用いた提案・質問を引き出す。
+2. 「どうすればいいですか？」に対して「〜ばいいですよ」とアドバイスする構文を練習させる。
+3. 学習者が自分の好みを条件付きで述べる練習をサポートする。`,
+    key_phrases: ['行けば', '安ければ', '〜なら', 'どうすればいいですか', '〜ばいいですよ'],
+    is_custom: false,
+  },
+  {
+    id: 'minna_l38_nowa',
+    language: 'ja',
+    title_ja: '日本語を話すのは楽しいですね (Otlashtirish)',
+    title_uz: '38-dars: Harakatni otlashtirish (〜のは〜です / 〜のが好き)',
+    emoji: '🎨',
+    difficulty: 'N4',
+    category: 'social',
+    description_uz:
+      "Minna no Nihongo 38-dars: Fe'lni otlashtirish orqali sevimli mashg'ulotlar, qiziqishlar va qiyinchiliklarni ifodalash.",
+    opening_line_ja: '最近、日本語の勉強はどうですか？ 日本語を話すのは難しくないですか？',
+    context_prompt: `あなたは日本語学校のフレンドリーな会話パートナーです。「みんなの日本語」第38課の文法（〜のは…、〜のが好き・得意、〜のを忘れました）を練習します。
+目標:
+1. 「アニメを見るのが好きです」「漢字を覚えるのは大変です」のように動詞を名詞化（の）する表現を使わせる。
+2. 忘れ物や連絡（「連絡するのを忘れました」）のシチュエーションを体験させる。
+3. 学習者の興味や日常の活動について楽しく深掘りする。`,
+    key_phrases: ['〜のは楽しい', '〜のが好き', '〜のを忘れました', '〜のは大変', '上手に話す'],
+    is_custom: false,
+  },
+  {
+    id: 'minna_l43_soudesu',
+    language: 'ja',
+    title_ja: "雨が降りそうですね (Ko'rinish va Prognoz)",
+    title_uz: "43-dars: Tashqi ko'rinish va taxmin (〜そうです)",
+    emoji: '⛅',
+    difficulty: 'N4',
+    category: 'daily',
+    description_uz:
+      "Minna no Nihongo 43-dars: Ko'rinishidan xulosa chiqarish ('yog'adiganga o'xshaydi', 'mazali ko'rinadi') va o'zgarishlar.",
+    opening_line_ja: '空が急に暗くなってきましたね。今にも雨が降りそうですが、傘はお持ちですか？',
+    context_prompt: `あなたはカフェの店員または街の知人です。「みんなの日本語」第43課の様態表現（〜そうです：今にも落ちそう、美味しそう）を使って対話します。
+目標:
+1. 天気や状況の観察から「〜そうです」「美味しそうですね」と言わせる。
+2. 「ボタンが取れそうです」「荷物が落ちそうです」など注意喚起のやり取りを実践させる。
+3. 自然な相槌とともに推測表現の使い分けを身につけさせる。`,
+    key_phrases: ['降りそう', '美味しそう', '取れそう', '落ちそう', '〜てきます'],
+    is_custom: false,
+  },
+  {
+    id: 'minna_l48_shiekikei',
+    language: 'ja',
+    title_ja: "休ませていただけませんか (Ruxsat so'rash)",
+    title_uz: '48-dars: Majburiyat va Odobli ruxsat (使役形 / 〜させていただけませんか)',
+    emoji: '🏢',
+    difficulty: 'N4',
+    category: 'business',
+    description_uz:
+      "Minna no Nihongo 48-dars: Ishxonada boshliqdan odobli tarzda ruxsat yoki ta'til so'rashda shieki shaklini qo'llash.",
+    opening_line_ja: 'どうしましたか？ 顔色が少し悪そうですが、何かありましたか？',
+    context_prompt: `あなたはオフィスのマネージャー（課長）です。「みんなの日本語」第48課の使役表現および許可を求める表現（〜させていただけませんか）を練習します。
+目標:
+1. 「熱があるので、本日は早く帰らせていただけませんか」「来週休暇をとらせていただけませんか」などの許可申請を言わせる。
+2. 理由（頭が痛いので、国から両親が来るので）と丁寧な依頼を組み立てさせる。
+3. ビジネスでの適切なトーンと礼儀正しいやり取りを体験させる。`,
+    key_phrases: [
+      '帰らせていただけませんか',
+      '休ませてください',
+      'やらせてください',
+      '申し訳ございません',
+      'お大事に',
+    ],
+    is_custom: false,
+  },
 ];

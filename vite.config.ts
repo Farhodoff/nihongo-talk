@@ -180,25 +180,34 @@ export default defineConfig(({ mode }) => {
                 return 'dnd-kit';
               }
             }
-            if (id.includes('minnaN5')) {
+            if (id.includes('minnaN5') || id.includes('levels/n5/minnaLessons')) {
               return 'curriculum-minna-n5';
             }
-            if (id.includes('minnaN4')) {
+            if (id.includes('minnaN4') || id.includes('levels/n4/minnaLessons')) {
               return 'curriculum-minna-n4';
             }
-            if (id.includes('japaneseN1')) {
+            if (id.includes('minnaQuizDatabase')) {
+              return 'curriculum-minna-quiz';
+            }
+            if (id.includes('minnaMondaiListeningData')) {
+              return 'curriculum-minna-mondai';
+            }
+            if (id.includes('japaneseN1') || id.includes('levels/n1/japaneseLessons')) {
               return 'curriculum-n1';
             }
-            if (id.includes('japaneseN2')) {
+            if (id.includes('japaneseN2') || id.includes('levels/n2/japaneseLessons')) {
               return 'curriculum-n2';
             }
-            if (id.includes('japaneseN3')) {
+            if (id.includes('japaneseN3') || id.includes('levels/n3/japaneseLessons')) {
               return 'curriculum-n3';
             }
-            if (id.includes('japaneseN4') || id.includes('japaneseN5')) {
-              return 'curriculum-n4-n5';
+            if (id.includes('japaneseN4') || id.includes('levels/n4/japaneseLessons')) {
+              return 'curriculum-n4';
             }
-            if (id.includes('curriculumLessons')) {
+            if (id.includes('japaneseN5') || id.includes('levels/n5/japaneseLessons')) {
+              return 'curriculum-n5';
+            }
+            if (id.includes('curriculumLessons') || id.includes('sampleCurriculum')) {
               return 'curriculum-core';
             }
             if (id.includes('kanjiStrokes.json')) {
