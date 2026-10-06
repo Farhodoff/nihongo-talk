@@ -4,6 +4,7 @@ import SmartInsight from '../components/SmartInsight';
 import StudyStatsCards from '../components/analytics/StudyStatsCards';
 import ActivityAnalytics from '../components/analytics/ActivityAnalytics';
 import ActivityHeatmap from '../components/analytics/ActivityHeatmap';
+import WeeklyStudyDigest from '../components/analytics/WeeklyStudyDigest';
 import SubjectAnalytics from '../components/analytics/SubjectAnalytics';
 import FlashcardAnalytics from '../components/analytics/FlashcardAnalytics';
 import ExamHistoryAnalytics from '../components/analytics/ExamHistoryAnalytics';
@@ -140,11 +141,15 @@ const ProgressPage: React.FC = () => {
       {/* Tab 1: Overview & Time Activity */}
       {activeTab === 'overview' && (
         <div className="space-y-8 duration-300 animate-in fade-in">
+          <WeeklyStudyDigest
+            onNavigateToDecks={() => navigate('/decks')}
+            onNavigateToSpeaking={() => navigate('/speaking')}
+          />
           <ActivityAnalytics sessions={sessions} />
           <ActivityHeatmap
             sessions={sessions}
             onStartFlashcards={() => navigate('/decks')}
-            onStartSpeaking={() => navigate('/coach')}
+            onStartSpeaking={() => navigate('/speaking')}
           />
         </div>
       )}
