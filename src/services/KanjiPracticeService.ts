@@ -1,5 +1,6 @@
 import kanjiDataRaw from '../data/kanji/jlptKanjiDatabase.json';
 import type { JlptKanjiItem } from '../data/jlptGrammarKanji';
+import { DatasetStorageService } from './DatasetStorageService';
 
 export interface KanjiStrokeNumber {
   x: number;
@@ -166,9 +167,23 @@ let strokePromise: Promise<Record<string, KanjiStrokeData>> | null = null;
 export async function loadKanjiStrokes(): Promise<Record<string, KanjiStrokeData>> {
   if (cachedStrokeMap) return cachedStrokeMap;
   if (!strokePromise) {
-    strokePromise = import('../data/kanjiStrokes.json').then((mod) => {
-      cachedStrokeMap = mod.default as unknown as Record<string, KanjiStrokeData>;
-      return cachedStrokeMap;
+    strokePromise = DatasetStorageService.loadDataset<Record<string, KanjiStrokeData>>({
+      datasetKey: 'kanji_strokes_v1',
+      localPath: '/data/kanjiStrokes.json',
+      supabaseBucket: 'datasets',
+      supabasePath: 'kanjiStrokes.json',
+      fallbackLoader: async () => {
+        if (!import.meta.env.PROD) {
+          const mod = await import('../data/kanjiStrokes.json');
+          return mod.default as unknown as Record<string, KanjiStrokeData>;
+        }
+        // In production, kanjiStrokes is strictly served from CDN / static asset (/data/kanjiStrokes.json)
+        const res = await fetch('/data/kanjiStrokes.json');
+        return (await res.json()) as Record<string, KanjiStrokeData>;
+      },
+    }).then((data) => {
+      cachedStrokeMap = data;
+      return data;
     });
   }
   return strokePromise;

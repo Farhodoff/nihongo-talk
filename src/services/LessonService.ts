@@ -3,6 +3,7 @@ import { SAMPLE_LESSONS } from '../data/curriculum/sampleCurriculum';
 import {
   getCurriculumLessonById,
   getCurriculumLessonsByLanguage,
+  loadCurriculumLessonById,
 } from '../data/curriculum/curriculumLessons';
 import { supabase } from '../lib/supabase';
 import { toDeterministicUUID } from '../utils/uuid';
@@ -27,12 +28,28 @@ function normalizeQuizScore(quizScore: { score: number; total: number; percentag
 
 export const LessonService = {
   /**
-   * Retrieve a lesson by ID.
+   * Retrieve a lesson by ID (synchronous from memory/metadata).
    */
   getLessonById(lessonId: string): Lesson | null {
     return (
       getCurriculumLessonById(lessonId) || SAMPLE_LESSONS.find((l) => l.id === lessonId) || null
     );
+  },
+
+  /**
+   * Asynchronously loads full lesson data including steps on demand.
+   * If already loaded into memory, resolves immediately.
+   */
+  async loadLessonById(lessonId: string): Promise<Lesson | null> {
+    const existing = this.getLessonById(lessonId);
+    if (existing && existing.steps && existing.steps.length > 0) {
+      return existing;
+    }
+    const loaded = await loadCurriculumLessonById(lessonId);
+    if (loaded && loaded.steps && loaded.steps.length > 0) {
+      return loaded;
+    }
+    return existing || SAMPLE_LESSONS.find((l) => l.id === lessonId) || null;
   },
 
   /**

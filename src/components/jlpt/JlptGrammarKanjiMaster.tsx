@@ -94,10 +94,17 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
         } else if (activeTab === 'goi') {
           setTabLoading(true);
           const vocabModule = await import('../../data/jlptVocabData');
-          const data =
-            selectedLevel === 'ALL'
-              ? await vocabModule.loadAllVocab()
-              : await vocabModule.loadVocabByLevel(selectedLevel);
+          let data: any[] = [];
+          if (selectedLevel === 'ALL') {
+            const [n5, n4, n3] = await Promise.all([
+              vocabModule.loadVocabByLevel('N5'),
+              vocabModule.loadVocabByLevel('N4'),
+              vocabModule.loadVocabByLevel('N3'),
+            ]);
+            data = [...n5, ...n4, ...n3];
+          } else {
+            data = await vocabModule.loadVocabByLevel(selectedLevel);
+          }
           if (isMounted) setVocabData(data);
         } else if (activeTab === 'quiz' && grammarQuestions.length === 0) {
           setTabLoading(true);
@@ -127,10 +134,18 @@ export const JlptGrammarKanjiMaster: React.FC<JlptGrammarKanjiMasterProps> = ({
       try {
         setTabLoading(true);
         const vocabModule = await import('../../data/jlptVocabData');
-        const data =
-          selectedLevel === 'ALL'
-            ? await vocabModule.loadAllVocab()
-            : await vocabModule.loadVocabByLevel(selectedLevel);
+        let data: any[] = [];
+        if (selectedLevel === 'ALL') {
+          const [n5, n4, n3] = await Promise.all([
+            vocabModule.loadVocabByLevel('N5'),
+            vocabModule.loadVocabByLevel('N4'),
+            vocabModule.loadVocabByLevel('N3'),
+          ]);
+          data = [...n5, ...n4, ...n3];
+        } else {
+          // Dynamic import strictly for the selected level (N2, N1 on-demand)
+          data = await vocabModule.loadVocabByLevel(selectedLevel);
+        }
         if (isMounted) setVocabData(data);
       } catch (err) {
         console.error('Failed to load vocab for level', err);
