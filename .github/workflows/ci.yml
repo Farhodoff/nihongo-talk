@@ -87,9 +87,31 @@ jobs:
       - name: Run Tests
         run: npm test -- --run
 
+  e2e:
+    name: Playwright End-to-End Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Run Playwright Tests
+        run: npm run test:e2e
+
   build:
     name: Production Vite Bundle Build
-    needs: [lint, typecheck, seo, test]
+    needs: [lint, typecheck, seo, test, e2e]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code

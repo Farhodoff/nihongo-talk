@@ -18,6 +18,7 @@ import { MasteryEngine } from '../services/MasteryEngine';
 import { SpeakingVocabularyService } from '../services/SpeakingVocabularyService';
 import { AudioStorageService } from '../services/AudioStorageService';
 import { ActivityLoggingService } from '../services/ActivityLoggingService';
+import { HistoryService } from '../services/HistoryService';
 import { getOrEnsureSpeakingDeck } from '../utils/subjectResolver';
 import { playConversationChime } from '../utils/audioChime';
 import { isAcousticEcho } from '../utils/echoFilter';
@@ -769,6 +770,20 @@ export function useSpeakingSessionOrchestrator({
           }
           await ScenarioService.saveSessionResult(evalResult, user?.id);
 
+          try {
+            await HistoryService.saveSpeakingSession({
+              language: languageRef.current,
+              persona: evalResult.scenario_title || 'Ssenariy suhbati',
+              durationSeconds: durSecs,
+              fluencyScore: evalResult.fluency_score || 7.0,
+              pronunciationScore: evalResult.pronunciation_score || 7.0,
+              transcript: JSON.stringify(chatHistoryRef.current),
+              feedback: JSON.stringify(evalResult),
+            });
+          } catch (e) {
+            console.warn('[SpeakingOrchestrator] Save speaking session history warning:', e);
+          }
+
           const { xp: scenarioXp, badge: scenarioBadge } =
             ActivityLoggingService.calculateSpeakingXP(durSecs, evalResult.fluency_score);
           await ActivityLoggingService.logActivity({
@@ -810,6 +825,22 @@ export function useSpeakingSessionOrchestrator({
 
           if (onSessionAnalyzed) {
             onSessionAnalyzed(report);
+          }
+
+          try {
+            await HistoryService.saveSpeakingSession({
+              language: languageRef.current,
+              persona:
+                PERSONAS_BY_LANG[languageRef.current]?.[personaRef.current]?.name ||
+                personaRef.current,
+              durationSeconds: durSecs,
+              fluencyScore: report.fluency_score || report.overall_score || 7.0,
+              pronunciationScore: report.pronunciation_score || 7.0,
+              transcript: JSON.stringify(chatHistoryRef.current),
+              feedback: JSON.stringify(report),
+            });
+          } catch (e) {
+            console.warn('[SpeakingOrchestrator] Save speaking session history warning:', e);
           }
 
           const { xp: sessionXp, badge: sessionBadge } = ActivityLoggingService.calculateSpeakingXP(
